@@ -21,6 +21,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -195,7 +196,10 @@ public class BufferedResponseWrapper12Impl implements BufferedResponseWrapper //
         }
         else
         {
-            ((HttpServletResponse) getResponse()).addHeader(name, value);
+            if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
+            {
+                ((HttpServletResponse) getResponse()).addHeader(name, value);
+            }
         }
     }
 
@@ -369,7 +373,10 @@ public class BufferedResponseWrapper12Impl implements BufferedResponseWrapper //
      */
     public void setDateHeader(String name, long date)
     {
-        response.setDateHeader(name, date);
+        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
+        {
+            response.setDateHeader(name, date);
+        }
     }
 
     /**
@@ -377,7 +384,10 @@ public class BufferedResponseWrapper12Impl implements BufferedResponseWrapper //
      */
     public void addDateHeader(String name, long date)
     {
-        response.addDateHeader(name, date);
+        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
+        {
+            response.addDateHeader(name, date);
+        }
     }
 
     /**
@@ -385,7 +395,10 @@ public class BufferedResponseWrapper12Impl implements BufferedResponseWrapper //
      */
     public void setHeader(String name, String value)
     {
-        response.setHeader(name, value);
+        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
+        {
+            response.setHeader(name, value);
+        }
     }
 
     /**
@@ -393,7 +406,10 @@ public class BufferedResponseWrapper12Impl implements BufferedResponseWrapper //
      */
     public void setIntHeader(String name, int value)
     {
-        response.setIntHeader(name, value);
+        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
+        {
+            response.setIntHeader(name, value);
+        }
     }
 
     /**
@@ -401,7 +417,10 @@ public class BufferedResponseWrapper12Impl implements BufferedResponseWrapper //
      */
     public void addIntHeader(String name, int value)
     {
-        response.addIntHeader(name, value);
+        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
+        {
+            response.addIntHeader(name, value);
+        }
     }
 
     /**

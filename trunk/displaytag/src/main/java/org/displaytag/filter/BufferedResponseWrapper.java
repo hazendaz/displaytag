@@ -24,6 +24,11 @@ public interface BufferedResponseWrapper extends HttpServletResponse
 {
 
     /**
+     * Headers which cause problems during file download.
+     */
+    String[] FILTERED_HEADERS = new String[]{"cache-control", "expires", "pragma"};
+
+    /**
      * Return <code>true</code> if ServletOutputStream has been requested from Table tag.
      * @return <code>true</code> if ServletOutputStream has been requested
      */
