@@ -1779,7 +1779,7 @@ public class TableTag extends HtmlTableTag
         this.defaultSortOrder = null;
         this.export = false;
         this.length = 0;
-        this.list = null;
+        this.listAttribute = null;
         this.name = null;
         this.offset = 0;
         this.pagesize = 0;
