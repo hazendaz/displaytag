@@ -100,6 +100,10 @@
       <action type="add" dev="mraible">
         Added to the EL taglib only a "url" attribute is an enhancement to the "href" attribute which prepends the contextPath.
       </action>
+      <action type="fix" dev="fgiust" issue="902399">
+        URLs now include session information for page links, sort links, urls set with "requestURI" or "href".
+        Also fixes reported NPE in tomcat. 
+      </action>
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
