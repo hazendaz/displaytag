@@ -16,7 +16,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
     /**
      * Class where the exception has been generated
      */
-    private Class sourceClass;
+    private final Class sourceClass;
 
     /**
      * previous exception

@@ -4,7 +4,7 @@ import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.TagConstants;
 
 /**
- * Base tag which provides setters for all the standard html attributes
+ * Base tag which provides setters for all the standard html attributes.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -12,151 +12,151 @@ public abstract class HtmlTableTag extends TemplateTag
 {
 
     /**
-     * Map containing all the standard html attributes
+     * Map containing all the standard html attributes.
      */
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
     /**
-     * setter for the "width" html attribute
+     * setter for the "width" html attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
     public void setWidth(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
     }
 
     /**
-     * setter for the "border" html attribute
+     * setter for the "border" html attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
     public void setBorder(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_BORDER, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_BORDER, value);
     }
 
     /**
-     * setter for the "cellspacing" html attribute
+     * setter for the "cellspacing" html attribute.
      * @param value attribute value
      */
     public void setCellspacing(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_CELLSPACING, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_CELLSPACING, value);
     }
 
     /**
-     * setter for the "cellpadding" html attribute
+     * setter for the "cellpadding" html attribute.
      * @param value attribute value
      */
     public void setCellpadding(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_CELLPADDING, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_CELLPADDING, value);
     }
 
     /**
-     * setter for the "align" html attribute
+     * setter for the "align" html attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
     public void setAlign(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
     }
 
     /**
-     * setter for the "background" html attribute
+     * setter for the "background" html attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
     public void setBackground(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, value);
     }
 
     /**
-     * setter for the "bgcolor" html attribute
+     * setter for the "bgcolor" html attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
     public void setBgcolor(String value)
     {
 
-        attributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, value);
     }
 
     /**
-     * setter for the "frame" html attribute
+     * setter for the "frame" html attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
     public void setFrame(String value)
     {
 
-        attributeMap.put(TagConstants.ATTRIBUTE_FRAME, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_FRAME, value);
     }
 
     /**
-     * setter for the "height" html attribute
+     * setter for the "height" html attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
     public void setHeight(String value)
     {
 
-        attributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, value);
     }
 
     /**
-     * setter for the "hspace" html attribute
+     * setter for the "hspace" html attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
     public void setHspace(String value)
     {
 
-        attributeMap.put(TagConstants.ATTRIBUTE_HSPACE, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_HSPACE, value);
     }
 
     /**
-     * setter for the "rules" html attribute
+     * setter for the "rules" html attribute.
      * @param value attribute value
      */
     public void setRules(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_RULES, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_RULES, value);
     }
 
     /**
-     * setter for the "style" html attribute
+     * setter for the "style" html attribute.
      * @param value attribute value
      */
     public void setStyle(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);
     }
 
     /**
-     * setter for the "summary" html attribute
+     * setter for the "summary" html attribute.
      * @param value attribute value
      */
     public void setSummary(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_SUMMARY, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_SUMMARY, value);
     }
 
     /**
-     * setter for the "vspace" html attribute
+     * setter for the "vspace" html attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
     public void setVspace(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_VSPACE, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_VSPACE, value);
     }
 
     /**
-     * setter for the "class" html attribute
+     * setter for the "class" html attribute.
      * @param value attribute value
      * @deprecated use setClass()
      */
@@ -166,32 +166,32 @@ public abstract class HtmlTableTag extends TemplateTag
     }
 
     /**
-     * setter for the "class" html attribute
+     * setter for the "class" html attribute.
      * @param value attribute value
      */
     public void setClass(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_CLASS, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, value);
     }
 
     /**
-     * setter for the "id" html attribute
+     * setter for the "id" html attribute.
      * @param value attribute value
      */
     public void setId(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_ID, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_ID, value);
         super.setId(value);
     }
 
     /**
-     * create the open tag containing all the attributes
+     * create the open tag containing all the attributes.
      * @return open tag string: <code>%lt;table attribute="value" ... ></code>
      */
     public String getOpenTag()
     {
 
-        if (attributeMap.size() == 0)
+        if (this.attributeMap.size() == 0)
         {
             return TagConstants.TAG_OPEN + TagConstants.TABLE_TAG_NAME + TagConstants.TAG_CLOSE;
         }
@@ -200,7 +200,7 @@ public abstract class HtmlTableTag extends TemplateTag
 
         buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
 
-        buffer.append(attributeMap);
+        buffer.append(this.attributeMap);
 
         buffer.append(TagConstants.TAG_CLOSE);
 
@@ -208,7 +208,7 @@ public abstract class HtmlTableTag extends TemplateTag
     }
 
     /**
-     * create the closing tag
+     * create the closing tag.
      * @return <code>%lt;/table></code>
      */
     public String getCloseTag()
@@ -221,7 +221,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void release()
     {
-        attributeMap.clear();
+        this.attributeMap.clear();
         super.release();
     }
 

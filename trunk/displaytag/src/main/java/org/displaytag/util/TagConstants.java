@@ -9,13 +9,6 @@ public final class TagConstants
 {
 
     /**
-     * utility class - don't instantiate
-     */
-    private TagConstants()
-    {
-    }
-
-    /**
      * start of tag <code>&lt;</code>
      */
     public static final String TAG_OPEN = "\n<";
@@ -230,4 +223,10 @@ public final class TagConstants
      */
     public static final String AMPERSAND = "&amp;";
 
+    /**
+     * utility class - don't instantiate
+     */
+    private TagConstants()
+    {
+    }
 }
