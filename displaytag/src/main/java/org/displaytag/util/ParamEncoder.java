@@ -11,13 +11,21 @@
  */
 package org.displaytag.util;
 
+import java.io.Serializable;
+
+
 /**
  * Simple utility class for encoding parameter names.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ParamEncoder
+public class ParamEncoder implements Serializable
 {
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Unique identifier for a tag with the given id/name.
