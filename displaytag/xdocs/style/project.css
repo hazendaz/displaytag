@@ -9,3 +9,7 @@ body{
 	padding-top: 4px;
 	padding-bottom: 1px;
 }
+.source pre {
+  font-size:xx-small;
+  font-family:courier;
+}
