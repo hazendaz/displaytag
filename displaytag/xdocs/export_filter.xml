@@ -50,11 +50,11 @@
                 with a filter which works together with the table tag during export, disallowing the response to be
                 flushed when an export has been requested.
             </p>
-            <p>
+            <!-- <p>
                 Another solution, if your application runs on a jsp 1.1 container and makes use of the
                 <a href="http://www.springframework.org">Spring</a>
                 MVC framework, is the Spring interceptor supplied with displaytag .
-            </p>
+            </p>-->
         </section>
 
 
@@ -82,14 +82,14 @@
                     ]]>
             </source>
         </section>
-        <section name="Installing the spring interceptor">
+<!--         <section name="Installing the spring interceptor">
             <p>
                 You can configure the displaytag interceptor in Spring beanFactory adding it to the handler mapping
                 definition:
             </p>
             <source>
                 <![CDATA[
-<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
    <property name="interceptors">
      <list>
        <bean class="org.displaytag.filter.DisplayTagSpringInterceptor"/>
@@ -98,7 +98,7 @@
  </bean>
                     ]]>
             </source>
-        </section>
+        </section> -->
 
     </body>
 </document>
