@@ -13,6 +13,7 @@
                 Fixed some remaining https issues when saving exported files in Internet Explorer with the export filter
                 enabled.
             </action>
+            <action type="fix" dev="fgiust" issue="DISPL-150">autolink working with https://, ftp://, etc.</action>
         </release>
         <release version="1.0-rc2" date="November 19, 2004 " description="Final 1.0 release candidate">
             <action type="fix" dev="fgiust" issue="962448">
