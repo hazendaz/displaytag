@@ -7,8 +7,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * <p>A cell is used only when the content is placed as content of the column tag and need to be evaluated during
  * iteration. If the content is set using the <code>value</code> attribute in the column tag no cell is created and
  * EMPTY_CELL is used as placeholder.</p>
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public class Cell implements Comparable
 {

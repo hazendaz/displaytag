@@ -15,7 +15,7 @@ import org.apache.jetspeed.portlet.PortletURI;
  * Simply overrides the standard getHref() method to return an URL generated from calling
  * portletRequest.getPortletURI(). Note you need to add the portletAPI:init tag before any displaytag tag to make this
  * working.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class WpsRequestHelper extends DefaultRequestHelper
@@ -126,7 +126,7 @@ public class WpsRequestHelper extends DefaultRequestHelper
 
     /**
      * Simple runtime exception to inform the user about the missing &lt;portletAPI:init> tag.
-     * @author fgiust
+     * @author Fabrizio Giustina
      * @version $Revision$ ($Author$)
      */
     public class RuntimeWpsSupportException extends RuntimeException

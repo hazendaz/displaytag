@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * Iterator on columns.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public class ColumnIterator
 {

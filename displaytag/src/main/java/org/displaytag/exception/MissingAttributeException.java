@@ -6,7 +6,7 @@ import org.apache.commons.lang.ArrayUtils;
  * Exception thrown when a required attribute is not set.
  * This is thrown when the user is required to set at least one of multiple attributes and the check
  * can't be enforced by the tld.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class MissingAttributeException extends BaseNestableJspTagException

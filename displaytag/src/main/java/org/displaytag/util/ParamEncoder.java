@@ -3,7 +3,7 @@ package org.displaytag.util;
 
 /**
  * Simple utility class for encoding parameter names.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ParamEncoder

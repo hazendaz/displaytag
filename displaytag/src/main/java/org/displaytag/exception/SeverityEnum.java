@@ -4,8 +4,8 @@ import org.apache.commons.lang.enum.Enum;
 
 /**
  * Enumeration for logging severities.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public final class SeverityEnum extends Enum
 {

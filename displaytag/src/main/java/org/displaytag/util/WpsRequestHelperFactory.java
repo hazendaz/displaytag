@@ -12,7 +12,7 @@ import javax.servlet.jsp.PageContext;
  * <p>
  * This factory implementation returns a standard {@link WpsRequestHelper}instance.
  * </p>
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class WpsRequestHelperFactory implements RequestHelperFactory

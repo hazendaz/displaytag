@@ -2,7 +2,7 @@ package org.displaytag.exception;
 
 /**
  * Runtime exception thrown for problems in loading the (standard or user defined) property file.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class TablePropertiesLoadException extends BaseNestableRuntimeException

@@ -7,7 +7,7 @@ import javax.servlet.jsp.PageContext;
 
 /**
  * Default RequestHelperFactory implementation. Returns instaces of {@link DefaultRequestHelper}.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class DefaultRequestHelperFactory implements RequestHelperFactory

@@ -303,7 +303,7 @@ public class TldTest extends TestCase
 
     /**
      * Simple Entity resolver which looks in the classpath for dtds.
-     * @author fgiust
+     * @author Fabrizio Giustina
      * @version $Revision$ ($Author$)
      */
     public class ClasspathEntityResolver implements EntityResolver
@@ -351,7 +351,7 @@ public class TldTest extends TestCase
 
     /**
      * Javabean representing a tag attribute.
-     * @author fgiust
+     * @author Fabrizio Giustina
      * @version $Revision$ ($Author$)
      */
     public class TagAttribute

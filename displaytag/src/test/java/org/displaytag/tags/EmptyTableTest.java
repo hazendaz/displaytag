@@ -10,7 +10,7 @@ import com.meterware.httpunit.WebTable;
 
 /**
  * Tests with a null list.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class EmptyTableTest extends DisplaytagCase

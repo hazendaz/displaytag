@@ -2,7 +2,7 @@ package org.displaytag.exception;
 
 /**
  * Exception thrown when an invalid value is given for a tag attribute.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class InvalidTagAttributeValueException extends BaseNestableJspTagException

@@ -19,7 +19,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * Object representing an URI (the href parameter of an &lt;a> tag). Provides methods to insert new parameters. It
  * doesn't support multiple parameter values
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class Href implements Cloneable

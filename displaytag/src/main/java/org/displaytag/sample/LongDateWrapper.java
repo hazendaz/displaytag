@@ -8,7 +8,7 @@ import org.displaytag.decorator.ColumnDecorator;
 /**
  * Simple column decorator which formats a date.
  * @author epesh
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public class LongDateWrapper implements ColumnDecorator
 {

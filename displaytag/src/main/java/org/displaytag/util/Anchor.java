@@ -2,8 +2,8 @@ package org.displaytag.util;
 
 /**
  * Anchor object used to output an html link (an &lt;a> tag).
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public class Anchor
 {

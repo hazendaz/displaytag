@@ -13,7 +13,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * Just a test class that returns columns of data that are useful for testing out the ListTag class and ListColumn
  * class.
  * @author epesh
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public class ListObject extends Object
 {
@@ -264,7 +264,7 @@ public class ListObject extends Object
 
     /**
      * Inner class used in testing nested tables.
-     * @author fgiust
+     * @author Fabrizio Giustina
      */
     public class SubListItem
     {

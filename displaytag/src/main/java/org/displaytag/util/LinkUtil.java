@@ -3,7 +3,7 @@ package org.displaytag.util;
 /**
  * Class with static utility methods to add html links in a String.
  * @author mraible
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public final class LinkUtil
 {

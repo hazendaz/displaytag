@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Base exception: extendes JspTagException providing logging and exception nesting functionalities.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public abstract class BaseNestableJspTagException extends JspTagException

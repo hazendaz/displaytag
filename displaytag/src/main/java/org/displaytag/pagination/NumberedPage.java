@@ -5,8 +5,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * Object representing a page.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public class NumberedPage
 {

@@ -7,8 +7,8 @@ import java.util.Random;
 
 /**
  * Utility class used to get random word and sentences used in examples.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public final class RandomSampleUtil
 {
