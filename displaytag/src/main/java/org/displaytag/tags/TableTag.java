@@ -1049,10 +1049,34 @@ public class TableTag extends HtmlTableTag
         }
         else
         {
+            // response can't be already committed at this time
+            if (response.isCommitted())
+            {
+                throw new ExportException(getClass());
+            }
+
+            // if cache is disabled using http header, export will not work.
+            // Try to remove bad headers overwriting them, since there is no way to remove a single header and reset()
+            // could remove other "useful" headers like content encoding
+            if (response.containsHeader("Cache-Control"))
+            {
+                response.setHeader("Cache-Control", "public");
+            }
+            if (response.containsHeader("Expires"))
+            {
+                response.setHeader("Expires", "Thu, 01 Dec 2069 16:00:00 GMT");
+            }
+            if (response.containsHeader("Pragma"))
+            {
+                // Pragma: no-cache
+                // http 1.0 equivalent of Cache-Control: no-cache
+                // there is no "Cache-Control: public" equivalent, so just try to set it to an empty String (note
+                // this is NOT a valid header)
+                response.setHeader("Pragma", "");
+            }
+
             try
             {
-                // this will also reset headers, needed when the server is sending a "no-cache" header
-                this.pageContext.getResponse().reset();
                 out.clear();
             }
             catch (Exception e)
