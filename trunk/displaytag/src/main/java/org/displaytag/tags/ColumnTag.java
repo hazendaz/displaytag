@@ -16,7 +16,6 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
-import org.displaytag.exception.MissingAttributeException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.model.Cell;
@@ -535,7 +534,6 @@ public class ColumnTag extends BodyTagSupport
         }
 
         Cell cell;
-
         if (this.property == null)
         {
 
@@ -553,16 +551,9 @@ public class ColumnTag extends BodyTagSupport
                 cellValue = value;
             }
             // BodyContent will be null if the body was not eval'd, eg an empty list.
-            else if (tableTag.isEmpty())
-            {
-                cellValue = Cell.EMPTY_CELL;
-            }
             else
             {
-                throw new MissingAttributeException(getClass(), new String[]{
-                    "property attribute",
-                    "value attribute",
-                    "tag body"});
+                cellValue = Cell.EMPTY_CELL;
             }
             cell = new Cell(cellValue);
 
@@ -574,11 +565,11 @@ public class ColumnTag extends BodyTagSupport
 
         tableTag.addCell(cell);
 
-        cleanUp();
+        // cleanup non-attribute variables
+        this.alreadySorted = false;
 
         return super.doEndTag();
     }
-
     /**
      * Adds the current header to the table model calling addColumn in the parent table tag. This method should be
      * called only at first iteration.
@@ -645,15 +636,11 @@ public class ColumnTag extends BodyTagSupport
             }
             else
             {
-                //@todo lookup value as a property on the list object. This should not be done here to avoid useless
-                // work when only a part of the list is displayed
-
                 // set id
                 headerCell.setParamName(this.paramId);
 
                 // set property
                 headerCell.setParamProperty(this.paramProperty);
-
             }
 
             // sets the base href
@@ -675,6 +662,24 @@ public class ColumnTag extends BodyTagSupport
     public void release()
     {
         super.release();
+        this.attributeMap.clear();
+        this.autolink = false;
+        this.decorator = null;
+        this.group = -1;
+        this.headerAttributeMap.clear();
+        this.href = null;
+        this.maxLength = 0;
+        this.maxWords = 0;
+        this.nulls = false;
+        this.paramId = null;
+        this.paramName = null;
+        this.paramProperty = null;
+        this.paramScope = null;
+        this.property = null;
+        this.sortable = false;
+        // @todo fix it to use null as default (any media)
+        this.supportedMedia = Arrays.asList(MediaTypeEnum.ALL);
+        this.title = null;
     }
 
     /**
@@ -706,41 +711,30 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * called to clean up instance variables at the end of tag evaluation.
-     */
-    private void cleanUp()
-    {
-        this.attributeMap.clear();
-        this.attributeMap.clear();
-        this.headerAttributeMap.clear();
-        this.alreadySorted = false;
-
-        // this is required to fix bad tag pooling in tomcat, need to be tested in resin
-        this.sortable = false;
-        this.group = -1;
-        this.title = null;
-
-        // fix for tag pooling in tomcat
-        setBodyContent(null);
-    }
-
-    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("bodyContent", this.bodyContent).append(
-            "group",
-            this.group).append("maxLength", this.maxLength).append("decorator", this.decorator).append(
-            "href",
-            this.href).append("title", this.title).append("paramScope", this.paramScope).append(
-            "property",
-            this.property).append("paramProperty", this.paramProperty).append(
-            "headerAttributeMap",
-            this.headerAttributeMap).append("paramName", this.paramName).append("autolink", this.autolink).append(
-            "nulls",
-            this.nulls).append("maxWords", this.maxWords).append("attributeMap", this.attributeMap).append(
-            "sortable",
-            this.sortable).append("paramId", this.paramId).append("alreadySorted", this.alreadySorted).toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            //
+            .append("bodyContent", this.bodyContent)
+            .append("group", this.group)
+            .append("maxLength", this.maxLength)
+            .append("decorator", this.decorator)
+            .append("href", this.href)
+            .append("title", this.title)
+            .append("paramScope", this.paramScope)
+            .append("property", this.property)
+            .append("paramProperty", this.paramProperty)
+            .append("headerAttributeMap", this.headerAttributeMap)
+            .append("paramName", this.paramName)
+            .append("autolink", this.autolink)
+            .append("nulls", this.nulls)
+            .append("maxWords", this.maxWords)
+            .append("attributeMap", this.attributeMap)
+            .append("sortable", this.sortable)
+            .append("paramId", this.paramId)
+            .append("alreadySorted", this.alreadySorted)
+            .toString();
     }
 }
