@@ -3,7 +3,7 @@ package org.displaytag.decorator;
 import org.displaytag.exception.DecoratorInstantiationException;
 
 /**
- * <p>Factory for TableDecorator or ColumnDecorator object</p>
+ * Factory for TableDecorator or ColumnDecorator object
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -23,37 +23,37 @@ public final class DecoratorFactory
      * the TableDecorator object).  If there are any problems loading the
      * decorator then this will throw a DecoratorInstantiationException which
      * will get propagated up to the page.
-     * @param pDecoratorName String full decorator class name
+     * @param decoratorName String full decorator class name
      * @return instance of TableDecorator
      * @throws DecoratorInstantiationException if unable to load specified TableDecorator
      */
-    public static TableDecorator loadTableDecorator(String pDecoratorName) throws DecoratorInstantiationException
+    public static TableDecorator loadTableDecorator(String decoratorName) throws DecoratorInstantiationException
     {
-        if (pDecoratorName == null || pDecoratorName.length() == 0)
+        if (decoratorName == null || decoratorName.length() == 0)
         {
             return null;
         }
 
         try
         {
-            Class lClass = Class.forName(pDecoratorName);
-            return (TableDecorator) lClass.newInstance();
+            Class decoratorClass = Class.forName(decoratorName);
+            return (TableDecorator) decoratorClass.newInstance();
         }
         catch (ClassNotFoundException e)
         {
-            throw new DecoratorInstantiationException(DecoratorFactory.class, pDecoratorName, e);
+            throw new DecoratorInstantiationException(DecoratorFactory.class, decoratorName, e);
         }
         catch (InstantiationException e)
         {
-            throw new DecoratorInstantiationException(DecoratorFactory.class, pDecoratorName, e);
+            throw new DecoratorInstantiationException(DecoratorFactory.class, decoratorName, e);
         }
         catch (IllegalAccessException e)
         {
-            throw new DecoratorInstantiationException(DecoratorFactory.class, pDecoratorName, e);
+            throw new DecoratorInstantiationException(DecoratorFactory.class, decoratorName, e);
         }
         catch (ClassCastException e)
         {
-            throw new DecoratorInstantiationException(DecoratorFactory.class, pDecoratorName, e);
+            throw new DecoratorInstantiationException(DecoratorFactory.class, decoratorName, e);
         }
     }
 
@@ -63,39 +63,39 @@ public final class DecoratorFactory
      * the ColumnDecorator object).  If there are any problems loading the
      * decorator then this will throw a DecoratorInstantiationException which will
      * get propagated up to the page.
-     * @param pColumnDecoratorName String full decorator class name
+     * @param columnDecoratorName String full decorator class name
      * @return instance of ColumnDecorator
      * @throws DecoratorInstantiationException if unable to load ColumnDecorator
      */
-    public static ColumnDecorator loadColumnDecorator(String pColumnDecoratorName)
+    public static ColumnDecorator loadColumnDecorator(String columnDecoratorName)
         throws DecoratorInstantiationException
     {
-        if (pColumnDecoratorName == null || pColumnDecoratorName.length() == 0)
+        if (columnDecoratorName == null || columnDecoratorName.length() == 0)
         {
             return null;
         }
 
         try
         {
-            Class lClass = Class.forName(pColumnDecoratorName);
-            return (ColumnDecorator) lClass.newInstance();
+            Class decoratorClass = Class.forName(columnDecoratorName);
+            return (ColumnDecorator) decoratorClass.newInstance();
         }
 
         catch (ClassNotFoundException e)
         {
-            throw new DecoratorInstantiationException(DecoratorFactory.class, pColumnDecoratorName, e);
+            throw new DecoratorInstantiationException(DecoratorFactory.class, columnDecoratorName, e);
         }
         catch (InstantiationException e)
         {
-            throw new DecoratorInstantiationException(DecoratorFactory.class, pColumnDecoratorName, e);
+            throw new DecoratorInstantiationException(DecoratorFactory.class, columnDecoratorName, e);
         }
         catch (IllegalAccessException e)
         {
-            throw new DecoratorInstantiationException(DecoratorFactory.class, pColumnDecoratorName, e);
+            throw new DecoratorInstantiationException(DecoratorFactory.class, columnDecoratorName, e);
         }
         catch (ClassCastException e)
         {
-            throw new DecoratorInstantiationException(DecoratorFactory.class, pColumnDecoratorName, e);
+            throw new DecoratorInstantiationException(DecoratorFactory.class, columnDecoratorName, e);
         }
     }
 
