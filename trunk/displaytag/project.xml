@@ -325,7 +325,6 @@
       </properties>
     </dependency>
 	
-    
 	<dependency>
       <groupId>jdk</groupId>
       <artifactId>tools</artifactId>
@@ -336,6 +335,17 @@
         but is set to JAVA_HOME/../lib/tools.jar in project.properties</comment>
       </properties>
     </dependency>
+
+	<dependency>
+      <groupId>clover</groupId>
+      <artifactId>clover</artifactId>
+      <version>1.2.3</version>
+      <url>http://www.thecortex.net/clover</url>
+      <properties>
+        <comment>Required to generate test coverage reports. Not needed at runtime.</comment>
+      </properties>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -371,7 +381,7 @@
     <report>maven-pmd-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-junit-report-plugin</report>
-    <!--<report>maven-cactus-plugin</report>-->
+    <report>maven-clover-plugin</report>
     <report>maven-tasklist-plugin</report>
     <report>maven-simian-plugin</report>
     <report>maven-changelog-plugin</report>
