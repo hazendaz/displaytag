@@ -145,33 +145,31 @@ printSize("size is " + foo + "\n");
 
 				<source>
 <![CDATA[
-@author <a href="mailto:user@domain.com">John Doe</a>
+@author devnickname
 ]]>
 				</source>
 
 			</subsection>
 
-			<subsection name="6. Class variables">
+			<subsection name="7. Class variables">
 
 				<p>
-					Class variables should have the
-					<code>m</code>
-					prefix and must be referenced
-					<strong>without</strong>
-					the
+					Class variables should not have any prefix and
+					<strong>must</strong>
+					be referenced using the
 					<code>this</code>
-					object. For example :
+					object. Example :
 				</p>
 
 				<source>
 <![CDATA[
 public class SomeClass
 {
-    private String mSomeString;
+    private String someString;
 [...]
     public void someMethod()
     {
-        logger.debug("Value = " + mSomeString);
+        logger.debug("Value = " + this.someString);
     }
 }
 ]]>
@@ -179,37 +177,14 @@ public class SomeClass
 
 			</subsection>
 
-			<subsection name="7. Parameter names">
+			<subsection name="8. Parameter names">
 
-				<p>
-					Method parameters should have the
-					<code>p</code>
-					prefix. For example :
-				</p>
+				<p>Method parameters should not have any prefix. For example :</p>
 
 				<source>
 <![CDATA[
-public void someMethod(String pClassName)
+public void someMethod(String className)
 {
-}
-]]>
-				</source>
-
-			</subsection>
-
-			<subsection name="8. Local variables">
-
-				<p>
-					Local variables should have the
-					<code>l</code>
-					prefix. For example :
-				</p>
-
-				<source>
-<![CDATA[
-public void someMethod()
-{
-	String lVariable = "test";
 }
 ]]>
 				</source>
@@ -236,7 +211,7 @@ public void someMethod()
 
 				<source>
 <![CDATA[
-@version @version $Revision$ ($Author$)
+@version $Revision$ ($Author$)
 ]]>
 				</source>
 
