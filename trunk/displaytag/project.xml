@@ -200,7 +200,14 @@
   <!-- build information for the project -->
   <build>
     <sourceDirectory>${basedir}/src/java</sourceDirectory>
-
+    
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+    </unitTest>
+    
     <resources>
       <resource>
         <directory>${basedir}/src/java</directory>
@@ -219,6 +226,7 @@
     <report>maven-jdepend-plugin</report>
     <report>maven-checkstyle-plugin</report>
     <report>maven-pmd-plugin</report>
+    <report>maven-junit-report-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-junit-report-plugin</report>
     <report>maven-tasklist-plugin</report>
