@@ -25,11 +25,6 @@ public class ExportPdfTest extends DisplaytagCase
 {
 
     /**
-     * logger.
-     */
-    private static Log log = LogFactory.getLog(ExportPdfTest.class);
-
-    /**
      * Instantiates a new test case.
      * @param name test name
      */

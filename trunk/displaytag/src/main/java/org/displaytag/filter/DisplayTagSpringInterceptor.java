@@ -29,7 +29,7 @@ import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
  * </p>
  * 
  * <pre>
- * &lt;bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+ * &lt;bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
  *   &lt;property name="interceptors">
  *     &lt;list>
  *       &lt;bean class="org.displaytag.filter.DisplayTagSpringInterceptor"/>
@@ -80,10 +80,10 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
     /**
      * @see HandlerInterceptor#preHandle(HttpServletRequest,HttpServletResponse, Object)
      */
-    public boolean preHandle(HttpServletRequest servletRequest, HttpServletResponse servletResponse, Object handler)
-        throws Exception
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
-        if (servletRequest.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null)
+
+        if (request.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null)
         {
             if (log.isDebugEnabled())
             {
@@ -93,9 +93,7 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
             return true;
         }
 
-        HttpServletRequest request = servletRequest;
-
-        BufferedResponseWrapper wrapper = new BufferedResponseWrapper12Impl(servletResponse);
+        BufferedResponseWrapper wrapper = new BufferedResponseWrapper12Impl(response);
 
         Map contentBean = new HashMap(4);
         if (buffer)
@@ -104,10 +102,15 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
         }
         request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, contentBean);
 
+        if (log.isDebugEnabled())
+        {
+            log.debug("handler is " + handler);
+        }
+
         HandlerAdapter handlerAdaptor = new SimpleControllerHandlerAdapter();
         handlerAdaptor.handle(request, wrapper, handler);
 
-        ExportDelegate.writeExport(servletResponse, servletRequest, wrapper);
+        ExportDelegate.writeExport(response, request, wrapper);
 
         return false;
     }
