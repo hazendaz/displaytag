@@ -676,12 +676,12 @@ public final class TableProperties implements Cloneable
 
     /**
      * Getter for the <code>PROPERTY_INT_PAGING_GROUPSIZE</code> property.
-     * @param defaultValue int
      * @return int
      */
-    public int getPagingGroupSize(int defaultValue)
+    public int getPagingGroupSize()
     {
-        return getIntProperty(PROPERTY_INT_PAGING_GROUPSIZE, defaultValue);
+        // default size is 8
+        return getIntProperty(PROPERTY_INT_PAGING_GROUPSIZE, 8);
     }
 
     /**
