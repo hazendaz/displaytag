@@ -1,3 +1,14 @@
+/**
+ * Licensed under the Artistic License; you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://displaytag.sourceforge.net/license.html
+ *
+ * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.displaytag.tags;
 
 import java.io.ByteArrayOutputStream;
@@ -1326,7 +1337,7 @@ public class TableTag extends HtmlTableTag
         // variables to hold next row column values.
         this.nextRow = new Hashtable(10);
 
-        //  Put the page stuff there if it needs to be there...
+        // Put the page stuff there if it needs to be there...
         if (this.properties.getAddPagingBannerTop())
         {
             // search result and navigation bar
@@ -1486,7 +1497,7 @@ public class TableTag extends HtmlTableTag
         href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
 
         boolean nowOrderAscending = !(headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending());
-        //@todo optimize this using SortOrderEnum
+        // @todo optimize this using SortOrderEnum
         if (nowOrderAscending)
         {
             href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), SortOrderEnum.ASCENDING.getCode());
@@ -1530,10 +1541,10 @@ public class TableTag extends HtmlTableTag
             this.nextRow.put(new Integer(group), value);
         }
 
-        //  Start comparing the value we received, along with the grouping index.
-        //  if no matching value is found in the previous row then return the value.
-        //  if a matching value is found then this value should not get printed out
-        //  so return an empty String
+        // Start comparing the value we received, along with the grouping index.
+        // if no matching value is found in the previous row then return the value.
+        // if a matching value is found then this value should not get printed out
+        // so return an empty String
         if (this.previousRow.containsKey(new Integer(group)))
         {
             for (int j = 1; j <= group; j++)

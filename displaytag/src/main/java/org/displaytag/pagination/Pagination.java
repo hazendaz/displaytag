@@ -1,3 +1,14 @@
+/**
+ * Licensed under the Artistic License; you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://displaytag.sourceforge.net/license.html
+ *
+ * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.displaytag.pagination;
 
 import java.text.MessageFormat;
@@ -248,14 +259,14 @@ public class Pagination
         // String for numbered pages
         String numberedPageString = buffer.toString();
 
-        //  Object array
-        //  {0} full String for numbered pages
-        //  {1} first page url
-        //  {2} previous page url
-        //  {3} next page url
-        //  {4} last page url
-        //  {5} current page
-        //  {6} total pages
+        // Object array
+        // {0} full String for numbered pages
+        // {1} first page url
+        // {2} previous page url
+        // {3} next page url
+        // {4} last page url
+        // {5} current page
+        // {6} total pages
         Object[] pageObjects = {
             numberedPageString,
             ((Href) this.href.clone()).addParameter(this.pageParam, getFirst()),

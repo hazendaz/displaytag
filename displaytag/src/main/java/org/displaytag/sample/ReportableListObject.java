@@ -1,3 +1,14 @@
+/**
+ * Licensed under the Artistic License; you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://displaytag.sourceforge.net/license.html
+ *
+ * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.displaytag.sample;
 
 import java.util.Random;
@@ -106,7 +117,8 @@ public class ReportableListObject extends Object implements Comparable
     {
         ReportableListObject myClass = (ReportableListObject) object;
         return new CompareToBuilder().append(this.project, myClass.project).append(this.amount, myClass.amount).append(
-            this.city, myClass.city).append(this.task, myClass.task).toComparison();
+            this.city,
+            myClass.city).append(this.task, myClass.task).toComparison();
     }
 
     /**
@@ -114,7 +126,8 @@ public class ReportableListObject extends Object implements Comparable
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("project", this.project).append("amount",
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("project", this.project).append(
+            "amount",
             this.amount).append("city", this.city).append("task", this.task).toString();
     }
 

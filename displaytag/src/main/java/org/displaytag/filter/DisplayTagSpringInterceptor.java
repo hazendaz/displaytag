@@ -1,3 +1,14 @@
+/**
+ * Licensed under the Artistic License; you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://displaytag.sourceforge.net/license.html
+ *
+ * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.displaytag.filter;
 
 import java.util.HashMap;
@@ -89,7 +100,7 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
             {
                 log.debug(Messages.getString("ResponseOverrideFilter.parameternotfound")); //$NON-NLS-1$
             }
-            //don't intercept!
+            // don't intercept!
             return true;
         }
 
