@@ -11,54 +11,19 @@
                 patterns which will work in an MVC model. The library provides a significant amount of functionality
                 while still being easy to use.
             </p>
-        </section>
-        <section name="News">
-            <subsection name="October, 2004">
-                <p>
-                    <p>
-                        Problems and wishes reported against the previous display tag release are now tracked in the
-                        <a href="http://jira.codehaus.org/browse/DISPL">Displaytag Jira Tracker</a>
-                        at Codehaus.
-                    </p>
-                    <p>
-                        Current development is focused on removing limitations and design flaws.
-                    </p>
-                    <ul>
-                        <li>
-                            Do you want to add a new export type? You can now do that, it is configurable!
-                            And, a PDF export sample has also been added.
-                        </li>
-                        <li>
-                            Do you want to easily i18n display tag properties?  Yes, display tag will support it, and you
-                            also can configure the way the locale is choosen.
-                        </li>
-                        <li>
-                            Do you want to use i18n in column titles in the non-EL version of the taglib, or use an i18n
-                            support other than JSTL? You will be free to plug-in your own
-                            <code>I18nResourceProvider</code>!
-                        </li>
-                    </ul>
-                    <p>
-                        A <a href="http://jira.codehaus.org/secure/BrowseProject.jspa?id=10800&amp;report=roadmap">
-                            roadmap
-                        </a>
-                        where issues are scheduled and prioritized is available on JIRA. Login is required.  You are
-                        free to create an account.
-                    </p>
-                    <p>
-                        <strong>
-                            This documentation corresponds to the latest development snapshot (unreleased version).
-                            Refer to the documentation included in your download if you are using a previous release.
-                        </strong>
-                    </p>
-                </p>
-            </subsection>
+            <p>
+                <strong>
+                    This is the documentation for displaytag 1.0rc2. If the version of displaytag you are using is older
+                    or newer than this version, then this is the wrong documentation to be using. Read the version that
+                    came with your copy of displaytag.
+                </strong>
+            </p>
         </section>
         <section name="What can I do with it?">
             <p>
                 Actually the display tag library can just... display tables! Give it a list of objects and it will
-                handle column display, sorting, paging, cropping, grouping, exporting, smart linking and decoration of
-                a table in a customizable XHTML style.
+                handle column display, sorting, paging, cropping, grouping, exporting, smart linking and decoration of a
+                table in a customizable XHTML style.
             </p>
             <p>The tables in the sample images below were generated from lists using the &lt;display:table&gt; tag:</p>
             <img src="images/sample_snapshot.png" width="562" height="543"
