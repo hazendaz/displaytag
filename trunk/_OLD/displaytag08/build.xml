@@ -200,7 +200,7 @@
     <!-- =================================================================== -->
     <!--            FTPs archive files to SourceForge                        -->
     <!-- =================================================================== -->
-    <target name="ftp" depends="release" 
+    <target name="ftp"  
         description="FTPs archive files to upload.sourceforge.net">
         <property name="ftp.server" value="upload.sourceforge.net"/>
         <property name="ftp.user" value="anonymous"/>
