@@ -22,7 +22,7 @@
 			</pre>
 		</blockquote>
 
-		<release version="1.0-b1" date="in CVS">
+		<release version="1.0-b1" date="September 22, 2003">
 			<action type="add" dev="fgiust" due-to="Fabrizio Giustina">
 				Mavenized! Thanks to Didier Dubois for the help on migrating the build system to maven.
 			</action>
