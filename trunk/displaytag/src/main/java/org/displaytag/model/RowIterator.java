@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 
 /**
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class RowIterator
@@ -92,6 +92,7 @@ public class RowIterator
 
         if (this.decorator != null)
         {
+            // @todo the second currentRowNumber is wrong
             this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber);
         }
 

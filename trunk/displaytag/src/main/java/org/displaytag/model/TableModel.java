@@ -11,7 +11,7 @@ import org.displaytag.properties.TableProperties;
 
 
 /**
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class TableModel
@@ -269,24 +269,16 @@ public class TableModel
     /**
      * returns a RowIterator on the requested (full|page) list.
      * @return RowIterator
+     * @param full if <code>true</code> returns an iterator on te full list, if <code>false</code> only on the
+     * viewable part.
      * @see org.displaytag.model.RowIterator
      */
-    public RowIterator getRowIterator()
+    public RowIterator getRowIterator(boolean full)
     {
-        RowIterator iterator = new RowIterator(this.rowListPage, this.headerCellList, this.tableDecorator);
-        // copy id for logging
-        iterator.setId(this.id);
-        return iterator;
-    }
-
-    /**
-     * returns a RowIterator on the _full_ list. Needed for export views.
-     * @return RowIterator
-     * @see org.displaytag.model.RowIterator
-     */
-    public RowIterator getFullListRowIterator()
-    {
-        RowIterator iterator = new RowIterator(this.rowListFull, this.headerCellList, this.tableDecorator);
+        RowIterator iterator = new RowIterator(
+            full ? this.rowListFull : this.rowListPage,
+            this.headerCellList,
+            this.tableDecorator);
         // copy id for logging
         iterator.setId(this.id);
         return iterator;

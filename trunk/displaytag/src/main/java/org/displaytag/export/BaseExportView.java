@@ -198,15 +198,18 @@ public abstract class BaseExportView
             buffer.append(doHeaders());
         }
 
-        //get the correct iterator (full or partial list according to the mExportFullList field)
-        RowIterator rowIterator = this.exportFull ? this.model.getFullListRowIterator() : this.model.getRowIterator();
+        //get the correct iterator (full or partial list according to the exportFull field)
+        RowIterator rowIterator = this.model.getRowIterator(this.exportFull);
 
         // iterator on rows
         while (rowIterator.hasNext())
         {
-            log.debug("lRowIterator.hasNext()");
+            log.debug("rowIterator.hasNext()");
             Row row = rowIterator.next();
-            log.debug("lRow=" + row);
+            if (log.isDebugEnabled())
+            {
+                log.debug("row=" + row);
+            }
 
             if (this.model.getTableDecorator() != null)
             {
