@@ -2,7 +2,7 @@
 <project default="rebuild-all" xmlns:m="maven" xmlns:j="jelly:core" xmlns:u="jelly:util">
 
 	<goal name="rebuild-all">
-		<j:set var="goals" value="pom,clean,jar:jar,war:war,cactus,site:generate" />
+		<j:set var="goals" value="pom,clean,jar:jar,war:war,site:generate" />
 		<mkdir dir="${maven.build.dir}" />
 		<u:tokenize var="goals" delim=",">${goals}</u:tokenize>
 		<j:forEach items="${goals}" var="goal" indexVar="goalNumber">
@@ -20,8 +20,9 @@
 	</preGoal>
 
 
-	<postGoal name="java:jar-resources">
-		    <!-- create 1.1 dtd -->
+	<preGoal name="test:test">
+        <!-- generated tld should be ready before tests -->
+		<!-- create 1.1 dtd -->
         <attainGoal name="taglib:convert-12to11" />
         
         <!-- copy 1.2 tld -->
@@ -36,7 +37,7 @@
         <echo message="copying ${maven.src.dir}/tld/displaytag-el-12.tld to file ${maven.build.dest}/META-INF/displaytag-el.tld" />
         <copy file="${maven.src.dir}/tld/displaytag-el-12.tld"
             tofile="${maven.build.dest}/META-INF/displaytag-el.tld" />
-	</postGoal>
+	</preGoal>
 
 	<!-- copy tld for example webapp -->
 	<postGoal name="war:webapp">
