@@ -22,7 +22,7 @@
 
 <p>
 	Grouping is straight-forward, simply make sure that your list that you are
-	providing is sorted appropriately, then then indicate the grouping
+	providing is sorted appropriately, then indicate the grouping
 	order via the <strong>group</strong> attribute of the column tags.
 </p>
 

@@ -32,11 +32,13 @@
   <display:setProperty name="export.xml" value="false" />
   <display:setProperty name="export.excel.include_header" value="true" />
   <display:setProperty name="paging.banner.group_size" value="6" />
-  <display:setProperty name="paging.banner.prev_label" value="Back" />
-  <display:setProperty name="paging.banner.next_label" value="Forw" />
   <display:setProperty name="paging.banner.item_name" value="Cat" />
   <display:setProperty name="paging.banner.items_name" value="Cats" />
   <display:setProperty name="paging.banner.some_items_found" value="{0} {1} sleeping, waking {2} to {3}" />
+	<display:setProperty name="paging.banner.full">
+		<span class="pagelinks">[<a href="{1}">First</a>/<a href="{2}">Back</a>] {0} 
+    [<a href="{3}">Forw</a>/<a href="{4}">Last</a>]
+  </display:setProperty>
 
 </display:table>
 

@@ -34,19 +34,18 @@
   This is a simple snippet which shows the use of the implicit objects created by the table tag with
   <acronym title="Jsp Standard Tag Library">JSTL.</acronym>
 </p>
-<source>
-  <![CDATA[
-  <display table id="row" name="mylist">
-    <display:column title="row number" >
-      <c:out value="${row_rowNum}"/>
-    </display:column>
-    <display:column title="name" >
-      <c:out value="${row.first_name}"/>
-      <c:out value="${row.last_name}"/>
-    </display:column>
-  </display:table>
-]]>
-</source>
+
+<pre>
+  &lt;display:table id="row" name="mylist">
+    &lt;display:column title="row number" >
+      &lt;c:out value="${row_rowNum}"/>
+    &lt;/display:column>
+    &lt;display:column title="name" >
+      &lt;c:out value="${row.first_name}"/>
+      &lt;c:out value="${row.last_name}"/>
+    &lt;/display:column>
+  &lt;/display:table>
+</pre>
 
 
 <%@ include file="inc/footer.jsp" %>
