@@ -1,5 +1,7 @@
 package org.displaytag.export;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
@@ -20,12 +22,12 @@ import org.displaytag.model.TableModel;
  * Base abstract class for simple export views.
  * </p>
  * <p>
- * A class that extends BaseExportView simple need to provide delimiters for rows and columns.
+ * A class that extends BaseExportView simply need to provide delimiters for rows and columns.
  * </p>
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public abstract class BaseExportView
+public abstract class BaseExportView implements ExportView
 {
 
     /**
@@ -54,13 +56,10 @@ public abstract class BaseExportView
     private boolean decorated;
 
     /**
-     * Constructor for BaseExportView.
-     * @param tableModel TableModel to render
-     * @param exportFullList boolean export full list?
-     * @param includeHeader should header be included in export?
-     * @param decorateValues should ouput be decorated?
+     * @see org.displaytag.export.ExportView#setParameters(org.displaytag.model.TableModel, boolean, boolean, boolean)
      */
-    public BaseExportView(TableModel tableModel, boolean exportFullList, boolean includeHeader, boolean decorateValues)
+    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
+        boolean decorateValues)
     {
         this.model = tableModel;
         this.exportFull = exportFullList;
@@ -72,19 +71,28 @@ public abstract class BaseExportView
      * String to add before a row.
      * @return String
      */
-    protected abstract String getRowStart();
+    protected String getRowStart()
+    {
+        return null;
+    }
 
     /**
      * String to add after a row.
      * @return String
      */
-    protected abstract String getRowEnd();
+    protected String getRowEnd()
+    {
+        return null;
+    }
 
     /**
      * String to add before a cell.
      * @return String
      */
-    protected abstract String getCellStart();
+    protected String getCellStart()
+    {
+        return null;
+    }
 
     /**
      * String to add after a cell.
@@ -96,13 +104,19 @@ public abstract class BaseExportView
      * String to add to the top of document.
      * @return String
      */
-    protected abstract String getDocumentStart();
+    protected String getDocumentStart()
+    {
+        return null;
+    }
 
     /**
      * String to add to the end of document.
      * @return String
      */
-    protected abstract String getDocumentEnd();
+    protected String getDocumentEnd()
+    {
+        return null;
+    }
 
     /**
      * always append cell end string?
@@ -117,10 +131,11 @@ public abstract class BaseExportView
     protected abstract boolean getAlwaysAppendRowEnd();
 
     /**
-     * MimeType to return.
-     * @return String myme type
+     * can be implemented to escape values for different output.
+     * @param value original column value
+     * @return escaped column value
      */
-    public abstract String getMimeType();
+    protected abstract String escapeColumnValue(Object value);
 
     /**
      * Write table header.
@@ -157,14 +172,19 @@ public abstract class BaseExportView
                 columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());
             }
 
+            columnHeader = escapeColumnValue(columnHeader);
+
             if (CELL_START != null)
             {
                 buffer.append(CELL_START);
             }
 
-            buffer.append(escapeColumnValue(columnHeader));
+            if (columnHeader != null)
+            {
+                buffer.append(columnHeader);
+            }
 
-            if (ALWAYS_APPEND_CELL_END || iterator.hasNext())
+            if (CELL_END != null && (ALWAYS_APPEND_CELL_END || iterator.hasNext()))
             {
                 buffer.append(CELL_END);
             }
@@ -181,14 +201,10 @@ public abstract class BaseExportView
     }
 
     /**
-     * Write the rendered table.
-     * @return String rendered table body
-     * @throws JspException for errors during cell value lookup
+     * @see org.displaytag.export.ExportView#doExport(java.io.Writer)
      */
-    public String doExport() throws JspException
+    public void doExport(Writer out) throws IOException, JspException
     {
-
-        StringBuffer buffer = new StringBuffer(8000);
 
         final String DOCUMENT_START = getDocumentStart();
         final String DOCUMENT_END = getDocumentEnd();
@@ -200,14 +216,11 @@ public abstract class BaseExportView
         final boolean ALWAYS_APPEND_ROW_END = getAlwaysAppendRowEnd();
 
         // document start
-        if (DOCUMENT_START != null)
-        {
-            buffer.append(DOCUMENT_START);
-        }
+        write(out, DOCUMENT_START);
 
         if (this.header)
         {
-            buffer.append(doHeaders());
+            write(out, doHeaders());
         }
 
         //get the correct iterator (full or partial list according to the exportFull field)
@@ -227,64 +240,54 @@ public abstract class BaseExportView
             {
 
                 String stringStartRow = this.model.getTableDecorator().startRow();
-                if (stringStartRow != null)
-                {
-                    buffer.append(stringStartRow);
-                }
-
+                write(out, stringStartRow);
             }
 
             // iterator on columns
             ColumnIterator columnIterator = row.getColumnIterator(this.model.getHeaderCellList());
 
-            if (ROW_START != null)
-            {
-                buffer.append(ROW_START);
-            }
+            write(out, ROW_START);
 
             while (columnIterator.hasNext())
             {
                 Column column = columnIterator.nextColumn();
 
-                Object value;
-
                 // Get the value to be displayed for the column
-                value = column.getValue(this.decorated);
+                String value = escapeColumnValue(column.getValue(this.decorated));
 
-                if (CELL_START != null)
-                {
-                    buffer.append(CELL_START);
-                }
+                write(out, CELL_START);
 
-                buffer.append(escapeColumnValue(value));
+                write(out, value);
 
                 if (ALWAYS_APPEND_CELL_END || columnIterator.hasNext())
                 {
-                    buffer.append(CELL_END);
+                    write(out, CELL_END);
                 }
 
             }
-            if (ROW_END != null && (ALWAYS_APPEND_ROW_END || rowIterator.hasNext()))
+            if (ALWAYS_APPEND_ROW_END || rowIterator.hasNext())
             {
-                buffer.append(ROW_END);
+                write(out, ROW_END);
             }
         }
 
         // document end
-        if (DOCUMENT_END != null)
-        {
-            buffer.append(DOCUMENT_END);
-        }
-
-        return buffer.toString();
+        write(out, DOCUMENT_END);
 
     }
 
     /**
-     * can be implemented to escape values for different output.
-     * @param value original column value
-     * @return escaped column value
+     * Write a String, checking for nulls value.
+     * @param out output writer
+     * @param string String to be written
+     * @throws IOException thrown by out.write
      */
-    protected abstract Object escapeColumnValue(Object value);
+    private void write(Writer out, String string) throws IOException
+    {
+        if (string != null)
+        {
+            out.write(string);
+        }
+    }
 
 }
