@@ -25,7 +25,7 @@
 
 
 <center>
-<display:table width="85%" name="test" scope="session" pagesize="15" requestURI="http://edhill.its.uiowa.edu/display-examples-0.8/example-paging.jsp">
+<display:table width="85%" name="test" scope="session" pagesize="15" requestURI="http://edhill.its.uiowa.edu/display-examples-@version@/example-paging.jsp">
   <display:column title="Index" value="5" />
   <display:column property="id" title="ID" sort="true"/>
   <display:column property="name" />

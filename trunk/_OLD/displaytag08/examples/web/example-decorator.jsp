@@ -43,7 +43,7 @@ inside your business objects, so instead create a Decorator that formats the
 data according to your needs.<p>
 
 Click <a href="./Wrapper.java.txt">here</a> to view the source for our Wrapper class.  Notice the
-following 4 key things (and refer to the <a href="/display-docs-0.8/javadoc/org/apache/taglibs/display/TableDecorator.html">TableDecorator documentation</a> for some of the other
+following 4 key things (and refer to the <a href="/display-docs-@version@/javadoc/org/apache/taglibs/display/TableDecorator.html">TableDecorator documentation</a> for some of the other
 details).<p>
 
 <ul>

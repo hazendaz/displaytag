@@ -14,8 +14,4 @@
       <welcome-file>index.html</welcome-file>
    </welcome-file-list>
 
-   <taglib>
-      <taglib-uri>http://jakarta.apache.org/taglibs/display</taglib-uri>
-      <taglib-location>/WEB-INF/display.tld</taglib-location>
-   </taglib>
 </web-app>
