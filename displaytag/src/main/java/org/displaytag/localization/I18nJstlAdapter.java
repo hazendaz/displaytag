@@ -44,6 +44,11 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
 {
 
     /**
+     * prefix/suffix for missing entries.
+     */
+    public static final String UNDEFINED_KEY = "???"; //$NON-NLS-1$
+
+    /**
      * logger.
      */
     private static Log log = LogFactory.getLog(I18nJstlAdapter.class);
@@ -69,10 +74,11 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
 
         // if titleKey isn't defined either, use property
         String key = (resourceKey != null) ? resourceKey : defaultValue;
-
         String title = null;
-        Tag bundleTag = TagSupport.findAncestorWithClass(tag, BundleSupport.class);
         ResourceBundle bundle = null;
+
+        // jakarta jstl implementation, there is no other way to get the bundle from the parent fmt:bundle tag
+        Tag bundleTag = TagSupport.findAncestorWithClass(tag, BundleSupport.class);
         if (bundleTag != null)
         {
             BundleSupport parent = (BundleSupport) bundleTag;
@@ -86,7 +92,26 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
             }
             bundle = parent.getLocalizationContext().getResourceBundle();
         }
-        else
+
+        // resin jstl implementation, more versatile (we don't need to look up resin classes)
+        if (bundle == null)
+        {
+            Object cauchoBundle = pageContext.getAttribute("caucho.bundle"); //$NON-NLS-1$
+            if (cauchoBundle != null && cauchoBundle instanceof LocalizationContext)
+            {
+                bundle = ((LocalizationContext) cauchoBundle).getResourceBundle();
+
+                // handle prefix just like resin does
+                String prefix = (String) pageContext.getAttribute("caucho.bundle.prefix"); //$NON-NLS-1$
+                if (prefix != null)
+                {
+                    key = prefix + key;
+                }
+            }
+        }
+
+        // standard jstl localizationContest
+        if (bundle == null)
         {
             // check for the localizationContext in applicationScope, set in web.xml
             LocalizationContext localization = BundleSupport.getLocalizationContext(pageContext);
@@ -97,7 +122,7 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
             }
         }
 
-        if (bundle != null && key != null)
+        if (bundle != null)
         {
             try
             {
@@ -110,7 +135,7 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
                 // if user explicitely added a titleKey we guess this is an error
                 if (resourceKey != null)
                 {
-                    title = "??" + resourceKey + "??";
+                    title = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;
                 }
             }
         }
