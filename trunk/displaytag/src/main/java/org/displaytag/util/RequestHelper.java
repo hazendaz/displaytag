@@ -97,8 +97,12 @@ public class RequestHelper
             // put key/value in the map
             try
             {
-                map.put(paramName, URLEncoder.encode(
-                        StringUtils.defaultString(this.request.getParameter(paramName)), "UTF-8"));
+                String[] values = this.request.getParameterValues(paramName);
+                for (int i = 0; i < values.length; i++) 
+                {
+                	values[i] = URLEncoder.encode(values[i], "UTF-8");
+                }
+                map.put(paramName, values);
             }
             catch (UnsupportedEncodingException e)
             {

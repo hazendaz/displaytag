@@ -132,6 +132,9 @@ public class Href
      * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
      * added. Parameters in the original href are kept and not overridden.
      * @param parametersMap Map containing parameters
+     * @exception throws ClassCastException if parameter value
+     * is not a java.lang.String or java.lang.String[]
+     * @exception throws NullPointerException if parameterMap is null
      */
     public void addParameterMap(Map parametersMap)
     {
@@ -144,9 +147,23 @@ public class Href
 
             // don't overwrite parameters
             if (!this.parameters.containsKey(key))
-            {
-                String value = StringEscapeUtils.escapeHtml((String) entry.getValue());
-                this.parameters.put(key, value);
+            {            
+                Object value = entry.getValue();
+
+                if (value.getClass().isArray()) 
+		   		{
+		       		String[] values = (String[])value;
+		       		for (int i = 0; i < values.length; i++) 
+		       		{
+		       			values[i] = StringEscapeUtils.escapeHtml((String)values[i]);
+		       		}
+		       	} 
+		       	else 
+		       	{
+		       		value = StringEscapeUtils.escapeHtml((String) value);
+		       	}
+
+		       	this.parameters.put(key, value);
             }
         }
     }
@@ -178,18 +195,38 @@ public class Href
         Set parameterSet = this.parameters.entrySet();
 
         Iterator iterator = parameterSet.iterator();
-
+                
         while (iterator.hasNext())
         {
             Map.Entry entry = (Map.Entry) iterator.next();
-            buffer.append(entry.getKey()).append('=').append(entry.getValue());
+            
+            Object key = entry.getKey();
+            Object value = entry.getValue();
+            
+            if (value.getClass().isArray()) 
+            {
+            	String[] values = (String[])value;
+            	for (int i = 0; i < values.length; i++) 
+            	{
+            		if (i > 0) 
+            		{
+            			 buffer.append(TagConstants.AMPERSAND);
+            		}
+
+            		buffer.append(key).append('=').append(values[i]);
+            	}
+            } 
+            else 
+            {
+            	buffer.append(key).append('=').append(value);
+            }
+            
             if (iterator.hasNext())
             {
-                buffer.append(TagConstants.AMPERSAND);
+            	buffer.append(TagConstants.AMPERSAND);
             }
         }
 
         return buffer.toString();
     }
-
 }
