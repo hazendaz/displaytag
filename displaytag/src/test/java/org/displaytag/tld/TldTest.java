@@ -1,6 +1,7 @@
 package org.displaytag.tld;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -325,7 +326,7 @@ public class TldTest extends TestCase
 
                 ClassLoader classLoader = getClass().getClassLoader();
 
-                URL dtdURL = classLoader.getResource(systemFileName);
+                URL dtdURL = classLoader.getResource("javax/servlet/jsp/resources/" + systemFileName);
 
                 if (dtdURL == null)
                 {
@@ -333,7 +334,14 @@ public class TldTest extends TestCase
                 }
 
                 // Return local copy of the dtd
-                return new InputSource(dtdURL.getPath());
+                try
+                {
+                    return new InputSource(dtdURL.openStream());
+                }
+                catch (IOException e)
+                {
+                    // return null
+                }
             }
 
             // If no match, returning null makes process continue normally
