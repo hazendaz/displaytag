@@ -39,6 +39,7 @@ changes are noted using the following key:</p>
 
  - Correct error message on bean property lookups.  Ed Hill [*]
 
+ - Build/Deploy process updates to be more dynamic.  Matt Raible [*]
 </pre></blockquote>
 
 <p><b>Version 0.8, May 25, 2002</b></p>

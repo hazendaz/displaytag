@@ -14,27 +14,27 @@ differences between this version and previous ones.<p>
 <td align="right"><b>Date Posted</b></td>
 </tr>
 <tr>
-	<td align="left"><a href="/downloads/display/display-bin-@version@.zip">display-bin-@version@.zip</a></td>
+	<td align="left"><a href="http://prdownloads.sourceforge.net/displaytag/display-bin-@version@.zip?download">display-bin-@version@.zip</a></td>
 	<td align="right">@version@</td>
-	<td align="right">537 K</td>
+	<td align="right">740 K</td>
 	<td align="right">@versiondate@</td>
 </tr>
 <tr>
-	<td align="left"><a href="/downloads/display/display-bin-@version@.tar.gz">display-bin-@version@.tar.gz</a></td>
+	<td align="left"><a href="http://prdownloads.sourceforge.net/displaytag/display-bin-@version@.tar.gz?download">display-bin-@version@.tar.gz</a></td>
 	<td align="right">@version@</td>
-	<td align="right">475 K</td>
+	<td align="right">740 K</td>
 	<td align="right">@versiondate@</td>
 </tr>
 <tr>
-	<td align="left"><a href="/downloads/display/display-src-@version@.zip">display-src-@version@.zip</a></td>
+	<td align="left"><a href="http://prdownloads.sourceforge.net/displaytag/display-src-@version@.zip?download">display-src-@version@.zip</a></td>
+	<td align="right">@version@</td>
+	<td align="right">1.4 M</td>
+	<td align="right">@versiondate@</td>
+</tr>
+<tr>
+	<td align="left"><a href="http://prdownloads.sourceforge.net/displaytag/display-src-@version@.tar.gz?download">display-src-@version@.tar.gz</a></td>
 	<td align="right">@version@</td>
 	<td align="right">1.3 M</td>
-	<td align="right">@versiondate@</td>
-</tr>
-<tr>
-	<td align="left"><a href="/downloads/display/display-src-@version@.tar.gz">display-src-@version@.tar.gz</a></td>
-	<td align="right">@version@</td>
-	<td align="right">1.1 M</td>
 	<td align="right">@versiondate@</td>
 </tr>
 </table>
