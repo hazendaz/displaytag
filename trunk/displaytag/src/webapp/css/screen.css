@@ -319,3 +319,5 @@ span.pagelinks {
 	border-top: none;
 	margin-bottom: -5px;
 }
+
+table.simple td.textRed {color: #b11;}
