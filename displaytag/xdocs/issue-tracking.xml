@@ -18,7 +18,7 @@
                 listed in existing bugs.
             </p>
             <p>
-                Please read faqs and mailing list archives before if you are not sure if a behaviour is a bug and if you
+                Please read faqs and mailing list archives before if you are not sure if a behavior is a bug and if you
                 are using displaytag in the correct way. Post any help request to the
                 <strong>user</strong>
                 mailing list.
@@ -26,7 +26,7 @@
             <p>
                 <strong>Please do not post bug reports or patches to mailing lists directly!</strong>
                 Always submit them to the bug tracker before, this will help us to track and review them. After
-                submitting an item, you are free to discuss it in the develper mailing list (without attaching code or
+                submitting an item, you are free to discuss it in the developer mailing list (without attaching code or
                 patches to mails).
             </p>
         </section>
@@ -54,7 +54,7 @@
                 <li>Update documentation (xdoc files and/or sample application).</li>
             </ol>
             <p>
-                If all these requirements are met, you patch will be probably accepted soon. If you only provide a zip
+                If all these requirements are met, your patch will be probably accepted soon. If you only provide a zip
                 with the modified files keep in mind that a developer should complete all the other tasks for you before
                 committing any change to cvs, and this could require a long time.
             </p>
