@@ -17,6 +17,21 @@
 
 		<section name="What&apos;s New">
       
+      <subsection name="December 8, 2003">
+			<p>
+				1.0-b2 is finally out! 
+				Check out
+				<a href="changes-report.html">changes</a>
+				for details about new features and fixed bugs and 
+				<a href="download.html">download the distribution here</a>.
+			</p>
+			<p>	
+				Note that the b2 version now requires j2ee 1.3 to compile, but it still runs on
+				any j2ee 1.2 container. 
+				The new <a href="apidocs/org/displaytag/filter/ResponseOverrideFilter.html">export filter</a> (fixes exporting with includes or struts tiles) can ony be used on 1.3 containers.
+			</p>
+      </subsection>
+      
       <subsection name="November 6, 2003">
 			<p>
 				As you can see in the <a href="changes-report.html">changelog</a>, many bugs reported in 1.0-b1

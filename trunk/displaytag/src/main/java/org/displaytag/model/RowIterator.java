@@ -35,6 +35,11 @@ public class RowIterator
     private TableDecorator decorator;
 
     /**
+     * id inherited from the TableTag (needed only for logging)
+     */
+    private String id;
+
+    /**
      * Constructor for RowIterator
      * @param rowList List containing Row objects
      * @param columnList List containing CellHeader objects
@@ -45,6 +50,15 @@ public class RowIterator
         this.iterator = rowList.iterator();
         this.rowNumber = 0;
         this.decorator = tableDecorator;
+    }
+
+    /**
+     * Setter for the tablemodel id
+     * @param tableId same id of table tag, needed for logging
+     */
+    public void setId(String tableId)
+    {
+        this.id = tableId;
     }
 
     /**
@@ -67,7 +81,7 @@ public class RowIterator
 
         if (log.isDebugEnabled())
         {
-            log.debug("RowIterator.next() row number=" + currentRowNumber);
+            log.debug("[" + id + "] rowIterator.next() row number=" + currentRowNumber);
         }
 
         Object object = this.iterator.next();

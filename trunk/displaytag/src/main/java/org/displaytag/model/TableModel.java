@@ -56,12 +56,26 @@ public class TableModel
     private TableDecorator tableDecorator;
 
     /**
+     * id inherited from the TableTag (needed only for logging)
+     */
+    private String id;
+
+    /**
      * Constructor for TableModel
      */
     public TableModel()
     {
         this.rowListFull = new ArrayList(20);
         this.headerCellList = new ArrayList(20);
+    }
+
+    /**
+     * Setter for the tablemodel id
+     * @param tableId same id of table tag, needed for logging
+     */
+    public void setId(String tableId)
+    {
+        this.id = tableId;
     }
 
     /**
@@ -90,14 +104,16 @@ public class TableModel
     {
         row.setParentTable(this);
 
-        log.debug("adding row");
-
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + id + "] adding row " + row);
+        }
         this.rowListFull.add(row);
     }
 
     /**
-     * set the sort full table property. If true the full list is sorted,
-     * if false sorting is applied only to the displayed sublist
+     * set the sort full table property. If true the full list is sorted, if false sorting is applied only to the
+     * displayed sublist
      * @param sortFull boolean
      */
     public void setSortFullTable(boolean sortFull)
@@ -134,12 +150,10 @@ public class TableModel
     }
 
     /**
-     *
      * @param rowList - the new value for this.rowListPage
      */
     public void setRowListPage(List rowList)
     {
-
         this.rowListPage = rowList;
     }
 
@@ -250,7 +264,10 @@ public class TableModel
      */
     public RowIterator getRowIterator()
     {
-        return new RowIterator(this.rowListPage, this.headerCellList, this.tableDecorator);
+        RowIterator iterator = new RowIterator(this.rowListPage, this.headerCellList, this.tableDecorator);
+        // copy id for logging
+        iterator.setId(id);
+        return iterator;
     }
 
     /**
@@ -260,7 +277,10 @@ public class TableModel
      */
     public RowIterator getFullListRowIterator()
     {
-        return new RowIterator(this.rowListFull, this.headerCellList, this.tableDecorator);
+        RowIterator iterator = new RowIterator(this.rowListFull, this.headerCellList, this.tableDecorator);
+        // copy id for logging
+        iterator.setId(id);
+        return iterator;
     }
 
     /**
@@ -269,8 +289,6 @@ public class TableModel
      */
     private void sortRowList(List list)
     {
-        log.debug("sortRowList()");
-
         if (isSorted())
         {
             HeaderCell sortedHeaderCell = getSortedColumnHeader();
@@ -300,7 +318,10 @@ public class TableModel
      */
     public void sortPageList()
     {
-        log.debug("sorting page list");
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + id + "] sorting page list");
+        }
         sortRowList(this.rowListPage);
 
     }
@@ -310,7 +331,10 @@ public class TableModel
      */
     public void sortFullList()
     {
-        log.debug("sorting full data");
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + id + "] sorting full data");
+        }
         sortRowList(this.rowListFull);
     }
 

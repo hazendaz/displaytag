@@ -455,23 +455,10 @@ public class HeaderCell
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("autoLink", this.autoLink)
-            .append("group", this.group)
-            .append("maxLength", this.maxLength)
-            .append("columnDecorator", this.columnDecorator)
-            .append("maxWords", this.maxWords)
-            .append("href", this.href)
-            .append("title", this.title)
-            .append("paramProperty", this.paramProperty)
-            .append("htmlAttributes", this.htmlAttributes)
-            .append("sortable", this.sortable)
-            .append("paramName", this.paramName)
-            .append("showNulls", this.showNulls)
-            .append("headerAttributes", this.headerAttributes)
+        return new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
             .append("columnNumber", this.columnNumber)
+            .append("title", this.title)
             .append("beanPropertyName", this.beanPropertyName)
-            .append("alreadySorted", this.alreadySorted)
             .toString();
     }
 }

@@ -46,7 +46,7 @@ public class TableTagExtraInfo extends TagExtraInfo
 
 
         // media type row number
-        variables.add(new VariableInfo(TableTag.PAGE_ATTRIBUTE_EXPORT, "org.displaytag.export.MediaTypeEnum",
+        variables.add(new VariableInfo(TableTag.PAGE_ATTRIBUTE_MEDIA, "org.displaytag.export.MediaTypeEnum",
                 true, VariableInfo.NESTED));
 
         return (VariableInfo[]) variables.toArray(new VariableInfo[]{});

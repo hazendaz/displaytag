@@ -62,7 +62,7 @@ public class TableTag extends HtmlTableTag
      * name of the attribute added to page scope when exporting, containing an MediaTypeEnum this can be used in column
      * content to detect the output type and to return different data when exporting
      */
-    public static final String PAGE_ATTRIBUTE_EXPORT = "mediaType";
+    public static final String PAGE_ATTRIBUTE_MEDIA = "mediaType";
 
     /**
      * Has the commons-lang dependency been checked?
@@ -438,7 +438,10 @@ public class TableTag extends HtmlTableTag
      */
     public void addColumn(HeaderCell column)
     {
-        log.debug("addColumn " + column);
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getId() + "] addColumn " + column);
+        }
         this.tableModel.addColumnHeader(column);
     }
 
@@ -461,6 +464,11 @@ public class TableTag extends HtmlTableTag
      */
     protected boolean isFirstIteration()
     {
+        if (log.isDebugEnabled())
+        {
+            log.debug(
+                "[" + getId() + "] first iteration=" + (this.rowNumber == 1) + " (row number=" + this.rowNumber + ")");
+        }
         // in first iteration this.rowNumber is 1
         // (this.rowNumber is incremented in doAfterBody)
         return this.rowNumber == 1;
@@ -521,19 +529,25 @@ public class TableTag extends HtmlTableTag
         checkCommonsLang();
         if (log.isDebugEnabled())
         {
-            log.debug("doStartTag()");
+            log.debug("[" + getId() + "] doStartTag called");
         }
 
         this.tableModel = new TableModel();
 
+        // copying id to the table model for logging
+        this.tableModel.setId(getId());
         this.properties = new TableProperties();
 
         initParameters();
 
-        // set the PAGE_ATTRIBUTE_EXPORT attribute in the page scope
+        // set the PAGE_ATTRIBUTE_MEDIA attribute in the page scope
         if (this.currentMediaType != null)
         {
-            pageContext.setAttribute(PAGE_ATTRIBUTE_EXPORT, currentMediaType);
+            if (log.isDebugEnabled())
+            {
+                log.debug("[" + getId() + "] setting media [" + currentMediaType + "] in pagecontext");
+            }
+            pageContext.setAttribute(PAGE_ATTRIBUTE_MEDIA, currentMediaType);
         }
 
         doIteration();
@@ -553,7 +567,7 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("doAfterBody() - iterator with id = " + id + " on row number " + this.rowNumber);
+            log.debug("[" + getId() + "] doAfterBody called - iterating on row " + this.rowNumber);
         }
 
         // increment this.rowNumber
@@ -573,7 +587,7 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("doIteration()");
+            log.debug("[" + getId() + "] doIteration called");
         }
 
         // Row already filled?
@@ -595,7 +609,7 @@ public class TableTag extends HtmlTableTag
                     // set object into pageContext
                     if (log.isDebugEnabled())
                     {
-                        log.debug("setting attribute \"" + getId() + "\" in pagecontext");
+                        log.debug("[" + getId() + "] setting attribute \"" + getId() + "\" in pagecontext");
                     }
                     pageContext.setAttribute(getId(), iteratedObject);
 
@@ -614,7 +628,7 @@ public class TableTag extends HtmlTableTag
 
             if (log.isDebugEnabled())
             {
-                log.debug("doIteration() returning EVAL_BODY_TAG");
+                log.debug("[" + getId() + "] doIteration() returning EVAL_BODY_TAG");
             }
 
             // new iteration
@@ -625,7 +639,7 @@ public class TableTag extends HtmlTableTag
         {
             if (log.isDebugEnabled())
             {
-                log.debug("doIteration() - iterator [" + id + "] ended after " + this.rowNumber + " rows");
+                log.debug("[" + getId() + "] doIteration() - iterator ended after " + (this.rowNumber - 1) + " rows");
             }
 
             // end iteration
@@ -758,13 +772,16 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("doEndTag");
+            log.debug("[" + getId() + "] doEndTag called");
         }
 
         if (!this.doAfterBodyExecuted)
         {
-            log.debug(
-                "tag body is empty. Manually iterates on collection to preserve compatibility with previous version");
+            if (log.isDebugEnabled())
+            {
+                log.debug(
+                    "[" + getId() + "] tag body is empty. Iterates to preserve compatibility with previous version");
+            }
 
             // first row (created in doStartTag)
             if (this.currentRow != null)
@@ -802,6 +819,7 @@ public class TableTag extends HtmlTableTag
         }
 
         List pageData = getViewableData();
+
         this.tableModel.setRowListPage(pageData);
 
         // Figure out how we should sort this data, typically we just sort
@@ -833,7 +851,7 @@ public class TableTag extends HtmlTableTag
         {
             if (log.isDebugEnabled())
             {
-                log.debug("doEndTag - exporting");
+                log.debug("[" + getId() + "] doEndTag - exporting");
             }
 
             returnValue = doExport();
@@ -859,12 +877,12 @@ public class TableTag extends HtmlTableTag
         this.requestUri = null;
         this.tableParameterIdentifier = null;
 
-        // remove export attribute
-        pageContext.removeAttribute(PAGE_ATTRIBUTE_EXPORT);
+        // do not remove media attribute! if the table is nested in other tables this is still needed
+        // pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
 
         if (log.isDebugEnabled())
         {
-            log.debug("doEndTag - end");
+            log.debug("[" + getId() + "] doEndTag - end");
         }
 
         return returnValue;
@@ -923,7 +941,10 @@ public class TableTag extends HtmlTableTag
         BaseExportView exportView = null;
         boolean exportFullList = this.properties.getExportFullList();
 
-        log.debug("currentMediaType=" + this.currentMediaType);
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getId() + "] currentMediaType=" + this.currentMediaType);
+        }
 
         boolean exportHeader = properties.getExportHeader(this.currentMediaType);
 
@@ -1039,6 +1060,11 @@ public class TableTag extends HtmlTableTag
      */
     private String getHTMLData() throws JspException
     {
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getId() + "] getHTMLData called for table [" + getId() + "]");
+        }
+
         StringBuffer buffer = new StringBuffer(8000);
 
         // variables to hold the previous row columns values.
@@ -1075,7 +1101,7 @@ public class TableTag extends HtmlTableTag
             Row row = rowIterator.next();
             if (log.isDebugEnabled())
             {
-                log.debug("lRowIterator.next()=" + row);
+                log.debug("[" + getId() + "] rowIterator.next()=" + row);
             }
             if (this.tableModel.getTableDecorator() != null)
             {
@@ -1094,13 +1120,12 @@ public class TableTag extends HtmlTableTag
             // iterator on columns
             if (log.isDebugEnabled())
             {
-                log.debug("creating ColumnIterator on " + this.tableModel.getHeaderCellList());
+                log.debug("[" + getId() + "] creating ColumnIterator on " + this.tableModel.getHeaderCellList());
             }
             ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
 
             while (columnIterator.hasNext())
             {
-                // mLog.debug("lColumnIterator.hasNext()");
                 Column column = columnIterator.nextColumn();
 
                 Object value;
@@ -1144,7 +1169,10 @@ public class TableTag extends HtmlTableTag
             // no columns?
             if (this.tableModel.isEmpty())
             {
-                log.debug("table has no columns");
+                if (log.isDebugEnabled())
+                {
+                    log.debug("[" + getId() + "] table has no columns");
+                }
                 buffer.append(TagConstants.TAG_TD_OPEN);
                 buffer.append(row.getObject().toString());
                 buffer.append(TagConstants.TAG_TD_CLOSE);
@@ -1201,8 +1229,10 @@ public class TableTag extends HtmlTableTag
             this.tableModel.getTableDecorator().finish();
         }
 
-        log.debug("getHTMLData end");
-
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getId() + "] getHTMLData end");
+        }
         return buffer.toString();
 
     }
@@ -1214,7 +1244,10 @@ public class TableTag extends HtmlTableTag
      */
     private String getTableHeader()
     {
-        log.debug("getTableHeader");
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getId() + "] getTableHeader called");
+        }
         StringBuffer buffer = new StringBuffer();
 
         // open thead
@@ -1317,7 +1350,10 @@ public class TableTag extends HtmlTableTag
         // close thead
         buffer.append(TagConstants.TAG_THEAD_CLOSE);
 
-        log.debug("getTableHeader::end");
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getId() + "] getTableHeader end");
+        }
         return buffer.toString();
     }
 
@@ -1352,7 +1388,7 @@ public class TableTag extends HtmlTableTag
     {
         if (log.isDebugEnabled())
         {
-            log.debug("starting getSearchResultAndNavigation");
+            log.debug("[" + getId() + "] starting getSearchResultAndNavigation");
         }
 
         if (this.pagesize != 0 && this.listHelper != null)
