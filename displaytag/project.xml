@@ -1,10 +1,12 @@
 <project>
-    <pomVersion>4</pomVersion>
-    <artifactId>displaytag</artifactId>
+    <pomVersion>3</pomVersion>
+    <id>displaytag</id>
+    <!--<artifactId>displaytag</artifactId>-->
     <name>Display tag library</name>
     <groupId>displaytag</groupId>
-    <type>jar</type>
-    <version>1.0-rc1-SNAPSHOT</version>
+    <!--<type>jar</type>-->
+    <!--<version>1.0-rc1-SNAPSHOT</version>-->
+    <currentVersion>1.0-rc1-SNAPSHOT</currentVersion>
     <organization>
         <name>sourceforge</name>
         <url>http://sourceforge.net</url>
