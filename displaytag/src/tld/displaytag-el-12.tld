@@ -22,32 +22,6 @@
       of the list can be sorted, and the list can be broken into individual pages for display. If you use this tag in 
       Struts, or in some other framework where the page is included via a jsp:include, you should use the requestURI 
       attribute to indicate where tag generated links should point. </description>
-    <!--
-Cannot use VARIABLES at all when one of them (rownum) has a dynamic name :(
-      <variable>
-          <name-from-attribute>id</name-from-attribute>
-          <variable-class>java.lang.Object</variable-class>
-          <scope>NESTED</scope>
-          <description>This implicit variable holds the value of the current row object (the results of iterator#next).</description>
-      </variable>
-
-I think this may have to get yanked.  I don't think we should be changing the name of the scripting variable behind the
-back of the container.  Best left undoc'd and experimental for now; should just be rolled into a LoopStatus class.
-      <variable>
-          <name-from-attribute>id</name-from-attribute>
-          <variable-class>java.lang.Integer</variable-class>
-          <scope>NESTED</scope>
-          <description>This implicit variable holds the row number of the current row object.
-          Note that the name is actually not directly from id, but is id + '_rowNum'</description>
-      </variable>
-
-      <variable>
-          <name-given>mediaType</name-given>
-          <variable-class>org.displaytag.properties.MediaTypeEnum</variable-class>
-          <scope>NESTED</scope>
-          <description>Holds the media type of the current request. Used by ColumnTag to decide whether or not it should display.</description>
-      </variable>
--->
     <attribute>
       <name>name</name>
       <required>false</required>
@@ -227,11 +201,11 @@ back of the container.  Best left undoc'd and experimental for now; should just 
         "descending"</description>
     </attribute>
     <example> <![CDATA[
-&lt;display:table name="someList" export="true" id="row" requestURI="MyAction.do"&gt;
-  &lt;display:column sortable="true" title="ID"&gt; &lt;c:out value="${row.id}"/&gt; &lt;/display:column&gt;
-  &lt;display:column property="email" autolink="true"/&gt;
-  &lt;display:column property="description" title="Comments"/&gt;
-&lt;/display:table&gt;
+&lt;display:table name="someList" export="true" id="row" requestURI="MyAction.do">
+  &lt;display:column sortable="true" title="ID"> &lt;c:out value="${row.id}"/> &lt;/display:column>
+  &lt;display:column property="email" autolink="true"/>
+  &lt;display:column property="description" title="Comments"/>
+&lt;/display:table>
 ]]> </example>
   </tag>
   <tag>
@@ -485,9 +459,9 @@ back of the container.  Best left undoc'd and experimental for now; should just 
         body.</description>
     </attribute>
     <example> <![CDATA[
-&lt;display:setProperty name="paging.banner.placement" value="bottom" />
+<display:setProperty name="paging.banner.placement" value="bottom" />
 or
-&lt;display:setProperty name="paging.banner.placement">bottom&lt;/display:setProperty>
+<display:setProperty name="paging.banner.placement">bottom</display:setProperty>
 ]]> </example>
   </tag>
   <tag>
@@ -498,16 +472,16 @@ or
     <description>Tag wich should be nested into a table tag to provide a custom table footer. The body of the tag is 
       outputted as is in the generated table in the tfoot section.</description>
     <example> <![CDATA[
-&lt;display:table name="someList">
-  &lt;display:column property="mail"/>
-  &lt;display:column property="total"/>
-  &lt;display:footer>
-  	&lt;tr>
-  		&lt;td>total:&lt;/td>
-  		&lt;td>&lt;c:out value="${something}" />&lt;/td>
-  	&lt;tr>
-  &lt;/display:footer>
-&lt;/display:table>
+<display:table name="someList">
+  <display:column property="mail"/>
+  <display:column property="total"/>
+  <display:footer>
+  	<tr>
+  		<td>total:</td>
+  		<td><c:out value="${something}" /></td>
+  	<tr>
+  </display:footer>
+</display:table>
 ]]> </example>
   </tag>
   <tag>
@@ -554,11 +528,11 @@ or
       <description>html pass through attribute.</description>
     </attribute>
     <example> <![CDATA[
-&lt;display:table name="someList">
-  &lt;display:column property="mail"/>
-  &lt;display:column property="total"/>
-  &lt;display:caption>This is the table caption&lt;/display:caption>
-&lt;/display:table>
+<display:table name="someList">
+  <display:column property="mail"/>
+  <display:column property="total"/>
+  <display:caption>This is the table caption</display:caption>
+</display:table>
 ]]> </example>
   </tag>
 </taglib>

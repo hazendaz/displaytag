@@ -36,10 +36,10 @@
             <p>If you would like to make use of the display taglib in your own application, do the following:</p>
             
             <p>
-            	STEP 1: Drop the displaytag-{version}.jar file in your application <code>WEB-INF/lib</code> directory
+            	<strong>STEP 1</strong>: Drop the displaytag-{version}.jar file in your application <code>WEB-INF/lib</code> directory
             </p>
             <p>
-            	STEP 2: Make sure that following libraries are in your <code>WEB-INF/lib</code> directory (or made available 
+            	<strong>STEP 2</strong>: Make sure that following libraries are in your <code>WEB-INF/lib</code> directory (or made available 
                         via the classpath to your application server). Refer to the <a href="dependencies.html">dependencies</a> document for the correct version of 
                         these libraries. You can download a copy of everything from <a 
                         href="http://jakarta.apache.org">jakarta</a> or you can grab them from the example webapp in 
@@ -53,50 +53,54 @@
                     </ul>
                  
 			<p>
-				STEP 4: <em>Needed only for jsp 1.1 containers</em>. Drop the 
+				<strong>STEP 3</strong>: <em>Needed only for jsp 1.1 containers</em>. Drop the 
 				displaytag-{taglibversion}.tld file in your application <code>WEB-INF/</code> directory . Refers to the 
 				<a href="tlds.html">tlds</a> page for the available tlds.
 			</p>
 			<p>
-				STEP 5: <em>Needed only for jsp 1.1 containers</em>.
+				<strong>STEP 4</strong>: <em>Needed only for jsp 1.1 containers</em>.
 				Define a taglib element like the following in your /WEB-INF/web.xml file
 		    </p>
                     <source><![CDATA[
-&lt;taglib> 
-    &lt;taglib-uri>http://displaytag.sf.net&lt;/taglib-uri> 
-    &lt;taglib-location>/WEB-INF/displaytag-{taglibversion}.tld&lt;/taglib-location>
-&lt;/taglib>
+<taglib> 
+    <taglib-uri>http://displaytag.sf.net</taglib-uri> 
+    <taglib-location>/WEB-INF/displaytag-{taglibversion}.tld</taglib-location>
+</taglib>
 ]]></source>
 
 			<p>
-				STEP 6: <em>Optional</em>.
+				<strong>STEP 5</strong>: <em>Optional</em>.
 				If you need to export data from an included JSP page, such 
                     as from Struts, you should configure the ResponseOverrideFilter in your web.xml. (You do not need 
                     the filter if you do not use exports, or if you do not use the table tag from a jsp page that is 
                     included inside of another page.) Configure the Filter in your web.xml:
              </p><source><![CDATA[
-&lt;filter&gt; 
-    &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt; 
-    &lt;filter-class&gt;org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class&gt; 
-&lt;/filter&gt;
+<filter>
+    <filter-name>ResponseOverrideFilter</filter-name> 
+    <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class> 
+</filter>
                     ]]></source> And add mappings for the pages that you will intercept, for example: 
                     <source><![CDATA[
-&lt;filter-mapping&gt; &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt; 
-    &lt;url-pattern&gt;*.do&lt;/url-pattern&gt; &lt;/filter-mapping&gt; &lt;filter-mapping&gt; 
-    &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt; 
-&lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt; &lt;/filter-mapping&gt;
+<filter-mapping>
+    <filter-name>ResponseOverrideFilter</filter-name> 
+    <url-pattern>*.do</url-pattern>
+</filter-mapping>
+<filter-mapping> 
+    <filter-name>ResponseOverrideFilter</filter-name> 
+    <url-pattern>*.jsp</url-pattern>
+</filter-mapping>
                     ]]></source>
                   
-                <p> DONE: Define the tag extension in each JSP page that uses the display taglib. The uri directives must 
+                <p> <strong>DONE</strong>: Define the tag extension in each JSP page that uses the display taglib. The uri directives must 
                     match what you defined in the web.xml file above OR the URI defined in one of the tlds in the jar file.
                     With jsp 1.2 containers the jar file is automatically scanned and you don't need to define any entry in
                     your web.xml file.
                     The prefix identifies the tags in the tag library within the JSP page.
-                    <source>&lt;%@ taglib uri="http://displaytag.sf.net" prefix="display" %></source>
+                    <source><![CDATA[<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>]]></source>
                     The declaration, if you are using a jsp xml sintax, looks like:
                     <source><![CDATA[
-                    &lt;jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
-                                            xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:display="urn:jsptld:http://displaytag.sf.net">
                     ]]></source>
                 </p>
             <p> For more help with using taglibs in general, please see: <a 
