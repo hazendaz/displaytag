@@ -877,6 +877,24 @@ public class TableTag extends HtmlTableTag
             returnValue = doExport();
         }
 
+
+        // do not remove media attribute! if the table is nested in other tables this is still needed
+        // this.pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
+
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getId() + "] doEndTag - end");
+        }
+
+        cleanUp();
+        return returnValue;
+    }
+
+    /**
+     * clean up instance variables, but not the ones representing tag attributes.
+     */
+    private void cleanUp()
+    {
         // reset instance variables (non attributes)
         this.currentMediaType = null;
         this.baseHref = null;
@@ -895,23 +913,12 @@ public class TableTag extends HtmlTableTag
         this.rowNumber = 1;
         this.tableIterator = null;
         this.tableModel = null;
-
-        // do not remove media attribute! if the table is nested in other tables this is still needed
-        // this.pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
-
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + getId() + "] doEndTag - end");
-        }
-
-        return returnValue;
     }
 
     /**
      * If no columns are provided, automatically add them from bean properties. Get the first object in the list and get
      * all the properties (except the "class" property which is automatically skipped). Of course this isn't possible
      * for empty lists.
-     * @since 1.0
      */
     private void describeEmptyTable()
     {
@@ -1448,11 +1455,8 @@ public class TableTag extends HtmlTableTag
 
         if (this.tableModel.getRowListPage().size() == 0)
         {
-            buffer.append("<tr class=\"empty\"><td colspan=\""
-                + (this.tableModel.getNumberOfColumns())
-                + "\">"
-                + this.properties.getEmptyListMessage()
-                + "</td></tr>");
+            buffer.append(MessageFormat.format(properties.getEmptyListRowMessage(), new Object[]{new Integer(
+                this.tableModel.getNumberOfColumns())}));
         }
 
         return buffer.toString();
