@@ -1,9 +1,21 @@
+/**
+ * Licensed under the Artistic License; you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://displaytag.sourceforge.net/license.html
+ *
+ * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.displaytag.sample;
 
 import java.text.DecimalFormat;
 
 import org.apache.commons.lang.time.FastDateFormat;
 import org.displaytag.decorator.TableDecorator;
+
 
 /**
  * This class is a decorator of the TestObjects that we keep in our List. This class provides a number of methods for
@@ -14,6 +26,7 @@ import org.displaytag.decorator.TableDecorator;
  */
 public class Wrapper extends TableDecorator
 {
+
     /**
      * FastDateFormat used to format dates in getDate().
      */

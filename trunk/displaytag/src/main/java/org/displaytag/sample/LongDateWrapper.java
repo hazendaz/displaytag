@@ -1,9 +1,21 @@
+/**
+ * Licensed under the Artistic License; you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://displaytag.sourceforge.net/license.html
+ *
+ * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.displaytag.sample;
 
 import java.util.Date;
 
 import org.apache.commons.lang.time.FastDateFormat;
 import org.displaytag.decorator.ColumnDecorator;
+
 
 /**
  * Simple column decorator which formats a date.
@@ -13,6 +25,7 @@ import org.displaytag.decorator.ColumnDecorator;
  */
 public class LongDateWrapper implements ColumnDecorator
 {
+
     /**
      * FastDateFormat used to format the date object.
      */

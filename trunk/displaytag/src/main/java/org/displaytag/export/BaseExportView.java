@@ -1,3 +1,14 @@
+/**
+ * Licensed under the Artistic License; you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://displaytag.sourceforge.net/license.html
+ *
+ * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.displaytag.export;
 
 import java.io.IOException;
@@ -226,7 +237,7 @@ public abstract class BaseExportView implements TextExportView
             write(out, doHeaders());
         }
 
-        //get the correct iterator (full or partial list according to the exportFull field)
+        // get the correct iterator (full or partial list according to the exportFull field)
         RowIterator rowIterator = this.model.getRowIterator(this.exportFull);
 
         // iterator on rows
