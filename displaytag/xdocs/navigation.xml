@@ -17,6 +17,10 @@
 			<item name="Configuration" href="/configuration.html" />
 			<item name="FAQ" href="/faq.html" />
 		</menu>
+		
+		<menu name="Tutorial">
+			<item name="Basic usage" href="/tut_basic.html" />
+		</menu>
 
 		<menu name="Developers">
 			<item name="Directory Organization" href="/directory_organization.html" />
