@@ -3,8 +3,6 @@ package org.displaytag.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Utility methods for dealing with html tags.
@@ -52,34 +50,40 @@ public final class HtmlTagUtil
      */
     public static String stripHTMLTags(String str)
     {
-        // encode quotes, this will be used as a tag attribute value
-        // @todo optimization: replace in Stringbuffer operations
-        String text = StringUtils.replace(str, "\"", "&quot;");
+        // operate on chars to avoid heavy string operations on jdk 1.3
+        int len = str.length();
+        char[] value = str.toCharArray();
+        StringBuffer dest = new StringBuffer(len + 16);
+        boolean intag = false;
 
-        int startPosition = text.indexOf('<'); // encountered the first opening brace
-        if (startPosition == -1)
+        for (int j = 0; j < len; j++)
         {
-            // quick exit to avoid useless creation of a Stringbuffer
-            return text;
+            char c = value[j];
+            if (intag)
+            {
+                if (c == '>')
+                {
+                    intag = false;
+                }
+            }
+            else
+            {
+                switch (c)
+                {
+                    case '"' :
+                        dest.append("&quot;"); // encode quotes, this could be used as a tag attribute value
+                        break;
+                    case '<' :
+                        intag = true;
+                        break;
+                    default :
+                        dest.append(c);
+                        break;
+                }
+            }
         }
 
-        StringBuffer returnMessage = new StringBuffer(text);
-
-        int endPosition = text.indexOf('>'); // encountered the first closing braces
-        while (startPosition != -1 && endPosition != -1)
-        {
-            returnMessage.delete(startPosition, endPosition + 1); // remove the tag
-            startPosition = returnMessage.indexOf("<"); // look for the next opening brace
-            endPosition = returnMessage.indexOf(">"); // look for the next closing brace
-        }
-
-        // delete remaining tokens
-        if (startPosition != -1 && endPosition == -1)
-        {
-            returnMessage.setLength(startPosition);
-        }
-
-        return returnMessage.toString();
+        return dest.toString();
     }
 
     /**
