@@ -164,7 +164,7 @@ public class ColumnTag extends BodyTagSupport
     /**
      * The media supported attribute.
      */
-    private List supportedMedia = Arrays.asList(MediaTypeEnum.ALL);
+    private List supportedMedia;
 
     /**
      * setter for the "property" tag attribute.
@@ -462,18 +462,26 @@ public class ColumnTag extends BodyTagSupport
      */
     public boolean availableForMedia(MediaTypeEnum mediaType)
     {
-        return this.supportedMedia.contains(mediaType);
+        if (supportedMedia == null)
+        {
+            return true;
+        }
+        else
+        {
+            return this.supportedMedia.contains(mediaType);
+        }
     }
 
     /**
      * Tag setter.
      * @param media the space delimited list of supported types
+     * @throws InvalidTagAttributeValueException if an unknown media name is set
      */
-    public void setMedia(String media)
+    public void setMedia(String media) throws InvalidTagAttributeValueException
     {
         if (StringUtils.isBlank(media) || media.toLowerCase().indexOf("all") > -1)
         {
-            this.supportedMedia = Arrays.asList(MediaTypeEnum.ALL);
+            this.supportedMedia = null;
             return;
         }
         this.supportedMedia = new ArrayList();
@@ -485,17 +493,8 @@ public class ColumnTag extends BodyTagSupport
             {
                 MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
                 if (type == null)
-                { // Should be in a tag validator..
-                    String msg = "Unknown media type \""
-                        + value
-                        + "\"; media must be one or more values, space separated."
-                        + " Possible values are:";
-                    for (int j = 0; j < MediaTypeEnum.ALL.length; j++)
-                    {
-                        MediaTypeEnum mediaTypeEnum = MediaTypeEnum.ALL[j];
-                        msg += " '" + mediaTypeEnum.getName() + "'";
-                    }
-                    throw new IllegalArgumentException(msg + ".");
+                {
+                    throw new InvalidTagAttributeValueException(getClass(), "media", value);
                 }
                 this.supportedMedia.add(type);
             }
@@ -677,8 +676,7 @@ public class ColumnTag extends BodyTagSupport
         this.paramScope = null;
         this.property = null;
         this.sortable = false;
-        // @todo fix it to use null as default (any media)
-        this.supportedMedia = Arrays.asList(MediaTypeEnum.ALL);
+        this.supportedMedia = null;
         this.title = null;
     }
 
