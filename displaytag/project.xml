@@ -221,10 +221,12 @@
     <report>maven-junit-report-plugin</report>
     <report>maven-tasklist-plugin</report>
     <report>maven-simian-plugin</report>
-    <report>maven-linkcheck-plugin</report>
     <report>maven-changelog-plugin</report>
     <report>maven-file-activity-plugin</report>
     <report>maven-developer-activity-plugin</report>
+    <!-- <report>maven-statcvs-plugin</report> -->
+    <report>maven-linkcheck-plugin</report>
+    <!--<report>maven-sitevalidator-plugin</report> -->
   </reports>
 
 </project>
