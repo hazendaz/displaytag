@@ -115,7 +115,7 @@
                             <td>Any string in a message format with 1 placeholder</td>
                             <td>
                                 Contains the string that is displayed in the table footer when the user indicates that
-                                they want to enabled the export function. The placeholder is replaced with links to the
+                                they want to enable the export function. The placeholder is replaced with links to the
                                 various export formats that are support.
                             </td>
                             <td>yes/yes</td>
@@ -125,7 +125,7 @@
                             <td class="source">|</td>
                             <td>Any string</td>
                             <td>
-                                Used to separate the valid export type (typically would be a bar a comma, or a dash).
+                                Used to separate the valid export type (typically would be a bar, a comma, or a dash).
                             </td>
                             <td>yes/yes</td>
                         </tr>
@@ -158,7 +158,7 @@
                             <td>yes/yes</td>
                         </tr>
                         <tr>
-                            <td>paging.banner. no_items_found</td>
+                            <td>paging.banner.no_items_found</td>
                             <td class="source">&lt;span class="pagebanner"&gt; No {0} found. &lt;/span&gt;</td>
                             <td>Any string in a message format with 1 placeholder</td>
                             <td>
@@ -169,7 +169,7 @@
                             <td>yes/yes</td>
                         </tr>
                         <tr>
-                            <td>paging.banner. one_item_found</td>
+                            <td>paging.banner.one_item_found</td>
                             <td class="source">&lt;span class="pagebanner"&gt; One {0} found. &lt;/span&gt;</td>
                             <td>Any string in a message format with 1 placeholder</td>
                             <td>
@@ -180,7 +180,7 @@
                             <td>yes/yes</td>
                         </tr>
                         <tr>
-                            <td>paging.banner. all_items_found</td>
+                            <td>paging.banner.all_items_found</td>
                             <td class="source">
                                 &lt;span class="pagebanner"&gt; {0} {1} found, displaying all {2}. &lt;/span&gt;
                             </td>
@@ -193,13 +193,13 @@
                             <td>yes/yes</td>
                         </tr>
                         <tr>
-                            <td>paging.banner. some_items_found</td>
+                            <td>paging.banner.some_items_found</td>
                             <td class="source">
                                 &lt;span class="pagebanner"&gt; {0} {1} found, displaying {2} to {3}. &lt;/span&gt;
                             </td>
                             <td>Any string</td>
                             <td>
-                                What is shown in the pagination header when a partial list of the the objects in the
+                                What is shown in the pagination header when a partial list of the objects in the
                                 list are being shown. Parameters:
                                 <ul>
                                     <li>{0}: total number of objects in the list</li>
@@ -226,7 +226,7 @@
                                 href="{2}"&gt;Prev&lt;/a&gt;] {0} [ &lt;a href="{3}"&gt;Next&lt;/a&gt;/ &lt;a
                                 href="{4}"&gt;Last &lt;/a&gt;]&lt;/span&gt;
                             </td>
-                            <td />
+                            <td/>
                             <td>
                                 What is shown in the pagination bar when there are more pages and the selected page is
                                 not the first or the last one. Parameters:
@@ -248,7 +248,7 @@
                                 &lt;span class="pagelinks"&gt; [First/Prev] {0} [ &lt;a href="{3}"&gt;Next&lt;/a&gt;/
                                 &lt;a href="{4}"&gt;Last&lt;/a&gt;] &lt;/span&gt;
                             </td>
-                            <td />
+                            <td/>
                             <td>
                                 What is shown in the pagination bar when the first page is being shown. Placeholders are
                                 the same as for
@@ -263,7 +263,7 @@
                                 &lt;span class="pagelinks"&gt;[ &lt;a href="{1}"&gt;First&lt;/a&gt;/ &lt;a
                                 href="{2}"&gt;Prev&lt;/a&gt;] {0} [Next/Last] &lt;/span&gt;
                             </td>
-                            <td />
+                            <td/>
                             <td>
                                 What is shown in the pagination bar when the last page is being shown. Placeholders are
                                 the same as for
@@ -275,7 +275,7 @@
                         <tr>
                             <td>paging.banner.onepage</td>
                             <td class="source">&lt;span class="pagelinks"&gt;{0}&lt;/span&gt;</td>
-                            <td />
+                            <td/>
                             <td>
                                 What is shown in the pagination bar when only one page is returned. Placeholders are the
                                 same as for
@@ -285,33 +285,33 @@
                             <td>yes/yes</td>
                         </tr>
                         <tr>
-                            <td>paging.banner. page.selected</td>
+                            <td>paging.banner.page.selected</td>
                             <td class="source">&lt;strong&gt;{0}&lt;/strong&gt;</td>
-                            <td />
+                            <td/>
                             <td>selected page. {0} is replaced with the page number, {1} with the page url.</td>
                             <td>yes/yes</td>
                         </tr>
                         <tr>
                             <td>paging.banner. page.link</td>
                             <td class="source">&lt;a href="{1}" title="Go to page {0}"&gt;{0}&lt;/a&gt;</td>
-                            <td />
+                            <td/>
                             <td>link to a page. {0} is replaced with the page number, {1} with the page url.</td>
                             <td>yes/yes</td>
                         </tr>
                         <tr>
                             <td>paging.banner.page.separator</td>
                             <td class="source">,</td>
-                            <td />
+                            <td/>
                             <td>separator between pages</td>
                             <td>yes/yes</td>
                         </tr>
                         <tr>
                             <td>factory.requestHelper</td>
-                            <td class="source">org.displaytag.util. DefaultRequestHelperFactory</td>
+                            <td class="source">org.displaytag.util.DefaultRequestHelperFactory</td>
                             <td>Class name for a valid RequestHelperFactory implementation</td>
                             <td>
                                 RequestHelperFactory to be used. You can replace the default one if you need to generate
-                                links with a different format (it can be needed for example in portal applications).
+                                links with a different format (for example in portal applications).
                             </td>
                             <td>yes/no</td>
                         </tr>
@@ -320,10 +320,10 @@
             </subsection>
             <subsection name="Exporting">
                 <p>
-                    Actually displaytag supports exporting to excel, csv, and xml formats. Some configurable properties
-                    are specific for one of this format. Replace "
+                    Displaytag supports exporting to excel, csv, and xml formats. Some configurable properties
+                    are specific for one of these format. Replace "
                     <em>{export name}</em>
-                    " in the property name with "excel", "csv" or "xml". Some of the properties could not be working in
+                    " in the property name with "excel", "csv" or "xml". Some of the properties won't work in
                     any export format.
                 </p>
                 <table>
@@ -357,8 +357,7 @@
                         <tr>
                             <td>
                                 export.
-                                <em>{export name}</em>
-                                .class
+                                <em>{export name}</em>.class
                             </td>
                             <td class="source"></td>
                             <td>
@@ -372,8 +371,7 @@
                         <tr>
                             <td>
                                 export.
-                                <em>{export name}</em>
-                                .label
+                                <em>{export name}</em>.label
                             </td>
                             <td class="source">
                                 &lt;span class="export
@@ -384,37 +382,33 @@
                             </td>
                             <td>Any string</td>
                             <td>
-                                The label on the link that the user clicks on to export the data in this specific format
-                                format.
+                                The label on the link that the user clicks on to export the data in a specific format.
                             </td>
                             <td>yes/yes</td>
                         </tr>
                         <tr>
                             <td>
                                 export.
-                                <em>{export name}</em>
-                                .include_header
+                                <em>{export name}</em>.include_header
                             </td>
                             <td class="source">false</td>
                             <td>true, false</td>
                             <td>
-                                If set to true, then the first line of the export will contain the column titles as
-                                displayed on the HTML page. By default this is set to false, so the header is not
-                                included in the export.
+                                If set to true, the first line of the export will contain column titles as
+                                displayed on the HTML page. The header by default is not included in when exporting.
                             </td>
                             <td>yes/yes</td>
                         </tr>
                         <tr>
                             <td>
                                 export.
-                                <em>{export name}</em>
-                                .filename
+                                <em>{export name}</em>.filename
                             </td>
                             <td class="source">
                                 <em>none</em>
                             </td>
                             <td>any valid file name</td>
-                            <td>Indicates the file name will be prompted to the user when saving exported files.</td>
+                            <td>When saving exported files the user will be prompted to use this file name.</td>
                             <td>yes/yes</td>
                         </tr>
                         <tr>
@@ -423,8 +417,8 @@
                             <td>page, list</td>
                             <td>
                                 Indicates how much data should be sent down to the user when they ask for a data export.
-                                By default, it sends the entire list, but you can instruct the table tag to only send
-                                down the data that is currently being shown on the page
+                                <em>By default, it sends the entire list</em>. But, you can instruct the table tag to
+                                only send down the data that is currently being shown on the page
                             </td>
                             <td>yes/yes</td>
                         </tr>
@@ -434,7 +428,7 @@
                             <td>true, false</td>
                             <td>
                                 Should the data be "decorated" as it is exported. The default value is true, but you
-                                might want to turn off any decoration that is HTML specific for example when exporting
+                                might want to turn off any decoration that is for example HTML specific when exporting
                                 the data.
                             </td>
                             <td>yes/yes</td>
