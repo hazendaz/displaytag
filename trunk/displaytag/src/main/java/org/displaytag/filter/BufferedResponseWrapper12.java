@@ -10,6 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.tags.TableTagParameters;
@@ -102,7 +103,24 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
         if (state)
         {
             log.debug("Allowing content type");
-            getResponse().setContentType(theContentType);
+
+            if (this.contentType != null && // content type has been set before
+                this.contentType.indexOf("charset") > -1) // and it specified charset
+            {
+                // so copy the charset
+                String charset = this.contentType.substring(this.contentType.indexOf("charset"));
+                if (log.isDebugEnabled())
+                {
+                    log.debug("Adding charset: [" + charset + "]");
+                }
+
+                getResponse().setContentType(StringUtils.substringBefore(theContentType, "charset") + ' ' + charset);
+            }
+            else
+            {
+                getResponse().setContentType(theContentType);
+            }
+
         }
         this.contentType = theContentType;
     }

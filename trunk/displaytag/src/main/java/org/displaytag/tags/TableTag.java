@@ -551,7 +551,7 @@ public class TableTag extends HtmlTableTag
             log.debug("[" + getId() + "] doStartTag called");
         }
 
-        this.properties = TableProperties.getInstance(pageContext.getRequest().getLocale());
+        this.properties = TableProperties.getInstance((HttpServletRequest) pageContext.getRequest());
         this.tableModel = new TableModel(this.properties, pageContext.getResponse().getCharacterEncoding());
 
         // copying id to the table model for logging
@@ -1023,6 +1023,14 @@ public class TableTag extends HtmlTableTag
                     // creates a new header and add to the table model
                     HeaderCell headerCell = new HeaderCell();
                     headerCell.setBeanPropertyName(propertyName);
+
+                    // handle title i18n
+                    headerCell.setTitle(this.properties.geResourceProvider().getResource(
+                        null,
+                        propertyName,
+                        this,
+                        this.pageContext));
+
                     this.tableModel.addColumnHeader(headerCell);
                 }
             }

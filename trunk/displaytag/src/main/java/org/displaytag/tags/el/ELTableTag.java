@@ -109,6 +109,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setCellpadding(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setCellpadding(String value)
     {
@@ -117,6 +118,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setCellspacing(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setCellspacing(String value)
     {
@@ -125,6 +127,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setClass(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setClass(String value)
     {
@@ -133,6 +136,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setDecorator(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setDecorator(String value)
     {
@@ -141,6 +145,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setDefaultsort(int)
+     * @param value EL expression for attribute value
      */
     public void setDefaultsort(String value)
     {
@@ -149,6 +154,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setDefaultorder(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setDefaultorder(String value)
     {
@@ -157,6 +163,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setExport(boolean)
+     * @param value EL expression for attribute value
      */
     public void setExport(String value)
     {
@@ -165,6 +172,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setFrame(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setFrame(String value)
     {
@@ -173,6 +181,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setLength(int)
+     * @param value EL expression for attribute value
      */
     public void setLength(String value)
     {
@@ -181,6 +190,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setName(java.lang.Object)
+     * @param value EL expression for attribute value
      */
     public void setName(String value)
     {
@@ -189,6 +199,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setOffset(int)
+     * @param value EL expression for attribute value
      */
     public void setOffset(String value)
     {
@@ -197,6 +208,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setPagesize(int)
+     * @param value EL expression for attribute value
      */
     public void setPagesize(String value)
     {
@@ -205,6 +217,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setRequestURI(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setRequestURI(String value)
     {
@@ -213,6 +226,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setRules(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setRules(String value)
     {
@@ -221,6 +235,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setSort(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setSort(String value)
     {
@@ -229,6 +244,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setExcludedParams(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setExcludedParams(String value)
     {

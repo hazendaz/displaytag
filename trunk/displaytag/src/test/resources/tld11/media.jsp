@@ -22,7 +22,7 @@
 					<display:table name="requestScope.test" id="table" export="true">
 						<display:column property="ant" media="html" />
 						<display:column property="bee" media="xml" />
-						<display:column property="camel" media="xml html" />
+						<display:column property="camel" title="Camel" media="xml html" />
 					</display:table>
 				</body>
     </html>

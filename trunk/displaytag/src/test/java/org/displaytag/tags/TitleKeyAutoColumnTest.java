@@ -1,6 +1,5 @@
 package org.displaytag.tags;
 
-import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 
@@ -11,18 +10,18 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
- * Tests for "media" attribute support.
+ * Tests for "titlekey" column attribute.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class MediaSupportHtmlTest extends DisplaytagCase
+public class TitleKeyAutoColumnTest extends DisplaytagCase
 {
 
     /**
      * Instantiates a new test case.
      * @param name test name
      */
-    public MediaSupportHtmlTest(String name)
+    public TitleKeyAutoColumnTest(String name)
     {
         super(name);
     }
@@ -32,36 +31,40 @@ public class MediaSupportHtmlTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "media.jsp";
+        return "titlekeyautocolumn.jsp";
     }
 
     /**
-     * Test as Html.
+     * Test that headers are correctly removed.
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
     public void doTest(String jspName) throws Exception
     {
-
+        // test keep
         WebRequest request = new GetMethodWebRequest(jspName);
-
         WebResponse response = runner.getResponse(request);
 
         if (log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();
+        assertEquals("Expected one table", 1, tables.length);
 
-        assertEquals("Expected one table in result.", 1, tables.length);
+        // find the "camel" column
+        int j;
+        for (j = 0; j < tables[0].getColumnCount(); j++)
+        {
+            if (KnownValue.CAMEL.equals(tables[0].getCellAsText(1, j)))
+            {
+                break;
+            }
+        }
 
-        assertEquals("Bad number of generated columns.", 2, tables[0].getColumnCount());
+        // resource should be used also without the property attribute for the "camel" header
+        assertEquals("Header from resource is not valid.", "camel title", tables[0].getCellAsText(0, j));
 
-        assertEquals("Bad value in column header.", //
-            StringUtils.capitalize(KnownValue.ANT), tables[0].getCellAsText(0, 0));
-        assertEquals("Bad value in column header.", //
-            StringUtils.capitalize(KnownValue.CAMEL), tables[0].getCellAsText(0, 1));
     }
-
 }

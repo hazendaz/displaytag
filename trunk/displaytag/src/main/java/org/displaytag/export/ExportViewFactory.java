@@ -1,7 +1,6 @@
 package org.displaytag.export;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -43,7 +42,7 @@ public final class ExportViewFactory
      */
     private ExportViewFactory()
     {
-        TableProperties properties = TableProperties.getInstance(Locale.getDefault());
+        TableProperties properties = TableProperties.getInstance(null);
         String[] exportTypes = properties.getExportTypes();
 
         if (log.isInfoEnabled())
