@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.cactus.JspTestCase;
 import org.apache.cactus.extension.jsp.JspTagLifecycle;
 
+
 /**
  * Test for behaviour when using empty tables.
  * @author fgiust
@@ -13,21 +14,22 @@ import org.apache.cactus.extension.jsp.JspTagLifecycle;
  */
 public class EmptyTableTestCase extends JspTestCase
 {
+
     /**
      * table tag.
      */
     TableTag table;
-    
+
     /**
      * table tag lifecycle.
      */
     JspTagLifecycle tableLifecycle;
-    
+
     /**
      * column tag lifecycle.
      */
     JspTagLifecycle columnPropertyLifecycle;
-    
+
     /**
      * column tag lifecycle.
      */
@@ -41,7 +43,8 @@ public class EmptyTableTestCase extends JspTestCase
         // set up table
         List testData = new ArrayList();
         this.table = new TableTag();
-        this.table.setList(testData);
+        request.setAttribute("test", testData);
+        this.table.setName("requestScope.test");
         this.tableLifecycle = new JspTagLifecycle(this.pageContext, this.table);
 
         // column with property
