@@ -9,24 +9,24 @@
 
 <ul>
 	<li><a href="example-nocolumns.jsp">Simplest case, no columns</a></li>
-	<li><a href="example-columns.jsp">Basic, columns</a></li>
-	<li><a href="example-styles.jsp">Basic, columns - different styles</a></li>
-	<li><a href="example-datasource.jsp">Basic, acquiring your List of data (<strong>new</strong>: expressions!)</a></li>
-	<li><a href="example-imp-objects.jsp"><strong>New</strong>, implicit objects created by table</a></li>
-	<li><a href="example-subsets.jsp">Basic, showing subsets of data from the List</a></li>
-	<li><a href="example-autolink.jsp">Standard, smart linking of column data</a></li>
-	<li><a href="example-decorator.jsp">Standard, using decorators to transform/process data</a></li>
-	<li><a href="example-decorator-link.jsp">Standard, creating dynamic links</a></li>
-	<li><a href="example-paging.jsp">Wow, auto-paging of long lists</a></li>
-	<li><a href="example-sorting.jsp">Wow, auto-sorting by columns</a></li>
-	<li><a href="example-grouping.jsp">Wow, column grouping</a></li>
-	<li><a href="example-callbacks.jsp">Wow, using callbacks to show totals</a></li>
-	<li><a href="example-export.jsp">Wow, data exporting (excel, csv, xml)</a></li>
+	<li><a href="example-columns.jsp">Columns</a></li>
+	<li><a href="example-styles.jsp">Columns - different styles</a></li>
+	<li><a href="example-datasource.jsp">Acquiring your List of data (<strong>new</strong>: expressions!)</a></li>
+	<li><a href="example-imp-objects.jsp">Implicit objects created by table</a></li>
+	<li><a href="example-subsets.jsp">Showing subsets of data from the List</a></li>
+	<li><a href="example-autolink.jsp">Smart linking of column data</a></li>
+	<li><a href="example-decorator.jsp">Using decorators to transform/process data</a></li>
+	<li><a href="example-decorator-link.jsp">Creating dynamic links</a></li>
+	<li><a href="example-paging.jsp">Auto-paging of long lists</a></li>
+	<li><a href="example-sorting.jsp">Auto-sorting by columns</a></li>
+	<li><a href="example-grouping.jsp">Column grouping</a></li>
+	<li><a href="example-callbacks.jsp">Using callbacks to show totals</a></li>
+	<li><a href="example-export.jsp">Data exporting (excel, csv, xml)</a></li>
 	<li><a href="example-config.jsp">Config, overriding default behaviors/messages</a></li>
 	<li><a href="example-misc.jsp">Misc, odds and ends</a></li>	
-	<li><a href="example-pse.jsp"><strong>New</strong>, paging + sorting + grouping + exporting working together</a></li>
-	<li><a href="example-twotables.jsp"><strong>New</strong>, 2 or more tables working in the same page with independent sorting - paging</a></li>
-	<li><a href="example-nestedtables.jsp"><strong>New</strong>, nested tables</a></li>
+	<li><a href="example-pse.jsp">Paging + sorting + grouping + exporting working together</a></li>
+	<li><a href="example-twotables.jsp">2 or more tables working in the same page with independent sorting - paging</a></li>
+	<li><a href="example-nestedtables.jsp">Nested tables</a></li>
 	
 	
 	<!--
