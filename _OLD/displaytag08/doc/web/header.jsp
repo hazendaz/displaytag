@@ -34,10 +34,10 @@
 								<td><span class="header"><a href="/display-0.8/" style="color:Black; text-decoration:none">
 						The &lt;display:*&gt; tag library
 						</a> </span><br>
-                  <a href="/display-0.8/">Overview</a><span class="menupipe"> | </span>
-                  <a href="/display-examples-0.8/">Examples</a><span class="menupipe"> | </span>
-                  <a href="/display-docs-0.8/">Documentation</a><span class="menupipe"> | </span>
-                  <a href="/display-0.8/download.jsp">Download</a>
+                  <a href="/display-@version@/">Overview</a><span class="menupipe"> | </span>
+                  <a href="/display-examples-@version@/">Examples</a><span class="menupipe"> | </span>
+                  <a href="/display-docs-@version@/">Documentation</a><span class="menupipe"> | </span>
+                  <a href="/display-@version@/download.jsp">Download</a>
                   </font></td>
 							</tr>
 						</table>
