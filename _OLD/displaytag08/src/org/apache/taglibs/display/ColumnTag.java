@@ -236,15 +236,20 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
    public int doEndTag() throws JspException {
       Object parent = this.getParent();
 
-      if( parent == null ) {
-         throw new JspException( "Can not use column tag outside of a " +
-                                 "TableTag. Invalid parent = null" );
-      }
+      boolean foundTableTag = false;
 
-      if( !( parent instanceof TableTag ) ) {
-         throw new JspException( "Can not use column tag outside of a " +
-                                 "TableTag. Invalid parent = " +
-                                 parent.getClass().getName() );
+      while (!foundTableTag) {
+	  if( parent == null ) {
+	      throw new JspException( "Can not use column tag outside of a TableTag." );
+	  }
+
+	  if( !( parent instanceof TableTag ) ) {
+	      if (parent instanceof TagSupport)
+		  parent = ((TagSupport) parent).getParent ();
+	      else 
+		  throw new JspException( "Can not use column tag outside of a TableTag." );
+	  } else
+	      foundTableTag = true;
       }
 
       // Need to clone the ColumnTag before passing it to the TableTag as
