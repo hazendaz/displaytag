@@ -20,96 +20,122 @@ public class MediaTest extends JspTestCase
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(MediaTest.class);
 
     /**
-     * table tag
+     * table tag.
      */
     TableTag table;
 
     /**
-     * table tag lifecycle
+     * table tag lifecycle.
      */
     JspTagLifecycle tableLifecycle;
 
-    JspTagLifecycle aLifecycle;
-    JspTagLifecycle bLifecycle;
-    JspTagLifecycle cLifecycle;
-    JspTagLifecycle dLifecycle;
+    /**
+     * first column tag lifecycle.
+     */
+    JspTagLifecycle columnOneLifecycle;
 
     /**
-     * 
+     * second column tag lifecycle.
      */
-    protected void setUp() throws Exception
+    JspTagLifecycle columnTwoLifecycle;
+
+    /**
+     * third column tag lifecycle.
+     */
+    JspTagLifecycle columnThreeLifecycle;
+
+    /**
+     * set up the test.
+     */
+    protected void setUp()
     {
         List testData = new ArrayList();
-        testData.add(new KnownValue(1));
-        testData.add(new KnownValue(2));
+        testData.add(new KnownValue());
+        testData.add(new KnownValue());
 
-        table = new TableTag();
-        table.setList(testData);
-        table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE);
-        tableLifecycle = new JspTagLifecycle(pageContext, table);
+        this.table = new TableTag();
+        this.table.setList(testData);
+        this.table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE);
+        this.tableLifecycle = new JspTagLifecycle(this.pageContext, this.table);
 
         ColumnTag acolumn = new ColumnTag();
         acolumn.setMedia(MediaTypeEnum.HTML.getName());
         acolumn.setProperty("ant");
-        aLifecycle = tableLifecycle.addNestedTag(acolumn);
+        this.columnOneLifecycle = this.tableLifecycle.addNestedTag(acolumn);
 
         ColumnTag bcolumn = new ColumnTag();
         bcolumn.setMedia(MediaTypeEnum.XML.getName());
         bcolumn.setProperty("bee");
-        bLifecycle = tableLifecycle.addNestedTag(bcolumn);
+        this.columnTwoLifecycle = this.tableLifecycle.addNestedTag(bcolumn);
 
         ColumnTag ccolumn = new ColumnTag();
         ccolumn.setProperty("camel");
         bcolumn.setMedia(MediaTypeEnum.XML.getName() + " " + MediaTypeEnum.HTML.getName());
-        cLifecycle = tableLifecycle.addNestedTag(ccolumn);
-
-        ColumnTag dcolumn = new ColumnTag();
-        dcolumn.setProperty("position");
-        dLifecycle = tableLifecycle.addNestedTag(dcolumn);
+        this.columnThreeLifecycle = this.tableLifecycle.addNestedTag(ccolumn);
     }
 
+    /**
+     * test for html.
+     * @throws Exception any exception generated during the test
+     */
     public void testAsHtml() throws Exception
     {
-        tableLifecycle.invoke();
-        aLifecycle.expectBodyEvaluated(2);
-        bLifecycle.expectBodySkipped();
-        cLifecycle.expectBodyEvaluated(2);
+        this.tableLifecycle.invoke();
+        this.columnOneLifecycle.expectBodyEvaluated(2);
+        this.columnTwoLifecycle.expectBodySkipped();
+        this.columnThreeLifecycle.expectBodyEvaluated(2);
     }
 
-    public void endTestAsHtml(WebResponse response)
+    /**
+     * end the test for html.
+     * @param webresponse WebResponse
+     */
+    public void endTestAsHtml(WebResponse webresponse)
     {
-        assertContains(response, KnownValue.ant);
-        assertDoesNotContain(response, KnownValue.bee);
-        assertContains(response, KnownValue.camel);
-        log.debug("RESPONSE" + response.getText());
+        assertContains(webresponse, KnownValue.ANT);
+        assertDoesNotContain(webresponse, KnownValue.BEE);
+        assertContains(webresponse, KnownValue.CAMEL);
+        log.debug("RESPONSE" + webresponse.getText());
     }
 
-    public void beginTestAsXml(WebRequest request)
+    /**
+     * begin the test for xml.
+     * @param webrequest WebRequest
+     */
+    public void beginTestAsXml(WebRequest webrequest)
     {
-        request.addParameter(
-            table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE),
+        webrequest.addParameter(
+            this.table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE),
             "" + MediaTypeEnum.XML.getCode());
     }
 
+    /**
+     * test for xml.
+     * @throws Exception any exception generated during the test
+     */
     public void testAsXml() throws Exception
     {
-        tableLifecycle.invoke();
-        aLifecycle.expectBodySkipped();
-        bLifecycle.expectBodyEvaluated(2);
-        cLifecycle.expectBodyEvaluated(2);
+        this.tableLifecycle.invoke();
+        this.columnOneLifecycle.expectBodySkipped();
+        this.columnTwoLifecycle.expectBodyEvaluated(2);
+        this.columnThreeLifecycle.expectBodyEvaluated(2);
     }
 
-    public void endTestAsXml(WebResponse response)
+    /**
+     * end the test for xml.
+     * @param webresponse WebResponse
+     */
+    public void endTestAsXml(WebResponse webresponse)
     {
-        assertDoesNotContain(response, KnownValue.ant);
-        assertContains(response, KnownValue.bee);
-        assertContains(response, KnownValue.camel);
-        log.debug("RESPONSE" + response.getText());
+        assertDoesNotContain(webresponse, KnownValue.ANT);
+        assertContains(webresponse, KnownValue.BEE);
+        assertContains(webresponse, KnownValue.CAMEL);
+        log.debug("RESPONSE" + webresponse.getText());
     }
 
     /**
