@@ -70,13 +70,15 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <name>property</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <description>@deprecated in displaytag 1.0. Use list.property in "name" attribute.</description>
+        <description>@deprecated in displaytag 1.0. Use list.property in "name" attribute.
+          Not supported in the EL version of the tag.</description>
     </attribute>
     <attribute>
       <name>scope</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <description>@deprecated in displaytag 1.0. Use "pageScope.", "requestScope.", "sessionScope.", "applicationScope." prefixes in name.</description>
+        <description>@deprecated in displaytag 1.0. Use "pageScope.", "requestScope.", "sessionScope.", "applicationScope." prefixes in name.
+          Not supported in the EL version of the tag.</description>
     </attribute>
     <attribute>
       <name>length</name>
