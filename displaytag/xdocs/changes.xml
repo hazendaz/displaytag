@@ -53,6 +53,10 @@
       <action type="add" dev="rapruitt" due-to="Andy Pruitt">
       New jsp 1.2 tld is available. Tag reference documentation is automatically produced from dtd.
       </action>     
+      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+      fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=814462">[814462]</a>: 
+      column JSP body should not execute if the list is empty
+      </action>     
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">
