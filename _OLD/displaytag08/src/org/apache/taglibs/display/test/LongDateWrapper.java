@@ -13,13 +13,11 @@ import java.util.Date;
 import org.apache.taglibs.display.ColumnDecorator;
 
 
-public class LongDateWrapper extends ColumnDecorator
-{
-   private DateFormat sdf = new SimpleDateFormat( "MM/dd/yyyy HH:mm:ss" );
+public class LongDateWrapper extends ColumnDecorator {
+    private DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-   public String decorate( Object columnValue )
-   {
-      Date t = (Date)columnValue;
-      return sdf.format( t );
-   }
+    public String decorate(Object columnValue) {
+        Date t = (Date) columnValue;
+        return sdf.format(t);
+    }
 }

@@ -19,15 +19,14 @@ import java.util.List;
  * More detailed class description, including examples of usage if applicable.
  **/
 
-public class ListHolder extends Object
-{
-   private List myList;
+public class ListHolder extends Object {
+    private List myList;
 
-   public ListHolder() {
-      myList = new TestList( 15 );
-   }
+    public ListHolder() {
+        myList = new TestList(15);
+    }
 
-   public List getList() {
-      return this.myList;
-   }
+    public List getList() {
+        return this.myList;
+    }
 }

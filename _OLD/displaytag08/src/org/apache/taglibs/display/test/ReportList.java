@@ -17,34 +17,33 @@ import java.util.Collections;
  * examples (such as grouping, callbacks, and data exports).
  **/
 
-public class ReportList extends ArrayList
-{
-   /**
-    * Creats a TestList that is filled with 20 ReportableListObject suitable for testing
-    */
+public class ReportList extends ArrayList {
+    /**
+     * Creats a TestList that is filled with 20 ReportableListObject suitable for testing
+     */
 
-   public ReportList() {
-      super();
+    public ReportList() {
+        super();
 
-      for( int i = 0; i < 20; i++ ) {
-         this.add( new ReportableListObject() );
-      }
+        for (int i = 0; i < 20; i++) {
+            this.add(new ReportableListObject());
+        }
 
-      Collections.sort( this );
-   }
+        Collections.sort(this);
+    }
 
-   /**
-    * Creates a TestList that is filled with [size] ReportableListObject suitable for
-    * testing.
-    */
+    /**
+     * Creates a TestList that is filled with [size] ReportableListObject suitable for
+     * testing.
+     */
 
-   public ReportList( int size ) {
-      super();
+    public ReportList(int size) {
+        super();
 
-      for( int i = 0; i < size; i++ ) {
-         this.add( new ReportableListObject() );
-      }
+        for (int i = 0; i < size; i++) {
+            this.add(new ReportableListObject());
+        }
 
-      Collections.sort( this );
-   }
+        Collections.sort(this);
+    }
 }
