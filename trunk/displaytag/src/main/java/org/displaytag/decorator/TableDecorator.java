@@ -7,45 +7,45 @@ package org.displaytag.decorator;
 public abstract class TableDecorator extends Decorator
 {
     /**
-     * object representing the current row
+     * object representing the current row.
      */
     private Object currentRowObject;
 
     /**
-     * index in displayed list
+     * index in displayed list.
      */
     private int viewIndex = -1;
 
     /**
-     * index in original list
+     * index in original list.
      */
     private int listIndex = -1;
 
     /**
-     * return the index in the displayed list
+     * return the index in the displayed list.
      * @return int index in the displayed list
      */
     public final int getViewIndex()
     {
-        return viewIndex;
+        return this.viewIndex;
     }
 
     /**
-     * return the index in the original list
+     * return the index in the original list.
      * @return int index in the original list
      */
     public final int getListIndex()
     {
-        return listIndex;
+        return this.listIndex;
     }
 
     /**
-     * Get the object representing the current row
+     * Get the object representing the current row.
      * @return Object
      */
     public final Object getCurrentRowObject()
     {
-        return currentRowObject;
+        return this.currentRowObject;
     }
 
     /**
@@ -58,9 +58,9 @@ public abstract class TableDecorator extends Decorator
      */
     public final void initRow(Object rowObject, int currentViewIndex, int currentListIndex)
     {
-        currentRowObject = rowObject;
-        viewIndex = currentViewIndex;
-        listIndex = currentListIndex;
+        this.currentRowObject = rowObject;
+        this.viewIndex = currentViewIndex;
+        this.listIndex = currentListIndex;
     }
 
     /**
@@ -87,7 +87,7 @@ public abstract class TableDecorator extends Decorator
      */
     public void finish()
     {
-        currentRowObject = null;
+        this.currentRowObject = null;
         super.finish();
     }
 
