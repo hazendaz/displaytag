@@ -193,7 +193,7 @@
           </tr>
 
           <tr>
-            <td>paging.banner.one_items_found</td>
+            <td>paging.banner.one_item_found</td>
             <td class="source">&lt;span class="pagebanner">One {0} found.&lt;/span></td>
             <td>Any string in a message format with 1 placeholder</td>
             <td>
