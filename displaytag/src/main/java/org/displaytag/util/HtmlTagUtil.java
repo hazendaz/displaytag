@@ -180,7 +180,7 @@ public final class HtmlTagUtil
                 }
 
             }
-            else if (!inTag)
+            else
             {
 
                 if (byNumberOfWords)
