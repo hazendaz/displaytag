@@ -146,8 +146,9 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
      * @see org.displaytag.tags.ColumnTag#setSortProperty(java.lang.String)
      * @param value EL expression for attribute value
      */
-    public void setSortProperty(String value) {
-        sortPropertyExpr = value;
+    public void setSortProperty(String value)
+    {
+        this.sortPropertyExpr = value;
     }
 
     /**
