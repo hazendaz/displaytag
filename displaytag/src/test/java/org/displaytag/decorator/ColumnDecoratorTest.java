@@ -1,6 +1,7 @@
 package org.displaytag.decorator;
 
 import org.displaytag.test.DisplaytagCase;
+import org.displaytag.test.KnownTypes;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -49,6 +50,10 @@ public class ColumnDecoratorTest extends DisplaytagCase
         WebTable[] tables = response.getTables();
 
         assertEquals("Expected one table in result.", 1, tables.length);
-        assertEquals("Expected decorated value not found.", "Tuesday", tables[0].getCellAsText(1, 0));
+
+        assertEquals(
+            "Expected decorated value not found.",
+            new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE),
+            tables[0].getCellAsText(1, 0));
     }
 }
