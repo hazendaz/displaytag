@@ -253,6 +253,19 @@ public class HrefTest extends TestCase
     }
 
     /**
+     * Complex test.
+     */
+    public final void testComplex()
+    {
+        String url = "http://www.displaytag.org/EProcurement/do/searchWorkflowAction?initiator=AVINASH&wfid="
+            + "&approvedTDate=&initiatedFDate=&status=default&d-3824-p=2&initiatedTDate=04/28/2004"
+            + "&approvedFDate=&method=search&approver=";
+        Href href = new Href(url);
+        String newUrl = href.toString();
+        compareUrls(newUrl, url);
+    }
+
+    /**
      * utility method for comparing two URLs.
      * @param generated generated URL
      * @param expected expected URL
