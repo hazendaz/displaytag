@@ -1,6 +1,6 @@
 package org.displaytag.exception;
 
-import org.displaytag.util.Messages;
+import org.displaytag.Messages;
 
 /**
  * Exception thrown when an invalid value is given for a tag attribute.

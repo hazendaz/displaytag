@@ -1,6 +1,6 @@
 package org.displaytag.exception;
 
-import org.displaytag.util.Messages;
+import org.displaytag.Messages;
 
 /**
  * Exception thrown when a Tag is not properly nested into another one.

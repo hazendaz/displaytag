@@ -1,4 +1,4 @@
-package org.displaytag.util;
+package org.displaytag;
 
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
@@ -16,7 +16,7 @@ public final class Messages
     /**
      * Base name for the bundle.
      */
-    private static final String BUNDLE_NAME = "org.displaytag.util.messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "org.displaytag.messages"; //$NON-NLS-1$
 
     /**
      * Loaded ResourceBundle.

@@ -1,6 +1,6 @@
 package org.displaytag.exception;
 
-import org.displaytag.util.Messages;
+import org.displaytag.Messages;
 
 /**
  * Exception thrown when displaytag is unable to instantiate a class specified by the user in the properties file.
