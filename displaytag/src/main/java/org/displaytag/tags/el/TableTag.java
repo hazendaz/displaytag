@@ -2,6 +2,7 @@ package org.displaytag.tags.el;
 
 import javax.servlet.jsp.JspException;
 
+
 /**
  * Adds EL support to displaytag's TableTag.
  * @author Tim McCune
@@ -126,10 +127,6 @@ public class TableTag extends org.displaytag.tags.TableTag
         {
             super.setLength(s);
         }
-        if ((s = eval.evalString("name", _name)) != null)
-        {
-            super.setName(s);
-        }
         if ((s = eval.evalString("offset", _offset)) != null)
         {
             super.setOffset(s);
@@ -146,6 +143,9 @@ public class TableTag extends org.displaytag.tags.TableTag
         {
             super.setSort(s);
         }
+
+        // evaluate name only once
+        this.list = eval.eval("name", _name, Object.class);
     }
 
 }

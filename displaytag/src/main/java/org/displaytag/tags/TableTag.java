@@ -92,6 +92,12 @@ public class TableTag extends HtmlTableTag
     private static boolean commonsLangChecked;
 
     /**
+     * Object (collection, list) on which the table is based. Set directly using the "list" attribute or evaluated from
+     * expression.
+     */
+    protected Object list;
+
+    /**
      * Iterator on collection.
      */
     private Iterator tableIterator;
@@ -100,12 +106,6 @@ public class TableTag extends HtmlTableTag
      * actual row number, updated during iteration.
      */
     private int rowNumber = 1;
-
-    /**
-     * Object (collection, list) on which the table is based. Set directly using the "list" attribute or evaluated from
-     * expression.
-     */
-    private Object list;
 
     /**
      * name of the object to use for iteration. Can contain expression
