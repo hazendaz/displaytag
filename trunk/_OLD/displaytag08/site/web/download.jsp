@@ -8,7 +8,7 @@ differences between this version and previous ones.<p>
 
 <table width="50%">
 <tr>
-<td ><b>File</b></td>
+<td><b>File</b></td>
 <td align="right"><b>Version</b></td>
 <td align="right"><b>Size</b></td>
 <td align="right"><b>Date Posted</b></td>
