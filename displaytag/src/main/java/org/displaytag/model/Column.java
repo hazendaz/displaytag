@@ -3,6 +3,7 @@ package org.displaytag.model;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
@@ -13,7 +14,6 @@ import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.LinkUtil;
 import org.displaytag.util.LookupUtil;
 import org.displaytag.util.TagConstants;
-
 /**
  * <p>Represents a column in a table</p>
  * @author fgiust
@@ -25,88 +25,88 @@ public class Column
     /**
      * Row this column belongs to
      */
-    private Row mParentRow;
+    private Row row;
 
     /**
      * Header of this column. The header cell contains all the attributes common to all cells in the same column
      */
-    private HeaderCell mHeaderCell;
+    private HeaderCell header;
 
     /**
      * copy of the attribute map from the header cell. Needed to change attributes (title) in this cell only
      */
-    private HtmlAttributeMap mHtmlAttributes;
+    private HtmlAttributeMap htmlAttributes;
 
     /**
      * contains the evaluated body value. Filled in getOpenTag
      */
-    private String mStringValue;
+    private String stringValue;
 
     /**
-     * Field mCell
+     * Cell
      */
-    private Cell mCell;
+    private Cell cell;
 
     /**
      * Constructor for Column
-     * @param pHeaderCell HeaderCell
-     * @param pCell Cell
-     * @param pParentRow Row
+     * @param headerCell HeaderCell
+     * @param currentCell Cell
+     * @param parentRow Row
      */
-    public Column(HeaderCell pHeaderCell, Cell pCell, Row pParentRow)
+    public Column(HeaderCell headerCell, Cell currentCell, Row parentRow)
     {
-        mHeaderCell = pHeaderCell;
-        mParentRow = pParentRow;
-        mCell = pCell;
+        this.header = headerCell;
+        this.row = parentRow;
+        this.cell = currentCell;
 
         // also copy html attributes
-        mHtmlAttributes = pHeaderCell.getHtmlAttributes();
+        this.htmlAttributes = headerCell.getHtmlAttributes();
     }
 
     /**
      * Method getValue
-     * @param pDecorated boolean
+     * @param decorated boolean
      * @return Object
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
      */
-    public Object getValue(boolean pDecorated) throws ObjectLookupException, DecoratorException
+    public Object getValue(boolean decorated) throws ObjectLookupException, DecoratorException
     {
         // a static value has been set?
-        if (mCell.getStaticValue() != null)
+        if (this.cell.getStaticValue() != null)
         {
-            return mCell.getStaticValue();
+            return this.cell.getStaticValue();
         }
 
-        Object lObject = null;
-        TableDecorator lTableDecorator = mParentRow.getParentTable().getTableDecorator();
+        Object object = null;
+        TableDecorator tableDecorator = this.row.getParentTable().getTableDecorator();
 
         // if a decorator has been set, and if decorator has a getter for the requested property only, check decorator
-        if (pDecorated && lTableDecorator != null && lTableDecorator.hasGetterFor(mHeaderCell.getBeanPropertyName()))
+        if (decorated && tableDecorator != null && tableDecorator.hasGetterFor(this.header.getBeanPropertyName()))
         {
 
-            lObject = LookupUtil.getBeanProperty(lTableDecorator, mHeaderCell.getBeanPropertyName());
+            object = LookupUtil.getBeanProperty(tableDecorator, this.header.getBeanPropertyName());
         }
         else
         {
             // else check underlining oblject
-            lObject = LookupUtil.getBeanProperty(mParentRow.getObject(), mHeaderCell.getBeanPropertyName());
+            object = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getBeanPropertyName());
         }
 
-        if (pDecorated && (mHeaderCell.getColumnDecorator() != null))
+        if (decorated && (this.header.getColumnDecorator() != null))
         {
-            lObject = mHeaderCell.getColumnDecorator().decorate(lObject);
+            object = this.header.getColumnDecorator().decorate(object);
         }
 
-        if (lObject == null || lObject.equals("null"))
+        if (object == null || object.equals("null"))
         {
-            if (!mHeaderCell.getShowNulls())
+            if (!this.header.getShowNulls())
             {
-                lObject = "";
+                object = "";
             }
         }
 
-        return lObject;
+        return object;
     }
 
     /**
@@ -117,9 +117,9 @@ public class Column
      */
     public String getOpenTag() throws ObjectLookupException, DecoratorException
     {
-        mStringValue = createChoppedAndLinkedValue();
+        this.stringValue = createChoppedAndLinkedValue();
 
-        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, mHtmlAttributes);
+        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, this.htmlAttributes);
     }
 
     /**
@@ -128,8 +128,8 @@ public class Column
      */
     public String getCloseTag()
     {
-        mStringValue = null;
-        return mHeaderCell.getCloseTag();
+        this.stringValue = null;
+        return this.header.getCloseTag();
     }
 
     /**
@@ -141,88 +141,88 @@ public class Column
     public String createChoppedAndLinkedValue() throws ObjectLookupException, DecoratorException
     {
 
-        Object lChoppedValue = getValue(true);
+        Object choppedValue = getValue(true);
 
-        boolean lChopped = false;
-        String lFullValue = "";
-        if (lChoppedValue != null)
+        boolean isChopped = false;
+        String fullValue = "";
+        if (choppedValue != null)
         {
-            lFullValue = lChoppedValue.toString();
+            fullValue = choppedValue.toString();
         }
 
         // trim the string if a maxLength or maxWords is defined
-        if (mHeaderCell.getMaxLength() > 0 && lFullValue.length() > mHeaderCell.getMaxLength())
+        if (this.header.getMaxLength() > 0 && fullValue.length() > this.header.getMaxLength())
         {
-            lChoppedValue = lFullValue.substring(0, mHeaderCell.getMaxLength()) + "...";
-            lChopped = true;
+            choppedValue = fullValue.substring(0, this.header.getMaxLength()) + "...";
+            isChopped = true;
         }
-        else if (mHeaderCell.getMaxWords() > 0)
+        else if (this.header.getMaxWords() > 0)
         {
-            StringBuffer lBuffer = new StringBuffer();
-            StringTokenizer lTokenizer = new StringTokenizer(lFullValue);
-            int lTokensNum = lTokenizer.countTokens();
-            if (lTokensNum > mHeaderCell.getMaxWords())
+            StringBuffer buffer = new StringBuffer();
+            StringTokenizer tokenizer = new StringTokenizer(fullValue);
+            int tokensNum = tokenizer.countTokens();
+            if (tokensNum > this.header.getMaxWords())
             {
-                int lWordsCount = 0;
-                while (lTokenizer.hasMoreTokens() && (lWordsCount < mHeaderCell.getMaxWords()))
+                int wordsCount = 0;
+                while (tokenizer.hasMoreTokens() && (wordsCount < this.header.getMaxWords()))
                 {
-                    lBuffer.append(lTokenizer.nextToken() + " ");
-                    lWordsCount++;
+                    buffer.append(tokenizer.nextToken() + " ");
+                    wordsCount++;
                 }
-                lBuffer.append("...");
-                lChoppedValue = lBuffer;
-                lChopped = true;
+                buffer.append("...");
+                choppedValue = buffer;
+                isChopped = true;
             }
         }
 
         // chopped content? add the full content to the column "title" attribute
-        if (lChopped)
+        if (isChopped)
         {
             // clone the attribute map, don't want to add title to all the columns
-            mHtmlAttributes = (HtmlAttributeMap) mHtmlAttributes.clone();
+            this.htmlAttributes = (HtmlAttributeMap) this.htmlAttributes.clone();
             // add title
-            mHtmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, lFullValue);
+            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, fullValue);
         }
 
         // Are we supposed to set up a link to the data being displayed in this column...
-        if (mHeaderCell.getAutoLink())
+        if (this.header.getAutoLink())
         {
-            lChoppedValue = LinkUtil.autoLink(lChoppedValue.toString());
+            choppedValue = LinkUtil.autoLink(choppedValue.toString());
         }
-        else if (mHeaderCell.getHref() != null) // add link?
+        else if (this.header.getHref() != null) // add link?
         {
             // copy href
-            Href lColHref = new Href(mHeaderCell.getHref());
+            Href colHref = new Href(this.header.getHref());
 
             // do we need to add a param?
-            if (mHeaderCell.getParamName() != null)
+            if (this.header.getParamName() != null)
             {
 
-                Object lParamValue;
+                Object paramValue;
 
-                if (mHeaderCell.getParamProperty() != null)
+                if (this.header.getParamProperty() != null)
                 {
                     // different property, go get it
-                    lParamValue = LookupUtil.getBeanProperty(mParentRow.getObject(), mHeaderCell.getParamProperty());
+                    paramValue = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getParamProperty());
 
                 }
                 else
                 {
                     // same property as content
-                    lParamValue = lFullValue;
+                    paramValue = fullValue;
                 }
 
-                lColHref.addParameter(mHeaderCell.getParamName(), lParamValue);
+                colHref.addParameter(this.header.getParamName(), paramValue);
 
             }
-            Anchor lAtag = new Anchor(lColHref, lChoppedValue.toString());
+            Anchor anchor = new Anchor(colHref, choppedValue.toString());
 
-            lChoppedValue = lAtag.toString();
+            choppedValue = anchor.toString();
         }
 
-        if (lChoppedValue != null)
+        if (choppedValue != null)
         {
-            return lChoppedValue.toString();
+            return choppedValue.toString();
         }
         return null;
     }
@@ -234,7 +234,7 @@ public class Column
      */
     public String getChoppedAndLinkedValue()
     {
-        return mStringValue;
+        return this.stringValue;
     }
 
     /**
@@ -243,16 +243,19 @@ public class Column
      */
     public int getGroup()
     {
-        return mHeaderCell.getGroup();
+        return this.header.getGroup();
     }
 
     /**
-     * Method toString
-     * @return String
+     * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return new ToStringBuilder(this).append("headerCell", mHeaderCell).append("cell", mCell).toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("cell", this.cell)
+            .append("header", this.header)
+            .append("htmlAttributes", this.htmlAttributes)
+            .append("stringValue", this.stringValue)
+            .toString();
     }
-
 }

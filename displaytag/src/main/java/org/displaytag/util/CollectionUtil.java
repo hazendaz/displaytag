@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.collections.IteratorUtils;
 
 /**
- * <p>Utility methods for collection handling</p>
+ * Utility methods for collection handling
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -24,55 +24,55 @@ public final class CollectionUtil
     /**
      * Create a list of objects taken from the given iterator and crop the resulting list according to the pStartNumber
      * and pNumberOfItems parameters
-     * @param pIterator Iterator
-     * @param pStartNumber int starting index
-     * @param pNumberOfItems int number of items to keep in the list
+     * @param iterator Iterator
+     * @param startIndex int starting index
+     * @param numberOfItems int number of items to keep in the list
      * @return List with values taken from the given object, cropped according the pStartNumber and pNumberOfItems
      * parameters
      */
-    private static List getSubList(Iterator pIterator, int pStartNumber, int pNumberOfItems)
+    private static List getSubList(Iterator iterator, int startIndex, int numberOfItems)
     {
 
-        ArrayList lCroppedList = new ArrayList(pNumberOfItems);
+        ArrayList croppedList = new ArrayList(numberOfItems);
 
-        int lSkippedRecordCount = 0;
-        int lCopiedRecordCount = 0;
-        while (pIterator.hasNext())
+        int skippedRecordCount = 0;
+        int copiedRecordCount = 0;
+        while (iterator.hasNext())
         {
 
-            Object lObject = pIterator.next();
+            Object object = iterator.next();
 
-            if (++lSkippedRecordCount <= pStartNumber)
+            if (++skippedRecordCount <= startIndex)
             {
                 continue;
             }
 
-            lCroppedList.add(lObject);
+            croppedList.add(object);
 
-            if ((pNumberOfItems != 0) && (++lCopiedRecordCount >= pNumberOfItems))
+            if ((numberOfItems != 0) && (++copiedRecordCount >= numberOfItems))
             {
                 break;
             }
 
         }
 
-        return lCroppedList;
+        return croppedList;
 
     }
 
     /**
      * create an iterator on a given object (Collection, Enumeration, array, single Object) and crop the resulting
      * list according to the pStartNumber and pNumberOfItems parameters
-     * @param pFullList Collection, Enumeration or array to crop
-     * @param pStartNumber int starting index
-     * @param pNumberOfItems int number of items to keep in the list
+     * @param iterableObject Collection, Enumeration or array to crop
+     * @param startIndex int starting index
+     * @param numberOfItems int number of items to keep in the list
      * @return List with values taken from the given object, cropped according the pStartNumber and pNumberOfItems
      * parameters
      */
-    public static List getListFromObject(Object pFullList, int pStartNumber, int pNumberOfItems)
+    public static List getListFromObject(Object iterableObject, int startIndex, int numberOfItems)
     {
-        Iterator lIterator = IteratorUtils.getIterator(pFullList);
-        return getSubList(lIterator, pStartNumber, pNumberOfItems);
+        Iterator iterator = IteratorUtils.getIterator(iterableObject);
+        return getSubList(iterator, startIndex, numberOfItems);
     }
 
 }

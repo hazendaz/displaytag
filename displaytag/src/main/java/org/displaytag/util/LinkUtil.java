@@ -31,103 +31,103 @@ public final class LinkUtil
      * </ul>
      * <p>I'm doing this via brute-force since I don't want to be dependent on a
      * third party regex package.</p>
-     * @param pData String
+     * @param string String
      * @return String
      */
-    public static String autoLink(String pData)
+    public static String autoLink(String string)
     {
-        String lWorkString = new String(pData);
-        int lIndex = -1;
-        StringBuffer lBuffer = new StringBuffer();
+        String workString = new String(string);
+        int index = -1;
+        StringBuffer buffer = new StringBuffer();
 
-        if (pData == null || pData.length() == 0)
+        if (string == null || string.length() == 0)
         {
-            return pData;
+            return string;
         }
 
         // First check for email addresses.
 
-        while ((lIndex = lWorkString.indexOf("@")) != -1)
+        while ((index = workString.indexOf("@")) != -1)
         {
-            int lStart = 0;
-            int lEnd = lWorkString.length() - 1;
+            int start = 0;
+            int end = workString.length() - 1;
 
             // scan backwards...
-            for (int lCount = lIndex; lCount >= 0; lCount--)
+            for (int j = index; j >= 0; j--)
             {
-                if (Character.isWhitespace(lWorkString.charAt(lCount)))
+                if (Character.isWhitespace(workString.charAt(j)))
                 {
-                    lStart = lCount + 1;
+                    start = j + 1;
                     break;
                 }
             }
 
             // scan forwards...
-            for (int lCount = lIndex; lCount <= lEnd; lCount++)
+            for (int j = index; j <= end; j++)
             {
-                if (Character.isWhitespace(lWorkString.charAt(lCount)))
+                if (Character.isWhitespace(workString.charAt(j)))
                 {
-                    lEnd = lCount - 1;
+                    end = j - 1;
                     break;
                 }
             }
 
-            String lEmail = lWorkString.substring(lStart, (lEnd - lStart + 1));
+            String email = workString.substring(start, (end - start + 1));
 
-            lBuffer
-                .append(lWorkString.substring(0, lStart))
+            buffer
+                .append(workString.substring(0, start))
                 .append("<a href=\"mailto:")
-                .append(lEmail + "\">")
-                .append(lEmail)
+                .append(email + "\">")
+                .append(email)
                 .append("</a>");
 
-            if (lEnd == lWorkString.length())
+            if (end == workString.length())
             {
-                lWorkString = "";
+                workString = "";
             }
             else
             {
-                lWorkString = lWorkString.substring(lEnd + 1);
+                workString = workString.substring(end + 1);
             }
         }
 
-        lWorkString = lBuffer.toString() + lWorkString;
-        lBuffer = new StringBuffer();
+        workString = buffer.toString() + workString;
+        buffer = new StringBuffer();
 
         // Now check for urls...
 
-        while ((lIndex = lWorkString.indexOf(URL_HTTP)) != -1)
+        while ((index = workString.indexOf(URL_HTTP)) != -1)
         {
-            int lEnd = lWorkString.length() - 1;
+            int end = workString.length() - 1;
 
             // scan forwards...
-            for (int lCount = lIndex; lCount <= lEnd; lCount++)
+            for (int j = index; j <= end; j++)
             {
-                if (Character.isWhitespace(lWorkString.charAt(lCount)))
+                if (Character.isWhitespace(workString.charAt(j)))
                 {
-                    lEnd = lCount - 1;
+                    end = j - 1;
                     break;
                 }
             }
 
-            String lUrl = lWorkString.substring(lIndex, (lEnd - lIndex + 1));
+            String url = workString.substring(index, (end - index + 1));
 
-            lBuffer.append(lWorkString.substring(0, lIndex)).append("<a href=\"").append(lUrl).append("\">").append(
-                lUrl).append(
+            buffer.append(workString.substring(0, index)).append("<a href=\"").append(url).append("\">").append(
+                url).append(
                 "</a>");
 
-            if (lEnd == lWorkString.length())
+            if (end == workString.length())
             {
-                lWorkString = "";
+                workString = "";
             }
             else
             {
-                lWorkString = lWorkString.substring(lEnd + 1);
+                workString = workString.substring(end + 1);
             }
         }
 
-        lBuffer.append(lWorkString);
-        return lBuffer.toString();
+        buffer.append(workString);
+        return buffer.toString();
     }
 
 }

@@ -1,9 +1,9 @@
 package org.displaytag.properties;
 
-import java.util.Properties;
 import java.util.Enumeration;
-import java.util.ResourceBundle;
 import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,7 +33,7 @@ public class TableProperties
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(TableProperties.class);
+    private static Log log = LogFactory.getLog(TableProperties.class);
 
     /**
      * Field DEFAULT_FILENAME
@@ -282,12 +282,12 @@ public class TableProperties
 
     /**
      * Method getPagingGroupSize
-     * @param pDefault int
+     * @param defaultValue int
      * @return int
      */
-    public int getPagingGroupSize(int pDefault)
+    public int getPagingGroupSize(int defaultValue)
     {
-        return getIntProperty(PROPERTY_INT_PAGING_GROUPSIZE, pDefault);
+        return getIntProperty(PROPERTY_INT_PAGING_GROUPSIZE, defaultValue);
     }
 
     /**
@@ -453,8 +453,8 @@ public class TableProperties
      */
     public boolean getAddPagingBannerTop()
     {
-        String lPlacement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
-        return "top".equals(lPlacement) || "both".equals(lPlacement);
+        String placement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
+        return "top".equals(placement) || "both".equals(placement);
     }
 
     /**
@@ -463,8 +463,8 @@ public class TableProperties
      */
     public boolean getAddPagingBannerBottom()
     {
-        String lPlacement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
-        return "bottom".equals(lPlacement) || "both".equals(lPlacement);
+        String placement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
+        return "bottom".equals(placement) || "both".equals(placement);
     }
 
     /**
@@ -501,11 +501,11 @@ public class TableProperties
     public TableProperties() throws TablePropertiesLoadException
     {
 
-        Properties lDefaultProperties = new Properties();
+        Properties defaultProperties = new Properties();
         try
         {
-            lDefaultProperties.load(this.getClass().getResourceAsStream(mPropertiesFilename));
-            properties = new Properties(lDefaultProperties);
+            defaultProperties.load(this.getClass().getResourceAsStream(mPropertiesFilename));
+            properties = new Properties(defaultProperties);
         }
         catch (Exception ex)
         {
@@ -526,7 +526,7 @@ public class TableProperties
         }
         catch (MissingResourceException e)
         {
-            mLog.info("Was not able to load a displaytag.properties; " + e.getMessage());
+            log.info("Was not able to load a displaytag.properties; " + e.getMessage());
         }
 
         // Now copy in the user properties
@@ -543,57 +543,58 @@ public class TableProperties
 
     /**
      * Method getProperty
-     * @param pPropertyName String
+     * @param key String
      * @return String
      */
-    private String getProperty(String pPropertyName)
+    private String getProperty(String key)
     {
-        return properties.getProperty(pPropertyName);
+        return properties.getProperty(key);
     }
 
     /**
      * Method setProperty
-     * @param pPropertyName String
-     * @param pPropertyValue String
+     * @param key String
+     * @param value String
      */
-    public void setProperty(String pPropertyName, String pPropertyValue)
+    public void setProperty(String key, String value)
     {
-        properties.setProperty(pPropertyName, pPropertyValue);
+        properties.setProperty(key, value);
     }
 
     /**
      * Method getBooleanProperty
-     * @param pPropertyName String
+     * @param key String
      * @return boolean
      */
-    private boolean getBooleanProperty(String pPropertyName)
+    private boolean getBooleanProperty(String key)
     {
-        return Boolean.TRUE.toString().equals(getProperty(pPropertyName));
+        return Boolean.TRUE.toString().equals(getProperty(key));
     }
 
     /**
      * Method getIntProperty
-     * @param pPropertyName String
-     * @param pDefault int
+     * @param key String
+     * @param defaultValue int
      * @return int
      */
-    private int getIntProperty(String pPropertyName, int pDefault)
+    private int getIntProperty(String key, int defaultValue)
     {
-        int lInt = pDefault;
+        int intValue = defaultValue;
+
         try
         {
-            lInt = Integer.parseInt(getProperty(pPropertyName));
+            intValue = Integer.parseInt(getProperty(key));
         }
         catch (NumberFormatException e)
         {
             // Don't care, use default
-            mLog.warn(
+            log.warn(
                 "Invalid value for \"pPropertyName\" property: value=\""
-                    + getProperty(pPropertyName)
+                    + getProperty(key)
                     + "\"; using default \"pDefault\"");
         }
 
-        return lInt;
+        return intValue;
     }
 
 }

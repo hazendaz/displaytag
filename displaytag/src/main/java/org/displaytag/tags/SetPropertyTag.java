@@ -15,29 +15,29 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
     /**
      * Field mName
      */
-    private String mName;
+    private String name;
 
     /**
      * Field mValue
      */
-    private String mValue;
+    private String value;
 
     /**
      * Method setName
-     * @param pName String
+     * @param propertyName String
      */
-    public void setName(String pName)
+    public void setName(String propertyName)
     {
-        mName = pName;
+        name = propertyName;
     }
 
     /**
      * Method setValue
-     * @param pValue String
+     * @param propertyValue String
      */
-    public void setValue(String pValue)
+    public void setValue(String propertyValue)
     {
-        mValue = pValue;
+        value = propertyValue;
     }
 
     /**
@@ -46,7 +46,7 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
      */
     public String getName()
     {
-        return mName;
+        return name;
     }
 
     /**
@@ -55,7 +55,7 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
      */
     public String getValue()
     {
-        return mValue;
+        return value;
     }
 
     /**
@@ -72,14 +72,14 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
     public int doEndTag() throws JspException
     {
 
-        TableTag lTableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
-        if (lTableTag == null)
+        if (tableTag == null)
         {
             throw new TagStructureException(getClass(), "property", "table");
         }
 
-        lTableTag.setProperty(mName, mValue);
+        tableTag.setProperty(name, value);
 
         return super.doEndTag();
     }

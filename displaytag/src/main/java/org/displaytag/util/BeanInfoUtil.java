@@ -38,49 +38,49 @@ public class BeanInfoUtil extends SimpleBeanInfo
     public final PropertyDescriptor[] getPropertyDescriptors()
     {
 
-        ArrayList lPdArray = new ArrayList();
+        ArrayList pdArray = new ArrayList();
 
         // get the full class name
-        String lClassName = getClass().getName();
+        String className = getClass().getName();
 
         // remove "BeanInfo" to get the bean class
-        lClassName = lClassName.substring(0, lClassName.indexOf("BeanInfo"));
+        className = className.substring(0, className.indexOf("BeanInfo"));
 
-        Class lTagClass = null;
+        Class tagClass = null;
 
         try
         {
             // get the tag class
-            lTagClass = Class.forName(lClassName);
+            tagClass = Class.forName(className);
         }
         catch (ClassNotFoundException ex1)
         {
-            mLog.error("class not found: " + lClassName);
+            mLog.error("class not found: " + className);
         }
 
         // get the method array
-        Method[] lMethods = lTagClass.getMethods();
+        Method[] methods = tagClass.getMethods();
 
-        String lMethodName;
-        int lNumberOfMethods = lMethods.length;
+        String methodName;
+        int numberOfMethods = methods.length;
 
-        for (int lCounter = 0; lCounter < lNumberOfMethods; lCounter++)
+        for (int j = 0; j < numberOfMethods; j++)
         {
-            Method lMeth = lMethods[lCounter];
+            Method meth = methods[j];
 
             // look for setters only
-            if ((lMeth.getParameterTypes().length == 1)
-                && (lMethodName = lMeth.getName()).indexOf("set") == 0
-                && (lMethodName.length() > 3)
-                && Character.isUpperCase(lMethodName.charAt(3)))
+            if ((meth.getParameterTypes().length == 1)
+                && (methodName = meth.getName()).indexOf("set") == 0
+                && (methodName.length() > 3)
+                && Character.isUpperCase(methodName.charAt(3)))
             {
 
-                String lAttributeName = Character.toLowerCase(lMethodName.charAt(3)) + lMethodName.substring(4);
+                String attributeName = Character.toLowerCase(methodName.charAt(3)) + methodName.substring(4);
 
                 try
                 {
                     // add setters only, hide getters
-                    lPdArray.add(new PropertyDescriptor(lAttributeName, null, lMeth));
+                    pdArray.add(new PropertyDescriptor(attributeName, null, meth));
                 }
                 catch (IntrospectionException ex)
                 {
@@ -91,19 +91,19 @@ public class BeanInfoUtil extends SimpleBeanInfo
             }
         }
 
-        PropertyDescriptor[] lPd = new PropertyDescriptor[lPdArray.size()];
+        PropertyDescriptor[] pd = new PropertyDescriptor[pdArray.size()];
 
-        Iterator lIterator = lPdArray.iterator();
+        Iterator iterator = pdArray.iterator();
 
-        int lPid = 0;
+        int pdCount = 0;
 
-        while (lIterator.hasNext())
+        while (iterator.hasNext())
         {
-            lPd[lPid] = (PropertyDescriptor) (lIterator.next());
-            lPid++;
+            pd[pdCount] = (PropertyDescriptor) (iterator.next());
+            pdCount++;
         }
 
-        return lPd;
+        return pd;
 
     }
 }

@@ -1,8 +1,8 @@
 package org.displaytag.sample;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 
+import org.apache.commons.lang.time.FastDateFormat;
 import org.displaytag.decorator.TableDecorator;
 
 /**
@@ -17,11 +17,12 @@ public class Wrapper extends TableDecorator
     /**
      * Field datefmt
      */
-    private SimpleDateFormat mDateFormat = null;
+    private FastDateFormat dateFormat = null;
+
     /**
      * Field moneyfmt
      */
-    private DecimalFormat mMoneyFormat = null;
+    private DecimalFormat moneyFormat = null;
 
     /**
      * Creates a new Wrapper decorator who's job is to reformat some of the
@@ -34,8 +35,8 @@ public class Wrapper extends TableDecorator
 
         // Formats for displaying dates and money.
 
-        this.mDateFormat = new SimpleDateFormat("MM/dd/yy");
-        this.mMoneyFormat = new DecimalFormat("$ #,###,###.00");
+        this.dateFormat = FastDateFormat.getInstance("MM/dd/yy");
+        this.moneyFormat = new DecimalFormat("$ #,###,###.00");
     }
 
     /**
@@ -54,7 +55,7 @@ public class Wrapper extends TableDecorator
 
     public String getDate()
     {
-        return this.mDateFormat.format(((ListObject) this.getCurrentRowObject()).getDate());
+        return this.dateFormat.format(((ListObject) this.getCurrentRowObject()).getDate());
     }
 
     /**
@@ -64,7 +65,7 @@ public class Wrapper extends TableDecorator
 
     public String getMoney()
     {
-        return this.mMoneyFormat.format(((ListObject) this.getCurrentRowObject()).getMoney());
+        return this.moneyFormat.format(((ListObject) this.getCurrentRowObject()).getMoney());
     }
 
     /**
@@ -74,10 +75,10 @@ public class Wrapper extends TableDecorator
      */
     public String getLink1()
     {
-        ListObject lObject = (ListObject) getCurrentRowObject();
-        int lIndex = getListIndex();
+        ListObject object = (ListObject) getCurrentRowObject();
+        int index = getListIndex();
 
-        return "<a href=\"details.jsp?index=" + lIndex + "\">" + lObject.getId() + "</a>";
+        return "<a href=\"details.jsp?index=" + index + "\">" + object.getId() + "</a>";
     }
 
     /**
@@ -87,17 +88,17 @@ public class Wrapper extends TableDecorator
      */
     public String getLink2()
     {
-        ListObject lObject = (ListObject) getCurrentRowObject();
-        int lId = lObject.getId();
+        ListObject object = (ListObject) getCurrentRowObject();
+        int id = object.getId();
 
         return "<a href=\"details.jsp?id="
-            + lId
+            + id
             + "&action=view\">View</a> | "
             + "<a href=\"details.jsp?id="
-            + lId
+            + id
             + "&action=edit\">Edit</a> | "
             + "<a href=\"details.jsp?id="
-            + lId
+            + id
             + "&action=delete\">Delete</a>";
     }
 }

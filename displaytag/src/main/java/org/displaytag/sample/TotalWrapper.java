@@ -15,12 +15,12 @@ public class TotalWrapper extends TableDecorator
     /**
      * Field cityTotal
      */
-    private double mCityTotal = 0;
+    private double cityTotal = 0;
 
     /**
      * Field grandTotal
      */
-    private double mGrandTotal = 0;
+    private double grandTotal = 0;
 
     /**
      * After every row completes we evaluate to see if we should be drawing a
@@ -29,50 +29,50 @@ public class TotalWrapper extends TableDecorator
      */
     public final String finishRow()
     {
-        int lListindex = ((List) getDecoratedObject()).indexOf(this.getCurrentRowObject());
-        ReportableListObject lReportableObject = (ReportableListObject) this.getCurrentRowObject();
-        String lNextCity = "";
+        int listindex = ((List) getDecoratedObject()).indexOf(this.getCurrentRowObject());
+        ReportableListObject reportableObject = (ReportableListObject) this.getCurrentRowObject();
+        String nextCity = "";
 
-        mCityTotal += lReportableObject.getAmount();
-        mGrandTotal += lReportableObject.getAmount();
+        cityTotal += reportableObject.getAmount();
+        grandTotal += reportableObject.getAmount();
 
-        if (lListindex == ((List) getDecoratedObject()).size() - 1)
+        if (listindex == ((List) getDecoratedObject()).size() - 1)
         {
-            lNextCity = "XXXXXX"; // Last row hack, it's only a demo folks...
+            nextCity = "XXXXXX"; // Last row hack, it's only a demo folks...
         }
         else
         {
-            lNextCity = ((ReportableListObject) ((List) getDecoratedObject()).get(lListindex + 1)).getCity();
+            nextCity = ((ReportableListObject) ((List) getDecoratedObject()).get(listindex + 1)).getCity();
         }
 
-        StringBuffer lBuffer = new StringBuffer(1000);
+        StringBuffer buffer = new StringBuffer(1000);
 
         // City subtotals...
-        if (!lNextCity.equals(lReportableObject.getCity()))
+        if (!nextCity.equals(reportableObject.getCity()))
         {
-            lBuffer.append("\n<tr>\n<td>&nbsp;</td><td>&nbsp;</td><td><hr noshade size=\"1\"></td>");
-            lBuffer.append("\n<td>&nbsp;</td></tr>");
+            buffer.append("\n<tr>\n<td>&nbsp;</td><td>&nbsp;</td><td><hr noshade size=\"1\"></td>");
+            buffer.append("\n<td>&nbsp;</td></tr>");
 
-            lBuffer.append("\n<tr><td>&nbsp;</td>");
-            lBuffer.append("\n<td align=\"right\"><b>" + lReportableObject.getCity() + " Total:</b></td>\n<td><b>");
-            lBuffer.append(mCityTotal);
-            lBuffer.append("</b></td>\n<td>&nbsp;</td>\n</tr>");
-            lBuffer.append("\n<tr>\n<td colspan=\"4\">&nbsp;\n</td>\n</tr>");
+            buffer.append("\n<tr><td>&nbsp;</td>");
+            buffer.append("\n<td align=\"right\"><b>" + reportableObject.getCity() + " Total:</b></td>\n<td><b>");
+            buffer.append(cityTotal);
+            buffer.append("</b></td>\n<td>&nbsp;</td>\n</tr>");
+            buffer.append("\n<tr>\n<td colspan=\"4\">&nbsp;\n</td>\n</tr>");
 
-            mCityTotal = 0;
+            cityTotal = 0;
         }
 
         // Grand totals...
         if (getViewIndex() == ((List) getDecoratedObject()).size() - 1)
         {
-            lBuffer.append("<tr><td colspan=\"4\"><hr noshade size=\"1\"></td></tr>");
-            lBuffer.append("<tr><td>&nbsp;</td>");
-            lBuffer.append("<td align=\"right\"><b>Grand Total:</b></td><td><b>");
-            lBuffer.append(mGrandTotal);
-            lBuffer.append("</b></td><td>&nbsp;</td></tr>");
+            buffer.append("<tr><td colspan=\"4\"><hr noshade size=\"1\"></td></tr>");
+            buffer.append("<tr><td>&nbsp;</td>");
+            buffer.append("<td align=\"right\"><b>Grand Total:</b></td><td><b>");
+            buffer.append(grandTotal);
+            buffer.append("</b></td><td>&nbsp;</td></tr>");
         }
 
-        return lBuffer.toString();
+        return buffer.toString();
     }
 
 }

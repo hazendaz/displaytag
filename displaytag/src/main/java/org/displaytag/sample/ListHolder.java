@@ -14,14 +14,14 @@ public class ListHolder extends Object
     /**
      * Field myList
      */
-    private List mList;
+    private List list;
 
     /**
      * Constructor for ListHolder
      */
     public ListHolder()
     {
-        mList = new TestList(15, false);
+        list = new TestList(15, false);
     }
 
     /**
@@ -30,6 +30,6 @@ public class ListHolder extends Object
      */
     public final List getList()
     {
-        return mList;
+        return list;
     }
 }

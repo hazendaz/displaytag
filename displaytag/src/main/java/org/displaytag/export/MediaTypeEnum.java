@@ -3,7 +3,7 @@ package org.displaytag.export;
 import java.util.Iterator;
 
 import org.apache.commons.collections.IteratorUtils;
-
+import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * Enumeration for media types.
  * @author fgiust
@@ -155,7 +155,7 @@ public final class MediaTypeEnum
     }
 
     /**
-     * there must be some way to configure CheckStyle so that it doesn't gack on this.
+     * Only a single instance of a specific MediaTypeEnum can be created, so we can check using ==
      * @param o the object to compare to
      * @return hashCode
      */
@@ -165,28 +165,16 @@ public final class MediaTypeEnum
         {
             return true;
         }
-        if (!(o instanceof MediaTypeEnum))
-        {
-            return false;
-        }
 
-        MediaTypeEnum exportTypeEnum = (MediaTypeEnum) o;
-
-        if (enumCode != exportTypeEnum.enumCode)
-        {
-            return false;
-        }
-
-        return true;
+        return false;
     }
 
     /**
-     * there must be some way to configure CheckStyle so that it doesn't gack on this.
-     * @return the hashCode
+     * @see java.lang.Object#hashCode()
      */
     public int hashCode()
     {
-        return enumCode;
+        return new HashCodeBuilder(1188997057, -1289297553).append(this.enumCode).toHashCode();
     }
 
 }
