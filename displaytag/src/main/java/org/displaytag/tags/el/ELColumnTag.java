@@ -3,7 +3,6 @@ package org.displaytag.tags.el;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.Tag;
@@ -302,9 +301,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
-     * Setter for the "href" attribute which prepends the context path.
-     * @param value href to be used for links
-     * @todo shoud not be here. No difference between the el and standard version, please
+     * @see org.displaytag.tags.ColumnTag#setUrl(java.lang.String)
      */
     public void setUrl(String value)
     {
@@ -425,6 +422,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         }
         if (paramNameExpr != null)
         {
+            // todo should be handled the same way the "name" table attribute is handled, no double evaluation
             super.setParamName(eval.evalString("paramName", paramNameExpr));
         }
         if (paramPropertyExpr != null)
@@ -445,8 +443,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         }
         if (urlExpr != null)
         {
-            HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
-            super.setHref(req.getContextPath() + eval.evalString("url", urlExpr));
+            super.setUrl(eval.evalString("url", urlExpr));
         }
         if (propertyExpr != null)
         {

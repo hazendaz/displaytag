@@ -3,6 +3,7 @@ package org.displaytag.tags;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -238,6 +239,17 @@ public class ColumnTag extends BodyTagSupport
         String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
             .defaultString(value));
         this.href = new Href(encodedHref);
+    }
+
+    /**
+     * setter for the "url" tag attribute. This has the same meaning of href, but prepends the context path to the given
+     * URI.
+     * @param value attribute value
+     */
+    public void setUrl(String value)
+    {
+        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+        setHref(req.getContextPath() + value);
     }
 
     /**
