@@ -235,7 +235,6 @@
     <report>maven-jdepend-plugin</report>
     <report>maven-checkstyle-plugin</report>
     <report>maven-pmd-plugin</report>
-    <report>maven-junit-report-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-junit-report-plugin</report>
     <report>maven-cactus-plugin</report>
