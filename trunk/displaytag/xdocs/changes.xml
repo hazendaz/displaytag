@@ -19,6 +19,16 @@
 	    All the css classes in the table tag are now customizable. You can change the original <code>even, odd, sorted, order1, order2</code> classes
 	    and also configure a css class to be added to any table or to any sortable column.
 	    See <a href="configuration.html#Exporting">Reference>Configuration</a> for the full list of configurable properties.
+	    (feature requests
+	    <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536616&amp;aid=851250">[851250]</a>
+	    and
+	    <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536616&amp;aid=858189">[858189]</a>
+	    )
+      </action>
+      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+	    Added the "defaultsort" attribute to change the sorting order for the default sorted column (feature request
+	    <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536616&amp;aid=867217">[867217]</a>
+	    )
       </action>
     </release>
 
