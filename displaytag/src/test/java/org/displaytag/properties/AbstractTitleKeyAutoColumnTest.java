@@ -37,6 +37,12 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
     }
 
     /**
+     * Returns the suffix expected in the specific resource bundle.
+     * @return expected suffix
+     */
+    protected abstract String getExpectedSuffix();
+
+    /**
      * Returns the LocaleResolver instance to be used in this test.
      * @return LocaleResolver
      */
@@ -92,7 +98,8 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
         }
 
         // resource should be used also without the property attribute for the "camel" header
-        assertEquals("Header from resource is not valid.", "camel title", tables[0].getCellAsText(0, j));
+        assertEquals("Header from resource is not valid.", "camel title" + getExpectedSuffix(), tables[0]
+            .getCellAsText(0, j));
 
     }
 }

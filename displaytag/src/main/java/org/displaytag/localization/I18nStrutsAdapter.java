@@ -24,6 +24,11 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
 {
 
     /**
+     * prefix/suffix for missing entries.
+     */
+    public static final String UNDEFINED_KEY = "???"; //$NON-NLS-1$
+
+    /**
      * logger.
      */
     private static Log log = LogFactory.getLog(I18nStrutsAdapter.class);
@@ -53,6 +58,12 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
         catch (JspException e)
         {
             log.debug("Error during lookup for title key [" + key + "]");
+        }
+
+        // if user explicitely added a titleKey we guess this is an error
+        if (title == null && resourceKey != null)
+        {
+            title = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;
         }
 
         return title;
