@@ -9,13 +9,21 @@
     </appender>
     -->
     
-    <appender name="test-appender" class="org.apache.log4j.FileAppender">
-		<param name="File" value="cactus.log" />
-		<param name="Append" value="false" />
+    <!--
+    <appender name="test-appender" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p %d{dd-MM-yy HH:mm:ss}\t%c{1}(%M: %L)\t%m\n" />
+			<param name="ConversionPattern" value="%-5p %C{1}(%M:%L) - %m\n" />
 		</layout>
-	</appender>
+    </appender>
+		-->
+    
+    <appender name="test-appender" class="org.apache.log4j.FileAppender">
+      <param name="File" value="cactus.log" />
+      <param name="Append" value="false" />
+      <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%-5p %d{dd-MM-yy HH:mm:ss}\t%c{1}(%M: %L)\t%m\n" />
+      </layout>
+    </appender>
     
     
 	<category name="org.displaytag">
@@ -23,7 +31,7 @@
     </category>
     
     <root>
-        <priority value="error" />
+        <priority value="debug" />
     	<appender-ref ref="test-appender" />
     </root>
      
