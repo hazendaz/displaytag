@@ -53,11 +53,10 @@ public class RowSorter implements Comparator
     }
 
     /**
-     * Compares two objects by first fetching a property from each object and then comparing that value.  If there are
+     * Compares two objects by first fetching a property from each object and then comparing that value. If there are
      * any errors produced while trying to compare these objects then a RunTimeException will be thrown as any error
      * found here will most likely be a programming error that needs to be quickly addressed (like trying to compare
      * objects that are not comparable, or trying to read a property from a bean that is invalid, etc...)
-     *
      * @param object1 Object
      * @param object2 Object
      * @return int
@@ -104,12 +103,12 @@ public class RowSorter implements Comparator
                 if (this.decorator != null && this.decorator.hasGetterFor(this.property))
                 {
                     // set the row before sending to the decorator
-                     this.decorator.initRow(obj1, 0, 0);
+                    this.decorator.initRow(obj1, 0, 0);
 
                     result1 = LookupUtil.getBeanProperty(this.decorator, this.property);
 
                     // set the row before sending to the decorator
-                     this.decorator.initRow(obj2, 0, 0);
+                    this.decorator.initRow(obj2, 0, 0);
 
                     result2 = LookupUtil.getBeanProperty(this.decorator, this.property);
                 }
@@ -129,38 +128,45 @@ public class RowSorter implements Comparator
     }
 
     /**
-     * <p>compare two given objects according to the pAscending flag</p>
-     * <p>Null values and not comparable objects are handled. Not comparable objects are compared using their string
-     * representation</p>
+     * <p>
+     * compare two given objects according to the pAscending flag
+     * </p>
+     * <p>
+     * Null values and not comparable objects are handled. Not comparable objects are compared using their string
+     * representation
+     * </p>
      * @param object1 first object to compare
      * @param object2 second object to compare
      * @return int result
      */
     private int checkNullsAndCompare(Object object1, Object object2)
     {
-        int ascendingInt = this.ascending ? 1 : -1;
+        int returnValue = 0;
 
         if (object1 instanceof Comparable && object2 instanceof Comparable)
         {
-            return ascendingInt * ((Comparable) object1).compareTo(object2);
+            returnValue = ((Comparable) object1).compareTo(object2);
         }
         else if (object1 == null && object2 == null)
         {
-            return 0;
+            returnValue = 0;
         }
         else if (object1 == null && object2 != null)
         {
-            return 1;
+            returnValue = 1;
         }
         else if (object1 != null && object2 == null)
         {
-            return -1;
+            returnValue = -1;
         }
         else
         {
             // if object are not null and don't implement comparable, compare using string values
-            return object1.toString().compareTo(object2.toString());
+            returnValue = object1.toString().compareTo(object2.toString());
         }
+
+        int ascendingInt = this.ascending ? 1 : -1;
+        return ascendingInt * returnValue;
     }
 
     /**
