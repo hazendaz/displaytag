@@ -10,7 +10,7 @@ import org.apache.commons.collections.IteratorUtils;
 /**
  * Utility methods for collection handling.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public final class CollectionUtil
 {
@@ -55,7 +55,6 @@ public final class CollectionUtil
             {
                 break;
             }
-
         }
 
         return croppedList;
@@ -73,8 +72,26 @@ public final class CollectionUtil
      */
     public static List getListFromObject(Object iterableObject, int startIndex, int numberOfItems)
     {
+        if (iterableObject instanceof List)
+        {
+            // easier, use sublist
+            List list = ((List) iterableObject);
+
+            // check for partial lists
+            int lastRecordExclusive = numberOfItems <= 0 ? list.size() : startIndex + numberOfItems;
+            if (lastRecordExclusive > list.size())
+            {
+                lastRecordExclusive = list.size();
+            }
+
+            if (startIndex < list.size())
+            {
+                return list.subList(startIndex, lastRecordExclusive);
+            }
+        }
+
+        // use an iterator
         Iterator iterator = IteratorUtils.getIterator(iterableObject);
         return getSubList(iterator, startIndex, numberOfItems);
     }
-
 }

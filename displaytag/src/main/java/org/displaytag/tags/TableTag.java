@@ -1183,7 +1183,7 @@ public class TableTag extends HtmlTableTag
         // SmartListHelper to figure out what page they are after, etc...
         if (this.pagesize > 0)
         {
-            this.listHelper = new SmartListHelper(fullList, this.pagesize, this.properties);
+            this.listHelper = new SmartListHelper(fullList, fullList.size(), this.pagesize, this.properties);
             this.listHelper.setCurrentPage(this.pageNumber);
             pageOffset = this.listHelper.getFirstIndexForCurrentPage();
             fullList = this.listHelper.getListForCurrentPage();
