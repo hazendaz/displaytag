@@ -321,7 +321,7 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
         <description> The name of the request parameter that will be dynamically added to the generated href URL.
- The corresponding value is defined by the paramProperty and (optional) paramName attributes,
+ The corresponding value is defined by the perty and (optional) paramName attributes,
  optionally scoped by the paramScope attribute.
         </description>
     </attribute>
@@ -340,11 +340,12 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <name>paramProperty</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <description>@deprecated - use Expressions in paramName.
-      The name of a property of the bean specified by the paramName attribute (or the current object
-      being iterated on if paramName is not provided), whose return value must be a String containing
-      the value of the request parameter (named by the paramId attribute) that will be dynamically
-      added to this href URL.
+        <description>
+		  The name of a property of the current object being iterated on, whose return value will be used as
+		  the value of the parameter (named by the paramId attribute) that will be dynamically added to this href URL.
+		  If paramName is also specified the property will not be fetched from the object being iterated on,
+		  but from the bean specified by paramName. This is a deprecated usage: use paramProperty only if you need a property
+		  in the iterated object, elsewhere use only paramName (you can select a property using an expression name.property).
         </description>
     </attribute>
     <attribute>
