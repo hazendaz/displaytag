@@ -12,8 +12,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.tags.TableTag;
+
 
 /**
  * Allow the author of an included JSP page to reset the content type to something else (like a binary stream), and
@@ -24,25 +27,23 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  * <p>
  * This filter allows TableTag users to perform exports from pages that are run as includes, such as from Struts or a
- * jsp:include. If that is your intention, just add this Filter to your web.xml and map it to the appropriate requests,
- * using something like:
+ * jsp:include. If that is your intention, just add this Filter to your web.xml and map it to the appropriate
+ * requests, using something like:
  * </p>
  * 
  * <pre>
- * &lt;filter>
- *     &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
- *     &lt;filter-class>org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class>
- * &lt;/filter>
- * 
- * &lt;filter-mapping>
- *     &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
- *     &lt;url-pattern>*.do&lt;/url-pattern>
- * &lt;/filter-mapping>
- * 
- * &lt;filter-mapping>
- *     &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
- *     &lt;url-pattern>*.jsp&lt;/url-pattern>
- * &lt;/filter-mapping>
+ *  &lt;filter&gt;
+ *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+ *      &lt;filter-class&gt;org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class&gt;
+ *  &lt;/filter&gt;
+ *  &lt;filter-mapping&gt;
+ *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+ *      &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+ *  &lt;/filter-mapping&gt;
+ *  &lt;filter-mapping&gt;
+ *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+ *      &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
+ *  &lt;/filter-mapping&gt;
  * </pre>
  * 
  * @author rapruitt
@@ -51,24 +52,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ResponseOverrideFilter implements Filter
 {
-    /**
-     * If this buffer has been appended to at all, the contents of the buffer will be served as the sole output of the
-     * request. Request variable.
-     */
-    public static final String CONTENT_OVERRIDE_BODY =
-        ResponseOverrideFilter.class.getName() + ".CONTENT_OVERRIDE_BODY";
-
-    /**
-     * If the request content is overriden, you must also set the content type appropriately. Request variable.
-     */
-    public static final String CONTENT_OVERRIDE_TYPE =
-        ResponseOverrideFilter.class.getName() + ".CONTENT_OVERRIDE_TYPE";
 
     /**
      * Logger.
      */
     private Log log;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -86,22 +75,33 @@ public class ResponseOverrideFilter implements Filter
         HttpServletRequest request = (HttpServletRequest) srequest;
 
         BufferedResponseWrapper wrapper = new BufferedResponseWrapper((HttpServletResponse) servletResponse);
-        // In a portlet environment, you do not have direct access to the actual request object, so any attributes that
-        // are added will not be visible outside of your portlet. So instead, users MUST append to the StringBuffer, so
+        // In a portlet environment, you do not have direct access to the actual request object, so any attributes
+        // that
+        // are added will not be visible outside of your portlet. So instead, users MUST append to the StringBuffer,
+        // so
         // that the portlets do not have to bind a new attribute to the request.
-        request.setAttribute(CONTENT_OVERRIDE_BODY, new StringBuffer(8096));
-        request.setAttribute(CONTENT_OVERRIDE_TYPE, new StringBuffer(80));
+        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, new StringBuffer(8096));
+        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_TYPE, new StringBuffer(80));
+        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_FILENAME, new StringBuffer(80));
 
         filterChain.doFilter(request, wrapper);
 
         String pageContent;
         String contentType;
-        StringBuffer buf = (StringBuffer) request.getAttribute(CONTENT_OVERRIDE_BODY);
+        StringBuffer buf = (StringBuffer) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);
         if (buf != null && buf.length() > 0)
         {
             pageContent = buf.toString();
-            contentType = "" + request.getAttribute(CONTENT_OVERRIDE_TYPE);
+            contentType = "" + request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_TYPE);
             log.debug("Overriding output, writing new output with content type " + contentType);
+
+            String filename = (String) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_FILENAME);
+            if (StringUtils.isNotEmpty(filename))
+            {
+                log.debug("Filename specified as " + filename);
+                HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
+                httpResponse.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+            }
         }
         else
         {
@@ -109,8 +109,12 @@ public class ResponseOverrideFilter implements Filter
             pageContent = wrapper.toString();
             contentType = wrapper.getContentType();
         }
+
+
         servletResponse.setContentType(contentType);
         servletResponse.setContentLength(pageContent.length());
+
+
         PrintWriter out = servletResponse.getWriter();
         out.write(pageContent);
         out.close();
