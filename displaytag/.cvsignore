@@ -1,0 +1,10 @@
+target
+velocity.log*
+maven.log*
+logs
+cache
+*.jpx
+*.jpx*
+*.library
+*.scc
+.*
