@@ -2,10 +2,14 @@
 <!--
  This stylesheet converts 1.2 TLD's to the 1.1 format.
  -->
-<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform' xmlns:tld='http://java.sun.com/JSP/TagLibraryDescriptor' xmlns:tld11='http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd'>
+<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'
+	xmlns:tld='http://java.sun.com/JSP/TagLibraryDescriptor'
+	xmlns:tld11='http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd'
+	exclude-result-prefixes="tld"
+	>
     <xsl:output method="xml" indent="yes"
         doctype-public="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
-        doctype-system="http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd"
+	    doctype-system="http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd"
         />
 
     <xsl:template match="//tld:taglib">
