@@ -17,8 +17,6 @@ import java.beans.SimpleBeanInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.displaytag.tags.ColumnTag;
-
 
 /**
  * BeanInfo descriptor for the <code>ELColumnTag</code> class. Unevaluated EL expression has to be kept separately
@@ -74,7 +72,7 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("style", //$NON-NLS-1$
                 ELColumnTag.class, null, "setStyle")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("total", //$NON-NLS-1$
-                ColumnTag.class, null, "setTotal")); // map //$NON-NLS-1$
+                ELColumnTag.class, null, "setTotal")); // map //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("title", //$NON-NLS-1$
                 ELColumnTag.class, null, "setTitle")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("titleKey", //$NON-NLS-1$
@@ -83,6 +81,8 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
                 ELColumnTag.class, null, "setUrl")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("sortProperty", //$NON-NLS-1$
                 ELColumnTag.class, null, "setSortProperty")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("comparator", //$NON-NLS-1$
+                ELColumnTag.class, null, "setComparator")); //$NON-NLS-1$
 
             // deprecated attribute
             proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$
@@ -92,9 +92,9 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("headerStyleClass", //$NON-NLS-1$
                 ELColumnTag.class, null, "setHeaderClass")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("width", //$NON-NLS-1$
-                ColumnTag.class, null, "setWidth")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setWidth")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("align", //$NON-NLS-1$
-                ColumnTag.class, null, "setAlign")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setAlign")); //$NON-NLS-1$
 
         }
         catch (IntrospectionException ex)

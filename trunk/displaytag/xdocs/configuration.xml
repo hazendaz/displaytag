@@ -292,7 +292,7 @@
                             <td>yes/yes</td>
                         </tr>
                         <tr>
-                            <td>paging.banner. page.link</td>
+                            <td>paging.banner.page.link</td>
                             <td class="source">&lt;a href="{1}" title="Go to page {0}"&gt;{0}&lt;/a&gt;</td>
                             <td/>
                             <td>link to a page. {0} is replaced with the page number, {1} with the page url.</td>
@@ -314,6 +314,17 @@
                                 links with a different format (for example in portal applications).
                             </td>
                             <td>yes/no</td>
+                        </tr>
+                        <tr>
+                            <td>property_convertor_classname</td>
+                            <td class="source">org.displaytag.conversion.DefaultPropertyConvertor</td>
+                            <td>Class name for a valid org.apache.commons.beanutils.Converter implementation</td>
+                            <td>
+                                Used to convert property values from Object to Number.  You must handle conversion to
+	                            Number.  Override with blank to use the default implementation from BeanUtils.  Used in
+	                            totals, etc.
+                            </td>
+                            <td>yes/yes</td>
                         </tr>
                     </tbody>
                 </table>

@@ -13,6 +13,8 @@ package org.displaytag.tags;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Comparator;
+import java.text.Collator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.model.Cell;
 import org.displaytag.model.HeaderCell;
+import org.displaytag.model.DefaultComparator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
@@ -97,6 +100,11 @@ public class ColumnTag extends BodyTagSupport
      * is the column sortable?
      */
     private boolean sortable;
+
+    /**
+     * The comparator to use when sorting this column.
+     */
+    private Comparator comparator = new DefaultComparator();
 
     /**
      * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
@@ -223,6 +231,51 @@ public class ColumnTag extends BodyTagSupport
     public void setProperty(String value)
     {
         this.property = value;
+    }
+
+    /**
+     * Set the comparator, classname or object.
+     * @param comparatorObj       the comparator, classname or object
+     */
+    public void setComparator(Object comparatorObj)
+    {
+        if (comparatorObj instanceof Comparator)
+        {
+            this.comparator = (Comparator) comparatorObj;
+        }
+        else if (comparatorObj instanceof String)
+        {
+            String comparatorClassname = (String) comparatorObj;
+            Class compClass;
+            try
+            {
+                compClass = Thread.currentThread().getContextClassLoader().loadClass(comparatorClassname);
+            }
+            catch (ClassNotFoundException e)
+            {
+                throw new RuntimeException("InstantiationException setting column comparator as "
+                         + comparatorClassname + ": " + e.getMessage(), e);
+            }
+            try
+            {
+                this.comparator = (Comparator) compClass.newInstance();
+            }
+            catch (InstantiationException e)
+            {
+                throw new RuntimeException("InstantiationException setting column comparator as "
+                         + comparatorClassname + ": " + e.getMessage(), e);
+            }
+            catch (IllegalAccessException e)
+            {
+                throw new RuntimeException("IllegalAccessException setting column comparator as "
+                         + comparatorClassname + ": " + e.getMessage(), e);
+            }
+        }
+        else
+        {
+            throw new IllegalArgumentException("Value for comparator: " + comparatorObj
+                     + " of type " + comparatorObj.getClass().getName());
+        }
     }
 
     /**
@@ -601,8 +654,9 @@ public class ColumnTag extends BodyTagSupport
         headerCell.setAutoLink(this.autolink);
         headerCell.setGroup(this.group);
         headerCell.setSortProperty(this.sortProperty);
-        headerCell.setPropertyConvertor(PropertyConvertorFactory.create(tableTag.getProperties()));
+        headerCell.setPropertyConvertor(PropertyConvertorFactory.createNumberConverter(tableTag.getProperties()));
         headerCell.setTotaled(this.totaled);
+        headerCell.setComparator(this.comparator);
 
         // href and parameter, create link
         if (this.href != null)
@@ -730,6 +784,13 @@ public class ColumnTag extends BodyTagSupport
         {
             return SKIP_BODY;
         }
+
+        if (comparator instanceof DefaultComparator)
+        {
+            DefaultComparator def = (DefaultComparator) comparator;
+            def.setCollator(Collator.getInstance(tableTag.getProperties().getLocale()));
+        }
+
 
         return super.doStartTag();
     }

@@ -3,18 +3,26 @@ package org.displaytag.conversion;
 import org.displaytag.properties.TableProperties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.beanutils.ConvertUtilsBean;
+import org.apache.commons.beanutils.Converter;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.Map;
 import java.util.HashMap;
 
 
 /**
- * Creates a PropertyConvertor. Previously created instances are cached.
+ * Creates a Convertor. Previously created instances are cached.
  * @author rapruitt
  * @version $Revision$ ($Author$)
  */
 public final class PropertyConvertorFactory
 {
+
+    /**
+     *  The convert utils bean, with standard converters registered.
+     */
+    private static ConvertUtilsBean defaultConvertorSource = new ConvertUtilsBean();
 
     /**
      * logger.
@@ -34,14 +42,19 @@ public final class PropertyConvertorFactory
     }
 
     /**
-     * Get a PropertyConvertor instance; use the indicated properties to choose the implementation.
+     * Get a Converter instance; use the indicated properties to choose the implementation.
      * @param properties the properties to use for configuration
-     * @return a PropertyConvertor
+     * @return a Converter
      */
-    public static PropertyConvertor create(TableProperties properties)
+    public static Converter createNumberConverter(TableProperties properties)
     {
-        String convClassName = properties.getPropertyConvertorClass();
-        PropertyConvertor propConv = (PropertyConvertor) instantiatedConvertors.get(convClassName);
+        String specializedConvClassName = properties.getPropertyConvertorClass();
+        if (StringUtils.isBlank(specializedConvClassName))
+        {
+            return defaultConvertorSource.lookup(Number.class);
+        }
+        Converter propConv = (Converter) instantiatedConvertors.get(specializedConvClassName);
+
         if (propConv != null)
         {
             return propConv;
@@ -49,15 +62,15 @@ public final class PropertyConvertorFactory
         Class convClass = DefaultPropertyConvertor.class;
         try
         {
-            convClass = Class.forName(convClassName);
+            convClass = Class.forName(specializedConvClassName);
         }
         catch (ClassNotFoundException e)
         {
-            log.error("Error: Cannot find convertor class " + convClassName);
+            log.error("Error: Cannot find convertor class " + specializedConvClassName);
         }
         try
         {
-            propConv = (PropertyConvertor) convClass.newInstance();
+            propConv = (Converter) convClass.newInstance();
         }
         catch (InstantiationException e)
         {
@@ -71,7 +84,7 @@ public final class PropertyConvertorFactory
         {
             propConv = new DefaultPropertyConvertor();
         }
-        instantiatedConvertors.put(convClassName, propConv);
+        instantiatedConvertors.put(specializedConvClassName, propConv);
         return propConv;
     }
 }

@@ -9,6 +9,16 @@
     </properties>
     <body>
         <release version="1.1-b1" description="Initial work following the 1.0 release">
+	        <action type="fix" dev="rapruitt" issue="DISPL-77">
+		        The default comparator now uses	a Collator instead of #compareTo; if more advanced functionality is
+                needed, you can specify your own Comparator (see in DISPL-18).  Code based on several patches and
+                comments in Jira, thanks to all who participated.
+	        </action>
+	        <action type="add" dev="rapruitt" issue="DISPL-18">
+				Added support for column level comparators.  The comparator attribute may be either a fully qualified
+		        classname, or it can be an actual comparator object. Code based on several patches and comments in Jira,
+                thanks to all who participated.
+	        </action>
 	        <action type="fix" dev="rapruitt" issue="DISPL-164" >
 		        Footer tag will now execute its body only on the last iteration of the table, instead of on the first.
 	        </action>

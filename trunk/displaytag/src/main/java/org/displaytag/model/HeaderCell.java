@@ -13,6 +13,7 @@ package org.displaytag.model;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.beanutils.Converter;
 import org.displaytag.decorator.ColumnDecorator;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
@@ -20,9 +21,10 @@ import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
-import org.displaytag.conversion.PropertyConvertor;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.DecoratorException;
+
+import java.util.Comparator;
 
 
 /**
@@ -132,7 +134,12 @@ public class HeaderCell
     /**
      * Convertor to use.
      */
-    private PropertyConvertor propertyConvertor;
+    private Converter propertyConvertor;
+
+    /**
+     * Use this comparator for sorting.
+     */
+    private Comparator comparator;
 
     /**
      * getter for the grouping index.
@@ -531,9 +538,27 @@ public class HeaderCell
      * Set the property convertor.
      * @param propConv the value
      */
-    public void setPropertyConvertor(PropertyConvertor propConv)
+    public void setPropertyConvertor(Converter propConv)
     {
         this.propertyConvertor = propConv;
+    }
+
+    /**
+     * Set the column comparator.
+     * @param columnComparator    the value
+     */
+    public void setComparator(Comparator columnComparator)
+    {
+        this.comparator = columnComparator;
+    }
+
+    /**
+     * Get the comparator for sorting this column.
+     * @return the comparator
+     */
+    public Comparator getComparator()
+    {
+        return this.comparator;
     }
 
 
@@ -557,13 +582,13 @@ public class HeaderCell
 
     /**
      * Add the value of this parameter to the column total. The param will be converted to a number
-     * via a PropertyConvertor.
+     * via a property Converter.
      * @param value  the value
-     * @see PropertyConvertor#asNumber(Object)
+     * @see Converter#convert(Class, Object)
      */
     private void addToTotal(Object value)
     {
-        double paramValue = this.propertyConvertor.asNumber(value).doubleValue();
+        double paramValue = ((Number) this.propertyConvertor.convert(Number.class, value)).doubleValue();
         this.total = this.total + paramValue;
     }
 

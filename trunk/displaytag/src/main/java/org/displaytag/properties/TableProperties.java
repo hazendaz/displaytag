@@ -972,7 +972,7 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Returns the class name for the PropertyConvertor.
+     * Returns the class name for the Converter.
      * @return the fq class name
      */
     public String getPropertyConvertorClass()
