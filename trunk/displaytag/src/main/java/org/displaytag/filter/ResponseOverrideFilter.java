@@ -56,13 +56,13 @@ public class ResponseOverrideFilter implements Filter
      * request. Request variable.
      */
     public static final String CONTENT_OVERRIDE_BODY =
-        ResponseOverrideFilter.class.getName() + "CONTENT_OVERRIDE_BODY";
+        ResponseOverrideFilter.class.getName() + ".CONTENT_OVERRIDE_BODY";
 
     /**
      * If the request content is overriden, you must also set the content type appropriately. Request variable.
      */
     public static final String CONTENT_OVERRIDE_TYPE =
-        ResponseOverrideFilter.class.getName() + "CONTENT_OVERRIDE_TYPE";
+        ResponseOverrideFilter.class.getName() + ".CONTENT_OVERRIDE_TYPE";
 
     /**
      * Logger.

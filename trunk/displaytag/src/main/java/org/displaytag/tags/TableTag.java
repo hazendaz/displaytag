@@ -28,6 +28,7 @@ import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.export.BaseExportView;
 import org.displaytag.export.ExportViewFactory;
+import org.displaytag.filter.ResponseOverrideFilter;
 import org.displaytag.model.Cell;
 import org.displaytag.model.Column;
 import org.displaytag.model.ColumnIterator;
@@ -1006,13 +1007,12 @@ public class TableTag extends HtmlTableTag
 
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
         StringBuffer bodyBuffer =
-            (StringBuffer) request.getAttribute("org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY");
+            (StringBuffer) request.getAttribute(ResponseOverrideFilter.CONTENT_OVERRIDE_BODY);
         if (bodyBuffer != null)
         {
             // We are running under the export filter
             StringBuffer contentTypeOverride =
-                (StringBuffer) request.getAttribute(
-                    "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE");
+                (StringBuffer) request.getAttribute(ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE);
             contentTypeOverride.append(mimeType);
             bodyBuffer.append(exportString);
         }
