@@ -12,7 +12,7 @@ import org.displaytag.util.TagConstants;
 
 /**
  * Simple caption tag which mimics a standard html caption.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class CaptionTag extends BodyTagSupport
@@ -147,9 +147,9 @@ public class CaptionTag extends BodyTagSupport
     {
         if (this.firstIteration)
         {
-            Tag tableTag = getParent();
+            TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
-            if (tableTag == null || !(tableTag instanceof TableTag))
+            if (tableTag == null)
             {
                 throw new TagStructureException(getClass(), "caption", "table");
             }
@@ -164,7 +164,7 @@ public class CaptionTag extends BodyTagSupport
 
             buffer.append(getCloseTag());
 
-            ((TableTag) tableTag).setCaption(buffer.toString());
+            tableTag.setCaption(buffer.toString());
 
             this.firstIteration = false;
 
@@ -178,6 +178,7 @@ public class CaptionTag extends BodyTagSupport
      */
     public void release()
     {
+        super.release();
         this.attributeMap.clear();
     }
 
