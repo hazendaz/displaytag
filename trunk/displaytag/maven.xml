@@ -10,7 +10,7 @@
             ${goal} <attainGoal name="${goal}" /> </j:forEach>
     </goal>
     <!-- set up tlds before test -->
-    <preGoal name="test:test">
+    <preGoal name="jar:jar">
         <!-- generated tld should be ready before tests -->
         <!-- create 1.1 dtd -->
         <attainGoal name="taglib:convert" />
