@@ -26,9 +26,8 @@ import org.xml.sax.InputSource;
 
 
 /**
- * Reads tlds and check tag classes for declared attributes.
- * This simple reports missing/invalid setters in tag classes.
- * @todo will be moved in the maven-taglib plugin. This is a snippet from uncommited code for the plugin.
+ * Reads tlds and check tag classes for declared attributes. This simple reports missing/invalid setters in tag classes.
+ * Basic tests only, other tests are performed by the maven-taglib plugin.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
@@ -122,7 +121,6 @@ public class TldTest extends TestCase
                 continue;
             }
 
-
             if (!PropertyUtils.isWriteable(tagObject, attribute.getAttributeName()))
             {
                 errors.add("Setter for attribute [" + attribute.getAttributeName() + "] not found in " + className);
@@ -135,7 +133,6 @@ public class TldTest extends TestCase
             if (tldType != null)
             {
                 Class tldTypeClass = getClassFromName(tldType);
-
 
                 if (!propertyType.isAssignableFrom(tldTypeClass))
                 {
@@ -250,16 +247,14 @@ public class TldTest extends TestCase
             {
                 Node tagAttribute = tagAttributes.item(k);
 
-                //@todo handle 1.1 tlds
+                // only handle 1.0 tlds
                 if ("tag-class".equals(tagAttribute.getNodeName()))
                 {
-                    tagclass = tagAttribute.getChildNodes().item(0).getNodeValue(); //@todo NPE
+                    tagclass = tagAttribute.getChildNodes().item(0).getNodeValue();
                     break;
                 }
 
-
             }
-
 
             tagAttributes = tag.getChildNodes();
             for (int k = 0; k < tagAttributes.getLength(); k++)
