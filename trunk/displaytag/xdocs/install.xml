@@ -81,7 +81,7 @@
         
 				<li>
 					define the tag extension in each JSP page that uses the display taglib. The uri directives must
-					match what you defined in the web.xml file above. The prefix indentifies the tags in the tag
+					match what you defined in the web.xml file above. The prefix identifies the tags in the tag
 					library within the JSP page.
 
 				<source>
