@@ -58,9 +58,16 @@
       column JSP body should not execute if the list is empty
       </action>
       <action type="add" dev="rapruitt" due-to="Andy Pruitt">
-      Added filter to allow exports from inside of an included JSP page.  See the install docs and javadocs for more
+      Added filter (only for j2ee 1.3 containers) to allow exports from inside of an included JSP page.  See the install docs and javadocs for more
       information.
       Fixes <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=820763 ">[820763]</a>.
+      </action>
+      <action type="update"  dev="fgiust" due-to="Fabrizio Giustina">
+          Exported data is now properly escaped for the output format
+      </action>
+      <action type="add"  dev="fgiust" due-to="Fabrizio Giustina">
+          When exporting, the table tag will set an "export" parameter in the page scope containing a ExportTypeEnum object (see javadocs).
+          This can be used in column content to generate output based on export type.
       </action>
     </release>
 
