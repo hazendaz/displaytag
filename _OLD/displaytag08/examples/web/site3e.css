@@ -1,0 +1,55 @@
+
+
+h1 {color: #000000; font-size: 18px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 15px;}
+
+h2 {color: #000000; font-size: 16px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 12px;}
+
+h3 {color: #000000; font-size: 14px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 10px;}
+
+.banner {color: #000000; font-size: 18px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 0px;}
+
+
+
+tr.tableRowHeader {
+  font-family: courier;
+  font-size: x-small;
+  font-weight: bold;
+  background-color: #909090;
+}
+td.tableCellHeader {
+  font-family: courier;
+  font-size: x-small;
+  font-weight: bold;
+  color: white;
+}
+a.tableCellHeader {
+  font-family: courier;
+  font-size: x-small;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+a.tableCellHeader:hover {
+  font-family: courier;
+  font-size: x-small;
+  font-weight: bold;
+  text-decoration: underline;
+  color: black;
+}
+tr.tableRowOdd {
+  font-family: courier;
+  font-size: x-small;
+
+  background-color: #ffffff
+}
+tr.tableRowEven {
+  font-family: courier;
+  font-size: x-small;
+
+  background-color: #00f000
+}
+td.tableCell {
+  font-family: courier;
+  font-size: x-small;
+}
+
