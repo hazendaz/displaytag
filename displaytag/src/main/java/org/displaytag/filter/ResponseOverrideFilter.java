@@ -27,10 +27,10 @@ import org.displaytag.tags.TableTag;
  * </p>
  * <p>
  * This filter allows TableTag users to perform exports from pages that are run as includes, such as from Struts or a
- * jsp:include. If that is your intention, just add this Filter to your web.xml and map it to the appropriate
- * requests, using something like:
+ * jsp:include. If that is your intention, just add this Filter to your web.xml and map it to the appropriate requests,
+ * using something like:
  * </p>
- * 
+ *
  * <pre>
  *  &lt;filter&gt;
  *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
@@ -45,7 +45,7 @@ import org.displaytag.tags.TableTag;
  *      &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
  *  &lt;/filter-mapping&gt;
  * </pre>
- * 
+ *
  * @author rapruitt
  * @version $Revision$ ($Author$)
  * @since 1.0

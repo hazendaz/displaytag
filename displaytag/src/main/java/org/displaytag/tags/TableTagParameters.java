@@ -52,7 +52,7 @@ public final class TableTagParameters
      * css class added to empty tables.
      */
     public static final String CSS_EMPTYLIST = "empty";
-    
+
     /**
      * utility class - don't instantiate.
      */

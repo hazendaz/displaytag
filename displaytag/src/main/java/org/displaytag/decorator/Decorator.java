@@ -8,6 +8,7 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
+
 /**
  * <p>
  * This class provides some basic functionality for all objects which serve as decorators for the objects in the List
@@ -31,7 +32,7 @@ abstract class Decorator
      * page context.
      */
     private PageContext pageContext;
-    
+
     /**
      * decorated object. Usually a List
      */

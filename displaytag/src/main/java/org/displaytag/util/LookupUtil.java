@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.ObjectLookupException;
 
+
 /**
  * Utility class with methods for object and properties retrieving.
  * @author fgiust
@@ -36,10 +37,10 @@ public final class LookupUtil
      * @param beanAndPropertyName String expression with bean name and attributes
      * @param scope One of the following values:
      * <ul>
-     *   <li>PageContext.PAGE_SCOPE</li>
-     *   <li>PageContext.REQUEST_SCOPE</li>
-     *   <li>PageContext.SESSION_SCOPE</li>
-     *   <li>PageContext.APPLICATION_SCOPE</li>
+     * <li>PageContext.PAGE_SCOPE</li>
+     * <li>PageContext.REQUEST_SCOPE</li>
+     * <li>PageContext.SESSION_SCOPE</li>
+     * <li>PageContext.APPLICATION_SCOPE</li>
      * </ul>
      * @return Object
      * @throws ObjectLookupException for errors while retrieving a property in the bean
@@ -88,10 +89,14 @@ public final class LookupUtil
     }
 
     /**
-     * <p>Returns the value of a property in the given bean.</p>
-     * <p>This method is a modificated version from commons-beanutils PropertyUtils.getProperty(). It allows
-     * intermediate nulls in expression without throwing exception (es. it doesn't throw an exception for the property
-     * <code>object.date.time</code> if <code>date</code> is null)</p>
+     * <p>
+     * Returns the value of a property in the given bean.
+     * </p>
+     * <p>
+     * This method is a modificated version from commons-beanutils PropertyUtils.getProperty(). It allows intermediate
+     * nulls in expression without throwing exception (es. it doesn't throw an exception for the property
+     * <code>object.date.time</code> if <code>date</code> is null)
+     * </p>
      * @param bean javabean
      * @param name name of the property to read from the javabean
      * @return Object
@@ -113,10 +118,10 @@ public final class LookupUtil
         {
             throw new IllegalArgumentException("No name specified");
         }
-        
+
         Object evalBean = bean;
         String evalName = name;
-        
+
         try
         {
 
@@ -130,8 +135,7 @@ public final class LookupUtil
                 indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM);
                 indexOfMAPPEDDELIM = evalName.indexOf(PropertyUtils.MAPPED_DELIM);
                 indexOfMAPPEDDELIM2 = evalName.indexOf(PropertyUtils.MAPPED_DELIM2);
-                if (indexOfMAPPEDDELIM2 >= 0
-                    && indexOfMAPPEDDELIM >= 0
+                if (indexOfMAPPEDDELIM2 >= 0 && indexOfMAPPEDDELIM >= 0
                     && (indexOfNESTEDDELIM < 0 || indexOfNESTEDDELIM > indexOfMAPPEDDELIM))
                 {
                     indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM, indexOfMAPPEDDELIM2);

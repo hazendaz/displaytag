@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.displaytag.decorator.TableDecorator;
 
+
 /**
  * This decorator only does a summing of different groups in the reporting style examples...
  * @author epesh
@@ -11,11 +12,12 @@ import org.displaytag.decorator.TableDecorator;
  */
 public class TotalWrapper extends TableDecorator
 {
+
     /**
      * total amount.
      */
     private double grandTotal;
-    
+
     /**
      * total amount for city.
      */
