@@ -68,7 +68,7 @@ public class ExcelView extends BaseExportView
      * Escaping for excel format.
      * <ul>
      * <li>Quotes inside quoted strings are escaped with a double quote</li>
-     * <li>Fields are surrounded by "" (should be optional, but sometimes you get a "Sylk error" without those)</li>
+     * <li>Fields are surrounded by " (should be optional, but sometimes you get a "Sylk error" without those)</li>
      * </ul>
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
      */

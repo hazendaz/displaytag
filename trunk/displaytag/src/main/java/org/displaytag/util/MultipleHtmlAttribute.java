@@ -37,7 +37,7 @@ public class MultipleHtmlAttribute implements Cloneable
      * Adds attributes from an array.
      * @param attributes Object[] Array containing attributes
      */
-    private void addAllAttributesFromArray(Object[] attributes)
+    private void addAllAttributesFromArray(String[] attributes)
     {
 
         // number of attributes to add
@@ -51,7 +51,7 @@ public class MultipleHtmlAttribute implements Cloneable
         {
 
             // don't add if empty
-            if (!"".equals(attributes[j]))
+            if (!StringUtils.isEmpty(attributes[j]))
             {
                 this.attributeSet.add(attributes[j]);
             }
@@ -114,7 +114,7 @@ public class MultipleHtmlAttribute implements Cloneable
         }
 
         // copy attributes
-        clone.addAllAttributesFromArray(this.attributeSet.toArray());
+        clone.addAllAttributesFromArray((String[]) this.attributeSet.toArray(new String[this.attributeSet.size()]));
 
         return clone;
     }

@@ -85,7 +85,7 @@ public final class LinkUtil
 
             if (end == work.length())
             {
-                work = "";
+                work = TagConstants.EMPTY_STRING;
             }
             else
             {
@@ -118,7 +118,7 @@ public final class LinkUtil
 
             if (end == work.length())
             {
-                work = "";
+                work = TagConstants.EMPTY_STRING;
             }
             else
             {

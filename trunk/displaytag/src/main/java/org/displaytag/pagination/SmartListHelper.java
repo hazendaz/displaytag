@@ -399,10 +399,13 @@ public class SmartListHelper
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("fullList", this.fullList).append(
-            "fullListSize",
-            this.fullListSize).append("pageSize", this.pageSize).append("pageCount", this.pageCount).append(
-            "properties",
-            this.properties).append("currentPage", this.currentPage).toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //
+            .append("fullList", this.fullList) //$NON-NLS-1$
+            .append("fullListSize", this.fullListSize) //$NON-NLS-1$
+            .append("pageSize", this.pageSize) //$NON-NLS-1$
+            .append("pageCount", this.pageCount) //$NON-NLS-1$
+            .append("properties", this.properties) //$NON-NLS-1$
+            .append("currentPage", this.currentPage) //$NON-NLS-1$
+            .toString();
     }
 }

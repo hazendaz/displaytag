@@ -257,10 +257,14 @@ public class Pagination
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("firstPage", this.firstPage).append(
-            "lastPage",
-            this.lastPage).append("nextPage", this.nextPage).append("previousPage", this.previousPage).append(
-            "pages",
-            this.pages).append("href", this.href).append("pageParam", this.pageParam).toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //
+            .append("firstPage", this.firstPage) //$NON-NLS-1$
+            .append("lastPage", this.lastPage) //$NON-NLS-1$
+            .append("nextPage", this.nextPage) //$NON-NLS-1$
+            .append("previousPage", this.previousPage) //$NON-NLS-1$
+            .append("pages", this.pages) //$NON-NLS-1$
+            .append("href", this.href) //$NON-NLS-1$
+            .append("pageParam", this.pageParam) //$NON-NLS-1$
+            .toString();
     }
 }

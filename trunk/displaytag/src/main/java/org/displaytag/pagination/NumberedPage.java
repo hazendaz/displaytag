@@ -3,6 +3,7 @@ package org.displaytag.pagination;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+
 /**
  * Object representing a page.
  * @author Fabrizio Giustina
@@ -55,9 +56,9 @@ public class NumberedPage
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("selected", this.selected)
-            .append("number", this.number)
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //
+            .append("selected", this.selected) //$NON-NLS-1$
+            .append("number", this.number) //$NON-NLS-1$
             .toString();
     }
 }

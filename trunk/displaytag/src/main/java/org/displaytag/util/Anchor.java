@@ -87,7 +87,7 @@ public class Anchor
     {
         if (this.href == null)
         {
-            return ""; //$NON-NLS-1$
+            return TagConstants.EMPTY_STRING;
         }
         return " href=\"" + this.href.toString() + "\""; //$NON-NLS-1$ //$NON-NLS-2$
     }

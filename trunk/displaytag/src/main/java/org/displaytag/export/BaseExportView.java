@@ -162,7 +162,6 @@ public abstract class BaseExportView implements ExportView
 
         while (iterator.hasNext())
         {
-            log.debug("iterator.hasNext()");
             HeaderCell headerCell = (HeaderCell) iterator.next();
 
             String columnHeader = headerCell.getTitle();
@@ -229,11 +228,10 @@ public abstract class BaseExportView implements ExportView
         // iterator on rows
         while (rowIterator.hasNext())
         {
-            log.debug("rowIterator.hasNext()");
             Row row = rowIterator.next();
             if (log.isDebugEnabled())
             {
-                log.debug("row=" + row);
+                log.debug(row);
             }
 
             if (this.model.getTableDecorator() != null)

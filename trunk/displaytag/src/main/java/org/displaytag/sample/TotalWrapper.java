@@ -32,7 +32,7 @@ public class TotalWrapper extends TableDecorator
     {
         int listindex = ((List) getDecoratedObject()).indexOf(this.getCurrentRowObject());
         ReportableListObject reportableObject = (ReportableListObject) this.getCurrentRowObject();
-        String nextCity = "";
+        String nextCity;
 
         this.cityTotal += reportableObject.getAmount();
         this.grandTotal += reportableObject.getAmount();
