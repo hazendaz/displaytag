@@ -82,8 +82,8 @@ public class TableTag extends HtmlTableTag
     private int rowNumber = 1;
 
     /**
-     * Used when user directly set a collection using the "list" attribute.
-     * @deprecated place object in the page/request scope and use the "name" attribute
+     * Object (collection, list) on which the table is based. Set directly using the "list" attribute or evaluated from
+     * expression.
      */
     private Object list;
 
@@ -729,34 +729,29 @@ public class TableTag extends HtmlTableTag
             this.currentMediaType = MediaTypeEnum.HTML;
         }
 
-        // if list is null check
-        if (this.list == null)
+        // create a complete string for compatibility with previous version before expression evaluation.
+        // this approach is optimized for new expressions, not for previous property/scope parameters
+        StringBuffer fullName = new StringBuffer();
+
+        // append scope
+        if (StringUtils.isNotBlank(this.scope))
         {
-            // create a complete string for compatibility with previous version before expression evaluation.
-            // this approach is optimized for new expressions, not for previous property/scope parameters
-            StringBuffer fullName = new StringBuffer();
-
-            // append scope
-            if (StringUtils.isNotBlank(this.scope))
-            {
-                fullName.append(this.scope).append("Scope.");
-            }
-
-            // base bean name
-            if (this.name != null)
-            {
-                fullName.append(this.name);
-            }
-
-            // append property
-            if (StringUtils.isNotBlank(this.property))
-            {
-                fullName.append('.').append(this.property);
-            }
-
-            this.list = evaluateExpression(fullName.toString());
-
+            fullName.append(this.scope).append("Scope.");
         }
+
+        // base bean name
+        if (this.name != null)
+        {
+            fullName.append(this.name);
+        }
+
+        // append property
+        if (StringUtils.isNotBlank(this.property))
+        {
+            fullName.append('.').append(this.property);
+        }
+
+        this.list = evaluateExpression(fullName.toString());
 
         this.tableIterator = IteratorUtils.getIterator(this.list);
 
