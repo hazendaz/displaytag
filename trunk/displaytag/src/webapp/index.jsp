@@ -11,7 +11,7 @@
 	<li><a href="example-nocolumns.jsp">Simplest case, no columns</a></li>
 	<li><a href="example-columns.jsp">Columns</a></li>
 	<li><a href="example-styles.jsp">Columns - different styles</a></li>
-	<li><a href="example-datasource.jsp">Acquiring your List of data (<strong>new</strong>: expressions!)</a></li>
+	<li><a href="example-datasource.jsp">Acquiring your List of data</a></li>
 	<li><a href="example-imp-objects.jsp">Implicit objects created by table</a></li>
 	<li><a href="example-subsets.jsp">Showing subsets of data from the List</a></li>
 	<li><a href="example-autolink.jsp">Smart linking of column data</a></li>
@@ -21,7 +21,7 @@
 	<li><a href="example-sorting.jsp">Auto-sorting by columns</a></li>
 	<li><a href="example-grouping.jsp">Column grouping</a></li>
 	<li><a href="example-callbacks.jsp">Using callbacks to show totals</a></li>
-	<li><a href="example-export.jsp">Data exporting (excel, csv, xml)</a></li>
+	<li><a href="example-export.jsp">Data exporting</a></li>
 	<li><a href="example-config.jsp">Config, overriding default behaviors/messages</a></li>
 	<li><a href="example-misc.jsp">Misc, odds and ends</a></li>	
 	<li><a href="example-pse.jsp">Paging + sorting + grouping + exporting working together</a></li>
