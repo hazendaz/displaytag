@@ -60,7 +60,7 @@ public class ColumnTag extends org.displaytag.tags.ColumnTag
     private String _group;
     public void setGroup(String s)
     {
-        _decorator = s;
+        _group = s;
     }
 
     private String _headerClass;
