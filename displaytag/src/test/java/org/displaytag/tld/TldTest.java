@@ -40,12 +40,11 @@ public class TldTest extends TestCase
     private static Log log = LogFactory.getLog(TldTest.class);
 
     /**
-     * Constructor for the test case.
-     * @param name test name
+     * @see junit.framework.TestCase#getName()
      */
-    public TldTest(String name)
+    public String getName()
     {
-        super(name);
+        return getClass().getName() + "." + super.getName();
     }
 
     /**
