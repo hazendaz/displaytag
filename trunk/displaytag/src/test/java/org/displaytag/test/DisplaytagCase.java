@@ -116,20 +116,32 @@ public abstract class DisplaytagCase extends TestCase
      */
     private void cleanupTempFile(String jspName)
     {
-        if (SystemUtils.JAVA_IO_TMPDIR != null)
+        URL resourceUrl = getClass().getResource("/" + jspName);
+        if (resourceUrl != null && SystemUtils.JAVA_IO_TMPDIR != null)
         {
+            File jspFile = new File(resourceUrl.getFile());
+            long jspModified = jspFile.lastModified();
+
             String path = SystemUtils.JAVA_IO_TMPDIR + jspName;
 
             File tempFile = new File(StringUtils.replace(path, ".jsp", "$jsp.java"));
-            if (tempFile.exists())
+
+            // delete file only if jsp has been modified
+            if (tempFile.exists() && tempFile.lastModified() < jspModified)
             {
-                log.debug("Deleting temporary file " + tempFile.getPath());
+                if (log.isDebugEnabled())
+                {
+                    log.debug("Deleting temporary file " + tempFile.getPath());
+                }
                 tempFile.delete();
             }
             tempFile = new File(StringUtils.replace(path, ".jsp", "$jsp.class"));
-            if (tempFile.exists())
+            if (tempFile.exists() && tempFile.lastModified() < jspModified)
             {
-                log.debug("Deleting temporary file " + tempFile.getPath());
+                if (log.isDebugEnabled())
+                {
+                    log.debug("Deleting temporary file " + tempFile.getPath());
+                }
                 tempFile.delete();
             }
         }
