@@ -22,7 +22,6 @@ import java.util.List;
  * Beaninfo class for tableTag. Needed to make the "class" tag attribute working and to handle the swith between
  * setName() and setNameString() setters for the name attribute.
  * @author Fabrizio Giustina
- * @see org.displaytag.util.BeanInfoUtil
  * @version $Revision$ ($Author$)
  */
 public class TableTagBeanInfo extends SimpleBeanInfo
