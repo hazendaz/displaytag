@@ -26,6 +26,11 @@ public class CaptionTagTest extends DisplaytagTestCase
     JspTagLifecycle captionLifeCycle;
 
     /**
+     * table tag lifecycle.
+     */
+    JspTagLifecycle tableLifeCycle;
+
+    /**
      * @param name test name
      */
     public CaptionTagTest(String name)
@@ -56,11 +61,10 @@ public class CaptionTagTest extends DisplaytagTestCase
 
         tag.setParent(table);
 
-        JspTagLifecycle tableLifeCycle = new JspTagLifecycle(this.pageContext, table);
+        tableLifeCycle = new JspTagLifecycle(this.pageContext, table);
         captionLifeCycle = tableLifeCycle.addNestedTag(tag);
         captionLifeCycle.addNestedText("This is the caption content");
 
-        tableLifeCycle.invoke();
     }
 
     /**
@@ -69,8 +73,9 @@ public class CaptionTagTest extends DisplaytagTestCase
      */
     public void testCaption() throws Exception
     {
+        // remember, assertion should go before invoke()
         captionLifeCycle.expectBodyEvaluated(1);
-        captionLifeCycle.expectBodyEvaluated(2);
+        tableLifeCycle.invoke();
     }
 
     /**
