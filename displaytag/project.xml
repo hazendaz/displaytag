@@ -17,7 +17,7 @@
     <logo>/images/displaytag.png</logo>
     <description>The display tag library is an open source suite of custom tags that provide high level web presentation patterns which will work in a MVC model 
     and provide a significant amount of functionality while still being simple and straight-forward to use.</description>
-    <shortDescription>Display tag library - open source suite of custom tags that provide high level web presentation patterns</shortDescription>
+    <shortDescription>Display tag library</shortDescription>
     <url>http://${pom.groupId}.sourceforge.net</url>
     <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${maven.sourceforge.project.groupId}</issueTrackingUrl>
     <siteAddress>shell.sourceforge.net</siteAddress>
