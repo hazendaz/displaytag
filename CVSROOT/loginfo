@@ -25,6 +25,6 @@
 # or
 #DEFAULT (echo ""; id; echo %{sVv}; date; cat) >> $CVSROOT/CVSROOT/commitlog
 
-CVSROOT /cvsroot/sitedocs/CVSROOT/cvstools/syncmail %{sVv} mraible@users.sourceforge.net
+#CVSROOT /cvsroot/sitedocs/CVSROOT/cvstools/syncmail %{sVv} mraible@users.sourceforge.net
 
-DEFAULT /cvsroot/sitedocs/CVSROOT/cvstools/syncmail %{sVv} displaytag-devel@lists.sourceforge.net
+#DEFAULT /cvsroot/sitedocs/CVSROOT/cvstools/syncmail %{sVv} displaytag-devel@lists.sourceforge.net
