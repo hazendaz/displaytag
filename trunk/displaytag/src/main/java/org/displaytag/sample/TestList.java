@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Just a utility class for testing out the table and column tags.
- *
- * When this class is created, it loads itself with a number of ListObjects
- * that are shown throughout the various example pages that exercise the table
- * object.  If created via the default constructor, this loads itself with 60
- * ListObjects.
+ * Just a utility class for testing out the table and column tags. When this class is created, it loads itself with a
+ * number of ListObjects that are shown throughout the various example pages that exercise the table object. If created
+ * via the default constructor, this loads itself with 60 ListObjects.
  * @author epesh
  * @version $Revision$ ($Author$)
  */
@@ -17,7 +14,7 @@ public class TestList extends ArrayList
 {
 
     /**
-     * Creats a TestList that is filled with 60 ListObjects suitable for testing
+     * Creats a TestList that is filled with 60 ListObjects suitable for testing.
      */
     public TestList()
     {
@@ -30,8 +27,7 @@ public class TestList extends ArrayList
     }
 
     /**
-     * Creates a TestList that is filled with [size] ListObjects suitable for
-     * testing.
+     * Creates a TestList that is filled with [size] ListObjects suitable for testing.
      * @param size int size of the list
      * @param duplicates boolean put duplicates in the list
      */
@@ -81,7 +77,7 @@ public class TestList extends ArrayList
     }
 
     /**
-     * Returns a ListObject using get(index) from the Array
+     * Returns a ListObject using get(index) from the Array.
      * @param index int index of the List object into the array
      * @return ListObject
      */

@@ -6,8 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>Extends Map providing only a different toString() method wich can be used in printing
- * attributes inside an html tag</p>
+ * Extends Map providing only a different toString() method which can be used in printing attributes inside an html tag.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -15,23 +14,22 @@ public class HtmlAttributeMap extends HashMap
 {
 
     /**
-     * Attribute value delimiter
+     * Attribute value delimiter.
      */
     private static final char DELIMITER = '"';
 
     /**
-     * character between name and value
+     * character between name and value.
      */
     private static final char EQUALS = '=';
 
     /**
-     * space before any attribute
+     * space before any attribute.
      */
     private static final char SPACE = ' ';
 
     /**
-     * toString method: returns attributes in the format:
-     * attributename="attributevalue" attr2="attrValue2" ...
+     * toString method: returns attributes in the format: attributename="attributevalue" attr2="attrValue2" ...
      * @return String representation of the HtmlAttributeMap
      */
     public String toString()

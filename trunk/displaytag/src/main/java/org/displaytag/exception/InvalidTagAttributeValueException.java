@@ -1,7 +1,7 @@
 package org.displaytag.exception;
 
 /**
- * <p>Exception thrown when an invalid value is given for a tag attribute</p>
+ * Exception thrown when an invalid value is given for a tag attribute.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */

@@ -10,6 +10,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.properties.TableProperties;
+
 /**
  * <p>
  * Utility class that chops up a List of objects into small bite size pieces that are more suitable for display.
@@ -24,37 +25,37 @@ public class SmartListHelper
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(SmartListHelper.class);
 
     /**
-     * full list
+     * full list.
      */
     private List fullList;
 
     /**
-     * sixe of the full list
+     * sixe of the full list.
      */
     private int fullListSize;
 
     /**
-     * number of items in a page
+     * number of items in a page.
      */
     private int pageSize;
 
     /**
-     * number of pages
+     * number of pages.
      */
     private int pageCount;
 
     /**
-     * index of current page
+     * index of current page.
      */
     private int currentPage;
 
     /**
-     * TableProperties
+     * TableProperties.
      */
     private TableProperties properties;
 

@@ -1,7 +1,7 @@
 package org.displaytag.exception;
 
 /**
- * Exception thrown when DecoratorFactory is unable to load a Decorator
+ * Exception thrown when DecoratorFactory is unable to load a Decorator.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */

@@ -14,8 +14,9 @@ import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.LinkUtil;
 import org.displaytag.util.LookupUtil;
 import org.displaytag.util.TagConstants;
+
 /**
- * <p>Represents a column in a table</p>
+ * Represents a column in a table.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -23,7 +24,7 @@ public class Column
 {
 
     /**
-     * Row this column belongs to
+     * Row this column belongs to.
      */
     private Row row;
 
@@ -38,17 +39,17 @@ public class Column
     private HtmlAttributeMap htmlAttributes;
 
     /**
-     * contains the evaluated body value. Filled in getOpenTag
+     * contains the evaluated body value. Filled in getOpenTag.
      */
     private String stringValue;
 
     /**
-     * Cell
+     * Cell.
      */
     private Cell cell;
 
     /**
-     * Constructor for Column
+     * Constructor for Column.
      * @param headerCell HeaderCell
      * @param currentCell Cell
      * @param parentRow Row
@@ -64,7 +65,7 @@ public class Column
     }
 
     /**
-     * Gets the value, after calling the table / column decorator is requested
+     * Gets the value, after calling the table / column decorator is requested.
      * @param decorated boolean
      * @return Object
      * @throws ObjectLookupException for errors in bean property lookup
@@ -123,7 +124,7 @@ public class Column
     }
 
     /**
-     * Generates the cell close tag (&lt;/td>)
+     * Generates the cell close tag (&lt;/td>).
      * @return String td closing tag
      */
     public String getCloseTag()
@@ -133,7 +134,7 @@ public class Column
     }
 
     /**
-     * Calculates the cell content, cropping or linking the value as needed
+     * Calculates the cell content, cropping or linking the value as needed.
      * @return String
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
@@ -238,7 +239,7 @@ public class Column
     }
 
     /**
-     * returns the grouping order of this column or -1 if the column is not grouped
+     * returns the grouping order of this column or -1 if the column is not grouped.
      * @return int grouping order of this column or -1 if the column is not grouped
      */
     public int getGroup()

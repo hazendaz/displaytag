@@ -8,60 +8,60 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang.builder.CompareToBuilder;
 
 /**
- * A test class that has data that looks more like information that comes back in a report...
+ * A test class that has data that looks more like information that comes back in a report.
  * @author epesh
  * @version $Revision$ ($Author$)
  */
 public class ReportableListObject extends Object implements Comparable
 {
     /**
-     * random number producer
+     * random number producer.
      */
-    private static Random mRandom = new Random();
+    private static Random random = new Random();
 
     /**
-     * city
+     * city names.
+     */
+    private static String[] cities = { "Roma", "Olympia", "Neapolis", "Carthago" };
+
+    /**
+     * project names.
+     */
+    private static String[] projects = { "Taxes", "Arts", "Army", "Gladiators" };
+    
+    /**
+     * city.
      */
     private String city;
 
     /**
-     * project
+     * project.
      */
     private String project;
 
     /**
-     * task
+     * task.
      */
     private String task;
 
     /**
-     * amount
+     * amount.
      */
     private double amount;
 
     /**
-     * city names
-     */
-    private static String[] mCities = { "Roma", "Olympia", "Neapolis", "Carthago" };
-
-    /**
-     * project names
-     */
-    private static String[] mProjects = { "Taxes", "Arts", "Army", "Gladiators" };
-
-    /**
-     * Constructor for ReportableListObject
+     * Constructor for ReportableListObject.
      */
     public ReportableListObject()
     {
-        this.amount = (mRandom.nextInt(99999) + 1) / 100;
-        this.city = mCities[mRandom.nextInt(mCities.length)];
-        this.project = mProjects[mRandom.nextInt(mProjects.length)];
+        this.amount = (random.nextInt(99999) + 1) / 100;
+        this.city = cities[random.nextInt(cities.length)];
+        this.project = projects[random.nextInt(projects.length)];
         this.task = RandomSampleUtil.getRandomSentence(4);
     }
 
     /**
-     * getter for city
+     * getter for city.
      * @return String city
      */
     public String getCity()
@@ -70,7 +70,7 @@ public class ReportableListObject extends Object implements Comparable
     }
 
     /**
-     * getter for project
+     * getter for project.
      * @return String project
      */
     public String getProject()
@@ -79,7 +79,7 @@ public class ReportableListObject extends Object implements Comparable
     }
 
     /**
-     * getter for task
+     * getter for task.
      * @return String task
      */
     public String getTask()
@@ -88,7 +88,7 @@ public class ReportableListObject extends Object implements Comparable
     }
 
     /**
-     * getter for amount
+     * getter for amount.
      * @return double amount
      */
     public double getAmount()

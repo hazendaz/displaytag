@@ -2,8 +2,9 @@ package org.displaytag.pagination;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
- * <p>Object representing a page</p>
+ * Object representing a page.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -11,7 +12,7 @@ public class NumberedPage
 {
 
     /**
-     * page number
+     * page number.
      */
     private int number;
 
@@ -21,7 +22,7 @@ public class NumberedPage
     private boolean selected;
 
     /**
-     * Creates a new page with the specified number
+     * Creates a new page with the specified number.
      * @param pageNumber page number
      * @param isSelected is the page selected?
      */
@@ -32,12 +33,12 @@ public class NumberedPage
     }
 
     /**
-     * return the page number
+     * Returns the page number.
      * @return the page number
      */
     public int getNumber()
     {
-        return number;
+        return this.number;
     }
 
     /**
@@ -46,7 +47,7 @@ public class NumberedPage
      */
     public boolean getSelected()
     {
-        return selected;
+        return this.selected;
     }
 
     /**

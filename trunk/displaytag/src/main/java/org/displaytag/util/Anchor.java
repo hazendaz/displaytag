@@ -1,7 +1,7 @@
 package org.displaytag.util;
 
 /**
- * Anchor object used to output an html link (an &lt;a> tag)
+ * Anchor object used to output an html link (an &lt;a> tag).
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -9,22 +9,22 @@ public class Anchor
 {
 
     /**
-     * Href object to be written in the "href" html attribute
+     * Href object to be written in the "href" html attribute.
      */
     private Href href;
 
     /**
-     * link body text
+     * link body text.
      */
     private String linkText;
 
     /**
-     * HashMap containing all the html attributes
+     * HashMap containing all the html attributes.
      */
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
     /**
-     * Creates a new anchor with the supplied body text
+     * Creates a new anchor with the supplied body text.
      * @param linkBody String body text
      */
     public Anchor(String linkBody)
@@ -33,7 +33,7 @@ public class Anchor
     }
 
     /**
-     * Creates a new Anchor whit the supplied Href
+     * Creates a new Anchor whit the supplied Href.
      * @param linkHref Href
      */
     public Anchor(Href linkHref)
@@ -42,7 +42,7 @@ public class Anchor
     }
 
     /**
-     * Creates a new Anchor whit the supplied Href and body text
+     * Creates a new Anchor whit the supplied Href and body text.
      * @param linkHref baseHref
      * @param linkBody String link body
      */
@@ -53,7 +53,7 @@ public class Anchor
     }
 
     /**
-     * setter the anchor Href
+     * setter the anchor Href.
      * @param linkHref Href
      */
     public void setHref(Href linkHref)
@@ -62,7 +62,7 @@ public class Anchor
     }
 
     /**
-     * setter for the link body text
+     * setter for the link body text.
      * @param linkBody String
      */
     public void setText(String linkBody)
@@ -71,7 +71,7 @@ public class Anchor
     }
 
     /**
-     * add a "class" attribute to the html link
+     * add a "class" attribute to the html link.
      * @param cssClass String
      */
     public void setClass(String cssClass)
@@ -80,7 +80,7 @@ public class Anchor
     }
 
     /**
-     * add a "style" attribute to the html link
+     * add a "style" attribute to the html link.
      * @param style String
      */
     public void setStyle(String style)
@@ -89,7 +89,7 @@ public class Anchor
     }
 
     /**
-     * add a "title" attribute to the html link
+     * add a "title" attribute to the html link.
      * @param title String
      */
     public void setTitle(String title)
@@ -98,7 +98,7 @@ public class Anchor
     }
 
     /**
-     * returns the href attribute, surrounded by quotes and prefixed with " href="
+     * returns the href attribute, surrounded by quotes and prefixed with " href=".
      * @return String <code> href ="<em>href value</em>"</code> or an emty String if Href is null
      */
     private String getHrefString()
@@ -111,7 +111,7 @@ public class Anchor
     }
 
     /**
-     * returns the &lt;a&gt; tag, with rendered href and any ther setted html attribute
+     * Returns the &lt;a> tag, with rendered href and any html attribute.
      * @return String
      */
     public String getOpenTag()
@@ -136,7 +136,7 @@ public class Anchor
     }
 
     /**
-     * returns the &lt;/a&gt; tag
+     * returns the &lt;/a> tag.
      * @return String
      */
     public String getCloseTag()
@@ -145,7 +145,7 @@ public class Anchor
     }
 
     /**
-     * returns the full &lt;a href=""&gt;body&lt;/a&gt;
+     * returns the full &lt;a href="">body&lt;/a>.
      * @return String html link
      */
     public String toString()

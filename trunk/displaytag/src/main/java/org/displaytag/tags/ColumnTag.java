@@ -39,17 +39,17 @@ import org.displaytag.util.TagConstants;
 public class ColumnTag extends BodyTagSupport
 {
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(ColumnTag.class);
 
     /**
-     * html pass-through attributes for cells
+     * html pass-through attributes for cells.
      */
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
     /**
-     * html pass-through attributes for cell headers
+     * html pass-through attributes for cell headers.
      */
     private HtmlAttributeMap headerAttributeMap = new HtmlAttributeMap();
 
@@ -62,13 +62,13 @@ public class ColumnTag extends BodyTagSupport
 
     /**
      * the title displayed for this column. if this is omitted then the property name is used for the title of the
-     * column (optional)
+     * column (optional).
      */
     private String title;
 
     /**
      * by default, null values don't appear in the list, by setting viewNulls to 'true', then null values will appear
-     * as "null" in the list (mostly useful for debugging) (optional)
+     * as "null" in the list (mostly useful for debugging) (optional).
      */
     private boolean nulls;
 
@@ -162,7 +162,7 @@ public class ColumnTag extends BodyTagSupport
     private List supportedMedia = Arrays.asList(MediaTypeEnum.ALL);
 
     /**
-     * setter for the "property" tag attribute
+     * setter for the "property" tag attribute.
      * @param value attribute value
      */
     public void setProperty(String value)
@@ -171,7 +171,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "title" tag attribute
+     * setter for the "title" tag attribute.
      * @param value attribute value
      */
     public void setTitle(String value)
@@ -180,7 +180,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "nulls" tag attribute
+     * setter for the "nulls" tag attribute.
      * @param value attribute value
      */
     public void setNulls(String value)
@@ -193,7 +193,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "sortable" tag attribute
+     * setter for the "sortable" tag attribute.
      * @param value attribute value
      */
     public void setSortable(String value)
@@ -214,7 +214,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "autolink" tag attribute
+     * setter for the "autolink" tag attribute.
      * @param value attribute value
      */
     public void setAutolink(String value)
@@ -226,7 +226,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "group" tag attribute
+     * setter for the "group" tag attribute.
      * @param value attribute value
      */
     public void setGroup(String value)
@@ -243,7 +243,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "href" tag attribute
+     * setter for the "href" tag attribute.
      * @param value attribute value
      */
     public void setHref(String value)
@@ -252,7 +252,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "paramId" tag attribute
+     * setter for the "paramId" tag attribute.
      * @param value attribute value
      */
     public void setParamId(String value)
@@ -261,7 +261,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "paramName" tag attribute
+     * setter for the "paramName" tag attribute.
      * @param value attribute value
      */
     public void setParamName(String value)
@@ -270,7 +270,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "paramProperty" tag attribute
+     * setter for the "paramProperty" tag attribute.
      * @param value attribute value
      */
     public void setParamProperty(String value)
@@ -279,7 +279,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "paramScope" tag attribute
+     * setter for the "paramScope" tag attribute.
      * @param value attribute value
      */
     public void setParamScope(String value)
@@ -288,7 +288,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "maxLength" tag attribute
+     * setter for the "maxLength" tag attribute.
      * @param value attribute value
      */
     public void setMaxLength(int value)
@@ -297,7 +297,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "maxWords" tag attribute
+     * setter for the "maxWords" tag attribute.
      * @param value attribute value
      */
     public void setMaxWords(int value)
@@ -306,7 +306,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "width" tag attribute
+     * setter for the "width" tag attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
@@ -317,7 +317,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "align" tag attribute
+     * setter for the "align" tag attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
@@ -328,7 +328,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "background" tag attribute
+     * setter for the "background" tag attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
@@ -338,7 +338,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "bgcolor" tag attribute
+     * setter for the "bgcolor" tag attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
@@ -348,7 +348,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "height" tag attribute
+     * setter for the "height" tag attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
@@ -358,7 +358,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "nowrap" tag attribute
+     * setter for the "nowrap" tag attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
@@ -368,7 +368,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "valign" tag attribute
+     * setter for the "valign" tag attribute.
      * @param value attribute value
      * @deprecated use css in "class" or "style"
      */
@@ -378,7 +378,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "class" tag attribute
+     * setter for the "class" tag attribute.
      * @param value attribute value
      * @deprecated use the "class" attribute
      */
@@ -388,7 +388,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "class" tag attribute
+     * setter for the "class" tag attribute.
      * @param value attribute value
      */
     public void setClass(String value)
@@ -397,7 +397,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * add a css class to the class attribute (html class suports multiple values)
+     * adds a css class to the class attribute (html class suports multiple values).
      * @param value attribute value
      */
     public void addClass(String value)
@@ -415,7 +415,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "headerClass" tag attribute
+     * setter for the "headerClass" tag attribute.
      * @param value attribute value
      */
     public void setHeaderClass(String value)
@@ -424,7 +424,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "headerStyleClass" tag attribute
+     * setter for the "headerStyleClass" tag attribute.
      * @param value attribute value
      * @deprecated use setHeaderClass()
      */
@@ -434,7 +434,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "decorator" tag attribute
+     * setter for the "decorator" tag attribute.
      * @param value attribute value
      */
     public void setDecorator(String value)
@@ -544,7 +544,7 @@ public class ColumnTag extends BodyTagSupport
                     StringBuffer expression = new StringBuffer();
 
                     // append scope
-                    if (this.paramScope != null && !"".equals(this.paramScope))
+                    if (StringUtils.isNotBlank(this.paramScope))
                     {
                         expression.append(this.paramScope).append("Scope.");
                     }
@@ -560,7 +560,7 @@ public class ColumnTag extends BodyTagSupport
                     }
 
                     // append property
-                    if (this.paramProperty != null && !"".equals(this.paramProperty))
+                    if (StringUtils.isNotBlank(this.paramProperty))
                     {
                         expression.append('.').append(this.property);
                     }

@@ -46,18 +46,18 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
 {
 
     /**
-     * name of the parameter containing the properties file path
+     * name of the parameter containing the properties file path.
      */
     public static final String PROPERTIES_PARAMETER = "properties.filename";
 
     /**
-     * logger
+     * logger.
      */
     private Log log = LogFactory.getLog(DisplayPropertiesLoaderServlet.class);
     
     /**
      * Init: retrieve the confiuration parameter and set the user file name in
-     * org.displaytag.tags.TableProperties
+     * <code>org.displaytag.tags.TableProperties</code>.
      * @param servletConfig ServletConfig
      * @throws ServletException generic exception
      * @see javax.servlet.Servlet#init(ServletConfig)

@@ -21,17 +21,17 @@ public class RequestHelper
 {
 
     /**
-     * logger
+     * logger.
      */
-    private static Log mLog = LogFactory.getLog(RequestHelper.class);
+    private static Log log = LogFactory.getLog(RequestHelper.class);
 
     /**
-     * original HttpServletRequest
+     * original HttpServletRequest.
      */
     private HttpServletRequest request;
 
     /**
-     * Construct a new RequestHelper for the given request
+     * Construct a new RequestHelper for the given request.
      * @param servletRequest HttpServletRequest
      */
     public RequestHelper(HttpServletRequest servletRequest)
@@ -40,7 +40,7 @@ public class RequestHelper
     }
 
     /**
-     * Read a String parameter from the request
+     * Read a String parameter from the request.
      * @param key String parameter name
      * @return String parameter value
      */
@@ -51,7 +51,7 @@ public class RequestHelper
     }
 
     /**
-     * Read a Integer parameter from the request
+     * Read a Integer parameter from the request.
      * @param key String parameter name
      * @return Integer parameter value or null if the parameter is not found or it can't be transformed to an Integer
      */
@@ -68,7 +68,7 @@ public class RequestHelper
             catch (NumberFormatException e)
             {
                 // It's ok to ignore, simply return null
-                mLog.debug("Invalid \"" + key + "\" parameter from request: value=\"" + value + "\"");
+                log.debug("Invalid \"" + key + "\" parameter from request: value=\"" + value + "\"");
             }
         }
 
@@ -76,7 +76,7 @@ public class RequestHelper
     }
 
     /**
-     * Return an HashMap containing all the parameters in the request
+     * Returns an HashMap containing all the parameters in the request.
      * @return HashMap
      */
     public final HashMap getParameterMap()
@@ -101,7 +101,7 @@ public class RequestHelper
     }
 
     /**
-     * return the current Href for the request (base url and parameters)
+     * return the current Href for the request (base url and parameters).
      * @return Href
      */
     public final Href getHref()

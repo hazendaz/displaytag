@@ -3,34 +3,34 @@ package org.displaytag.exception;
 import org.apache.commons.lang.enum.Enum;
 
 /**
- * <p>Enumeration for logging severities</p>
+ * Enumeration for logging severities.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public final class SeverityEnum extends Enum
 {
     /**
-     * Severity FATAL
+     * Severity FATAL.
      */
     public static final SeverityEnum FATAL = new SeverityEnum("fatal");
 
     /**
-     * Severity ERROR
+     * Severity ERROR.
      */
     public static final SeverityEnum ERROR = new SeverityEnum("error");
 
     /**
-     * Severity WARN
+     * Severity WARN.
      */
     public static final SeverityEnum WARN = new SeverityEnum("warn");
 
     /**
-     * Severity INFO
+     * Severity INFO.
      */
     public static final SeverityEnum INFO = new SeverityEnum("info");
 
     /**
-     * Severity DEBUG
+     * Severity DEBUG.
      */
     public static final SeverityEnum DEBUG = new SeverityEnum("debug");
 

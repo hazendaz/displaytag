@@ -12,14 +12,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>Utility class which hides getter javabeans methods and return only setters.</p>
- * <p>Needed by Tag classes which have to declare setter attribute and have getters
- * with different return type. The javabean introspectory machine can't see these
- * methods (it looks for setters with a parameter of the same type returned by the getter).
- * Useful to let Tags use the "class" attribute, normally hidden by the getClass() method
- * in java.lang.Object.</p>
- * <p>Tag who wish to use this BeanInfo need to define a new class with the same name of the main
- * tag class + "BeanInfo" suffix wich extends BeanInfoUtil</p>
+ * <p>
+ * Utility class which hides getter javabeans methods and return only setters.
+ * </p>
+ * <p>
+ * Needed by Tag classes which have to declare setter attribute and have getters with different return type. The
+ * javabean introspectory machine can't see these methods (it looks for setters with a parameter of the same type
+ * returned by the getter). Useful to let Tags use the "class" attribute, normally hidden by the getClass() method in
+ * java.lang.Object.
+ * </p>
+ * <p>
+ * Tag who wish to use this BeanInfo need to define a new class with the same name of the main tag class + "BeanInfo"
+ * suffix wich extends BeanInfoUtil
+ * </p>
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -27,7 +32,7 @@ public class BeanInfoUtil extends SimpleBeanInfo
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(BeanInfoUtil.class);
 

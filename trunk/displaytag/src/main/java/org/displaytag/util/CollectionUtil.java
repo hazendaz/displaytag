@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.collections.IteratorUtils;
 
 /**
- * Utility methods for collection handling
+ * Utility methods for collection handling.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -15,19 +15,19 @@ public final class CollectionUtil
 {
 
     /**
-     * Don't instantiate a CollectionUtil
+     * Don't instantiate a CollectionUtil.
      */
     private CollectionUtil()
     {
     }
 
     /**
-     * Create a list of objects taken from the given iterator and crop the resulting list according to the pStartNumber
-     * and pNumberOfItems parameters
+     * Create a list of objects taken from the given iterator and crop the resulting list according to the startIndex
+     * and numberOfItems parameters.
      * @param iterator Iterator
      * @param startIndex int starting index
      * @param numberOfItems int number of items to keep in the list
-     * @return List with values taken from the given object, cropped according the pStartNumber and pNumberOfItems
+     * @return List with values taken from the given object, cropped according to startIndex and numberOfItems
      * parameters
      */
     private static List getSubList(Iterator iterator, int startIndex, int numberOfItems)
@@ -61,12 +61,12 @@ public final class CollectionUtil
     }
 
     /**
-     * create an iterator on a given object (Collection, Enumeration, array, single Object) and crop the resulting
-     * list according to the pStartNumber and pNumberOfItems parameters
+     * create an iterator on a given object (Collection, Enumeration, array, single Object) and crop the resulting list
+     * according to the startIndex and numberOfItems parameters.
      * @param iterableObject Collection, Enumeration or array to crop
      * @param startIndex int starting index
      * @param numberOfItems int number of items to keep in the list
-     * @return List with values taken from the given object, cropped according the pStartNumber and pNumberOfItems
+     * @return List with values taken from the given object, cropped according the startIndex and numberOfItems
      * parameters
      */
     public static List getListFromObject(Object iterableObject, int startIndex, int numberOfItems)

@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.displaytag.model.TableModel;
 
 /**
- * Export view for excel exporting
+ * Export view for excel exporting.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */

@@ -15,10 +15,10 @@ import org.displaytag.model.TableModel;
 
 /**
  * <p>
- * Base abstract class for simple export views
+ * Base abstract class for simple export views.
  * </p>
  * <p>
- * A class wich extends BaseExportView simple need to provide delimiters for rows and columns
+ * A class wich extends BaseExportView simple need to provide delimiters for rows and columns.
  * </p>
  * @author fgiust
  * @version $Revision$ ($Author$)
@@ -27,12 +27,12 @@ public abstract class BaseExportView
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(BaseExportView.class);
 
     /**
-     * TableModel to render
+     * TableModel to render.
      */
     private TableModel model;
 
@@ -47,7 +47,7 @@ public abstract class BaseExportView
     private boolean header;
 
     /**
-     * Constructor for BaseExportView
+     * Constructor for BaseExportView.
      * @param tableModel TableModel to render
      * @param exportFullList boolean export full list?
      * @param includeHeader should header be included in export?
@@ -60,37 +60,37 @@ public abstract class BaseExportView
     }
 
     /**
-     * String to add before a row
+     * String to add before a row.
      * @return String
      */
     protected abstract String getRowStart();
 
     /**
-     * String to add after a row
+     * String to add after a row.
      * @return String
      */
     protected abstract String getRowEnd();
 
     /**
-     * String to add before a cell
+     * String to add before a cell.
      * @return String
      */
     protected abstract String getCellStart();
 
     /**
-     * String to add after a cell
+     * String to add after a cell.
      * @return String
      */
     protected abstract String getCellEnd();
 
     /**
-     * String to add to the top of document
+     * String to add to the top of document.
      * @return String
      */
     protected abstract String getDocumentStart();
 
     /**
-     * String to add to the end of document
+     * String to add to the end of document.
      * @return String
      */
     protected abstract String getDocumentEnd();
@@ -108,13 +108,13 @@ public abstract class BaseExportView
     protected abstract boolean getAlwaysAppendRowEnd();
 
     /**
-     * MimeType to return
+     * MimeType to return.
      * @return String myme type
      */
     public abstract String getMimeType();
 
     /**
-     * Write table header
+     * Write table header.
      * @return String rendered header
      */
     protected String doHeaders()
@@ -163,7 +163,7 @@ public abstract class BaseExportView
     }
 
     /**
-     * Write the rendered table
+     * Write the rendered table.
      * @return String rendered table body
      * @throws JspException for errors during cell value lookup
      */
@@ -247,7 +247,7 @@ public abstract class BaseExportView
     }
 
     /**
-     * can be implemented to escape values for different output
+     * can be implemented to escape values for different output.
      * @param value original column value
      * @return escaped column value
      */

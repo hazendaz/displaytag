@@ -1,7 +1,7 @@
 package org.displaytag.util;
 
 /**
- * <p>Utility methods for writing html tags</p>
+ * Utility methods for writing html tags.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -9,14 +9,14 @@ public final class HtmlTagUtil
 {
 
     /**
-     * don't instantiate a new HtmlTagUtil
+     * don't instantiate a new HtmlTagUtil.
      */
     private HtmlTagUtil()
     {
     }
 
     /**
-     * costruct a tag from a name and a collection of attributes
+     * costruct a tag from a name and a collection of attributes.
      * @param tagName String tag name
      * @param attributes HtmlAttributeMap containing all the tag attributes
      * @return String open tag with attributes

@@ -3,19 +3,19 @@ package org.displaytag.decorator;
 import junit.framework.TestCase;
 
 /**
- * test for TableDecorator
+ * test for TableDecorator.
  * @author fgiust
- * @version $Revision: $ ($Author: $)
+ * @version $Revision: 1 $ ($Author: Fgiust $)
  */
 public class TableDecoratorTest extends TestCase
 {
     /**
-     * test decorator one
+     * test decorator one.
      */
     private TableDecorator one;
 
     /**
-     * test decorator 2
+     * test decorator 2.
      */
     private TableDecorator two;
 
@@ -34,35 +34,35 @@ public class TableDecoratorTest extends TestCase
     protected void setUp() throws Exception
     {
         super.setUp();
-        one = DecoratorFactory.loadTableDecorator(TableDecoratorOne.class.getName());
-        two = DecoratorFactory.loadTableDecorator(TableDecoratorTwo.class.getName());
+        this.one = DecoratorFactory.loadTableDecorator(TableDecoratorOne.class.getName());
+        this.two = DecoratorFactory.loadTableDecorator(TableDecoratorTwo.class.getName());
     }
 
     /**
-     * test that property list is not shared between decorators
+     * test that property list is not shared between decorators.
      * (testcase for [840011])
      */
     public void testDecoratorPropertyCache()
     {
-        assertTrue("decorator one - property one, expected true", one.hasGetterFor("one"));
-        assertTrue("decorator two - property two, expected true", two.hasGetterFor("two"));
+        assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one"));
+        assertTrue("decorator two - property two, expected true", this.two.hasGetterFor("two"));
 
-        assertFalse("decorator one - property two, expected false", one.hasGetterFor("two"));
-        assertFalse("decorator two - property one, expected false", two.hasGetterFor("one"));
+        assertFalse("decorator one - property two, expected false", this.one.hasGetterFor("two"));
+        assertFalse("decorator two - property one, expected false", this.two.hasGetterFor("one"));
     }
 
 }
 
 /**
- * test decorator one
+ * test decorator one.
  * @author fgiust
- * @version $Revision: $ ($Author: $)
+ * @version $Revision: 1 $ ($Author: Fgiust $)
  */
 class TableDecoratorOne extends TableDecorator
 {
 
     /**
-     * getter property for "one"
+     * getter property for "one".
      * @return "one"
      */
     public String getOne()
@@ -72,15 +72,15 @@ class TableDecoratorOne extends TableDecorator
 }
 
 /**
- * test decorator two
+ * test decorator two.
  * @author fgiust
- * @version $Revision: $ ($Author: $)
+ * @version $Revision: 1 $ ($Author: Fgiust $)
  */
 class TableDecoratorTwo extends TableDecorator
 {
 
     /**
-     * getter property for "two"
+     * getter property for "two".
      * @return "two"
      */
     public String getTwo()

@@ -10,19 +10,19 @@ import org.displaytag.exception.RuntimeLookupExpression;
 import org.displaytag.util.LookupUtil;
 
 /**
- * <p>Comparator for rows</p>
+ * Comparator for rows.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class RowSorter implements Comparator
 {
     /**
-     * name of the property in bean
+     * name of the property in bean.
      */
     private String property;
 
     /**
-     * table decorator
+     * table decorator.
      */
     private TableDecorator decorator;
 
@@ -32,12 +32,12 @@ public class RowSorter implements Comparator
     private boolean ascending;
 
     /**
-     * index of the sorted column
+     * Index of the sorted column.
      */
     private int columnIndex;
 
     /**
-     * initialize a new RowSorter
+     * Initialize a new RowSorter.
      * @param sortedColumnIndex index of the sorted column
      * @param beanProperty name of the property. If pProperty is null column index is used to get a static cell value
      * from the row object
@@ -70,15 +70,15 @@ public class RowSorter implements Comparator
         Object obj2 = null;
 
         // if property is null compare using two static cell objects
-        if (property == null)
+        if (this.property == null)
         {
             if (object1 instanceof Row)
             {
-                obj1 = ((Row) object1).getCellList().get(columnIndex);
+                obj1 = ((Row) object1).getCellList().get(this.columnIndex);
             }
             if (object2 instanceof Row)
             {
-                obj2 = ((Row) object2).getCellList().get(columnIndex);
+                obj2 = ((Row) object2).getCellList().get(this.columnIndex);
             }
 
             return checkNullsAndCompare(obj1, obj2);
@@ -101,29 +101,29 @@ public class RowSorter implements Comparator
                 Object result2 = null;
 
                 // If they have supplied a decorator, then make sure and use it for the sorting as well
-                if (decorator != null && decorator.hasGetterFor(property))
+                if (this.decorator != null && this.decorator.hasGetterFor(this.property))
                 {
                     // set the row before sending to the decorator
-                     ((TableDecorator) decorator).initRow(obj1, 0, 0);
+                     this.decorator.initRow(obj1, 0, 0);
 
-                    result1 = LookupUtil.getBeanProperty(decorator, property);
+                    result1 = LookupUtil.getBeanProperty(this.decorator, this.property);
 
                     // set the row before sending to the decorator
-                     ((TableDecorator) decorator).initRow(obj2, 0, 0);
+                     this.decorator.initRow(obj2, 0, 0);
 
-                    result2 = LookupUtil.getBeanProperty(decorator, property);
+                    result2 = LookupUtil.getBeanProperty(this.decorator, this.property);
                 }
                 else
                 {
-                    result1 = LookupUtil.getBeanProperty(obj1, property);
-                    result2 = LookupUtil.getBeanProperty(obj2, property);
+                    result1 = LookupUtil.getBeanProperty(obj1, this.property);
+                    result2 = LookupUtil.getBeanProperty(obj2, this.property);
                 }
 
                 return checkNullsAndCompare(result1, result2);
             }
             catch (ObjectLookupException e)
             {
-                throw new RuntimeLookupExpression(getClass(), property, e);
+                throw new RuntimeLookupExpression(getClass(), this.property, e);
             }
         }
     }
@@ -138,7 +138,7 @@ public class RowSorter implements Comparator
      */
     private int checkNullsAndCompare(Object object1, Object object2)
     {
-        int ascendingInt = ascending ? 1 : -1;
+        int ascendingInt = this.ascending ? 1 : -1;
 
         if (object1 instanceof Comparable && object2 instanceof Comparable)
         {
@@ -174,8 +174,8 @@ public class RowSorter implements Comparator
         if (object instanceof RowSorter)
         {
             return new EqualsBuilder()
-                .append(property, ((RowSorter) object).property)
-                .append(columnIndex, ((RowSorter) object).columnIndex)
+                .append(this.property, ((RowSorter) object).property)
+                .append(this.columnIndex, ((RowSorter) object).columnIndex)
                 .isEquals();
         }
 
@@ -187,7 +187,7 @@ public class RowSorter implements Comparator
      */
     public final int hashCode()
     {
-        return new HashCodeBuilder(31, 33).append(property).append(columnIndex).toHashCode();
+        return new HashCodeBuilder(31, 33).append(this.property).append(this.columnIndex).toHashCode();
     }
 
 }

@@ -1,7 +1,7 @@
 package org.displaytag.exception;
 
 /**
- * Exception thrown for errors in accessing bean properties
+ * Exception thrown for errors in accessing bean properties.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -9,7 +9,7 @@ public class ObjectLookupException extends BaseNestableJspTagException
 {
 
     /**
-     * Instantiate a new ObjectLookupException
+     * Instantiate a new ObjectLookupException.
      * @param source Class where the exception is generated
      * @param beanObject javabean
      * @param beanProperty name of the property not found in javabean

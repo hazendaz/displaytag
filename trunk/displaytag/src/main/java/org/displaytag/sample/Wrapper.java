@@ -7,19 +7,19 @@ import org.displaytag.decorator.TableDecorator;
 
 /**
  * This class is a decorator of the TestObjects that we keep in our List. This class provides a number of methods for
- * formatting data, creating dynamic links, and exercising some aspects of the display:table API functionality
+ * formatting data, creating dynamic links, and exercising some aspects of the display:table API functionality.
  * @author epesh
  * @version $Revision$ ($Author$)
  */
 public class Wrapper extends TableDecorator
 {
     /**
-     * FastDateFormat used to format dates in getDate()
+     * FastDateFormat used to format dates in getDate().
      */
     private FastDateFormat dateFormat;
 
     /**
-     * DecimalFormat used to format money in getMoney()
+     * DecimalFormat used to format money in getMoney().
      */
     private DecimalFormat moneyFormat;
 
@@ -37,7 +37,7 @@ public class Wrapper extends TableDecorator
     }
 
     /**
-     * Test method which always returns a null value
+     * Test method which always returns a null value.
      * @return <code>null</code>
      */
     public String getNullValue()
@@ -46,7 +46,7 @@ public class Wrapper extends TableDecorator
     }
 
     /**
-     * Returns the date as a String in MM/dd/yy format
+     * Returns the date as a String in MM/dd/yy format.
      * @return formatted date
      */
     public String getDate()
@@ -55,7 +55,7 @@ public class Wrapper extends TableDecorator
     }
 
     /**
-     * Returns the money as a String in $ #,###,###.00 format
+     * Returns the money as a String in $ #,###,###.00 format.
      * @return String
      */
     public String getMoney()
