@@ -101,6 +101,16 @@ public final class TagConstants
     public static final String TAG_TBODY_CLOSE = TAG_OPENCLOSING + TAGNAME_TABLE_BODY + TAG_CLOSE;
 
     /**
+    * html tag <code>%lt;tfooter&gt;</code>
+    */
+    public static final String TAG_TFOOTER_OPEN = TAG_OPEN + TAGNAME_TABLE_FOOTER + TAG_CLOSE;
+
+    /**
+    * html tag <code>%lt;/tfooter&gt;</code>
+    */
+    public static final String TAG_TFOOTER_CLOSE = TAG_OPENCLOSING + TAGNAME_TABLE_FOOTER + TAG_CLOSE;
+
+    /**
     * html tag <code>%lt;th&gt;</code>
     */
     public static final String TAG_TH_OPEN = TAG_OPEN + TAGNAME_COLUMN_HEADER + TAG_CLOSE;
