@@ -1,37 +1,42 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <document>
-
-	<properties>
-		<title>Overview</title>
-		<author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
-	</properties>
-
-	<body>
-
-		<section name="Overview">
-			<p>
-				The display tag library is an open source suite of custom tags that provide high level web presentation
-				patterns which will work in an MVC model.  The library provides a significant amount of functionality while still
-				being simple and straight-forward to use.
-			</p>
-		</section>
-
-		<section name="What can I do with it?">
-			<p>
-				Actually the display tag library can just... display tables! Give it a list of objects and it will
-				handle column display, sorting, paging, cropping, grouping, exporting, smart linking and
-				decoration of the table in a nice and customizable xhtml style.
-			</p>
-
-			<p>
-				This is a sample of tables generated from lists using the &lt;display:table&gt; tag:
-			</p>
-			<img
-				src="images/sample_snapshot.png"
-				width="562"
-				height="543"
-				alt="sample tables produced with the display:table tag" />
-		</section>
-
-	</body>
+  <properties>
+    <title>Overview</title>
+    <author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+  </properties>
+  <body>
+    <section name="Overview">
+      <p>The display tag library is an open source suite of custom tags that provide high level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being simple and straight-forward to use.</p>
+    </section>
+    <section name="What's New">
+      <subsection name="December 30, 2003">
+        <p>
+          Started working on 1.0-b3 release. The site is always updated with
+          the latest changes, so be sure to refer to the docs included in the
+          distribution zip for previous releases.
+          We will try to make nightly build available shortly.
+        </p>
+      </subsection>
+      <subsection name="December 8, 2003">
+        <p>
+          1.0-b2 is finally out! Check out
+          <a href="changes-report.html">changes</a>
+          for details about new features and fixed bugs and
+          <a href="download.html">download the distribution here</a>
+          .
+        </p>
+        <p>
+          Note that the b2 version now requires j2ee 1.3 to compile, but it still runs on any j2ee 1.2 container. The new
+          <a href="apidocs/org/displaytag/filter/ResponseOverrideFilter.html">export filter</a>
+          (fixes exporting with includes or struts tiles) can ony be used on 1.3 containers.
+        </p>
+      </subsection>
+    </section>
+    <section name="What can I do with it?">
+      <p>Actually the display tag library can just... display tables! Give it a list of objects and it will handle column display, sorting, paging, cropping, grouping, exporting, smart linking and decoration of the table in a nice and customizable xhtml style.</p>
+      <p>This is a sample of tables generated from lists using the &lt;display:table&gt; tag:</p>
+      <img src="images/sample_snapshot.png" width="562" height="543" alt="sample tables produced with the display:table tag" />
+    </section>
+  </body>
 </document>
+

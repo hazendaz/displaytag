@@ -1,7 +1,8 @@
 <%@ include file="inc/header.jsp" %>
 
 
-<% request.setAttribute( "test", new TestList(10, false) ); %>
+<% request.setAttribute( "test", new TestList(10, false) );
+   request.setAttribute( "empty", new List() ); %>
 <% request.setAttribute( "test2", new ArrayList() ); %>
 <% Object foo = session.getAttribute( "test3" );
    if( foo == null ) {
@@ -51,5 +52,18 @@
     on how to configure them in your system.
 </p>
 
+<p>
+	The following sample shows how you can change the behaviour for empty tables (showing the table or a simple message)
+	using the "basic.empty.showtable" property.
+</p>
+<display:table name="requestScope.empty">
+	  <display:column property="column" title="column" />
+</display:table>
+
+
+<display:table name="requestScope.empty">
+	<display:column property="column" title="column" />
+	<display:setProperty name="basic.empty.showtable" value="true">
+</display:table>
 
 <%@ include file="inc/footer.jsp" %>

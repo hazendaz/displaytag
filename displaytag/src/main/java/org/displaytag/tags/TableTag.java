@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.TableDecorator;
+import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.export.BaseExportView;
@@ -671,7 +672,6 @@ public class TableTag extends HtmlTableTag
      */
     private void initParameters() throws ObjectLookupException
     {
-
         initHref();
 
         RequestHelper requestHelper = new RequestHelper((HttpServletRequest) this.pageContext.getRequest());
@@ -736,7 +736,7 @@ public class TableTag extends HtmlTableTag
             StringBuffer fullName = new StringBuffer();
 
             // append scope
-            if (this.scope != null && !"".equals(this.scope))
+            if (StringUtils.isNotBlank(this.scope))
             {
                 fullName.append(this.scope).append("Scope.");
             }
@@ -748,7 +748,7 @@ public class TableTag extends HtmlTableTag
             }
 
             // append property
-            if (this.property != null && !"".equals(this.property))
+            if (StringUtils.isNotBlank(this.property))
             {
                 fullName.append('.').append(this.property);
             }
@@ -1092,6 +1092,13 @@ public class TableTag extends HtmlTableTag
             log.debug("[" + getId() + "] getHTMLData called for table [" + getId() + "]");
         }
 
+        boolean noItems = this.tableModel.getRowListPage().size() == 0;
+
+        if (noItems && !this.properties.getEmptyListShowTable())
+        {
+            return this.properties.getEmptyListMessage();
+        }
+
         StringBuffer buffer = new StringBuffer(8000);
 
         // variables to hold the previous row columns values.
@@ -1125,93 +1132,8 @@ public class TableTag extends HtmlTableTag
         // open table body
         buffer.append(TagConstants.TAG_TBODY_OPEN);
 
-        // Ok, start bouncing through our list...
-        RowIterator rowIterator = this.tableModel.getRowIterator();
-        // iterator on rows
-        while (rowIterator.hasNext())
-        {
-            Row row = rowIterator.next();
-            if (log.isDebugEnabled())
-            {
-                log.debug("[" + getId() + "] rowIterator.next()=" + row);
-            }
-            if (this.tableModel.getTableDecorator() != null)
-            {
-                String stringStartRow = this.tableModel.getTableDecorator().startRow();
-                if (stringStartRow != null)
-                {
-                    buffer.append(stringStartRow);
-                }
-            }
-
-            // open tr
-            buffer.append(row.getOpenTag());
-
-            // iterator on columns
-            if (log.isDebugEnabled())
-            {
-                log.debug("[" + getId() + "] creating ColumnIterator on " + this.tableModel.getHeaderCellList());
-            }
-            ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
-
-            while (columnIterator.hasNext())
-            {
-                Column column = columnIterator.nextColumn();
-                Object value;
-
-                // Get the value to be displayed for the column
-                buffer.append(column.getOpenTag());
-                value = column.getChoppedAndLinkedValue();
-
-                // Ok, let's write this column's cell...
-                if (column.getGroup() != -1)
-                {
-                    buffer.append(groupColumns(value.toString(), column.getGroup()));
-                }
-                else
-                {
-                    buffer.append(value);
-                }
-
-                buffer.append(column.getCloseTag());
-            }
-
-            // no columns?
-            if (this.tableModel.isEmpty())
-            {
-                if (log.isDebugEnabled())
-                {
-                    log.debug("[" + getId() + "] table has no columns");
-                }
-                buffer.append(TagConstants.TAG_TD_OPEN);
-                buffer.append(row.getObject().toString());
-                buffer.append(TagConstants.TAG_TD_CLOSE);
-            }
-
-            // close tr
-            buffer.append(row.getCloseTag());
-
-            if (this.tableModel.getTableDecorator() != null)
-            {
-                String endRow = this.tableModel.getTableDecorator().finishRow();
-                if (endRow != null)
-                {
-                    buffer.append(endRow);
-                }
-            }
-        }
-
-        if (this.tableModel.getRowListPage().size() == 0)
-        {
-            //@todo fix this!
-            buffer.append("\t\t<tr class=\"empty\">\n");
-            buffer.append(
-                "<td colspan=\""
-                    + (this.tableModel.getNumberOfColumns() + 1)
-                    + "\">"
-                    + this.properties.getEmptyListMessage()
-                    + "</td></tr>");
-        }
+        // write table body
+        buffer.append(getTableBody());
 
         // close table body
         buffer.append(TagConstants.TAG_TBODY_CLOSE);
@@ -1288,21 +1210,11 @@ public class TableTag extends HtmlTableTag
             // if sorted add styles
             if (headerCell.isAlreadySorted())
             {
-                String css = this.properties.getCssSorted();
-
-                if (StringUtils.isNotBlank(css))
-                {
-                    // sorted css class
-                    headerCell.addHeaderClass(css);
-                }
+                // sorted css class
+                headerCell.addHeaderClass(this.properties.getCssSorted());
 
                 // sort order css class
-                String cssOrder = this.properties.getCssOrder(this.tableModel.isSortOrderAscending());
-
-                if (StringUtils.isNotBlank(cssOrder))
-                {
-                    headerCell.addHeaderClass(cssOrder);
-                }
+                headerCell.addHeaderClass(this.properties.getCssOrder(this.tableModel.isSortOrderAscending()));
             }
 
             // append th with html attributes
@@ -1374,6 +1286,105 @@ public class TableTag extends HtmlTableTag
         {
             log.debug("[" + getId() + "] getTableHeader end");
         }
+        return buffer.toString();
+    }
+
+    /**
+     * Writes the table body content.
+     * @return table body content
+     * @throws ObjectLookupException for errors in looking up properties in objects
+     * @throws DecoratorException for errors returned by decorators
+     */
+    private String getTableBody() throws ObjectLookupException, DecoratorException
+    {
+        StringBuffer buffer = new StringBuffer();
+
+        // Ok, start bouncing through our list...
+        RowIterator rowIterator = this.tableModel.getRowIterator();
+        
+        // iterator on rows
+        while (rowIterator.hasNext())
+        {
+            Row row = rowIterator.next();
+            if (log.isDebugEnabled())
+            {
+                log.debug("[" + getId() + "] rowIterator.next()=" + row);
+            }
+            if (this.tableModel.getTableDecorator() != null)
+            {
+                String stringStartRow = this.tableModel.getTableDecorator().startRow();
+                if (stringStartRow != null)
+                {
+                    buffer.append(stringStartRow);
+                }
+            }
+
+            // open tr
+            buffer.append(row.getOpenTag());
+
+            // iterator on columns
+            if (log.isDebugEnabled())
+            {
+                log.debug("[" + getId() + "] creating ColumnIterator on " + this.tableModel.getHeaderCellList());
+            }
+            ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
+
+            while (columnIterator.hasNext())
+            {
+                Column column = columnIterator.nextColumn();
+                Object value;
+
+                // Get the value to be displayed for the column
+                buffer.append(column.getOpenTag());
+                value = column.getChoppedAndLinkedValue();
+
+                // Ok, let's write this column's cell...
+                if (column.getGroup() != -1)
+                {
+                    buffer.append(groupColumns(value.toString(), column.getGroup()));
+                }
+                else
+                {
+                    buffer.append(value);
+                }
+
+                buffer.append(column.getCloseTag());
+            }
+
+            // no columns?
+            if (this.tableModel.isEmpty())
+            {
+                if (log.isDebugEnabled())
+                {
+                    log.debug("[" + getId() + "] table has no columns");
+                }
+                buffer.append(TagConstants.TAG_TD_OPEN).append(row.getObject().toString()).append(
+                    TagConstants.TAG_TD_CLOSE);
+            }
+
+            // close tr
+            buffer.append(row.getCloseTag());
+
+            if (this.tableModel.getTableDecorator() != null)
+            {
+                String endRow = this.tableModel.getTableDecorator().finishRow();
+                if (endRow != null)
+                {
+                    buffer.append(endRow);
+                }
+            }
+        }
+
+        if (this.tableModel.getRowListPage().size() == 0)
+        {
+            buffer.append(
+                "<tr class=\"empty\"><td colspan=\""
+                    + (this.tableModel.getNumberOfColumns() + 1)
+                    + "\">"
+                    + this.properties.getEmptyListMessage()
+                    + "</td></tr>");
+        }
+
         return buffer.toString();
     }
 

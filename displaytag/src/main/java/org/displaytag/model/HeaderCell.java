@@ -347,6 +347,12 @@ public class HeaderCell
      */
     public void addHeaderClass(String cssClass)
     {
+        // null safe
+        if (StringUtils.isBlank(cssClass))
+        {
+            return;
+        }
+
         Object classAttributes = this.headerAttributes.get(TagConstants.ATTRIBUTE_CLASS);
 
         // handle multiple values

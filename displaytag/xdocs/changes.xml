@@ -30,6 +30,10 @@
 	    <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536616&amp;aid=867217">[867217]</a>
 	    )
       </action>
+      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+	    Added a new configuration property <code>basic.empty.showtable</code> which let you choose if you want to display
+	    the table if the underlining list is empty.
+      </action>
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">

@@ -77,6 +77,11 @@ public class TableProperties
     public static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = "basic.msg.empty_list";
 
     /**
+     * property <code>basic.empty.showtable</code>.
+     */
+    public static final String PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE = "basic.empty.showtable";
+
+    /**
      * property <code>paging.banner.placement</code>.
      */
     public static final String PROPERTY_STRING_BANNER_PLACEMENT = "paging.banner.placement";
@@ -549,12 +554,21 @@ public class TableProperties
     }
 
     /**
-     * Getter for the <code>PROPERTY_BOOLEAN_SHOWHEADER</code> property.
+     * Getter for the <code>PROPERTY_STRING_EMPTYLIST_MESSAGE</code> property.
      * @return String
      */
     public String getEmptyListMessage()
     {
         return getProperty(PROPERTY_STRING_EMPTYLIST_MESSAGE);
+    }
+
+    /**
+     * Getter for the <code>PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE</code> property.
+     * @return boolean <code>true</code> if table should be displayed also if no items are found
+     */
+    public boolean getEmptyListShowTable()
+    {
+        return getBooleanProperty(PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE);
     }
 
     /**
