@@ -185,7 +185,7 @@
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.0.2</version>
-      <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/intro.html</url>
+      <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/</url>
     </dependency>
     <dependency>
       <groupId>taglibs</groupId>
@@ -210,13 +210,6 @@
       <url></url>
     </dependency>
     <!-- plugin dependencies -->
-    <dependency>
-        <groupId>maven-validator</groupId>
-        <artifactId>maven-xhtml-plugin</artifactId>
-        <version>1.1</version>
-        <type>plugin</type>
-        <url>http://maven-validator.sourceforge.net</url>
-    </dependency>
     <dependency>
 	    <groupId>maven-taglib</groupId>
 	    <artifactId>maven-taglib-plugin</artifactId>
