@@ -152,7 +152,7 @@
     </part>
     <part id="appservers">
         <title>App Servers specific problems</title>
-        <faq id="jrun">
+        <faq id="jrunlog4j">
             <question>
                 After deployed the displaytag war in JRun 4 I get a
                 <code>java.lang.NoClassDefFoundError: org/apache/log4j/Layout</code>
@@ -180,6 +180,50 @@
                     <a href="http://www.google.it/search?q=jrun+%22org%2Fapache%2Flog4j%2FLayout%22">
                         searching jrun "org/apache/log4j/Layout"
                     </a>
+                </p>
+            </answer>
+        </faq>
+        <faq id="jruntld">
+            <question>
+                The &lt;example> elements in the
+                <code>displaytag-el.tld</code>
+                and
+                <code>displaytag-12.tld</code>
+                are invalid according to JRun4. When adding displaytag.jar to a JRun4 web application I get the
+                following stacktrace:
+                <code>
+                    jrun.jsp.compiler.JRunTagLibraryInfo$InvalidTLDElementException: The tag example on line 244 is not
+                    a valid TLD element at
+                    jrun.jsp.compiler.JRunTagLibraryInfo$TLDParser.startElement(JRunTagLibraryInfo.java:613)
+                </code>
+            </question>
+            <answer>
+                <p>Again, this appears to be a JRun fault.</p>
+                <p>
+                    The &lt;example> elements are absolutely valid according to the sun dtd
+                    <code>http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd</code>
+                    but JRun doesn't accept them. A bug report has already been submitted to Macromedia hoping they will
+                    fix this.
+                </p>
+                <p>In the meanwhile, you have two available solutions to make displaytag work pacefully with JRun:</p>
+                <ul>
+                    <li>
+                        If you don't need to use the EL version, simply delete the
+                        <code>displaytag-el.tld</code>
+                        and
+                        <code>displaytag-12.tld</code>
+                        files from displaytag.jar and use the 1.1 version. This one works without problems.
+                    </li>
+                    <li>
+                        If you need the EL version, extract
+                        <code>displaytag-el.tld</code>
+                        from the jar and remove all the &lt;example> tags. Replace the original tld in the jar with this
+                        modified one.
+                    </li>
+                </ul>
+                <p>
+                    We are sorry for this extra step needed with JRun, but at the moment we decided to not to remove the
+                    example tags in the main tld since they are needed for the generated documentation.
                 </p>
             </answer>
         </faq>
