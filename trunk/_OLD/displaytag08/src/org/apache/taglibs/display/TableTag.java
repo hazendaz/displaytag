@@ -1357,7 +1357,7 @@ public class TableTag extends TemplateTag {
             separator = "&";
         }
 
-        buf.append("<table ");
+        buf.append("<table");
         buf.append(this.getTableAttributes().toString());
         buf.append(">\n");
 
@@ -1604,6 +1604,12 @@ public class TableTag extends TemplateTag {
      */
     private String getTableAttributes() {
         StringBuffer results = new StringBuffer();
+
+        if (this.name != null) {
+            results.append(" id=\"");
+            results.append(this.name);
+            results.append("\"");
+        }
 
         if (this.clazz != null) {
             results.append(" class=\"");
