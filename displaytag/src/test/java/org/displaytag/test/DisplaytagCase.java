@@ -60,7 +60,7 @@ public abstract class DisplaytagCase extends TestCase
      */
     public void test11() throws Exception
     {
-        doTest("http://localhost/tld11/" + getJspName());
+        doTest("http://localhost/context/tld11/" + getJspName());
     }
 
     /**
@@ -69,7 +69,7 @@ public abstract class DisplaytagCase extends TestCase
      */
     public void testEL() throws Exception
     {
-        doTest("http://localhost/el/" + getJspName());
+        doTest("http://localhost/context/el/" + getJspName());
     }
 
     /**
@@ -87,7 +87,7 @@ public abstract class DisplaytagCase extends TestCase
         String path = webXmlUrl.getFile();
 
         // start servletRunner
-        runner = new ServletRunner(path, "");
+        runner = new ServletRunner(path, "/context");
 
         // register the filter servlet
         runner.registerServlet("*" + MockFilterSupport.FILTERED_EXTENSION, MockFilterSupport.class.getName());
