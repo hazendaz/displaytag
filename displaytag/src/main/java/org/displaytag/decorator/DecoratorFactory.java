@@ -12,6 +12,7 @@
 package org.displaytag.decorator;
 
 import org.displaytag.exception.DecoratorInstantiationException;
+import org.displaytag.util.ReflectHelper;
 
 
 /**
@@ -47,7 +48,7 @@ public final class DecoratorFactory
 
         try
         {
-            Class decoratorClass = Class.forName(decoratorName);
+            Class decoratorClass = ReflectHelper.classForName(decoratorName);
             return (TableDecorator) decoratorClass.newInstance();
         }
         catch (ClassNotFoundException e)
@@ -86,7 +87,7 @@ public final class DecoratorFactory
 
         try
         {
-            Class decoratorClass = Class.forName(columnDecoratorName);
+            Class decoratorClass = ReflectHelper.classForName(columnDecoratorName);
             return (ColumnDecorator) decoratorClass.newInstance();
         }
 
