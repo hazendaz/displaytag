@@ -793,7 +793,11 @@ public class TableTag extends HtmlTableTag
             fullName.append('.').append(this.property);
         }
 
-        this.list = evaluateExpression(fullName.toString());
+        // only evaluate if needed, else preserve original list
+        if (this.name != null)
+        {
+            this.list = evaluateExpression(fullName.toString());
+        }
 
         this.tableIterator = IteratorUtils.getIterator(this.list);
 
