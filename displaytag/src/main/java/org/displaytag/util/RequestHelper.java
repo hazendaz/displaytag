@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -106,7 +107,7 @@ public class RequestHelper
 
                 // values[i] = URLEncoder.encode(values[i], "UTF-8");
                 // deprecated in java 1.4, but still need this for jre 1.3 compatibility
-                values[i] = URLEncoder.encode(values[i]);
+                values[i] = URLEncoder.encode(StringUtils.defaultString(values[i]));
             }
             map.put(paramName, values);
 
