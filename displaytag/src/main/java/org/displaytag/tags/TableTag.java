@@ -1214,10 +1214,7 @@ public class TableTag extends HtmlTableTag
             if (headerCell.getSortable())
             {
                 String cssSortable = this.properties.getCssSortable();
-                if (StringUtils.isNotBlank(cssSortable))
-                {
-                    headerCell.addHeaderClass(cssSortable);
-                }
+                headerCell.addHeaderClass(cssSortable);
             }
 
             // if sorted add styles
@@ -1239,53 +1236,14 @@ public class TableTag extends HtmlTableTag
             // column is sortable, create link
             if (headerCell.getSortable())
             {
-
-                // costruct Href from base href, preserving parameters
-                Href href = new Href(this.baseHref);
-
-                // add column number as link parameter
-                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
-
-                boolean nowOrderAscending;
-                //@todo optimize this using SortOrderEnum
-                if (headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending())
-                {
-                    href.addParameter(
-                        encodeParameter(TableTagParameters.PARAMETER_ORDER),
-                        SortOrderEnum.DESCENDING.getCode());
-                    nowOrderAscending = false;
-                }
-                else
-                {
-                    href.addParameter(
-                        encodeParameter(TableTagParameters.PARAMETER_ORDER),
-                        SortOrderEnum.ASCENDING.getCode());
-                    nowOrderAscending = true;
-                }
-
-                // only if user want to sort the full table
-                // check if I need to reset the page number
-                if (this.tableModel.isSortFullTable())
-                {
-                    // if sorting (column or order) is changed reset page
-                    if (headerCell.getColumnNumber() != this.previousSortedColumn
-                        || ((nowOrderAscending ^ this.previousOrder)))
-                    {
-                        href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
-                    }
-                }
-
-                // create link
-                Anchor anchor = new Anchor(href, header);
+                // creates the link for sorting
+                Anchor anchor = new Anchor(getSortingHref(headerCell), header);
 
                 // append to buffer
-                buffer.append(anchor.toString());
-            }
-            else
-            {
-                buffer.append(header);
+                header = anchor.toString();
             }
 
+            buffer.append(header);
             buffer.append(headerCell.getHeaderCloseTag());
         }
 
@@ -1300,6 +1258,44 @@ public class TableTag extends HtmlTableTag
             log.debug("[" + getId() + "] getTableHeader end");
         }
         return buffer.toString();
+    }
+
+    /**
+     * Generates the link to be added to a column header for sorting.
+     * @param headerCell header cell the link should be added to
+     * @return Href for sorting
+     */
+    private Href getSortingHref(HeaderCell headerCell)
+    {
+        // costruct Href from base href, preserving parameters
+        Href href = new Href(this.baseHref);
+
+        // add column number as link parameter
+        href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
+
+        boolean nowOrderAscending = !(headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending());
+        //@todo optimize this using SortOrderEnum
+        if (nowOrderAscending)
+        {
+            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), SortOrderEnum.ASCENDING.getCode());
+        }
+        else
+        {
+            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), SortOrderEnum.DESCENDING.getCode());
+        }
+
+        // only if user want to sort the full table. Check if I need to reset the page number
+        if (this.tableModel.isSortFullTable())
+        {
+            // if sorting (column or order) is changed reset page
+            if (headerCell.getColumnNumber() != this.previousSortedColumn
+                || ((nowOrderAscending ^ this.previousOrder)))
+            {
+                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
+            }
+        }
+
+        return href;
     }
 
     /**
