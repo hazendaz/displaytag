@@ -65,24 +65,26 @@
       <action type="update"  dev="fgiust" due-to="Fabrizio Giustina">
           Exported data is now properly escaped for the output format
       </action>
-      <action type="add"  dev="fgiust" due-to="Fabrizio Giustina">
-          When exporting, the table tag will set an "export" parameter in the page scope containing a ExportTypeEnum object (see javadocs).
-          This can be used in column content to generate output based on export type.
-      </action>
       <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=773162">[773162]</a>: 
       include header in excel export
       </action>
-        <action type="fix" dev="rapruitt" due-to="Andy Pruitt">
+      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+      fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=840011">[840011]</a>: 
+      properties inheritance between table decorators
+      </action>
+      <action type="fix" dev="rapruitt" due-to="Andy Pruitt">
         fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=831806">[831806]</a>:
-        User properties can now be loaded from files when deployed in unexploded WAR.</action>
-        <action type="update" dev="rapruitt" due-to="Andy Pruitt"> Altered the properties search
+        User properties can now be loaded from files when deployed in unexploded WAR.
+      </action>
+      <action type="update" dev="rapruitt" due-to="Andy Pruitt"> Altered the properties search
         process. Properties in the file displaytag.properties will now override properties from TableTag.properties. Users
             can add additional properties via the TableProperties#setUserProperties() method.
-        </action>
-        <action type="add" dev="rapruitt" due-to="Andy Pruitt"> Added media attribute to ColumnTag. Broadened ExportTypeEnum
+      </action>
+      <action type="add" dev="rapruitt" due-to="Andy Pruitt"> Added media attribute to ColumnTag. Broadened ExportTypeEnum
         to also cover the HTML case; renamed to MediaTypeEnum. Current mediaType exposed via scripting variable 'mediaType'.
-        </action>
+        This can be used in column content to generate output based on madia type (don't output html when exporting and so on).
+      </action>
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">
