@@ -159,7 +159,7 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.6.1</version>
+            <version>1.7.0</version>
             <type>jar</type>
             <url>http://jakarta.apache.org/commons/beanutils</url>
             <properties>
@@ -170,14 +170,13 @@
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>2.1.1</version>
+            <version>3.1</version>
             <type>jar</type>
             <url>http://jakarta.apache.org/commons/collections</url>
             <properties>
                 <war.bundle>true</war.bundle>
                 <comment>
-                    needed to build and run displaytag (note that precompiled binaries will not work with
-                    commons-collections 3.0)
+                    needed to build and run displaytag
                 </comment>
             </properties>
         </dependency>

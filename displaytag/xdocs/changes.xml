@@ -16,6 +16,9 @@
 		        Added direct suppport for column totals.  Users can access the totals via JSTL in the body of the footer
                 or JSP following the tag.
 	        </action>
+	        <action type="add" dev="update">
+		        Updated dependencies: commons-beanutils 1.7, commons-collection 3.1.
+	        </action>
         </release>
         <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
             <action type="fix" dev="fgiust">
