@@ -81,20 +81,21 @@ public class MediaTest extends DisplaytagTestCase
         this.table = new TableTag();
         request.setAttribute("test", testData);
         this.table.setName("requestScope.test");
+        this.table.setId("media");
         this.tableLifecycle = new JspTagLifecycle(this.pageContext, this.table);
 
         ColumnTag acolumn = new ColumnTag();
         acolumn.setMedia(MediaTypeEnum.HTML.getName());
-        acolumn.setProperty("ant");
+        acolumn.setProperty(KnownValue.ANT);
         this.columnOneLifecycle = this.tableLifecycle.addNestedTag(acolumn);
 
         ColumnTag bcolumn = new ColumnTag();
         bcolumn.setMedia(MediaTypeEnum.XML.getName());
-        bcolumn.setProperty("bee");
+        bcolumn.setProperty(KnownValue.BEE);
         this.columnTwoLifecycle = this.tableLifecycle.addNestedTag(bcolumn);
 
         ColumnTag ccolumn = new ColumnTag();
-        ccolumn.setProperty("camel");
+        ccolumn.setProperty(KnownValue.CAMEL);
         bcolumn.setMedia(MediaTypeEnum.XML.getName() + " " + MediaTypeEnum.HTML.getName());
         this.columnThreeLifecycle = this.tableLifecycle.addNestedTag(ccolumn);
     }
@@ -105,10 +106,12 @@ public class MediaTest extends DisplaytagTestCase
      */
     public void testAsHtml() throws Exception
     {
-        this.tableLifecycle.invoke();
         this.columnOneLifecycle.expectBodyEvaluated(2);
         this.columnTwoLifecycle.expectBodySkipped();
         this.columnThreeLifecycle.expectBodyEvaluated(2);
+
+        // assert before invoke()!
+        this.tableLifecycle.invoke();
     }
 
     /**
@@ -117,10 +120,11 @@ public class MediaTest extends DisplaytagTestCase
      */
     public void endAsHtml(WebResponse webresponse)
     {
+        log.debug("RESPONSE: " + webresponse.getText());
+
         assertContains(webresponse, KnownValue.ANT);
         assertDoesNotContain(webresponse, KnownValue.BEE);
         assertContains(webresponse, KnownValue.CAMEL);
-        log.debug("RESPONSE" + webresponse.getText());
     }
 
     /**
@@ -129,7 +133,7 @@ public class MediaTest extends DisplaytagTestCase
      */
     public void beginAsXml(WebRequest webrequest)
     {
-        ParamEncoder encoder = new ParamEncoder(null, "requestScope.test");
+        ParamEncoder encoder = new ParamEncoder("media", "requestScope.test");
         webrequest.addParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE), ""
             + MediaTypeEnum.XML.getCode());
     }
@@ -140,10 +144,12 @@ public class MediaTest extends DisplaytagTestCase
      */
     public void testAsXml() throws Exception
     {
-        this.tableLifecycle.invoke();
         this.columnOneLifecycle.expectBodySkipped();
         this.columnTwoLifecycle.expectBodyEvaluated(2);
         this.columnThreeLifecycle.expectBodyEvaluated(2);
+
+        // assert before invoke()!
+        this.tableLifecycle.invoke();
     }
 
     /**
