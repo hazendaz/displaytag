@@ -75,12 +75,12 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
                 ELColumnTag.class, null, "setStyle")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("title", //$NON-NLS-1$
                 ELColumnTag.class, null, "setTitle")); //$NON-NLS-1$ 
-
-            // EL only
             proplist.add(new PropertyDescriptor("titleKey", //$NON-NLS-1$
                 ELColumnTag.class, null, "setTitleKey")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("url", //$NON-NLS-1$
                 ELColumnTag.class, null, "setUrl")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("sortProperty", //$NON-NLS-1$
+                ELColumnTag.class, null, "setSortProperty")); //$NON-NLS-1$ 
 
             // deprecated attribute
             proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$

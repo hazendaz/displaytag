@@ -349,6 +349,17 @@
             </description>
         </attribute>
         <attribute>
+            <name>sortProperty</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>
+                name of the property in the bean specified in the parent table tag (via the "name" attribute) which will
+                be used to sort values in the column. This can be used when the column body is filled or a decorator is
+                used and column should sort on undeorated values.
+            </description>
+        </attribute>
+        <attribute>
             <name>title</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

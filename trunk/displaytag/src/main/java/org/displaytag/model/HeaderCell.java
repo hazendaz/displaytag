@@ -112,6 +112,11 @@ public class HeaderCell
     private int group;
 
     /**
+     * Name of the non-decorated property used during sorting.
+     */
+    private String sortPropertyName;
+
+    /**
      * getter for the grouping index.
      * @return 0 if the column is not grouped or the grouping order
      */
@@ -472,6 +477,24 @@ public class HeaderCell
     public String getParamProperty()
     {
         return this.paramProperty;
+    }
+
+    /**
+     * Getter for the name of the property in the bean which will be used for sorting.
+     * @return String name of the property in the bean which will be used for sorting
+     */
+    public String getSortProperty()
+    {
+        return this.sortPropertyName;
+    }
+
+    /**
+     * Setter for the name of the property in the bean which will be used for sorting.
+     * @param propertyName - name of the property in the bean which will be used for sorting
+     */
+    public void setSortProperty(String propertyName)
+    {
+        this.sortPropertyName = propertyName;
     }
 
     /**

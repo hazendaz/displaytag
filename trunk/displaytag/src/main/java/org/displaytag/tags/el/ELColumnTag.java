@@ -129,6 +129,11 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String sortableExpr;
 
     /**
+     * Expression for the "sortProperty" tag attribute.
+     */
+    private String sortPropertyExpr;
+
+    /**
      * @see org.displaytag.tags.ColumnTag#setAutolink(boolean)
      * @param value EL expression for attribute value
      */
@@ -409,6 +414,10 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         {
             super.setTitleKey(eval.evalString("titleKey", titleKeyExpr)); //$NON-NLS-1$
         }
+        if (sortPropertyExpr != null)
+        {
+            super.setSortProperty(eval.evalString("sortProperty", sortPropertyExpr)); //$NON-NLS-1$
+        }
     }
 
     /**
@@ -437,6 +446,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         this.titleExpr = null;
         this.titleKeyExpr = null;
         this.urlExpr = null;
+        this.sortPropertyExpr = null;
     }
 
 }
