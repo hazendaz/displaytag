@@ -54,9 +54,28 @@ public class ExportDelegate
 
         Map bean = (Map) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);
 
+        if (log.isDebugEnabled())
+        {
+            log.debug(bean);
+        }
+
+        Object pageContent = bean.get(TableTagParameters.BEAN_BODY);
+
+        if (pageContent == null)
+        {
+            if (log.isDebugEnabled())
+            {
+                log.debug("Filter is enabled but exported content has not been found. Maybe an error occurred?");
+            }
+
+            PrintWriter out = response.getWriter();
+            out.write(wrapper.getContentAsString());
+            out.flush();
+            return;
+        }
+
         String filename = (String) bean.get(TableTagParameters.BEAN_FILENAME);
         String contentType = (String) bean.get(TableTagParameters.BEAN_CONTENTTYPE);
-        Object pageContent = bean.get(TableTagParameters.BEAN_BODY);
 
         if (StringUtils.isNotBlank(filename))
         {
@@ -104,9 +123,5 @@ public class ExportDelegate
             out.write(content);
             out.flush();
         }
-
-        // @todo this could swallow exceptions, if exported content is empty we should output data buffered in the
-        // wrapper
-
     }
 }
