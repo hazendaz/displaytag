@@ -145,7 +145,7 @@ public class TableTagExtraInfo extends TagExtraInfo
     {
         if (id == null
             || id.length() == 0
-            || Arrays.binarySearch(KEYWORDS, id) != -1
+            || Arrays.binarySearch(KEYWORDS, id) >= 0
             || !Character.isJavaIdentifierStart(id.charAt(0)))
         {
             return false;
