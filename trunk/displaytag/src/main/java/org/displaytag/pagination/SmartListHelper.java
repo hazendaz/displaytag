@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.properties.TableProperties;
-
 /**
  * <p>
  * Utility class that chops up a List of objects into small bite size pieces
@@ -26,78 +27,74 @@ public class SmartListHelper
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(SmartListHelper.class);
+    private static Log log = LogFactory.getLog(SmartListHelper.class);
 
     /**
      * full list
      */
-    private List mFullList;
+    private List fullList;
 
     /**
      * sixe of the full list
      */
-    private int mFullListSize;
+    private int fullListSize;
 
     /**
      * number of items in a page
      */
-    private int mPageSize;
+    private int pageSize;
 
     /**
      * number of pages
      */
-    private int mPageCount;
+    private int pageCount;
 
     /**
      * index of current page
      */
-    private int mCurrentPage;
+    private int currentPage;
 
     /**
      * TableProperties
      */
-    private TableProperties mProp = null;
+    private TableProperties properties = null;
 
     /**
      * Creates a SmarListHelper instance that will help you chop up a list
      * into bite size pieces that are suitable for display.
-     * @param pList List
-     * @param pPageSize number of items in a page
-     * @param pProperties TableProperties
+     * @param list List
+     * @param size number of items in a page
+     * @param tableProperties TableProperties
      */
-    public SmartListHelper(List pList, int pPageSize, TableProperties pProperties)
+    public SmartListHelper(List list, int size, TableProperties tableProperties)
     {
 
-        if (mLog.isDebugEnabled())
+        if (log.isDebugEnabled())
         {
-            mLog.debug("new SmartListHelper: list.size= " + pList.size() + " page size=" + pPageSize);
+            log.debug("new SmartListHelper: list.size= " + list.size() + " page size=" + size);
         }
 
-        if (pList == null || pPageSize < 1)
+        if (list == null || size < 1)
         {
             throw new IllegalArgumentException(
-                "Bad arguments passed into "
-                    + "SmartListHelper() constructor. List="
-                    + pList
-                    + ", pagesize="
-                    + pPageSize);
+                "Bad arguments passed into " + "SmartListHelper() constructor. List=" + list + ", pagesize=" + size);
         }
 
-        mProp = pProperties;
-        mPageSize = pPageSize;
-        mFullList = pList;
+        this.properties = tableProperties;
+        this.pageSize = size;
+        this.fullList = list;
 
-        if (mFullList != null)
+        if (this.fullList != null)
         {
-            mFullListSize = pList.size();
+            this.fullListSize = list.size();
         }
         else
         {
-            mFullListSize = 0;
+            this.fullListSize = 0;
         }
 
-        mPageCount = computedPageCount();
-        mCurrentPage = 1;
+        this.pageCount = computedPageCount();
+        this.currentPage = 1;
     }
 
     /**
@@ -108,17 +105,17 @@ public class SmartListHelper
     protected int computedPageCount()
     {
 
-        int lResult = 0;
+        int result = 0;
 
-        if ((mFullList != null) && (mPageSize > 0))
+        if ((this.fullList != null) && (this.pageSize > 0))
         {
-            int lSize = mFullListSize;
-            int lDiv = lSize / mPageSize;
-            int lMod = lSize % mPageSize;
-            lResult = (lMod == 0) ? lDiv : lDiv + 1;
+            int size = this.fullListSize;
+            int div = size / this.pageSize;
+            int mod = size % this.pageSize;
+            result = (mod == 0) ? div : div + 1;
         }
 
-        return lResult;
+        return result;
 
     }
 
@@ -129,7 +126,7 @@ public class SmartListHelper
      */
     protected int getFirstIndexForCurrentPage()
     {
-        return getFirstIndexForPage(mCurrentPage);
+        return getFirstIndexForPage(this.currentPage);
     }
 
     /**
@@ -140,35 +137,34 @@ public class SmartListHelper
     protected int getLastIndexForCurrentPage()
     {
 
-        return getLastIndexForPage(mCurrentPage);
+        return getLastIndexForPage(this.currentPage);
     }
 
     /**
      * Returns the index into the master list of the first object that
      * should appear on the given page.
-     * @param pPage page number
+     * @param pageNumber page number
      * @return int index of the first object that should appear on the given page
      */
-    protected int getFirstIndexForPage(int pPage)
+    protected int getFirstIndexForPage(int pageNumber)
     {
-
-        return (pPage - 1) * mPageSize;
+        return (pageNumber - 1) * this.pageSize;
     }
 
     /**
      * Returns the index into the master list of the last object that should
      * appear on the given page.
-     * @param pPage page number
+     * @param pageNumber page number
      * @return int index of the last object that should appear on the given page
      */
-    protected int getLastIndexForPage(int pPage)
+    protected int getLastIndexForPage(int pageNumber)
     {
 
-        int lFirstIndex = getFirstIndexForPage(pPage);
-        int lPageIndex = mPageSize - 1;
-        int lLastIndex = mFullListSize - 1;
+        int firstIndex = getFirstIndexForPage(pageNumber);
+        int pageIndex = this.pageSize - 1;
+        int lastIndex = this.fullListSize - 1;
 
-        return Math.min(lFirstIndex + lPageIndex, lLastIndex);
+        return Math.min(firstIndex + pageIndex, lastIndex);
     }
 
     /**
@@ -180,67 +176,67 @@ public class SmartListHelper
     public List getListForCurrentPage()
     {
 
-        return getListForPage(mCurrentPage);
+        return getListForPage(this.currentPage);
     }
 
     /**
      * Returns a subsection of the list that contains just the elements that
      * are supposed to be shown on the given page.
-     * @param pPage page number
+     * @param pageNumber page number
      * @return List subsection of the list that contains just the elements that
      * are supposed to be shown on the given page
      */
-    protected List getListForPage(int pPage)
+    protected List getListForPage(int pageNumber)
     {
 
-        mLog.debug("getListForPage page=" + pPage);
+        log.debug("getListForPage page=" + pageNumber);
 
-        List lList = new ArrayList(mPageSize + 1);
+        List list = new ArrayList(this.pageSize + 1);
 
-        int lFirstIndex = getFirstIndexForPage(pPage);
-        int lLastIndex = getLastIndexForPage(pPage);
+        int firstIndex = getFirstIndexForPage(pageNumber);
+        int lastIndex = getLastIndexForPage(pageNumber);
 
-        Iterator lIterator = mFullList.iterator();
-        int lCount = 0;
+        Iterator iterator = this.fullList.iterator();
+        int j = 0;
 
-        while (lIterator.hasNext())
+        while (iterator.hasNext())
         {
 
-            Object lObject = lIterator.next();
+            Object object = iterator.next();
 
-            if (lCount > lLastIndex)
+            if (j > lastIndex)
             {
                 break;
             }
-            else if (lCount >= lFirstIndex)
+            else if (j >= firstIndex)
             {
-                lList.add(lObject);
+                list.add(object);
             }
-            lCount++;
+            j++;
 
         }
 
-        return lList;
+        return list;
     }
 
     /**
      * Set's the page number that the user is viewing.
-     * @param pPage page number
+     * @param pageNumber page number
      */
-    public void setCurrentPage(int pPage)
+    public void setCurrentPage(int pageNumber)
     {
 
-        mLog.debug("setCurrentPage: page=" + pPage + " of " + mPageCount);
+        log.debug("setCurrentPage: page=" + pageNumber + " of " + this.pageCount);
 
-        if (pPage < 1 || ((pPage != 1) && (pPage > mPageCount)))
+        if (pageNumber < 1 || ((pageNumber != 1) && (pageNumber > this.pageCount)))
         {
             // invalid page: better don't throw an exception, since this could easily happen
             // (list changed, user bookmarked the page)
-            mCurrentPage = 1;
+            this.currentPage = 1;
         }
         else
         {
-            mCurrentPage = pPage;
+            this.currentPage = pageNumber;
         }
     }
 
@@ -258,43 +254,47 @@ public class SmartListHelper
     public String getSearchResultsSummary()
     {
 
-        if (mFullListSize == 0)
+        if (this.fullListSize == 0)
         {
-            mLog.debug("returning paging.banner.no_items_found");
+            log.debug("returning paging.banner.no_items_found");
 
-            Object[] lObjs = { mProp.getPagingItemsName()};
+            Object[] objs = { this.properties.getPagingItemsName()};
 
-            return MessageFormat.format(mProp.getPagingFoundNoItems(), lObjs);
+            return MessageFormat.format(this.properties.getPagingFoundNoItems(), objs);
 
         }
-        else if (mFullListSize == 1)
+        else if (this.fullListSize == 1)
         {
 
-            mLog.debug("returning paging.banner.one_item_found");
+            log.debug("returning paging.banner.one_item_found");
 
-            Object[] lObjs = { mProp.getPagingItemName()};
+            Object[] objs = { this.properties.getPagingItemName()};
 
-            return MessageFormat.format(mProp.getPagingFoundOneItem(), lObjs);
+            return MessageFormat.format(this.properties.getPagingFoundOneItem(), objs);
         }
         else if (computedPageCount() == 1)
         {
-            Object[] lObjs = { new Integer(mFullListSize), mProp.getPagingItemsName(), mProp.getPagingItemsName()};
+            Object[] objs =
+                {
+                    new Integer(this.fullListSize),
+                    this.properties.getPagingItemsName(),
+                    this.properties.getPagingItemsName()};
 
-            mLog.debug("returning paging.banner.all_items_found");
+            log.debug("returning paging.banner.all_items_found");
 
-            return MessageFormat.format(mProp.getPagingFoundAllItems(), lObjs);
+            return MessageFormat.format(this.properties.getPagingFoundAllItems(), objs);
         }
         else
         {
-            Object[] lObjs =
+            Object[] objs =
                 {
-                    new Integer(mFullListSize),
-                    mProp.getPagingItemsName(),
+                    new Integer(this.fullListSize),
+                    this.properties.getPagingItemsName(),
                     new Integer(getFirstIndexForCurrentPage() + 1),
                     new Integer(getLastIndexForCurrentPage() + 1)};
 
-            mLog.debug("returning paging.banner.some_items_found");
-            return MessageFormat.format(mProp.getPagingFoundSomeItems(), lObjs);
+            log.debug("returning paging.banner.some_items_found");
+            return MessageFormat.format(this.properties.getPagingFoundSomeItems(), objs);
         }
     }
 
@@ -305,98 +305,113 @@ public class SmartListHelper
      * The urlFormatString should be a URL that looks like the following:
      *
      * somepage.page?page={0}
-     * @param pUrlFormatString String
+     * @param urlFormatString String
      * @return String
      */
-    public String getPageNavigationBar(String pUrlFormatString)
+    public String getPageNavigationBar(String urlFormatString)
     {
 
-        mLog.debug("getPageNavigationBar");
-        int lMaxPages = 8;
+        log.debug("getPageNavigationBar");
+        int maxPages = 8;
 
-        lMaxPages = mProp.getPagingGroupSize(lMaxPages);
+        maxPages = this.properties.getPagingGroupSize(maxPages);
 
-        int lCurrentPage = mCurrentPage;
-        int lPageCount = mPageCount;
-        int lStartPage = 1;
-        int lEndPage = lMaxPages;
+        int currentIndex = this.currentPage;
+        int count = this.pageCount;
+        int startPage = 1;
+        int endPage = maxPages;
 
-        Pagination lPagination = new Pagination(pUrlFormatString);
+        Pagination pagination = new Pagination(urlFormatString);
 
-        mLog.debug("mPageCount=" + mPageCount);
+        log.debug("this.pageCount=" + this.pageCount);
 
         // if no items are found still add pagination?
-        if (lPageCount == 0)
+        if (count == 0)
         {
-            lPagination.addPage(1, true);
+            pagination.addPage(1, true);
         }
 
-        if (lCurrentPage < lMaxPages)
+        if (currentIndex < maxPages)
         {
-            lStartPage = 1;
-            lEndPage = lMaxPages;
-            if (lPageCount < lEndPage)
+            startPage = 1;
+            endPage = maxPages;
+            if (count < endPage)
             {
-                lEndPage = lPageCount;
+                endPage = count;
             }
         }
         else
         {
-            lStartPage = lCurrentPage;
-            while (lStartPage + lMaxPages > (lPageCount + 1))
+            startPage = currentIndex;
+            while (startPage + maxPages > (count + 1))
             {
-                lStartPage--;
+                startPage--;
             }
 
-            lEndPage = lStartPage + (lMaxPages - 1);
+            endPage = startPage + (maxPages - 1);
         }
 
-        if (lCurrentPage != 1)
+        if (currentIndex != 1)
         {
-            lPagination.setFirst(new Integer(1));
-            lPagination.setPrevious(new Integer(lCurrentPage - 1));
+            pagination.setFirst(new Integer(1));
+            pagination.setPrevious(new Integer(currentIndex - 1));
         }
 
-        for (int lCounter = lStartPage; lCounter <= lEndPage; lCounter++)
+        for (int j = startPage; j <= endPage; j++)
         {
-            mLog.debug("adding page " + lCounter);
-            lPagination.addPage(lCounter, (lCounter == lCurrentPage));
+            log.debug("adding page " + j);
+            pagination.addPage(j, (j == currentIndex));
         }
 
-        if (lCurrentPage != lPageCount)
+        if (currentIndex != count)
         {
-            lPagination.setNext(new Integer(lCurrentPage + 1));
-            lPagination.setLast(new Integer(lPageCount));
+            pagination.setNext(new Integer(currentIndex + 1));
+            pagination.setLast(new Integer(count));
         }
 
         // format for previous/next banner
-        String lBannerFormat;
+        String bannerFormat;
 
-        mLog.debug("lPagination.isOnePage()=" + lPagination.isOnePage());
+        log.debug("lPagination.isOnePage()=" + pagination.isOnePage());
 
-        if (lPagination.isOnePage())
+        if (pagination.isOnePage())
         {
-            lBannerFormat = mProp.getPagingBannerOnePage();
+            bannerFormat = this.properties.getPagingBannerOnePage();
         }
-        else if (lPagination.isFirst())
+        else if (pagination.isFirst())
         {
-            lBannerFormat = mProp.getPagingBannerFirst();
+            bannerFormat = this.properties.getPagingBannerFirst();
         }
-        else if (lPagination.isLast())
+        else if (pagination.isLast())
         {
-            lBannerFormat = mProp.getPagingBannerLast();
+            bannerFormat = this.properties.getPagingBannerLast();
         }
         else
         {
-            lBannerFormat = mProp.getPagingBannerFull();
+            bannerFormat = this.properties.getPagingBannerFull();
         }
 
-        mLog.debug("getPageNavigationBar end");
+        log.debug("getPageNavigationBar end");
 
-        return lPagination.getFormattedBanner(
-            mProp.getPagingPageLink(),
-            mProp.getPagingPageSelected(),
-            mProp.getPagingPageSeparator(),
-            lBannerFormat);
+        return pagination.getFormattedBanner(
+            this.properties.getPagingPageLink(),
+            this.properties.getPagingPageSelected(),
+            this.properties.getPagingPageSeparator(),
+            bannerFormat);
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("fullList", this.fullList)
+            .append("fullListSize", this.fullListSize)
+            .append("pageSize", this.pageSize)
+            .append("pageCount", this.pageCount)
+            .append("properties", this.properties)
+            .append("currentPage", this.currentPage)
+            .toString();
     }
 }
