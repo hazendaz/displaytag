@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Implicit objects created by table</title>
+    <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+  </properties>
+  <body>
+    <section name="Implicit objects created by table">
+
+<source><![CDATA[
+<display:table name="test" id="testit">
+    <display:column property="id" title="ID" />
+    <display:column property="name" />
+    <display:column title="static value">static</display:column>
+    <display:column title="row number (testit_rowNum)"><%=testit_rowNum%></display:column>
+    <display:column title="((ListObject)testit).getMoney()"><%=((ListObject)testit).getMoney()%></display:column>
+</display:table>
+]]></source>
+
+<p class="changed">
+	If you add and <code>id</code> attribute the table tag makes the object corresponding
+	to the given row available in the page context so you could use it inside scriptlet code
+	or some other tag. Another implicit object exposed by the table tag is the row number,
+	named <code><em>id</em>_rowNum</code>.
+</p>
+
+<p class="changed">
+	If you do not specify the <code>id</code> attribute no object is added to the pagecontext
+	by the table tag
+</p>
+
+    </section>
+  </body>
+</document>
+

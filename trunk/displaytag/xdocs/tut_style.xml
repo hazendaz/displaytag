@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Controlling the look and feel of tables</title>
+    <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+  </properties>
+  <body>
+    <section name="Simplest case, no columns">
+      <p>You actually have a lot of flexibility in how the table is displayed, but of course you should probably stay close to the defaults in most cases. You adjust the look of the table via two methods, 1) pass through table and column attributes, and 2) Style sheets which are described below.</p>
+      <p>Click through the above links to see different style examples of the same basic table. Most of the differences in appearance between the tables below are achieved via only stylesheet changes.</p>
+      <subsection name="Html attributes">
+        <p>You can assign to the &lt;display:table&gt; tag any standard html attribute (es. cellspacing, cellpadding), and it will be included in the rendered table.</p>
+        <p class="changed">Starting from version 0.9 of the &lt;display:table&gt; there all html attributes can be explicitly configured. Why? So you can totally control the display of your table and you can do that, as we hope, by exclusively using css. Thereby avoiding deprecated html presentation attributes. Did you notice this website was written strictly using xhtml?</p>
+        <p>
+          Likewise, you can assign to the &lt;display:column&gt; tag any standard html attribute and it will be included in any &lt;td&gt; tag of the rendered table. You can also specify a class to be used only for the column header (&lt;th&gt;) adding a
+          <code>headerClass</code>
+          attribute.
+        </p>
+      </subsection>
+      <subsection name="Style Sheets">
+        <p>While attributes might be the most comfortable way to change the appearance of your table, using style sheets is more powerful. We use style sheets to make the header a dark color, make rows an alternate color, and set the fonts within the cells to a smaller version of verdana. As the &lt;display:table&gt; tag is drawing, it assigns the following class names to elements.</p>
+        <p>You can then create a style sheet and assign attributes such as font size, family, color, etc... to each of those class names and the table will be shown according to your styles.</p>
+        <p class="changed">Beginning with version 0.9 the &lt;display:table&gt; tag, the tag will produce well formed html tables with &lt;thead&gt; and &lt;tbody&gt; sections. This renders useless the definition of few styles used in previous versions. See the @deprecated paragraph at the bottom of the page for details</p>
+        <p class="changed">New styles are added for sorted columns and pagination display is handled by properties.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>class</th>
+              <th>assigned to</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>odd</td>
+              <td>assigned to the tr tag of all odd numbered data rows</td>
+            </tr>
+            <tr>
+              <td>even</td>
+              <td>assigned to the tr tag of all even numbered data rows</td>
+            </tr>
+            <tr>
+              <td>sorted</td>
+              <td>assigned to the th tag of the sorted column</td>
+            </tr>
+            <tr>
+              <td>order1</td>
+              <td>assigned to the th tag of the sorted column if sort order is ascending</td>
+            </tr>
+            <tr>
+              <td>order2</td>
+              <td>assigned to the th tag of the sorted column if sort order is descending</td>
+            </tr>
+          </tbody>
+        </table>
+      </subsection>
+    </section>
+  </body>
+</document>
+
