@@ -28,7 +28,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ListObject extends Object
+public class ListObject
 {
 
     /**
