@@ -2,7 +2,6 @@ package org.displaytag.tags;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.tagext.Tag;
 
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.util.HtmlAttributeMap;
@@ -119,15 +118,15 @@ public class CaptionTag extends BodyTagSupport
      */
     public int doStartTag() throws JspException
     {
-        Tag tableTag = getParent();
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
-        if (tableTag == null || !(tableTag instanceof TableTag))
+        if (tableTag == null)
         {
             throw new TagStructureException(getClass(), "caption", "table");
         }
 
         // add caption only once
-        if (((TableTag) tableTag).isFirstIteration())
+        if (tableTag.isFirstIteration())
         {
             this.firstIteration = true;
             // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
