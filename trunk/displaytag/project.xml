@@ -35,7 +35,7 @@
 
   <repository>
     <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag2</connection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag2</url>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag2/</url>
   </repository>
 
   <!-- any mailing lists for the project -->
