@@ -11,7 +11,7 @@ public final class LinkUtil
     /**
      * http urls.
      */
-    private static final String URL_HTTP = "http://";
+    private static final String URL_HTTP = "http://"; //$NON-NLS-1$
 
     /**
      * don't instantiate a LinkUtil.
@@ -45,11 +45,11 @@ public final class LinkUtil
         }
         String work = string;
 
-        int index = -1;
+        int index;
         StringBuffer buffer = new StringBuffer();
 
         // First check for email addresses.
-        while ((index = work.indexOf("@")) != -1)
+        while ((index = work.indexOf('@')) != -1)
         {
             int start = 0;
             int end = work.length() - 1;
@@ -76,12 +76,9 @@ public final class LinkUtil
 
             String email = work.substring(start, end + 1);
 
-            buffer
-                .append(work.substring(0, start))
-                .append("<a href=\"mailto:")
-                .append(email + "\">")
-                .append(email)
-                .append("</a>");
+            buffer.append(work.substring(0, start)).append("<a href=\"mailto:") //$NON-NLS-1$
+                .append(email + "\">") //$NON-NLS-1$
+                .append(email).append("</a>"); //$NON-NLS-1$
 
             if (end == work.length())
             {
@@ -113,8 +110,9 @@ public final class LinkUtil
 
             String url = work.substring(index, end + 1);
 
-            buffer.append(work.substring(0, index)).append("<a href=\"").append(url).append("\">").append(url).append(
-                "</a>");
+            buffer.append(work.substring(0, index)).append("<a href=\"")//$NON-NLS-1$
+                .append(url).append("\">")//$NON-NLS-1$
+                .append(url).append("</a>"); //$NON-NLS-1$
 
             if (end == work.length())
             {

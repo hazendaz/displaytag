@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.Messages;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.util.RequestHelperFactory;
@@ -39,205 +40,205 @@ public final class TableProperties implements Cloneable
     /**
      * name of the default properties file name ("TableTag.properties").
      */
-    public static final String DEFAULT_FILENAME = "TableTag.properties";
+    public static final String DEFAULT_FILENAME = "TableTag.properties"; //$NON-NLS-1$
 
     /**
      * The name of the local properties file that is searched for on the classpath. Settings in this file will override
      * the defaults loaded from TableTag.properties.
      */
-    public static final String LOCAL_PROPERTIES = "displaytag";
+    public static final String LOCAL_PROPERTIES = "displaytag"; //$NON-NLS-1$
 
     /**
      * property <code>export.banner</code>.
      */
-    public static final String PROPERTY_STRING_EXPORTBANNER = "export.banner";
+    public static final String PROPERTY_STRING_EXPORTBANNER = "export.banner"; //$NON-NLS-1$
 
     /**
      * property <code>export.banner.sepchar</code>.
      */
-    public static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = "export.banner.sepchar";
+    public static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = "export.banner.sepchar"; //$NON-NLS-1$
 
     /**
      * property <code>export.decorated</code>.
      */
-    public static final String PROPERTY_BOOLEAN_EXPORTDECORATED = "export.decorated";
+    public static final String PROPERTY_BOOLEAN_EXPORTDECORATED = "export.decorated"; //$NON-NLS-1$
 
     /**
      * property <code>export.amount</code>.
      */
-    public static final String PROPERTY_STRING_EXPORTAMOUNT = "export.amount";
+    public static final String PROPERTY_STRING_EXPORTAMOUNT = "export.amount"; //$NON-NLS-1$
 
     /**
      * property <code>sort.amount</code>.
      */
-    public static final String PROPERTY_STRING_SORTAMOUNT = "sort.amount";
+    public static final String PROPERTY_STRING_SORTAMOUNT = "sort.amount"; //$NON-NLS-1$
 
     /**
      * property <code>basic.show.header</code>.
      */
-    public static final String PROPERTY_BOOLEAN_SHOWHEADER = "basic.show.header";
+    public static final String PROPERTY_BOOLEAN_SHOWHEADER = "basic.show.header"; //$NON-NLS-1$
 
     /**
      * property <code>basic.msg.empty_list</code>.
      */
-    public static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = "basic.msg.empty_list";
+    public static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = "basic.msg.empty_list"; //$NON-NLS-1$
 
     /**
      * property <code>basic.msg.empty_list_row</code>.
      */
-    public static final String PROPERTY_STRING_EMPTYLISTROW_MESSAGE = "basic.msg.empty_list_row";
+    public static final String PROPERTY_STRING_EMPTYLISTROW_MESSAGE = "basic.msg.empty_list_row"; //$NON-NLS-1$
 
     /**
      * property <code>basic.empty.showtable</code>.
      */
-    public static final String PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE = "basic.empty.showtable";
+    public static final String PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE = "basic.empty.showtable"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.placement</code>.
      */
-    public static final String PROPERTY_STRING_BANNER_PLACEMENT = "paging.banner.placement";
+    public static final String PROPERTY_STRING_BANNER_PLACEMENT = "paging.banner.placement"; //$NON-NLS-1$
 
     /**
      * property <code>error.msg.invalid_page</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_INVALIDPAGE = "error.msg.invalid_page";
+    public static final String PROPERTY_STRING_PAGING_INVALIDPAGE = "error.msg.invalid_page"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.item_name</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_ITEM_NAME = "paging.banner.item_name";
+    public static final String PROPERTY_STRING_PAGING_ITEM_NAME = "paging.banner.item_name"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.items_name</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_ITEMS_NAME = "paging.banner.items_name";
+    public static final String PROPERTY_STRING_PAGING_ITEMS_NAME = "paging.banner.items_name"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.no_items_found</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_NOITEMS = "paging.banner.no_items_found";
+    public static final String PROPERTY_STRING_PAGING_NOITEMS = "paging.banner.no_items_found"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.one_item_found</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM = "paging.banner.one_item_found";
+    public static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM = "paging.banner.one_item_found"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.all_items_found</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS = "paging.banner.all_items_found";
+    public static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS = "paging.banner.all_items_found"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.some_items_found</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_FOUND_SOMEITEMS = "paging.banner.some_items_found";
+    public static final String PROPERTY_STRING_PAGING_FOUND_SOMEITEMS = "paging.banner.some_items_found"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.group_size</code>.
      */
-    public static final String PROPERTY_INT_PAGING_GROUPSIZE = "paging.banner.group_size";
+    public static final String PROPERTY_INT_PAGING_GROUPSIZE = "paging.banner.group_size"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.onepage</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE = "paging.banner.onepage";
+    public static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE = "paging.banner.onepage"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.first</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_BANNER_FIRST = "paging.banner.first";
+    public static final String PROPERTY_STRING_PAGING_BANNER_FIRST = "paging.banner.first"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.last</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_BANNER_LAST = "paging.banner.last";
+    public static final String PROPERTY_STRING_PAGING_BANNER_LAST = "paging.banner.last"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.full</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_BANNER_FULL = "paging.banner.full";
+    public static final String PROPERTY_STRING_PAGING_BANNER_FULL = "paging.banner.full"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.page.link</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_PAGE_LINK = "paging.banner.page.link";
+    public static final String PROPERTY_STRING_PAGING_PAGE_LINK = "paging.banner.page.link"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.page.selected</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_PAGE_SELECTED = "paging.banner.page.selected";
+    public static final String PROPERTY_STRING_PAGING_PAGE_SELECTED = "paging.banner.page.selected"; //$NON-NLS-1$
 
     /**
      * property <code>paging.banner.page.separator</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator";
+    public static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator"; //$NON-NLS-1$
 
     /**
      * property <code>factory.requestHelper</code>.
      */
-    public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper";
+    public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper"; //$NON-NLS-1$
 
     /**
      * property <code>css.tr.even</code>: holds the name of the css class for even rows. Defaults to
      * <code>even</code>.
      */
-    public static final String PROPERTY_CSS_TR_EVEN = "css.tr.even";
+    public static final String PROPERTY_CSS_TR_EVEN = "css.tr.even"; //$NON-NLS-1$
 
     /**
      * property <code>css.tr.odd</code>: holds the name of the css class for odd rows. Defaults to <code>odd</code>.
      */
-    public static final String PROPERTY_CSS_TR_ODD = "css.tr.odd";
+    public static final String PROPERTY_CSS_TR_ODD = "css.tr.odd"; //$NON-NLS-1$
 
     /**
      * property <code>css.table</code>: holds the name of the css class added to the main table tag. By default no
      * css class is added.
      */
-    public static final String PROPERTY_CSS_TABLE = "css.table";
+    public static final String PROPERTY_CSS_TABLE = "css.table"; //$NON-NLS-1$
 
     /**
      * property <code>css.th.sortable</code>: holds the name of the css class added to the the header of a sortable
      * column. By default no css class is added.
      */
-    public static final String PROPERTY_CSS_TH_SORTABLE = "css.th.sortable";
+    public static final String PROPERTY_CSS_TH_SORTABLE = "css.th.sortable"; //$NON-NLS-1$
 
     /**
      * property <code>css.th.sorted</code>: holds the name of the css class added to the the header of a sorted
      * column. Defaults to <code>sorted</code>.
      */
-    public static final String PROPERTY_CSS_TH_SORTED = "css.th.sorted";
+    public static final String PROPERTY_CSS_TH_SORTED = "css.th.sorted"; //$NON-NLS-1$
 
     /**
      * property <code>css.th.ascending</code>: holds the name of the css class added to the the header of a column
      * sorted in ascending order. Defaults to <code>order1</code>.
      */
-    public static final String PROPERTY_CSS_TH_SORTED_ASCENDING = "css.th.ascending";
+    public static final String PROPERTY_CSS_TH_SORTED_ASCENDING = "css.th.ascending"; //$NON-NLS-1$
 
     /**
      * property <code>css.th.descending</code>: holds the name of the css class added to the the header of a column
      * sorted in descending order. Defaults to <code>order2</code>.
      */
-    public static final String PROPERTY_CSS_TH_SORTED_DESCENDING = "css.th.descending";
+    public static final String PROPERTY_CSS_TH_SORTED_DESCENDING = "css.th.descending"; //$NON-NLS-1$
 
     /**
      * prefix used for all the properties related to export ("export"). The full property name is <code>export.</code>
      * <em>[export type]</em><code>.</code><em>[property name]</em>
      */
-    public static final String PROPERTY_EXPORT_PREFIX = "export";
+    public static final String PROPERTY_EXPORT_PREFIX = "export"; //$NON-NLS-1$
 
     /**
      * export property <code>label</code>.
      */
-    public static final String EXPORTPROPERTY_STRING_LABEL = "label";
+    public static final String EXPORTPROPERTY_STRING_LABEL = "label"; //$NON-NLS-1$
 
     /**
      * export property <code>include_header</code>.
      */
-    public static final String EXPORTPROPERTY_BOOLEAN_EXPORTHEADER = "include_header";
+    public static final String EXPORTPROPERTY_BOOLEAN_EXPORTHEADER = "include_header"; //$NON-NLS-1$
 
     /**
      * export property <code>filename</code>.
      */
-    public static final String EXPORTPROPERTY_STRING_FILENAME = "filename";
+    public static final String EXPORTPROPERTY_STRING_FILENAME = "filename"; //$NON-NLS-1$
 
     /**
      * Separator char used in property names.
@@ -323,7 +324,8 @@ public final class TableProperties implements Cloneable
         {
             if (log.isDebugEnabled())
             {
-                log.debug("Was not able to load a custom displaytag.properties; " + e.getMessage());
+                log.debug(Messages.getString("TableProperties.propertiesnotfound", //$NON-NLS-1$
+                    new Object[]{e.getMessage()}));
             }
         }
 
@@ -660,7 +662,7 @@ public final class TableProperties implements Cloneable
      */
     public boolean getExportFullList()
     {
-        return "list".equals(getProperty(PROPERTY_STRING_EXPORTAMOUNT));
+        return "list".equals(getProperty(PROPERTY_STRING_EXPORTAMOUNT)); //$NON-NLS-1$
     }
 
     /**
@@ -669,7 +671,7 @@ public final class TableProperties implements Cloneable
      */
     public boolean getSortFullList()
     {
-        return "list".equals(getProperty(PROPERTY_STRING_SORTAMOUNT));
+        return "list".equals(getProperty(PROPERTY_STRING_SORTAMOUNT)); //$NON-NLS-1$
     }
 
     /**
@@ -679,7 +681,7 @@ public final class TableProperties implements Cloneable
     public boolean getAddPagingBannerTop()
     {
         String placement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
-        return "top".equals(placement) || "both".equals(placement);
+        return "top".equals(placement) || "both".equals(placement); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -689,7 +691,7 @@ public final class TableProperties implements Cloneable
     public boolean getAddPagingBannerBottom()
     {
         String placement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
-        return "bottom".equals(placement) || "both".equals(placement);
+        return "bottom".equals(placement) || "both".equals(placement); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -822,25 +824,17 @@ public final class TableProperties implements Cloneable
      */
     private int getIntProperty(String key, int defaultValue)
     {
-        int intValue = defaultValue;
-
         try
         {
-            intValue = Integer.parseInt(getProperty(key));
+            return Integer.parseInt(getProperty(key));
         }
         catch (NumberFormatException e)
         {
             // Don't care, use default
-            log.warn("Invalid value for \""
-                + key
-                + "\" property: value=\""
-                + getProperty(key)
-                + "\"; using default \""
-                + defaultValue
-                + "\"");
+            log.warn(Messages.getString("TableProperties.invalidvalue", //$NON-NLS-1$
+                new Object[]{key, getProperty(key), new Integer(defaultValue)}));
         }
 
-        return intValue;
+        return defaultValue;
     }
-
 }

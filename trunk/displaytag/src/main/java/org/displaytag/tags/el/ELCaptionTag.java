@@ -115,27 +115,27 @@ public class ELCaptionTag extends CaptionTag
 
         if (classExpr != null)
         {
-            super.setClass(eval.evalString("class", classExpr));
+            super.setClass(eval.evalString("class", classExpr)); //$NON-NLS-1$
         }
         if (dirExpr != null)
         {
-            super.setDir(eval.evalString("dir", dirExpr));
+            super.setDir(eval.evalString("dir", dirExpr)); //$NON-NLS-1$
         }
         if (idExpr != null)
         {
-            super.setId(eval.evalString("id", idExpr));
+            super.setId(eval.evalString("id", idExpr)); //$NON-NLS-1$
         }
         if (langExpr != null)
         {
-            super.setLang(eval.evalString("lang", langExpr));
+            super.setLang(eval.evalString("lang", langExpr)); //$NON-NLS-1$
         }
         if (styleExpr != null)
         {
-            super.setStyle(eval.evalString("style", styleExpr));
+            super.setStyle(eval.evalString("style", styleExpr)); //$NON-NLS-1$
         }
         if (titleExpr != null)
         {
-            super.setTitle(eval.evalString("title", titleExpr));
+            super.setTitle(eval.evalString("title", titleExpr)); //$NON-NLS-1$
         }
     }
 

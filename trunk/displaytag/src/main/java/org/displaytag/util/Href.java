@@ -54,7 +54,7 @@ public class Href implements Cloneable, Serializable
         String noAnchorUrl;
 
         // extract anchor from url
-        if ((anchorposition = baseUrl.indexOf("#")) != -1)
+        if ((anchorposition = baseUrl.indexOf('#')) != -1)
         {
             noAnchorUrl = baseUrl.substring(0, anchorposition);
             this.anchor = baseUrl.substring(anchorposition + 1);
@@ -64,7 +64,7 @@ public class Href implements Cloneable, Serializable
             noAnchorUrl = baseUrl;
         }
 
-        if (noAnchorUrl.indexOf("?") == -1)
+        if (noAnchorUrl.indexOf('?') == -1)
         {
             // simple url, no parameters
             this.url = noAnchorUrl;
@@ -72,7 +72,7 @@ public class Href implements Cloneable, Serializable
         }
 
         // the Url already has parameters, put them in the parameter Map
-        StringTokenizer tokenizer = new StringTokenizer(noAnchorUrl, "?");
+        StringTokenizer tokenizer = new StringTokenizer(noAnchorUrl, "?"); //$NON-NLS-1$
 
         // base url (before "?")
         this.url = tokenizer.nextToken();
@@ -83,13 +83,13 @@ public class Href implements Cloneable, Serializable
         }
 
         // process parameters
-        StringTokenizer paramTokenizer = new StringTokenizer(tokenizer.nextToken(), "&");
+        StringTokenizer paramTokenizer = new StringTokenizer(tokenizer.nextToken(), "&"); //$NON-NLS-1$
 
         // split parameters (key=value)
         while (paramTokenizer.hasMoreTokens())
         {
             // split key and value ...
-            String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), "=");
+            String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), '=');
 
             // encode name/value to prevent css
             String escapedKey = StringEscapeUtils.escapeHtml(keyValue[0]);
@@ -318,7 +318,7 @@ public class Href implements Cloneable, Serializable
 
         if (this.anchor != null)
         {
-            buffer.append("#");
+            buffer.append('#');
             buffer.append(this.anchor);
         }
 

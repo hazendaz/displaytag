@@ -16,6 +16,7 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.Messages;
 import org.displaytag.tags.TableTag;
 import org.displaytag.tags.TableTagParameters;
 
@@ -78,9 +79,9 @@ public class ResponseOverrideFilter implements Filter
 
         if (servletRequest.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null)
         {
-            if (log.isDebugEnabled())
+            if (log.isInfoEnabled())
             {
-                log.debug("Filter has been called, but PARAMETER_EXPORTING parameter has not been found.");
+                log.info(Messages.getString("ResponseOverrideFilter.parameternotfound")); //$NON-NLS-1$
             }
             //don't filter!
             filterChain.doFilter(servletRequest, servletResponse);
@@ -115,7 +116,8 @@ public class ResponseOverrideFilter implements Filter
             contentType = ObjectUtils.toString(request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_TYPE));
             if (log.isDebugEnabled())
             {
-                log.debug("Overriding output, writing new output with content type " + contentType);
+                log.debug(Messages.getString("ResponseOverrideFilter.overridingoutput", //$NON-NLS-1$
+                    new Object[]{contentType}));
             }
 
             StringBuffer filename = (StringBuffer) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_FILENAME);
@@ -124,7 +126,8 @@ public class ResponseOverrideFilter implements Filter
             {
                 if (log.isDebugEnabled())
                 {
-                    log.debug("Filename specified as " + filename);
+                    log.debug(Messages.getString("ResponseOverrideFilter.filenameis", //$NON-NLS-1$
+                        new Object[]{filename}));
                 }
                 resp.setHeader("Content-Disposition", //$NON-NLS-1$
                     "attachment; filename=\"" + filename + "\""); //$NON-NLS-1$ //$NON-NLS-2$
@@ -132,7 +135,7 @@ public class ResponseOverrideFilter implements Filter
         }
         else
         {
-            log.debug("NOT overriding input. ");
+            log.debug(Messages.getString("ResponseOverrideFilter.notoverriding")); //$NON-NLS-1$
             pageContent = wrapper.toString();
             contentType = wrapper.getContentType();
         }

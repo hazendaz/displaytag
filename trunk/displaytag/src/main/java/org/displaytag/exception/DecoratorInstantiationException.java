@@ -26,7 +26,8 @@ public class DecoratorInstantiationException extends BaseNestableJspTagException
     public DecoratorInstantiationException(Class source, String decorator, Throwable cause)
     {
         super(source, Messages.getString("DecoratorInstantiationException.msg" //$NON-NLS-1$
-            , new Object[]{decorator, (cause != null ? cause.getClass().getName() : TagConstants.EMPTY_STRING)}), cause); //$NON-NLS-1$
+            , new Object[]{decorator, (cause != null ? cause.getClass().getName() : TagConstants.EMPTY_STRING)}), //
+            cause);
     }
 
     /**

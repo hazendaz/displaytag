@@ -85,13 +85,14 @@ public class ListObject extends Object
         String firstName = RandomSampleUtil.getRandomWord();
         String lastName = RandomSampleUtil.getRandomWord();
 
-        this.name = StringUtils.capitalize(firstName) + " " + StringUtils.capitalize(lastName); //$NON-NLS-1$
+        this.name = StringUtils.capitalize(firstName) + ' ' + StringUtils.capitalize(lastName);
 
-        this.email = firstName + "-" + lastName + "@" + RandomSampleUtil.getRandomWord() + ".com"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        this.email = firstName + '-' + lastName + '@' + RandomSampleUtil.getRandomWord() + ".com"; //$NON-NLS-1$
 
         this.date = RandomSampleUtil.getRandomDate();
 
-        this.description = RandomSampleUtil.getRandomWord() + " " + RandomSampleUtil.getRandomWord() + "..."; //$NON-NLS-1$ //$NON-NLS-2$
+        this.description = RandomSampleUtil.getRandomWord() + ' ' //
+            + RandomSampleUtil.getRandomWord() + "..."; //$NON-NLS-1$
 
         this.longDescription = RandomSampleUtil.getRandomSentence(10);
 
@@ -305,9 +306,10 @@ public class ListObject extends Object
          */
         public String toString()
         {
-            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("name", this.itemName).append( //$NON-NLS-1$
-                "email", //$NON-NLS-1$
-                this.itemEmail).toString();
+            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) // 
+                .append("name", this.itemName) //$NON-NLS-1$
+                .append("email", this.itemEmail) //$NON-NLS-1$
+                .toString();
         }
     }
 

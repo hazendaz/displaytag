@@ -35,7 +35,7 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper implemen
     /**
      * The contentType.
      */
-    private String contentType = "text/html";
+    private String contentType;
 
     /**
      * @param httpServletResponse the response to wrap

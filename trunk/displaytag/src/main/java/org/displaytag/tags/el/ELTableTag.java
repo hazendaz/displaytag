@@ -241,72 +241,72 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
         if (cellpaddingExpr != null)
         {
-            super.setCellpadding(eval.evalString("cellpadding", cellpaddingExpr));
+            super.setCellpadding(eval.evalString("cellpadding", cellpaddingExpr)); //$NON-NLS-1$
         }
         if (cellspacingExpr != null)
         {
-            super.setCellspacing(eval.evalString("cellspacing", cellspacingExpr));
+            super.setCellspacing(eval.evalString("cellspacing", cellspacingExpr)); //$NON-NLS-1$
         }
         if (classExpr != null)
         {
-            super.setClass(eval.evalString("class", classExpr));
+            super.setClass(eval.evalString("class", classExpr)); //$NON-NLS-1$
         }
         if (decoratorExpr != null)
         {
-            super.setDecorator(eval.evalString("decorator", decoratorExpr));
+            super.setDecorator(eval.evalString("decorator", decoratorExpr)); //$NON-NLS-1$
         }
         if (defaultorderExpr != null)
         {
-            super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr));
+            super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr)); //$NON-NLS-1$
         }
         if (defaultsortExpr != null)
         {
-            super.setDefaultsort(eval.evalInt("defaultsort", defaultsortExpr));
+            super.setDefaultsort(eval.evalInt("defaultsort", defaultsortExpr)); //$NON-NLS-1$
         }
         if (exportExpr != null)
         {
-            super.setExport(eval.evalBoolean("export", exportExpr));
+            super.setExport(eval.evalBoolean("export", exportExpr)); //$NON-NLS-1$
         }
         if (frameExpr != null)
         {
-            super.setFrame(eval.evalString("frame", frameExpr));
+            super.setFrame(eval.evalString("frame", frameExpr)); //$NON-NLS-1$
         }
         if (lengthExpr != null)
         {
-            super.setLength(eval.evalInt("length", lengthExpr));
+            super.setLength(eval.evalInt("length", lengthExpr)); //$NON-NLS-1$
         }
         if (nameExpr != null)
         {
             // evaluate name only once, so assign it to "list"
-            super.list = eval.eval("name", nameExpr, Object.class);
+            super.list = eval.eval("name", nameExpr, Object.class); //$NON-NLS-1$
         }
         if (offsetExpr != null)
         {
-            super.setOffset(eval.evalInt("offset", offsetExpr));
+            super.setOffset(eval.evalInt("offset", offsetExpr)); //$NON-NLS-1$
         }
         if (pagesizeExpr != null)
         {
-            super.setPagesize(eval.evalInt("pagesize", pagesizeExpr));
+            super.setPagesize(eval.evalInt("pagesize", pagesizeExpr)); //$NON-NLS-1$
         }
         if (requestURIExpr != null)
         {
-            super.setRequestURI(eval.evalString("requestURI", requestURIExpr));
+            super.setRequestURI(eval.evalString("requestURI", requestURIExpr)); //$NON-NLS-1$
         }
         if (rulesExpr != null)
         {
-            super.setRules(eval.evalString("rules", rulesExpr));
+            super.setRules(eval.evalString("rules", rulesExpr)); //$NON-NLS-1$
         }
         if (sortExpr != null)
         {
-            super.setSort(eval.evalString("sort", sortExpr));
+            super.setSort(eval.evalString("sort", sortExpr)); //$NON-NLS-1$
         }
         if (styleExpr != null)
         {
-            super.setStyle(eval.evalString("style", styleExpr));
+            super.setStyle(eval.evalString("style", styleExpr)); //$NON-NLS-1$
         }
         if (summaryExpr != null)
         {
-            super.setSummary(eval.evalString("summary", summaryExpr));
+            super.setSummary(eval.evalString("summary", summaryExpr)); //$NON-NLS-1$
         }
     }
 
