@@ -26,11 +26,13 @@ hr {
 	color: #000;
 	clear:both;
 }
-
+textarea {
+	width:80%;
+	height:200px;
+}
 dt {
 	font-weight: bold;
 }
-
 .clear {
 	clear: both;
 }
