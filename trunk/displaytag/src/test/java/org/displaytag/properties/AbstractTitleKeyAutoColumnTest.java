@@ -1,5 +1,7 @@
-package org.displaytag.tags;
+package org.displaytag.properties;
 
+import org.displaytag.localization.I18nResourceProvider;
+import org.displaytag.localization.LocaleResolver;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 
@@ -14,14 +16,14 @@ import com.meterware.httpunit.WebTable;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class TitleKeyAutoColumnTest extends DisplaytagCase
+public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
 {
 
     /**
      * Instantiates a new test case.
      * @param name test name
      */
-    public TitleKeyAutoColumnTest(String name)
+    public AbstractTitleKeyAutoColumnTest(String name)
     {
         super(name);
     }
@@ -35,6 +37,18 @@ public class TitleKeyAutoColumnTest extends DisplaytagCase
     }
 
     /**
+     * Returns the LocaleResolver instance to be used in this test.
+     * @return LocaleResolver
+     */
+    protected abstract LocaleResolver getResolver();
+
+    /**
+     * Returns the I18nResourceProvider instance to be used in this test.
+     * @return I18nResourceProvider
+     */
+    protected abstract I18nResourceProvider getI18nResourceProvider();
+
+    /**
      * Test that headers are correctly removed.
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
@@ -43,7 +57,21 @@ public class TitleKeyAutoColumnTest extends DisplaytagCase
     {
         // test keep
         WebRequest request = new GetMethodWebRequest(jspName);
-        WebResponse response = runner.getResponse(request);
+
+        TableProperties.setLocaleResolver(getResolver());
+        TableProperties.setResourceProvider(getI18nResourceProvider());
+
+        WebResponse response;
+        try
+        {
+            response = runner.getResponse(request);
+        }
+        finally
+        {
+            // reset
+            TableProperties.setLocaleResolver(null);
+            TableProperties.setResourceProvider(null);
+        }
 
         if (log.isDebugEnabled())
         {
