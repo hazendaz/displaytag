@@ -664,7 +664,7 @@ public class TableTag extends HtmlTableTag
 
             // ... ancd copy parameters from the curret request
             HashMap parameterMap = normalHref.getParameterMap();
-            mBaseHref.setParameterMap(parameterMap);
+            mBaseHref.addParameterMap(parameterMap);
         }
         else
         {
