@@ -1,5 +1,6 @@
 package org.displaytag.export;
 
+import org.apache.commons.lang.StringUtils;
 import org.displaytag.model.TableModel;
 
 /**
@@ -11,11 +12,11 @@ public class CsvView extends BaseExportView
 {
 
     /**
-     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean)
+     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean, boolean)
      */
-    public CsvView(TableModel pTableModel, boolean pExportFullList)
+    public CsvView(TableModel tableModel, boolean exportFullList, boolean includeHeader)
     {
-        super(pTableModel, pExportFullList);
+        super(tableModel, exportFullList, includeHeader);
     }
 
     /**
@@ -88,6 +89,19 @@ public class CsvView extends BaseExportView
     public String getMimeType()
     {
         return "text/csv";
+    }
+
+    /**
+     * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
+     * @todo how to escape commas?
+     */
+    protected Object escapeColumnValue(Object value)
+    {
+        if (value != null)
+        {
+            return StringUtils.replace(value.toString(), ",", ";");
+        }
+        return null;
     }
 
 }

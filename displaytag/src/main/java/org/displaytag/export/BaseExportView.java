@@ -26,27 +26,34 @@ public abstract class BaseExportView
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(BaseExportView.class);
+    private static Log log = LogFactory.getLog(BaseExportView.class);
 
     /**
      * TableModel to render
      */
-    private TableModel mTableModel;
+    private TableModel model;
 
     /**
      * export full list?
      */
-    private boolean mExportFullList;
+    private boolean exportFull;
+
+    /**
+     * include header in export?
+     */
+    private boolean header;
 
     /**
      * Constructor for BaseExportView
-     * @param pTableModel TableModel to render
-     * @param pExportFullList boolean export full list?
+     * @param tableModel TableModel to render
+     * @param exportFullList boolean export full list?
+     * @param includeHeader should header be included in export?
      */
-    public BaseExportView(TableModel pTableModel, boolean pExportFullList)
+    public BaseExportView(TableModel tableModel, boolean exportFullList, boolean includeHeader)
     {
-        mTableModel = pTableModel;
-        mExportFullList = pExportFullList;
+        this.model = tableModel;
+        this.exportFull = exportFullList;
+        this.header = includeHeader;
     }
 
     /**
@@ -55,7 +62,7 @@ public abstract class BaseExportView
      */
     public TableModel getTableModel()
     {
-        return mTableModel;
+        return this.model;
     }
 
     /**
@@ -125,40 +132,39 @@ public abstract class BaseExportView
         final String CELL_END = getCellEnd();
         final boolean ALWAYS_APPEND_CELL_END = getAlwaysAppendCellEnd();
 
-        StringBuffer lBuffer = new StringBuffer(1000);
-        TableModel lTableModel = getTableModel();
+        StringBuffer buffer = new StringBuffer(1000);
 
-        Iterator lIterator = lTableModel.getHeaderCellList().iterator();
+        Iterator iterator = this.model.getHeaderCellList().iterator();
 
         // start row
-        lBuffer.append(ROW_START);
+        buffer.append(ROW_START);
 
-        while (lIterator.hasNext())
+        while (iterator.hasNext())
         {
-            mLog.debug("lIterator.hasNext()");
-            HeaderCell lHeaderCell = (HeaderCell) lIterator.next();
+            log.debug("iterator.hasNext()");
+            HeaderCell headerCell = (HeaderCell) iterator.next();
 
-            String lHeader = lHeaderCell.getTitle();
+            String columnHeader = headerCell.getTitle();
 
-            if (lHeader == null)
+            if (columnHeader == null)
             {
-                lHeader = StringUtils.capitalize(lHeaderCell.getBeanPropertyName());
+                columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());
             }
 
-            lBuffer.append(CELL_START);
+            buffer.append(CELL_START);
 
-            lBuffer.append(lHeader);
+            buffer.append(columnHeader);
 
-            if (ALWAYS_APPEND_CELL_END || lIterator.hasNext())
+            if (ALWAYS_APPEND_CELL_END || iterator.hasNext())
             {
-                lBuffer.append(CELL_END);
+                buffer.append(CELL_END);
             }
         }
 
         // end row
-        lBuffer.append(ROW_END);
+        buffer.append(ROW_END);
 
-        return lBuffer.toString();
+        return buffer.toString();
 
     }
 
@@ -170,9 +176,7 @@ public abstract class BaseExportView
     public String doExport() throws JspException
     {
 
-        StringBuffer lBuffer = new StringBuffer(8000);
-
-        TableModel lTableModel = getTableModel();
+        StringBuffer buffer = new StringBuffer(8000);
 
         final String DOCUMENT_START = getDocumentStart();
         final String DOCUMENT_END = getDocumentEnd();
@@ -184,72 +188,83 @@ public abstract class BaseExportView
         final boolean ALWAYS_APPEND_ROW_END = getAlwaysAppendRowEnd();
 
         // document start
-        lBuffer.append(DOCUMENT_START);
+        buffer.append(DOCUMENT_START);
+
+        if (this.header)
+        {
+            buffer.append(doHeaders());
+        }
 
         //get the correct iterator (full or partial list according to the mExportFullList field)
-        RowIterator lRowIterator =
-            mExportFullList ? lTableModel.getFullListRowIterator() : lTableModel.getRowIterator();
+        RowIterator rowIterator = exportFull ? this.model.getFullListRowIterator() : this.model.getRowIterator();
 
         // iterator on rows
-        while (lRowIterator.hasNext())
+        while (rowIterator.hasNext())
         {
-            mLog.debug("lRowIterator.hasNext()");
-            Row lRow = lRowIterator.next();
-            mLog.debug("lRow=" + lRow);
+            log.debug("lRowIterator.hasNext()");
+            Row row = rowIterator.next();
+            log.debug("lRow=" + row);
 
-            if (lTableModel.getTableDecorator() != null)
+            if (this.model.getTableDecorator() != null)
             {
 
-                String lStringStartRow = lTableModel.getTableDecorator().startRow();
-                if (lStringStartRow != null)
+                String stringStartRow = this.model.getTableDecorator().startRow();
+                if (stringStartRow != null)
                 {
-                    lBuffer.append(lStringStartRow);
+                    buffer.append(stringStartRow);
                 }
 
             }
 
             // iterator on columns
-            ColumnIterator lColumnIterator = lRow.getColumnIterator(lTableModel.getHeaderCellList());
+            ColumnIterator columnIterator = row.getColumnIterator(this.model.getHeaderCellList());
 
-            lBuffer.append(ROW_START);
+            buffer.append(ROW_START);
 
-            while (lColumnIterator.hasNext())
+            while (columnIterator.hasNext())
             {
-                Column lColumn = lColumnIterator.nextColumn();
+                Column column = columnIterator.nextColumn();
 
-                Object lValue;
+                Object value;
 
                 // Get the value to be displayed for the column
                 try
                 {
-                    lValue = lColumn.getValue(true);
+                    value = column.getValue(true);
                 }
                 catch (Exception ex)
                 {
-                    mLog.error(ex.getMessage(), ex);
+                    log.error(ex.getMessage(), ex);
                     throw new JspException(ex.getMessage());
                 }
 
-                lBuffer.append(CELL_START);
-                lBuffer.append(lValue);
+                buffer.append(CELL_START);
+                buffer.append(escapeColumnValue(value));
 
-                if (ALWAYS_APPEND_CELL_END || lColumnIterator.hasNext())
+                if (ALWAYS_APPEND_CELL_END || columnIterator.hasNext())
                 {
-                    lBuffer.append(CELL_END);
+                    buffer.append(CELL_END);
                 }
 
             }
-            if (ALWAYS_APPEND_ROW_END || lRowIterator.hasNext())
+            if (ALWAYS_APPEND_ROW_END || rowIterator.hasNext())
             {
-                lBuffer.append(ROW_END);
+                buffer.append(ROW_END);
             }
         }
 
         // document start
-        lBuffer.append(DOCUMENT_END);
+        buffer.append(DOCUMENT_END);
 
-        return lBuffer.toString();
+        return buffer.toString();
 
     }
+
+    /**
+     * can be implemented to escape values for different output
+     * @param value original column value
+     * @return escaped column value
+     */
+    protected abstract Object escapeColumnValue(Object value);
 
 }

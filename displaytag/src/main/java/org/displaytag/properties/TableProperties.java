@@ -8,6 +8,7 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.TablePropertiesLoadException;
+import org.displaytag.export.ExportTypeEnum;
 
 /**
  * @author fgiust
@@ -57,47 +58,22 @@ public class TableProperties
     /**
      * Field mProp
      */
-    private Properties mProp = null;
+    private Properties properties = null;
 
     /**
-     * Field PROPERTY_BOOLEAN_EXPORTCSV
+     * Field PROPERTY_STRING_EXPORT_LABEL
      */
-    private static final String PROPERTY_BOOLEAN_EXPORTCSV = "export.csv";
-    /**
-     * Field PROPERTY_BOOLEAN_EXPORTEXCEL
-     */
-    private static final String PROPERTY_BOOLEAN_EXPORTEXCEL = "export.excel";
-    /**
-     * Field PROPERTY_BOOLEAN_EXPORTXML
-     */
-    private static final String PROPERTY_BOOLEAN_EXPORTXML = "export.xml";
+    private static final String PROPERTY_BOOLEAN_EXPORT_PREFIX = "export";
 
     /**
-     * Field PROPERTY_STRING_EXPORTCSV_LABEL
+     * Field PROPERTY_STRING_EXPORT_LABEL
      */
-    private static final String PROPERTY_STRING_EXPORTCSV_LABEL =
-        "export.csv.label";
-    /**
-     * Field PROPERTY_STRING_EXPORTEXCEL_LABEL
-     */
-    private static final String PROPERTY_STRING_EXPORTEXCEL_LABEL =
-        "export.excel.label";
-    /**
-     * Field PROPERTY_STRING_EXPORTXML_LABEL
-     */
-    private static final String PROPERTY_STRING_EXPORTXML_LABEL =
-        "export.xml.label";
+    private static final String PROPERTY_STRING_EXPORT_LABEL = "label";
 
     /**
-     * Field PROPERTY_BOOLEAN_EXPORTCSV_HEADER
+     * Field PROPERTY_BOOLEAN_EXPORT_HEADER
      */
-    private static final String PROPERTY_BOOLEAN_EXPORTCSV_HEADER =
-        "export.csv.include_header";
-    /**
-     * Field PROPERTY_BOOLEAN_EXPORTEXCEL_HEADER
-     */
-    private static final String PROPERTY_BOOLEAN_EXPORTEXCEL_HEADER =
-        "export.excel.include_header";
+    private static final String PROPERTY_BOOLEAN_EXPORT_HEADER = "include_header";
 
     /**
      * Field PROPERTY_STRING_EXPORTBANNER
@@ -106,14 +82,12 @@ public class TableProperties
     /**
      * Field PROPERTY_STRING_EXPORTBANNER_SEPARATOR
      */
-    private static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR =
-        "export.banner.sepchar";
+    private static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = "export.banner.sepchar";
 
     /**
      * Field PROPERTY_BOOLEAN_EXPORTDECORATED
      */
-    private static final String PROPERTY_BOOLEAN_EXPORTDECORATED =
-        "export.decorated";
+    private static final String PROPERTY_BOOLEAN_EXPORTDECORATED = "export.decorated";
 
     /**
      * Field PROPERTY_STRING_EXPORTAMOUNT
@@ -122,114 +96,93 @@ public class TableProperties
     /**
      * Field PROPERTY_STRING_EXPORT_FILENAME
      */
-    private static final String PROPERTY_STRING_EXPORT_FILENAME =
-        "export.filename";
+    private static final String PROPERTY_STRING_EXPORT_FILENAME = "export.filename";
 
     /**
      * Field PROPERTY_BOOLEAN_SHOWHEADER
      */
-    private static final String PROPERTY_BOOLEAN_SHOWHEADER =
-        "basic.show.header";
+    private static final String PROPERTY_BOOLEAN_SHOWHEADER = "basic.show.header";
     /**
      * Field PROPERTY_STRING_EMPTYLIST_MESSAGE
      */
-    private static final String PROPERTY_STRING_EMPTYLIST_MESSAGE =
-        "basic.msg.empty_list";
+    private static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = "basic.msg.empty_list";
 
     /**
      * Field PROPERTY_STRING_BANNER_PLACEMENT
      */
-    private static final String PROPERTY_STRING_BANNER_PLACEMENT =
-        "paging.banner.placement";
+    private static final String PROPERTY_STRING_BANNER_PLACEMENT = "paging.banner.placement";
 
     /**
      * Field PROPERTY_STRING_PAGING_INVALIDPAGE
      */
-    private static final String PROPERTY_STRING_PAGING_INVALIDPAGE =
-        "error.msg.invalid_page";
+    private static final String PROPERTY_STRING_PAGING_INVALIDPAGE = "error.msg.invalid_page";
 
     /**
      * Field PROPERTY_STRING_PAGING_ITEM_NAME
      */
-    private static final String PROPERTY_STRING_PAGING_ITEM_NAME =
-        "paging.banner.item_name";
+    private static final String PROPERTY_STRING_PAGING_ITEM_NAME = "paging.banner.item_name";
     /**
      * Field PROPERTY_STRING_PAGING_ITEMS_NAME
      */
-    private static final String PROPERTY_STRING_PAGING_ITEMS_NAME =
-        "paging.banner.items_name";
+    private static final String PROPERTY_STRING_PAGING_ITEMS_NAME = "paging.banner.items_name";
     /**
      * Field PROPERTY_STRING_PAGING_NOITEMS
      */
-    private static final String PROPERTY_STRING_PAGING_NOITEMS =
-        "paging.banner.no_items_found";
+    private static final String PROPERTY_STRING_PAGING_NOITEMS = "paging.banner.no_items_found";
     /**
      * Field PROPERTY_STRING_PAGING_FOUND_ONEITEM
      */
-    private static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM =
-        "paging.banner.one_item_found";
+    private static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM = "paging.banner.one_item_found";
     /**
      * Field PROPERTY_STRING_PAGING_FOUND_ALLITEMS
      */
-    private static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS =
-        "paging.banner.all_items_found";
+    private static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS = "paging.banner.all_items_found";
     /**
      * Field PROPERTY_STRING_PAGING_FOUND_SOMEITEMS
      */
-    private static final String PROPERTY_STRING_PAGING_FOUND_SOMEITEMS =
-        "paging.banner.some_items_found";
+    private static final String PROPERTY_STRING_PAGING_FOUND_SOMEITEMS = "paging.banner.some_items_found";
 
     /**
      * Field PROPERTY_INT_PAGING_GROUPSIZE
      */
-    private static final String PROPERTY_INT_PAGING_GROUPSIZE =
-        "paging.banner.group_size";
+    private static final String PROPERTY_INT_PAGING_GROUPSIZE = "paging.banner.group_size";
     /**
      * Field PROPERTY_STRING_PAGING_BANNER_ONEPAGE
      */
-    private static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE =
-        "paging.banner.onepage";
+    private static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE = "paging.banner.onepage";
     /**
      * Field PROPERTY_STRING_PAGING_BANNER_FIRST
      */
-    private static final String PROPERTY_STRING_PAGING_BANNER_FIRST =
-        "paging.banner.first";
+    private static final String PROPERTY_STRING_PAGING_BANNER_FIRST = "paging.banner.first";
     /**
      * Field PROPERTY_STRING_PAGING_BANNER_LAST
      */
-    private static final String PROPERTY_STRING_PAGING_BANNER_LAST =
-        "paging.banner.last";
+    private static final String PROPERTY_STRING_PAGING_BANNER_LAST = "paging.banner.last";
     /**
      * Field PROPERTY_STRING_PAGING_BANNER_FULL
      */
-    private static final String PROPERTY_STRING_PAGING_BANNER_FULL =
-        "paging.banner.full";
+    private static final String PROPERTY_STRING_PAGING_BANNER_FULL = "paging.banner.full";
     /**
      * Field PROPERTY_STRING_PAGING_PAGE_LINK
      */
-    private static final String PROPERTY_STRING_PAGING_PAGE_LINK =
-        "paging.banner.page.link";
+    private static final String PROPERTY_STRING_PAGING_PAGE_LINK = "paging.banner.page.link";
     /**
      * Field PROPERTY_STRING_PAGING_PAGE_SELECTED
      */
-    private static final String PROPERTY_STRING_PAGING_PAGE_SELECTED =
-        "paging.banner.page.selected";
+    private static final String PROPERTY_STRING_PAGING_PAGE_SELECTED = "paging.banner.page.selected";
     /**
      * Field PROPERTY_STRING_PAGING_PAGE_SPARATOR
      */
-    private static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR =
-        "paging.banner.page.separator";
+    private static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator";
 
     /**
      * Field PROPERTY_STRING_SAVE_EXCEL_FILENAME
      */
-    private static final String PROPERTY_STRING_SAVE_EXCEL_FILENAME =
-        "save.excel.filename";
+    private static final String PROPERTY_STRING_SAVE_EXCEL_FILENAME = "save.excel.filename";
     /**
      * Field PROPERTY_STRING_SAVE_EXCEL_BANNER
      */
-    private static final String PROPERTY_STRING_SAVE_EXCEL_BANNER =
-        "save.excel.banner";
+    private static final String PROPERTY_STRING_SAVE_EXCEL_BANNER = "save.excel.banner";
 
     /**
      * Method getPagingInvalidPage
@@ -368,48 +321,34 @@ public class TableProperties
     }
 
     /**
-     * Method getAddCsvExport
-     * @return boolean
+     * Is the given export option enabled?
+     * @param exportType instance of ExportTypeEnum
+     * @return boolean true if export is enabled
      */
-    public boolean getAddCsvExport()
+    public boolean getAddExport(ExportTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_BOOLEAN_EXPORTCSV);
+        return getBooleanProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType.getName());
     }
 
     /**
-     * Method getAddExcelExport
-     * @return boolean
+     * Should headers be included in given export type?
+     * @param exportType instance of ExportTypeEnum
+     * @return boolean true if export should include headers
      */
-    public boolean getAddExcelExport()
+    public boolean getExportHeader(ExportTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_BOOLEAN_EXPORTEXCEL);
+        return getBooleanProperty(
+            PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + PROPERTY_BOOLEAN_EXPORT_HEADER);
     }
 
     /**
-     * Method getAddXmlExport
-     * @return boolean
+     * Returns the label for the given export option
+     * @param exportType instance of ExportTypeEnum
+     * @return String label
      */
-    public boolean getAddXmlExport()
+    public String getExportLabel(ExportTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_BOOLEAN_EXPORTXML);
-    }
-
-    /**
-     * Method getExportCsvHeader
-     * @return boolean
-     */
-    protected boolean getExportCsvHeader()
-    {
-        return getBooleanProperty(PROPERTY_BOOLEAN_EXPORTCSV_HEADER);
-    }
-
-    /**
-     * Method getExportExcelHeader
-     * @return boolean
-     */
-    protected boolean getExportExcelHeader()
-    {
-        return getBooleanProperty(PROPERTY_BOOLEAN_EXPORTEXCEL_HEADER);
+        return getProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + PROPERTY_STRING_EXPORT_LABEL);
     }
 
     /**
@@ -419,33 +358,6 @@ public class TableProperties
     public boolean getExportDecorated()
     {
         return getBooleanProperty(PROPERTY_BOOLEAN_EXPORTDECORATED);
-    }
-
-    /**
-     * Method getExportCsvLabel
-     * @return String
-     */
-    public String getExportCsvLabel()
-    {
-        return getProperty(PROPERTY_STRING_EXPORTCSV_LABEL);
-    }
-
-    /**
-     * Method getExportExcelLabel
-     * @return String
-     */
-    public String getExportExcelLabel()
-    {
-        return getProperty(PROPERTY_STRING_EXPORTEXCEL_LABEL);
-    }
-
-    /**
-     * Method getExportXmlLabel
-     * @return String
-     */
-    public String getExportXmlLabel()
-    {
-        return getProperty(PROPERTY_STRING_EXPORTXML_LABEL);
     }
 
     /**
@@ -560,16 +472,12 @@ public class TableProperties
 
         try
         {
-            lDefaultProperties.load(
-                this.getClass().getResourceAsStream(mPropertiesFilename));
-            mProp = new Properties(lDefaultProperties);
+            lDefaultProperties.load(this.getClass().getResourceAsStream(mPropertiesFilename));
+            properties = new Properties(lDefaultProperties);
         }
         catch (Exception ex)
         {
-            throw new TablePropertiesLoadException(
-                getClass(),
-                mPropertiesFilename,
-                ex);
+            throw new TablePropertiesLoadException(getClass(), mPropertiesFilename, ex);
         }
 
         String lUserPropertiesFileName = getPropertiesFilename();
@@ -579,25 +487,18 @@ public class TableProperties
 
             try
             {
-                FileInputStream lFileInput =
-                    new FileInputStream(lUserPropertiesFileName);
-                mProp.load(lFileInput);
+                FileInputStream lFileInput = new FileInputStream(lUserPropertiesFileName);
+                properties.load(lFileInput);
                 lFileInput.close();
             }
             catch (FileNotFoundException ex)
             {
-                throw new TablePropertiesLoadException(
-                    getClass(),
-                    lUserPropertiesFileName,
-                    ex);
+                throw new TablePropertiesLoadException(getClass(), lUserPropertiesFileName, ex);
             }
 
             catch (IOException ex)
             {
-                throw new TablePropertiesLoadException(
-                    getClass(),
-                    lUserPropertiesFileName,
-                    ex);
+                throw new TablePropertiesLoadException(getClass(), lUserPropertiesFileName, ex);
             }
 
         }
@@ -610,7 +511,7 @@ public class TableProperties
      */
     private String getProperty(String pPropertyName)
     {
-        return mProp.getProperty(pPropertyName);
+        return properties.getProperty(pPropertyName);
     }
 
     /**
@@ -620,7 +521,7 @@ public class TableProperties
      */
     public void setProperty(String pPropertyName, String pPropertyValue)
     {
-        mProp.setProperty(pPropertyName, pPropertyValue);
+        properties.setProperty(pPropertyName, pPropertyValue);
     }
 
     /**

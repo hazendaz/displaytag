@@ -1,5 +1,6 @@
 package org.displaytag.export;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.displaytag.model.TableModel;
 
 /**
@@ -11,11 +12,11 @@ public class XmlView extends BaseExportView
 {
 
     /**
-     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean)
+     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean, boolean)
      */
-    public XmlView(TableModel pTableModel, boolean pExportFullList)
+    public XmlView(TableModel tableModel, boolean exportFullList, boolean includeHeader)
     {
-        super(pTableModel, pExportFullList);
+        super(tableModel, exportFullList, includeHeader);
     }
 
     /**
@@ -88,6 +89,18 @@ public class XmlView extends BaseExportView
     public String getMimeType()
     {
         return "text/xml";
+    }
+
+    /**
+     * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
+     */
+    protected Object escapeColumnValue(Object value)
+    {
+        if (value != null)
+        {
+            return StringEscapeUtils.escapeXml(value.toString());
+        }
+        return null;
     }
 
 }
