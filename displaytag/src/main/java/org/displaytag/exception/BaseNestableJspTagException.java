@@ -1,6 +1,5 @@
 package org.displaytag.exception;
 
-
 import javax.servlet.jsp.JspTagException;
 
 import org.apache.commons.logging.Log;
@@ -38,7 +37,6 @@ public abstract class BaseNestableJspTagException extends JspTagException
 
         // log exception
         Log log = LogFactory.getLog(source);
-        log.error(toString());
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)

@@ -1,6 +1,5 @@
 package org.displaytag.filter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,6 +7,10 @@ import java.io.PrintWriter;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.displaytag.tags.TableTagParameters;
 
 
 /**
@@ -23,6 +26,11 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper implemen
 {
 
     /**
+     * logger.
+     */
+    private static Log log = LogFactory.getLog(BufferedResponseWrapper.class);
+
+    /**
      * The buffered response.
      */
     private CharArrayWriter outputWriter;
@@ -36,6 +44,16 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper implemen
      * The contentType.
      */
     private String contentType;
+
+    /**
+     * If state is set, allow getOutputStream() to return the "real" output stream, elsewhere returns a internal buffer.
+     */
+    private boolean state;
+
+    /**
+     * Writer has been requested.
+     */
+    private boolean outRequested;
 
     /**
      * @param httpServletResponse the response to wrap
@@ -64,15 +82,31 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper implemen
      */
     public void setContentType(String theContentType)
     {
+        if (state)
+        {
+            log.debug("Allowing content type");
+            getResponse().setContentType(theContentType);
+        }
         this.contentType = theContentType;
     }
 
     /**
-     * Get the associated writer.
-     * @return the associated print writer
+     * @see javax.servlet.ServletResponse#getWriter()
      */
-    public PrintWriter getWriter()
+    public PrintWriter getWriter() throws IOException
     {
+
+        if (state && !outRequested)
+        {
+            log.debug("getWriter() returned");
+
+            // ok, exporting in progress, discard old data and go on streaming
+            this.servletOutputStream.reset();
+            this.outputWriter.reset();
+            this.outRequested = true;
+            return ((HttpServletResponse) getResponse()).getWriter();
+        }
+
         return new PrintWriter(this.outputWriter);
     }
 
@@ -82,12 +116,15 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper implemen
      */
     public void flushBuffer() throws IOException
     {
-        this.outputWriter.flush();
-        this.servletOutputStream.outputStream.reset();
+        if (outputWriter != null)
+        {
+            this.outputWriter.flush();
+            this.servletOutputStream.outputStream.reset();
+        }
     }
 
     /**
-     * {@inheritDoc}
+     * @see javax.servlet.ServletResponse#getOutputStream()
      */
     public ServletOutputStream getOutputStream() throws IOException
     {
@@ -95,56 +132,29 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper implemen
     }
 
     /**
-     * @see javax.servlet.http.HttpServletResponse#setDateHeader(java.lang.String, long)
-     */
-    public void setDateHeader(String name, long date)
-    {
-        // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
-        {
-            ((HttpServletResponse) getResponse()).setDateHeader(name, date);
-        }
-
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#addDateHeader(java.lang.String, long)
-     */
-    public void addDateHeader(String name, long date)
-    {
-        // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
-        {
-            ((HttpServletResponse) getResponse()).addDateHeader(name, date);
-        }
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
-     */
-    public void setHeader(String name, String value)
-    {
-        // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Cache-Control".equalsIgnoreCase(name) //$NON-NLS-1$
-            && !"Pragma".equalsIgnoreCase(name) //$NON-NLS-1$
-            && !"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
-        {
-            ((HttpServletResponse) getResponse()).setHeader(name, value);
-        }
-    }
-
-    /**
      * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
      */
     public void addHeader(String name, String value)
     {
-        // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Cache-Control".equalsIgnoreCase(name) //$NON-NLS-1$
-            && !"Pragma".equalsIgnoreCase(name) //$NON-NLS-1$
-            && !"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
+        // if the "magic parameter" is set, a table tag is going to call getOutputStream()
+        if (TableTagParameters.PARAMETER_EXPORTING.equals(name))
+        {
+            log.debug("Magic header received, real response is now accessible");
+            state = true;
+        }
+        else
         {
             ((HttpServletResponse) getResponse()).addHeader(name, value);
         }
+    }
+
+    /**
+     * Return <code>true</code> if ServletOutputStream has been requested from Table tag.
+     * @return <code>true</code> if ServletOutputStream has been requested
+     */
+    protected boolean isOutRequested()
+    {
+        return this.outRequested;
     }
 
     /**
@@ -156,32 +166,4 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper implemen
         return this.outputWriter.toString() + this.servletOutputStream.toString();
     }
 
-    /**
-     * A simple implementation of ServletOutputStream.
-     */
-    private static class SimpleServletOutputStream extends ServletOutputStream
-    {
-
-        /**
-         * My outputWriter stream, a buffer.
-         */
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        /**
-         * {@inheritDoc}
-         */
-        public void write(int b)
-        {
-            this.outputStream.write(b);
-        }
-
-        /**
-         * Get the contents of the outputStream.
-         * @return contents of the outputStream
-         */
-        public String toString()
-        {
-            return this.outputStream.toString();
-        }
-    }
 }

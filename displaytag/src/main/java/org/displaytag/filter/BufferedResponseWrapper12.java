@@ -1,14 +1,18 @@
 package org.displaytag.filter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.displaytag.tags.TableTagParameters;
 
 
 /**
@@ -23,6 +27,11 @@ import javax.servlet.http.HttpServletResponse;
 public class BufferedResponseWrapper12 implements HttpServletResponse // don't extend j2ee 1.3
 // HttpServletResponseWrapper
 {
+
+    /**
+     * logger.
+     */
+    private static Log log = LogFactory.getLog(BufferedResponseWrapper12.class);
 
     /**
      * The buffered response.
@@ -45,6 +54,16 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
     private HttpServletResponse response;
 
     /**
+     * If state is set, allow getOutputStream() to return the "real" output stream, elsewhere returns a internal buffer.
+     */
+    private boolean state;
+
+    /**
+     * Writer has been requested.
+     */
+    private boolean outRequested;
+
+    /**
      * @param httpServletResponse the response to wrap
      */
     public BufferedResponseWrapper12(HttpServletResponse httpServletResponse)
@@ -52,6 +71,15 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
         this.response = httpServletResponse;
         this.outputWriter = new CharArrayWriter();
         this.servletOutputStream = new SimpleServletOutputStream();
+    }
+
+    /**
+     * Returns the wrapped servletResponse.
+     * @return wrapped servletResponse
+     */
+    public ServletResponse getResponse()
+    {
+        return this.response;
     }
 
     /**
@@ -71,16 +99,31 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
      */
     public void setContentType(String theContentType)
     {
-        // response.setContentType(type);
+        if (state)
+        {
+            log.debug("Allowing content type");
+            getResponse().setContentType(theContentType);
+        }
         this.contentType = theContentType;
     }
 
     /**
-     * Get the associated writer.
-     * @return the associated print writer
+     * @see javax.servlet.ServletResponse#getWriter()
      */
-    public PrintWriter getWriter()
+    public PrintWriter getWriter() throws IOException
     {
+
+        if (state && !outRequested)
+        {
+            log.debug("getWriter() returned");
+
+            // ok, exporting in progress, discard old data and go on streaming
+            this.servletOutputStream.reset();
+            this.outputWriter.reset();
+            this.outRequested = true;
+            return ((HttpServletResponse) getResponse()).getWriter();
+        }
+
         return new PrintWriter(this.outputWriter);
     }
 
@@ -90,16 +133,54 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
      */
     public void flushBuffer() throws IOException
     {
-        this.outputWriter.flush();
-        this.servletOutputStream.outputStream.reset();
+        if (outputWriter != null)
+        {
+            this.outputWriter.flush();
+            this.servletOutputStream.outputStream.reset();
+        }
     }
 
     /**
-     * {@inheritDoc}
+     * @see javax.servlet.ServletResponse#getOutputStream()
      */
     public ServletOutputStream getOutputStream() throws IOException
     {
         return this.servletOutputStream;
+    }
+
+    /**
+     * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
+     */
+    public void addHeader(String name, String value)
+    {
+        // if the "magic parameter" is set, a table tag is going to call getOutputStream()
+        if (TableTagParameters.PARAMETER_EXPORTING.equals(name))
+        {
+            log.debug("Magic header received, real response is now accessible");
+            state = true;
+        }
+        else
+        {
+            ((HttpServletResponse) getResponse()).addHeader(name, value);
+        }
+    }
+
+    /**
+     * Return <code>true</code> if ServletOutputStream has been requested from Table tag.
+     * @return <code>true</code> if ServletOutputStream has been requested
+     */
+    protected boolean isOutRequested()
+    {
+        return this.outRequested;
+    }
+
+    /**
+     * Get the String representation.
+     * @return the contents of the response
+     */
+    public String toString()
+    {
+        return this.outputWriter.toString() + this.servletOutputStream.toString();
     }
 
     // -- standard methods --
@@ -255,12 +336,7 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
      */
     public void setDateHeader(String name, long date)
     {
-        // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
-        {
-            response.setDateHeader(name, date);
-        }
-
+        response.setDateHeader(name, date);
     }
 
     /**
@@ -268,11 +344,7 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
      */
     public void addDateHeader(String name, long date)
     {
-        // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
-        {
-            response.addDateHeader(name, date);
-        }
+        response.addDateHeader(name, date);
     }
 
     /**
@@ -280,27 +352,7 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
      */
     public void setHeader(String name, String value)
     {
-        // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Cache-Control".equalsIgnoreCase(name) //$NON-NLS-1$
-            && !"Pragma".equalsIgnoreCase(name) //$NON-NLS-1$
-            && !"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
-        {
-            response.setHeader(name, value);
-        }
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
-     */
-    public void addHeader(String name, String value)
-    {
-        // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Cache-Control".equalsIgnoreCase(name) //$NON-NLS-1$
-            && !"Pragma".equalsIgnoreCase(name) //$NON-NLS-1$
-            && !"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
-        {
-            response.addHeader(name, value);
-        }
+        response.setHeader(name, value);
     }
 
     /**
@@ -336,41 +388,4 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
         response.setStatus(sc, sm);
     }
 
-    /**
-     * Get the String representation.
-     * @return the contents of the response
-     */
-    public String toString()
-    {
-        return this.outputWriter.toString() + this.servletOutputStream.toString();
-    }
-
-    /**
-     * A simple implementation of ServletOutputStream.
-     */
-    private static class SimpleServletOutputStream extends ServletOutputStream
-    {
-
-        /**
-         * My outputWriter stream, a buffer.
-         */
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        /**
-         * {@inheritDoc}
-         */
-        public void write(int b)
-        {
-            this.outputStream.write(b);
-        }
-
-        /**
-         * Get the contents of the outputStream.
-         * @return contents of the outputStream
-         */
-        public String toString()
-        {
-            return this.outputStream.toString();
-        }
-    }
 }

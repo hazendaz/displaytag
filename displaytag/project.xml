@@ -1,414 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project>
-    <pomVersion>3</pomVersion>
-    <id>displaytag</id>
-    <!--<artifactId>displaytag</artifactId>-->
-    <name>Display tag library</name>
-    <groupId>displaytag</groupId>
-    <!--<type>jar</type>-->
-    <!--<version>1.0-rc1-SNAPSHOT</version>-->
-    <currentVersion>1.0-rc2-SNAPSHOT</currentVersion>
-    <organization>
-        <name>sourceforge</name>
-        <url>http://sourceforge.net</url>
-        <logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=8</logo>
-    </organization>
-    <inceptionYear>2002</inceptionYear>
-    <package>org.displaytag</package>
-    <logo>/images/displaytag.png</logo>
-    <description>The display tag library is an open source suite of custom tags that provide high level web presentation patterns which will work in a MVC model 
+  <pomVersion>3</pomVersion>
+  <artifactId>displaytag</artifactId>
+  <id>displaytag</id>
+  <!--<artifactId>displaytag</artifactId>-->
+  <name>Display tag library</name>
+  <groupId>displaytag</groupId>
+  <!--<type>jar</type>-->
+  <!--<version>1.0-rc1-SNAPSHOT</version>-->
+  <currentVersion>1.0-rc2-SNAPSHOT</currentVersion>
+  <organization>
+    <name>sourceforge</name>
+    <url>http://sourceforge.net</url>
+    <logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=8</logo>
+  </organization>
+  <inceptionYear>2002</inceptionYear>
+  <package>org.displaytag</package>
+  <logo>/images/displaytag.png</logo>
+  <description>The display tag library is an open source suite of custom tags that provide high level web presentation patterns which will work in a MVC model 
     and provide a significant amount of functionality while still being simple and straight-forward to use.</description>
-    <shortDescription>Display tag library</shortDescription>
-    <url>http://${pom.groupId}.sourceforge.net</url>
-    <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
-    <siteAddress>shell.sourceforge.net</siteAddress>
-    <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
-    <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag2</connection>
-        <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag2</developerConnection>
-        <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag2/</url>
-    </repository>
-    <versions>
-      <version>
-        <id>1.0-b1</id>
-        <name>1.0-b1</name>
-        <tag>displaytag1-b1</tag>
-      </version>
-      <version>
-        <id>1.0-b2</id>
-        <name>1.0-b2</name>
-        <tag>displaytag1-b2</tag>
-      </version>
-      <version>
-        <id>1.0-b3</id>
-        <name>1.0-b3</name>
-        <tag>displaytag1-b3</tag>
-      </version>
-      <version>
-        <id>1.0-rc1</id>
-        <name>1.0-rc1</name>
-        <tag>displaytag1-rc1</tag>
-      </version>
-    </versions>
-    <branches/>
-    <mailingLists>
-        <mailingList>
-            <name>${pom.name} User Mailing list</name>
-            <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</subscribe>
-            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</unsubscribe>
-            <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-user</archive>
-        </mailingList>
-        <mailingList>
-            <name>${pom.name} Developer Mailing list</name>
-            <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</subscribe>
-            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</unsubscribe>
-            <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-devel</archive>
-        </mailingList>
-        <mailingList>
-            <name>${pom.name} Cvs Mailing list</name>
-            <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</subscribe>
-            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</unsubscribe>
-            <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-cvs</archive>
-        </mailingList>
-    </mailingLists>
-    <developers>
-        <developer>
-            <name>Matt Raible</name>
-            <id>matt</id>
-            <email>mraible AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <roles>
-                <role>Project admin</role>
-            </roles>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
-            <name>Fabrizio Giustina</name>
-            <id>fgiust</id>
-            <email>fgiust AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <roles>
-                <role>Java Developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <name>Mathias Bogaert</name>
-            <id>pathoss</id>
-            <email>pathoss AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <roles>
-                <role>Java Developer</role>
-            </roles>
-            <timezone>0</timezone>
-        </developer>
-        <developer>
-            <name>Benjamin Simpson</name>
-            <id>javabencom</id>
-            <email>javabencom AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <roles>
-                <role>Java Developer</role>
-            </roles>
-            <timezone>0</timezone>
-        </developer>
-        <developer>
-            <name>John York</name>
-            <id>johnryork</id>
-            <email>johnryork AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <roles>
-                <role>Java Developer</role>
-            </roles>
-            <timezone>0</timezone>
-        </developer>
-        <developer>
-            <name>Andy Pruitt</name>
-            <id>rapruitt</id>
-            <email>rapruitt AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <roles>
-                <role>Java Developer</role>
-            </roles>
-            <timezone>-6</timezone>
-        </developer>
-        <developer>
-            <name>Ed Hill</name>
-            <id>ed-hill</id>
-            <email>ed-hill AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <roles>
-                <role>Project admin</role>
-            </roles>
-            <timezone>0</timezone>
-        </developer>
-    </developers>
-    <contributors>
-        <contributor>
-            <name>Didier Dubois</name>
-            <email>didier@ddubois.info</email>
-            <roles/>
-            <timezone>0</timezone>
-        </contributor>
-    </contributors>
-    <licenses>
-        <license>
-            <name>Artistic License</name>
-            <url>http://displaytag.sourceforge.net/license.html</url>
-        </license>
-    </licenses>
-    <dependencies>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.6.1</version>
-            <url>http://jakarta.apache.org/commons/beanutils</url>
-            <properties>
-                <war.bundle>true</war.bundle>
-                <comment>needed to build and run displaytag</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>2.1.1</version>
-            <url>http://jakarta.apache.org/commons/collections</url>
-            <properties>
-                <war.bundle>true</war.bundle>
-                <comment>needed to build and run displaytag (note that precompiled binaries will not work with commons-collections 3.0)</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.0</version>
-            <url>http://jakarta.apache.org/commons/lang</url>
-            <properties>
-                <war.bundle>true</war.bundle>
-                <comment>needed to build and run displaytag</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.0.4</version>
-            <url>http://jakarta.apache.org/commons/logging</url>
-            <properties>
-                <war.bundle>true</war.bundle>
-                <comment>needed to build and run displaytag</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.8</version>
-            <url>http://logging.apache.org/log4j/docs/index.html</url>
-            <properties>
-                <war.bundle>true</war.bundle>
-                <comment>optional: you can use any logging framework supported by commons-logging</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>servletapi</groupId>
-            <artifactId>servletapi</artifactId>
-            <version>2.3</version>
-            <properties>
-                <comment>Servlet 2.3 support is required to build the library. At runtime only servet 2.2 (tomcat 3, websphere 4)
+  <shortDescription>Display tag library</shortDescription>
+  <url>http://${pom.groupId}.sourceforge.net</url>
+  <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
+  <siteAddress>shell.sourceforge.net</siteAddress>
+  <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag2</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag2</developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag2/</url>
+  </repository>
+  <versions>
+    <version>
+      <id>1.0-b1</id>
+      <name>1.0-b1</name>
+      <tag>displaytag1-b1</tag>
+    </version>
+    <version>
+      <id>1.0-b2</id>
+      <name>1.0-b2</name>
+      <tag>displaytag1-b2</tag>
+    </version>
+    <version>
+      <id>1.0-b3</id>
+      <name>1.0-b3</name>
+      <tag>displaytag1-b3</tag>
+    </version>
+    <version>
+      <id>1.0-rc1</id>
+      <name>1.0-rc1</name>
+      <tag>displaytag1-rc1</tag>
+    </version>
+  </versions>
+  <mailingLists>
+    <mailingList>
+      <name>${pom.name} User Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-user</archive>
+    </mailingList>
+    <mailingList>
+      <name>${pom.name} Developer Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-devel</archive>
+    </mailingList>
+    <mailingList>
+      <name>${pom.name} Cvs Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-cvs</archive>
+    </mailingList>
+  </mailingLists>
+  <developers>
+    <developer>
+      <name>Matt Raible</name>
+      <id>matt</id>
+      <email>mraible AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
+      <name>Fabrizio Giustina</name>
+      <id>fgiust</id>
+      <email>fgiust AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <name>Mathias Bogaert</name>
+      <id>pathoss</id>
+      <email>pathoss AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Benjamin Simpson</name>
+      <id>javabencom</id>
+      <email>javabencom AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>John York</name>
+      <id>johnryork</id>
+      <email>johnryork AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <name>Andy Pruitt</name>
+      <id>rapruitt</id>
+      <email>rapruitt AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>-6</timezone>
+    </developer>
+    <developer>
+      <name>Ed Hill</name>
+      <id>ed-hill</id>
+      <email>ed-hill AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Didier Dubois</name>
+      <email>didier@ddubois.info</email>
+      <timezone>0</timezone>
+    </contributor>
+  </contributors>
+  <licenses>
+    <license>
+      <name>Artistic License</name>
+      <url>http://displaytag.sourceforge.net/license.html</url>
+    </license>
+  </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.6.1</version>
+      <url>http://jakarta.apache.org/commons/beanutils</url>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <comment>needed to build and run displaytag</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>2.1.1</version>
+      <url>http://jakarta.apache.org/commons/collections</url>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <comment>needed to build and run displaytag (note that precompiled binaries will not work with commons-collections 3.0)</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.0</version>
+      <url>http://jakarta.apache.org/commons/lang</url>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <comment>needed to build and run displaytag</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.4</version>
+      <url>http://jakarta.apache.org/commons/logging</url>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <comment>needed to build and run displaytag</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.8</version>
+      <url>http://logging.apache.org/log4j/docs/index.html</url>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <comment>optional: you can use any logging framework supported by commons-logging</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
+      <version>2.3</version>
+      <properties>
+        <comment>Servlet 2.3 support is required to build the library. At runtime only servet 2.2 (tomcat 3, websphere 4)
          is strictly needed, servlet 2.3 support (tomcat 4, websphere 5) is needed only for the EL version of the taglib</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.0.2</version>
-            <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/</url>
-            <properties>
-                <comment>Required to build the library, needed at runtime only for the EL version of the taglib</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.0.4</version>
-            <url>http://jakarta.apache.org/taglibs/</url>
-            <properties>
-                <comment>Required to build the library, needed at runtime only for the EL version of the taglib</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>maven-taglib</groupId>
-            <artifactId>maven-taglib-plugin</artifactId>
-            <version>1.2</version>
-            <type>plugin</type>
-            <url>http://maven-taglib.sourceforge.net</url>
-            <properties>
-                <comment>maven plugin needed to generate tag reference documentation page and to generate the 1.1 version of the tld</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>maven-validator</groupId>
-            <artifactId>maven-xhtml-plugin</artifactId>
-            <version>1.2</version>
-            <type>plugin</type>
-            <url>http://maven-validator.sourceforge.net</url>
-            <properties>
-                <comment>maven plugin for the xthml validation report</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>maven-plugins</groupId>
-            <artifactId>maven-findbugs-plugin</artifactId>
-            <version>0.8.4</version>
-            <type>plugin</type>
-            <properties>
-                <comment>maven plugin for the findbug report</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>statcvs</groupId>
-            <artifactId>maven-statcvs-plugin</artifactId>
-            <version>2.4</version>
-            <type>plugin</type>
-            <properties>
-                <comment>maven plugin for the cvs report</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>httpunit</groupId>
-            <artifactId>httpunit</artifactId>
-            <version>1.5.5-d-16Jun</version>
-            <properties>
-                <comment>Needed to compile and run HttpUnit tests.</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>nekohtml</groupId>
-            <artifactId>nekohtml</artifactId>
-            <version>0.8.1</version>
-            <properties>
-                <comment>Needed to run HttpUnit tests.</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>jtidy</groupId>
-            <artifactId>jtidy</artifactId>
-            <version>4aug2000r7-dev</version>
-            <properties>
-                <comment>Needed to run HttpUnit tests.</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>rhino</groupId>
-            <artifactId>js</artifactId>
-            <version>1.5R4.1</version>
-            <properties>
-                <comment>Needed to run HttpUnit tests.</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>tomcat</groupId>
-            <artifactId>jasper-compiler</artifactId>
-            <version>4.0.4</version>
-            <properties>
-                <comment>Needed to run HttpUnit tests.</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>tomcat</groupId>
-            <artifactId>jasper-runtime</artifactId>
-            <version>4.0.4</version>
-            <properties>
-                <comment>Needed to run HttpUnit tests.</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xerces</artifactId>
-            <version>2.4.0</version>
-            <properties>
-                <comment>Needed to run HttpUnit tests.</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-            <version>1.0.b2</version>
-            <properties>
-                <comment>Needed to run HttpUnit tests.</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>jetspeed</groupId>
-            <artifactId>portlet-api</artifactId>
-            <version>unknown</version>
-            <jar>${basedir}/lib/portlet-api.jar</jar>
-            <url>http://jakarta.apache.org/jetspeed/site/install.html</url>
-            <properties>
-                <comment>required to build jetspeed/portal server support classes. Not needed at runtime.</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>jdk</groupId>
-            <artifactId>tools</artifactId>
-            <version>1.3</version>
-            <jar>${java.home}/../lib/tools.jar</jar>
-            <url>http://java.sun.com/j2se/1.4.2/download.html</url>
-            <properties>
-                <comment>Needed to run HttpUnit tests. This is the tools.jar from sun jdk. Jar in not in maven repository
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.0.2</version>
+      <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/</url>
+      <properties>
+        <comment>Required to build the library, needed at runtime only for the EL version of the taglib</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>httpunit</groupId>
+      <artifactId>httpunit</artifactId>
+      <version>1.6n</version>
+      <properties>
+        <comment>Needed to compile and run HttpUnit tests.</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>nekohtml</groupId>
+      <artifactId>nekohtml</artifactId>
+      <version>0.9.1</version>
+      <properties>
+        <comment>Needed to run HttpUnit tests.</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>jtidy</groupId>
+      <artifactId>jtidy</artifactId>
+      <version>4aug2000r7-dev</version>
+      <properties>
+        <comment>Needed to run HttpUnit tests.</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xerces</artifactId>
+      <version>2.4.0</version>
+      <properties>
+        <comment>Needed to run HttpUnit tests.</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>1.0.b2</version>
+      <properties>
+        <comment>Needed to run HttpUnit tests.</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>itext</groupId>
+      <artifactId>itext</artifactId>
+      <version>0.99</version>
+      <url>http://prdownloads.sourceforge.net/itext/</url>
+      <properties>
+        <war.bundle>true</war.bundle>
+        <comment>Needed at build time to compile classes for the PDF export. Needed at runtime to enable PDF export</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>1.0.4</version>
+      <url>http://jakarta.apache.org/taglibs/</url>
+      <properties>
+        <comment>Required to build the library, needed at runtime only for the EL version of the taglib</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>maven-taglib</groupId>
+      <artifactId>maven-taglib-plugin</artifactId>
+      <version>1.2</version>
+      <type>plugin</type>
+      <url>http://maven-taglib.sourceforge.net</url>
+      <properties>
+        <comment>maven plugin needed to generate tag reference documentation page and to generate the 1.1 version of the tld</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>maven-validator</groupId>
+      <artifactId>maven-xhtml-plugin</artifactId>
+      <version>1.2</version>
+      <type>plugin</type>
+      <url>http://maven-validator.sourceforge.net</url>
+      <properties>
+        <comment>maven plugin for the xthml validation report</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>maven-plugins</groupId>
+      <artifactId>maven-findbugs-plugin</artifactId>
+      <version>0.8.4</version>
+      <type>plugin</type>
+      <properties>
+        <comment>maven plugin for the findbug report</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>statcvs</groupId>
+      <artifactId>maven-statcvs-plugin</artifactId>
+      <version>2.4</version>
+      <type>plugin</type>
+      <properties>
+        <comment>maven plugin for the cvs report</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>rhino</groupId>
+      <artifactId>js</artifactId>
+      <version>1.5R4.1</version>
+      <properties>
+        <comment>Needed to run HttpUnit tests.</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>jasper-compiler</artifactId>
+      <version>4.0.4</version>
+      <properties>
+        <comment>Needed to run HttpUnit tests.</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>jasper-runtime</artifactId>
+      <version>4.0.4</version>
+      <properties>
+        <comment>Needed to run HttpUnit tests.</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>jetspeed</groupId>
+      <artifactId>portlet-api</artifactId>
+      <version>unknown</version>
+      <jar>lib/portlet-api.jar</jar>
+      <url>http://jakarta.apache.org/jetspeed/site/install.html</url>
+      <properties>
+        <comment>required to build jetspeed/portal server support classes. Not needed at runtime.</comment>
+      </properties>
+    </dependency>
+    <dependency>
+      <groupId>jdk</groupId>
+      <artifactId>tools</artifactId>
+      <version>1.3</version>
+      <jar>${java.home}/../lib/tools.jar</jar>
+      <url>http://java.sun.com/j2se/1.4.2/download.html</url>
+      <properties>
+        <comment>Needed to run HttpUnit tests. This is the tools.jar from sun jdk. Jar in not in maven repository
         but is set to JAVA_HOME/../lib/tools.jar in project.properties</comment>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>itext</groupId>
-            <artifactId>itext</artifactId>
-            <version>0.99</version>
-            <url>http://prdownloads.sourceforge.net/itext/itext-0.99.jar</url>
-            <properties>
-                <war.bundle>true</war.bundle>
-                <comment>Needed to compile classes needed for the PDF export. Needed at runime to enable PDF export</comment>
-            </properties>
-        </dependency>
-    </dependencies>
-    <build>
-        <sourceDirectory>src/java</sourceDirectory>
-        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-        <unitTest>
-            <includes>
-                <include>**/TestAll.java</include>
-            </includes>
-            <resources>
-                <resource>
-                    <directory>src/test-resources</directory>
-                    <filtering>false</filtering>
-                </resource>
-            </resources>
-        </unitTest>
-        <resources>
-            <resource>
-                <directory>src/java</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                </includes>
-                <filtering>false</filtering>
-            </resource>
-        </resources>
-    </build>
-    <reports>
-        <report>maven-license-plugin</report>
-        <report>maven-checkstyle-plugin</report>
-        <report>maven-changes-plugin</report>
-        <report>maven-javadoc-plugin</report>
-        <report>taglib</report>
-        <report>maven-jdepend-plugin</report>
-        <report>maven-pmd-plugin</report>
-        <report>maven-findbugs-plugin</report>
-        <report>maven-jxr-plugin</report>
-        <report>maven-junit-report-plugin</report>
-        <report>maven-clover-plugin</report>
-        <report>maven-tasklist-plugin</report>
-        <report>maven-simian-plugin</report>
-        <report>maven-statcvs-plugin</report>
-        <report>maven-faq-plugin</report>
-        <report>maven-jdiff-plugin</report>
-        <!--<report>maven-xhtml-plugin</report>-->
-    </reports>
+      </properties>
+    </dependency>
+  </dependencies>
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/TestAll.java</include>
+      </includes>
+      <resources>
+        <resource>
+          <directory>src/test-resources</directory>
+          <filtering>false</filtering>
+        </resource>
+      </resources>
+    </unitTest>
+    <resources>
+      <resource>
+        <directory>src/java</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
+  </build>
+  <reports>
+    <report>maven-license-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>taglib</report>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-findbugs-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-clover-plugin</report>
+    <report>maven-tasklist-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-statcvs-plugin</report>
+    <report>maven-faq-plugin</report>
+    <report>maven-jdiff-plugin</report>
+    <!--<report>maven-xhtml-plugin</report>-->
+  </reports>
 </project>
+

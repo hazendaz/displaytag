@@ -204,6 +204,10 @@ public abstract class BaseExportView implements ExportView
      */
     public void doExport(Writer out) throws IOException, JspException
     {
+        if (log.isDebugEnabled())
+        {
+            log.debug(getClass().getName());
+        }
 
         final String DOCUMENT_START = getDocumentStart();
         final String DOCUMENT_END = getDocumentEnd();
@@ -229,10 +233,6 @@ public abstract class BaseExportView implements ExportView
         while (rowIterator.hasNext())
         {
             Row row = rowIterator.next();
-            if (log.isDebugEnabled())
-            {
-                log.debug(row);
-            }
 
             if (this.model.getTableDecorator() != null)
             {
@@ -288,4 +288,11 @@ public abstract class BaseExportView implements ExportView
         }
     }
 
+    /**
+     * @see org.displaytag.export.ExportView#outputPage()
+     */
+    public boolean outputPage()
+    {
+        return false;
+    }
 }

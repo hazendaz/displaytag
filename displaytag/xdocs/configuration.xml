@@ -277,12 +277,30 @@
           <tbody>
             <tr>
               <td>
+                export.types
+              </td>
+              <td class="source">csv excel xml pdf</td>
+              <td>whitespace separated list of configured export types</td>
+              <td>Holds the list of configured export types.</td>
+              <td>yes/no</td>
+            </tr>
+            <tr>
+              <td>
                 export.<em>{export name}</em>
               </td>
               <td class="source">true</td>
               <td>true, false</td>
               <td>Should the tag present the option to export data in this specific format.</td>
               <td>yes/yes</td>
+            </tr>
+            <tr>
+              <td>
+                export.<em>{export name}</em>.class
+              </td>
+              <td class="source"></td>
+              <td>Any valid class which implements the <code>org.displaytag.export.ExportView</code> interface</td>
+              <td>Fully qualified class name for the class which will be used for exporting.</td>
+              <td>yes/no</td>
             </tr>
             <tr>
               <td>

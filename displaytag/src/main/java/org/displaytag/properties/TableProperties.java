@@ -9,6 +9,7 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
@@ -226,9 +227,19 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_EXPORT_PREFIX = "export"; //$NON-NLS-1$
 
     /**
+     * property <code>export.types</code>: holds the list of export available export types.
+     */
+    public static final String PROPERTY_EXPORTTYPES = "export.types"; //$NON-NLS-1$
+
+    /**
      * export property <code>label</code>.
      */
     public static final String EXPORTPROPERTY_STRING_LABEL = "label"; //$NON-NLS-1$
+
+    /**
+     * export property <code>class</code>.
+     */
+    public static final String EXPORTPROPERTY_STRING_CLASS = "class"; //$NON-NLS-1$
 
     /**
      * export property <code>include_header</code>.
@@ -306,6 +317,7 @@ public final class TableProperties implements Cloneable
                 properties.setProperty(key, (String) userProperties.get(key));
             }
         }
+
     }
 
     /**
@@ -569,8 +581,11 @@ public final class TableProperties implements Cloneable
      */
     public boolean getExportHeader(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType //
-            + SEP + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX
+            + SEP
+            + exportType.getName()
+            + SEP
+            + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
     }
 
     /**
@@ -580,7 +595,7 @@ public final class TableProperties implements Cloneable
      */
     public String getExportLabel(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType + SEP + EXPORTPROPERTY_STRING_LABEL);
+        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType.getName() + SEP + EXPORTPROPERTY_STRING_LABEL);
     }
 
     /**
@@ -590,7 +605,7 @@ public final class TableProperties implements Cloneable
      */
     public String getExportFileName(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType + SEP + EXPORTPROPERTY_STRING_FILENAME);
+        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType.getName() + SEP + EXPORTPROPERTY_STRING_FILENAME);
     }
 
     /**
@@ -741,6 +756,31 @@ public final class TableProperties implements Cloneable
     public String getCssSortable()
     {
         return getProperty(PROPERTY_CSS_TH_SORTABLE);
+    }
+
+    /**
+     * Returns the configured list of media.
+     * @return the value of <code>PROPERTY_EXPORTTYPES</code>
+     */
+    public String[] getExportTypes()
+    {
+        String list = getProperty(PROPERTY_EXPORTTYPES);
+        if (list == null)
+        {
+            return new String[0];
+        }
+
+        return StringUtils.split(list);
+    }
+
+    /**
+     * Returns the class responsible for the given export.
+     * @param exportName export name
+     * @return String classname
+     */
+    public String getExportClass(String exportName)
+    {
+        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportName + SEP + EXPORTPROPERTY_STRING_CLASS);
     }
 
     /**

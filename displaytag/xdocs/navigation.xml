@@ -14,6 +14,7 @@
             <item name="Tlds" href="/tlds.html" />
             <item name="Tag reference" href="/tagreference-displaytag-12.html" />
             <item name="Configuration" href="/configuration.html" />
+            <item name="Export filter" href="/export_filter.html" />
             <item name="FAQ" href="/faq.html" />
             <item name="Related projects" href="/thirdparty.html" />
         </menu>
@@ -22,6 +23,7 @@
             <item name="Basic usage" href="/tut_basic.html" />
             <item name="Data sources" href="/tut_sources.html" />
             <item name="Style" href="/tut_style.html" />
+            <item name="Export" href="/export.html" />
         </menu>
 
         <menu name="Downloadable docs">

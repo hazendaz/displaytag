@@ -55,9 +55,9 @@ public class MediaTypeEnumTest extends TestCase
      */
     public void testHtml()
     {
-        assertEquals(MediaTypeEnum.fromCode(4), MediaTypeEnum.HTML);
+        assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.HTML);
         assertEquals(MediaTypeEnum.fromName("html"), MediaTypeEnum.HTML);
-        assertEquals(MediaTypeEnum.fromCode(4), MediaTypeEnum.fromName("html"));
+        assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.fromName("html"));
     }
 
 }

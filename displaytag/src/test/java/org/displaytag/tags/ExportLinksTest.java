@@ -1,10 +1,12 @@
 package org.displaytag.tags;
 
-import org.displaytag.properties.MediaTypeEnum;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.displaytag.test.DisplaytagCase;
-import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
@@ -14,14 +16,14 @@ import com.meterware.httpunit.WebResponse;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ExportHeadersTest extends DisplaytagCase
+public class ExportLinksTest extends DisplaytagCase
 {
 
     /**
      * Instantiates a new test case.
      * @param name test name
      */
-    public ExportHeadersTest(String name)
+    public ExportLinksTest(String name)
     {
         super(name);
     }
@@ -45,18 +47,22 @@ public class ExportHeadersTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(jspName);
         WebResponse response = runner.getResponse(request);
 
-        // test remove
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+        WebLink[] links = response.getLinks();
 
-        request = new GetMethodWebRequest(jspName);
-        request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
+        assertEquals("4 links were expected: csv, excel, xml, pdf.", 4, links.length);
 
-        response = runner.getResponse(request);
+        Set linkTexts = new HashSet();
+        for (int j = 0; j < links.length; j++)
+        {
+            String url = links[j].getURLString();
+            log.debug(url);
+            if (linkTexts.contains(url))
+            {
+                fail("Found duplicated link in export banner: " + url);
+            }
+            linkTexts.add(url);
+        }
 
-        assertNull("Header Cache-Control not overwritten", response.getHeaderField("Cache-Control"));
-        assertNull("Header Expires not overwritten", response.getHeaderField("Expires"));
-        assertNull("Header Pragma not overwritten", response.getHeaderField("Pragma"));
     }
 
 }

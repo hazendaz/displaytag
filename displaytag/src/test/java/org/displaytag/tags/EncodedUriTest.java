@@ -1,6 +1,7 @@
 package org.displaytag.tags;
 
 import org.apache.commons.lang.SystemUtils;
+import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -56,7 +57,7 @@ public class EncodedUriTest extends DisplaytagCase
         assertEquals("Expected one table in result.", 1, tables.length);
 
         WebLink[] links = response.getLinks();
-        assertEquals("Wrong number of links in result.", 3, links.length);
+        assertEquals("Wrong number of links in result.", MediaTypeEnum.getSize() - 1, links.length);
 
         if (SystemUtils.isJavaVersionAtLeast(1.4f))
         {

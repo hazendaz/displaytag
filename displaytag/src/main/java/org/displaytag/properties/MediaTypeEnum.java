@@ -21,6 +21,11 @@ public final class MediaTypeEnum
     private static final List ALL = new ArrayList();
 
     /**
+     * media type HTML = 0.
+     */
+    public static final MediaTypeEnum HTML = new MediaTypeEnum(0, "html"); //$NON-NLS-1$
+
+    /**
      * Media type CSV = 1.
      */
     public static final MediaTypeEnum CSV = new MediaTypeEnum(1, "csv"); //$NON-NLS-1$
@@ -34,11 +39,6 @@ public final class MediaTypeEnum
      * media type XML = 3.
      */
     public static final MediaTypeEnum XML = new MediaTypeEnum(3, "xml"); //$NON-NLS-1$
-
-    /**
-     * media type HTML = 4.
-     */
-    public static final MediaTypeEnum HTML = new MediaTypeEnum(4, "html"); //$NON-NLS-1$
 
     /**
      * Code; this is the primary key for these objects.
@@ -87,6 +87,7 @@ public final class MediaTypeEnum
      */
     public static MediaTypeEnum fromCode(int key)
     {
+        // @todo optimization needed
         for (int i = 0; i < ALL.size(); i++)
         {
             if (key == ((MediaTypeEnum) ALL.get(i)).getCode())
@@ -131,6 +132,7 @@ public final class MediaTypeEnum
      */
     public static MediaTypeEnum fromName(String code)
     {
+        // @todo optimization needed
         for (int i = 0; i < ALL.size(); i++)
         {
             if (((MediaTypeEnum) ALL.get(i)).getName().equals(code))
@@ -160,10 +162,9 @@ public final class MediaTypeEnum
     public static synchronized MediaTypeEnum registerMediaType(String name)
     {
         MediaTypeEnum existing = fromName(name);
-        if (existing != null)
+        if (existing == null)
         {
             existing = new MediaTypeEnum(ALL.size() + 1, name);
-            ALL.add(existing);
         }
         return existing;
     }

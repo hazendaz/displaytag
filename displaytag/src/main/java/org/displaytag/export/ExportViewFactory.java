@@ -1,11 +1,18 @@
 package org.displaytag.export;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.exception.NestableRuntimeException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.displaytag.Messages;
 import org.displaytag.model.TableModel;
 import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.properties.TableProperties;
+import org.displaytag.util.ReflectHelper;
 
 
 /**
@@ -17,23 +24,110 @@ public final class ExportViewFactory
 {
 
     /**
-     * Map containing MediaTypeEnum - View class.
+     * Singleton.
      */
-    private static final Map VIEWCLASSES = new HashMap();
-
-    static
-    {
-        VIEWCLASSES.put(MediaTypeEnum.CSV, CsvView.class);
-        VIEWCLASSES.put(MediaTypeEnum.EXCEL, ExcelView.class);
-        VIEWCLASSES.put(MediaTypeEnum.XML, XmlView.class);
-    }
+    private static ExportViewFactory instance;
 
     /**
-     * utility class, don't instantiate.
+     * logger.
+     */
+    private static Log log = LogFactory.getLog(ExportViewFactory.class);
+
+    /**
+     * Map containing MediaTypeEnum - View class.
+     */
+    private final Map viewClasses = new HashMap();
+
+    /**
+     * Private constructor.
      */
     private ExportViewFactory()
     {
-        // unused
+        TableProperties properties = TableProperties.getInstance(Locale.getDefault());
+        String[] exportTypes = properties.getExportTypes();
+
+        if (log.isInfoEnabled())
+        {
+            log.info(Messages.getString("ExportViewFactory.initializing", //$NON-NLS-1$
+                new Object[]{ArrayUtils.toString(exportTypes)}));
+        }
+        for (int j = 0; j < exportTypes.length; j++)
+        {
+            String className = properties.getExportClass(exportTypes[j]);
+            registerExportView(exportTypes[j], className);
+        }
+    }
+
+    /**
+     * Returns the simgleton for this class.
+     * @return ExportViewFactory instance
+     */
+    public static synchronized ExportViewFactory getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new ExportViewFactory();
+        }
+        return instance;
+    }
+
+    /**
+     * Register a new Export View, associated with a Media Type. If another export view is currently associated with the
+     * given media type it's replaced.
+     * @param name media name
+     * @param viewClassName export view class name
+     */
+    public void registerExportView(String name, String viewClassName)
+    {
+        Class exportClass;
+        try
+        {
+            exportClass = ReflectHelper.classForName(viewClassName);
+        }
+        catch (ClassNotFoundException e)
+        {
+            log.error(Messages.getString("ExportViewFactory.classnotfound", //$NON-NLS-1$
+                new Object[]{name, viewClassName}));
+            return;
+        }
+        catch (NoClassDefFoundError e)
+        {
+            log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
+                , new Object[]{name, viewClassName, e.getMessage()}));
+            return;
+        }
+
+        try
+        {
+            exportClass.newInstance();
+        }
+        catch (InstantiationException e)
+        {
+            log.error(Messages.getString("ExportViewFactory.instantiationexception", //$NON-NLS-1$
+                new Object[]{name, viewClassName, e.getMessage()}));
+            return;
+        }
+        catch (IllegalAccessException e)
+        {
+            log.error(Messages.getString("ExportViewFactory.illegalaccess", //$NON-NLS-1$
+                new Object[]{name, viewClassName, e.getMessage()}));
+            return;
+        }
+        catch (NoClassDefFoundError e)
+        {
+            log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
+                , new Object[]{name, viewClassName, e.getMessage()}));
+            return;
+        }
+
+        MediaTypeEnum media = MediaTypeEnum.registerMediaType(name);
+        viewClasses.put(media, exportClass);
+
+        if (log.isDebugEnabled())
+        {
+            log.debug(Messages.getString("ExportViewFactory.added", //$NON-NLS-1$ 
+                new Object[]{media, viewClassName}));
+        }
     }
 
     /**
@@ -45,12 +139,12 @@ public final class ExportViewFactory
      * @param decorateValues should ouput be decorated?
      * @return specialized instance of BaseExportView
      */
-    public static ExportView getView(MediaTypeEnum exportType, TableModel tableModel, boolean exportFullList,
+    public ExportView getView(MediaTypeEnum exportType, TableModel tableModel, boolean exportFullList,
         boolean includeHeader, boolean decorateValues)
     {
         ExportView view;
 
-        Class viewClass = (Class) VIEWCLASSES.get(exportType);
+        Class viewClass = (Class) viewClasses.get(exportType);
 
         try
         {
@@ -58,12 +152,12 @@ public final class ExportViewFactory
         }
         catch (InstantiationException e)
         {
-            // @todo better exception message
+            // should not happen (class has already been instantiated before)
             throw new NestableRuntimeException(e);
         }
         catch (IllegalAccessException e)
         {
-            // @todo better exception message
+            // should not happen (class has already been instantiated before)
             throw new NestableRuntimeException(e);
         }
 

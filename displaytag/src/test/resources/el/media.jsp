@@ -13,12 +13,11 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
-                response.addHeader("dummy", "dummy");
                 response.addHeader("Cache-Control", "private");
                 response.addHeader("Expires", "Thu, 01 Dec 1999 16:00:00 GMT");
                 response.addHeader("Pragma", "no-cache");
             ]]> </jsp:scriptlet>
-            <display:table name="${requestScope.test}" id="table">
+            <display:table name="${requestScope.test}" id="table" export="true">
                 <display:column property="ant" media="html"/>
                 <display:column property="bee" media="xml"/>
                 <display:column property="camel" media="xml html"/>

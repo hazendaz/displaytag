@@ -12,7 +12,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -79,9 +78,9 @@ public class ResponseOverrideFilter implements Filter
 
         if (servletRequest.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null)
         {
-            if (log.isInfoEnabled())
+            if (log.isDebugEnabled())
             {
-                log.info(Messages.getString("ResponseOverrideFilter.parameternotfound")); //$NON-NLS-1$
+                log.debug(Messages.getString("ResponseOverrideFilter.parameternotfound")); //$NON-NLS-1$
             }
             //don't filter!
             filterChain.doFilter(servletRequest, servletResponse);
@@ -92,53 +91,33 @@ public class ResponseOverrideFilter implements Filter
 
         BufferedResponseWrapper wrapper = new BufferedResponseWrapper((HttpServletResponse) servletResponse);
 
-        // In a portlet environment, you do not have direct access to the actual request object, so any attribute that
-        // is added will not be visible outside of your portlet. So instead, users MUST append to the StringBuffer, so
-        // that the portlets do not have to bind a new attribute to the request.
-        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, new StringBuffer(8096));
-        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_TYPE, new StringBuffer(80));
-        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_FILENAME, new StringBuffer(80));
+        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, Boolean.TRUE);
 
         filterChain.doFilter(request, wrapper);
 
+        if (wrapper.isOutRequested())
+        {
+            // data already written
+            log.debug("Everything done, exiting");
+            return;
+        }
+
+        // if you reach this point the PARAMETER_EXPORTING has been found, but the special header has never been set in
+        // response (this is the signal from table tag that it is going to write exported data)
+        log.debug("Something went wrong, displaytag never requested writer as expected.");
+
         String pageContent;
         String contentType;
-        StringBuffer buf = (StringBuffer) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);
+
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String characterEncoding = resp.getCharacterEncoding();
         if (characterEncoding != null)
         {
             characterEncoding = "; charset=" + characterEncoding; //$NON-NLS-1$
         }
-        if (buf != null && buf.length() > 0)
-        {
-            pageContent = buf.toString();
-            contentType = ObjectUtils.toString(request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_TYPE));
-            if (log.isDebugEnabled())
-            {
-                log.debug(Messages.getString("ResponseOverrideFilter.overridingoutput", //$NON-NLS-1$
-                    new Object[]{contentType}));
-            }
-
-            StringBuffer filename = (StringBuffer) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_FILENAME);
-
-            if (filename != null && StringUtils.isNotEmpty(filename.toString()))
-            {
-                if (log.isDebugEnabled())
-                {
-                    log.debug(Messages.getString("ResponseOverrideFilter.filenameis", //$NON-NLS-1$
-                        new Object[]{filename}));
-                }
-                resp.setHeader("Content-Disposition", //$NON-NLS-1$
-                    "attachment; filename=\"" + filename + "\""); //$NON-NLS-1$ //$NON-NLS-2$
-            }
-        }
-        else
-        {
-            log.debug(Messages.getString("ResponseOverrideFilter.notoverriding")); //$NON-NLS-1$
-            pageContent = wrapper.toString();
-            contentType = wrapper.getContentType();
-        }
+        log.debug(Messages.getString("ResponseOverrideFilter.notoverriding")); //$NON-NLS-1$
+        pageContent = wrapper.toString();
+        contentType = wrapper.getContentType();
 
         if (contentType != null)
         {
