@@ -36,7 +36,7 @@ public class MockFilterSupport extends HttpServlet
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(MockFilterSupport.class);
+    protected static Log log = LogFactory.getLog(MockFilterSupport.class);
 
     /**
      * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
@@ -61,7 +61,19 @@ public class MockFilterSupport extends HttpServlet
         public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException
         {
             String uri = ((HttpServletRequest) request).getRequestURI();
+            String requestContext = ((HttpServletRequest) request).getContextPath();
+
+            if (StringUtils.isNotEmpty(requestContext) && uri.startsWith(requestContext))
+            {
+                uri = uri.substring(requestContext.length());
+            }
+
             uri = StringUtils.replace(uri, FILTERED_EXTENSION, "");
+
+            if (log.isDebugEnabled())
+            {
+                log.debug("Redirecting to [" + uri + "]");
+            }
             RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
             dispatcher.forward(request, response);
         }
