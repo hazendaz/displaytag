@@ -182,12 +182,7 @@ public final class LookupUtil
             indexOfINDEXEDDELIM = evalName.indexOf(PropertyUtils.INDEXED_DELIM);
             indexOfMAPPEDDELIM = evalName.indexOf(PropertyUtils.MAPPED_DELIM);
 
-            if (evalBean == null)
-            {
-                log.debug("Null property value for '" + evalName.substring(0, indexOfNESTEDDELIM) + "'");
-                return null;
-            }
-            else if (evalBean instanceof Map)
+            if (evalBean instanceof Map)
             {
                 evalBean = ((Map) evalBean).get(evalName);
             }

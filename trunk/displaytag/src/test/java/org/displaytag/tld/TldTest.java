@@ -301,7 +301,7 @@ public class TldTest extends TestCase
      * @author Fabrizio Giustina
      * @version $Revision$ ($Author$)
      */
-    public class ClasspathEntityResolver implements EntityResolver
+    public static class ClasspathEntityResolver implements EntityResolver
     {
 
         /**
@@ -349,7 +349,7 @@ public class TldTest extends TestCase
      * @author Fabrizio Giustina
      * @version $Revision$ ($Author$)
      */
-    public class TagAttribute
+    public static class TagAttribute
     {
 
         /**

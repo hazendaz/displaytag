@@ -349,14 +349,11 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
                 }
             }
 
-            if (bundle != null)
+            if (bundle != null && key != null)
             {
                 try
                 {
-                    if (key != null)
-                    {
-                        super.setTitle(bundle.getString(key));
-                    }
+                    super.setTitle(bundle.getString(key));
                 }
                 catch (MissingResourceException e)
                 {

@@ -1,6 +1,5 @@
 package org.displaytag.exception;
 
-
 import org.apache.commons.lang.ArrayUtils;
 import org.displaytag.Messages;
 
@@ -33,7 +32,9 @@ public class MissingAttributeException extends BaseNestableJspTagException
     {
         super(source, Messages.getString("MissingAttributeException.msg", //$NON-NLS-1$
             new Object[]{ArrayUtils.toString(attributeNames)}));
-        this.attributes = attributeNames;
+
+        // copy attributes to allow them to be retrieved using getAttributeNames()
+        this.attributes = (String[]) ArrayUtils.clone(attributeNames);
     }
 
     /**
@@ -52,7 +53,7 @@ public class MissingAttributeException extends BaseNestableJspTagException
      */
     public String[] getAttributeNames()
     {
-        return this.attributes;
+        return (String[]) ArrayUtils.clone(this.attributes);
     }
 
 }

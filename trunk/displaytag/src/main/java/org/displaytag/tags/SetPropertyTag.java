@@ -12,7 +12,7 @@ import org.displaytag.exception.TagStructureException;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class SetPropertyTag extends BodyTagSupport implements Cloneable
+public class SetPropertyTag extends BodyTagSupport
 {
 
     /**

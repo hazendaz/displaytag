@@ -68,7 +68,7 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
     /**
      * logger.
      */
-    private Log log = LogFactory.getLog(DisplayPropertiesLoaderServlet.class);
+    private static Log log = LogFactory.getLog(DisplayPropertiesLoaderServlet.class);
 
     /**
      * Init: retrieve the confiuration parameter and set the user file name in

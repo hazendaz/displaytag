@@ -63,6 +63,7 @@ public class BeanInfoUtil extends SimpleBeanInfo
         catch (ClassNotFoundException ex1)
         {
             log.error("Class not found: " + className);
+            return new PropertyDescriptor[0];
         }
 
         // get the method array

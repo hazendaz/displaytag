@@ -141,9 +141,10 @@ public class RowSorter implements Comparator
         {
             returnValue = ((Comparable) object1).compareTo(object2);
         }
-        else if (object1 == null && object2 == null)
+        else if (object1 != null && object2 != null)
         {
-            returnValue = 0;
+            // if object are not null and don't implement comparable, compare using string values
+            returnValue = object1.toString().compareTo(object2.toString());
         }
         else if (object1 == null && object2 != null)
         {
@@ -155,8 +156,8 @@ public class RowSorter implements Comparator
         }
         else
         {
-            // if object are not null and don't implement comparable, compare using string values
-            returnValue = object1.toString().compareTo(object2.toString());
+            // both null
+            returnValue = 0;
         }
 
         int ascendingInt = this.ascending ? 1 : -1;

@@ -11,6 +11,7 @@ import org.displaytag.properties.TableProperties;
 
 
 /**
+ * Table Model. Holds table data for presentation.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */

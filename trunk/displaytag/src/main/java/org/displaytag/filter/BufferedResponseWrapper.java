@@ -159,7 +159,7 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper implemen
     /**
      * A simple implementation of ServletOutputStream.
      */
-    private class SimpleServletOutputStream extends ServletOutputStream
+    private static class SimpleServletOutputStream extends ServletOutputStream
     {
 
         /**

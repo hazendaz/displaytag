@@ -696,7 +696,7 @@ public class TableTag extends HtmlTableTag
 
         this.tableModel.setSortFullTable(finalSortFull);
 
-        SortOrderEnum paramOrder = SortOrderEnum.fromIntegerCode(requestHelper
+        SortOrderEnum paramOrder = SortOrderEnum.fromCode(requestHelper
             .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER)));
 
         // if no order parameter is set use default
@@ -722,7 +722,7 @@ public class TableTag extends HtmlTableTag
             this.previousSortedColumn = (previousSortColumnParameter == null) ? -1 : previousSortColumnParameter
                 .intValue();
 
-            SortOrderEnum previousParamOrder = SortOrderEnum.fromIntegerCode(requestHelper
+            SortOrderEnum previousParamOrder = SortOrderEnum.fromCode(requestHelper
                 .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSORDER)));
 
             this.previousOrder = SortOrderEnum.DESCENDING != previousParamOrder;
@@ -731,7 +731,7 @@ public class TableTag extends HtmlTableTag
 
         Integer exportTypeParameter = requestHelper
             .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
-        this.currentMediaType = MediaTypeEnum.fromIntegerCode(exportTypeParameter);
+        this.currentMediaType = MediaTypeEnum.fromCode(exportTypeParameter);
         if (this.currentMediaType == null)
         {
             this.currentMediaType = MediaTypeEnum.HTML;
@@ -1081,6 +1081,31 @@ public class TableTag extends HtmlTableTag
             throw new ExportException(getClass());
         }
 
+        allowCache(response);
+
+        response.setContentType(mimeType);
+
+        if (StringUtils.isNotEmpty(filename))
+        {
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+        }
+
+        try
+        {
+            exportView.doExport(out);
+        }
+        catch (IOException e)
+        {
+            throw new NestableRuntimeException("IOException while writing data.", e);
+        }
+    }
+
+    /**
+     * Set up headers to allow caching of exported file.
+     * @param response HttpServletResponse
+     */
+    private void allowCache(HttpServletResponse response)
+    {
         // if cache is disabled using http header, export will not work.
         // Try to remove bad headers overwriting them, since there is no way to remove a single header and reset()
         // could remove other "useful" headers like content encoding
@@ -1099,22 +1124,6 @@ public class TableTag extends HtmlTableTag
             // there is no "Cache-Control: public" equivalent, so just try to set it to an empty String (note
             // this is NOT a valid header)
             response.setHeader("Pragma", "");
-        }
-
-        response.setContentType(mimeType);
-
-        if (StringUtils.isNotEmpty(filename))
-        {
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-        }
-
-        try
-        {
-            exportView.doExport(out);
-        }
-        catch (IOException e)
-        {
-            throw new NestableRuntimeException("IOException while writing data.", e);
         }
     }
 
@@ -1387,7 +1396,7 @@ public class TableTag extends HtmlTableTag
     private String groupColumns(String value, int group)
     {
 
-        if ((group == 1) & this.nextRow.size() > 0)
+        if ((group == 1) && this.nextRow.size() > 0)
         {
             // we are at the begining of the next row so copy the contents from nextRow to the previousRow.
             this.previousRow.clear();
@@ -1399,7 +1408,7 @@ public class TableTag extends HtmlTableTag
         {
             // Key not found in the nextRow so adding this key now...
             // remember all the old values.
-            this.nextRow.put(new Integer(group), new String(value));
+            this.nextRow.put(new Integer(group), value);
         }
 
         //  Start comparing the value we received, along with the grouping index.
