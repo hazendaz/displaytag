@@ -219,7 +219,7 @@ public class ColumnTag extends BodyTagSupport
 
     /**
      *
-     * @deprecated: use setSortable()
+     * @deprecated use setSortable()
      * @param pAttributeValue String
      */
     public void setSort(String pAttributeValue)
@@ -386,7 +386,7 @@ public class ColumnTag extends BodyTagSupport
 
     /**
      *
-     * @deprecated: use setClass()
+     * @deprecated use setClass()
      * @param pAttributeValue String
      */
     public void setStyleClass(String pAttributeValue)
@@ -432,7 +432,7 @@ public class ColumnTag extends BodyTagSupport
 
     /**
      *
-     * @deprecated: use setHeaderClass()
+     * @deprecated use setHeaderClass()
      * @param pAttributeValue String
      */
     public void setHeaderStyleClass(String pAttributeValue)
