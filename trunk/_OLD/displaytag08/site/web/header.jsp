@@ -1,13 +1,14 @@
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 
 <html>
-	<head><title>The &lt;display:*&gt; tag library</title>
-<META HTTP-EQUIV="Expires" CONTENT="-1">
-<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+	<head>
+	<title>The &lt;display:*&gt; tag library</title>
+	<META HTTP-EQUIV="Expires" CONTENT="-1">
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
 
    <link rel=stylesheet href="./site.css" type="text/css">
-	</head>
+</head>
 <!-- vlink="#85917C" link="#42593C"  -->
 <body bgcolor="#F8F8F0" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
