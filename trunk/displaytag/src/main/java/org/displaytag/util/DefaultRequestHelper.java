@@ -114,7 +114,7 @@ public class DefaultRequestHelper implements RequestHelper
 
             for (int i = 0; i < values.length; i++)
             {
-                values[i] = CompatibleUrlEncoder.encode(StringUtils.defaultString(originalValues[i]), request
+                values[i] = CompatibleUrlEncoder.encode(StringUtils.defaultString(originalValues[i]), response
                     .getCharacterEncoding());
             }
             map.put(paramName, values);
