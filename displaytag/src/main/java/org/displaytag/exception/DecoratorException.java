@@ -1,8 +1,8 @@
 package org.displaytag.exception;
 
 /**
- * <p>Exception thrown by column decorators. If a decorator need to throw a checked exception this should be nested in
- * a DecoratorException.</p>
+ * Exception thrown by column decorators. If a decorator need to throw a checked exception this should be nested in
+ * a DecoratorException.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -11,23 +11,23 @@ public class DecoratorException extends BaseNestableJspTagException
 
     /**
      * Constructor for DecoratorException.
-     * @param pSourceClass Class where the exception is generated
-     * @param pMessage message
+     * @param source Class where the exception is generated
+     * @param message message
      */
-    public DecoratorException(Class pSourceClass, String pMessage)
+    public DecoratorException(Class source, String message)
     {
-        super(pSourceClass, pMessage);
+        super(source, message);
     }
 
     /**
      * Constructor for DecoratorException.
-     * @param pSourceClass Class where the exception is generated
-     * @param pMessage message
-     * @param pCause previous exception
+     * @param source Class where the exception is generated
+     * @param message message
+     * @param cause previous exception
      */
-    public DecoratorException(Class pSourceClass, String pMessage, Throwable pCause)
+    public DecoratorException(Class source, String message, Throwable cause)
     {
-        super(pSourceClass, pMessage, pCause);
+        super(source, message, cause);
     }
 
     /**

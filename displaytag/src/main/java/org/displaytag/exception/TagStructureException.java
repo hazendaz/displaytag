@@ -9,26 +9,14 @@ public class TagStructureException extends BaseNestableJspTagException
 {
 
     /**
-     * Current tag
-     */
-    private String mCurrentTag;
-
-    /**
-     * Missing parent tag
-     */
-    private String mShoudBeNestedIn;
-
-    /**
      * Constructor for InvalidTagAttributeValueException.
-     * @param pSourceClass Class where the exception is generated
-     * @param pCurrentTag name of the current tag
-     * @param pShoudBeNestedIn missing parent tag
+     * @param source Class where the exception is generated
+     * @param currentTag name of the current tag
+     * @param shoudBeNestedIn missing parent tag
      */
-    public TagStructureException(Class pSourceClass, String pCurrentTag, String pShoudBeNestedIn)
+    public TagStructureException(Class source, String currentTag, String shoudBeNestedIn)
     {
-        super(pSourceClass, "Tag \"" + pCurrentTag + "\" should ne nested in \"" + pShoudBeNestedIn + "\"");
-        mCurrentTag = pCurrentTag;
-        mShoudBeNestedIn = pShoudBeNestedIn;
+        super(source, "Tag \"" + currentTag + "\" should ne nested in \"" + shoudBeNestedIn + "\"");
     }
 
     /**
