@@ -15,6 +15,6 @@ public abstract class ColumnDecorator implements org.displaytag.decorator.Column
     /**
      * @see org.displaytag.decorator.ColumnDecorator#decorate(Object)
      */
-    public abstract String decorate(Object pColumnValue) throws DecoratorException;
+    public abstract String decorate(Object columnValue) throws DecoratorException;
 
 }
