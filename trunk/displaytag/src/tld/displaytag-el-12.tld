@@ -177,7 +177,8 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <description>An implicit variable of this name will be created and placed into NESTED scope. The object is also 
-        added to pageContext under this name.</description>
+        added to pageContext under this name. Two tables in the same page can't have the same id (paging and sorting 
+        will affect both).</description>
     </attribute>
     <attribute>
       <name>sort</name>
