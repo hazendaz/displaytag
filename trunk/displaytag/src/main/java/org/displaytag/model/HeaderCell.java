@@ -10,6 +10,7 @@ import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
+
 /**
  * DataObject representing the column header. The header cell contains all the properties common to cells in the same
  * column.
@@ -306,7 +307,7 @@ public class HeaderCell
     }
 
     /**
-     * Returns the HtmlAttributeMap containg all the html attributes for the <strong>td</strong> tags.
+     * Returns the HtmlAttributeMap containg all the html attributes for the <strong>td </strong> tags.
      * @return HtmlAttributeMap with td attributes
      */
     public HtmlAttributeMap getHtmlAttributes()
@@ -315,7 +316,7 @@ public class HeaderCell
     }
 
     /**
-     * Sets the HtmlAttributeMap containg all the html attributes for the <strong>td</strong> tags.
+     * Sets the HtmlAttributeMap containg all the html attributes for the <strong>td </strong> tags.
      * @param attributes HtmlAttributeMap
      */
     public void setHtmlAttributes(HtmlAttributeMap attributes)
@@ -324,7 +325,7 @@ public class HeaderCell
     }
 
     /**
-     * returns the HtmlAttributeMap containg all the html attributes for the <strong>th</strong> tag.
+     * returns the HtmlAttributeMap containg all the html attributes for the <strong>th </strong> tag.
      * @return HtmlAttributeMap with th attributes
      */
     public HtmlAttributeMap getHeaderAttributes()
@@ -333,7 +334,7 @@ public class HeaderCell
     }
 
     /**
-     * Sets the HtmlAttributeMap containg all the html attributes for the <strong>th</strong> tag.
+     * Sets the HtmlAttributeMap containg all the html attributes for the <strong>th </strong> tag.
      * @param attributes HtmlAttributeMap
      */
     public void setHeaderAttributes(HtmlAttributeMap attributes)
@@ -351,6 +352,12 @@ public class HeaderCell
         if (StringUtils.isBlank(cssClass))
         {
             return;
+        }
+
+        // if headerAttributes has not been set, instantiates a new map
+        if (headerAttributes == null)
+        {
+            headerAttributes = new HtmlAttributeMap();
         }
 
         Object classAttributes = this.headerAttributes.get(TagConstants.ATTRIBUTE_CLASS);
@@ -461,10 +468,8 @@ public class HeaderCell
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
-            .append("columnNumber", this.columnNumber)
-            .append("title", this.title)
-            .append("beanPropertyName", this.beanPropertyName)
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append("columnNumber", this.columnNumber).append(
+            "title",
+            this.title).append("beanPropertyName", this.beanPropertyName).toString();
     }
 }
