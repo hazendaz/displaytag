@@ -11,17 +11,16 @@ import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.export.MediaTypeEnum;
 
 /**
- * The properties used by the Table tags.  The properties are loaded in the following order,
- * in increasing order of priority.
- *<ol>
- * <li> First, from the TableTag.properties included with the DisplayTag distribution.  </li>
- * <li>Then, from the file displaytag.properties, if it is present; these properties are
- * intended to be set by the user for sitewide application.  </li>
- * <li>Finally, if this class has a userProperties defined, all of the properties from that
- * Properties object are copied in as well.  The userProperties Properties can be set by the
- * {@link DisplayPropertiesLoaderServlet} if it is configured.</li>
+ * The properties used by the Table tags. The properties are loaded in the following order, in increasing order of
+ * priority.
+ * <ol>
+ * <li>First, from the TableTag.properties included with the DisplayTag distribution.</li>
+ * <li>Then, from the file displaytag.properties, if it is present; these properties are intended to be set by the
+ * user for sitewide application.</li>
+ * <li>Finally, if this class has a userProperties defined, all of the properties from that Properties object are
+ * copied in as well. The userProperties Properties can be set by the {@link DisplayPropertiesLoaderServlet}if it is
+ * configured.</li>
  * </ol>
- *
  * @author fgiust
  * @author rapruitt
  * @version $Revision$ ($Author$)
@@ -36,32 +35,30 @@ public class TableProperties
     private static Log log = LogFactory.getLog(TableProperties.class);
 
     /**
-     * Field DEFAULT_FILENAME
+     * name of the default properties file name ("TableTag.properties")
      */
     private static final String DEFAULT_FILENAME = "TableTag.properties";
 
     /**
-     * Field mPropertiesFilename
+     * current properties file name. Defaults to DEFAULT_FILENAME
      */
     private static String mPropertiesFilename = DEFAULT_FILENAME;
 
     /**
-     * The name of the local properties file that is searched for on the
-     * classpath. Settings in this file will override the defaults loaded
-     * from TableTag.properties.
+     * The name of the local properties file that is searched for on the classpath. Settings in this file will override
+     * the defaults loaded from TableTag.properties.
      */
     public static final String LOCAL_PROPERTIES = "displaytag";
 
     /**
-     * The userProperties are  local, non-default properties; these
-     * settings override the defaults from displaytag.properties
-     * and TableTag.properties.
+     * The userProperties are local, non-default properties; these settings override the defaults from
+     * displaytag.properties and TableTag.properties.
      */
     private static Properties userProperties = new Properties();
 
     /**
-     * Local, non-default properties; these settings override the defaults
-     * from displaytag.properties and TableTag.properties.
+     * Local, non-default properties; these settings override the defaults from displaytag.properties and
+     * TableTag.properties.
      * @return the Properties that was set
      */
     public static Properties getUserProperties()
@@ -70,9 +67,9 @@ public class TableProperties
     }
 
     /**
-     * Local, non-default properties; these settings override the defaults
-     * from displaytag.properties and TableTag.properties.  Please note that the values are copied in,
-     * so that multiple calls with non-overlapping properties will be merged, not overwritten.
+     * Local, non-default properties; these settings override the defaults from displaytag.properties and
+     * TableTag.properties. Please note that the values are copied in, so that multiple calls with non-overlapping
+     * properties will be merged, not overwritten.
      * @param overrideProperties - The local, non-default properties
      */
     public static void setUserProperties(Properties overrideProperties)
@@ -89,12 +86,12 @@ public class TableProperties
     }
 
     /**
-     * Field mProp
+     * Loaded properties
      */
     private Properties properties = null;
 
     /**
-     * Field PROPERTY_STRING_EXPORT_LABEL
+     * prefix used for all the properties related to export ("export")
      */
     private static final String PROPERTY_BOOLEAN_EXPORT_PREFIX = "export";
 
@@ -112,6 +109,7 @@ public class TableProperties
      * Field PROPERTY_STRING_EXPORTBANNER
      */
     private static final String PROPERTY_STRING_EXPORTBANNER = "export.banner";
+    
     /**
      * Field PROPERTY_STRING_EXPORTBANNER_SEPARATOR
      */
@@ -126,6 +124,7 @@ public class TableProperties
      * Field PROPERTY_STRING_EXPORTAMOUNT
      */
     private static final String PROPERTY_STRING_EXPORTAMOUNT = "export.amount";
+    
     /**
      * Field PROPERTY_STRING_EXPORT_FILENAME
      */
@@ -154,22 +153,27 @@ public class TableProperties
      * Field PROPERTY_STRING_PAGING_ITEM_NAME
      */
     private static final String PROPERTY_STRING_PAGING_ITEM_NAME = "paging.banner.item_name";
+    
     /**
      * Field PROPERTY_STRING_PAGING_ITEMS_NAME
      */
     private static final String PROPERTY_STRING_PAGING_ITEMS_NAME = "paging.banner.items_name";
+    
     /**
      * Field PROPERTY_STRING_PAGING_NOITEMS
      */
     private static final String PROPERTY_STRING_PAGING_NOITEMS = "paging.banner.no_items_found";
+    
     /**
      * Field PROPERTY_STRING_PAGING_FOUND_ONEITEM
      */
     private static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM = "paging.banner.one_item_found";
+    
     /**
      * Field PROPERTY_STRING_PAGING_FOUND_ALLITEMS
      */
     private static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS = "paging.banner.all_items_found";
+    
     /**
      * Field PROPERTY_STRING_PAGING_FOUND_SOMEITEMS
      */
@@ -179,41 +183,51 @@ public class TableProperties
      * Field PROPERTY_INT_PAGING_GROUPSIZE
      */
     private static final String PROPERTY_INT_PAGING_GROUPSIZE = "paging.banner.group_size";
+    
     /**
      * Field PROPERTY_STRING_PAGING_BANNER_ONEPAGE
      */
     private static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE = "paging.banner.onepage";
+    
     /**
      * Field PROPERTY_STRING_PAGING_BANNER_FIRST
      */
     private static final String PROPERTY_STRING_PAGING_BANNER_FIRST = "paging.banner.first";
+    
     /**
      * Field PROPERTY_STRING_PAGING_BANNER_LAST
      */
     private static final String PROPERTY_STRING_PAGING_BANNER_LAST = "paging.banner.last";
+    
     /**
      * Field PROPERTY_STRING_PAGING_BANNER_FULL
      */
     private static final String PROPERTY_STRING_PAGING_BANNER_FULL = "paging.banner.full";
+    
     /**
      * Field PROPERTY_STRING_PAGING_PAGE_LINK
      */
     private static final String PROPERTY_STRING_PAGING_PAGE_LINK = "paging.banner.page.link";
+    
     /**
      * Field PROPERTY_STRING_PAGING_PAGE_SELECTED
      */
     private static final String PROPERTY_STRING_PAGING_PAGE_SELECTED = "paging.banner.page.selected";
+    
     /**
      * Field PROPERTY_STRING_PAGING_PAGE_SPARATOR
      */
     private static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator";
 
     /**
-     * Field PROPERTY_STRING_SAVE_EXCEL_FILENAME
+     * unused property
+     * @todo add the ability to set the exported file name
      */
     private static final String PROPERTY_STRING_SAVE_EXCEL_FILENAME = "save.excel.filename";
+    
     /**
-     * Field PROPERTY_STRING_SAVE_EXCEL_BANNER
+     * unused property
+     * @todo check references and remove
      */
     private static final String PROPERTY_STRING_SAVE_EXCEL_BANNER = "save.excel.banner";
 
