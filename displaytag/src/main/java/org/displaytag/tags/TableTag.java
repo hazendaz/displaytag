@@ -1027,11 +1027,15 @@ public class TableTag extends HtmlTableTag
         {
             try
             {
-                out.clear();
+                // this will also reset headers, needed when the server is sending a "no-cache" header
+                this.pageContext.getResponse().reset();
             }
-            catch (IOException e)
+            catch (IllegalStateException e)
             {
-                throw new JspException("Unable to reset response before returning exported data");
+                throw new JspException("Unable to reset response before returning exported data. "
+                    + "You are not using an export filter. "
+                    + "Be sure that no other jsp tags are used before display:table or refer to the displaytag "
+                    + "documentation on how to configure the export filter (requires j2ee 1.3).");
             }
 
             response.setContentType(mimeType);
