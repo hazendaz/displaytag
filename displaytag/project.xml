@@ -143,6 +143,7 @@
       <url>http://jakarta.apache.org/commons/beanutils</url>
       <properties>
         <war.bundle>true</war.bundle>
+        <comment>needed to build and run displaytag</comment>
       </properties>
     </dependency>
     <dependency>
@@ -152,6 +153,7 @@
       <url>http://jakarta.apache.org/commons/collections</url>
       <properties>
         <war.bundle>true</war.bundle>
+        <comment>needed to build and run displaytag (note that precompiled binaries will not work with commons-collections 3.0)</comment>
       </properties>
     </dependency>
     <dependency>
@@ -161,6 +163,7 @@
       <url>http://jakarta.apache.org/commons/lang</url>
       <properties>
         <war.bundle>true</war.bundle>
+        <comment>needed to build and run displaytag</comment>
       </properties>
     </dependency>
     <dependency>
@@ -170,6 +173,7 @@
       <url>http://jakarta.apache.org/commons/logging</url>
       <properties>
         <war.bundle>true</war.bundle>
+        <comment>needed to build and run displaytag</comment>
       </properties>
     </dependency>
     <dependency>
@@ -179,6 +183,7 @@
       <url>http://logging.apache.org/log4j/docs/index.html</url>
       <properties>
         <war.bundle>true</war.bundle>
+        <comment>optional: you can use any logging framework supported by commons-logging</comment>
       </properties>
     </dependency>
     <dependency>
@@ -186,12 +191,19 @@
       <artifactId>servletapi</artifactId>
       <version>2.3</version>
       <url></url>
+      <properties>
+        <comment>Servlet 2.3 support is required to build the library. At runtime only servet 2.2 (tomcat 3, websphere 4)
+         is strictly needed, servlet 2.3 support (tomcat 4, websphere 5) is needed only for the EL version of the taglib</comment>
+      </properties>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.0.2</version>
       <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/</url>
+      <properties>
+        <comment>Required to build the library, needed at runtime only for the EL version of the taglib</comment>
+      </properties>
     </dependency>
     <dependency>
       <groupId>taglibs</groupId>
@@ -200,6 +212,7 @@
       <url>http://jakarta.apache.org/taglibs/</url>
       <properties>
         <war.bundle>true</war.bundle>
+        <comment>Required to build the library, needed at runtime only for the EL version of the taglib</comment>
       </properties>
     </dependency>
     <dependency>
@@ -207,6 +220,9 @@
       <artifactId>cactus</artifactId>
       <version>13-1.6dev</version>
       <url>http://jakarta.apache.org/cactus/</url>
+      <properties>
+        <comment>Needed only to compile and run cactus unit tests</comment>
+      </properties>
     </dependency>
     <!-- required by cactus -->
     <dependency>
@@ -214,14 +230,19 @@
       <artifactId>aspectjrt</artifactId>
       <version>1.1.1</version>
       <url></url>
+      <properties>
+        <comment>required by cactus?</comment>
+      </properties>
     </dependency>
-    <!-- plugin dependencies -->
     <dependency>
 	    <groupId>maven-taglib</groupId>
 	    <artifactId>maven-taglib-plugin</artifactId>
 	    <version>1.0</version>
 	    <type>plugin</type>
         <url>http://maven-taglib.sourceforge.net</url>
+      <properties>
+        <comment>maven plugin needed to generate tag reference documentation page and to generate the 1.1 version of the tld</comment>
+      </properties>
 	</dependency>
   </dependencies>
 
