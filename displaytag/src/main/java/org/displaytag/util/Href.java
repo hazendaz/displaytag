@@ -85,8 +85,16 @@ public class Href implements Cloneable, Serializable
         // the Url already has parameters, put them in the parameter Map
         StringTokenizer tokenizer = new StringTokenizer(noAnchorUrl, "?"); //$NON-NLS-1$
 
-        // base url (before "?")
-        this.url = tokenizer.nextToken();
+        if (baseUrl.startsWith("?")) //$NON-NLS-1$
+        {
+            // support fake URI's which are just parameters to use with the current uri
+            url = TagConstants.EMPTY_STRING;
+        }
+        else
+        {
+            // base url (before "?")
+            url = tokenizer.nextToken();
+        }
 
         if (!tokenizer.hasMoreTokens())
         {

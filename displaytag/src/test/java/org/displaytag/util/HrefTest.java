@@ -258,4 +258,15 @@ public class HrefTest extends TestCase
         URLAssert.assertEquals(url, newUrl);
     }
 
+    /**
+     * test for url without base.
+     */
+    public final void testNoBaseUrl()
+    {
+        String url = "?param1=1&param2=2#thisanchor";
+        Href href = new Href(url);
+        assertEquals(href.getBaseUrl(), "");
+        URLAssert.assertEquals(url, href.toString());
+    }
+
 }

@@ -114,6 +114,9 @@
             <action type="update" dev="fgiust" issue="DISPL-117">
                 Allow ColumnTag to generate links to current page.
             </action>
+            <action type="update" dev="fgiust" issue="DISPL-112" due-to="Paul McCulloch">
+                Allow requestURI with only parameters.
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
