@@ -38,6 +38,8 @@
         multiple table on the same page. </action>
       <action type="fix" dev="fgiust" issue="947752"> Unable to set the table "name" attribute in jsp 1.1 containers 
         after release 1.0-b3 ("Unable to convert a String to java.lang.Object for attribute value" error).</action>
+      <action type="fix" dev="fgiust" issue="958053"> The export filter now only filters when needed. Response is not 
+        buffered when a special parameter inserted by displaytag in export links is not found.</action>
     </release>
     <release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
       <action type="fix" dev="rapruitt"> The export filter introduced in b2 has been modified to avoid errors in 
