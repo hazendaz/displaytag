@@ -58,7 +58,6 @@
     </postGoal>
     <postGoal name="site">
         <attainGoal name="pdf" />
-        <copy todir="${maven.build.dir}/docs" file="${maven.build.dir}/pdf/displaytag.pdf" />
     </postGoal>
     <!-- zip and copy snapshot build for deploy -->
     <goal name="prepare-snapshot" prereqs="dist:build">
