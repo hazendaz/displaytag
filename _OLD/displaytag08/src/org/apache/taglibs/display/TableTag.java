@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import java.net.URL;
+import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -596,6 +598,7 @@ public class TableTag extends TemplateTag
 
       this.loadDefaultProperties();
 
+      this.pageNumber = 1;
       if( req.getParameter( "page" ) != null ) {
          this.pageNumber = 1;
          try {
@@ -604,8 +607,6 @@ public class TableTag extends TemplateTag
             // It's ok to ignore, if they give us something bogus, we default
             // to showing the first page (index = 1)
          }
-//      } else {
-//         this.pageNumber = 1;
       }
 
       if( req.getParameter( "sort" ) != null ) {
@@ -659,8 +660,8 @@ public class TableTag extends TemplateTag
       List viewableData = this.getViewableData();
 
       // Load our table decorator if it is requested
-      this.dec = this.loadDecorator();
-      if( this.dec != null ) this.dec.init( this.pageContext, viewableData );
+      //this.dec = this.loadDecorator();
+      //if( this.dec != null ) this.dec.init( this.pageContext, viewableData );
 
 //      this.filterDataIfNeeded( viewableData );
 
@@ -811,6 +812,10 @@ public class TableTag extends TemplateTag
       // for the viewable part. (this is a bad place for this, this should be
       // refactored and moved somewhere else).
 
+      // Load our table decorator if it is requested
+      this.dec = this.loadDecorator();
+      if( this.dec != null ) this.dec.init( this.pageContext, (List)collection );
+
       if( !prop.getProperty( "sort.behavior" ).equals( "page" ) ) {
          // Sort the total list...
          this.sortDataIfNeeded( (List)collection );
@@ -925,11 +930,11 @@ public class TableTag extends TemplateTag
       // paulsenj:columndecorator
       // build an array of column decorator objects - 1 for each column tag
       ColumnDecorator[] colDecorators = new ColumnDecorator[columns.size()];
-      for (int c = 0; c < columns.size(); c++) {
-        String columnDecorator = ((ColumnTag) columns.get(c)).getDecorator();
-        colDecorators[c] = loadColumnDecorator(columnDecorator);
-        if (colDecorators[c] != null)
-          colDecorators[c].init( this.pageContext, this.completeList );
+      for( int c = 0; c < columns.size(); c++ ) {
+         String columnDecorator = ( (ColumnTag)columns.get( c ) ).getDecorator();
+         colDecorators[c] = loadColumnDecorator( columnDecorator );
+         if( colDecorators[c] != null )
+            colDecorators[c].init( this.pageContext, this.completeList );
       }
 
       // Ok, start bouncing through our list.........
@@ -947,13 +952,19 @@ public class TableTag extends TemplateTag
          }
 
          // paulsenj:columndecorator
-         for (int c = 0; c < columns.size(); c++) {
-           if (colDecorators[c] != null) {
-             colDecorators[c].initRow(obj, rowcnt, rowcnt  + (this.getPagesizeValue() * (this.pageNumber - 1)));
-           }
+         for( int c = 0; c < columns.size(); c++ ) {
+            if( colDecorators[c] != null ) {
+               colDecorators[c].initRow( obj, rowcnt, rowcnt + ( this.getPagesizeValue() * ( this.pageNumber - 1 ) ) );
+            }
          }
 
          pageContext.setAttribute( "smartRow", obj );
+
+
+         if( this.dec != null ) {
+            String rt = this.dec.startRow();
+            if( rt != null ) buf.append( rt );
+         }
 
          // Start building the row to be displayed...
 
@@ -995,8 +1006,8 @@ public class TableTag extends TemplateTag
                   // call it to decorate the value
                   // ed - I call the column decorator after the table decorator is called
                   // feel free to modify this as you wish
-                  if (colDecorators[i] != null)
-                    value = colDecorators[i].decorate(value);
+                  if( colDecorators[i] != null )
+                     value = colDecorators[i].decorate( value );
                }
             }
 
@@ -1067,12 +1078,12 @@ public class TableTag extends TemplateTag
                         tag.getParamProperty(), tag.getParamScope(), true );
 
                   // flag to determine if we should use a ? or a &
-                  int index = tag.getHref().indexOf('?');
+                  int index = tag.getHref().indexOf( '?' );
                   String separator = "";
-                  if (index == -1) {
-                    separator = "?";
+                  if( index == -1 ) {
+                     separator = "?";
                   } else {
-                    separator = "&";
+                     separator = "&";
                   }
                   // if value has been chopped, add leftover as title
                   if( chopped ) {
@@ -1145,9 +1156,9 @@ public class TableTag extends TemplateTag
          }
 
          // paulsen:columndecorator
-         for (int c = 0; c < columns.size(); c++)
-           if (colDecorators[c] != null)
-             colDecorators[c].finishRow();
+         for( int c = 0; c < columns.size(); c++ )
+            if( colDecorators[c] != null )
+               colDecorators[c].finishRow();
 
 
          rowcnt++;
@@ -1170,9 +1181,9 @@ public class TableTag extends TemplateTag
       this.dec = null;
 
       // paulsenj:columndecorator
-      for (int c = 0; c < columns.size(); c++)
-       if (colDecorators[c] != null)
-         colDecorators[c].finish();
+      for( int c = 0; c < columns.size(); c++ )
+         if( colDecorators[c] != null )
+            colDecorators[c].finish();
 
 
       return buf;
@@ -1431,6 +1442,15 @@ public class TableTag extends TemplateTag
       }
 //      url += req.getQueryString();
 
+      // flag to determine if we should use a ? or a &
+      int index = url.indexOf( '?' );
+      String separator = "";
+      if( index == -1 ) {
+         separator = "?";
+      } else {
+         separator = "&";
+      }
+
       buf.append( "<table " );
       buf.append( this.getTableAttributes() );
       buf.append( ">\n" );
@@ -1451,7 +1471,7 @@ public class TableTag extends TemplateTag
          buf.append( "</td>\n" );
          buf.append( "<td valign=\"bottom\" align=\"right\" class=\"" );
          buf.append( "tableCellAction\">\n" );
-         buf.append( helper.getPageNavigationBar( url + "?page={0}" ) );
+         buf.append( helper.getPageNavigationBar( url + separator + "page={0}" ) );
          buf.append( "</td>\n</tr></table></td></tr>\n" );
       }
 
@@ -1481,12 +1501,12 @@ public class TableTag extends TemplateTag
 
          if( tag.getSort() != null ) {
 //            if( this.sortColumn == 0 ) {
-//               buf.append( "<a href=\"" + url + "?order=dec&sort=" + i + "\" class=\"tableCellHeader\">" );
+//               buf.append( "<a href=\"" + url + separator + "order=dec&sort=" + i + "\" class=\"tableCellHeader\">" );
 //            } else {
             if( this.sortOrder == SORT_ORDER_ASCEENDING ) {
-               buf.append( "<a href=\"" + url + "?order=dec&sort=" + i + "\" class=\"tableCellHeader\">" );
+               buf.append( "<a href=\"" + url + separator + "order=dec&sort=" + i + "\" class=\"tableCellHeader\">" );
             } else {
-               buf.append( "<a href=\"" + url + "?order=asc&sort=" + i + "\" class=\"tableCellHeader\">" );
+               buf.append( "<a href=\"" + url + separator + "order=asc&sort=" + i + "\" class=\"tableCellHeader\">" );
             }
 //            }
             buf.append( header );
@@ -1527,6 +1547,15 @@ public class TableTag extends TemplateTag
          url = req.getRequestURI();
       }
 
+      // flag to determine if we should use a ? or a &
+      int index = url.indexOf( '?' );
+      String separator = "";
+      if( index == -1 ) {
+         separator = "?";
+      } else {
+         separator = "&";
+      }
+
       // Put the page stuff there if it needs to be there...
 
       if( this.prop.getProperty( "paging.banner.placement" ).equals( "both" ) ||
@@ -1541,16 +1570,17 @@ public class TableTag extends TemplateTag
             buf.append( "</td>\n" );
             buf.append( "<td valign=\"bottom\" align=\"right\" class=\"" );
             buf.append( "tableCellAction\">\n" );
-            buf.append( this.helper.getPageNavigationBar( url + "?page={0}" ) );
+            buf.append( this.helper.getPageNavigationBar( url + separator + "page={0}" ) );
             buf.append( "</td>\n</tr></table></td></tr>\n" );
          }
       }
 
+
       String qString = req.getQueryString();
       if( qString != null && !qString.equals( "" ) ) {
-         url += "?" + qString + "&";
+         url += separator + URLEncoder.encode( qString ) + "&";
       } else {
-         url += "?";
+         url += separator;
       }
 
       if( this.export != null ) {
@@ -1856,11 +1886,11 @@ public class TableTag extends TemplateTag
             if( property == null ) return this.dec;
             return ( PropertyUtils.getProperty( this.dec, property ) );
          } catch( IllegalAccessException e ) {
-            Object[] objs = {name, this.dec};
+            Object[] objs = {property, this.dec};
             throw new JspException(
                MessageFormat.format( prop.getProperty( "error.msg.illegal_access_exception" ), objs ) );
          } catch( InvocationTargetException e ) {
-            Object[] objs = {name, this.dec};
+            Object[] objs = {property, this.dec};
             throw new JspException(
                MessageFormat.format( prop.getProperty( "error.msg.invocation_target_exception" ), objs ) );
          } catch( NoSuchMethodException e ) {
@@ -1939,21 +1969,20 @@ public class TableTag extends TemplateTag
     * up the page.
     */
 
-   private ColumnDecorator loadColumnDecorator(String columnDecorator) throws JspException
+   private ColumnDecorator loadColumnDecorator( String columnDecorator ) throws JspException
    {
-      if (columnDecorator == null || columnDecorator.length() == 0)
-        return null;
+      if( columnDecorator == null || columnDecorator.length() == 0 )
+         return null;
 
       try {
-         Class c = Class.forName(columnDecorator);
+         Class c = Class.forName( columnDecorator );
 
          // paulsenj - removed 'jakarta' from class name
-         if(!Class.forName( "org.apache.taglibs.display.ColumnDecorator").isAssignableFrom(c))
-            throw new JspException("column decorator class is not a subclass of ColumnDecorator." );
+         if( !Class.forName( "org.apache.taglibs.display.ColumnDecorator" ).isAssignableFrom( c ) )
+            throw new JspException( "column decorator class is not a subclass of ColumnDecorator." );
 
-         return (ColumnDecorator) c.newInstance();
-      }
-      catch( Exception e ) {
+         return (ColumnDecorator)c.newInstance();
+      } catch( Exception e ) {
          throw new JspException( e.toString() );
       }
    }
