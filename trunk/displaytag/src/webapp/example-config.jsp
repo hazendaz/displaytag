@@ -14,9 +14,8 @@
 
 <p>
 	There are a number of "default" values and strings used by the display tags to
-	show messages, decide which options to display, etc...  You can use the
-	&lt;display:setProperty name=... value=...&gt; tag to override these default
-	values.  This is useful if you want to change the behavior of the tag a little
+	show messages, decide which options to display, etc...
+	This is useful if you want to change the behavior of the tag a little
 	(for example, don't show the header, or only show 1 export option), or if you
 	need to localize some of the default messages and banners.
 </p>
@@ -43,7 +42,13 @@
 
 
 <p>
-	See documentation for the full list of properties and their default values.
+	The defaults can be overriden for just this table via the
+    &lt;display:setProperty name=... value=...&gt; tag, or you
+    can override for the entire site via a displaytag.properties file or by directly setting
+    properties at runtime.
+    See the <a href="http://displaytag.sourceforge.net/configuration.html">configuration
+    documentation</a> for the full list of properties, their default values, and details
+    on how to configure them in your system.
 </p>
 
 
