@@ -16,7 +16,7 @@ import org.apache.commons.lang.StringUtils;
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
-public class Href
+public class Href implements Cloneable
 {
 
     /**
@@ -141,20 +141,24 @@ public class Href
      * Adds a parameter to the href.
      * @param name String
      * @param value Object
+     * @return this Href instance, useful for concatenation.
      */
-    public void addParameter(String name, Object value)
+    public Href addParameter(String name, Object value)
     {
         this.parameters.put(name, value);
+        return this;
     }
 
     /**
      * Adds an int parameter to the href.
      * @param name String
      * @param value int
+     * @return this Href instance, useful for concatenation.
      */
-    public void addParameter(String name, int value)
+    public Href addParameter(String name, int value)
     {
         this.parameters.put(name, new Integer(value));
+        return this;
     }
 
     /**
@@ -315,5 +319,27 @@ public class Href
         }
 
         return buffer.toString();
+    }
+
+
+    /**
+     * @see java.lang.Object#clone()
+     */
+    public Object clone()
+    {
+        Href href = null;
+
+        try
+        {
+            href = (Href) super.clone();
+        }
+        catch (CloneNotSupportedException e)
+        {
+            // should never happen
+        }
+
+        href.parameters.putAll(this.parameters);
+
+        return href;
     }
 }
