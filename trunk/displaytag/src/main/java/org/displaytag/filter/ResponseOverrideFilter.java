@@ -2,6 +2,7 @@ package org.displaytag.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,11 +13,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.tags.TableTag;
+import org.displaytag.tags.TableTagParameters;
 
 
 /**
@@ -31,20 +34,22 @@ import org.displaytag.tags.TableTag;
  * jsp:include. If that is your intention, just add this Filter to your web.xml and map it to the appropriate requests,
  * using something like:
  * </p>
+ * 
  * <pre>
- *  &lt;filter&gt;
- *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
- *      &lt;filter-class&gt;org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class&gt;
- *  &lt;/filter&gt;
- *  &lt;filter-mapping&gt;
- *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
- *      &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
- *  &lt;/filter-mapping&gt;
- *  &lt;filter-mapping&gt;
- *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
- *      &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
- *  &lt;/filter-mapping&gt;
+ *  &lt;filter>
+ *      &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
+ *      &lt;filter-class>org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class>
+ *  &lt;/filter>
+ *  &lt;filter-mapping>
+ *      &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
+ *      &lt;url-pattern>*.do&lt;/url-pattern>
+ *  &lt;/filter-mapping>
+ *  &lt;filter-mapping>
+ *      &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
+ *      &lt;url-pattern>*.jsp&lt;/url-pattern>
+ *  &lt;/filter-mapping>
  * </pre>
+ * 
  * @author rapruitt
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
@@ -68,13 +73,23 @@ public class ResponseOverrideFilter implements Filter
 
     /**
      * {@inheritDoc}
-     * @todo don't filter when not needed. Table tag should add a fixed attribute for exporting, and filter should work
-     * only if the parameter is found
      */
-    public void doFilter(ServletRequest srequest, ServletResponse servletResponse, FilterChain filterChain)
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
         throws IOException, ServletException
     {
-        HttpServletRequest request = (HttpServletRequest) srequest;
+
+        if (servletRequest.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null)
+        {
+            if (log.isDebugEnabled())
+            {
+                log.debug("Filter has been called, but PARAMETER_EXPORTING parameter has not been found.");
+            }
+            //don't filter!
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
 
         BufferedResponseWrapper wrapper = new BufferedResponseWrapper((HttpServletResponse) servletResponse);
 
@@ -95,10 +110,6 @@ public class ResponseOverrideFilter implements Filter
         if (characterEncoding != null)
         {
             characterEncoding = "; charset=" + characterEncoding;
-        }
-        else
-        {
-            characterEncoding = "";
         }
         if (buf != null && buf.length() > 0)
         {
@@ -146,7 +157,7 @@ public class ResponseOverrideFilter implements Filter
             }
             else
             {
-                servletResponse.setContentType(contentType + characterEncoding);
+                servletResponse.setContentType(contentType + StringUtils.defaultString(characterEncoding));
             }
         }
         servletResponse.setContentLength(pageContent.length());
