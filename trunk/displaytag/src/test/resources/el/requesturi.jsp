@@ -12,6 +12,7 @@
           java.util.List testData = new java.util.ArrayList();
           testData.add(new org.displaytag.test.KnownValue());
           request.setAttribute( "test", testData);
+					response.setContentType("text/html;charset=utf-8");
       ]]> </jsp:scriptlet>
       <display:table name="${requestScope.test}" id="table" requestURI="/goforit" export="true">
         <display:column property="ant" />
