@@ -1,8 +1,6 @@
 package org.displaytag.model;
 
-import java.util.StringTokenizer;
-
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
@@ -145,67 +143,47 @@ public class Column
     public String createChoppedAndLinkedValue() throws ObjectLookupException, DecoratorException
     {
 
-        Object choppedValue = getValue(true);
+        String fullValue = ObjectUtils.toString(getValue(true));
+        String choppedValue;
 
-        boolean isChopped = false;
-        String fullValue = TagConstants.EMPTY_STRING;
-        if (choppedValue != null)
+        // are we supposed to set up a link to the data being displayed in this column?
+        if (this.header.getAutoLink())
         {
-            fullValue = choppedValue.toString();
+            fullValue = LinkUtil.autoLink(fullValue);
         }
 
         // trim the string if a maxLength or maxWords is defined
-        if (this.header.getMaxLength() > 0 && fullValue.length() > this.header.getMaxLength())
+        if (this.header.getMaxLength() > 0)
         {
-            choppedValue = StringUtils.abbreviate(fullValue, this.header.getMaxLength() + 3);
-            isChopped = true;
+            choppedValue = LinkUtil.abbreviateHtmlString(fullValue, this.header.getMaxLength(), false);
         }
         else if (this.header.getMaxWords() > 0)
         {
-            StringBuffer buffer = new StringBuffer();
-            StringTokenizer tokenizer = new StringTokenizer(fullValue);
-            int tokensNum = tokenizer.countTokens();
-            if (tokensNum > this.header.getMaxWords())
-            {
-                int wordsCount = 0;
-                while (tokenizer.hasMoreTokens() && (wordsCount < this.header.getMaxWords()))
-                {
-                    buffer.append(tokenizer.nextToken() + " ");
-                    wordsCount++;
-                }
-                buffer.append("...");
-                choppedValue = buffer;
-                isChopped = true;
-            }
+            choppedValue = LinkUtil.abbreviateHtmlString(fullValue, this.header.getMaxWords(), true);
+        }
+        else
+        {
+            choppedValue = fullValue;
         }
 
         // chopped content? add the full content to the column "title" attribute
-        if (isChopped)
+        if (choppedValue.length() < fullValue.length())
         {
             // clone the attribute map, don't want to add title to all the columns
             this.htmlAttributes = (HtmlAttributeMap) this.htmlAttributes.clone();
             // add title
-            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, StringUtils.replace(fullValue, "\"", "&#34;"));
+            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, LinkUtil.stripHTMLTags(fullValue));
         }
 
-        // Are we supposed to set up a link to the data being displayed in this column...
-        if (this.header.getAutoLink())
-        {
-            choppedValue = LinkUtil.autoLink(choppedValue.toString());
-        }
-        else if (this.header.getHref() != null)
+        if (this.header.getHref() != null)
         {
             // generates the href for the link
             Href colHref = getColumnHref(fullValue);
-            Anchor anchor = new Anchor(colHref, choppedValue.toString());
+            Anchor anchor = new Anchor(colHref, choppedValue);
             choppedValue = anchor.toString();
         }
 
-        if (choppedValue != null)
-        {
-            return choppedValue.toString();
-        }
-        return null;
+        return choppedValue;
     }
 
     /**
