@@ -6,7 +6,7 @@
     <groupId>displaytag</groupId>
     <!--<type>jar</type>-->
     <!--<version>1.0-rc1-SNAPSHOT</version>-->
-    <currentVersion>1.0-rc1</currentVersion>
+    <currentVersion>1.0-rc2-SNAPSHOT</currentVersion>
     <organization>
         <name>sourceforge</name>
         <url>http://sourceforge.net</url>
