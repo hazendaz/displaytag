@@ -15,9 +15,9 @@
                 shown in various formats.
             </p>
             <p>
-                Displaytag includes few ready
-                <em>export view</em>
-                which allows you to export data in csv, excel o xml format. A simple Pdf export view is also available.
+                Displaytag includes a few ready made
+                <em>export views</em>
+                which allow you to export data in CSV, excel,  and XML format. A simple PDF export view is also available.
                 The following table lists the predefined export options included in displaytag distribution.
             </p>
 
@@ -49,18 +49,16 @@
                         <td>PDF</td>
                         <td class="code">org.displaytag.export.PdfView</td>
                         <td>
-                            Sample Pdf export view. This is not enabled by default in the distribution but can be
-                            enabled setting
+                            Sample PDF export view. This is not enabled by default in the distribution but can be
+                            enabled by setting
                             <code>export.pdf=true</code>
                             in displaytag.properties and including the required IText dependency (see
                             <a href="dependencies.html">displaytag dependencies</a>
-                            ). Since you probably want to tweak the layout of your pdf output this is probably more
-                            useful as a base reference for creating your own Pdf export view.
+                            ). Since you probably want to tweak the layout of your pdf output, this is probably more
+                            useful as a base reference for creating your own PDF export view.
                         </td>
                     </tr>
                 </tbody>
-
-
             </table>
 
         </section>
@@ -73,8 +71,7 @@
                 parameters: see the
                 <code>
                     export.
-                    <em>exportname</em>
-                    .*
+                    <em>exportname</em>.*
                 </code>
                 parameters in
                 <a href="configuration.html">configuration</a>
@@ -84,13 +81,12 @@
                 You can enable/disable a specific export type using the
                 <code>
                     export.
-                    <em>exportname</em>
-                    .enabled
+                    <em>exportname</em>.enabled
                 </code>
                 parameter.
             </p>
             <p>
-                If you don't want some column to show during export (or you want them to show only during export) you
+                If you don't want some column to show during export (or you only want them to show during export) you
                 can use the column
                 <code>media</code>
                 attribute (see tag reference for more details).
@@ -122,7 +118,7 @@
                     <source>
                         <![CDATA[
 export.types=csv excel xml [mymedia]
-]]>
+                        ]]>
                     </source>
                 </li>
                 <li>
@@ -142,7 +138,7 @@ export.[mymedia].include_header=true
                      
 # if set, file is downloaded instead of opened in the browser window
 export.[mymedia].filename=
-]]>
+                        ]]>
                     </source>
                 </li>
                 <li>
@@ -152,29 +148,29 @@ export.[mymedia].filename=
                         <em>mymedia</em>
                         .label
                     </code>
-                    . Clicking on it will made you Export view to be called and you will se the result in your browser.
+                    . Clicking on it will invoke your Export view.  You should see the results in your browser.
                 </li>
             </ol>
         </section>
 
         <section name="Text/Binary export views">
             <p>
-                Common displaytag export options (csv, xml and excel) output a simple text-based format. Other file
-                format requires binary content, like the sample Pdf included with the distribution.
+                Common displaytag export options (CSV, Xml and Excel) output a simple text-based format. Other file
+                formats require binary content, like the sample PDF included with the distribution.
             </p>
             <p>
-                Exporting binary data from a jsp is a bit tricky, since jsps are only designed to output characters: as
+                Exporting binary data from a JSP is a bit tricky, since JSPs are only designed to output characters: as
                 a starting point keep in mind that
-                <strong>binary export is not assured to work on any application server</strong>
+                <strong>binary export is not assured to work on every application server</strong>
                 , at least without the help of an external filter (see
                 <a href="export_filter.html">export filter</a>
                 ).
             </p>
             <p>
-                It may work without a filter if your application server allows jsps to call
+                It may work without a filter if your application server allows JSPs to call
                 <code>response.getOutputStream()</code>
-                , but this methods should not be used in jsps. Using an the export filter, expecially in buffered mode,
-                could solve the problem, since the output stream is requested by the filter, outside the jsp.
+                , but this method really shouldn't be used in JSPs.  Using an the export filter, especially in buffered
+                mode, could solve the problem, since the output stream is requested by the filter outside the JSP.
             </p>
         </section>
 
