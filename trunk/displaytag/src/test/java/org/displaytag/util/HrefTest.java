@@ -133,6 +133,17 @@ public class HrefTest extends TestCase
     }
 
     /**
+     * Test the generation of an Href object from another Href.
+     */
+    public final void testHrefClone()
+    {
+        String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
+        Href href = new Href(url);
+        Href clone = (Href) href.clone();
+        compareUrls(href.toString(), clone.toString());
+    }
+
+    /**
      * Test for added parameters.
      */
     public final void testAddParameter()
