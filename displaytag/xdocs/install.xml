@@ -46,12 +46,12 @@
 			<p>If you would like to make use of the display taglib in your own application, do the following:</p>
 
 			<ol>
-				<li>drop the displaytag.tld file in your application /WEB-INF/ directory</li>
-				<li>drop the displaytag.jar file in your application /WEB-INF/lib directory</li>
+				<li>Drop the displaytag.tld file in your application /WEB-INF/ directory</li>
+				<li>Drop the displaytag.jar file in your application /WEB-INF/lib directory</li>
 
 				<li>
 					<p>
-              <strong>make sure that following libraries are in your WEB-INF/lib directory (or made available via the
+              <strong>Make sure that following libraries are in your WEB-INF/lib directory (or made available via the
                 classpath to your application server).</strong>
           </p>
 					<ul>
@@ -62,13 +62,13 @@
 						<li>log4j.jar</li>
 					</ul>
           <p>
-              refer to the <a href="dependencies.html">dependencies</a> document for the correct version of these libraries.
+              Refer to the <a href="dependencies.html">dependencies</a> document for the correct version of these libraries.
               You can download a copy of everything from <a href="http://jakarta.apache.org">jakarta</a> or you can grab them
               from the example webapp in the bin distribution.
           </p>
 				</li>
 
-				<li>define a taglib element like the following in your /WEB-INF/web.xml file
+				<li>Define a taglib element like the following in your /WEB-INF/web.xml file
 
 				<source>
   &lt;taglib>
@@ -80,7 +80,32 @@
         </li>
         
 				<li>
-					define the tag extension in each JSP page that uses the display taglib. The uri directives must
+					(optional) If you need to export data from an included JSP page, such as from Struts, you should configure
+					the ResponseOverrideFilter in your web.xml.  (You do not need the filter if you do not use exports,
+					or if you do not use the table tag from a jsp page that is included inside of another page.)
+                    Configure the Filter in your web.xml:
+
+				<source>
+ &lt;filter&gt;
+  &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+  &lt;filter-class&gt;org.displaytag.util.ResponseOverrideFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+  </source>
+					And add mappings for the pages that you will intercept, for example:
+  <source>
+  &lt;filter-mapping&gt;
+  &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+  &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+  &lt;filter-mapping&gt;
+  &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+  &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+  </source>
+				</li>
+
+				<li>
+					Define the tag extension in each JSP page that uses the display taglib. The uri directives must
 					match what you defined in the web.xml file above. The prefix identifies the tags in the tag
 					library within the JSP page.
 

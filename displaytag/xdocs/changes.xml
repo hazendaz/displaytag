@@ -56,7 +56,12 @@
       <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=814462">[814462]</a>: 
       column JSP body should not execute if the list is empty
-      </action>     
+      </action>
+      <action type="add" dev="rapruitt" due-to="Andy Pruitt">
+      Added filter to allow exports from inside of an included JSP page.  See the install docs and javadocs for more
+      information.
+      Fixes <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=820763 ">[820763]</a>.
+      </action>
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">

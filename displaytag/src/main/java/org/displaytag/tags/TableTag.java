@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
@@ -39,6 +40,7 @@ import org.displaytag.util.CollectionUtil;
 import org.displaytag.util.Href;
 import org.displaytag.util.RequestHelper;
 import org.displaytag.util.TagConstants;
+import org.displaytag.util.ResponseOverrideFilter;
 
 /**
  * This tag takes a list of objects and creates a table to display those
@@ -425,6 +427,14 @@ public class TableTag extends HtmlTableTag
         mBaseHref = pBaseHref;
     }
 
+    /**
+     * It's a getter.
+     * @return the PageContext
+     */
+    public PageContext getPageContext()
+    {
+        return pageContext;
+    }
     /**
      * Returns the properties.
      * @return TableProperties
@@ -958,7 +968,9 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Method writeExport
+     * Will write the export.  The default behavior is to write directly to the response.  If the ResponseOverrideFilter
+     * is configured for this request, will instead write the export content to a StringBuffer in the Request object.
+     *
      * @param pMimeType  mime type to set in the response
      * @param pExportString String
      * @return int
@@ -969,27 +981,37 @@ public class TableTag extends HtmlTableTag
         ServletResponse response = pageContext.getResponse();
         JspWriter out = pageContext.getOut();
 
-        int returnValue = EVAL_PAGE;
 
-        try
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
+        StringBuffer bodyBuffer = (StringBuffer) request.getAttribute(ResponseOverrideFilter.CONTENT_OVERRIDE_BODY);
+        if (bodyBuffer != null)
         {
-            out.clear();
-
-            response.setContentType(pMimeType);
-
-            out.write(pExportString);
-
-            out.flush();
-
-            returnValue = SKIP_PAGE;
+            // We are running under the export filter
+            StringBuffer contentTypeOverride = (StringBuffer)
+                    request.getAttribute(ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE);
+            contentTypeOverride.append(pMimeType);
+            bodyBuffer.append(pExportString);
         }
-        catch (Exception ex)
+        else
         {
-            log.error(ex.getMessage(), ex);
-            throw new JspException(ex.getMessage());
+            try
+            {
+                out.clear();
+
+                response.setContentType(pMimeType);
+
+                out.write(pExportString);
+
+                out.flush();
+            }
+            catch (Exception ex)
+            {
+                log.error(ex.getMessage(), ex);
+                throw new JspException(ex.getMessage());
+            }
         }
 
-        return returnValue;
+        return SKIP_PAGE;
     }
 
     /**
