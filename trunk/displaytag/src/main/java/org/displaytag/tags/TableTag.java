@@ -983,8 +983,14 @@ public class TableTag extends HtmlTableTag
         }
 
         boolean exportHeader = this.properties.getExportHeader(this.currentMediaType);
+        boolean exportDecorated = this.properties.getExportDecorated();
 
-        exportView = ExportViewFactory.getView(this.currentMediaType, this.tableModel, exportFullList, exportHeader);
+        exportView = ExportViewFactory.getView(
+            this.currentMediaType,
+            this.tableModel,
+            exportFullList,
+            exportHeader,
+            exportDecorated);
 
         String mimeType = exportView.getMimeType();
         String exportString = exportView.doExport();

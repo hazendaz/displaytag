@@ -3,20 +3,21 @@ package org.displaytag.export;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.displaytag.model.TableModel;
 
+
 /**
  * Export view for xml exporting.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class XmlView extends BaseExportView
 {
 
     /**
-     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean, boolean)
+     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean, boolean, boolean)
      */
-    public XmlView(TableModel tableModel, boolean exportFullList, boolean includeHeader)
+    public XmlView(TableModel tableModel, boolean exportFullList, boolean includeHeader, boolean decorateValues)
     {
-        super(tableModel, exportFullList, includeHeader);
+        super(tableModel, exportFullList, includeHeader, decorateValues);
     }
 
     /**
