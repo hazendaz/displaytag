@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.filter.MockFilterSupport;
 
 import com.meterware.servletunit.ServletRunner;
 
@@ -87,11 +88,13 @@ public abstract class DisplaytagCase extends TestCase
 
         // start servletRunner
         runner = new ServletRunner(path, "");
+
+        // register the filter servlet
+        runner.registerServlet("*" + MockFilterSupport.FILTERED_EXTENSION, MockFilterSupport.class.getName());
         log.debug("ServletRunner setup OK");
 
         super.setUp();
     }
-
     /**
      * @see junit.framework.TestCase#tearDown()
      */
