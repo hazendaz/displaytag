@@ -16,6 +16,21 @@ changes are noted using the following key:</p>
 </pre></blockquote>
 
 
+<p><b>Version 0.8.5, March 16, 2003</b></p>
+
+<blockquote><pre>
+
+- Allow column elements to be nested inside other tags.  Luiz-Otavio Zorzella [!]
+
+- In decorators, added method getCollection() to allow for Collections, Iterators and Maps to be
+   used as well as Lists.  Luiz-Otavio Zorzella [!]
+   
+- Original table tag only works with Lists. Now works with Collections, Iterators and Maps
+   as well (though some functions, like group totals are not available to these, due to
+   limitations on the structures themselves).  Luiz-Otavio Zorzella [!]
+
+</pre></blockquote>
+
 <p><b>Version 0.8, May 25, 2002</b></p>
 
 <blockquote><pre>
