@@ -45,10 +45,15 @@
         <priority value="warn" />
     </category>
 
+    <category name="com.opensymphony">
+        <priority value="warn" />
+    </category>
+
     <category name="org.displaytag.tags.sometestIneedtodebug">
         <priority value="debug" />
         <appender-ref ref="console" />
     </category>
+
 
     <root>
         <priority value="debug" />

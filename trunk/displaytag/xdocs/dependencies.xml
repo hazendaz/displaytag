@@ -8,8 +8,9 @@
     <body>
         <section name="Dependencies">
             <p>
-                The following is a list of dependencies for this project. These dependencies are required to compile and
-                run the application:
+                The following is a list of dependencies for this project. These dependencies are required to compile or
+                run the application. Most of the libraries listed here are actually needed only at build time or during
+                tests (mainly for framework integration tests) and you should not worry about them.
             </p>
 
             <subsection name="Required at runtime">
@@ -280,6 +281,51 @@
                                 Struts dependency needed to run Struts integration tests.
                             </td>
                         </tr>
+
+                        <tr>
+                            <td colspan="2">webwork</td>
+                            <td>jar</td>
+                            <td>2.1.5</td>
+                            <td colspan="4">
+                                <a href="http://www.opensymphony.org/">http://www.opensymphony.org/</a>
+                                Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if
+                                you wish to use it you should already have Webwork in your project)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">xwork</td>
+                            <td>jar</td>
+                            <td>1.0.3</td>
+                            <td colspan="4">
+                                <a href="http://www.opensymphony.org/">http://www.opensymphony.org/</a>
+                                Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if
+                                you wish to use it you should already have Webwork in your project)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">oscore</td>
+                            <td>jar</td>
+                            <td>2.2.4</td>
+                            <td colspan="4">
+                                <a href="http://www.opensymphony.org/">http://www.opensymphony.org/</a>
+                                Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if
+                                you wish to use it you should already have Webwork in your project)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">ognl</td>
+                            <td>jar</td>
+                            <td>2.6.5</td>
+                            <td colspan="4">
+                                <a href="http://www.ognl.org/">http://www.ognl.org/</a>
+                                Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if
+                                you wish to use it you should already have Webwork in your project)
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </subsection>

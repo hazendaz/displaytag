@@ -99,6 +99,8 @@
                 <code>htmlId</code>
                 attribute which let you specify the value for the id attribute in the generated table.
             </action>
+            <action type="add" dev="fgiust" issue="DISPL-106" due-to="Richard HALLIER">Webwork i18n support.</action>
+
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
