@@ -23,8 +23,8 @@
   <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
   <distributionDirectory>http://sourceforge.net/project/showfiles.php?group_id=${maven.sourceforge.project.groupId}</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/${pom.id}/diplaytag2</connection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/${pom.id}/diplaytag2/</url>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag2</connection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag2/</url>
   </repository>
   <!-- any mailing lists for the project -->
   <mailingLists>
@@ -231,6 +231,13 @@
         <type>plugin</type>
         <url>http://maven-validator.sourceforge.net</url>
     </dependency>
+    <dependency>
+	    <groupId>maven-taglib</groupId>
+	    <artifactId>maven-taglib-plugin</artifactId>
+	    <version>1.0</version>
+	    <type>plugin</type>
+        <url>http://maven-taglib.sourceforge.net</url>
+	</dependency>
   </dependencies>
 
   <build>
