@@ -11,15 +11,15 @@
 		<section name="Overview">
 			<p>
 				The display tag library is an open source suite of custom tags that provide high level web presentation
-				patterns which will work in a MVC model, and provide a significant amount of functionality while still
+				patterns which will work in an MVC model.  The library provides a significant amount of functionality while still
 				being simple and straight-forward to use.
 			</p>
 		</section>
 
 		<section name="What can I do with it?">
 			<p>
-				Actually the display tag library can just... display tables! Give it a list of objects ant it will
-				handle displaying of columns, sorting, paging, cropping, grouping, exporting, smart linking and
+				Actually the display tag library can just... display tables! Give it a list of objects and it will
+				handle column display, sorting, paging, cropping, grouping, exporting, smart linking and
 				decoration of the table in a nice and customizable xhtml style.
 			</p>
 
