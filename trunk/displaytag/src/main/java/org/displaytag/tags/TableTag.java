@@ -947,6 +947,11 @@ public class TableTag extends HtmlTableTag
             Object iteratedObject = this.tableIterator.next();
             Map objectProperties = new HashMap();
 
+            // if it's a String don't add the "Bytes" column
+            if (iteratedObject instanceof String)
+            {
+                return;
+            }
             // if it's a map already use key names for column headers
             if (iteratedObject instanceof Map)
             {

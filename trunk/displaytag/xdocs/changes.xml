@@ -42,6 +42,8 @@
         buffered when a special parameter inserted by displaytag in export links is not found.</action>
       <action type="fix" dev="fgiust" issue="968559">Export cancel out UTF8 filter. Now headers are not reset during an 
         export request. Only headers which could prevent caching are overwritten.</action>
+      <action type="fix" dev="fgiust" >Automatic column discovery is turned off for Strings.
+		Avoid displaying a single column "<code>Bytes</code>" when the source collection contains Strings.</action>
     </release>
     <release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
       <action type="fix" dev="rapruitt"> The export filter introduced in b2 has been modified to avoid errors in 
