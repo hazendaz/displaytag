@@ -15,21 +15,19 @@
 package org.apache.taglibs.display;
 
 import java.lang.reflect.InvocationTargetException;
-import java.sql.ResultSet;
+import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
-import java.net.URL;
-import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -37,7 +35,6 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.beanutils.RowSetDynaClass;
 
 /* This would allow certain kinds of stuctures to be used (rather than
  * java.util.Collections), but I did not want to introduce a dependency

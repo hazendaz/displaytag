@@ -13,8 +13,9 @@
 
 package org.apache.taglibs.display;
 
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TagSupport;
 
 /**
  * This tag works hand in hand with the SmartListTag to display a list of 
