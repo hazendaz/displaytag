@@ -120,8 +120,9 @@
                     file in your application classpath (if you already don't have one) and add the name of your export
                     media along with the default ones to the export type parameter:
                     <source>
-                        export.types=csv excel xml
-                        <em>mymedia</em>
+                        <![CDATA[
+export.types=csv excel xml [mymedia]
+]]>
                     </source>
                 </li>
                 <li>
@@ -129,33 +130,19 @@
                     <code>displaytag.properties</code>
                     , add the following properties:
                     <source>
+                        <![CDATA[
+export.[mymedia]=true
+                     
+export.[mymedia].class=fully.qualified.class.name
+ 
+export.[mymedia].label=Click here to try my export
 
-                        export.
-                        <em>mymedia</em>
-                        =true
-                        <br />
-                        export.
-                        <em>mymedia</em>
-                        .class=fully.qualified.class.name
-                        <br />
-                        export.
-                        <em>mymedia</em>
-                        .label=Click here to try my export
-                        <br />
-                        <span class="comment"># include header parameter is forwarded to your export view</span>
-                        <br />
-                        export.
-                        <em>mymedia</em>
-                        .include_header=true
-                        <br />
-                        <span class="comment">
-                            # if set, file is downloaded instead of opened in the browser window
-                        </span>
-                        <br />
-                        export.
-                        <em>mymedia</em>
-                        .filename=
-
+# include header parameter is forwarded to your export view
+export.[mymedia].include_header=true
+                     
+# if set, file is downloaded instead of opened in the browser window
+export.[mymedia].filename=
+]]>
                     </source>
                 </li>
                 <li>
