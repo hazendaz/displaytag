@@ -34,7 +34,7 @@
          <tr>
           <td colspan="2">commons-collections</td>
           <td>jar</td>
-          <td>2.1</td>
+          <td>2.1.1</td>
           <td colspan="4">
               <a href="http://jakarta.apache.org/commons/collections">http://jakarta.apache.org/commons/collections</a>
               also 3.0 is supported.
@@ -52,7 +52,7 @@
          <tr>
           <td colspan="2">commons-logging</td>
           <td>jar</td>
-          <td>1.0.3</td>
+          <td>1.0.4</td>
           <td colspan="4">
               <a href="http://jakarta.apache.org/commons/logging">http://jakarta.apache.org/commons/logging</a>
           </td>
