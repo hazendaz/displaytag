@@ -33,16 +33,6 @@ public class MultipleHtmlAttribute implements Cloneable
     }
 
     /**
-     * Constructor for MultipleHtmlAttribute.
-     * @param attributes Object[]
-     */
-    private MultipleHtmlAttribute(Object[] attributes)
-    {
-
-        addAllAttributesFromArray(attributes);
-    }
-
-    /**
      * Adds attributes from an array.
      * @param attributes Object[] Array containing attributes
      */
@@ -111,8 +101,21 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     protected Object clone()
     {
-        // creates a totally new object
-        return new MultipleHtmlAttribute(this.attributeSet.toArray());
+        MultipleHtmlAttribute clone = this;
+
+        try
+        {
+            clone = (MultipleHtmlAttribute) super.clone();
+        }
+        catch (CloneNotSupportedException e)
+        {
+            // should never happen
+        }
+
+        // copy attributes
+        clone.addAllAttributesFromArray(this.attributeSet.toArray());
+
+        return clone;
     }
 
 }
