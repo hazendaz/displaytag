@@ -197,7 +197,10 @@ public class ColumnTag extends org.displaytag.tags.ColumnTag
             {
                 try
                 {
-                    super.setTitle(bundle.getString(key));
+                    if(key != null)
+                    {
+                        super.setTitle(bundle.getString(key));
+                    }
                 }
                 catch (MissingResourceException e)
                 {
