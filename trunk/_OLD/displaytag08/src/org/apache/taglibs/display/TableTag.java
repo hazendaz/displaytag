@@ -1494,7 +1494,7 @@ public class TableTag extends TemplateTag
          buf.append( "</td>\n" );
          buf.append( "<td valign=\"bottom\" align=\"right\" class=\"" );
          buf.append( "tableCellAction\">\n" );
-         buf.append( helper.getPageNavigationBar( url + separator + "page={0}" ) );
+         buf.append( helper.getPageNavigationBar( url + separator + "page={0,number,#}" ) ); 
          buf.append( "</td>\n</tr></table></td></tr>\n" );
       }
 
