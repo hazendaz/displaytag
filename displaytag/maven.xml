@@ -29,6 +29,8 @@
     <attainGoal name="taglib:convert-12to11" />
     <!-- copy 1.2 tld -->
     <copy file="${maven.src.dir}/tld/displaytag-12.tld" tofile="${maven.build.dir}/tld/displaytag-12.tld" />
+    <!-- copy el tld -->
+    <copy file="${maven.src.dir}/tld/displaytag-el-12.tld" tofile="${maven.build.dir}/tld/displaytag-el-12.tld" />
     <!-- add tld to taglib jar -->
     <echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to file ${maven.build.dest}/META-INF/displaytag.tld" />
     <copy file="${maven.build.dir}/tld/displaytag-11.tld" tofile="${maven.build.dest}/META-INF/displaytag.tld" />
