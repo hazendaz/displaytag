@@ -13,7 +13,9 @@
       </p>
       <p>There are 3 ways to override default property settings:</p>
       <ul>
-        <li>For the whole web application, create a custom properties file named "displaytag.properties" and place it in the application classpath.</li>
+        <li>For the whole web application, create a custom properties file named "displaytag.properties" and place it in the application classpath.
+            Displaytag will use the locale of the request object to determine the locale of the property file to use; if the key required does
+            not exist in the specified file, the key will be loaded from a more general property file.</li>
         <li>
           To override a property at runtime for the whole web application, such as to include the context name in a fully qualified link to a resource, use
           <a href="./apidocs/org/displaytag/properties/TableProperties.html#setUserProperties">TableProperties#setUserProperties(Properties properties)</a>
