@@ -8,7 +8,8 @@
  *   - update documentation, HTML column attributes are not set.
  *   - specify groupings.
  *   - error checking, value or property must be set.
- **/
+ *
+ */
 
 package org.apache.taglibs.display;
 
@@ -18,20 +19,20 @@ import javax.servlet.jsp.tagext.*;
 /**
  * This tag works hand in hand with the SmartListTag to display a list of 
  * objects.  This describes a column of data in the SmartListTag.  There can
- * be any (reasonable) number of columns that make up the list.<p>
+ * be any (reasonable) number of columns that make up the list.
  *
- * This tag does no work itself, it is simply a container of information.  The
+ * <p>This tag does no work itself, it is simply a container of information.  The
  * TableTag does all the work based on the information provided in the
- * attributes of this tag.<p>
- *
- * Usage:<p>
- *   <display:column property="title"
+ * attributes of this tag.
+ * <p>
+ * Usage:</p><p>
+ *   &lt;display:column property="title"
  *	 	           title="College Title" width="33%"
  *               href="/osiris/pubs/college/edit.page"
  *		           paramId="OID"
- *               paramProperty="OID" />
- *
- * Attributes:<p>
+ *               paramProperty="OID" /&gt;
+ * </p><p>
+ * Attributes:<pre>
  *
  *   property       - the property method that is called to retrieve the 
  *                    information to be displayed in this column.  This method
@@ -69,7 +70,7 @@ import javax.servlet.jsp.tagext.*;
  *                    into a hypertext link.
  *
  *   href           - if this attribute is provided, then the data that is 
- *                    shown for this column is wrapped inside a <a href>
+ *                    shown for this column is wrapped inside a &lt;a href&gt;
  *                    tag with the url provided through this attribute.  
  *                    Typically you would use this attribute along with one
  *                    of the struts-like param attributes below to create
@@ -116,8 +117,8 @@ import javax.servlet.jsp.tagext.*;
  *                    is limited to this number of words.  An elipse (...) is
  *                    appended to the end if this column is linked, and the user
  *                    can mouseover the elipse to get the full text. (optional)
+ * </pre></p>
  */
- 
 public class ColumnTag extends BodyTagSupport implements Cloneable {
    
    private String property;
@@ -221,16 +222,16 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
    // --------------------------------------------------------- Tag API methods
    
    /**
-    * Passes attribute information up to the parent TableTag.<p>
+    * Passes attribute information up to the parent TableTag.
     *
-    * When we hit the end of the tag, we simply let our parent (which better
+    * <p>When we hit the end of the tag, we simply let our parent (which better
     * be a TableTag) know what the user wants to do with this column.
     * We do that by simple registering this tag with the parent.  This tag's
     * only job is to hold the configuration information to describe this 
-    * particular column.  The TableTag does all the work.
+    * particular column.  The TableTag does all the work.</p>
     *
     * @throws JspException if this tag is being used outside of a 
-    *    <display:list...> tag.
+    *    &lt;display:list...&gt; tag.
     **/
 
    public int doEndTag() throws JspException {
@@ -337,12 +338,12 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
    /**
     * Returns a String representation of this Tag that is suitable for
     * printing while debugging.  The format of the string is subject to change
-    * but it currently:<p>
+    * but it currently:
     *
-    * <code>SmartColumnTag([title],[property],[href])</code><p>
+    * <p><code>SmartColumnTag([title],[property],[href])</code></p>
     *
-    * Where the placeholders in brackets are replaced with their appropriate
-    * instance variables
+    * <p>Where the placeholders in brackets are replaced with their appropriate
+    * instance variables.</p>
     **/
    
    public String toString() {

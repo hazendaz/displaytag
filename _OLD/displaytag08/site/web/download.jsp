@@ -14,34 +14,34 @@ differences between this version and previous ones.<p>
 <td align="right"><b>Date Posted</b></td>
 </tr>
 <tr>
-	<td align="left"><a href="http://sourceforge.net/project/showfiles.php?group_id=73068">display-bin-0.8.5.zip</a></td>
-	<td align="right">0.8.5</td>
+	<td align="left"><a href="">display-bin-@version@.zip</a></td>
+	<td align="right">@version@</td>
 	<td align="right">526 K</td>
 	<td align="right">03/23/2003</td>
 </tr>
 <tr>
-	<td align="left"><a href="/downloads/display/display-bin-0.8.zip">display-bin-0.8.zip</a></td>
-	<td align="right">0.8</td>
+	<td align="left"><a href="/downloads/display/display-bin-@version@.zip">display-bin-@version@.zip</a></td>
+	<td align="right">@version@</td>
 	<td align="right">526 K</td>
-	<td align="right">05/25/2002</td>
+	<td align="right">@versiondate@</td>
 </tr>
 <tr>
-	<td align="left"><a href="/downloads/display/display-bin-0.8.tar.gz">display-bin-0.8.tar.gz</a></td>
-	<td align="right">0.8</td>
+	<td align="left"><a href="/downloads/display/display-bin-@version@.tar.gz">display-bin-@version@.tar.gz</a></td>
+	<td align="right">@version@</td>
 	<td align="right">475 K</td>
-	<td align="right">05/25/2002</td>
+	<td align="right">@versiondate@</td>
 </tr>
 <tr>
-	<td align="left"><a href="/downloads/display/display-src-0.8.zip">display-src-0.8.zip</a></td>
-	<td align="right">0.8</td>
+	<td align="left"><a href="/downloads/display/display-src-@version@.zip">display-src-@version@.zip</a></td>
+	<td align="right">@version@</td>
 	<td align="right">1.3 M</td>
-	<td align="right">05/25/2002</td>
+	<td align="right">@versiondate@</td>
 </tr>
 <tr>
-	<td align="left"><a href="/downloads/display/display-src-0.8.tar.gz">display-src-0.8.tar.gz</a></td>
-	<td align="right">0.8</td>
+	<td align="left"><a href="/downloads/display/display-src-@version@.tar.gz">display-src-@version@.tar.gz</a></td>
+	<td align="right">@version@</td>
 	<td align="right">1.1 M</td>
-	<td align="right">05/25/2002</td>
+	<td align="right">@versiondate@</td>
 </tr>
 </table>
 <p>
@@ -64,5 +64,8 @@ optionally drop this into your web container deployment directory.
 The "src" versions include the pre-built binaries (located in the dist directory
 when unpacked), plus the complete source code to the tag library, the various
 example pages, and the documentation.<p>
+
+<p>You can also obtain the source from <a href="http://sourceforge.net/cvs/?group_id=73068">
+the SourceForge CVS Server</a>.</p>
 
 <jsp:include page="footer.jsp" flush="true" />

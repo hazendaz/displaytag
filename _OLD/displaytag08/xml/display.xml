@@ -6,6 +6,7 @@
         data needed elsewhere. -->
    <properties>
       <!-- The name here is used in the HTML <meta name="author"...> tag -->
+      <project>Display Tag Library</project>
       <author>Ed Hill</author>
    </properties>
 
