@@ -111,6 +111,14 @@ public final class LookupUtil
      */
     public static Object getBeanProperty(Object bean, String name) throws ObjectLookupException
     {
+        if (bean == null)
+        {
+            throw new IllegalArgumentException("Bean cannot be null");
+        }
+        if (name == null)
+        {
+            throw new IllegalArgumentException("Property name cannot be null");
+        }
 
         if (log.isDebugEnabled())
         {
@@ -136,6 +144,14 @@ public final class LookupUtil
         catch (NestedNullException nne)
         {
             // don't throw exceptions for nulls
+            return null;
+        }
+        catch (IllegalArgumentException e)
+        {
+            // don't throw exceptions for nulls; the bean and name have already been checked; this is being thrown when
+            // the bean property value is itself null.
+            log.debug("Caught IllegalArgumentException from beanutils while looking up "
+                    + name + " in bean " + bean, e);
             return null;
         }
     }
