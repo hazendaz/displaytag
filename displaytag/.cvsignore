@@ -8,3 +8,4 @@ cache
 *.library
 *.scc
 .*
+build.properties
