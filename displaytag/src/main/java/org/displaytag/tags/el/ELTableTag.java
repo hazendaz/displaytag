@@ -130,7 +130,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setDefaultsort(java.lang.String)
+     * @see org.displaytag.tags.TableTag#setDefaultsort(int)
      */
     public void setDefaultsort(String value)
     {
@@ -209,7 +209,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setSort(boolean)
+     * @see org.displaytag.tags.TableTag#setSort(java.lang.String)
      */
     public void setSort(String value)
     {
