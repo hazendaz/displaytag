@@ -6,37 +6,40 @@ import java.util.List;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.TagConstants;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
+ * Holds informations for a table row
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
-
 public class Row
 {
 
     /**
-     * Field this.rowObject
+     * Object holding values for the current row
      */
     private Object rowObject;
 
     /**
-     * Field mStaticCells
+     * List of cell objects
      */
     private List staticCells;
 
     /**
-     * Field mRowNumber
+     * Row number
      */
     private int rowNumber;
 
     /**
-     * Field mTableModel
+     * TableModel which the row belongs to
      */
     private TableModel tableModel;
 
     /**
-     *
-     * @param number the new value for this.rowNumber
+     * Setter for the row number
+     * @param number row number
      */
     public void setRowNumber(int number)
     {
@@ -44,8 +47,7 @@ public class Row
     }
 
     /**
-     *
-     * @return true if isOddRow is set to true.
+     * @return true if the current row number is odd
      */
     public boolean isOddRow()
     {
@@ -53,8 +55,8 @@ public class Row
     }
 
     /**
-     * Method getRowNumber
-     * @return int
+     * Getter for the row number
+     * @return row number
      */
     public int getRowNumber()
     {
@@ -74,7 +76,7 @@ public class Row
     }
 
     /**
-     * Method addCell
+     * Adds a cell to the row
      * @param cell Cell
      */
     public void addCell(Cell cell)
@@ -83,8 +85,8 @@ public class Row
     }
 
     /**
-     * Method getCellList
-     * @return List
+     * getter for the list of Cell object
+     * @return List containing Cell objects
      */
     public List getCellList()
     {
@@ -92,8 +94,8 @@ public class Row
     }
 
     /**
-     * Method getObject
-     * @return Object
+     * getter for the object holding values for the current row
+     * @return Object object holding values for the current row
      */
     public Object getObject()
     {
@@ -101,16 +103,7 @@ public class Row
     }
 
     /**
-     * Method toString
-     * @return String
-     */
-    public String toString()
-    {
-        return this.rowObject.toString();
-    }
-
-    /**
-     * Method getColumnIterator
+     * Iterates on columns
      * @param columns List
      * @return ColumnIterator
      */
@@ -120,7 +113,7 @@ public class Row
     }
 
     /**
-     * Method setParentTable
+     * Setter for the table model the row belongs to
      * @param table TableModel
      */
     protected void setParentTable(TableModel table)
@@ -129,7 +122,7 @@ public class Row
     }
 
     /**
-     * Method getParentTable
+     * Getter for the table model the row belongs to
      * @return TableModel
      */
     protected TableModel getParentTable()
@@ -160,4 +153,14 @@ public class Row
         return TagConstants.TAG_TR_CLOSE;
     }
 
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("rowObject", this.rowObject)
+            .append("rowNumber", this.rowNumber)
+            .toString();
+    }
 }
