@@ -410,6 +410,12 @@ back of the container.  Best left undoc'd and experimental for now; should just 
         <description>@deprecated: use "headerClass"</description>
     </attribute>
     <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+        <description>html pass through attribute.</description>
+    </attribute>
+    <attribute>
       <name>align</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>

@@ -53,6 +53,9 @@
       <action type="fix" dev="fgiust" issue="882056">
 	      Export error - Filter not working (wrong constant name).
       </action>
+      <action type="add" dev="fgiust" issue="887787">
+	      Added the "style" attribute to column tag.
+      </action>
      
     </release>
 

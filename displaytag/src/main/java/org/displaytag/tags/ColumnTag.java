@@ -387,7 +387,16 @@ public class ColumnTag extends BodyTagSupport
     {
         setClass(value);
     }
-
+    
+    /**
+     * setter for the "style" tag attribute.
+     * @param value attribute value
+     */
+    public void setStyle(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);
+    }
+    
     /**
      * setter for the "class" tag attribute.
      * @param value attribute value
