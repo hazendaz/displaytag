@@ -125,26 +125,6 @@
                                 PDF export.
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="2">Struts</td>
-                            <td>jar</td>
-                            <td>1.2.4</td>
-                            <td colspan="4">
-                                <a href="http://struts.apache.org/">http://struts.apache.org/</a>
-                                Required to build Struts i18n adapter. Required at runtime only if you use Struts (if
-                                you wish to use it you should already have Struts in your project)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Spring</td>
-                            <td>jar</td>
-                            <td>1.1.1</td>
-                            <td colspan="4">
-                                <a href="http://www.springframework.org/">http://www.springframework.org/</a>
-                                Required to build Spring i18n adapter. Required at runtime only if you use Spring (if
-                                you wish to use it you should already have Spring in your project)
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </subsection>
@@ -267,6 +247,37 @@
                                 </a>
                                 Needed to run HttpUnit tests. This is the tools.jar from sun jdk. Jar in not in maven
                                 repository but is set to JAVA_HOME/../lib/tools.jar in project.properties
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Struts</td>
+                            <td>jar</td>
+                            <td>1.2.4</td>
+                            <td colspan="4">
+                                <a href="http://struts.apache.org/">http://struts.apache.org/</a>
+                                Required to build Struts i18n adapter. Required at runtime only if you use Struts (if
+                                you wish to use it you should already have Struts in your project)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Spring</td>
+                            <td>jar</td>
+                            <td>1.1.1</td>
+                            <td colspan="4">
+                                <a href="http://www.springframework.org/">http://www.springframework.org/</a>
+                                Required to build Spring i18n adapter. Required at runtime only if you use Spring (if
+                                you wish to use it you should already have Spring in your project)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">commons-digester</td>
+                            <td>jar</td>
+                            <td>1.4.1</td>
+                            <td colspan="4">
+                                <a href="http://jakarta.apache.org/commons/digester">
+                                    http://jakarta.apache.org/commons/digester
+                                </a>
+                                Struts dependency needed to run Struts integration tests.
                             </td>
                         </tr>
                     </tbody>

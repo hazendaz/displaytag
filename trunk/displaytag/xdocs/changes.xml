@@ -53,8 +53,7 @@
                 has been refactored, adding a configurable resource provider which can wrap the localization support of
                 any used frameworks (JSTL, Struts, Spring adapter are included, other can be added be users).
             </action>
-
-
+            <action type="fix" dev="fgiust" issue="DISPL-15">display-el:column titleKey not Resin compatible.</action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">

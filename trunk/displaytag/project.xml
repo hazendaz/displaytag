@@ -173,7 +173,7 @@
                 <war.bundle>true</war.bundle>
                 <comment>needed to build and run displaytag</comment>
             </properties>
-        </dependency>
+        </dependency>        
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
@@ -382,6 +382,15 @@
             </properties>
         </dependency>
         <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.4.1</version>
+            <url>http://jakarta.apache.org/commons/digester</url>
+            <properties>
+                <comment>Struts dependency needed to run Struts integration tests.</comment>
+            </properties>
+        </dependency>
+        <dependency>
             <groupId>springframework</groupId>
             <artifactId>spring</artifactId>
             <version>1.1.1</version>
@@ -435,7 +444,6 @@
         <report>maven-simian-plugin</report>
         <report>maven-statcvs-plugin</report>
         <report>maven-faq-plugin</report>
-        <report>maven-jdiff-plugin</report>
         <!--<report>maven-xhtml-plugin</report>-->
     </reports>
 </project>
