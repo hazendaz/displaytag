@@ -17,6 +17,7 @@
             <action type="fix" dev="fgiust" issue="DISPL-136">
                 Column body is not rendered when requesting an invalid page.
             </action>
+            <action type="fix" dev="fgiust" issue="DISPL-149">I18n Struts Adapter now works with Struts 1.1.</action>
         </release>
         <release version="1.0-rc2" date="November 19, 2004 " description="Final 1.0 release candidate">
             <action type="fix" dev="fgiust" issue="962448">
