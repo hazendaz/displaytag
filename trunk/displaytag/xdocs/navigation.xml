@@ -20,6 +20,7 @@
 		
 		<menu name="Tutorial">
 			<item name="Basic usage" href="/tut_basic.html" />
+			<item name="Style" href="/tut_style.html" />
 		</menu>
 
 		<menu name="Developers">
