@@ -96,7 +96,7 @@ public class CaptionTag extends BodyTagSupport
 
         StringBuffer buffer = new StringBuffer();
 
-        buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
+        buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TAGNAME_CAPTION);
 
         buffer.append(this.attributeMap);
 
