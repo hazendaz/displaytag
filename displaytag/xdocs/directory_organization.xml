@@ -102,17 +102,6 @@
 					</td>
 				</tr>
 				<tr>
-					<td>
-						<strong>src/xslt</strong>
-					</td>
-					<td>xsl</td>
-					<td>
-						This directory contains the xslt stylesheets used to convert the 1.2 tld to a jsp 1.1
-						version and to produce the tag reference document.
-					</td>
-				</tr>
-
-				<tr>
 					<td>xdocs/</td>
 					<td>Documentation files in XML format.</td>
 					<td>
