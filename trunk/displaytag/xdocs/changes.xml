@@ -5,13 +5,23 @@
 <document>
   <properties>
     <title>Changes</title>
-    <author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+    <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
   </properties>
 
   <body>
   	
-  	<release version="1.0-rc1" date="in CVS" description="">
-  	  
+  	<release version="1.0-rc1" date="in CVS" description="1.0 release candidate. BugFix only.">
+      <action type="fix" dev="fgiust">
+	    The EL version of the taglib has been refactored and cleaned up. All the attributes, except deprecated ones, now accept EL
+	    expressions.
+      </action>
+      <action type="fix" dev="fgiust" issue="927804">
+	    Improved attribute value handling following specifications for tag pooling. Should fix issues with Resin.
+      </action>
+      <action type="fix" dev="fgiust">
+	    Modified attribute type specification in tld to match setters in tag classes and added unit tests.
+	    Fixes validation issues with WebLogic 8.
+      </action>
   	</release>
   	
   	<release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
