@@ -16,6 +16,7 @@
 	<h1>The &lt;display:*&gt; tag library</h1>
 	
 	<ul>
+		<li><a href="http://displaytag.sf.net">Documentation</a></li>	
 		<li><a href="index.jsp">Examples</a></li>	
 	</ul>
 	

@@ -1,4 +1,4 @@
-body{ 
+cbody{ 
 	background-color: #fff; padding:0 0 0 0; margin:0 0 0 0;
 }
 body, input, select, td, textarea{ 
@@ -110,12 +110,12 @@ div#footer span {
 	float: left;
 }
 
-.changed {
+/*.changed {
 	background-color: #ee0;
 	border: 1px solid #ccc;
 	padding: 10px;
 	margin: 10px;
-}
+}*/
 ul#stylelist {
 	margin:0 0 30px 0;
 }
