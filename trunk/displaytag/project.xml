@@ -231,7 +231,6 @@
             <version>1.0.4</version>
             <url>http://jakarta.apache.org/taglibs/</url>
             <properties>
-                <war.bundle>true</war.bundle>
                 <comment>Required to build the library, needed at runtime only for the EL version of the taglib</comment>
             </properties>
         </dependency>
