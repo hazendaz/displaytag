@@ -419,14 +419,9 @@ public class TableTag extends HtmlTableTag
     /**
      * Setter for the list offset attribute.
      * @param value String
-     * @throws InvalidTagAttributeValueException if value is not a valid positive integer
      */
-    public void setOffset(int value) throws InvalidTagAttributeValueException
+    public void setOffset(int value)
     {
-        if (value < 1)
-        {
-            throw new InvalidTagAttributeValueException(getClass(), "offset", new Integer(value));
-        }
         this.offset = value - 1;
     }
 
