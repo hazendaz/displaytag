@@ -17,5 +17,26 @@
 		</faq>
 
 	</part>
+	
+	<part id="struts">
+		<title>Displaytag and Struts</title>
+
+		<faq id="action">
+			<question>
+			    How do I use this tag with Struts?  The links that it creates for sorts and exports all point back to 
+			    the JSP page, not my Action!
+			</question>
+			<answer>
+				<p>
+					Use the requestURI attribute of the column tag.  When the requestURI attribute is present, 
+					links for sorting, exports, and paging are formed by adding any tag generated parameters 
+					to the value of requestURI attribute.  
+					So if your page is served under <code>/ManageLatin.do</code>,  you should have 
+					<code>requestURI="/ManageLatin.do"</code> on your display:table.
+				</p>
+			</answer>
+		</faq>
+
+	</part>
 
 </faqs>
