@@ -1648,7 +1648,7 @@ public class TableTag extends HtmlTableTag
                 // check if column is grouped
                 if (column.getGroup() != -1)
                 {
-                    value = this.groupColumns(value.toString(), column.getGroup());
+                    value = this.groupColumns(value, column.getGroup());
                 }
 
                 // add column value

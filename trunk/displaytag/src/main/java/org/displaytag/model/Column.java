@@ -106,7 +106,7 @@ public class Column
             }
             else
             {
-                // else check underlining oblject
+                // else check underlining object
                 object = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getBeanPropertyName());
             }
         }
