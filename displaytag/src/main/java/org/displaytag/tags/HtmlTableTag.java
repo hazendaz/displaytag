@@ -1,6 +1,7 @@
 package org.displaytag.tags;
 
 import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
 /**
@@ -171,7 +172,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setClass(String value)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
     }
 
     /**
@@ -182,6 +183,24 @@ public abstract class HtmlTableTag extends TemplateTag
     {
         this.attributeMap.put(TagConstants.ATTRIBUTE_ID, value);
         super.setId(value);
+    }
+
+    /**
+     * Adds a css class to the class attribute (html class suports multiple values).
+     * @param value attribute value
+     */
+    public void addClass(String value)
+    {
+        Object classAttributes = this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
+
+        if (classAttributes == null)
+        {
+            this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+        }
+        else
+        {
+            ((MultipleHtmlAttribute) classAttributes).addAttributeValue(value);
+        }
     }
 
     /**
