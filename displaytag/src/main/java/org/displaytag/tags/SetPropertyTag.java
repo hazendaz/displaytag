@@ -1,7 +1,7 @@
 package org.displaytag.tags;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.TagSupport;
 
 import org.displaytag.exception.TagStructureException;
 
@@ -13,17 +13,17 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
 {
 
     /**
-     * Field mName
+     * property name
      */
     private String name;
 
     /**
-     * Field mValue
+     * property value
      */
     private String value;
 
     /**
-     * Method setName
+     * Sets the name of the property
      * @param propertyName String
      */
     public void setName(String propertyName)
@@ -32,7 +32,7 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
     }
 
     /**
-     * Method setValue
+     * Sets the value of the property
      * @param propertyValue String
      */
     public void setValue(String propertyValue)
@@ -41,35 +41,16 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
     }
 
     /**
-     * Method getName
-     * @return String
-     */
-    public String getName()
-    {
-        return name;
-    }
-
-    /**
-     * Method getValue
-     * @return String
-     */
-    public String getValue()
-    {
-        return value;
-    }
-
-    /**
-     * Passes attribute information up to the parent TableTag.<p>
-     *
-     * When we hit the end of the tag, we simply let our parent (which better
-     * be a TableTag) know what the user wants to change a property value, and
-     * we pass the name/value pair that the user gave us, up to the parent
-     *
-     * @return int
-     * @throws JspException if no parent table tag is found
+     * Passes attribute information up to the parent TableTag.
+     * <p>
+     * When we hit the end of the tag, we simply let our parent (which better be a TableTag) know what the user wants
+     * to change a property value, and we pass the name/value pair that the user gave us, up to the parent
+     * </p>
+     * @return <code>TagSupport.EVAL_PAGE</code>
+     * @throws TagStructureException if no parent table tag is found
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
-     **/
-    public int doEndTag() throws JspException
+     */
+    public int doEndTag() throws TagStructureException
     {
 
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
@@ -81,7 +62,7 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
 
         tableTag.setProperty(name, value);
 
-        return super.doEndTag();
+        return TagSupport.EVAL_PAGE;
     }
 
 }

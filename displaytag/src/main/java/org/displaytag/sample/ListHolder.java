@@ -3,21 +3,20 @@ package org.displaytag.sample;
 import java.util.List;
 
 /**
- * One line description of what this class does.
- *
- * More detailed class description, including examples of usage if applicable.
+ * Simple objects which holds a list
  * @author epesh
  * @version $Revision$ ($Author$)
  */
 public class ListHolder extends Object
 {
+
     /**
-     * Field myList
+     * contained list
      */
     private List list;
 
     /**
-     * Constructor for ListHolder
+     * Instantiate a new ListHolder and initialize a TestList with 5 elements
      */
     public ListHolder()
     {
@@ -25,8 +24,8 @@ public class ListHolder extends Object
     }
 
     /**
-     * Method getList
-     * @return List
+     * Returns the contained list
+     * @return a TestList with 15 elements
      */
     public final List getList()
     {
