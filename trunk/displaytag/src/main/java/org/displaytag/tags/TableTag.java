@@ -588,7 +588,7 @@ public class TableTag extends HtmlTableTag
             log.debug("[" + getId() + "] doStartTag called");
         }
 
-        this.properties = new TableProperties();
+        this.properties = TableProperties.getInstance();
         this.tableModel = new TableModel(this.properties);
 
         // copying id to the table model for logging

@@ -29,7 +29,7 @@ import org.displaytag.util.RequestHelperFactory;
  * @version $Revision$ ($Author$)
  * @see DisplayPropertiesLoaderServlet
  */
-public class TableProperties
+public final class TableProperties
 {
 
     /**
@@ -169,14 +169,12 @@ public class TableProperties
     public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper";
 
     /**
-     * property <code>css.tr.even</code>: holds the name of the css class added to even rows. Defaults to
-     * <code>even</code>.
+     * property <code>css.tr.even</code>: holds the name of the css class for even rows. Defaults to <code>even</code>.
      */
     public static final String PROPERTY_CSS_TR_EVEN = "css.tr.even";
 
     /**
-     * property <code>css.tr.odd</code>: holds the name of the css class added to odd rows. Defaults to
-     * <code>odd</code>.
+     * property <code>css.tr.odd</code>: holds the name of the css class for odd rows. Defaults to <code>odd</code>.
      */
     public static final String PROPERTY_CSS_TR_ODD = "css.tr.odd";
 
@@ -237,54 +235,81 @@ public class TableProperties
     public static final String EXPORTPROPERTY_STRING_BANNER = "banner";
 
     /**
+     * logger.
+     */
+    private static Log log = LogFactory.getLog(TableProperties.class);
+
+    /**
      * The userProperties are local, non-default properties; these settings override the defaults from
      * displaytag.properties and TableTag.properties.
      */
     private static Properties userProperties = new Properties();
 
     /**
-     * logger.
+     * The default Properties are shared, loaded only at the first access. Default properties are initialized with
+     * values contained in TableTag.properties and can be overridden in a custom displaytag.properties file.
      */
-    private static Log log = LogFactory.getLog(TableProperties.class);
+    private static Properties defaultProperties;
 
     /**
-     * Loaded properties.
+     * Loaded properties (defaults from defaultProperties + custom from bundle).
      */
     private Properties properties;
+
+    /**
+     * User-only properties (displaytag.properties).
+     */
+    private ResourceBundle bundle;
 
     /**
      * Initialize a new TableProperties loading the default properties file and the user defined one.
      * @throws TablePropertiesLoadException for errors during loading of properties files
      */
-    public TableProperties() throws TablePropertiesLoadException
+    private TableProperties() throws TablePropertiesLoadException
     {
 
-        Properties defaultProperties = new Properties();
-        try
+        // default properties will not change unless this class is reloaded
+        if (defaultProperties == null)
         {
-            defaultProperties.load(this.getClass().getResourceAsStream(DEFAULT_FILENAME));
-        }
-        catch (IOException e)
-        {
-            throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
+            defaultProperties = new Properties();
+
+            try
+            {
+                defaultProperties.load(this.getClass().getResourceAsStream(DEFAULT_FILENAME));
+            }
+            catch (IOException e)
+            {
+                throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
+            }
         }
 
         this.properties = new Properties(defaultProperties);
 
         // Try to load the properties from the local properties file, displaytag.properties.
+        // @todo should we cache user properties like we do for defaults? This will improve performance but will force
+        // user to restart the web application to see changes after modifying displaytag.properties in the
+        // WEB-INF/classes folder
         try
         {
-            ResourceBundle bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES);
+            bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES);
+
+        }
+        catch (MissingResourceException e)
+        {
+            if (log.isDebugEnabled())
+            {
+                log.debug("Was not able to load a custom displaytag.properties; " + e.getMessage());
+            }
+        }
+
+        if (bundle != null)
+        {
             Enumeration keys = bundle.getKeys();
             while (keys.hasMoreElements())
             {
                 String key = (String) keys.nextElement();
                 this.properties.setProperty(key, bundle.getString(key));
             }
-        }
-        catch (MissingResourceException e)
-        {
-            log.debug("Was not able to load a displaytag.properties; " + e.getMessage());
         }
 
         // Now copy in the user properties
@@ -297,6 +322,15 @@ public class TableProperties
                 this.properties.setProperty(key, (String) userProperties.get(key));
             }
         }
+    }
+
+    /**
+     * returns a new TableProperties instance.
+     * @return TableProperties instance
+     */
+    public static TableProperties getInstance()
+    {
+        return new TableProperties();
     }
 
     /**
@@ -481,8 +515,7 @@ public class TableProperties
      */
     public boolean getExportHeader(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "."
-            + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
     }
 
     /**
