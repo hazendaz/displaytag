@@ -15,6 +15,7 @@
             <action type="fix" dev="fgiust" issue="1006229" due-to="Konstantin">
                 Proper encoding of URLs under JDK 1.4.
             </action>
+            <action type="fix" dev="fgiust" issue="1020948">NullpointerException in HeaderCell.</action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
