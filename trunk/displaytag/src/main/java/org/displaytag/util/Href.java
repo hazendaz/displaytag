@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -61,7 +62,10 @@ public class Href
                     String[] lKeyValue = StringUtils.split(lParamTokenizer.nextToken(), "=");
 
                     // ... and add it to the map
-                    mParameters.put(lKeyValue[0], lKeyValue[1]);
+                    // ... but remember to encode name/value to prevent css
+                    mParameters.put(
+                        StringEscapeUtils.escapeHtml(lKeyValue[0]),
+                        StringEscapeUtils.escapeHtml(lKeyValue[1]));
 
                 }
             }
@@ -109,12 +113,23 @@ public class Href
     }
 
     /**
-     * Method setParameterMap
-     * @param pMap HashMap
+     * Sets the parameters in the Href. The value in the given Map will be escaped before added
+     * @param parametersMap Map containing parameters
      */
-    public void setParameterMap(HashMap pMap)
+    public void setParameterMap(Map parametersMap)
     {
-        mParameters = pMap;
+        // create a new HashMap
+        mParameters = new HashMap(parametersMap.size());
+
+        // copy value, escaping html
+        Iterator mapIterator = parametersMap.entrySet().iterator();
+        while (mapIterator.hasNext())
+        {
+            Map.Entry entry = (Map.Entry) mapIterator.next();
+            String key = StringEscapeUtils.escapeHtml((String) entry.getKey());
+            String value = StringEscapeUtils.escapeHtml((String) entry.getValue());
+            mParameters.put(key, value);
+        }
     }
 
     /**
