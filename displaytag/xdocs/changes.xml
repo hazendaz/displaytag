@@ -71,6 +71,13 @@
       <action type="add" dev="fgiust" issue="886050">
 	       Added a <code>caption</code> tag to display a table caption.
       </action>
+      <action type="update" dev="fgiust">
+	       A new <code>org.displaytag.util.ParamEncoder</code> class has been added, to allow users to generate encoded
+	       parameter names like tabletag does.
+      </action>
+      <action type="add" dev="fgiust" >
+	       Added the new <code>sort.amount</code> configuration property.
+      </action>
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
