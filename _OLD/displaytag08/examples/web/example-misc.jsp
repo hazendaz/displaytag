@@ -20,7 +20,7 @@
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
 <tr>
 <td align="left"><span class="banner"><a href="./index.jsp">Examples</a> > Miscellaneous... </span></td>
-<td align="right" valign="top" nowrap><a href="./example-config.html">View JSP Source</a></td>
+<td align="right" valign="top" nowrap><a href="./example-misc.html">View JSP Source</a></td>
 </tr>
 </table>
 <p>
