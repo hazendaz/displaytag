@@ -70,11 +70,11 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
 
     /**
      * Sets the buffer state.
-     * @param buffer it <code>true</code> buffering will be used
+     * @param bufferingEnabled it <code>true</code> buffering will be used
      */
-    public void setBuffer(boolean buffer)
+    public void setBuffer(boolean bufferingEnabled)
     {
-        this.buffer = buffer;
+        this.buffer = bufferingEnabled;
     }
 
     /**
