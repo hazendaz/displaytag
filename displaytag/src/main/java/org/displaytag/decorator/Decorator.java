@@ -1,6 +1,6 @@
 package org.displaytag.decorator;
 
-import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +18,8 @@ import org.apache.commons.beanutils.PropertyUtils;
  * Decorator should never be subclassed directly. Use TableDecorator instead
  * </p>
  * @author mraible
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 abstract class Decorator
 {
@@ -78,27 +79,6 @@ abstract class Decorator
     }
 
     /**
-     * Looks for a getter for the given property using introspection.
-     * @param propertyName name of the property to check
-     * @return boolean true if the decorator has a getter for the given property
-     */
-    public boolean searchGetterFor(String propertyName)
-    {
-        PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(getClass());
-
-        // iterate on property descriptors
-        for (int j = 0; j < descriptors.length; j++)
-        {
-            if (propertyName.equals(descriptors[j].getName()))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Check if a getter exists for a given property. Uses cached info if property has already been requested. This
      * method only check for a simple property, if pPropertyName contains multiple tokens only the first part is
      * evaluated
@@ -123,7 +103,7 @@ abstract class Decorator
         }
 
         // not already cached... check
-        boolean hasGetter = searchGetterFor(simpleProperty);
+        boolean hasGetter = searchGetterFor(propertyName);
 
         // save in cache
         propertyMap.put(getClass().getName() + "#" + simpleProperty, new Boolean(hasGetter));
@@ -132,5 +112,39 @@ abstract class Decorator
         return hasGetter;
 
     }
+    /**
+     * Looks for a getter for the given property using introspection.
+     * @param propertyName name of the property to check
+     * @return boolean true if the decorator has a getter for the given property
+     */
+    public boolean searchGetterFor(String propertyName)
+    {
+
+        Class type = null;
+
+        try
+        {
+            // using getPropertyType instead of isReadable since isReadable doesn't support mapped properties.
+            // Note that this method usually returns null if a property is not found and doesn't throw any exception
+            // also for non existent properties
+            type = PropertyUtils.getPropertyType(this, propertyName);
+        }
+        catch (IllegalAccessException e)
+        {
+            // ignore
+        }
+        catch (InvocationTargetException e)
+        {
+            // ignore
+        }
+        catch (NoSuchMethodException e)
+        {
+            // ignore
+        }
+
+        return type != null;
+
+    }
+
 
 }

@@ -2,10 +2,12 @@ package org.displaytag.decorator;
 
 /**
  * @author epesh
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public abstract class TableDecorator extends Decorator
 {
+
     /**
      * object representing the current row.
      */
@@ -49,9 +51,9 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * Initialize the current row. Note this method is also called when sorting a table using a property supplied by
-     * the table decorator, so the method could be called multiple times during rendering. When used to initialize
-     * sorting the method is always called with 0, 0 as currentViewIndex and currentListIndex.
+     * Initialize the current row. Note this method is also called when sorting a table using a property supplied by the
+     * table decorator, so the method could be called multiple times during rendering. When used to initialize sorting
+     * the method is always called with 0, 0 as currentViewIndex and currentListIndex.
      * @param rowObject object representing the current row
      * @param currentViewIndex int index in the displayed list
      * @param currentListIndex int index in the original list

@@ -2,13 +2,15 @@ package org.displaytag.decorator;
 
 import junit.framework.TestCase;
 
+
 /**
- * test for TableDecorator.
- * @author fgiust
+ * Test for TableDecorator.
+ * @author Fabrizio Giustina
  * @version $Revision: 1 $ ($Author: Fgiust $)
  */
 public class TableDecoratorTest extends TestCase
 {
+
     /**
      * test decorator one.
      */
@@ -39,8 +41,7 @@ public class TableDecoratorTest extends TestCase
     }
 
     /**
-     * test that property list is not shared between decorators.
-     * (testcase for [840011])
+     * test that property list is not shared between decorators. (testcase for [840011])
      */
     public void testDecoratorPropertyCache()
     {
@@ -51,40 +52,38 @@ public class TableDecoratorTest extends TestCase
         assertFalse("decorator two - property one, expected false", this.two.hasGetterFor("one"));
     }
 
-}
-
-/**
- * test decorator one.
- * @author fgiust
- * @version $Revision: 1 $ ($Author: Fgiust $)
- */
-class TableDecoratorOne extends TableDecorator
-{
 
     /**
-     * getter property for "one".
-     * @return "one"
+     * test for mapped property support. (testcase for [926213])
      */
-    public String getOne()
+    public void testMappedProperty()
     {
-        return "one";
+        assertTrue("mapped property not recognized", this.one.hasGetterFor("mapped(one)"));
     }
-}
-
-/**
- * test decorator two.
- * @author fgiust
- * @version $Revision: 1 $ ($Author: Fgiust $)
- */
-class TableDecoratorTwo extends TableDecorator
-{
 
     /**
-     * getter property for "two".
-     * @return "two"
+     * test for mapped property support. (testcase for [926213])
      */
-    public String getTwo()
+    public void testNotExistingMappedProperty()
     {
-        return "two";
+        assertFalse("Invalid mapped property recognized", this.one.hasGetterFor("something(one)"));
     }
+
+    /**
+     * test for indexed property support. (testcase for [926213])
+     */
+    public void testIndexedProperty()
+    {
+        assertTrue("indexed property not recognized", this.one.hasGetterFor("indexed[0]"));
+    }
+
+    /**
+     * test for indexed property support. (testcase for [926213])
+     */
+    public void testNotExistingIndexedProperty()
+    {
+        assertFalse("Invalid indexed property recognized", this.one.hasGetterFor("something[0]"));
+    }
+
 }
+

@@ -12,6 +12,7 @@ import org.displaytag.exception.DecoratorException;
  * rendering. A column decorator is simply an object formatter, and it is only aware of the value to format.
  * </p>
  * @author epesh
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public interface ColumnDecorator
