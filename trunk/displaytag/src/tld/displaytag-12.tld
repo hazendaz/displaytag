@@ -510,7 +510,7 @@ back of the container.  Best left undoc'd and experimental for now; should just 
     <body-content>JSP</body-content>
     <display-name>footer</display-name>
     <description>Tag wich should be nested into a table tag to provide a custom table footer.
-    The body of the tag is outputted as is in the generated table in the tfooter section.</description>
+    The body of the tag is outputted as is in the generated table in the tfoot section.</description>
   
       <example>
 &lt;display:table name="someList">
