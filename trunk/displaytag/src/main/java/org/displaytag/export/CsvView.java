@@ -3,6 +3,7 @@ package org.displaytag.export;
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.model.TableModel;
 
+
 /**
  * Export view for comma separated value exporting.
  * @author Fabrizio Giustina
@@ -24,7 +25,7 @@ public class CsvView extends BaseExportView
      */
     protected String getRowStart()
     {
-        return "";
+        return null;
     }
 
     /**
@@ -32,7 +33,7 @@ public class CsvView extends BaseExportView
      */
     protected String getRowEnd()
     {
-        return "\n";
+        return "\n"; //$NON-NLS-1$
     }
 
     /**
@@ -40,7 +41,7 @@ public class CsvView extends BaseExportView
      */
     protected String getCellStart()
     {
-        return "";
+        return null;
     }
 
     /**
@@ -48,7 +49,7 @@ public class CsvView extends BaseExportView
      */
     protected String getCellEnd()
     {
-        return ",";
+        return ","; //$NON-NLS-1$
     }
 
     /**
@@ -56,7 +57,7 @@ public class CsvView extends BaseExportView
      */
     protected String getDocumentStart()
     {
-        return "";
+        return null;
     }
 
     /**
@@ -64,7 +65,7 @@ public class CsvView extends BaseExportView
      */
     protected String getDocumentEnd()
     {
-        return "";
+        return null;
     }
 
     /**
@@ -88,7 +89,7 @@ public class CsvView extends BaseExportView
      */
     public String getMimeType()
     {
-        return "text/csv";
+        return "text/csv"; //$NON-NLS-1$
     }
 
     /**
@@ -105,9 +106,10 @@ public class CsvView extends BaseExportView
         if (value != null)
         {
             String stringValue = StringUtils.trim(value.toString());
-            if (!StringUtils.containsNone(stringValue, new char[] { '\n', ',' }))
+            if (!StringUtils.containsNone(stringValue, new char[]{'\n', ','}))
             {
-                return "\"" + StringUtils.replace(stringValue, "\"", "\\\"") + "\"";
+                return "\"" + //$NON-NLS-1$
+                    StringUtils.replace(stringValue, "\"", "\\\"") + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             }
 
             return stringValue;

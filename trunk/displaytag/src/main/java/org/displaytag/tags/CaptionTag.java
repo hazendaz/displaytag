@@ -127,7 +127,7 @@ public class CaptionTag extends BodyTagSupport
 
         if (tableTag == null)
         {
-            throw new TagStructureException(getClass(), "caption", "table");
+            throw new TagStructureException(getClass(), "caption", "table"); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         // add caption only once
@@ -153,7 +153,7 @@ public class CaptionTag extends BodyTagSupport
 
             if (tableTag == null)
             {
-                throw new TagStructureException(getClass(), "caption", "table");
+                throw new TagStructureException(getClass(), "caption", "table"); //$NON-NLS-1$ //$NON-NLS-2$
             }
 
             StringBuffer buffer = new StringBuffer();

@@ -1,11 +1,13 @@
 package org.displaytag.tags;
 
 import org.displaytag.test.DisplaytagCase;
+import org.displaytag.test.URLAssert;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
+
 
 /**
  * Testcase for #944056.
@@ -60,8 +62,7 @@ public class PaginationLinksTest extends DisplaytagCase
         //remove prefix
         lastLink = lastLink.substring(lastLink.indexOf(getJspName()), lastLink.length());
 
-        assertEquals(
-            "Last link is bad.",
+        URLAssert.assertEquals(
             "pagination-links.jsp?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
                 + "&initiatedTDate=04%2F28%2F2004&d-3824-p=2&approvedFDate=&method=search&d-2456-p=12&approver=",
             lastLink);

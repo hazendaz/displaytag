@@ -26,51 +26,82 @@ public class TableTagBeanInfo extends SimpleBeanInfo
 
         try
         {
-            proplist.add(new PropertyDescriptor("cellpadding", TableTag.class, null, "setCellpadding"));
-            proplist.add(new PropertyDescriptor("cellspacing", TableTag.class, null, "setCellspacing"));
-            proplist.add(new PropertyDescriptor("class", TableTag.class, null, "setClass"));
-            proplist.add(new PropertyDescriptor("decorator", TableTag.class, null, "setDecorator"));
-            proplist.add(new PropertyDescriptor("defaultorder", TableTag.class, null, "setDefaultorder"));
-            proplist.add(new PropertyDescriptor("defaultsort", TableTag.class, null, "setDefaultsort"));
-            proplist.add(new PropertyDescriptor("export", TableTag.class, null, "setExport"));
-            proplist.add(new PropertyDescriptor("frame", TableTag.class, null, "setFrame"));
-            proplist.add(new PropertyDescriptor("length", TableTag.class, null, "setLength"));
-            proplist.add(new PropertyDescriptor("offset", TableTag.class, null, "setOffset"));
-            proplist.add(new PropertyDescriptor("pagesize", TableTag.class, null, "setPagesize"));
-            proplist.add(new PropertyDescriptor("requestURI", TableTag.class, null, "setRequestURI"));
-            proplist.add(new PropertyDescriptor("rules", TableTag.class, null, "setRules"));
-            proplist.add(new PropertyDescriptor("sort", TableTag.class, null, "setSort"));
-            proplist.add(new PropertyDescriptor("style", TableTag.class, null, "setStyle"));
-            proplist.add(new PropertyDescriptor("summary", TableTag.class, null, "setSummary"));
+            proplist.add(new PropertyDescriptor("cellpadding", //$NON-NLS-1$
+                TableTag.class, null, "setCellpadding")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("cellspacing", //$NON-NLS-1$
+                TableTag.class, null, "setCellspacing")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("class", //$NON-NLS-1$
+                TableTag.class, null, "setClass")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("decorator", //$NON-NLS-1$
+                TableTag.class, null, "setDecorator")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("defaultorder", //$NON-NLS-1$
+                TableTag.class, null, "setDefaultorder")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("defaultsort", //$NON-NLS-1$
+                TableTag.class, null, "setDefaultsort")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("export", //$NON-NLS-1$
+                TableTag.class, null, "setExport")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("frame", //$NON-NLS-1$
+                TableTag.class, null, "setFrame")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("length", //$NON-NLS-1$
+                TableTag.class, null, "setLength")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("offset", //$NON-NLS-1$
+                TableTag.class, null, "setOffset")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("pagesize", //$NON-NLS-1$
+                TableTag.class, null, "setPagesize")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("requestURI", //$NON-NLS-1$
+                TableTag.class, null, "setRequestURI")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("rules", //$NON-NLS-1$
+                TableTag.class, null, "setRules")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$
+                TableTag.class, null, "setSort")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("style", //$NON-NLS-1$
+                TableTag.class, null, "setStyle")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("summary", //$NON-NLS-1$
+                TableTag.class, null, "setSummary")); //$NON-NLS-1$ 
 
             // can't be evaluated
-            proplist.add(new PropertyDescriptor("id", TableTag.class, null, "setId"));
+            proplist.add(new PropertyDescriptor("id", //$NON-NLS-1$
+                TableTag.class, null, "setId")); //$NON-NLS-1$ 
 
             // deprecated attributes
-            proplist.add(new PropertyDescriptor("list", TableTag.class, null, "setList"));
-            proplist.add(new PropertyDescriptor("property", TableTag.class, null, "setProperty"));
-            proplist.add(new PropertyDescriptor("scope", TableTag.class, null, "setScope"));
+            proplist.add(new PropertyDescriptor("list", //$NON-NLS-1$
+                TableTag.class, null, "setList")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("property", //$NON-NLS-1$
+                TableTag.class, null, "setProperty")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("scope", //$NON-NLS-1$
+                TableTag.class, null, "setScope")); //$NON-NLS-1$ 
 
-            proplist.add(new PropertyDescriptor("width", TableTag.class, null, "setWidth"));
-            proplist.add(new PropertyDescriptor("styleClass", TableTag.class, null, "setClass"));
-            proplist.add(new PropertyDescriptor("border", TableTag.class, null, "setBorder"));
-            proplist.add(new PropertyDescriptor("align", TableTag.class, null, "setAlign"));
-            proplist.add(new PropertyDescriptor("background", TableTag.class, null, "setBackground"));
-            proplist.add(new PropertyDescriptor("bgcolor", TableTag.class, null, "setBgcolor"));
-            proplist.add(new PropertyDescriptor("height", TableTag.class, null, "setHeight"));
-            proplist.add(new PropertyDescriptor("hspace", TableTag.class, null, "setHspace"));
-            proplist.add(new PropertyDescriptor("vspace", TableTag.class, null, "setVspace"));
+            proplist.add(new PropertyDescriptor("width", //$NON-NLS-1$
+                TableTag.class, null, "setWidth")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("styleClass", //$NON-NLS-1$
+                TableTag.class, null, "setClass")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("border", //$NON-NLS-1$
+                TableTag.class, null, "setBorder")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("align", //$NON-NLS-1$
+                TableTag.class, null, "setAlign")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("background", //$NON-NLS-1$
+                TableTag.class, null, "setBackground")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("bgcolor", //$NON-NLS-1$
+                TableTag.class, null, "setBgcolor")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("height", //$NON-NLS-1$
+                TableTag.class, null, "setHeight")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("hspace", //$NON-NLS-1$
+                TableTag.class, null, "setHspace")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("vspace", //$NON-NLS-1$
+                TableTag.class, null, "setVspace")); //$NON-NLS-1$ 
 
             try
             {
-                Class.forName("javax.servlet.jsp.tagext.IterationTag");
+                Class.forName("javax.servlet.jsp.tagext.IterationTag"); //$NON-NLS-1$
                 // jsp >= 1.2
-                proplist.add(new PropertyDescriptor("name", TableTag.class, null, "setName"));
+                proplist.add(new PropertyDescriptor("name", //$NON-NLS-1$
+                    TableTag.class, null, "setName")); //$NON-NLS-1$ 
             }
             catch (Throwable e)
             {
                 // jsp 1.1, can't use a setter with an Object parameter
-                proplist.add(new PropertyDescriptor("name", TableTag.class, null, "setNameString"));
+                proplist.add(new PropertyDescriptor("name", //$NON-NLS-1$
+                    TableTag.class, null, "setNameString")); //$NON-NLS-1$ 
             }
 
         }

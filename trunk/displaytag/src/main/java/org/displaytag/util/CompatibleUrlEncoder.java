@@ -32,8 +32,8 @@ public final class CompatibleUrlEncoder
         // Take advantage of the new method URLEncoder.encode(String, enc) if J2SE 1.4 is used.
         try
         {
-            Class urlEncoderClass = Class.forName("java.net.URLEncoder");
-            encodeMethod14 = urlEncoderClass.getMethod("encode", new Class[]{String.class, String.class});
+            Class urlEncoderClass = Class.forName("java.net.URLEncoder"); //$NON-NLS-1$
+            encodeMethod14 = urlEncoderClass.getMethod("encode", new Class[]{String.class, String.class}); //$NON-NLS-1$
         }
         catch (Throwable ex)
         {
@@ -60,7 +60,7 @@ public final class CompatibleUrlEncoder
             }
             else
             {
-                methodArgs[1] = "UTF8";
+                methodArgs[1] = "UTF8"; //$NON-NLS-1$
             }
 
             try

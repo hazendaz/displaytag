@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * Object used to contain html multiple attribute value (for the "class" attribute).
  * @author Fabrizio Giustina
@@ -89,7 +90,7 @@ public class MultipleHtmlAttribute implements Cloneable
     public void addAttributeValue(String attributeValue)
     {
         // don't add if empty
-        if (!"".equals(attributeValue))
+        if (!StringUtils.isEmpty(attributeValue))
         {
             this.attributeSet.add(attributeValue);
         }

@@ -11,62 +11,62 @@ public final class TagConstants
     /**
      * start of tag <code>&lt;</code>.
      */
-    public static final String TAG_OPEN = "\n<";
+    public static final String TAG_OPEN = "\n<"; //$NON-NLS-1$
 
     /**
      * start of closing tag <code>&lt;/</code>.
      */
-    public static final String TAG_OPENCLOSING = "</";
+    public static final String TAG_OPENCLOSING = "</"; //$NON-NLS-1$
 
     /**
      * end of tag <code>&gt;</code>.
      */
-    public static final String TAG_CLOSE = ">";
+    public static final String TAG_CLOSE = ">"; //$NON-NLS-1$
 
     /**
      * html <code>a</code> tag name.
      */
-    public static final String TAGNAME_ANCHOR = "a";
+    public static final String TAGNAME_ANCHOR = "a"; //$NON-NLS-1$
 
     /**
      * html <code>table</code> tag name.
      */
-    public static final String TABLE_TAG_NAME = "table";
+    public static final String TABLE_TAG_NAME = "table"; //$NON-NLS-1$
 
     /**
      * html <code>td</code> tag name.
      */
-    public static final String TAGNAME_COLUMN = "td";
+    public static final String TAGNAME_COLUMN = "td"; //$NON-NLS-1$
 
     /**
      * html <code>tr</code> tag name.
      */
-    public static final String TAGNAME_ROW = "tr";
+    public static final String TAGNAME_ROW = "tr"; //$NON-NLS-1$
 
     /**
      * html <code>th</code> tag name.
      */
-    public static final String TAGNAME_COLUMN_HEADER = "th";
+    public static final String TAGNAME_COLUMN_HEADER = "th"; //$NON-NLS-1$
 
     /**
      * html <code>tbody</code> tag name.
      */
-    public static final String TAGNAME_TABLE_HEAD = "thead";
+    public static final String TAGNAME_TABLE_HEAD = "thead"; //$NON-NLS-1$
 
     /**
      * html <code>tbody</code> tag name.
      */
-    public static final String TAGNAME_TABLE_BODY = "tbody";
+    public static final String TAGNAME_TABLE_BODY = "tbody"; //$NON-NLS-1$
 
     /**
      * html <code>tfooter</code> tag name.
      */
-    public static final String TAGNAME_TABLE_FOOTER = "tfoot";
+    public static final String TAGNAME_TABLE_FOOTER = "tfoot"; //$NON-NLS-1$
 
     /**
      * html <code>caption</code> tag name.
      */
-    public static final String TAGNAME_CAPTION = "caption";
+    public static final String TAGNAME_CAPTION = "caption"; //$NON-NLS-1$
 
     /**
      * html tag <code>%lt;tr&gt;</code>.
@@ -131,112 +131,112 @@ public final class TagConstants
     /**
      * html attribute <code>rules</code>.
      */
-    public static final String ATTRIBUTE_RULES = "rules";
+    public static final String ATTRIBUTE_RULES = "rules"; //$NON-NLS-1$
 
     /**
      * html attribute <code>bgcolor</code>.
      */
-    public static final String ATTRIBUTE_BGCOLOR = "bgcolor";
+    public static final String ATTRIBUTE_BGCOLOR = "bgcolor"; //$NON-NLS-1$
 
     /**
      * html attribute <code>frame</code>.
      */
-    public static final String ATTRIBUTE_FRAME = "frame";
+    public static final String ATTRIBUTE_FRAME = "frame"; //$NON-NLS-1$
 
     /**
      * html attribute <code>height</code>.
      */
-    public static final String ATTRIBUTE_HEIGHT = "height";
+    public static final String ATTRIBUTE_HEIGHT = "height"; //$NON-NLS-1$
 
     /**
      * html attribute <code>hspace</code>.
      */
-    public static final String ATTRIBUTE_HSPACE = "hspace";
+    public static final String ATTRIBUTE_HSPACE = "hspace"; //$NON-NLS-1$
 
     /**
      * html attribute <code>width</code>.
      */
-    public static final String ATTRIBUTE_WIDTH = "width";
+    public static final String ATTRIBUTE_WIDTH = "width"; //$NON-NLS-1$
 
     /**
      * html attribute <code>border</code>.
      */
-    public static final String ATTRIBUTE_BORDER = "border";
+    public static final String ATTRIBUTE_BORDER = "border"; //$NON-NLS-1$
 
     /**
      * html attribute <code>cellspacing</code>.
      */
-    public static final String ATTRIBUTE_CELLSPACING = "cellspacing";
+    public static final String ATTRIBUTE_CELLSPACING = "cellspacing"; //$NON-NLS-1$
 
     /**
      * html attribute <code>cellpadding</code>.
      */
-    public static final String ATTRIBUTE_CELLPADDING = "cellpadding";
+    public static final String ATTRIBUTE_CELLPADDING = "cellpadding"; //$NON-NLS-1$
 
     /**
      * html attribute <code>align</code>.
      */
-    public static final String ATTRIBUTE_ALIGN = "align";
+    public static final String ATTRIBUTE_ALIGN = "align"; //$NON-NLS-1$
 
     /**
      * html attribute <code>background</code>.
      */
-    public static final String ATTRIBUTE_BACKGROUND = "background";
+    public static final String ATTRIBUTE_BACKGROUND = "background"; //$NON-NLS-1$
 
     /**
      * html attribute <code>summary</code>.
      */
-    public static final String ATTRIBUTE_SUMMARY = "summary";
+    public static final String ATTRIBUTE_SUMMARY = "summary"; //$NON-NLS-1$
 
     /**
      * html attribute <code>vspace</code>.
      */
-    public static final String ATTRIBUTE_VSPACE = "vspace";
+    public static final String ATTRIBUTE_VSPACE = "vspace"; //$NON-NLS-1$
 
     /**
      * html attribute <code>class</code>.
      */
-    public static final String ATTRIBUTE_CLASS = "class";
+    public static final String ATTRIBUTE_CLASS = "class"; //$NON-NLS-1$
 
     /**
      * html attribute <code>id</code>.
      */
-    public static final String ATTRIBUTE_ID = "id";
+    public static final String ATTRIBUTE_ID = "id"; //$NON-NLS-1$
 
     /**
      * html attribute <code>style</code>.
      */
-    public static final String ATTRIBUTE_STYLE = "style";
+    public static final String ATTRIBUTE_STYLE = "style"; //$NON-NLS-1$
 
     /**
      * html attribute <code>title</code>.
      */
-    public static final String ATTRIBUTE_TITLE = "title";
+    public static final String ATTRIBUTE_TITLE = "title"; //$NON-NLS-1$
 
     /**
      * html attribute <code>valign</code>.
      */
-    public static final String ATTRIBUTE_VALIGN = "valign";
+    public static final String ATTRIBUTE_VALIGN = "valign"; //$NON-NLS-1$
 
     /**
      * html attribute <code>nowrap</code>.
      */
-    public static final String ATTRIBUTE_NOWRAP = "nowrap";
+    public static final String ATTRIBUTE_NOWRAP = "nowrap"; //$NON-NLS-1$
 
     /**
      * html attribute <code>lang</code>.
      */
-    public static final String ATTRIBUTE_LANG = "lang";
+    public static final String ATTRIBUTE_LANG = "lang"; //$NON-NLS-1$
 
     /**
      * html attribute <code>dir</code>.
      */
-    public static final String ATTRIBUTE_DIR = "dir";
+    public static final String ATTRIBUTE_DIR = "dir"; //$NON-NLS-1$
 
     /**
      * escaped ampersand <code>&amp;amp;</code>.
      */
-    public static final String AMPERSAND = "&amp;";
+    public static final String AMPERSAND = "&amp;"; //$NON-NLS-1$
 
     /**
      * utility class - don't instantiate.

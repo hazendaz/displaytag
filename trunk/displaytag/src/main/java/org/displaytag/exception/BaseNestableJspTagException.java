@@ -4,6 +4,8 @@ import javax.servlet.jsp.JspTagException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.util.Messages;
+
 
 /**
  * Base exception: extendes JspTagException providing logging and exception nesting functionalities.
@@ -109,23 +111,17 @@ public abstract class BaseNestableJspTagException extends JspTagException
      */
     public String toString()
     {
-        StringBuffer buffer = new StringBuffer();
-
         String className = this.sourceClass.getName();
-        className = className.substring(className.lastIndexOf("."));
+        className = className.substring(className.lastIndexOf(".")); //$NON-NLS-1$
 
-        buffer.append("Exception: ");
-        buffer.append("[").append(className).append("] ");
-        buffer.append(getMessage());
-
-        if (this.nestedException != null)
+        if (this.nestedException == null)
         {
-            buffer.append("\nCause:     ");
-            buffer.append(this.nestedException.getMessage());
+            return Messages.getString("NestableException.msg", //$NON-NLS-1$
+                new Object[]{className, getMessage()});
         }
 
-        return buffer.toString();
-
+        return Messages.getString("NestableException.msgcause", //$NON-NLS-1$
+            new Object[]{className, getMessage(), this.nestedException.getMessage()});
     }
 
     /**

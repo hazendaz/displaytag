@@ -9,6 +9,7 @@ import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.Anchor;
+import org.displaytag.util.CompatibleUrlEncoder;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
@@ -236,9 +237,12 @@ public class Column
                 paramValue = columnContent;
             }
 
-            // @todo encode paramValue here. Need a way to get the current request.getCharacterEncoding()
-            colHref.addParameter(this.header.getParamName(), paramValue);
-
+            if (paramValue != null)
+            {
+                colHref.addParameter(this.header.getParamName(), CompatibleUrlEncoder.encode(
+                    paramValue.toString(),
+                    this.row.getParentTable().getEncoding()));
+            }
         }
         return colHref;
     }

@@ -1,5 +1,6 @@
 package org.displaytag.tags;
 
+import org.apache.commons.lang.SystemUtils;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -43,11 +44,9 @@ public class EncodedUriTest extends DisplaytagCase
     {
         WebRequest request = new GetMethodWebRequest(jspName);
         request.setParameter("city", "München");
-        
 
         WebResponse response = runner.getResponse(request);
-        
-        
+
         if (log.isDebugEnabled())
         {
             log.debug(response.getText());
@@ -59,7 +58,20 @@ public class EncodedUriTest extends DisplaytagCase
         WebLink[] links = response.getLinks();
         assertEquals("Wrong number of links in result.", 3, links.length);
 
-        assertTrue("Encoded parameter in link is wrong: " + links[0].getURLString(), links[0].getURLString().indexOf(
-            "M%C3%BCnchen") > -1);
+        if (SystemUtils.isJavaVersionAtLeast(1.4f))
+        {
+            assertTrue("Encoded parameter in link is wrong: " + links[0].getURLString(), links[0]
+                .getURLString()
+                .indexOf("M%C3%BCnchen") > -1);
+        }
+        else
+        {
+
+            log.info("Warning, jse 1.4 not available. Encoding used in link will be wrong");
+            assertTrue("Encoded parameter in link is wrong: " + links[0].getURLString(), links[0]
+                .getURLString()
+                .indexOf("M%FCnchen") > -1);
+        }
+
     }
 }

@@ -5,10 +5,7 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.displaytag.test.URLAssert;
 
 
 /**
@@ -18,11 +15,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class HrefTest extends TestCase
 {
-
-    /**
-     * logger.
-     */
-    private static Log log = LogFactory.getLog(HrefTest.class);
 
     /**
      * instantiate a new test.
@@ -41,7 +33,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
     /**
@@ -52,7 +44,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
     /**
@@ -63,7 +55,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
     /**
@@ -74,7 +66,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1&param2=2";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
     /**
@@ -85,7 +77,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2&param2=3&param2=4&param2=";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
     /**
@@ -96,7 +88,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp#thisanchor";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
     /**
@@ -107,7 +99,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
     /**
@@ -118,7 +110,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
     /**
@@ -129,7 +121,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=aquote'test";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
     /**
@@ -140,7 +132,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
         Href href = new Href(url);
         Href copy = new Href(href);
-        compareUrls(href.toString(), copy.toString());
+        URLAssert.assertEquals(copy.toString(), href.toString());
     }
 
     /**
@@ -178,9 +170,9 @@ public class HrefTest extends TestCase
         href.addParameter("param3", "value3");
         href.addParameter("param4", 4);
         String newUrl = href.toString();
-        compareUrls(
-            newUrl,
-            "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2&param3=value3&param4=4#thisanchor");
+        URLAssert.assertEquals(
+            "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2&param3=value3&param4=4#thisanchor",
+            newUrl);
     }
 
     /**
@@ -198,9 +190,9 @@ public class HrefTest extends TestCase
         href.setParameterMap(parameterMap);
 
         String newUrl = href.toString();
-        compareUrls(
-            newUrl,
-            "http://www.displaytag.org/displaytag/index.jsp?new1=new1value&new2=new2value&new3=#thisanchor");
+        URLAssert.assertEquals(
+            "http://www.displaytag.org/displaytag/index.jsp?new1=new1value&new2=new2value&new3=#thisanchor",
+            newUrl);
     }
 
     /**
@@ -218,9 +210,9 @@ public class HrefTest extends TestCase
         href.addParameterMap(parameterMap);
 
         String newUrl = href.toString();
-        compareUrls(
-            newUrl,
-            "http://www.displaytag.org/displaytag/index.jsp?param1=1&new1=new1value&new2=new2value&new3=#thisanchor");
+        URLAssert.assertEquals(
+            "http://www.displaytag.org/displaytag/index.jsp?param1=1&new1=new1value&new2=new2value&new3=#thisanchor",
+            newUrl);
 
     }
 
@@ -238,7 +230,9 @@ public class HrefTest extends TestCase
         href.addParameterMap(parameterMap);
 
         String newUrl = href.toString();
-        compareUrls(newUrl, "http://www.displaytag.org/displaytag/index.jsp?param1=original&new1=new1value#thisanchor");
+        URLAssert.assertEquals(
+            "http://www.displaytag.org/displaytag/index.jsp?param1=original&new1=new1value#thisanchor",
+            newUrl);
 
     }
 
@@ -262,63 +256,7 @@ public class HrefTest extends TestCase
             + "&approvedFDate=&method=search&approver=";
         Href href = new Href(url);
         String newUrl = href.toString();
-        compareUrls(newUrl, url);
+        URLAssert.assertEquals(url, newUrl);
     }
 
-    /**
-     * utility method for comparing two URLs.
-     * @param generated generated URL
-     * @param expected expected URL
-     */
-    private void compareUrls(String generated, String expected)
-    {
-        log.debug(generated);
-
-        // if urls contains parameters they could be written in different order
-        String[] generatedSplit = StringUtils.split(generated, "?#");
-        String[] expectedSplit = StringUtils.split(expected, "?#");
-
-        assertEquals(generatedSplit.length, expectedSplit.length);
-
-        // same base url
-        assertEquals(generatedSplit[0], expectedSplit[0]);
-
-        // same anchor #
-        if (generatedSplit.length > 2)
-        {
-            assertEquals("Anchor is different", generatedSplit[2], expectedSplit[2]);
-        }
-        else if (generatedSplit.length > 1 && (generated.indexOf("?") == -1))
-        {
-            // url without parameters
-            assertEquals("Anchor is different", generatedSplit[1], expectedSplit[1]);
-            return;
-        }
-
-        // same parameters
-        if (generatedSplit.length > 1)
-        {
-            // compare parameters
-            String[] generatedParameters = StringUtils.split(StringUtils.replace(generatedSplit[1], "&amp;", "&"), '&');
-            String[] expectedParameters = StringUtils.split(StringUtils.replace(expectedSplit[1], "&amp;", "&"), '&');
-
-            assertEquals(
-                "Compared urls have different number of parameters",
-                expectedParameters.length,
-                generatedParameters.length);
-
-            for (int j = 0; j < expectedParameters.length; j++)
-            {
-                // assuming url?param == url?param=
-                String singleParam = expectedParameters[j];
-                if (singleParam.indexOf("=") == -1)
-                {
-                    singleParam += "=";
-                }
-                assertTrue("Expected parameter " + singleParam + " could not be found in generated URL", ArrayUtils
-                    .contains(generatedParameters, singleParam));
-
-            }
-        }
-    }
 }

@@ -15,13 +15,13 @@
             <action type="fix" dev="fgiust" issue="1006229" due-to="Konstantin">
                 Proper encoding of URLs under JDK 1.4.
             </action>
-	        <action type="add" dev="rapruitt">
-		        Properties are looked up according to the locale of the request.  More specific locales override more
-		        general locales on a key by key basis, so that, if a key is not present in the most specific locale
-                file for a request, the tag will search through the more general files until the key is found.
-	        </action>
+            <action type="add" dev="rapruitt">
+                Properties are looked up according to the locale of the request. More specific locales override more
+                general locales on a key by key basis, so that, if a key is not present in the most specific locale file
+                for a request, the tag will search through the more general files until the key is found.
+            </action>
             <action type="fix" dev="fgiust" issue="1020948">NullpointerException in HeaderCell.</action>
-
+            <action type="fix" dev="fgiust" issue="1016089">Param values not URLEncoded.</action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">

@@ -17,12 +17,12 @@ public final class SortOrderEnum
     /**
      * Sorted in descending order (1, "descending").
      */
-    public static final SortOrderEnum DESCENDING = new SortOrderEnum(1, "descending");
+    public static final SortOrderEnum DESCENDING = new SortOrderEnum(1, "descending"); //$NON-NLS-1$
 
     /**
      * Sorted in ascending order (2, "ascending").
      */
-    public static final SortOrderEnum ASCENDING = new SortOrderEnum(2, "ascending");
+    public static final SortOrderEnum ASCENDING = new SortOrderEnum(2, "ascending"); //$NON-NLS-1$
 
     /**
      * array containing all the export types.

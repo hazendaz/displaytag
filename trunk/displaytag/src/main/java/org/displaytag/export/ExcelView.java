@@ -3,6 +3,7 @@ package org.displaytag.export;
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.model.TableModel;
 
+
 /**
  * Export view for excel exporting.
  * @author Fabrizio Giustina
@@ -25,7 +26,7 @@ public class ExcelView extends BaseExportView
      */
     public String getMimeType()
     {
-        return "application/vnd.ms-excel";
+        return "application/vnd.ms-excel"; //$NON-NLS-1$
     }
 
     /**
@@ -34,52 +35,47 @@ public class ExcelView extends BaseExportView
      */
     protected String getRowStart()
     {
-        return "";
+        return null;
     }
 
     /**
      * @see org.displaytag.export.BaseExportView#getRowEnd()
-     * @return "\n"
      */
     protected String getRowEnd()
     {
-        return "\n";
+        return "\n"; //$NON-NLS-1$
     }
 
     /**
      * @see org.displaytag.export.BaseExportView#getCellStart()
-     * @return ""
      */
     protected String getCellStart()
     {
-        return "";
+        return null;
     }
 
     /**
      * @see org.displaytag.export.BaseExportView#getCellEnd()
-     * @return "\t"
      */
     protected String getCellEnd()
     {
-        return "\t";
+        return "\t"; //$NON-NLS-1$
     }
 
     /**
      * @see org.displaytag.export.BaseExportView#getDocumentStart()
-     * @return ""
      */
     protected String getDocumentStart()
     {
-        return "";
+        return null;
     }
 
     /**
      * @see org.displaytag.export.BaseExportView#getDocumentEnd()
-     * @return ""
      */
     protected String getDocumentEnd()
     {
-        return "";
+        return null;
     }
 
     /**
@@ -113,7 +109,9 @@ public class ExcelView extends BaseExportView
         if (value != null)
         {
             // quotes around fields are needed to avoid occasional "Sylk format invalid" messages from excel
-            return "\"" + StringUtils.replace(StringUtils.trim(value.toString()), "\"", "\"\"") + "\"";
+            return "\"" //$NON-NLS-1$
+                + StringUtils.replace(StringUtils.trim(value.toString()), "\"", "\"\"") //$NON-NLS-1$ //$NON-NLS-2$ 
+                + "\""; //$NON-NLS-1$ 
         }
 
         return null;
