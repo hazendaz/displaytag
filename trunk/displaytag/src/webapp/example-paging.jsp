@@ -13,8 +13,6 @@
 	<display:column property="name" />
 	<display:column property="email" />
 	<display:column property="status" />
-	<display:setProperty name="sort.behavior" value="list" />
-	<display:setProperty name="paging.banner.include_first_last" value="true" />
 </display:table>
 
 <p>
@@ -56,8 +54,9 @@
 	need to tell the table tag what it's URL is via the "requestURI" attribute.
 </p>
 
-<p class="changed">
+<p>
 	All the parameters received in the first request are preserved in paging.
+  You can exclude specific parameters using the "excludedParams" table attribute.
 </p>
 
 <%@ include file="inc/footer.jsp" %>

@@ -52,7 +52,7 @@
 	</li>
 	<li>
 		We do not have to overload each of the other business object properties
-		(like getID, getEmail, etc...).  The decorator class is called first, but it
+		(like getID, getEmail, etc...).  The decorator class is called first, but if it
 		doesn't implement the method for the property called, then the underlying
 		business class is called.
 	</li>
