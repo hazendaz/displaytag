@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.0
  */
 public class BufferedResponseWrapper12 implements HttpServletResponse // don't extend j2ee 1.3
-                                                                      // HttpServletResponseWrapper
+// HttpServletResponseWrapper
 {
 
     /**
@@ -352,7 +352,7 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
     /**
      * A simple implementation of ServletOutputStream.
      */
-    private class SimpleServletOutputStream extends ServletOutputStream
+    private static class SimpleServletOutputStream extends ServletOutputStream
     {
 
         /**

@@ -27,7 +27,7 @@ public final class SortOrderEnum
     /**
      * array containing all the export types.
      */
-    public static final SortOrderEnum[] ALL = {DESCENDING, ASCENDING};
+    static final SortOrderEnum[] ALL = {DESCENDING, ASCENDING};
 
     /**
      * Code; this is the primary key for these objects.

@@ -9,6 +9,7 @@ import org.displaytag.decorator.TableDecorator;
 
 
 /**
+ * Iterator on table rows.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */

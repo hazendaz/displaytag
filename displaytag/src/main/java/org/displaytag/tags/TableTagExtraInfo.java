@@ -4,11 +4,20 @@ import javax.servlet.jsp.tagext.TagAttributeInfo;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
+
+import org.displaytag.properties.MediaTypeEnum;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
+ * TEI for TableTag, defines 3 variables.
+ * <ul>
+ * <li>table id = object contained in row</li>
+ * <li>table id + ROWNUM_SUFFIX = row number</li>
+ * <li>mediaType = current media</li>
+ * </ul>
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
@@ -29,7 +38,7 @@ public class TableTagExtraInfo extends TagExtraInfo
      */
     public VariableInfo[] getVariableInfo(TagData data)
     {
-        List variables = new ArrayList(4);
+        List variables = new ArrayList(3);
 
         Object tagId = data.getAttributeString(TagAttributeInfo.ID);
 
@@ -37,17 +46,18 @@ public class TableTagExtraInfo extends TagExtraInfo
         if (tagId != null)
         {
             // current row
-            variables.add(new VariableInfo(tagId.toString(), "java.lang.Object", //$NON-NLS-1$
-                true, VariableInfo.NESTED));
+            variables.add(new VariableInfo(tagId.toString(), Object.class.getName(), true, VariableInfo.NESTED));
 
             // current row number
-            variables.add(new VariableInfo(tagId + ROWNUM_SUFFIX, "java.lang.Integer", //$NON-NLS-1$
-                true, VariableInfo.NESTED));
+            variables.add(new VariableInfo(tagId + ROWNUM_SUFFIX, Integer.class.getName(), true, VariableInfo.NESTED));
         }
 
-        // media type row number
-        variables.add(new VariableInfo(TableTag.PAGE_ATTRIBUTE_MEDIA, "org.displaytag.properties.MediaTypeEnum", //$NON-NLS-1$
-            true, VariableInfo.NESTED));
+        // media type
+        variables.add(new VariableInfo(
+            TableTag.PAGE_ATTRIBUTE_MEDIA,
+            MediaTypeEnum.class.getName(),
+            true,
+            VariableInfo.NESTED));
 
         return (VariableInfo[]) variables.toArray(new VariableInfo[]{});
     }

@@ -1,5 +1,6 @@
 package org.displaytag.util;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -8,11 +9,7 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-
-
 import org.apache.commons.lang.builder.EqualsBuilder;
-
-
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 
@@ -22,8 +19,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class Href implements Cloneable
+public class Href implements Cloneable, Serializable
 {
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Base url for the href.
@@ -320,7 +322,6 @@ public class Href implements Cloneable
 
         return buffer.toString();
     }
-
 
     /**
      * @see java.lang.Object#clone()

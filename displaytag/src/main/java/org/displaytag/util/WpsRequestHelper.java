@@ -128,7 +128,7 @@ public class WpsRequestHelper extends DefaultRequestHelper
      * @author Fabrizio Giustina
      * @version $Revision$ ($Author$)
      */
-    public class RuntimeWpsSupportException extends RuntimeException
+    public static class RuntimeWpsSupportException extends RuntimeException
     {
 
         /**

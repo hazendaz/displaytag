@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.BooleanUtils;
 
 
 /**
@@ -23,6 +24,11 @@ import org.apache.commons.beanutils.PropertyUtils;
  */
 abstract class Decorator
 {
+
+    /**
+     * Char used to separate class name and property in the cache key.
+     */
+    private static final char CLASS_PROPERTY_SEPARATOR = '#';
 
     /**
      * property info cache contains classname#propertyname Strings as keys and Booleans as values.
@@ -90,15 +96,17 @@ abstract class Decorator
         String simpleProperty = propertyName;
 
         // get the simple (not nested) bean property
-        int indexOfDot = simpleProperty.indexOf("."); //$NON-NLS-1$
-        if ((simpleProperty != null) && (indexOfDot > 0))
+        int indexOfDot = simpleProperty.indexOf('.');
+        if (indexOfDot > 0)
         {
             simpleProperty = simpleProperty.substring(0, indexOfDot);
         }
 
-        Boolean cachedResult;
+        Boolean cachedResult = (Boolean) propertyMap.get(getClass().getName()
+            + CLASS_PROPERTY_SEPARATOR
+            + simpleProperty);
 
-        if ((cachedResult = (Boolean) propertyMap.get(getClass().getName() + "#" + simpleProperty)) != null) //$NON-NLS-1$
+        if (cachedResult != null)
         {
             return cachedResult.booleanValue();
         }
@@ -107,7 +115,8 @@ abstract class Decorator
         boolean hasGetter = searchGetterFor(propertyName);
 
         // save in cache
-        propertyMap.put(getClass().getName() + "#" + simpleProperty, new Boolean(hasGetter)); //$NON-NLS-1$
+        propertyMap.put(getClass().getName() + CLASS_PROPERTY_SEPARATOR + simpleProperty, BooleanUtils
+            .toBooleanObject(hasGetter));
 
         // and return
         return hasGetter;

@@ -57,7 +57,7 @@ public class MockFilterSupport extends HttpServlet
     /**
      * Simple FilterChain used to test Filters.
      */
-    public class MockFilterChain implements FilterChain
+    public static class MockFilterChain implements FilterChain
     {
 
         /**

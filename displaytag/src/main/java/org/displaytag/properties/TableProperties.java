@@ -2,12 +2,12 @@ package org.displaytag.properties;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.Locale;
-import java.util.Map;
-import java.util.HashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -238,6 +238,11 @@ public final class TableProperties implements Cloneable
      * export property <code>filename</code>.
      */
     public static final String EXPORTPROPERTY_STRING_FILENAME = "filename";
+
+    /**
+     * Separator char used in property names.
+     */
+    private static final char SEP = '.';
 
     /**
      * logger.
@@ -552,7 +557,7 @@ public final class TableProperties implements Cloneable
      */
     public boolean getAddExport(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType.getName());
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType.getName());
     }
 
     /**
@@ -562,7 +567,8 @@ public final class TableProperties implements Cloneable
      */
     public boolean getExportHeader(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType //
+            + SEP + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
     }
 
     /**
@@ -572,17 +578,7 @@ public final class TableProperties implements Cloneable
      */
     public String getExportLabel(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_LABEL);
-    }
-
-    /**
-     * Returns the filename for the given export option.
-     * @param exportType instance of MediaTypeEnum
-     * @return file name
-     */
-    public String getExportFilename(MediaTypeEnum exportType)
-    {
-        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_FILENAME);
+        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType + SEP + EXPORTPROPERTY_STRING_LABEL);
     }
 
     /**
@@ -592,7 +588,7 @@ public final class TableProperties implements Cloneable
      */
     public String getExportFileName(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_FILENAME);
+        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType + SEP + EXPORTPROPERTY_STRING_FILENAME);
     }
 
     /**

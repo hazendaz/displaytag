@@ -13,6 +13,7 @@ import org.displaytag.util.Href;
 
 
 /**
+ * Helper class for generation of paging banners.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
@@ -78,7 +79,10 @@ public class Pagination
      */
     public void addPage(int number, boolean isSelected)
     {
-        log.debug("addpage " + number);
+        if (log.isDebugEnabled())
+        {
+            log.debug("adding page " + number);
+        }
         this.pages.add(new NumberedPage(number, isSelected));
     }
 
@@ -253,14 +257,10 @@ public class Pagination
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("firstPage", this.firstPage)
-            .append("lastPage", this.lastPage)
-            .append("nextPage", this.nextPage)
-            .append("previousPage", this.previousPage)
-            .append("pages", this.pages)
-            .append("href", this.href)
-            .append("pageParam", this.pageParam)
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("firstPage", this.firstPage).append(
+            "lastPage",
+            this.lastPage).append("nextPage", this.nextPage).append("previousPage", this.previousPage).append(
+            "pages",
+            this.pages).append("href", this.href).append("pageParam", this.pageParam).toString();
     }
 }

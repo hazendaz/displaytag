@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+
 /**
  * Just a test class that returns columns of data that are useful for testing out the ListTag class and ListColumn
  * class.
@@ -17,6 +18,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class ListObject extends Object
 {
+
     /**
      * random number generator.
      */
@@ -266,7 +268,7 @@ public class ListObject extends Object
      * Inner class used in testing nested tables.
      * @author Fabrizio Giustina
      */
-    public class SubListItem
+    public static class SubListItem
     {
 
         /**
@@ -311,10 +313,9 @@ public class ListObject extends Object
          */
         public String toString()
         {
-            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-                .append("name", this.itemName)
-                .append("email", this.itemEmail)
-                .toString();
+            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("name", this.itemName).append(
+                "email",
+                this.itemEmail).toString();
         }
     }
 
