@@ -20,27 +20,28 @@ public abstract class Decorator
     /**
      * page context
      */
-    private PageContext mPageContext;
+    private PageContext pageContext;
 
     /**
      * property info cache
+     * contains classname#propertyname Strings as keys and Booleans as values
      */
-    private static HashMap lPropertyMap = new HashMap();
+    private static HashMap propertyMap = new HashMap();
 
     /**
      * decorated object. Usually a List
      */
-    private Object mDecoratedObject;
+    private Object decoratedObject;
 
     /**
-     * Method init
-     * @param pPageContext PageContext
-     * @param pDecoratedObject decorated object (usually a list)
+     * Initialize the TableTecorator instance
+     * @param context PageContext
+     * @param decorated decorated object (usually a list)
      */
-    public void init(PageContext pPageContext, Object pDecoratedObject)
+    public void init(PageContext context, Object decorated)
     {
-        mPageContext = pPageContext;
-        mDecoratedObject = pDecoratedObject;
+        pageContext = context;
+        decoratedObject = decorated;
     }
 
     /**
@@ -49,7 +50,7 @@ public abstract class Decorator
      */
     public PageContext getPageContext()
     {
-        return mPageContext;
+        return pageContext;
     }
 
     /**
@@ -58,7 +59,7 @@ public abstract class Decorator
      */
     public Object getDecoratedObject()
     {
-        return mDecoratedObject;
+        return decoratedObject;
     }
 
     /**
@@ -66,23 +67,23 @@ public abstract class Decorator
      */
     public void finish()
     {
-        mPageContext = null;
-        mDecoratedObject = null;
+        pageContext = null;
+        decoratedObject = null;
     }
 
     /**
      * look for a getter for the given property using introspection
-     * @param pPropertyName name of the property to check
+     * @param propertyName name of the property to check
      * @return boolean true if the decorator has a getter for the given property
      */
-    public boolean searchGetterFor(String pPropertyName)
+    public boolean searchGetterFor(String propertyName)
     {
-        PropertyDescriptor[] lDescriptors = PropertyUtils.getPropertyDescriptors(getClass());
+        PropertyDescriptor[] descriptors = PropertyUtils.getPropertyDescriptors(getClass());
 
         // iterate on property descriptors
-        for (int lCount = 0; lCount < lDescriptors.length; lCount++)
+        for (int j = 0; j < descriptors.length; j++)
         {
-            if (pPropertyName.equals(lDescriptors[lCount].getName()))
+            if (propertyName.equals(descriptors[j].getName()))
             {
                 return true;
             }
@@ -95,34 +96,34 @@ public abstract class Decorator
      * Check if a getter exists for a given property. Uses cached info if property has already been requested.
      * This method only check for a simple property, if pPropertyName contains multiple tokens only the first part is
      * evaluated
-     * @param pPropertyName name of the property to check
+     * @param propertyName name of the property to check
      * @return boolean true if the decorator has a getter for the given property
      */
-    public boolean hasGetterFor(String pPropertyName)
+    public boolean hasGetterFor(String propertyName)
     {
-        String lSimpleProperty = pPropertyName;
+        String simpleProperty = propertyName;
 
         // get the simple (not nested) bean property
-        if ((lSimpleProperty != null) && (lSimpleProperty.indexOf(".") > 0))
+        if ((simpleProperty != null) && (simpleProperty.indexOf(".") > 0))
         {
-            lSimpleProperty = lSimpleProperty.substring(0, lSimpleProperty.indexOf("."));
+            simpleProperty = simpleProperty.substring(0, simpleProperty.indexOf("."));
         }
 
-        Boolean lCachedResult;
+        Boolean cachedResult;
 
-        if ((lCachedResult = (Boolean) lPropertyMap.get(lSimpleProperty)) != null)
+        if ((cachedResult = (Boolean) propertyMap.get(getClass().getName() + "#" + simpleProperty)) != null)
         {
-            return lCachedResult.booleanValue();
+            return cachedResult.booleanValue();
         }
 
         // not already cached... check
-        boolean lHasGetter = searchGetterFor(lSimpleProperty);
+        boolean hasGetter = searchGetterFor(simpleProperty);
 
         // save in cache
-        lPropertyMap.put(lSimpleProperty, new Boolean(lHasGetter));
+        propertyMap.put(getClass().getName() + "#" + simpleProperty, new Boolean(hasGetter));
 
         // and return
-        return lHasGetter;
+        return hasGetter;
 
     }
 
