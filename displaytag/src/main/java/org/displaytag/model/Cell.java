@@ -1,6 +1,7 @@
 package org.displaytag.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.displaytag.util.ShortToStringStyle;
 
 
 /**
@@ -92,7 +93,8 @@ public class Cell implements Comparable
      */
     public String toString()
     {
-        return new ToStringBuilder(this).append("staticValue", this.staticValue).toString(); //$NON-NLS-1$
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+            .append("staticValue", this.staticValue).toString(); //$NON-NLS-1$
     }
 
 }

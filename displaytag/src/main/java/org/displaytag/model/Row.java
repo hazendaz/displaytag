@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
 
 
@@ -168,8 +168,9 @@ public class Row
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append("rowNumber", this.rowNumber).append(
-            "rowObject",
-            this.rowObject).toString();
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+            .append("rowNumber", this.rowNumber) //$NON-NLS-1$
+            .append("rowObject", this.rowObject) //$NON-NLS-1$
+            .toString();
     }
 }

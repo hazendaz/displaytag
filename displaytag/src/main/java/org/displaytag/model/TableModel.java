@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.properties.TableProperties;
+import org.displaytag.util.ShortToStringStyle;
 
 
 /**
@@ -376,5 +378,27 @@ public class TableModel
     public String getEncoding()
     {
         return encoding;
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+            .append("rowListFull", this.rowListFull) //$NON-NLS-1$
+            .append("rowListPage", this.rowListPage) //$NON-NLS-1$
+            .append("properties", this.properties) //$NON-NLS-1$
+            .append("empty", this.isEmpty()) //$NON-NLS-1$
+            .append("encoding", this.encoding) //$NON-NLS-1$
+            .append("numberOfColumns", this.getNumberOfColumns()) //$NON-NLS-1$
+            .append("headerCellList", this.headerCellList) //$NON-NLS-1$
+            .append("sortFullTable", this.sortFullTable) //$NON-NLS-1$
+            .append("sortedColumnNumber", this.getSortedColumnNumber()) //$NON-NLS-1$
+            .append("sortOrderAscending", this.sortOrderAscending) //$NON-NLS-1$
+            .append("sortedColumnHeader", this.getSortedColumnHeader()) //$NON-NLS-1$
+            .append("sorted", this.isSorted()) //$NON-NLS-1$
+            .append("tableDecorator", this.tableDecorator) //$NON-NLS-1$
+            .toString();
     }
 }

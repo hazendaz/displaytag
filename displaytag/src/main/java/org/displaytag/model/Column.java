@@ -4,7 +4,6 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
@@ -15,6 +14,7 @@ import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.LinkUtil;
 import org.displaytag.util.LookupUtil;
+import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
 
 
@@ -271,11 +271,11 @@ public class Column
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("cell", this.cell)
-            .append("header", this.header)
-            .append("htmlAttributes", this.htmlAttributes)
-            .append("stringValue", this.stringValue)
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+            .append("cell", this.cell) //$NON-NLS-1$
+            .append("header", this.header) //$NON-NLS-1$
+            .append("htmlAttributes", this.htmlAttributes) //$NON-NLS-1$
+            .append("stringValue", this.stringValue) //$NON-NLS-1$
             .toString();
     }
 }

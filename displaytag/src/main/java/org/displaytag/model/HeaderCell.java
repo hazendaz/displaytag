@@ -2,12 +2,12 @@ package org.displaytag.model;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.decorator.ColumnDecorator;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
 
 
@@ -468,8 +468,10 @@ public class HeaderCell
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append("columnNumber", this.columnNumber).append(
-            "title",
-            this.title).append("beanPropertyName", this.beanPropertyName).toString();
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+            .append("columnNumber", this.columnNumber) //$NON-NLS-1$
+            .append("title", this.title) //$NON-NLS-1$
+            .append("beanPropertyName", this.beanPropertyName) //$NON-NLS-1$
+            .toString();
     }
 }
