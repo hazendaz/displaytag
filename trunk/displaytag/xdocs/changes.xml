@@ -80,6 +80,9 @@
         process. Properties in the file displaytag.properties will now override properties from TableTag.properties. Users
             can add additional properties via the TableProperties#setUserProperties() method.
         </action>
+        <action type="add" dev="rapruitt" due-to="Andy Pruitt"> Added media attribute to ColumnTag. Broadened ExportTypeEnum
+        to also cover the HTML case; renamed to MediaTypeEnum. Current mediaType exposed via scripting variable 'mediaType'.
+        </action>
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">

@@ -8,7 +8,7 @@ import java.util.MissingResourceException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.TablePropertiesLoadException;
-import org.displaytag.export.ExportTypeEnum;
+import org.displaytag.export.MediaTypeEnum;
 
 /**
  * The properties used by the Table tags.  The properties are loaded in the following order,
@@ -355,20 +355,20 @@ public class TableProperties
 
     /**
      * Is the given export option enabled?
-     * @param exportType instance of ExportTypeEnum
+     * @param exportType instance of MediaTypeEnum
      * @return boolean true if export is enabled
      */
-    public boolean getAddExport(ExportTypeEnum exportType)
+    public boolean getAddExport(MediaTypeEnum exportType)
     {
         return getBooleanProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType.getName());
     }
 
     /**
      * Should headers be included in given export type?
-     * @param exportType instance of ExportTypeEnum
+     * @param exportType instance of MediaTypeEnum
      * @return boolean true if export should include headers
      */
-    public boolean getExportHeader(ExportTypeEnum exportType)
+    public boolean getExportHeader(MediaTypeEnum exportType)
     {
         return getBooleanProperty(
             PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + PROPERTY_BOOLEAN_EXPORT_HEADER);
@@ -376,10 +376,10 @@ public class TableProperties
 
     /**
      * Returns the label for the given export option
-     * @param exportType instance of ExportTypeEnum
+     * @param exportType instance of MediaTypeEnum
      * @return String label
      */
-    public String getExportLabel(ExportTypeEnum exportType)
+    public String getExportLabel(MediaTypeEnum exportType)
     {
         return getProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + PROPERTY_STRING_EXPORT_LABEL);
     }

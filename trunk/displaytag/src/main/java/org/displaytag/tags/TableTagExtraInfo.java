@@ -4,6 +4,7 @@ import javax.servlet.jsp.tagext.TagAttributeInfo;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
+import java.util.ArrayList;
 
 /**
  * @author fgiust
@@ -27,24 +28,28 @@ public class TableTagExtraInfo extends TagExtraInfo
      */
     public VariableInfo[] getVariableInfo(TagData data)
     {
+        ArrayList variables = new ArrayList(4);
 
         Object tagId = data.getAttributeString(TagAttributeInfo.ID);
 
         // if id is null don't define anything
-        if (tagId == null)
+        if (tagId != null)
         {
-            return new VariableInfo[] {
-            };
+            // current row
+            variables.add(new VariableInfo(tagId.toString(), "java.lang.Object", true, VariableInfo.NESTED));
+
+            // current row number
+            variables.add(new VariableInfo(tagId.toString() + ROWNUM_SUFFIX,
+                    "java.lang.Integer", true, VariableInfo.NESTED));
+
         }
 
-        // current row
-        VariableInfo info1 = new VariableInfo(tagId.toString(), "java.lang.Object", true, VariableInfo.NESTED);
 
-        // current row number
-        VariableInfo info2 =
-            new VariableInfo(tagId.toString() + ROWNUM_SUFFIX, "java.lang.Integer", true, VariableInfo.NESTED);
+        // media type row number
+        variables.add(new VariableInfo(TableTag.PAGE_ATTRIBUTE_EXPORT, "org.displaytag.export.MediaTypeEnum",
+                true, VariableInfo.NESTED));
 
-        return new VariableInfo[] { info1, info2 };
+        return (VariableInfo[]) variables.toArray(new VariableInfo[]{});
     }
 
 }

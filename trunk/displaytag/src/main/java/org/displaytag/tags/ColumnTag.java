@@ -6,6 +6,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
@@ -17,6 +18,11 @@ import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
+import org.displaytag.export.MediaTypeEnum;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -32,7 +38,6 @@ import org.displaytag.util.TagConstants;
  */
 public class ColumnTag extends BodyTagSupport
 {
-
     /**
      * logger
      */
@@ -151,6 +156,11 @@ public class ColumnTag extends BodyTagSupport
      * is the column already sorted?
      */
     private boolean alreadySorted = false;
+
+    /**
+     * The media supported attribute.
+     */
+    private List supportedMedia = Arrays.asList(MediaTypeEnum.ALL);
 
     /**
      * setter for the "property" tag attribute
@@ -434,6 +444,53 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
+     * Is this column configured for the media type?
+     * @param mediaType the currentMedia type
+     * @return true if the column should be displayed for this request
+     */
+    public boolean availableForMedia(MediaTypeEnum mediaType)
+    {
+        return supportedMedia.contains(mediaType);
+    }
+
+    /**
+     * Tag setter.
+     * @param media the space delimited list of supported types
+     */
+    public void setMedia(String media)
+    {
+        if (StringUtils.isBlank(media) || media.toLowerCase().indexOf("all") > -1)
+        {
+            supportedMedia = Arrays.asList(MediaTypeEnum.ALL);
+            return;
+        }
+        supportedMedia = new ArrayList();
+        String[] values = StringUtils.split(media);
+        for (int i = 0; i < values.length; i++)
+        {
+            String value = values[i];
+            if (!StringUtils.isBlank(value))
+            {
+                MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
+                if (type == null)
+                {   // Should be in a tag validator..
+                    String msg = "Unknown media type \"" + value
+                            + "\"; media must be one or more values, space separated."
+                            + " Possible values are:";
+                    for (int j = 0; j < MediaTypeEnum.ALL.length; j++)
+                    {
+                        MediaTypeEnum mediaTypeEnum = MediaTypeEnum.ALL[j];
+                        msg += " '" + mediaTypeEnum.getName() + "'";
+                    }
+                    throw new IllegalArgumentException(msg + ".");
+                }
+                supportedMedia.add(type);
+            }
+        }
+    }
+
+
+    /**
      * Passes attribute information up to the parent TableTag.
      *
      * <p>When we hit the end of the tag, we simply let our parent (which better
@@ -449,6 +506,11 @@ public class ColumnTag extends BodyTagSupport
      **/
     public int doEndTag() throws JspException
     {
+        MediaTypeEnum currentMediaType = (MediaTypeEnum) pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_EXPORT);
+        if (!availableForMedia(currentMediaType))
+        {
+            return SKIP_BODY;
+        }
 
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
@@ -615,6 +677,11 @@ public class ColumnTag extends BodyTagSupport
         }
         else
         {
+            MediaTypeEnum currentMediaType = (MediaTypeEnum) pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_EXPORT);
+            if (!availableForMedia(currentMediaType))
+            {
+                return SKIP_BODY;
+            }
             return super.doStartTag();
         }
     }
