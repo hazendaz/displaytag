@@ -6,86 +6,89 @@ package org.displaytag.decorator;
  */
 public abstract class TableDecorator extends Decorator
 {
-	/**
-	 * Field mObject
-	 */
-	private Object mCurrentRowObject;
+    /**
+     * object representing the current row
+     */
+    private Object currentRowObject;
 
-	/**
-	 * Field mViewIndex
-	 */
-	private int mViewIndex = -1;
+    /**
+     * index in displayed list
+     */
+    private int viewIndex = -1;
 
-	/**
-	 * Field mListIndex
-	 */
-	private int mListIndex = -1;
+    /**
+     * index in original list
+     */
+    private int listIndex = -1;
 
-	/**
-	 * Method getViewIndex
-	 * @return int
-	 */
-	public int getViewIndex()
-	{
-		return mViewIndex;
-	}
+    /**
+     * return the index in the displayed list
+     * @return int index in the displayed list
+     */
+    public final int getViewIndex()
+    {
+        return viewIndex;
+    }
 
-	/**
-	 * Method getListIndex
-	 * @return int
-	 */
-	public int getListIndex()
-	{
-		return mListIndex;
-	}
+    /**
+     * return the index in the original list
+     * @return int index in the original list
+     */
+    public final int getListIndex()
+    {
+        return listIndex;
+    }
 
-	/**
-	 * Method initRow
-	 * @param pObject Object
-	 * @param pViewIndex int
-	 * @param pListIndex int
-	 */
-	public void initRow(Object pObject, int pViewIndex, int pListIndex)
-	{
-		mCurrentRowObject = pObject;
-		mViewIndex = pViewIndex;
-		mListIndex = pListIndex;
-	}
+    /**
+     * Returns the object representing the current row
+     * @return Object
+     */
+    public final Object getCurrentRowObject()
+    {
+        return currentRowObject;
+    }
 
-	/**
-	 * Method called at the beginning of a row
-	 * @return String
-	 */
-	public String startRow()
-	{
-		return "";
-	}
+    /**
+     * Initialize the current row
+     * @param rowObject object representing the current row
+     * @param currentViewIndex int index in the displayed list
+     * @param currentListIndex int index in the original list
+     */
+    public final void initRow(Object rowObject, int currentViewIndex, int currentListIndex)
+    {
+        currentRowObject = rowObject;
+        viewIndex = currentViewIndex;
+        listIndex = currentListIndex;
+    }
 
-	/**
-	 * Method called at the end of a row
-	 * @return String
-	 */
-	public String finishRow()
-	{
-		return "";
-	}
+    /**
+     * Method called at the beginning of a row. Can be subclassed to provide specific data at
+     * the beginning of a row
+     * @return empty String in the default implementation
+     */
+    public String startRow()
+    {
+        return "";
+    }
 
-	/**
-	 * Method called at the end of evaluation
-	 */
-	public void finish()
-	{
-		mCurrentRowObject = null;
-		super.finish();
-	}
+    /**
+     * Method called at the end of a row. Can be subclassed to provide specific data at
+     * the end of a row
+     * @return empty String in the default implementation
+     */
+    public String finishRow()
+    {
+        return "";
+    }
 
-	/**
-	 * Returns the currentRowObject.
-	 * @return Object
-	 */
-	public Object getCurrentRowObject()
-	{
-		return mCurrentRowObject;
-	}
+    /**
+     * Method called at the end of evaluation. Can be subclassed to eventully clean up
+     * data. Always remember to also call super.finish()!
+     */
+    public void finish()
+    {
+        currentRowObject = null;
+        super.finish();
+    }
 
 }
