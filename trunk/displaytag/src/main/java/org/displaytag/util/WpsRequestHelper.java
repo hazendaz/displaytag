@@ -10,9 +10,10 @@ import org.apache.jetspeed.portlet.PortletURI;
 
 
 /**
- * RequestHelper which will work in Websphere Portal Server 4.2 (tested on 4.2.1, will probably not work in versions
- * 4.1.x). Simply overrides the standard getHref() method to return an URL generated from calling
- * portletRequest.getPortletURI().
+ * RequestHelper which will work in Websphere Portal Server 4.2 (tested on 4.2.1, should work also in versions 4.x).
+ * Simply overrides the standard getHref() method to return an URL generated from calling
+ * portletRequest.getPortletURI(). Note you need to add the portletAPI:init tag before any displaytag tag to make this
+ * working.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -23,6 +24,11 @@ public class WpsRequestHelper extends DefaultRequestHelper
      * Action name added to the portlet URI.
      */
     private static final String REFRESH_ACTION = "refresh";
+
+    /**
+     * Page context attribute containing the portlet response object.
+     */
+    private static final String PORTLET_RESPONSE = "portletResponse";
 
     /**
      * jsp page context.
@@ -79,15 +85,60 @@ public class WpsRequestHelper extends DefaultRequestHelper
      */
     public PortletURI getPortletURI()
     {
-        PortletURI portletURI;
-
-        // HttpResponse can be casted directly to PortletResponse in WPS 4.2.1
-        PortletResponse portletResponse = (PortletResponse) this.pageContext.getResponse();
+        PortletResponse portletResponse = getPortletResponse();
 
         // initialize a new PortletURI
-        portletURI = portletResponse.createURI();
+        PortletURI portletURI = portletResponse.createURI();
 
         return portletURI;
     }
 
+    /**
+     * Find the portlet response.
+     * @return a PortletResponse instance
+     */
+    protected PortletResponse getPortletResponse()
+    {
+
+        // esiste già nel pageContext la PortletResponse?
+        PortletResponse portletResponse = (PortletResponse) pageContext.getAttribute(PORTLET_RESPONSE);
+
+        // this will allow to obtain directly the portlet request using jetspeed internal APIs
+        // it's more "fail safe" than expecting the portlet response directly in the page context, but it's not
+        // officially supported. To compile these lines you also need jetspeed PORTAL classes in the classpath
+
+        // if (portletResponse == null)
+        // {
+        //  portletResponse = (PortletResponse) ThreadAttributesManager
+        //      .getAttribute("org.apache.jetspeed.portletcontainer.portlet.response");
+        //  // sped up next calls
+        //  pageContext.setAttribute(PORTLET_RESPONSE, portletResponse);
+        //}
+
+        if (portletResponse == null)
+        {
+            throw new RuntimeWpsSupportException();
+        }
+
+        return portletResponse;
+    }
+
+    /**
+     * Simple runtime exception to inform the user about the missing &lt;portletAPI:init> tag.
+     * @author fgiust
+     * @version $Revision$ ($Author$)
+     */
+    public class RuntimeWpsSupportException extends RuntimeException
+    {
+
+        /**
+         * Portlet response couldn't be found.
+         */
+        public RuntimeWpsSupportException()
+        {
+            super("Portlet response couldn't be found. "
+                + "Be sure to have the portletAPI:init tag at the beginning of the page");
+        }
+
+    }
 }
