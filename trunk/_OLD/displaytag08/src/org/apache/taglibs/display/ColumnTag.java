@@ -120,7 +120,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  *                    can mouseover the elipse to get the full text. (optional)
  *
  *   titleColSpan    - the number of columns that the title should span. Default is 1.
- *
+ *</pre></p>
  */
 public class ColumnTag extends BodyTagSupport implements Cloneable {
     private String property;
