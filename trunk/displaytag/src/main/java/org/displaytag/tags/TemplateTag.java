@@ -11,7 +11,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import org.displaytag.util.LookupUtil;
 
 /**
- * <p>Base template class</p>
+ * Base template class
  * @author bgsmith
  * @version $Revision$ ($Author$)
  */
@@ -20,15 +20,15 @@ public abstract class TemplateTag extends BodyTagSupport
 
     /**
      * Utility method. Write a string to the default out
-     * @param pString String
+     * @param string String
      * @throws JspTagException if an IOException occurs
      */
-    public void write(String pString) throws JspTagException
+    public void write(String string) throws JspTagException
     {
         try
         {
-            JspWriter lOut = pageContext.getOut();
-            lOut.write(pString);
+            JspWriter out = pageContext.getOut();
+            out.write(string);
         }
         catch (IOException e)
         {
@@ -38,12 +38,12 @@ public abstract class TemplateTag extends BodyTagSupport
 
     /**
      * Utility method. Write a string to the default out
-     * @param pString StringBuffer
+     * @param buffer StringBuffer
      * @throws JspTagException if an IOException occurs
      */
-    public void write(StringBuffer pString) throws JspTagException
+    public void write(StringBuffer buffer) throws JspTagException
     {
-        this.write(pString.toString());
+        this.write(buffer.toString());
     }
 
     /**
@@ -57,44 +57,44 @@ public abstract class TemplateTag extends BodyTagSupport
      * </ul>
      * <p>Tokens after the object name are interpreted as javabean properties (accessed through getters), mapped or
      * indexed properties, using the jakarta common-beans library</p>
-     * @param pExpression expression to evaluate
+     * @param expression expression to evaluate
      * @return Object result
      * @throws JspException generic exception
      */
-    protected Object evaluateExpression(String pExpression) throws JspException
+    protected Object evaluateExpression(String expression) throws JspException
     {
 
-        String lExpression = pExpression;
+        String expressionWithoutScope = expression;
 
         // default scope = request
         // this is for compatibility with the previous version, probably default should be PAGE
-        int lScope = PageContext.REQUEST_SCOPE;
+        int scope = PageContext.REQUEST_SCOPE;
 
-        if (pExpression.startsWith("pageScope."))
+        if (expression.startsWith("pageScope."))
         {
-            lScope = PageContext.PAGE_SCOPE;
-            lExpression = lExpression.substring(lExpression.indexOf('.') + 1);
+            scope = PageContext.PAGE_SCOPE;
+            expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
         }
-        else if (pExpression.startsWith("requestScope."))
+        else if (expression.startsWith("requestScope."))
         {
-            lScope = PageContext.REQUEST_SCOPE;
-            lExpression = lExpression.substring(lExpression.indexOf('.') + 1);
-
-        }
-        else if (pExpression.startsWith("sessionScope."))
-        {
-            lScope = PageContext.SESSION_SCOPE;
-            lExpression = lExpression.substring(lExpression.indexOf('.') + 1);
+            scope = PageContext.REQUEST_SCOPE;
+            expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
 
         }
-        else if (pExpression.startsWith("applicationScope."))
+        else if (expression.startsWith("sessionScope."))
         {
-            lScope = PageContext.APPLICATION_SCOPE;
-            lExpression = lExpression.substring(lExpression.indexOf('.') + 1);
+            scope = PageContext.SESSION_SCOPE;
+            expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
+
+        }
+        else if (expression.startsWith("applicationScope."))
+        {
+            scope = PageContext.APPLICATION_SCOPE;
+            expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
 
         }
 
-        return LookupUtil.getBeanValue(pageContext, lExpression, lScope);
+        return LookupUtil.getBeanValue(pageContext, expressionWithoutScope, scope);
 
     }
 
