@@ -289,7 +289,7 @@ public abstract class BaseExportView implements TextExportView
     }
 
     /**
-     * @see org.displaytag.export.ExportView#outputPage()
+     * @see org.displaytag.export.TextExportView#outputPage()
      */
     public boolean outputPage()
     {

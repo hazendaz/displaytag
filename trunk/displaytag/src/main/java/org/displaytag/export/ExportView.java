@@ -30,11 +30,4 @@ public interface ExportView
      */
     String getMimeType();
 
-    /**
-     * If <code>true</code> exported data will be included in the html page. <strong>actually not evaluated. Included
-     * for future enhancements </strong>
-     * @return <code>true</code> if exported data should be included in the html page
-     */
-    boolean outputPage();
-
 }
