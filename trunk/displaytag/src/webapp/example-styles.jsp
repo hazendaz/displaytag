@@ -72,7 +72,7 @@
 
 <p class="changed">
 	Note: the attribute <code>styleClass</code> used for the &lt;table&gt; and  &lt;column&gt; tag 
-	in previous version of the taglibrary is deprecated in favour of the standard html <code>class</code> attribute
+	in previous version of the taglibrary is deprecated in favor of the standard html <code>class</code> attribute.
 </p>
 
 
@@ -82,10 +82,10 @@
 
 <p>
 	While attributes might be the most comfortable way to change the appearance
-	of your table, using style sheets are more powerful.  We use style sheets to
-	make the header a dark color, make the rows alternate color, and set the fonts
+	of your table, using style sheets is more powerful.  We use style sheets to
+	make the header a dark color, make rows an alternate color, and set the fonts
 	within the cells to a smaller version of verdana.  As the &lt;display:table&gt;
-	tag is drawing it assigns the following class names to elements.
+	tag is drawing, it assigns the following class names to elements.
 </p>
 
 <p>
@@ -95,13 +95,14 @@
 </p>
 
 <p class="changed">
-	Starting from version 0.9 the &lt;display:table&gt; tag produce good html tables with 
-	&lt;thead&gt; and &lt;tbody&gt; sections. This makes useless the definition of few styles
+	Beginning with the version 0.9 the &lt;display:table&gt; tag, the taglibrary produces
+	well formed html tables with 	&lt;thead&gt; and &lt;tbody&gt; sections. 
+	This renders useless the definition of few styles
 	used in previous versions. See the @deprecated paragraph at the bottom of the page for details
 </p>
 
 <p class="changed">
- 	New styles are added for sorted columns and display of pagination
+ 	New styles are added for sorted columns and pagination display 
 	is handled by properties.
 </p>
 
@@ -192,17 +193,17 @@
 			<td>assigned to the td tag of all header cells</td>
 			<td>
 				Assign a style to <code>thead th</code> element, you don't need a class. 
-				If you want this style to be applied only to the &lt;display:table&gt; simply add a class or id
-				to the table tag and create a children rule in css like <code>table.myclass thead th {color:red;}</code>
+				If you want this style to be applied only to the &lt;display:table&gt;, simply add a class or id
+				to the table tag and create a parent.child rule in css like <code>table.myclass tbody th {color:red;}</code>
 			</td>
 		</tr>
 		<tr>
 			<td>tableCell</td>
 			<td>assigned to the td tag of all data cells</td>
 			<td>
-				Assign a style to <code>tbody td</code> element, you don't need a class.
-				If you want this style to be applied only to the &lt;display:table&gt; simply add a class or id
-				to the table tag and create a children rule in css like <code>table.myclass tbody td {color:red;}</code>
+				Assign a style to <code>tbody td</code> element. You don't need a class.
+				If you want this style to be applied only to the &lt;display:table&gt;, simply add a class or id
+				to the table tag and create a parent.child rule in css like <code>table.myclass tbody td {color:red;}</code>
 			</td>
 		</tr>
 	</tbody>
