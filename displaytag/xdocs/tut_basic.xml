@@ -61,7 +61,7 @@
       row.
     </p>
     
-    <p class="changed">
+    <p>
       You can define the content of a column by adding a <code>property</code> attribute
       to the column tag or adding a content to the tag.
     </p>
@@ -70,15 +70,18 @@
       <li><![CDATA[<display:column property="email" />]]></li>
       <li><![CDATA[<display:column title="email">email@it.com</display:column>]]></li>
     </ul>
-    
-    <p class="changed">
+
+    <p>
       There are two ways to define the content of a column. Of course, in the tag body
       you can use scriptlets or other custom tags.
       Using the <code>property</code> attribute to define the content of a column is
       usually faster and works better with sorting. If you add a <code>property</code>
       attribute the tag body is ignored.
     </p>
-    
+    <p>
+      Adding content in the column body you can easily concatenate or "decorate" fields available in objects in the list.
+			See the <a href="tut_implicitobjects.html">implicit objects</a> chapter for more details.
+    </p>
     <p>
       The <code>property</code> attribute specifies what <code>getXXX</code> method is 
       called on each item in the list.  
