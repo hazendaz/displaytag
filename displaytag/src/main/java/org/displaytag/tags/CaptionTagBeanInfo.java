@@ -22,7 +22,6 @@ import java.util.List;
  * Needed to make the "class" tag attribute working.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
- * @see org.displaytag.util.BeanInfoUtil
  */
 public class CaptionTagBeanInfo extends SimpleBeanInfo
 {
