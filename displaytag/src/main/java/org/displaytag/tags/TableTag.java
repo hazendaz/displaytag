@@ -341,7 +341,7 @@ public class TableTag extends HtmlTableTag
     {
         if (value instanceof String)
         {
-            // ok, assuming thi is the name of the object
+            // ok, assuming this is the name of the object
             this.name = (String) value;
         }
         else
@@ -349,6 +349,16 @@ public class TableTag extends HtmlTableTag
             // is this the list?
             this.list = value;
         }
+    }
+
+    /**
+     * Sets the name of the object to use for iteration. This setter is needed for jsp 1.1 container which doesn't
+     * support the String - Object conversion. The bean info class will swith to this setter.
+     * @param value name of the object
+     */
+    public void setNameString(String value)
+    {
+        this.name = value;
     }
 
     /**
