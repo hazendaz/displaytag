@@ -124,6 +124,16 @@
       </roles>
       <timezone />
     </developer>
+     <developer>
+        <name>Andy Pruitt</name>
+        <id>rapruitt</id>
+        <email>rapruitt AT users.sourceforge.net</email>
+        <organization>Sourceforge</organization>
+        <roles>
+          <role>Java Developer</role>
+        </roles>
+        <timezone>-6</timezone>
+      </developer>
   </developers>
 
   <contributors>
