@@ -346,7 +346,7 @@
         <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
         <unitTest>
             <includes>
-                <include>**/*Test.java</include>
+                <include>**/TestAll.java</include>
             </includes>
             <resources>
                 <resource>
