@@ -14,6 +14,20 @@
 					source distribution and recompile it using java 1.3
 				</p>
 			</answer>
+			
+		</faq>
+
+		<faq id="capitalize">
+			<question>Displaytag doesn't work, I get the following error: <code>java.lang.NoSuchMethodError:
+org.apache.commons.lang.StringUtils.capitalize(Ljava/lang/String;)Ljava/lang/String;</code></question>
+			<answer>
+				<p>
+					Displaytag needs commons-lang 2.0, the capitali<strong>z</strong>e method is not present in 1.0.
+					If you get this error the application is loading commmons-lang 1.0. Check you have the correct 
+					version in your webapp and that you don't have older versions in your appserver classpath.
+				</p>
+			</answer>
+			
 		</faq>
 
 	</part>
