@@ -2,8 +2,9 @@ package org.displaytag.properties;
 
 import java.util.Iterator;
 
-import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.collections.iterators.ArrayIterator;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
 
 /**
  * Enumeration for sort order.
@@ -26,7 +27,7 @@ public final class SortOrderEnum
     /**
      * array containing all the export types.
      */
-    public static final SortOrderEnum[] ALL = { DESCENDING, ASCENDING };
+    public static final SortOrderEnum[] ALL = {DESCENDING, ASCENDING};
 
     /**
      * Code; this is the primary key for these objects.
@@ -126,7 +127,7 @@ public final class SortOrderEnum
      */
     public static Iterator iterator()
     {
-        return IteratorUtils.arrayIterator(ALL);
+        return new ArrayIterator(ALL);
     }
 
     /**
