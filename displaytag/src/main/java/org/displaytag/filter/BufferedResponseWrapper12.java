@@ -204,6 +204,15 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
     // -- standard methods --
 
     /**
+     * Not available in servlets 2.2. Needed to compile with servlets 2.3.
+     * @see javax.servlet.ServletResponse#resetBuffer()
+     */
+    public void resetBuffer()
+    {
+        // not available in servlets 2.2
+    }
+
+    /**
      * @see javax.servlet.ServletResponse#getCharacterEncoding()
      */
     public String getCharacterEncoding()
@@ -249,14 +258,6 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
     public void reset()
     {
         response.reset();
-    }
-
-    /**
-     * @see javax.servlet.ServletResponse#resetBuffer()
-     */
-    public void resetBuffer()
-    {
-        response.resetBuffer();
     }
 
     /**
