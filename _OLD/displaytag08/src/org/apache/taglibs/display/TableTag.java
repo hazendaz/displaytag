@@ -736,7 +736,7 @@ public class TableTag extends TemplateTag {
             // tag, and just clicked on a column, then reset their page number
             HttpServletRequest req = (HttpServletRequest) this.pageContext.getRequest();
             if (req.getParameter("sort") != null) {
-                if (!prop.getProperty("sort.behavior").equalsIgnoreCase("page")) {
+                if (!prop.getProperty("sort.behavior").equalsIgnoreCase("page") && req.getParameter("page") == null) {
                     this.pageNumber = 1;
                 }
             }
@@ -1348,20 +1348,17 @@ public class TableTag extends TemplateTag {
         int pagesizeValue = this.getPagesizeValue();
 
         HttpServletRequest req = (HttpServletRequest) this.pageContext.getRequest();
-        String url = this.requestURI;
-        if (url == null) {
-            url = req.getRequestURI();
-        }
-//      url += req.getQueryString();
+        String url = this.requestURI == null ?
+            req.getRequestURI() : this.requestURI;
 
-        // flag to determine if we should use a ? or a &
-        int index = url.indexOf('?');
-        String separator = "";
-        if (index == -1) {
-            separator = "?";
+        String separator = url.indexOf('?') == -1 ? "?" : "&";
+
+        StringBuffer pagingUrl = new StringBuffer(url).append(separator);
+        if(this.sortColumn > -1) {
+            pagingUrl.append("sort=").append(this.sortColumn).append("&");
         }
-        else {
-            separator = "&";
+        if(req.getParameter("order")!=null) {
+            pagingUrl.append("order=").append((this.sortOrder == TableTag.SORT_ORDER_ASCEENDING ?"asc":"dec")).append("&");
         }
 
         buf.append("<table");
@@ -1384,7 +1381,7 @@ public class TableTag extends TemplateTag {
             buf.append("</td>\n");
             buf.append("<td valign=\"bottom\" align=\"right\" class=\"");
             buf.append("tableCellAction\">\n");
-            buf.append(helper.getPageNavigationBar(url + separator + "page={0,number,#}"));
+            buf.append(helper.getPageNavigationBar(pagingUrl.append("&page={0,number,#}").toString()));
             buf.append("</td>\n</tr></table></td></tr>\n");
         }
 
