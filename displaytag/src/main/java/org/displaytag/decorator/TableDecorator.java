@@ -67,20 +67,20 @@ public abstract class TableDecorator extends Decorator
 
     /**
      * Called at the beginning of a row. Can be subclassed to provide specific data at the beginning of a row
-     * @return empty String in the default implementation
+     * @return null in the default implementation
      */
     public String startRow()
     {
-        return "";
+        return null;
     }
 
     /**
      * Called at the end of a row. Can be subclassed to provide specific data at the end of a row
-     * @return empty String in the default implementation
+     * @return null in the default implementation
      */
     public String finishRow()
     {
-        return "";
+        return null;
     }
 
     /**
