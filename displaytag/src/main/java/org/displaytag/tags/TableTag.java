@@ -1,5 +1,6 @@
 package org.displaytag.tags;
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -991,9 +992,9 @@ public class TableTag extends HtmlTableTag
      * @param mimeType mime type to set in the response
      * @param exportString String
      * @return int
-     * @throws JspException if errors writing to out
+     * @throws IOException for errors in resetting the response or in writing to out
      */
-    protected int writeExport(String mimeType, String exportString) throws JspException
+    protected int writeExport(String mimeType, String exportString) throws IOException
     {
         ServletResponse response = this.pageContext.getResponse();
         JspWriter out = this.pageContext.getOut();
@@ -1012,18 +1013,10 @@ public class TableTag extends HtmlTableTag
         }
         else
         {
-            try
-            {
-                out.clear();
-                response.setContentType(mimeType);
-                out.write(exportString);
-                out.flush();
-            }
-            catch (Exception ex)
-            {
-                log.error(ex.getMessage(), ex);
-                throw new JspException(ex.getMessage());
-            }
+            out.clear();
+            response.setContentType(mimeType);
+            out.write(exportString);
+            out.flush();
         }
 
         return SKIP_PAGE;
