@@ -11,6 +11,14 @@
   <body>
   	
   	<release version="1.0-b3" date="in CVS" description="">
+      <action type="add" dev="mraible" due-to="Matt Raible">
+        Thanks to Tim McCune, I added Expression Support ala JSTL.  To use it, just specify your taglib URI to be 
+        http://jakarta.apache.org/taglibs/display-el.  As part of this enhancement, I added
+        (to the EL taglib only) a "titleKey" and "url" attribute.  The titleKey attribute
+        will lookup it's value as a key in a JSTL bundle (declared using the &lt;fmt:bundle 
+        tag or in your web.xml).  The url attribute is an enhancement to the "href" attribute
+        which prepends the contextPath.  
+      </action>
       <action type="fix" dev="rapruitt" due-to="Andy Pruitt">
 	    The export filter introduced in b2 has been modified to avoid errors in Websphere 4 (or in any j2ee 1.2 containers,
 	    where the filter can't be used).
