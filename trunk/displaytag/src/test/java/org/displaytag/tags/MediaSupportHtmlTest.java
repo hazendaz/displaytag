@@ -9,7 +9,6 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-
 /**
  * Tests for "media" attribute support.
  * @author Fabrizio Giustina
@@ -47,7 +46,10 @@ public class MediaSupportHtmlTest extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
-        log.debug("RESPONSE: " + response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug("RESPONSE: " + response.getText());
+        }
 
         WebTable[] tables = response.getTables();
 

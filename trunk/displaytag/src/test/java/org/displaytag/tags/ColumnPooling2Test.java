@@ -8,7 +8,6 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-
 /**
  * Tests for column pooling in tomcat.
  * @author Fabrizio Giustina
@@ -45,7 +44,10 @@ public class ColumnPooling2Test extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
-        log.debug(response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug(response.getText());
+        }
 
         WebTable[] tables = response.getTables();
         assertEquals("Expected one table", 1, tables.length);

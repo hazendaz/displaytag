@@ -7,7 +7,6 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-
 /**
  * Tests with a null list.
  * @author Fabrizio Giustina

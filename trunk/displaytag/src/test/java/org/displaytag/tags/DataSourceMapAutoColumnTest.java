@@ -9,7 +9,6 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-
 /**
  * Tests for different kind of "data sources".
  * @author Fabrizio Giustina
@@ -47,7 +46,10 @@ public class DataSourceMapAutoColumnTest extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
-        log.debug("RESPONSE: " + response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug("RESPONSE: " + response.getText());
+        }
 
         WebTable[] tables = response.getTables();
 
@@ -61,7 +63,6 @@ public class DataSourceMapAutoColumnTest extends DisplaytagCase
             .capitalize(KnownValue.BEE));
         assertEquals("Bad value in column header.", tables[0].getCellAsText(0, 2), StringUtils
             .capitalize(KnownValue.CAMEL));
-
 
         assertEquals("Bad value in column content.", tables[0].getCellAsText(1, 0), KnownValue.ANT);
         assertEquals("Bad value in column content.", tables[0].getCellAsText(1, 1), KnownValue.BEE);

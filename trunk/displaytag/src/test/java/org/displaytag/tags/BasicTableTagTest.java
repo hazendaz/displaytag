@@ -7,7 +7,6 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-
 /**
  * Tests for basic displaytag functionalities.
  * @author Fabrizio Giustina
@@ -33,7 +32,6 @@ public class BasicTableTagTest extends DisplaytagCase
         return "autocolumns.jsp";
     }
 
-
     /**
      * Verifies that the generated page contains a table with the expected number of columns.
      * @param jspName jsp name, with full path
@@ -46,7 +44,10 @@ public class BasicTableTagTest extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
-        log.debug("RESPONSE: " + response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug("RESPONSE: " + response.getText());
+        }
 
         WebTable[] tables = response.getTables();
 

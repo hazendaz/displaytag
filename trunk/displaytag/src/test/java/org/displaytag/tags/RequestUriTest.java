@@ -8,7 +8,6 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-
 /**
  * Tests for requestUri column attribute.
  * @author Fabrizio Giustina
@@ -44,7 +43,10 @@ public class RequestUriTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(jspName);
 
         WebResponse response = runner.getResponse(request);
-        log.debug(response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug(response.getText());
+        }
 
         WebTable[] tables = response.getTables();
         assertEquals("Expected one table in result.", 1, tables.length);
