@@ -20,64 +20,64 @@ import java.util.ArrayList;
  * ListObjects.
  **/
 
-public class TestList extends ArrayList
-{
-   /**
-    * Creats a TestList that is filled with 60 ListObjects suitable for testing
-    */
+public class TestList extends ArrayList {
+    /**
+     * Creats a TestList that is filled with 60 ListObjects suitable for testing
+     */
 
-   public TestList() {
-      super();
+    public TestList() {
+        super();
 
-      for( int i = 0; i < 60; i++ ) {
-         this.add( new ListObject() );
-      }
-   }
+        for (int i = 0; i < 60; i++) {
+            this.add(new ListObject());
+        }
+    }
 
-   /**
-    * Creates a TestList that is filled with [size] ListObjects suitable for
-    * testing.
-    */
+    /**
+     * Creates a TestList that is filled with [size] ListObjects suitable for
+     * testing.
+     */
 
-   public TestList( int size ) {
-      super();
+    public TestList(int size) {
+        super();
 
-      for( int i = 0; i < size; i++ ) {
-         this.add( new ListObject() );
-      }
-   }
+        for (int i = 0; i < size; i++) {
+            this.add(new ListObject());
+        }
+    }
 
-   public TestList ( boolean duplicates , int size ) {
-	   super();
-	   // generate a random number between 1 and 3 and duplicate that many number of times.
-	   	
-		for( int i = 0; i < size; i++ ) {
-			 
-			 ListObject l1 = new ListObject();
-			 ListObject l2 = new ListObject();
-			 ListObject l3 = new ListObject();
+    public TestList(boolean duplicates, int size) {
+        super();
+        // generate a random number between 1 and 3 and duplicate that many number of times.
 
-			 int random = new java.util.Random().nextInt ( 3 );
-			 for( int k = 0 ; k <= random ; k++ ) {
-			   this.add( l1 );
+        for (int i = 0; i < size; i++) {
 
-			 }
-			 
-			 l1.setID ( l2.getId () );
-			 			 
-			 random = new java.util.Random().nextInt ( 3 );
-			 for( int k = 0 ; k <= random ; k++ ) {
-			   this.add( l1 );this.add( l2 );
+            ListObject l1 = new ListObject();
+            ListObject l2 = new ListObject();
+            ListObject l3 = new ListObject();
 
-			 }			 
-			 
-			 l1.setEmail ( l3.getEmail() );
-			 
-			 random = new java.util.Random().nextInt ( 3 );
-			 for( int k = 0 ; k <= random ; k++ ) {
-				this.add( l1 );
-			 }
-	     }   
-   }
+            int random = new java.util.Random().nextInt(3);
+            for (int k = 0; k <= random; k++) {
+                this.add(l1);
+
+            }
+
+            l1.setID(l2.getId());
+
+            random = new java.util.Random().nextInt(3);
+            for (int k = 0; k <= random; k++) {
+                this.add(l1);
+                this.add(l2);
+
+            }
+
+            l1.setEmail(l3.getEmail());
+
+            random = new java.util.Random().nextInt(3);
+            for (int k = 0; k <= random; k++) {
+                this.add(l1);
+            }
+        }
+    }
 
 }
