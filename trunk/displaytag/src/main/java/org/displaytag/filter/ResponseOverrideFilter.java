@@ -1,7 +1,6 @@
 package org.displaytag.filter;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -51,7 +50,6 @@ import org.displaytag.tags.TableTagParameters;
  * @author rapruitt
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
- * @since 1.0
  */
 public class ResponseOverrideFilter implements Filter
 {
@@ -62,11 +60,20 @@ public class ResponseOverrideFilter implements Filter
     private Log log;
 
     /**
+     * Force response buffering.
+     */
+    private boolean buffer;
+
+    /**
      * {@inheritDoc}
      */
     public void init(FilterConfig filterConfig)
     {
         log = LogFactory.getLog(ResponseOverrideFilter.class);
+        String bufferParam = filterConfig.getInitParameter("buffer");
+        buffer = StringUtils.isNotEmpty(bufferParam) && !"false".equals(bufferParam);
+
+        log.info("Filter initialized. Forced buffering is " + (buffer ? "enabled" : "disabled"));
     }
 
     /**
@@ -89,53 +96,13 @@ public class ResponseOverrideFilter implements Filter
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-        BufferedResponseWrapper wrapper = new BufferedResponseWrapper((HttpServletResponse) servletResponse);
+        BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl((HttpServletResponse) servletResponse);
 
         request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, Boolean.TRUE);
 
         filterChain.doFilter(request, wrapper);
 
-        if (wrapper.isOutRequested())
-        {
-            // data already written
-            log.debug("Everything done, exiting");
-            return;
-        }
-
-        // if you reach this point the PARAMETER_EXPORTING has been found, but the special header has never been set in
-        // response (this is the signal from table tag that it is going to write exported data)
-        log.debug("Something went wrong, displaytag never requested writer as expected.");
-
-        String pageContent;
-        String contentType;
-
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
-        String characterEncoding = resp.getCharacterEncoding();
-        if (characterEncoding != null)
-        {
-            characterEncoding = "; charset=" + characterEncoding; //$NON-NLS-1$
-        }
-        log.debug(Messages.getString("ResponseOverrideFilter.notoverriding")); //$NON-NLS-1$
-        pageContent = wrapper.toString();
-        contentType = wrapper.getContentType();
-
-        if (contentType != null)
-        {
-            if (contentType.indexOf("charset") > -1) //$NON-NLS-1$
-            {
-                // charset is already specified (see #921811)
-                servletResponse.setContentType(contentType);
-            }
-            else
-            {
-                servletResponse.setContentType(contentType + StringUtils.defaultString(characterEncoding));
-            }
-        }
-        servletResponse.setContentLength(pageContent.length());
-
-        PrintWriter out = servletResponse.getWriter();
-        out.write(pageContent);
-        out.close();
+        ExportDelegate.writeExport(wrapper, servletResponse);
     }
 
     /**

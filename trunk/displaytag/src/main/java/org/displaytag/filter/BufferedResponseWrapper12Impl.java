@@ -17,22 +17,19 @@ import org.displaytag.tags.TableTagParameters;
 
 
 /**
- * Buffers the response; will not send anything directly through to the actual response. Note that this blocks the
- * content-type from being set, you must set it manually in the response. For a given response, you should call either
- * #getWriter or #getOutputStream , but not both. J2ee 1.3 free implementation.
+ * J2ee 1.2 implementation of BufferedResponseWrapper..
  * @author rapruitt
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
- * @since 1.0
  */
-public class BufferedResponseWrapper12 implements HttpServletResponse // don't extend j2ee 1.3
+public class BufferedResponseWrapper12Impl implements BufferedResponseWrapper // don't extend j2ee 1.3
 // HttpServletResponseWrapper
 {
 
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(BufferedResponseWrapper12.class);
+    private static Log log = LogFactory.getLog(BufferedResponseWrapper12Impl.class);
 
     /**
      * The buffered response.
@@ -67,7 +64,7 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
     /**
      * @param httpServletResponse the response to wrap
      */
-    public BufferedResponseWrapper12(HttpServletResponse httpServletResponse)
+    public BufferedResponseWrapper12Impl(HttpServletResponse httpServletResponse)
     {
         this.response = httpServletResponse;
         this.outputWriter = new CharArrayWriter();
@@ -84,9 +81,7 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
     }
 
     /**
-     * If the app server sets the content-type of the response, it is sticky and you will not be able to change it.
-     * Therefore it is intercepted here.
-     * @return the ContentType that was most recently set
+     * @see org.displaytag.filter.BufferedResponseWrapper#getContentType()
      */
     public String getContentType()
     {
@@ -184,19 +179,17 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
     }
 
     /**
-     * Return <code>true</code> if ServletOutputStream has been requested from Table tag.
-     * @return <code>true</code> if ServletOutputStream has been requested
+     * @see org.displaytag.filter.BufferedResponseWrapper#isOutRequested()
      */
-    protected boolean isOutRequested()
+    public boolean isOutRequested()
     {
         return this.outRequested;
     }
 
     /**
-     * Get the String representation.
-     * @return the contents of the response
+     * @see org.displaytag.filter.BufferedResponseWrapper#getContentAsString()
      */
-    public String toString()
+    public String getContentAsString()
     {
         return this.outputWriter.toString() + this.servletOutputStream.toString();
     }
