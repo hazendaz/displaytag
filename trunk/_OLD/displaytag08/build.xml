@@ -27,6 +27,7 @@
    <property name="tar.user" value="ant"/>
    <property name="tar.group" value="ant"/>
    <property name="tar.mode" value="644"/>
+   <property environment="env"/>
 
    <!-- Make sure the user has pointed us at good copies of the .jar files -->
    <!-- that we are dependent on                                           -->
@@ -89,9 +90,9 @@
       -->
       <antcall target="site" />
 
-      <copy tofile="C:/JRun/servers/default/deploy/display-examples-${version}.war" file="dist/display-examples.war"/>
-      <copy tofile="C:/JRun/servers/default/deploy/display-docs-${version}.war" file="dist/display-doc.war"/>
-      <copy tofile="C:/JRun/servers/default/deploy/display-${version}.war" file="dist/display-site.war"/>
+      <copy tofile="${env.CATALINA_HOME}/webapps/display-examples-${version}.war" file="dist/display-examples.war"/>
+      <copy tofile="${env.CATALINA_HOME}/webapps/display-docs-${version}.war" file="dist/display-doc.war"/>
+      <copy tofile="${env.CATALINA_HOME}/webapps/display-${version}.war" file="dist/display-site.war"/>
    </target>
 
    <!-- =================================================================== -->
