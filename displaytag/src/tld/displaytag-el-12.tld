@@ -63,7 +63,8 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <description>reference to the object used as source for the table. Can be an expression like
-               requestScope.object.property. You need to define name or list. List is suggested.
+               requestScope.object.property. In the EL version of the taglibrary this must be an EL expression which
+               points to the source object.
         </description>
     </attribute>
     <attribute>
