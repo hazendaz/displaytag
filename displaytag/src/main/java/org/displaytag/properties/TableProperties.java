@@ -173,7 +173,7 @@ public class TableProperties
      * css class is added.
      */
     public static final String PROPERTY_CSS_TABLE = "css.table";
-
+    
     /**
      * property <code>css.th.sortable</code>: holds the name of the css class added to the the header of a sortable
      * column. By default no css class is added.
@@ -185,6 +185,18 @@ public class TableProperties
      * column. Defaults to <code>sorted</code>.
      */
     public static final String PROPERTY_CSS_TH_SORTED = "css.th.sorted";
+
+    /**
+     * property <code>css.th.ascending</code>: holds the name of the css class added to the the header of a column
+     * sorted in ascending order. Defaults to <code>order1</code>.
+     */
+    public static final String PROPERTY_CSS_TH_SORTED_ASCENDING = "css.th.ascending";
+    
+    /**
+     * property <code>css.th.descending</code>: holds the name of the css class added to the the header of a column
+     * sorted in descending order. Defaults to <code>order2</code>.
+     */
+    public static final String PROPERTY_CSS_TH_SORTED_DESCENDING = "css.th.descending";
 
     /**
      * prefix used for all the properties related to export ("export"). The full property name is <code>export.</code>
@@ -589,6 +601,24 @@ public class TableProperties
         else
         {
             return getProperty(PROPERTY_CSS_TR_EVEN);            
+        }
+    }
+
+    /**
+     * Returns the appropriate css class for a sorted column header.
+     * @param ascending <code>true</code> if column is sorded in ascending order.
+     * @return the value of <code>PROPERTY_CSS_TH_SORTED_ASCENDING</code> if column is sorded in ascending order or
+     * <code>PROPERTY_CSS_TH_SORTED_DESCENDING</code> if column is sorded in descending order.
+     */
+    public String getCssOrder(boolean ascending)
+    {
+        if (ascending)
+        {    
+            return getProperty(PROPERTY_CSS_TH_SORTED_ASCENDING);
+        }
+        else
+        {
+            return getProperty(PROPERTY_CSS_TH_SORTED_DESCENDING);            
         }
     }
     
