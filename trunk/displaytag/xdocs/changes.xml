@@ -22,6 +22,10 @@
                 Performance optimization: reduce the use of temporary StringBuffers while building the html table.
             </action>
             <action type="fix" dev="fgiust" issue="DISPL-148">Sporadic error with factory.requestHelper.</action>
+            <action type="add" dev="fgiust" issue="DISPL-144">
+                DisplayTag is now able to load displaytag.properties from a different classloader (allows displaytag.jar
+                to be placed in appserver shared libs).
+            </action>
         </release>
         <release version="1.0-rc2" date="November 19, 2004 " description="Final 1.0 release candidate">
             <action type="fix" dev="fgiust" issue="962448">
