@@ -93,7 +93,7 @@ public class Column
         {
             object = this.cell.getStaticValue();
         }
-        else
+        else if (this.header.getBeanPropertyName() != null)
         {
             TableDecorator tableDecorator = this.row.getParentTable().getTableDecorator();
 
