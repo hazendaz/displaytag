@@ -266,48 +266,34 @@ public class SmartListHelper
      */
     public String getPageNavigationBar(Href baseHref, String pageParameter)
     {
-        int maxPages = 8;
 
-        maxPages = this.properties.getPagingGroupSize(maxPages);
-
-        int currentIndex = this.currentPage;
-        int count = this.pageCount;
+        int groupSize = this.properties.getPagingGroupSize();
         int startPage;
         int endPage;
 
         Pagination pagination = new Pagination(baseHref, pageParameter);
-        pagination.setCurrent(new Integer(currentIndex));
+        pagination.setCurrent(new Integer(this.currentPage));
 
         // if no items are found still add pagination?
-        if (count == 0)
+        if (this.pageCount == 0)
         {
             pagination.addPage(1, true);
         }
 
-        if (currentIndex < maxPages)
-        {
-            startPage = 1;
-            endPage = maxPages;
-            if (count < endPage)
-            {
-                endPage = count;
-            }
-        }
-        else
-        {
-            startPage = currentIndex;
-            while (startPage + maxPages > (count + 1))
-            {
-                startPage--;
-            }
+        // center the selected page, but only if there are {groupSize} pages available after it, and check that the
+        // result is not < 1
+        startPage = Math.max(Math.min(this.currentPage - groupSize / 2, this.pageCount - groupSize), 1);
+        endPage = Math.min(startPage + groupSize - 1, this.pageCount);
 
-            endPage = startPage + (maxPages - 1);
+        if (log.isDebugEnabled())
+        {
+            log.debug("Displaying pages from " + startPage + " to " + endPage);
         }
 
-        if (currentIndex != 1)
+        if (this.currentPage != 1)
         {
             pagination.setFirst(new Integer(1));
-            pagination.setPrevious(new Integer(currentIndex - 1));
+            pagination.setPrevious(new Integer(this.currentPage - 1));
         }
 
         for (int j = startPage; j <= endPage; j++)
@@ -316,13 +302,13 @@ public class SmartListHelper
             {
                 log.debug("adding page " + j); //$NON-NLS-1$
             }
-            pagination.addPage(j, (j == currentIndex));
+            pagination.addPage(j, (j == this.currentPage));
         }
 
-        if (currentIndex != count)
+        if (this.currentPage != this.pageCount)
         {
-            pagination.setNext(new Integer(currentIndex + 1));
-            pagination.setLast(new Integer(count));
+            pagination.setNext(new Integer(this.currentPage + 1));
+            pagination.setLast(new Integer(this.pageCount));
         }
 
         // format for previous/next banner
