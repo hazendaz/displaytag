@@ -82,8 +82,13 @@
                 <code>paging.banner.*_items_found</code>
                 .
             </action>
-            <action type="fix" dev="fgiust" issue="DISPL-4">Html tags in "title" attribute when using maxLength.</action>
+            <action type="fix" dev="fgiust" issue="DISPL-4">
+                Html tags in "title" attribute when using maxLength.
+            </action>
             <action type="fix" dev="fgiust" issue="DISPL-1">Autolink and maxlength problem.</action>
+            <action type="fix" dev="fgiust" issue="DISPL-73" due-to="Mikko Wilkman">
+                Unicode export with ResponseOverrideFilter fails because of improper content length setting.
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">

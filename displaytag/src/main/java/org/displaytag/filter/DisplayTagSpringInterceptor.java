@@ -1,11 +1,8 @@
 package org.displaytag.filter;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
@@ -71,55 +68,16 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
 
         HttpServletRequest request = servletRequest;
 
-        BufferedResponseWrapper12 wrapper = new BufferedResponseWrapper12(servletResponse);
+        BufferedResponseWrapper wrapper = new BufferedResponseWrapper12Impl(servletResponse);
 
         request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, Boolean.TRUE);
 
         HandlerAdapter handlerAdaptor = new SimpleControllerHandlerAdapter();
         handlerAdaptor.handle(request, wrapper, handler);
 
-        if (wrapper.isOutRequested())
-        {
-            // data already written
-            log.debug("Everything done, exiting");
-            return false;
-        }
+        ExportDelegate.writeExport(wrapper, servletResponse);
 
-        // if you reach this point the PARAMETER_EXPORTING has been found, but the special header has never been set in
-        // response (this is the signal from table tag that it is going to write exported data)
-        log.debug("Something went wrong, displaytag never requested writer as expected.");
-
-        String pageContent;
-        String contentType;
-
-        HttpServletResponse resp = servletResponse;
-        String characterEncoding = resp.getCharacterEncoding();
-        if (characterEncoding != null)
-        {
-            characterEncoding = "; charset=" + characterEncoding; //$NON-NLS-1$
-        }
-        log.debug(Messages.getString("DisplayTagInterceptor.notoverriding")); //$NON-NLS-1$
-        pageContent = wrapper.toString();
-        contentType = wrapper.getContentType();
-
-        if (contentType != null)
-        {
-            if (contentType.indexOf("charset") > -1) //$NON-NLS-1$
-            {
-                // charset is already specified (see #921811)
-                servletResponse.setContentType(contentType);
-            }
-            else
-            {
-                servletResponse.setContentType(contentType + StringUtils.defaultString(characterEncoding));
-            }
-        }
-        servletResponse.setContentLength(pageContent.length());
-
-        PrintWriter out = servletResponse.getWriter();
-        out.write(pageContent);
         return false;
-
     }
 
     /**
