@@ -9,6 +9,13 @@
   </properties>
 
   <body>
+  	
+  	<release version="1.0-b3" date="in CVS" description="">
+      <action type="fix" dev="rapruitt" due-to="Andy Pruitt">
+	    The export filter introduced in b2 has been modified to avoid errors in Websphere 4 (or in any j2ee 1.2 containers,
+	    where the filter can't be used).
+      </action>
+    </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
       <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
