@@ -1,0 +1,102 @@
+
+	body {
+		margin-top: 0px;
+		margin-left: 0px;
+		margin-right: 0px;
+		margin-bottom: 0px;
+		}
+	body, td, p {
+		font-family: verdana, sans-serif;
+		font-size: 12px;
+		}
+
+h1 {color: #000000; font-size: 18px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 15px;}
+
+h2 {color: #000000; font-size: 16px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 12px;}
+
+h3 {color: #000000; font-size: 14px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 10px;}
+
+.banner {color: #000000; font-size: 18px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 0px;}
+
+
+.header {color: #000000; font-size: 24px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 10px;}
+
+.boxtitle {color: #000000; font-size: 14px; font-family: verdana,arial,lucida
+console,sans-serif,monospace; font-weight: bold; text-decoration: none;}
+
+.boxsubtitle {color: #000000; font-size: 12px; font-family: verdana,arial,lucida
+console,sans-serif,monospace; font-weight: bold; text-decoration: none; }
+
+.boxtext {color: #000000; font-size: 11px; font-family: verdana,arial,lucida
+console,sans-serif,monospace; text-decoration: none;}
+
+.smalltext {color: #000000; font-size: 12px; font-family: verdana,arial,lucida
+console,sans-serif,monospace; text-decoration: none;}
+
+
+.footer {color: #000000; font-size: 11px; font-family: verdana,arial,lucida
+console,sans-serif,monospace; text-decoration: none; font-weight: normal;}
+
+.footerpipe {color: #000000; font-size: 10px; font-family: verdana,arial,lucida console,sans-serif,monospace; text-decoration: none; font-weight: normal;}
+
+A:link.greeting {color: blue; text-decoration: underline;}
+A:visited.greeting {color: blue; text-decoration: underline;}
+A:active.greeting {color: #FF3300; text-decoration: underline;}
+A:hover.greeting {color: #FF3300; text-decoration: underline;}
+
+.greeting {color: #000000; font-size: 11px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: normal; text-decoration: none; bottom-margin: 7px; top-margin: 7px; left-margin: 7px; right-margin: 7px}
+
+.greetingpipe {color: #000000; font-size: 10px; font-family: verdana,arial,lucida console,sans-serif,monospace; text-decoration: none; font-weight: normal; top-margin: 10px; left-margin: 7px; right-margin: 7px; bottom-margin: 7px;}
+
+A:link.menu {color: #000000; text-decoration: none;}
+A:visited.menu {color: #000000; text-decoration: none;}
+A:active.menu {color: #0000ff; text-decoration: none;}
+A:hover.menu {color: #0000ff; text-decoration: none;}
+
+.menupipe {color: #000000; font-size: 10px; font-family: verdana,arial,lucida console,sans-serif,monospace; text-decoration: none; font-weight: normal;}
+
+.menu {color: #000000; font-size: 11px; font-family: verdana,arial,lucida console,sans-serif,monospace; text-decoration: none; font-weight: bold;}
+
+tr.tableRowHeader {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+  font-weight: bold;
+  background-color: #ffcc00;
+}
+td.tableCell_header {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+  font-weight: bold;
+  color: black;
+}
+a.tableCellHeader {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+a.tableCellHeader:hover {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+  font-weight: bold;
+  text-decoration: underline;
+  color: black;
+}
+tr.tableRowOdd {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+
+  background-color: #ffffff
+}
+tr.tableRowEven {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+
+  background-color: #ffeeaa
+}
+td.tableCell {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+}
+
