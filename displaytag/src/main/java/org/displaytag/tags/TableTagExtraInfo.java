@@ -9,7 +9,7 @@ import java.util.List;
 
 
 /**
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class TableTagExtraInfo extends TagExtraInfo

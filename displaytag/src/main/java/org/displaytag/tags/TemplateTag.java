@@ -10,9 +10,11 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.LookupUtil;
 
+
 /**
  * Base template class.
  * @author bgsmith
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public abstract class TemplateTag extends BodyTagSupport
@@ -60,8 +62,8 @@ public abstract class TemplateTag extends BodyTagSupport
      * <li>applicationScope</li>
      * </ul>
      * <p>
-     * Tokens after the object name are interpreted as javabean properties (accessed through getters), mapped or
-     * indexed properties, using the jakarta common-beans library
+     * Tokens after the object name are interpreted as javabean properties (accessed through getters), mapped or indexed
+     * properties, using the jakarta common-beans library
      * </p>
      * @param expression expression to evaluate
      * @return Object result

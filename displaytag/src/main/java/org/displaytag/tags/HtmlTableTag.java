@@ -4,9 +4,10 @@ import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
+
 /**
  * Base tag which provides setters for all the standard html attributes.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public abstract class HtmlTableTag extends TemplateTag
@@ -89,11 +90,9 @@ public abstract class HtmlTableTag extends TemplateTag
     /**
      * setter for the "frame" html attribute.
      * @param value attribute value
-     * @deprecated use css in "class" or "style"
      */
     public void setFrame(String value)
     {
-
         this.attributeMap.put(TagConstants.ATTRIBUTE_FRAME, value);
     }
 

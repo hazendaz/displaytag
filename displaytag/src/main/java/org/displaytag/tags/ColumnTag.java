@@ -38,6 +38,7 @@ import org.displaytag.util.TagConstants;
  * information provided in the attributes of this tag.
  * <p>
  * @author mraible
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ColumnTag extends BodyTagSupport
@@ -188,32 +189,25 @@ public class ColumnTag extends BodyTagSupport
      * setter for the "nulls" tag attribute.
      * @param value attribute value
      */
-    public void setNulls(Object value)
+    public void setNulls(boolean value)
     {
-        if (!Boolean.FALSE.equals(value) && !Boolean.FALSE.toString().equals(value))
-        {
-            this.nulls = true;
-        }
-
+        this.nulls = value;
     }
 
     /**
      * setter for the "sortable" tag attribute.
      * @param value attribute value
      */
-    public void setSortable(Object value)
+    public void setSortable(boolean value)
     {
-        if (!Boolean.FALSE.equals(value) && !Boolean.FALSE.toString().equals(value))
-        {
-            this.sortable = true;
-        }
+        this.sortable = value;
     }
 
     /**
      * @deprecated use setSortable()
      * @param value String
      */
-    public void setSort(String value)
+    public void setSort(boolean value)
     {
         setSortable(value);
     }
@@ -222,12 +216,9 @@ public class ColumnTag extends BodyTagSupport
      * setter for the "autolink" tag attribute.
      * @param value attribute value
      */
-    public void setAutolink(Object value)
+    public void setAutolink(boolean value)
     {
-        if (!Boolean.FALSE.equals(value) && !Boolean.FALSE.toString().equals(value))
-        {
-            this.autolink = true;
-        }
+        this.autolink = value;
     }
 
     /**

@@ -55,6 +55,7 @@ import org.displaytag.util.TagConstants;
  * displayed. This tag works very much like the struts iterator tag, most of the attributes have the same name and
  * functionality as the struts tag.
  * @author mraible
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class TableTag extends HtmlTableTag
@@ -422,7 +423,15 @@ public class TableTag extends HtmlTableTag
      */
     public void setOffset(int value)
     {
-        this.offset = value - 1;
+        if (value < 1)
+        {
+            // negative values has no meaning, simply treat them as 0
+            this.offset = 0;
+        }
+        else
+        {
+            this.offset = value - 1;
+        }
     }
 
     /**

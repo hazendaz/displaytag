@@ -2,7 +2,7 @@ package org.displaytag.tags;
 
 /**
  * Constants for parameter names.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public final class TableTagParameters
