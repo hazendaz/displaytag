@@ -70,7 +70,7 @@
 	
 	    <!-- add tld to taglib jar -->
         <echo message="copying ${maven.src.dir}/tld/displaytag.tld to file ${maven.build.dest}/META-INF/displaytag.tld" />
-        <copy file="${maven.src.dir}/tld/displaytag.tld"
+        <copy file="${maven.build.dir}/tld/displaytag-11.tld"
             tofile="${maven.build.dest}/META-INF/displaytag.tld" />
 	</postGoal>
 
