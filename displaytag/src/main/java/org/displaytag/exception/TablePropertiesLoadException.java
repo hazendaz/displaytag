@@ -1,11 +1,11 @@
 package org.displaytag.exception;
 
 /**
- * Exception thrown for problems in loading the (standard or user defined) property file.
+ * Runtime exception thrown for problems in loading the (standard or user defined) property file.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
-public class TablePropertiesLoadException extends BaseNestableJspTagException
+public class TablePropertiesLoadException extends BaseNestableRuntimeException
 {
 
     /**
@@ -21,7 +21,7 @@ public class TablePropertiesLoadException extends BaseNestableJspTagException
 
     /**
      * @return SeverityEnum.ERROR
-     * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
+     * @see org.displaytag.exception.BaseNestableRuntimeException#getSeverity()
      * @see org.displaytag.exception.SeverityEnum
      */
     public SeverityEnum getSeverity()
