@@ -11,14 +11,6 @@
   <body>
   	
   	<release version="1.0-b3" date="in CVS" description="">
-      <action type="add" dev="mraible" due-to="Tim McCune">
-        Added Expression Support ala JSTL.  To use it, just specify your taglib URI to be 
-        http://jakarta.apache.org/taglibs/display-el.  As part of this enhancement, I added
-        (to the EL taglib only) a "titleKey" and "url" attribute.  The titleKey attribute
-        will lookup it's value as a key in a JSTL bundle (declared using the &lt;fmt:bundle 
-        tag or in your web.xml).  The url attribute is an enhancement to the "href" attribute
-        which prepends the contextPath.  
-      </action>
       <action type="fix" dev="rapruitt">
 	    The export filter introduced in b2 has been modified to avoid errors in Websphere 4 (or in any j2ee 1.2 containers,
 	    where the filter can't be used).
@@ -94,7 +86,20 @@
 	       This allows to use the result of a jstl sql:query tag in a display:table without columns (use
 	       <code>result<strong>.rows</strong></code> in the name attribute).
       </action>
-      
+      <action type="add" dev="mraible" due-to="Tim McCune">
+        Added Expression Support ala JSTL.  To use it, just specify your taglib URI to be
+        <code>http://displaytag.sf.net/el</code>.
+        The EL sintax is replacing the old proprietary sintax in the table "name" attribute. Note that the old
+        <code>scope</code> and <code>property</code> attributes are no more supported in the EL version of the tag.
+        <strong>EL support in this release is preliminary and it's due to change in next releases</strong>.
+      </action>
+      <action type="add" dev="mraible">
+        Added to the EL taglib only a "titleKey" attribute which will lookup it's value as a key in a JSTL bundle
+        (declared using the &lt;fmt:bundle tag or in your web.xml).
+      </action>
+      <action type="add" dev="mraible">
+        Added to the EL taglib only a "url" attribute is an enhancement to the "href" attribute which prepends the contextPath.
+      </action>
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
