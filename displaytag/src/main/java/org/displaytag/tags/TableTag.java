@@ -300,12 +300,26 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * setter for the "requestURI" attribute.
+     * setter for the "requestURI" attribute. Context path is automatically added to path starting with "/".
      * @param value base URI for creating links
      */
     public void setRequestURI(String value)
     {
-        this.requestUri = value;
+        String contextPath = ((HttpServletRequest) this.pageContext.getRequest()).getContextPath();
+
+        // prepend the context path if any.
+        // actually checks if context path is already there for people which manually add it
+        if (!StringUtils.isEmpty(contextPath)
+            && value != null
+            && value.startsWith("/")
+            && !value.startsWith(contextPath))
+        {
+            this.requestUri = contextPath + value;
+        }
+        else
+        {
+            this.requestUri = value;
+        }
     }
 
     /**
@@ -799,9 +813,7 @@ public class TableTag extends HtmlTableTag
         {
             if (log.isDebugEnabled())
             {
-                log.debug("["
-                    + getId()
-                    + "] tag body is empty. Iterates to preserve compatibility with previous version");
+                log.debug("[" + getId() + "] tag body is empty.");
             }
 
             // first row (created in doStartTag)
@@ -855,12 +867,7 @@ public class TableTag extends HtmlTableTag
         // we don't add the header and footer information
         StringBuffer buffer = new StringBuffer(8000);
 
-        // Get the data back in the representation that the user is after, do they
-        // want HTML/XML/CSV/EXCEL/etc...
-        // When writing the data, if it it's a normal HTML display, then go ahead
-        // and write the data within the context of the web page, for any of the
-        // other export types, we need to clear our buffer before we can write
-        // out the data
+        // Get the data back in the representation that the user is after, do they want HTML/XML/CSV/EXCEL/etc...
         int returnValue = EVAL_PAGE;
 
         if (MediaTypeEnum.HTML.equals(this.currentMediaType))
