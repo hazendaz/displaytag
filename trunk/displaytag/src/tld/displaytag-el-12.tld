@@ -6,7 +6,7 @@
   <tlib-version>1.0-b3</tlib-version>
   <jsp-version>1.2</jsp-version>
   <short-name>display</short-name>
-  <uri>http://jakarta.apache.org/taglibs/display-el</uri>
+  <uri>http://displaytag.sf.net</uri>
   <display-name>Display *: Tag Library (EL)</display-name>
   <description>The display tag library is an open source suite of custom tags that provide high level web presentation
  patterns which will work in a MVC model, and provide a significant amount of functionality while still being simple
