@@ -201,13 +201,15 @@
         <property name="ftp.remoteDir" value="/incoming"/>
         <input message="Enter your e-mail (as a password) to connect to server:" 
             addproperty="ftp.password"/>
+        <!-- You'll need NetComponents.jar in $ANT_HOME/lib to run this task -->
+        <!-- http://www.savarese.org/oro/downloads/index.html#NetComponents -->
         <ftp server="${ftp.server}" remotedir="${ftp.remoteDir}" verbose="yes"
             userid="${ftp.user}" password="${ftp.password}" depends="yes">
             <fileset dir="..">
-                <include name="{taglib.name}-src-${version}.zip"/> 
-                <include name="{taglib.name}-src-${version}.tar.gz"/> 
-                <include name="{taglib.name}-bin-${version}.zip"/> 
-                <include name="{taglib.name}-bin-${version}.tar.gz"/>
+                <include name="${taglib.name}-src-${version}.zip"/> 
+                <include name="${taglib.name}-src-${version}.tar.gz"/> 
+                <include name="${taglib.name}-bin-${version}.zip"/> 
+                <include name="${taglib.name}-bin-${version}.tar.gz"/>
             </fileset>
         </ftp>
     </target>
