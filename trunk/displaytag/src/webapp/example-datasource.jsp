@@ -73,7 +73,7 @@
 	is equivalent to:
 	</p>
 	
-	<code>session.getAttribute("list").getValue().getAttribute("name").getItem[1]</code>
+	<code>session.getAttribute("list").getValue().getAttribute("name").getItem(1)</code>
 	
 	
 	<p>
@@ -159,12 +159,11 @@
 
 <p>
 	By default, if you supply the table tag with either a null object, or an
-	empty list, then it will display the column headers like it normally would, but
-	will then display a single row that spans all the columns that says
-	"Nothing found to display".
+	empty list, it won't generate any tables at all, but it will display a
+	message says "Nothing found to display"..
 </p>
 
-<p class="changed">
+<p>
 	You can override this message using a &lt;setProperty&gt; tag or a custom properties file.
 	See <a href="example-config.jsp">Config, overriding default behaviors/messages</a> page.
 </p>

@@ -194,7 +194,7 @@
 			<td>
 				Assign a style to <code>thead th</code> element, you don't need a class. 
 				If you want this style to be applied only to the &lt;display:table&gt;, simply add a class or id
-				to the table tag and create a parent.child rule in css like <code>table.myclass tbody th {color:red;}</code>
+				to the table tag and create a parent.child rule in css like <code>table.myclass thead th {color:red;}</code>
 			</td>
 		</tr>
 		<tr>

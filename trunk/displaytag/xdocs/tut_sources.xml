@@ -37,7 +37,7 @@
           <p>So the following:</p>
           <code>sessionScope.list.value.attribute(name).item[1]</code>
           <p>is equivalent to:</p>
-          <code>session.getAttribute("list").getValue().getAttribute("name").getItem[1]</code>
+          <code>session.getAttribute("list").getValue().getAttribute("name").getItem(1)</code>
       </subsection>
       
       <subsection name="Supported data">
