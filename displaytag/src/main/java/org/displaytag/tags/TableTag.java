@@ -42,6 +42,7 @@ import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Anchor;
 import org.displaytag.util.CollectionUtil;
 import org.displaytag.util.Href;
+import org.displaytag.util.ParamEncoder;
 import org.displaytag.util.RequestHelper;
 import org.displaytag.util.TagConstants;
 
@@ -208,7 +209,7 @@ public class TableTag extends HtmlTableTag
     /**
      * sort the full list?
      */
-    private boolean sortFullTable;
+    private Boolean sortFullTable;
 
     /**
      * Request uri.
@@ -221,9 +222,9 @@ public class TableTag extends HtmlTableTag
     private boolean doAfterBodyExecuted;
 
     /**
-     * the String used to encode parameter. Initialized at the first use of encodeParameter().
+     * The param encoder used to generate unique parameter names. Initialized at the first use of encodeParameter().
      */
-    private String tableParameterIdentifier;
+    private ParamEncoder paramEncoder;
 
     /**
      * the index of the column sorted by default.
@@ -281,11 +282,11 @@ public class TableTag extends HtmlTableTag
     {
         if (TableTagParameters.SORT_AMOUNT_PAGE.equals(value))
         {
-            this.sortFullTable = false;
+            this.sortFullTable = Boolean.FALSE;
         }
         else if (TableTagParameters.SORT_AMOUNT_LIST.equals(value))
         {
-            this.sortFullTable = true;
+            this.sortFullTable = Boolean.TRUE;
         }
         else
         {
@@ -717,7 +718,16 @@ public class TableTag extends HtmlTableTag
         int sortColumn = (sortColumnParameter == null) ? this.defaultSortedColumn : sortColumnParameter.intValue();
         this.tableModel.setSortedColumnNumber(sortColumn);
 
-        this.tableModel.setSortFullTable(this.sortFullTable);
+        // default value
+        boolean finalSortFull = this.properties.getSortFullList();
+
+        // user value for this single table
+        if (this.sortFullTable != null)
+        {
+            finalSortFull = this.sortFullTable.booleanValue();
+        }
+
+        this.tableModel.setSortFullTable(finalSortFull);
 
         SortOrderEnum paramOrder = SortOrderEnum.fromIntegerCode(requestHelper
             .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER)));
@@ -732,7 +742,7 @@ public class TableTag extends HtmlTableTag
         this.tableModel.setSortOrderAscending(order);
 
         // if the behaviour is sort full page we need to go back to page one if sort of order is changed
-        if (this.sortFullTable && (sortColumn != -1))
+        if (finalSortFull && (sortColumn != -1))
         {
 
             // save actual sort to href
@@ -945,12 +955,12 @@ public class TableTag extends HtmlTableTag
         this.defaultSortedColumn = -1;
         this.rowNumber = 1;
         this.list = null;
-        this.sortFullTable = false;
+        this.sortFullTable = null;
         this.doAfterBodyExecuted = false;
         this.currentRow = null;
         this.tableModel = null;
         this.requestUri = null;
-        this.tableParameterIdentifier = null;
+        this.paramEncoder = null;
         this.footer = null;
         this.caption = null;
     }
@@ -1610,35 +1620,20 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * encode a parameter name to be unique in the page.
+     * encode a parameter name to be unique in the page using ParamEncoder.
      * @param parameterName parameter name to encode
      * @return String encoded parameter name
      */
-    public String encodeParameter(String parameterName)
+    private String encodeParameter(String parameterName)
     {
-        // code used to encode the parameter already creeated?
-        if (this.tableParameterIdentifier == null)
+        // paramEncoder has been already instantiated?
+        if (this.paramEncoder == null)
         {
             // use name and id to get the unique identifier
-            String stringIdentifier = "x-" + getId() + this.name;
-
-            // get the array
-            char[] charArray = stringIdentifier.toCharArray();
-
-            // calculate a simple checksum-like value
-            int checkSum = 0;
-
-            for (int j = 0; j < charArray.length; j++)
-            {
-                checkSum += charArray[j] * j;
-            }
-
-            // this is the full identifier used for all the parameters
-            this.tableParameterIdentifier = "d-" + checkSum + "-";
-
+            this.paramEncoder = new ParamEncoder(this.id, this.name);
         }
 
-        return this.tableParameterIdentifier + parameterName;
+        return this.paramEncoder.encodeParameterName(parameterName);
     }
 
 }
