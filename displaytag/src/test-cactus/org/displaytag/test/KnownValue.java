@@ -1,6 +1,5 @@
 package org.displaytag.test;
 
-
 /**
  * Simple test data provider.
  * @author rapruitt
@@ -8,54 +7,45 @@ package org.displaytag.test;
  */
 public class KnownValue
 {
-    int position;
-    public static String ant = "acolumn";
-    public static String bee = "bcolumn";
-    public static String camel = "ccolumn";
+    /**
+     * constant for the "ant" property.
+     */
+    public static final String ANT = "acolumn";
 
-    public KnownValue(int position)
-    {
-        this.position = position;
-    }
+    /**
+     * constant for the "bee" property.
+     */
+    public static final String BEE = "bcolumn";
 
-    public int getPosition()
-    {
-        return position;
-    }
+    /**
+     * constant for the "camel" property.
+     */
+    public static final String CAMEL = "ccolumn";
 
-    public void setPosition(int position)
-    {
-        this.position = position;
-    }
-
+    /**
+     * getter for the "ant" property.
+     * @return ANT
+     */
     public String getAnt()
     {
-        return ant;
+        return ANT;
     }
 
-    public void setAnt(String aa)
-    {
-        ant = aa;
-    }
-
+    /**
+     * getter for the "bee" property.
+     * @return BEE
+     */
     public String getBee()
     {
-        return bee;
+        return BEE;
     }
 
-    public void setBee(String bb)
-    {
-        bee = bb;
-    }
-
+    /**
+     * getter for the "camel" property.
+     * @return CAMEL
+     */
     public String getCamel()
     {
-        return camel;
-    }
-
-    public void setCamel(String cc)
-    {
-        camel = cc;
+        return CAMEL;
     }
 }
-
