@@ -12,7 +12,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 
@@ -24,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.export.BaseExportView;
@@ -41,6 +41,7 @@ import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Anchor;
 import org.displaytag.util.CollectionUtil;
+import org.displaytag.util.DependencyChecker;
 import org.displaytag.util.Href;
 import org.displaytag.util.ParamEncoder;
 import org.displaytag.util.RequestHelper;
@@ -87,9 +88,11 @@ public class TableTag extends HtmlTableTag
     private static Log log = LogFactory.getLog(TableTag.class);
 
     /**
-     * Has the commons-lang dependency been checked?
+     * RequestHelperFactory instance used for link generation.
      */
-    private static boolean commonsLangChecked;
+    private static RequestHelperFactory rhf;
+
+    // -- start tag attributes --
 
     /**
      * Object (collection, list) on which the table is based. Set directly using the "list" attribute or evaluated from
@@ -98,17 +101,12 @@ public class TableTag extends HtmlTableTag
     protected Object list;
 
     /**
-     * Iterator on collection.
-     */
-    private Iterator tableIterator;
-
-    /**
      * actual row number, updated during iteration.
      */
     private int rowNumber = 1;
 
     /**
-     * name of the object to use for iteration. Can contain expression
+     * name of the object to use for iteration. Can contain expressions.
      */
     private String name;
 
@@ -123,6 +121,53 @@ public class TableTag extends HtmlTableTag
      * @deprecated
      */
     private String scope;
+
+    /**
+     * length of list to display.
+     */
+    private int length;
+
+    /**
+     * table decorator class name.
+     */
+    private String decoratorName;
+
+    /**
+     * page size.
+     */
+    private int pagesize;
+
+    /**
+     * add export links.
+     */
+    private boolean export;
+
+    /**
+     * list offset.
+     */
+    private int offset;
+
+    /**
+     * sort the full list?
+     */
+    private Boolean sortFullTable;
+
+    /**
+     * Request uri.
+     */
+    private String requestUri;
+
+    /**
+     * the index of the column sorted by default.
+     */
+    private int defaultSortedColumn = -1;
+
+    /**
+     * the sorting order for the sorted column.
+     */
+    private SortOrderEnum defaultSortOrder;
+
+    // -- end tag attributes --
 
     /**
      * Map which contains previous row values. Needed for grouping
@@ -145,26 +190,6 @@ public class TableTag extends HtmlTableTag
     private Map nextRow;
 
     /**
-     * length of list to display - reset in doEndTag().
-     */
-    private int length;
-
-    /**
-     * table decorator class name - cleaned in doEndTag().
-     */
-    private String decoratorName;
-
-    /**
-     * page size - reset in doEndTag().
-     */
-    private int pagesize;
-
-    /**
-     * add export links - reset in doEndTag().
-     */
-    private boolean export;
-
-    /**
      * Used by various functions when the person wants to do paging - cleaned in doEndTag().
      */
     private SmartListHelper listHelper;
@@ -185,9 +210,9 @@ public class TableTag extends HtmlTableTag
     private int pageNumber = 1;
 
     /**
-     * list offset - reset in doEndTag().
+     * Iterator on collection.
      */
-    private int offset;
+    private Iterator tableIterator;
 
     /**
      * export type - set in initParameters().
@@ -205,16 +230,6 @@ public class TableTag extends HtmlTableTag
     private boolean previousOrder;
 
     /**
-     * sort the full list?
-     */
-    private Boolean sortFullTable;
-
-    /**
-     * Request uri.
-     */
-    private String requestUri;
-
-    /**
      * daAfterBody() has been executed at least once?
      */
     private boolean doAfterBodyExecuted;
@@ -223,16 +238,6 @@ public class TableTag extends HtmlTableTag
      * The param encoder used to generate unique parameter names. Initialized at the first use of encodeParameter().
      */
     private ParamEncoder paramEncoder;
-
-    /**
-     * the index of the column sorted by default.
-     */
-    private int defaultSortedColumn = -1;
-
-    /**
-     * the sorting order for the sorted column.
-     */
-    private SortOrderEnum defaultSortOrder;
 
     /**
      * static footer added using the footer tag.
@@ -245,7 +250,7 @@ public class TableTag extends HtmlTableTag
     private String caption;
 
     /**
-     * Sets the content of the footer.
+     * Sets the content of the footer. Called by a nested footer tag.
      * @param string footer content
      */
     public void setFooter(String string)
@@ -254,7 +259,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Sets the content of the caption.
+     * Sets the content of the caption. Called by a nested caption tag.
      * @param string caption content
      */
     public void setCaption(String string)
@@ -313,15 +318,25 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Sets the name of the object to use for iteration.
-     * @param value name of the object to use for iteration. Can contain expression
+     * @param value name of the object to use for iteration (can contain expression). It also supports direct setting of
+     * a list, for jsp 2.0 containers where users can set up a data source here using EL expressions.
      */
-    public void setName(String value)
+    public void setName(Object value)
     {
-        this.name = value;
+        if (value instanceof String)
+        {
+            // ok, assuming thi is the name of the object
+            this.name = (String) value;
+        }
+        else
+        {
+            // is this the list?
+            this.list = value;
+        }
     }
 
     /**
-     * sets the property to get into the bean defined by "name".
+     * Sets the property to get into the bean defined by "name".
      * @param value property name
      * @deprecated Use expressions in "name" attribute
      */
@@ -330,44 +345,6 @@ public class TableTag extends HtmlTableTag
         this.property = value;
     }
 
-    /**
-     * sets the number of items to be displayed in the page.
-     * @param value String
-     * @throws InvalidTagAttributeValueException if value is not a valid integer
-     */
-    public void setLength(String value) throws InvalidTagAttributeValueException
-    {
-
-        try
-        {
-            this.length = Integer.parseInt(value);
-        }
-        catch (NumberFormatException e)
-        {
-            throw new InvalidTagAttributeValueException(getClass(), "length", value);
-        }
-
-    }
-
-    /**
-     * sets the index of the default sorted column.
-     * @param value index of the column to sort
-     * @throws InvalidTagAttributeValueException if value is not a valid integer
-     */
-    public void setDefaultsort(String value) throws InvalidTagAttributeValueException
-    {
-
-        try
-        {
-            // parse and subtract one (internal index is 0 based)
-            this.defaultSortedColumn = Integer.parseInt(value) - 1;
-        }
-        catch (NumberFormatException e)
-        {
-            throw new InvalidTagAttributeValueException(getClass(), "defaultsort", value);
-        }
-
-    }
 
     /**
      * sets the sorting order for the sorted column.
@@ -381,25 +358,6 @@ public class TableTag extends HtmlTableTag
         {
             throw new InvalidTagAttributeValueException(getClass(), "defaultorder", value);
         }
-    }
-
-    /**
-     * sets the number of items that should be displayed for a single page.
-     * @param value String
-     * @throws InvalidTagAttributeValueException if value is not a valid integer
-     */
-    public void setPagesize(String value) throws InvalidTagAttributeValueException
-    {
-
-        try
-        {
-            this.pagesize = Integer.parseInt(value);
-        }
-        catch (NumberFormatException e)
-        {
-            throw new InvalidTagAttributeValueException(getClass(), "pagesize", value);
-        }
-
     }
 
     /**
@@ -423,14 +381,39 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Is export enabled?
-     * @param booleanValue <code>true</code> if export should be enabled
+     * @param value <code>true</code> if export should be enabled
      */
-    public void setExport(String booleanValue)
+    public void setExport(boolean value)
     {
-        if (!Boolean.FALSE.toString().equals(booleanValue))
-        {
-            this.export = true;
-        }
+        this.export = value;
+    }
+
+    /**
+     * sets the number of items to be displayed in the page.
+     * @param value number of items to display in a page
+     */
+    public void setLength(int value)
+    {
+        this.length = value;
+    }
+
+    /**
+     * sets the index of the default sorted column.
+     * @param value index of the column to sort
+     */
+    public void setDefaultsort(int value)
+    {
+        // subtract one (internal index is 0 based)
+        this.defaultSortedColumn = value - 1;
+    }
+
+    /**
+     * sets the number of items that should be displayed for a single page.
+     * @param value number of items that should be displayed for a single page
+     */
+    public void setPagesize(int value)
+    {
+        this.pagesize = value;
     }
 
     /**
@@ -438,25 +421,13 @@ public class TableTag extends HtmlTableTag
      * @param value String
      * @throws InvalidTagAttributeValueException if value is not a valid positive integer
      */
-    public void setOffset(String value) throws InvalidTagAttributeValueException
+    public void setOffset(int value) throws InvalidTagAttributeValueException
     {
-        try
+        if (value < 1)
         {
-            int userOffset = Integer.parseInt(value);
-
-            if (userOffset < 1)
-            {
-                throw new InvalidTagAttributeValueException(getClass(), "offset", value);
-            }
-
-            // this.offset is 0 based, subtract 1
-            this.offset = (userOffset - 1);
+            throw new InvalidTagAttributeValueException(getClass(), "offset", new Integer(value));
         }
-        catch (NumberFormatException e)
-        {
-            throw new InvalidTagAttributeValueException(getClass(), "offset", value);
-        }
-
+        this.offset = value - 1;
     }
 
     /**
@@ -534,47 +505,6 @@ public class TableTag extends HtmlTableTag
         return this.rowNumber == 1;
     }
 
-    /**
-     * Displaytag requires commons-lang 2.x or better; it is not compatible with earlier versions.
-     * @throws JspTagException if the wrong library, or no library at all, is found.
-     */
-    public static void checkCommonsLang() throws JspTagException
-    {
-        if (commonsLangChecked)
-        {
-            return;
-        }
-        try
-        { // Do they have commons lang ?
-            Class stringUtils = Class.forName("org.apache.commons.lang.StringUtils");
-            try
-            {
-                // this method is new in commons-lang 2.0
-                stringUtils.getMethod("capitalize", new Class[]{String.class});
-            }
-            catch (NoSuchMethodException ee)
-            {
-                throw new JspTagException(
-                    "\n\nYou appear to have an INCOMPATIBLE VERSION of the Commons Lang library.  \n"
-                        + "Displaytag requires version 2 of this library, and you appear to have a prior version in \n"
-                        + "your classpath.  You must remove this prior version AND ensure that ONLY version 2 is in \n"
-                        + "your classpath.\n "
-                        + "If commons-lang-1.x is in your classpath, be sure to remove it. \n"
-                        + "Be sure to delete all cached or temporary jar files from your application server; Tomcat \n"
-                        + "users should be sure to also check the CATALINA_HOME/shared folder; you may need to \n"
-                        + "restart the server. \n"
-                        + "commons-lang-2.jar is available in the displaytag distribution, or from the Jakarta \n"
-                        + "website at http://jakarta.apache.org/commons \n\n.");
-            }
-        }
-        catch (ClassNotFoundException e)
-        {
-            throw new JspTagException("You do not appear to have the Commons Lang library, version 2.  "
-                + "commons-lang-2.jar is available in the displaytag distribution, or from the Jakarta website at "
-                + "http://jakarta.apache.org/commons .  ");
-        }
-        commonsLangChecked = true;
-    }
 
     /**
      * When the tag starts, we just initialize some of our variables, and do a little bit of error checking to make sure
@@ -585,7 +515,8 @@ public class TableTag extends HtmlTableTag
      */
     public int doStartTag() throws JspException
     {
-        checkCommonsLang();
+        DependencyChecker.check();
+
         if (log.isDebugEnabled())
         {
             log.debug("[" + getId() + "] doStartTag called");
@@ -708,11 +639,15 @@ public class TableTag extends HtmlTableTag
     /**
      * Reads parameters from the request and initialize all the needed table model attributes.
      * @throws ObjectLookupException for problems in evaluating the expression in the "name" attribute
+     * @throws FactoryInstantiationException for problems in instantiating a RequestHelperFactory
      */
-    private void initParameters() throws ObjectLookupException
+    private void initParameters() throws ObjectLookupException, FactoryInstantiationException
     {
-        // @todo exception handling
-        RequestHelperFactory rhf = this.properties.getRequestHelperFactoryInstance();
+        if (rhf == null)
+        {
+            // first time initialization
+            rhf = this.properties.getRequestHelperFactoryInstance();
+        }
 
         RequestHelper requestHelper = rhf.getRequestHelperInstance(this.pageContext);
 
@@ -777,8 +712,30 @@ public class TableTag extends HtmlTableTag
             this.currentMediaType = MediaTypeEnum.HTML;
         }
 
-        // create a complete string for compatibility with previous version before expression evaluation.
-        // this approach is optimized for new expressions, not for previous property/scope parameters
+        String fullName = getFullObjectName();
+
+        // only evaluate if needed, else preserve original list
+        if (fullName != null)
+        {
+            this.list = evaluateExpression(fullName);
+        }
+
+        this.tableIterator = IteratorUtils.getIterator(this.list);
+    }
+
+    /**
+     * Create a complete string for compatibility with previous version before expression evaluation. This approach is
+     * optimized for new expressions, not for previous property/scope parameters.
+     * @return Expression composed by scope + name + property
+     */
+    private String getFullObjectName()
+    {
+        // only evaluate if needed, else preserve original list
+        if (this.name == null)
+        {
+            return null;
+        }
+
         StringBuffer fullName = new StringBuffer();
 
         // append scope
@@ -788,10 +745,7 @@ public class TableTag extends HtmlTableTag
         }
 
         // base bean name
-        if (this.name != null)
-        {
-            fullName.append(this.name);
-        }
+        fullName.append(this.name);
 
         // append property
         if (StringUtils.isNotBlank(this.property))
@@ -799,14 +753,7 @@ public class TableTag extends HtmlTableTag
             fullName.append('.').append(this.property);
         }
 
-        // only evaluate if needed, else preserve original list
-        if (this.name != null)
-        {
-            this.list = evaluateExpression(fullName.toString());
-        }
-
-        this.tableIterator = IteratorUtils.getIterator(this.list);
-
+        return fullName.toString();
     }
 
     /**

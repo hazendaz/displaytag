@@ -7,6 +7,7 @@ import javax.servlet.jsp.tagext.VariableInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * @author fgiust
  * @version $Revision$ ($Author$)
@@ -21,7 +22,6 @@ public class TableTagExtraInfo extends TagExtraInfo
 
     /**
      * Variables TableTag makes available in the pageContext.
-     *
      * @param data TagData
      * @return VariableInfo[]
      * @see javax.servlet.jsp.tagext.TagData
@@ -40,15 +40,16 @@ public class TableTagExtraInfo extends TagExtraInfo
             variables.add(new VariableInfo(tagId.toString(), "java.lang.Object", true, VariableInfo.NESTED));
 
             // current row number
-            variables.add(new VariableInfo(tagId.toString() + ROWNUM_SUFFIX,
-                    "java.lang.Integer", true, VariableInfo.NESTED));
-
+            variables.add(new VariableInfo(tagId + ROWNUM_SUFFIX, "java.lang.Integer", true, VariableInfo.NESTED));
         }
 
 
         // media type row number
-        variables.add(new VariableInfo(TableTag.PAGE_ATTRIBUTE_MEDIA, "org.displaytag.properties.MediaTypeEnum",
-                true, VariableInfo.NESTED));
+        variables.add(new VariableInfo(
+            TableTag.PAGE_ATTRIBUTE_MEDIA,
+            "org.displaytag.properties.MediaTypeEnum",
+            true,
+            VariableInfo.NESTED));
 
         return (VariableInfo[]) variables.toArray(new VariableInfo[]{});
     }
