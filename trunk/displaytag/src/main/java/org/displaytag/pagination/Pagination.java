@@ -13,7 +13,7 @@ import org.displaytag.util.Href;
 
 
 /**
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class Pagination

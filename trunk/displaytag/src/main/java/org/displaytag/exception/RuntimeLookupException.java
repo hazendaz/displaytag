@@ -2,7 +2,7 @@ package org.displaytag.exception;
 
 /**
  * runtime exception thrown during sorting when a checked exception can't be used.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class RuntimeLookupException extends RuntimeException

@@ -2,8 +2,8 @@ package org.displaytag.util;
 
 /**
  * Utility methods for writing html tags.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public final class HtmlTagUtil
 {

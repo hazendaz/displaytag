@@ -12,8 +12,8 @@ import org.displaytag.util.LookupUtil;
 
 /**
  * Comparator for rows.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public class RowSorter implements Comparator
 {

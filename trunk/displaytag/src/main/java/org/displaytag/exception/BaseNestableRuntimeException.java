@@ -6,7 +6,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Base runtime exception: extendes RuntimeException providing logging and exception nesting functionalities.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public abstract class BaseNestableRuntimeException extends RuntimeException

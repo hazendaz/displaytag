@@ -2,8 +2,8 @@ package org.displaytag.exception;
 
 /**
  * Exception thrown when a Tag is not properly nested into another one.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public class TagStructureException extends BaseNestableJspTagException
 {

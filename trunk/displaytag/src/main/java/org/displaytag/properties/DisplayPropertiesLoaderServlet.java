@@ -46,9 +46,9 @@ import java.io.IOException;
  *         &lt;load-on-startup>1&lt;/load-on-startup>
  *     &lt;/servlet>
  * </pre>
- * @author fgiust
+ * @author Fabrizio Giustina
  * @author rapruitt
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public class DisplayPropertiesLoaderServlet extends HttpServlet
 {

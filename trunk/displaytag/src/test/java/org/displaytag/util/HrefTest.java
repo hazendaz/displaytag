@@ -13,7 +13,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Test case for org.displaytag.util.Href.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class HrefTest extends TestCase

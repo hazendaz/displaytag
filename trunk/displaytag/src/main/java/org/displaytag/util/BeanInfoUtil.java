@@ -25,8 +25,8 @@ import org.apache.commons.logging.LogFactory;
  * Tag who wish to use this BeanInfo need to define a new class with the same name of the main tag class + "BeanInfo"
  * suffix wich extends BeanInfoUtil
  * </p>
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public class BeanInfoUtil extends SimpleBeanInfo
 {

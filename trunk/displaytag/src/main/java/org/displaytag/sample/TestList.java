@@ -8,7 +8,7 @@ import java.util.Random;
  * number of ListObjects that are shown throughout the various example pages that exercise the table object. If created
  * via the default constructor, this loads itself with 60 ListObjects.
  * @author epesh
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public class TestList extends ArrayList
 {

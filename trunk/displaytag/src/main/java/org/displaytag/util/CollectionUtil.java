@@ -8,8 +8,8 @@ import org.apache.commons.collections.IteratorUtils;
 
 /**
  * Utility methods for collection handling.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public final class CollectionUtil
 {

@@ -13,8 +13,8 @@ import org.displaytag.exception.ObjectLookupException;
 
 /**
  * Utility class with methods for object and properties retrieving.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public final class LookupUtil
 {

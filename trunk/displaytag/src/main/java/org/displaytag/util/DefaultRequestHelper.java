@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Default RequestHelper implementation.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  * @see org.displaytag.util.Href
  * @see org.displaytag.util.RequestHelper

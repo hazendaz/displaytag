@@ -10,8 +10,8 @@ import org.displaytag.util.TagConstants;
 
 /**
  * Holds informations for a table row.
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  */
 public class Row
 {

@@ -9,7 +9,7 @@ import org.displaytag.decorator.TableDecorator;
  * This class is a decorator of the TestObjects that we keep in our List. This class provides a number of methods for
  * formatting data, creating dynamic links, and exercising some aspects of the display:table API functionality.
  * @author epesh
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public class Wrapper extends TableDecorator
 {

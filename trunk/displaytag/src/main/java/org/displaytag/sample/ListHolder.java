@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Simple objects which holds a list.
  * @author epesh
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public class ListHolder extends Object
 {

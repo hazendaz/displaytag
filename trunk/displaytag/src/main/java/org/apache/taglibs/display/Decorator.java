@@ -9,8 +9,8 @@ import org.displaytag.decorator.TableDecorator;
  * <p>Placeholder class to preserve compatibility with decorator created with older version of the display taglib.</p>
  * <p>Never extend this class, you should always subclass decorators in the <code>org.displaytag.decorator</code>
  * package.<p>
- * @author fgiust
- * @version $Revision$ ($Author$)
+ * @author Fabrizio Giustina
+ * @version $Revision $ ($Author $)
  * @deprecated use <code>org.displaytag.decorator.TableDecorator</code>
  */
 public abstract class Decorator extends TableDecorator
