@@ -45,7 +45,7 @@ public class TableTagExtraInfo extends TagExtraInfo
             String tagId = data.getAttributeString(TagAttributeInfo.ID);
 
             // current row
-            variables.add(new VariableInfo(tagId.toString(), Object.class.getName(), true, VariableInfo.NESTED));
+            variables.add(new VariableInfo(tagId, Object.class.getName(), true, VariableInfo.NESTED));
 
             // current row number
             variables.add(new VariableInfo(tagId + ROWNUM_SUFFIX, Integer.class.getName(), true, VariableInfo.NESTED));
