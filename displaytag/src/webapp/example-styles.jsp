@@ -55,24 +55,24 @@
 </p>
 
 <p class="changed">
-	Starting from version 0.9 the &lt;display:table&gt; there are no default for html attributes
-	not explicitely setted. Why? Because so you can totally control the display of your table
-	and you can do that (as we hope) totally using css, avoiding deprecated html presentational
-	attribute (did you notice this website is written using xhtml strict?).
+	Starting from version 0.9 of the &lt;display:table&gt; there all html attributes
+	can be explicitly configured. Why?  So you can totally control the display of your table
+	and you can do that, as we hope, by exclusively using css.  Thereby avoiding deprecated html 
+	presentation attributes.  Did you notice this website was written stricty using xhtml?
 </p>
 
 
 
 <p>
 	Likewise, you can assign to the &lt;display:column&gt; tag any standard html attribute 
-	ant it will be included in any &lt;td&gt; tag of the rendered table.
+	and it will be included in any &lt;td&gt; tag of the rendered table.
 	You can also specify a class to be used only for the column header (&lt;th&gt;) adding a 
 	<code>headerClass</code> attribute.
 <p>
 
 <p class="changed">
 	Note: the attribute <code>styleClass</code> used for the &lt;table&gt; and  &lt;column&gt; tag 
-	in previous version of the taglibrary is deprecated in favour of the standard html <code>class</code> atribute
+	in previous version of the taglibrary is deprecated in favour of the standard html <code>class</code> attribute
 </p>
 
 
