@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -269,13 +270,6 @@ public class TableTag extends HtmlTableTag
      * static caption added using the footer tag.
      */
     private String caption;
-
-    /**
-     * If set to true, only iterates on sublist.
-     * @todo probably useless, duplicates informations in <code>filteredRows</code>. See if we can remove it after
-     * completing the work on optimization.
-     */
-    private boolean optimizedIteration;
 
     /**
      * Included row range. If no rows can be skipped the range is from 0 to Long.MAX_VALUE. Range check should be always
@@ -798,8 +792,6 @@ public class TableTag extends HtmlTableTag
             || !this.properties.getExportFullList()) // or we are exporting a single page
             ))
         {
-            optimizedIteration = true;
-
             int start = 0;
             int end = 0;
             if (this.offset > 0)
@@ -826,8 +818,6 @@ public class TableTag extends HtmlTableTag
             }
 
             // rowNumber starts from 1
-
-            // @todo DISPL-136 can be wrong if an invalid page is requested
             filteredRows = new LongRange(start + 1, end);
         }
         else
@@ -862,7 +852,7 @@ public class TableTag extends HtmlTableTag
             return null;
         }
 
-        StringBuffer fullName = new StringBuffer();
+        StringBuffer fullName = new StringBuffer(30);
 
         // append scope
         if (StringUtils.isNotBlank(this.scope))
@@ -914,9 +904,7 @@ public class TableTag extends HtmlTableTag
                     {
                         normalHref.removeParameter(key);
                     }
-
                 }
-
             }
             else
             {
@@ -1003,7 +991,6 @@ public class TableTag extends HtmlTableTag
             }
         }
 
-        // new in 1.0-b2
         // if no rows are defined automatically get all properties from bean
         if (this.tableModel.isEmpty())
         {
@@ -1028,17 +1015,12 @@ public class TableTag extends HtmlTableTag
             this.tableModel.sortPageList();
         }
 
-        // Figure out where this data is going, if this is an export, then
-        // we don't add the header and footer information
-        StringBuffer buffer = new StringBuffer(8000);
-
         // Get the data back in the representation that the user is after, do they want HTML/XML/CSV/EXCEL/etc...
         int returnValue = EVAL_PAGE;
 
         if (MediaTypeEnum.HTML.equals(this.currentMediaType))
         {
-            buffer.append(getHTMLData());
-            write(buffer);
+            writeHTMLData();
         }
         else
         {
@@ -1083,7 +1065,6 @@ public class TableTag extends HtmlTableTag
         this.rowNumber = 1;
         this.tableIterator = null;
         this.tableModel = null;
-        this.optimizedIteration = false;
     }
 
     /**
@@ -1189,7 +1170,7 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Will write the export. The default behavior is to write directly to the response. If the ResponseOverrideFilter
-     * is configured for this request, will instead write the export content to a StringBuffer in the Request object.
+     * is configured for this request, will instead write the exported content to a map in the Request object.
      * @param exportView export view
      * @throws JspException for problem in clearing the response or for invalid export views
      * @throws IOException exception thrown when writing content to the response
@@ -1351,11 +1332,12 @@ public class TableTag extends HtmlTableTag
 
     /**
      * called when data have to be displayed in a html page.
-     * @return String
      * @throws JspException generic exception
      */
-    private String getHTMLData() throws JspException
+    private void writeHTMLData() throws JspException
     {
+        JspWriter out = this.pageContext.getOut();
+
         if (log.isDebugEnabled())
         {
             log.debug("[" + getUid() + "] getHTMLData called for table [" + getUid() + "]");
@@ -1365,10 +1347,9 @@ public class TableTag extends HtmlTableTag
 
         if (noItems && !this.properties.getEmptyListShowTable())
         {
-            return this.properties.getEmptyListMessage();
+            write(this.properties.getEmptyListMessage(), out);
+            return;
         }
-
-        StringBuffer buffer = new StringBuffer(8000);
 
         // variables to hold the previous row columns values.
         this.previousRow = new Hashtable(10);
@@ -1380,7 +1361,7 @@ public class TableTag extends HtmlTableTag
         if (this.properties.getAddPagingBannerTop())
         {
             // search result and navigation bar
-            buffer.append(getSearchResultAndNavigation());
+            writeSearchResultAndNavigation();
         }
 
         String css = this.properties.getCssTable();
@@ -1390,42 +1371,42 @@ public class TableTag extends HtmlTableTag
         }
 
         // open table
-        buffer.append(getOpenTag());
+        write(getOpenTag(), out);
 
         // caption
         if (this.caption != null)
         {
-            buffer.append(this.caption);
+            write(this.caption, out);
         }
 
         // thead
         if (this.properties.getShowHeader())
         {
-            buffer.append(getTableHeader());
+            writeTableHeader();
         }
 
         if (this.footer != null)
         {
-            buffer.append(TagConstants.TAG_TFOOTER_OPEN);
-            buffer.append(this.footer);
-            buffer.append(TagConstants.TAG_TFOOTER_CLOSE);
+            write(TagConstants.TAG_TFOOTER_OPEN, out);
+            write(this.footer, out);
+            write(TagConstants.TAG_TFOOTER_CLOSE, out);
             // reset footer
             this.footer = null;
         }
 
         // open table body
-        buffer.append(TagConstants.TAG_TBODY_OPEN);
+        write(TagConstants.TAG_TBODY_OPEN, out);
 
         // write table body
-        buffer.append(getTableBody());
+        writeTableBody();
 
         // close table body
-        buffer.append(TagConstants.TAG_TBODY_CLOSE);
+        write(TagConstants.TAG_TBODY_CLOSE, out);
 
         // close table
-        buffer.append(getCloseTag());
+        write(getCloseTag(), out);
 
-        buffer.append(this.getTableFooter());
+        writeTableFooter();
 
         if (this.tableModel.getTableDecorator() != null)
         {
@@ -1436,33 +1417,31 @@ public class TableTag extends HtmlTableTag
         {
             log.debug("[" + getUid() + "] getHTMLData end");
         }
-        return buffer.toString();
-
     }
 
     /**
      * Generates the table header, including the first row of the table which displays the titles of the columns.
-     * @return String
      */
-    private String getTableHeader()
+    private void writeTableHeader()
     {
+        JspWriter out = this.pageContext.getOut();
+
         if (log.isDebugEnabled())
         {
             log.debug("[" + getUid() + "] getTableHeader called");
         }
-        StringBuffer buffer = new StringBuffer();
 
         // open thead
-        buffer.append(TagConstants.TAG_THEAD_OPEN);
+        write(TagConstants.TAG_THEAD_OPEN, out);
 
         // open tr
-        buffer.append(TagConstants.TAG_TR_OPEN);
+        write(TagConstants.TAG_TR_OPEN, out);
 
         // no columns?
         if (this.tableModel.isEmpty())
         {
-            buffer.append(TagConstants.TAG_TH_OPEN);
-            buffer.append(TagConstants.TAG_TH_CLOSE);
+            write(TagConstants.TAG_TH_OPEN, out);
+            write(TagConstants.TAG_TH_CLOSE, out);
         }
 
         // iterator on columns for header
@@ -1490,7 +1469,7 @@ public class TableTag extends HtmlTableTag
             }
 
             // append th with html attributes
-            buffer.append(headerCell.getHeaderOpenTag());
+            write(headerCell.getHeaderOpenTag(), out);
 
             // title
             String header = headerCell.getTitle();
@@ -1505,21 +1484,20 @@ public class TableTag extends HtmlTableTag
                 header = anchor.toString();
             }
 
-            buffer.append(header);
-            buffer.append(headerCell.getHeaderCloseTag());
+            write(header, out);
+            write(headerCell.getHeaderCloseTag(), out);
         }
 
         // close tr
-        buffer.append(TagConstants.TAG_TR_CLOSE);
+        write(TagConstants.TAG_TR_CLOSE, out);
 
         // close thead
-        buffer.append(TagConstants.TAG_THEAD_CLOSE);
+        write(TagConstants.TAG_THEAD_CLOSE, out);
 
         if (log.isDebugEnabled())
         {
             log.debug("[" + getUid() + "] getTableHeader end");
         }
-        return buffer.toString();
     }
 
     /**
@@ -1536,15 +1514,9 @@ public class TableTag extends HtmlTableTag
         href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
 
         boolean nowOrderAscending = !(headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending());
-        // @todo optimize this using SortOrderEnum
-        if (nowOrderAscending)
-        {
-            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), SortOrderEnum.ASCENDING.getCode());
-        }
-        else
-        {
-            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), SortOrderEnum.DESCENDING.getCode());
-        }
+
+        int sortOrderParam = nowOrderAscending ? SortOrderEnum.ASCENDING.getCode() : SortOrderEnum.DESCENDING.getCode();
+        href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), sortOrderParam);
 
         // If user want to sort the full table I need to reset the page number.
         if (this.tableModel.isSortFullTable())
@@ -1611,13 +1583,12 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Writes the table body content.
-     * @return table body content
      * @throws ObjectLookupException for errors in looking up properties in objects
      * @throws DecoratorException for errors returned by decorators
      */
-    private String getTableBody() throws ObjectLookupException, DecoratorException
+    private void writeTableBody() throws ObjectLookupException, DecoratorException
     {
-        StringBuffer buffer = new StringBuffer();
+        JspWriter out = this.pageContext.getOut();
 
         // Ok, start bouncing through our list (only the visible part)
         RowIterator rowIterator = this.tableModel.getRowIterator(false);
@@ -1635,12 +1606,12 @@ public class TableTag extends HtmlTableTag
                 String stringStartRow = this.tableModel.getTableDecorator().startRow();
                 if (stringStartRow != null)
                 {
-                    buffer.append(stringStartRow);
+                    write(stringStartRow, out);
                 }
             }
 
             // open tr
-            buffer.append(row.getOpenTag());
+            write(row.getOpenTag(), out);
 
             // iterator on columns
             if (log.isDebugEnabled())
@@ -1654,8 +1625,8 @@ public class TableTag extends HtmlTableTag
                 Column column = columnIterator.nextColumn();
 
                 // Get the value to be displayed for the column
-                buffer.append(column.getOpenTag());
-                Object value = column.getChoppedAndLinkedValue();
+                write(column.getOpenTag(), out);
+                String value = column.getChoppedAndLinkedValue();
 
                 // check if column is grouped
                 if (column.getGroup() != -1)
@@ -1664,8 +1635,8 @@ public class TableTag extends HtmlTableTag
                 }
 
                 // add column value
-                buffer.append(value);
-                buffer.append(column.getCloseTag());
+                write(value, out);
+                write(column.getCloseTag(), out);
             }
 
             // no columns?
@@ -1675,91 +1646,75 @@ public class TableTag extends HtmlTableTag
                 {
                     log.debug("[" + getUid() + "] table has no columns");
                 }
-                buffer.append(TagConstants.TAG_TD_OPEN).append(row.getObject().toString()).append(
-                    TagConstants.TAG_TD_CLOSE);
+                write(TagConstants.TAG_TD_OPEN, out);
+                write(row.getObject().toString(), out);
+                write(TagConstants.TAG_TD_CLOSE, out);
             }
 
             // close tr
-            buffer.append(row.getCloseTag());
+            write(row.getCloseTag(), out);
 
             if (this.tableModel.getTableDecorator() != null)
             {
                 String endRow = this.tableModel.getTableDecorator().finishRow();
                 if (endRow != null)
                 {
-                    buffer.append(endRow);
+                    write(endRow, out);
                 }
             }
         }
 
         if (this.tableModel.getRowListPage().size() == 0)
         {
-            buffer.append(MessageFormat.format(properties.getEmptyListRowMessage(), new Object[]{new Integer(
-                this.tableModel.getNumberOfColumns())}));
+            write(MessageFormat.format(properties.getEmptyListRowMessage(), new Object[]{new Integer(this.tableModel
+                .getNumberOfColumns())}), out);
         }
-
-        return buffer.toString();
     }
 
     /**
      * Generates table footer with links for export commands.
-     * @return String
      */
-    private String getTableFooter()
+    private void writeTableFooter()
     {
-        StringBuffer buffer = new StringBuffer(1000);
-
         // Put the page stuff there if it needs to be there...
         if (this.properties.getAddPagingBannerBottom())
         {
-            buffer.append(getSearchResultAndNavigation());
+            writeSearchResultAndNavigation();
         }
 
         // add export links (only if the table is not empty)
         if (this.export && this.tableModel.getRowListPage().size() != 0)
         {
-            buffer.append(getExportLinks());
+            writeExportLinks();
         }
-
-        return buffer.toString();
     }
 
     /**
      * generates the search result and navigation bar.
-     * @return String
      */
-    private String getSearchResultAndNavigation()
+    private void writeSearchResultAndNavigation()
     {
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + getUid() + "] starting getSearchResultAndNavigation");
-        }
-
         if (this.pagesize != 0 && this.listHelper != null)
         {
             // create a new href
             Href navigationHref = new Href(this.baseHref);
 
-            StringBuffer buffer = new StringBuffer().append(this.listHelper.getSearchResultsSummary()).append(
-                this.listHelper
-                    .getPageNavigationBar(navigationHref, encodeParameter(TableTagParameters.PARAMETER_PAGE)));
-
-            return buffer.toString();
+            write(this.listHelper.getSearchResultsSummary());
+            write(this.listHelper.getPageNavigationBar(
+                navigationHref,
+                encodeParameter(TableTagParameters.PARAMETER_PAGE)));
         }
-        return TagConstants.EMPTY_STRING;
     }
 
     /**
-     * returns the formatted export links section.
-     * @return String export links section
+     * Writes the formatted export links section.
      */
-    private String getExportLinks()
+    private void writeExportLinks()
     {
         // Figure out what formats they want to export, make up a little string
         Href exportHref = new Href(this.baseHref);
 
-        StringBuffer buffer = new StringBuffer();
-
+        StringBuffer buffer = new StringBuffer(200);
         Iterator iterator = MediaTypeEnum.iterator();
 
         while (iterator.hasNext())
@@ -1786,7 +1741,7 @@ public class TableTag extends HtmlTableTag
         }
 
         String[] exportOptions = {buffer.toString()};
-        return MessageFormat.format(this.properties.getExportBanner(), exportOptions);
+        write(MessageFormat.format(this.properties.getExportBanner(), exportOptions));
     }
 
     /**

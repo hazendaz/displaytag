@@ -13,12 +13,12 @@ package org.displaytag.tags;
 
 import java.io.IOException;
 
-import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.exception.WrappedRuntimeException;
 import org.displaytag.util.LookupUtil;
 
 
@@ -34,27 +34,39 @@ public abstract class TemplateTag extends BodyTagSupport
     /**
      * Utility method. Write a string to the default out
      * @param string String
-     * @throws JspTagException if an IOException occurs
      */
-    public void write(String string) throws JspTagException
+    public void write(String string)
     {
+        write(string, this.pageContext.getOut());
+    }
+
+    /**
+     * Utility method. Write a string to the given JspWriter
+     * @param string String
+     * @param out JspWriter
+     */
+    public void write(String string, JspWriter out)
+    {
+        if (string == null)
+        {
+            return;
+        }
+
         try
         {
-            JspWriter out = this.pageContext.getOut();
             out.write(string);
         }
         catch (IOException e)
         {
-            throw new JspTagException("Writer Exception: " + e.getMessage()); //$NON-NLS-1$
+            throw new WrappedRuntimeException(getClass(), e);
         }
     }
 
     /**
      * Utility method. Write a string to the default out
      * @param buffer StringBuffer
-     * @throws JspTagException if an IOException occurs
      */
-    public void write(StringBuffer buffer) throws JspTagException
+    public void write(StringBuffer buffer)
     {
         this.write(buffer.toString());
     }
