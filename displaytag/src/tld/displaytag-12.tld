@@ -93,6 +93,14 @@
         parameters to the value of requestURI attribute.</description>
     </attribute>
     <attribute>
+      <name>excludedParams</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>Whitespace separated list containg the name of parameters which should NOT be forwarded during paging
+      or sorting. You can use excludedParams="*" to match (exclude) any parameter.</description>
+    </attribute>
+    <attribute>
       <name>width</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>

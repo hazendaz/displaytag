@@ -103,6 +103,11 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private String summaryExpr;
 
     /**
+     * Expression for the "excludedParams" tag attribute.
+     */
+    private String excludedParamsExpr;
+
+    /**
      * @see org.displaytag.tags.TableTag#setCellpadding(java.lang.String)
      */
     public void setCellpadding(String value)
@@ -223,6 +228,14 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
+     * @see org.displaytag.tags.TableTag#setExcludedParams(java.lang.String)
+     */
+    public void setExcludedParams(String value)
+    {
+        excludedParamsExpr = value;
+    }
+
+    /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
     public int doStartTag() throws JspException
@@ -258,6 +271,10 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         if (defaultorderExpr != null)
         {
             super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr)); //$NON-NLS-1$
+        }
+        if (excludedParamsExpr != null)
+        {
+            super.setExcludedParams(eval.evalString("excludedParams", excludedParamsExpr)); //$NON-NLS-1$
         }
         if (defaultsortExpr != null)
         {
@@ -333,6 +350,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         this.sortExpr = null;
         this.styleExpr = null;
         this.summaryExpr = null;
+        this.excludedParamsExpr = null;
     }
 
 }

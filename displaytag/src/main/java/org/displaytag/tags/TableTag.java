@@ -163,6 +163,11 @@ public class TableTag extends HtmlTableTag
      */
     private SortOrderEnum defaultSortOrder;
 
+    /**
+     * Name of parameter which should not be forwarded during sorting or pagination.
+     */
+    private String excludedParams;
+
     // -- end tag attributes --
 
     /**
@@ -244,6 +249,15 @@ public class TableTag extends HtmlTableTag
      * static caption added using the footer tag.
      */
     private String caption;
+
+    /**
+     * Sets the list of parameter which should not be forwarded during sorting or pagination.
+     * @param value whitespace separated list of parameters which should not be included (* matches all parameters)
+     */
+    public void setExcludedParams(String value)
+    {
+        this.excludedParams = value;
+    }
 
     /**
      * Sets the content of the footer. Called by a nested footer tag.
@@ -777,6 +791,42 @@ public class TableTag extends HtmlTableTag
     {
         // get the href for this request
         Href normalHref = requestHelper.getHref();
+
+        if (this.excludedParams != null)
+        {
+            String[] splittedExcludedParams = StringUtils.split(this.excludedParams);
+
+            // handle * keyword
+            if (splittedExcludedParams.length == 1 && "*".equals(splittedExcludedParams[0]))
+            {
+                // @todo cleanup: paramEncoder initialization should not be done here
+                if (this.paramEncoder == null)
+                {
+                    this.paramEncoder = new ParamEncoder(this.id);
+                }
+
+                Iterator paramsIterator = normalHref.getParameterMap().keySet().iterator();
+                while (paramsIterator.hasNext())
+                {
+                    String key = (String) paramsIterator.next();
+
+                    // don't remove parameters added by the table tag
+                    if (!this.paramEncoder.isParameterEncoded(key))
+                    {
+                        normalHref.removeParameter(key);
+                    }
+
+                }
+
+            }
+            else
+            {
+                for (int j = 0; j < splittedExcludedParams.length; j++)
+                {
+                    normalHref.removeParameter(splittedExcludedParams[j]);
+                }
+            }
+        }
 
         if (this.requestUri != null)
         {
@@ -1613,6 +1663,7 @@ public class TableTag extends HtmlTableTag
         this.requestUri = null;
         this.scope = null;
         this.sortFullTable = null;
+        this.excludedParams = null;
     }
 
     /**

@@ -35,7 +35,7 @@ public class ExportUTF8Test extends DisplaytagCase
     }
 
     /**
-     * Test that headers are correctly removed.
+     * Test response encoding.
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
@@ -43,16 +43,14 @@ public class ExportUTF8Test extends DisplaytagCase
     {
         // test keep
         WebRequest request = new GetMethodWebRequest(jspName);
-        WebResponse response = runner.getResponse(request);
 
         // test remove
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        request = new GetMethodWebRequest(jspName);
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
-        response = runner.getResponse(request);
+        WebResponse response = runner.getResponse(request);
 
         String encoding = response.getCharacterSet();
 

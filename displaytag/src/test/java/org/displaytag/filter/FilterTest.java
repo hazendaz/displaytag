@@ -49,7 +49,7 @@ public class FilterTest extends DisplaytagCase
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
         WebRequest request = new GetMethodWebRequest(jspName);
-        request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
+        request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
         // save previous level, since we are expeting an excetion I don't want to fill logs
         Level previousLevel = Logger.getLogger(TableTag.class).getLevel();
@@ -74,8 +74,10 @@ public class FilterTest extends DisplaytagCase
         Logger.getLogger(TableTag.class).setLevel(previousLevel);
         Logger.getLogger(ELTableTag.class).setLevel(previousLevelEL);
 
-        request = new GetMethodWebRequest(jspName + MockFilterSupport.FILTERED_EXTENSION);
-        request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
+        request = new GetMethodWebRequest(jspName);
+        request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
+
+        // this enable the filter!
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
         WebResponse response = runner.getResponse(request);
