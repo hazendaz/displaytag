@@ -26,7 +26,7 @@ public class Href
     /**
      * Url parameters.
      */
-    private HashMap parameters;
+    private Map parameters;
 
     /**
      * Construct a new Href parsing a URL. Parameters are stripped from the base url and saved in the parameters map.
@@ -104,12 +104,14 @@ public class Href
     }
 
     /**
-     * Getter for the map containing link parameters.
-     * @return HashMap
+     * Getter for the map containing link parameters. The returned map is always a copy and not the original instance.
+     * @return parameter Map (copy)
      */
-    public HashMap getParameterMap()
+    public Map getParameterMap()
     {
-        return (HashMap) this.parameters.clone();
+        Map copyMap = new HashMap(this.parameters.size());
+        copyMap.putAll(this.parameters);
+        return copyMap;
     }
 
     /**
