@@ -21,8 +21,8 @@
    <property file="./conf/local.properties"/>
    <property name="classpath" value="${servlet.jar}:${log4j.jar}:${beanutils.jar}" />
 
-   <property name="version" value="0.8" />
-   <property name="versiondate" value="05/24/2002" />
+   <property name="version" value="0.8.5" />
+   <property name="versiondate" value="03/23/2003" />
 
    <!-- Make sure the user has pointed us at good copies of the .jar files -->
    <!-- that we are dependent on                                           -->
