@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ExportException;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
@@ -1039,10 +1040,7 @@ public class TableTag extends HtmlTableTag
             }
             catch (Exception e)
             {
-                throw new JspException("Unable to reset response before returning exported data. "
-                    + "You are not using an export filter. "
-                    + "Be sure that no other jsp tags are used before display:table or refer to the displaytag "
-                    + "documentation on how to configure the export filter (requires j2ee 1.3).");
+                throw new ExportException(getClass());
             }
 
             response.setContentType(mimeType);
