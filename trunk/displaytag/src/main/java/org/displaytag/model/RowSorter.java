@@ -83,49 +83,46 @@ public class RowSorter implements Comparator
             }
 
             return checkNullsAndCompare(obj1, obj2);
-
         }
-        else
+
+        if (object1 instanceof Row)
         {
-            if (object1 instanceof Row)
+            obj1 = ((Row) object1).getObject();
+        }
+        if (object2 instanceof Row)
+        {
+            obj2 = ((Row) object2).getObject();
+        }
+
+        try
+        {
+            Object result1 = null;
+            Object result2 = null;
+
+            // If they have supplied a decorator, then make sure and use it for the sorting as well
+            if (this.decorator != null && this.decorator.hasGetterFor(this.property))
             {
-                obj1 = ((Row) object1).getObject();
+                // set the row before sending to the decorator
+                this.decorator.initRow(obj1, 0, 0);
+
+                result1 = LookupUtil.getBeanProperty(this.decorator, this.property);
+
+                // set the row before sending to the decorator
+                this.decorator.initRow(obj2, 0, 0);
+
+                result2 = LookupUtil.getBeanProperty(this.decorator, this.property);
             }
-            if (object2 instanceof Row)
+            else
             {
-                obj2 = ((Row) object2).getObject();
+                result1 = LookupUtil.getBeanProperty(obj1, this.property);
+                result2 = LookupUtil.getBeanProperty(obj2, this.property);
             }
 
-            try
-            {
-                Object result1 = null;
-                Object result2 = null;
-
-                // If they have supplied a decorator, then make sure and use it for the sorting as well
-                if (this.decorator != null && this.decorator.hasGetterFor(this.property))
-                {
-                    // set the row before sending to the decorator
-                    this.decorator.initRow(obj1, 0, 0);
-
-                    result1 = LookupUtil.getBeanProperty(this.decorator, this.property);
-
-                    // set the row before sending to the decorator
-                    this.decorator.initRow(obj2, 0, 0);
-
-                    result2 = LookupUtil.getBeanProperty(this.decorator, this.property);
-                }
-                else
-                {
-                    result1 = LookupUtil.getBeanProperty(obj1, this.property);
-                    result2 = LookupUtil.getBeanProperty(obj2, this.property);
-                }
-
-                return checkNullsAndCompare(result1, result2);
-            }
-            catch (ObjectLookupException e)
-            {
-                throw new RuntimeLookupException(getClass(), this.property, e);
-            }
+            return checkNullsAndCompare(result1, result2);
+        }
+        catch (ObjectLookupException e)
+        {
+            throw new RuntimeLookupException(getClass(), this.property, e);
         }
     }
 
@@ -176,7 +173,8 @@ public class RowSorter implements Comparator
     {
         if (object instanceof RowSorter)
         {
-            return new EqualsBuilder().append(this.property, ((RowSorter) object).property).append(this.columnIndex,
+            return new EqualsBuilder().append(this.property, ((RowSorter) object).property).append(
+                this.columnIndex,
                 ((RowSorter) object).columnIndex).isEquals();
         }
 

@@ -97,10 +97,8 @@ public final class SortOrderEnum
         {
             return null;
         }
-        else
-        {
-            return fromCode(key.intValue());
-        }
+
+        return fromCode(key.intValue());
     }
 
     /**

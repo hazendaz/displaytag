@@ -33,6 +33,7 @@ import java.io.IOException;
  * <p>
  * Sample Web.xml entry:
  * </p>
+ * 
  * <pre>
  *     &lt;servlet id="DisplayPropertiesLoaderServlet">
  *         &lt;servlet-name>DisplayPropertiesLoaderServlet&lt;/servlet-name>
@@ -46,6 +47,7 @@ import java.io.IOException;
  *         &lt;load-on-startup>1&lt;/load-on-startup>
  *     &lt;/servlet>
  * </pre>
+ * 
  * @author Fabrizio Giustina
  * @author rapruitt
  * @version $Revision $ ($Author $)
@@ -57,6 +59,11 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
      * name of the parameter containing the properties file path.
      */
     public static final String PROPERTIES_PARAMETER = "properties.filename";
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
 
     /**
      * logger.
@@ -103,7 +110,9 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
         }
         else
         {
-            log.warn("No properties parameter found under key " + PROPERTIES_PARAMETER + " - are you"
+            log.warn("No properties parameter found under key "
+                + PROPERTIES_PARAMETER
+                + " - are you"
                 + "sure that you have configured this servlet correctly?");
         }
 

@@ -107,10 +107,8 @@ public final class MediaTypeEnum
         {
             return null;
         }
-        else
-        {
-            return fromCode(key.intValue());
-        }
+
+        return fromCode(key.intValue());
     }
 
     /**

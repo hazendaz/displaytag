@@ -2,6 +2,7 @@ package org.displaytag.decorator;
 
 import org.displaytag.exception.DecoratorInstantiationException;
 
+
 /**
  * Factory for TableDecorator or ColumnDecorator object.
  * @author Fabrizio Giustina
@@ -15,6 +16,7 @@ public final class DecoratorFactory
      */
     private DecoratorFactory()
     {
+        // unused
     }
 
     /**
@@ -56,9 +58,9 @@ public final class DecoratorFactory
     }
 
     /**
-     * If the user has specified a column decorator, then this method takes care of creating the decorator (and
-     * checking to make sure it is a subclass of the ColumnDecorator object). If there are any problems loading the
-     * decorator then this will throw a DecoratorInstantiationException which will get propagated up to the page.
+     * If the user has specified a column decorator, then this method takes care of creating the decorator (and checking
+     * to make sure it is a subclass of the ColumnDecorator object). If there are any problems loading the decorator
+     * then this will throw a DecoratorInstantiationException which will get propagated up to the page.
      * @param columnDecoratorName String full decorator class name
      * @return instance of ColumnDecorator
      * @throws DecoratorInstantiationException if unable to load ColumnDecorator

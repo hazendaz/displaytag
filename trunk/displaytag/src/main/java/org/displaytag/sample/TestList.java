@@ -3,6 +3,7 @@ package org.displaytag.sample;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 /**
  * Just a utility class for testing out the table and column tags. When this class is created, it loads itself with a
  * number of ListObjects that are shown throughout the various example pages that exercise the table object. If created
@@ -12,6 +13,11 @@ import java.util.Random;
  */
 public class TestList extends ArrayList
 {
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Creats a TestList that is filled with 60 ListObjects suitable for testing.

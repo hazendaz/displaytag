@@ -50,14 +50,14 @@ public class RowIterator
      * @param rowList List containing Row objects
      * @param columnList List containing CellHeader objects
      * @param tableDecorator TableDecorator
-     * @param pageOffset Starting offset for items n the current page
+     * @param offset Starting offset for items n the current page
      */
-    protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator, int pageOffset)
+    protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator, int offset)
     {
         this.iterator = rowList.iterator();
         this.rowNumber = 0;
         this.decorator = tableDecorator;
-        this.pageOffset = pageOffset;
+        this.pageOffset = offset;
     }
 
     /**

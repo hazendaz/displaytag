@@ -18,6 +18,11 @@ public class CaptionTag extends BodyTagSupport
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * Map containing all the standard html attributes.
      */
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
@@ -132,11 +137,9 @@ public class CaptionTag extends BodyTagSupport
             // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
             return 2;
         }
-        else
-        {
-            this.firstIteration = false;
-            return SKIP_BODY;
-        }
+
+        this.firstIteration = false;
+        return SKIP_BODY;
     }
 
     /**

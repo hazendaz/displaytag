@@ -2,11 +2,16 @@ package org.displaytag.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+
 /**
- * <p>Represents a table cell.</p>
- * <p>A cell is used only when the content is placed as content of the column tag and need to be evaluated during
+ * <p>
+ * Represents a table cell.
+ * </p>
+ * <p>
+ * A cell is used only when the content is placed as content of the column tag and need to be evaluated during
  * iteration. If the content is set using the <code>value</code> attribute in the column tag no cell is created and
- * EMPTY_CELL is used as placeholder.</p>
+ * EMPTY_CELL is used as placeholder.
+ * </p>
  * @author Fabrizio Giustina
  * @version $Revision $ ($Author $)
  */
@@ -28,6 +33,7 @@ public class Cell implements Comparable
      */
     private Cell()
     {
+        super();
     }
 
     /**
@@ -75,10 +81,8 @@ public class Cell implements Comparable
         {
             return ((Comparable) this.staticValue).compareTo(((Cell) obj).getStaticValue());
         }
-        else
-        {
-            return ((Comparable) this.staticValue).compareTo(obj);
-        }
+
+        return ((Comparable) this.staticValue).compareTo(obj);
 
     }
 

@@ -71,20 +71,25 @@ public class TableTag extends HtmlTableTag
      * If this buffer has been appended to at all, the contents of the buffer will be served as the sole output of the
      * request. Request variable.
      */
-    public static final String FILTER_CONTENT_OVERRIDE_BODY
-            = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY";
+    public static final String FILTER_CONTENT_OVERRIDE_BODY = //
+    "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY";
 
     /**
      * If the request content is overriden, you must also set the content type appropriately. Request variable.
      */
-    public static final String FILTER_CONTENT_OVERRIDE_TYPE
-            = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE";
+    public static final String FILTER_CONTENT_OVERRIDE_TYPE = //
+    "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE";
 
     /**
      * If the filename is specified, there will be a supplied filename. Request variable.
      */
-    public static final String FILTER_CONTENT_OVERRIDE_FILENAME
-            = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_FILENAME";
+    public static final String FILTER_CONTENT_OVERRIDE_FILENAME = //
+    "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_FILENAME";
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
 
     /**
      * logger.
@@ -644,16 +649,14 @@ public class TableTag extends HtmlTableTag
             // using int to avoid deprecation error in compilation using j2ee 1.3
             return 2;
         }
-        else
-        {
-            if (log.isDebugEnabled())
-            {
-                log.debug("[" + getId() + "] doIteration() - iterator ended after " + (this.rowNumber - 1) + " rows");
-            }
 
-            // end iteration
-            return SKIP_BODY;
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getId() + "] doIteration() - iterator ended after " + (this.rowNumber - 1) + " rows");
         }
+
+        // end iteration
+        return SKIP_BODY;
     }
 
     /**
@@ -1118,7 +1121,6 @@ public class TableTag extends HtmlTableTag
      */
     public List getViewableData()
     {
-
 
         // If the user has changed the way our default behavior works, then we
         // need to look for it now, and resort things if needed before we ask

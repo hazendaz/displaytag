@@ -13,6 +13,7 @@ public final class HtmlTagUtil
      */
     private HtmlTagUtil()
     {
+        // unused
     }
 
     /**

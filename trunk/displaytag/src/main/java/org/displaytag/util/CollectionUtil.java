@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.collections.IteratorUtils;
 
+
 /**
  * Utility methods for collection handling.
  * @author Fabrizio Giustina
@@ -19,6 +20,7 @@ public final class CollectionUtil
      */
     private CollectionUtil()
     {
+        // unused
     }
 
     /**

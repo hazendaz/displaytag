@@ -2,6 +2,7 @@ package org.displaytag.tags;
 
 import org.displaytag.util.BeanInfoUtil;
 
+
 /**
  * Needed to make the "class" tag attribute working.
  * @author Fabrizio Giustina
@@ -10,5 +11,5 @@ import org.displaytag.util.BeanInfoUtil;
  */
 public class ColumnTagBeanInfo extends BeanInfoUtil
 {
-
+    // just need to extend BeanInfoUtil
 }

@@ -14,6 +14,11 @@ public class ELCaptionTag extends CaptionTag
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * Expression for the "class" tag attribute.
      */
     private String classExpr;
@@ -99,7 +104,6 @@ public class ELCaptionTag extends CaptionTag
         evaluateExpressions();
         return super.doStartTag();
     }
-
 
     /**
      * Evaluates the expressions for all the given attributes and pass results up to the parent tag.

@@ -9,6 +9,11 @@ public class ObjectLookupException extends BaseNestableJspTagException
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * Instantiate a new ObjectLookupException.
      * @param source Class where the exception is generated
      * @param beanObject javabean
@@ -17,14 +22,11 @@ public class ObjectLookupException extends BaseNestableJspTagException
      */
     public ObjectLookupException(Class source, Object beanObject, String beanProperty, Throwable cause)
     {
-        super(
-            source,
-            "Error looking up property \""
-                + beanProperty
-                + "\" in object type \""
-                + ((beanObject == null) ? "null" : beanObject.getClass().getName())
-                + "\"",
-            cause);
+        super(source, "Error looking up property \""
+            + beanProperty
+            + "\" in object type \""
+            + ((beanObject == null) ? "null" : beanObject.getClass().getName())
+            + "\"", cause);
     }
 
     /**

@@ -29,6 +29,7 @@ public final class LookupUtil
      */
     private LookupUtil()
     {
+        // unused
     }
 
     /**
@@ -75,17 +76,15 @@ public final class LookupUtil
             return getBeanProperty(beanObject, beanProperty);
 
         }
-        else
+
+        // simple, only the javabean
+
+        if (log.isDebugEnabled())
         {
-            // simple, only the javabean
-
-            if (log.isDebugEnabled())
-            {
-                log.debug("getBeanValue - bean: {" + beanAndPropertyName + "}");
-            }
-
-            return pageContext.getAttribute(beanAndPropertyName, scope);
+            log.debug("getBeanValue - bean: {" + beanAndPropertyName + "}");
         }
+
+        return pageContext.getAttribute(beanAndPropertyName, scope);
     }
 
     /**
@@ -135,7 +134,8 @@ public final class LookupUtil
                 indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM);
                 indexOfMAPPEDDELIM = evalName.indexOf(PropertyUtils.MAPPED_DELIM);
                 indexOfMAPPEDDELIM2 = evalName.indexOf(PropertyUtils.MAPPED_DELIM2);
-                if (indexOfMAPPEDDELIM2 >= 0 && indexOfMAPPEDDELIM >= 0
+                if (indexOfMAPPEDDELIM2 >= 0
+                    && indexOfMAPPEDDELIM >= 0
                     && (indexOfNESTEDDELIM < 0 || indexOfNESTEDDELIM > indexOfMAPPEDDELIM))
                 {
                     indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM, indexOfMAPPEDDELIM2);

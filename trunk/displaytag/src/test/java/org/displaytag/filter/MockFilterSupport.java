@@ -39,6 +39,11 @@ public class MockFilterSupport extends HttpServlet
     protected static Log log = LogFactory.getLog(MockFilterSupport.class);
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

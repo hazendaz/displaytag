@@ -2,6 +2,7 @@ package org.displaytag.exception;
 
 import org.apache.commons.lang.enum.Enum;
 
+
 /**
  * Enumeration for logging severities.
  * @author Fabrizio Giustina
@@ -9,6 +10,7 @@ import org.apache.commons.lang.enum.Enum;
  */
 public final class SeverityEnum extends Enum
 {
+
     /**
      * Severity FATAL.
      */
@@ -33,6 +35,11 @@ public final class SeverityEnum extends Enum
      * Severity DEBUG.
      */
     public static final SeverityEnum DEBUG = new SeverityEnum("debug");
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
 
     /**
      * private constructor. Use only constants
