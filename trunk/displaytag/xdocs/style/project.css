@@ -9,8 +9,8 @@ body {
 /* main layout */
 #banner{
  height: 100px;
- background-image: url(../images/background.png);
  color:#000000;
+ background-color: #fff !important;
  border: none;
  margin:0 0 0 0;
  border-bottom: 2px solid #FFD700;
@@ -28,7 +28,7 @@ body {
 }
 
 #bodyColumn{
-  margin: 18px 20px 20px 220px;
+  margin: 18px 20px 20px 220px;s
   border: 2px solid #D2B48C;
   background-color: #fff;
   color: #333333;
@@ -124,7 +124,7 @@ h3 {
 }
 
 #navcolumn ul {
-    margin: 8px 0 12px 0;
+    margin: 2px 0 12px 0;
 }
 
 #navcolumn li {
@@ -176,7 +176,6 @@ h3 {
 
 
 #banner a#projectLogo img{
-  background-color: #fff !important;
   margin-right: 20px !important;
   padding: 5px 10px 5px 10px;
 }
@@ -212,6 +211,15 @@ tr.even, tr.a {
 tr.odd, tr.b {
   /*background-color: #fff !important;*/
 }
+
+table.bodyTable {
+  border-collapse: collapse;
+}
+table.bodyTable td, table.bodyTable th{
+  border: 1px solid #fff;
+  padding: 3px 5px 3px 5px;
+}
+
 table td.source{
   border: none !important;
 }
