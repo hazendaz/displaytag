@@ -39,6 +39,7 @@
             <xsl:for-each select="//tld:tag|//tld11:tag">
             <li>    <!-- Showing only the first sentence -->
 	            <a href="#{tld:name}{tld11:name}"><xsl:value-of select="tld:name|tld11:name"/></a>
+	            <xsl:text>&#x20;</xsl:text>
     	        <xsl:if test="not(contains(tld:description,'.'))"> <xsl:value-of select="tld:description|tld:info"/></xsl:if>
                 <xsl:value-of select="substring-before(tld:description,'.')"/>
     	        <xsl:value-of select="substring-before(tld:info,'.')"/>.
