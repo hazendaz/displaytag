@@ -28,11 +28,11 @@
     <siteAddress>shell.sourceforge.net</siteAddress>
     <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag2</connection>
+        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</connection>
         <developerConnection>
-            scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag2
+            scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag
         </developerConnection>
-        <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag2/</url>
+        <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
     </repository>
     <versions>
         <version>
