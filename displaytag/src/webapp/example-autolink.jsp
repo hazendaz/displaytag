@@ -17,7 +17,7 @@
 	attribute in your display:column tag, and that will tell the display:table to
 	automatically display those pieces of data as hyperlinks, you will not have
 	to take any action to convert that data.
-<p>
+</p>
 
 <ul>
 	<li>
