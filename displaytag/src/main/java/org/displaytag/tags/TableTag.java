@@ -1029,8 +1029,9 @@ public class TableTag extends HtmlTableTag
             {
                 // this will also reset headers, needed when the server is sending a "no-cache" header
                 this.pageContext.getResponse().reset();
+                out.clear();
             }
-            catch (IllegalStateException e)
+            catch (Exception e)
             {
                 throw new JspException("Unable to reset response before returning exported data. "
                     + "You are not using an export filter. "
