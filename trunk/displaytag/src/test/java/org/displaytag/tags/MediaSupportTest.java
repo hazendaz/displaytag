@@ -27,7 +27,6 @@ public class MediaSupportTest extends DisplaytagCase
      */
     private static Log log = LogFactory.getLog(MediaSupportTest.class);
 
-
     /**
      * Instantiates a new test case.
      * @param name test name
@@ -38,13 +37,21 @@ public class MediaSupportTest extends DisplaytagCase
     }
 
     /**
+     * @see org.displaytag.test.DisplaytagCase#getJspName()
+     */
+    public String getJspName()
+    {
+        return "http://localhost/tld11/media.jsp";
+    }
+
+    /**
      * Test as Html.
      * @throws Exception any axception thrown during test.
      */
     public void testAsHtml() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest("http://localhost/media.jsp");
+        WebRequest request = new GetMethodWebRequest(getJspName());
 
         WebResponse response = runner.getResponse(request);
 
@@ -72,8 +79,8 @@ public class MediaSupportTest extends DisplaytagCase
         ParamEncoder encoder = new ParamEncoder("table", "requestScope.test");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest("http://localhost/media.jsp?" + mediaParameter + "="
-            + MediaTypeEnum.XML.getCode());
+        WebRequest request = new GetMethodWebRequest(getJspName());
+        request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
 
         WebResponse response = runner.getResponse(request);
 
