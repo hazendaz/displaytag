@@ -32,9 +32,13 @@
         TableDecorator.
       </action>
       <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
-        Removed the <code>value</code> of ColumnTag. This was totally undocumented in previous versions 
+        Removed the <code>value</code> property of ColumnTag. This was totally undocumented in previous versions 
         and is now useless.
       </action>
+      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+      fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=823383 ">[823383]</a>: 
+      Body not cleared with pooled ColumnTags
+      </action>      
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">

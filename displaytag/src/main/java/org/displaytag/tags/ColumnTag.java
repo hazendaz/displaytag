@@ -754,6 +754,9 @@ public class ColumnTag extends BodyTagSupport
         staticContent = null;
         paramName = null;
 
+        // fix for tag pooling in tomcat
+        setBodyContent(null);
+
         return super.doEndTag();
     }
 
