@@ -57,7 +57,7 @@ public abstract class DisplaytagTestCase extends JspTestCase
     }
 
     /**
-     * Convenience function that asserts that a substring can be found in a the returned HTTP response body.
+     * Convenience function that asserts that a substring can not be found in a the returned HTTP response body.
      * @param theResponse the response from the server side.
      * @param theSubstring the substring to look for
      */
@@ -66,7 +66,7 @@ public abstract class DisplaytagTestCase extends JspTestCase
         String target = theResponse.getText();
         if (target.indexOf(theSubstring) > -1)
         {
-            fail("Response did not contain the substring: [" + theSubstring + "]");
+            fail("Response contain the unexpected substring: [" + theSubstring + "]");
         }
     }
 
