@@ -8,6 +8,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
+
 /**
  * Tests for basic displaytag functionalities.
  * @author Fabrizio Giustina
@@ -53,6 +54,7 @@ public class GroupTest extends DisplaytagCase
         WebTable[] tables = response.getTables();
 
         assertEquals("Expected one table in result.", 1, tables.length);
+        assertEquals("Wrong number of rows in table.", 3, tables[0].getRowCount());
 
         assertEquals("Column not grouped.", "", tables[0].getCellAsText(2, 0));
         assertEquals("Column not grouped.", "", tables[0].getCellAsText(2, 1));

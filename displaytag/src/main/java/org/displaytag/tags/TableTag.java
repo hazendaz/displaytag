@@ -17,6 +17,8 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.NestableRuntimeException;
+import org.apache.commons.lang.math.LongRange;
+import org.apache.commons.lang.math.Range;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
@@ -252,8 +254,16 @@ public class TableTag extends HtmlTableTag
 
     /**
      * If set to true, only iterates on sublist.
+     * @todo probably useless, duplicates informations in <code>filteredRows</code>. See if we can remove it after
+     * completing the work on optimization.
      */
     private boolean optimizedIteration;
+
+    /**
+     * Included row range. If no rows can be skipped the range is from 0 to Long.MAX_VALUE. Range check should be always
+     * done using containsLong().
+     */
+    private Range filteredRows;
 
     /**
      * Sets the list of parameter which should not be forwarded during sorting or pagination.
@@ -747,20 +757,58 @@ public class TableTag extends HtmlTableTag
             this.list = evaluateExpression(fullName);
         }
 
-        // optimized iteration if:
-        if (((this.pagesize > 0 // we are paging
+        // do we really need to skip any row?
+        boolean wishOptimizedIteration = (this.pagesize > 0 // we are paging
             || this.offset > 0 // or we are skipping some records using offset
-        || this.length > 0) // or we are limiting the records using length
-            && (sortColumn > -1) // and we are not sorting
-        || !finalSortFull) // or we are sorting with the "page" behaviour
-            && ((this.currentMediaType == MediaTypeEnum.HTML) // and we are not exporting
+        || this.length > 0 // or we are limiting the records using length
+        );
+
+        // can we actually skip any row?
+        if (wishOptimizedIteration && ((sortColumn == -1 // and we are not sorting
+            || !finalSortFull // or we are sorting with the "page" behaviour
+            ) && (this.currentMediaType == MediaTypeEnum.HTML // and we are not exporting
             || !this.properties.getExportFullList()) // or we are exporting a single page
-        )
+            ))
         {
-            // optimizedIteration = true;
+            optimizedIteration = true;
+
+            int start = 0;
+            int end = 0;
+            if (this.offset > 0)
+            {
+                start = this.offset;
+            }
+            if (length > 0)
+            {
+                end = start + this.length;
+            }
+
+            if (this.pagesize > 0)
+            {
+                start = (this.pageNumber - 1) * this.pagesize;
+                end = start + this.pagesize;
+            }
+
+            // rowNumber starts from 1
+            filteredRows = new LongRange(start + 1, end);
+        }
+        else
+        {
+            filteredRows = new LongRange(1, Long.MAX_VALUE);
         }
 
         this.tableIterator = IteratorUtils.getIterator(this.list);
+    }
+
+    /**
+     * Is the current row included in the "to-be-evaluated" range? Called by nested ColumnTags. If <code>false</code>
+     * column body is skipped.
+     * @return <code>true</code> if the current row must be evaluated because is included in output or because is
+     * included in sorting.
+     */
+    protected boolean isIncludedRow()
+    {
+        return filteredRows.containsLong(this.rowNumber);
     }
 
     /**
@@ -1676,6 +1724,7 @@ public class TableTag extends HtmlTableTag
         this.scope = null;
         this.sortFullTable = null;
         this.excludedParams = null;
+        this.filteredRows = null;
     }
 
     /**

@@ -239,16 +239,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * This tag must be the descendant of a fmt:bundle tag in order to use the titleKey. This is just a shortcut, which
-     * makes <code>
-     * &lt;display:column titleKey="bar"/&gt;
-     * </code> behave the same as <code>
-     * &lt;c:set var="foo"&gt;&lt;fmt:message key="bar"/&gt;&lt;/c:set&gt;<br/>
-     * &lt;display:column title="${foo}"/&gt;
-     * </code>.
-     * If you don't define a title or a titleKey property on your column, first the tag will attempt to look up the
-     * property property in your ResourceBundle. Failing that, it will fall back to the parent class's behavior of just
-     * using the property name.
+     * setter for the "titleKey" tag attribute.
      * @param value property name
      */
     public void setTitleKey(String value)
@@ -541,6 +532,8 @@ public class ColumnTag extends BodyTagSupport
      */
     public int doEndTag() throws JspException
     {
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+
         MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
         if (currentMediaType != null && !availableForMedia(currentMediaType))
         {
@@ -551,12 +544,15 @@ public class ColumnTag extends BodyTagSupport
             return SKIP_BODY;
         }
 
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
-
         // add column header only once
         if (tableTag.isFirstIteration())
         {
             addHeaderToTable(tableTag);
+        }
+
+        if (!tableTag.isIncludedRow())
+        {
+            return super.doEndTag();
         }
 
         Cell cell;
@@ -606,11 +602,14 @@ public class ColumnTag extends BodyTagSupport
      */
     private void addHeaderToTable(TableTag tableTag) throws DecoratorInstantiationException, ObjectLookupException
     {
+        // don't modify "title" directly
+        String evalTitle = this.title;
+
         // title has precedence over titleKey
-        if (this.title == null && (this.titleKey != null || this.property != null))
+        if (evalTitle == null && (this.titleKey != null || this.property != null))
         {
             // handle title i18n
-            this.title = tableTag.getProperties().geResourceProvider().getResource(
+            evalTitle = tableTag.getProperties().geResourceProvider().getResource(
                 this.titleKey,
                 this.property,
                 tableTag,
@@ -620,7 +619,7 @@ public class ColumnTag extends BodyTagSupport
         HeaderCell headerCell = new HeaderCell();
         headerCell.setHeaderAttributes((HtmlAttributeMap) this.headerAttributeMap.clone());
         headerCell.setHtmlAttributes((HtmlAttributeMap) this.attributeMap.clone());
-        headerCell.setTitle(this.title);
+        headerCell.setTitle(evalTitle);
         headerCell.setSortable(this.sortable);
         headerCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(this.decorator));
         headerCell.setBeanPropertyName(this.property);
@@ -732,7 +731,7 @@ public class ColumnTag extends BodyTagSupport
         }
 
         // If the list is empty, do not execute the body; may result in NPE
-        if (tableTag.isEmpty())
+        if (tableTag.isEmpty() || !tableTag.isIncludedRow())
         {
             return SKIP_BODY;
         }

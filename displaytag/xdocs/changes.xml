@@ -72,6 +72,10 @@
                 attribute in the EL version of table Tag will now work both with EL expressions and with the "standard"
                 displaytag sintax.
             </action>
+            <action type="update" dev="fgiust" issue="DISPL-3">
+                Column JSP body should only execute for rows being shown. Now column body is skipped if current row is
+                not needed for display or sorting (be careful, if you sort the full list row need to be evaluated).
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
