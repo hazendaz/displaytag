@@ -14,6 +14,11 @@ public class ELSetPropertyTag extends SetPropertyTag
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * Expression for the "name" tag attribute.
      */
     private String nameExpr;
@@ -47,7 +52,6 @@ public class ELSetPropertyTag extends SetPropertyTag
         evaluateExpressions();
         return super.doStartTag();
     }
-
 
     /**
      * Evaluates the expressions for all the given attributes and pass results up to the parent tag.

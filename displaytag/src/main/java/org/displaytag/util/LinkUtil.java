@@ -18,6 +18,7 @@ public final class LinkUtil
      */
     private LinkUtil()
     {
+        // unused
     }
 
     /**
@@ -75,9 +76,12 @@ public final class LinkUtil
 
             String email = string.substring(start, end + 1);
 
-            buffer.append(string.substring(0, start)).append("<a href=\"mailto:").append(email + "\">").append(
-                email).append(
-                "</a>");
+            buffer
+                .append(string.substring(0, start))
+                .append("<a href=\"mailto:")
+                .append(email + "\">")
+                .append(email)
+                .append("</a>");
 
             if (end == string.length())
             {
@@ -109,9 +113,13 @@ public final class LinkUtil
 
             String url = string.substring(index, end + 1);
 
-            buffer.append(string.substring(0, index)).append("<a href=\"").append(url).append("\">").append(
-                url).append(
-                "</a>");
+            buffer
+                .append(string.substring(0, index))
+                .append("<a href=\"")
+                .append(url)
+                .append("\">")
+                .append(url)
+                .append("</a>");
 
             if (end == string.length())
             {

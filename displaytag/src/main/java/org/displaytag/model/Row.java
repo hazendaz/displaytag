@@ -8,6 +8,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.util.TagConstants;
 
+
 /**
  * Holds informations for a table row.
  * @author Fabrizio Giustina
@@ -148,10 +149,9 @@ public class Row
                 + "\""
                 + TagConstants.TAG_CLOSE;
         }
-        else
-        {
-            return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + TagConstants.TAG_CLOSE;
-        }
+
+        return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + TagConstants.TAG_CLOSE;
+
     }
 
     /**
@@ -168,9 +168,8 @@ public class Row
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
-            .append("rowNumber", this.rowNumber)
-            .append("rowObject", this.rowObject)
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append("rowNumber", this.rowNumber).append(
+            "rowObject",
+            this.rowObject).toString();
     }
 }

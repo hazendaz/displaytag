@@ -17,6 +17,7 @@ public final class ExportViewFactory
      */
     private ExportViewFactory()
     {
+        // unused
     }
 
     /**

@@ -13,16 +13,17 @@ public final class DependencyChecker
 {
 
     /**
+     * Has the commons-lang dependency been checked?
+     */
+    private static boolean commonsLangChecked;
+
+    /**
      * Don't instantiate.
      */
     private DependencyChecker()
     {
+        // unused
     }
-
-    /**
-     * Has the commons-lang dependency been checked?
-     */
-    private static boolean commonsLangChecked;
 
     /**
      * Displaytag requires commons-lang 2.x or better; it is not compatible with earlier versions.
@@ -66,6 +67,5 @@ public final class DependencyChecker
         }
         commonsLangChecked = true;
     }
-
 
 }

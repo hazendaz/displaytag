@@ -243,5 +243,6 @@ public final class TagConstants
      */
     private TagConstants()
     {
+        // unused
     }
 }

@@ -9,11 +9,17 @@ import org.displaytag.exception.TagStructureException;
 
 
 /**
+ * Display a table footer. Html only, not included in export.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class TableFooterTag extends BodyTagSupport
 {
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
 
     /**
      * logger.
@@ -75,12 +81,9 @@ public class TableFooterTag extends BodyTagSupport
             // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
             return 2;
         }
-        else
-        {
-            this.firstIteration = false;
-            return SKIP_BODY;
-        }
 
+        this.firstIteration = false;
+        return SKIP_BODY;
     }
 
 }

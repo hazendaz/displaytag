@@ -39,7 +39,7 @@ public final class TableTagParameters
     public static final String PARAMETER_EXPORTTYPE = "e";
 
     /**
-     * name of the <strong>fixed</strong> parameter that will be added to the url if exporting is requested for any of
+     * name of the <strong>fixed </strong> parameter that will be added to the url if exporting is requested for any of
      * the display table in the page. Used by the export filter to understand when output should not be flushed.
      */
     public static final String PARAMETER_EXPORTING = "6578706f7274";
@@ -64,6 +64,7 @@ public final class TableTagParameters
      */
     private TableTagParameters()
     {
+        // unused
     }
 
 }

@@ -9,6 +9,11 @@ public class TablePropertiesLoadException extends BaseNestableRuntimeException
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * Constructor for TablePropertiesLoadException.
      * @param source Class where the exception is generated
      * @param propertiesFileName properties file name

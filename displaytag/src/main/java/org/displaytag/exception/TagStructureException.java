@@ -9,6 +9,11 @@ public class TagStructureException extends BaseNestableJspTagException
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * Constructor for InvalidTagAttributeValueException.
      * @param source Class where the exception is generated
      * @param currentTag name of the current tag

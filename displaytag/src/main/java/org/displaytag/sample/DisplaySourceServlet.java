@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * Servlet used to display jsp source for example pages.
  * @author Fabrizio Giustina
@@ -18,6 +19,11 @@ public class DisplaySourceServlet extends HttpServlet
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * the folder containg example pages.
      */
     private static final String EXAMPLE_FOLDER = "/";
@@ -25,8 +31,8 @@ public class DisplaySourceServlet extends HttpServlet
     /**
      * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
      */
-    protected final void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException
+    protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+        IOException
     {
 
         String jspFile = request.getRequestURI();
@@ -58,9 +64,8 @@ public class DisplaySourceServlet extends HttpServlet
 
         PrintWriter out = response.getWriter();
 
-        out.println(
-            "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
-                + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
+        out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
+            + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
         out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
         out.println("<head>");
         out.println("<title>");

@@ -16,6 +16,11 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * property name.
      */
     private String name;
@@ -67,11 +72,9 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
             // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
             return 2;
         }
-        else
-        {
-            this.firstIteration = false;
-            return SKIP_BODY;
-        }
+
+        this.firstIteration = false;
+        return SKIP_BODY;
 
     }
 

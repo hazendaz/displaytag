@@ -154,10 +154,12 @@ public class ResponseOverrideFilter implements Filter
         out.write(pageContent);
         out.close();
     }
+
     /**
      * {@inheritDoc}
      */
     public void destroy()
     {
+        // nothing to destroy
     }
 }

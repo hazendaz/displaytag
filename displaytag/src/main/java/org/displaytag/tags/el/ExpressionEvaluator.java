@@ -82,10 +82,8 @@ public class ExpressionEvaluator
         {
             return rtn.booleanValue();
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
     /**
@@ -102,10 +100,8 @@ public class ExpressionEvaluator
         {
             return rtn.longValue();
         }
-        else
-        {
-            return -1L;
-        }
+
+        return -1L;
     }
 
     /**
@@ -122,9 +118,7 @@ public class ExpressionEvaluator
         {
             return rtn.intValue();
         }
-        else
-        {
-            return -1;
-        }
+
+        return -1;
     }
 }

@@ -44,6 +44,11 @@ public class ColumnTag extends BodyTagSupport
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * logger.
      */
     private static Log log = LogFactory.getLog(ColumnTag.class);
@@ -466,10 +471,8 @@ public class ColumnTag extends BodyTagSupport
         {
             return true;
         }
-        else
-        {
-            return this.supportedMedia.contains(mediaType);
-        }
+
+        return this.supportedMedia.contains(mediaType);
     }
 
     /**
@@ -569,6 +572,7 @@ public class ColumnTag extends BodyTagSupport
 
         return super.doEndTag();
     }
+
     /**
      * Adds the current header to the table model calling addColumn in the parent table tag. This method should be
      * called only at first iteration.
@@ -696,16 +700,13 @@ public class ColumnTag extends BodyTagSupport
         {
             return SKIP_BODY;
         }
-        else
+
+        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
+        if (!availableForMedia(currentMediaType))
         {
-            MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext
-                .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-            if (!availableForMedia(currentMediaType))
-            {
-                return SKIP_BODY;
-            }
-            return super.doStartTag();
+            return SKIP_BODY;
         }
+        return super.doStartTag();
     }
 
     /**

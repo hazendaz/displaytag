@@ -18,12 +18,12 @@ import org.displaytag.util.RequestHelperFactory;
 
 /**
  * The properties used by the Table tags. The properties are loaded in the following order, in increasing order of
- * priority.  The locale of getInstance() is used to determine the locale of the property file to use;
- * if the key required does not exist in the specified file, the key will be loaded from a more general property file.
+ * priority. The locale of getInstance() is used to determine the locale of the property file to use; if the key
+ * required does not exist in the specified file, the key will be loaded from a more general property file.
  * <ol>
  * <li>First, from the TableTag.properties included with the DisplayTag distribution.</li>
  * <li>Then, from the file displaytag.properties, if it is present; these properties are intended to be set by the user
- * for sitewide application. Messages are gathered according to the Locale of the property file.  </li>
+ * for sitewide application. Messages are gathered according to the Locale of the property file.</li>
  * <li>Finally, if this class has a userProperties defined, all of the properties from that Properties object are
  * copied in as well. The userProperties Properties can be set by the {@link DisplayPropertiesLoaderServlet}if it is
  * configured.</li>
@@ -250,7 +250,6 @@ public final class TableProperties implements Cloneable
      */
     private static Properties userProperties = new Properties();
 
-
     /**
      * TableProperties for each locale are loaded as needed, and cloned for public usage.
      */
@@ -267,7 +266,7 @@ public final class TableProperties implements Cloneable
     private Locale locale;
 
     /**
-     * Initialize a new TableProperties loading the default properties file and the user defined one.  There is no
+     * Initialize a new TableProperties loading the default properties file and the user defined one. There is no
      * caching used here, caching is assumed to occur in the getInstance factory method.
      * @param myLocale the locale we are in
      * @throws TablePropertiesLoadException for errors during loading of properties files
@@ -315,7 +314,7 @@ public final class TableProperties implements Cloneable
     /**
      * Try to load the properties from the local properties file, displaytag.properties, and merge them into the
      * existing properties.
-     * @param  fromLocale the locale from which the properties are to be loaded
+     * @param fromLocale the locale from which the properties are to be loaded
      */
     private void addProperties(Locale fromLocale)
     {
@@ -346,7 +345,7 @@ public final class TableProperties implements Cloneable
     /**
      * Clones the properties as well.
      * @return a new clone of oneself
-     * @throws CloneNotSupportedException  never thrown
+     * @throws CloneNotSupportedException never thrown
      */
     protected Object clone() throws CloneNotSupportedException
     {
@@ -380,8 +379,8 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Unload all cached properties. This will not clear properties set by by setUserProperties; you must clear
-     * those manually.
+     * Unload all cached properties. This will not clear properties set by by setUserProperties; you must clear those
+     * manually.
      */
     public static void clearProperties()
     {
@@ -391,8 +390,8 @@ public final class TableProperties implements Cloneable
     /**
      * Local, non-default properties; these settings override the defaults from displaytag.properties and
      * TableTag.properties. Please note that the values are copied in, so that multiple calls with non-overlapping
-     * properties will be merged, not overwritten.
-     * Note: setUserProperties() MUST BE CALLED before the first TableProperties instantation.
+     * properties will be merged, not overwritten. Note: setUserProperties() MUST BE CALLED before the first
+     * TableProperties instantation.
      * @param overrideProperties - The local, non-default properties
      */
     public static void setUserProperties(Properties overrideProperties)
@@ -572,8 +571,7 @@ public final class TableProperties implements Cloneable
      */
     public boolean getExportHeader(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType
-                + "." + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
     }
 
     /**
@@ -715,14 +713,7 @@ public final class TableProperties implements Cloneable
      */
     public String getCssRow(int rowNumber)
     {
-        if (rowNumber % 2 == 0)
-        {
-            return getProperty(PROPERTY_CSS_TR_ODD);
-        }
-        else
-        {
-            return getProperty(PROPERTY_CSS_TR_EVEN);
-        }
+        return getProperty((rowNumber % 2 == 0) ? PROPERTY_CSS_TR_ODD : PROPERTY_CSS_TR_EVEN);
     }
 
     /**
@@ -733,14 +724,7 @@ public final class TableProperties implements Cloneable
      */
     public String getCssOrder(boolean ascending)
     {
-        if (ascending)
-        {
-            return getProperty(PROPERTY_CSS_TH_SORTED_ASCENDING);
-        }
-        else
-        {
-            return getProperty(PROPERTY_CSS_TH_SORTED_DESCENDING);
-        }
+        return getProperty(ascending ? PROPERTY_CSS_TH_SORTED_ASCENDING : PROPERTY_CSS_TH_SORTED_DESCENDING);
     }
 
     /**

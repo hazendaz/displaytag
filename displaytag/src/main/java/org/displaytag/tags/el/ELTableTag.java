@@ -13,6 +13,11 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * Expression for the "class" tag attribute.
      */
     private String classExpr;
@@ -200,6 +205,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     {
         requestURIExpr = value;
     }
+
     /**
      * @see org.displaytag.tags.TableTag#setRules(java.lang.String)
      */
@@ -215,7 +221,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     {
         sortExpr = value;
     }
-
 
     /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
@@ -329,6 +334,5 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         this.styleExpr = null;
         this.summaryExpr = null;
     }
-
 
 }

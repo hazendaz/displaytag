@@ -1,6 +1,5 @@
 package org.displaytag.exception;
 
-
 /**
  * Exception thrown when displaytag is unable to instantiate a class specified by the user in the properties file.
  * @author Fabrizio Giustina
@@ -8,6 +7,11 @@ package org.displaytag.exception;
  */
 public class FactoryInstantiationException extends BaseNestableJspTagException
 {
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Instantiate a new FactoryInstantiationException.

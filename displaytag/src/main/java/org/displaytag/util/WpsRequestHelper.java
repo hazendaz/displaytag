@@ -61,7 +61,6 @@ public class WpsRequestHelper extends DefaultRequestHelper
         return portalHref;
     }
 
-
     /**
      * Returns the url of a refresh uri (a simple action which forces the portlet to reload).
      * @return String portletURI.toString()
@@ -131,6 +130,11 @@ public class WpsRequestHelper extends DefaultRequestHelper
      */
     public class RuntimeWpsSupportException extends RuntimeException
     {
+
+        /**
+         * D1597A17A6.
+         */
+        private static final long serialVersionUID = 899149338534L;
 
         /**
          * Portlet response couldn't be found.

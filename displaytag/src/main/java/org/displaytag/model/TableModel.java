@@ -85,11 +85,11 @@ public class TableModel
 
     /**
      * Sets the starting offset for elements in the viewable list.
-     * @param pageOffset The pageOffset to set.
+     * @param offset The page offset to set.
      */
-    public void setPageOffset(int pageOffset)
+    public void setPageOffset(int offset)
     {
-        this.pageOffset = pageOffset;
+        this.pageOffset = offset;
     }
 
     /**
