@@ -1166,15 +1166,6 @@ public class TableTag extends HtmlTableTag
             buffer.append(getTableHeader());
         }
 
-        // open table body
-        buffer.append(TagConstants.TAG_TBODY_OPEN);
-
-        // write table body
-        buffer.append(getTableBody());
-
-        // close table body
-        buffer.append(TagConstants.TAG_TBODY_CLOSE);
-
         if (this.footer != null)
         {
             buffer.append(TagConstants.TAG_TFOOTER_OPEN);
@@ -1183,6 +1174,15 @@ public class TableTag extends HtmlTableTag
             // reset footer
             this.footer = null;
         }
+
+        // open table body
+        buffer.append(TagConstants.TAG_TBODY_OPEN);
+
+        // write table body
+        buffer.append(getTableBody());
+
+        // close table body
+        buffer.append(TagConstants.TAG_TBODY_CLOSE);
 
         // close table
         buffer.append(getCloseTag());
