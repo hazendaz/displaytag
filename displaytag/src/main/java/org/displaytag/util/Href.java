@@ -10,6 +10,12 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+
+
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
+
 /**
  * Object representing an URI (the href parameter of an &lt;a> tag). Provides methods to insert new parameters. It
  * doesn't support multiple parameter values
@@ -338,8 +344,34 @@ public class Href implements Cloneable
             // should never happen
         }
 
-        href.parameters.putAll(this.parameters);
-
+        href.parameters = new HashMap(this.parameters);
         return href;
+    }
+
+    /**
+     * @see java.lang.Object#equals(Object)
+     */
+    public boolean equals(Object object)
+    {
+        if (!(object instanceof Href))
+        {
+            return false;
+        }
+        Href rhs = (Href) object;
+        return new EqualsBuilder().append(this.parameters, rhs.parameters).append(this.url, rhs.url).append(
+            this.anchor,
+            rhs.anchor).isEquals();
+    }
+
+    /**
+     * @see java.lang.Object#hashCode()
+     */
+    public int hashCode()
+    {
+        return new HashCodeBuilder(1313733113, -431360889)
+            .append(this.parameters)
+            .append(this.url)
+            .append(this.anchor)
+            .toHashCode();
     }
 }
