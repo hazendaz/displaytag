@@ -33,17 +33,18 @@ public class DataSourceMapTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "http://localhost/tld11/map.jsp";
+        return "map.jsp";
     }
 
     /**
      * Test with a Map[].
+     * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void testMapArray() throws Exception
+    public void doTest(String jspName) throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(getJspName());
+        WebRequest request = new GetMethodWebRequest(jspName);
 
         WebResponse response = runner.getResponse(request);
 

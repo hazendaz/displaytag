@@ -30,17 +30,18 @@ public class SetPropertyTagTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "http://localhost/tld11/setproperty.jsp";
+        return "setproperty.jsp";
     }
 
     /**
      * Check that the "show header" property only affects the correct tables in the page.
+     * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void testSetProperty() throws Exception
+    public void doTest(String jspName) throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(getJspName());
+        WebRequest request = new GetMethodWebRequest(jspName);
 
         WebResponse response = runner.getResponse(request);
 

@@ -300,9 +300,9 @@ public final class TableProperties
         }
         catch (MissingResourceException e)
         {
-            if (log.isInfoEnabled())
+            if (log.isDebugEnabled())
             {
-                log.info("Was not able to load a custom displaytag.properties; " + e.getMessage());
+                log.debug("Was not able to load a custom displaytag.properties; " + e.getMessage());
             }
         }
 

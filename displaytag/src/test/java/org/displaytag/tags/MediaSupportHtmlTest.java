@@ -1,5 +1,6 @@
 package org.displaytag.tags;
 
+import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 
@@ -10,18 +11,18 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
- * Tests for basic displaytag functionalities.
+ * Tests for "media" attribute support.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class GroupTest extends DisplaytagCase
+public class MediaSupportHtmlTest extends DisplaytagCase
 {
 
     /**
      * Instantiates a new test case.
      * @param name test name
      */
-    public GroupTest(String name)
+    public MediaSupportHtmlTest(String name)
     {
         super(name);
     }
@@ -31,11 +32,11 @@ public class GroupTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "group.jsp";
+        return "media.jsp";
     }
 
     /**
-     * Tests row grouping. bug #923446
+     * Test as Html.
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
@@ -52,8 +53,12 @@ public class GroupTest extends DisplaytagCase
 
         assertEquals("Expected one table in result.", 1, tables.length);
 
-        assertEquals("Column not grouped.", "", tables[0].getCellAsText(2, 0));
-        assertEquals("Column not grouped.", "", tables[0].getCellAsText(2, 1));
-        assertEquals("Column should not be grouped.", KnownValue.CAMEL, tables[0].getCellAsText(2, 2));
+        assertEquals("Bad number of generated columns.", 2, tables[0].getColumnCount());
+
+        assertEquals("Bad value in column header.", tables[0].getCellAsText(0, 0), StringUtils
+            .capitalize(KnownValue.ANT));
+        assertEquals("Bad value in column header.", tables[0].getCellAsText(0, 1), StringUtils
+            .capitalize(KnownValue.CAMEL));
     }
+
 }
