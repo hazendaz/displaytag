@@ -17,6 +17,12 @@
       <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=749119">[749119]</a>: paging.banner.placement property
       </action>
+      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+        Automatic column discovery when no columns are defined. Instead of the simple output with the 
+        object toString() and the message "please define column tags", the table tag will automatically add
+        columns mapped to object properties. This is expecially useful in development to quickly see and 
+        test available properties.
+      </action>
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">
