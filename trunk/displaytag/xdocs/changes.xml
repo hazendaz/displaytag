@@ -54,6 +54,9 @@
 	      The "url" column attribute, already available in the EL version form 1.0-b3, has been moved to the standard library.
 	      The "url" attribute has the same meaning as the "href" attribute, but always prepends the context path to the URI.
       </action>
+      <action type="fix" dev="fgiust" issue="952129">
+	      Column:autolink throwing exception or garbling urls.
+      </action>
   	</release>
   	
   	<release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
