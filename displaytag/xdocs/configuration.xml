@@ -362,8 +362,7 @@
               <td class="source">order2</td>
               <td>any valid css class name</td>
               <td>css class automatically added to the header of a column sorted is descending order</td>
-              <td>yes</td>
-              <td>yes</td>
+              <td>yes/yes</td>
             </tr>
             <tr>
               <td>css.table</td>
