@@ -2,6 +2,7 @@ package org.displaytag.util;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -76,13 +77,13 @@ public class RequestHelper
     }
 
     /**
-     * Returns an HashMap containing all the parameters in the request.
-     * @return HashMap
+     * Returns a Map containing all the parameters in the request.
+     * @return Map
      */
-    public final HashMap getParameterMap()
+    public final Map getParameterMap()
     {
 
-        HashMap map = new HashMap();
+        Map map = new HashMap();
 
         // get the parameters names
         Enumeration parametersName = this.request.getParameterNames();
