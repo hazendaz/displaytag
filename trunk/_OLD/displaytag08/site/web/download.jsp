@@ -14,29 +14,34 @@ differences between this version and previous ones.<p>
 <td align="right"><b>Date Posted</b></td>
 </tr>
 <tr>
-<td align="left"><a href="/downloads/display/display-bin-0.8.zip">display-bin-0.8.zip</a></td>
-<td align="right">0.8</td>
-<td align="right">526 K</td>
-<td align="right">05/25/2002</td>
-
+	<td align="left"><a href="http://sourceforge.net/project/showfiles.php?group_id=73068">display-bin-0.8.5.zip</a></td>
+	<td align="right">0.8.5</td>
+	<td align="right">526 K</td>
+	<td align="right">03/23/2003</td>
 </tr>
 <tr>
-<td align="left"><a href="/downloads/display/display-bin-0.8.tar.gz">display-bin-0.8.tar.gz</a></td>
-<td align="right">0.8</td>
-<td align="right">475 K</td>
-<td align="right">05/25/2002</td></tr>
-<tr>
-<td align="left"><a href="/downloads/display/display-src-0.8.zip">display-src-0.8.zip</a></td>
-<td align="right">0.8</td>
-<td align="right">1.3 M</td>
-<td align="right">05/25/2002</td>
-
+	<td align="left"><a href="/downloads/display/display-bin-0.8.zip">display-bin-0.8.zip</a></td>
+	<td align="right">0.8</td>
+	<td align="right">526 K</td>
+	<td align="right">05/25/2002</td>
 </tr>
 <tr>
-<td align="left"><a href="/downloads/display/display-src-0.8.tar.gz">display-src-0.8.tar.gz</a></td>
-<td align="right">0.8</td>
-<td align="right">1.1 M</td>
-<td align="right">05/25/2002</td>
+	<td align="left"><a href="/downloads/display/display-bin-0.8.tar.gz">display-bin-0.8.tar.gz</a></td>
+	<td align="right">0.8</td>
+	<td align="right">475 K</td>
+	<td align="right">05/25/2002</td>
+</tr>
+<tr>
+	<td align="left"><a href="/downloads/display/display-src-0.8.zip">display-src-0.8.zip</a></td>
+	<td align="right">0.8</td>
+	<td align="right">1.3 M</td>
+	<td align="right">05/25/2002</td>
+</tr>
+<tr>
+	<td align="left"><a href="/downloads/display/display-src-0.8.tar.gz">display-src-0.8.tar.gz</a></td>
+	<td align="right">0.8</td>
+	<td align="right">1.1 M</td>
+	<td align="right">05/25/2002</td>
 </tr>
 </table>
 <p>
