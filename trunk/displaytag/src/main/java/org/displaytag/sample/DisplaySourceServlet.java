@@ -37,7 +37,7 @@ public class DisplaySourceServlet extends HttpServlet
     /**
      * the folder containg example pages.
      */
-    private static final String EXAMPLE_FOLDER = "/";
+    private static final String EXAMPLE_FOLDER = "/"; //$NON-NLS-1$
 
     /**
      * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
@@ -49,17 +49,17 @@ public class DisplaySourceServlet extends HttpServlet
         String jspFile = request.getRequestURI();
 
         // lastIndexOf(".") can't be null, since the servlet is mapped to ".source"
-        jspFile = jspFile.substring(0, jspFile.lastIndexOf("."));
+        jspFile = jspFile.substring(0, jspFile.lastIndexOf(".")); //$NON-NLS-1$
 
-        if (jspFile.lastIndexOf("/") != -1)
+        if (jspFile.lastIndexOf("/") != -1) //$NON-NLS-1$
         {
-            jspFile = jspFile.substring(jspFile.lastIndexOf("/") + 1);
+            jspFile = jspFile.substring(jspFile.lastIndexOf("/") + 1); //$NON-NLS-1$
         }
 
         // only want to show sample pages, don't play with url!
-        if (!jspFile.startsWith("example-"))
+        if (!jspFile.startsWith("example-")) //$NON-NLS-1$
         {
-            throw new ServletException("Invalid file selected: " + jspFile);
+            throw new ServletException("Invalid file selected: " + jspFile); //$NON-NLS-1$
         }
 
         String fullName = EXAMPLE_FOLDER + jspFile;
@@ -68,38 +68,38 @@ public class DisplaySourceServlet extends HttpServlet
 
         if (inputStream == null)
         {
-            throw new ServletException("Unable to find JSP file: " + jspFile);
+            throw new ServletException("Unable to find JSP file: " + jspFile); //$NON-NLS-1$
         }
 
-        response.setContentType("text/html");
+        response.setContentType("text/html"); //$NON-NLS-1$
 
         PrintWriter out = response.getWriter();
 
-        out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
-            + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
-        out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
-        out.println("<head>");
-        out.println("<title>");
-        out.println("source for " + jspFile);
-        out.println("</title>");
-        out.println("<meta http-equiv=\"content-type\" content=\"text/html; charset=ISO-8859-1\" />");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<pre>");
+        out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" " //$NON-NLS-1$
+            + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">"); //$NON-NLS-1$
+        out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">"); //$NON-NLS-1$
+        out.println("<head>"); //$NON-NLS-1$
+        out.println("<title>"); //$NON-NLS-1$
+        out.println("source for " + jspFile); //$NON-NLS-1$
+        out.println("</title>"); //$NON-NLS-1$
+        out.println("<meta http-equiv=\"content-type\" content=\"text/html; charset=ISO-8859-1\" />"); //$NON-NLS-1$
+        out.println("</head>"); //$NON-NLS-1$
+        out.println("<body>"); //$NON-NLS-1$
+        out.println("<pre>"); //$NON-NLS-1$
         for (int currentChar = inputStream.read(); currentChar != -1; currentChar = inputStream.read())
         {
             if (currentChar == '<')
             {
-                out.print("&lt;");
+                out.print("&lt;"); //$NON-NLS-1$
             }
             else
             {
                 out.print((char) currentChar);
             }
         }
-        out.println("</pre>");
-        out.println("</body>");
-        out.println("</html>");
+        out.println("</pre>"); //$NON-NLS-1$
+        out.println("</body>"); //$NON-NLS-1$
+        out.println("</html>"); //$NON-NLS-1$
     }
 
 }

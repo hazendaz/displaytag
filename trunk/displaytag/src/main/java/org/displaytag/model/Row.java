@@ -151,13 +151,9 @@ public class Row
 
         if (StringUtils.isNotBlank(css))
         {
-            return TagConstants.TAG_OPEN
-                + TagConstants.TAGNAME_ROW
-                + " "
-                + TagConstants.ATTRIBUTE_CLASS
-                + "=\""
-                + css
-                + "\""
+            return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + " " //$NON-NLS-1$
+                + TagConstants.ATTRIBUTE_CLASS + "=\"" //$NON-NLS-1$
+                + css + "\"" //$NON-NLS-1$
                 + TagConstants.TAG_CLOSE;
         }
 

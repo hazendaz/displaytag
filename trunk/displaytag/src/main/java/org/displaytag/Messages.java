@@ -80,4 +80,14 @@ public final class Messages
         return MessageFormat.format(baseMsg, parameters);
     }
 
+    /**
+     * Reads a message from the resource bundle and format it using java MessageFormat.
+     * @param key Message key.
+     * @param parameter single parameter to pass to MessageFormat.format()
+     * @return message String.
+     */
+    public static String getString(String key, Object parameter)
+    {
+        return getString(key, new Object[]{parameter});
+    }
 }

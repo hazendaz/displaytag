@@ -46,8 +46,8 @@ public class Wrapper extends TableDecorator
 
         // Formats for displaying dates and money.
 
-        this.dateFormat = FastDateFormat.getInstance("MM/dd/yy");
-        this.moneyFormat = new DecimalFormat("$ #,###,###.00");
+        this.dateFormat = FastDateFormat.getInstance("MM/dd/yy"); //$NON-NLS-1$
+        this.moneyFormat = new DecimalFormat("$ #,###,###.00"); //$NON-NLS-1$
     }
 
     /**
@@ -86,7 +86,9 @@ public class Wrapper extends TableDecorator
         ListObject object = (ListObject) getCurrentRowObject();
         int index = getListIndex();
 
-        return "<a href=\"details.jsp?index=" + index + "\">" + object.getId() + "</a>";
+        return "<a href=\"details.jsp?index=" //$NON-NLS-1$
+            + index + "\">" //$NON-NLS-1$
+            + object.getId() + "</a>"; //$NON-NLS-1$
     }
 
     /**
@@ -99,14 +101,11 @@ public class Wrapper extends TableDecorator
         ListObject object = (ListObject) getCurrentRowObject();
         int id = object.getId();
 
-        return "<a href=\"details.jsp?id="
-            + id
-            + "&action=view\">View</a> | "
-            + "<a href=\"details.jsp?id="
-            + id
-            + "&action=edit\">Edit</a> | "
-            + "<a href=\"details.jsp?id="
-            + id
-            + "&action=delete\">Delete</a>";
+        return "<a href=\"details.jsp?id=" //$NON-NLS-1$
+            + id + "&action=view\">View</a> | " //$NON-NLS-1$
+            + "<a href=\"details.jsp?id=" //$NON-NLS-1$
+            + id + "&action=edit\">Edit</a> | " //$NON-NLS-1$
+            + "<a href=\"details.jsp?id=" //$NON-NLS-1$
+            + id + "&action=delete\">Delete</a>"; //$NON-NLS-1$
     }
 }

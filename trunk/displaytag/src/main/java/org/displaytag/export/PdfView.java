@@ -28,6 +28,7 @@ import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
+import org.displaytag.util.TagConstants;
 
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Cell;
@@ -152,7 +153,7 @@ public class PdfView implements BinaryExportView
             // Initialize the Document and register it with PdfWriter listener and the OutputStream
             Document document = new Document(PageSize.A4.rotate(), 60, 60, 40, 40);
             document.addCreationDate();
-            HeaderFooter footer = new HeaderFooter(new Phrase("", smallFont), true);
+            HeaderFooter footer = new HeaderFooter(new Phrase(TagConstants.EMPTY_STRING, smallFont), true);
             footer.setBorder(Rectangle.NO_BORDER);
             footer.setAlignment(Element.ALIGN_CENTER);
 

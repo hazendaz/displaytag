@@ -20,6 +20,7 @@ import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.Messages;
 
 import com.opensymphony.webwork.views.jsp.TagUtils;
 import com.opensymphony.xwork.ActionContext;
@@ -108,7 +109,7 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
         // if user explicitely added a titleKey we guess this is an error
         if (message == null && resourceKey != null)
         {
-            log.debug("Missing resource for key [" + resourceKey + "]");
+            log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$
             message = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;
         }
 

@@ -25,6 +25,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
+import org.displaytag.Messages;
 
 
 /**
@@ -151,7 +152,7 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
             }
             catch (MissingResourceException e)
             {
-                log.debug("Missing resource for key [" + key + "]");
+                log.debug(Messages.getString("Localization.missingkey", key)); //$NON-NLS-1$
 
                 // if user explicitely added a titleKey we guess this is an error
                 if (resourceKey != null)
