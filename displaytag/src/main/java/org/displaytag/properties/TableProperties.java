@@ -378,10 +378,20 @@ public final class TableProperties implements Cloneable
         }
         catch (MissingResourceException e)
         {
-            if (log.isDebugEnabled())
+            // if no resource bundle is found, try using the context classloader
+            try
             {
-                log.debug(Messages.getString("TableProperties.propertiesnotfound", //$NON-NLS-1$
-                    new Object[]{e.getMessage()}));
+                bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES, locale, Thread
+                    .currentThread()
+                    .getContextClassLoader());
+            }
+            catch (MissingResourceException mre)
+            {
+                if (log.isDebugEnabled())
+                {
+                    log.debug(Messages.getString("TableProperties.propertiesnotfound", //$NON-NLS-1$
+                        new Object[]{mre.getMessage()}));
+                }
             }
         }
 
