@@ -27,6 +27,14 @@ public class ToStringTest extends TestCase
 {
 
     /**
+     * @see junit.framework.TestCase#getName()
+     */
+    public String getName()
+    {
+        return getClass().getName() + "." + super.getName();
+    }
+
+    /**
      * ToString methods should be costructed using toStringBuilder and the <code>ShortToStringStyle.SHORT_STYLE</code>
      * style.
      * @param object test instance

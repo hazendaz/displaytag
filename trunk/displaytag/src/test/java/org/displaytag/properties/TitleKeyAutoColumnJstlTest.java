@@ -14,15 +14,6 @@ public class TitleKeyAutoColumnJstlTest extends AbstractTitleKeyAutoColumnTest
 {
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public TitleKeyAutoColumnJstlTest(String name)
-    {
-        super(name);
-    }
-
-    /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
      */
     protected String getExpectedSuffix()

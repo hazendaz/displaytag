@@ -22,12 +22,11 @@ public class TableDecoratorTest extends TestCase
     private TableDecorator two;
 
     /**
-     * Constructor for TableDecoratorTest.
-     * @param name test name
+     * @see junit.framework.TestCase#getName()
      */
-    public TableDecoratorTest(String name)
+    public String getName()
     {
-        super(name);
+        return getClass().getName() + "." + super.getName();
     }
 
     /**
@@ -51,7 +50,6 @@ public class TableDecoratorTest extends TestCase
         assertFalse("decorator one - property two, expected false", this.one.hasGetterFor("two"));
         assertFalse("decorator two - property one, expected false", this.two.hasGetterFor("one"));
     }
-
 
     /**
      * test for mapped property support. (testcase for [926213])
@@ -86,4 +84,3 @@ public class TableDecoratorTest extends TestCase
     }
 
 }
-

@@ -17,15 +17,6 @@ public class ColumnBodyTest extends DisplaytagCase
 {
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public ColumnBodyTest(String name)
-    {
-        super(name);
-    }
-
-    /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

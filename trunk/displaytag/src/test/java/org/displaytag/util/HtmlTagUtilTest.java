@@ -12,12 +12,11 @@ public class HtmlTagUtilTest extends TestCase
 {
 
     /**
-     * instantiate a new test.
-     * @param name test name
+     * @see junit.framework.TestCase#getName()
      */
-    public HtmlTagUtilTest(String name)
+    public String getName()
     {
-        super(name);
+        return getClass().getName() + "." + super.getName();
     }
 
     /**
@@ -154,6 +153,7 @@ public class HtmlTagUtilTest extends TestCase
     {
         assertEquals("well<br>", HtmlTagUtil.abbreviateHtmlString("well<br>", 5, false));
     }
+
     /**
      * Test for the abbreviateHtmlString() method.
      */

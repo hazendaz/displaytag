@@ -14,15 +14,6 @@ public class TitleKeyJstlTest extends AbstractTitleKeyTest
 {
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public TitleKeyJstlTest(String name)
-    {
-        super(name);
-    }
-
-    /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
      */
     protected String getExpectedSuffix()

@@ -17,15 +17,6 @@ public class TitleKeyJstlFmtBundleTest extends DisplaytagCase
 {
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public TitleKeyJstlFmtBundleTest(String name)
-    {
-        super(name);
-    }
-
-    /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

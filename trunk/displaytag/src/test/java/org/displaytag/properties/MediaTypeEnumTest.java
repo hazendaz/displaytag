@@ -21,6 +21,14 @@ public class MediaTypeEnumTest extends TestCase
     }
 
     /**
+     * @see junit.framework.TestCase#getName()
+     */
+    public String getName()
+    {
+        return getClass().getName() + "." + super.getName();
+    }
+
+    /**
      * Test for the "fixed" enum instances.
      */
     public void testCsv()

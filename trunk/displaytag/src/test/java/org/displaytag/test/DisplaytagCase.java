@@ -37,15 +37,6 @@ public abstract class DisplaytagCase extends TestCase
     protected ServletRunner runner;
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public DisplaytagCase(String name)
-    {
-        super(name);
-    }
-
-    /**
      * Returns the tested jsp name.
      * @return jsp name
      */
@@ -109,6 +100,14 @@ public abstract class DisplaytagCase extends TestCase
         // shutdown servlet engine
         runner.shutDown();
         super.tearDown();
+    }
+
+    /**
+     * @see junit.framework.TestCase#getName()
+     */
+    public String getName()
+    {
+        return getClass().getName() + "." + super.getName() + " (" + getJspName() + ")";
     }
 
     /**
