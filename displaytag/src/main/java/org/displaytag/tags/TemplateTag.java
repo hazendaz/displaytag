@@ -2,12 +2,12 @@ package org.displaytag.tags;
 
 import java.io.IOException;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.LookupUtil;
 
 /**
@@ -47,21 +47,27 @@ public abstract class TemplateTag extends BodyTagSupport
     }
 
     /**
-     * <p>evaluate an expression in a way similar to LE in jstl.</p>
-     * <p>the first token is supposed to be an object in the page scope (default scope) or one of the following:</p>
+     * <p>
+     * evaluate an expression in a way similar to LE in jstl.
+     * </p>
+     * <p>
+     * the first token is supposed to be an object in the page scope (default scope) or one of the following:
+     * </p>
      * <ul>
-     *     <li>pageScope</li>
-     *     <li>requestScope</li>
-     *     <li>sessionScope</li>
-     *     <li>applicationScope</li>
+     * <li>pageScope</li>
+     * <li>requestScope</li>
+     * <li>sessionScope</li>
+     * <li>applicationScope</li>
      * </ul>
-     * <p>Tokens after the object name are interpreted as javabean properties (accessed through getters), mapped or
-     * indexed properties, using the jakarta common-beans library</p>
+     * <p>
+     * Tokens after the object name are interpreted as javabean properties (accessed through getters), mapped or
+     * indexed properties, using the jakarta common-beans library
+     * </p>
      * @param expression expression to evaluate
      * @return Object result
-     * @throws JspException generic exception
+     * @throws ObjectLookupException if unable to get a bean using the given expression
      */
-    protected Object evaluateExpression(String expression) throws JspException
+    protected Object evaluateExpression(String expression) throws ObjectLookupException
     {
 
         String expressionWithoutScope = expression;
