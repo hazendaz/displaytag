@@ -14,7 +14,7 @@ import org.displaytag.util.ShortToStringStyle;
  * EMPTY_CELL is used as placeholder.
  * </p>
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class Cell implements Comparable
 {

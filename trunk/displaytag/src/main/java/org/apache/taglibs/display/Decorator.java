@@ -10,7 +10,7 @@ import org.displaytag.decorator.TableDecorator;
  * <p>Never extend this class, you should always subclass decorators in the <code>org.displaytag.decorator</code>
  * package.<p>
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  * @deprecated use <code>org.displaytag.decorator.TableDecorator</code>
  */
 public abstract class Decorator extends TableDecorator

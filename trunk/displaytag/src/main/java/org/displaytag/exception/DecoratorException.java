@@ -4,7 +4,7 @@ package org.displaytag.exception;
  * Exception thrown by column decorators. If a decorator need to throw a checked exception this should be nested in a
  * DecoratorException.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class DecoratorException extends BaseNestableJspTagException
 {

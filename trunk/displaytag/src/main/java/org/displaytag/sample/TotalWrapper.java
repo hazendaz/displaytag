@@ -8,7 +8,8 @@ import org.displaytag.decorator.TableDecorator;
 /**
  * This decorator only does a summing of different groups in the reporting style examples...
  * @author epesh
- * @version $Revision $ ($Author $)
+ * @author Fabrizio Giustina
+ * @version $Revision$ ($Author$)
  */
 public class TotalWrapper extends TableDecorator
 {

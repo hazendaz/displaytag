@@ -20,7 +20,7 @@ import org.apache.commons.lang.BooleanUtils;
  * </p>
  * @author mraible
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 abstract class Decorator
 {

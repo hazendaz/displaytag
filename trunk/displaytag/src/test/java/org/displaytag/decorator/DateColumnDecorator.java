@@ -9,7 +9,7 @@ import org.displaytag.exception.DecoratorException;
 /**
  * A test column decorator for dates.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class DateColumnDecorator implements ColumnDecorator
 {

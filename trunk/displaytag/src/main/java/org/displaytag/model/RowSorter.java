@@ -13,7 +13,7 @@ import org.displaytag.util.LookupUtil;
 /**
  * Comparator for rows.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class RowSorter implements Comparator
 {

@@ -3,7 +3,7 @@ package org.displaytag.decorator;
 /**
  * @author epesh
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public abstract class TableDecorator extends Decorator
 {

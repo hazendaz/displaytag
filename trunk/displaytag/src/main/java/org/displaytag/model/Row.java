@@ -12,7 +12,7 @@ import org.displaytag.util.TagConstants;
 /**
  * Holds informations for a table row.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class Row
 {

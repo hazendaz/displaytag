@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Iterator on columns.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class ColumnIterator
 {

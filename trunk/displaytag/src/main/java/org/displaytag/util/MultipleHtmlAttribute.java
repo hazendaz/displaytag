@@ -10,7 +10,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Object used to contain html multiple attribute value (for the "class" attribute).
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class MultipleHtmlAttribute implements Cloneable
 {

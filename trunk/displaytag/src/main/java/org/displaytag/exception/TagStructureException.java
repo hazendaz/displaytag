@@ -5,7 +5,7 @@ import org.displaytag.Messages;
 /**
  * Exception thrown when a Tag is not properly nested into another one.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class TagStructureException extends BaseNestableJspTagException
 {

@@ -11,7 +11,8 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 /**
  * A test class that has data that looks more like information that comes back in a report.
  * @author epesh
- * @version $Revision $ ($Author $)
+ * @author Fabrizio Giustina
+ * @version $Revision$ ($Author$)
  */
 public class ReportableListObject extends Object implements Comparable
 {

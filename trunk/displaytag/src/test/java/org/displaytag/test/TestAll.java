@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
  * cases in the source tree that extend TestCase. This helps running tests faster with ant/maven since httpunit tests
  * requires forking and starting a new java process for each test is too slow.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class TestAll extends TestCase
 {
@@ -126,7 +126,7 @@ public class TestAll extends TestCase
  * This class is responsible for searching a directory for class files. It builds a list of fully qualified class names
  * from the class files in the directory tree.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 
 
@@ -212,7 +212,7 @@ class ClassFinder
 /**
  * Responsible for loading classes representing valid test cases.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 
 
