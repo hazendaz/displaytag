@@ -90,7 +90,14 @@
                 Unicode export with ResponseOverrideFilter fails because of improper content length setting.
             </action>
             <action type="update" dev="fgiust" issue="DISPL-2">
-                Ability to use java var in id attribute in tabletag (look at the FAQ for more details).
+                Ability to use java var in id attribute in tabletag. A new
+                <code>uid</code>
+                attribute has been added for jsp 1.0 containers (look at the FAQ for more details).
+            </action>
+            <action type="add" dev="fgiust">
+                New
+                <code>htmlId</code>
+                attribute which let you specify the value for the id attribute in the generated table.
             </action>
         </release>
 

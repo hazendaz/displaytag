@@ -59,11 +59,13 @@ public class TableTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("summary", //$NON-NLS-1$
                 TableTag.class, null, "setSummary")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("excludedParams", //$NON-NLS-1$
-                TableTag.class, null, "setExcludedParams")); //$NON-NLS-1$ 
-
-            // can't be evaluated
+                TableTag.class, null, "setExcludedParams")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("id", //$NON-NLS-1$
-                TableTag.class, null, "setId")); //$NON-NLS-1$ 
+                TableTag.class, null, "setUid")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("uid", //$NON-NLS-1$
+                TableTag.class, null, "setUid")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("htmlId", //$NON-NLS-1$
+                TableTag.class, null, "setHtmlId")); //$NON-NLS-1$ 
 
             // deprecated attributes
             proplist.add(new PropertyDescriptor("list", //$NON-NLS-1$
@@ -91,6 +93,10 @@ public class TableTagBeanInfo extends SimpleBeanInfo
                 TableTag.class, null, "setHspace")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("vspace", //$NON-NLS-1$
                 TableTag.class, null, "setVspace")); //$NON-NLS-1$ 
+
+            // make ATG Dynamo happy:
+            proplist.add(new PropertyDescriptor("className", //$NON-NLS-1$
+                TableTag.class, null, "setClass")); //$NON-NLS-1$ 
 
             try
             {

@@ -27,7 +27,7 @@
     request.setAttribute("row" + String.valueOf(i),new java.util.ArrayList(theList));
 %>
 
-<display:table id='<%="row" + String.valueOf(i)%>' name='<%="row" + String.valueOf(i)%>' sort="list" >
+<display:table uid='<%="row" + String.valueOf(i)%>' name='<%="row" + String.valueOf(i)%>' sort="list" >
   <display:column property="value" sortable="true"/>
 </display:table>
 <% } %>

@@ -65,7 +65,12 @@ public class ELTableTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("excludedParams", //$NON-NLS-1$
                 ELTableTag.class, null, "setExcludedParams")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("id", //$NON-NLS-1$ 
-                ELTableTag.class, null, "setId")); //$NON-NLS-1$ 
+                ELTableTag.class, null, "setUid")); //$NON-NLS-1$
+
+            proplist.add(new PropertyDescriptor("uid", //$NON-NLS-1$ 
+                ELTableTag.class, null, "setUid")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("htmlId", //$NON-NLS-1$ 
+                ELTableTag.class, null, "setHtmlId")); //$NON-NLS-1$ 
 
             // deprecated attributes (not supporting expressions)
             proplist.add(new PropertyDescriptor("width", //$NON-NLS-1$ 

@@ -87,10 +87,14 @@
                     probably be removed in future (it is already not used in the EL version of the tag library).
                 </p>
                 <p>
-                    Using a runtime expression in table id, however, will not work in earlier versions of tomcat 5, due
-                    to a strict interpretation of the jsp 1.1 specifications (you can find more details on
-                    http://nagoya.apache.org/bugzilla/show_bug.cgi?id=21711 ). If you are running a Tomcat 5 version
-                    &lt; 5.0.4 and you need this feature simply switch to a more recent version.
+                    Some containers don't allow the id attribute to be a runtime expression at all (this has been
+                    reported in earlier versions of Tomcat 5 and ATG Dynamo 5), so an attribute with the name
+                    <code>uid</code>
+                    has been added. Simply use
+                    <code>uid</code>
+                    instead of
+                    <code>uid</code>
+                    in the table tag.
                 </p>
             </answer>
         </faq>
