@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.test.KnownValue;
+import org.displaytag.util.ParamEncoder;
 
 
 /**
@@ -80,7 +81,6 @@ public class MediaTest extends DisplaytagTestCase
         this.table = new TableTag();
         request.setAttribute("test", testData);
         this.table.setName("requestScope.test");
-        this.table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE);
         this.tableLifecycle = new JspTagLifecycle(this.pageContext, this.table);
 
         ColumnTag acolumn = new ColumnTag();
@@ -129,7 +129,8 @@ public class MediaTest extends DisplaytagTestCase
      */
     public void beginAsXml(WebRequest webrequest)
     {
-        webrequest.addParameter(this.table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE), ""
+        ParamEncoder encoder = new ParamEncoder(null, "requestScope.test");
+        webrequest.addParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE), ""
             + MediaTypeEnum.XML.getCode());
     }
 
