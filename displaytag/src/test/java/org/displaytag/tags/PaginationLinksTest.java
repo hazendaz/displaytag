@@ -51,17 +51,18 @@ public class PaginationLinksTest extends DisplaytagCase
 
         WebLink[] links = response.getLinks();
 
-        assertEquals("Wrong number of pagination links", 18, links.length);
+        assertEquals("Wrong number of pagination links", 36, links.length);
 
-        String firstLink = links[0].getURLString();
+        String lastLink = links[links.length - 1].getURLString();
 
         //remove prefix
-        firstLink = firstLink.substring(firstLink.indexOf(getJspName()), firstLink.length());
+        lastLink = lastLink.substring(lastLink.indexOf(getJspName()), lastLink.length());
 
         assertEquals(
-            "First link is bad.",
-            "pagination-links.jsp?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&d-2106-p=2"
-                + "&status=default&initiatedTDate=04%2F28%2F2004&d-3824-p=2&approvedFDate=&method=search&approver=",
-            firstLink);
+            "Last link is bad.",
+            "pagination-links.jsp?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
+                + "&initiatedTDate=04%2F28%2F2004&d-3824-p=2&approvedFDate=&method=search&d-2456-p=12&approver=",
+            lastLink);
+
     }
 }
