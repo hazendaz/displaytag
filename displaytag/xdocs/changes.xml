@@ -46,6 +46,13 @@
                 <code>*</code>
                 matches any parameter.
             </action>
+            <action type="fix" dev="fgiust" issue="DISPL-53">
+                The
+                <code>titleKey</code>
+                column attribute has been added to the standard version of the taglib too. The i18n support for titleKey
+                has been refactored, adding a configurable resource provider which can wrap the localization support of
+                any used frameworks (JSTL, Struts, Spring adapter are included, other can be added be users).
+            </action>
 
 
         </release>

@@ -12,4 +12,10 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 
+    <!-- Define the basename for a resource bundle for I18N -->
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>jstlresources</param-value>
+    </context-param>
+
 </web-app>

@@ -171,6 +171,11 @@ public class ColumnTag extends BodyTagSupport
     private List supportedMedia;
 
     /**
+     * Property in a resource bundle to be used as the title for the column.
+     */
+    private String titleKey;
+
+    /**
      * setter for the "property" tag attribute.
      * @param value attribute value
      */
@@ -231,6 +236,24 @@ public class ColumnTag extends BodyTagSupport
     public void setGroup(int value)
     {
         this.group = value;
+    }
+
+    /**
+     * This tag must be the descendant of a fmt:bundle tag in order to use the titleKey. This is just a shortcut, which
+     * makes <code>
+     * &lt;display:column titleKey="bar"/&gt;
+     * </code> behave the same as <code>
+     * &lt;c:set var="foo"&gt;&lt;fmt:message key="bar"/&gt;&lt;/c:set&gt;<br/>
+     * &lt;display:column title="${foo}"/&gt;
+     * </code>.
+     * If you don't define a title or a titleKey property on your column, first the tag will attempt to look up the
+     * property property in your ResourceBundle. Failing that, it will fall back to the parent class's behavior of just
+     * using the property name.
+     * @param value property name
+     */
+    public void setTitleKey(String value)
+    {
+        this.titleKey = value;
     }
 
     /**
@@ -583,6 +606,20 @@ public class ColumnTag extends BodyTagSupport
      */
     private void addHeaderToTable(TableTag tableTag) throws DecoratorInstantiationException, ObjectLookupException
     {
+        // start titlekey support
+
+        // title has precedence over titleKey
+        if (this.title == null)
+        {
+            // handle title i18n
+            this.title = tableTag.getProperties().geResourceProvider().getResource(
+                this.titleKey,
+                this.property,
+                tableTag,
+                this.pageContext);
+        }
+        // end titlekey support
+
         HeaderCell headerCell = new HeaderCell();
         headerCell.setHeaderAttributes((HtmlAttributeMap) this.headerAttributeMap.clone());
         headerCell.setHtmlAttributes((HtmlAttributeMap) this.attributeMap.clone());
@@ -683,6 +720,7 @@ public class ColumnTag extends BodyTagSupport
         this.sortable = false;
         this.supportedMedia = null;
         this.title = null;
+        this.titleKey = null;
     }
 
     /**
@@ -707,6 +745,7 @@ public class ColumnTag extends BodyTagSupport
         {
             return SKIP_BODY;
         }
+
         return super.doStartTag();
     }
 

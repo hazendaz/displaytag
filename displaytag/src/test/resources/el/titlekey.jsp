@@ -9,19 +9,16 @@
         </head>
         <body>
             <jsp:scriptlet> <![CDATA[
-                java.util.Map map1 = new java.util.TreeMap();
-                map1.put(org.displaytag.test.KnownValue.ANT,org.displaytag.test.KnownValue.ANT);
-                map1.put(org.displaytag.test.KnownValue.BEE,org.displaytag.test.KnownValue.BEE);
-                map1.put(org.displaytag.test.KnownValue.CAMEL,org.displaytag.test.KnownValue.CAMEL);
-                
-                Object[] testData= new Object[]{map1, map1};
-                request.setAttribute( "test", testData);
+							java.util.List testData = new java.util.ArrayList();
+							testData.add(new org.displaytag.test.KnownValue());
+							request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
             <display:table name="${requestScope.test}" id="table">
-                <display:column property="ant"/>
-                <display:column property="bee"/>
-                <display:column property="camel" title="Camel" />
-            </display:table>
+							<display:column property="ant" titleKey="fookey" />
+							<display:column property="bee" titleKey="bazkey" />
+							<display:column property="camel" />
+							<display:column property="bee" titleKey="missing" />
+						</display:table>
         </body>
     </html>
 </jsp:root>

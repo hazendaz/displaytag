@@ -1,29 +1,10 @@
 package org.displaytag.tags.el;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.jstl.fmt.LocalizationContext;
-import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
 
 
 /**
- * Adds EL support to displaytag's ColumnTag. Also supports a new "titleKey" property that works the same as
- * fmt:message's key property. This tag must be the descendant of a fmt:bundle tag in order to use the titleKey. This is
- * just a shortcut, which makes <code>
- * &lt;display:column titleKey="bar"/&gt;
- * </code> behave the same as <code>
- * &lt;c:set var="foo"&gt;&lt;fmt:message key="bar"/&gt;&lt;/c:set&gt;<br/>
- * &lt;display:column title="${foo}"/&gt;
- * </code>.
- * If you don't define a title or a titleKey property on your column, first the tag will attempt to look up the property
- * property in your ResourceBundle. Failing that, it will fall back to the parent class's behavior of just using the
- * property name.
+ * Adds EL support to ColumnTag.
  * @author Tim McCune
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
@@ -35,11 +16,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
      * D1597A17A6.
      */
     private static final long serialVersionUID = 899149338534L;
-
-    /**
-     * logger.
-     */
-    private static Log log = LogFactory.getLog(ELColumnTag.class);
 
     /**
      * Expression for the "autoLink" tag attribute.
@@ -142,17 +118,8 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String sortableExpr;
 
     /**
-     * Expression for the "parentProperty" tag attribute.
-     */
-    private String parentPropertyExpr; //Parent class has no getter
-
-    /**
-     * Expression for the "parentTitle" tag attribute.
-     */
-    private String parentTitleExpr; //Parent class has no getter
-
-    /**
      * @see org.displaytag.tags.ColumnTag#setAutolink(boolean)
+     * @param value EL expression for attribute value
      */
     public void setAutolink(String value)
     {
@@ -161,6 +128,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setClass(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setClass(String value)
     {
@@ -169,6 +137,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setDecorator(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setDecorator(String value)
     {
@@ -177,6 +146,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setGroup(int)
+     * @param value EL expression for attribute value
      */
     public void setGroup(String value)
     {
@@ -185,6 +155,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setHeaderClass(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setHeaderClass(String value)
     {
@@ -193,6 +164,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setHref(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setHref(String value)
     {
@@ -201,6 +173,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setMaxLength(int)
+     * @param value EL expression for attribute value
      */
     public void setMaxLength(String value)
     {
@@ -209,6 +182,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setMaxWords(int)
+     * @param value EL expression for attribute value
      */
     public void setMaxWords(String value)
     {
@@ -217,6 +191,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setMedia(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setMedia(String value)
     {
@@ -225,6 +200,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setNulls(boolean)
+     * @param value EL expression for attribute value
      */
     public void setNulls(String value)
     {
@@ -233,6 +209,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setParamId(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setParamId(String value)
     {
@@ -241,6 +218,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setParamName(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setParamName(String value)
     {
@@ -249,6 +227,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setParamProperty(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setParamProperty(String value)
     {
@@ -257,6 +236,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setParamScope(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setParamScope(String value)
     {
@@ -265,6 +245,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setProperty(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setProperty(String value)
     {
@@ -273,6 +254,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setSortable(boolean)
+     * @param value EL expression for attribute value
      */
     public void setSortable(String value)
     {
@@ -281,6 +263,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setTitle(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setTitle(String value)
     {
@@ -289,6 +272,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setStyle(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setStyle(String value)
     {
@@ -296,9 +280,8 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
-     * Sets the name of a property in a resource bundle to be used as the title for the column.
-     * @param value property name
-     * @todo shoud not be here. No difference between the el and standard version, please
+     * @see org.displaytag.tags.ColumnTag#setTitleKey(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setTitleKey(String value)
     {
@@ -307,6 +290,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setUrl(java.lang.String)
+     * @param value EL expression for attribute value
      */
     public void setUrl(String value)
     {
@@ -320,52 +304,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     {
         evaluateExpressions();
 
-        if (titleKeyExpr != null || parentTitleExpr == null)
-        {
-            String key = (titleKeyExpr != null) ? titleKeyExpr : parentPropertyExpr;
-            Tag tag = findAncestorWithClass(this, BundleSupport.class);
-            ResourceBundle bundle = null;
-            if (tag != null)
-            {
-                BundleSupport parent = (BundleSupport) tag;
-                if (key != null)
-                {
-                    String prefix = parent.getPrefix();
-                    if (prefix != null)
-                    {
-                        key = prefix + key;
-                    }
-                }
-                bundle = parent.getLocalizationContext().getResourceBundle();
-            }
-            else
-            {
-                // check for the localizationContext in applicationScope, set in web.xml
-                LocalizationContext localization = BundleSupport.getLocalizationContext(pageContext);
-
-                if (localization != null)
-                {
-                    bundle = localization.getResourceBundle();
-                }
-            }
-
-            if (bundle != null && key != null)
-            {
-                try
-                {
-                    super.setTitle(bundle.getString(key));
-                }
-                catch (MissingResourceException e)
-                {
-                    log.info("Missing resource for title key [" + titleKeyExpr + "]");
-                    if (titleKeyExpr != null)
-                    {
-                        super.setTitle(titleKeyExpr);
-                    }
-                }
-            }
-
-        }
         return super.doStartTag();
     }
 
@@ -450,13 +388,15 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         {
             String property = eval.evalString("property", propertyExpr); //$NON-NLS-1$
             super.setProperty(property);
-            this.parentPropertyExpr = property;
         }
         if (titleExpr != null)
         {
             String title = eval.evalString("title", titleExpr); //$NON-NLS-1$
             super.setTitle(title);
-            this.parentTitleExpr = title;
+        }
+        if (titleKeyExpr != null)
+        {
+            super.setTitleKey(eval.evalString("titleKey", titleKeyExpr)); //$NON-NLS-1$
         }
     }
 
@@ -480,8 +420,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         this.paramNameExpr = null;
         this.paramPropertyExpr = null;
         this.paramScopeExpr = null;
-        this.parentPropertyExpr = null;
-        this.parentTitleExpr = null;
         this.propertyExpr = null;
         this.sortableExpr = null;
         this.styleExpr = null;

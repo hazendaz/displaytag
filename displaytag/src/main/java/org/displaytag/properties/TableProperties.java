@@ -9,12 +9,21 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.Tag;
+
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
+import org.displaytag.localization.I18nResourceProvider;
+import org.displaytag.localization.LocaleResolver;
+import org.displaytag.util.ReflectHelper;
 import org.displaytag.util.RequestHelperFactory;
 
 
@@ -27,13 +36,11 @@ import org.displaytag.util.RequestHelperFactory;
  * <li>Then, from the file displaytag.properties, if it is present; these properties are intended to be set by the user
  * for sitewide application. Messages are gathered according to the Locale of the property file.</li>
  * <li>Finally, if this class has a userProperties defined, all of the properties from that Properties object are
- * copied in as well. The userProperties Properties can be set by the {@link DisplayPropertiesLoaderServlet}if it is
- * configured.</li>
+ * copied in as well.</li>
  * </ol>
  * @author Fabrizio Giustina
  * @author rapruitt
  * @version $Revision$ ($Author$)
- * @see DisplayPropertiesLoaderServlet
  */
 public final class TableProperties implements Cloneable
 {
@@ -180,6 +187,16 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper"; //$NON-NLS-1$
 
     /**
+     * property <code>locale.provider</code>.
+     */
+    public static final String PROPERTY_CLASS_LOCALEPROVIDER = "locale.provider"; //$NON-NLS-1$
+
+    /**
+     * property <code>locale.resolver</code>.
+     */
+    public static final String PROPERTY_CLASS_LOCALERESOLVER = "locale.resolver"; //$NON-NLS-1$
+
+    /**
      * property <code>css.tr.even</code>: holds the name of the css class for even rows. Defaults to
      * <code>even</code>.
      */
@@ -268,6 +285,17 @@ public final class TableProperties implements Cloneable
     private static Properties userProperties = new Properties();
 
     /**
+     * Configured resource provider. If no ResourceProvider is configured, an no-op one is used. This instance is
+     * initialized at first use and shared.
+     */
+    private static I18nResourceProvider resourceProvider;
+
+    /**
+     * Configured locale resolver.
+     */
+    private static LocaleResolver localeResolver;
+
+    /**
      * TableProperties for each locale are loaded as needed, and cloned for public usage.
      */
     private static Map prototypes = new HashMap();
@@ -283,6 +311,72 @@ public final class TableProperties implements Cloneable
     private Locale locale;
 
     /**
+     * Setter for I18nResourceProvider. A resource provider is usually set using displaytag properties, this accessor is
+     * needed for tests.
+     * @param provider I18nResourceProvider instance
+     */
+    protected static void setResourceProvider(I18nResourceProvider provider)
+    {
+        resourceProvider = provider;
+    }
+
+    /**
+     * Setter for LocaleResolver. A locale resolver is usually set using displaytag properties, this accessor is needed
+     * for tests.
+     * @param resolver LocaleResolver instance
+     */
+    protected static void setLocaleResolver(LocaleResolver resolver)
+    {
+        localeResolver = resolver;
+    }
+
+    /**
+     * Loads default properties (TableTag.properties).
+     * @return loaded properties
+     * @throws TablePropertiesLoadException if default properties file can't be found
+     */
+    private static Properties loadBuiltInProperties() throws TablePropertiesLoadException
+    {
+        Properties defaultProperties = new Properties();
+
+        try
+        {
+            defaultProperties.load(TableProperties.class.getResourceAsStream(DEFAULT_FILENAME));
+        }
+        catch (IOException e)
+        {
+            throw new TablePropertiesLoadException(TableProperties.class, DEFAULT_FILENAME, e);
+        }
+
+        return defaultProperties;
+    }
+
+    /**
+     * Loads user properties (displaytag.properties) according to the given locale. User properties are not guarantee to
+     * exist, so the method can return <code>null</code> (no exception will be thrown).
+     * @param locale requested Locale
+     * @return loaded properties
+     */
+    private static ResourceBundle loadUserProperties(Locale locale)
+    {
+        ResourceBundle bundle = null;
+        try
+        {
+            bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES, locale);
+        }
+        catch (MissingResourceException e)
+        {
+            if (log.isDebugEnabled())
+            {
+                log.debug(Messages.getString("TableProperties.propertiesnotfound", //$NON-NLS-1$
+                    new Object[]{e.getMessage()}));
+            }
+        }
+
+        return bundle;
+    }
+
+    /**
      * Initialize a new TableProperties loading the default properties file and the user defined one. There is no
      * caching used here, caching is assumed to occur in the getInstance factory method.
      * @param myLocale the locale we are in
@@ -292,16 +386,7 @@ public final class TableProperties implements Cloneable
     {
         this.locale = myLocale;
         // default properties will not change unless this class is reloaded
-        Properties defaultProperties = new Properties();
-
-        try
-        {
-            defaultProperties.load(this.getClass().getResourceAsStream(DEFAULT_FILENAME));
-        }
-        catch (IOException e)
-        {
-            throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
-        }
+        Properties defaultProperties = loadBuiltInProperties();
 
         properties = new Properties(defaultProperties);
         addProperties(myLocale);
@@ -321,25 +406,90 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Try to load the properties from the local properties file, displaytag.properties, and merge them into the
-     * existing properties.
-     * @param fromLocale the locale from which the properties are to be loaded
+     * Returns the configured Locale Resolver. This method is called before the loading of localized properties.
+     * @return LocaleResolver instance.
+     * @throws TablePropertiesLoadException if the default <code>TableTag.properties</code> file is not found.
      */
-    private void addProperties(Locale fromLocale)
+    public static LocaleResolver getLocaleResolverInstance() throws TablePropertiesLoadException
     {
-        ResourceBundle bundle = null;
-        try
+        // special handling, table properties is not yet instantiated
+        String className = null;
+
+        ResourceBundle userProperties = loadUserProperties(Locale.getDefault());
+
+        // if available, user properties have higher precedence
+        if (userProperties != null)
         {
-            bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES, fromLocale);
-        }
-        catch (MissingResourceException e)
-        {
-            if (log.isDebugEnabled())
+            try
             {
-                log.debug(Messages.getString("TableProperties.propertiesnotfound", //$NON-NLS-1$
-                    new Object[]{e.getMessage()}));
+                className = userProperties.getString(PROPERTY_CLASS_LOCALERESOLVER);
+            }
+            catch (MissingResourceException e)
+            {
+                // no problem
             }
         }
+
+        // still null? load defaults
+        if (className == null)
+        {
+            Properties defaults = loadBuiltInProperties();
+            className = defaults.getProperty(PROPERTY_CLASS_LOCALERESOLVER);
+        }
+
+        if (localeResolver == null)
+        {
+            if (className != null)
+            {
+                try
+                {
+                    Class classProperty = ReflectHelper.classForName(className);
+                    localeResolver = (LocaleResolver) classProperty.newInstance();
+
+                    log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
+                        new Object[]{ClassUtils.getShortClassName(LocaleResolver.class), className}));
+                }
+                catch (Throwable e)
+                {
+                    log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
+                        new Object[]{
+                            ClassUtils.getShortClassName(LocaleResolver.class),
+                            e.getClass().getName(),
+                            e.getMessage()}));
+                }
+            }
+            else
+            {
+                log.info(Messages.getString("TableProperties.noconfigured", //$NON-NLS-1$
+                    new Object[]{ClassUtils.getShortClassName(LocaleResolver.class)}));
+            }
+
+            // still null?
+            if (localeResolver == null)
+            {
+                // fallback locale resolver
+                localeResolver = new LocaleResolver()
+                {
+
+                    public Locale resolveLocale(HttpServletRequest request)
+                    {
+                        return request.getLocale();
+                    }
+                };
+            }
+        }
+
+        return localeResolver;
+    }
+
+    /**
+     * Try to load the properties from the local properties file, displaytag.properties, and merge them into the
+     * existing properties.
+     * @param locale the locale from which the properties are to be loaded
+     */
+    private void addProperties(Locale locale)
+    {
+        ResourceBundle bundle = loadUserProperties(locale);
 
         if (bundle != null)
         {
@@ -355,22 +505,41 @@ public final class TableProperties implements Cloneable
     /**
      * Clones the properties as well.
      * @return a new clone of oneself
-     * @throws CloneNotSupportedException never thrown
      */
-    protected Object clone() throws CloneNotSupportedException
+    protected Object clone()
     {
-        TableProperties twin = (TableProperties) super.clone();
+        TableProperties twin;
+        try
+        {
+            twin = (TableProperties) super.clone();
+        }
+        catch (CloneNotSupportedException e)
+        {
+            // should never happen
+            throw new NestableRuntimeException(e);
+        }
         twin.properties = (Properties) this.properties.clone();
         return twin;
     }
 
     /**
      * Returns a new TableProperties instance for the given locale.
-     * @param locale the locale to use
+     * @param request HttpServletRequest needed to extract the locale to use. If null the default locale will be used.
      * @return TableProperties instance
      */
-    public static TableProperties getInstance(Locale locale)
+    public static TableProperties getInstance(HttpServletRequest request)
     {
+        Locale locale;
+        if (request != null)
+        {
+            locale = getLocaleResolverInstance().resolveLocale(request);
+        }
+        else
+        {
+            // for some configuration parameters locale doesn't matter
+            locale = Locale.getDefault();
+        }
+
         TableProperties props = (TableProperties) prototypes.get(locale);
         if (props == null)
         {
@@ -378,14 +547,7 @@ public final class TableProperties implements Cloneable
             prototypes.put(locale, lprops);
             props = lprops;
         }
-        try
-        {
-            return (TableProperties) props.clone();
-        }
-        catch (CloneNotSupportedException e)
-        {
-            throw new UnknownError("Cannot clone properties? " + e.getMessage());
-        }
+        return (TableProperties) props.clone();
     }
 
     /**
@@ -805,6 +967,62 @@ public final class TableProperties implements Cloneable
     }
 
     /**
+     * Returns the configured resource provider instance. If necessary instantiate the resource provider from config and
+     * then keep a cached instance.
+     * @return I18nResourceProvider instance.
+     * @see I18nResourceProvider
+     */
+    public I18nResourceProvider geResourceProvider()
+    {
+        String className = getProperty(PROPERTY_CLASS_LOCALEPROVIDER);
+
+        if (resourceProvider == null)
+        {
+            if (className != null)
+            {
+                try
+                {
+                    Class classProperty = ReflectHelper.classForName(className);
+                    resourceProvider = (I18nResourceProvider) classProperty.newInstance();
+
+                    log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
+                        new Object[]{ClassUtils.getShortClassName(I18nResourceProvider.class), className}));
+                }
+                catch (Throwable e)
+                {
+                    log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
+                        new Object[]{
+                            ClassUtils.getShortClassName(I18nResourceProvider.class),
+                            e.getClass().getName(),
+                            e.getMessage()}));
+                }
+            }
+            else
+            {
+                log.info(Messages.getString("TableProperties.noconfigured", //$NON-NLS-1$
+                    new Object[]{ClassUtils.getShortClassName(I18nResourceProvider.class)}));
+            }
+
+            // still null?
+            if (resourceProvider == null)
+            {
+                // fallback provider, no i18n
+                resourceProvider = new I18nResourceProvider()
+                {
+
+                    // Always returns null
+                    public String getResource(String titleKey, String property, Tag tag, PageContext context)
+                    {
+                        return null;
+                    }
+                };
+            }
+        }
+
+        return resourceProvider;
+    }
+
+    /**
      * Reads a String property.
      * @param key property name
      * @return property value or <code>null</code> if property is not found
@@ -847,7 +1065,7 @@ public final class TableProperties implements Cloneable
 
         try
         {
-            Class classProperty = Class.forName(className);
+            Class classProperty = ReflectHelper.classForName(className);
             return classProperty.newInstance();
         }
         catch (Exception e)

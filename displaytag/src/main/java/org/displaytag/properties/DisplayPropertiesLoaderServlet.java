@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.Messages;
 
 import java.util.Properties;
 import java.io.InputStream;
@@ -50,7 +51,10 @@ import java.io.IOException;
  * 
  * @author Fabrizio Giustina
  * @author rapruitt
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
+ * @deprecated this servlet doesn't support i18n. The recommended way to load custom properties is adding a
+ * <code>displaytag.properties</code> file in your classpath. This will also load locale specific properties (for
+ * example <code>displaytag_IT.properties</code>) when needed.
  */
 public class DisplayPropertiesLoaderServlet extends HttpServlet
 {
@@ -58,7 +62,7 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
     /**
      * name of the parameter containing the properties file path.
      */
-    public static final String PROPERTIES_PARAMETER = "properties.filename";
+    public static final String PROPERTIES_PARAMETER = "properties.filename"; //$NON-NLS-1$
 
     /**
      * D1597A17A6.
@@ -86,14 +90,14 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
         String file = getInitParameter(PROPERTIES_PARAMETER);
 
         // debug parameter
-        log.debug(PROPERTIES_PARAMETER + "=" + file);
+        log.debug(PROPERTIES_PARAMETER + "=" + file); //$NON-NLS-1$
 
         if (file != null)
         {
             InputStream propStream = servletConfig.getServletContext().getResourceAsStream(file);
             if (propStream == null)
             {
-                log.warn("unable to find " + file);
+                log.warn("unable to find " + file); //$NON-NLS-1$
                 return;
             }
             Properties props = new Properties();
@@ -103,17 +107,15 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
             }
             catch (IOException e)
             {
-                throw new ServletException("Cannot load " + file + ": " + e.getMessage(), e);
+                throw new ServletException("Cannot load " + file + ": " + e.getMessage(), e); //$NON-NLS-1$ //$NON-NLS-2$
             }
             // set the user properties
             TableProperties.setUserProperties(props);
         }
         else
         {
-            log.warn("No properties parameter found under key "
-                + PROPERTIES_PARAMETER
-                + " - are you"
-                + "sure that you have configured this servlet correctly?");
+            log.warn(Messages.getString("DisplayPropertiesLoaderServlet.missingparameter", //$NON-NLS-1$
+                new Object[]{PROPERTIES_PARAMETER}));
         }
 
     }
