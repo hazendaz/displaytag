@@ -882,6 +882,25 @@ public class TableTag extends HtmlTableTag
             returnValue = doExport();
         }
 
+        // reset instance variables
+        cleanUp();
+
+        // do not remove media attribute! if the table is nested in other tables this is still needed
+        // this.pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
+
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getId() + "] doEndTag - end");
+        }
+
+        return returnValue;
+    }
+
+    /**
+     * called to clean up instance variables at the end of tag evaluation.
+     */
+    private void cleanUp()
+    {
         // clean up
         this.listHelper = null;
         this.export = false;
@@ -901,16 +920,6 @@ public class TableTag extends HtmlTableTag
         this.tableModel = null;
         this.requestUri = null;
         this.tableParameterIdentifier = null;
-
-        // do not remove media attribute! if the table is nested in other tables this is still needed
-        // this.pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
-
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + getId() + "] doEndTag - end");
-        }
-
-        return returnValue;
     }
 
     /**
