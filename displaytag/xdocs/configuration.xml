@@ -62,6 +62,17 @@
               </td>
             </tr>
             <tr>
+              <td>sort.amount</td>
+              <td class="source">page</td>
+              <td>page, list</td>
+              <td>
+                Indicates if the full list should be sorted before paging or if the sorting only affects items in the current page.
+                Default behaviour is to sort only items in the current page (first paging, then sorting).
+                <strong>This parameter can only be configured in displaytag properties file. It has no effect if used in a
+                &lt;display:setProperty&gt; tag: use the sort attribute in the table tag for that scope.</strong>
+              </td>
+            </tr>
+            <tr>
               <td>export.banner</td>
               <td class="source">&lt;div class="exportlinks"&gt;Export options: {0}&lt;/div&gt;</td>
               <td>Any string in a message format with 1 placeholder</td>
