@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>Base exception: extendes JspTagException providing loggin and exception nesting functionalities</p>
+ * Base exception: extendes JspTagException providing loggin and exception nesting functionalities
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -16,80 +16,80 @@ public abstract class BaseNestableJspTagException extends JspTagException
     /**
      * Class where the exception has been generated
      */
-    private Class mSourceClass;
+    private Class sourceClass;
 
     /**
      * previous exception
      */
-    private Throwable mCause;
+    private Throwable nestedException;
 
     /**
      * Instantiate a new BaseNestableJspTagException
-     * @param pSourceClass Class where the exception is generated
-     * @param pMessage message
+     * @param source Class where the exception is generated
+     * @param message message
      */
-    public BaseNestableJspTagException(Class pSourceClass, String pMessage)
+    public BaseNestableJspTagException(Class source, String message)
     {
-        super(pMessage);
-        mSourceClass = pSourceClass;
+        super(message);
+        sourceClass = source;
 
         // log exception
-        Log lLog = LogFactory.getLog(pSourceClass);
-        lLog.error(toString());
+        Log log = LogFactory.getLog(source);
+        log.error(toString());
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)
         {
-            lLog.debug(toString());
+            log.debug(toString());
         }
         else if (getSeverity() == SeverityEnum.INFO)
         {
-            lLog.info(toString());
+            log.info(toString());
         }
         else if (getSeverity() == SeverityEnum.WARN)
         {
-            lLog.warn(toString());
+            log.warn(toString());
         }
         else
         {
             // error - default
-            lLog.error(toString());
+            log.error(toString());
         }
 
     }
 
     /**
      * Instantiate a new BaseNestableJspTagException
-     * @param pSourceClass Class where the exception is generated
-     * @param pMessage message
-     * @param pCause previous Exception
+     * @param source Class where the exception is generated
+     * @param message message
+     * @param cause previous Exception
      */
-    public BaseNestableJspTagException(Class pSourceClass, String pMessage, Throwable pCause)
+    public BaseNestableJspTagException(Class source, String message, Throwable cause)
     {
-        super(pMessage);
-        mSourceClass = pSourceClass;
-        mCause = pCause;
+        super(message);
+        this.sourceClass = source;
+        this.nestedException = cause;
 
         // log exception
-        Log lLog = LogFactory.getLog(pSourceClass);
+        Log log = LogFactory.getLog(source);
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)
         {
-            lLog.debug(toString(), pCause);
+            log.debug(toString(), cause);
         }
         else if (getSeverity() == SeverityEnum.INFO)
         {
-            lLog.info(toString(), pCause);
+            log.info(toString(), cause);
         }
         else if (getSeverity() == SeverityEnum.WARN)
         {
-            lLog.warn(toString(), pCause);
+            log.warn(toString(), cause);
         }
         else
         {
             // error - default
-            lLog.error(toString(), pCause);
+            log.error(toString(), cause);
         }
 
     }
@@ -100,7 +100,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
      */
     public Throwable getCause()
     {
-        return mCause;
+        return nestedException;
     }
 
     /**
@@ -109,22 +109,22 @@ public abstract class BaseNestableJspTagException extends JspTagException
      */
     public String toString()
     {
-        StringBuffer lBuffer = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
 
-        String lClassName = mSourceClass.getName();
-        lClassName = lClassName.substring(lClassName.lastIndexOf("."));
+        String className = sourceClass.getName();
+        className = className.substring(className.lastIndexOf("."));
 
-        lBuffer.append("Exception: ");
-        lBuffer.append("[").append(lClassName).append("] ");
-        lBuffer.append(getMessage());
+        buffer.append("Exception: ");
+        buffer.append("[").append(className).append("] ");
+        buffer.append(getMessage());
 
-        if (mCause != null)
+        if (nestedException != null)
         {
-            lBuffer.append("\nCause:     ");
-            lBuffer.append(mCause.getMessage());
+            buffer.append("\nCause:     ");
+            buffer.append(nestedException.getMessage());
         }
 
-        return lBuffer.toString();
+        return buffer.toString();
 
     }
 

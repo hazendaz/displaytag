@@ -1,7 +1,7 @@
 package org.displaytag.exception;
 
 /**
- * <p>Exception thrown for problems in loading the (standard or user defined) property file</p>
+ * Exception thrown for problems in loading the (standard or user defined) property file
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -9,20 +9,14 @@ public class TablePropertiesLoadException extends BaseNestableJspTagException
 {
 
     /**
-     * name of the properties file
-     */
-    private String mPropertiesFileName;
-
-    /**
      * Constructor for TablePropertiesLoadException
-     * @param pSourceClass Class where the exception is generated
-     * @param pPropertiesFileName properties file name
-     * @param pCause previous Exception
+     * @param source Class where the exception is generated
+     * @param propertiesFileName properties file name
+     * @param cause previous Exception
      */
-    public TablePropertiesLoadException(Class pSourceClass, String pPropertiesFileName, Throwable pCause)
+    public TablePropertiesLoadException(Class source, String propertiesFileName, Throwable cause)
     {
-        super(pSourceClass, "Unable to load file " + pPropertiesFileName, pCause);
-        mPropertiesFileName = pPropertiesFileName;
+        super(source, "Unable to load file " + propertiesFileName, cause);
     }
 
     /**

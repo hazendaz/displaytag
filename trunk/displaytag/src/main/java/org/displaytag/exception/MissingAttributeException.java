@@ -15,18 +15,17 @@ public class MissingAttributeException extends BaseNestableJspTagException
     /**
      * list of tag attributes
      */
-    private String[] attributeNames;
+    private String[] attributes;
 
     /**
      * Constructor for MissingAttributeException.
-     * @param pSourceClass Class where the exception is generated
-     * @param pAttributeNames String attribute name
+     * @param source Class where the exception is generated
+     * @param attributeNames String attribute name
      */
-    public MissingAttributeException(Class pSourceClass, String[] pAttributeNames)
+    public MissingAttributeException(Class source, String[] attributeNames)
     {
-
-        super(pSourceClass, "You must specify one of the following: " + ArrayUtils.toString(pAttributeNames));
-        attributeNames = pAttributeNames;
+        super(source, "You must specify one of the following: " + ArrayUtils.toString(attributeNames));
+        this.attributes = attributeNames;
     }
 
     /**
@@ -45,7 +44,7 @@ public class MissingAttributeException extends BaseNestableJspTagException
      */
     public String[] getAttributeNames()
     {
-        return attributeNames;
+        return this.attributes;
     }
 
 }

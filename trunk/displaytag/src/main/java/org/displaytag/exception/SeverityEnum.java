@@ -36,11 +36,11 @@ public final class SeverityEnum extends Enum
 
     /**
      * private constructor. Use only constants
-     * @param pSeverity Severity name as String
+     * @param severity Severity name as String
      */
-    private SeverityEnum(String pSeverity)
+    private SeverityEnum(String severity)
     {
-        super(pSeverity);
+        super(severity);
     }
 
 }
