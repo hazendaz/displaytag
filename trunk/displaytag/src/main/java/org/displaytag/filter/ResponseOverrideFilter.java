@@ -1,7 +1,7 @@
-package org.displaytag.util;
+package org.displaytag.filter;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,8 +11,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Allow the author of an included JSP page to reset the content type to something else (like a binary stream), and then
@@ -27,7 +28,7 @@ import java.io.PrintWriter;
  * <p/>
  * &lt;filter&gt;
  * &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
- * &lt;filter-class&gt;org.displaytag.util.ResponseOverrideFilter&lt;/filter-class&gt;
+ * &lt;filter-class&gt;org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class&gt;
  * &lt;/filter&gt;
  * <p/>
  * &lt;filter-mapping&gt;
@@ -52,24 +53,24 @@ public class ResponseOverrideFilter implements Filter
      * If this buffer has been appended to at all, the contents of the buffer will be served as the sole output of the
      * request. Request variable.
      */
-    public static final String CONTENT_OVERRIDE_BODY = ResponseOverrideFilter.class.getName()
-            + "CONTENT_OVERWRIDE_BODY";
+    public static final String CONTENT_OVERRIDE_BODY =
+        ResponseOverrideFilter.class.getName() + "CONTENT_OVERWRIDE_BODY";
     /** If the request content is overriden, you must also set the content type appropriately. Request variable. */
-    public static final String CONTENT_OVERRIDE_TYPE = ResponseOverrideFilter.class.getName()
-            + "CONTENT_OVERWRIDE_TYPE";
+    public static final String CONTENT_OVERRIDE_TYPE =
+        ResponseOverrideFilter.class.getName() + "CONTENT_OVERWRIDE_TYPE";
     /**
     * {@inheritDoc}
     */
     public void init(FilterConfig filterConfig) throws ServletException
     {
-         logger = LogFactory.getLog(ResponseOverrideFilter.class);
+        logger = LogFactory.getLog(ResponseOverrideFilter.class);
     }
 
     /**
     * {@inheritDoc}
     */
     public void doFilter(ServletRequest srequest, ServletResponse servletResponse, FilterChain filterChain)
-            throws IOException, ServletException
+        throws IOException, ServletException
     {
         HttpServletRequest request = (HttpServletRequest) srequest;
 
