@@ -1,6 +1,8 @@
 package org.displaytag.model;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.decorator.ColumnDecorator;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
@@ -9,8 +11,8 @@ import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
 /**
- * <p>DataObject representing the column header</p>
- * <p>The header cell contains all the properties common to cells in the same column</p>
+ * DataObject representing the column header.
+ * The header cell contains all the properties common to cells in the same column.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -20,82 +22,82 @@ public class HeaderCell
     /**
      * Map containing the html tag attributes for cells (td)
      */
-    private HtmlAttributeMap mHtmlAttributes;
+    private HtmlAttributeMap htmlAttributes;
 
     /**
      * Map containing the html tag attributes for header cells (td)
      */
-    private HtmlAttributeMap mHeaderAttributes;
+    private HtmlAttributeMap headerAttributes;
 
     /**
      * base href for creating dinamic links
      */
-    private Href mHref;
+    private Href href;
 
     /**
      * param name used in adding a link
      */
-    private String mParamName;
+    private String paramName;
 
     /**
      * property of the object where to get the param value from
      */
-    private String mParamProperty;
+    private String paramProperty;
 
     /**
      * column title
      */
-    private String mTitle;
+    private String title;
 
     /**
      * is the column sortable?
      */
-    private boolean mSortable;
+    private boolean sortable;
 
     /**
      * ColumnDecorator
      */
-    private ColumnDecorator mColumnDecorator;
+    private ColumnDecorator columnDecorator;
 
     /**
      * column number
      */
-    private int mColumnNumber;
+    private int columnNumber;
 
     /**
      * is the column sorted?
      */
-    private boolean mAlreadySorted;
+    private boolean alreadySorted;
 
     /**
      * property name to look up in the bean
      */
-    private String mBeanPropertyName;
+    private String beanPropertyName;
 
     /**
      * show null values?
      */
-    private boolean mShowNulls;
+    private boolean showNulls;
 
     /**
      * max length of cell content
      */
-    private int mMaxLength;
+    private int maxLength;
 
     /**
      * max number of words for cell content
      */
-    private int mMaxWords;
+    private int maxWords;
 
     /**
      * autolink url?
      */
-    private boolean mAutoLink;
+    private boolean autoLink;
 
     /**
      * group the column?
      */
-    private int mGroup;
+    private int group;
 
     /**
      * getter for the grouping index
@@ -103,16 +105,16 @@ public class HeaderCell
      */
     public int getGroup()
     {
-        return mGroup;
+        return this.group;
     }
 
     /**
      * setter for the grouping index
-     * @param pGroup int grouping order (>0)
+     * @param groupingOrder int grouping order (>0)
      */
-    public void setGroup(int pGroup)
+    public void setGroup(int groupingOrder)
     {
-        mGroup = pGroup;
+        this.group = groupingOrder;
     }
 
     /**
@@ -121,16 +123,16 @@ public class HeaderCell
      */
     public boolean getAutoLink()
     {
-        return mAutoLink;
+        return this.autoLink;
     }
 
     /**
      * enable or disable autolink for the column
-     * @param pAutoLink boolean autolink enabled
+     * @param autoLinkEnabled boolean autolink enabled
      */
-    public void setAutoLink(boolean pAutoLink)
+    public void setAutoLink(boolean autoLinkEnabled)
     {
-        mAutoLink = pAutoLink;
+        this.autoLink = autoLinkEnabled;
     }
 
     /**
@@ -139,16 +141,16 @@ public class HeaderCell
      */
     public int getMaxLength()
     {
-        return mMaxLength;
+        return this.maxLength;
     }
 
     /**
      * setter for the max number of characters to display in the column
-     * @param pMaxLength number of characters to display in the column
+     * @param numOfChars number of characters to display in the column
      */
-    public void setMaxLength(int pMaxLength)
+    public void setMaxLength(int numOfChars)
     {
-        mMaxLength = pMaxLength;
+        this.maxLength = numOfChars;
     }
 
     /**
@@ -157,16 +159,16 @@ public class HeaderCell
      */
     public int getMaxWords()
     {
-        return mMaxWords;
+        return this.maxWords;
     }
 
     /**
      * setter for the max number of words to display in the column
-     * @param pMaxWords number of words to display in the column
+     * @param numOfWords number of words to display in the column
      */
-    public void setMaxWords(int pMaxWords)
+    public void setMaxWords(int numOfWords)
     {
-        mMaxWords = pMaxWords;
+        this.maxWords = numOfWords;
     }
 
     /**
@@ -175,16 +177,16 @@ public class HeaderCell
      */
     public boolean getShowNulls()
     {
-        return mShowNulls;
+        return this.showNulls;
     }
 
     /**
      * enable or disable displaying of null values
-     * @param pShowNulls boolean true if null should be displayed
+     * @param outputNulls boolean true if null should be displayed
      */
-    public void setShowNulls(boolean pShowNulls)
+    public void setShowNulls(boolean outputNulls)
     {
-        mShowNulls = pShowNulls;
+        this.showNulls = outputNulls;
     }
 
     /**
@@ -193,16 +195,16 @@ public class HeaderCell
      */
     public String getBeanPropertyName()
     {
-        return mBeanPropertyName;
+        return this.beanPropertyName;
     }
 
     /**
      * setter for the name of the property to look up in the bean
-     * @param pBeanPropertyName - name of the property to look up in the bean
+     * @param propertyName - name of the property to look up in the bean
      */
-    public void setBeanPropertyName(String pBeanPropertyName)
+    public void setBeanPropertyName(String propertyName)
     {
-        mBeanPropertyName = pBeanPropertyName;
+        this.beanPropertyName = propertyName;
     }
 
     /**
@@ -211,7 +213,7 @@ public class HeaderCell
      */
     public boolean isAlreadySorted()
     {
-        return mAlreadySorted;
+        return this.alreadySorted;
     }
 
     /**
@@ -219,7 +221,7 @@ public class HeaderCell
      */
     public void setAlreadySorted()
     {
-        mAlreadySorted = true;
+        this.alreadySorted = true;
     }
 
     /**
@@ -228,16 +230,16 @@ public class HeaderCell
      */
     public int getColumnNumber()
     {
-        return mColumnNumber;
+        return this.columnNumber;
     }
 
     /**
      * setter for the column number
-     * @param pColumnNumber - int column number
+     * @param number - int column number
      */
-    public void setColumnNumber(int pColumnNumber)
+    public void setColumnNumber(int number)
     {
-        mColumnNumber = pColumnNumber;
+        this.columnNumber = number;
     }
 
     /**
@@ -246,16 +248,16 @@ public class HeaderCell
      */
     public ColumnDecorator getColumnDecorator()
     {
-        return mColumnDecorator;
+        return this.columnDecorator;
     }
 
     /**
      * st the columnDecorator object for this column
-     * @param pColumnDecorator - the ColumnDecorator
+     * @param decorator - the ColumnDecorator
      */
-    public void setColumnDecorator(ColumnDecorator pColumnDecorator)
+    public void setColumnDecorator(ColumnDecorator decorator)
     {
-        mColumnDecorator = pColumnDecorator;
+        this.columnDecorator = decorator;
     }
 
     /**
@@ -264,16 +266,16 @@ public class HeaderCell
      */
     public boolean getSortable()
     {
-        return mSortable;
+        return this.sortable;
     }
 
     /**
      * is the column sortable?
-     * @param pSortable - true if the column can be sorted
+     * @param isSortable - true if the column can be sorted
      */
-    public void setSortable(boolean pSortable)
+    public void setSortable(boolean isSortable)
     {
-        mSortable = pSortable;
+        this.sortable = isSortable;
     }
 
     /**
@@ -282,13 +284,13 @@ public class HeaderCell
      */
     public String getTitle()
     {
-        if (mTitle != null)
+        if (this.title != null)
         {
-            return mTitle;
+            return this.title;
         }
-        else if (mBeanPropertyName != null)
+        else if (this.beanPropertyName != null)
         {
-            return StringUtils.capitalize(mBeanPropertyName);
+            return StringUtils.capitalize(this.beanPropertyName);
         }
 
         return "";
@@ -296,11 +298,11 @@ public class HeaderCell
 
     /**
      * setter for the column title
-     * @param pValue - the column title
+     * @param value - the column title
      */
-    public void setTitle(String pValue)
+    public void setTitle(String value)
     {
-        mTitle = pValue;
+        this.title = value;
     }
 
     /**
@@ -309,16 +311,16 @@ public class HeaderCell
      */
     public HtmlAttributeMap getHtmlAttributes()
     {
-        return mHtmlAttributes;
+        return this.htmlAttributes;
     }
 
     /**
      * set the HtmlAttributeMap containg all the html attributes for the <strong>td</strong> tags
-     * @param pHtmlAttributes - HtmlAttributeMap
+     * @param attributes HtmlAttributeMap
      */
-    public void setHtmlAttributes(HtmlAttributeMap pHtmlAttributes)
+    public void setHtmlAttributes(HtmlAttributeMap attributes)
     {
-        mHtmlAttributes = pHtmlAttributes;
+        this.htmlAttributes = attributes;
     }
 
     /**
@@ -327,34 +329,34 @@ public class HeaderCell
      */
     public HtmlAttributeMap getHeaderAttributes()
     {
-        return mHeaderAttributes;
+        return this.headerAttributes;
     }
 
     /**
      * set the HtmlAttributeMap containg all the html attributes for the <strong>th</strong> tag
-     * @param pHeaderAttributes - HtmlAttributeMap
+     * @param attributes HtmlAttributeMap
      */
-    public void setHeaderAttributes(HtmlAttributeMap pHeaderAttributes)
+    public void setHeaderAttributes(HtmlAttributeMap attributes)
     {
-        mHeaderAttributes = pHeaderAttributes;
+        this.headerAttributes = attributes;
     }
 
     /**
      * add a css class to the html "class" attribute
-     * @param pClass String
+     * @param cssClass String
      */
-    public void addHeaderClass(String pClass)
+    public void addHeaderClass(String cssClass)
     {
-        Object lClassAttributes = mHeaderAttributes.get(TagConstants.ATTRIBUTE_CLASS);
+        Object classAttributes = this.headerAttributes.get(TagConstants.ATTRIBUTE_CLASS);
 
         // handle multiple values
-        if (lClassAttributes == null)
+        if (classAttributes == null)
         {
-            mHeaderAttributes.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(pClass));
+            this.headerAttributes.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(cssClass));
         }
         else
         {
-            ((MultipleHtmlAttribute) lClassAttributes).addAttributeValue(pClass);
+            ((MultipleHtmlAttribute) classAttributes).addAttributeValue(cssClass);
         }
     }
 
@@ -364,7 +366,7 @@ public class HeaderCell
      */
     public String getOpenTag()
     {
-        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, mHtmlAttributes);
+        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, this.htmlAttributes);
     }
 
     /**
@@ -373,7 +375,7 @@ public class HeaderCell
      */
     public String getHeaderOpenTag()
     {
-        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN_HEADER, mHeaderAttributes);
+        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN_HEADER, this.headerAttributes);
     }
 
     /**
@@ -395,21 +397,12 @@ public class HeaderCell
     }
 
     /**
-     * simple toString with title and bean property name
-     * @return String in the follwing format: "[HeaderCell title=" + mTitle + " property=" + mBeanPropertyName + "]"
-     */
-    public String toString()
-    {
-        return "[HeaderCell title=" + mTitle + " property=" + mBeanPropertyName + "]";
-    }
-
-    /**
      * Sets the href to be used for dinamic links in cells
-     * @param pHref base href for links
+     * @param baseHref base href for links
      */
-    public void setHref(Href pHref)
+    public void setHref(Href baseHref)
     {
-        mHref = pHref;
+        this.href = baseHref;
     }
 
     /**
@@ -418,16 +411,16 @@ public class HeaderCell
      */
     public Href getHref()
     {
-        return mHref;
+        return this.href;
     }
 
     /**
      * Sets the name of the param to add to links
-     * @param pParamName name of the param
+     * @param name name of the param
      */
-    public void setParamName(String pParamName)
+    public void setParamName(String name)
     {
-        mParamName = pParamName;
+        this.paramName = name;
     }
 
     /**
@@ -436,16 +429,16 @@ public class HeaderCell
      */
     public String getParamName()
     {
-        return mParamName;
+        return this.paramName;
     }
 
     /**
      * Sets the name of the property to look up in bean to get the param value for links
-     * @param pParamProperty name of the property to look up in bean to get the param value for links
+     * @param property name of the property to look up in bean to get the param value for links
      */
-    public void setParamProperty(String pParamProperty)
+    public void setParamProperty(String property)
     {
-        mParamProperty = pParamProperty;
+        this.paramProperty = property;
     }
 
     /**
@@ -454,7 +447,31 @@ public class HeaderCell
      */
     public String getParamProperty()
     {
-        return mParamProperty;
+        return this.paramProperty;
     }
 
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("autoLink", this.autoLink)
+            .append("group", this.group)
+            .append("maxLength", this.maxLength)
+            .append("columnDecorator", this.columnDecorator)
+            .append("maxWords", this.maxWords)
+            .append("href", this.href)
+            .append("title", this.title)
+            .append("paramProperty", this.paramProperty)
+            .append("htmlAttributes", this.htmlAttributes)
+            .append("sortable", this.sortable)
+            .append("paramName", this.paramName)
+            .append("showNulls", this.showNulls)
+            .append("headerAttributes", this.headerAttributes)
+            .append("columnNumber", this.columnNumber)
+            .append("beanPropertyName", this.beanPropertyName)
+            .append("alreadySorted", this.alreadySorted)
+            .toString();
+    }
 }

@@ -17,40 +17,40 @@ public class RowIterator
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(RowIterator.class);
+    private static Log log = LogFactory.getLog(RowIterator.class);
 
     /**
      * List contaning CellHeader objects
      */
-    private List mColumns;
+    private List columns;
 
     /**
      * internal iterator for Rows
      */
-    private Iterator mIterator;
+    private Iterator iterator;
 
     /**
      * row number counter
      */
-    private int mCount;
+    private int rowNumber;
 
     /**
      * reference to the table TableDecorator
      */
-    private TableDecorator mTableDecorator;
+    private TableDecorator decorator;
 
     /**
      * Constructor for RowIterator
-     * @param pRowList List containing Row objects
-     * @param pColumns List containing CellHeader objects
-     * @param pTableDecorator TableDecorator
+     * @param rowList List containing Row objects
+     * @param columnList List containing CellHeader objects
+     * @param tableDecorator TableDecorator
      */
-    protected RowIterator(List pRowList, List pColumns, TableDecorator pTableDecorator)
+    protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator)
     {
-        mIterator = pRowList.iterator();
-        mColumns = pColumns;
-        mCount = 0;
-        mTableDecorator = pTableDecorator;
+        this.iterator = rowList.iterator();
+        this.columns = columnList;
+        this.rowNumber = 0;
+        this.decorator = tableDecorator;
     }
 
     /**
@@ -59,7 +59,7 @@ public class RowIterator
      */
     public boolean hasNext()
     {
-        return mIterator.hasNext();
+        return this.iterator.hasNext();
     }
 
     /**
@@ -69,25 +69,25 @@ public class RowIterator
     public Row next()
     {
 
-        int lRowNumber = mCount++;
+        int currentRowNumber = this.rowNumber++;
 
-        if (mLog.isDebugEnabled())
+        if (log.isDebugEnabled())
         {
-            mLog.debug("RowIterator.next() row number=" + lRowNumber);
+            log.debug("RowIterator.next() row number=" + currentRowNumber);
         }
 
-        Object lObject = mIterator.next();
+        Object object = this.iterator.next();
 
-        Row lRow = (Row) lObject;
+        Row row = (Row) object;
 
-        lRow.setRowNumber(lRowNumber);
+        row.setRowNumber(currentRowNumber);
 
-        if (mTableDecorator != null)
+        if (this.decorator != null)
         {
-            mTableDecorator.initRow(lRow.getObject(), lRowNumber, lRowNumber);
+            this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber);
         }
 
-        return lRow;
+        return row;
 
     }
 

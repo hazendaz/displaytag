@@ -15,31 +15,32 @@ public class Row
 {
 
     /**
-     * Field mRowObject
+     * Field this.rowObject
      */
-    private Object mRowObject;
+    private Object rowObject;
 
     /**
      * Field mStaticCells
      */
-    private List mStaticCells;
+    private List staticCells;
+
     /**
      * Field mRowNumber
      */
-    private int mRowNumber;
+    private int rowNumber;
 
     /**
      * Field mTableModel
      */
-    private TableModel mTableModel;
+    private TableModel tableModel;
 
     /**
      *
-     * @param pRowNumber - the new value for mRowNumber
+     * @param number the new value for this.rowNumber
      */
-    public void setRowNumber(int pRowNumber)
+    public void setRowNumber(int number)
     {
-        mRowNumber = pRowNumber;
+        this.rowNumber = number;
     }
 
     /**
@@ -48,7 +49,7 @@ public class Row
      */
     public boolean isOddRow()
     {
-        return mRowNumber % 2 == 0;
+        return this.rowNumber % 2 == 0;
     }
 
     /**
@@ -57,29 +58,28 @@ public class Row
      */
     public int getRowNumber()
     {
-        return mRowNumber;
+        return this.rowNumber;
     }
 
     /**
      * Constructor for Row
-     * @param pRowObject Object
-     * @param pRowNumber int
+     * @param object Object
+     * @param number int
      */
-    public Row(Object pRowObject, int pRowNumber)
+    public Row(Object object, int number)
     {
-        mRowObject = pRowObject;
-        mRowNumber = pRowNumber;
-        mStaticCells = new ArrayList();
+        this.rowObject = object;
+        this.rowNumber = number;
+        this.staticCells = new ArrayList();
     }
 
     /**
      * Method addCell
-     * @param pCell Cell
+     * @param cell Cell
      */
-    public void addCell(Cell pCell)
+    public void addCell(Cell cell)
     {
-        // mLog.debug("adding cell " + pCell + " to collection " + mStaticCells);
-        mStaticCells.add(pCell);
+        this.staticCells.add(cell);
     }
 
     /**
@@ -88,7 +88,7 @@ public class Row
      */
     public List getCellList()
     {
-        return mStaticCells;
+        return this.staticCells;
     }
 
     /**
@@ -97,7 +97,7 @@ public class Row
      */
     public Object getObject()
     {
-        return mRowObject;
+        return this.rowObject;
     }
 
     /**
@@ -106,26 +106,26 @@ public class Row
      */
     public String toString()
     {
-        return mRowObject.toString();
+        return this.rowObject.toString();
     }
 
     /**
      * Method getColumnIterator
-     * @param pColumns List
+     * @param columns List
      * @return ColumnIterator
      */
-    public ColumnIterator getColumnIterator(List pColumns)
+    public ColumnIterator getColumnIterator(List columns)
     {
-        return new ColumnIterator(pColumns, this);
+        return new ColumnIterator(columns, this);
     }
 
     /**
      * Method setParentTable
-     * @param pTableModel TableModel
+     * @param table TableModel
      */
-    protected void setParentTable(TableModel pTableModel)
+    protected void setParentTable(TableModel table)
     {
-        mTableModel = pTableModel;
+        this.tableModel = table;
     }
 
     /**
@@ -134,7 +134,7 @@ public class Row
      */
     protected TableModel getParentTable()
     {
-        return mTableModel;
+        return this.tableModel;
     }
 
     /**

@@ -28,47 +28,47 @@ public class RequestHelper
     /**
      * original HttpServletRequest
      */
-    private HttpServletRequest mRequest;
+    private HttpServletRequest request;
 
     /**
      * Construct a new RequestHelper for the given request
-     * @param pRequest HttpServletRequest
+     * @param servletRequest HttpServletRequest
      */
-    public RequestHelper(HttpServletRequest pRequest)
+    public RequestHelper(HttpServletRequest servletRequest)
     {
-        mRequest = pRequest;
+        this.request = servletRequest;
     }
 
     /**
      * Read a String parameter from the request
-     * @param pKey String parameter name
+     * @param key String parameter name
      * @return String parameter value
      */
-    public final String getParameter(String pKey)
+    public final String getParameter(String key)
     {
         // actually simply return the parameter, this behaviour could be changed
-        return mRequest.getParameter(pKey);
+        return this.request.getParameter(key);
     }
 
     /**
      * Read a Integer parameter from the request
-     * @param pKey String parameter name
+     * @param key String parameter name
      * @return Integer parameter value or null if the parameter is not found or it can't be transformed to an Integer
      */
-    public final Integer getIntParameter(String pKey)
+    public final Integer getIntParameter(String key)
     {
-        String lParamValue = mRequest.getParameter(pKey);
+        String value = this.request.getParameter(key);
 
-        if (lParamValue != null)
+        if (value != null)
         {
             try
             {
-                return new Integer(lParamValue);
+                return new Integer(value);
             }
             catch (NumberFormatException e)
             {
                 // It's ok to ignore, simply return null
-                mLog.debug("Invalid \"" + pKey + "\" parameter from request: value=\"" + lParamValue + "\"");
+                mLog.debug("Invalid \"" + key + "\" parameter from request: value=\"" + value + "\"");
             }
         }
 
@@ -82,22 +82,22 @@ public class RequestHelper
     public final HashMap getParameterMap()
     {
 
-        HashMap lMap = new HashMap();
+        HashMap map = new HashMap();
 
         // get the parameters names
-        Enumeration lParametersName = mRequest.getParameterNames();
+        Enumeration parametersName = this.request.getParameterNames();
 
-        while (lParametersName.hasMoreElements())
+        while (parametersName.hasMoreElements())
         {
             // ... get the value
-            String lParamName = (String) lParametersName.nextElement();
+            String paramName = (String) parametersName.nextElement();
 
             // put key/value in the map
-            lMap.put(lParamName, mRequest.getParameter(lParamName));
+            map.put(paramName, this.request.getParameter(paramName));
         }
 
         // return the Map
-        return lMap;
+        return map;
     }
 
     /**
@@ -106,9 +106,9 @@ public class RequestHelper
      */
     public final Href getHref()
     {
-        Href lHref = new Href(mRequest.getRequestURI());
-        lHref.setParameterMap(getParameterMap());
-        return lHref;
+        Href href = new Href(this.request.getRequestURI());
+        href.setParameterMap(getParameterMap());
+        return href;
     }
 
 }
