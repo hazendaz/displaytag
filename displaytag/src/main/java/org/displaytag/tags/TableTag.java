@@ -535,6 +535,16 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
+     * Returns the base href with parameters. This is the instance used for links, need to be cloned before being
+     * modified.
+     * @return base Href with parameters
+     */
+    protected Href getBaseHref()
+    {
+        return this.baseHref;
+    }
+
+    /**
      * Called by interior column tags to help this tag figure out how it is supposed to display the information in the
      * List it is supposed to display.
      * @param column an internal tag describing a column in this tableview
