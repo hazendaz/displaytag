@@ -420,6 +420,59 @@
                 </comment>
             </properties>
         </dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>webwork</artifactId>
+            <version>2.1.5</version>
+            <type>jar</type>
+            <url>http://www.opensymphony.org/</url>
+            <properties>
+                <comment>
+                    Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if you wish to
+                    use it you should already have Webwork in your project)
+                </comment>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>xwork</artifactId>
+            <version>1.0.3</version>
+            <type>jar</type>
+            <url>http://www.opensymphony.org/</url>
+            <properties>
+                <comment>
+                    Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if you wish to
+                    use it you should already have Webwork in your project)
+                </comment>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>oscore</artifactId>
+            <version>2.2.4</version>
+            <type>jar</type>
+            <url>http://www.opensymphony.org/</url>
+            <properties>
+                <comment>
+                    Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if you wish to
+                    use it you should already have Webwork in your project)
+                </comment>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>ognl</groupId>
+            <artifactId>ognl</artifactId>
+            <version>2.6.5 </version>
+            <type>jar</type>
+            <url>http://www.opensymphony.org/</url>
+            <properties>
+                <comment>
+                    Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if you wish to
+                    use it you should already have Webwork in your project)
+                </comment>
+            </properties>
+        </dependency>
+        
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>

@@ -130,7 +130,7 @@ paging.banner.one_item_found=Un solo elemento trovato
                     interface with a simple method
                     <code>resolveLocale(HttpServletRequest)</code>
                 </p>
-                <p>Displaytag provides by default 3 ready to use implementations:</p>
+                <p>Displaytag provides by default these ready to use implementations:</p>
 
                 <table>
                     <thead>
@@ -153,6 +153,12 @@ paging.banner.one_item_found=Un solo elemento trovato
                             <td>
                                 Struts adapter, will look for the locale specified by
                                 <code>Globals.LOCALE_KEY</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>org.displaytag.localization.I18nWebworkAdapter</td>
+                            <td>
+                                Webwork2 adapter, will look for the locale specified by the fist LocaleProvider action in the stack
                             </td>
                         </tr>
                         <tr>
@@ -209,6 +215,12 @@ paging.banner.one_item_found=Un solo elemento trovato
                             <td>
                                 Struts adapter, will use
                                 <code>TagUtils.message()</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>org.displaytag.localization.I18nWebworkAdapter</td>
+                            <td>
+                                Webwork2 adapter, will look for the first TextProvider action in the stack and will obtain a message for the given key.
                             </td>
                         </tr>
                         <tr>
