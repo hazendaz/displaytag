@@ -2,7 +2,7 @@
 
 <% Object foo = session.getAttribute( "details" );
    if( foo == null ) {
-      session.setAttribute( "details", new TestList( 10 ) );
+      session.setAttribute( "details", new TestList(10, false) );
    }
    
    request.setAttribute("testparam", "sendamail");

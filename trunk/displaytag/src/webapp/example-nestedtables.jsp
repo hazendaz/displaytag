@@ -1,6 +1,6 @@
 <%@ include file="inc/header.jsp" %>
 
-<% request.setAttribute( "test", new TestList(4) ); %>
+<% request.setAttribute( "test", new TestList(4, false) ); %>
 
 <h2><a href="./index.jsp">Examples</a> > Wow, nested tables</h2>
 

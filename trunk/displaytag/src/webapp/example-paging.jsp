@@ -2,7 +2,7 @@
 
 <% Object foo = session.getAttribute( "test" );
    if( foo == null ) {
-      session.setAttribute( "test", new TestList(120) );
+      session.setAttribute( "test", new TestList(120, false) );
    }
 %>
 

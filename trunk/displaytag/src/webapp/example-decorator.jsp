@@ -1,6 +1,6 @@
 <%@ include file="inc/header.jsp" %>
 
-<% request.setAttribute( "test", new TestList( 10 ) ); %>
+<% request.setAttribute( "test", new TestList(10, false) ); %>
 
 
 <h2><a href="./index.jsp">Examples</a> > Standard, using decorators to transform data</h2>

@@ -1,6 +1,6 @@
 <%@ include file="inc/header.jsp" %>
 
-<% request.setAttribute( "test", new ReportList( 10 ) ); %>
+<% request.setAttribute( "test", new ReportList(10) ); %>
 
 <h2><a href="./index.jsp">Examples</a> > Using callbacks to show totals</h2>
 
