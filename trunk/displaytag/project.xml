@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <pomVersion>3</pomVersion>
-    <artifactId>displaytag</artifactId>
     <id>displaytag</id>
     <!--<artifactId>displaytag</artifactId>-->
     <name>Display tag library</name>
@@ -145,6 +144,7 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.6.1</version>
+            <type>jar</type>
             <url>http://jakarta.apache.org/commons/beanutils</url>
             <properties>
                 <war.bundle>true</war.bundle>
@@ -155,6 +155,7 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>2.1.1</version>
+            <type>jar</type>
             <url>http://jakarta.apache.org/commons/collections</url>
             <properties>
                 <war.bundle>true</war.bundle>
@@ -168,16 +169,18 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.0</version>
+            <type>jar</type>
             <url>http://jakarta.apache.org/commons/lang</url>
             <properties>
                 <war.bundle>true</war.bundle>
                 <comment>needed to build and run displaytag</comment>
             </properties>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <version>1.0.4</version>
+            <type>jar</type>
             <url>http://jakarta.apache.org/commons/logging</url>
             <properties>
                 <war.bundle>true</war.bundle>
@@ -188,6 +191,7 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.8</version>
+            <type>jar</type>
             <url>http://logging.apache.org/log4j/docs/index.html</url>
             <properties>
                 <war.bundle>true</war.bundle>
@@ -198,6 +202,7 @@
             <groupId>servletapi</groupId>
             <artifactId>servletapi</artifactId>
             <version>2.3</version>
+            <type>jar</type>
             <properties>
                 <comment>
                     Servlet 2.3 support is required to build the library. At runtime only servet 2.2 (tomcat 3,
@@ -210,6 +215,7 @@
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.0.2</version>
+            <type>jar</type>
             <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/</url>
             <properties>
                 <comment>
@@ -221,6 +227,7 @@
             <groupId>httpunit</groupId>
             <artifactId>httpunit</artifactId>
             <version>1.6</version>
+            <type>jar</type>
             <properties>
                 <comment>Needed to compile and run HttpUnit tests.</comment>
             </properties>
@@ -229,6 +236,7 @@
             <groupId>nekohtml</groupId>
             <artifactId>nekohtml</artifactId>
             <version>0.9.1</version>
+            <type>jar</type>
             <properties>
                 <comment>Needed to run HttpUnit tests.</comment>
             </properties>
@@ -237,6 +245,7 @@
             <groupId>jtidy</groupId>
             <artifactId>jtidy</artifactId>
             <version>4aug2000r7-dev</version>
+            <type>jar</type>
             <properties>
                 <comment>Needed to run HttpUnit tests.</comment>
             </properties>
@@ -245,6 +254,7 @@
             <groupId>xerces</groupId>
             <artifactId>xerces</artifactId>
             <version>2.4.0</version>
+            <type>jar</type>
             <properties>
                 <comment>Needed to run HttpUnit tests.</comment>
             </properties>
@@ -253,6 +263,7 @@
             <groupId>xml-apis</groupId>
             <artifactId>xml-apis</artifactId>
             <version>1.0.b2</version>
+            <type>jar</type>
             <properties>
                 <comment>Needed to run HttpUnit tests.</comment>
             </properties>
@@ -261,6 +272,7 @@
             <groupId>itext</groupId>
             <artifactId>itext</artifactId>
             <version>0.99</version>
+            <type>jar</type>
             <url>http://prdownloads.sourceforge.net/itext/</url>
             <properties>
                 <war.bundle>true</war.bundle>
@@ -273,6 +285,7 @@
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>1.0.4</version>
+            <type>jar</type>
             <url>http://jakarta.apache.org/taglibs/</url>
             <properties>
                 <comment>
@@ -325,6 +338,7 @@
             <groupId>rhino</groupId>
             <artifactId>js</artifactId>
             <version>1.5R4.1</version>
+            <type>jar</type>
             <properties>
                 <comment>Needed to run HttpUnit tests.</comment>
             </properties>
@@ -333,6 +347,7 @@
             <groupId>tomcat</groupId>
             <artifactId>jasper-compiler</artifactId>
             <version>4.0.4</version>
+            <type>jar</type>
             <properties>
                 <comment>Needed to run HttpUnit tests.</comment>
             </properties>
@@ -341,6 +356,7 @@
             <groupId>tomcat</groupId>
             <artifactId>jasper-runtime</artifactId>
             <version>4.0.4</version>
+            <type>jar</type>
             <properties>
                 <comment>Needed to run HttpUnit tests.</comment>
             </properties>
@@ -349,7 +365,7 @@
             <groupId>jetspeed</groupId>
             <artifactId>portlet-api</artifactId>
             <version>unknown</version>
-            <jar>lib/portlet-api.jar</jar>
+            <type>jar</type>
             <url>http://jakarta.apache.org/jetspeed/site/install.html</url>
             <properties>
                 <comment>required to build jetspeed/portal server support classes. Not needed at runtime.</comment>
@@ -359,6 +375,7 @@
             <groupId>jdk</groupId>
             <artifactId>tools</artifactId>
             <version>1.3</version>
+            <type>jar</type>
             <url>http://java.sun.com/j2se/1.4.2/download.html</url>
             <properties>
                 <comment>
@@ -384,6 +401,7 @@
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
             <version>1.4.1</version>
+            <type>jar</type>
             <url>http://jakarta.apache.org/commons/digester</url>
             <properties>
                 <comment>Struts dependency needed to run Struts integration tests.</comment>
