@@ -7,3 +7,6 @@ body p a {
 div.app p {
 	font-size: 3 !important;
 }
+.deprecated {
+	text-decoration: line-through;
+}

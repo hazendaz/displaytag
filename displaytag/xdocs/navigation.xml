@@ -6,23 +6,24 @@
 	<body>
 		<links>
 			<item name="Displaytag on Sourceforge" href="http://sourceforge.net/projects/displaytag" />
+			<item name="Live examples" href="http://www.displaytag.org/displaytag-1.0-b1-examples" />
 		</links>
 
 		<menu name="displaytag">
 			<item name="Status" href="/status.html" />
-			<item name="Feature Request" href="/feature_request.html" />
 		</menu>
 
 		<menu name="Reference">
 			<item name="download" href="/download.html" />
 			<item name="install" href="/install.html" />
+			<item name="tag reference" href="/tagreference.html" />
 			<item name="FAQ" href="/faq.html" />
 		</menu>
 
 		<menu name="Developers">
 			<item name="Directory Organization" href="/directory_organization.html" />
 			<item name="Coding Conventions" href="/coding_conventions.html" />
-			<item name="Build process" href="/buildit.html" />
+			<item name="Building from sources" href="/buildit.html" />
 		</menu>
 
 	</body>
