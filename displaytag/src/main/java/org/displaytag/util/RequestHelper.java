@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * A RequestHelper object is used to read parameters from the request. Main feature are handling of numeric parameters
@@ -96,7 +97,8 @@ public class RequestHelper
             // put key/value in the map
             try
             {
-                map.put(paramName, URLEncoder.encode(this.request.getParameter(paramName), "UTF-8"));
+                map.put(paramName, URLEncoder.encode(
+                        StringUtils.defaultString(this.request.getParameter(paramName)), "UTF-8"));
             }
             catch (UnsupportedEncodingException e)
             {
