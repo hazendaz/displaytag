@@ -46,7 +46,7 @@
       <version>
         <id>1.0-rc1</id>
         <name>1.0-rc1</name>
-        <tag>HEAD</tag>
+        <tag>displaytag1-rc1</tag>
       </version>
     </versions>
     <branches/>
@@ -255,6 +255,15 @@
             </properties>
         </dependency>
         <dependency>
+            <groupId>statcvs</groupId>
+            <artifactId>maven-statcvs-plugin</artifactId>
+            <version>2.4</version>
+            <type>plugin</type>
+            <properties>
+                <comment>maven plugin for the cvs report</comment>
+            </properties>
+        </dependency>
+        <dependency>
             <groupId>httpunit</groupId>
             <artifactId>httpunit</artifactId>
             <version>1.5.5-d-16Jun</version>
@@ -379,6 +388,6 @@
         <report>maven-simian-plugin</report>
         <report>maven-statcvs-plugin</report>
         <report>maven-faq-plugin</report>
-        <report>maven-xhtml-plugin</report>
+        <!--<report>maven-xhtml-plugin</report>-->
     </reports>
 </project>
