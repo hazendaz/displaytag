@@ -2,8 +2,8 @@
 <project>
   <pomVersion>3</pomVersion>
   <id>displaytag</id>
-  <groupId>displaytag</groupId>
   <name>Display tag library</name>
+  <groupId>displaytag</groupId>
   <currentVersion>1.0-b3-SNAPSHOT</currentVersion>
   <organization>
     <name>sourceforge</name>
