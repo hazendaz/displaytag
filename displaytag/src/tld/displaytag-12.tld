@@ -24,13 +24,13 @@
 
  If you use this tag in Struts, or in some other framework where the page is included via a jsp:include, you should use the requestURI attribute to indicate where
  tag generated links should point.
- </description>   <!--
+ </description>
       <variable>
           <name-from-attribute>id</name-from-attribute>
           <variable-class>java.lang.Object</variable-class>
           <scope>NESTED</scope>
           <description>This implicit variable holds the value of the current row object (the results of iterator#next).</description>
-      </variable>       -->
+      </variable>
 
     <attribute>
       <name>list</name>
@@ -69,8 +69,7 @@
       <name>offset</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-       <description>@deprecated in displaytag 1.0. Use "pageScope.", "requestScope.", "sessionScope.", "applicationScope." prefixes in
-                name.</description>
+       <description>index of the first record to be shown</description>
     </attribute>
     <attribute>
       <name>pagesize</name>
@@ -114,14 +113,13 @@
       <name>styleClass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <description>html pass through attribute for the css class - equivalent to the class attribute</description>
+        <description>@deprecated: use "class"</description>
     </attribute>
-      <!-- @deprecated -->
     <attribute>
       <name>border</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <description>@deprecated html pass through attribute</description>
+      <description>@deprecated html pass through attribute. Use css "border"</description>
     </attribute>
     <attribute>
       <name>cellspacing</name>
@@ -133,10 +131,7 @@
       <name>cellpadding</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <!-- n.b. that cellpadding is not deprecated in html, or even in xhtml 1.1.  There is no way to get this
-        effect in IE 6 with CSS.
-        -->
-        <description>html pass through attribute</description>
+        <description>html pass through attribute. Better using "padding" css attribute in style or class</description>
     </attribute>
     <attribute>
       <name>align</name>
@@ -232,7 +227,6 @@
 
   <tag>
     <name>column</name>
-<!--    <tag-class>org.displaytag.tags.ColumnTagMediaSupported</tag-class>-->
     <tag-class>org.displaytag.tags.ColumnTag</tag-class>
     <body-content>JSP</body-content>
     <display-name>column</display-name>
@@ -246,13 +240,6 @@
       <rtexprvalue>true</rtexprvalue>
         <description>name of the property in the bean specified in the parent table tag (via the "name" attribute) mapped to
                 this column</description>
-    </attribute>
-    <attribute>
-      <name>value</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-        <!-- Should this be deprecated ?-->
-        <description>This is a static value used if no property attribute is provided.</description>
     </attribute>
     <attribute>
       <name>title</name>
@@ -269,12 +256,10 @@
      null values will appear as "null" in the list (mostly useful for debugging).  Defaults to 'false'. </description>
     </attribute>
     <attribute>
-	<!-- @deprecated -->
       <name>sort</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <description>deprecated</description>
-        <description></description>
+        <description>@deprecated: use "sortable"</description>
     </attribute>
     <attribute>
       <name>sortable</name>
@@ -373,60 +358,58 @@
         <description>html pass through attribute; use this instead of directly coding presentational atttributes.</description>
     </attribute>
     <attribute>
-	<!-- @deprecated -->
       <name>styleClass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <description>html pass through attribute</description>
+        <description>@deprecated: use "class"</description>
     </attribute>
     <attribute>
       <name>headerClass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-                <description>"class" html attribute added only for header cells.</description>
+        <description>"class" html attribute added only for header cells.</description>
     </attribute>
     <attribute>
-	<!-- @deprecated -->
       <name>headerStyleClass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <description>"class" html attribute added only for header cells..</description>
+        <description>@deprecated: use "headerClass"</description>
     </attribute>
     <attribute>
       <name>align</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-     <description>@deprecated; html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+     <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
     </attribute>
     <attribute>
       <name>background</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-          <description>@deprecated; html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+          <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
     </attribute>
     <attribute>
       <name>bgcolor</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-     <description>@deprecated; html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+     <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
     </attribute>
     <attribute>
       <name>height</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-      <description>@deprecated; html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+      <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
     </attribute>
     <attribute>
       <name>nowrap</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-       <description>@deprecated; html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
     </attribute>
     <attribute>
       <name>valign</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-       <description>@deprecated; html attribute. Use "style" or "class" to set presentational attributes using css.</description>
+       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using css.</description>
     </attribute>
     <attribute>
       <name>group</name>
@@ -456,6 +439,8 @@
       <description>Sets the indicated property on the enclosing Table tag.  MUST be nested within a Table tag.
  As an alternative, you may create a property file that holds sitewide defaults; see the configuration documentation
  or the DisplayPropertiesLoaderServlet javadoc for information.</description>
+
+
     <attribute>
       <name>name</name>
       <required>true</required>
@@ -469,6 +454,9 @@
         <type>java.lang.String</type>
         <description>The value to which the property is set.</description>
     </attribute>
+       <example>
+&lt;display:setProperty name="paging.banner.placement" value="bottom" />
+      </example>
   </tag>
 
 
@@ -480,6 +468,19 @@
     <display-name>footer</display-name>
     <description>Tag wich should be nested into a table tag to provide a custom table footer.
     The body of the tag is outputted as is in the generated table in the tfooter section.</description>
+  
+      <example>
+&lt;display:table name="someList">
+  &lt;display:column property="mail"/>
+  &lt;display:column property="total"/>
+  &lt;display:footer>
+  	&lt;tr>
+  		&lt;td>total:&lt;/td>
+  		&lt;td>&lt;c:out value="${something}" />&lt;/td>
+  	&lt;tr>
+  &lt;/display:footer>
+&lt;/display:table>
+      </example>
   </tag>
 
 
