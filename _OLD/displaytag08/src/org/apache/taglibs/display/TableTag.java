@@ -1202,7 +1202,20 @@ public class TableTag extends TemplateTag {
         boolean decorated = prop.getProperty("export.decorated").equalsIgnoreCase("true");
 
         if (prop.getProperty("export.amount").equalsIgnoreCase("list")) {
-            iterator = getIterator(this.list);
+            /**
+ Ok.  This is soon to be an unsupported tag.  But I can't
+get the whole list when I export through excel, even
+though I have set the export.amount to equal list.
+
+I found that when we are building the view of "viewableData", it is shortening it to the page
+size, even though it should be exporting the entire list.
+
+This addition keeps all things the same, but makes sure
+that the entire list is exported
+             */
+            Object obj = this.lookup(this.pageContext, this.name,
+                                     this.property, this.scope, false);
+            iterator = getIterator(obj);
         }
 
         // If they want the first line to be the column titles, then spit them out
