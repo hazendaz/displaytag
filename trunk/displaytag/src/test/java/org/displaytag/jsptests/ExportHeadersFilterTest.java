@@ -2,7 +2,6 @@ package org.displaytag.jsptests;
 
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
-import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -15,16 +14,8 @@ import com.meterware.httpunit.WebResponse;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ExportHeadersTest extends DisplaytagCase
+public class ExportHeadersFilterTest extends ExportHeadersTest
 {
-
-    /**
-     * @see org.displaytag.test.DisplaytagCase#getJspName()
-     */
-    public String getJspName()
-    {
-        return "media.jsp";
-    }
 
     /**
      * Test that headers are correctly removed.
@@ -33,18 +24,17 @@ public class ExportHeadersTest extends DisplaytagCase
      */
     public void doTest(String jspName) throws Exception
     {
-        // test keep
-        WebRequest request = new GetMethodWebRequest(jspName);
-        WebResponse response = runner.getResponse(request);
 
-        // test remove
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        request = new GetMethodWebRequest(jspName);
+        // test keep
+        WebRequest request = new GetMethodWebRequest(jspName);
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
-        response = runner.getResponse(request);
+        // this will enable the filter!
+        request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
+        WebResponse response = runner.getResponse(request);
 
         assertNull("Header Cache-Control not overwritten", response.getHeaderField("Cache-Control"));
         assertNull("Header Expires not overwritten", response.getHeaderField("Expires"));
