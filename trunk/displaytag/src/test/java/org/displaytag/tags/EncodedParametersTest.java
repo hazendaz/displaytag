@@ -44,9 +44,9 @@ public class EncodedParametersTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(jspName);
 
         WebResponse response = runner.getResponse(request);
-        if (log.isInfoEnabled())
+        if (log.isDebugEnabled())
         {
-            log.info(response.getText());
+            log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();
