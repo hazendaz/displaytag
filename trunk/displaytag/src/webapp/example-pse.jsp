@@ -2,7 +2,7 @@
 
 <% request.setAttribute( "test", new ReportList() ); %>
 
-<h2><a href="./index.jsp">Examples</a> > Wow, paging + sorting + grouping + exporting working together</h2>
+<h2><a href="./index.jsp">Examples</a> > Paging + sorting + grouping + exporting working together</h2>
 
 
 <display:table name="test" export="true" sort="list" pagesize="8">

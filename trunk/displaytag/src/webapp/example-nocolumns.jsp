@@ -3,7 +3,7 @@
 	request.setAttribute( "test", new ReportList(6) );
 %>
 
-<h2><a href="./index.jsp">Examples</a> > Simple case, no columns</h2>
+<h2><a href="./index.jsp">Examples</a> > Simplest case, no columns</h2>
 
 <display:table name="test" />
 

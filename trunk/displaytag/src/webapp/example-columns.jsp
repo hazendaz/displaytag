@@ -3,7 +3,7 @@
 <% request.setAttribute( "test", new TestList(10, false) ); %>
 
 
-<h2><a href="./index.jsp">Examples</a> > Basic, columns</h2>
+<h2><a href="./index.jsp">Examples</a> > Columns</h2>
 
 <display:table name="test">
   <display:column property="id" title="ID" />

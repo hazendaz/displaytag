@@ -4,10 +4,10 @@
     <id>displaytag</id>
     <name>Display tag library</name>
     <groupId>displaytag</groupId>
-    <currentVersion>1.0-SNAPSHOT</currentVersion>
+    <currentVersion>1.0</currentVersion>
     <organization>
-        <name>sourceforge</name>
-        <url>http://sourceforge.net</url>
+        <name>the Displaytag team</name>
+        <url>http://sourceforge.net/projects/displaytag</url>
         <logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=8</logo>
     </organization>
     <inceptionYear>2002</inceptionYear>
@@ -55,6 +55,11 @@
             <id>1.0-rc2</id>
             <name>1.0-rc2</name>
             <tag>displaytag1-rc2</tag>
+        </version>
+        <version>
+            <id>1.0</id>
+            <name>1.0</name>
+            <tag>displaytag1</tag>
         </version>
     </versions>
     <mailingLists>
@@ -516,7 +521,6 @@
         <report>maven-simian-plugin</report>
         <report>maven-statcvs-plugin</report>
         <report>maven-faq-plugin</report>
-        <!--<report>maven-xhtml-plugin</report>-->
     </reports>
 </project>
 

@@ -2,7 +2,7 @@
 
 <% request.setAttribute( "test", new TestList(10, false) ); %>
 
-<h2><a href="./index.jsp">Examples</a> > Standard, smart linking of column data</h2>
+<h2><a href="./index.jsp">Examples</a> > Smart linking of column data</h2>
 
 
 <display:table name="test" >

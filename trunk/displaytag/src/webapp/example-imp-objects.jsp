@@ -3,7 +3,7 @@
 <% request.setAttribute( "test", new TestList(10, false) ); %>
 
 
-<h2><a href="./index.jsp">Examples</a> > Basic, implicit objects created by table</h2>
+<h2><a href="./index.jsp">Examples</a> > Implicit objects created by table</h2>
 
 
 <display:table name="test" id="testit">

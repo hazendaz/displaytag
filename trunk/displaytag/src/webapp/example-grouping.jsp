@@ -2,7 +2,7 @@
 
 <% request.setAttribute( "test", new ReportList() ); %>
 
-<h2><a href="./index.jsp">Examples</a> > Wow, column grouping</h2>
+<h2><a href="./index.jsp">Examples</a> > Column grouping</h2>
 
 <display:table name="test" class="simple">
   <display:column property="city" title="CITY" group="1"/>
@@ -24,14 +24,6 @@
 	Grouping is straight-forward, simply make sure that your list that you are
 	providing is sorted appropriately, then indicate the grouping
 	order via the <strong>group</strong> attribute of the column tags.
-</p>
-
-<p>
-	The <a href="example-callbacks.jsp">callbacks</a> example shows how to extend this and use callbacks
-	to extend the table tag in order to show totals for particular groups.  Finally
-	pair this with the
-	<a href="example-export.jsp">data exporting</a> and the soon to be implemented
-	ResultSet functionality and you have a key piece of an easy to understand reporting framework.
 </p>
 
 

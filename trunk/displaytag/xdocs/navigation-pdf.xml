@@ -17,8 +17,6 @@
             <item name="Tag reference" href="/tagreference-displaytag-12.html" />
             <item name="Configuration" href="/configuration.html" />
             <item name="Export filter" href="/export_filter.html" />
-            <item name="FAQ" href="/faq.html" />
-            <item name="Mailing Lists" href="/mail-lists.html" />
         </menu>
 
 
@@ -32,6 +30,19 @@
             <item name="Export" href="/export.html" />
             <item name="I18n" href="/i18n.html" />
         </menu>
+        
+        <menu name="Feedback">
+            <item name="FAQ" href="/faq.html" />
+            <item name="Reporting bugs" href="/issue-tracking.html" />
+            <item name="Mailing Lists" href="/mail-lists.html" />
+        </menu>
+        
+        <menu name="Developers">
+            <item name="Source Repository" href="/cvs-usage.html" />
+            <item name="Building from sources" href="/buildit.html" />
+            <item name="Directory Organization" href="/directory_organization.html" />
+        </menu>
+        
 
 
     </body>
