@@ -8,6 +8,9 @@ import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+
 
 /**
  * TEI for TableTag, defines 3 variables.
@@ -27,6 +30,64 @@ public class TableTagExtraInfo extends TagExtraInfo
     public static final String ROWNUM_SUFFIX = "_rowNum"; //$NON-NLS-1$
 
     /**
+     * Java keywords.
+     */
+    private static final String[] KEYWORDS = {
+        "abstract",
+        "assert",
+        "boolean",
+        "break",
+        "byte",
+        "case",
+        "catch",
+        "char",
+        "class",
+        "const",
+        "continue",
+        "default",
+        "do",
+        "double",
+        "else",
+        "enum",
+        "extends",
+        "false",
+        "final",
+        "finally",
+        "float",
+        "for",
+        "goto",
+        "if",
+        "implements",
+        "import",
+        "instanceof",
+        "int",
+        "interface",
+        "long",
+        "native",
+        "new",
+        "null",
+        "package",
+        "private",
+        "protected",
+        "public",
+        "return",
+        "short",
+        "static",
+        "strictfp",
+        "super",
+        "switch",
+        "synchronized",
+        "this",
+        "throw",
+        "throws",
+        "transient",
+        "true",
+        "try",
+        "void",
+        "volatile",
+        "while"};
+
+    /**
      * Variables TableTag makes available in the pageContext.
      * @param data TagData
      * @return VariableInfo[]
@@ -44,14 +105,45 @@ public class TableTagExtraInfo extends TagExtraInfo
         {
             String tagId = data.getAttributeString(TagAttributeInfo.ID);
 
-            // current row
-            variables.add(new VariableInfo(tagId, Object.class.getName(), true, VariableInfo.NESTED));
-
-            // current row number
-            variables.add(new VariableInfo(tagId + ROWNUM_SUFFIX, Integer.class.getName(), true, VariableInfo.NESTED));
+            // don't try to add variables if id is not a valid java identifier.
+            if (isJavaId(tagId))
+            {
+                // current row
+                variables.add(new VariableInfo(tagId, Object.class.getName(), true, VariableInfo.NESTED));
+                // current row number
+                variables.add(new VariableInfo(
+                    tagId + ROWNUM_SUFFIX,
+                    Integer.class.getName(),
+                    true,
+                    VariableInfo.NESTED));
+            }
         }
 
         return (VariableInfo[]) variables.toArray(new VariableInfo[]{});
+    }
+
+    /**
+     * isJavaId Returns true if the name is a valid java identifier.
+     * @param id to check
+     * @return boolean true/false
+     */
+    public static boolean isJavaId(String id)
+    {
+        if (StringUtils.isBlank(id)
+            || ArrayUtils.contains(KEYWORDS, id)
+            || !Character.isJavaIdentifierStart(id.charAt(0)))
+        {
+            return false;
+        }
+
+        for (int j = 1; j < id.length(); j++)
+        {
+            if (!Character.isJavaIdentifierPart(id.charAt(j)))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

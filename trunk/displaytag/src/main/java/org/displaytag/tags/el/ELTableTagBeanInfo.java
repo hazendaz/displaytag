@@ -63,11 +63,9 @@ public class ELTableTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("summary", //$NON-NLS-1$
                 ELTableTag.class, null, "setSummary")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("excludedParams", //$NON-NLS-1$
-                ELTableTag.class, null, "setExcludedParams")); //$NON-NLS-1$ 
-
-            // can't be evaluated
+                ELTableTag.class, null, "setExcludedParams")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("id", //$NON-NLS-1$ 
-                TableTag.class, null, "setId")); //$NON-NLS-1$ 
+                ELTableTag.class, null, "setId")); //$NON-NLS-1$ 
 
             // deprecated attributes (not supporting expressions)
             proplist.add(new PropertyDescriptor("width", //$NON-NLS-1$ 
@@ -99,4 +97,5 @@ public class ELTableTagBeanInfo extends SimpleBeanInfo
         PropertyDescriptor[] result = new PropertyDescriptor[proplist.size()];
         return ((PropertyDescriptor[]) proplist.toArray(result));
     }
+
 }

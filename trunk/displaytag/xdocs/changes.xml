@@ -89,6 +89,9 @@
             <action type="fix" dev="fgiust" issue="DISPL-73" due-to="Mikko Wilkman">
                 Unicode export with ResponseOverrideFilter fails because of improper content length setting.
             </action>
+            <action type="update" dev="fgiust" issue="DISPL-2">
+                Ability to use java var in id attribute in tabletag (look at the FAQ for more details).
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">

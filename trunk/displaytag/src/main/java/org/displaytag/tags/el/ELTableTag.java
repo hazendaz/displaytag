@@ -108,6 +108,19 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private String excludedParamsExpr;
 
     /**
+     * Expression for the "id" tag attribute.
+     */
+    private String idExpr;
+
+    /**
+     * @see org.displaytag.tags.TableTag#setId(java.lang.String)
+     */
+    public void setId(String value)
+    {
+        idExpr = value;
+    }
+
+    /**
      * @see org.displaytag.tags.TableTag#setCellpadding(java.lang.String)
      * @param value EL expression for attribute value
      */
@@ -268,6 +281,10 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     {
         ExpressionEvaluator eval = new ExpressionEvaluator(this, pageContext);
 
+        if (idExpr != null)
+        {
+            super.setId(eval.evalString("id", idExpr)); //$NON-NLS-1$
+        }
         if (cellpaddingExpr != null)
         {
             super.setCellpadding(eval.evalString("cellpadding", cellpaddingExpr)); //$NON-NLS-1$
@@ -377,6 +394,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         this.styleExpr = null;
         this.summaryExpr = null;
         this.excludedParamsExpr = null;
+        this.idExpr = null;
     }
 
 }

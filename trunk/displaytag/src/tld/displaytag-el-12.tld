@@ -15,7 +15,6 @@
     <tag>
         <name>table</name>
         <tag-class>org.displaytag.tags.el.ELTableTag</tag-class>
-        <tei-class>org.displaytag.tags.TableTagExtraInfo</tei-class>
         <body-content>JSP</body-content>
         <display-name>table</display-name>
         <description>
@@ -205,9 +204,10 @@
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <description>
-                An implicit variable of this name will be created and placed into NESTED scope. The object is also added
-                to pageContext under this name. Two tables in the same page can't have the same id (paging and sorting
-                will affect both).
+                Unique id used to identify this table. The object representing the current row is also added to the
+                pageContext under this name, so that you can refer to it in column bodies using ${id}. You can also use
+                id_rowNum to refer to the current row number. Two tables in the same page can't have the same id (paging
+                and sorting will affect both).
             </description>
         </attribute>
         <attribute>
