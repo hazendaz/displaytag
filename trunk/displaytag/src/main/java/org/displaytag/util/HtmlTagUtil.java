@@ -24,12 +24,17 @@ public final class HtmlTagUtil
     public static String createOpenTagString(String pTagName, HtmlAttributeMap pAttributes)
     {
 
-        StringBuffer lBuffer = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
 
-        lBuffer.append(TagConstants.TAG_OPEN).append(pTagName).append(pAttributes.toString()).append(
-            TagConstants.TAG_CLOSE);
+        buffer.append(TagConstants.TAG_OPEN).append(pTagName);
 
-        return lBuffer.toString();
+        if (pAttributes != null)
+        {
+            buffer.append(pAttributes.toString());
+        }
+        buffer.append(TagConstants.TAG_CLOSE);
+
+        return buffer.toString();
 
     }
 
