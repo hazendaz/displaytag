@@ -17,15 +17,6 @@ public class Displ4Test extends DisplaytagCase
 {
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public Displ4Test(String name)
-    {
-        super(name);
-    }
-
-    /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

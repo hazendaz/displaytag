@@ -12,12 +12,11 @@ public class AutolinkColumnDecoratorTest extends TestCase
 {
 
     /**
-     * instantiate a new test.
-     * @param name test name
+     * @see junit.framework.TestCase#getName()
      */
-    public AutolinkColumnDecoratorTest(String name)
+    public String getName()
     {
-        super(name);
+        return getClass().getName() + "." + super.getName();
     }
 
     /**

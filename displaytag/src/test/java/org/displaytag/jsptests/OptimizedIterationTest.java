@@ -20,15 +20,6 @@ public class OptimizedIterationTest extends DisplaytagCase
 {
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public OptimizedIterationTest(String name)
-    {
-        super(name);
-    }
-
-    /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

@@ -15,15 +15,6 @@ public class TitleKeyAutoColumnSpringTest extends AbstractTitleKeyAutoColumnTest
 {
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public TitleKeyAutoColumnSpringTest(String name)
-    {
-        super(name);
-    }
-
-    /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

@@ -23,15 +23,6 @@ public class ExportPdfFilterTest extends DisplaytagCase
 {
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public ExportPdfFilterTest(String name)
-    {
-        super(name);
-    }
-
-    /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

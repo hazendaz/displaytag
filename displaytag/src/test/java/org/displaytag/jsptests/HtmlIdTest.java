@@ -17,15 +17,6 @@ public class HtmlIdTest extends DisplaytagCase
 {
 
     /**
-     * Instantiates a new test case.
-     * @param name test name
-     */
-    public HtmlIdTest(String name)
-    {
-        super(name);
-    }
-
-    /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

@@ -4,11 +4,20 @@ import junit.framework.TestCase;
 
 
 /**
+ * Tests for ParamEncoder.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ParamEncoderTest extends TestCase
 {
+
+    /**
+     * @see junit.framework.TestCase#getName()
+     */
+    public String getName()
+    {
+        return getClass().getName() + "." + super.getName();
+    }
 
     /**
      * Test for reported DISPL-12.
