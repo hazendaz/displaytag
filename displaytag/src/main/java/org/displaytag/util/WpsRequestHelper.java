@@ -3,6 +3,7 @@ package org.displaytag.util;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.jetspeed.portlet.PortletResponse;
@@ -41,7 +42,7 @@ public class WpsRequestHelper extends DefaultRequestHelper
      */
     public WpsRequestHelper(PageContext context)
     {
-        super((HttpServletRequest) context.getRequest());
+        super((HttpServletRequest) context.getRequest(), (HttpServletResponse) context.getResponse());
         this.pageContext = context;
     }
 

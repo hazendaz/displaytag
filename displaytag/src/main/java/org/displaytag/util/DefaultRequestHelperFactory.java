@@ -1,6 +1,7 @@
 package org.displaytag.util;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
 
@@ -17,7 +18,9 @@ public class DefaultRequestHelperFactory implements RequestHelperFactory
      */
     public RequestHelper getRequestHelperInstance(PageContext pageContext)
     {
-        return new DefaultRequestHelper((HttpServletRequest) pageContext.getRequest());
+        return new DefaultRequestHelper(
+            (HttpServletRequest) pageContext.getRequest(),
+            (HttpServletResponse) pageContext.getResponse());
     }
 
 }

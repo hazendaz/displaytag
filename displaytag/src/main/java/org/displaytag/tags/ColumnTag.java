@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -251,7 +252,10 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setHref(String value)
     {
-        this.href = new Href(value);
+        // call encodeURL to preserve session id when cookies are disabled
+        String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
+            .defaultString(value));
+        this.href = new Href(encodedHref);
     }
 
     /**

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -33,12 +34,19 @@ public class DefaultRequestHelper implements RequestHelper
     private HttpServletRequest request;
 
     /**
-     * Construct a new RequestHelper for the given request.
-     * @param servletRequest HttpServletRequest
+     * original HttpServletResponse.
      */
-    public DefaultRequestHelper(HttpServletRequest servletRequest)
+    private HttpServletResponse response;
+
+    /**
+     * Construct a new RequestHelper for the given request.
+     * @param servletRequest HttpServletRequest needed to generate the base href
+     * @param servletResponse HttpServletResponse needed to encode generated urls
+     */
+    public DefaultRequestHelper(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
     {
         this.request = servletRequest;
+        this.response = servletResponse;
     }
 
     /**
@@ -46,7 +54,9 @@ public class DefaultRequestHelper implements RequestHelper
      */
     public Href getHref()
     {
-        Href href = new Href(this.request.getRequestURI());
+        String requestURI = this.request.getRequestURI();
+        // call encodeURL to preserve session id when cookies are disabled
+        Href href = new Href(this.response.encodeURL(requestURI));
         href.setParameterMap(getParameterMap());
         return href;
     }
