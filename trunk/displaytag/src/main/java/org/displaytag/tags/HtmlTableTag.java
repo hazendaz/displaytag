@@ -18,153 +18,161 @@ public abstract class HtmlTableTag extends TemplateTag
 
     /**
      * Method setWidth
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setWidth(String pAttributeValue)
+    public void setWidth(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, attributeValue);
     }
 
     /**
      * Method setBorder
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setBorder(String pAttributeValue)
+    public void setBorder(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_BORDER, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_BORDER, attributeValue);
     }
 
     /**
      * Method setCellspacing
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setCellspacing(String pAttributeValue)
+    public void setCellspacing(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_CELLSPACING, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_CELLSPACING, attributeValue);
     }
 
     /**
      * Method setCellpadding
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setCellpadding(String pAttributeValue)
+    public void setCellpadding(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_CELLPADDING, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_CELLPADDING, attributeValue);
     }
 
     /**
      * Method setAlign
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setAlign(String pAttributeValue)
+    public void setAlign(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, attributeValue);
     }
 
     /**
      * Method setBackground
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setBackground(String pAttributeValue)
+    public void setBackground(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, attributeValue);
     }
 
     /**
      * Method setBgcolor
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setBgcolor(String pAttributeValue)
+    public void setBgcolor(String attributeValue)
     {
 
-        mAttributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, attributeValue);
     }
 
     /**
      * Method setFrame
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setFrame(String pAttributeValue)
+    public void setFrame(String attributeValue)
     {
 
-        mAttributeMap.put(TagConstants.ATTRIBUTE_FRAME, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_FRAME, attributeValue);
     }
 
     /**
      * Method setHeight
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setHeight(String pAttributeValue)
+    public void setHeight(String attributeValue)
     {
 
-        mAttributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, attributeValue);
     }
 
     /**
      * Method setHspace
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setHspace(String pAttributeValue)
+    public void setHspace(String attributeValue)
     {
 
-        mAttributeMap.put(TagConstants.ATTRIBUTE_HSPACE, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_HSPACE, attributeValue);
     }
 
     /**
      * Method setRules
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setRules(String pAttributeValue)
+    public void setRules(String attributeValue)
     {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_RULES, attributeValue);
+    }
 
-        mAttributeMap.put(TagConstants.ATTRIBUTE_RULES, pAttributeValue);
+    /**
+     * Method setRules
+     * @param attributeValue String
+     */
+    public void setStyle(String attributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_STYLE, attributeValue);
     }
 
     /**
      * Method setSummary
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setSummary(String pAttributeValue)
+    public void setSummary(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_SUMMARY, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_SUMMARY, attributeValue);
     }
 
     /**
      * Method setVspace
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setVspace(String pAttributeValue)
+    public void setVspace(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_VSPACE, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_VSPACE, attributeValue);
     }
 
     /**
      * set the html class attribute
      * @deprecated: use setClass()
-     * @param pAttributeValue String CSS class
+     * @param attributeValue String CSS class
      */
-    public void setStyleClass(String pAttributeValue)
+    public void setStyleClass(String attributeValue)
     {
-        setClass(pAttributeValue);
+        setClass(attributeValue);
     }
 
     /**
      * Method setClass
-     * @param pAttributeValue String attribute value
+     * @param attributeValue String attribute value
      */
-    public void setClass(String pAttributeValue)
+    public void setClass(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, attributeValue);
     }
 
     /**
      * Method setId
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void setId(String pAttributeValue)
+    public void setId(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_ID, pAttributeValue);
-        super.setId(pAttributeValue);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_ID, attributeValue);
+        super.setId(attributeValue);
     }
 
     /**
