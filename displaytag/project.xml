@@ -207,7 +207,7 @@
     <dependency>
       <groupId>httpunit</groupId>
       <artifactId>httpunit</artifactId>
-      <version>1.6n</version>
+      <version>1.6</version>
       <properties>
         <comment>Needed to compile and run HttpUnit tests.</comment>
       </properties>
