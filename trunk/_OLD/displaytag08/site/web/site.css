@@ -1,102 +1,222 @@
+a.tableCellHeader {
+    background: transparent;
+    color: #000;
+    font-family: verdana, tahoma, arial, helvetica, san-serif;
+    font-size: x-small;
+    font-weight: bold;
+    text-decoration: none;
+}
 
-	body {
-		margin-top: 0px;
-		margin-left: 0px;
-		margin-right: 0px;
-		margin-bottom: 0px;
-		}
-	body, td, p {
-		font-family: verdana, sans-serif;
-		font-size: 12px;
-		}
+a.tableCellHeader:hover {
+    background: transparent;
+    color: #000;
+    font-family: verdana, tahoma, arial, helvetica, san-serif;
+    font-size: x-small;
+    font-weight: bold;
+    text-decoration: underline;
+}
 
-h1 {color: #000000; font-size: 18px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 15px;}
+A:link.greeting, A:visited.greeting {
+    background: transparent;
+    color: blue;
+    text-decoration: underline;
+}
 
-h2 {color: #000000; font-size: 16px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 12px;}
+A:link.menu, A:visited.menu {
+    background: transparent;
+    color: #000000;
+    text-decoration: none;
+}
 
-h3 {color: #000000; font-size: 14px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 10px;}
+A:active.greeting, A:hover.greeting {
+    background: transparent;
+    color: #FF3300;
+    text-decoration: underline;
+}
 
-.banner {color: #000000; font-size: 18px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 0px;}
+A:active.menu, A:hover.menu {
+    background: transparent;
+    color: #0000ff;
+    text-decoration: none;
+}
 
+body {
+    margin: 0px;
+}
 
-.header {color: #000000; font-size: 24px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 10px;}
+body, td, p {
+    font-family: verdana, sans-serif;
+    font-size: 12px;
+}
 
-.boxtitle {color: #000000; font-size: 14px; font-family: verdana,arial,lucida
-console,sans-serif,monospace; font-weight: bold; text-decoration: none;}
+h1 {
+    margin-bottom: 15px;
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
 
-.boxsubtitle {color: #000000; font-size: 12px; font-family: verdana,arial,lucida
-console,sans-serif,monospace; font-weight: bold; text-decoration: none; }
+h2 {
+    margin-bottom: 12px;
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
 
-.boxtext {color: #000000; font-size: 11px; font-family: verdana,arial,lucida
-console,sans-serif,monospace; text-decoration: none;}
+h3 {
+    margin-bottom: 10px;
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
 
-.smalltext {color: #000000; font-size: 12px; font-family: verdana,arial,lucida
-console,sans-serif,monospace; text-decoration: none;}
+td.tableCell {
+    font-family: verdana, tahoma, arial, helvetica, san-serif;
+    font-size: x-small;
+}
 
+td.tableCellHeader {
+    background: transparent;
+    color: #000;
+    font-family: verdana, tahoma, arial, helvetica, san-serif;
+    font-size: x-small;
+    font-weight: bold;
+}
 
-.footer {color: #000000; font-size: 11px; font-family: verdana,arial,lucida
-console,sans-serif,monospace; text-decoration: none; font-weight: normal;}
-
-.footerpipe {color: #000000; font-size: 10px; font-family: verdana,arial,lucida console,sans-serif,monospace; text-decoration: none; font-weight: normal;}
-
-A:link.greeting {color: blue; text-decoration: underline;}
-A:visited.greeting {color: blue; text-decoration: underline;}
-A:active.greeting {color: #FF3300; text-decoration: underline;}
-A:hover.greeting {color: #FF3300; text-decoration: underline;}
-
-.greeting {color: #000000; font-size: 11px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: normal; text-decoration: none; bottom-margin: 7px; top-margin: 7px; left-margin: 7px; right-margin: 7px}
-
-.greetingpipe {color: #000000; font-size: 10px; font-family: verdana,arial,lucida console,sans-serif,monospace; text-decoration: none; font-weight: normal; top-margin: 10px; left-margin: 7px; right-margin: 7px; bottom-margin: 7px;}
-
-A:link.menu {color: #000000; text-decoration: none;}
-A:visited.menu {color: #000000; text-decoration: none;}
-A:active.menu {color: #0000ff; text-decoration: none;}
-A:hover.menu {color: #0000ff; text-decoration: none;}
-
-.menupipe {color: #000000; font-size: 10px; font-family: verdana,arial,lucida console,sans-serif,monospace; text-decoration: none; font-weight: normal;}
-
-.menu {color: #000000; font-size: 11px; font-family: verdana,arial,lucida console,sans-serif,monospace; text-decoration: none; font-weight: bold;}
+tr.tableRowEven {
+    background: #ffeeaa;
+    color: #000;
+    font-family: verdana, tahoma, arial, helvetica, san-serif;
+    font-size: x-small;
+}
 
 tr.tableRowHeader {
-  font-family: verdana, tahoma, arial, helvetica;
-  font-size: x-small;
-  font-weight: bold;
-  background-color: #ffcc00;
+    background: #ffcc00;
+    color: #000;
+    font-family: verdana, tahoma, arial, helvetica, san-serif;
+    font-size: x-small;
+    font-weight: bold;
 }
-td.tableCell_header {
-  font-family: verdana, tahoma, arial, helvetica;
-  font-size: x-small;
-  font-weight: bold;
-  color: black;
-}
-a.tableCellHeader {
-  font-family: verdana, tahoma, arial, helvetica;
-  font-size: x-small;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
-}
-a.tableCellHeader:hover {
-  font-family: verdana, tahoma, arial, helvetica;
-  font-size: x-small;
-  font-weight: bold;
-  text-decoration: underline;
-  color: black;
-}
+
 tr.tableRowOdd {
-  font-family: verdana, tahoma, arial, helvetica;
-  font-size: x-small;
-
-  background-color: #ffffff
-}
-tr.tableRowEven {
-  font-family: verdana, tahoma, arial, helvetica;
-  font-size: x-small;
-
-  background-color: #ffeeaa
-}
-td.tableCell {
-  font-family: verdana, tahoma, arial, helvetica;
-  font-size: x-small;
+    background: #ffffff;
+    color: #000;
+    font-family: verdana, tahoma, arial, helvetica, san-serif;
+    font-size: x-small;
 }
 
+.banner {
+    margin-bottom: 0px;
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.boxsubtitle {
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.boxtext {
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.boxtitle {
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footer {
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 11px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.footerpipe, .menupipe {
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 10px;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.greeting {
+    margin-bottom: 7px;
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 11px;
+    font-weight: normal;
+    margin-left: 7px;
+    margin-right: 7px;
+    text-decoration: none;
+    margin-top: 7px;
+}
+
+.greetingpipe {
+    margin-bottom: 7px;
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 10px;
+    font-weight: normal;
+    margin-left: 7px;
+    margin-right: 7px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.header {
+    margin-bottom: 10px;
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.menu {
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.smalltext {
+    background: transparent;
+    color: #000000;
+    font-family: verdana,arial,lucida console,sans-serif,monospace;
+    font-size: 12px;
+    text-decoration: none;
+}
