@@ -1,0 +1,13 @@
+target
+velocity.log*
+maven.log*
+logs
+cache
+*.jpx
+*.jpx*
+*.library
+*.scc
+.*
+build.properties
+work
+lib

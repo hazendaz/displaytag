@@ -1,0 +1,504 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <title>Tag reference</title>
+    <author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+  </properties>
+
+  <body>
+
+    <section name="Tag reference">
+
+      <subsection name="table">
+        <p>Main table tag.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>attribute</th>
+              <th>required?</th>
+              <th>description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>name</td>
+              <td>no</td>
+              <td>
+                reference to the object used as source for the table. Can be an expression like
+                <code>requestScope.object.property</code>
+                . You need to define name or list. List is suggested.
+              </td>
+            </tr>
+            <tr>
+              <td>length</td>
+              <td>no</td>
+              <td>number of records to be shown</td>
+            </tr>
+            <tr>
+              <td>offset</td>
+              <td>no</td>
+              <td>index of the first record to be shown</td>
+            </tr>
+            <tr>
+              <td>pagesize</td>
+              <td>no</td>
+              <td>number of records in a page</td>
+            </tr>
+            <tr>
+              <td>decorator</td>
+              <td>no</td>
+              <td>full class name for a TableDecorator</td>
+            </tr>
+            <tr>
+              <td>requestURI</td>
+              <td>no</td>
+              <td>base URI for creating links</td>
+            </tr>
+            <tr>
+              <td>export</td>
+              <td>no</td>
+              <td>
+                enable/disable export. Valid values are
+                <code>true</code>
+                or
+                <code>false</code>
+                .
+              </td>
+            </tr>
+            <tr>
+              <td>id</td>
+              <td>no</td>
+              <td>name of the variable defined by the table tag containing a reference to the object.</td>
+            </tr>
+            <tr>
+              <td>sort</td>
+              <td>no</td>
+              <td>
+                can be
+                <code>page</code>
+                , if you want to sort only visible records, or
+                <code>list</code>
+                , if you want to sort the full list
+              </td>
+            </tr>
+            <tr>
+              <td>defaultsort</td>
+              <td>no</td>
+              <td>index of the column sorted by default.</td>
+            </tr>
+            <tr>
+              <td>cellspacing</td>
+              <td>no</td>
+              <td>html pass through attribute</td>
+            </tr>
+            <tr>
+              <td>summary</td>
+              <td>no</td>
+              <td>html pass through attribute</td>
+            </tr>
+            <tr>
+              <td>class</td>
+              <td>no</td>
+              <td>html pass through attribute.</td>
+            </tr>
+            <tr>
+              <td>style</td>
+              <td>no</td>
+              <td>html pass through attribute.</td>
+            </tr>
+            <tr>
+              <td>frame</td>
+              <td>no</td>
+              <td>html pass through attribute.</td>
+            </tr>
+            <tr>
+              <td>rules</td>
+              <td>no</td>
+              <td>html pass through attribute.</td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">list</em>
+              </td>
+              <td>no</td>
+              <td>
+                Directly sets an object to be used as source for the table (
+                <code>list="&lt;%=aListObject %>"</code>
+                ).
+                <em>@deprecated</em>
+                in displaytag 1.0. Set the object in the page scope and use the "name" attribute.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">scope</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                in displaytag 1.0. Use "pageScope.", "requestScope.", "sessionScope.", "applicationScope." prefixes in
+                name.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">property</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                in displaytag 1.0. Use
+                <code>list.property</code>
+                in "name" attribute.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">styleClass</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                in displaytag 1.0. Use standard html "class" attribute instead
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">cellpadding</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">border</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">background</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">align</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">bgcolor</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">width</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">height</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">hspace</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">vspace</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </subsection>
+      <subsection name="column">
+        <p>Table column.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>attribute</th>
+              <th>required?</th>
+              <th>description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>property</td>
+              <td>no</td>
+              <td>
+                name of the property in the bean specified in the parent table tag (via the "name" attribute) mapped to
+                this column
+              </td>
+            </tr>
+            <tr>
+              <td>value</td>
+              <td>no</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>title</td>
+              <td>no</td>
+              <td>title of the column (text for the th cell)</td>
+            </tr>
+            <tr>
+              <td>nulls</td>
+              <td>no</td>
+              <td>
+                set to
+                <code>false</code>
+                to avoid displaying of null values
+              </td>
+            </tr>
+            <tr>
+              <td>sortable</td>
+              <td>no</td>
+              <td>
+                set to
+                <code>true</code>
+                to make the column sortable
+              </td>
+            </tr>
+            <tr>
+              <td>autolink</td>
+              <td>no</td>
+              <td>Automatically hyperlink URLs and mail address in the table</td>
+            </tr>
+            <tr>
+              <td>href</td>
+              <td>no</td>
+              <td>the base URL used to construct the dynamic link</td>
+            </tr>
+            <tr>
+              <td>paramId</td>
+              <td>no</td>
+              <td>the name of the parameter that gets added to the URL specified by href</td>
+            </tr>
+            <tr>
+              <td>paramName</td>
+              <td>no</td>
+              <td>the name of the parameter that gets added to the URL specified above</td>
+            </tr>
+            <tr>
+              <td>paramProperty</td>
+              <td>no</td>
+              <td>the name of the parameter that gets added to the URL specified above</td>
+            </tr>
+            <tr>
+              <td>paramScope</td>
+              <td>no</td>
+              <td>the name of the parameter that gets added to the URL specified above</td>
+            </tr>
+            <tr>
+              <td>maxLength</td>
+              <td>no</td>
+              <td>maximum number of chars</td>
+            </tr>
+            <tr>
+              <td>maxWords</td>
+              <td>no</td>
+              <td>maximum number of words</td>
+            </tr>
+            <tr>
+              <td>group</td>
+              <td>no</td>
+              <td>
+                group values in the column. This should be a valid positive integer, indicating the grouping order.
+              </td>
+            </tr>
+            <tr>
+              <td>doubleQuote</td>
+              <td>no</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>decorator</td>
+              <td>no</td>
+              <td>fully qualified class name of a ColumnDecorator</td>
+            </tr>
+            <tr>
+              <td>class</td>
+              <td>no</td>
+              <td>"class" html attribute added only for body cells.</td>
+            </tr>
+            <tr>
+              <td>headerClass</td>
+              <td>no</td>
+              <td>"class" html attribute added only for header cells.</td>
+            </tr>
+            <tr>
+              <td>sort</td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                in displaytag 1.0. Use "sortable" attribute instead
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">styleClass</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                in displaytag 1.0. Use standard html "class" attribute instead
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">headerStyleClass</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                in displaytag 1.0. Use "headerClass" attribute instead
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">width</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">align</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">background</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">bgcolor</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">height</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">nowrap</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <em class="deprecated">valign</em>
+              </td>
+              <td>no</td>
+              <td>
+                <em>@deprecated</em>
+                html attribute. Use "style" or "class" to set presentational attributes using css.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </subsection>
+
+      <subsection name="setProperty">
+        <p>Tag used to override default properties.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>attribute</th>
+              <th>required?</th>
+              <th>description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>name</td>
+              <td>yes</td>
+              <td>property name</td>
+            </tr>
+            <tr>
+              <td>value</td>
+              <td>yes</td>
+              <td>property value</td>
+            </tr>
+          </tbody>
+        </table>
+      </subsection>
+
+    </section>
+
+  </body>
+</document>

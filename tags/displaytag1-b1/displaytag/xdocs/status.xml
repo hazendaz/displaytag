@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<document>
+
+	<properties>
+		<title>Overview</title>
+		<author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+	</properties>
+
+	<body>
+
+		<section name="Current status">
+			<p>
+				For now, focus has been on the table/column tags that are used to show data extracted from a List in
+				a simple and consistant way.
+			</p>
+		</section>
+
+		<section name="What&apos;s New">
+			<p>
+				Version
+				<strong>1.0-b1</strong>
+				has been released (09/22/03).
+			</p>
+
+			<p>
+				A complete
+				<a href="/changes-report.html">changelog</a>
+				is available, and click
+				<a href="/download.html">here to download</a>
+				the latest source or standalone jar file.
+			</p>
+		</section>
+
+	</body>
+</document>

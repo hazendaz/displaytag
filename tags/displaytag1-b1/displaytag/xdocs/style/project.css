@@ -1,0 +1,12 @@
+body p a {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif !important;
+}
+#navcolumn div strong {
+	font-size: 3 !important;
+}
+div.app p {
+	font-size: 3 !important;
+}
+.deprecated {
+	text-decoration: line-through;
+}
