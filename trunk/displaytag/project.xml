@@ -3,6 +3,7 @@
   <pomVersion>4</pomVersion>
   <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
+  <id>displaytag</id>
   <groupId>displaytag</groupId>
   <type>jar</type>
   <version>1.0-b3-SNAPSHOT</version>
@@ -133,7 +134,7 @@
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
       <version>1.6.1</version>
-      <url>http://jakarta.apache.org/commons</url>
+      <url>http://jakarta.apache.org/commons/beanutils</url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
@@ -142,7 +143,7 @@
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
       <version>2.1</version>
-      <url>http://jakarta.apache.org/commons</url>
+      <url>http://jakarta.apache.org/commons/collections</url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
@@ -151,7 +152,7 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.0</version>
-      <url>http://jakarta.apache.org/commons</url>
+      <url>http://jakarta.apache.org/commons/lang</url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
@@ -160,7 +161,7 @@
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>1.0.3</version>
-      <url>http://jakarta.apache.org/commons</url>
+      <url>http://jakarta.apache.org/commons/logging</url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
@@ -169,7 +170,7 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.8</version>
-      <url></url>
+      <url>http://logging.apache.org/log4j/docs/index.html</url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
@@ -184,7 +185,7 @@
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.0.2</version>
-      <url></url>
+      <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/intro.html</url>
     </dependency>
     <dependency>
       <groupId>taglibs</groupId>
@@ -199,7 +200,7 @@
       <groupId>cactus</groupId>
       <artifactId>cactus</artifactId>
       <version>13-1.6dev</version>
-      <url></url>
+      <url>http://jakarta.apache.org/cactus/</url>
     </dependency>
     <!-- required by cactus -->
     <dependency>
