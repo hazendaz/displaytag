@@ -82,7 +82,8 @@ public class DefaultRequestHelper implements RequestHelper
             try
             {
                 return new Integer(value);
-            } catch (NumberFormatException e)
+            }
+            catch (NumberFormatException e)
             {
                 // It's ok to ignore, simply return null
                 log.debug("Invalid \"" + key + "\" parameter from request: value=\"" + value + "\"");
