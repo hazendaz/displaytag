@@ -14,11 +14,6 @@ public final class TableTagParameters
     public static final String PARAMETER_SORT = "s"; //$NON-NLS-1$
 
     /**
-     * name of the parameter specifying the previous sorted column index.
-     */
-    public static final String PARAMETER_PREVIOUSSORT = "xs"; //$NON-NLS-1$
-
-    /**
      * name of the parameter specifying the current page number.
      */
     public static final String PARAMETER_PAGE = "p"; //$NON-NLS-1$
@@ -27,11 +22,6 @@ public final class TableTagParameters
      * name of the parameter specifying the current sorting order.
      */
     public static final String PARAMETER_ORDER = "o"; //$NON-NLS-1$
-
-    /**
-     * name of the parameter specifying the previous sorting order.
-     */
-    public static final String PARAMETER_PREVIOUSORDER = "xo"; //$NON-NLS-1$
 
     /**
      * name of the parameter specifying the export type.

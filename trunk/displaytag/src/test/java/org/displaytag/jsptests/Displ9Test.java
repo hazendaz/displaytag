@@ -1,11 +1,8 @@
 package org.displaytag.jsptests;
 
-import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
-import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
@@ -43,7 +40,6 @@ public class Displ9Test extends DisplaytagCase
     public void doTest(String jspName) throws Exception
     {
         WebRequest request = new GetMethodWebRequest(jspName);
-        ParamEncoder encoder = new ParamEncoder("table");
         WebResponse response;
 
         // step 0

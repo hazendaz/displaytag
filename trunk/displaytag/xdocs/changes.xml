@@ -76,6 +76,7 @@
                 Column JSP body should only execute for rows being shown. Now column body is skipped if current row is
                 not needed for display or sorting (be careful, if you sort the full list row need to be evaluated).
             </action>
+            <action type="fix" dev="fgiust" issue="DISPL-9">Send user back to Page 1 on Desc/Asc.</action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">

@@ -223,16 +223,6 @@ public class TableTag extends HtmlTableTag
     private MediaTypeEnum currentMediaType;
 
     /**
-     * index of the previously sorted column.
-     */
-    private int previousSortedColumn;
-
-    /**
-     * previous sorting order.
-     */
-    private boolean previousOrder;
-
-    /**
      * daAfterBody() has been executed at least once?
      */
     private boolean doAfterBodyExecuted;
@@ -720,27 +710,6 @@ public class TableTag extends HtmlTableTag
         boolean order = SortOrderEnum.DESCENDING != paramOrder;
         this.tableModel.setSortOrderAscending(order);
 
-        // if the behaviour is sort full page we need to go back to page one if sort of order is changed
-        if (finalSortFull && (sortColumn != -1))
-        {
-
-            // save actual sort to href
-            this.baseHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSSORT), sortColumn);
-            this.baseHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSORDER), paramOrder);
-
-            // read previous sort from request
-            Integer previousSortColumnParameter = requestHelper
-                .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
-            this.previousSortedColumn = (previousSortColumnParameter == null) ? -1 : previousSortColumnParameter
-                .intValue();
-
-            SortOrderEnum previousParamOrder = SortOrderEnum.fromCode(requestHelper
-                .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSORDER)));
-
-            this.previousOrder = SortOrderEnum.DESCENDING != previousParamOrder;
-
-        }
-
         Integer exportTypeParameter = requestHelper
             .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
         this.currentMediaType = MediaTypeEnum.fromCode(exportTypeParameter);
@@ -1025,9 +994,7 @@ public class TableTag extends HtmlTableTag
         this.nextRow = null;
         this.pageNumber = 0;
         this.paramEncoder = null;
-        this.previousOrder = false;
         this.previousRow = null;
-        this.previousSortedColumn = 0;
         this.properties = null;
         this.rowNumber = 1;
         this.tableIterator = null;
@@ -1445,14 +1412,10 @@ public class TableTag extends HtmlTableTag
             href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), SortOrderEnum.DESCENDING.getCode());
         }
 
-        // only if user want to sort the full table. Check if I need to reset the page number
+        // If user want to sort the full table I need to reset the page number.
         if (this.tableModel.isSortFullTable())
         {
-            // if sorting (column or order) is changed reset page
-            if (headerCell.getColumnNumber() != this.previousSortedColumn || ((nowOrderAscending ^ this.previousOrder)))
-            {
-                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
-            }
+            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
         }
 
         return href;
