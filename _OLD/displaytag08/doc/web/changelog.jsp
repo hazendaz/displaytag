@@ -29,6 +29,16 @@ changes are noted using the following key:</p>
    as well (though some functions, like group totals are not available to these, due to
    limitations on the structures themselves).  Luiz-Otavio Zorzella [!]
 
+ - Added startRow() to the decorator API to allow people to put headers on
+   groupings as well as footers.  Ed Hill [!]
+
+ - Fixed a caching bug in with tables that had multiple pages, the pageNumber
+   is now reset to 1 in the tag object.  Ed Hill [*]
+
+ - Fixed various with URL rewriting (? vs &).  Ed Hill [*]
+
+ - Correct error message on bean property lookups.  Ed Hill [*]
+
 </pre></blockquote>
 
 <p><b>Version 0.8, May 25, 2002</b></p>
