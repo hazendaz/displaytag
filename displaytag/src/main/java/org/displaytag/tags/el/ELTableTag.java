@@ -295,6 +295,15 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
+     * @see org.displaytag.tags.TableTag#setHtmlId(java.lang.String)
+     * @param value EL expression for attribute value
+     */
+    public void setHtmlId(String value)
+    {
+        htmlIdExpr = value;
+    }
+
+    /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
     public int doStartTag() throws JspException
