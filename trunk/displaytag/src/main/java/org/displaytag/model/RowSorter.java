@@ -22,27 +22,27 @@ public class RowSorter implements Comparator
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(RowSorter.class);
+    private static Log log = LogFactory.getLog(RowSorter.class);
 
     /**
      * name of the property in bean
      */
-    private String mProperty;
+    private String property;
 
     /**
      * table decorator
      */
-    private Decorator mTableDecorator;
+    private Decorator tableDecorator;
 
     /**
      * sort order ascending?
      */
-    private boolean mAscending;
+    private boolean ascending;
 
     /**
      * index of the sorted column
      */
-    private int mColumnIndex;
+    private int columnIndex;
 
     /**
      * initialize a new RowSorter
@@ -54,10 +54,10 @@ public class RowSorter implements Comparator
      */
     public RowSorter(int pColumnIndex, String pProperty, TableDecorator pDecorator, boolean pAscending)
     {
-        mColumnIndex = pColumnIndex;
-        mProperty = pProperty;
-        mTableDecorator = pDecorator;
-        mAscending = pAscending;
+        this.columnIndex = pColumnIndex;
+        this.property = pProperty;
+        this.tableDecorator = pDecorator;
+        this.ascending = pAscending;
     }
 
     /**
@@ -78,15 +78,15 @@ public class RowSorter implements Comparator
         Object lObj2 = null;
 
         // if property is null compare using two static cell objects
-        if (mProperty == null)
+        if (property == null)
         {
             if (pObject1 instanceof Row)
             {
-                lObj1 = ((Row) pObject1).getCellList().get(mColumnIndex);
+                lObj1 = ((Row) pObject1).getCellList().get(columnIndex);
             }
             if (pObject2 instanceof Row)
             {
-                lObj2 = ((Row) pObject2).getCellList().get(mColumnIndex);
+                lObj2 = ((Row) pObject2).getCellList().get(columnIndex);
             }
 
             return checkNullsAndCompare(lObj1, lObj2);
@@ -109,15 +109,22 @@ public class RowSorter implements Comparator
                 Object lResult2 = null;
 
                 // If they have supplied a decorator, then make sure and use it for the sorting as well
-                if (mTableDecorator != null && mTableDecorator.hasGetterFor(mProperty))
+                if (tableDecorator != null && tableDecorator.hasGetterFor(property))
                 {
-                    lResult1 = LookupUtil.getBeanProperty(mTableDecorator, mProperty);
-                    lResult2 = LookupUtil.getBeanProperty(mTableDecorator, mProperty);
+                    // set the row before sending to the decorator
+                     ((TableDecorator) tableDecorator).initRow(lObj1, 0, 0);
+
+                    lResult1 = LookupUtil.getBeanProperty(tableDecorator, property);
+
+                    // set the row before sending to the decorator
+                     ((TableDecorator) tableDecorator).initRow(lObj2, 0, 0);
+
+                    lResult2 = LookupUtil.getBeanProperty(tableDecorator, property);
                 }
                 else
                 {
-                    lResult1 = LookupUtil.getBeanProperty(lObj1, mProperty);
-                    lResult2 = LookupUtil.getBeanProperty(lObj2, mProperty);
+                    lResult1 = LookupUtil.getBeanProperty(lObj1, property);
+                    lResult2 = LookupUtil.getBeanProperty(lObj2, property);
                 }
 
                 return checkNullsAndCompare(lResult1, lResult2);
@@ -125,11 +132,11 @@ public class RowSorter implements Comparator
             catch (ObjectLookupException e)
             {
                 /** @todo error handling need to be improved, can't throw an exception here */
-                mLog.error(
-                    "ObjectLookupException thrown while trying to fetch property \"" + mProperty + "\" during sort",
+                log.error(
+                    "ObjectLookupException thrown while trying to fetch property \"" + property + "\" during sort",
                     e);
                 throw new RuntimeException(
-                    "ObjectLookupException thrown while trying to fetch property \"" + mProperty + "\" during sort");
+                    "ObjectLookupException thrown while trying to fetch property \"" + property + "\" during sort");
             }
         }
     }
@@ -144,7 +151,7 @@ public class RowSorter implements Comparator
      */
     private int checkNullsAndCompare(Object pObject1, Object pObject2)
     {
-        int lAscending = mAscending ? 1 : -1;
+        int lAscending = ascending ? 1 : -1;
 
         if (pObject1 instanceof Comparable && pObject2 instanceof Comparable)
         {
@@ -180,8 +187,8 @@ public class RowSorter implements Comparator
         if (pObject instanceof RowSorter)
         {
             return new EqualsBuilder()
-                .append(mProperty, ((RowSorter) pObject).mProperty)
-                .append(mColumnIndex, ((RowSorter) pObject).mColumnIndex)
+                .append(property, ((RowSorter) pObject).property)
+                .append(columnIndex, ((RowSorter) pObject).columnIndex)
                 .isEquals();
         }
 
@@ -193,7 +200,7 @@ public class RowSorter implements Comparator
      */
     public final int hashCode()
     {
-        return new HashCodeBuilder(31, 33).append(mProperty).append(mColumnIndex).toHashCode();
+        return new HashCodeBuilder(31, 33).append(property).append(columnIndex).toHashCode();
     }
 
 }
