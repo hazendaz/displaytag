@@ -23,7 +23,7 @@ import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.export.BaseExportView;
-import org.displaytag.export.ExportTypeEnum;
+import org.displaytag.export.MediaTypeEnum;
 import org.displaytag.export.ExportViewFactory;
 import org.displaytag.filter.ResponseOverrideFilter;
 import org.displaytag.model.Cell;
@@ -80,11 +80,11 @@ public class TableTag extends HtmlTableTag
     private static Log log = LogFactory.getLog(TableTag.class);
 
     /**
-     * name of the attribute added to page scope when exporting, containing an ExportTypeEnum
+     * name of the attribute added to page scope when exporting, containing an MediaTypeEnum
      * this can be used in column content to detect the output type and to return different data
      * when exporting
      */
-    public static final String PAGE_ATTRIBUTE_EXPORT = "export";
+    public static final String PAGE_ATTRIBUTE_EXPORT = "mediaType";
 
     /**
      * Has the commons-lang dependency been checked?
@@ -193,7 +193,7 @@ public class TableTag extends HtmlTableTag
     /**
      * export type - set in initParameters()
      */
-    private ExportTypeEnum exportType;
+    private MediaTypeEnum currentMediaType;
 
     /**
      * index of the previously sorted column
@@ -554,9 +554,9 @@ public class TableTag extends HtmlTableTag
         initParameters();
 
         // set the PAGE_ATTRIBUTE_EXPORT attribute in the page scope
-        if (this.exportType != null)
+        if (this.currentMediaType != null)
         {
-            pageContext.setAttribute(PAGE_ATTRIBUTE_EXPORT, exportType);
+            pageContext.setAttribute(PAGE_ATTRIBUTE_EXPORT, currentMediaType);
         }
 
         doIteration();
@@ -706,7 +706,11 @@ public class TableTag extends HtmlTableTag
 
         Integer exportTypeParameter =
             requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
-        this.exportType = ExportTypeEnum.fromIntegerCode(exportTypeParameter);
+        this.currentMediaType = MediaTypeEnum.fromIntegerCode(exportTypeParameter);
+        if (this.currentMediaType == null)
+        {
+            this.currentMediaType = MediaTypeEnum.HTML;
+        }
 
         // if list is null check
         if (this.list == null)
@@ -849,7 +853,7 @@ public class TableTag extends HtmlTableTag
         // out the data
         int returnValue = EVAL_PAGE;
 
-        if (this.exportType == null)
+        if (MediaTypeEnum.HTML.equals(this.currentMediaType))
         {
             buffer.append(getHTMLData());
             write(buffer);
@@ -867,7 +871,7 @@ public class TableTag extends HtmlTableTag
         // clean up
         this.listHelper = null;
         this.export = false;
-        this.exportType = null;
+        this.currentMediaType = null;
         this.scope = null;
         this.property = null;
         this.decoratorName = null;
@@ -949,11 +953,11 @@ public class TableTag extends HtmlTableTag
         BaseExportView exportView = null;
         boolean exportFullList = this.properties.getExportFullList();
 
-        log.debug("exportType=" + this.exportType);
+        log.debug("currentMediaType=" + this.currentMediaType);
 
-        boolean exportHeader = properties.getExportHeader(this.exportType);
+        boolean exportHeader = properties.getExportHeader(this.currentMediaType);
 
-        exportView = ExportViewFactory.getView(exportType, this.tableModel, exportFullList, exportHeader);
+        exportView = ExportViewFactory.getView(currentMediaType, this.tableModel, exportFullList, exportHeader);
 
         String mimeType = exportView.getMimeType();
         String exportString = exportView.doExport();
@@ -1410,11 +1414,11 @@ public class TableTag extends HtmlTableTag
 
         StringBuffer buffer = new StringBuffer();
 
-        Iterator iterator = ExportTypeEnum.iterator();
+        Iterator iterator = MediaTypeEnum.iterator();
 
         while (iterator.hasNext())
         {
-            ExportTypeEnum currentExportType = (ExportTypeEnum) iterator.next();
+            MediaTypeEnum currentExportType = (MediaTypeEnum) iterator.next();
 
             if (this.properties.getAddExport(currentExportType))
             {

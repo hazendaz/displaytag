@@ -31,6 +31,23 @@
           <scope>NESTED</scope>
           <description>This implicit variable holds the value of the current row object (the results of iterator#next).</description>
       </variable>
+<!--
+I think this may have to get yanked.  I don't think we should be changing the name of the scripting variable behind the
+back of the container.  Best left undoc'd and experimental for now; should just be rolled into a LoopStatus class.
+      <variable>
+          <name-from-attribute>id</name-from-attribute>
+          <variable-class>java.lang.Integer</variable-class>
+          <scope>NESTED</scope>
+          <description>This implicit variable holds the row number of the current row object.
+          Note that the name is actually not directly from id, but is id + '_rowNum'</description>
+      </variable>
+-->
+      <variable>
+          <name-given>mediaType</name-given>
+          <variable-class>org.displaytag.export.MediaTypeEnum</variable-class>
+          <scope>NESTED</scope>
+          <description>Holds the media type of the current request. Used by ColumnTag to decide whether or not it should display.</description>
+      </variable>
 
     <attribute>
       <name>list</name>
@@ -274,6 +291,14 @@
       <rtexprvalue>true</rtexprvalue>
         <type>boolean</type>
         <description>Automatically hyperlink URLs and email addresses that appear in the column. Defaults to 'false'.</description>
+    </attribute>
+    <attribute>
+      <name>media</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>Render the column for the media type(s). The column won't be added to the table if the current request media
+        is not supported. Can be any space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'.
+        Defaults to 'all'. </description>
     </attribute>
     <attribute>
       <name>href</name>
