@@ -222,15 +222,7 @@ public abstract class BaseExportView
                 Object value;
 
                 // Get the value to be displayed for the column
-                try
-                {
-                    value = column.getValue(true);
-                }
-                catch (Exception ex)
-                {
-                    log.error(ex.getMessage(), ex);
-                    throw new JspException(ex.getMessage());
-                }
+                value = column.getValue(true);
 
                 buffer.append(CELL_START);
                 buffer.append(escapeColumnValue(value));
