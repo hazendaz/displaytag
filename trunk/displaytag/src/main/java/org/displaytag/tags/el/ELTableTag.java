@@ -13,6 +13,21 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 {
 
     /**
+     * Expression for the "class" tag attribute.
+     */
+    private String classExpr;
+
+    /**
+     * Expression for the "cellpadding" tag attribute.
+     */
+    private String cellpaddingExpr;
+
+    /**
+     * Expression for the "cellspacing" tag attribute.
+     */
+    private String cellspacingExpr;
+
+    /**
      * Expression for the "decorator" tag attribute.
      */
     private String decoratorExpr;
@@ -20,17 +35,27 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     /**
      * Expression for the "defaultsort" tag attribute.
      */
-    private Object defaultsortExpr;
+    private String defaultsortExpr;
+
+    /**
+     * Expression for the "defaultorder" tag attribute.
+     */
+    private String defaultorderExpr;
 
     /**
      * Expression for the "export" tag attribute.
      */
-    private Object exportExpr;
+    private String exportExpr;
+
+    /**
+     * Expression for the "frame" tag attribute.
+     */
+    private String frameExpr;
 
     /**
      * Expression for the "length" tag attribute.
      */
-    private Object lengthExpr;
+    private String lengthExpr;
 
     /**
      * Expression for the "name" tag attribute.
@@ -40,12 +65,12 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     /**
      * Expression for the "offset" tag attribute.
      */
-    private Object offsetExpr;
+    private String offsetExpr;
 
     /**
      * Expression for the "pagesize" tag attribute.
      */
-    private Object pagesizeExpr;
+    private String pagesizeExpr;
 
     /**
      * Expression for the "requestURI" tag attribute.
@@ -53,9 +78,48 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private String requestURIExpr;
 
     /**
+     * Expression for the "rules" tag attribute.
+     */
+    private String rulesExpr;
+
+    /**
      * Expression for the "sort" tag attribute.
      */
     private String sortExpr;
+
+    /**
+     * Expression for the "style" tag attribute.
+     */
+    private String styleExpr;
+
+    /**
+     * Expression for the "summary" tag attribute.
+     */
+    private String summaryExpr;
+
+    /**
+     * @see org.displaytag.tags.TableTag#setCellpadding(java.lang.String)
+     */
+    public void setCellpadding(String value)
+    {
+        cellpaddingExpr = value;
+    }
+
+    /**
+     * @see org.displaytag.tags.TableTag#setCellspacing(java.lang.String)
+     */
+    public void setCellspacing(String value)
+    {
+        cellspacingExpr = value;
+    }
+
+    /**
+     * @see org.displaytag.tags.TableTag#setClass(java.lang.String)
+     */
+    public void setClass(String value)
+    {
+        classExpr = value;
+    }
 
     /**
      * @see org.displaytag.tags.TableTag#setDecorator(java.lang.String)
@@ -66,31 +130,47 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setDefaultsort(java.lang.Object)
+     * @see org.displaytag.tags.TableTag#setDefaultsort(java.lang.String)
      */
-    public void setDefaultsort(Object value)
+    public void setDefaultsort(String value)
     {
         defaultsortExpr = value;
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setExport(java.lang.Object)
+     * @see org.displaytag.tags.TableTag#setDefaultorder(java.lang.String)
      */
-    public void setExport(Object value)
+    public void setDefaultorder(String value)
+    {
+        defaultorderExpr = value;
+    }
+
+    /**
+     * @see org.displaytag.tags.TableTag#setExport(boolean)
+     */
+    public void setExport(String value)
     {
         exportExpr = value;
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setLength(java.lang.Object)
+     * @see org.displaytag.tags.TableTag#setFrame(java.lang.String)
      */
-    public void setLength(Object value)
+    public void setFrame(String value)
+    {
+        frameExpr = value;
+    }
+
+    /**
+     * @see org.displaytag.tags.TableTag#setLength(int)
+     */
+    public void setLength(String value)
     {
         lengthExpr = value;
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setName(java.lang.String)
+     * @see org.displaytag.tags.TableTag#setName(java.lang.Object)
      */
     public void setName(String value)
     {
@@ -98,17 +178,17 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setOffset(java.lang.Object)
+     * @see org.displaytag.tags.TableTag#setOffset(int)
      */
-    public void setOffset(Object value)
+    public void setOffset(String value)
     {
         offsetExpr = value;
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setPagesize(java.lang.Object)
+     * @see org.displaytag.tags.TableTag#setPagesize(int)
      */
-    public void setPagesize(Object value)
+    public void setPagesize(String value)
     {
         pagesizeExpr = value;
     }
@@ -120,9 +200,16 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     {
         requestURIExpr = value;
     }
+    /**
+     * @see org.displaytag.tags.TableTag#setRules(java.lang.String)
+     */
+    public void setRules(String value)
+    {
+        rulesExpr = value;
+    }
 
     /**
-     * @see org.displaytag.tags.TableTag#setSort(java.lang.String)
+     * @see org.displaytag.tags.TableTag#setSort(boolean)
      */
     public void setSort(String value)
     {
@@ -146,32 +233,76 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private void evaluateExpressions() throws JspException
     {
         ExpressionEvaluator eval = new ExpressionEvaluator(this, pageContext);
-        String s;
-        if ((s = eval.evalString("decorator", decoratorExpr)) != null)
+
+        if (cellpaddingExpr != null)
         {
-            super.setDecorator(s);
+            super.setCellpadding(eval.evalString("cellpadding", cellpaddingExpr));
         }
-        if ((s = eval.evalString("requestURI", requestURIExpr)) != null)
+        if (cellspacingExpr != null)
         {
-            super.setRequestURI(s);
+            super.setCellspacing(eval.evalString("cellspacing", cellspacingExpr));
         }
-        if ((s = eval.evalString("sort", sortExpr)) != null)
+        if (classExpr != null)
         {
-            super.setSort(s);
+            super.setClass(eval.evalString("class", classExpr));
         }
-
-        super.setDefaultsort(eval.evalInt("defaultsort", (String) defaultsortExpr));
-
-        super.setExport(eval.evalBoolean("export", (String) exportExpr));
-
-        super.setLength(eval.evalInt("length", (String) lengthExpr));
-
-        super.setOffset(eval.evalInt("offset", (String) offsetExpr));
-
-        super.setPagesize(eval.evalInt("pagesize", (String) pagesizeExpr));
-
-        // evaluate name only once
-        this.list = eval.eval("name", nameExpr, Object.class);
+        if (decoratorExpr != null)
+        {
+            super.setDecorator(eval.evalString("decorator", decoratorExpr));
+        }
+        if (defaultorderExpr != null)
+        {
+            super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr));
+        }
+        if (defaultsortExpr != null)
+        {
+            super.setDefaultsort(eval.evalInt("defaultsort", defaultsortExpr));
+        }
+        if (exportExpr != null)
+        {
+            super.setExport(eval.evalBoolean("export", exportExpr));
+        }
+        if (frameExpr != null)
+        {
+            super.setFrame(eval.evalString("frame", frameExpr));
+        }
+        if (lengthExpr != null)
+        {
+            super.setLength(eval.evalInt("length", lengthExpr));
+        }
+        if (nameExpr != null)
+        {
+            // evaluate name only once, so assign it to "list"
+            super.list = eval.eval("name", nameExpr, Object.class);
+        }
+        if (offsetExpr != null)
+        {
+            super.setOffset(eval.evalInt("offset", offsetExpr));
+        }
+        if (pagesizeExpr != null)
+        {
+            super.setPagesize(eval.evalInt("pagesize", pagesizeExpr));
+        }
+        if (requestURIExpr != null)
+        {
+            super.setRequestURI(eval.evalString("requestURI", requestURIExpr));
+        }
+        if (rulesExpr != null)
+        {
+            super.setRules(eval.evalString("rules", rulesExpr));
+        }
+        if (sortExpr != null)
+        {
+            super.setSort(eval.evalString("sort", sortExpr));
+        }
+        if (styleExpr != null)
+        {
+            super.setStyle(eval.evalString("style", styleExpr));
+        }
+        if (summaryExpr != null)
+        {
+            super.setSummary(eval.evalString("summary", summaryExpr));
+        }
     }
 
     /**
@@ -180,15 +311,23 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     public void release()
     {
         super.release();
-        decoratorExpr = null;
-        defaultsortExpr = null;
-        exportExpr = null;
-        lengthExpr = null;
-        nameExpr = null;
-        offsetExpr = null;
-        pagesizeExpr = null;
-        requestURIExpr = null;
-        sortExpr = null;
+        this.cellpaddingExpr = null;
+        this.cellspacingExpr = null;
+        this.classExpr = null;
+        this.decoratorExpr = null;
+        this.defaultorderExpr = null;
+        this.defaultsortExpr = null;
+        this.exportExpr = null;
+        this.frameExpr = null;
+        this.lengthExpr = null;
+        this.nameExpr = null;
+        this.offsetExpr = null;
+        this.pagesizeExpr = null;
+        this.requestURIExpr = null;
+        this.rulesExpr = null;
+        this.sortExpr = null;
+        this.styleExpr = null;
+        this.summaryExpr = null;
     }
 
 

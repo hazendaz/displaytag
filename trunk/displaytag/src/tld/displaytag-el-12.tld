@@ -52,13 +52,6 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       </variable>
 -->
     <attribute>
-      <name>list</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <description>Reference to the object used as source for the table. Can be an expression like
- requestScope.object.property . You must define either the name attribute or the list attribute. List is suggested.</description>
-    </attribute>
-    <attribute>
       <name>name</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
