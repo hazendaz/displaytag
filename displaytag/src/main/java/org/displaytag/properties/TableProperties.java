@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.TablePropertiesLoadException;
-import org.displaytag.export.MediaTypeEnum;
 
 /**
  * The properties used by the Table tags. The properties are loaded in the following order, in increasing order of

@@ -1,4 +1,4 @@
-package org.displaytag.export;
+package org.displaytag.properties;
 
 import java.util.Iterator;
 
