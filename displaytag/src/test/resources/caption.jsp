@@ -9,6 +9,7 @@
 <body>
   <% java.util.List testData = new java.util.ArrayList();
         testData.add(new org.displaytag.test.KnownValue());
+        testData.add(new org.displaytag.test.KnownValue());
         request.setAttribute( "test", testData);
   %>
   
