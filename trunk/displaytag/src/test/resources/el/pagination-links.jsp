@@ -20,6 +20,10 @@
         <display:setProperty name="paging.banner.placement" value="both"/>
         <display:column property="ant"/>
       </display:table>
+      <display:table name="${requestScope.test}" id="table2" pagesize="1">
+        <display:setProperty name="paging.banner.placement" value="both"/>
+        <display:column property="ant"/>
+      </display:table>
     </body>
   </html>
 </jsp:root>
