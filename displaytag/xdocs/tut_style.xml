@@ -5,7 +5,7 @@
     <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
   </properties>
   <body>
-    <section name="Simplest case, no columns">
+    <section name="Style">
       <p>
         You actually have a lot of flexibility in how the table is displayed, but of course you should probably stay 
         close to the defaults in most cases. You adjust the look of the table via two methods:
