@@ -81,24 +81,6 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
             // deprecated attribute
             proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$
                 ColumnTag.class, null, "setSortable")); // map //$NON-NLS-1$
-            proplist.add(new PropertyDescriptor("styleClass", //$NON-NLS-1$
-                ColumnTag.class, null, "setClass")); // map //$NON-NLS-1$
-            proplist.add(new PropertyDescriptor("headerStyleClass", //$NON-NLS-1$
-                ColumnTag.class, null, "setHeaderClass")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("width", //$NON-NLS-1$
-                ColumnTag.class, null, "setWidth")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("align", //$NON-NLS-1$
-                ColumnTag.class, null, "setAlign")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("background", //$NON-NLS-1$
-                ColumnTag.class, null, "setBackground")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("bgcolor", //$NON-NLS-1$
-                ColumnTag.class, null, "setBgcolor")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("height", //$NON-NLS-1$
-                ColumnTag.class, null, "setHeight")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("nowrap", //$NON-NLS-1$
-                ColumnTag.class, null, "setNowrap")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("valign", //$NON-NLS-1$
-                ColumnTag.class, null, "setValign")); //$NON-NLS-1$ 
 
             // make ATG Dynamo happy:
             proplist.add(new PropertyDescriptor("className", //$NON-NLS-1$

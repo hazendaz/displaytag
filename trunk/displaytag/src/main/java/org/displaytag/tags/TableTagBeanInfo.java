@@ -87,25 +87,6 @@ public class TableTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("scope", //$NON-NLS-1$
                 TableTag.class, null, "setScope")); //$NON-NLS-1$ 
 
-            proplist.add(new PropertyDescriptor("width", //$NON-NLS-1$
-                TableTag.class, null, "setWidth")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("styleClass", //$NON-NLS-1$
-                TableTag.class, null, "setClass")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("border", //$NON-NLS-1$
-                TableTag.class, null, "setBorder")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("align", //$NON-NLS-1$
-                TableTag.class, null, "setAlign")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("background", //$NON-NLS-1$
-                TableTag.class, null, "setBackground")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("bgcolor", //$NON-NLS-1$
-                TableTag.class, null, "setBgcolor")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("height", //$NON-NLS-1$
-                TableTag.class, null, "setHeight")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("hspace", //$NON-NLS-1$
-                TableTag.class, null, "setHspace")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("vspace", //$NON-NLS-1$
-                TableTag.class, null, "setVspace")); //$NON-NLS-1$ 
-
             // make ATG Dynamo happy:
             proplist.add(new PropertyDescriptor("className", //$NON-NLS-1$
                 TableTag.class, null, "setClass")); //$NON-NLS-1$ 

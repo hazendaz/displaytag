@@ -2,7 +2,7 @@
 <!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" 
   "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
 <taglib>
-    <tlib-version>1.0</tlib-version>
+    <tlib-version>1.1</tlib-version>
     <jsp-version>1.2</jsp-version>
     <short-name>display</short-name>
     <uri>http://displaytag.sf.net</uri>
@@ -128,15 +128,6 @@
             </description>
         </attribute>
         <attribute>
-            <name>width</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
             <name>style</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -149,20 +140,6 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>html pass through attribute</description>
-        </attribute>
-        <attribute>
-            <name>styleClass</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>@deprecated: use "class"</description>
-        </attribute>
-        <attribute>
-            <name>border</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>@deprecated html pass through attribute. Use css "border"</description>
         </attribute>
         <attribute>
             <name>cellspacing</name>
@@ -181,56 +158,11 @@
             </description>
         </attribute>
         <attribute>
-            <name>align</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
-            <name>background</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
-            <name>bgcolor</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
             <name>frame</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>html pass through attribute.</description>
-        </attribute>
-        <attribute>
-            <name>height</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
-            <name>hspace</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
         </attribute>
         <attribute>
             <name>rules</name>
@@ -252,15 +184,6 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>html "id" pass through attribute</description>
-        </attribute>
-        <attribute>
-            <name>vspace</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
         </attribute>
         <attribute>
             <name>export</name>
@@ -524,15 +447,6 @@
             </description>
         </attribute>
         <attribute>
-            <name>width</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated; html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
             <name>class</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -542,13 +456,6 @@
             </description>
         </attribute>
         <attribute>
-            <name>styleClass</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>@deprecated: use "class"</description>
-        </attribute>
-        <attribute>
             <name>headerClass</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -556,72 +463,11 @@
             <description>"class" html attribute added only for header cells.</description>
         </attribute>
         <attribute>
-            <name>headerStyleClass</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>@deprecated: use "headerClass"</description>
-        </attribute>
-        <attribute>
             <name>style</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>html pass through attribute.</description>
-        </attribute>
-        <attribute>
-            <name>align</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
-            <name>background</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
-            <name>bgcolor</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
-            <name>height</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
-            <name>nowrap</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
-        </attribute>
-        <attribute>
-            <name>valign</name>
-            <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-            <type>java.lang.String</type>
-            <description>
-                @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-            </description>
         </attribute>
         <attribute>
             <name>group</name>
