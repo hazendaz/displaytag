@@ -128,7 +128,7 @@ public class Href
 
     /**
      * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
-     * added. Parameters in the original href are kept.
+     * added. Parameters in the original href are kept and not overridden.
      * @param parametersMap Map containing parameters
      */
     public void addParameterMap(Map parametersMap)
@@ -139,8 +139,13 @@ public class Href
         {
             Map.Entry entry = (Map.Entry) mapIterator.next();
             String key = StringEscapeUtils.escapeHtml((String) entry.getKey());
-            String value = StringEscapeUtils.escapeHtml((String) entry.getValue());
-            this.parameters.put(key, value);
+
+            // don't overwrite parameters
+            if (!this.parameters.containsKey(key))
+            {
+                String value = StringEscapeUtils.escapeHtml((String) entry.getValue());
+                this.parameters.put(key, value);
+            }
         }
     }
 

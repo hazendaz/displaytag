@@ -40,7 +40,11 @@
       </action>
       <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
 	   fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=849207">[849207]</a>: 
-       ParamProperty is wrong when not fetched from iterated object.
+       paramProperty is wrong when not fetched from iterated object.
+      </action>
+      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+	   fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=858888">[858888 ]</a>: 
+       requestURI parameters are overwritten by current values.
       </action>
       
       
