@@ -25,6 +25,7 @@
             <action type="update" dev="fgiust">
                 Exported output is now written directly when the export filter is not used.
             </action>
+            <action type="fix" dev="fgiust" issue="DISPL-21">Export filter not working in WebLogic.</action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
