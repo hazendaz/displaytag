@@ -16,6 +16,7 @@
 		<display:column sortable="true">xxx</display:column>
 		<display:column sortable="true">xxx</display:column>
 		<display:column sortable="true">xxx</display:column>
+		<display:column>xxx</display:column>
 	</display:table>
 
 </body>
