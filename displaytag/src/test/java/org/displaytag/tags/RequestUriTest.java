@@ -52,7 +52,10 @@ public class RequestUriTest extends DisplaytagCase
         WebLink[] links = response.getLinks();
         assertEquals("Wrong number of links in result.", 3, links.length);
 
-        assertEquals("Text in first link is wrong.", CONTEXT + "/goforit?d-2106-e=2", links[0].getURLString());
+        assertEquals("Text in first link is wrong.", CONTEXT
+            + "/goforit?d-2106-e=2&"
+            + TableTagParameters.PARAMETER_EXPORTING
+            + "=1", links[0].getURLString());
     }
 
 }
