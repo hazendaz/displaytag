@@ -41,6 +41,9 @@
         <priority value="warn" />
     </category>
 
+    <category name="org.displaytag.jsptests">
+        <priority value="warn" />
+    </category>
 
     <category name="org.displaytag.tags.sometestIneedtodebug">
         <priority value="debug" />
