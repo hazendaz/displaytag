@@ -24,7 +24,7 @@
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.EmptyBlockCheck">
-            <property name="option" value="statement"/>
+            <property name="option" value="text"/>
             <property name="severity" value="warning"/>
             <property name="tokens" value="LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, STATIC_INIT"/>
         </module>
@@ -48,8 +48,15 @@
             <property name="tokens" value="METHOD_DEF, CTOR_DEF"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.GenericIllegalRegexpCheck">
-            <property name="format" value="\s+$"/>
-            <property name="message" value="Line has trailing spaces."/>
+            <property name="format" value="exception\.printStackTrace\(\)"/>
+            <property name="ignoreCase" value="false"/>
+            <property name="message" value="Avoid exception.printStackTrace()"/>
+            <property name="severity" value="warning"/>
+        </module>
+        <module name="com.puppycrawl.tools.checkstyle.checks.GenericIllegalRegexpCheck">
+            <property name="format" value="System\.out\.println\("/>
+            <property name="ignoreCase" value="false"/>
+            <property name="message" value="Avoid System.out.println(), use log.debug()"/>
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.HiddenFieldCheck">
@@ -74,7 +81,11 @@
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.JavadocTypeCheck">
+            <property name="authorFormat" value="^[a-zA-Z]*$"/>
+            <property name="scope" value="private"/>
             <property name="severity" value="warning"/>
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF"/>
+            <property name="versionFormat" value="(^\$A_Zevision\:)*(\(\$A-Zuthor: )*(\$\))$"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.JavadocVariableCheck">
             <property name="severity" value="warning"/>
@@ -92,12 +103,12 @@
             <property name="tabWidth" value="4"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.LocalFinalVariableNameCheck">
-            <property name="format" value="^[A-Z](_?[A-Z0-9]+)*$"/>
+            <property name="format" value="^[A-Z0-9_]*$"/>
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.LocalVariableNameCheck">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-            <property name="severity" value="warning"/>
+            <property name="format" value="(^[a-z][a-z][a-zA-Z0-9]*$)|(^[a-z]$)"/>
+            <property name="severity" value="info"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.MagicNumberCheck">
             <property name="ignoreNumbers" value="-1, 0, 1, 2"/>
@@ -105,8 +116,8 @@
             <property name="tokens" value="NUM_DOUBLE, NUM_FLOAT, NUM_INT, NUM_LONG"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.MemberNameCheck">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-            <property name="severity" value="warning"/>
+            <property name="format" value="(^[a-z][a-z][a-zA-Z0-9]*$)|(^[a-z]$)"/>
+            <property name="severity" value="info"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.MethodLengthCheck">
             <property name="severity" value="warning"/>
@@ -136,11 +147,12 @@
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.PackageNameCheck">
+            <property name="format" value="^[a-z]+(\.[a-z][a-z]*)*$"/>
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.ParameterNameCheck">
-            <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
-            <property name="severity" value="warning"/>
+            <property name="format" value="(^[a-z][a-z][a-zA-Z0-9]*$)|(^[a-z]$)"/>
+            <property name="severity" value="info"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.ParameterNumberCheck">
             <property name="severity" value="warning"/>
@@ -178,7 +190,7 @@
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck">
             <property name="format" value="@todo"/>
-            <property name="severity" value="info"/>
+            <property name="severity" value="ignore"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.TypeNameCheck">
             <property name="severity" value="warning"/>
@@ -190,6 +202,9 @@
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.VisibilityModifierCheck">
+            <property name="packageAllowed" value="true"/>
+            <property name="protectedAllowed" value="true"/>
+            <property name="publicMemberPattern" value="^serialVersionUID"/>
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.WhitespaceAfterCheck">
