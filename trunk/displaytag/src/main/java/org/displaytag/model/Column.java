@@ -2,6 +2,7 @@ package org.displaytag.model;
 
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.decorator.TableDecorator;
@@ -154,7 +155,7 @@ public class Column
         // trim the string if a maxLength or maxWords is defined
         if (this.header.getMaxLength() > 0 && fullValue.length() > this.header.getMaxLength())
         {
-            choppedValue = fullValue.substring(0, this.header.getMaxLength()) + "...";
+            choppedValue = StringUtils.abbreviate(fullValue, this.header.getMaxLength() + 3);
             isChopped = true;
         }
         else if (this.header.getMaxWords() > 0)
@@ -190,34 +191,11 @@ public class Column
         {
             choppedValue = LinkUtil.autoLink(choppedValue.toString());
         }
-        else if (this.header.getHref() != null) // add link?
+        else if (this.header.getHref() != null)
         {
-            // copy href
-            Href colHref = new Href(this.header.getHref());
-
-            // do we need to add a param?
-            if (this.header.getParamName() != null)
-            {
-
-                Object paramValue;
-
-                if (this.header.getParamProperty() != null)
-                {
-                    // different property, go get it
-                    paramValue = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getParamProperty());
-
-                }
-                else
-                {
-                    // same property as content
-                    paramValue = fullValue;
-                }
-
-                colHref.addParameter(this.header.getParamName(), paramValue);
-
-            }
+            // generates the href for the link
+            Href colHref = getColumnHref(fullValue);
             Anchor anchor = new Anchor(colHref, choppedValue.toString());
-
             choppedValue = anchor.toString();
         }
 
@@ -226,6 +204,41 @@ public class Column
             return choppedValue.toString();
         }
         return null;
+    }
+
+    /**
+     * Generates the href for the column using paramName/property/scope.
+     * @param columnContent column body
+     * @return generated Href
+     * @throws ObjectLookupException for errors in lookin up object properties
+     */
+    private Href getColumnHref(String columnContent) throws ObjectLookupException
+    {
+        // copy href
+        Href colHref = new Href(this.header.getHref());
+
+        // do we need to add a param?
+        if (this.header.getParamName() != null)
+        {
+
+            Object paramValue;
+
+            if (this.header.getParamProperty() != null)
+            {
+                // different property, go get it
+                paramValue = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getParamProperty());
+
+            }
+            else
+            {
+                // same property as content
+                paramValue = columnContent;
+            }
+
+            colHref.addParameter(this.header.getParamName(), paramValue);
+
+        }
+        return colHref;
     }
 
     /**
