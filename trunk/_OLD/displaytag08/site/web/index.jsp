@@ -97,8 +97,8 @@ the information you need to use the display taglib in your own applications.<p>
 
 Please send any comments, suggestions, bug reports, etc... to:<p>
 
-Ed Hill<br>
-<a href="mailto:ed-hill@uiowa.edu">ed-hill@uiowa.edu</a><br>
+Ed Hill<br />
+<a href="mailto:ed-hill@uiowa.edu">ed-hill@uiowa.edu</a><br />
 <a href="http://www.edsgarage.com/">http://www.edsgarage.com/</a>
 
 <jsp:include page="footer.jsp" flush="true" />
