@@ -709,21 +709,7 @@ public class ColumnTag extends BodyTagSupport
         this.attributeMap.clear();
         this.attributeMap.clear();
         this.headerAttributeMap.clear();
-        this.paramName = null;
-        this.decorator = null;
-        this.sortable = false;
         this.alreadySorted = false;
-        this.autolink = false;
-        this.group = -1;
-        this.maxLength = -1;
-        this.maxWords = -1;
-        this.nulls = false;
-        this.paramId = null;
-        this.paramName = null;
-        this.paramProperty = null;
-        this.paramScope = null;
-        this.property = null;
-        this.title = null;
 
         // fix for tag pooling in tomcat
         setBodyContent(null);
