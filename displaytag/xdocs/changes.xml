@@ -57,6 +57,11 @@
       <action type="fix" dev="fgiust" issue="952129">
 	      Column:autolink throwing exception or garbling urls.
       </action>
+      <action type="fix" dev="fgiust" issue="944056" due-to="Sylvere Abbad">
+	      Pagination urls parameters wrong for multiple table on the same page.
+      </action>
+      
+       
   	</release>
   	
   	<release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
