@@ -18,16 +18,19 @@
         </section>
         <section name="Bug reporting">
             <p>
-                Before submitting a bug to the JIRA mentioned above, please be sure you have done your homework.  This includes:
+                Before submitting a bug to the
+                <a href="http://jira.codehaus.org/browse/DISPL">JIRA</a> above, please be sure you have done your homework.  This includes:
             </p>
-             <ol>
-                <li>Reading the FAQ to understand the correct behavior</li>
+            <ol>
+                <li>Reading the
+                    <a href="faq.html">FAQ</a> to understand the correct behavior
+                </li>
                 <li>Searching the JIRA for a comparable issue; you may not be the first person to find this bug</li>
                 <li>Searching the user list archives if you are not sure the behavior you are experiencing is a bug</li>
-             </ol>
-             <p>
+            </ol>
+            <p>
                 Post help requests to the user mailing list.
-             </p>
+            </p>
             <p>
                 <strong>Please do not post bug reports or patches directly to the user or development mailing lists !</strong>
                 Always submit them to the JIRA before.  This will help us track and review them. After
@@ -40,7 +43,7 @@
             <p>
                 If you have modified your local version of the display tag library by adding a new feature and would like to see in the main distribution, open
                 a new RFE (Request For Enhancement) in the JIRA and attach the patch to it (
-                <strong>don't sent it to the mailing list</strong>
+                <strong>don't send it to the mailing list</strong>
                 ).
             </p>
             <p>
@@ -49,18 +52,20 @@
             </p>
             <ol>
                 <li>
-                    A CVS diff against the latest CVS version.  <strong>No, a zip file with all modified sources is not OK</strong>.
+                    A CVS diff against the latest CVS version.
+                    <strong>No, a zip file with all modified sources is not OK</strong>.
                 </li>
                 <li>
                     One or more junit tests related to the new feature. Also, be sure to run all of the existing testcases
                     to verify that you are not breaking existing code. Look in the src/test directory to understand
-                    how to write simple JSP testcases.
+                    how to write simple JSP test cases.
                 </li>
                 <li>Update the documentation (xdoc files and/or the sample application).</li>
             </ol>
             <p>
                 If all of these requirements are met, your patch will likely be accepted soon.  If you only provide a zip
-                with the modified source files, keep in mind that before your addition can be committed to CVS, a developer must complete all of the other tasks <i>for you</i>.
+                with the modified source files; keep in mind that before your addition can be committed to CVS, a developer must complete all of the other tasks
+                <i>for you</i>.
                 This could take a long time.
             </p>
         </section>
