@@ -1391,8 +1391,8 @@ public class TableTag extends HtmlTableTag
     {
         StringBuffer buffer = new StringBuffer();
 
-        // Ok, start bouncing through our list...
-        RowIterator rowIterator = this.tableModel.getRowIterator();
+        // Ok, start bouncing through our list (only the visible part)
+        RowIterator rowIterator = this.tableModel.getRowIterator(false);
 
         // iterator on rows
         while (rowIterator.hasNext())
