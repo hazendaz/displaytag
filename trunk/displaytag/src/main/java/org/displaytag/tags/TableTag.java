@@ -1047,9 +1047,6 @@ public class TableTag extends HtmlTableTag
 
         }
 
-        // close table body
-        lBuffer.append(TagConstants.TAG_TBODY_CLOSE);
-
         if (mTableModel.getRowListPage().size() == 0)
         {
             lBuffer.append("\t\t<tr class=\"even empty\">\n");
@@ -1060,6 +1057,9 @@ public class TableTag extends HtmlTableTag
                     + mProp.getEmptyListMessage()
                     + "</td></tr>");
         }
+
+        // close table body
+        lBuffer.append(TagConstants.TAG_TBODY_CLOSE);
 
         lBuffer.append(this.getTableFooter());
 
