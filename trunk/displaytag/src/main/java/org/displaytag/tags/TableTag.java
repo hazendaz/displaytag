@@ -937,8 +937,12 @@ public class TableTag extends HtmlTableTag
         // variables to hold next row column values.
         mNextRow = new Hashtable(10);
 
-        // search result and navigation bar
-        lBuffer.append(getSearchResultAndNavigation());
+        //  Put the page stuff there if it needs to be there...
+        if (mProp.getAddPagingBannerTop())
+        {
+            // search result and navigation bar
+            lBuffer.append(getSearchResultAndNavigation());
+        }
 
         // open table
         lBuffer.append(getOpenTag());
