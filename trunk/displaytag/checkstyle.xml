@@ -174,11 +174,11 @@
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.TabCharacterCheck">
-            <property name="severity" value="ignore"/>
+            <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.TodoCommentCheck">
             <property name="format" value="@todo"/>
-            <property name="severity" value="warning"/>
+            <property name="severity" value="info"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.TypeNameCheck">
             <property name="severity" value="warning"/>

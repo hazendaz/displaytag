@@ -16,33 +16,33 @@ import org.displaytag.decorator.TableDecorator;
 public abstract class Decorator extends TableDecorator
 {
 
-	/**
-	 * returns the Object where the iteration is performed as a List
-	 * @return List
-	 * @deprecated use getDecoratedObject()
-	 */
-	public List getList()
-	{
-		return (List) getDecoratedObject();
-	}
+    /**
+     * returns the Object where the iteration is performed as a List
+     * @return List
+     * @deprecated use getDecoratedObject()
+     */
+    public List getList()
+    {
+        return (List) getDecoratedObject();
+    }
 
-	/**
-	 * returns the Object where the iteration is performed as a Collection
-	 * @return Collection
-	 * @deprecated use getDecoratedObject()
-	 */
-	public Collection getCollection()
-	{
-		return (Collection) getDecoratedObject();
-	}
+    /**
+     * returns the Object where the iteration is performed as a Collection
+     * @return Collection
+     * @deprecated use getDecoratedObject()
+     */
+    public Collection getCollection()
+    {
+        return (Collection) getDecoratedObject();
+    }
 
-	/**
-	 * returns the Object for the current row
-	 * @return Object
-	 * @deprecated use getCurrentRowObject()
-	 */
-	public Object getObject()
-	{
-		return getCurrentRowObject();
-	}
+    /**
+     * returns the Object for the current row
+     * @return Object
+     * @deprecated use getCurrentRowObject()
+     */
+    public Object getObject()
+    {
+        return getCurrentRowObject();
+    }
 }

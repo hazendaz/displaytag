@@ -50,10 +50,10 @@ public abstract class TemplateTag extends BodyTagSupport
      * <p>evaluate an expression in a way similar to LE in jstl.</p>
      * <p>the first token is supposed to be an object in the page scope (default scope) or one of the following:</p>
      * <ul>
-     * 	<li>pageScope</li>
-     * 	<li>requestScope</li>
-     * 	<li>sessionScope</li>
-     * 	<li>applicationScope</li>
+     *     <li>pageScope</li>
+     *     <li>requestScope</li>
+     *     <li>sessionScope</li>
+     *     <li>applicationScope</li>
      * </ul>
      * <p>Tokens after the object name are interpreted as javabean properties (accessed through getters), mapped or
      * indexed properties, using the jakarta common-beans library</p>

@@ -12,19 +12,19 @@ import org.displaytag.decorator.ColumnDecorator;
  */
 public class LongDateWrapper implements ColumnDecorator
 {
-	/**
-	 * Field sdf
-	 */
-	private DateFormat mDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    /**
+     * Field sdf
+     */
+    private DateFormat mDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
-	/**
-	 * Method decorate
-	 * @param pColumnValue Object
-	 * @return String
-	 */
-	public final String decorate(Object pColumnValue)
-	{
-		Date lDate = (Date) pColumnValue;
-		return mDateFormat.format(lDate);
-	}
+    /**
+     * Method decorate
+     * @param pColumnValue Object
+     * @return String
+     */
+    public final String decorate(Object pColumnValue)
+    {
+        Date lDate = (Date) pColumnValue;
+        return mDateFormat.format(lDate);
+    }
 }
