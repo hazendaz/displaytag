@@ -36,7 +36,7 @@ public final class ExportDelegate
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(ExportDelegate.class);
 
