@@ -153,7 +153,7 @@ public abstract class BaseExportView
 
             buffer.append(CELL_START);
 
-            buffer.append(columnHeader);
+            buffer.append(escapeColumnValue(columnHeader));
 
             if (ALWAYS_APPEND_CELL_END || iterator.hasNext())
             {

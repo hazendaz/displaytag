@@ -25,6 +25,7 @@ import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.export.BaseExportView;
 import org.displaytag.export.ExportTypeEnum;
 import org.displaytag.export.ExportViewFactory;
+import org.displaytag.filter.ResponseOverrideFilter;
 import org.displaytag.model.Cell;
 import org.displaytag.model.Column;
 import org.displaytag.model.ColumnIterator;
@@ -38,7 +39,6 @@ import org.displaytag.util.Anchor;
 import org.displaytag.util.CollectionUtil;
 import org.displaytag.util.Href;
 import org.displaytag.util.RequestHelper;
-import org.displaytag.util.ResponseOverrideFilter;
 import org.displaytag.util.TagConstants;
 
 /**
