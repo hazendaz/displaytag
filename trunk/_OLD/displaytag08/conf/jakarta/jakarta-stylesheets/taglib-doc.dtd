@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT document (properties, taglib, revision+)>
+<!ATTLIST document url CDATA #REQUIRED>
+
+<!ELEMENT properties (author)>
+<!ELEMENT author (#PCDATA)>
+
+<!ELEMENT taglib (tlib-version, jsp-version, short-name, uri, display-name, 
+                  description, taglib-location, prefix, requirements-info, 
+                  documentation?, developers-notes?, tagtoc+)> 
+
+<!-- Version number of this tagib -->
+<!ELEMENT tlib-version (#PCDATA)>
+
+<!-- Minimum version of JSP spec required -->
+<!ELEMENT jsp-version  (#PCDATA)>
+
+<!-- jakarta-taglib name of this tag library -->
+<!ELEMENT short-name   (#PCDATA)>
+
+<!-- URI of taglib -->
+<!ELEMENT uri          (#PCDATA)>
+
+<!-- The name to use in titles, etc. for the taglib -->
+<!ELEMENT display-name (#PCDATA)>
+
+<!-- short description 
+     Stylesheet copies from the uri rather than the PCDATA, when specified. -->
+<!ELEMENT description (#PCDATA)>
+<!ATTLIST description uri CDATA #IMPLIED>
+
+<!-- The taglib-location is used to fill in the web.xml configuration
+     information in the HTML doc. -->
+<!ELEMENT taglib-location (#PCDATA)>
+
+<!-- The prefix is used to fill in the taglib directive
+     configuration information in the HTML doc. -->
+<!ELEMENT prefix (#PCDATA)>
+
+<!-- This element is copied right into
+     the "Requirements" section of the HTML doc. 
+     Stylesheet copies from the uri rather than the PCDATA, when specified. -->
+<!ELEMENT requirements-info (#PCDATA)>
+<!ATTLIST requirements-info uri CDATA #IMPLIED>
+
+<!-- Full documentation on this tag library 
+     Stylesheet copies docs from the uri rather than the PCDATA, when specified. -->
+<!ELEMENT documentation (doctoc?,docs)>
+
+<!ELEMENT docs (#PCDATA)>
+<!ATTLIST docs uri CDATA #REQUIRED>
+
+<!ELEMENT doctoc ((li | ul)+)>
+
+
+<!-- do not include a leading # mark in the anchor -->
+<!ELEMENT li (#PCDATA)>
+<!ATTLIST li anchor CDATA #IMPLIED>
+
+<!ELEMENT ul ((li | ul)+)>
+
+<!-- Information concerning current development on the tag library. 
+     Stylesheet copies from the uri rather than the PCDATA, when specified. -->
+<!ELEMENT developers-notes (#PCDATA)>
+<!ATTLIST developers-notes uri          CDATA #IMPLIED
+                           last-updated CDATA #REQUIRED>
+
+
+<!ELEMENT tagtoc (tag+)>
+<!ATTLIST tagtoc name CDATA #REQUIRED>
+
+<!-- Description is used if summary is not supplied. If display-name is not
+     supplied, name is used.  If restrictions are not supplied, stylesheet
+     assumes no restrictions. -->
+<!ELEMENT tag (name, tag-class, tei-class?, body-content, display-name?, description,
+               summary?, availability, restrictions?, 
+               variable?, attribute*, example)>
+
+<!ELEMENT name (#PCDATA)>
+
+<!ELEMENT tag-class (#PCDATA)>
+<!ELEMENT tei-class (#PCDATA)>
+
+<!ELEMENT body-content (#PCDATA)>
+
+<!ELEMENT summary (#PCDATA)>
+
+<!ELEMENT availability (#PCDATA)>
+
+<!ELEMENT restrictions (#PCDATA)>
+
+<!ELEMENT variable (name-from-attribute, variable-class, declare, scope,
+                    description?, availability, beanprop*)>
+
+<!ELEMENT name-from-attribute (#PCDATA)>
+<!ELEMENT variable-class (#PCDATA)>
+<!ELEMENT declare (#PCDATA)>
+<!ELEMENT scope (#PCDATA)>
+
+<!ELEMENT beanprop (name, get, set, description, availability)>
+<!ELEMENT get (#PCDATA)>
+<!ELEMENT set (#PCDATA)>
+
+<!ELEMENT attribute (name,required?,rtexprvalue?,description,availability?)>
+
+<!ELEMENT required (#PCDATA)>
+<!ELEMENT rtexprvalue (#PCDATA)>
+
+<!ELEMENT example (usage+)>
+
+<!ELEMENT usage (comment?, code)>
+<!ELEMENT comment (#PCDATA)>
+<!ELEMENT code (#PCDATA)>
+
+<!ELEMENT revision (description, section*)>
+<!ATTLIST revision release CDATA #REQUIRED
+                   date    CDATA #REQUIRED>
+<!ELEMENT section (item+)>
+<!ATTLIST section name CDATA #REQUIRED>
+<!ELEMENT item (#PCDATA)>

@@ -1,0 +1,56 @@
+
+
+h1 {color: #000000; font-size: 18px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 15px;}
+
+h2 {color: #000000; font-size: 16px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 12px;}
+
+h3 {color: #000000; font-size: 14px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 10px;}
+
+.banner {color: #000000; font-size: 18px; font-family: verdana,arial,lucida console,sans-serif,monospace; font-weight: bold; text-decoration: none; bottom-margin: 0px;}
+
+
+
+tr.tableRowHeader {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+  font-weight: bold;
+  background-color: purple;
+}
+td.tableCellHeader {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+  font-weight: bold;
+  color: white;
+  text-align: right;
+}
+a.tableCellHeader {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+a.tableCellHeader:hover {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+  font-weight: bold;
+  text-decoration: underline;
+  color: black;
+}
+tr.tableRowOdd {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+
+  background-color: pink
+}
+tr.tableRowEven {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+
+  background-color: #c000c0
+}
+td.tableCell {
+  font-family: verdana, tahoma, arial, helvetica;
+  font-size: x-small;
+}
+
