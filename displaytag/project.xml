@@ -19,7 +19,7 @@
   <shortDescription>Display tag library - open source suite of custom tags that provide high level web presentation patterns</shortDescription>
   <url>http://${pom.groupId}.sourceforge.net</url>
   <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${maven.sourceforge.project.groupId}</issueTrackingUrl>
-  <siteAddress>http://${pom.groupId}.sourceforge.net</siteAddress>
+  <siteAddress>${pom.groupId}.sourceforge.net</siteAddress>
   <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
   <distributionDirectory>http://sourceforge.net/project/showfiles.php?group_id=${maven.sourceforge.project.groupId}</distributionDirectory>
   <repository>
