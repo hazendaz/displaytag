@@ -44,6 +44,9 @@
       <action type="fix" dev="fgiust" issue="944863">
 	      Wrong tfoot position.
       </action>
+      <action type="fix" dev="fgiust" issue="842234">
+	      Fixed export.decorated property.
+      </action>
   	</release>
   	
   	<release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
