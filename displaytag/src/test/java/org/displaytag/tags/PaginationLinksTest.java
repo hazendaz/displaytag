@@ -7,7 +7,6 @@ import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-
 /**
  * Testcase for #944056.
  * @author Fabrizio Giustina
@@ -47,7 +46,10 @@ public class PaginationLinksTest extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
-        log.debug("RESPONSE: " + response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug("RESPONSE: " + response.getText());
+        }
 
         WebLink[] links = response.getLinks();
 

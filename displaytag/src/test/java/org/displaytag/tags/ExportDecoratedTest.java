@@ -11,7 +11,6 @@ import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-
 /**
  * Tests for column decorators.
  * @author Fabrizio Giustina
@@ -51,7 +50,10 @@ public class ExportDecoratedTest extends DisplaytagCase
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
 
         WebResponse response = runner.getResponse(request);
-        log.debug(response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug(response.getText());
+        }
 
         assertEquals("Expected a different content type.", "text/xml", response.getContentType());
         assertFalse("Export should not be decorated", StringUtils.contains(

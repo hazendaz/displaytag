@@ -7,7 +7,6 @@ import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-
 /**
  * Tests for column pooling in tomcat.
  * @author Fabrizio Giustina

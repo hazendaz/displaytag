@@ -7,7 +7,6 @@ import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-
 /**
  * Basic tests for pagination.
  * @author Fabrizio Giustina
@@ -47,7 +46,10 @@ public class PaginationTest extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
-        log.debug("RESPONSE: " + response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug("RESPONSE: " + response.getText());
+        }
 
         WebLink[] links = response.getLinks();
 
@@ -56,7 +58,10 @@ public class PaginationTest extends DisplaytagCase
         for (int j = 0; j < links.length; j++)
         {
             assertTrue(links[j].getURLString().indexOf("{foo}=%2F.%2C%3B%3A%2F%7C%7C%5Cbar") > -1);
-            log.debug(j + " " + links[j].getURLString());
+            if (log.isDebugEnabled())
+            {
+                log.debug(j + " " + links[j].getURLString());
+            }
         }
 
     }

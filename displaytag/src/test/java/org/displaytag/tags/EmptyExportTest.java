@@ -6,7 +6,6 @@ import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-
 /**
  * Tests export with a null list.
  * @author Fabrizio Giustina

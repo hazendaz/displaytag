@@ -10,7 +10,6 @@ import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-
 /**
  * Tests for "media" attribute support.
  * @author Fabrizio Giustina
@@ -52,7 +51,10 @@ public class MediaSupportXmlTest extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
-        log.debug("RESPONSE: " + response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug("RESPONSE: " + response.getText());
+        }
 
         // we are really testing an xml output?
         assertEquals("Expected a different content type.", "text/xml", response.getContentType());
