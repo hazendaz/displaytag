@@ -12,9 +12,9 @@ public class InvalidTagAttributeValueException extends BaseNestableJspTagExcepti
      * Constructor for InvalidTagAttributeValueException.
      * @param source Class where the exception is generated
      * @param attributeName String attribute name
-     * @param attributeValue String attribute value (invalid)
+     * @param attributeValue attribute value (invalid)
      */
-    public InvalidTagAttributeValueException(Class source, String attributeName, String attributeValue)
+    public InvalidTagAttributeValueException(Class source, String attributeName, Object attributeValue)
     {
         super(source, "Invalid value for attribute \"" + attributeName + "\" value=\"" + attributeValue + "\"");
     }
