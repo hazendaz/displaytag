@@ -975,7 +975,7 @@ public class TableTag extends HtmlTableTag
 
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
         StringBuffer bodyBuffer =
-            (StringBuffer) request.getAttribute("org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERWRIDE_BODY");
+            (StringBuffer) request.getAttribute("org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY");
         if (bodyBuffer != null)
         {
             // We are running under the export filter

@@ -16,14 +16,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Allow the author of an included JSP page to reset the content type to something else (like a binary stream), and then
- * write the new info back as the exclusive response, clearing the buffers of all previously added content.
- * <p>The page
- * author should write to, but not replace, the StringBuffer objects placed into request scope at CONTENT_OVERRIDE_BODY
- * and CONTENT_OVERRIDE_TYPE.</p>
- * <p>This filter allows TableTag users to perform exports from pages that are run as includes, such as from Struts or
- * a jsp:include.  If that is your intention, just add this Filter to your web.xml and map it to the appropriate
- * requests, using something like: </p>
+ * Allow the author of an included JSP page to reset the content type to something else (like a binary stream), and
+ * then write the new info back as the exclusive response, clearing the buffers of all previously added content.
+ * <p>
+ * The page author should write to, but not replace, the StringBuffer objects placed into request scope at
+ * CONTENT_OVERRIDE_BODY and CONTENT_OVERRIDE_TYPE.
+ * </p>
+ * <p>
+ * This filter allows TableTag users to perform exports from pages that are run as includes, such as from Struts or a
+ * jsp:include. If that is your intention, just add this Filter to your web.xml and map it to the appropriate requests,
+ * using something like:
+ * </p>
+ * 
  * <pre>
  * &lt;filter>
  *     &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
@@ -40,6 +44,7 @@ import org.apache.commons.logging.LogFactory;
  *     &lt;url-pattern>*.jsp&lt;/url-pattern>
  * &lt;/filter-mapping>
  * </pre>
+ * 
  * @author rapruitt
  * @version $Revision$ ($Author$)
  * @since 1.0
@@ -47,29 +52,34 @@ import org.apache.commons.logging.LogFactory;
 public class ResponseOverrideFilter implements Filter
 {
     /**
-     * Logger.
-     */
-    private Log logger;
-    /**
      * If this buffer has been appended to at all, the contents of the buffer will be served as the sole output of the
      * request. Request variable.
      */
     public static final String CONTENT_OVERRIDE_BODY =
-        ResponseOverrideFilter.class.getName() + "CONTENT_OVERWRIDE_BODY";
-    /** If the request content is overriden, you must also set the content type appropriately. Request variable. */
-    public static final String CONTENT_OVERRIDE_TYPE =
-        ResponseOverrideFilter.class.getName() + "CONTENT_OVERWRIDE_TYPE";
+        ResponseOverrideFilter.class.getName() + "CONTENT_OVERRIDE_BODY";
+
     /**
-    * {@inheritDoc}
-    */
+     * If the request content is overriden, you must also set the content type appropriately. Request variable.
+     */
+    public static final String CONTENT_OVERRIDE_TYPE =
+        ResponseOverrideFilter.class.getName() + "CONTENT_OVERRIDE_TYPE";
+
+    /**
+     * Logger.
+     */
+    private Log logger;
+    
+    /**
+     * {@inheritDoc}
+     */
     public void init(FilterConfig filterConfig) throws ServletException
     {
         logger = LogFactory.getLog(ResponseOverrideFilter.class);
     }
 
     /**
-    * {@inheritDoc}
-    */
+     * {@inheritDoc}
+     */
     public void doFilter(ServletRequest srequest, ServletResponse servletResponse, FilterChain filterChain)
         throws IOException, ServletException
     {
@@ -77,7 +87,7 @@ public class ResponseOverrideFilter implements Filter
 
         BufferedResponseWrapper wrapper = new BufferedResponseWrapper((HttpServletResponse) servletResponse);
         // In a portlet environment, you do not have direct access to the actual request object, so any attributes that
-        // are added will not be visible outside of your portlet.  So instead, users MUST append to the StringBuffer, so
+        // are added will not be visible outside of your portlet. So instead, users MUST append to the StringBuffer, so
         // that the portlets do not have to bind a new attribute to the request.
         request.setAttribute(CONTENT_OVERRIDE_BODY, new StringBuffer(8096));
         request.setAttribute(CONTENT_OVERRIDE_TYPE, new StringBuffer(80));
@@ -107,8 +117,8 @@ public class ResponseOverrideFilter implements Filter
     }
 
     /**
-    * {@inheritDoc}
-    */
+     * {@inheritDoc}
+     */
     public void destroy()
     {
     }
