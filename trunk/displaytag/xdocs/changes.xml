@@ -112,6 +112,9 @@
       <action type="fix" dev="fgiust" issue="917200">
         Error in paging for URLs containing "{}".
       </action>
+      <action type="add" dev="fgiust">
+        You can now set a property value in the body of a setProperty tag, instead of using the "value" attribute.
+      </action>
       
        
     </release>

@@ -1,8 +1,11 @@
 package org.displaytag.tags;
 
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+import org.displaytag.exception.MissingAttributeException;
 import org.displaytag.exception.TagStructureException;
+
 
 /**
  * @author epesh
@@ -20,6 +23,11 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
      * property value.
      */
     private String value;
+
+    /**
+     * is this the first iteration?
+     */
+    private boolean firstIteration;
 
     /**
      * Sets the name of the property.
@@ -40,27 +48,65 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
     }
 
     /**
-     * Passes attribute information up to the parent TableTag.
-     * <p>
-     * When we hit the end of the tag, we simply let our parent (which better be a TableTag) know what the user wants
-     * to change a property value, and we pass the name/value pair that the user gave us, up to the parent
-     * </p>
-     * @return <code>TagSupport.EVAL_PAGE</code>
-     * @throws TagStructureException if no parent table tag is found
-     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
+     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
-    public int doEndTag() throws TagStructureException
+    public int doStartTag() throws JspException
     {
-
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
         if (tableTag == null)
         {
-            throw new TagStructureException(getClass(), "property", "table");
+            throw new TagStructureException(getClass(), "setProperty", "table");
         }
 
-        tableTag.setProperty(this.name, this.value);
+        // read body only once
+        if (tableTag.isFirstIteration())
+        {
+            this.firstIteration = true;
+            // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
+            return 2;
+        }
+        else
+        {
+            this.firstIteration = false;
+            return SKIP_BODY;
+        }
 
+    }
+
+    /**
+     * Passes attribute information up to the parent TableTag.
+     * <p>
+     * When we hit the end of the tag, we simply let our parent (which better be a TableTag) know what the user wants to
+     * change a property value, and we pass the name/value pair that the user gave us, up to the parent
+     * </p>
+     * @return <code>TagSupport.EVAL_PAGE</code>
+     * @throws MissingAttributeException if no value or body content has been set
+     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
+     */
+    public int doEndTag() throws MissingAttributeException
+    {
+
+        if (this.firstIteration)
+        {
+            TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+
+            // tableTag can't be null, it has been checked in doStartTag
+
+            if (this.value == null)
+            {
+                if (getBodyContent() == null)
+                {
+                    throw new MissingAttributeException(getClass(), new String[]{"value", "body content"});
+                }
+                this.value = getBodyContent().getString();
+            }
+
+            tableTag.setProperty(this.name, this.value);
+
+            this.name = null;
+            this.value = null;
+        }
         return EVAL_PAGE;
     }
 

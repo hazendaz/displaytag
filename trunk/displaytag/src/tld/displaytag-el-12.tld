@@ -476,7 +476,7 @@ back of the container.  Best left undoc'd and experimental for now; should just 
   <tag>
     <name>setProperty</name>
     <tag-class>org.displaytag.tags.SetPropertyTag</tag-class>
-    <body-content>empty</body-content>
+    <body-content>JSP</body-content>
       <display-name>setProperty</display-name>
       <description>Sets the indicated property on the enclosing Table tag.  MUST be nested within a Table tag.
  As an alternative, you may create a property file that holds sitewide defaults; see the configuration documentation
@@ -491,13 +491,16 @@ back of the container.  Best left undoc'd and experimental for now; should just 
     </attribute>
     <attribute>
       <name>value</name>
-      <required>true</required>
+      <required>false</required>
       <rtexprvalue>true</rtexprvalue>
         <type>java.lang.String</type>
-        <description>The value to which the property is set.</description>
+        <description>The value to which the property is set. You can also set the property value in the 
+          tag body.</description>
     </attribute>
        <example>
 &lt;display:setProperty name="paging.banner.placement" value="bottom" />
+or
+&lt;display:setProperty name="paging.banner.placement">bottom&lt;/display:setProperty>
       </example>
   </tag>
 
