@@ -1,4 +1,4 @@
-cbody{ 
+body{ 
 	background-color: #fff; padding:0 0 0 0; margin:0 0 0 0;
 }
 body, input, select, td, textarea{ 
@@ -156,6 +156,7 @@ th a:hover {
 th.sorted a, th.sortable a {
 	background-position: right;
 	display: block;
+	width: 100%;
 }
 th.sortable a {
 	background-image: url(../img/arrow_off.png);
