@@ -100,6 +100,11 @@
                 attribute which let you specify the value for the id attribute in the generated table.
             </action>
             <action type="add" dev="fgiust" issue="DISPL-106" due-to="Richard HALLIER">Webwork i18n support.</action>
+            <action type="add" dev="fgiust" issue="DISPL-104">
+                Need ability to disable prepending of context to the contents of the requestURI attribute. New
+                <code>requestURIcontext</code>
+                table attribute added.
+            </action>
 
         </release>
 

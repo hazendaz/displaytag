@@ -108,6 +108,16 @@
             </description>
         </attribute>
         <attribute>
+            <name>requestURIcontext</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>boolean</type>
+            <description>
+                Enable/disable prepending of application context to generated links. Default is true, you can set it to
+                false in order to generate cross-context links.
+            </description>
+        </attribute>
+        <attribute>
             <name>excludedParams</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>

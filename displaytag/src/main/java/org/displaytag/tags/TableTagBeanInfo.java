@@ -61,6 +61,8 @@ public class TableTagBeanInfo extends SimpleBeanInfo
                 TableTag.class, null, "setPagesize")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("requestURI", //$NON-NLS-1$
                 TableTag.class, null, "setRequestURI")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("requestURIcontext", //$NON-NLS-1$
+                TableTag.class, null, "setRequestURIcontext")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("rules", //$NON-NLS-1$
                 TableTag.class, null, "setRules")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$

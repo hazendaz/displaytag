@@ -173,6 +173,11 @@ public class TableTag extends HtmlTableTag
     private String requestUri;
 
     /**
+     * Prepend application context to generated links.
+     */
+    private boolean dontAppendContext;
+
+    /**
      * the index of the column sorted by default.
      */
     private int defaultSortedColumn = -1;
@@ -340,21 +345,16 @@ public class TableTag extends HtmlTableTag
      */
     public void setRequestURI(String value)
     {
-        String contextPath = ((HttpServletRequest) this.pageContext.getRequest()).getContextPath();
+        this.requestUri = value;
+    }
 
-        // prepend the context path if any.
-        // actually checks if context path is already there for people which manually add it
-        if (!StringUtils.isEmpty(contextPath)
-            && value != null
-            && value.startsWith("/")
-            && !value.startsWith(contextPath))
-        {
-            this.requestUri = contextPath + value;
-        }
-        else
-        {
-            this.requestUri = value;
-        }
+    /**
+     * Setter for the "requestURIcontext" attribute.
+     * @param value base URI for creating links
+     */
+    public void setRequestURIcontext(boolean value)
+    {
+        this.dontAppendContext = !value;
     }
 
     /**
@@ -906,10 +906,25 @@ public class TableTag extends HtmlTableTag
         if (this.requestUri != null)
         {
             // if user has added a requestURI create a new href
+            String fullURI = requestUri;
+            if (!this.dontAppendContext)
+            {
+                String contextPath = ((HttpServletRequest) this.pageContext.getRequest()).getContextPath();
+
+                // prepend the context path if any.
+                // actually checks if context path is already there for people which manually add it
+                if (!StringUtils.isEmpty(contextPath)
+                    && requestUri != null
+                    && requestUri.startsWith("/")
+                    && !requestUri.startsWith(contextPath))
+                {
+                    fullURI = contextPath + this.requestUri;
+                }
+            }
 
             // call encodeURL to preserve session id when cookies are disabled
-            String encodedURI = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(this.requestUri);
-            this.baseHref = new Href(encodedURI);
+            fullURI = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(fullURI);
+            this.baseHref = new Href(fullURI);
 
             // ... and copy parameters from the current request
             Map parameterMap = normalHref.getParameterMap();
@@ -1779,6 +1794,7 @@ public class TableTag extends HtmlTableTag
         this.pagesize = 0;
         this.property = null;
         this.requestUri = null;
+        this.dontAppendContext = false;
         this.scope = null;
         this.sortFullTable = null;
         this.excludedParams = null;
