@@ -5,9 +5,11 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
+
 
 /**
  * Adds EL support to displaytag's ColumnTag. Also supports a new "titleKey" property that works the same as
@@ -190,14 +192,19 @@ public class ColumnTag extends org.displaytag.tags.ColumnTag
             else
             {
                 // check for the localizationContext in applicationScope, set in web.xml
-                bundle = BundleSupport.getLocalizationContext(pageContext).getResourceBundle();
+                LocalizationContext localization = BundleSupport.getLocalizationContext(pageContext);
+
+                if (localization != null)
+                {
+                    bundle = localization.getResourceBundle();
+                }
             }
 
             if (bundle != null)
             {
                 try
                 {
-                    if(key != null)
+                    if (key != null)
                     {
                         super.setTitle(bundle.getString(key));
                     }
