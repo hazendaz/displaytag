@@ -28,14 +28,14 @@
       <subsection name="September 22, 2003">
 			<p>
 				Version <strong>1.0-b1</strong> has been released! This is the first beta featuring a completely 
-        rewritten library and lots of new features. Build and documentation are now maven powered!
+        rewritten library and lots of new features. The build and documentation are now maven powered!
 			</p>
 			<p>
 				A complete
 				<a href="changes-report.html">changelog</a>
-				is available, and click
+				is available.  Click
 				<a href="download.html">here to download</a>
-				the latest source or binary ditribution.
+				the latest source or binary distribution.
 			</p>      
       </subsection>
       
