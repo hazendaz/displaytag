@@ -69,20 +69,17 @@ public class TableTag extends HtmlTableTag
      * If this buffer has been appended to at all, the contents of the buffer will be served as the sole output of the
      * request. Request variable.
      */
-    public static final String FILTER_CONTENT_OVERRIDE_BODY =
-        "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY";
+    public static final String FILTER_CONTENT_OVERRIDE_BODY = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY";
 
     /**
      * If the request content is overriden, you must also set the content type appropriately. Request variable.
      */
-    public static final String FILTER_CONTENT_OVERRIDE_TYPE =
-        "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE";
+    public static final String FILTER_CONTENT_OVERRIDE_TYPE = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE";
 
     /**
      * If the filename is specified, there will be a supplied filename. Request variable.
      */
-    public static final String FILTER_CONTENT_OVERRIDE_FILENAME =
-        "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_FILENAME";
+    public static final String FILTER_CONTENT_OVERRIDE_FILENAME = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_FILENAME";
 
     /**
      * logger.
@@ -1073,7 +1070,7 @@ public class TableTag extends HtmlTableTag
             }
             catch (IOException e)
             {
-                throw new JspException("Unable to reset response.", e);
+                throw new JspException("Unable to reset response before returning exported data");
             }
 
             response.setContentType(mimeType);
@@ -1090,7 +1087,7 @@ public class TableTag extends HtmlTableTag
             }
             catch (IOException e)
             {
-                throw new JspException("Unable to write to out.", e);
+                throw new JspException("IOException while writing data.");
             }
         }
 
