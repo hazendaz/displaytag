@@ -1,6 +1,8 @@
 package org.displaytag.filter;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -20,11 +22,9 @@ import org.displaytag.tags.TableTagParameters;
 
 
 /**
+ * <p>
  * Allow the author of an included JSP page to reset the content type to something else (like a binary stream), and then
  * write the new info back as the exclusive response, clearing the buffers of all previously added content.
- * <p>
- * The page author should write to, but not replace, the StringBuffer objects placed into request scope at
- * CONTENT_OVERRIDE_BODY and CONTENT_OVERRIDE_TYPE.
  * </p>
  * <p>
  * This filter allows TableTag users to perform exports from pages that are run as includes, such as from Struts or a
@@ -47,6 +47,23 @@ import org.displaytag.tags.TableTagParameters;
  *  &lt;/filter-mapping>
  * </pre>
  * 
+ * <p>
+ * By default the filter buffers all the export content before writing it out. You can set an optional parameter
+ * <code>buffer</code> to <code>false</code> to make the filter write directly to the output stream. This could be
+ * faster and uses less memory, but the content length will not be set.
+ * </p>
+ * 
+ * <pre>
+ *  &lt;filter>
+ *      &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
+ *      &lt;filter-class>org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class>
+ *      &lt;init-param>
+ *          &lt;param-name>buffer&lt;/param-name>
+ *          &lt;param-value>false&lt;/param-value>
+ *      &lt;/init-param>
+ *  &lt;/filter>
+ *  </pre>
+ * 
  * @author rapruitt
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
@@ -60,9 +77,9 @@ public class ResponseOverrideFilter implements Filter
     private Log log;
 
     /**
-     * Force response buffering.
+     * Force response buffering. Enabled by default.
      */
-    private boolean buffer;
+    private boolean buffer = true;
 
     /**
      * {@inheritDoc}
@@ -71,9 +88,13 @@ public class ResponseOverrideFilter implements Filter
     {
         log = LogFactory.getLog(ResponseOverrideFilter.class);
         String bufferParam = filterConfig.getInitParameter("buffer");
-        buffer = StringUtils.isNotEmpty(bufferParam) && !"false".equals(bufferParam);
+        if (log.isDebugEnabled())
+        {
+            log.debug("bufferParam=" + bufferParam);
+        }
+        buffer = bufferParam == null || StringUtils.equalsIgnoreCase("true", bufferParam);
 
-        log.info("Filter initialized. Forced buffering is " + (buffer ? "enabled" : "disabled"));
+        log.info("Filter initialized. Response buffering is " + (buffer ? "enabled" : "disabled"));
     }
 
     /**
@@ -98,11 +119,16 @@ public class ResponseOverrideFilter implements Filter
 
         BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl((HttpServletResponse) servletResponse);
 
-        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, Boolean.TRUE);
+        Map contentBean = new HashMap(4);
+        if (buffer)
+        {
+            contentBean.put(TableTagParameters.BEAN_BUFFER, Boolean.TRUE);
+        }
+        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, contentBean);
 
         filterChain.doFilter(request, wrapper);
 
-        ExportDelegate.writeExport(wrapper, servletResponse);
+        ExportDelegate.writeExport((HttpServletResponse) servletResponse, servletRequest, wrapper);
     }
 
     /**

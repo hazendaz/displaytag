@@ -50,6 +50,26 @@ public final class TableTagParameters
     public static final String CSS_EMPTYLIST = "empty";
 
     /**
+     * Key on the map passed to the filter containg the "buffer" flag.
+     */
+    public static final String BEAN_BUFFER = "buffer";
+
+    /**
+     * Key on the map passed to the filter containg the content type.
+     */
+    public static final String BEAN_CONTENTTYPE = "contenttype";
+
+    /**
+     * Key on the map passed to the filter containg the file name.
+     */
+    public static final String BEAN_FILENAME = "filename";
+
+    /**
+     * Key on the map passed to the filter containg the exported data.
+     */
+    public static final String BEAN_BODY = "body";
+
+    /**
      * utility class - don't instantiate.
      */
     private TableTagParameters()

@@ -59,7 +59,7 @@ body {
     font-family: courier;
 }
 
-body,div,span,td,p,h2,h3,ul,ol,li {
+body,div,span,td,p,h2,h3,ul,ol {
     font-family: Georgia, Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 10pt;
 }

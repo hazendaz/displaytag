@@ -1,6 +1,9 @@
 package org.displaytag.tags;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -11,6 +14,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -28,8 +32,10 @@ import org.displaytag.exception.ExportException;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.export.BinaryExportView;
 import org.displaytag.export.ExportView;
 import org.displaytag.export.ExportViewFactory;
+import org.displaytag.export.TextExportView;
 import org.displaytag.model.Cell;
 import org.displaytag.model.Column;
 import org.displaytag.model.ColumnIterator;
@@ -1091,7 +1097,14 @@ public class TableTag extends HtmlTableTag
             exportHeader,
             exportDecorated);
 
-        writeExport(exportView);
+        try
+        {
+            writeExport(exportView);
+        }
+        catch (IOException e)
+        {
+            throw new NestableRuntimeException(e);
+        }
 
         return SKIP_PAGE;
     }
@@ -1100,33 +1113,59 @@ public class TableTag extends HtmlTableTag
      * Will write the export. The default behavior is to write directly to the response. If the ResponseOverrideFilter
      * is configured for this request, will instead write the export content to a StringBuffer in the Request object.
      * @param exportView export view
-     * @throws JspException for errors in resetting the response or in writing to out
+     * @throws JspException
+     * @throws IOException
      */
-    protected void writeExport(ExportView exportView) throws JspException
+    protected void writeExport(ExportView exportView) throws IOException, JspException
     {
-        String mimeType = exportView.getMimeType();
-
         String filename = properties.getExportFileName(this.currentMediaType);
 
         HttpServletResponse response = (HttpServletResponse) this.pageContext.getResponse();
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
 
-        // the FILTER_CONTENT_OVERRIDE_BODY object is now used simply as a marker
-        boolean usingFilter = (request.getAttribute(FILTER_CONTENT_OVERRIDE_BODY) != null);
+        Map bean = (Map) request.getAttribute(FILTER_CONTENT_OVERRIDE_BODY);
+        boolean usingFilter = bean != null;
 
+        String mimeType = exportView.getMimeType();
         // original encoding, be sure to add it back after reset()
         String characterEncoding = response.getCharacterEncoding();
 
-        if (characterEncoding != null)
-        {
-            characterEncoding = "; charset=" + characterEncoding; //$NON-NLS-1$
-        }
-
         if (usingFilter)
         {
-            // We are running under the export filter, call it
-            log.debug("Exportfilter enabled, setting header");
-            response.addHeader(TableTagParameters.PARAMETER_EXPORTING, TagConstants.EMPTY_STRING);
+            if (!bean.containsKey(TableTagParameters.BEAN_BUFFER))
+            {
+                // We are running under the export filter, call it
+                log.debug("Exportfilter enabled in unbuffered mode, setting headers");
+                response.addHeader(TableTagParameters.PARAMETER_EXPORTING, TagConstants.EMPTY_STRING);
+            }
+            else
+            {
+                // We are running under the export filter in buffered mode
+                bean.put(TableTagParameters.BEAN_CONTENTTYPE, mimeType);
+                bean.put(TableTagParameters.BEAN_FILENAME, filename);
+
+                if (exportView instanceof TextExportView)
+                {
+                    StringWriter writer = new StringWriter();
+                    ((TextExportView) exportView).doExport(writer);
+                    bean.put(TableTagParameters.BEAN_BODY, writer.toString());
+                }
+                else if (exportView instanceof BinaryExportView)
+                {
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    ((BinaryExportView) exportView).doExport(stream);
+                    bean.put(TableTagParameters.BEAN_BODY, stream.toByteArray());
+
+                }
+                else
+                {
+                    throw new JspTagException("Export view "
+                        + exportView.getClass().getName()
+                        + " must implement TextExportView or BinaryExportView");
+                }
+
+                return;
+            }
         }
         else
         {
@@ -1148,15 +1187,12 @@ public class TableTag extends HtmlTableTag
             }
         }
 
-        if (mimeType.indexOf("charset") > -1) //$NON-NLS-1$
+        if (!usingFilter && characterEncoding != null && mimeType.indexOf("charset") == -1) //$NON-NLS-1$
         {
-            // charset is already specified (see #921811)
-            response.setContentType(mimeType);
+            mimeType += "; charset=" + characterEncoding; //$NON-NLS-1$
         }
-        else
-        {
-            response.setContentType(mimeType + StringUtils.defaultString(characterEncoding));
-        }
+
+        response.setContentType(mimeType);
 
         if (StringUtils.isNotEmpty(filename))
         {
@@ -1164,15 +1200,35 @@ public class TableTag extends HtmlTableTag
                 "attachment; filename=\"" + filename + "\""); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        try
+        if (exportView instanceof TextExportView)
         {
-            exportView.doExport(response.getWriter());
-            log.debug("Export completed");
+            Writer writer;
+            if (usingFilter)
+            {
+                writer = response.getWriter();
+            }
+            else
+            {
+                writer = pageContext.getOut();
+            }
+
+            ((TextExportView) exportView).doExport(writer);
         }
-        catch (IOException e)
+        else if (exportView instanceof BinaryExportView)
         {
-            throw new NestableRuntimeException(e);
+            // dealing with binary content
+            // note that this is not assured to work on any application server if the filter is not enabled. According
+            // to the jsp specs response.getOutputStream() should no be called in jsps.
+            ((BinaryExportView) exportView).doExport(response.getOutputStream());
         }
+        else
+        {
+            throw new JspTagException("Export view "
+                + exportView.getClass().getName()
+                + " must implement TextExportView or BinaryExportView");
+        }
+
+        log.debug("Export completed");
 
     }
 

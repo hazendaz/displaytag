@@ -30,4 +30,5 @@ public interface BufferedResponseWrapper extends HttpServletResponse
      * @return the content of the response
      */
     String getContentAsString();
+
 }
