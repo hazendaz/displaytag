@@ -16,7 +16,12 @@
 			<item name="Tag reference" href="/tagreference.html" />
 			<item name="Configuration" href="/configuration.html" />
 			<item name="FAQ" href="/faq.html" />       
-        <item name="Mailing Lists" href="/mail-lists.html"/>
+      <item name="Mailing Lists" href="/mail-lists.html"/>
+		</menu>
+		
+		
+		<menu name="Tutorial">
+      <item name="Basic" href="/tut_basic.html"/>
 		</menu>
 
 		<menu name="Developers">
