@@ -10,7 +10,7 @@
 
   <body>
   	
-  	<release version="1.0-b3" date="in CVS" description="">
+  	<release version="1.0-b3" date="in CVS" description="last 1.0 beta">
       <action type="fix" dev="rapruitt">
 	    The export filter introduced in b2 has been modified to avoid errors in Websphere 4 (or in any j2ee 1.2 containers,
 	    where the filter can't be used).
