@@ -236,6 +236,7 @@ public class Column
                 paramValue = columnContent;
             }
 
+            // @todo encode paramValue here. Need a way to get the current request.getCharacterEncoding()
             colHref.addParameter(this.header.getParamName(), paramValue);
 
         }
