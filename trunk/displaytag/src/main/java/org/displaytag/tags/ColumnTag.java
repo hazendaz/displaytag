@@ -630,7 +630,17 @@ public class ColumnTag extends BodyTagSupport
         // href and parameter, create link
         if (this.href != null && this.paramId != null)
         {
-            Href colHref = new Href(this.href);
+            Href colHref;
+
+            // empty base url, use href with parameters from parent table
+            if (StringUtils.isEmpty(this.href.getBaseUrl()))
+            {
+                colHref = new Href(tableTag.getBaseHref());
+            }
+            else
+            {
+                colHref = new Href(this.href);
+            }
 
             // parameter value is in a different object than the iterated one
             if (this.paramName != null || this.paramScope != null)

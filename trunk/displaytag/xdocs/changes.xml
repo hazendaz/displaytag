@@ -111,6 +111,9 @@
                 <code>sortProperty</code>
                 attribute in column tag: specify property used for sorting.
             </action>
+            <action type="update" dev="fgiust" issue="DISPL-117">
+                Allow ColumnTag to generate links to current page.
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
