@@ -43,8 +43,8 @@
 
 <div class="changed">
 	<p>
-		The value of the <code>name</code> attribute can be expressed with a sintax similar to 
-		<acronym title="expression language">EL</acronym> of <acronym title="Java standar tag library">JSTL</acronym>.
+		The value of the <code>name</code> attribute can be expressed with a syntax similar to 
+		<acronym title="expression language">EL</acronym> of <acronym title="Java standard tag library">JSTL</acronym>.
 	</p>
 	
 	<p>
@@ -59,7 +59,7 @@
 	
 	<p>
 		You can also access javabean style properties, mapped properties or indexed properties in the bean, also nested!.
-		The sintax for accessing a javabean property is <code>.property</code>. You can read a mapped property specifing it
+		The syntax for accessing a javabean property is <code>.property</code>. You can read a mapped property specifying it
 		between <code>()</code> and an indexed property using <code>[]</code>.
 	</p>
 	

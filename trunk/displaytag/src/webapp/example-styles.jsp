@@ -58,7 +58,7 @@
 	Starting from version 0.9 of the &lt;display:table&gt; there all html attributes
 	can be explicitly configured. Why?  So you can totally control the display of your table
 	and you can do that, as we hope, by exclusively using css.  Thereby avoiding deprecated html 
-	presentation attributes.  Did you notice this website was written stricty using xhtml?
+	presentation attributes.  Did you notice this website was written strictly using xhtml?
 </p>
 
 
@@ -141,7 +141,7 @@
 
 <p class="changed">
  	These css classes were applied in previous version of the &lt;display:*&gt; tag library. See the "now use"
-	column for direction on how migrate your css to the new version (a quick task wich will also improve the
+	column for direction on how migrate your css to the new version (a quick task which will also improve the
 	quality -and lower the weight- of your html output)
 </p>
 

@@ -28,7 +28,7 @@
 </p>
 <p>
     If you need to change what you output based on the destination, use the <strong>media</strong> attribute of the Column Tag.
-    In this example, we are making the url a hyperlink in html, we are just outputing it plain in csv and excel,
+    In this example, we are making the url a hyperlink in html, we are just outputting it plain in csv and excel,
     and are skipping the column altogether in xml.  Valid values for the media tag are 'html', 'xml', 'csv', and 'excel'.
 </p>
 

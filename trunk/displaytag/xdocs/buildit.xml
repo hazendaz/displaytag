@@ -37,7 +37,7 @@
 					) from a remote repository.
 				</p>
 				<p>
-					Running maven without arguments will execute the default goal, wich will build the library, the
+					Running maven without arguments will execute the default goal, which will build the library, the
 					sample webapp, and the documentation site (this one). You can run
 					<strong>maven -g</strong>
 					to see the available goals. Running

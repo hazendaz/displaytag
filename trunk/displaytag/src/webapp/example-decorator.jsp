@@ -60,7 +60,7 @@
 
 <p>
 	The way this works is that a single decorator object is created right before
-	the table tag starts iteratoring through your List, before it starts processing
+	the table tag starts iterating through your List, before it starts processing
 	a particular row, it gives the object for that row to the decorator, then as
 	the various properties getXXX() methods - the decorator will be called first
 	and if the decorator doesn't implement the given property, the method will
