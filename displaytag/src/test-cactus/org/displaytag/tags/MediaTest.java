@@ -115,7 +115,7 @@ public class MediaTest extends DisplaytagTestCase
      * end the test for html.
      * @param webresponse WebResponse
      */
-    public void endTestAsHtml(WebResponse webresponse)
+    public void endAsHtml(WebResponse webresponse)
     {
         assertContains(webresponse, KnownValue.ANT);
         assertDoesNotContain(webresponse, KnownValue.BEE);
@@ -127,7 +127,7 @@ public class MediaTest extends DisplaytagTestCase
      * begin the test for xml.
      * @param webrequest WebRequest
      */
-    public void beginTestAsXml(WebRequest webrequest)
+    public void beginAsXml(WebRequest webrequest)
     {
         webrequest.addParameter(this.table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE), ""
             + MediaTypeEnum.XML.getCode());
@@ -149,7 +149,7 @@ public class MediaTest extends DisplaytagTestCase
      * end the test for xml.
      * @param webresponse WebResponse
      */
-    public void endTestAsXml(WebResponse webresponse)
+    public void endAsXml(WebResponse webresponse)
     {
         assertDoesNotContain(webresponse, KnownValue.ANT);
         assertContains(webresponse, KnownValue.BEE);
