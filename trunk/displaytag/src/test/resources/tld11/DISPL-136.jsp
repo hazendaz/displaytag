@@ -16,7 +16,7 @@
           request.setAttribute( "test", testData);
       ]]> </jsp:scriptlet>
       <display:table name="requestScope.test" id="table" pagesize="2">
-        <display:column title="empty"><jsp:expression>((org.displaytag.test.KnownValue)pageContext.getAttribute("test")).getAnt()</jsp:expression></display:column>
+        <display:column title="empty"><jsp:expression>((org.displaytag.test.KnownValue)pageContext.getAttribute("table")).getAnt()</jsp:expression></display:column>
       </display:table>
     </body>
   </html>
