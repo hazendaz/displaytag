@@ -26,7 +26,6 @@ import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.export.BaseExportView;
 import org.displaytag.export.MediaTypeEnum;
 import org.displaytag.export.ExportViewFactory;
-import org.displaytag.filter.ResponseOverrideFilter;
 import org.displaytag.model.Cell;
 import org.displaytag.model.Column;
 import org.displaytag.model.ColumnIterator;
@@ -970,12 +969,12 @@ public class TableTag extends HtmlTableTag
         JspWriter out = pageContext.getOut();
 
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-        StringBuffer bodyBuffer = (StringBuffer) request.getAttribute(ResponseOverrideFilter.CONTENT_OVERRIDE_BODY);
+        StringBuffer bodyBuffer = (StringBuffer) request.getAttribute("org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERWRIDE_BODY");
         if (bodyBuffer != null)
         {
             // We are running under the export filter
             StringBuffer contentTypeOverride =
-                (StringBuffer) request.getAttribute(ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE);
+                (StringBuffer) request.getAttribute("org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE");
             contentTypeOverride.append(mimeType);
             bodyBuffer.append(exportString);
         }
