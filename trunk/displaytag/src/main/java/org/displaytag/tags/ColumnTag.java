@@ -13,7 +13,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
+import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.exception.MissingAttributeException;
+import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.export.MediaTypeEnum;
 import org.displaytag.model.Cell;
@@ -517,84 +519,7 @@ public class ColumnTag extends BodyTagSupport
         // add column header only once
         if (tableTag.isFirstIteration())
         {
-            HeaderCell headerCell = new HeaderCell();
-            headerCell.setHeaderAttributes((HtmlAttributeMap) this.headerAttributeMap.clone());
-            headerCell.setHtmlAttributes((HtmlAttributeMap) this.attributeMap.clone());
-            headerCell.setTitle(this.title);
-            headerCell.setSortable(this.sortable);
-            headerCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(this.decorator));
-            headerCell.setBeanPropertyName(this.property);
-            headerCell.setShowNulls(this.nulls);
-            headerCell.setMaxLength(this.maxLength);
-            headerCell.setMaxWords(this.maxWords);
-            headerCell.setAutoLink(this.autolink);
-            headerCell.setGroup(this.group);
-
-            // href and parameter, create link
-            if (this.href != null && this.paramId != null)
-            {
-                Href colHref = new Href(this.href);
-
-                // parameter value is in a different object than the iterated one
-                if (this.paramName != null || this.paramScope != null)
-                {
-                    // create a complete string for compatibility with previous version before expression evaluation.
-                    // this approach is optimized for new expressions, not for previous property/scope parameters
-                    StringBuffer expression = new StringBuffer();
-
-                    // append scope
-                    if (StringUtils.isNotBlank(this.paramScope))
-                    {
-                        expression.append(this.paramScope).append("Scope.");
-                    }
-
-                    // base bean name
-                    if (this.paramId != null)
-                    {
-                        expression.append(this.paramName);
-                    }
-                    else
-                    {
-                        expression.append(tableTag.getName());
-                    }
-
-                    // append property
-                    if (StringUtils.isNotBlank(this.paramProperty))
-                    {
-                        expression.append('.').append(this.paramProperty);
-                    }
-
-                    // evaluate expression.
-                    // note the value is fixed, not based on any object created during iteration
-                    // this is here for compatibility with the old version mainly
-                    Object paramValue = tableTag.evaluateExpression(expression.toString());
-
-                    // add parameter
-                    colHref.addParameter(this.paramId, paramValue);
-                }
-                else
-                {
-                    // lookup value as a property on the list object. This should not be done here to avoid useless
-                    // work when only a part of the list is displayed
-
-                    // set id
-                    headerCell.setParamName(this.paramId);
-
-                    // set property
-                    headerCell.setParamProperty(this.paramProperty);
-
-                }
-
-                // sets the base href
-                headerCell.setHref(colHref);
-
-            }
-
-            tableTag.addColumn(headerCell);
-            if (log.isDebugEnabled())
-            {
-                log.debug("columnTag.doEndTag() :: first iteration - adding header " + headerCell);
-            }
+            addHeaderToTable(tableTag);
         }
 
         Cell cell;
@@ -645,6 +570,96 @@ public class ColumnTag extends BodyTagSupport
         setBodyContent(null);
 
         return super.doEndTag();
+    }
+
+    /**
+     * Adds the current header to the table model calling addColumn in the parent table tag. This method should be
+     * called only at first iteration.
+     * @param tableTag parent table tag
+     * @throws DecoratorInstantiationException for error during column decorator instantiation
+     * @throws ObjectLookupException for errors in looking up values
+     */
+    private void addHeaderToTable(TableTag tableTag) throws DecoratorInstantiationException, ObjectLookupException
+    {
+        HeaderCell headerCell = new HeaderCell();
+        headerCell.setHeaderAttributes((HtmlAttributeMap) this.headerAttributeMap.clone());
+        headerCell.setHtmlAttributes((HtmlAttributeMap) this.attributeMap.clone());
+        headerCell.setTitle(this.title);
+        headerCell.setSortable(this.sortable);
+        headerCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(this.decorator));
+        headerCell.setBeanPropertyName(this.property);
+        headerCell.setShowNulls(this.nulls);
+        headerCell.setMaxLength(this.maxLength);
+        headerCell.setMaxWords(this.maxWords);
+        headerCell.setAutoLink(this.autolink);
+        headerCell.setGroup(this.group);
+
+        // href and parameter, create link
+        if (this.href != null && this.paramId != null)
+        {
+            Href colHref = new Href(this.href);
+
+            // parameter value is in a different object than the iterated one
+            if (this.paramName != null || this.paramScope != null)
+            {
+                // create a complete string for compatibility with previous version before expression evaluation.
+                // this approach is optimized for new expressions, not for previous property/scope parameters
+                StringBuffer expression = new StringBuffer();
+
+                // append scope
+                if (StringUtils.isNotBlank(this.paramScope))
+                {
+                    expression.append(this.paramScope).append("Scope.");
+                }
+
+                // base bean name
+                if (this.paramId != null)
+                {
+                    expression.append(this.paramName);
+                }
+                else
+                {
+                    expression.append(tableTag.getName());
+                }
+
+                // append property
+                if (StringUtils.isNotBlank(this.paramProperty))
+                {
+                    expression.append('.').append(this.paramProperty);
+                }
+
+                // evaluate expression.
+                // note the value is fixed, not based on any object created during iteration
+                // this is here for compatibility with the old version mainly
+                Object paramValue = tableTag.evaluateExpression(expression.toString());
+
+                // add parameter
+                colHref.addParameter(this.paramId, paramValue);
+            }
+            else
+            {
+                //@todo lookup value as a property on the list object. This should not be done here to avoid useless
+                // work when only a part of the list is displayed
+
+                // set id
+                headerCell.setParamName(this.paramId);
+
+                // set property
+                headerCell.setParamProperty(this.paramProperty);
+
+            }
+
+            // sets the base href
+            headerCell.setHref(colHref);
+
+        }
+
+        tableTag.addColumn(headerCell);
+
+        if (log.isDebugEnabled())
+        {
+            log.debug("columnTag.addHeaderToTable() :: first iteration - adding header " + headerCell);
+        }
     }
 
     /**
