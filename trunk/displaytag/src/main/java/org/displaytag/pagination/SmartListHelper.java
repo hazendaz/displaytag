@@ -257,8 +257,8 @@ public class SmartListHelper
 
     /**
      * Return the little summary message that lets the user know how many objects are in the list they are viewing, and
-     * where in the list they are currently positioned. The message looks like: nnn <item(s)>found, displaying nnn to
-     * nnn. <item(s)>is replaced by either itemName or itemNames depending on if it should be signular or plural.
+     * where in the list they are currently positioned. The message looks like: nnn [item(s)] found, displaying nnn to
+     * nnn. [item(s)] is replaced by either itemName or itemNames depending on if it should be signular or plural.
      * 
      * @return String
      */
