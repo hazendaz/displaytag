@@ -23,6 +23,18 @@
         columns mapped to object properties. This is expecially useful in development to quickly see and 
         test available properties.
       </action>
+      <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
+        The following methods in TableDecorator are now correctly declared as <code>final</code>:
+        <code>getViewIndex()</code>, 
+        <code>getListIndex()</code>, 
+        <code>initRow(Object, int, int)</code>, 
+        <code>getCurrentRowObject()</code>. These methods should never be extended in subclasses of
+        TableDecorator.
+      </action>
+      <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
+        Removed the <code>value</code> of ColumnTag. This was totally undocumented in previous versions 
+        and is now useless.
+      </action>
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">
