@@ -27,6 +27,7 @@
             <item name="Links" href="/tut_links.html" />
             <item name="Style" href="/tut_style.html" />
             <item name="Export" href="/export.html" />
+            <item name="I18n" href="/i18n.html" />
         </menu>
 
         <menu name="Downloadable docs">
