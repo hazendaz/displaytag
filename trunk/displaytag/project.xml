@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <pomVersion>3</pomVersion>
-  <id>displaytag</id>
+  <pomVersion>4</pomVersion>
+  <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
   <groupId>displaytag</groupId>
-  <currentVersion>1.0-b3-SNAPSHOT</currentVersion>
+  <type>jar</type>
+  <version>1.0-b3-SNAPSHOT</version>
   <organization>
     <name>sourceforge</name>
     <url>http://sourceforge.net</url>
@@ -15,7 +16,7 @@
   <logo>/images/displaytag.png</logo>
   <description>The display tag library is an open source suite of custom tags that provide high level web presentation patterns (like tables, tabs, templates, inspectors, trees, etc...) which will work in a MVC model, and provide a significant amount of functionality while still being simple and straight-forward to use.</description>
   <shortDescription>Display tag library - open source suite of custom tags that provide high level web presentation patterns</shortDescription>
-  <url>http://displaytag.sourceforge.net</url>
+  <url>http://${pom.groupId}.sourceforge.net</url>
   <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${maven.sourceforge.project.groupId}</issueTrackingUrl>
   <siteAddress>http://${pom.groupId}.sourceforge.net</siteAddress>
   <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
@@ -27,22 +28,22 @@
   <!-- any mailing lists for the project -->
   <mailingLists>
     <mailingList>
-      <name>${pom.name}  User Mailing list</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-user</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-user</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.id}-user</archive>
+      <name>${pom.name} User Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-user</archive>
     </mailingList>
     <mailingList>
       <name>${pom.name} Developer Mailing list</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-devel</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-devel</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.id}-devel</archive>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-devel</archive>
     </mailingList>
     <mailingList>
       <name>${pom.name} Cvs Mailing list</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-cvs</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-cvs</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.id}-cvs</archive>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-cvs</archive>
     </mailingList>
   </mailingLists>
   <!-- developers for the project -->
@@ -75,7 +76,7 @@
       <roles>
         <role>Java Developer</role>
       </roles>
-      <timezone>-4</timezone>
+      <timezone>+1</timezone>
     </developer>
     <developer>
       <name>Mathias Bogaert</name>
@@ -126,51 +127,64 @@
       <timezone>0</timezone>
     </contributor>
   </contributors>
-  <!-- jar files the project is dependent on -->
+
   <dependencies>
     <dependency>
-      <id>commons-beanutils</id>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
       <version>1.6.1</version>
+      <url>http://jakarta.apache.org/commons</url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
     </dependency>
     <dependency>
-      <id>commons-collections</id>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
       <version>2.1</version>
+      <url>http://jakarta.apache.org/commons</url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
     </dependency>
     <dependency>
-      <id>commons-lang</id>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
       <version>2.0</version>
+      <url>http://jakarta.apache.org/commons</url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
     </dependency>
     <dependency>
-      <id>commons-logging</id>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
       <version>1.0.3</version>
+      <url>http://jakarta.apache.org/commons</url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
     </dependency>
     <dependency>
-      <id>log4j</id>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
       <version>1.2.8</version>
+      <url></url>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
     </dependency>
     <dependency>
-      <id>servletapi</id>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
       <version>2.3</version>
+      <url></url>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.0.2</version>
+      <url></url>
     </dependency>
     <dependency>
       <groupId>taglibs</groupId>
@@ -182,18 +196,17 @@
       </properties>
     </dependency>
     <dependency>
-      <id>junit</id>
-      <version>3.8.1</version>
-    </dependency>
-    <dependency>
-      <id>cactus</id>
+      <groupId>cactus</groupId>
+      <artifactId>cactus</artifactId>
       <version>13-1.6dev</version>
+      <url></url>
     </dependency>
     <!-- required by cactus -->
     <dependency>
       <groupId>aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
       <version>1.1.1</version>
+      <url></url>
     </dependency>
     <!-- plugin dependencies -->
     <dependency>
@@ -201,15 +214,24 @@
       <artifactId>maven-checkstyle-plugin</artifactId>
       <version>2.2</version>
       <type>plugin</type>
+      <url></url>
     </dependency>
     <dependency>
       <groupId>maven</groupId>
       <artifactId>maven-statcvs-plugin</artifactId>
       <version>2.0</version>
       <type>plugin</type>
+      <url></url>
+    </dependency>
+    <dependency>
+        <groupId>maven-validator</groupId>
+        <artifactId>maven-xhtml-plugin</artifactId>
+        <version>1.1</version>
+        <type>plugin</type>
+        <url>http://maven-validator.sourceforge.net</url>
     </dependency>
   </dependencies>
-  <!-- build information for the project -->
+
   <build>
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
@@ -245,6 +267,7 @@
     <report>maven-developer-activity-plugin</report>
     <report>maven-statcvs-plugin</report>
     <report>maven-linkcheck-plugin</report>
+    <report>maven-xhtml-plugin</report>
   </reports>
 </project>
 
