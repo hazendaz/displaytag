@@ -8,7 +8,7 @@
         <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
     </properties>
     <body>
-        <release version="1.0-rc2" date="in CVS" description="Current development">
+        <release version="1.0-rc2" date="November 19, 2004 " description="Current development">
             <action type="fix" dev="fgiust" issue="962448">
                 getListIndex() in tableDecorator now correctly returns the index in the original list.
             </action>

@@ -7,7 +7,7 @@
     <groupId>displaytag</groupId>
     <!--<type>jar</type>-->
     <!--<version>1.0-rc1-SNAPSHOT</version>-->
-    <currentVersion>1.0-rc2-SNAPSHOT</currentVersion>
+    <currentVersion>1.0-rc2</currentVersion>
     <organization>
         <name>sourceforge</name>
         <url>http://sourceforge.net</url>
@@ -53,6 +53,11 @@
             <id>1.0-rc1</id>
             <name>1.0-rc1</name>
             <tag>displaytag1-rc1</tag>
+        </version>
+        <version>
+            <id>1.0-rc2</id>
+            <name>1.0-rc2</name>
+            <tag>displaytag1-rc2</tag>
         </version>
     </versions>
     <mailingLists>
