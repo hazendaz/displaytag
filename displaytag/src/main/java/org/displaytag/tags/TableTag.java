@@ -996,9 +996,9 @@ public class TableTag extends HtmlTableTag
      * @param mimeType mime type to set in the response
      * @param exportString String
      * @return int
-     * @throws IOException for errors in resetting the response or in writing to out
+     * @throws JspException for errors in resetting the response or in writing to out
      */
-    protected int writeExport(String mimeType, String exportString) throws IOException
+    protected int writeExport(String mimeType, String exportString) throws JspException
     {
         ServletResponse response = this.pageContext.getResponse();
         JspWriter out = this.pageContext.getOut();
@@ -1017,10 +1017,26 @@ public class TableTag extends HtmlTableTag
         }
         else
         {
-            out.clear();
+            try
+            {
+                out.clear();
+            }
+            catch (IOException e)
+            {
+                throw new JspException("Unable to reset response.", e);
+            }
+
             response.setContentType(mimeType);
-            out.write(exportString);
-            out.flush();
+
+            try
+            {
+                out.write(exportString);
+                out.flush();
+            }
+            catch (IOException e)
+            {
+                throw new JspException("Unable to write to out.", e);
+            }
         }
 
         return SKIP_PAGE;
@@ -1287,6 +1303,60 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
+     * This takes a column value and grouping index as the argument. It then groups the column and returns the
+     * appropriate string back to the caller.
+     * @param value String
+     * @param group int
+     * @return String
+     */
+    private String groupColumns(String value, int group)
+    {
+
+        if ((group == 1) & this.nextRow.size() > 0)
+        {
+            // we are at the begining of the next row so copy the contents from nextRow to the previousRow.
+            this.previousRow.clear();
+            this.previousRow.putAll(this.nextRow);
+            this.nextRow.clear();
+        }
+
+        if (!this.nextRow.containsKey(new Integer(group)))
+        {
+            // Key not found in the nextRow so adding this key now...
+            // remember all the old values.
+            this.nextRow.put(new Integer(group), new String(value));
+        }
+
+        //  Start comparing the value we received, along with the grouping index.
+        //  if no matching value is found in the previous row then return the value.
+        //  if a matching value is found then this value should not get printed out
+        //  so return ""
+        if (this.previousRow.containsKey(new Integer(group)))
+        {
+            for (int j = 1; j <= group; j++)
+            {
+
+                if (!((String) this.previousRow.get(new Integer(j))).equals((this.nextRow.get(new Integer(j)))))
+                {
+                    // no match found so return this value back to the caller.
+                    return value;
+                }
+            }
+        }
+
+        // This is used, for when there is no data in the previous row,
+        // It gets used only the first time.
+        if (this.previousRow.size() == 0)
+        {
+            return value;
+        }
+
+        // There is corresponding value in the previous row
+        // this value doesn't need to be printed, return ""
+        return "";
+    }
+
+    /**
      * Writes the table body content.
      * @return table body content
      * @throws ObjectLookupException for errors in looking up properties in objects
@@ -1329,22 +1399,19 @@ public class TableTag extends HtmlTableTag
             while (columnIterator.hasNext())
             {
                 Column column = columnIterator.nextColumn();
-                Object value;
 
                 // Get the value to be displayed for the column
                 buffer.append(column.getOpenTag());
-                value = column.getChoppedAndLinkedValue();
+                Object value = column.getChoppedAndLinkedValue();
 
-                // Ok, let's write this column's cell...
+                // check if column is grouped
                 if (column.getGroup() != -1)
                 {
-                    buffer.append(groupColumns(value.toString(), column.getGroup()));
-                }
-                else
-                {
-                    buffer.append(value);
+                    value = this.groupColumns(value.toString(), column.getGroup());
                 }
 
+                // add column value
+                buffer.append(value);
                 buffer.append(column.getCloseTag());
             }
 
@@ -1474,61 +1541,6 @@ public class TableTag extends HtmlTableTag
 
         String[] exportOptions = { buffer.toString()};
         return MessageFormat.format(this.properties.getExportBanner(), exportOptions);
-    }
-
-    /**
-     * This takes a cloumn value and grouping index as the argument. It then groups the column and returns the
-     * appropriate string back to the caller.
-     * @param value String
-     * @param group int
-     * @return String
-     */
-    private String groupColumns(String value, int group)
-    {
-
-        if ((group == 1) & this.nextRow.size() > 0)
-        {
-            // we are at the begining of the next row so copy the contents from
-            // nextRow to the previousRow.
-            this.previousRow.clear();
-            this.previousRow.putAll(this.nextRow);
-            this.nextRow.clear();
-        }
-
-        if (!this.nextRow.containsKey(new Integer(group)))
-        {
-            // Key not found in the nextRow so adding this key now...
-            // remember all the old values.
-            this.nextRow.put(new Integer(group), new String(value));
-        }
-
-        //  Start comparing the value we received, along with the grouping index.
-        //  if no matching value is found in the previous row then return the value.
-        //  if a matching value is found then this value should not get printed out
-        //  so return ""
-        if (this.previousRow.containsKey(new Integer(group)))
-        {
-            for (int j = 1; j <= group; j++)
-            {
-
-                if (!((String) this.previousRow.get(new Integer(j))).equals((this.nextRow.get(new Integer(j)))))
-                {
-                    // no match found so return this value back to the caller.
-                    return value;
-                }
-            }
-        }
-
-        // This is used, for when there is no data in the previous row,
-        // It gets used only the first time.
-        if (this.previousRow.size() == 0)
-        {
-            return value;
-        }
-
-        // There is corresponding value in the previous row
-        // this value doesn't need to be printed, return ""
-        return "";
     }
 
     /**
