@@ -46,7 +46,7 @@ back of the container.  Best left undoc'd and experimental for now; should just 
 
       <variable>
           <name-given>mediaType</name-given>
-          <variable-class>org.displaytag.export.MediaTypeEnum</variable-class>
+          <variable-class>org.displaytag.properties.MediaTypeEnum</variable-class>
           <scope>NESTED</scope>
           <description>Holds the media type of the current request. Used by ColumnTag to decide whether or not it should display.</description>
       </variable>
