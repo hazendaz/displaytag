@@ -340,16 +340,6 @@
         but is set to JAVA_HOME/../lib/tools.jar in project.properties</comment>
             </properties>
         </dependency>
-        <dependency>
-            <groupId>clover</groupId>
-            <artifactId>clover</artifactId>
-            <version>1.2.3</version>
-            <jar>${basedir}/lib/clover.jar</jar>
-            <url>http://www.thecortex.net/clover</url>
-            <properties>
-                <comment>Required to generate test coverage reports. Not needed at runtime.</comment>
-            </properties>
-        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
