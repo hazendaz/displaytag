@@ -28,6 +28,12 @@
       <action type="fix" dev="fgiust" issue="920115">
 	    MaxLength not working with double quotes.
       </action>
+      <action type="add" dev="fgiust">
+	    New property <code>basic.msg.empty_list_row</code> which let you customize the message for an empty table
+	    while using <code>basic.empty.showtable = true</code>. This also allows you to customize the previously fixed "empty" css class.
+      </action>
+      
+      
   	</release>
   	
   	<release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
