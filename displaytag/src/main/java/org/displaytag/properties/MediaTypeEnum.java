@@ -2,7 +2,6 @@ package org.displaytag.properties;
 
 import java.util.Iterator;
 
-import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.collections.iterators.ArrayIterator;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
