@@ -29,14 +29,27 @@ public final class URLAssert
      */
     public static void assertEquals(String expectedUrl, String generatedUrl)
     {
+        // hack for missing base url
+        if (expectedUrl.startsWith("?"))
+        {
+            expectedUrl = "[empty]" + expectedUrl;
+        }
+        if (generatedUrl.startsWith("?"))
+        {
+            generatedUrl = "[empty]" + generatedUrl;
+        }
+
         // if urls contains parameters they could be written in different order
         String[] generatedSplit = StringUtils.split(generatedUrl, "?#");
         String[] expectedSplit = StringUtils.split(expectedUrl, "?#");
 
-        Assert.assertEquals(generatedSplit.length, expectedSplit.length);
+        Assert.assertEquals(
+            "Different number of tokens (base, parameters, anchor) in link.",
+            generatedSplit.length,
+            expectedSplit.length);
 
         // same base url
-        Assert.assertEquals(generatedSplit[0], expectedSplit[0]);
+        Assert.assertEquals("Wrong base url", generatedSplit[0], expectedSplit[0]);
 
         // same anchor #
         if (generatedSplit.length > 2)
