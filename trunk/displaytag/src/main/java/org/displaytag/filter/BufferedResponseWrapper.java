@@ -4,11 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 
 /**
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Revision$ ($Author$)
  * @since 1.0
  */
-public class BufferedResponseWrapper implements HttpServletResponse // don't extend j2ee 1.3 HttpServletResponseWrapper
+public class BufferedResponseWrapper extends HttpServletResponseWrapper implements HttpServletResponse
 {
 
     /**
@@ -39,24 +38,14 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
     private String contentType = "text/html";
 
     /**
-     * The wrapped response.
-     */
-    private HttpServletResponse response;
-
-    /**
      * @param httpServletResponse the response to wrap
      */
     public BufferedResponseWrapper(HttpServletResponse httpServletResponse)
     {
-        if (httpServletResponse == null)
-        {
-            throw new IllegalArgumentException("Response cannot be null");
-        }
-        this.response = httpServletResponse;
+        super(httpServletResponse);
         this.outputWriter = new CharArrayWriter();
         this.servletOutputStream = new SimpleServletOutputStream();
     }
-
 
     /**
      * If the app server sets the content-type of the response, it is sticky and you will not be able to change it.
@@ -75,7 +64,6 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
      */
     public void setContentType(String theContentType)
     {
-        // response.setContentType(type);
         this.contentType = theContentType;
     }
 
@@ -106,154 +94,6 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
         return this.servletOutputStream;
     }
 
-    // -- standard methods --
-
-    /**
-     * @see javax.servlet.ServletResponse#getCharacterEncoding()
-     */
-    public String getCharacterEncoding()
-    {
-        return response.getCharacterEncoding();
-    }
-
-    /**
-     * @see javax.servlet.ServletResponse#setContentLength(int)
-     */
-    public void setContentLength(int len)
-    {
-        response.setContentLength(len);
-    }
-
-    /**
-     * @see javax.servlet.ServletResponse#setBufferSize(int)
-     */
-    public void setBufferSize(int size)
-    {
-        response.setBufferSize(size);
-    }
-
-    /**
-     * @see javax.servlet.ServletResponse#getBufferSize()
-     */
-    public int getBufferSize()
-    {
-        return response.getBufferSize();
-    }
-
-    /**
-     * @see javax.servlet.ServletResponse#isCommitted()
-     */
-    public boolean isCommitted()
-    {
-        return response.isCommitted();
-    }
-
-    /**
-     * @see javax.servlet.ServletResponse#reset()
-     */
-    public void reset()
-    {
-        response.reset();
-    }
-
-    /**
-     * @see javax.servlet.ServletResponse#resetBuffer()
-     */
-    public void resetBuffer()
-    {
-        response.resetBuffer();
-    }
-
-    /**
-     * @see javax.servlet.ServletResponse#setLocale(java.util.Locale)
-     */
-    public void setLocale(Locale loc)
-    {
-        response.setLocale(loc);
-    }
-
-    /**
-     * @see javax.servlet.ServletResponse#getLocale()
-     */
-    public Locale getLocale()
-    {
-        return response.getLocale();
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#addCookie(javax.servlet.http.Cookie)
-     */
-    public void addCookie(Cookie cookie)
-    {
-        response.addCookie(cookie);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#containsHeader(java.lang.String)
-     */
-    public boolean containsHeader(String name)
-    {
-        return response.containsHeader(name);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#encodeURL(java.lang.String)
-     */
-    public String encodeURL(String url)
-    {
-        return response.encodeURL(url);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#encodeRedirectURL(java.lang.String)
-     */
-    public String encodeRedirectURL(String url)
-    {
-        return response.encodeRedirectURL(url);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#encodeUrl(java.lang.String)
-     * @deprecated
-     */
-    public String encodeUrl(String url)
-    {
-        return response.encodeUrl(url);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#encodeRedirectUrl(java.lang.String)
-     * @deprecated
-     */
-    public String encodeRedirectUrl(String url)
-    {
-        return response.encodeRedirectUrl(url);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#sendError(int, java.lang.String)
-     */
-    public void sendError(int sc, String msg) throws IOException
-    {
-        response.sendError(sc, msg);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#sendError(int)
-     */
-    public void sendError(int sc) throws IOException
-    {
-        response.sendError(sc);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#sendRedirect(java.lang.String)
-     */
-    public void sendRedirect(String location) throws IOException
-    {
-        response.sendRedirect(location);
-    }
-
     /**
      * @see javax.servlet.http.HttpServletResponse#setDateHeader(java.lang.String, long)
      */
@@ -262,7 +102,7 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
         // don't add headers that can prevent caching, export (opening in an external program) will not work
         if (!"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
         {
-            response.setDateHeader(name, date);
+            ((HttpServletResponse) getResponse()).setDateHeader(name, date);
         }
 
     }
@@ -275,7 +115,7 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
         // don't add headers that can prevent caching, export (opening in an external program) will not work
         if (!"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
         {
-            response.addDateHeader(name, date);
+            ((HttpServletResponse) getResponse()).addDateHeader(name, date);
         }
     }
 
@@ -289,7 +129,7 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
             && !"Pragma".equalsIgnoreCase(name) //$NON-NLS-1$
             && !"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
         {
-            response.setHeader(name, value);
+            ((HttpServletResponse) getResponse()).setHeader(name, value);
         }
     }
 
@@ -303,43 +143,9 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
             && !"Pragma".equalsIgnoreCase(name) //$NON-NLS-1$
             && !"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
         {
-            response.addHeader(name, value);
+            ((HttpServletResponse) getResponse()).addHeader(name, value);
         }
     }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#setIntHeader(java.lang.String, int)
-     */
-    public void setIntHeader(String name, int value)
-    {
-        response.setIntHeader(name, value);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#addIntHeader(java.lang.String, int)
-     */
-    public void addIntHeader(String name, int value)
-    {
-        response.addIntHeader(name, value);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#setStatus(int)
-     */
-    public void setStatus(int sc)
-    {
-        response.setStatus(sc);
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#setStatus(int, java.lang.String)
-     * @deprecated
-     */
-    public void setStatus(int sc, String sm)
-    {
-        response.setStatus(sc, sm);
-    }
-
 
     /**
      * Get the String representation.
@@ -349,7 +155,6 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
     {
         return this.outputWriter.toString() + this.servletOutputStream.toString();
     }
-
 
     /**
      * A simple implementation of ServletOutputStream.
