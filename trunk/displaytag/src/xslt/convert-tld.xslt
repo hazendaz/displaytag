@@ -27,7 +27,7 @@
 -->
             <name><xsl:value-of select="tld:name"/></name>
             <tagclass><xsl:value-of select="tld:tag-class"/></tagclass>
-            <teiclass><xsl:value-of select="tld:tei-class"/></teiclass>
+            <xsl:if test="tld:tei-class"><teiclass><xsl:value-of select="tld:tei-class"/></teiclass></xsl:if>
             <bodycontent><xsl:value-of select="tld:body-content"/></bodycontent>
             <info><xsl:value-of select="tld:description"/></info>
             <xsl:apply-templates select="tld:attribute"/>
