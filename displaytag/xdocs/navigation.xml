@@ -10,7 +10,6 @@
 
 		<menu name="displaytag">
 			<item name="Status" href="/status.html" />
-			<item name="License" href="/license.html" />
 			<item name="Feature Request" href="/feature_request.html" />
 		</menu>
 
