@@ -342,7 +342,8 @@ public class TableModel
                             this.sortedColumn,
                             sortedHeaderCell.getSortProperty(),
                             getTableDecorator(),
-                            this.sortOrderAscending));
+                            this.sortOrderAscending,
+                            sortedHeaderCell.getComparator()));
                     }
                     else
                     {
@@ -350,7 +351,8 @@ public class TableModel
                             this.sortedColumn,
                             sortedHeaderCell.getBeanPropertyName(),
                             getTableDecorator(),
-                            this.sortOrderAscending));
+                            this.sortOrderAscending,
+                            sortedHeaderCell.getComparator()));
                     }
                 }
             }

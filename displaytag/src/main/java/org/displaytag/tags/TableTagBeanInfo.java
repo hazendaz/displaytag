@@ -102,7 +102,7 @@ public class TableTagBeanInfo extends SimpleBeanInfo
                 proplist.add(new PropertyDescriptor("name", //$NON-NLS-1$
                     TableTag.class, null, "setName")); //$NON-NLS-1$ 
             }
-            catch (Throwable e)
+            catch (ClassNotFoundException e)
             {
                 // jsp 1.1, can't use a setter with an Object parameter
                 proplist.add(new PropertyDescriptor("name", //$NON-NLS-1$

@@ -247,6 +247,15 @@
             <rtexprvalue>true</rtexprvalue>
             <description>title of the column (text for the th cell)</description>
         </attribute>
+	    <attribute>
+	        <name>comparator</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	        <description>
+	            The classname of comparator to use when sorting this column, or the comparator itself.
+	            Defaults to the DefaultComparator.
+	        </description>
+	    </attribute>	    
         <attribute>
             <name>titleKey</name>
             <required>false</required>
