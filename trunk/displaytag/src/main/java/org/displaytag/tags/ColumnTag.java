@@ -397,7 +397,7 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * adds a css class to the class attribute (html class suports multiple values).
+     * Adds a css class to the class attribute (html class suports multiple values).
      * @param value attribute value
      */
     public void addClass(String value)

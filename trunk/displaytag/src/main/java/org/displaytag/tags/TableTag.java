@@ -1080,8 +1080,7 @@ public class TableTag extends HtmlTableTag
         String css = this.properties.getCssTable();
         if (StringUtils.isNotBlank(css))
         {
-            //@todo css should be added and not overwrite an existing class
-            this.setClass(css);
+            this.addClass(css);
         }
 
         // open table
@@ -1247,6 +1246,12 @@ public class TableTag extends HtmlTableTag
             // get the header cell
             HeaderCell headerCell = (HeaderCell) iterator.next();
 
+            String cssSortable = this.properties.getCssSortable();
+            if (StringUtils.isNotBlank(cssSortable))
+            {
+                headerCell.addHeaderClass(cssSortable);
+            }
+            
             // if sorted add styles
             if (headerCell.isAlreadySorted())
             {
