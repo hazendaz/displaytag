@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.Messages;
 
 
 /**
@@ -85,7 +86,8 @@ public class DefaultRequestHelper implements RequestHelper
             catch (NumberFormatException e)
             {
                 // It's ok to ignore, simply return null
-                log.debug("Invalid \"" + key + "\" parameter from request: value=\"" + value + "\"");
+                log.debug(Messages.getString("RequestHelper.invalidparameter", //$NON-NLS-1$
+                    new Object[]{key, value}));
             }
         }
 

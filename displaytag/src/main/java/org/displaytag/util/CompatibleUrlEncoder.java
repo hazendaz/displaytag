@@ -3,6 +3,8 @@ package org.displaytag.util;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 
+import org.displaytag.Messages;
+
 
 /**
  * Wrapper class to choose between the java 1.4 implementation of UrlEncoder.encode(), when available, or the java 1.3
@@ -69,10 +71,8 @@ public final class CompatibleUrlEncoder
             }
             catch (Throwable ex)
             {
-                throw new RuntimeException("System error invoking URLEncoder.encode() by reflection with encoding ["
-                    + encoding
-                    + "]. "
-                    + ex.getMessage());
+                throw new RuntimeException(Messages.getString("CompatibleUrlEncoder.errorinvoking", //$NON-NLS-1$
+                    new Object[]{encoding, ex.getMessage()}));
             }
         }
 
@@ -80,5 +80,4 @@ public final class CompatibleUrlEncoder
         return URLEncoder.encode(url);
 
     }
-
 }

@@ -312,8 +312,8 @@ public class SmartListHelper
 
         int currentIndex = this.currentPage;
         int count = this.pageCount;
-        int startPage = 1;
-        int endPage = maxPages;
+        int startPage;
+        int endPage;
 
         Pagination pagination = new Pagination(baseHref, pageParameter);
 

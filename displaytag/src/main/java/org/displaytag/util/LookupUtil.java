@@ -124,10 +124,10 @@ public final class LookupUtil
         try
         {
 
-            int indexOfINDEXEDDELIM = -1;
-            int indexOfMAPPEDDELIM = -1;
-            int indexOfMAPPEDDELIM2 = -1;
-            int indexOfNESTEDDELIM = -1;
+            int indexOfINDEXEDDELIM;
+            int indexOfMAPPEDDELIM;
+            int indexOfMAPPEDDELIM2;
+            int indexOfNESTEDDELIM;
             while (true)
             {
 

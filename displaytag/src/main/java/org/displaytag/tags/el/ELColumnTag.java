@@ -379,82 +379,82 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
         if (autoLinkExpr != null)
         {
-            super.setAutolink(eval.evalBoolean("autolink", autoLinkExpr));
+            super.setAutolink(eval.evalBoolean("autolink", autoLinkExpr)); //$NON-NLS-1$
         }
         if (classExpr != null)
         {
-            super.setClass(eval.evalString("class", classExpr));
+            super.setClass(eval.evalString("class", classExpr)); //$NON-NLS-1$
         }
         if (decoratorExpr != null)
         {
-            super.setDecorator(eval.evalString("decorator", decoratorExpr));
+            super.setDecorator(eval.evalString("decorator", decoratorExpr)); //$NON-NLS-1$
         }
         if (groupExpr != null)
         {
-            super.setGroup(eval.evalInt("group", groupExpr));
+            super.setGroup(eval.evalInt("group", groupExpr)); //$NON-NLS-1$
         }
         if (headerClassExpr != null)
         {
-            super.setHeaderClass(eval.evalString("headerClass", headerClassExpr));
+            super.setHeaderClass(eval.evalString("headerClass", headerClassExpr)); //$NON-NLS-1$
         }
         if (hrefExpr != null)
         {
-            super.setHref(eval.evalString("href", hrefExpr));
+            super.setHref(eval.evalString("href", hrefExpr)); //$NON-NLS-1$
         }
         if (maxLengthExpr != null)
         {
-            super.setMaxLength(eval.evalInt("maxLength", maxLengthExpr));
+            super.setMaxLength(eval.evalInt("maxLength", maxLengthExpr)); //$NON-NLS-1$
         }
         if (maxWordsExpr != null)
         {
-            super.setMaxWords(eval.evalInt("maxWords", maxWordsExpr));
+            super.setMaxWords(eval.evalInt("maxWords", maxWordsExpr)); //$NON-NLS-1$
         }
         if (mediaExpr != null)
         {
-            super.setMedia(eval.evalString("media", mediaExpr));
+            super.setMedia(eval.evalString("media", mediaExpr)); //$NON-NLS-1$
         }
         if (nullsExpr != null)
         {
-            super.setNulls(eval.evalBoolean("nulls", nullsExpr));
+            super.setNulls(eval.evalBoolean("nulls", nullsExpr)); //$NON-NLS-1$
         }
         if (paramIdExpr != null)
         {
-            super.setParamId(eval.evalString("paramId", paramIdExpr));
+            super.setParamId(eval.evalString("paramId", paramIdExpr)); //$NON-NLS-1$
         }
         if (paramNameExpr != null)
         {
             // todo should be handled the same way the "name" table attribute is handled, no double evaluation
-            super.setParamName(eval.evalString("paramName", paramNameExpr));
+            super.setParamName(eval.evalString("paramName", paramNameExpr)); //$NON-NLS-1$
         }
         if (paramPropertyExpr != null)
         {
-            super.setParamProperty(eval.evalString("paramProperty", paramPropertyExpr));
+            super.setParamProperty(eval.evalString("paramProperty", paramPropertyExpr)); //$NON-NLS-1$
         }
         if (paramScopeExpr != null)
         {
-            super.setParamScope(eval.evalString("paramScope", paramScopeExpr));
+            super.setParamScope(eval.evalString("paramScope", paramScopeExpr)); //$NON-NLS-1$
         }
         if (sortableExpr != null)
         {
-            super.setSortable(eval.evalBoolean("sortable", sortableExpr));
+            super.setSortable(eval.evalBoolean("sortable", sortableExpr)); //$NON-NLS-1$
         }
         if (styleExpr != null)
         {
-            super.setStyle(eval.evalString("style", styleExpr));
+            super.setStyle(eval.evalString("style", styleExpr)); //$NON-NLS-1$
         }
         if (urlExpr != null)
         {
-            super.setUrl(eval.evalString("url", urlExpr));
+            super.setUrl(eval.evalString("url", urlExpr)); //$NON-NLS-1$
         }
         if (propertyExpr != null)
         {
-            String property = eval.evalString("property", propertyExpr);
+            String property = eval.evalString("property", propertyExpr); //$NON-NLS-1$
             super.setProperty(property);
             this.parentPropertyExpr = property;
         }
         if (titleExpr != null)
         {
-            String title = eval.evalString("title", titleExpr);
+            String title = eval.evalString("title", titleExpr); //$NON-NLS-1$
             super.setTitle(title);
             this.parentTitleExpr = title;
         }

@@ -61,11 +61,11 @@ public class ELSetPropertyTag extends SetPropertyTag
     {
         ExpressionEvaluator eval = new ExpressionEvaluator(this, pageContext);
 
-        super.setName(eval.evalString("name", nameExpr));
+        super.setName(eval.evalString("name", nameExpr)); //$NON-NLS-1$
 
         if (valueExpr != null)
         {
-            super.setValue(eval.evalString("value", valueExpr));
+            super.setValue(eval.evalString("value", valueExpr)); //$NON-NLS-1$
         }
     }
 

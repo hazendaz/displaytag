@@ -37,7 +37,7 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
     /**
      * The contentType.
      */
-    private String contentType = "text/html"; //$NON-NLS-1$
+    private String contentType;
 
     /**
      * The wrapped response.
@@ -49,10 +49,6 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
      */
     public BufferedResponseWrapper12(HttpServletResponse httpServletResponse)
     {
-        if (httpServletResponse == null)
-        {
-            throw new IllegalArgumentException("Response cannot be null");
-        }
         this.response = httpServletResponse;
         this.outputWriter = new CharArrayWriter();
         this.servletOutputStream = new SimpleServletOutputStream();
