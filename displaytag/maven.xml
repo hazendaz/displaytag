@@ -2,7 +2,7 @@
 <project default="rebuild-all" xmlns:m="maven" xmlns:j="jelly:core" xmlns:u="jelly:util">
 
 	<goal name="rebuild-all">
-		<j:set var="goals" value="pom,clean,jar:jar,war:war,site:generate" />
+		<j:set var="goals" value="pom,clean,jar:jar,war:war,site:generate,zip-distribution" />
 		<mkdir dir="${maven.build.dir}" />
 		<u:tokenize var="goals" delim=",">${goals}</u:tokenize>
 		<j:forEach items="${goals}" var="goal" indexVar="goalNumber">
@@ -12,7 +12,7 @@
 	</goal>
 
 
-    <preGoal name="xdoc:jelly-transform">
+  <preGoal name="xdoc:jelly-transform">
 		<!-- preprocess faq.fml -->
         <attainGoal name="faq" />
 		<!-- create tag reference -->
@@ -22,14 +22,14 @@
 
 	<preGoal name="test:test">
         <!-- generated tld should be ready before tests -->
-		<!-- create 1.1 dtd -->
+        <!-- create 1.1 dtd -->
         <attainGoal name="taglib:convert-12to11" />
         
         <!-- copy 1.2 tld -->
         <copy file="${maven.src.dir}/tld/displaytag-12.tld"
             tofile="${maven.build.dir}/tld/displaytag-12.tld" />
 	
-	    <!-- add tld to taglib jar -->
+	      <!-- add tld to taglib jar -->
         <echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to file ${maven.build.dest}/META-INF/displaytag.tld" />
         <copy file="${maven.build.dir}/tld/displaytag-11.tld"
             tofile="${maven.build.dest}/META-INF/displaytag.tld" />
@@ -41,13 +41,11 @@
 
 	<!-- copy tld for example webapp -->
 	<postGoal name="war:webapp">
-
 		<echo message="deleting ${maven.war.webapp.dir}/META-INF" />
 		<delete file="${maven.war.webapp.dir}/META-INF" />
 
 		<echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to dir ${maven.war.webapp.dir}/${maven.war.tld.dir}" />
 		<copy file="${maven.build.dir}/tld/displaytag-11.tld" todir="${maven.war.webapp.dir}/${maven.war.tld.dir}" />
-
 	</postGoal>
 
     <!-- prepares the source zip file for distribution -->
@@ -114,5 +112,13 @@
     <attainGoal name="pdf"/>
     <copy todir="${maven.build.dir}/docs" file="${maven.build.dir}/pdf/displaytag.pdf" />
   </postGoal>
+  
+  <goal name="nightly">
+    <attainGoal name="rebuild-all"/>
+    <copy todir="${maven.build.dir}/docs/nightly">
+			<fileset dir="${maven.build.dir}/dist"/>
+    </copy>
+    <attainGoal name="site:sshdeploy"/>
+  </goal>
 
 </project>
