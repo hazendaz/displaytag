@@ -14,7 +14,7 @@ import org.apache.commons.beanutils.PropertyUtils;
  * @author mraible
  * @version $Revision$ ($Author$)
  **/
-public abstract class Decorator
+abstract class Decorator
 {
 
     /**
