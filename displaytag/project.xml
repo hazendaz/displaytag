@@ -12,6 +12,12 @@
     <url>http://sourceforge.net</url>
     <logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=2</logo>
   </organization>
+  <licenses> 
+    <license> 
+      <name>Artistic License</name> 
+      <url>http://displaytag.sourceforge.net/license.html</url>
+    </license> 
+  </licenses> 
   <inceptionYear>2002</inceptionYear>
   <package>org.displaytag</package>
   <logo>/images/displaytag.png</logo>
