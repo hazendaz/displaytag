@@ -88,7 +88,7 @@
 				<source>
  &lt;filter&gt;
   &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
-  &lt;filter-class&gt;org.displaytag.util.ResponseOverrideFilter&lt;/filter-class&gt;
+  &lt;filter-class&gt;org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class&gt;
   &lt;/filter&gt;
   </source>
 					And add mappings for the pages that you will intercept, for example:
