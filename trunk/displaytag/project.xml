@@ -1,68 +1,52 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project>
-
   <pomVersion>3</pomVersion>
   <id>displaytag</id>
   <groupId>displaytag</groupId>
-  <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
   <currentVersion>1.0-b3-SNAPSHOT</currentVersion>
-
   <organization>
     <name>sourceforge</name>
     <identifier>sourceforge</identifier>
     <url>http://sourceforge.net</url>
-    <logo>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=2</logo>
+    <logo>http://sourceforge.net/sflogo.php?group_id=${sf.groupid}&amp;type=2</logo>
   </organization>
-
   <inceptionYear>2002</inceptionYear>
   <package>org.displaytag</package>
   <logo>/images/displaytag.png</logo>
-  <description>
-    The display tag library is an open source suite of custom tags that provide high level web presentation patterns
-    (like tables, tabs, templates, inspectors, trees, etc...) which will work in a MVC model, and provide a significant
-    amount of functionality while still being simple and straight-forward to use.
-  </description>
-  <shortDescription>
-    Display tag library - open source suite of custom tags that provide high level web presentation patterns
-  </shortDescription>
-
+  <description>The display tag library is an open source suite of custom tags that provide high level web presentation patterns (like tables, tabs, templates, inspectors, trees, etc...) which will work in a MVC model, and provide a significant amount of functionality while still being simple and straight-forward to use.</description>
+  <shortDescription>Display tag library - open source suite of custom tags that provide high level web presentation patterns</shortDescription>
   <url>http://displaytag.sourceforge.net</url>
-  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=73068</issueTrackingUrl>
+  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${sf.groupid}</issueTrackingUrl>
   <siteAddress>displaytag.sourceforge.net</siteAddress>
   <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
-  <distributionDirectory>http://sourceforge.net/project/showfiles.php?group_id=73068</distributionDirectory>
-
+  <distributionDirectory>http://sourceforge.net/project/showfiles.php?group_id=${sf.groupid}</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag2</connection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag2/</url>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/${pom.id}/diplaytag2</connection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/${pom.id}/diplaytag2/</url>
   </repository>
-
   <!-- any mailing lists for the project -->
   <mailingLists>
     <mailingList>
-      <name>Displaytag User Mailing list</name>
-
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</unsubscribe>
-
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-user</archive>
+      <name>${pom.name}  User Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-user</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-user</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.id}-user</archive>
     </mailingList>
     <mailingList>
-      <name>Displaytag Developer Mailing list</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-devel</archive>
+      <name>${pom.name} Developer Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-devel</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-devel</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.id}-devel</archive>
     </mailingList>
     <mailingList>
-      <name>Displaytag Cvs Mailing list</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</unsubscribe>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-cvs</archive>
+      <name>${pom.name} Cvs Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-cvs</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.id}-cvs</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.id}-cvs</archive>
     </mailingList>
   </mailingLists>
-
-  <!-- who the developers are for the project -->
+  <!-- developers for the project -->
   <developers>
     <developer>
       <name>Matt Raible</name>
@@ -124,18 +108,17 @@
       </roles>
       <timezone />
     </developer>
-     <developer>
-        <name>Andy Pruitt</name>
-        <id>rapruitt</id>
-        <email>rapruitt AT users.sourceforge.net</email>
-        <organization>Sourceforge</organization>
-        <roles>
-          <role>Java Developer</role>
-        </roles>
-        <timezone>-6</timezone>
-      </developer>
+    <developer>
+      <name>Andy Pruitt</name>
+      <id>rapruitt</id>
+      <email>rapruitt AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
   </developers>
-
   <contributors>
     <contributor>
       <name>Didier Dubois</name>
@@ -145,7 +128,6 @@
       <timezone />
     </contributor>
   </contributors>
-
   <!-- jar files the project is dependent on -->
   <dependencies>
     <dependency>
@@ -205,56 +187,48 @@
       <id>junit</id>
       <version>3.8.1</version>
     </dependency>
-    
     <dependency>
       <id>cactus</id>
       <version>13-1.6dev</version>
     </dependency>
     <!-- required by cactus -->
-	<dependency>
+    <dependency>
       <groupId>aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
       <version>1.1.1</version>
     </dependency>
-    
     <!-- plugin dependencies -->
-	<dependency>
-	  <groupId>maven</groupId>
-	  <artifactId>maven-checkstyle-plugin</artifactId>
-	  <version>2.2</version>
-	  <type>plugin</type>
-	</dependency>
-
-	<dependency>
-	  <groupId>maven</groupId>
-	  <artifactId>maven-statcvs-plugin</artifactId>
-	  <version>2.0</version>
-	  <type>plugin</type>
-	</dependency>
-
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven-checkstyle-plugin</artifactId>
+      <version>2.2</version>
+      <type>plugin</type>
+    </dependency>
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven-statcvs-plugin</artifactId>
+      <version>2.0</version>
+      <type>plugin</type>
+    </dependency>
   </dependencies>
-
   <!-- build information for the project -->
   <build>
     <sourceDirectory>src/java</sourceDirectory>
-    
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
     <unitTest>
       <includes>
         <include>**/*Test.java</include>
       </includes>
     </unitTest>
-    
     <resources>
       <resource>
-        <directory>${basedir}/src/java</directory>
+        <directory>src/java</directory>
         <includes>
           <include>**/*.properties</include>
         </includes>
       </resource>
     </resources>
   </build>
-
   <!-- List of activated reports -->
   <reports>
     <report>maven-license-plugin</report>
@@ -273,7 +247,6 @@
     <report>maven-developer-activity-plugin</report>
     <report>maven-statcvs-plugin</report>
     <report>maven-linkcheck-plugin</report>
-    <!--<report>maven-sitevalidator-plugin</report>-->
   </reports>
-
 </project>
+
