@@ -34,6 +34,7 @@ import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.exception.WrappedRuntimeException;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
+import org.displaytag.util.DefaultRequestHelperFactory;
 import org.displaytag.util.ReflectHelper;
 import org.displaytag.util.RequestHelperFactory;
 
@@ -964,6 +965,12 @@ public final class TableProperties implements Cloneable
     {
         Object loadedObject = getClassPropertyInstance(PROPERTY_CLASS_REQUESTHELPERFACTORY);
 
+        // should not be null, but avoid errors just in case... see DISPL-148
+        if (loadedObject == null)
+        {
+            return new DefaultRequestHelperFactory();
+        }
+
         try
         {
             return (RequestHelperFactory) loadedObject;
@@ -1072,6 +1079,12 @@ public final class TableProperties implements Cloneable
     private Object getClassPropertyInstance(String key) throws FactoryInstantiationException
     {
         String className = getProperty(key);
+
+        // shouldn't be null, but better check it
+        if (className == null)
+        {
+            return null;
+        }
 
         try
         {
