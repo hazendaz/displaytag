@@ -65,7 +65,7 @@ public class CsvView extends BaseExportView
      * Escaping for csv format.
      * <ul>
      * <li>Quotes inside quoted strings are escaped with a /</li>
-     * <li>Fields containings newlines or , are surrounded by ""</li>
+     * <li>Fields containings newlines or , are surrounded by "</li>
      * </ul>
      * Note this is the standard CVS format and it's not handled well by excel.
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)

@@ -24,12 +24,12 @@ public class WpsRequestHelper extends DefaultRequestHelper
     /**
      * Action name added to the portlet URI.
      */
-    private static final String REFRESH_ACTION = "refresh";
+    private static final String REFRESH_ACTION = "refresh"; //$NON-NLS-1$
 
     /**
      * Page context attribute containing the portlet response object.
      */
-    private static final String PORTLET_RESPONSE = "portletResponse";
+    private static final String PORTLET_RESPONSE = "portletResponse"; //$NON-NLS-1$
 
     /**
      * jsp page context.
@@ -74,7 +74,7 @@ public class WpsRequestHelper extends DefaultRequestHelper
         portletURI.addAction(REFRESH_ACTION + Math.random());
 
         // it seems you need to add at least one parameter to the uri, if you want standard parameters to be catched...
-        portletURI.addParameter("init", "init");
+        portletURI.addParameter("init", "init"); //$NON-NLS-1$ //$NON-NLS-2$
 
         return portletURI.toString();
     }

@@ -107,7 +107,7 @@ public class ResponseOverrideFilter implements Filter
         String characterEncoding = resp.getCharacterEncoding();
         if (characterEncoding != null)
         {
-            characterEncoding = "; charset=" + characterEncoding;
+            characterEncoding = "; charset=" + characterEncoding; //$NON-NLS-1$
         }
         if (buf != null && buf.length() > 0)
         {
@@ -126,7 +126,8 @@ public class ResponseOverrideFilter implements Filter
                 {
                     log.debug("Filename specified as " + filename);
                 }
-                resp.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+                resp.setHeader("Content-Disposition", //$NON-NLS-1$
+                    "attachment; filename=\"" + filename + "\""); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         else
@@ -138,7 +139,7 @@ public class ResponseOverrideFilter implements Filter
 
         if (contentType != null)
         {
-            if (contentType.indexOf("charset") > -1)
+            if (contentType.indexOf("charset") > -1) //$NON-NLS-1$
             {
                 // charset is already specified (see #921811)
                 servletResponse.setContentType(contentType);

@@ -34,7 +34,7 @@ public abstract class TemplateTag extends BodyTagSupport
         }
         catch (IOException e)
         {
-            throw new JspTagException("Writer Exception: " + e.getMessage());
+            throw new JspTagException("Writer Exception: " + e.getMessage()); //$NON-NLS-1$
         }
     }
 
@@ -78,24 +78,24 @@ public abstract class TemplateTag extends BodyTagSupport
         // this is for compatibility with the previous version, probably default should be PAGE
         int scope = PageContext.REQUEST_SCOPE;
 
-        if (expression.startsWith("pageScope."))
+        if (expression.startsWith("pageScope.")) //$NON-NLS-1$
         {
             scope = PageContext.PAGE_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
         }
-        else if (expression.startsWith("requestScope."))
+        else if (expression.startsWith("requestScope.")) //$NON-NLS-1$
         {
             scope = PageContext.REQUEST_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
 
         }
-        else if (expression.startsWith("sessionScope."))
+        else if (expression.startsWith("sessionScope.")) //$NON-NLS-1$
         {
             scope = PageContext.SESSION_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
 
         }
-        else if (expression.startsWith("applicationScope."))
+        else if (expression.startsWith("applicationScope.")) //$NON-NLS-1$
         {
             scope = PageContext.APPLICATION_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);

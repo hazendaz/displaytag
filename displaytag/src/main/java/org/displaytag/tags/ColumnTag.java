@@ -547,7 +547,7 @@ public class ColumnTag extends BodyTagSupport
 
                 if (value == null && this.nulls)
                 {
-                    value = "";
+                    value = TagConstants.EMPTY_STRING;
                 }
 
                 cellValue = value;
@@ -714,26 +714,25 @@ public class ColumnTag extends BodyTagSupport
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            //
-            .append("bodyContent", this.bodyContent)
-            .append("group", this.group)
-            .append("maxLength", this.maxLength)
-            .append("decorator", this.decorator)
-            .append("href", this.href)
-            .append("title", this.title)
-            .append("paramScope", this.paramScope)
-            .append("property", this.property)
-            .append("paramProperty", this.paramProperty)
-            .append("headerAttributeMap", this.headerAttributeMap)
-            .append("paramName", this.paramName)
-            .append("autolink", this.autolink)
-            .append("nulls", this.nulls)
-            .append("maxWords", this.maxWords)
-            .append("attributeMap", this.attributeMap)
-            .append("sortable", this.sortable)
-            .append("paramId", this.paramId)
-            .append("alreadySorted", this.alreadySorted)
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //
+            .append("bodyContent", this.bodyContent) //$NON-NLS-1$
+            .append("group", this.group) //$NON-NLS-1$
+            .append("maxLength", this.maxLength) //$NON-NLS-1$
+            .append("decorator", this.decorator) //$NON-NLS-1$
+            .append("href", this.href) //$NON-NLS-1$
+            .append("title", this.title) //$NON-NLS-1$
+            .append("paramScope", this.paramScope) //$NON-NLS-1$
+            .append("property", this.property) //$NON-NLS-1$
+            .append("paramProperty", this.paramProperty) //$NON-NLS-1$
+            .append("headerAttributeMap", this.headerAttributeMap) //$NON-NLS-1$
+            .append("paramName", this.paramName) //$NON-NLS-1$
+            .append("autolink", this.autolink) //$NON-NLS-1$
+            .append("nulls", this.nulls) //$NON-NLS-1$
+            .append("maxWords", this.maxWords) //$NON-NLS-1$
+            .append("attributeMap", this.attributeMap) //$NON-NLS-1$
+            .append("sortable", this.sortable) //$NON-NLS-1$
+            .append("paramId", this.paramId) //$NON-NLS-1$
+            .append("alreadySorted", this.alreadySorted) //$NON-NLS-1$
             .toString();
     }
 }

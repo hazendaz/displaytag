@@ -294,7 +294,7 @@ public class HeaderCell
             return StringUtils.capitalize(this.beanPropertyName);
         }
 
-        return "";
+        return TagConstants.EMPTY_STRING;
     }
 
     /**

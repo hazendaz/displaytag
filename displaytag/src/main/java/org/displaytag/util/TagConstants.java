@@ -239,6 +239,12 @@ public final class TagConstants
     public static final String AMPERSAND = "&amp;"; //$NON-NLS-1$
 
     /**
+     * Empty String "". Used as constant mainly to avoid useless i18n checks and to track use of empty strings
+     * (sometimes index of bad code).
+     */
+    public static final String EMPTY_STRING = ""; //$NON-NLS-1$
+
+    /**
      * utility class - don't instantiate.
      */
     private TagConstants()

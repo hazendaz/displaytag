@@ -1414,7 +1414,7 @@ public class TableTag extends HtmlTableTag
         //  Start comparing the value we received, along with the grouping index.
         //  if no matching value is found in the previous row then return the value.
         //  if a matching value is found then this value should not get printed out
-        //  so return ""
+        //  so return an empty String
         if (this.previousRow.containsKey(new Integer(group)))
         {
             for (int j = 1; j <= group; j++)
@@ -1436,8 +1436,8 @@ public class TableTag extends HtmlTableTag
         }
 
         // There is corresponding value in the previous row
-        // this value doesn't need to be printed, return ""
-        return "";
+        // this value doesn't need to be printed, return an empty String
+        return TagConstants.EMPTY_STRING;
     }
 
     /**
@@ -1577,7 +1577,7 @@ public class TableTag extends HtmlTableTag
 
             return buffer.toString();
         }
-        return "";
+        return TagConstants.EMPTY_STRING;
     }
 
     /**

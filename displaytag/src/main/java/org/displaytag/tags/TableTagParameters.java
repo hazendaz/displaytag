@@ -11,48 +11,48 @@ public final class TableTagParameters
     /**
      * name of the parameter specifying the current sorted column index.
      */
-    public static final String PARAMETER_SORT = "s";
+    public static final String PARAMETER_SORT = "s"; //$NON-NLS-1$
 
     /**
      * name of the parameter specifying the previous sorted column index.
      */
-    public static final String PARAMETER_PREVIOUSSORT = "xs";
+    public static final String PARAMETER_PREVIOUSSORT = "xs"; //$NON-NLS-1$
 
     /**
      * name of the parameter specifying the current page number.
      */
-    public static final String PARAMETER_PAGE = "p";
+    public static final String PARAMETER_PAGE = "p"; //$NON-NLS-1$
 
     /**
      * name of the parameter specifying the current sorting order.
      */
-    public static final String PARAMETER_ORDER = "o";
+    public static final String PARAMETER_ORDER = "o"; //$NON-NLS-1$
 
     /**
      * name of the parameter specifying the previous sorting order.
      */
-    public static final String PARAMETER_PREVIOUSORDER = "xo";
+    public static final String PARAMETER_PREVIOUSORDER = "xo"; //$NON-NLS-1$
 
     /**
      * name of the parameter specifying the export type.
      */
-    public static final String PARAMETER_EXPORTTYPE = "e";
+    public static final String PARAMETER_EXPORTTYPE = "e"; //$NON-NLS-1$
 
     /**
      * name of the <strong>fixed </strong> parameter that will be added to the url if exporting is requested for any of
      * the display table in the page. Used by the export filter to understand when output should not be flushed.
      */
-    public static final String PARAMETER_EXPORTING = "6578706f7274";
+    public static final String PARAMETER_EXPORTING = "6578706f7274"; //$NON-NLS-1$
 
     /**
      * sort only the displayed page.
      */
-    public static final String SORT_AMOUNT_PAGE = "page";
+    public static final String SORT_AMOUNT_PAGE = "page"; //$NON-NLS-1$
 
     /**
      * sort the full list.
      */
-    public static final String SORT_AMOUNT_LIST = "list";
+    public static final String SORT_AMOUNT_LIST = "list"; //$NON-NLS-1$
 
     /**
      * css class added to empty tables.

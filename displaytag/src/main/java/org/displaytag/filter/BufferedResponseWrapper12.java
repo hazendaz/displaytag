@@ -37,7 +37,7 @@ public class BufferedResponseWrapper12 implements HttpServletResponse // don't e
     /**
      * The contentType.
      */
-    private String contentType = "text/html";
+    private String contentType = "text/html"; //$NON-NLS-1$
 
     /**
      * The wrapped response.

@@ -85,13 +85,13 @@ public class ListObject extends Object
         String firstName = RandomSampleUtil.getRandomWord();
         String lastName = RandomSampleUtil.getRandomWord();
 
-        this.name = StringUtils.capitalize(firstName) + " " + StringUtils.capitalize(lastName);
+        this.name = StringUtils.capitalize(firstName) + " " + StringUtils.capitalize(lastName); //$NON-NLS-1$
 
-        this.email = firstName + "-" + lastName + "@" + RandomSampleUtil.getRandomWord() + ".com";
+        this.email = firstName + "-" + lastName + "@" + RandomSampleUtil.getRandomWord() + ".com"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
         this.date = RandomSampleUtil.getRandomDate();
 
-        this.description = RandomSampleUtil.getRandomWord() + " " + RandomSampleUtil.getRandomWord() + "...";
+        this.description = RandomSampleUtil.getRandomWord() + " " + RandomSampleUtil.getRandomWord() + "..."; //$NON-NLS-1$ //$NON-NLS-2$
 
         this.longDescription = RandomSampleUtil.getRandomSentence(10);
 
@@ -103,7 +103,7 @@ public class ListObject extends Object
         this.subList.add(new SubListItem());
         this.subList.add(new SubListItem());
 
-        this.url = "http://www." + lastName + ".org/";
+        this.url = "http://www." + lastName + ".org/"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -157,7 +157,7 @@ public class ListObject extends Object
      */
     public Date getDate()
     {
-        return this.date;
+        return (Date) this.date.clone();
     }
 
     /**
@@ -220,7 +220,7 @@ public class ListObject extends Object
      */
     public String toString()
     {
-        return "ListObject(" + this.id + ")";
+        return "ListObject(" + this.id + ")"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -229,30 +229,22 @@ public class ListObject extends Object
      */
     public String toDetailedString()
     {
-        return "ID:          "
-            + this.id
-            + "\n"
-            + "Name:        "
-            + this.name
-            + "\n"
-            + "Email:       "
-            + this.email
-            + "\n"
-            + "Date:        "
-            + this.date
-            + "\n"
-            + "Money:       "
-            + this.money
-            + "\n"
-            + "Description: "
-            + this.description
-            + "\n"
-            + "Status:      "
-            + this.status
-            + "\n"
-            + "URL:         "
-            + this.url
-            + "\n";
+        return "ID:          " //$NON-NLS-1$
+            + this.id + "\n" //$NON-NLS-1$
+            + "Name:        " //$NON-NLS-1$
+            + this.name + "\n" //$NON-NLS-1$
+            + "Email:       " //$NON-NLS-1$
+            + this.email + "\n" //$NON-NLS-1$
+            + "Date:        " //$NON-NLS-1$
+            + this.date + "\n" //$NON-NLS-1$
+            + "Money:       " //$NON-NLS-1$
+            + this.money + "\n" //$NON-NLS-1$
+            + "Description: " //$NON-NLS-1$
+            + this.description + "\n" //$NON-NLS-1$
+            + "Status:      " //$NON-NLS-1$
+            + this.status + "\n" //$NON-NLS-1$
+            + "URL:         " //$NON-NLS-1$
+            + this.url + "\n"; //$NON-NLS-1$
     }
 
     /**
@@ -313,8 +305,8 @@ public class ListObject extends Object
          */
         public String toString()
         {
-            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("name", this.itemName).append(
-                "email",
+            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("name", this.itemName).append( //$NON-NLS-1$
+                "email", //$NON-NLS-1$
                 this.itemEmail).toString();
         }
     }

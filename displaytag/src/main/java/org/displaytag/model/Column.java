@@ -106,7 +106,7 @@ public class Column
         {
             if (!this.header.getShowNulls())
             {
-                object = "";
+                object = TagConstants.EMPTY_STRING;
             }
         }
 
@@ -148,7 +148,7 @@ public class Column
         Object choppedValue = getValue(true);
 
         boolean isChopped = false;
-        String fullValue = "";
+        String fullValue = TagConstants.EMPTY_STRING;
         if (choppedValue != null)
         {
             fullValue = choppedValue.toString();

@@ -43,7 +43,7 @@ public class HtmlAttributeMap extends HashMap
         // fast exit when no attribute are present
         if (size() == 0)
         {
-            return ""; //$NON-NLS-1$
+            return TagConstants.EMPTY_STRING;
         }
 
         // buffer extimated in number of attributes * 30
