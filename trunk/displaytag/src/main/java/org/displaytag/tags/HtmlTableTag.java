@@ -30,6 +30,17 @@ public abstract class HtmlTableTag extends TemplateTag
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
     /**
+     * setter for the "width" html attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setWidth(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
+    }
+
+
+    /**
      * setter for the "cellspacing" html attribute.
      * @param value attribute value
      */

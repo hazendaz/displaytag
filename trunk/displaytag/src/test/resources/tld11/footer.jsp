@@ -17,6 +17,7 @@
             <jsp:scriptlet>int count = 0;</jsp:scriptlet>
             <display:table name="requestScope.test" id="table">
                 <display:column property="ant"/>
+                <display:column><jsp:expression>++count</jsp:expression></display:column>
                 <display:footer>
                     <tr>
                         <td><jsp:expression>++count</jsp:expression>footer</td>

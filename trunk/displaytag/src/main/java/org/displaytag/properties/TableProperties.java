@@ -281,6 +281,11 @@ public final class TableProperties implements Cloneable
     public static final String EXPORTPROPERTY_STRING_FILENAME = "filename"; //$NON-NLS-1$
 
     /**
+     * property convertor classname <code>property_convertor_classname</code>.
+     */
+    private static final String PROPERTY_CONVERTOR_CLASSNAME = "property_convertor_classname"; //$NON-NLS-1$
+
+    /**
      * Separator char used in property names.
      */
     private static final char SEP = '.';
@@ -965,6 +970,16 @@ public final class TableProperties implements Cloneable
     {
         return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportName + SEP + EXPORTPROPERTY_STRING_CLASS);
     }
+
+    /**
+     * Returns the class name for the PropertyConvertor.
+     * @return the fq class name
+     */
+    public String getPropertyConvertorClass()
+    {
+        return getProperty(PROPERTY_CONVERTOR_CLASSNAME);
+    }
+
 
     /**
      * Returns an instance of configured requestHelperFactory.

@@ -35,6 +35,7 @@ import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
+import org.displaytag.conversion.PropertyConvertorFactory;
 
 
 /**
@@ -193,6 +194,29 @@ public class ColumnTag extends BodyTagSupport
     private String sortProperty;
 
     /**
+     * Should the value of the column be summed?  Requires that the value of the column be convertible to a Number.
+     */
+    private boolean totaled;
+
+    /**
+     * Should the value of the column be summed?  Requires that the value of the column be convertible to a Number.
+     * @return true if the column should be totaled
+     */
+    public boolean isTotaled()
+    {
+        return totaled;
+    }
+
+    /**
+     * Setter for totals.
+     * @param totals    the value
+     */
+    public void setTotal(boolean totals)
+    {
+        this.totaled = totals;
+    }
+
+    /**
      * setter for the "property" tag attribute.
      * @param value attribute value
      */
@@ -334,6 +358,29 @@ public class ColumnTag extends BodyTagSupport
     {
         this.maxWords = value;
     }
+
+    /**
+     * setter for the "width" tag attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setWidth(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
+        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
+    }
+
+    /**
+     * setter for the "align" tag attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setAlign(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
+        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
+    }
+
 
     /**
      * setter for the "style" tag attribute.
@@ -554,6 +601,8 @@ public class ColumnTag extends BodyTagSupport
         headerCell.setAutoLink(this.autolink);
         headerCell.setGroup(this.group);
         headerCell.setSortProperty(this.sortProperty);
+        headerCell.setPropertyConvertor(PropertyConvertorFactory.create(tableTag.getProperties()));
+        headerCell.setTotaled(this.totaled);
 
         // href and parameter, create link
         if (this.href != null)

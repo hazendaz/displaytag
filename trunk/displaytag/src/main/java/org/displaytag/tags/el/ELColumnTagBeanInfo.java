@@ -73,6 +73,8 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
                 ELColumnTag.class, null, "setSortable")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("style", //$NON-NLS-1$
                 ELColumnTag.class, null, "setStyle")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("total", //$NON-NLS-1$
+                ColumnTag.class, null, "setTotal")); // map //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("title", //$NON-NLS-1$
                 ELColumnTag.class, null, "setTitle")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("titleKey", //$NON-NLS-1$
@@ -93,21 +95,12 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
                 ColumnTag.class, null, "setWidth")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("align", //$NON-NLS-1$
                 ColumnTag.class, null, "setAlign")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("background", //$NON-NLS-1$
-                ColumnTag.class, null, "setBackground")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("bgcolor", //$NON-NLS-1$
-                ColumnTag.class, null, "setBgcolor")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("height", //$NON-NLS-1$
-                ColumnTag.class, null, "setHeight")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("nowrap", //$NON-NLS-1$
-                ColumnTag.class, null, "setNowrap")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("valign", //$NON-NLS-1$
-                ColumnTag.class, null, "setValign")); //$NON-NLS-1$ 
 
         }
         catch (IntrospectionException ex)
         {
-            // ignore, this should never happen
+            throw new RuntimeException("You got an introspection exception - maybe defining a property that is not"
+                    + " defined in the bean?: " + ex.getMessage(), ex);
         }
 
         PropertyDescriptor[] result = new PropertyDescriptor[proplist.size()];

@@ -20,6 +20,9 @@ import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
+import org.displaytag.conversion.PropertyConvertor;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.exception.DecoratorException;
 
 
 /**
@@ -115,6 +118,21 @@ public class HeaderCell
      * Name of the non-decorated property used during sorting.
      */
     private String sortPropertyName;
+
+    /**
+     * Should we be attempting to tabulate the totals?
+     */
+    private boolean totaled;
+
+    /**
+     * The running total for the column.
+     */
+    private double total;
+
+    /**
+     * Convertor to use.
+     */
+    private PropertyConvertor propertyConvertor;
 
     /**
      * getter for the grouping index.
@@ -507,5 +525,90 @@ public class HeaderCell
             .append("title", this.title) //$NON-NLS-1$
             .append("beanPropertyName", this.beanPropertyName) //$NON-NLS-1$
             .toString();
+    }
+
+    /**
+     * Set the property convertor.
+     * @param propConv the value
+     */
+    public void setPropertyConvertor(PropertyConvertor propConv)
+    {
+        this.propertyConvertor = propConv;
+    }
+
+
+    /**
+     * Will we be keeping a total for this column?
+     * @return  true if we are totaling
+     */
+    public boolean isTotaled()
+    {
+        return totaled;
+    }
+
+    /**
+     * Setter for totaled.
+     * @param isTotaled the value
+     */
+    public void setTotaled(boolean isTotaled)
+    {
+        this.totaled = isTotaled;
+    }
+
+    /**
+     * Add the value of this parameter to the column total. The param will be converted to a number
+     * via a PropertyConvertor.
+     * @param value  the value
+     * @see PropertyConvertor#asNumber(Object)
+     */
+    private void addToTotal(Object value)
+    {
+        double paramValue = this.propertyConvertor.asNumber(value).doubleValue();
+        this.total = this.total + paramValue;
+    }
+
+    /**
+     * Get the current total.
+     * @return the current total.
+     */
+    public double getTotal()
+    {
+        return this.total;
+    }
+
+    /**
+     * Resets the current total to the parameter.  Do not use this method unless you wish to manually set the total;
+     * addToTotal is the standard technique.
+     * @param totalForColumn        the value
+     */
+    public void setTotal(double totalForColumn)
+    {
+        this.total = totalForColumn;
+    }
+
+
+    /**
+     * Add a new cell to this column.
+     * @param column          the value
+     */
+    public void addCell(Column column)
+    {
+        // Not actually going to hold a reference to the added cell - we just need access for the totals
+        if (this.totaled)
+        {
+            try
+            {
+                Object val = column.getValue(false);
+                addToTotal(val);
+            }
+            catch (ObjectLookupException e)
+            {
+                throw new RuntimeException(e);
+            }
+            catch (DecoratorException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
