@@ -45,7 +45,7 @@ public class ColumnPooling2Test extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
-        log.info(response.getText());
+        log.debug(response.getText());
 
         WebTable[] tables = response.getTables();
         assertEquals("Expected one table", 1, tables.length);
