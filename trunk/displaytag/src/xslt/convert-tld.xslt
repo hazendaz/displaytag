@@ -5,7 +5,7 @@
 <xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform'
 	xmlns:tld='http://java.sun.com/JSP/TagLibraryDescriptor'
 	xmlns:tld11='http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd'
-	exclude-result-prefixes="tld"
+	exclude-result-prefixes="tld11 tld"
 	>
     <xsl:output method="xml" indent="yes"
         doctype-public="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
