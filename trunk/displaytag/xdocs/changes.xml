@@ -69,6 +69,11 @@
           When exporting, the table tag will set an "export" parameter in the page scope containing a ExportTypeEnum object (see javadocs).
           This can be used in column content to generate output based on export type.
       </action>
+      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+      fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=773162">[773162]</a>: 
+      include header in excel export
+      </action>
+      
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">
