@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app>
-	<description>Tests for the Display Tag Library.</description>
-	<!-- needed for servletunit tests -->
+    <description>Tests for the Display Tag Library.</description>
+    <!-- needed for servletunit tests -->
+
+    <filter>
+        <filter-name>ResponseOverrideFilter</filter-name>
+        <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ResponseOverrideFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
 </web-app>

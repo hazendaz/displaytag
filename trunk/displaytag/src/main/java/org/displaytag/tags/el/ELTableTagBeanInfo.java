@@ -62,6 +62,8 @@ public class ELTableTagBeanInfo extends SimpleBeanInfo
                 ELTableTag.class, null, "setStyle")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("summary", //$NON-NLS-1$
                 ELTableTag.class, null, "setSummary")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("excludedParams", //$NON-NLS-1$
+                ELTableTag.class, null, "setExcludedParams")); //$NON-NLS-1$ 
 
             // can't be evaluated
             proplist.add(new PropertyDescriptor("id", //$NON-NLS-1$ 

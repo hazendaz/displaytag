@@ -14,3 +14,4 @@ lib
 *.log
 log
 HEAD.xml
+displaytag*.xml

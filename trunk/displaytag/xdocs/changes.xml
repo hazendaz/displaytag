@@ -35,6 +35,19 @@
                 config parameter and include the required libraries). Public APIs for export views have changed (a new
                 interface has been added).
             </action>
+            <action type="fix" dev="fgiust" issue="DISPL-12">
+                Algorithm in org.displaytag.util.ParamEncoder produces easily colliding keys.
+            </action>
+            <action type="add" dev="fgiust" issue="DISPL-35">
+                Enable / disable param forwarding. A new
+                <code>excludedParams</code>
+                attribute has been added to the table tag, which allows you to specify the list of parameters which
+                should not be forwarded during paging or sorting.
+                <code>*</code>
+                matches any parameter.
+            </action>
+
+
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">

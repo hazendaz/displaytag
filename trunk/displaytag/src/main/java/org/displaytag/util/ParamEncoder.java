@@ -1,6 +1,5 @@
 package org.displaytag.util;
 
-
 /**
  * Simple utility class for encoding parameter names.
  * @author Fabrizio Giustina
@@ -27,12 +26,15 @@ public class ParamEncoder
         char[] charArray = stringIdentifier.toCharArray();
 
         // calculate a simple checksum-like value
-        int checkSum = 0;
+        int checkSum = 17;
 
         for (int j = 0; j < charArray.length; j++)
         {
-            checkSum += charArray[j] * j;
+            checkSum = 3 * checkSum + charArray[j];
         }
+
+        // keep it positive
+        checkSum &= 0x7fffff;
 
         // this is the full identifier used for all the parameters
         this.parameterIdentifier = "d-" + checkSum + "-"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -46,6 +48,17 @@ public class ParamEncoder
     public String encodeParameterName(String paramName)
     {
         return this.parameterIdentifier + paramName;
+    }
+
+    /**
+     * Check if the given parameter has been encoded using paramEncoder. It actually check if the parameter name starts
+     * with the calculated <code>parameterIdentifier</code>. Null safe (a null string returns <code>false</code>).
+     * @param paramName parameter name
+     * @return <code>true</code> if the given parameter as been encoded using this param encoder
+     */
+    public boolean isParameterEncoded(String paramName)
+    {
+        return paramName != null && paramName.startsWith(this.parameterIdentifier);
     }
 
 }

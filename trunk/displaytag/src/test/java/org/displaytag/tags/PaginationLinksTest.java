@@ -2,6 +2,7 @@ package org.displaytag.tags;
 
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.URLAssert;
+import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -43,7 +44,7 @@ public class PaginationLinksTest extends DisplaytagCase
     {
 
         WebRequest request = new GetMethodWebRequest(jspName
-            + "?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default&d-3824-p=2"
+            + "?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
             + "&initiatedTDate=04/28/2004&approvedFDate=&method=search&approver=");
 
         WebResponse response = runner.getResponse(request);
@@ -62,10 +63,14 @@ public class PaginationLinksTest extends DisplaytagCase
         //remove prefix
         lastLink = lastLink.substring(lastLink.indexOf(getJspName()), lastLink.length());
 
-        URLAssert.assertEquals(
-            "pagination-links.jsp?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
-                + "&initiatedTDate=04%2F28%2F2004&d-3824-p=2&approvedFDate=&method=search&d-2456-p=12&approver=",
-            lastLink);
+        String encodedParam = new ParamEncoder("table2").encodeParameterName(TableTagParameters.PARAMETER_PAGE);
+
+        String expected = "pagination-links.jsp?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
+            + "&initiatedTDate=04%2F28%2F2004&approvedFDate=&method=search&approver=&"
+            + encodedParam
+            + "=12";
+
+        URLAssert.assertEquals(expected, lastLink);
 
     }
 }

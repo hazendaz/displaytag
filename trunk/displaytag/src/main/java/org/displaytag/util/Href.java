@@ -154,6 +154,16 @@ public class Href implements Cloneable, Serializable
     }
 
     /**
+     * Removes a parameter from the href.
+     * @param name String
+     */
+    public void removeParameter(String name)
+    {
+        // warning, param names are escaped
+        this.parameters.remove(StringEscapeUtils.escapeHtml(name));
+    }
+
+    /**
      * Adds an int parameter to the href.
      * @param name String
      * @param value int

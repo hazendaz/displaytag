@@ -2,6 +2,8 @@ package org.displaytag.tags;
 
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.test.DisplaytagCase;
+import org.displaytag.test.URLAssert;
+import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -57,8 +59,10 @@ public class RequestUriTest extends DisplaytagCase
         assertEquals("Wrong number of links in result.", MediaTypeEnum.getSize() - 1 // MediaTypeEnum also lists html
             , links.length);
 
-        assertEquals("Text in first link is wrong.", CONTEXT
-            + "/goforit?d-2106-e=1&"
+        URLAssert.assertEquals(CONTEXT
+            + "/goforit?"
+            + new ParamEncoder("table").encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE)
+            + "=1&"
             + TableTagParameters.PARAMETER_EXPORTING
             + "=1", links[0].getURLString());
     }
