@@ -10,6 +10,7 @@ import org.apache.cactus.extension.jsp.JspTagLifecycle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.export.MediaTypeEnum;
+import org.displaytag.test.KnownValue;
 
 /**
  * @author rapruitt
@@ -27,12 +28,12 @@ public class MediaTest extends JspTestCase
      * table tag
      */
     TableTag table;
-    
+
     /**
      * table tag lifecycle
      */
     JspTagLifecycle tableLifecycle;
-    
+
     JspTagLifecycle aLifecycle;
     JspTagLifecycle bLifecycle;
     JspTagLifecycle cLifecycle;
@@ -79,7 +80,7 @@ public class MediaTest extends JspTestCase
         bLifecycle.expectBodySkipped();
         cLifecycle.expectBodyEvaluated(2);
     }
-    
+
     public void endTestAsHtml(WebResponse response)
     {
         assertContains(response, KnownValue.ant);
@@ -113,11 +114,8 @@ public class MediaTest extends JspTestCase
 
     /**
      * Convenience function that asserts that a substring can be found in a the returned HTTP response body.
-     * 
-     * @param theResponse
-     * the response from the server side.
-     * @param theSubstring
-     * the substring to look for
+     * @param theResponse the response from the server side.
+     * @param theSubstring the substring to look for
      */
     public void assertContains(WebResponse theResponse, String theSubstring)
     {
@@ -129,11 +127,8 @@ public class MediaTest extends JspTestCase
     }
     /**
      * Convenience function that asserts that a substring can be found in a the returned HTTP response body.
-     * 
-     * @param theResponse
-     * the response from the server side.
-     * @param theSubstring
-     * the substring to look for
+     * @param theResponse the response from the server side.
+     * @param theSubstring the substring to look for
      */
     public void assertDoesNotContain(WebResponse theResponse, String theSubstring)
     {
@@ -145,64 +140,3 @@ public class MediaTest extends JspTestCase
     }
 
 }
-
-
-
-/**
- * Simple test data provider.
- * @author rapruitt
- * @version $Revision$ ($Author$)
- */
-class KnownValue
-{
-    int position;
-    public static String ant = "acolumn";
-    public static String bee = "bcolumn";
-    public static String camel = "ccolumn";
-
-    public KnownValue(int position)
-    {
-        this.position = position;
-    }
-
-    public int getPosition()
-    {
-        return position;
-    }
-
-    public void setPosition(int position)
-    {
-        this.position = position;
-    }
-
-    public String getAnt()
-    {
-        return ant;
-    }
-
-    public void setAnt(String aa)
-    {
-        ant = aa;
-    }
-
-    public String getBee()
-    {
-        return bee;
-    }
-
-    public void setBee(String bb)
-    {
-        bee = bb;
-    }
-
-    public String getCamel()
-    {
-        return camel;
-    }
-
-    public void setCamel(String cc)
-    {
-        camel = cc;
-    }
-}
-
