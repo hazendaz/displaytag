@@ -8,10 +8,10 @@
             <title>Displaytag unit test</title>
         </head>
         <body>
-            <jsp:scriptlet> <![CDATA[
-                request.setAttribute( "test", new org.displaytag.sample.ReportList(6) );
-            ]]> </jsp:scriptlet>
-            <display:table name="${requestScope.test}" id="table" />
+            <display:table name="${requestScope.test}" id="table" export="true">
+                <display:column property="ant"/>
+                <display:setProperty name="basic.empty.showtable" value="true" />
+            </display:table>
         </body>
     </html>
 </jsp:root>

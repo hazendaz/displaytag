@@ -30,17 +30,18 @@ public class ColumnPoolingTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "http://localhost/tld11/columnpooling.jsp";
+        return "columnpooling.jsp";
     }
 
     /**
      * All the columns should be sortable.
+     * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void testJsp() throws Exception
+    public void doTest(String jspName) throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(getJspName());
+        WebRequest request = new GetMethodWebRequest(jspName);
 
         WebResponse response = runner.getResponse(request);
 

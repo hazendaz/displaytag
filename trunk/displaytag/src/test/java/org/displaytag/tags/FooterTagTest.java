@@ -30,17 +30,17 @@ public class FooterTagTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "http://localhost/tld11/footer.jsp";
+        return "footer.jsp";
     }
 
     /**
      * Checks that the generated page contains a table with the expected footer.
+     * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void testFooter() throws Exception
+    public void doTest(String jspName) throws Exception
     {
-
-        WebRequest request = new GetMethodWebRequest(getJspName());
+        WebRequest request = new GetMethodWebRequest(jspName);
 
         WebResponse response = runner.getResponse(request);
 

@@ -47,12 +47,38 @@ public abstract class DisplaytagCase extends TestCase
     public abstract String getJspName();
 
     /**
+     * Runs the test.
+     * @param jspName jsp name, with full path
+     * @throws Exception any axception thrown during test.
+     */
+    public abstract void doTest(String jspName) throws Exception;
+
+    /**
+     * run the test with the jsp 11 tld.
+     * @throws Exception any axception thrown during test.
+     */
+    public void test11() throws Exception
+    {
+        doTest("http://localhost/tld11/" + getJspName());
+    }
+
+    /**
+     * run the test with the el tld.
+     * @throws Exception any axception thrown during test.
+     */
+    public void testEL() throws Exception
+    {
+        doTest("http://localhost/el/" + getJspName());
+    }
+
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception
     {
-        // removed compiled jsp from a previous run.
-        cleanupTempFile();
+        // remove any compiled jsp from a previous run.
+        cleanupTempFile("tld11/" + getJspName());
+        cleanupTempFile("el/" + getJspName());
 
         // need to pass a web.xml file to setup servletunit working directory
         ClassLoader classLoader = getClass().getClassLoader();
@@ -78,13 +104,13 @@ public abstract class DisplaytagCase extends TestCase
 
     /**
      * Clean up temporary files from a previous test.
+     * @param jspName jsp name, with full path
      */
-    private void cleanupTempFile()
+    private void cleanupTempFile(String jspName)
     {
         if (SystemUtils.JAVA_IO_TMPDIR != null)
         {
-            String path = SystemUtils.JAVA_IO_TMPDIR.substring(0, SystemUtils.JAVA_IO_TMPDIR.length() - 1)
-                + getJspName();
+            String path = SystemUtils.JAVA_IO_TMPDIR + jspName;
 
             File tempFile = new File(StringUtils.replace(path, ".jsp", "$jsp.java"));
             if (tempFile.exists())

@@ -32,17 +32,18 @@ public class DataSourceMapAutoColumnTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "http://localhost/tld11/map_autocolumn.jsp";
+        return "map_autocolumn.jsp";
     }
 
     /**
      * Test with a Map[] with automatically discoverd column.
+     * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void testMapArrayAutoColumns() throws Exception
+    public void doTest(String jspName) throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(getJspName());
+        WebRequest request = new GetMethodWebRequest(jspName);
 
         WebResponse response = runner.getResponse(request);
 

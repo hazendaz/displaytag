@@ -30,17 +30,17 @@ public class EmptyTableTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "http://localhost/tld11/empty.jsp";
+        return "empty.jsp";
     }
 
     /**
      * Verifies that the generated page doesn't contain any table (but doesn't crash!).
+     * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void testEmpty() throws Exception
+    public void doTest(String jspName) throws Exception
     {
-
-        WebRequest request = new GetMethodWebRequest(getJspName());
+        WebRequest request = new GetMethodWebRequest(jspName);
 
         WebResponse response = runner.getResponse(request);
 

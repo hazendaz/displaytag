@@ -30,17 +30,18 @@ public class MaxLengthTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "http://localhost/tld11/maxlength.jsp";
+        return "maxlength.jsp";
     }
 
     /**
      * Test that title is escaped correctly.
+     * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void testJsp() throws Exception
+    public void doTest(String jspName) throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(getJspName());
+        WebRequest request = new GetMethodWebRequest(jspName);
 
         WebResponse response = runner.getResponse(request);
 
