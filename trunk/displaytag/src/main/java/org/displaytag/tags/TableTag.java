@@ -109,13 +109,19 @@ public class TableTag extends HtmlTableTag
      */
     private static RequestHelperFactory rhf;
 
+    /**
+     * Object (collection, list) on which the table is based. This is not set directly using a tag attribute and can be
+     * cleaned.
+     */
+    protected Object list;
+
     // -- start tag attributes --
 
     /**
      * Object (collection, list) on which the table is based. Set directly using the "list" attribute or evaluated from
      * expression.
      */
-    protected Object list;
+    protected Object listAttribute;
 
     /**
      * actual row number, updated during iteration.
@@ -361,7 +367,7 @@ public class TableTag extends HtmlTableTag
      */
     public void setList(Object value)
     {
-        this.list = value;
+        this.listAttribute = value;
     }
 
     /**
@@ -772,10 +778,15 @@ public class TableTag extends HtmlTableTag
 
         String fullName = getFullObjectName();
 
-        // only evaluate if needed, else preserve original list
+        // only evaluate if needed, else use list attribute
         if (fullName != null)
         {
             this.list = evaluateExpression(fullName);
+        }
+        else if (this.list == null)
+        {
+            // needed to allow removing the collection of objects if not set directly
+            this.list = this.listAttribute;
         }
 
         // do we really need to skip any row?
@@ -1065,6 +1076,7 @@ public class TableTag extends HtmlTableTag
         this.rowNumber = 1;
         this.tableIterator = null;
         this.tableModel = null;
+        this.list = null;
     }
 
     /**

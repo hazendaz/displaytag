@@ -27,6 +27,7 @@
                 to be placed in appserver shared libs).
             </action>
             <action type="fix" dev="fgiust" issue="DISPL-109">Center of paging banner number.</action>
+            <action type="fix" dev="fgiust" issue="DISPL-145">Tag holding references to resources.</action>
         </release>
         <release version="1.0-rc2" date="November 19, 2004 " description="Final 1.0 release candidate">
             <action type="fix" dev="fgiust" issue="962448">
