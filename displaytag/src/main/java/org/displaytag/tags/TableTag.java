@@ -924,10 +924,10 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Method getHTMLData
-     * @return StringBuffer
+     * @return String
      * @throws JspException generic exception
      */
-    private StringBuffer getHTMLData() throws JspException
+    private String getHTMLData() throws JspException
     {
         StringBuffer lBuffer = new StringBuffer(8000);
 
@@ -1074,7 +1074,7 @@ public class TableTag extends HtmlTableTag
 
         mLog.debug("getHTMLData end");
 
-        return lBuffer;
+        return lBuffer.toString();
 
     }
 
