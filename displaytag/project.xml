@@ -211,20 +211,6 @@
     </dependency>
     <!-- plugin dependencies -->
     <dependency>
-      <groupId>maven</groupId>
-      <artifactId>maven-checkstyle-plugin</artifactId>
-      <version>2.2</version>
-      <type>plugin</type>
-      <url></url>
-    </dependency>
-    <dependency>
-      <groupId>maven</groupId>
-      <artifactId>maven-statcvs-plugin</artifactId>
-      <version>2.0</version>
-      <type>plugin</type>
-      <url></url>
-    </dependency>
-    <dependency>
         <groupId>maven-validator</groupId>
         <artifactId>maven-xhtml-plugin</artifactId>
         <version>1.1</version>
