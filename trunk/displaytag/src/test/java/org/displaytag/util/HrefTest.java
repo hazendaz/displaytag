@@ -5,6 +5,8 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.displaytag.test.URLAssert;
 
 
@@ -212,6 +214,23 @@ public class HrefTest extends TestCase
         URLAssert.assertEquals(
             "http://www.displaytag.org/displaytag/index.jsp?param1=1&new1=new1value&new2=new2value&new3=#thisanchor",
             newUrl);
+
+    }
+
+    /**
+     * test for addParameterMap().
+     */
+    public final void testAddParameterMapMultiValue()
+    {
+        String url = "http://www.displaytag.org/displaytag/index.jsp";
+        Href href = new Href(url);
+
+        Map parameterMap = new HashMap();
+        parameterMap.put("param1", new String[]{"à", "<"});
+        href.addParameterMap(parameterMap);
+
+        String newUrl = href.toString();
+        assertEquals("http://www.displaytag.org/displaytag/index.jsp?param1=&agrave;&amp;param1=&lt;", newUrl);
 
     }
 
