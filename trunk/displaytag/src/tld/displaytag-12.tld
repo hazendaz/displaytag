@@ -25,13 +25,15 @@
  If you use this tag in Struts, or in some other framework where the page is included via a jsp:include, you should use the requestURI attribute to indicate where
  tag generated links should point.
  </description>
+<!--
+Cannot use VARIABLES at all when one of them (rownum) has a dynamic name :(
       <variable>
           <name-from-attribute>id</name-from-attribute>
           <variable-class>java.lang.Object</variable-class>
           <scope>NESTED</scope>
           <description>This implicit variable holds the value of the current row object (the results of iterator#next).</description>
       </variable>
-<!--
+
 I think this may have to get yanked.  I don't think we should be changing the name of the scripting variable behind the
 back of the container.  Best left undoc'd and experimental for now; should just be rolled into a LoopStatus class.
       <variable>
@@ -41,14 +43,14 @@ back of the container.  Best left undoc'd and experimental for now; should just 
           <description>This implicit variable holds the row number of the current row object.
           Note that the name is actually not directly from id, but is id + '_rowNum'</description>
       </variable>
--->
+
       <variable>
           <name-given>mediaType</name-given>
           <variable-class>org.displaytag.export.MediaTypeEnum</variable-class>
           <scope>NESTED</scope>
           <description>Holds the media type of the current request. Used by ColumnTag to decide whether or not it should display.</description>
       </variable>
-
+-->
     <attribute>
       <name>list</name>
       <required>false</required>
