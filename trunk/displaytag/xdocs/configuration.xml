@@ -28,7 +28,7 @@
             </p>
             <subsection name="I18n">
                 <p>
-                    Some properties contain messages you may whish to display according to the user Locale. To do that
+                    Some properties contain messages you may wish to display according to the user Locale. To do that
                     first add a default
                     <code>displaytag.properties</code>
                     file where you set all the locale independent entries and default messages. Then you can add
