@@ -2,11 +2,10 @@
 <!--
  This stylesheet documents TLD's.
  -->
-<!--<xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform' >-->
 <xsl:stylesheet version='1.0' xmlns:xsl='http://www.w3.org/1999/XSL/Transform' xmlns:tld='http://java.sun.com/JSP/TagLibraryDescriptor' xmlns:tld11='http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd'>
     <xsl:output method="html" encoding="UTF-8"/>
 
-    <xsl:param name="cssfile" select="maven.css"/>
+    <!--<xsl:param name="cssfile" select="maven.css"/>-->
     <xsl:template match="/">
         <document>
 
@@ -38,10 +37,9 @@
 
          <ul>
             <xsl:for-each select="//tld:tag|//tld11:tag">
-            <xsl:sort select="tld:name|tld11:name"/>
             <li>    <!-- Showing only the first sentence -->
 	            <a href="#{tld:name}{tld11:name}"><xsl:value-of select="tld:name|tld11:name"/></a>
-    	        <xsl:if test="not(contains(tld:description,'.'))"><xsl:value-of select="tld:description|tld:info"/></xsl:if>
+    	        <xsl:if test="not(contains(tld:description,'.'))"> <xsl:value-of select="tld:description|tld:info"/></xsl:if>
                 <xsl:value-of select="substring-before(tld:description,'.')"/>
     	        <xsl:value-of select="substring-before(tld:info,'.')"/>.
 			</li>
@@ -51,7 +49,6 @@
         </section>
 
         <xsl:apply-templates select="//tld:tag|//tld11:tag">
-            <xsl:sort select="tld:name|tld11:name"/>
         </xsl:apply-templates>
 
     </body>
@@ -95,6 +92,7 @@
 	                <xsl:if test="//tld:type"><th>Type</th></xsl:if>
                </tr>
                 <xsl:apply-templates select="tld:attribute|tld11:attribute">
+                    <!--<xsl:sort select="tld:description[ contains(., 'html pass through')]" order="ascending"/>-->
                     <xsl:sort select="tld:description[ contains( translate(.,'ACDEPRT','acdeprt'),'deprecated')]" order="ascending"/>
                     <xsl:sort select="tld:required|tld11:required" order="descending"/>
                     <xsl:sort select="tld:name|tld11:name"/>

@@ -19,7 +19,16 @@
 
         <xslt style="${maven.src.dir}/xslt/format-tld.xslt"
             in="${maven.src.dir}/tld/displaytag-12.tld"
-            out="${maven.gen.docs}/tagreference.xml" />
+            out="${maven.gen.docs}/tagreference.xml" >
+            <xmlcatalog>
+                <dtd 
+                    publicId="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+                    location="${maven.src.dir}/xslt/web-jsptaglibrary_1_2.dtd"/>
+                <dtd 
+                    publicId="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+                    location="${maven.src.dir}/xslt/web-jsptaglibrary_1_1.dtd"/>
+            </xmlcatalog>    
+        </xslt>
     </goal>
 
 
@@ -30,7 +39,17 @@
         ${systemScope.setProperty('javax.xml.transform.TransformerFactory','org.apache.xalan.processor.TransformerFactoryImpl')}
         <xslt style="${maven.src.dir}/xslt/convert-tld.xslt"
             in="${maven.src.dir}/tld/displaytag-12.tld"
-            out="${maven.build.dir}/tld/displaytag-11.tld" />
+            out="${maven.build.dir}/tld/displaytag-11.tld">
+            
+            <xmlcatalog>
+                <dtd 
+                    publicId="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+                    location="${maven.src.dir}/xslt/web-jsptaglibrary_1_2.dtd"/>
+                <dtd 
+                    publicId="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+                    location="${maven.src.dir}/xslt/web-jsptaglibrary_1_1.dtd"/>
+            </xmlcatalog>  
+        </xslt>
             
         <copy file="${maven.src.dir}/tld/displaytag-12.tld"
             tofile="${maven.build.dir}/tld/displaytag-12.tld" />
