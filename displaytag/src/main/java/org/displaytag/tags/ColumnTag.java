@@ -25,6 +25,7 @@ import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
+
 /**
  * <p>
  * This tag works hand in hand with the TableTag to display a list of objects. This describes a column of data in the
@@ -39,6 +40,7 @@ import org.displaytag.util.TagConstants;
  */
 public class ColumnTag extends BodyTagSupport
 {
+
     /**
      * logger.
      */
@@ -387,7 +389,7 @@ public class ColumnTag extends BodyTagSupport
     {
         setClass(value);
     }
-    
+
     /**
      * setter for the "style" tag attribute.
      * @param value attribute value
@@ -396,7 +398,7 @@ public class ColumnTag extends BodyTagSupport
     {
         this.attributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);
     }
-    
+
     /**
      * setter for the "class" tag attribute.
      * @param value attribute value
@@ -483,11 +485,8 @@ public class ColumnTag extends BodyTagSupport
                 MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
                 if (type == null)
                 { // Should be in a tag validator..
-                    String msg =
-                        "Unknown media type \""
-                            + value
-                            + "\"; media must be one or more values, space separated."
-                            + " Possible values are:";
+                    String msg = "Unknown media type \"" + value
+                        + "\"; media must be one or more values, space separated." + " Possible values are:";
                     for (int j = 0; j < MediaTypeEnum.ALL.length; j++)
                     {
                         MediaTypeEnum mediaTypeEnum = MediaTypeEnum.ALL[j];
@@ -556,9 +555,10 @@ public class ColumnTag extends BodyTagSupport
             }
             else
             {
-                throw new MissingAttributeException(
-                    getClass(),
-                    new String[] { "property attribute", "value attribute", "tag body" });
+                throw new MissingAttributeException(getClass(), new String[]{
+                    "property attribute",
+                    "value attribute",
+                    "tag body"});
             }
             cell = new Cell(cellValue);
 
@@ -570,13 +570,7 @@ public class ColumnTag extends BodyTagSupport
 
         tableTag.addCell(cell);
 
-        this.attributeMap.clear();
-        this.headerAttributeMap.clear();
-        this.paramName = null;
-        this.decorator = null;
-
-        // fix for tag pooling in tomcat
-        setBodyContent(null);
+        cleanUp();
 
         return super.doEndTag();
     }
@@ -697,8 +691,8 @@ public class ColumnTag extends BodyTagSupport
         }
         else
         {
-            MediaTypeEnum currentMediaType =
-                (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
+            MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext
+                .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
             if (!availableForMedia(currentMediaType))
             {
                 return SKIP_BODY;
@@ -708,29 +702,45 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
+     * called to clean up instance variables at the end of tag evaluation.
+     */
+    private void cleanUp()
+    {
+        this.attributeMap.clear();
+        this.attributeMap.clear();
+        this.headerAttributeMap.clear();
+        this.paramName = null;
+        this.decorator = null;
+        this.sortable = false;
+        this.alreadySorted = false;
+        this.autolink = false;
+        this.group = -1;
+        this.maxLength = -1;
+        this.maxWords = -1;
+        this.nulls = false;
+        this.paramId = null;
+        this.paramName = null;
+        this.paramProperty = null;
+        this.paramScope = null;
+        this.property = null;
+        this.title = null;
+
+        // fix for tag pooling in tomcat
+        setBodyContent(null);
+    }
+
+    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("bodyContent", this.bodyContent)
-            .append("group", this.group)
-            .append("maxLength", this.maxLength)
-            .append("decorator", this.decorator)
-            .append("href", this.href)
-            .append("title", this.title)
-            .append("paramScope", this.paramScope)
-            .append("property", this.property)
-            .append("paramProperty", this.paramProperty)
-            .append("headerAttributeMap", this.headerAttributeMap)
-            .append("paramName", this.paramName)
-            .append("autolink", this.autolink)
-            .append("nulls", this.nulls)
-            .append("maxWords", this.maxWords)
-            .append("attributeMap", this.attributeMap)
-            .append("sortable", this.sortable)
-            .append("paramId", this.paramId)
-            .append("alreadySorted", this.alreadySorted)
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("bodyContent", this.bodyContent).append(
+            "group", this.group).append("maxLength", this.maxLength).append("decorator", this.decorator).append("href",
+            this.href).append("title", this.title).append("paramScope", this.paramScope).append("property",
+            this.property).append("paramProperty", this.paramProperty).append("headerAttributeMap",
+            this.headerAttributeMap).append("paramName", this.paramName).append("autolink", this.autolink).append(
+            "nulls", this.nulls).append("maxWords", this.maxWords).append("attributeMap", this.attributeMap).append(
+            "sortable", this.sortable).append("paramId", this.paramId).append("alreadySorted", this.alreadySorted)
             .toString();
     }
 }
