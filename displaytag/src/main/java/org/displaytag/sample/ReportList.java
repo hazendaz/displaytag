@@ -14,35 +14,35 @@ import java.util.Collections;
  */
 public class ReportList extends ArrayList
 {
-	/**
-	 * Creats a TestList that is filled with 20 ReportableListObject suitable for testing
-	 */
-	public ReportList()
-	{
-		super();
+    /**
+     * Creats a TestList that is filled with 20 ReportableListObject suitable for testing
+     */
+    public ReportList()
+    {
+        super();
 
-		for (int lCount = 0; lCount < 20; lCount++)
-		{
-			add(new ReportableListObject());
-		}
+        for (int lCount = 0; lCount < 20; lCount++)
+        {
+            add(new ReportableListObject());
+        }
 
-		Collections.sort(this);
-	}
+        Collections.sort(this);
+    }
 
-	/**
-	 * Creates a TestList that is filled with [size] ReportableListObject suitable for
-	 * testing.
-	 * @param pSize int
-	 */
-	public ReportList(int pSize)
-	{
-		super();
+    /**
+     * Creates a TestList that is filled with [size] ReportableListObject suitable for
+     * testing.
+     * @param pSize int
+     */
+    public ReportList(int pSize)
+    {
+        super();
 
-		for (int lCount = 0; lCount < pSize; lCount++)
-		{
-			add(new ReportableListObject());
-		}
+        for (int lCount = 0; lCount < pSize; lCount++)
+        {
+            add(new ReportableListObject());
+        }
 
-		Collections.sort(this);
-	}
+        Collections.sort(this);
+    }
 }

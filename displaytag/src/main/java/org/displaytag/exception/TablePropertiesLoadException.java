@@ -8,31 +8,31 @@ package org.displaytag.exception;
 public class TablePropertiesLoadException extends BaseNestableJspTagException
 {
 
-	/**
-	 * name of the properties file
-	 */
-	private String mPropertiesFileName;
+    /**
+     * name of the properties file
+     */
+    private String mPropertiesFileName;
 
-	/**
-	 * Constructor for TablePropertiesLoadException
-	 * @param pSourceClass Class where the exception is generated
-	 * @param pPropertiesFileName properties file name
-	 * @param pCause previous Exception
-	 */
-	public TablePropertiesLoadException(Class pSourceClass, String pPropertiesFileName, Throwable pCause)
-	{
-		super(pSourceClass, "Unable to load file " + pPropertiesFileName, pCause);
-		mPropertiesFileName = pPropertiesFileName;
-	}
+    /**
+     * Constructor for TablePropertiesLoadException
+     * @param pSourceClass Class where the exception is generated
+     * @param pPropertiesFileName properties file name
+     * @param pCause previous Exception
+     */
+    public TablePropertiesLoadException(Class pSourceClass, String pPropertiesFileName, Throwable pCause)
+    {
+        super(pSourceClass, "Unable to load file " + pPropertiesFileName, pCause);
+        mPropertiesFileName = pPropertiesFileName;
+    }
 
-	/**
-	 * @return SeverityEnum.ERROR
-	 * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
-	 * @see org.displaytag.exception.SeverityEnum
-	 */
-	public SeverityEnum getSeverity()
-	{
-		return SeverityEnum.ERROR;
-	}
+    /**
+     * @return SeverityEnum.ERROR
+     * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
+     * @see org.displaytag.exception.SeverityEnum
+     */
+    public SeverityEnum getSeverity()
+    {
+        return SeverityEnum.ERROR;
+    }
 
 }

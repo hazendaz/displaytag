@@ -8,31 +8,31 @@ package org.displaytag.exception;
 public class DecoratorInstantiationException extends BaseNestableJspTagException
 {
 
-	/**
-	 * name of the decorator
-	 */
-	private String mDecoratorName;
+    /**
+     * name of the decorator
+     */
+    private String mDecoratorName;
 
-	/**
-	 * Constructor for DecoratorInstantiationException.
-	 * @param pSourceClass Class where the exception is generated
-	 * @param pDecoratorName decorator name
-	 * @param pCause previous Exception
-	 */
-	public DecoratorInstantiationException(Class pSourceClass, String pDecoratorName, Throwable pCause)
-	{
-		super(pSourceClass, "Unable to load " + pDecoratorName, pCause);
-		mDecoratorName = pDecoratorName;
-	}
+    /**
+     * Constructor for DecoratorInstantiationException.
+     * @param pSourceClass Class where the exception is generated
+     * @param pDecoratorName decorator name
+     * @param pCause previous Exception
+     */
+    public DecoratorInstantiationException(Class pSourceClass, String pDecoratorName, Throwable pCause)
+    {
+        super(pSourceClass, "Unable to load " + pDecoratorName, pCause);
+        mDecoratorName = pDecoratorName;
+    }
 
-	/**
-	 * @return SeverityEnum.ERROR
-	 * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
-	 * @see org.displaytag.exception.SeverityEnum
-	 */
-	public SeverityEnum getSeverity()
-	{
-		return SeverityEnum.ERROR;
-	}
+    /**
+     * @return SeverityEnum.ERROR
+     * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
+     * @see org.displaytag.exception.SeverityEnum
+     */
+    public SeverityEnum getSeverity()
+    {
+        return SeverityEnum.ERROR;
+    }
 
 }

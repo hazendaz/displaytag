@@ -12,9 +12,9 @@ import org.displaytag.exception.DecoratorException;
  */
 public abstract class ColumnDecorator implements org.displaytag.decorator.ColumnDecorator
 {
-	/**
-	 * @see org.displaytag.decorator.ColumnDecorator#decorate(Object)
-	 */
-	public abstract String decorate(Object pColumnValue) throws DecoratorException;
+    /**
+     * @see org.displaytag.decorator.ColumnDecorator#decorate(Object)
+     */
+    public abstract String decorate(Object pColumnValue) throws DecoratorException;
 
 }

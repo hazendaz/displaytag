@@ -12,12 +12,12 @@ import org.displaytag.exception.DecoratorException;
 public interface ColumnDecorator
 {
 
-	/**
-	 * Method called to decorate the underlining object
-	 * @param pColumnValue Object to decorate
-	 * @return String decorated object
-	 * @throws DecoratorException wrapper exception for any exception thrown during decoration
-	 */
-	String decorate(Object pColumnValue) throws DecoratorException;
+    /**
+     * Method called to decorate the underlining object
+     * @param pColumnValue Object to decorate
+     * @return String decorated object
+     * @throws DecoratorException wrapper exception for any exception thrown during decoration
+     */
+    String decorate(Object pColumnValue) throws DecoratorException;
 
 }

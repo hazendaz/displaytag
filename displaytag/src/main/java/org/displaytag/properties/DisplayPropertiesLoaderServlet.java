@@ -18,17 +18,17 @@ import org.apache.commons.logging.LogFactory;
  * Sample Web.xml entry:
  * </p>
  * <pre>
- * 	&lt;servlet id="DisplayPropertiesLoaderServlet">
- * 		&lt;servlet-name>DisplayPropertiesLoaderServlet&lt;/servlet-name>
- * 		&lt;display-name>DisplayPropertiesLoaderServlet&lt;/display-name>
- * 		&lt;description>displaytag initialization servlet&lt;/description>
- * 		&lt;servlet-class>org.displaytag.properties.DisplayPropertiesLoaderServlet&lt;/servlet-class>
- * 		&lt;init-param>
- * 			&lt;param-name>properties.filename&lt;/param-name>
- * 			&lt;param-value>WEB-INF/display.properties&lt;/param-value>
- * 		&lt;/init-param>
- * 		&lt;load-on-startup>1&lt;/load-on-startup>
- * 	&lt;/servlet>
+ *     &lt;servlet id="DisplayPropertiesLoaderServlet">
+ *         &lt;servlet-name>DisplayPropertiesLoaderServlet&lt;/servlet-name>
+ *         &lt;display-name>DisplayPropertiesLoaderServlet&lt;/display-name>
+ *         &lt;description>displaytag initialization servlet&lt;/description>
+ *         &lt;servlet-class>org.displaytag.properties.DisplayPropertiesLoaderServlet&lt;/servlet-class>
+ *         &lt;init-param>
+ *             &lt;param-name>properties.filename&lt;/param-name>
+ *             &lt;param-value>WEB-INF/display.properties&lt;/param-value>
+ *         &lt;/init-param>
+ *         &lt;load-on-startup>1&lt;/load-on-startup>
+ *     &lt;/servlet>
  * </pre>
  * @author fgiust
  * @version $Revision$ ($Author$)
@@ -53,8 +53,7 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
      * @throws ServletException generic exception
      * @see javax.servlet.Servlet#init(ServletConfig)
      */
-    public final void init(ServletConfig pServletConfig)
-        throws ServletException
+    public final void init(ServletConfig pServletConfig) throws ServletException
     {
 
         super.init(pServletConfig);
