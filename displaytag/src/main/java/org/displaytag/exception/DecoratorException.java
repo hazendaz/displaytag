@@ -1,8 +1,8 @@
 package org.displaytag.exception;
 
 /**
- * <p>Exception thrown by column decorators. If a decorator need to thrown a checked exception this should be nested in
- * a DecoratorException, </p>
+ * <p>Exception thrown by column decorators. If a decorator need to throw a checked exception this should be nested in
+ * a DecoratorException.</p>
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
