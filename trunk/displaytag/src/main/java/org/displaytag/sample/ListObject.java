@@ -1,11 +1,8 @@
 package org.displaytag.sample;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -13,385 +10,300 @@ import org.apache.commons.lang.StringUtils;
  * Just a test class that returns columns of data that are useful for testing
  * out the ListTag class and ListColumn class.
  *
- * More detailed class description, including examples of usage if applicable.
  * @author epesh
  * @version $Revision$ ($Author$)
  */
 public class ListObject extends Object
 {
-	/**
-	 * Field rnd
-	 */
-	private static Random rnd = new Random();
-	/**
-	 * Field words
-	 */
-	private static List lWords = null;
+    /**
+     * random number generator
+     */
+    private static Random random = new Random();
 
-	/**
-	 * Field mId
-	 */
-	private int mId = -1;
+    /**
+     * id
+     */
+    private int id = -1;
 
-	/**
-	 * Field name
-	 */
-	private String mName;
-	/**
-	 * Field email
-	 */
-	private String mEmail;
-	/**
-	 * Field date
-	 */
-	private Date mDate;
-	/**
-	 * Field money
-	 */
-	private double mMoney;
-	/**
-	 * Field description
-	 */
-	private String mDescription;
-	/**
-	 * Field longDescription
-	 */
-	private String mLongDescription;
-	/**
-	 * Field status
-	 */
-	private String mStatus;
-	/**
-	 * Field url
-	 */
-	private String mUrl;
+    /**
+     * name
+     */
+    private String name;
 
-	/**
-	 * sub list to test nested tables
-	 */
-	private ArrayList mSubList;
+    /**
+     * email
+     */
+    private String email;
 
-	/**
-	 * Constructor for ListObject
-	 */
-	public ListObject()
-	{
-		setupRandomData();
-	}
+    /**
+     * date
+     */
+    private Date date;
 
-	/**
-	 * Method getId
-	 * @return int
-	 */
-	public int getId()
-	{
-		return mId;
-	}
+    /**
+     * money
+     */
+    private double money;
 
-	/**
-	 * Method setID
-	 * @param pId int
-	 */
-	public void setID(int pId)
-	{
-		mId = pId;
-	}
+    /**
+     * description
+     */
+    private String description;
 
-	/**
-	 * Method getName
-	 * @return String
-	 */
-	public String getName()
-	{
-		return mName;
-	}
+    /**
+     * long description
+     */
+    private String longDescription;
 
-	/**
-	 * Method getEmail
-	 * @return String
-	 */
-	public String getEmail()
-	{
-		return mEmail;
-	}
+    /**
+     * status
+     */
+    private String status;
 
-	/**
-	 * Method setEmail
-	 * @param pEmail String
-	 */
-	public void setEmail(String pEmail)
-	{
-		mEmail = pEmail;
-	}
+    /**
+     * url
+     */
+    private String url;
 
-	/**
-	 * Method getDate
-	 * @return Date
-	 */
-	public Date getDate()
-	{
-		return mDate;
-	}
+    /**
+     * sub list used to test nested tables
+     */
+    private ArrayList subList;
 
-	/**
-	 * Method getMoney
-	 * @return double
-	 */
-	public double getMoney()
-	{
-		return mMoney;
-	}
+    /**
+     * Constructor for ListObject
+     */
+    public ListObject()
+    {
+        this.id = random.nextInt(99998) + 1;
+        this.money = (random.nextInt(999998) + 1) / 100;
 
-	/**
-	 * Method getDescription
-	 * @return String
-	 */
-	public String getDescription()
-	{
-		return mDescription;
-	}
+        String firstName = RandomSampleUtil.getRandomWord();
+        String lastName = RandomSampleUtil.getRandomWord();
 
-	/**
-	 * Method getLongDescription
-	 * @return String
-	 */
-	public String getLongDescription()
-	{
-		return mLongDescription;
-	}
+        this.name = StringUtils.capitalise(firstName) + " " + StringUtils.capitalise(lastName);
 
-	/**
-	 * Method getStatus
-	 * @return String
-	 */
-	public String getStatus()
-	{
-		return mStatus;
-	}
+        this.email = firstName + "-" + lastName + "@" + RandomSampleUtil.getRandomWord() + ".com";
 
-	/**
-	 * Method getUrl
-	 * @return String
-	 */
-	public String getUrl()
-	{
-		return mUrl;
-	}
+        this.date = RandomSampleUtil.getRandomDate();
 
-	/**
-	 * Method getNullValue
-	 * @return String
-	 */
-	public String getNullValue()
-	{
-		return null;
-	}
+        this.description = RandomSampleUtil.getRandomWord() + " " + RandomSampleUtil.getRandomWord() + "...";
 
-	/**
-	 * Method toString
-	 * @return String
-	 */
-	public String toString()
-	{
-		return "ListObject(" + mId + ")";
-	}
+        this.longDescription = RandomSampleUtil.getRandomSentence(10);
 
-	/**
-	 * Method toDetailedString
-	 * @return String
-	 */
-	public String toDetailedString()
-	{
-		return "ID:          "
-			+ mId
-			+ "\n"
-			+ "Name:        "
-			+ mName
-			+ "\n"
-			+ "Email:       "
-			+ mEmail
-			+ "\n"
-			+ "Date:        "
-			+ mDate
-			+ "\n"
-			+ "Money:       "
-			+ mMoney
-			+ "\n"
-			+ "Description: "
-			+ mDescription
-			+ "\n"
-			+ "Status:      "
-			+ mStatus
-			+ "\n"
-			+ "URL:         "
-			+ mUrl
-			+ "\n";
-	}
+        this.status = RandomSampleUtil.getRandomWord().toUpperCase();
 
-	/**
-	 * Method setupRandomData
-	 */
-	public void setupRandomData()
-	{
-		mId = rnd.nextInt(99998) + 1;
-		mMoney = (rnd.nextInt(999998) + 1) / 100;
+        // added sublist for testing of nested tables
+        this.subList = new ArrayList();
+        this.subList.add(new SubListItem());
+        this.subList.add(new SubListItem());
+        this.subList.add(new SubListItem());
 
-		String lFirst = getRandomWord();
-		String lLast = getRandomWord();
+        this.url = "http://www." + lastName + ".org/";
+    }
 
-		mName = StringUtils.capitalise(lFirst) + " " + StringUtils.capitalise(lLast);
+    /**
+     * getter for id
+     * @return int id
+     */
+    public int getId()
+    {
+        return this.id;
+    }
 
-		mEmail = lFirst + "-" + lLast + "@" + getRandomWord() + ".com";
+    /**
+     * setter for id
+     * @param value int id
+     */
+    public void setId(int value)
+    {
+        this.id = value;
+    }
 
-		Calendar lCalendar = Calendar.getInstance();
-		lCalendar.add(Calendar.DATE, 365 - rnd.nextInt(730));
-		mDate = lCalendar.getTime();
+    /**
+     * getter for name
+     * @return String name
+     */
+    public String getName()
+    {
+        return this.name;
+    }
 
-		mDescription = getRandomWord() + " " + getRandomWord() + "...";
+    /**
+     * getter for email
+     * @return String email
+     */
+    public String getEmail()
+    {
+        return this.email;
+    }
 
-		mLongDescription =
-			getRandomWord()
-				+ " "
-				+ getRandomWord()
-				+ " "
-				+ getRandomWord()
-				+ " "
-				+ getRandomWord()
-				+ " "
-				+ getRandomWord()
-				+ " "
-				+ getRandomWord()
-				+ " "
-				+ getRandomWord()
-				+ " "
-				+ getRandomWord()
-				+ " "
-				+ getRandomWord()
-				+ " "
-				+ getRandomWord()
-				+ " "
-				+ getRandomWord();
+    /**
+     * setter for email
+     * @param value String email
+     */
+    public void setEmail(String value)
+    {
+        this.email = value;
+    }
 
-		mStatus = getRandomWord().toUpperCase();
+    /**
+     * getter for date
+     * @return Date
+     */
+    public Date getDate()
+    {
+        return this.date;
+    }
 
-		// added sublist for testing of nested tables
-		mSubList = new ArrayList();
-		mSubList.add(new SubListItem(getRandomWord(), getRandomWord() + "@" + getRandomWord() + ".com"));
-		mSubList.add(new SubListItem(getRandomWord(), getRandomWord() + "@" + getRandomWord() + ".com"));
-		mSubList.add(new SubListItem(getRandomWord(), getRandomWord() + "@" + getRandomWord() + ".com"));
+    /**
+     * getter for money
+     * @return double money
+     */
+    public double getMoney()
+    {
+        return this.money;
+    }
 
-		mUrl = "http://www." + lLast + ".org/";
-	}
+    /**
+     * getter for description
+     * @return String description
+     */
+    public String getDescription()
+    {
+        return this.description;
+    }
 
-	/**
-	 * Method getRandomWord
-	 * @return String
-	 */
-	public String getRandomWord()
-	{
-		if (lWords == null)
-		{
-			setupWordBase();
-		}
+    /**
+     * getter for long description
+     * @return String long description
+     */
+    public String getLongDescription()
+    {
+        return this.longDescription;
+    }
 
-		return ((String) lWords.get(rnd.nextInt(lWords.size()))).toLowerCase();
-	}
+    /**
+     * getter for status
+     * @return String status
+     */
+    public String getStatus()
+    {
+        return this.status;
+    }
 
-	/**
-	 * Method setupWordBase
-	 */
-	public void setupWordBase()
-	{
-		String lLoremIpsum =
-			"Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy "
-				+ "eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam "
-				+ "voluptua At vero eos et accusam et justo duo dolores et ea rebum Stet "
-				+ "clita kasd gubergren no sea takimata sanctus est Lorem ipsum dolor sit "
-				+ "amet Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam "
-				+ "nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat "
-				+ "sed diam voluptua At vero eos et accusam et justo duo dolores et ea "
-				+ "rebum Stet clita kasd gubergren no sea takimata sanctus est Lorem "
-				+ "ipsum dolor sit amet Lorem ipsum dolor sit amet consetetur sadipscing "
-				+ "elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
-				+ "aliquyam erat sed diam voluptua At vero eos et accusam et justo duo "
-				+ "dolores et ea rebum Stet clita kasd gubergren no sea takimata sanctus "
-				+ "est Lorem ipsum dolor sit amet "
-				+ "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse "
-				+ "molestie consequat vel illum dolore eu feugiat nulla facilisis at vero "
-				+ "eros et accumsan et iusto odio dignissim qui blandit praesent luptatum "
-				+ "zzril delenit augue duis dolore te feugait nulla facilisi Lorem ipsum "
-				+ "dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh "
-				+ "euismod tincidunt ut laoreet dolore magna aliquam erat volutpat "
-				+ "Ut wisi enim ad minim veniam quis nostrud exerci tation ullamcorper "
-				+ "suscipit lobortis nisl ut aliquip ex ea commodo consequat Duis autem "
-				+ "vel eum iriure dolor in hendrerit in vulputate velit esse molestie "
-				+ "consequat vel illum dolore eu feugiat nulla facilisis at vero eros et "
-				+ "accumsan et iusto odio dignissim qui blandit praesent luptatum zzril "
-				+ "delenit augue duis dolore te feugait nulla facilisi";
+    /**
+     * getter for url
+     * @return String url
+     */
+    public String getUrl()
+    {
+        return this.url;
+    }
 
-		lWords = new ArrayList();
-		StringTokenizer lTokenizer = new StringTokenizer(lLoremIpsum);
-		while (lTokenizer.hasMoreTokens())
-		{
-			String lWord = lTokenizer.nextToken();
-			lWords.add(lWord);
-		}
-	}
+    /**
+     * test for null values
+     * @return null
+     */
+    public String getNullValue()
+    {
+        return null;
+    }
 
-	/**
-	 * Returns the subList.
-	 * @return ArrayList
-	 */
-	public ArrayList getSubList()
-	{
-		return mSubList;
-	}
+    /**
+     * return a simple string representation of the object
+     * @return String simple representation of the object
+     */
+    public String toString()
+    {
+        return "ListObject(" + this.id + ")";
+    }
 
-	/**
-	 * <p>Inner class used in testing nested tables</p>
-	 * @author fgiust
-	 */
-	public class SubListItem
-	{
+    /**
+     * returns a detailed string representation of the object
+     * @return String detailed representation of the object
+     */
+    public String toDetailedString()
+    {
+        return "ID:          "
+            + this.id
+            + "\n"
+            + "Name:        "
+            + this.name
+            + "\n"
+            + "Email:       "
+            + this.email
+            + "\n"
+            + "Date:        "
+            + this.date
+            + "\n"
+            + "Money:       "
+            + this.money
+            + "\n"
+            + "Description: "
+            + this.description
+            + "\n"
+            + "Status:      "
+            + this.status
+            + "\n"
+            + "URL:         "
+            + this.url
+            + "\n";
+    }
 
-		/**
-		 * Field mName
-		 */
-		private String mName;
-		/**
-		 * Field mEmail
-		 */
-		private String mEmail;
+    /**
+     * Returns the subList.
+     * @return ArrayList
+     */
+    public ArrayList getSubList()
+    {
+        return this.subList;
+    }
 
-		/**
-		 * Constructor for SubListItem
-		 * @param pName String
-		 * @param pEmail String
-		 */
-		public SubListItem(String pName, String pEmail)
-		{
-			mName = pName;
-			mEmail = pEmail;
-		}
+    /**
+     * Inner class used in testing nested tables
+     * @author fgiust
+     */
+    public class SubListItem
+    {
 
-		/**
-		 * Returns the name.
-		 * @return String
-		 */
-		public String getName()
-		{
-			return mName;
-		}
+        /**
+         * name
+         */
+        private String name;
 
-		/**
-		 * Returns the email.
-		 * @return String
-		 */
-		public String getEmail()
-		{
-			return mEmail;
-		}
+        /**
+         * email
+         */
+        private String email;
 
-	}
+        /**
+         * Constructor for SubListItem
+         */
+        public SubListItem()
+        {
+            this.name = RandomSampleUtil.getRandomWord();
+            this.email = RandomSampleUtil.getRandomEmail();
+        }
+
+        /**
+         * getter for name.
+         * @return String name
+         */
+        public String getName()
+        {
+            return this.name;
+        }
+
+        /**
+         * getter for email.
+         * @return String
+         */
+        public String getEmail()
+        {
+            return email;
+        }
+
+    }
 
 }

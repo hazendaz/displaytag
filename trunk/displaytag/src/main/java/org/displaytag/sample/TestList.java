@@ -16,86 +16,87 @@ import java.util.Random;
 public class TestList extends ArrayList
 {
 
-	/**
-	 * Creats a TestList that is filled with 60 ListObjects suitable for testing
-	 */
-	public TestList()
-	{
-		super();
+    /**
+     * Creats a TestList that is filled with 60 ListObjects suitable for testing
+     */
+    public TestList()
+    {
+        super();
 
-		for (int lCount = 0; lCount < 60; lCount++)
-		{
-			add(new ListObject());
-		}
-	}
+        for (int j = 0; j < 60; j++)
+        {
+            add(new ListObject());
+        }
+    }
 
-	/**
-	 * Creates a TestList that is filled with [size] ListObjects suitable for
-	 * testing.
-	 * @param pSize int
-	 */
-	public TestList(int pSize)
-	{
-		super();
+    /**
+     * Creates a TestList that is filled with [size] ListObjects suitable for
+     * testing.
+     * @param size number of ListObjects contained
+     */
+    public TestList(int size)
+    {
+        super();
 
-		for (int lCount = 0; lCount < pSize; lCount++)
-		{
-			add(new ListObject());
-		}
-	}
+        for (int j = 0; j < size; j++)
+        {
+            add(new ListObject());
+        }
+    }
 
-	/**
-	 * Constructor for TestList
-	 * @param pDuplicates boolean
-	 * @param pSize int
-	 */
-	public TestList(boolean pDuplicates, int pSize)
-	{
-		super();
+    /**
+     * Constructor for TestList
+     * @param duplicates boolean put dusplicates in the list
+     * @param size int size of the list
+     * @todo the duplicates param has no effect
+     */
+    public TestList(boolean duplicates, int size)
+    {
+        super();
 
-		// generate a random number between 1 and 3 and duplicate that many number of times.
-		for (int lCount = 0; lCount < pSize; lCount++)
-		{
+        // generate a random number between 1 and 3 and duplicate that many number of times.
+        for (int j = 0; j < size; j++)
+        {
 
-			ListObject lObject1 = new ListObject();
-			ListObject lObject2 = new ListObject();
-			ListObject lObject3 = new ListObject();
+            ListObject object1 = new ListObject();
+            ListObject object2 = new ListObject();
+            ListObject object3 = new ListObject();
 
-			int lRandom = new Random().nextInt(3);
-			for (int lCount2 = 0; lCount2 <= lRandom; lCount2++)
-			{
-				add(lObject1);
+            int random = new Random().nextInt(3);
+            for (int k = 0; k <= random; k++)
+            {
+                add(object1);
 
-			}
+            }
 
-			lObject1.setID(lObject2.getId());
+            object1.setId(object2.getId());
 
-			lRandom = new Random().nextInt(3);
-			for (int lCount2 = 0; lCount2 <= lRandom; lCount2++)
-			{
-				add(lObject1);
-				add(lObject2);
+            random = new Random().nextInt(3);
+            for (int k = 0; k <= random; k++)
+            {
+                add(object1);
+                add(object2);
 
-			}
+            }
 
-			lObject1.setEmail(lObject3.getEmail());
+            object1.setEmail(object3.getEmail());
 
-			lRandom = new java.util.Random().nextInt(3);
-			for (int lCount2 = 0; lCount2 <= lRandom; lCount2++)
-			{
-				add(lObject1);
-			}
-		}
-	}
+            random = new java.util.Random().nextInt(3);
+            for (int k = 0; k <= random; k++)
+            {
+                add(object1);
+            }
+        }
+    }
 
-	/**
-	 * Method getItem. Returns a ListObject using get(index) from the Array
-	 * @param pIndex int
-	 * @return ListObject
-	 */
-	public ListObject getItem(int pIndex)
-	{
-		return (ListObject) super.get(pIndex);
-	}
+    /**
+     * Returns a ListObject using get(index) from the Array
+     * @param index int index of the List object into the array
+     * @return ListObject
+     */
+    public ListObject getItem(int index)
+    {
+        return (ListObject) super.get(index);
+    }
 
 }

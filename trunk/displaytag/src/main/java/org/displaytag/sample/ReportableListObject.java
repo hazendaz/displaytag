@@ -1,9 +1,6 @@
 package org.displaytag.sample;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 /**
  * A test class that has data that looks more like information that comes back
@@ -14,36 +11,32 @@ import java.util.StringTokenizer;
 public class ReportableListObject extends Object implements Comparable
 {
     /**
-     * Field rnd
+     * random number producer
      */
     private static Random mRandom = new Random();
-    /**
-     * Field words
-     */
-    private static List mWords = null;
 
     /**
-     * Field city
+     * city
      */
-    private String mCity;
+    private String city;
 
     /**
-     * Field project
+     * project
      */
-    private String mProject;
+    private String project;
 
     /**
-     * Field task
+     * task
      */
-    private String mTask;
+    private String task;
 
     /**
-     * Field amount
+     * amount
      */
-    private double mAmount;
+    private double amount;
 
     /**
-     * cities
+     * city names
      */
     private static String[] mCities = { "Roma", "Olympia", "Neapolis", "Carthago" };
 
@@ -57,79 +50,46 @@ public class ReportableListObject extends Object implements Comparable
      */
     public ReportableListObject()
     {
-        setupRandomData();
+        this.amount = (mRandom.nextInt(99999) + 1) / 100;
+        this.city = mCities[mRandom.nextInt(mCities.length)];
+        this.project = mProjects[mRandom.nextInt(mProjects.length)];
+        this.task = RandomSampleUtil.getRandomSentence(4);
     }
 
     /**
-     * Method getCity
-     * @return String
+     * getter for city
+     * @return String city
      */
     public String getCity()
     {
-        return mCity;
+        return this.city;
     }
 
     /**
-     * Method setCity
-     * @param pCity String
-     */
-    public void setCity(String pCity)
-    {
-        mCity = pCity;
-    }
-
-    /**
-     * Method getProject
-     * @return String
+     * getter for project
+     * @return String project
      */
     public String getProject()
     {
-        return mProject;
+        return this.project;
     }
 
     /**
-     * Method setProject
-     * @param pProject String
-     */
-    public void setProject(String pProject)
-    {
-        mProject = pProject;
-    }
-
-    /**
-     * Method getTask
-     * @return String
+     * getter for task
+     * @return String task
      */
     public String getTask()
     {
-        return mTask;
+        return this.task;
     }
 
     /**
-     * Method setTask
-     * @param pTask String
-     */
-    public void setTask(String pTask)
-    {
-        mTask = pTask;
-    }
-
-    /**
-     * Method getAmount
-     * @return double
+     * getter for amount
+     * @return double amount
      */
     public double getAmount()
     {
-        return mAmount;
-    }
-
-    /**
-     * Method setAmount
-     * @param pAmount double
-     */
-    public void setAmount(double pAmount)
-    {
-        mAmount = pAmount;
+        return this.amount;
     }
 
     /**
@@ -138,160 +98,34 @@ public class ReportableListObject extends Object implements Comparable
      */
     public String toString()
     {
-        return "ReportableListObject(" + mCity + ":" + mProject + ":" + mAmount + ")";
+        return "ReportableListObject(" + city + ":" + project + ":" + amount + ")";
     }
 
-    /**
-     * Method setupRandomData
-     */
-    public void setupRandomData()
-    {
-        mAmount = (mRandom.nextInt(99999) + 1) / 100;
-
-        mCity = getRandomCity();
-        mProject = getRandomProject();
-        mTask = getRandomTask();
-    }
-
-    /**
-     * Method getRandomCity
-     * @return String
-     */
-    public String getRandomCity()
-    {
-
-        return mCities[mRandom.nextInt(mCities.length)];
-    }
-
-    /**
-     * Method getRandomProject
-     * @return String
-     */
-    public String getRandomProject()
-    {
-
-        return mProjects[mRandom.nextInt(mProjects.length)];
-    }
-
-    /**
-     * Method getRandomTask
-     * @return String
-     */
-    public String getRandomTask()
-    {
-        if (mWords == null)
-        {
-            this.setupWordBase();
-        }
-
-        return ((String) mWords.get(mRandom.nextInt(mWords.size()))).toLowerCase()
-            + " "
-            + ((String) mWords.get(mRandom.nextInt(mWords.size()))).toLowerCase()
-            + " "
-            + ((String) mWords.get(mRandom.nextInt(mWords.size()))).toLowerCase()
-            + " "
-            + ((String) mWords.get(mRandom.nextInt(mWords.size()))).toLowerCase();
-
-    }
-
-    /**
-     * Method setupWordBase
-     */
-    public void setupWordBase()
-    {
-        String lLoremIpsum =
-            "Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy "
-                + "eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam "
-                + "voluptua At vero eos et accusam et justo duo dolores et ea rebum Stet "
-                + "clita kasd gubergren no sea takimata sanctus est Lorem ipsum dolor sit "
-                + "amet Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam "
-                + "nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat "
-                + "sed diam voluptua At vero eos et accusam et justo duo dolores et ea "
-                + "rebum Stet clita kasd gubergren no sea takimata sanctus est Lorem "
-                + "ipsum dolor sit amet Lorem ipsum dolor sit amet consetetur sadipscing "
-                + "elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
-                + "aliquyam erat sed diam voluptua At vero eos et accusam et justo duo "
-                + "dolores et ea rebum Stet clita kasd gubergren no sea takimata sanctus "
-                + "est Lorem ipsum dolor sit amet "
-                + "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse "
-                + "molestie consequat vel illum dolore eu feugiat nulla facilisis at vero "
-                + "eros et accumsan et iusto odio dignissim qui blandit praesent luptatum "
-                + "zzril delenit augue duis dolore te feugait nulla facilisi Lorem ipsum "
-                + "dolor sit amet consectetuer adipiscing elit sed diam nonummy nibh "
-                + "euismod tincidunt ut laoreet dolore magna aliquam erat volutpat "
-                + "Ut wisi enim ad minim veniam quis nostrud exerci tation ullamcorper "
-                + "suscipit lobortis nisl ut aliquip ex ea commodo consequat Duis autem "
-                + "vel eum iriure dolor in hendrerit in vulputate velit esse molestie "
-                + "consequat vel illum dolore eu feugiat nulla facilisis at vero eros et "
-                + "accumsan et iusto odio dignissim qui blandit praesent luptatum zzril "
-                + "delenit augue duis dolore te feugait nulla facilisi "
-                + "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet "
-                + "doming id quod mazim placerat facer possim assum Lorem ipsum dolor sit "
-                + "amet consectetuer adipiscing elit sed diam nonummy nibh euismod "
-                + "tincidunt ut laoreet dolore magna aliquam erat volutpat Ut wisi enim ad "
-                + "minim veniam quis nostrud exerci tation ullamcorper suscipit lobortis "
-                + "nisl ut aliquip ex ea commodo consequat "
-                + "Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse "
-                + "molestie consequat vel illum dolore eu feugiat nulla facilisis "
-                + "At vero eos et accusam et justo duo dolores et ea rebum Stet clita kasd "
-                + "gubergren no sea takimata sanctus est Lorem ipsum dolor sit amet Lorem "
-                + "ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy "
-                + "eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam "
-                + "voluptua At vero eos et accusam et justo duo dolores et ea rebum Stet "
-                + "clita kasd gubergren no sea takimata sanctus est Lorem ipsum dolor sit "
-                + "amet Lorem ipsum dolor sit amet consetetur sadipscing elitr At "
-                + "accusam aliquyam diam diam dolore dolores duo eirmod eos erat et nonumy "
-                + "sed tempor et et invidunt justo labore Stet clita ea et gubergren kasd "
-                + "magna no rebum sanctus sea sed takimata ut vero voluptua est Lorem "
-                + "ipsum dolor sit amet Lorem ipsum dolor sit amet consetetur sadipscing "
-                + "elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna "
-                + "aliquyam erat "
-                + "Consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut "
-                + "labore et dolore magna aliquyam erat sed diam voluptua At vero eos et "
-                + "accusam et justo duo dolores et ea rebum Stet clita kasd gubergren no "
-                + "sea takimata sanctus est Lorem ipsum dolor sit amet Lorem ipsum dolor "
-                + "sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor "
-                + "invidunt ut labore et dolore magna aliquyam erat sed diam voluptua At "
-                + "vero eos et accusam et justo duo dolores et ea rebum Stet clita kasd "
-                + "gubergren no sea takimata sanctus est Lorem ipsum dolor sit amet Lorem "
-                + "ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy "
-                + "eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam "
-                + "voluptua At vero eos et accusam et justo duo dolores et ea rebum Stet "
-                + "clita kasd gubergren no sea takimata sanctus ";
-
-        mWords = new ArrayList();
-        StringTokenizer lTokenizer = new StringTokenizer(lLoremIpsum);
-        while (lTokenizer.hasMoreTokens())
-        {
-            String lWord = lTokenizer.nextToken();
-            mWords.add(lWord);
-        }
-    }
     /**
      * Method compareTo
-     * @param pObject Object
+     * @param anotherObject Object
      * @return int
      * @see java.lang.Comparable#compareTo(Object)
      */
-    public int compareTo(Object pObject)
+    public int compareTo(Object anotherObject)
     {
-        ReportableListObject lObject1 = this;
-        ReportableListObject lObject2 = (ReportableListObject) pObject;
+        ReportableListObject object1 = this;
+        ReportableListObject object2 = (ReportableListObject) anotherObject;
 
-        if (lObject1.mCity.equals(lObject2.mCity))
+        if (object1.city.equals(object2.city))
         {
-            if (lObject1.mProject.equals(lObject2.mProject))
+            if (object1.project.equals(object2.project))
             {
-                return (int) (lObject2.mAmount - lObject1.mAmount);
+                return (int) (object2.amount - object1.amount);
             }
             else
             {
-                return lObject1.mProject.compareTo(lObject2.mProject);
+                return object1.project.compareTo(object2.project);
             }
         }
         else
         {
-            return lObject1.mCity.compareTo(lObject2.mCity);
+            return object1.city.compareTo(object2.city);
         }
     }
 }
