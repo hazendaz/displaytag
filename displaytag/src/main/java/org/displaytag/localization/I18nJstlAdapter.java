@@ -54,6 +54,16 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
     private static Log log = LogFactory.getLog(I18nJstlAdapter.class);
 
     /**
+     * Instantiates a new I18nJstlAdapter. Throw a NoClassDefFound error if BundleSupport is not available.
+     */
+    public I18nJstlAdapter()
+    {
+        // this will check if BundleSupport is available
+        // if a NoClassDefFound error is thrown, the I18nJstlAdapter will not be used
+        BundleSupport.class.hashCode();
+    }
+
+    /**
      * @see LocaleResolver#resolveLocale(HttpServletRequest)
      */
     public Locale resolveLocale(HttpServletRequest request)
