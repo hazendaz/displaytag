@@ -1099,7 +1099,6 @@ public class TableTag extends HtmlTableTag
             try
             {
                 out.write(exportString);
-                out.flush();
             }
             catch (IOException e)
             {
