@@ -1565,6 +1565,7 @@ public class TableTag extends HtmlTableTag
 
                 exportHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE), currentExportType
                     .getCode());
+                exportHref.addParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
                 Anchor anchor = new Anchor(exportHref, this.properties.getExportLabel(currentExportType));
                 buffer.append(anchor.toString());
