@@ -13,7 +13,6 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Object representing an URI (the href parameter of an &lt;a> tag). Provides methods to insert new parameters. It
  * doesn't support multiple parameter values
- * 
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -31,23 +30,42 @@ public class Href
     private Map parameters;
 
     /**
+     * Anchor (to be added at the end of URL).
+     */
+    private String anchor;
+
+    /**
      * Construct a new Href parsing a URL. Parameters are stripped from the base url and saved in the parameters map.
-     * 
      * @param baseUrl String
      */
     public Href(String baseUrl)
     {
         this.parameters = new HashMap();
 
-        if (baseUrl.indexOf("?") == -1)
+        int anchorposition;
+        String noAnchorUrl;
+
+        // extract anchor from url
+        if ((anchorposition = baseUrl.indexOf("#")) != -1)
+        {
+            noAnchorUrl = baseUrl.substring(0, anchorposition);
+            this.anchor = baseUrl.substring(anchorposition + 1);
+        }
+        else
+        {
+            noAnchorUrl = baseUrl;
+        }
+
+
+        if (noAnchorUrl.indexOf("?") == -1)
         {
             // simple url, no parameters
-            this.url = baseUrl;
+            this.url = noAnchorUrl;
         }
         else
         {
             // the Url already has parameters, put them in the parameter Map
-            StringTokenizer tokenizer = new StringTokenizer(baseUrl, "?");
+            StringTokenizer tokenizer = new StringTokenizer(noAnchorUrl, "?");
 
             // base url (before "?")
             this.url = tokenizer.nextToken();
@@ -64,10 +82,42 @@ public class Href
                     // split key and value ...
                     String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), "=");
 
-                    // ... and add it to the map
-                    // ... but remember to encode name/value to prevent css
-                    this.parameters.put(StringEscapeUtils.escapeHtml(keyValue[0]), StringEscapeUtils
-                            .escapeHtml(keyValue[1]));
+
+                    // encode name/value to prevent css
+                    String escapedKey = StringEscapeUtils.escapeHtml(keyValue[0]);
+                    String escapedValue = StringEscapeUtils.escapeHtml(keyValue.length > 1 ? keyValue[1] : "");
+
+                    if (!this.parameters.containsKey(escapedKey))
+                    {
+                        // ... and add it to the map
+                        this.parameters.put(escapedKey, escapedValue);
+                    }
+                    else
+                    {
+                        // additional value for an existing parameter
+                        Object previousValue = this.parameters.get(escapedKey);
+                        if (previousValue != null && previousValue.getClass().isArray())
+                        {
+                            Object[] previousArray = (Object[]) previousValue;
+                            Object[] newArray = new Object[previousArray.length + 1];
+
+                            int j;
+
+                            for (j = 0; j < previousArray.length; j++)
+                            {
+                                newArray[j] = previousArray[j];
+                            }
+
+                            newArray[j] = escapedValue;
+                            this.parameters.put(escapedKey, newArray);
+                        }
+                        else
+                        {
+                            this.parameters.put(escapedKey, new Object[]{previousValue, escapedValue});
+                        }
+
+                    }
+
 
                 }
             }
@@ -77,18 +127,18 @@ public class Href
 
     /**
      * Constructor for Href.
-     * 
      * @param href Href
      */
     public Href(Href href)
     {
-        this.url = href.getBaseUrl();
+        this.url = href.url;
+        this.anchor = href.anchor;
+        // getParameterMap() returns a copy
         this.parameters = href.getParameterMap();
     }
 
     /**
      * Adds a parameter to the href.
-     * 
      * @param name String
      * @param value Object
      */
@@ -99,7 +149,6 @@ public class Href
 
     /**
      * Adds an int parameter to the href.
-     * 
      * @param name String
      * @param value int
      */
@@ -110,7 +159,6 @@ public class Href
 
     /**
      * Getter for the map containing link parameters. The returned map is always a copy and not the original instance.
-     * 
      * @return parameter Map (copy)
      */
     public Map getParameterMap()
@@ -123,7 +171,6 @@ public class Href
     /**
      * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
      * added. Any parameter already present in the href object is removed.
-     * 
      * @param parametersMap Map containing parameters
      */
     public void setParameterMap(Map parametersMap)
@@ -138,7 +185,6 @@ public class Href
     /**
      * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
      * added. Parameters in the original href are kept and not overridden.
-     * 
      * @param parametersMap Map containing parameters
      */
     public void addParameterMap(Map parametersMap)
@@ -161,29 +207,29 @@ public class Href
             {
                 Object value = entry.getValue();
 
-                if (value.getClass().isArray())
-                {
-                    String[] values = (String[]) value;
-                    for (int i = 0; i < values.length; i++)
-                    {
-                        values[i] = StringEscapeUtils.escapeHtml(values[i]);
-                    }
-                }
-                else if (value != null)
-                {
-                    value = StringEscapeUtils.escapeHtml(value.toString());
-                }
                 if (value != null)
                 {
-                    this.parameters.put(key, value);
+                    if (value.getClass().isArray())
+                    {
+                        String[] values = (String[]) value;
+                        for (int i = 0; i < values.length; i++)
+                        {
+                            values[i] = StringEscapeUtils.escapeHtml(values[i]);
+                        }
+                    }
+                    else
+                    {
+                        value = StringEscapeUtils.escapeHtml(value.toString());
+                    }
                 }
+
+                this.parameters.put(key, value);
             }
         }
     }
 
     /**
      * Getter for the base url (without parameters).
-     * 
      * @return String
      */
     public String getBaseUrl()
@@ -192,54 +238,80 @@ public class Href
     }
 
     /**
+     * Returns the URI anchor.
+     * @return anchor or <code>null</code> if no anchor has been set.
+     */
+    public String getAnchor()
+    {
+        return this.anchor;
+    }
+
+    /**
+     * Setter for the URI anchor.
+     * @param name string to be used as anchor name (without #).
+     */
+    public void setAnchor(String name)
+    {
+        this.anchor = name;
+    }
+
+    /**
      * toString: output the full url with parameters.
-     * 
      * @return String
      */
     public String toString()
     {
-
-        // no parameters? simply return the base Url
-        if (this.parameters.size() == 0)
-        {
-            return this.url;
-        }
-
         StringBuffer buffer = new StringBuffer(30);
-        buffer.append(this.url).append('?');
-        Set parameterSet = this.parameters.entrySet();
 
-        Iterator iterator = parameterSet.iterator();
+        buffer.append(this.url);
 
-        while (iterator.hasNext())
+        if (this.parameters.size() > 0)
         {
-            Map.Entry entry = (Map.Entry) iterator.next();
+            buffer.append('?');
+            Set parameterSet = this.parameters.entrySet();
 
-            Object key = entry.getKey();
-            Object value = entry.getValue();
+            Iterator iterator = parameterSet.iterator();
 
-            if (value != null && value.getClass().isArray())
+            while (iterator.hasNext())
             {
-                String[] values = (String[]) value;
-                for (int i = 0; i < values.length; i++)
-                {
-                    if (i > 0)
-                    {
-                        buffer.append(TagConstants.AMPERSAND);
-                    }
+                Map.Entry entry = (Map.Entry) iterator.next();
 
-                    buffer.append(key).append('=').append(values[i]);
+                Object key = entry.getKey();
+                Object value = entry.getValue();
+
+                if (value == null)
+                {
+                    buffer.append(key).append('=').append("");
+                }
+                else if (value.getClass().isArray())
+                {
+                    Object[] values = (Object[]) value;
+                    for (int i = 0; i < values.length; i++)
+                    {
+                        if (i > 0)
+                        {
+                            buffer.append(TagConstants.AMPERSAND);
+                        }
+
+                        buffer.append(key).append('=').append(values[i]);
+                    }
+                }
+                else
+                {
+                    buffer.append(key).append('=').append(value);
+                }
+
+                if (iterator.hasNext())
+                {
+                    buffer.append(TagConstants.AMPERSAND);
                 }
             }
-            else
-            {
-                buffer.append(key).append('=').append(value);
-            }
+        }
 
-            if (iterator.hasNext())
-            {
-                buffer.append(TagConstants.AMPERSAND);
-            }
+        if (this.anchor != null)
+        {
+            buffer.append("#");
+            buffer.append(this.anchor);
         }
 
         return buffer.toString();
