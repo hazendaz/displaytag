@@ -15,13 +15,17 @@
 package org.apache.taglibs.display;
 
 import java.lang.reflect.InvocationTargetException;
+import java.sql.ResultSet;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.net.URL;
@@ -33,6 +37,15 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils.RowSetDynaClass;
+
+/* This would allow certain kinds of stuctures to be used (rather than
+ * java.util.Collections), but I did not want to introduce a dependency
+ * on struts for compilation...
+ *
+ * import org.apache.struts.util.*;
+ *
+ */
 
 /**
  * This tag takes a list of objects and creates a table to display those
@@ -157,8 +170,6 @@ public class TableTag extends TemplateTag
    private int sortOrder = SORT_ORDER_ASCEENDING;
    private int pageNumber = 1;
    private int exportType = EXPORT_TYPE_NONE;
-
-   private List completeList = null;
 
    // -------------------------------------------------------- Accessor methods
 
@@ -733,6 +744,30 @@ public class TableTag extends TemplateTag
       return returnValue;
    }
 
+    /** Given an Object, let's do our best to iterate over it
+     */
+    public static Iterator getIterator (Object o) throws JspException {
+
+	Iterator iterator = null;
+	
+	if( o instanceof Collection ) {
+	    iterator = ( (Collection)o ).iterator();
+	} else if( o instanceof Iterator ) {
+	    iterator = (Iterator)o;
+	} else if( o instanceof Map ) {
+	    iterator = ( (Map)o ).entrySet().iterator();
+	    /* 
+	     *   This depends on importing struts.util.* -- see remarks in the import section of the file
+	     *
+	     * } else if( o instanceof Enumeration ) {
+	     *     iterator = new IteratorAdapter( (Enumeration)o );
+	     * }
+	    */
+	} else {
+	    throw new JspException( "I do not know how to iterate over '" + o.getClass() + "'.");
+	}
+	return iterator;
+    }
 
    /**
     * This returns a list of all of the data that will be displayed on the
@@ -773,39 +808,27 @@ public class TableTag extends TemplateTag
       // are using
 
 
-      Iterator iterator = null;
-
-      // Todo - these needs cleaned up, we only show lists....
-
+      /* YIKES! If we use a RowSetDynaClass to wrap a ResultSet, we'd
+       * copy the entire set to a List -- not good at all if paging
+       * (though functional -- I tested). Furthermore, RowSetDynaClass
+       * is not yet officially released, so I'm leaving this out for
+       * now. 
+       *
+       * Anyway, the proper semantics would involve a class like ResultSetDynaClass,
+       * but with some changes to the Iterator I'l trying to work on.
+       *
+       * if (collection instanceof ResultSet)
+       *   try {
+       *       collection = new RowSetDynaClass((ResultSet)collection).getRows ();
+       *   } catch (java.sql.SQLException e) {
+       *       throw new JspException( "Problems iterating over ResultSet.", e);
+       *       }
+       */
+      
       if( collection.getClass().isArray() )
          collection = Arrays.asList( (Object[])collection );
 
-      if( collection instanceof List ) {
-         collection = (List)collection;
-      } else {
-         Object[] objs = {collection};
-         String msg =
-            MessageFormat.format( prop.getProperty( "error.msg.invalid_bean" ), objs );
-
-         throw new JspException( msg );
-      }
-
-      // TODO - Deal with RowSets, ResultSets, Maps, Enumerations, etc...
-
-      /*
-       iterator = ( (Collection)collection ).iterator();
-      } else if( collection instanceof Iterator ) {
-         iterator = (Iterator)collection;
-      } else if( collection instanceof Map ) {
-         iterator = ( (Map)collection ).entrySet().iterator();
-      } else if( collection instanceof Enumeration ) {
-         iterator = new IteratorAdapter( (Enumeration)collection );
-      } else {
-         throw new JspException( "Could not figure out how to iterator over " +
-            "the stuff that you gave me..." );
-      }
-      */
-
+      Iterator iterator = getIterator (collection);
 
       // If the user has changed the way our default behavior works, then we
       // need to look for it now, and resort things if needed before we ask
@@ -814,11 +837,11 @@ public class TableTag extends TemplateTag
 
       // Load our table decorator if it is requested
       this.dec = this.loadDecorator();
-      if( this.dec != null ) this.dec.init( this.pageContext, (List)collection );
+      if( this.dec != null ) this.dec.init( this.pageContext, collection );
 
       if( !prop.getProperty( "sort.behavior" ).equals( "page" ) ) {
          // Sort the total list...
-         this.sortDataIfNeeded( (List)collection );
+         this.sortDataIfNeeded(collection );
 
 
          // If they have changed the default sorting behavior of the table
@@ -831,9 +854,6 @@ public class TableTag extends TemplateTag
             }
          }
       }
-
-      this.completeList = (List)collection;
-      iterator = ( (List)collection ).listIterator();
 
       // If they have asked for an subset of the list via the offset or length
       // attributes, then only fetch those items out of the master list.
@@ -860,6 +880,8 @@ public class TableTag extends TemplateTag
 
       int pagesizeValue = this.getPagesizeValue();
       if( pagesizeValue > 0 ) {
+	  if (! (collection instanceof List) )
+	      throw new JspException( "Paging is not available for collections of type '" + collection.getClass() + "'.");
          helper = new SmartListHelper( (List)collection, pagesizeValue, this.prop );
          // tlaw 12-10-2001
          // added the if/else statement below to allow sending an empty list to
@@ -889,8 +911,11 @@ public class TableTag extends TemplateTag
     * based on the user clicking on the column headers.
     */
 
-   private void sortDataIfNeeded( List viewableData )
+   private void sortDataIfNeeded( Object viewableData )
    {
+       if (! (viewableData instanceof List))
+	   throw new RuntimeException ("This function is only supported if the given collection is a java.util.List.");
+   
 
       // At this point we have all the objects that are supposed to be shown
       // sitting in our internal list ready to be shown, so if they have clicked
@@ -911,7 +936,7 @@ public class TableTag extends TemplateTag
          }
 
          if( this.sortOrder == SORT_ORDER_DECENDING ) {
-            Collections.reverse( viewableData );
+            Collections.reverse( (List)viewableData );
          }
       }
    }
@@ -934,7 +959,7 @@ public class TableTag extends TemplateTag
          String columnDecorator = ( (ColumnTag)columns.get( c ) ).getDecorator();
          colDecorators[c] = loadColumnDecorator( columnDecorator );
          if( colDecorators[c] != null )
-            colDecorators[c].init( this.pageContext, this.completeList );
+            colDecorators[c].init( this.pageContext, this.list );
       }
 
       // Ok, start bouncing through our list.........
@@ -1191,7 +1216,7 @@ public class TableTag extends TemplateTag
    }
 
    /**
-    * This returns a table of data in CVS format
+    * This returns a table of data in CSV format
     */
 
    private StringBuffer getRawData( List viewableData ) throws JspException
@@ -1204,7 +1229,7 @@ public class TableTag extends TemplateTag
       boolean decorated = prop.getProperty( "export.decorated" ).equals( "true" );
 
       if( prop.getProperty( "export.amount" ).equals( "list" ) ) {
-         iterator = this.completeList.iterator();
+         iterator = getIterator (this.list);
       }
 
       // If they want the first line to be the column titles, then spit them out
@@ -1289,7 +1314,7 @@ public class TableTag extends TemplateTag
       boolean decorated = prop.getProperty( "export.decorated" ).equals( "true" );
 
       if( prop.getProperty( "export.amount" ).equals( "list" ) ) {
-         iterator = this.completeList.iterator();
+         iterator = getIterator (this.list);
       }
 
       // If they want the first line to be the column titles, then spit them out
@@ -1378,7 +1403,7 @@ public class TableTag extends TemplateTag
       boolean decorated = prop.getProperty( "export.decorated" ).equals( "true" );
 
       if( prop.getProperty( "export.amount" ).equals( "list" ) ) {
-         iterator = this.completeList.iterator();
+         iterator = getIterator (this.list);
       }
 
       buf.append( "<table>\n" );
