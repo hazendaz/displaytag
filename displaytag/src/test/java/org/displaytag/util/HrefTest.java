@@ -122,6 +122,17 @@ public class HrefTest extends TestCase
     }
 
     /**
+     * Test for urls containing quotes.
+     */
+    public final void testHrefWithQuotes()
+    {
+        String url = "http://www.displaytag.org/displaytag/index.jsp?param1=aquote'test";
+        Href href = new Href(url);
+        String newUrl = href.toString();
+        compareUrls(newUrl, url);
+    }
+
+    /**
      * Test the generation of an Href object from another Href.
      */
     public final void testHrefCopy()
