@@ -4,7 +4,7 @@ import org.displaytag.exception.DecoratorInstantiationException;
 
 /**
  * Factory for TableDecorator or ColumnDecorator object.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public final class DecoratorFactory
