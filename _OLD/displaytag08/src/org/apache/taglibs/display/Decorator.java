@@ -9,6 +9,7 @@
 
 package org.apache.taglibs.display;
 
+import java.util.Collection;
 import java.util.List;
 import javax.servlet.jsp.PageContext;
 
@@ -20,8 +21,8 @@ import javax.servlet.jsp.PageContext;
 public abstract class Decorator extends Object
 {
    private PageContext ctx = null;
-   private List list = null;
-
+   private Object collection = null;
+    
    private Object obj = null;
    private int viewIndex = -1;
    private int listIndex = -1;
@@ -31,9 +32,9 @@ public abstract class Decorator extends Object
 
    }
 
-   public void init( PageContext ctx, List list ) {
+   public void init( PageContext ctx, Object list ) {
       this.ctx = ctx;
-      this.list = list;
+      this.collection = list;
    }
 
    public String initRow( Object obj, int viewIndex, int listIndex ) {
@@ -56,8 +57,19 @@ public abstract class Decorator extends Object
    }
 
    public PageContext getPageContext() { return this.ctx; }
-   public List getList() { return this.list; }
 
+    public List getList() {
+	if (this.collection instanceof List) 
+	  return (List)this.collection;
+	else throw new RuntimeException ("This function is only supported if the given collection is a java.util.List.");
+    }
+
+    public Collection getCollection () {
+	if (this instanceof Collection)
+	    return (Collection) this.collection;
+	else throw new RuntimeException ("This function is only supported if the given collection is a java.util.Collection.");
+    }
+    
    public Object getObject() { return this.obj; }
    public int getViewIndex() { return this.viewIndex; }
    public int getListIndex() { return this.listIndex; }
