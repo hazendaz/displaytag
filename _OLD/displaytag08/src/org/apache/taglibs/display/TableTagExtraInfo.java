@@ -11,9 +11,9 @@
 
 package org.apache.taglibs.display;
 
+import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
-import javax.servlet.jsp.tagext.TagData;
 
 /**
  * One line description of what this class does.

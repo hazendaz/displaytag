@@ -11,8 +11,8 @@
 
 package org.apache.taglibs.display;
 
-import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * One line description of what this class does.

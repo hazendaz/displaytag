@@ -11,8 +11,8 @@
 
 package org.apache.taglibs.display;
 
-import java.util.Comparator;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Comparator;
 
 import org.apache.commons.beanutils.PropertyUtils;
 

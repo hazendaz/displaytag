@@ -11,14 +11,11 @@
 
 package org.apache.taglibs.display.test;
 
-import java.util.Date;
-import java.util.Random;
-import java.util.Calendar;
-import java.util.StringTokenizer;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.StringTokenizer;
 
-import org.apache.taglibs.display.StringUtil;
 
 /**
  * A test class that has data that looks more like information that comes back
