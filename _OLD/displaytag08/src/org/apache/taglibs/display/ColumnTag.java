@@ -131,6 +131,7 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
     private String group; /* If this property is set then the values have to be grouped */
 
     private String href;
+    private String target;
     private String paramId;
     private String paramName;
     private String paramProperty;
@@ -146,8 +147,8 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
     private String height;
     private String nowrap;
     private String valign;
-    private String clazz;
-    private String headerClazz;
+    private String styleClass;
+    private String headerStyleClass;
 
     private String value;
 
@@ -157,214 +158,220 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
 
     // -------------------------------------------------------- Accessor methods
 
-    public void setProperty(String v) {
-        this.property = v;
-    }
-
-    public void setTitle(String v) {
-        this.title = v;
-    }
-
-    public void setNulls(String v) {
-        this.nulls = v;
-    }
-
-    public void setSort(String v) {
-        this.sort = v;
-    }
-
-    public void setAutolink(String v) {
-        this.autolink = v;
-    }
-
-    public void setGroup(String v) {
-        this.group = v;
-    }
-
-
-    public void setHref(String v) {
-        this.href = v;
-    }
-
-    public void setParamId(String v) {
-        this.paramId = v;
-    }
-
-    public void setParamName(String v) {
-        this.paramName = v;
-    }
-
-    public void setParamProperty(String v) {
-        this.paramProperty = v;
-    }
-
-    public void setParamScope(String v) {
-        this.paramScope = v;
-    }
-
-    public void setMaxLength(int v) {
-        this.maxLength = v;
-    }
-
-    public void setMaxWords(int v) {
-        this.maxWords = v;
-    }
-
-    public void setTitleColSpan(int titleColSpan) {
-        this.titleColSpan = titleColSpan;
-    }
-
-    public void setWidth(String v) {
-        this.width = v;
-    }
-
-    public void setAlign(String v) {
-        this.align = v;
-    }
-
-    public void setBackground(String v) {
-        this.background = v;
-    }
-
-    public void setBgcolor(String v) {
-        this.bgcolor = v;
-    }
-
-    public void setHeight(String v) {
-        this.height = v;
-    }
-
-    public void setNowrap(String v) {
-        this.nowrap = v;
-    }
-
-    public void setValign(String v) {
-        this.valign = v;
-    }
-
-    public void setStyleClass(String v) {
-        this.clazz = v;
-    }
-
-    public void setHeaderStyleClass(String v) {
-        this.headerClazz = v;
-    }
-
-    public void setValue(String v) {
-        this.value = v;
-    }
-
-    public void setDoubleQuote(String v) {
-        this.doubleQuote = v;
-    }
-
-    public void setDecorator(String v) {
-        this.decorator = v;
-    }
-
-
     public String getProperty() {
-        return this.property;
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
     }
 
     public String getTitle() {
-        return this.title;
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getNulls() {
-        return this.nulls;
+        return nulls;
+    }
+
+    public void setNulls(String nulls) {
+        this.nulls = nulls;
     }
 
     public String getSort() {
-        return this.sort;
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 
     public String getAutolink() {
-        return this.autolink;
+        return autolink;
+    }
+
+    public void setAutolink(String autolink) {
+        this.autolink = autolink;
     }
 
     public String getGroup() {
-        return this.group;
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public String getHref() {
-        return this.href;
+        return href;
+    }
+
+    public void setHref(String href) {
+        this.href = href;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
     }
 
     public String getParamId() {
-        return this.paramId;
+        return paramId;
+    }
+
+    public void setParamId(String paramId) {
+        this.paramId = paramId;
     }
 
     public String getParamName() {
-        return this.paramName;
+        return paramName;
+    }
+
+    public void setParamName(String paramName) {
+        this.paramName = paramName;
     }
 
     public String getParamProperty() {
-        return this.paramProperty;
+        return paramProperty;
+    }
+
+    public void setParamProperty(String paramProperty) {
+        this.paramProperty = paramProperty;
     }
 
     public String getParamScope() {
-        return this.paramScope;
+        return paramScope;
+    }
+
+    public void setParamScope(String paramScope) {
+        this.paramScope = paramScope;
     }
 
     public int getMaxLength() {
-        return this.maxLength;
+        return maxLength;
+    }
+
+    public void setMaxLength(int maxLength) {
+        this.maxLength = maxLength;
     }
 
     public int getMaxWords() {
-        return this.maxWords;
+        return maxWords;
+    }
+
+    public void setMaxWords(int maxWords) {
+        this.maxWords = maxWords;
     }
 
     public int getTitleColSpan() {
         return titleColSpan;
     }
 
+    public void setTitleColSpan(int titleColSpan) {
+        this.titleColSpan = titleColSpan;
+    }
+
     public String getWidth() {
-        return this.width;
+        return width;
+    }
+
+    public void setWidth(String width) {
+        this.width = width;
     }
 
     public String getAlign() {
-        return this.align;
+        return align;
+    }
+
+    public void setAlign(String align) {
+        this.align = align;
     }
 
     public String getBackground() {
-        return this.background;
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 
     public String getBgcolor() {
-        return this.bgcolor;
+        return bgcolor;
+    }
+
+    public void setBgcolor(String bgcolor) {
+        this.bgcolor = bgcolor;
     }
 
     public String getHeight() {
-        return this.height;
+        return height;
+    }
+
+    public void setHeight(String height) {
+        this.height = height;
     }
 
     public String getNowrap() {
-        return this.nowrap;
+        return nowrap;
+    }
+
+    public void setNowrap(String nowrap) {
+        this.nowrap = nowrap;
     }
 
     public String getValign() {
-        return this.valign;
+        return valign;
+    }
+
+    public void setValign(String valign) {
+        this.valign = valign;
     }
 
     public String getStyleClass() {
-        return this.clazz;
+        return styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        this.styleClass = styleClass;
     }
 
     public String getHeaderStyleClass() {
-        return this.headerClazz;
+        return headerStyleClass;
+    }
+
+    public void setHeaderStyleClass(String headerStyleClass) {
+        this.headerStyleClass = headerStyleClass;
     }
 
     public String getValue() {
-        return this.value;
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public String getDoubleQuote() {
-        return this.doubleQuote;
+        return doubleQuote;
+    }
+
+    public void setDoubleQuote(String doubleQuote) {
+        this.doubleQuote = doubleQuote;
     }
 
     public String getDecorator() {
-        return this.decorator;
+        return decorator;
+    }
+
+    public void setDecorator(String decorator) {
+        this.decorator = decorator;
     }
 
     // --------------------------------------------------------- Tag API methods
@@ -427,9 +434,9 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
     protected String getCellAttributes() {
         StringBuffer results = new StringBuffer();
 
-        if (this.clazz != null) {
+        if (this.styleClass != null) {
             results.append(" class=\"");
-            results.append(this.clazz);
+            results.append(this.styleClass);
             results.append("\"");
         }
         else {
