@@ -15,7 +15,7 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
-            <display:table name="requestScope.test" id="table" pagesize="1">
+            <display:table name="requestScope.test" id="table" pagesize="1" sort="list">
                 <display:column property="ant"/>
                 <display:column property="bee"/>
                 <display:column property="camel" sortable="true"/>
