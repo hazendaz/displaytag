@@ -1476,8 +1476,8 @@ public class TableTag extends HtmlTableTag
             buffer.append(getSearchResultAndNavigation());
         }
 
-        // add export links
-        if (this.export)
+        // add export links (only if the table is not empty)
+        if (this.export && this.tableModel.getRowListPage().size() != 0)
         {
             buffer.append(getExportLinks());
         }

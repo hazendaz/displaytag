@@ -32,8 +32,9 @@
 	    New property <code>basic.msg.empty_list_row</code> which let you customize the message for an empty table
 	    while using <code>basic.empty.showtable = true</code>. This also allows you to customize the previously fixed "empty" css class.
       </action>
-      
-      
+      <action type="fix" dev="fgiust" issue="895915">
+	    Export links are not shown for empty tables.
+      </action>
   	</release>
   	
   	<release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
