@@ -66,6 +66,12 @@
                 </code>
                 . If you previously used this sintax you will have to fix your jsps when upgrading to 1.0 rc2.
             </action>
+            <action type="update" dev="fgiust">
+                The
+                <code>name</code>
+                attribute in the EL version of table Tag will now work both with EL expressions and with the "standard"
+                displaytag sintax.
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">

@@ -310,8 +310,18 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         }
         if (nameExpr != null)
         {
-            // evaluate name only once, so assign it to "list"
-            super.list = eval.eval("name", nameExpr, Object.class); //$NON-NLS-1$
+            Object source = eval.eval("name", nameExpr, Object.class); //$NON-NLS-1$
+
+            // be more user-friendly: accept both EL and legacy expressions
+            if (source instanceof String)
+            {
+                super.setNameString((String) source);
+            }
+            else
+            {
+                // evaluate name only once, so assign it to "list"
+                super.list = source;
+            }
         }
         if (offsetExpr != null)
         {
