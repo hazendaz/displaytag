@@ -9,9 +9,11 @@ import java.util.StringTokenizer;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * Object representing an URI (the href parameter of an &lt;a> tag). Provides methods to insert new parameters. It
  * doesn't support multiple parameter values
+ * 
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -30,6 +32,7 @@ public class Href
 
     /**
      * Construct a new Href parsing a URL. Parameters are stripped from the base url and saved in the parameters map.
+     * 
      * @param baseUrl String
      */
     public Href(String baseUrl)
@@ -63,9 +66,8 @@ public class Href
 
                     // ... and add it to the map
                     // ... but remember to encode name/value to prevent css
-                    this.parameters.put(
-                        StringEscapeUtils.escapeHtml(keyValue[0]),
-                        StringEscapeUtils.escapeHtml(keyValue[1]));
+                    this.parameters.put(StringEscapeUtils.escapeHtml(keyValue[0]), StringEscapeUtils
+                            .escapeHtml(keyValue[1]));
 
                 }
             }
@@ -75,6 +77,7 @@ public class Href
 
     /**
      * Constructor for Href.
+     * 
      * @param href Href
      */
     public Href(Href href)
@@ -85,6 +88,7 @@ public class Href
 
     /**
      * Adds a parameter to the href.
+     * 
      * @param name String
      * @param value Object
      */
@@ -95,6 +99,7 @@ public class Href
 
     /**
      * Adds an int parameter to the href.
+     * 
      * @param name String
      * @param value int
      */
@@ -105,6 +110,7 @@ public class Href
 
     /**
      * Getter for the map containing link parameters. The returned map is always a copy and not the original instance.
+     * 
      * @return parameter Map (copy)
      */
     public Map getParameterMap()
@@ -117,6 +123,7 @@ public class Href
     /**
      * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
      * added. Any parameter already present in the href object is removed.
+     * 
      * @param parametersMap Map containing parameters
      */
     public void setParameterMap(Map parametersMap)
@@ -131,13 +138,17 @@ public class Href
     /**
      * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
      * added. Parameters in the original href are kept and not overridden.
+     * 
      * @param parametersMap Map containing parameters
-     * @exception throws ClassCastException if parameter value
-     * is not a java.lang.String or java.lang.String[]
-     * @exception throws NullPointerException if parameterMap is null
      */
     public void addParameterMap(Map parametersMap)
     {
+        // handle nulls
+        if (parametersMap == null)
+        {
+            return;
+        }
+
         // copy value, escaping html
         Iterator mapIterator = parametersMap.entrySet().iterator();
         while (mapIterator.hasNext())
@@ -147,29 +158,32 @@ public class Href
 
             // don't overwrite parameters
             if (!this.parameters.containsKey(key))
-            {            
+            {
                 Object value = entry.getValue();
 
-                if (value.getClass().isArray()) 
-		   		{
-		       		String[] values = (String[])value;
-		       		for (int i = 0; i < values.length; i++) 
-		       		{
-		       			values[i] = StringEscapeUtils.escapeHtml((String)values[i]);
-		       		}
-		       	} 
-		       	else 
-		       	{
-		       		value = StringEscapeUtils.escapeHtml((String) value);
-		       	}
-
-		       	this.parameters.put(key, value);
+                if (value.getClass().isArray())
+                {
+                    String[] values = (String[]) value;
+                    for (int i = 0; i < values.length; i++)
+                    {
+                        values[i] = StringEscapeUtils.escapeHtml(values[i]);
+                    }
+                }
+                else if (value != null)
+                {
+                    value = StringEscapeUtils.escapeHtml(value.toString());
+                }
+                if (value != null)
+                {
+                    this.parameters.put(key, value);
+                }
             }
         }
     }
 
     /**
      * Getter for the base url (without parameters).
+     * 
      * @return String
      */
     public String getBaseUrl()
@@ -179,6 +193,7 @@ public class Href
 
     /**
      * toString: output the full url with parameters.
+     * 
      * @return String
      */
     public String toString()
@@ -195,35 +210,35 @@ public class Href
         Set parameterSet = this.parameters.entrySet();
 
         Iterator iterator = parameterSet.iterator();
-                
+
         while (iterator.hasNext())
         {
             Map.Entry entry = (Map.Entry) iterator.next();
-            
+
             Object key = entry.getKey();
             Object value = entry.getValue();
-            
-            if (value.getClass().isArray()) 
-            {
-            	String[] values = (String[])value;
-            	for (int i = 0; i < values.length; i++) 
-            	{
-            		if (i > 0) 
-            		{
-            			 buffer.append(TagConstants.AMPERSAND);
-            		}
 
-            		buffer.append(key).append('=').append(values[i]);
-            	}
-            } 
-            else 
+            if (value.getClass().isArray())
             {
-            	buffer.append(key).append('=').append(value);
+                String[] values = (String[]) value;
+                for (int i = 0; i < values.length; i++)
+                {
+                    if (i > 0)
+                    {
+                        buffer.append(TagConstants.AMPERSAND);
+                    }
+
+                    buffer.append(key).append('=').append(values[i]);
+                }
             }
-            
+            else
+            {
+                buffer.append(key).append('=').append(value);
+            }
+
             if (iterator.hasNext())
             {
-            	buffer.append(TagConstants.AMPERSAND);
+                buffer.append(TagConstants.AMPERSAND);
             }
         }
 
