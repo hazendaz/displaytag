@@ -221,10 +221,6 @@ public class TableTag extends HtmlTableTag
      * the index of the column sorted by default
      */
     private int mDefaultSortedColumn = -1;
-    /**
-     * is there any data in the list?  Should the current rows attempt to display?
-     */
-    protected boolean listIsEmpty;
 
     /**
      * static footer added using the footer tag
@@ -238,14 +234,6 @@ public class TableTag extends HtmlTableTag
     public void setFooter(String string)
     {
         footer = string;
-    }
-
-    /**
-     * Is the current row empty?  Should the columns display?
-     * @return
-     */
-    public boolean isEmpty(){
-        return listIsEmpty;
     }
 
     /**
@@ -544,6 +532,7 @@ public class TableTag extends HtmlTableTag
         // always return EVAL_BODY_TAG to get column headers also if the table is empty
         return EVAL_BODY_TAG;
     }
+
     /**
      * Method doAfterBody
      * @return int
