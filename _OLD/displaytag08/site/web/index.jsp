@@ -5,12 +5,14 @@
 <h1>Overview</h1>
 
 
-<b><font color="#cc0000">What's New:</font></b> Version 0.8 has been released
-(05/25/02).  The most significant feature in this release is better support
-for Localization/Configuration.  There are a few new attributes and features
-(including per column decorators), and a number of bug fixes.  A complete
-changelog is available <a href="/display-docs-@version@/changelog.jsp">here</a>,
-and click <a href="download.jsp">here to download</a> the latest source or
+<b><font color="#cc0000">What's New:</font></b> Version <b>0.8.5</b> has been released
+(03/23/03).  This release is primarily a bug-fixing release and also represents
+the first release from the <a href="http://sf.net/projects/displaytag">project</a>
+at SourceForge.  If you would like to have a say in the future direction of this
+project, please join one of the <a href="http://sourceforge.net/mail/?group_id=73068">
+mailing lists</a>.  A complete changelog is available 
+<a href="/display-docs-@version@/changelog.jsp">here</a>, and click 
+<a href="download.jsp">here to download</a> the latest source or
 standalone jar file.<p>
 
 <hr width="50%" noshade size="1"><p>
@@ -97,8 +99,8 @@ the information you need to use the display taglib in your own applications.<p>
 
 Please send any comments, suggestions, bug reports, etc... to:<p>
 
-Ed Hill<br />
-<a href="mailto:ed-hill@uiowa.edu">ed-hill@uiowa.edu</a><br />
-<a href="http://www.edsgarage.com/">http://www.edsgarage.com/</a>
+The SourceForge Project Team<br />
+<a href="mailto:displaytag-user@lists.sourceforge.net">displaytag-user@lists.sourceforge.net</a><br />
+<a href="http://sf.net/projects/displaytag">http://sf.net/projects/displaytag</a>
 
 <jsp:include page="footer.jsp" flush="true" />

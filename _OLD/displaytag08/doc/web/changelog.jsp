@@ -16,7 +16,7 @@ changes are noted using the following key:</p>
 </pre></blockquote>
 
 
-<p><b>Version 0.8.5, March 16, 2003</b></p>
+<p><b>Version 0.8.5, March 23, 2003</b></p>
 
 <blockquote><pre>
 
