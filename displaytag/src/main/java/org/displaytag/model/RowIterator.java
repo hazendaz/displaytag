@@ -20,11 +20,6 @@ public class RowIterator
     private static Log log = LogFactory.getLog(RowIterator.class);
 
     /**
-     * List contaning CellHeader objects
-     */
-    private List columns;
-
-    /**
      * internal iterator for Rows
      */
     private Iterator iterator;
@@ -48,13 +43,12 @@ public class RowIterator
     protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator)
     {
         this.iterator = rowList.iterator();
-        this.columns = columnList;
         this.rowNumber = 0;
         this.decorator = tableDecorator;
     }
 
     /**
-     * Method hasNext
+     * Check if a next row exist
      * @return boolean true if a new row
      */
     public boolean hasNext()

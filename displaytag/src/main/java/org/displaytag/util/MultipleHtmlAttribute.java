@@ -92,8 +92,8 @@ public class MultipleHtmlAttribute implements Cloneable
     }
 
     /**
-     * Method addAttributeValue
-     * @param attributeValue String
+     * Adds a value to the attribute.
+     * @param attributeValue value to add to the attribute
      */
     public void addAttributeValue(String attributeValue)
     {
@@ -106,8 +106,7 @@ public class MultipleHtmlAttribute implements Cloneable
     }
 
     /**
-     * Method clone
-     * @return Object
+     * @see java.lang.Object#clone()
      */
     protected Object clone()
     {

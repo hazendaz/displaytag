@@ -11,8 +11,8 @@ import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
 /**
- * DataObject representing the column header.
- * The header cell contains all the properties common to cells in the same column.
+ * DataObject representing the column header. The header cell contains all the properties common to cells in the same
+ * column.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -397,7 +397,7 @@ public class HeaderCell
     }
 
     /**
-     * Sets the href to be used for dinamic links in cells
+     * Setter for the href to be used for dinamic links in cells
      * @param baseHref base href for links
      */
     public void setHref(Href baseHref)
@@ -406,7 +406,7 @@ public class HeaderCell
     }
 
     /**
-     * Returns the href to be used for dinamic links in cells
+     * Getter for the href to be used for dinamic links in cells
      * @return Href base href for links
      */
     public Href getHref()
@@ -415,7 +415,7 @@ public class HeaderCell
     }
 
     /**
-     * Sets the name of the param to add to links
+     * Setter for the name of the param to add to links
      * @param name name of the param
      */
     public void setParamName(String name)
@@ -424,7 +424,7 @@ public class HeaderCell
     }
 
     /**
-     * Returns the name of the param to add to links
+     * Getter for the name of the param to add to links
      * @return String name of the param
      */
     public String getParamName()
@@ -433,7 +433,7 @@ public class HeaderCell
     }
 
     /**
-     * Sets the name of the property to look up in bean to get the param value for links
+     * Setter for the name of the property to look up in bean to get the param value for links
      * @param property name of the property to look up in bean to get the param value for links
      */
     public void setParamProperty(String property)
@@ -442,7 +442,7 @@ public class HeaderCell
     }
 
     /**
-     * Returns the name of the property to look up in bean to get the param value for links
+     * Getter for the name of the property to look up in bean to get the param value for links
      * @return String name of the property to look up in bean to get the param value for links
      */
     public String getParamProperty()

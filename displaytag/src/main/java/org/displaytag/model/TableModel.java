@@ -220,7 +220,7 @@ public class TableModel
     }
 
     /**
-     * Method addColumnHeader
+     * Adds a column header (HeaderCell object)
      * @param headerCell HeaderCell
      */
     public void addColumnHeader(HeaderCell headerCell)
@@ -235,8 +235,8 @@ public class TableModel
     }
 
     /**
-     * Method getHeaderCellList
-     * @return List
+     * List containing headerCell objects
+     * @return List containing headerCell objects
      */
     public List getHeaderCellList()
     {
@@ -264,7 +264,7 @@ public class TableModel
     }
 
     /**
-     * Method sortRowList
+     * sorts the given list of Rows. The method is called internally by sortFullList() and sortPageList()
      * @param list List
      */
     private void sortRowList(List list)
