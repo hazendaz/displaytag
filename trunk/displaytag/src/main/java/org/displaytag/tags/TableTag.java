@@ -1113,8 +1113,8 @@ public class TableTag extends HtmlTableTag
      * Will write the export. The default behavior is to write directly to the response. If the ResponseOverrideFilter
      * is configured for this request, will instead write the export content to a StringBuffer in the Request object.
      * @param exportView export view
-     * @throws JspException
-     * @throws IOException
+     * @throws JspException for problem in clearing the response or for invalid export views
+     * @throws IOException exception thrown when writing content to the response
      */
     protected void writeExport(ExportView exportView) throws IOException, JspException
     {

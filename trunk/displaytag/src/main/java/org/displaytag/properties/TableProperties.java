@@ -377,35 +377,6 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Initialize a new TableProperties loading the default properties file and the user defined one. There is no
-     * caching used here, caching is assumed to occur in the getInstance factory method.
-     * @param myLocale the locale we are in
-     * @throws TablePropertiesLoadException for errors during loading of properties files
-     */
-    private TableProperties(Locale myLocale) throws TablePropertiesLoadException
-    {
-        this.locale = myLocale;
-        // default properties will not change unless this class is reloaded
-        Properties defaultProperties = loadBuiltInProperties();
-
-        properties = new Properties(defaultProperties);
-        addProperties(myLocale);
-
-        // Now copy in the user properties (properties file set by calling setUserProperties()).
-        // note setUserProperties() MUST BE CALLED before the first TableProperties instantation
-        Enumeration keys = userProperties.keys();
-        while (keys.hasMoreElements())
-        {
-            String key = (String) keys.nextElement();
-            if (key != null)
-            {
-                properties.setProperty(key, (String) userProperties.get(key));
-            }
-        }
-
-    }
-
-    /**
      * Returns the configured Locale Resolver. This method is called before the loading of localized properties.
      * @return LocaleResolver instance.
      * @throws TablePropertiesLoadException if the default <code>TableTag.properties</code> file is not found.
@@ -415,14 +386,14 @@ public final class TableProperties implements Cloneable
         // special handling, table properties is not yet instantiated
         String className = null;
 
-        ResourceBundle userProperties = loadUserProperties(Locale.getDefault());
+        ResourceBundle defaultUserProperties = loadUserProperties(Locale.getDefault());
 
         // if available, user properties have higher precedence
-        if (userProperties != null)
+        if (defaultUserProperties != null)
         {
             try
             {
-                className = userProperties.getString(PROPERTY_CLASS_LOCALERESOLVER);
+                className = defaultUserProperties.getString(PROPERTY_CLASS_LOCALERESOLVER);
             }
             catch (MissingResourceException e)
             {
@@ -483,13 +454,41 @@ public final class TableProperties implements Cloneable
     }
 
     /**
+     * Initialize a new TableProperties loading the default properties file and the user defined one. There is no
+     * caching used here, caching is assumed to occur in the getInstance factory method.
+     * @param myLocale the locale we are in
+     * @throws TablePropertiesLoadException for errors during loading of properties files
+     */
+    private TableProperties(Locale myLocale) throws TablePropertiesLoadException
+    {
+        this.locale = myLocale;
+        // default properties will not change unless this class is reloaded
+        Properties defaultProperties = loadBuiltInProperties();
+
+        properties = new Properties(defaultProperties);
+        addProperties(myLocale);
+
+        // Now copy in the user properties (properties file set by calling setUserProperties()).
+        // note setUserProperties() MUST BE CALLED before the first TableProperties instantation
+        Enumeration keys = userProperties.keys();
+        while (keys.hasMoreElements())
+        {
+            String key = (String) keys.nextElement();
+            if (key != null)
+            {
+                properties.setProperty(key, (String) userProperties.get(key));
+            }
+        }
+    }
+
+    /**
      * Try to load the properties from the local properties file, displaytag.properties, and merge them into the
      * existing properties.
-     * @param locale the locale from which the properties are to be loaded
+     * @param userLocale the locale from which the properties are to be loaded
      */
-    private void addProperties(Locale locale)
+    private void addProperties(Locale userLocale)
     {
-        ResourceBundle bundle = loadUserProperties(locale);
+        ResourceBundle bundle = loadUserProperties(userLocale);
 
         if (bundle != null)
         {

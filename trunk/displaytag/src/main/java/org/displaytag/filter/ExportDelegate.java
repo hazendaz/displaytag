@@ -21,7 +21,7 @@ import org.displaytag.tags.TableTagParameters;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ExportDelegate
+public final class ExportDelegate
 {
 
     /**
@@ -30,12 +30,20 @@ public class ExportDelegate
     private static Log log = LogFactory.getLog(ExportDelegate.class);
 
     /**
-     * Actually writes exported data, extracting content from the Map stored in request with the
+     * Donìt instantiate.
+     */
+    private ExportDelegate()
+    {
+        // unused
+    }
+
+    /**
+     * Actually writes exported data. Extracts content from the Map stored in request with the
      * <code>TableTag.FILTER_CONTENT_OVERRIDE_BODY</code> key.
      * @param wrapper BufferedResponseWrapper implementation
      * @param response HttpServletResponse
      * @param request ServletRequest
-     * @throws IOException
+     * @throws IOException exception thrown by response writer/outputStream
      */
     protected static void writeExport(HttpServletResponse response, ServletRequest request,
         BufferedResponseWrapper wrapper) throws IOException
