@@ -277,11 +277,6 @@
               </td>
             </tr>
             <tr>
-              <td>value</td>
-              <td>no</td>
-              <td>-</td>
-            </tr>
-            <tr>
               <td>title</td>
               <td>no</td>
               <td>title of the column (text for the th cell)</td>
@@ -367,7 +362,7 @@
               <td>"class" html attribute added only for header cells.</td>
             </tr>
             <tr>
-              <td>sort</td>
+              <td><em class="deprecated">sort</em></td>
               <td>no</td>
               <td>
                 <em>@deprecated</em>
