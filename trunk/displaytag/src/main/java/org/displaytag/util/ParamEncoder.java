@@ -15,13 +15,13 @@ public class ParamEncoder
     private String parameterIdentifier;
 
     /**
+     * Generates a new parameter encoder for the table with the given id.
      * @param idAttribute value of "id" attribute
-     * @param nameAttribute value of "name" attribute
      */
-    public ParamEncoder(String idAttribute, String nameAttribute)
+    public ParamEncoder(String idAttribute)
     {
         // use name and id to get the unique identifier
-        String stringIdentifier = "x-" + idAttribute + nameAttribute;
+        String stringIdentifier = "x-" + idAttribute;
 
         // get the array
         char[] charArray = stringIdentifier.toCharArray();

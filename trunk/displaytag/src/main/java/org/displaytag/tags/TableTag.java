@@ -521,7 +521,12 @@ public class TableTag extends HtmlTableTag
     {
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getId() + "] first iteration=" + (this.rowNumber == 1) + " (row number=" + this.rowNumber
+            log.debug("["
+                + getId()
+                + "] first iteration="
+                + (this.rowNumber == 1)
+                + " (row number="
+                + this.rowNumber
                 + ")");
         }
         // in first iteration this.rowNumber is 1
@@ -553,7 +558,8 @@ public class TableTag extends HtmlTableTag
                     "\n\nYou appear to have an INCOMPATIBLE VERSION of the Commons Lang library.  \n"
                         + "Displaytag requires version 2 of this library, and you appear to have a prior version in \n"
                         + "your classpath.  You must remove this prior version AND ensure that ONLY version 2 is in \n"
-                        + "your classpath.\n " + "If commons-lang-1.x is in your classpath, be sure to remove it. \n"
+                        + "your classpath.\n "
+                        + "If commons-lang-1.x is in your classpath, be sure to remove it. \n"
                         + "Be sure to delete all cached or temporary jar files from your application server; Tomcat \n"
                         + "users should be sure to also check the CATALINA_HOME/shared folder; you may need to \n"
                         + "restart the server. \n"
@@ -850,7 +856,8 @@ public class TableTag extends HtmlTableTag
         {
             if (log.isDebugEnabled())
             {
-                log.debug("[" + getId()
+                log.debug("["
+                    + getId()
                     + "] tag body is empty. Iterates to preserve compatibility with previous version");
             }
 
@@ -1511,8 +1518,11 @@ public class TableTag extends HtmlTableTag
 
         if (this.tableModel.getRowListPage().size() == 0)
         {
-            buffer.append("<tr class=\"empty\"><td colspan=\"" + (this.tableModel.getNumberOfColumns()) + "\">"
-                + this.properties.getEmptyListMessage() + "</td></tr>");
+            buffer.append("<tr class=\"empty\"><td colspan=\""
+                + (this.tableModel.getNumberOfColumns())
+                + "\">"
+                + this.properties.getEmptyListMessage()
+                + "</td></tr>");
         }
 
         return buffer.toString();
@@ -1642,8 +1652,8 @@ public class TableTag extends HtmlTableTag
         // paramEncoder has been already instantiated?
         if (this.paramEncoder == null)
         {
-            // use name and id to get the unique identifier
-            this.paramEncoder = new ParamEncoder(this.id, this.name);
+            // use the id attribute to get the unique identifier
+            this.paramEncoder = new ParamEncoder(this.id);
         }
 
         return this.paramEncoder.encodeParameterName(parameterName);
