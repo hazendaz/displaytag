@@ -251,6 +251,11 @@ public class TableTag extends HtmlTableTag
     private String caption;
 
     /**
+     * If set to true, only iterates on sublist.
+     */
+    private boolean optimizedIteration;
+
+    /**
      * Sets the list of parameter which should not be forwarded during sorting or pagination.
      * @param value whitespace separated list of parameters which should not be included (* matches all parameters)
      */
@@ -644,11 +649,6 @@ public class TableTag extends HtmlTableTag
             // Row object for Cell values
             this.currentRow = new Row(iteratedObject, this.rowNumber);
 
-            if (log.isDebugEnabled())
-            {
-                log.debug("[" + getId() + "] doIteration() returning EVAL_BODY_TAG");
-            }
-
             // new iteration
             // using int to avoid deprecation error in compilation using j2ee 1.3
             return 2;
@@ -745,6 +745,19 @@ public class TableTag extends HtmlTableTag
         if (fullName != null)
         {
             this.list = evaluateExpression(fullName);
+        }
+
+        // optimized iteration if:
+        if (((this.pagesize > 0 // we are paging
+            || this.offset > 0 // or we are skipping some records using offset
+        || this.length > 0) // or we are limiting the records using length
+            && (sortColumn > -1) // and we are not sorting
+        || !finalSortFull) // or we are sorting with the "page" behaviour
+            && ((this.currentMediaType == MediaTypeEnum.HTML) // and we are not exporting
+            || !this.properties.getExportFullList()) // or we are exporting a single page
+        )
+        {
+            // optimizedIteration = true;
         }
 
         this.tableIterator = IteratorUtils.getIterator(this.list);
@@ -904,7 +917,7 @@ public class TableTag extends HtmlTableTag
             this.tableModel.setTableDecorator(tableDecorator);
         }
 
-        getViewableData();
+        setupViewableData();
 
         // Figure out how we should sort this data, typically we just sort
         // the data being shown, but the programmer can override this behavior
@@ -971,6 +984,7 @@ public class TableTag extends HtmlTableTag
         this.rowNumber = 1;
         this.tableIterator = null;
         this.tableModel = null;
+        this.optimizedIteration = false;
     }
 
     /**
@@ -1148,22 +1162,15 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * This returns a list of all of the data that will be displayed on the page via the table tag. This might include
+     * This sets the list of all of the data that will be displayed on the page via the table tag. This might include
      * just a subset of the total data in the list due to to paging being active, or the user asking us to just show a
      * subset, etc...
-     * <p>
-     * The list that is returned from here is not the original list, but it does contain references to the same objects
-     * in the original list, so that means that we can sort and reorder the list, but we can't mess with the data
-     * objects in the list.
-     * </p>
-     * @return List
      */
-    public List getViewableData()
+    protected void setupViewableData()
     {
 
-        // If the user has changed the way our default behavior works, then we
-        // need to look for it now, and resort things if needed before we ask
-        // for the viewable part. (this is a bad place for this, this should be
+        // If the user has changed the way our default behavior works, then we need to look for it now, and resort
+        // things if needed before we ask for the viewable part. (this is a bad place for this, this should be
         // refactored and moved somewhere else).
 
         if (this.tableModel.isSortFullTable())
@@ -1191,9 +1198,6 @@ public class TableTag extends HtmlTableTag
 
         this.tableModel.setRowListPage(fullList);
         this.tableModel.setPageOffset(pageOffset);
-
-        // returns the list for compatibility, its not used in TableTag
-        return fullList;
     }
 
     /**
