@@ -54,7 +54,6 @@ public class ListIndexTableDecoratorTest extends DisplaytagCase
         {
             log.debug("RESPONSE: " + response.getText());
         }
-        log.info("RESPONSE: " + response.getText());
 
         WebTable[] tables = response.getTables();
 
