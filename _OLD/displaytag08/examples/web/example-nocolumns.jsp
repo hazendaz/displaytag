@@ -66,3 +66,5 @@ production, you should always define at least a single column if for no other
 reason that you can set the column title.<p>
 
 <jsp:include page="footer.jsp" flush="true" />
+
+</html>

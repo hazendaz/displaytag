@@ -50,3 +50,5 @@ scanned for patterns and updated if it matches on an address or URL.<p>
 
 
 <jsp:include page="footer.jsp" flush="true" />
+
+</html>
