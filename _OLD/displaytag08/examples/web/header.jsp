@@ -32,13 +32,13 @@
 					<td width="100%"><font size="+2" color="#000000"><b> </b></font>
 						<table width="100%" border="0" cellspacing="0" cellpadding="9">
 							<tr>
-								<td><span class="header"><a href="/display-0.8/" style="color:Black; text-decoration:none">
+								<td><span class="header"><a href="/display-@version@/" style="color:Black; text-decoration:none">
 						The &lt;display:*&gt; tag library
 						</a> </span><br>
-                  <a href="/display-0.8/">Overview</a><span class="menupipe"> | </span>
-                  <a href="/display-examples-0.8/">Examples</a><span class="menupipe"> | </span>
-                  <a href="/display-docs-0.8/">Documentation</a><span class="menupipe"> | </span>
-                  <a href="/display-0.8/download.jsp">Download</a>
+                  <a href="/display-@version@/">Overview</a><span class="menupipe"> | </span>
+                  <a href="/display-examples-@version@/">Examples</a><span class="menupipe"> | </span>
+                  <a href="/display-docs-@version@/">Documentation</a><span class="menupipe"> | </span>
+                  <a href="/display-@version@/download.jsp">Download</a>
                    </font></td>
 							</tr>
 						</table>
@@ -46,7 +46,7 @@
                <td bgcolor="#ffeeaa" align="right" valign="bottom">
                <table border="0" cellspacing="7" cellpadding="0">
                <tr>
-               <td align="right" valign="bottom" nowrap>Version: 0.8 (03/10/2002)</td>
+               <td align="right" valign="bottom" nowrap>Version: @version@ (@versiondate@)</td>
                </tr>
                </table>
                </td>
