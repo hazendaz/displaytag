@@ -240,7 +240,7 @@ public class TableTag extends HtmlTableTag
      * Is the current row empty?  Should the columns display?
      * @return true if the current row is empty
      */
-    public boolean isEmpty()
+    protected boolean isEmpty()
     {
         return mCurrentRow == null;
     }
