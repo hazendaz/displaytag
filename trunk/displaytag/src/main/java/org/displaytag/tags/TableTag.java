@@ -815,9 +815,12 @@ public class TableTag extends HtmlTableTag
         if (this.requestUri != null)
         {
             // if user has added a requestURI create a new href
-            this.baseHref = new Href(this.requestUri);
 
-            // ... ancd copy parameters from the curret request
+            // call encodeURL to preserve session id when cookies are disabled
+            String encodedURI = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(this.requestUri);
+            this.baseHref = new Href(encodedURI);
+
+            // ... and copy parameters from the current request
             Map parameterMap = normalHref.getParameterMap();
             this.baseHref.addParameterMap(parameterMap);
         }
