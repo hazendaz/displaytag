@@ -525,7 +525,7 @@ or
 
   <tag>
     <name>caption</name>
-    <tag-class>org.displaytag.tags.CaptionTag</tag-class>
+    <tag-class>org.displaytag.tags.el.ELCaptionTag</tag-class>
     <body-content>JSP</body-content>
     <display-name>caption</display-name>
     <description>
