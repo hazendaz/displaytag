@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 
+
 /**
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
@@ -40,16 +41,23 @@ public class RowIterator
     private String id;
 
     /**
+     * Starting offset for items n the current page. Needed to calculare the index in the original list
+     */
+    private int pageOffset;
+
+    /**
      * Constructor for RowIterator.
      * @param rowList List containing Row objects
      * @param columnList List containing CellHeader objects
      * @param tableDecorator TableDecorator
+     * @param pageOffset Starting offset for items n the current page
      */
-    protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator)
+    protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator, int pageOffset)
     {
         this.iterator = rowList.iterator();
         this.rowNumber = 0;
         this.decorator = tableDecorator;
+        this.pageOffset = pageOffset;
     }
 
     /**
@@ -92,8 +100,7 @@ public class RowIterator
 
         if (this.decorator != null)
         {
-            // @todo the second currentRowNumber is wrong
-            this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber);
+            this.decorator.initRow(row.getObject(), currentRowNumber, this.pageOffset + currentRowNumber);
         }
 
         return row;
