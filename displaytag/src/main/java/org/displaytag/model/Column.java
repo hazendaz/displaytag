@@ -64,7 +64,7 @@ public class Column
     }
 
     /**
-     * Method getValue
+     * Gets the value, after calling the table / column decorator is requested
      * @param decorated boolean
      * @return Object
      * @throws ObjectLookupException for errors in bean property lookup
@@ -110,8 +110,8 @@ public class Column
     }
 
     /**
-     * Method getOpenTag
-     * @return String
+     * Generates the cell open tag (&lt;td attribute1="value" ... >)
+     * @return String td open tag
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
      */
@@ -123,8 +123,8 @@ public class Column
     }
 
     /**
-     * Method getCloseTag
-     * @return String
+     * Generates the cell close tag (&lt;/td>)
+     * @return String td closing tag
      */
     public String getCloseTag()
     {
@@ -133,7 +133,7 @@ public class Column
     }
 
     /**
-     * Method createChoppedAndLinkedValue
+     * Calculates the cell content, cropping or linking the value as needed
      * @return String
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
