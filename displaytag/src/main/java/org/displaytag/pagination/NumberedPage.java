@@ -7,7 +7,7 @@ import org.displaytag.util.ShortToStringStyle;
 /**
  * Object representing a page.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class NumberedPage
 {

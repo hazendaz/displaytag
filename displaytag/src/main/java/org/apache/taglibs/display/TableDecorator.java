@@ -12,7 +12,7 @@ import java.util.List;
  * package.
  * <p>
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  * @deprecated use <code>org.displaytag.decorator.TableDecorator</code>
  */
 public abstract class TableDecorator extends org.displaytag.decorator.TableDecorator

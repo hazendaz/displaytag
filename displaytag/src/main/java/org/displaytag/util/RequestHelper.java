@@ -7,7 +7,7 @@ import java.util.Map;
  * A RequestHelper object is used to read parameters from the request. Main features are handling of numeric parameters
  * and the ability to create Href objects from the current request.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public interface RequestHelper
 {

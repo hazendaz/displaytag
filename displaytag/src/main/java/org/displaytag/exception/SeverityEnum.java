@@ -6,7 +6,7 @@ import org.apache.commons.lang.enum.Enum;
 /**
  * Enumeration for logging severities.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public final class SeverityEnum extends Enum
 {

@@ -5,7 +5,7 @@ import org.displaytag.Messages;
 /**
  * Exception thrown when displaytag is unable to reset the response during export.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class ExportException extends BaseNestableJspTagException
 {

@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
  * suffix wich extends BeanInfoUtil
  * </p>
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public class BeanInfoUtil extends SimpleBeanInfo
 {

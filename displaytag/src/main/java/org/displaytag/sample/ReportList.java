@@ -9,7 +9,8 @@ import java.util.Collections;
  * though it where pulling data from a report. This list is used to show the various report oriented examples (such as
  * grouping, callbacks, and data exports).
  * @author epesh
- * @version $Revision $ ($Author $)
+ * @author Fabrizio Giustina
+ * @version $Revision$ ($Author$)
  */
 public class ReportList extends ArrayList
 {

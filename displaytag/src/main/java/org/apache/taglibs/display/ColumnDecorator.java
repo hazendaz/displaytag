@@ -7,7 +7,7 @@ import org.displaytag.exception.DecoratorException;
  * <p>Never extend this class, you should always implements the <code>org.displaytag.decorator.ColumnDecorator</code>
  * interface.<p>
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  * @deprecated use <code>org.displaytag.decorator.ColumnDecorator</code>
  */
 public abstract class ColumnDecorator implements org.displaytag.decorator.ColumnDecorator

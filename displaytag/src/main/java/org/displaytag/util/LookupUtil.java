@@ -14,7 +14,7 @@ import org.displaytag.exception.ObjectLookupException;
 /**
  * Utility class with methods for object and properties retrieving.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public final class LookupUtil
 {

@@ -3,7 +3,7 @@ package org.displaytag.util;
 /**
  * Constants for html tags.
  * @author Fabrizio Giustina
- * @version $Revision $ ($Author $)
+ * @version $Revision$ ($Author$)
  */
 public final class TagConstants
 {
