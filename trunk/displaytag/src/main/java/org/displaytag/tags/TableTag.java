@@ -237,6 +237,15 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
+     * Is the current row empty?  Should the columns display?
+     * @return true if the current row is empty
+     */
+    public boolean isEmpty()
+    {
+        return mCurrentRow == null;
+    }
+
+    /**
      * setter for the "sort" attribute
      * @param pSort "page" (sort a single page) or "list" (sort the full list)
      * @throws InvalidTagAttributeValueException if value is not "page" or "list"
@@ -582,7 +591,6 @@ public class TableTag extends HtmlTableTag
         {
 
             Object iteratedObject = mIterator.next();
-
             if (getId() != null)
             {
                 if ((iteratedObject != null))
