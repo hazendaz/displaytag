@@ -59,15 +59,19 @@ body {
     font-family: courier;
 }
 
-body,div,span,td,p,h2,h3 {
+body,div,span,td,p,h2,h3,ul,ol,li {
     font-family: Georgia, Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 10pt;
 }
 
-table td, table th {
+table td, table th, table li {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 8pt;
 }
-
+ul, ol {
+    margin-left: 0;
+    padding-left: 15px;
+}
 
 
 #breadcrumbs {

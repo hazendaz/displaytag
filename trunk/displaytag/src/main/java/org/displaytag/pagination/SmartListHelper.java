@@ -237,7 +237,9 @@ public class SmartListHelper
                 new Integer(this.fullListSize),
                 this.properties.getPagingItemsName(),
                 new Integer(getFirstIndexForCurrentPage() + 1),
-                new Integer(getLastIndexForCurrentPage() + 1)};
+                new Integer(getLastIndexForCurrentPage() + 1),
+                new Integer(this.currentPage),
+                new Integer(this.pageCount)};
             message = this.properties.getPagingFoundSomeItems();
         }
 
@@ -263,6 +265,7 @@ public class SmartListHelper
         int endPage;
 
         Pagination pagination = new Pagination(baseHref, pageParameter);
+        pagination.setCurrent(new Integer(currentIndex));
 
         // if no items are found still add pagination?
         if (count == 0)

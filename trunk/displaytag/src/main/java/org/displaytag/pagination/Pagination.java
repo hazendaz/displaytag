@@ -56,6 +56,11 @@ public class Pagination
     private Integer nextPage;
 
     /**
+     * current page.
+     */
+    private Integer currentPage;
+
+    /**
      * List containg NumberedPage objects.
      * @see org.displaytag.pagination.NumberedPage
      */
@@ -186,6 +191,15 @@ public class Pagination
     }
 
     /**
+     * Sets the number of the current page.
+     * @param current number of the current page
+     */
+    public void setCurrent(Integer current)
+    {
+        this.currentPage = current;
+    }
+
+    /**
      * Returns the appropriate banner for the pagination.
      * @param numberedPageFormat String to be used for a not selected page
      * @param numberedPageSelectedFormat String to be used for a selected page
@@ -196,7 +210,6 @@ public class Pagination
     public String getFormattedBanner(String numberedPageFormat, String numberedPageSelectedFormat,
         String numberedPageSeparator, String fullBanner)
     {
-
         StringBuffer buffer = new StringBuffer(100);
 
         // numbered page list
@@ -241,12 +254,16 @@ public class Pagination
         //  {2} previous page url
         //  {3} next page url
         //  {4} last page url
+        //  {5} current page
+        //  {6} total pages
         Object[] pageObjects = {
             numberedPageString,
             ((Href) this.href.clone()).addParameter(this.pageParam, getFirst()),
             ((Href) this.href.clone()).addParameter(this.pageParam, getPrevious()),
             ((Href) this.href.clone()).addParameter(this.pageParam, getNext()),
-            ((Href) this.href.clone()).addParameter(this.pageParam, getLast())};
+            ((Href) this.href.clone()).addParameter(this.pageParam, getLast()),
+            this.currentPage,
+            new Integer(pages.size())};
 
         // return the full banner
         return MessageFormat.format(fullBanner, pageObjects);
@@ -260,6 +277,7 @@ public class Pagination
         return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("firstPage", this.firstPage) //$NON-NLS-1$
             .append("lastPage", this.lastPage) //$NON-NLS-1$
+            .append("currentPage", this.currentPage) //$NON-NLS-1$
             .append("nextPage", this.nextPage) //$NON-NLS-1$
             .append("previousPage", this.previousPage) //$NON-NLS-1$
             .append("pages", this.pages) //$NON-NLS-1$
