@@ -3,7 +3,7 @@
 <project xmlns:j="jelly:core" xmlns:u="jelly:util" default="rebuild-all">
     <!-- default goal -->
     <goal name="rebuild-all">
-        <j:set var="goals" value="pom,clean,jar:jar,war:war,site:generate" />
+        <j:set var="goals" value="pom,clean,jar:jar,war:war" />
         <mkdir dir="${maven.build.dir}" />
         <u:tokenize var="goals" delim=",">${goals}</u:tokenize>
         <j:forEach items="${goals}" var="goal" indexVar="goalNumber"> Now attaining goal number ${goalNumber}, which is 
