@@ -1,69 +1,56 @@
-/*
- * $Id$
- *
- * Todo
- *   - implementation
- *   - documentation (javadoc, examples, etc...)
- *   - junit test cases
- */
-
 package org.apache.taglibs.display;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * One line description of what this class does.
+ * SetProperty tag - allows you to change a tables properties.
  *
- * More detailed class description, including examples of usage if applicable.
+ * @version $Revision$
  */
-public class SetPropertyTag extends BodyTagSupport implements Cloneable {
+public class SetPropertyTag extends BodyTagSupport {
     private String name;
     private String value;
 
-    public void setName(String v) {
-        this.name = v;
-    }
-
-    public void setValue(String v) {
-        this.value = v;
-    }
-
     public String getName() {
-        return this.name;
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getValue() {
-        return this.value;
+        return value;
     }
 
-    // --------------------------------------------------------- Tag API methods
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     /**
-     * Passes attribute information up to the parent TableTag.<p>
+     * Passes property information up to the parent TableTag.
      *
-     * When we hit the end of the tag, we simply let our parent (which better
-     * be a TableTag) know what the user wants to change a property value, and
-     * we pass the name/value pair that the user gave us, up to the parent
+     * <p>When we hit the end of the tag, we simply let our parent (which better
+     * be a TableTag) know that the user wants to change a property value, and
+     * we pass the name/value pair that the user gave us, up to the parent.
      *
      * @throws javax.servlet.jsp.JspException if this tag is being used outside of a
-     *    <display:list...> tag.
+     *    &lt;display:table...&gt; tag.
      */
     public int doEndTag() throws JspException {
-        Object parent = this.getParent();
+        Object parent = getParent();
 
         if (parent == null) {
-            throw new JspException("Can not use column tag outside of a " +
+            throw new JspException("Can not use setProperty tag outside of a " +
                                    "TableTag. Invalid parent = null");
         }
-
         if (!(parent instanceof TableTag)) {
-            throw new JspException("Can not use column tag outside of a " +
-                                   "TableTag. Invalid parent = " +
-                                   parent.getClass().getName());
+            throw new JspException("Can not use setProperty tag outside of a " +
+                                   "TableTag. Invalid parent = " + parent.getClass().getName());
         }
 
-        ((TableTag) parent).setProperty(this.name, this.value);
+        ((TableTag) parent).setProperty(name, value);
 
         return super.doEndTag();
     }
