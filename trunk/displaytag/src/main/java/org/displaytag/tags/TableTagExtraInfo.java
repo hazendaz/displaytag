@@ -13,12 +13,13 @@ public class TableTagExtraInfo extends TagExtraInfo
 {
 
     /**
-     * suffix added to id for saving row number in pagecontext
+     * Suffix added to id for saving row number in pagecontext.
      */
     public static final String ROWNUM_SUFFIX = "_rowNum";
 
     /**
-     * Variabiles TableTag makes available in the pageContext
+     * Variables TableTag makes available in the pageContext.
+     *
      * @param data TagData
      * @return VariableInfo[]
      * @see javax.servlet.jsp.tagext.TagData
