@@ -85,6 +85,16 @@
       <action type="add" dev="fgiust" >
 	       Test coverage reports added to the build. Free license for the displaytag project kindly donated by Clover.
       </action>
+      <action type="fix" dev="fgiust" issue="891070">
+	       Two /tbody generated.
+      </action>
+      <action type="add" dev="fgiust" >
+	       Support for arrays of Maps has been added in automatic column discovery. If you pass an array of map objects to
+	       the table tag the list of columns will be generated from the keys of the first map in the array.
+	       This allows to use the result of a jstl sql:query tag in a display:table without columns (use
+	       <code>result<strong>.rows</strong></code> in the name attribute).
+      </action>
+      
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
