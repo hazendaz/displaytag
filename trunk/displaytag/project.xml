@@ -4,11 +4,11 @@
     <id>displaytag</id>
     <name>Display tag library</name>
     <groupId>displaytag</groupId>
-    <currentVersion>1.0</currentVersion>
+    <currentVersion>1.1-SNAPSHOT</currentVersion>
     <organization>
         <name>the Displaytag team</name>
         <url>http://sourceforge.net/projects/displaytag</url>
-        <logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=8</logo>
+        <logo>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</logo>
     </organization>
     <inceptionYear>2002</inceptionYear>
     <package>org.displaytag</package>
@@ -19,10 +19,10 @@
         easy to use.
     </description>
     <shortDescription>Display tag library</shortDescription>
-    <url>http://${pom.groupId}.sourceforge.net</url>
+    <url>http://diplaytag.sourceforge.net</url>
     <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
     <siteAddress>shell.sourceforge.net</siteAddress>
-    <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
+    <siteDirectory>/home/groups/d/di/displaytag/htdocs/11/</siteDirectory>
     <repository>
         <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</connection>
         <developerConnection>
@@ -84,59 +84,68 @@
     </mailingLists>
     <developers>
         <developer>
-            <name>Matt Raible</name>
-            <id>matt</id>
-            <email>mraible AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
             <name>Fabrizio Giustina</name>
             <id>fgiust</id>
-            <email>fgiust AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
+            <email>fgiust(at)users.sourceforge.net</email>
+            <organization></organization>
+            <roles>
+                <role>Project admin and main developer</role>
+            </roles>
             <timezone>+1</timezone>
         </developer>
         <developer>
-            <name>Mathias Bogaert</name>
-            <id>pathoss</id>
-            <email>pathoss AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <timezone>0</timezone>
-        </developer>
-        <developer>
-            <name>Benjamin Simpson</name>
-            <id>javabencom</id>
-            <email>javabencom AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <timezone>0</timezone>
-        </developer>
-        <developer>
-            <name>John York</name>
-            <id>johnryork</id>
-            <email>johnryork AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <timezone>0</timezone>
+            <name>Matt Raible</name>
+            <id>matt</id>
+            <email>mraible(at)users.sourceforge.net</email>
+            <organization>Raible Designs</organization>
+            <roles>
+                <role>Project admin</role>
+            </roles>
+            <timezone>-7</timezone>
         </developer>
         <developer>
             <name>Andy Pruitt</name>
             <id>rapruitt</id>
-            <email>rapruitt AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
+            <email>rapruitt(at)users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
             <timezone>-6</timezone>
         </developer>
         <developer>
-            <name>Ed Hill</name>
-            <id>ed-hill</id>
-            <email>ed-hill AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
+            <name>Benjamin Simpson</name>
+            <id>javabencom</id>
+            <email>javabencom(at)users.sourceforge.net</email>
+            <roles>
+                <role>Documentation editor</role>
+            </roles>
+            <timezone>0</timezone>
+        </developer>
+        <developer>
+            <name>Mathias Bogaert</name>
+            <id>pathoss</id>
+            <email>pathoss(at)users.sourceforge.net</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
             <timezone>0</timezone>
         </developer>
     </developers>
     <contributors>
         <contributor>
             <name>Didier Dubois</name>
-            <email>didier@ddubois.info</email>
+            <email>didier(at)ddubois.info</email>
+            <roles>
+                <role>Initial help on the maven build system</role>
+            </roles>
+            <timezone>0</timezone>
+        </contributor>
+        <contributor>
+            <name>Ed Hill</name>
+            <email>ed-hill(at)users.sourceforge.net</email>
+            <roles>
+                <role>Initial developer of the tag library</role>
+            </roles>
             <timezone>0</timezone>
         </contributor>
     </contributors>
