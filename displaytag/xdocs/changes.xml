@@ -22,7 +22,7 @@
 			</pre>
 		</blockquote>
 
-		<release version="0.9" date="in CVS">
+		<release version="1.0-rc1" date="in CVS">
 			<action type="add" dev="fgiust" due-to="Fabrizio Giustina">
 				Mavenized! Thanks to Didier Dubois for the help on migrating the build system to maven.
 			</action>
@@ -36,7 +36,7 @@
 			</action>
 			<action type="update" dev="fgiust" due-to="Fabrizio Giustina">
 				Better html output. The rendered html code is now completely xhtml STRICT compliant. Some of the css
-				classes has been changed, check the docs for upgrading from previous versions.
+				classes have been changed, check the docs for upgrading from previous versions.
 			</action>
 			<action type="add" dev="fgiust" due-to="Fabrizio Giustina">
 				Global configuration with a user supplied properties file (configured in web.xml) which lets you
