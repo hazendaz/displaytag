@@ -59,9 +59,20 @@
               <td>basic.msg.empty_list</td>
               <td class="source">Nothing found to display</td>
               <td>Any string</td>
-              <td>The message that is displayed if the list that this table is associated with is either null, or empty.
-              	The message is displayed into the first table row if <code>basic.empty.showtable</code> is <code>true</code> or standalone if 
-              	<code>basic.empty.showtable</code> is <code>false</code>
+              <td>
+                The message that is displayed if the list that this table is associated with is either null, or empty.
+                Used only if <code>basic.empty.showtable</code> is <code>false</code>.
+              </td>
+              <td>yes/yes</td>
+            </tr>
+            <tr>
+              <td>basic.msg.empty_list_row</td>
+              <td class="source">&lt;tr class="empty">&lt;td colspan="{0}">Nothing found to display.&lt;/td>&lt;/tr></td>
+              <td>Any string</td>
+              <td>
+                The message that is displayed into the first table row if the list that this table is associated with is
+                either null, or empty. {0} is replaced with the total column number to generate a correct colspan.
+              	Used only if <code>basic.empty.showtable</code> is <code>true</code>.
               </td>
               <td>yes/yes</td>
             </tr>
