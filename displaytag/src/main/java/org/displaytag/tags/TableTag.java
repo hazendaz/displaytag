@@ -12,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.JspTagException;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
@@ -76,6 +77,12 @@ public class TableTag extends HtmlTableTag
      * logger
      */
     private static Log log = LogFactory.getLog(TableTag.class);
+
+    /**
+     * Has the commons-lang dependency been checked?
+     */
+    protected static boolean commonsLangChecked = false;
+
 
     /**
      * Iterator on collection
@@ -442,6 +449,46 @@ public class TableTag extends HtmlTableTag
         return mRowNumber == 1;
     }
 
+      /**
+       * Displaytag requires commons-lang 2.x or better; it is not compatible with earlier versions.
+       * @throws javax.servlet.jsp.JspTagException if the wrong library, or no library at all, is found.
+       */
+      public static void checkCommonsLang() throws JspTagException
+      {
+          if (commonsLangChecked)
+          {
+              return;
+          }
+          try
+          {  // Do they have commons lang ?
+              Class stringUtils = Class.forName("org.apache.commons.lang.StringUtils");
+              try
+              {
+                  // this method is new in commons-lang 2.0
+                  stringUtils.getMethod("capitalize", new Class[]{String.class});
+              }
+              catch (NoSuchMethodException ee)
+              {
+                  throw new JspTagException("\n\nYou appear to have an INCOMPATIBLE VERSION of the Commons Lang library.  \n" +
+                          "Displaytag requires version 2 of this library, and you appear to have a prior version in your \n" +
+                          "classpath.  You must remove this prior version AND ensure that ONLY version 2 is in your classpath.\n " +
+                          "If commons-lang-1.x is in your classpath, be sure to remove it. \n" +
+                          "Be sure to delete all cached or temporary jar files from your application server; Tomcat users \n" +
+                          "should be sure to also check the CATALINA_HOME/shared folder; you may need to restart the server. \n" +
+                          "commons-lang-2.jar is available in the displaytag distribution, or from the Jakarta website at \n" +
+                          "http://jakarta.apache.org/commons \n\n.");
+              }
+          }
+          catch (ClassNotFoundException e)
+          {
+              throw new JspTagException("You do not appear to have the Commons Lang library, version 2.  " +
+                      "commons-lang-2.jar is available in the displaytag distribution, or from the Jakarta website at " +
+                      "http://jakarta.apache.org/commons .  ");
+          }
+          commonsLangChecked = true;
+      }
+
+
     /**
      * When the tag starts, we just initialize some of our variables, and do a
      * little bit of error checking to make sure that the user is not trying
@@ -452,7 +499,7 @@ public class TableTag extends HtmlTableTag
      **/
     public int doStartTag() throws JspException
     {
-
+        checkCommonsLang();
         if (log.isDebugEnabled())
         {
             log.debug("doStartTag()");
