@@ -1,7 +1,11 @@
 package org.displaytag.filter;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.tags.TableTag;
 import org.displaytag.tags.TableTagParameters;
+import org.displaytag.tags.el.ELTableTag;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 
@@ -47,8 +51,16 @@ public class FilterTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(jspName);
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
 
+        // save previous level, since we are expeting an excetion I don't want to fill logs
+        Level previousLevel = Logger.getLogger(TableTag.class).getLevel();
+        Level previousLevelEL = Logger.getLogger(ELTableTag.class).getLevel();
+
         try
         {
+            // disable log
+            Logger.getLogger(TableTag.class).setLevel(Level.OFF);
+            Logger.getLogger(ELTableTag.class).setLevel(Level.OFF);
+
             // check if page need a filter (unfiltered request)
             runner.getResponse(request);
             fail("Request works also without a filter. Can't test it properly.");
@@ -57,6 +69,10 @@ public class FilterTest extends DisplaytagCase
         {
             // it's ok
         }
+
+        // reset log
+        Logger.getLogger(TableTag.class).setLevel(previousLevel);
+        Logger.getLogger(ELTableTag.class).setLevel(previousLevelEL);
 
         request = new GetMethodWebRequest(jspName + MockFilterSupport.FILTERED_EXTENSION);
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
