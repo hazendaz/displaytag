@@ -112,7 +112,7 @@ public class Column
     }
 
     /**
-     * Generates the cell open tag (&lt;td attribute1="value" ... >)
+     * Generates the cell open tag.
      * @return String td open tag
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
