@@ -1,6 +1,6 @@
 <%@ include file="inc/header.jsp" %>
 
-<% request.setAttribute( "test", new TestList( 10 ) ); %>
+<% request.setAttribute( "test", new TestList(10, false) ); %>
 
 <h2><a href="./index.jsp">Examples</a> > Basic, showing subsets of data from the List</h2>
 

@@ -1,10 +1,10 @@
 <%@ include file="inc/header.jsp" %>
 
-<% request.setAttribute( "test", new TestList( 10 ) ); %>
+<% request.setAttribute( "test", new TestList(10, false) ); %>
 <% request.setAttribute( "test2", new ArrayList() ); %>
 <% Object foo = session.getAttribute( "test3" );
    if( foo == null ) {
-      session.setAttribute( "test3", new TestList( 320 ) );
+      session.setAttribute( "test3", new TestList(320, false) );
    }
 %>
 

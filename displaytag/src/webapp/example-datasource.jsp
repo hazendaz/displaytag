@@ -1,6 +1,6 @@
 <%@ include file="inc/header.jsp" %>
 
-<% request.setAttribute( "test", new TestList( 10 ) ); %>
+<% request.setAttribute( "test", new TestList(10, false) ); %>
 
 <h2><a href="./index.jsp">Examples</a> > Basic, acquiring your List of data</h2>
 
@@ -143,11 +143,11 @@
 </p>
 
 <pre>
-&lt;% List blech = new TestList( 5 ); %&gt;
+&lt;% List blech = new TestList(5, false); %&gt;
 &lt;display:table list="&lt;%= blech %&gt;" &gt;
 </pre>
 
-<% List blech = new TestList( 5 ); %>
+<% List blech = new TestList(5, false); %>
 
 <display:table list="<%= blech %>" >
   <display:column property="id" title="ID" />

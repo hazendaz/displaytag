@@ -1,6 +1,6 @@
 <%@ include file="inc/header.jsp" %>
 
-<% request.setAttribute( "test", new TestList( 10 ) ); %>
+<% request.setAttribute( "test", new TestList(10, false) ); %>
 
 <% String lClass = "isis";
    if( request.getParameter( "class" ) != null ) {
