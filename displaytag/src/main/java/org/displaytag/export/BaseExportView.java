@@ -1,4 +1,5 @@
 package org.displaytag.export;
+
 import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
@@ -13,14 +14,15 @@ import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 
+
 /**
  * <p>
  * Base abstract class for simple export views.
  * </p>
  * <p>
- * A class wich extends BaseExportView simple need to provide delimiters for rows and columns.
+ * A class that extends BaseExportView simple need to provide delimiters for rows and columns.
  * </p>
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public abstract class BaseExportView
@@ -47,16 +49,23 @@ public abstract class BaseExportView
     private boolean header;
 
     /**
+     * decorate export?
+     */
+    private boolean decorated;
+
+    /**
      * Constructor for BaseExportView.
      * @param tableModel TableModel to render
      * @param exportFullList boolean export full list?
      * @param includeHeader should header be included in export?
+     * @param decorateValues should ouput be decorated?
      */
-    public BaseExportView(TableModel tableModel, boolean exportFullList, boolean includeHeader)
+    public BaseExportView(TableModel tableModel, boolean exportFullList, boolean includeHeader, boolean decorateValues)
     {
         this.model = tableModel;
         this.exportFull = exportFullList;
         this.header = includeHeader;
+        this.decorated = decorateValues;
     }
 
     /**
@@ -222,7 +231,7 @@ public abstract class BaseExportView
                 Object value;
 
                 // Get the value to be displayed for the column
-                value = column.getValue(true);
+                value = column.getValue(this.decorated);
 
                 buffer.append(CELL_START);
                 buffer.append(escapeColumnValue(value));

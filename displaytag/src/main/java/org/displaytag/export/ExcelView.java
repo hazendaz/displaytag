@@ -5,18 +5,18 @@ import org.displaytag.model.TableModel;
 
 /**
  * Export view for excel exporting.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ExcelView extends BaseExportView
 {
 
     /**
-     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean, boolean)
+     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean, boolean, boolean)
      */
-    public ExcelView(TableModel tableModel, boolean exportFullList, boolean includeHeader)
+    public ExcelView(TableModel tableModel, boolean exportFullList, boolean includeHeader, boolean decorateValues)
     {
-        super(tableModel, exportFullList, includeHeader);
+        super(tableModel, exportFullList, includeHeader, decorateValues);
     }
 
     /**
