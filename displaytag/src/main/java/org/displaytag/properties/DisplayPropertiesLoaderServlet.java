@@ -4,12 +4,20 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.Properties;
+import java.io.InputStream;
+import java.io.IOException;
+
 /**
  * <p>Servlet which loads a user supplied properties file for the display taglibrary.</p>
+ * <p><strong>You probably do not need to use this servlet.  For most cases, you should simply add
+ *  a displaytag.properties file to your system, to the same effect, and not have to configure this
+ * servlet.</strong>  If you have both a displaytag.properties, and you configure this servlet, the
+ * properties in the property file specified here will override the properties in the displaytag.properties.
+ * </p>
  * <p>To set a default properties for a whole web application configure this servlet in web.xml and set a
  * "properties.filename" parameter with the path to the properties file, relative to the web application root
  * (example: "WEB-INF/display.properties").</p>
@@ -31,6 +39,7 @@ import org.apache.commons.logging.LogFactory;
  *     &lt;/servlet>
  * </pre>
  * @author fgiust
+ * @author rapruitt
  * @version $Revision$ ($Author$)
  */
 public class DisplayPropertiesLoaderServlet extends HttpServlet
@@ -66,14 +75,28 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
 
         if (lFile != null)
         {
-            // add the webapp path
-            String lPrefix = getServletContext().getRealPath("/");
-
-            String lFullPath = lPrefix + SystemUtils.FILE_SEPARATOR + lFile;
-
-            // set the user file
-            TableProperties.setPropertiesFilename(lFullPath);
-
+            InputStream propStream = pServletConfig.getServletContext().getResourceAsStream(lFile);
+            if (propStream == null)
+            {
+                mLog.warn("unable to find " + lFile);
+                return;
+            }
+            Properties props = new Properties();
+            try
+            {
+                props.load(propStream);
+            }
+            catch (IOException e)
+            {
+                throw new ServletException("Cannot load " + lFile + ": " + e.getMessage(), e);
+            }
+            // set the user properties
+            TableProperties.setUserProperties(props);
+        }
+        else
+        {
+            mLog.warn("No properties parameter found under key " + PROPERTIES_PARAMETER + " - are you"
+                    + "sure that you have configured this servlet correctly?");
         }
 
     }
