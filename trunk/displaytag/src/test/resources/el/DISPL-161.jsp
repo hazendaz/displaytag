@@ -11,13 +11,13 @@
     <body>
       <jsp:scriptlet> <![CDATA[
           java.util.List testData = new java.util.ArrayList();
-          testData.add(new org.displaytag.sample.ListObject());
+          testData.add(new org.displaytag.test.KnownTypes());
           request.setAttribute("test", testData);
       ]]> </jsp:scriptlet>
       <display:table name="requestScope.test" id="table">
         <display:column title="empty" property="nullValue" />
         <display:column nulls="false" title="empty"><c:out value="${table.nullValue}"/></display:column>
-        <display:column nulls="true" title="empty"><jsp:expression>((org.displaytag.sample.ListObject)pageContext.getAttribute("table")).getNullValue()</jsp:expression></display:column>
+        <display:column nulls="true" title="empty"><jsp:expression>((org.displaytag.test.KnownTypes)pageContext.getAttribute("table")).getNullValue()</jsp:expression></display:column>
       </display:table>
     </body>
   </html>
