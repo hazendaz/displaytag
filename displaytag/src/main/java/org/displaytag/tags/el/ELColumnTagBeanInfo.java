@@ -4,6 +4,9 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.beans.SimpleBeanInfo;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.displaytag.tags.ColumnTag;
 
 
 /**
@@ -21,11 +24,10 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
      */
     public PropertyDescriptor[] getPropertyDescriptors()
     {
-        ArrayList proplist = new ArrayList();
+        List proplist = new ArrayList();
 
         try
         {
-            // @todo check attributes in ELColumnTag and fix others
             proplist.add(new PropertyDescriptor("autolink", ELColumnTag.class, null, "setAutolink"));
             proplist.add(new PropertyDescriptor("class", ELColumnTag.class, null, "setClass"));
             proplist.add(new PropertyDescriptor("decorator", ELColumnTag.class, null, "setDecorator"));
@@ -38,10 +40,29 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("nulls", ELColumnTag.class, null, "setNulls"));
             proplist.add(new PropertyDescriptor("paramId", ELColumnTag.class, null, "setParamId"));
             proplist.add(new PropertyDescriptor("paramName", ELColumnTag.class, null, "setParamName"));
+            proplist.add(new PropertyDescriptor("paramProperty", ELColumnTag.class, null, "setParamProperty"));
+            proplist.add(new PropertyDescriptor("paramScope", ELColumnTag.class, null, "setParamScope"));
             proplist.add(new PropertyDescriptor("property", ELColumnTag.class, null, "setProperty"));
             proplist.add(new PropertyDescriptor("sortable", ELColumnTag.class, null, "setSortable"));
             proplist.add(new PropertyDescriptor("style", ELColumnTag.class, null, "setStyle"));
             proplist.add(new PropertyDescriptor("title", ELColumnTag.class, null, "setTitle"));
+
+            // EL only
+            proplist.add(new PropertyDescriptor("titleKey", ELColumnTag.class, null, "setTitleKey"));
+            proplist.add(new PropertyDescriptor("url", ELColumnTag.class, null, "setUrl"));
+
+            // deprecated attribute
+            proplist.add(new PropertyDescriptor("sort", ELColumnTag.class, null, "setSortable")); // map
+            proplist.add(new PropertyDescriptor("styleClass", ELColumnTag.class, null, "setStyle")); // map
+            proplist.add(new PropertyDescriptor("headerStyleClass", ELColumnTag.class, null, "setHeaderClass")); // map
+            proplist.add(new PropertyDescriptor("width", ColumnTag.class, null, "setWidth"));
+            proplist.add(new PropertyDescriptor("align", ColumnTag.class, null, "setAlign"));
+            proplist.add(new PropertyDescriptor("background", ColumnTag.class, null, "setBackground"));
+            proplist.add(new PropertyDescriptor("bgcolor", ColumnTag.class, null, "setBgcolor"));
+            proplist.add(new PropertyDescriptor("height", ColumnTag.class, null, "setHeight"));
+            proplist.add(new PropertyDescriptor("nowrap", ColumnTag.class, null, "setNowrap"));
+            proplist.add(new PropertyDescriptor("valign", ColumnTag.class, null, "setValign"));
+
         }
         catch (IntrospectionException ex)
         {
