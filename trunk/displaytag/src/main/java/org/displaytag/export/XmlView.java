@@ -87,7 +87,7 @@ public class XmlView extends BaseExportView
 	 */
 	public String getMimeType()
 	{
-		return "CsvView";
+		return "text/xml";
 	}
 
 }

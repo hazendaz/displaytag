@@ -87,7 +87,7 @@ public class CsvView extends BaseExportView
 	 */
 	public String getMimeType()
 	{
-		return "CsvView";
+		return "text/csv";
 	}
 
 }

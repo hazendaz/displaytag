@@ -27,6 +27,7 @@
               <td>
                 reference to the object used as source for the table. Can be an expression like
                 <code>requestScope.object.property</code>
+                . You need to define name or list. List is suggested.
               </td>
             </tr>
             <tr>
@@ -52,17 +53,7 @@
             <tr>
               <td>requestURI</td>
               <td>no</td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td>cellspacing</td>
-              <td>no</td>
-              <td>html pass through attribute</td>
-            </tr>
-            <tr>
-              <td>summary</td>
-              <td>no</td>
-              <td>html pass through attribute</td>
+              <td>base URI for creating links</td>
             </tr>
             <tr>
               <td>export</td>
@@ -95,6 +86,16 @@
               <td>defaultsort</td>
               <td>no</td>
               <td>index of the column sorted by default.</td>
+            </tr>
+            <tr>
+              <td>cellspacing</td>
+              <td>no</td>
+              <td>html pass through attribute</td>
+            </tr>
+            <tr>
+              <td>summary</td>
+              <td>no</td>
+              <td>html pass through attribute</td>
             </tr>
             <tr>
               <td>class</td>
@@ -270,7 +271,10 @@
             <tr>
               <td>property</td>
               <td>no</td>
-              <td>-</td>
+              <td>
+                name of the property in the bean specified in the parent table tag (via the "name" attribute) mapped to
+                this column
+              </td>
             </tr>
             <tr>
               <td>value</td>
@@ -280,7 +284,7 @@
             <tr>
               <td>title</td>
               <td>no</td>
-              <td>-</td>
+              <td>title of the column (text for the th cell)</td>
             </tr>
             <tr>
               <td>nulls</td>
@@ -303,32 +307,32 @@
             <tr>
               <td>autolink</td>
               <td>no</td>
-              <td>-</td>
+              <td>Automatically hyperlink URLs and mail address in the table</td>
             </tr>
             <tr>
               <td>href</td>
               <td>no</td>
-              <td>-</td>
+              <td>the base URL used to construct the dynamic link</td>
             </tr>
             <tr>
               <td>paramId</td>
               <td>no</td>
-              <td>-</td>
+              <td>the name of the parameter that gets added to the URL specified by href</td>
             </tr>
             <tr>
               <td>paramName</td>
               <td>no</td>
-              <td>-</td>
+              <td>the name of the parameter that gets added to the URL specified above</td>
             </tr>
             <tr>
               <td>paramProperty</td>
               <td>no</td>
-              <td>-</td>
+              <td>the name of the parameter that gets added to the URL specified above</td>
             </tr>
             <tr>
               <td>paramScope</td>
               <td>no</td>
-              <td>-</td>
+              <td>the name of the parameter that gets added to the URL specified above</td>
             </tr>
             <tr>
               <td>maxLength</td>
@@ -343,7 +347,9 @@
             <tr>
               <td>group</td>
               <td>no</td>
-              <td>-</td>
+              <td>
+                group values in the column. This should be a valid positive integer, indicating the grouping order.
+              </td>
             </tr>
             <tr>
               <td>doubleQuote</td>
@@ -353,7 +359,7 @@
             <tr>
               <td>decorator</td>
               <td>no</td>
-              <td>-</td>
+              <td>fully qualified class name of a ColumnDecorator</td>
             </tr>
             <tr>
               <td>class</td>
