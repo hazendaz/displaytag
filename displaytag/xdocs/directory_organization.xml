@@ -11,7 +11,7 @@
 		<section name="Overview">
 			<p>
 				The display tag library uses Maven for build and documentation and tries to conform to general Maven
-				project layout. If you are used to working on a maven driven project you should feel confortable with it. 
+				project layout. If you are used to working on a maven driven project you should feel comfortable with it. 
 				Here is a description of the file and folder organization.  The
 				<strong>strong</strong>	names refer to project specific setting/files.
 			</p>

@@ -20,7 +20,7 @@
       <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
         Automatic column discovery when no columns are defined. Instead of the simple output with the 
         object toString() and the message "please define column tags", the table tag will automatically add
-        columns mapped to object properties. This is expecially useful in development to quickly see and 
+        columns mapped to object properties. This is especially useful in development to quickly see and 
         test available properties.
       </action>
       <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
@@ -70,12 +70,12 @@
         most of the tag output.
       </action>
       <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
-        Link attributes are encoded to let you use more table in the same page with indipendent paging, sorting and
+        Link attributes are encoded to let you use more table in the same page with independent paging, sorting and
         exporting. You can also put nested display:table tag!
       </action>
       <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
         Link parameters are preserved in paging/sorting. Paging will always keep the correct order, and it will also
-        mantain the correct order/page for all the table displayed.
+        maintain the correct order/page for all the table displayed.
       </action>
       <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
         Example site refactored (xhtml strict+css), added new samples.
@@ -88,7 +88,7 @@
       <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
         Lots of small changes/addiction:
         <ul>
-          <li>renamed attributes "styleClass" to standard "class" ("styleClass" is keeped but deprecated)</li>
+          <li>renamed attributes "styleClass" to standard "class" ("styleClass" is retained but deprecated)</li>
           <li>added "defaultsort" attribute to specify the default sorted column</li>
         </ul>
       </action>
@@ -152,12 +152,12 @@
 
       <action type="add" dev="jay-paulsen" due-to="Jay Paulsen">
         introduced ColumnDecorators - you can now decorate individual columns, this makes it easier for you to define
-        reuable DateFmt, MoneyFmt, etc... decorators rather then developing a customer decorator for each table. Note,
-        the decorator inteface is still not to my liking, expect changes before this tag gets a 1.0 release. [!]
+        reusable DateFmt, MoneyFmt, etc... decorators rather then developing a customer decorator for each table. Note,
+        the decorator interface is still not to my liking, expect changes before this tag gets a 1.0 release. [!]
       </action>
 
       <action type="fix" dev="mraible" due-to="Matt Raible" due-to-email="mraible@users.sourceforge.net">
-        fixed a bug, where nulls were *not* being surpressed like they should be in the display, now nulls will only be
+        fixed a bug, where nulls were *not* being suppressed like they should be in the display, now nulls will only be
         shown if you specify the nulls attribute of the column tag. [**]
       </action>
 
@@ -202,7 +202,7 @@
         fixed some exporting bugs, added the ability to export in XML, although at this stage it is very crude. [!]
       </action>
       <action type="fix" dev="" due-to="">
-        fixed sorting so that it sorts in both ascending and decending order based on multiple title clicks. [!]
+        fixed sorting so that it sorts in both ascending and descending order based on multiple title clicks. [!]
       </action>
       <action type="add" dev="" due-to="">
         updated all of the example jsp pages with a link that people can click on to view that pages source. Also
@@ -216,7 +216,7 @@
       </action>
       <action type="fix" dev="mraible" due-to="Matt Raible" due-to-email="mraible@users.sourceforge.net">
         Underscore is not a legal character in CSS, so the various style names and attributes where changes to be in
-        upcase format. - table_cell -> tableCell - table_row_odd -> tableRowOdd - table_row_even -> tableRowEven -
+        uppercase format. - table_cell -> tableCell - table_row_odd -> tableRowOdd - table_row_even -> tableRowEven -
         table_row_action -> tableRowAction - table_cell_action -> tableCellAction - table_row_header -> tableRowHeader
         - table_cell_header -> tableCellHeader. [**]
       </action>
@@ -234,7 +234,7 @@
       </action>
       <action type="fix" dev="" due-to="">
         flushed out the example-callback example that shows how to use a decorator to implement summing and
-        totalling... The functionality was included in the original version, but there wasn't an example that showed
+        totaling... The functionality was included in the original version, but there wasn't an example that showed
         how to use it. [*]
       </action>
       <action type="fix" dev="" due-to="">fixed a NPE if you passed the table tag a null list. [*]</action>

@@ -19,7 +19,7 @@
       <p>You can customize the properties in two way:</p>
       <ul>
         <li>
-          For the whole web application, creating a custom propertes file and loading it using the
+          For the whole web application, creating a custom properties file and loading it using the
           <code>DisplayPropertiesLoaderServlet</code>
           included in the library jar.
           <a href="./apidocs/org/displaytag/properties/DisplayPropertiesLoaderServlet.html">See javadoc</a>
@@ -72,7 +72,7 @@
             <td>export.banner.sepchar</td>
             <td class="source">|</td>
             <td>Any string</td>
-            <td>Used to seperate the valid export type (typically would be a bar a comma, or a dash).</td>
+            <td>Used to separate the valid export type (typically would be a bar a comma, or a dash).</td>
           </tr>
 
           <tr>
@@ -103,7 +103,7 @@
             <td>export.excel</td>
             <td class="source">true</td>
             <td>true, false</td>
-            <td>Should the tag present the option to export data in Excel format (tab seperated values)</td>
+            <td>Should the tag present the option to export data in Excel format (tab separated values)</td>
           </tr>
 
           <tr>
@@ -154,7 +154,7 @@
             <td>true, false</td>
             <td>
               Should the data be "decorated" as it is exported. The default value is true, but you might want to turn
-              off any decoratation that is HTML specific for example when exporting the data.
+              off any decoration that is HTML specific for example when exporting the data.
             </td>
           </tr>
 
@@ -172,14 +172,14 @@
             <td>paging.banner.item_name</td>
             <td class="source">item</td>
             <td>Any string</td>
-            <td>What the various objects in the list being displayed should be refered to as (singular)</td>
+            <td>What the various objects in the list being displayed should be referred to as (singular)</td>
           </tr>
 
           <tr>
             <td>paging.banner.items_name</td>
             <td class="source">items</td>
             <td>Any string</td>
-            <td>What the various objects in the list being displayed should be refered to as (plural)</td>
+            <td>What the various objects in the list being displayed should be referred to as (plural)</td>
           </tr>
 
           <tr>

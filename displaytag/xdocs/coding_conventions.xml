@@ -23,7 +23,7 @@
 			</note>
 			<p>
 				Below is a list of coding conventions that are specific to this project. Anything else not
-				specificially mentioned here should follow the official
+				specifically mentioned here should follow the official
 				<a href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">Sun 
           Java Coding Conventions</a>.
 			</p>
