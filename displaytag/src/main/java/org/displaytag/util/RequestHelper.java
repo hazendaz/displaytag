@@ -1,6 +1,5 @@
 package org.displaytag.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -10,11 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
+
 
 /**
  * A RequestHelper object is used to read parameters from the request. Main feature are handling of numeric parameters
  * and the ability to create Href objects from the current request.
+ * 
  * @author fgiust
  * @version $Revision$ ($Author$)
  * @see org.displaytag.util.Href
@@ -34,6 +34,7 @@ public class RequestHelper
 
     /**
      * Construct a new RequestHelper for the given request.
+     * 
      * @param servletRequest HttpServletRequest
      */
     public RequestHelper(HttpServletRequest servletRequest)
@@ -43,6 +44,7 @@ public class RequestHelper
 
     /**
      * Read a String parameter from the request.
+     * 
      * @param key String parameter name
      * @return String parameter value
      */
@@ -54,6 +56,7 @@ public class RequestHelper
 
     /**
      * Read a Integer parameter from the request.
+     * 
      * @param key String parameter name
      * @return Integer parameter value or null if the parameter is not found or it can't be transformed to an Integer
      */
@@ -79,6 +82,7 @@ public class RequestHelper
 
     /**
      * Returns a Map containing all the parameters in the request.
+     * 
      * @return Map
      */
     public final Map getParameterMap()
@@ -95,19 +99,17 @@ public class RequestHelper
             String paramName = (String) parametersName.nextElement();
 
             // put key/value in the map
-            try
+
+            String[] values = this.request.getParameterValues(paramName);
+            for (int i = 0; i < values.length; i++)
             {
-                String[] values = this.request.getParameterValues(paramName);
-                for (int i = 0; i < values.length; i++) 
-                {
-                	values[i] = URLEncoder.encode(values[i], "UTF-8");
-                }
-                map.put(paramName, values);
+
+                // values[i] = URLEncoder.encode(values[i], "UTF-8");
+                // deprecated in java 1.4, but still need this for jre 1.3 compatibility
+                values[i] = URLEncoder.encode(values[i]);
             }
-            catch (UnsupportedEncodingException e)
-            {
-                log.warn("UnsupportedEncodingException while trying to encode a parameter using UTF-8", e);
-            }
+            map.put(paramName, values);
+
         }
 
         // return the Map
@@ -116,6 +118,7 @@ public class RequestHelper
 
     /**
      * return the current Href for the request (base url and parameters).
+     * 
      * @return Href
      */
     public final Href getHref()
