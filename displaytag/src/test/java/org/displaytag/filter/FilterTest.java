@@ -60,6 +60,7 @@ public class FilterTest extends DisplaytagCase
 
         request = new GetMethodWebRequest(jspName + MockFilterSupport.FILTERED_EXTENSION);
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
+        request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
         WebResponse response = runner.getResponse(request);
 
