@@ -3,7 +3,10 @@ package org.displaytag.properties;
 import java.util.Iterator;
 
 import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.collections.iterators.ArrayIterator;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
+
 /**
  * Enumeration for media types.
  * @author fgiust
@@ -35,7 +38,7 @@ public final class MediaTypeEnum
     /**
      * array containing all the export types.
      */
-    public static final MediaTypeEnum[] ALL = { EXCEL, XML, CSV, HTML };
+    public static final MediaTypeEnum[] ALL = {EXCEL, XML, CSV, HTML};
 
     /**
      * Code; this is the primary key for these objects.
@@ -135,7 +138,7 @@ public final class MediaTypeEnum
      */
     public static Iterator iterator()
     {
-        return IteratorUtils.arrayIterator(ALL);
+        return new ArrayIterator(ALL);
     }
 
     /**
