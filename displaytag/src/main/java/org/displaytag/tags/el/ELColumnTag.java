@@ -393,7 +393,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         }
         if (groupExpr != null)
         {
-            super.setGroup(eval.evalString("group", groupExpr));
+            super.setGroup(eval.evalInt("group", groupExpr));
         }
         if (headerClassExpr != null)
         {
