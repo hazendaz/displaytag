@@ -117,6 +117,9 @@
             <action type="update" dev="fgiust" issue="DISPL-112" due-to="Paul McCulloch">
                 Allow requestURI with only parameters.
             </action>
+            <action type="update" dev="fgiust" issue="DISPL-130">
+                Allow column href also if paramId is not defined.
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
