@@ -67,9 +67,12 @@
         &lt;sql:query var="results">
           select * from table
         &lt;/sql:query>
+
         &lt;display:table name="${results.rows}" />
         
-        (or &lt;display:table name="pageScope.results.rows" /> if not using the EL version)
+        (or 
+        &lt;display:table name="pageScope.results.rows" />
+        if not using the EL version)
 </source>
 
           <p>2) Using dynabeans</p>
