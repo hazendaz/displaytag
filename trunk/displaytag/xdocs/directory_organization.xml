@@ -42,18 +42,14 @@
 					<td>project.properties</td>
 					<td>A file defining project properties.</td>
 					<td>
-						<p>
 							This file can be used to override Maven default properties for the core and properties for
 							the various plugins.
-						</p>
 
-						<p>
 							It can also be used to define any Maven properties used by a project. The properties
 							defined in this file should be applicable to most users of your project, as opposed to
 							custom properties for a specific build/user which should be defined in
 							<code>${project.home}/build.properties</code>
 							.
-						</p>
 					</td>
 				</tr>
 				<tr>
@@ -233,10 +229,6 @@
 					<td>
 						Maven automatically generates a change log from CVS log messages. This log is currently limited
 						to the past 30 days (but will be configurable in the future).
-						<em>
-							Note: this report is currently disabled since it seem not to work using the sourceforge
-							pserver cvs connection
-						</em>
 					</td>
 				</tr>
 				<tr>
@@ -244,10 +236,6 @@
 					<td>The File Activity Report.</td>
 					<td>
 						Maven automatically generates a log from your SCM listing file changes in the last 30 days.
-						<em>
-							Note: this report is currently disabled since it seem not to work using the sourceforge
-							pserver cvs connection
-						</em>
 					</td>
 				</tr>
 				<tr>
@@ -256,10 +244,6 @@
 					<td>
 						Maven automatically generates a log from your SCM listing changes per developer in the last 30
 						days.
-						<em>
-							Note: this report is currently disabled since it seem not to work using the sourceforge
-							pserver cvs connection
-						</em>
 					</td>
 				</tr>
 				<tr>
