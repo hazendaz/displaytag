@@ -8,7 +8,7 @@
   <organization>
     <name>sourceforge</name>
     <url>http://sourceforge.net</url>
-    <logo>http://sourceforge.net/sflogo.php?group_id=${sf.groupid}&amp;type=2</logo>
+    <logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=2</logo>
   </organization>
   <inceptionYear>2002</inceptionYear>
   <package>org.displaytag</package>
@@ -16,10 +16,10 @@
   <description>The display tag library is an open source suite of custom tags that provide high level web presentation patterns (like tables, tabs, templates, inspectors, trees, etc...) which will work in a MVC model, and provide a significant amount of functionality while still being simple and straight-forward to use.</description>
   <shortDescription>Display tag library - open source suite of custom tags that provide high level web presentation patterns</shortDescription>
   <url>http://displaytag.sourceforge.net</url>
-  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${sf.groupid}</issueTrackingUrl>
+  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${maven.sourceforge.project.groupId}</issueTrackingUrl>
   <siteAddress>http://${pom.groupId}.sourceforge.net</siteAddress>
   <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
-  <distributionDirectory>http://sourceforge.net/project/showfiles.php?group_id=${sf.groupid}</distributionDirectory>
+  <distributionDirectory>http://sourceforge.net/project/showfiles.php?group_id=${maven.sourceforge.project.groupId}</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/${pom.id}/diplaytag2</connection>
     <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/${pom.id}/diplaytag2/</url>
