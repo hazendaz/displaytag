@@ -97,8 +97,18 @@
 					</td>
 					<td>tld</td>
 					<td>
-						This directory contains only one tld (tag library definition) file, displaytag.tld, which is
+						This directory contains the tag library definition file (tld), which is
 						added in the library jar and in the examples war during the build.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<strong>src/xslt</strong>
+					</td>
+					<td>xsl</td>
+					<td>
+						This directory contains the xslt stylesheets used to convert the 1.2 tld to a jsp 1.1
+						version and to produce the tag reference document.
 					</td>
 				</tr>
 
