@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.apache.commons.lang.StringUtils;
@@ -605,14 +604,9 @@ public class ColumnTag extends BodyTagSupport
 
             Object cellValue;
 
-            if (getBodyContent() != null)
+            if (this.bodyContent != null)
             {
-                String value = null;
-                BodyContent bodyContent = getBodyContent();
-                if (bodyContent != null)
-                {
-                    value = bodyContent.getString();
-                }
+                String value = this.bodyContent.getString();
 
                 if (value == null && this.nulls)
                 {
