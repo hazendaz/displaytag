@@ -241,12 +241,26 @@ public class TableTag extends HtmlTableTag
     private String footer;
 
     /**
+     * static caption added using the footer tag.
+     */
+    private String caption;
+
+    /**
      * Sets the content of the footer.
      * @param string footer content
      */
     public void setFooter(String string)
     {
         this.footer = string;
+    }
+
+    /**
+     * Sets the content of the caption.
+     * @param string caption content
+     */
+    public void setCaption(String string)
+    {
+        this.caption = string;
     }
 
     /**
@@ -937,6 +951,8 @@ public class TableTag extends HtmlTableTag
         this.tableModel = null;
         this.requestUri = null;
         this.tableParameterIdentifier = null;
+        this.footer = null;
+        this.caption = null;
     }
 
     /**
@@ -1163,6 +1179,12 @@ public class TableTag extends HtmlTableTag
 
         // open table
         buffer.append(getOpenTag());
+
+        // caption
+        if (this.caption != null)
+        {
+            buffer.append(this.caption);
+        }
 
         // thead
         if (this.properties.getShowHeader())

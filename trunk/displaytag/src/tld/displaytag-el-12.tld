@@ -538,6 +538,67 @@ back of the container.  Best left undoc'd and experimental for now; should just 
   </tag>
 
 
+  <tag>
+    <name>caption</name>
+    <tag-class>org.displaytag.tags.CaptionTag</tag-class>
+    <body-content>JSP</body-content>
+    <display-name>caption</display-name>
+    <description>
+      Simple tag which mimics the html caption tag. Use it inside a table tag to display a caption.
+    </description>
+  
+    <attribute>
+      <name>style</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+        <description>html pass through attribute.</description>
+    </attribute>
+    
+    <attribute>
+      <name>class</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+        <description>html pass through attribute.</description>
+    </attribute>
+    
+    <attribute>
+      <name>id</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+        <description>html pass through attribute.</description>
+    </attribute>
+    
+    <attribute>
+      <name>title</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+        <description>html pass through attribute.</description>
+    </attribute>
+    
+    <attribute>
+      <name>lang</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+        <description>html pass through attribute.</description>
+    </attribute>
+    
+    <attribute>
+      <name>dir</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+        <description>html pass through attribute.</description>
+    </attribute>
+    
+    <example>
+&lt;display:table name="someList">
+  &lt;display:column property="mail"/>
+  &lt;display:column property="total"/>
+  &lt;display:caption>This is the table caption&lt;/display:caption>
+&lt;/display:table>
+    </example>
+
+  </tag>
+
 
 </taglib>
 
