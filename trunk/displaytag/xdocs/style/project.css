@@ -5,7 +5,6 @@ body {
     width: auto !important;
 }
 
-
 /* main layout */
 #banner{
  height: 100px;
@@ -59,9 +58,10 @@ body {
     font-family: courier;
 }
 
-body,div,span,td,p,h2,h3,ul,ol {
+body,div,span,td,p,h2,h3,ul,ol, dt, dl {
     font-family: Georgia, Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 10pt;
+	 border: none;
 }
 
 table td, table th, table li {
@@ -129,7 +129,7 @@ h3 {
 
 #navcolumn li {
     margin: 0px 0 0px 3px;
-    padding: 2px;
+    padding: 0 2px 0 2px;
     list-style-position: outside;
     font-size: 7.5pt !important;
     padding-left: 16px !important;
@@ -139,8 +139,13 @@ h3 {
 #navcolumn a {
     color: #BDB76B;
     padding-left: 14px;
-    text-decoration: underline;
-    padding-bottom: 2px;
+    text-decoration: none;
+}
+#navcolumn a:hover {
+    text-decoration: none;
+}
+#navcolumn strong a, #navcolumn a:visited {
+    color: #cc7;
 }
 #navcolumn a img {
   margin-top: 0;
@@ -181,6 +186,7 @@ h3 {
 }
 #navcolumn li {
     color: #fff;
+	 background-position: 0 0 ;
 }
 
 #navcolumn li a.externalLink {
@@ -233,9 +239,11 @@ table th {
 }
 .collapsed {
     background-image: url(../images/ico_collapsed.png) !important;
+	 background-position: 2px 2px !important;
 }
 .expanded {
     background-image: url(../images/ico_expanded.png) !important;
+	 background-position: 2px 2px !important;
 }
 a.externalLink, a.newWindow {
     padding-right: 9px !important;
@@ -255,4 +263,3 @@ i {content: "\"/*" }
 table {
   width: 100%;
 }
-
