@@ -125,4 +125,36 @@
         <attainGoal name="zip-binaries" />    
     </goal>
 
+
+	<!-- prepares snapshot build and deploy -->
+	<goal name="build-and-deploy">
+		
+        <attainGoal name="clean" />
+        <attainGoal name="jar:jar" />
+        <attainGoal name="war:war" />
+        <attainGoal name="cactus" />
+        <attainGoal name="site:generate" />
+        
+        <attainGoal name="prepare-snapshot-deploy" />
+        
+        <attainGoal name="site:sshdeploy" />
+	</goal>
+	
+	<!-- zip and copy snapshot build for deploy -->
+	<goal name="prepare-snapshot">
+		
+		<!-- temporary workaround for checkstyle plugin build -->
+        <attainGoal name="checkstyle" />
+        <attainGoal name="xdoc" />
+        <!-- end workaround -->
+        
+	    <attainGoal name="zip-distribution" />
+        
+        <copy todir="${maven.build.dir}/docs/nightly" >
+			<fileset dir="${maven.build.dir}/dist" 
+             includes="*.zip" 
+             />
+        </copy>
+	</goal>
+
 </project>
