@@ -85,25 +85,30 @@ public class Column
      */
     public Object getValue(boolean decorated) throws ObjectLookupException, DecoratorException
     {
+
+        Object object = null;
+
         // a static value has been set?
         if (this.cell.getStaticValue() != null)
         {
-            return this.cell.getStaticValue();
-        }
-
-        Object object = null;
-        TableDecorator tableDecorator = this.row.getParentTable().getTableDecorator();
-
-        // if a decorator has been set, and if decorator has a getter for the requested property only, check decorator
-        if (decorated && tableDecorator != null && tableDecorator.hasGetterFor(this.header.getBeanPropertyName()))
-        {
-
-            object = LookupUtil.getBeanProperty(tableDecorator, this.header.getBeanPropertyName());
+            object = this.cell.getStaticValue();
         }
         else
         {
-            // else check underlining oblject
-            object = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getBeanPropertyName());
+            TableDecorator tableDecorator = this.row.getParentTable().getTableDecorator();
+
+            // if a decorator has been set, and if decorator has a getter for the requested property only, check
+            // decorator
+            if (decorated && tableDecorator != null && tableDecorator.hasGetterFor(this.header.getBeanPropertyName()))
+            {
+
+                object = LookupUtil.getBeanProperty(tableDecorator, this.header.getBeanPropertyName());
+            }
+            else
+            {
+                // else check underlining oblject
+                object = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getBeanPropertyName());
+            }
         }
 
         if (decorated && (this.header.getColumnDecorator() != null))
