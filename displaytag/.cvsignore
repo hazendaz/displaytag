@@ -12,3 +12,4 @@ build.properties
 work
 lib
 *.log
+log
