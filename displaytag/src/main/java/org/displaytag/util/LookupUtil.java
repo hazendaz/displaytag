@@ -12,10 +12,10 @@
 package org.displaytag.util;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
 
 import javax.servlet.jsp.PageContext;
 
+import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,12 +61,11 @@ public final class LookupUtil
         throws ObjectLookupException
     {
 
-        if (beanAndPropertyName.indexOf(".") != -1)
+        if (beanAndPropertyName.indexOf('.') != -1)
         {
             // complex: property from a bean
-
-            String objectName = beanAndPropertyName.substring(0, beanAndPropertyName.indexOf("."));
-            String beanProperty = beanAndPropertyName.substring(beanAndPropertyName.indexOf(".") + 1);
+            String objectName = beanAndPropertyName.substring(0, beanAndPropertyName.indexOf('.'));
+            String beanProperty = beanAndPropertyName.substring(beanAndPropertyName.indexOf('.') + 1);
             Object beanObject;
 
             if (log.isDebugEnabled())
@@ -89,7 +88,6 @@ public final class LookupUtil
         }
 
         // simple, only the javabean
-
         if (log.isDebugEnabled())
         {
             log.debug("getBeanValue - bean: {" + beanAndPropertyName + "}");
@@ -103,9 +101,8 @@ public final class LookupUtil
      * Returns the value of a property in the given bean.
      * </p>
      * <p>
-     * This method is a modificated version from commons-beanutils PropertyUtils.getProperty(). It allows intermediate
-     * nulls in expression without throwing exception (es. it doesn't throw an exception for the property
-     * <code>object.date.time</code> if <code>date</code> is null)
+     * Handle <code>NestedNullException</code> returning nulls and other exceptions returning
+     * <code>ObjectLookupException</code>.
      * </p>
      * @param bean javabean
      * @param name name of the property to read from the javabean
@@ -120,112 +117,27 @@ public final class LookupUtil
             log.debug("getProperty [" + name + "] on bean " + bean);
         }
 
-        if (bean == null)
-        {
-            throw new IllegalArgumentException("No bean specified");
-        }
-        if (name == null)
-        {
-            throw new IllegalArgumentException("No name specified");
-        }
-
-        Object evalBean = bean;
-        String evalName = name;
-
         try
         {
-
-            int indexOfINDEXEDDELIM;
-            int indexOfMAPPEDDELIM;
-            int indexOfMAPPEDDELIM2;
-            int indexOfNESTEDDELIM;
-            while (true)
-            {
-
-                indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM);
-                indexOfMAPPEDDELIM = evalName.indexOf(PropertyUtils.MAPPED_DELIM);
-                indexOfMAPPEDDELIM2 = evalName.indexOf(PropertyUtils.MAPPED_DELIM2);
-                if (indexOfMAPPEDDELIM2 >= 0
-                    && indexOfMAPPEDDELIM >= 0
-                    && (indexOfNESTEDDELIM < 0 || indexOfNESTEDDELIM > indexOfMAPPEDDELIM))
-                {
-                    indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM, indexOfMAPPEDDELIM2);
-                }
-                else
-                {
-                    indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM);
-                }
-                if (indexOfNESTEDDELIM < 0)
-                {
-                    break;
-                }
-                String next = evalName.substring(0, indexOfNESTEDDELIM);
-                indexOfINDEXEDDELIM = next.indexOf(PropertyUtils.INDEXED_DELIM);
-                indexOfMAPPEDDELIM = next.indexOf(PropertyUtils.MAPPED_DELIM);
-                if (evalBean instanceof Map)
-                {
-                    evalBean = ((Map) evalBean).get(next);
-                }
-                else if (indexOfMAPPEDDELIM >= 0)
-                {
-
-                    evalBean = PropertyUtils.getMappedProperty(evalBean, next);
-
-                }
-                else if (indexOfINDEXEDDELIM >= 0)
-                {
-                    evalBean = PropertyUtils.getIndexedProperty(evalBean, next);
-                }
-                else
-                {
-                    evalBean = PropertyUtils.getSimpleProperty(evalBean, next);
-                }
-
-                if (evalBean == null)
-                {
-                    log.debug("Null property value for '" + evalName.substring(0, indexOfNESTEDDELIM) + "'");
-                    return null;
-                }
-                evalName = evalName.substring(indexOfNESTEDDELIM + 1);
-
-            }
-
-            indexOfINDEXEDDELIM = evalName.indexOf(PropertyUtils.INDEXED_DELIM);
-            indexOfMAPPEDDELIM = evalName.indexOf(PropertyUtils.MAPPED_DELIM);
-
-            if (evalBean instanceof Map)
-            {
-                evalBean = ((Map) evalBean).get(evalName);
-            }
-            else if (indexOfMAPPEDDELIM >= 0)
-            {
-                evalBean = PropertyUtils.getMappedProperty(evalBean, evalName);
-            }
-            else if (indexOfINDEXEDDELIM >= 0)
-            {
-                evalBean = PropertyUtils.getIndexedProperty(evalBean, evalName);
-            }
-            else
-            {
-                evalBean = PropertyUtils.getSimpleProperty(evalBean, evalName);
-            }
+            return PropertyUtils.getProperty(bean, name);
         }
         catch (IllegalAccessException e)
         {
-            throw new ObjectLookupException(LookupUtil.class, evalBean, evalName, e);
+            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
         }
-
         catch (InvocationTargetException e)
         {
-            throw new ObjectLookupException(LookupUtil.class, evalBean, evalName, e);
+            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
         }
         catch (NoSuchMethodException e)
         {
-            throw new ObjectLookupException(LookupUtil.class, evalBean, evalName, e);
+            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
         }
-
-        return evalBean;
-
+        catch (NestedNullException nne)
+        {
+            // don't throw exceptions for nulls
+            return null;
+        }
     }
 
 }
