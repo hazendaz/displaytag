@@ -42,6 +42,7 @@
       <name>property</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated in displaytag 1.0. Use list.property in "name" attribute. Not supported in the EL 
         version of the tag.</description>
     </attribute>
@@ -49,6 +50,7 @@
       <name>scope</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated in displaytag 1.0. Use "pageScope.", "requestScope.", "sessionScope.", 
         "applicationScope." prefixes in name. Not supported in the EL version of the tag.</description>
     </attribute>
@@ -77,6 +79,7 @@
       <name>decorator</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>Fully qualified class name for a TableDecorator. Use a TableDecorator to provide custom operations 
         against the whole list, such as computing totals. Must extend org.displaytag.decorator.TableDecorator. 
         </description>
@@ -85,6 +88,7 @@
       <name>requestURI</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>When the present, links for sorting, exports, and paging are formed by adding any tag generated 
         parameters to the value of requestURI attribute.</description>
     </attribute>
@@ -92,6 +96,7 @@
       <name>width</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -99,42 +104,49 @@
       <name>style</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute</description>
     </attribute>
     <attribute>
       <name>class</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute</description>
     </attribute>
     <attribute>
       <name>styleClass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated: use "class"</description>
     </attribute>
     <attribute>
       <name>border</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html pass through attribute. Use css "border"</description>
     </attribute>
     <attribute>
       <name>cellspacing</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute</description>
     </attribute>
     <attribute>
       <name>cellpadding</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute. Better using "padding" css attribute in style or class</description>
     </attribute>
     <attribute>
       <name>align</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -142,6 +154,7 @@
       <name>background</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -149,6 +162,7 @@
       <name>bgcolor</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -156,12 +170,14 @@
       <name>frame</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute.</description>
     </attribute>
     <attribute>
       <name>height</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -169,6 +185,7 @@
       <name>hspace</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -176,18 +193,21 @@
       <name>rules</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute. </description>
     </attribute>
     <attribute>
       <name>summary</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute</description>
     </attribute>
     <attribute>
       <name>vspace</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -210,6 +230,7 @@
       <name>sort</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>Use 'page' if you want to sort only visible records, or 'list' if you want to sort the full 
         list</description>
     </attribute>
@@ -248,6 +269,7 @@
       <name>property</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>name of the property in the bean specified in the parent table tag (via the "name" attribute) mapped 
         to this column</description>
     </attribute>
@@ -255,6 +277,7 @@
       <name>title</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>title of the column (text for the th cell)</description>
     </attribute>
     <attribute>
@@ -291,6 +314,7 @@
       <name>media</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>Use this attribute to keep a column from being output during an export. The column will only render 
         for the named media type(s) - it won't be added to the table if the current request media is not supported. Can 
         be any space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'. See the 
@@ -300,6 +324,7 @@
       <name>href</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>The base URL used to construct the dynamic link. If this attribute is provided, then the data that 
         is shown for this column is wrapped inside a &lt;a href&gt; tag with the url provided through this attribute. 
         Typically you would use this attribute along with one of the struts-like param attributes (param*) to create a 
@@ -309,6 +334,7 @@
       <name>url</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>The base URL used to construct the dynamic link. This attribute has the same functionality as the 
         href attribute, but it pre-pends the contextPath. </description>
     </attribute>
@@ -316,6 +342,7 @@
       <name>paramId</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description> The name of the request parameter that will be dynamically added to the generated href URL. The 
         corresponding value is defined by the paramProperty and (optional) paramName attributes, optionally scoped by 
         the paramScope attribute. </description>
@@ -324,6 +351,7 @@
       <name>paramName</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description> The name of a JSP bean that is a String containing the value for the request parameter named by 
         paramId (if paramProperty is not specified), or a JSP bean whose property getter is called to return a String 
         (if paramProperty is specified). The JSP bean is constrained to the bean scope specified by the paramScope 
@@ -334,6 +362,7 @@
       <name>paramProperty</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description> The name of a property of the current object being iterated on, whose return value will be used as 
         the value of the parameter (named by the paramId attribute) that will be dynamically added to this href URL. If 
         paramName is also specified the property will not be fetched from the object being iterated on, but from the 
@@ -345,6 +374,7 @@
       <name>paramScope</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description> @deprecated - use Expressions in paramName. The scope within which to search for the bean specified 
         by the paramName attribute. If not specified, all scopes are searched. If paramName is not provided, then the 
         current object being iterated on is assumed to be the target bean. </description>
@@ -378,6 +408,7 @@
       <name>class</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute; use this instead of directly coding presentational 
         atttributes.</description>
     </attribute>
@@ -385,30 +416,35 @@
       <name>styleClass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated: use "class"</description>
     </attribute>
     <attribute>
       <name>headerClass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>"class" html attribute added only for header cells.</description>
     </attribute>
     <attribute>
       <name>headerStyleClass</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated: use "headerClass"</description>
     </attribute>
     <attribute>
       <name>style</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute.</description>
     </attribute>
     <attribute>
       <name>align</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -416,6 +452,7 @@
       <name>background</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -423,6 +460,7 @@
       <name>bgcolor</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -430,6 +468,7 @@
       <name>height</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -437,6 +476,7 @@
       <name>nowrap</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -444,6 +484,7 @@
       <name>valign</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
@@ -461,6 +502,7 @@
       <name>decorator</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>The fully qualified class name of a class that should be used to "decorate" the underlying object 
         being displayed. The class should implement org.displaytag.decorator.ColumnDecorator. If a decorator is 
         specified for the entire table, then this decorator will decorate that decorator. </description>
@@ -478,6 +520,7 @@
       <name>name</name>
       <required>true</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>The name of the property to set on the enclosing Table tag.</description>
     </attribute>
     <attribute>
@@ -525,36 +568,42 @@ or
       <name>style</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute.</description>
     </attribute>
     <attribute>
       <name>class</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute.</description>
     </attribute>
     <attribute>
       <name>id</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute.</description>
     </attribute>
     <attribute>
       <name>title</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute.</description>
     </attribute>
     <attribute>
       <name>lang</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute.</description>
     </attribute>
     <attribute>
       <name>dir</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>html pass through attribute.</description>
     </attribute>
     <example> <![CDATA[
