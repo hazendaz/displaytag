@@ -10,12 +10,35 @@
 
 		<section name="Download">
 
-			<p>
-				You can download source and binary distributions from
-				<a href="http://sourceforge.net/project/showfiles.php?group_id=73068">the SourceForge Server</a>
-				.
-			</p>
+			<subsection name="releases">
+				<p>
+					You can download source and binary distributions from
+					<a href="http://sourceforge.net/project/showfiles.php?group_id=73068">the SourceForge Server</a>
+					.
+				</p>
+			</subsection>
 
+
+			<subsection name="development snapshot">
+				<p>
+					The latest snapshot build (usually uploaded in sync with this website) can be downloaded directly
+					from <a href="nightly">here</a>.
+					Get this one only if you are a developer or you absolutely need a feature/fix added before the latest release
+					(see <a href="changes-report.html">changes</a> for the full change log).
+				</p>
+			</subsection>
+			
+			<subsection name="source code from CVS">
+				<p>
+					You can also obtain the source from the SourceForge CVS Server, see
+				<a href="cvs-usage.html">Source Repository</a>.
+				</p>
+			</subsection>
+
+		</section>
+
+
+		<section name="Files">
 			<p>The "bin" versions include the following:</p>
 
 			<ul>
@@ -37,17 +60,11 @@
 			</ul>
 
 			<p>
-				The "src" versions include the pre-built binaries (located in the dist directory when unpacked), plus
+				The "src" versions includes
 				the complete source code to the tag library, the various example pages, and the documentation.
 			</p>
-
-			<p>
-				You can also obtain the source from the SourceForge CVS Server, see
-				<a href="cvs-usage.html">Source Repository</a>
-				.
-			</p>
-
 		</section>
+
 
 	</body>
 </document>

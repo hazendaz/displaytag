@@ -9,6 +9,13 @@
       <p>The display tag library is an open source suite of custom tags that provide high level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being simple and straight-forward to use.</p>
     </section>
     <section name="What's New">
+      <subsection name="January 3, 2004">
+        <p>
+          Snapshot builds are now available. See <a href="download.html">download</a> for details.
+          Also check the nice <a href="statcvs/index.html">statcvs</a> reports, I finally managed to make
+          this maven plugin working...
+        </p>
+      </subsection>
       <subsection name="December 30, 2003">
         <p>
           Started working on 1.0-b3 release. The site is always updated with
