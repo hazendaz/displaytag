@@ -15,7 +15,7 @@
 </display:table>
 
 <p class="changed">
-	If you add and <code>id</code> attribute the table tag makes the object corresponding
+	If you add an <code>id</code> attribute the table tag makes the object corresponding
 	to the given row available in the page context so you could use it inside scriptlet code
 	or some other tag. Another implicit object exposed by the table tag is the row number,
 	named <code><em>id</em>_rowNum</code>.
