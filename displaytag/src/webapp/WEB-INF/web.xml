@@ -6,34 +6,39 @@
 
 
 <web-app>
-	<description>Documentatio and examples for the Display Tag Library.</description>
+    <description>Documentatio and examples for the Display Tag Library.</description>
 
-	<servlet>
-		<servlet-name>DisplaySource</servlet-name>
-		<display-name>DisplaySource</display-name>
-		<description>display source of sample jsp pages</description>
-		<servlet-class>org.displaytag.sample.DisplaySourceServlet</servlet-class>
-	</servlet>
+    <servlet>
+        <servlet-name>DisplaySource</servlet-name>
+        <display-name>DisplaySource</display-name>
+        <description>display source of sample jsp pages</description>
+        <servlet-class>org.displaytag.sample.DisplaySourceServlet</servlet-class>
+    </servlet>
 
-	<servlet-mapping>
-		<servlet-name>DisplaySource</servlet-name>
-		<url-pattern>*.source</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplaySource</servlet-name>
+        <url-pattern>*.source</url-pattern>
+    </servlet-mapping>
 
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
+    <mime-mapping>
+        <extension>css</extension>
+        <mime-type>text/css</mime-type>
+    </mime-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 
     <error-page>
         <error-code>404</error-code>
         <location>/404.jsp</location>
     </error-page>
-  
-	<taglib>
-		<taglib-uri>http://displaytag.sourceforge.net/</taglib-uri>
-		<taglib-location>/WEB-INF/displaytag-11.tld</taglib-location>
-	</taglib>
+
+    <taglib>
+        <taglib-uri>http://displaytag.sourceforge.net/</taglib-uri>
+        <taglib-location>/WEB-INF/displaytag-11.tld</taglib-location>
+    </taglib>
 
 
 </web-app>

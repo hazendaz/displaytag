@@ -3,7 +3,7 @@
 <% request.setAttribute( "test", new TestList(10, false) ); %>
 
 
-<h2><a href="./index.jsp">Examples</a> > Wow, data exporting (excel, csv, xml)</h2>
+<h2><a href="./index.jsp">Examples</a> > Data exporting</h2>
 
 
 <display:table name="test" export="true" id="currentRowObject">
@@ -17,6 +17,7 @@
     <% String url = ((ListObject)pageContext.findAttribute("currentRowObject")).getUrl();%>
     <a href="<%=url%>"><%=url%></a></display:column>
   <display:column media="csv excel" title="URL" property="url"/>
+  <display:setProperty name="export.pdf" value="true" />
 </display:table>
 
 

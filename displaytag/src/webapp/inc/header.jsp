@@ -13,7 +13,7 @@
 <body>
 
 <div id="header">
-	<h1>The &lt;display:*&gt; tag library</h1>
+	<h1>The &lt;display:*&gt; tag library <small>1.0rc2</small></h1>
 	
 	<ul>
 		<li><a href="http://displaytag.sf.net">Documentation</a></li>	
