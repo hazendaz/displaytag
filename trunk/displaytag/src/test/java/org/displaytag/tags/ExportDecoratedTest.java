@@ -1,8 +1,10 @@
 package org.displaytag.tags;
 
 import org.apache.commons.lang.StringUtils;
+import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.test.DisplaytagCase;
+import org.displaytag.test.KnownTypes;
 import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -52,7 +54,10 @@ public class ExportDecoratedTest extends DisplaytagCase
         log.debug(response.getText());
 
         assertEquals("Expected a different content type.", "text/xml", response.getContentType());
-        assertFalse("Export should not be decorated", StringUtils.contains(response.getText(), "Tuesday"));
-        assertTrue("Export should not be decorated", StringUtils.contains(response.getText(), "Tue Mar 02"));
+        assertFalse("Export should not be decorated", StringUtils.contains(
+            response.getText(),
+            new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE)));
+        assertTrue("Export should not be decorated", StringUtils.contains(response.getText(), KnownTypes.TIME_VALUE
+            .toString()));
     }
 }
