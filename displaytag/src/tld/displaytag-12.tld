@@ -463,7 +463,10 @@
             <description>
                 If this attribute is provided, then the column's displayed is limited to this number of characters. An
                 elipse (...) is appended to the end if this column is linked, and the user can mouseover the elipse to
-                get the full text.
+                get the full text. Be careful on using this attribute for String which can contain html tags or
+                entities, or together with the autolink attribute turned on: displaytag will do its best trying to avoid
+                leaving unclosed tags or broken entities in the output, but a complex or bad input could lead to
+                unattended results.
             </description>
         </attribute>
         <attribute>
@@ -474,7 +477,10 @@
             <description>
                 If this attribute is provided, then the column's displayed is limited to this number of words. An elipse
                 (...) is appended to the end if this column is linked, and the user can mouseover the elipse to get the
-                full text.
+                full text. Be careful on using this attribute for String which can contain html tags or entities, or
+                together with the autolink attribute turned on: displaytag will do its best trying to avoid leaving
+                unclosed tags or broken entities in the output, but a complex or bad input could lead to unattended
+                results.
             </description>
         </attribute>
         <attribute>

@@ -11,7 +11,7 @@ public class ParamEncoderTest extends TestCase
 {
 
     /**
-     * Test for reported DISPL-12
+     * Test for reported DISPL-12.
      */
     public void testOptionAndAnswer()
     {
