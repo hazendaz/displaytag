@@ -1,18 +1,13 @@
-/**
- * $Id$
- *
- * Status: Ok
- **/
-
 package org.apache.taglibs.display.test;
 
 import org.apache.taglibs.display.Decorator;
 
 /**
  * This decorator only does a summing of different groups in the reporting
- * style examples...
- **/
-
+ * style examples.
+ *
+ * @version $Revision$
+ */
 public class TotalWrapper extends Decorator {
     private double cityTotal = 0;
     private double grandTotal = 0;
@@ -21,7 +16,6 @@ public class TotalWrapper extends Decorator {
      * After every row completes we evaluate to see if we should be drawing a
      * new total line and summing the results from the previous group.
      */
-
     public String finishRow() {
         int listindex = this.getList().indexOf(this.getObject());
         ReportableListObject o1 = (ReportableListObject) this.getObject();
@@ -54,7 +48,7 @@ public class TotalWrapper extends Decorator {
         }
 
         // Grand totals...
-        if (listindex == this.getList().size() - 1) {
+        if (this.getViewIndex() == this.getList().size() - 1) {
             sb.append("<tr><td colspan=\"4\"><hr noshade size=\"1\"></td></tr>");
             sb.append("<tr><td>&nbsp;</td>");
             sb.append("<td align=\"right\"><b>Grand Total:</b></td><td><b>");
@@ -64,6 +58,4 @@ public class TotalWrapper extends Decorator {
 
         return sb.toString();
     }
-
-
 }
