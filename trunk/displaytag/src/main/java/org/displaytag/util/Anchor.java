@@ -24,24 +24,6 @@ public class Anchor
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
     /**
-     * Creates a new anchor with the supplied body text.
-     * @param linkBody String body text
-     */
-    public Anchor(String linkBody)
-    {
-        this.linkText = linkBody;
-    }
-
-    /**
-     * Creates a new Anchor whit the supplied Href.
-     * @param linkHref Href
-     */
-    public Anchor(Href linkHref)
-    {
-        this.href = linkHref;
-    }
-
-    /**
      * Creates a new Anchor whit the supplied Href and body text.
      * @param linkHref baseHref
      * @param linkBody String link body
