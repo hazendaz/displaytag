@@ -666,8 +666,10 @@ public class TableTag extends HtmlTableTag
 
         this.tableModel.setSortFullTable(this.sortFullTable);
 
-        Integer paramOrder = requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER));
-        boolean order = !(new Integer(TableTagParameters.VALUE_SORT_DESCENDING).equals(paramOrder));
+        SortOrderEnum paramOrder =
+            SortOrderEnum.fromIntegerCode(
+                requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER)));
+        boolean order = SortOrderEnum.DESCENDING != paramOrder;
         this.tableModel.setSortOrderAscending(order);
 
         // if the behaviour is sort full page we need to go back to page one if sort of order is changed
@@ -684,9 +686,11 @@ public class TableTag extends HtmlTableTag
             this.previousSortedColumn =
                 (previousSortColumnParameter == null) ? -1 : previousSortColumnParameter.intValue();
 
-            Integer previousParamOrder =
-                requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSORDER));
-            this.previousOrder = !(new Integer(TableTagParameters.VALUE_SORT_DESCENDING).equals(previousParamOrder));
+            SortOrderEnum previousParamOrder =
+                SortOrderEnum.fromIntegerCode(
+                    requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSORDER)));
+
+            this.previousOrder = SortOrderEnum.DESCENDING != previousParamOrder;
 
         }
 
@@ -1292,18 +1296,19 @@ public class TableTag extends HtmlTableTag
                 href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
 
                 boolean nowOrderAscending;
+                //@todo optimize this using SortOrderEnum
                 if (headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending())
                 {
                     href.addParameter(
                         encodeParameter(TableTagParameters.PARAMETER_ORDER),
-                        TableTagParameters.VALUE_SORT_DESCENDING);
+                        SortOrderEnum.DESCENDING.getCode());
                     nowOrderAscending = false;
                 }
                 else
                 {
                     href.addParameter(
                         encodeParameter(TableTagParameters.PARAMETER_ORDER),
-                        TableTagParameters.VALUE_SORT_ASCENDING);
+                        SortOrderEnum.ASCENDING.getCode());
                     nowOrderAscending = true;
                 }
 
