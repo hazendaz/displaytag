@@ -19,7 +19,7 @@
     and provide a significant amount of functionality while still being simple and straight-forward to use.</description>
     <shortDescription>Display tag library</shortDescription>
     <url>http://${pom.groupId}.sourceforge.net</url>
-    <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${maven.sourceforge.project.groupId}</issueTrackingUrl>
+    <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
     <siteAddress>shell.sourceforge.net</siteAddress>
     <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
     <repository>
