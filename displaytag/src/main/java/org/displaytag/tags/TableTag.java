@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -788,7 +789,8 @@ public class TableTag extends HtmlTableTag
         );
 
         // can we actually skip any row?
-        if (wishOptimizedIteration && ((sortColumn == -1 // and we are not sorting
+        if (wishOptimizedIteration && (this.list instanceof Collection) // we need to know the size
+            && ((sortColumn == -1 // and we are not sorting
             || !finalSortFull // or we are sorting with the "page" behaviour
             ) && (this.currentMediaType == MediaTypeEnum.HTML // and we are not exporting
             || !this.properties.getExportFullList()) // or we are exporting a single page
@@ -809,11 +811,21 @@ public class TableTag extends HtmlTableTag
 
             if (this.pagesize > 0)
             {
+                int fullSize = ((Collection) this.list).size();
                 start = (this.pageNumber - 1) * this.pagesize;
+
+                // invalid page requested, go back to page one
+                if (start > fullSize)
+                {
+                    start = 0;
+                }
+
                 end = start + this.pagesize;
             }
 
             // rowNumber starts from 1
+
+            // @todo DISPL-136 can be wrong if an invalid page is requested
             filteredRows = new LongRange(start + 1, end);
         }
         else
