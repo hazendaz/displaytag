@@ -23,7 +23,7 @@
 	Let's assume you have list of business objects that you want to display, and
 	the objects contain properties that don't return native Strings, and you want
 	control over how they get displayed in the list (for example, Dates, money,
-	numbers, etc...).  I would be bad form to put this type of formatting code
+	numbers, etc...).  It would be bad form to put this type of formatting code
 	inside your business objects, so instead create a Decorator that formats the
 	data according to your needs.
 </p>

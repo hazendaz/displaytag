@@ -44,7 +44,7 @@
 	the page, it can either 1) simply not work because the table tag doesn't know
 	what parameters to pass for your processing, or 2) slow things down because you
 	would be reloading the entire list on each page, rather then just showing a subset
-	of the list.  It sounds confusion, but that's just because I do a poor job of
+	of the list.  It sounds confusing, but that's just because I do a poor job of
 	explaining it...
 </p>
 
