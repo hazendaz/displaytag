@@ -13,11 +13,12 @@ public class XmlView extends BaseExportView
 {
 
     /**
-     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean, boolean, boolean)
+     * @see org.displaytag.export.BaseExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
-    public XmlView(TableModel tableModel, boolean exportFullList, boolean includeHeader, boolean decorateValues)
+    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
+        boolean decorateValues)
     {
-        super(tableModel, exportFullList, includeHeader, decorateValues);
+        super.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
     }
 
     /**
@@ -85,7 +86,7 @@ public class XmlView extends BaseExportView
     }
 
     /**
-     * @see org.displaytag.export.BaseExportView#getMimeType()
+     * @see org.displaytag.export.ExportView#getMimeType()
      */
     public String getMimeType()
     {
@@ -95,7 +96,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
      */
-    protected Object escapeColumnValue(Object value)
+    protected String escapeColumnValue(Object value)
     {
         if (value != null)
         {

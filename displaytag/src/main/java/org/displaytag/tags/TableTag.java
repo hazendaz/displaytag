@@ -1,6 +1,7 @@
 package org.displaytag.tags;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -17,6 +18,7 @@ import javax.servlet.jsp.PageContext;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
@@ -26,7 +28,7 @@ import org.displaytag.exception.ExportException;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
-import org.displaytag.export.BaseExportView;
+import org.displaytag.export.ExportView;
 import org.displaytag.export.ExportViewFactory;
 import org.displaytag.model.Cell;
 import org.displaytag.model.Column;
@@ -990,8 +992,8 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * called when data are not displayed in a html page but should be exported.
-     * @return int EVAL_PAGE or SKIP_PAGE
+     * Called when data are not displayed in a html page but should be exported.
+     * @return int SKIP_PAGE
      * @throws JspException generic exception
      */
     protected int doExport() throws JspException
@@ -1007,42 +1009,52 @@ public class TableTag extends HtmlTableTag
         boolean exportHeader = this.properties.getExportHeader(this.currentMediaType);
         boolean exportDecorated = this.properties.getExportDecorated();
 
-        BaseExportView exportView = ExportViewFactory.getView(
+        ExportView exportView = ExportViewFactory.getView(
             this.currentMediaType,
             this.tableModel,
             exportFullList,
             exportHeader,
             exportDecorated);
 
-        String mimeType = exportView.getMimeType();
-        String exportString = exportView.doExport();
+        writeExport(exportView);
 
-        String filename = properties.getExportFileName(this.currentMediaType);
-        return writeExport(mimeType, exportString, filename);
+        return SKIP_PAGE;
     }
 
     /**
      * Will write the export. The default behavior is to write directly to the response. If the ResponseOverrideFilter
      * is configured for this request, will instead write the export content to a StringBuffer in the Request object.
-     * @param mimeType mime type to set in the response
-     * @param exportString String
-     * @param filename name of the file to be saved. Can be null, if set the content-disposition header will be added.
-     * @return int
+     * @param exportView export view
      * @throws JspException for errors in resetting the response or in writing to out
      */
-    protected int writeExport(String mimeType, String exportString, String filename) throws JspException
+    protected void writeExport(ExportView exportView) throws JspException
     {
-        HttpServletResponse response = (HttpServletResponse) this.pageContext.getResponse();
-        JspWriter out = this.pageContext.getOut();
+        String mimeType = exportView.getMimeType();
 
+        String filename = properties.getExportFileName(this.currentMediaType);
+
+        HttpServletResponse response = (HttpServletResponse) this.pageContext.getResponse();
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
         StringBuffer bodyBuffer = (StringBuffer) request.getAttribute(FILTER_CONTENT_OVERRIDE_BODY);
+
         if (bodyBuffer != null)
         {
             // We are running under the export filter
             StringBuffer contentTypeOverride = (StringBuffer) request.getAttribute(FILTER_CONTENT_OVERRIDE_TYPE);
             contentTypeOverride.append(mimeType);
-            bodyBuffer.append(exportString);
+
+            StringWriter writer = new StringWriter();
+
+            try
+            {
+                exportView.doExport(writer);
+            }
+            catch (IOException e)
+            {
+                throw new NestableRuntimeException(e);
+            }
+
+            bodyBuffer.append(writer.toString());
 
             if (StringUtils.isNotEmpty(filename))
             {
@@ -1051,61 +1063,59 @@ public class TableTag extends HtmlTableTag
             }
 
         }
-        else
+
+        // response can't be already committed at this time
+        if (response.isCommitted())
         {
-            // response can't be already committed at this time
-            if (response.isCommitted())
-            {
-                throw new ExportException(getClass());
-            }
-
-            // if cache is disabled using http header, export will not work.
-            // Try to remove bad headers overwriting them, since there is no way to remove a single header and reset()
-            // could remove other "useful" headers like content encoding
-            if (response.containsHeader("Cache-Control"))
-            {
-                response.setHeader("Cache-Control", "public");
-            }
-            if (response.containsHeader("Expires"))
-            {
-                response.setHeader("Expires", "Thu, 01 Dec 2069 16:00:00 GMT");
-            }
-            if (response.containsHeader("Pragma"))
-            {
-                // Pragma: no-cache
-                // http 1.0 equivalent of Cache-Control: no-cache
-                // there is no "Cache-Control: public" equivalent, so just try to set it to an empty String (note
-                // this is NOT a valid header)
-                response.setHeader("Pragma", "");
-            }
-
-            try
-            {
-                out.clear();
-            }
-            catch (Exception e)
-            {
-                throw new ExportException(getClass());
-            }
-
-            response.setContentType(mimeType);
-
-            if (StringUtils.isNotEmpty(filename))
-            {
-                response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-            }
-
-            try
-            {
-                out.write(exportString);
-            }
-            catch (IOException e)
-            {
-                throw new JspException("IOException while writing data.");
-            }
+            throw new ExportException(getClass());
         }
 
-        return SKIP_PAGE;
+        JspWriter out = this.pageContext.getOut();
+
+        try
+        {
+            out.clear();
+        }
+        catch (Exception e)
+        {
+            throw new ExportException(getClass());
+        }
+
+        // if cache is disabled using http header, export will not work.
+        // Try to remove bad headers overwriting them, since there is no way to remove a single header and reset()
+        // could remove other "useful" headers like content encoding
+        if (response.containsHeader("Cache-Control"))
+        {
+            response.setHeader("Cache-Control", "public");
+        }
+        if (response.containsHeader("Expires"))
+        {
+            response.setHeader("Expires", "Thu, 01 Dec 2069 16:00:00 GMT");
+        }
+        if (response.containsHeader("Pragma"))
+        {
+            // Pragma: no-cache
+            // http 1.0 equivalent of Cache-Control: no-cache
+            // there is no "Cache-Control: public" equivalent, so just try to set it to an empty String (note
+            // this is NOT a valid header)
+            response.setHeader("Pragma", "");
+        }
+
+        response.setContentType(mimeType);
+
+        if (StringUtils.isNotEmpty(filename))
+        {
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+        }
+
+        try
+        {
+            exportView.doExport(out);
+        }
+        catch (IOException e)
+        {
+            throw new NestableRuntimeException("IOException while writing data.", e);
+        }
     }
 
     /**

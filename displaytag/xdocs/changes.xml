@@ -22,6 +22,9 @@
             </action>
             <action type="fix" dev="fgiust" issue="1020948">NullpointerException in HeaderCell.</action>
             <action type="fix" dev="fgiust" issue="1016089">Param values not URLEncoded.</action>
+            <action type="update" dev="fgiust">
+                Exported output is now written directly when the export filter is not used.
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">

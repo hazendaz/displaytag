@@ -13,29 +13,21 @@ public class ExcelView extends BaseExportView
 {
 
     /**
-     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean, boolean, boolean)
+     * @see org.displaytag.export.BaseExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
-    public ExcelView(TableModel tableModel, boolean exportFullList, boolean includeHeader, boolean decorateValues)
+    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
+        boolean decorateValues)
     {
-        super(tableModel, exportFullList, includeHeader, decorateValues);
+        super.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
     }
 
     /**
-     * @see org.displaytag.export.BaseExportView#getMimeType()
+     * @see org.displaytag.export.ExportView#getMimeType()
      * @return "application/vnd.ms-excel"
      */
     public String getMimeType()
     {
         return "application/vnd.ms-excel"; //$NON-NLS-1$
-    }
-
-    /**
-     * @see org.displaytag.export.BaseExportView#getRowStart()
-     * @return ""
-     */
-    protected String getRowStart()
-    {
-        return null;
     }
 
     /**
@@ -47,35 +39,11 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * @see org.displaytag.export.BaseExportView#getCellStart()
-     */
-    protected String getCellStart()
-    {
-        return null;
-    }
-
-    /**
      * @see org.displaytag.export.BaseExportView#getCellEnd()
      */
     protected String getCellEnd()
     {
         return "\t"; //$NON-NLS-1$
-    }
-
-    /**
-     * @see org.displaytag.export.BaseExportView#getDocumentStart()
-     */
-    protected String getDocumentStart()
-    {
-        return null;
-    }
-
-    /**
-     * @see org.displaytag.export.BaseExportView#getDocumentEnd()
-     */
-    protected String getDocumentEnd()
-    {
-        return null;
     }
 
     /**
@@ -104,7 +72,7 @@ public class ExcelView extends BaseExportView
      * </ul>
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
      */
-    protected Object escapeColumnValue(Object value)
+    protected String escapeColumnValue(Object value)
     {
         if (value != null)
         {

@@ -1,5 +1,9 @@
 package org.displaytag.export;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.displaytag.model.TableModel;
 import org.displaytag.properties.MediaTypeEnum;
 
@@ -11,6 +15,18 @@ import org.displaytag.properties.MediaTypeEnum;
  */
 public final class ExportViewFactory
 {
+
+    /**
+     * Map containing MediaTypeEnum - View class.
+     */
+    private static final Map VIEWCLASSES = new HashMap();
+
+    static
+    {
+        VIEWCLASSES.put(MediaTypeEnum.CSV, CsvView.class);
+        VIEWCLASSES.put(MediaTypeEnum.EXCEL, ExcelView.class);
+        VIEWCLASSES.put(MediaTypeEnum.XML, XmlView.class);
+    }
 
     /**
      * utility class, don't instantiate.
@@ -29,24 +45,30 @@ public final class ExportViewFactory
      * @param decorateValues should ouput be decorated?
      * @return specialized instance of BaseExportView
      */
-    public static BaseExportView getView(MediaTypeEnum exportType, TableModel tableModel, boolean exportFullList,
+    public static ExportView getView(MediaTypeEnum exportType, TableModel tableModel, boolean exportFullList,
         boolean includeHeader, boolean decorateValues)
     {
-        if (exportType == MediaTypeEnum.CSV)
+        ExportView view;
+
+        Class viewClass = (Class) VIEWCLASSES.get(exportType);
+
+        try
         {
-            return new CsvView(tableModel, exportFullList, includeHeader, decorateValues);
+            view = (ExportView) viewClass.newInstance();
         }
-        else if (exportType == MediaTypeEnum.EXCEL)
+        catch (InstantiationException e)
         {
-            return new ExcelView(tableModel, exportFullList, includeHeader, decorateValues);
+            // @todo better exception message
+            throw new NestableRuntimeException(e);
         }
-        else if (exportType == MediaTypeEnum.XML)
+        catch (IllegalAccessException e)
         {
-            return new XmlView(tableModel, exportFullList, includeHeader, decorateValues);
+            // @todo better exception message
+            throw new NestableRuntimeException(e);
         }
-        else
-        {
-            throw new IllegalArgumentException("Unknown export type: " + exportType);
-        }
+
+        view.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
+        return view;
     }
+
 }

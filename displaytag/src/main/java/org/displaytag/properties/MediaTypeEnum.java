@@ -1,8 +1,9 @@
 package org.displaytag.properties;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
-import org.apache.commons.collections.iterators.ArrayIterator;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 
@@ -17,27 +18,27 @@ public final class MediaTypeEnum
     /**
      * Media type CSV = 1.
      */
-    public static final MediaTypeEnum CSV = new MediaTypeEnum(1, "csv");
+    public static final MediaTypeEnum CSV = new MediaTypeEnum("csv");
 
     /**
      * media type EXCEL = 2.
      */
-    public static final MediaTypeEnum EXCEL = new MediaTypeEnum(2, "excel");
+    public static final MediaTypeEnum EXCEL = new MediaTypeEnum("excel");
 
     /**
      * media type XML = 3.
      */
-    public static final MediaTypeEnum XML = new MediaTypeEnum(3, "xml");
+    public static final MediaTypeEnum XML = new MediaTypeEnum("xml");
 
     /**
      * media type HTML = 4.
      */
-    public static final MediaTypeEnum HTML = new MediaTypeEnum(4, "html");
+    public static final MediaTypeEnum HTML = new MediaTypeEnum("html");
 
     /**
      * array containing all the export types.
      */
-    public static final MediaTypeEnum[] ALL = {EXCEL, XML, CSV, HTML};
+    private static final List MEDIA = new ArrayList();
 
     /**
      * Code; this is the primary key for these objects.
@@ -51,13 +52,13 @@ public final class MediaTypeEnum
 
     /**
      * private constructor. Use only constants.
-     * @param code int code
      * @param name description of media type
      */
-    private MediaTypeEnum(int code, String name)
+    private MediaTypeEnum(String name)
     {
-        this.enumCode = code;
         this.enumName = name;
+        this.enumCode = MediaTypeEnum.MEDIA.size();
+        MediaTypeEnum.MEDIA.add(this);
     }
 
     /**
@@ -85,13 +86,11 @@ public final class MediaTypeEnum
      */
     public static MediaTypeEnum fromCode(int key)
     {
-        for (int i = 0; i < ALL.length; i++)
+        if (key >= 0 && key < MEDIA.size())
         {
-            if (key == ALL[i].getCode())
-            {
-                return ALL[i];
-            }
+            return (MediaTypeEnum) MEDIA.get(key);
         }
+
         // lookup failed
         return null;
     }
@@ -107,7 +106,6 @@ public final class MediaTypeEnum
         {
             return null;
         }
-
         return fromCode(key.intValue());
     }
 
@@ -118,11 +116,12 @@ public final class MediaTypeEnum
      */
     public static MediaTypeEnum fromName(String code)
     {
-        for (int i = 0; i < ALL.length; i++)
+        for (Iterator it = MEDIA.iterator(); it.hasNext();)
         {
-            if (ALL[i].getName().equals(code))
+            MediaTypeEnum mediaType = (MediaTypeEnum) it.next();
+            if (mediaType.getName().equals(code))
             {
-                return ALL[i];
+                return mediaType;
             }
         }
         // lookup failed
@@ -135,7 +134,7 @@ public final class MediaTypeEnum
      */
     public static Iterator iterator()
     {
-        return new ArrayIterator(ALL);
+        return MEDIA.iterator();
     }
 
     /**
