@@ -17,6 +17,14 @@
 
 		<section name="What&apos;s New">
       
+      <subsection name="September 28, 2003">
+			<p>
+				Uploaded a new copy of 1.0-b1 binaries on sourceforge, compiled using jdk 1.3: older jar
+        still seemed to have problems on jre 1.3. Compiling under jdk1.4 with a 1.1 jvm target (maven default?) 
+        was not enough.
+			</p>
+      </subsection>
+      
       <subsection name="September 22, 2003">
 			<p>
 				Version <strong>1.0-b1</strong> has been released! This is the first beta featuring a completely 
