@@ -32,7 +32,7 @@
   
 	<taglib>
 		<taglib-uri>http://displaytag.sourceforge.net/</taglib-uri>
-		<taglib-location>/WEB-INF/displaytag.tld</taglib-location>
+		<taglib-location>/WEB-INF/displaytag-11.tld</taglib-location>
 	</taglib>
 
 
