@@ -1,4 +1,4 @@
-S/**
+/**
  * This is an abstract class that most tags should inherit from, it provides a
  * number of utility methods that allow tags to read in a template or multiple
  * template files from the web/templates directory, and use those templates as
