@@ -972,17 +972,27 @@ public class TableTag extends HtmlTableTag
     private void describeEmptyTable()
     {
         this.tableIterator = IteratorUtils.getIterator(this.list);
+
         if (this.tableIterator.hasNext())
         {
             Object iteratedObject = this.tableIterator.next();
             Map objectProperties = new HashMap();
-            try
+
+            // if it's a map already use key names for column headers
+            if (iteratedObject instanceof Map)
             {
-                objectProperties = BeanUtils.describe(iteratedObject);
+                objectProperties = (Map) iteratedObject;
             }
-            catch (Exception e)
+            else
             {
-                log.warn("Unable to automatically add columns: " + e.getMessage(), e);
+                try
+                {
+                    objectProperties = BeanUtils.describe(iteratedObject);
+                }
+                catch (Exception e)
+                {
+                    log.warn("Unable to automatically add columns: " + e.getMessage(), e);
+                }
             }
 
             // iterator on properties names
