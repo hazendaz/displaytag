@@ -61,7 +61,7 @@ public final class TagConstants
     /**
      * html <code>tfooter</code> tag name.
      */
-    public static final String TAGNAME_TABLE_FOOTER = "tfooter";
+    public static final String TAGNAME_TABLE_FOOTER = "tfoot";
 
     /**
      * html <code>caption</code> tag name.
