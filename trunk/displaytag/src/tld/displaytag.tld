@@ -315,6 +315,12 @@
     </attribute>
   </tag>
 
+  <tag>
+    <name>footer</name>
+    <tagclass>org.displaytag.tags.TableFooterTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+  </tag>
+  
 </taglib>
 
 
