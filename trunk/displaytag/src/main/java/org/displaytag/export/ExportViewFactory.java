@@ -1,6 +1,7 @@
 package org.displaytag.export;
 
 import org.displaytag.model.TableModel;
+import org.displaytag.properties.MediaTypeEnum;
 
 /**
  * Factory for export views.

@@ -9,7 +9,7 @@ import org.apache.cactus.WebResponse;
 import org.apache.cactus.extension.jsp.JspTagLifecycle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.export.MediaTypeEnum;
+import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.test.KnownValue;
 
 /**

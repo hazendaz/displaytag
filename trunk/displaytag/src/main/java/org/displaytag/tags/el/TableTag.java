@@ -109,43 +109,43 @@ public class TableTag extends org.displaytag.tags.TableTag
         if ((s = eval.evalString("decorator", _decorator)) != null)
         {
             super.setDecorator(s);
-        };
+        }
         if ((s = eval.evalString("defaultsort", _defaultsort)) != null)
         {
             super.setDefaultsort(s);
-        };
+        }
         if ((s = eval.evalString("export", _export)) != null)
         {
             super.setExport(s);
-        };
+        }
         if ((s = eval.evalString("footer", _footer)) != null)
         {
             super.setFooter(s);
-        };
+        }
         if ((s = eval.evalString("length", _length)) != null)
         {
             super.setLength(s);
-        };
+        }
         if ((s = eval.evalString("name", _name)) != null)
         {
             super.setName(s);
-        };
+        }
         if ((s = eval.evalString("offset", _offset)) != null)
         {
             super.setOffset(s);
-        };
+        }
         if ((s = eval.evalString("pagesize", _pagesize)) != null)
         {
             super.setPagesize(s);
-        };
+        }
         if ((s = eval.evalString("requestURI", _requestURI)) != null)
         {
             super.setRequestURI(s);
-        };
+        }
         if ((s = eval.evalString("sort", _sort)) != null)
         {
             super.setSort(s);
-        };
+        }
     }
 
 }
