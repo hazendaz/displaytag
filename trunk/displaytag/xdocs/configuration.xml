@@ -12,20 +12,23 @@
 
       <p>
         This table lists all the configurable properties for the tag libraries. The default properties are defined in
-        the
-        <code>TableTag.properties</code>
-        file included in the library jar.
+        the <code>TableTag.properties</code> file included in the library jar.
       </p>
-      <p>You can customize the properties in two way:</p>
+      <p>There are 3 ways to override default property settings:</p>
       <ul>
         <li>
-          For the whole web application, creating a custom properties file and loading it using the
-          <code>DisplayPropertiesLoaderServlet</code>
-          included in the library jar.
-          <a href="./apidocs/org/displaytag/properties/DisplayPropertiesLoaderServlet.html">See javadoc</a>
-          for configuration details
+          For the whole web application, create a custom properties file named "displaytag.properties"
+            and place it in the application classpath.
         </li>
-        <li>For a single table instance, using the &lt;display:setProperty> tag</li>
+        <li>To override a property at runtime for the whole web application, such as to include the context name in a
+            fully qualified link to a
+            resource, use <a href="./apidocs/org/displaytag/properties/TableProperties.html#setUserProperties">
+            TableProperties#setUserProperties(Properties properties)</a>.  #setProperties will copy all properties;
+             future changes to your Properties parameter will not be reflected in the tag.
+         <a href="./apidocs/org/displaytag/properties/DisplayPropertiesLoaderServlet.html"><code>DisplayPropertiesLoaderServlet</code></a>
+            is included in the library jar as a convenience.)
+        </li>
+        <li>For a single table instance, using the &lt;display:setProperty&gt; tag</li>
       </ul>
       <table>
         <thead>

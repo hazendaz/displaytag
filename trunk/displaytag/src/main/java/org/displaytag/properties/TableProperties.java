@@ -1,9 +1,9 @@
 package org.displaytag.properties;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Properties;
+import java.util.Enumeration;
+import java.util.ResourceBundle;
+import java.util.MissingResourceException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,8 +11,21 @@ import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.export.ExportTypeEnum;
 
 /**
+ * The properties used by the Table tags.  The properties are loaded in the following order,
+ * in increasing order of priority.
+ *<ol>
+ * <li> First, from the TableTag.properties included with the DisplayTag distribution.  </li>
+ * <li>Then, from the file displaytag.properties, if it is present; these properties are
+ * intended to be set by the user for sitewide application.  </li>
+ * <li>Finally, if this class has a userProperties defined, all of the properties from that
+ * Properties object are copied in as well.  The userProperties Properties can be set by the
+ * {@link DisplayPropertiesLoaderServlet} if it is configured.</li>
+ * </ol>
+ *
  * @author fgiust
+ * @author rapruitt
  * @version $Revision$ ($Author$)
+ * @see DisplayPropertiesLoaderServlet
  */
 public class TableProperties
 {
@@ -33,26 +46,46 @@ public class TableProperties
     private static String mPropertiesFilename = DEFAULT_FILENAME;
 
     /**
-     * Field mUserFilename
+     * The name of the local properties file that is searched for on the
+     * classpath. Settings in this file will override the defaults loaded
+     * from TableTag.properties.
      */
-    private static String mUserFilename = null;
+    public static final String LOCAL_PROPERTIES = "displaytag";
 
     /**
-     *
-     * @return the String value of mPropertiesFilename.
+     * The userProperties are  local, non-default properties; these
+     * settings override the defaults from displaytag.properties
+     * and TableTag.properties.
      */
-    public static String getPropertiesFilename()
+    private static Properties userProperties = new Properties();
+
+    /**
+     * Local, non-default properties; these settings override the defaults
+     * from displaytag.properties and TableTag.properties.
+     * @return the Properties that was set
+     */
+    public static Properties getUserProperties()
     {
-        return mUserFilename;
+        return userProperties;
     }
 
     /**
-     *
-     * @param pPropertiesFilename - the new value for mPropertiesFilename
+     * Local, non-default properties; these settings override the defaults
+     * from displaytag.properties and TableTag.properties.  Please note that the values are copied in,
+     * so that multiple calls with non-overlapping properties will be merged, not overwritten.
+     * @param overrideProperties - The local, non-default properties
      */
-    public static void setPropertiesFilename(String pPropertiesFilename)
+    public static void setUserProperties(Properties overrideProperties)
     {
-        mUserFilename = pPropertiesFilename;
+        Enumeration enum = overrideProperties.keys();
+        while (enum.hasMoreElements())
+        {
+            String key = (String) enum.nextElement();
+            if (key != null && overrideProperties.get(key) != null)
+            {
+                userProperties.setProperty(key, (String) overrideProperties.get(key));
+            }
+        }
     }
 
     /**
@@ -469,7 +502,6 @@ public class TableProperties
     {
 
         Properties lDefaultProperties = new Properties();
-
         try
         {
             lDefaultProperties.load(this.getClass().getResourceAsStream(mPropertiesFilename));
@@ -480,27 +512,32 @@ public class TableProperties
             throw new TablePropertiesLoadException(getClass(), mPropertiesFilename, ex);
         }
 
-        String lUserPropertiesFileName = getPropertiesFilename();
-
-        if (lUserPropertiesFileName != null)
+        // Try to load the properties from the local properties file,
+        // displaytag.properties.
+        try
         {
-
-            try
+            ResourceBundle bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES);
+            Enumeration keys = bundle.getKeys();
+            while (keys.hasMoreElements())
             {
-                FileInputStream lFileInput = new FileInputStream(lUserPropertiesFileName);
-                properties.load(lFileInput);
-                lFileInput.close();
+                String key = (String) keys.nextElement();
+                properties.setProperty(key, bundle.getString(key));
             }
-            catch (FileNotFoundException ex)
-            {
-                throw new TablePropertiesLoadException(getClass(), lUserPropertiesFileName, ex);
-            }
+        }
+        catch (MissingResourceException e)
+        {
+            mLog.info("Was not able to load a displaytag.properties; " + e.getMessage());
+        }
 
-            catch (IOException ex)
+        // Now copy in the user properties
+        Enumeration keys = userProperties.keys();
+        while (keys.hasMoreElements())
+        {
+            String key = (String) keys.nextElement();
+            if (key != null)
             {
-                throw new TablePropertiesLoadException(getClass(), lUserPropertiesFileName, ex);
+                properties.setProperty(key, (String) userProperties.get(key));
             }
-
         }
     }
 

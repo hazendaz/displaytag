@@ -73,7 +73,13 @@
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=773162">[773162]</a>: 
       include header in excel export
       </action>
-      
+        <action type="fix" dev="rapruitt" due-to="Andy Pruitt">
+        fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=831806">[831806]</a>:
+        User properties can now be loaded from files when deployed in unexploded WAR.</action>
+        <action type="update" dev="rapruitt" due-to="Andy Pruitt"> Altered the properties search
+        process. Properties in the file displaytag.properties will now override properties from TableTag.properties. Users
+            can add additional properties via the TableProperties#setUserProperties() method.
+        </action>
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">
