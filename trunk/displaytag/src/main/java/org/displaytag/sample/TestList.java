@@ -32,59 +32,50 @@ public class TestList extends ArrayList
     /**
      * Creates a TestList that is filled with [size] ListObjects suitable for
      * testing.
-     * @param size number of ListObjects contained
-     */
-    public TestList(int size)
-    {
-        super();
-
-        for (int j = 0; j < size; j++)
-        {
-            add(new ListObject());
-        }
-    }
-
-    /**
-     * Constructor for TestList
-     * @param duplicates boolean put dusplicates in the list
      * @param size int size of the list
-     * @todo the duplicates param has no effect
+     * @param duplicates boolean put duplicates in the list
      */
-    public TestList(boolean duplicates, int size)
+    public TestList(int size, boolean duplicates)
     {
-        super();
-
-        // generate a random number between 1 and 3 and duplicate that many number of times.
-        for (int j = 0; j < size; j++)
+        if (duplicates)
         {
-
-            ListObject object1 = new ListObject();
-            ListObject object2 = new ListObject();
-            ListObject object3 = new ListObject();
-
-            int random = new Random().nextInt(3);
-            for (int k = 0; k <= random; k++)
+            // generate a random number between 1 and 3 and duplicate that many number of times.
+            for (int j = 0; j < size; j++)
             {
-                add(object1);
 
+                ListObject object1 = new ListObject();
+                ListObject object2 = new ListObject();
+                ListObject object3 = new ListObject();
+
+                int random = new Random().nextInt(3);
+                for (int k = 0; k <= random; k++)
+                {
+                    add(object1);
+                }
+
+                object1.setId(object2.getId());
+
+                random = new Random().nextInt(3);
+                for (int k = 0; k <= random; k++)
+                {
+                    add(object1);
+                    add(object2);
+                }
+
+                object1.setEmail(object3.getEmail());
+
+                random = new java.util.Random().nextInt(3);
+                for (int k = 0; k <= random; k++)
+                {
+                    add(object1);
+                }
             }
-
-            object1.setId(object2.getId());
-
-            random = new Random().nextInt(3);
-            for (int k = 0; k <= random; k++)
+        }
+        else
+        {
+            for (int j = 0; j < size; j++)
             {
-                add(object1);
-                add(object2);
-
-            }
-
-            object1.setEmail(object3.getEmail());
-
-            random = new java.util.Random().nextInt(3);
-            for (int k = 0; k <= random; k++)
-            {
-                add(object1);
+                add(new ListObject());
             }
         }
     }

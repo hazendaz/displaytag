@@ -11,25 +11,25 @@ import java.util.List;
  */
 public class ListHolder extends Object
 {
-	/**
-	 * Field myList
-	 */
-	private List mList;
+    /**
+     * Field myList
+     */
+    private List mList;
 
-	/**
-	 * Constructor for ListHolder
-	 */
-	public ListHolder()
-	{
-		mList = new TestList(15);
-	}
+    /**
+     * Constructor for ListHolder
+     */
+    public ListHolder()
+    {
+        mList = new TestList(15, false);
+    }
 
-	/**
-	 * Method getList
-	 * @return List
-	 */
-	public final List getList()
-	{
-		return mList;
-	}
+    /**
+     * Method getList
+     * @return List
+     */
+    public final List getList()
+    {
+        return mList;
+    }
 }
