@@ -15,7 +15,7 @@ public class MissingAttributeException extends BaseNestableJspTagException
     /**
      * list of tag attributes
      */
-    private String[] attributes;
+    private final String[] attributes;
 
     /**
      * Constructor for MissingAttributeException.
