@@ -35,11 +35,15 @@ public class EmptyTableTest extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
+        if (log.isDebugEnabled())
+        {
+            log.debug(response.getText());
+        }
+
         WebTable[] tables = response.getTables();
 
         // only the second table should be shown
-        assertEquals(1, tables.length);
-
+        assertEquals("Wrong number of tables.", 1, tables.length);
         assertEquals("Empty table message: colspan should be 2", 2, tables[0].getTableCell(1, 0).getColSpan());
     }
 }
