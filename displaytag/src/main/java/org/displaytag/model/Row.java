@@ -9,7 +9,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.util.TagConstants;
 
 /**
- * Holds informations for a table row
+ * Holds informations for a table row.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -17,27 +17,27 @@ public class Row
 {
 
     /**
-     * Object holding values for the current row
+     * Object holding values for the current row.
      */
     private Object rowObject;
 
     /**
-     * List of cell objects
+     * List of cell objects.
      */
     private List staticCells;
 
     /**
-     * Row number
+     * Row number.
      */
     private int rowNumber;
 
     /**
-     * TableModel which the row belongs to
+     * TableModel which the row belongs to.
      */
     private TableModel tableModel;
 
     /**
-     * Constructor for Row
+     * Constructor for Row.
      * @param object Object
      * @param number int
      */
@@ -49,7 +49,7 @@ public class Row
     }
 
     /**
-     * Setter for the row number
+     * Setter for the row number.
      * @param number row number
      */
     public void setRowNumber(int number)
@@ -66,7 +66,7 @@ public class Row
     }
 
     /**
-     * Getter for the row number
+     * Getter for the row number.
      * @return row number
      */
     public int getRowNumber()
@@ -75,7 +75,7 @@ public class Row
     }
 
     /**
-     * Adds a cell to the row
+     * Adds a cell to the row.
      * @param cell Cell
      */
     public void addCell(Cell cell)
@@ -84,7 +84,7 @@ public class Row
     }
 
     /**
-     * getter for the list of Cell object
+     * getter for the list of Cell object.
      * @return List containing Cell objects
      */
     public List getCellList()
@@ -93,7 +93,7 @@ public class Row
     }
 
     /**
-     * getter for the object holding values for the current row
+     * getter for the object holding values for the current row.
      * @return Object object holding values for the current row
      */
     public Object getObject()
@@ -102,7 +102,7 @@ public class Row
     }
 
     /**
-     * Iterates on columns
+     * Iterates on columns.
      * @param columns List
      * @return ColumnIterator
      */
@@ -112,7 +112,7 @@ public class Row
     }
 
     /**
-     * Setter for the table model the row belongs to
+     * Setter for the table model the row belongs to.
      * @param table TableModel
      */
     protected void setParentTable(TableModel table)
@@ -121,7 +121,7 @@ public class Row
     }
 
     /**
-     * Getter for the table model the row belongs to
+     * Getter for the table model the row belongs to.
      * @return TableModel
      */
     protected TableModel getParentTable()
@@ -130,7 +130,7 @@ public class Row
     }
 
     /**
-     * Writes the open &lt;tr> tag
+     * Writes the open &lt;tr> tag.
      * @return String &lt;tr> tag with the appropriate css class attribute
      */
     public String getOpenTag()
@@ -155,8 +155,8 @@ public class Row
     }
 
     /**
-     * writes the &lt;/tr&gt; tag
-     * @return String &lt;/tr&gt; tag
+     * writes the &lt;/tr> tag.
+     * @return String &lt;/tr> tag
      */
     public String getCloseTag()
     {

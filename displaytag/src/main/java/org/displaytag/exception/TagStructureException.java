@@ -1,7 +1,7 @@
 package org.displaytag.exception;
 
 /**
- * <p>Exception thrown when a Tag is not properly nested into another one</p>
+ * Exception thrown when a Tag is not properly nested into another one.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */

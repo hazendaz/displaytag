@@ -17,43 +17,43 @@ public class Pagination
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(Pagination.class);
 
     /**
-     * MessageFormat for urls
+     * MessageFormat for urls.
      */
     private MessageFormat urlFormat;
 
     /**
-     * first page
+     * first page.
      */
     private Integer firstPage;
 
     /**
-     * last page
+     * last page.
      */
     private Integer lastPage;
 
     /**
-     * previous page
+     * previous page.
      */
     private Integer previousPage;
 
     /**
-     * next page
+     * next page.
      */
     private Integer nextPage;
 
     /**
-     * List containg NumberedPage objects
+     * List containg NumberedPage objects.
      * @see org.displaytag.pagination.NumberedPage
      */
     private List pages = new ArrayList();
 
     /**
-     * Constructor for Pagination
+     * Constructor for Pagination.
      * @param urlFormatString String
      */
     public Pagination(String urlFormatString)
@@ -62,14 +62,14 @@ public class Pagination
     }
 
     /**
-     * add a page
+     * Adds a page.
      * @param number int page number
      * @param isSelected is the page selected?
      */
     public void addPage(int number, boolean isSelected)
     {
         log.debug("addpage " + number);
-        pages.add(new NumberedPage(number, isSelected));
+        this.pages.add(new NumberedPage(number, isSelected));
     }
 
     /**
@@ -78,7 +78,7 @@ public class Pagination
      */
     public boolean isFirst()
     {
-        return firstPage == null;
+        return this.firstPage == null;
     }
 
     /**
@@ -87,7 +87,7 @@ public class Pagination
      */
     public boolean isLast()
     {
-        return lastPage == null;
+        return this.lastPage == null;
     }
 
     /**
@@ -96,83 +96,83 @@ public class Pagination
      */
     public boolean isOnePage()
     {
-        return (pages == null) || pages.size() <= 1;
+        return (this.pages == null) || this.pages.size() <= 1;
     }
 
     /**
-     * Get the number of the first page
+     * Gets the number of the first page.
      * @return Integer number of the first page
      */
     public Integer getFirst()
     {
-        return firstPage;
+        return this.firstPage;
     }
 
     /**
-     * Set the number of the first page
+     * Sets the number of the first page.
      * @param first Integer number of the first page
      */
     public void setFirst(Integer first)
     {
-        firstPage = first;
+        this.firstPage = first;
     }
 
     /**
-     * Get the number of the last page
+     * Gets the number of the last page.
      * @return Integer number of the last page
      */
     public Integer getLast()
     {
-        return lastPage;
+        return this.lastPage;
     }
 
     /**
-     * Set the number of the last page
+     * Sets the number of the last page.
      * @param last Integer number of the last page
      */
     public void setLast(Integer last)
     {
-        lastPage = last;
+        this.lastPage = last;
     }
 
     /**
-     * Get the number of the previous page
+     * Gets the number of the previous page.
      * @return Integer number of the previous page
      */
     public Integer getPrevious()
     {
-        return previousPage;
+        return this.previousPage;
     }
 
     /**
-     * Set the number of the previous page
+     * Sets the number of the previous page.
      * @param previous Integer number of the previous page
      */
     public void setPrevious(Integer previous)
     {
-        previousPage = previous;
+        this.previousPage = previous;
     }
 
     /**
-     * Get the number of the next page
+     * Gets the number of the next page.
      * @return Integer number of the next page
      */
     public Integer getNext()
     {
-        return nextPage;
+        return this.nextPage;
     }
 
     /**
-     * Set the number of the next page
+     * Sets the number of the next page.
      * @param next Integer number of the next page
      */
     public void setNext(Integer next)
     {
-        nextPage = next;
+        this.nextPage = next;
     }
 
     /**
-     * returns the appropriate banner for the pagination
+     * Returns the appropriate banner for the pagination.
      * @param numberedPageFormat String to be used for a not selected page
      * @param numberedPageSelectedFormat String to be used for a selected page
      * @param numberedPageSeparator separator beetween pages
@@ -189,7 +189,7 @@ public class Pagination
         StringBuffer buffer = new StringBuffer(100);
 
         // numbered page list
-        Iterator pageIterator = pages.iterator();
+        Iterator pageIterator = this.pages.iterator();
 
         while (pageIterator.hasNext())
         {

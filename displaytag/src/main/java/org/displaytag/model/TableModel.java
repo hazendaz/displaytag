@@ -17,22 +17,22 @@ public class TableModel
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(TableModel.class);
 
     /**
-     * list of HeaderCell
+     * list of HeaderCell.
      */
     private List headerCellList;
 
     /**
-     * full list (contains Row objects)
+     * full list (contains Row objects).
      */
     private List rowListFull;
 
     /**
-     * list of data to be displayed in page
+     * list of data to be displayed in page.
      */
     private List rowListPage;
 
@@ -42,32 +42,32 @@ public class TableModel
     private boolean sortOrderAscending = true;
 
     /**
-     * sort full List? (false sort only displayed page)
+     * sort full List? (false sort only displayed page).
      */
     private boolean sortFullTable = true;
 
     /**
-     * index of the sorted column (-1 if the table is not sorted)
+     * index of the sorted column (-1 if the table is not sorted).
      */
     private int sortedColumn = -1;
 
     /**
-     * Table decorator
+     * Table decorator.
      */
     private TableDecorator tableDecorator;
 
     /**
-     * id inherited from the TableTag (needed only for logging)
+     * id inherited from the TableTag (needed only for logging).
      */
     private String id;
     
     /**
-     * configurable table properties
+     * configurable table properties.
      */
     private TableProperties properties;
 
     /**
-     * Constructor for TableModel
+     * Constructor for TableModel.
      * @param tableProperties table properties
      */
     public TableModel(TableProperties tableProperties)
@@ -78,7 +78,7 @@ public class TableModel
     }
 
     /**
-     * Setter for the tablemodel id
+     * Setter for the tablemodel id.
      * @param tableId same id of table tag, needed for logging
      */
     public void setId(String tableId)
@@ -87,7 +87,7 @@ public class TableModel
     }
 
     /**
-     * get the full list
+     * get the full list.
      * @return the full list containing Row objects
      */
     public List getRowListFull()
@@ -96,7 +96,7 @@ public class TableModel
     }
 
     /**
-     * get the partial (paginated) list
+     * gets the partial (paginated) list.
      * @return the partial list to display in page (contains Row objects)
      */
     public List getRowListPage()
@@ -105,7 +105,7 @@ public class TableModel
     }
 
     /**
-     * add a Row object to the table
+     * adds a Row object to the table.
      * @param row Row
      */
     public void addRow(Row row)
@@ -120,8 +120,8 @@ public class TableModel
     }
 
     /**
-     * set the sort full table property. If true the full list is sorted, if false sorting is applied only to the
-     * displayed sublist
+     * sets the sort full table property. If true the full list is sorted, if false sorting is applied only to the
+     * displayed sublist.
      * @param sortFull boolean
      */
     public void setSortFullTable(boolean sortFull)
@@ -130,7 +130,7 @@ public class TableModel
     }
 
     /**
-     * return the sort full table property
+     * return the sort full table property.
      * @return boolean true if sorting is applied to the full list
      */
     public boolean isSortFullTable()
@@ -139,7 +139,7 @@ public class TableModel
     }
 
     /**
-     * return the sort order of the page
+     * return the sort order of the page.
      * @return true if sort order is ascending
      */
     public boolean isSortOrderAscending()
@@ -149,7 +149,7 @@ public class TableModel
     }
 
     /**
-     * set the sort order of the list
+     * set the sort order of the list.
      * @param isSortOrderAscending true to sort in ascending order
      */
     public void setSortOrderAscending(boolean isSortOrderAscending)
@@ -166,7 +166,7 @@ public class TableModel
     }
 
     /**
-     * getter for the Table Decorator
+     * getter for the Table Decorator.
      * @return TableDecorator
      */
     public TableDecorator getTableDecorator()
@@ -175,7 +175,7 @@ public class TableModel
     }
 
     /**
-     * setter for the table decorator
+     * setter for the table decorator.
      * @param decorator - the TableDecorator object
      */
     public void setTableDecorator(TableDecorator decorator)
@@ -184,7 +184,7 @@ public class TableModel
     }
 
     /**
-     * return true if the table is sorted
+     * returns true if the table is sorted.
      * @return boolean true if the table is sorted
      */
     public boolean isSorted()
@@ -193,7 +193,7 @@ public class TableModel
     }
 
     /**
-     * return the HeaderCell for the sorted column
+     * returns the HeaderCell for the sorted column.
      * @return HeaderCell
      */
     public HeaderCell getSortedColumnHeader()
@@ -206,7 +206,7 @@ public class TableModel
     }
 
     /**
-     * return the number of columns in the table
+     * return the number of columns in the table.
      * @return int number of columns
      */
     public int getNumberOfColumns()
@@ -215,7 +215,7 @@ public class TableModel
     }
 
     /**
-     * return true is the table has no columns
+     * return true is the table has no columns.
      * @return boolean
      */
     public boolean isEmpty()
@@ -224,7 +224,7 @@ public class TableModel
     }
 
     /**
-     * return the index of the sorted column
+     * return the index of the sorted column.
      * @return index of the sorted column or -1 if the table is not sorted
      */
     public int getSortedColumnNumber()
@@ -233,7 +233,7 @@ public class TableModel
     }
 
     /**
-     * set the sorted column index
+     * set the sorted column index.
      * @param sortIndex - the index of the sorted column
      */
     public void setSortedColumnNumber(int sortIndex)
@@ -242,7 +242,7 @@ public class TableModel
     }
 
     /**
-     * Adds a column header (HeaderCell object)
+     * Adds a column header (HeaderCell object).
      * @param headerCell HeaderCell
      */
     public void addColumnHeader(HeaderCell headerCell)
@@ -257,7 +257,7 @@ public class TableModel
     }
 
     /**
-     * List containing headerCell objects
+     * List containing headerCell objects.
      * @return List containing headerCell objects
      */
     public List getHeaderCellList()
@@ -266,7 +266,7 @@ public class TableModel
     }
 
     /**
-     * returns a RowIterator on the requested (full|page) list
+     * returns a RowIterator on the requested (full|page) list.
      * @return RowIterator
      * @see org.displaytag.model.RowIterator
      */
@@ -279,7 +279,7 @@ public class TableModel
     }
 
     /**
-     * returns a RowIterator on the _full_ list. Needed for export views
+     * returns a RowIterator on the _full_ list. Needed for export views.
      * @return RowIterator
      * @see org.displaytag.model.RowIterator
      */
@@ -292,7 +292,7 @@ public class TableModel
     }
 
     /**
-     * sorts the given list of Rows. The method is called internally by sortFullList() and sortPageList()
+     * sorts the given list of Rows. The method is called internally by sortFullList() and sortPageList().
      * @param list List
      */
     private void sortRowList(List list)
@@ -322,7 +322,7 @@ public class TableModel
     }
 
     /**
-     * sort the list displayed in page
+     * sort the list displayed in page.
      */
     public void sortPageList()
     {
@@ -335,7 +335,7 @@ public class TableModel
     }
 
     /**
-     * sort the full list of data
+     * sort the full list of data.
      */
     public void sortFullList()
     {

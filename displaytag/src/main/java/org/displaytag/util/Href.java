@@ -19,27 +19,27 @@ public class Href
 {
 
     /**
-     * Base url for the href
+     * Base url for the href.
      */
     private String url;
 
     /**
-     * Url parameters
+     * Url parameters.
      */
     private HashMap parameters;
 
     /**
-     * Construct a new Href parsing a URL. Parameters are stripped from the base url and saved in the parameters map
+     * Construct a new Href parsing a URL. Parameters are stripped from the base url and saved in the parameters map.
      * @param baseUrl String
      */
     public Href(String baseUrl)
     {
-        parameters = new HashMap();
+        this.parameters = new HashMap();
 
         if (baseUrl.indexOf("?") == -1)
         {
             // simple url, no parameters
-            url = baseUrl;
+            this.url = baseUrl;
         }
         else
         {
@@ -47,7 +47,7 @@ public class Href
             StringTokenizer tokenizer = new StringTokenizer(baseUrl, "?");
 
             // base url (before "?")
-            url = tokenizer.nextToken();
+            this.url = tokenizer.nextToken();
 
             if (tokenizer.hasMoreTokens())
             {
@@ -63,7 +63,7 @@ public class Href
 
                     // ... and add it to the map
                     // ... but remember to encode name/value to prevent css
-                    parameters.put(
+                    this.parameters.put(
                         StringEscapeUtils.escapeHtml(keyValue[0]),
                         StringEscapeUtils.escapeHtml(keyValue[1]));
 
@@ -74,42 +74,42 @@ public class Href
     }
 
     /**
-     * Constructor for Href
+     * Constructor for Href.
      * @param href Href
      */
     public Href(Href href)
     {
-        url = href.getBaseUrl();
-        parameters = href.getParameterMap();
+        this.url = href.getBaseUrl();
+        this.parameters = href.getParameterMap();
     }
 
     /**
-     * Adds a parameter to the href
+     * Adds a parameter to the href.
      * @param name String
      * @param value Object
      */
     public void addParameter(String name, Object value)
     {
-        parameters.put(name, value);
+        this.parameters.put(name, value);
     }
 
     /**
-     * Adds an int parameter to the href
+     * Adds an int parameter to the href.
      * @param name String
      * @param value int
      */
     public void addParameter(String name, int value)
     {
-        parameters.put(name, new Integer(value));
+        this.parameters.put(name, new Integer(value));
     }
 
     /**
-     * Getter for the map containing link parameters
+     * Getter for the map containing link parameters.
      * @return HashMap
      */
     public HashMap getParameterMap()
     {
-        return (HashMap) parameters.clone();
+        return (HashMap) this.parameters.clone();
     }
 
     /**
@@ -120,7 +120,7 @@ public class Href
     public void setParameterMap(Map parametersMap)
     {
         // create a new HashMap
-        parameters = new HashMap(parametersMap.size());
+        this.parameters = new HashMap(parametersMap.size());
 
         // copy the parameters
         addParameterMap(parametersMap);
@@ -140,35 +140,35 @@ public class Href
             Map.Entry entry = (Map.Entry) mapIterator.next();
             String key = StringEscapeUtils.escapeHtml((String) entry.getKey());
             String value = StringEscapeUtils.escapeHtml((String) entry.getValue());
-            parameters.put(key, value);
+            this.parameters.put(key, value);
         }
     }
 
     /**
-     * Getter for the base url (without parameters)
+     * Getter for the base url (without parameters).
      * @return String
      */
     public String getBaseUrl()
     {
-        return url;
+        return this.url;
     }
 
     /**
-     * toString: output the full url with parameters
+     * toString: output the full url with parameters.
      * @return String
      */
     public String toString()
     {
 
         // no parameters? simply return the base Url
-        if (parameters.size() == 0)
+        if (this.parameters.size() == 0)
         {
-            return url;
+            return this.url;
         }
 
         StringBuffer buffer = new StringBuffer(30);
-        buffer.append(url).append('?');
-        Set parameterSet = parameters.entrySet();
+        buffer.append(this.url).append('?');
+        Set parameterSet = this.parameters.entrySet();
 
         Iterator iterator = parameterSet.iterator();
 

@@ -10,71 +10,70 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * Just a test class that returns columns of data that are useful for testing
- * out the ListTag class and ListColumn class.
- *
+ * Just a test class that returns columns of data that are useful for testing out the ListTag class and ListColumn
+ * class.
  * @author epesh
  * @version $Revision$ ($Author$)
  */
 public class ListObject extends Object
 {
     /**
-     * random number generator
+     * random number generator.
      */
     private static Random random = new Random();
 
     /**
-     * id
+     * id.
      */
     private int id = -1;
 
     /**
-     * name
+     * name.
      */
     private String name;
 
     /**
-     * email
+     * email.
      */
     private String email;
 
     /**
-     * date
+     * date.
      */
     private Date date;
 
     /**
-     * money
+     * money.
      */
     private double money;
 
     /**
-     * description
+     * description.
      */
     private String description;
 
     /**
-     * long description
+     * long description.
      */
     private String longDescription;
 
     /**
-     * status
+     * status.
      */
     private String status;
 
     /**
-     * url
+     * url.
      */
     private String url;
 
     /**
-     * sub list used to test nested tables
+     * sub list used to test nested tables.
      */
     private List subList;
 
     /**
-     * Constructor for ListObject
+     * Constructor for ListObject.
      */
     public ListObject()
     {
@@ -106,7 +105,7 @@ public class ListObject extends Object
     }
 
     /**
-     * getter for id
+     * getter for id.
      * @return int id
      */
     public int getId()
@@ -115,7 +114,7 @@ public class ListObject extends Object
     }
 
     /**
-     * setter for id
+     * setter for id.
      * @param value int id
      */
     public void setId(int value)
@@ -124,7 +123,7 @@ public class ListObject extends Object
     }
 
     /**
-     * getter for name
+     * getter for name.
      * @return String name
      */
     public String getName()
@@ -133,7 +132,7 @@ public class ListObject extends Object
     }
 
     /**
-     * getter for email
+     * getter for email.
      * @return String email
      */
     public String getEmail()
@@ -142,7 +141,7 @@ public class ListObject extends Object
     }
 
     /**
-     * setter for email
+     * setter for email.
      * @param value String email
      */
     public void setEmail(String value)
@@ -151,7 +150,7 @@ public class ListObject extends Object
     }
 
     /**
-     * getter for date
+     * getter for date.
      * @return Date
      */
     public Date getDate()
@@ -160,7 +159,7 @@ public class ListObject extends Object
     }
 
     /**
-     * getter for money
+     * getter for money.
      * @return double money
      */
     public double getMoney()
@@ -169,7 +168,7 @@ public class ListObject extends Object
     }
 
     /**
-     * getter for description
+     * getter for description.
      * @return String description
      */
     public String getDescription()
@@ -178,7 +177,7 @@ public class ListObject extends Object
     }
 
     /**
-     * getter for long description
+     * getter for long description.
      * @return String long description
      */
     public String getLongDescription()
@@ -187,7 +186,7 @@ public class ListObject extends Object
     }
 
     /**
-     * getter for status
+     * getter for status.
      * @return String status
      */
     public String getStatus()
@@ -196,7 +195,7 @@ public class ListObject extends Object
     }
 
     /**
-     * getter for url
+     * getter for url.
      * @return String url
      */
     public String getUrl()
@@ -205,7 +204,7 @@ public class ListObject extends Object
     }
 
     /**
-     * test for null values
+     * test for null values.
      * @return null
      */
     public String getNullValue()
@@ -214,7 +213,7 @@ public class ListObject extends Object
     }
 
     /**
-     * return a simple string representation of the object
+     * Returns a simple string representation of the object.
      * @return String simple representation of the object
      */
     public String toString()
@@ -223,7 +222,7 @@ public class ListObject extends Object
     }
 
     /**
-     * returns a detailed string representation of the object
+     * Returns a detailed string representation of the object.
      * @return String detailed representation of the object
      */
     public String toDetailedString()
@@ -264,29 +263,29 @@ public class ListObject extends Object
     }
 
     /**
-     * Inner class used in testing nested tables
+     * Inner class used in testing nested tables.
      * @author fgiust
      */
     public class SubListItem
     {
 
         /**
-         * name
+         * name.
          */
-        private String name;
+        private String itemName;
 
         /**
-         * email
+         * email.
          */
-        private String email;
+        private String itemEmail;
 
         /**
-         * Constructor for SubListItem
+         * Constructor for SubListItem.
          */
         public SubListItem()
         {
-            this.name = RandomSampleUtil.getRandomWord();
-            this.email = RandomSampleUtil.getRandomEmail();
+            this.itemName = RandomSampleUtil.getRandomWord();
+            this.itemEmail = RandomSampleUtil.getRandomEmail();
         }
 
         /**
@@ -295,7 +294,7 @@ public class ListObject extends Object
          */
         public String getName()
         {
-            return this.name;
+            return this.itemName;
         }
 
         /**
@@ -304,18 +303,18 @@ public class ListObject extends Object
          */
         public String getEmail()
         {
-            return email;
+            return this.itemEmail;
         }
-        
+
         /**
          * @see java.lang.Object#toString()
          */
         public String toString()
         {
             return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("name", this.name)
-            .append("email", this.email)
-            .toString();
+                .append("name", this.itemName)
+                .append("email", this.itemEmail)
+                .toString();
         }
     }
 

@@ -12,12 +12,12 @@ import org.displaytag.decorator.TableDecorator;
 public class TotalWrapper extends TableDecorator
 {
     /**
-     * total amount
+     * total amount.
      */
     private double grandTotal;
     
     /**
-     * total amount for city
+     * total amount for city.
      */
     private double cityTotal;
 

@@ -11,7 +11,7 @@ import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.LookupUtil;
 
 /**
- * Base template class
+ * Base template class.
  * @author bgsmith
  * @version $Revision$ ($Author$)
  */

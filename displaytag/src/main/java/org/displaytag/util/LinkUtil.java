@@ -1,7 +1,7 @@
 package org.displaytag.util;
 
 /**
- * <p>Class with static utility methods to add html links in a String</p>
+ * Class with static utility methods to add html links in a String.
  * @author mraible
  * @version $Revision$ ($Author$)
  */
@@ -9,17 +9,17 @@ public final class LinkUtil
 {
 
     /**
-     * don't instantiate a LinkUtil
+     * http urls.
+     */
+    private static final String URL_HTTP = "http://";
+
+    /**
+     * don't instantiate a LinkUtil.
      */
     private LinkUtil()
     {
     }
-
-    /**
-     * http urls
-     */
-    private static final String URL_HTTP = "http://";
-
+    
     /**
      * <p>This takes the string that is passed in, and "auto-links" it, it turns
      * email addresses into hyperlinks, and also turns things that looks like

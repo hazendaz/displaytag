@@ -2,7 +2,6 @@ package org.displaytag.tags;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,7 +15,7 @@ public class TableFooterTag extends BodyTagSupport
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(TableFooterTag.class);
 
@@ -30,7 +29,7 @@ public class TableFooterTag extends BodyTagSupport
      */
     public int doEndTag() throws JspException
     {
-        if (firstIteration)
+        if (this.firstIteration)
         {
             TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
@@ -49,11 +48,11 @@ public class TableFooterTag extends BodyTagSupport
 
             }
 
-            firstIteration = false;
+            this.firstIteration = false;
 
         }
 
-        return TagSupport.EVAL_PAGE;
+        return EVAL_PAGE;
     }
 
     /**
@@ -71,14 +70,14 @@ public class TableFooterTag extends BodyTagSupport
         // add column header only once
         if (tableTag.isFirstIteration())
         {
-            firstIteration = true;
+            this.firstIteration = true;
             // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
             return 2;
         }
         else
         {
-            firstIteration = false;
-            return TagSupport.SKIP_BODY;
+            this.firstIteration = false;
+            return SKIP_BODY;
         }
 
     }

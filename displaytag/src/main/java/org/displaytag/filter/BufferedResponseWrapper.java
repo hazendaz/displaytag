@@ -19,18 +19,28 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper
      * The buffered response.
      */
     private CharArrayWriter output;
+
     /**
      * The contentType.
      */
     private String contentType = "text/html";
 
     /**
+     * @param response the response to wrap
+     */
+    public BufferedResponseWrapper(HttpServletResponse response)
+    {
+        super(response);
+        this.output = new CharArrayWriter();
+    }
+    
+    /**
      * Get the String representation.
      * @return the contents of the response
      */
     public String toString()
     {
-        return output.toString();
+        return this.output.toString();
     }
 
     /**
@@ -40,7 +50,7 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper
     */
     public String getContentType()
     {
-        return contentType;
+        return this.contentType;
     }
 
     /**
@@ -54,26 +64,17 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper
     }
 
     /**
-     * @param response the response to wrap
-     */
-    public BufferedResponseWrapper(HttpServletResponse response)
-    {
-        super(response);
-        output = new CharArrayWriter();
-    }
-
-    /**
      * @return the associated print writer
      */
     public PrintWriter getWriter()
     {
-        return new PrintWriter(output);
+        return new PrintWriter(this.output);
     }
     /**
      * Flush the buffer, not the response.
      */
     public void flushBuffer()
     {
-        output.flush();
+        this.output.flush();
     }
 }

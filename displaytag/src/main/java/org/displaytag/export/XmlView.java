@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.displaytag.model.TableModel;
 
 /**
- * <p>Export view for xml exporting</p>
+ * Export view for xml exporting.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */

@@ -1,7 +1,6 @@
 package org.displaytag.tags;
 
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.tagext.TagSupport;
 
 import org.displaytag.exception.TagStructureException;
 
@@ -13,31 +12,31 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
 {
 
     /**
-     * property name
+     * property name.
      */
     private String name;
 
     /**
-     * property value
+     * property value.
      */
     private String value;
 
     /**
-     * Sets the name of the property
+     * Sets the name of the property.
      * @param propertyName String
      */
     public void setName(String propertyName)
     {
-        name = propertyName;
+        this.name = propertyName;
     }
 
     /**
-     * Sets the value of the property
+     * Sets the value of the property.
      * @param propertyValue String
      */
     public void setValue(String propertyValue)
     {
-        value = propertyValue;
+        this.value = propertyValue;
     }
 
     /**
@@ -60,9 +59,9 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
             throw new TagStructureException(getClass(), "property", "table");
         }
 
-        tableTag.setProperty(name, value);
+        tableTag.setProperty(this.name, this.value);
 
-        return TagSupport.EVAL_PAGE;
+        return EVAL_PAGE;
     }
 
 }

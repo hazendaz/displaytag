@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.displaytag.model.TableModel;
 
 /**
- * <p>Export view for comma separated value exporting</p>
+ * Export view for comma separated value exporting.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -92,12 +92,12 @@ public class CsvView extends BaseExportView
     }
 
     /**
-     * Escaping for csv format:
+     * Escaping for csv format.
      * <ul>
      * <li>Quotes inside quoted strings are escaped with a /</li>
      * <li>Fields containings newlines or , are surrounded by ""</li>
      * </ul>
-     * Note this is the standard CVS format and it's not handled well by excel
+     * Note this is the standard CVS format and it's not handled well by excel.
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
      */
     protected Object escapeColumnValue(Object value)

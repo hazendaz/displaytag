@@ -67,14 +67,14 @@ public class ResponseOverrideFilter implements Filter
     /**
      * Logger.
      */
-    private Log logger;
+    private Log log;
     
     /**
      * {@inheritDoc}
      */
-    public void init(FilterConfig filterConfig) throws ServletException
+    public void init(FilterConfig filterConfig)
     {
-        logger = LogFactory.getLog(ResponseOverrideFilter.class);
+        log = LogFactory.getLog(ResponseOverrideFilter.class);
     }
 
     /**
@@ -101,11 +101,11 @@ public class ResponseOverrideFilter implements Filter
         {
             pageContent = buf.toString();
             contentType = "" + request.getAttribute(CONTENT_OVERRIDE_TYPE);
-            logger.debug("Overriding output, writing new output with content type " + contentType);
+            log.debug("Overriding output, writing new output with content type " + contentType);
         }
         else
         {
-            logger.debug("NOT overriding input. ");
+            log.debug("NOT overriding input. ");
             pageContent = wrapper.toString();
             contentType = wrapper.getContentType();
         }

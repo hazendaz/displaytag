@@ -5,17 +5,15 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * Utility class used to get random word and sentences used in examples
+ * Utility class used to get random word and sentences used in examples.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public final class RandomSampleUtil
 {
 
-
-
     /**
-     * list of words
+     * list of words.
      */
     private static String[] words =
         new String[] {
@@ -66,12 +64,12 @@ public final class RandomSampleUtil
             "est" };
 
     /**
-     * random number producer
+     * random number producer.
      */
     private static Random random = new Random();
 
     /**
-     * utility class, don't instantiate
+     * utility class, don't instantiate.
      */
     private RandomSampleUtil()
     {
@@ -79,7 +77,7 @@ public final class RandomSampleUtil
     }
     
     /**
-     * returns a random word
+     * returns a random word.
      * @return random word
      */
     public static String getRandomWord()
@@ -88,7 +86,7 @@ public final class RandomSampleUtil
     }
 
     /**
-     * returns a random sentence
+     * returns a random sentence.
      * @param wordNumber number of word in the sentence
      * @return random sentence made of <code>wordNumber</code> words
      */
@@ -107,7 +105,7 @@ public final class RandomSampleUtil
     }
 
     /**
-     * returns a random email
+     * returns a random email.
      * @return random email
      */
     public static String getRandomEmail()
@@ -116,7 +114,7 @@ public final class RandomSampleUtil
     }
 
     /**
-     * returns a random date
+     * returns a random date.
      * @return random date
      */
     public static Date getRandomDate()

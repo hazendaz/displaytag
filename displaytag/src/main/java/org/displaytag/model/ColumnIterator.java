@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * <p>Iterator on columns</p>
+ * Iterator on columns.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -12,22 +12,22 @@ public class ColumnIterator
 {
 
     /**
-     * current row
+     * current row.
      */
     private Row parentRow;
 
     /**
-     * Internal iterator on header cells
+     * Internal iterator on header cells.
      */
     private Iterator headerIterator;
 
     /**
-     * Internal iterator on cells
+     * Internal iterator on cells.
      */
     private Iterator cellIterator;
 
     /**
-     * Create a new ColumnIterator given a list of column and a row
+     * Creates a new ColumnIterator given a list of column and a row.
      * @param columns List containing column objects
      * @param row current Row
      */
@@ -48,7 +48,7 @@ public class ColumnIterator
     }
 
     /**
-     * Returns the next column
+     * Returns the next column.
      * @return Column next column
      */
     public Column nextColumn()

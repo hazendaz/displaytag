@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.ObjectLookupException;
 
 /**
- * Utility class with methods for object & properties retrieving
+ * Utility class with methods for object and properties retrieving.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -19,19 +19,19 @@ public final class LookupUtil
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(LookupUtil.class);
 
     /**
-     * don't instantiate a LookupUtil
+     * don't instantiate a LookupUtil.
      */
     private LookupUtil()
     {
     }
 
     /**
-     * Read an object from the pagecontext with the specified scope and eventually lookup a property in it
+     * Read an object from the pagecontext with the specified scope and eventually lookup a property in it.
      * @param pageContext PageContext
      * @param beanAndPropertyName String expression with bean name and attributes
      * @param scope One of the following values:
@@ -88,7 +88,7 @@ public final class LookupUtil
     }
 
     /**
-     * <p>Returns the value of a property in the given bean</p>
+     * <p>Returns the value of a property in the given bean.</p>
      * <p>This method is a modificated version from commons-beanutils PropertyUtils.getProperty(). It allows
      * intermediate nulls in expression without throwing exception (es. it doesn't throw an exception for the property
      * <code>object.date.time</code> if <code>date</code> is null)</p>

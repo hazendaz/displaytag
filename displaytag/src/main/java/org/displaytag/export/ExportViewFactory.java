@@ -3,21 +3,21 @@ package org.displaytag.export;
 import org.displaytag.model.TableModel;
 
 /**
- * Factory for export views
+ * Factory for export views.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public final class ExportViewFactory
 {
     /**
-     * utility class, don't instantiate
+     * utility class, don't instantiate.
      */
     private ExportViewFactory()
     {
     }
 
     /**
-     * returns an instance of export view associated with the given export type
+     * returns an instance of export view associated with the given export type.
      * @param exportType MediaTypeEnum
      * @param tableModel table model containing data to render
      * @param exportFullList should the complete list be exported?

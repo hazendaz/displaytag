@@ -13,7 +13,7 @@ public class MissingAttributeException extends BaseNestableJspTagException
 {
 
     /**
-     * list of tag attributes
+     * list of tag attributes.
      */
     private final String[] attributes;
 
@@ -39,7 +39,7 @@ public class MissingAttributeException extends BaseNestableJspTagException
     }
 
     /**
-     * returns an array containing the names of missing attributes
+     * returns an array containing the names of missing attributes.
      * @return String[] array of missing attributes
      */
     public String[] getAttributeNames()

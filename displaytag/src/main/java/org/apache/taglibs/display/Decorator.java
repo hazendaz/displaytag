@@ -6,9 +6,9 @@ import java.util.List;
 import org.displaytag.decorator.TableDecorator;
 
 /**
- * <p>Placeholder class to preserve compatibility with decorator created with older version of the display taglib</p>
+ * <p>Placeholder class to preserve compatibility with decorator created with older version of the display taglib.</p>
  * <p>Never extend this class, you should always subclass decorators in the <code>org.displaytag.decorator</code>
- * package<p>
+ * package.<p>
  * @author fgiust
  * @version $Revision$ ($Author$)
  * @deprecated use <code>org.displaytag.decorator.TableDecorator</code>
@@ -17,7 +17,7 @@ public abstract class Decorator extends TableDecorator
 {
 
     /**
-     * returns the Object where the iteration is performed as a List
+     * Returns the Object where the iteration is performed as a List.
      * @return List
      * @deprecated use getDecoratedObject()
      */
@@ -27,7 +27,7 @@ public abstract class Decorator extends TableDecorator
     }
 
     /**
-     * returns the Object where the iteration is performed as a Collection
+     * Returns the Object where the iteration is performed as a Collection.
      * @return Collection
      * @deprecated use getDecoratedObject()
      */
@@ -37,7 +37,7 @@ public abstract class Decorator extends TableDecorator
     }
 
     /**
-     * returns the Object for the current row
+     * Returns the Object for the current row.
      * @return Object
      * @deprecated use getCurrentRowObject()
      */

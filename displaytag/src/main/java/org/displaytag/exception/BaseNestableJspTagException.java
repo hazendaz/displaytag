@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Base exception: extendes JspTagException providing loggin and exception nesting functionalities
+ * Base exception: extendes JspTagException providing logging and exception nesting functionalities.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -14,17 +14,17 @@ public abstract class BaseNestableJspTagException extends JspTagException
 {
 
     /**
-     * Class where the exception has been generated
+     * Class where the exception has been generated.
      */
     private final Class sourceClass;
 
     /**
-     * previous exception
+     * previous exception.
      */
     private Throwable nestedException;
 
     /**
-     * Instantiate a new BaseNestableJspTagException
+     * Instantiate a new BaseNestableJspTagException.
      * @param source Class where the exception is generated
      * @param message message
      */
@@ -59,7 +59,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
     }
 
     /**
-     * Instantiate a new BaseNestableJspTagException
+     * Instantiate a new BaseNestableJspTagException.
      * @param source Class where the exception is generated
      * @param message message
      * @param cause previous Exception
@@ -95,7 +95,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
     }
 
     /**
-     * returns the previous exception
+     * returns the previous exception.
      * @return Throwable previous exception
      */
     public Throwable getCause()
@@ -104,7 +104,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
     }
 
     /**
-     * basic toString. Returns the message plus the previous exception (if a previous exception exists)
+     * basic toString. Returns the message plus the previous exception (if a previous exception exists).
      * @return String
      */
     public String toString()
@@ -129,7 +129,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
     }
 
     /**
-     * subclasses need to define the getSeverity method to provide correct severity for logging
+     * subclasses need to define the getSeverity method to provide correct severity for logging.
      * @return SeverityEnum exception severity
      * @see org.displaytag.exception.SeverityEnum
      */

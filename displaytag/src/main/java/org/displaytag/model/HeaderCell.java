@@ -20,32 +20,32 @@ public class HeaderCell
 {
 
     /**
-     * Map containing the html tag attributes for cells (td)
+     * Map containing the html tag attributes for cells (td).
      */
     private HtmlAttributeMap htmlAttributes;
 
     /**
-     * Map containing the html tag attributes for header cells (td)
+     * Map containing the html tag attributes for header cells (td).
      */
     private HtmlAttributeMap headerAttributes;
 
     /**
-     * base href for creating dinamic links
+     * base href for creating dinamic links.
      */
     private Href href;
 
     /**
-     * param name used in adding a link
+     * param name used in adding a link.
      */
     private String paramName;
 
     /**
-     * property of the object where to get the param value from
+     * property of the object where to get the param value from.
      */
     private String paramProperty;
 
     /**
-     * column title
+     * column title.
      */
     private String title;
 
@@ -55,12 +55,12 @@ public class HeaderCell
     private boolean sortable;
 
     /**
-     * ColumnDecorator
+     * ColumnDecorator.
      */
     private ColumnDecorator columnDecorator;
 
     /**
-     * column number
+     * column number.
      */
     private int columnNumber;
 
@@ -70,7 +70,7 @@ public class HeaderCell
     private boolean alreadySorted;
 
     /**
-     * property name to look up in the bean
+     * property name to look up in the bean.
      */
     private String beanPropertyName;
 
@@ -80,12 +80,12 @@ public class HeaderCell
     private boolean showNulls;
 
     /**
-     * max length of cell content
+     * max length of cell content.
      */
     private int maxLength;
 
     /**
-     * max number of words for cell content
+     * max number of words for cell content.
      */
     private int maxWords;
 
@@ -100,7 +100,7 @@ public class HeaderCell
     private int group;
 
     /**
-     * getter for the grouping index
+     * getter for the grouping index.
      * @return 0 if the column is not grouped or the grouping order
      */
     public int getGroup()
@@ -109,7 +109,7 @@ public class HeaderCell
     }
 
     /**
-     * setter for the grouping index
+     * setter for the grouping index.
      * @param groupingOrder int grouping order (>0)
      */
     public void setGroup(int groupingOrder)
@@ -127,7 +127,7 @@ public class HeaderCell
     }
 
     /**
-     * enable or disable autolink for the column
+     * enable or disable autolink for the column.
      * @param autoLinkEnabled boolean autolink enabled
      */
     public void setAutoLink(boolean autoLinkEnabled)
@@ -136,7 +136,7 @@ public class HeaderCell
     }
 
     /**
-     * getter for the max number of characters to display in the column
+     * getter for the max number of characters to display in the column.
      * @return int number of characters to display in the column
      */
     public int getMaxLength()
@@ -145,7 +145,7 @@ public class HeaderCell
     }
 
     /**
-     * setter for the max number of characters to display in the column
+     * setter for the max number of characters to display in the column.
      * @param numOfChars number of characters to display in the column
      */
     public void setMaxLength(int numOfChars)
@@ -154,7 +154,7 @@ public class HeaderCell
     }
 
     /**
-     * getter for the max number of words to display in the column
+     * getter for the max number of words to display in the column.
      * @return int number of words to display in the column
      */
     public int getMaxWords()
@@ -163,7 +163,7 @@ public class HeaderCell
     }
 
     /**
-     * setter for the max number of words to display in the column
+     * setter for the max number of words to display in the column.
      * @param numOfWords number of words to display in the column
      */
     public void setMaxWords(int numOfWords)
@@ -172,7 +172,7 @@ public class HeaderCell
     }
 
     /**
-     * should null be displayed?
+     * Should null be displayed?
      * @return true null will be displayed in cell content
      */
     public boolean getShowNulls()
@@ -181,7 +181,7 @@ public class HeaderCell
     }
 
     /**
-     * enable or disable displaying of null values
+     * Enable or disable displaying of null values.
      * @param outputNulls boolean true if null should be displayed
      */
     public void setShowNulls(boolean outputNulls)
@@ -190,7 +190,7 @@ public class HeaderCell
     }
 
     /**
-     * getter for the name of the property to look up in the bean
+     * Getter for the name of the property to look up in the bean.
      * @return String name of the property to look up in the bean
      */
     public String getBeanPropertyName()
@@ -199,7 +199,7 @@ public class HeaderCell
     }
 
     /**
-     * setter for the name of the property to look up in the bean
+     * Setter for the name of the property to look up in the bean.
      * @param propertyName - name of the property to look up in the bean
      */
     public void setBeanPropertyName(String propertyName)
@@ -208,7 +208,7 @@ public class HeaderCell
     }
 
     /**
-     * is the column already sorted?
+     * Is the column already sorted?
      * @return true if the column already sorted
      */
     public boolean isAlreadySorted()
@@ -217,7 +217,7 @@ public class HeaderCell
     }
 
     /**
-     * setter for the sorted property (the column is actually sorted)
+     * Setter for the sorted property (the column is actually sorted).
      */
     public void setAlreadySorted()
     {
@@ -225,7 +225,7 @@ public class HeaderCell
     }
 
     /**
-     * getter for the column number
+     * Getter for the column number.
      * @return int column number
      */
     public int getColumnNumber()
@@ -234,7 +234,7 @@ public class HeaderCell
     }
 
     /**
-     * setter for the column number
+     * Setter for the column number.
      * @param number - int column number
      */
     public void setColumnNumber(int number)
@@ -243,7 +243,7 @@ public class HeaderCell
     }
 
     /**
-     * return the columnDecorator object for this column
+     * Returns the columnDecorator object for this column.
      * @return ColumnDecorator
      */
     public ColumnDecorator getColumnDecorator()
@@ -252,7 +252,7 @@ public class HeaderCell
     }
 
     /**
-     * st the columnDecorator object for this column
+     * Sets the columnDecorator object for this column.
      * @param decorator - the ColumnDecorator
      */
     public void setColumnDecorator(ColumnDecorator decorator)
@@ -261,7 +261,7 @@ public class HeaderCell
     }
 
     /**
-     * is the column sortable?
+     * Is the column sortable?
      * @return true if the column is sortable
      */
     public boolean getSortable()
@@ -279,7 +279,7 @@ public class HeaderCell
     }
 
     /**
-     * get the column title
+     * Gets the column title.
      * @return the column title. If no title is specified the capitalized bean property name is returned
      */
     public String getTitle()
@@ -297,7 +297,7 @@ public class HeaderCell
     }
 
     /**
-     * setter for the column title
+     * Setter for the column title.
      * @param value - the column title
      */
     public void setTitle(String value)
@@ -306,7 +306,7 @@ public class HeaderCell
     }
 
     /**
-     * returns the HtmlAttributeMap containg all the html attributes for the <strong>td</strong> tags
+     * Returns the HtmlAttributeMap containg all the html attributes for the <strong>td</strong> tags.
      * @return HtmlAttributeMap with td attributes
      */
     public HtmlAttributeMap getHtmlAttributes()
@@ -315,7 +315,7 @@ public class HeaderCell
     }
 
     /**
-     * set the HtmlAttributeMap containg all the html attributes for the <strong>td</strong> tags
+     * Sets the HtmlAttributeMap containg all the html attributes for the <strong>td</strong> tags.
      * @param attributes HtmlAttributeMap
      */
     public void setHtmlAttributes(HtmlAttributeMap attributes)
@@ -324,7 +324,7 @@ public class HeaderCell
     }
 
     /**
-     * returns the HtmlAttributeMap containg all the html attributes for the <strong>th</strong> tag
+     * returns the HtmlAttributeMap containg all the html attributes for the <strong>th</strong> tag.
      * @return HtmlAttributeMap with th attributes
      */
     public HtmlAttributeMap getHeaderAttributes()
@@ -333,7 +333,7 @@ public class HeaderCell
     }
 
     /**
-     * set the HtmlAttributeMap containg all the html attributes for the <strong>th</strong> tag
+     * Sets the HtmlAttributeMap containg all the html attributes for the <strong>th</strong> tag.
      * @param attributes HtmlAttributeMap
      */
     public void setHeaderAttributes(HtmlAttributeMap attributes)
@@ -342,7 +342,7 @@ public class HeaderCell
     }
 
     /**
-     * add a css class to the html "class" attribute
+     * Adds a css class to the html "class" attribute.
      * @param cssClass String
      */
     public void addHeaderClass(String cssClass)
@@ -361,8 +361,8 @@ public class HeaderCell
     }
 
     /**
-     * return the open tag for a cell (td)
-     * @return String &lt;td&gt; tag with attributes
+     * return the open tag for a cell (td).
+     * @return String &lt;td> tag with attributes
      */
     public String getOpenTag()
     {
@@ -370,7 +370,7 @@ public class HeaderCell
     }
 
     /**
-     * return the open tag for a column header (th)
+     * return the open tag for a column header (th).
      * @return String &lt;th&gt; tag with attributes
      */
     public String getHeaderOpenTag()
@@ -379,7 +379,7 @@ public class HeaderCell
     }
 
     /**
-     * return the closing tag for a cell (td)
+     * return the closing tag for a cell (td).
      * @return String &lt;/td&gt;
      */
     public String getCloseTag()
@@ -388,7 +388,7 @@ public class HeaderCell
     }
 
     /**
-     * return the closing tag for a column header (th)
+     * return the closing tag for a column header (th).
      * @return String &lt;/th&gt;
      */
     public String getHeaderCloseTag()
@@ -397,7 +397,7 @@ public class HeaderCell
     }
 
     /**
-     * Setter for the href to be used for dinamic links in cells
+     * Setter for the href to be used for dinamic links in cells.
      * @param baseHref base href for links
      */
     public void setHref(Href baseHref)
@@ -406,7 +406,7 @@ public class HeaderCell
     }
 
     /**
-     * Getter for the href to be used for dinamic links in cells
+     * Getter for the href to be used for dinamic links in cells.
      * @return Href base href for links
      */
     public Href getHref()
@@ -415,7 +415,7 @@ public class HeaderCell
     }
 
     /**
-     * Setter for the name of the param to add to links
+     * Setter for the name of the param to add to links.
      * @param name name of the param
      */
     public void setParamName(String name)
@@ -424,7 +424,7 @@ public class HeaderCell
     }
 
     /**
-     * Getter for the name of the param to add to links
+     * Getter for the name of the param to add to links.
      * @return String name of the param
      */
     public String getParamName()
@@ -433,7 +433,7 @@ public class HeaderCell
     }
 
     /**
-     * Setter for the name of the property to look up in bean to get the param value for links
+     * Setter for the name of the property to look up in bean to get the param value for links.
      * @param property name of the property to look up in bean to get the param value for links
      */
     public void setParamProperty(String property)
@@ -442,7 +442,7 @@ public class HeaderCell
     }
 
     /**
-     * Getter for the name of the property to look up in bean to get the param value for links
+     * Getter for the name of the property to look up in bean to get the param value for links.
      * @return String name of the property to look up in bean to get the param value for links
      */
     public String getParamProperty()

@@ -15,32 +15,32 @@ public class RowIterator
 {
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(RowIterator.class);
 
     /**
-     * internal iterator for Rows
+     * internal iterator for Rows.
      */
     private Iterator iterator;
 
     /**
-     * row number counter
+     * row number counter.
      */
     private int rowNumber;
 
     /**
-     * reference to the table TableDecorator
+     * reference to the table TableDecorator.
      */
     private TableDecorator decorator;
 
     /**
-     * id inherited from the TableTag (needed only for logging)
+     * id inherited from the TableTag (needed only for logging).
      */
     private String id;
 
     /**
-     * Constructor for RowIterator
+     * Constructor for RowIterator.
      * @param rowList List containing Row objects
      * @param columnList List containing CellHeader objects
      * @param tableDecorator TableDecorator
@@ -53,7 +53,7 @@ public class RowIterator
     }
 
     /**
-     * Setter for the tablemodel id
+     * Setter for the tablemodel id.
      * @param tableId same id of table tag, needed for logging
      */
     public void setId(String tableId)
@@ -62,7 +62,7 @@ public class RowIterator
     }
 
     /**
-     * Check if a next row exist
+     * Check if a next row exist.
      * @return boolean true if a new row
      */
     public boolean hasNext()
@@ -71,7 +71,7 @@ public class RowIterator
     }
 
     /**
-     * return the next row object
+     * Returns the next row object.
      * @return Row
      */
     public Row next()
@@ -81,7 +81,7 @@ public class RowIterator
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + id + "] rowIterator.next() row number=" + currentRowNumber);
+            log.debug("[" + this.id + "] rowIterator.next() row number=" + currentRowNumber);
         }
 
         Object object = this.iterator.next();

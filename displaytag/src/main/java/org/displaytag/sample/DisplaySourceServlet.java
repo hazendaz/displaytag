@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet used to display jsp source for example pages
+ * Servlet used to display jsp source for example pages.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -18,7 +18,7 @@ public class DisplaySourceServlet extends HttpServlet
 {
 
     /**
-     * the folder containg example pages
+     * the folder containg example pages.
      */
     private static final String EXAMPLE_FOLDER = "/";
 

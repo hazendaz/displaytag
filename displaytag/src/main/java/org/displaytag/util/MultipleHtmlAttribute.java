@@ -7,7 +7,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * <p>Object used to contain html multiple attribute value (for the "class" attribute)</p>
+ * Object used to contain html multiple attribute value (for the "class" attribute).
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -15,12 +15,12 @@ public class MultipleHtmlAttribute implements Cloneable
 {
 
     /**
-     * Set containing splitted attribute values
+     * Sets containing splitted attribute values.
      */
     private Set attributeSet;
 
     /**
-     * Constructor for MultipleHtmlAttribute
+     * Constructor for MultipleHtmlAttribute.
      * @param attributeValue String
      */
     public MultipleHtmlAttribute(String attributeValue)
@@ -33,7 +33,7 @@ public class MultipleHtmlAttribute implements Cloneable
     }
 
     /**
-     * Constructor for MultipleHtmlAttribute
+     * Constructor for MultipleHtmlAttribute.
      * @param attributes Object[]
      */
     private MultipleHtmlAttribute(Object[] attributes)
@@ -43,7 +43,7 @@ public class MultipleHtmlAttribute implements Cloneable
     }
 
     /**
-     * add attributes from an array
+     * Adds attributes from an array.
      * @param attributes Object[] Array containing attributes
      */
     private void addAllAttributesFromArray(Object[] attributes)
@@ -69,7 +69,7 @@ public class MultipleHtmlAttribute implements Cloneable
     }
 
     /**
-     * return the list of attributes separated by a space
+     * Returns the list of attributes separated by a space.
      * @return String
      */
     public String toString()
