@@ -56,6 +56,28 @@ public class HrefTest extends TestCase
     }
 
     /**
+     * Test for URLs containing parameters without values.
+     */
+    public final void testHrefParamWithoutValue()
+    {
+        String url = "http://www.displaytag.org/displaytag/index.jsp?param1";
+        Href href = new Href(url);
+        String newUrl = href.toString();
+        compareUrls(newUrl, url);
+    }
+
+    /**
+     * Test for URLs containing multiple parameters (some of them without values).
+     */
+    public final void testHrefMultipleParamWithoutValue()
+    {
+        String url = "http://www.displaytag.org/displaytag/index.jsp?param1&param2=2";
+        Href href = new Href(url);
+        String newUrl = href.toString();
+        compareUrls(newUrl, url);
+    }
+
+    /**
      * Test for URLs containing parameters with multiple values.
      */
     public final void testHrefWithMultipleParameters()
@@ -214,6 +236,12 @@ public class HrefTest extends TestCase
         {
             assertEquals("Anchor is different", generatedSplit[2], expectedSplit[2]);
         }
+        else if (generatedSplit.length > 1 && (generated.indexOf("?") == -1))
+        {
+            // url without parameters
+            assertEquals("Anchor is different", generatedSplit[1], expectedSplit[1]);
+            return;
+        }
 
         // same parameters
         if (generatedSplit.length > 1)
@@ -227,11 +255,16 @@ public class HrefTest extends TestCase
 
             for (int j = 0; j < expectedParameters.length; j++)
             {
-                assertTrue("Expected paramter " + expectedParameters[j] + " could not be fount in generated URL",
-                    ArrayUtils.contains(generatedParameters, expectedParameters[j]));
+                // assuming url?param == url?param=
+                String singleParam = expectedParameters[j];
+                if (singleParam.indexOf("=") == -1)
+                {
+                    singleParam += "=";
+                }
+                assertTrue("Expected parameter " + singleParam + " could not be found in generated URL", ArrayUtils
+                    .contains(generatedParameters, singleParam));
 
             }
         }
     }
-
 }
