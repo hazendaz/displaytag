@@ -14,15 +14,9 @@ differences between this version and previous ones.<p>
 <td align="right"><b>Date Posted</b></td>
 </tr>
 <tr>
-	<td align="left"><a href="">display-bin-@version@.zip</a></td>
-	<td align="right">@version@</td>
-	<td align="right">526 K</td>
-	<td align="right">03/23/2003</td>
-</tr>
-<tr>
 	<td align="left"><a href="/downloads/display/display-bin-@version@.zip">display-bin-@version@.zip</a></td>
 	<td align="right">@version@</td>
-	<td align="right">526 K</td>
+	<td align="right">537 K</td>
 	<td align="right">@versiondate@</td>
 </tr>
 <tr>
