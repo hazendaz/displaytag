@@ -8,7 +8,12 @@
     <section name="Overview">
       <p>The display tag library is an open source suite of custom tags that provide high level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being simple and straight-forward to use.</p>
     </section>
-    <section name="What's New">
+    <section name="News">
+      <subsection name="February 4, 2004">
+        <p>
+          New snapshot build posted.
+        </p>
+      </subsection>
       <subsection name="January 3, 2004">
         <p>
           Snapshot builds are now available. See <a href="download.html">download</a> for details.

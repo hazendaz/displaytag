@@ -209,6 +209,14 @@
               <td>If set to true, then the first line of the export will contain the column titles as displayed on the HTML page. By default this is set to false, so the header is not included in the export.</td>
             </tr>
             <tr>
+              <td>
+                export.<em>{export name}</em>.filename
+              </td>
+              <td class="source"><em>none</em></td>
+              <td>any valid file name</td>
+              <td>Indicates the file name will be prompted to the user when saving exported files.</td>
+            </tr>
+            <tr>
               <td>export.amount</td>
               <td class="source">list</td>
               <td>page, list</td>

@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.TablePropertiesLoadException;
 
+
 /**
  * The properties used by the Table tags. The properties are loaded in the following order, in increasing order of
  * priority.
@@ -21,6 +22,7 @@ import org.displaytag.exception.TablePropertiesLoadException;
  * copied in as well. The userProperties Properties can be set by the {@link DisplayPropertiesLoaderServlet}if it is
  * configured.</li>
  * </ol>
+ * 
  * @author fgiust
  * @author rapruitt
  * @version $Revision$ ($Author$)
@@ -35,8 +37,8 @@ public class TableProperties
     public static final String DEFAULT_FILENAME = "TableTag.properties";
 
     /**
-     * The name of the local properties file that is searched for on the classpath. Settings in this file will override
-     * the defaults loaded from TableTag.properties.
+     * The name of the local properties file that is searched for on the classpath. Settings in this file will
+     * override the defaults loaded from TableTag.properties.
      */
     public static final String LOCAL_PROPERTIES = "displaytag";
 
@@ -59,11 +61,6 @@ public class TableProperties
      * property <code>export.amount</code>.
      */
     public static final String PROPERTY_STRING_EXPORTAMOUNT = "export.amount";
-
-    /**
-     * property <code>export.filename</code>.
-     */
-    public static final String PROPERTY_STRING_EXPORT_FILENAME = "export.filename";
 
     /**
      * property <code>basic.show.header</code>.
@@ -161,14 +158,14 @@ public class TableProperties
     public static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator";
 
     /**
-     * property <code>css.tr.even</code>: holds the name of the css class added to even rows.
-     * Defaults to <code>even</code>.
+     * property <code>css.tr.even</code>: holds the name of the css class added to even rows. Defaults to
+     * <code>even</code>.
      */
     public static final String PROPERTY_CSS_TR_EVEN = "css.tr.even";
 
     /**
-     * property <code>css.tr.odd</code>: holds the name of the css class added to odd rows.
-     * Defaults to <code>odd</code>.
+     * property <code>css.tr.odd</code>: holds the name of the css class added to odd rows. Defaults to
+     * <code>odd</code>.
      */
     public static final String PROPERTY_CSS_TR_ODD = "css.tr.odd";
 
@@ -177,10 +174,10 @@ public class TableProperties
      * css class is added.
      */
     public static final String PROPERTY_CSS_TABLE = "css.table";
-    
+
     /**
-     * property <code>css.th.sortable</code>: holds the name of the css class added to the the header of a sortable
-     * column. By default no css class is added.
+     * property <code>css.th.sortable</code>: holds the name of the css class added to the the header of a
+     * sortable column. By default no css class is added.
      */
     public static final String PROPERTY_CSS_TH_SORTABLE = "css.th.sortable";
 
@@ -195,10 +192,10 @@ public class TableProperties
      * sorted in ascending order. Defaults to <code>order1</code>.
      */
     public static final String PROPERTY_CSS_TH_SORTED_ASCENDING = "css.th.ascending";
-    
+
     /**
-     * property <code>css.th.descending</code>: holds the name of the css class added to the the header of a column
-     * sorted in descending order. Defaults to <code>order2</code>.
+     * property <code>css.th.descending</code>: holds the name of the css class added to the the header of a
+     * column sorted in descending order. Defaults to <code>order2</code>.
      */
     public static final String PROPERTY_CSS_TH_SORTED_DESCENDING = "css.th.descending";
 
@@ -206,7 +203,7 @@ public class TableProperties
      * prefix used for all the properties related to export ("export"). The full property name is <code>export.</code>
      * <em>[export type]</em><code>.</code><em>[property name]</em>
      */
-    public static final String PROPERTY_BOOLEAN_EXPORT_PREFIX = "export";
+    public static final String PROPERTY_EXPORT_PREFIX = "export";
 
     /**
      * export property <code>label</code>.
@@ -219,7 +216,7 @@ public class TableProperties
     public static final String EXPORTPROPERTY_BOOLEAN_EXPORTHEADER = "include_header";
 
     /**
-     * export property <code>filename</code>. @todo unused at the moment
+     * export property <code>filename</code>.
      */
     public static final String EXPORTPROPERTY_STRING_FILENAME = "filename";
 
@@ -246,6 +243,7 @@ public class TableProperties
 
     /**
      * Initialize a new TableProperties loading the default properties file and the user defined one.
+     * 
      * @throws TablePropertiesLoadException for errors during loading of properties files
      */
     public TableProperties() throws TablePropertiesLoadException
@@ -294,6 +292,7 @@ public class TableProperties
     /**
      * Local, non-default properties; these settings override the defaults from displaytag.properties and
      * TableTag.properties.
+     * 
      * @return the Properties that was set
      */
     public static Properties getUserProperties()
@@ -305,6 +304,7 @@ public class TableProperties
      * Local, non-default properties; these settings override the defaults from displaytag.properties and
      * TableTag.properties. Please note that the values are copied in, so that multiple calls with non-overlapping
      * properties will be merged, not overwritten.
+     * 
      * @param overrideProperties - The local, non-default properties
      */
     public static void setUserProperties(Properties overrideProperties)
@@ -322,6 +322,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_INVALIDPAGE</code> property.
+     * 
      * @return String
      */
     public String getPagingInvalidPage()
@@ -331,6 +332,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_ITEM_NAME</code> property.
+     * 
      * @return String
      */
     public String getPagingItemName()
@@ -340,6 +342,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_ITEMS_NAME</code> property.
+     * 
      * @return String
      */
     public String getPagingItemsName()
@@ -349,6 +352,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_NOITEMS</code> property.
+     * 
      * @return String
      */
     public String getPagingFoundNoItems()
@@ -358,6 +362,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_FOUND_ONEITEM</code> property.
+     * 
      * @return String
      */
     public String getPagingFoundOneItem()
@@ -367,6 +372,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_FOUND_ALLITEMS</code> property.
+     * 
      * @return String
      */
     public String getPagingFoundAllItems()
@@ -376,6 +382,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_FOUND_SOMEITEMS</code> property.
+     * 
      * @return String
      */
     public String getPagingFoundSomeItems()
@@ -385,6 +392,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_INT_PAGING_GROUPSIZE</code> property.
+     * 
      * @param defaultValue int
      * @return int
      */
@@ -395,6 +403,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_BANNER_ONEPAGE</code> property.
+     * 
      * @return String
      */
     public String getPagingBannerOnePage()
@@ -404,6 +413,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_BANNER_FIRST</code> property.
+     * 
      * @return String
      */
     public String getPagingBannerFirst()
@@ -413,6 +423,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_BANNER_LAST</code> property.
+     * 
      * @return String
      */
     public String getPagingBannerLast()
@@ -422,6 +433,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_BANNER_FULL</code> property.
+     * 
      * @return String
      */
     public String getPagingBannerFull()
@@ -431,6 +443,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_PAGE_LINK</code> property.
+     * 
      * @return String
      */
     public String getPagingPageLink()
@@ -440,6 +453,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_PAGE_SELECTED</code> property.
+     * 
      * @return String
      */
     public String getPagingPageSelected()
@@ -449,6 +463,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_PAGING_PAGE_SPARATOR</code> property.
+     * 
      * @return String
      */
     public String getPagingPageSeparator()
@@ -458,57 +473,74 @@ public class TableProperties
 
     /**
      * Is the given export option enabled?
+     * 
      * @param exportType instance of MediaTypeEnum
      * @return boolean true if export is enabled
      */
     public boolean getAddExport(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType.getName());
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType.getName());
     }
 
     /**
      * Should headers be included in given export type?
+     * 
      * @param exportType instance of MediaTypeEnum
      * @return boolean true if export should include headers
      */
     public boolean getExportHeader(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(
-            PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "."
+            + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
     }
 
     /**
      * Returns the label for the given export option.
+     * 
      * @param exportType instance of MediaTypeEnum
      * @return String label
      */
     public String getExportLabel(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_LABEL);
+        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_LABEL);
     }
 
     /**
      * Returns the filename for the given export option.
+     * 
      * @param exportType instance of MediaTypeEnum
-     * @return file name @todo unused
+     * @return file name
      */
     public String getExportFilename(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_FILENAME);
+        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_FILENAME);
     }
 
     /**
      * Returns the banner for the given export option.
+     * 
      * @param exportType instance of MediaTypeEnum
      * @return String @todo unused
      */
     public String getExportBanner(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_BANNER);
+        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_BANNER);
+    }
+
+    /**
+     * Returns the file name for the given media. Can be null
+     * 
+     * @param exportType instance of MediaTypeEnum
+     * @return String filename
+     */
+    public String getExportFileName(MediaTypeEnum exportType)
+    {
+        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_FILENAME);
     }
 
     /**
      * Getter for the <code>PROPERTY_BOOLEAN_EXPORTDECORATED</code> property.
+     * 
      * @return boolean <code>true</code> if decorators should be used in exporting
      */
     public boolean getExportDecorated()
@@ -517,16 +549,8 @@ public class TableProperties
     }
 
     /**
-     * Getter for the <code>PROPERTY_STRING_EXPORT_FILENAME</code> property.
-     * @return String filename for export
-     */
-    public String getExportFileName()
-    {
-        return getProperty(PROPERTY_STRING_EXPORT_FILENAME);
-    }
-
-    /**
      * Getter for the <code>PROPERTY_STRING_EXPORTBANNER</code> property.
+     * 
      * @return String
      */
     public String getExportBanner()
@@ -536,6 +560,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_EXPORTBANNER_SEPARATOR</code> property.
+     * 
      * @return String
      */
     public String getExportBannerSeparator()
@@ -545,6 +570,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_BOOLEAN_SHOWHEADER</code> property.
+     * 
      * @return boolean
      */
     public boolean getShowHeader()
@@ -554,6 +580,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_EMPTYLIST_MESSAGE</code> property.
+     * 
      * @return String
      */
     public String getEmptyListMessage()
@@ -563,6 +590,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE</code> property.
+     * 
      * @return boolean <code>true</code> if table should be displayed also if no items are found
      */
     public boolean getEmptyListShowTable()
@@ -572,6 +600,7 @@ public class TableProperties
 
     /**
      * Getter for the <code>PROPERTY_STRING_EXPORTAMOUNT</code> property.
+     * 
      * @return boolean
      */
     public boolean getExportFullList()
@@ -581,6 +610,7 @@ public class TableProperties
 
     /**
      * Should paging banner be added before the table?
+     * 
      * @return boolean
      */
     public boolean getAddPagingBannerTop()
@@ -591,6 +621,7 @@ public class TableProperties
 
     /**
      * Should paging banner be added after the table?
+     * 
      * @return boolean
      */
     public boolean getAddPagingBannerBottom()
@@ -601,6 +632,7 @@ public class TableProperties
 
     /**
      * Returns the appropriate css class for a table row.
+     * 
      * @param rowNumber row number
      * @return the value of <code>PROPERTY_CSS_TR_EVEN</code> if rowNumber is even or <code>PROPERTY_CSS_TR_ODD</code>
      * if rowNumber is odd.
@@ -608,17 +640,18 @@ public class TableProperties
     public String getCssRow(int rowNumber)
     {
         if (rowNumber % 2 == 0)
-        {    
+        {
             return getProperty(PROPERTY_CSS_TR_ODD);
         }
         else
         {
-            return getProperty(PROPERTY_CSS_TR_EVEN);            
+            return getProperty(PROPERTY_CSS_TR_EVEN);
         }
     }
 
     /**
      * Returns the appropriate css class for a sorted column header.
+     * 
      * @param ascending <code>true</code> if column is sorded in ascending order.
      * @return the value of <code>PROPERTY_CSS_TH_SORTED_ASCENDING</code> if column is sorded in ascending order or
      * <code>PROPERTY_CSS_TH_SORTED_DESCENDING</code> if column is sorded in descending order.
@@ -626,44 +659,48 @@ public class TableProperties
     public String getCssOrder(boolean ascending)
     {
         if (ascending)
-        {    
+        {
             return getProperty(PROPERTY_CSS_TH_SORTED_ASCENDING);
         }
         else
         {
-            return getProperty(PROPERTY_CSS_TH_SORTED_DESCENDING);            
+            return getProperty(PROPERTY_CSS_TH_SORTED_DESCENDING);
         }
     }
-    
+
     /**
      * Returns the configured css class for a sorted column header.
+     * 
      * @return the value of <code>PROPERTY_CSS_TH_SORTED</code>
      */
     public String getCssSorted()
     {
         return getProperty(PROPERTY_CSS_TH_SORTED);
     }
-    
+
     /**
      * Returns the configured css class for the main table tag.
+     * 
      * @return the value of <code>PROPERTY_CSS_TABLE</code>
      */
     public String getCssTable()
     {
         return getProperty(PROPERTY_CSS_TABLE);
     }
-    
+
     /**
      * Returns the configured css class for a sortable column header.
+     * 
      * @return the value of <code>PROPERTY_CSS_TH_SORTABLE</code>
      */
     public String getCssSortable()
     {
         return getProperty(PROPERTY_CSS_TH_SORTABLE);
     }
-    
+
     /**
      * Reads a String property.
+     * 
      * @param key property name
      * @return property value or <code>null</code> if property is not found
      */
@@ -674,6 +711,7 @@ public class TableProperties
 
     /**
      * Sets a property.
+     * 
      * @param key property name
      * @param value property value
      */
@@ -684,6 +722,7 @@ public class TableProperties
 
     /**
      * Reads a boolean property.
+     * 
      * @param key property name
      * @return boolean <code>true</code> if the property value is "true", <code>false</code> for any other value.
      */
@@ -694,6 +733,7 @@ public class TableProperties
 
     /**
      * Reads an int property.
+     * 
      * @param key property name
      * @param defaultValue default value returned if property is not found or not a valid int value
      * @return property value
@@ -709,14 +749,8 @@ public class TableProperties
         catch (NumberFormatException e)
         {
             // Don't care, use default
-            log.warn(
-                "Invalid value for \""
-                    + key
-                    + "\" property: value=\""
-                    + getProperty(key)
-                    + "\"; using default \""
-                    + defaultValue
-                    + "\"");
+            log.warn("Invalid value for \"" + key + "\" property: value=\"" + getProperty(key) + "\"; using default \""
+                + defaultValue + "\"");
         }
 
         return intValue;
