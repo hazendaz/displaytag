@@ -119,13 +119,12 @@
             <property name="severity" value="warning"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.coding.IllegalTokenCheck">
-            <property name="severity" value="warning"/>
-            <property name="tokens" value="LITERAL_SWITCH"/>
+            <property name="severity" value="ignore"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.coding.IllegalTokenTextCheck">
             <property name="format" value="^$"/>
             <property name="ignoreCase" value="false"/>
-            <property name="severity" value="warning"/>
+            <property name="severity" value="ignore"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.coding.IllegalTypeCheck">
             <property name="severity" value="warning"/>
