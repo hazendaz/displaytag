@@ -43,6 +43,10 @@ public abstract class Decorator extends Object
       return "";
    }
 
+   public String startRow() {
+      return "";
+   }
+
    public String finishRow() {
       return "";
    }
