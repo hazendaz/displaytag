@@ -5,7 +5,6 @@
 
     <body>
         <links>
-            <item name="Displaytag on Sourceforge" href="http://sourceforge.net/projects/displaytag" />
             <item name="Live examples" href="http://www.displaytag.org" />
         </links>
 
@@ -36,6 +35,8 @@
         </menu>
 
         <menu name="" type="footer">
+            <item name="Sourceforge" href="http://sourceforge.net/projects/displaytag"
+                img="http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8" />
             <item name="Code Coverage by Clover" href="http://www.cenqua.com/clover"
                 img="http://www.cenqua.com/clover/images/clovered1.gif" />
         </menu>

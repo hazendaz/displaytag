@@ -79,7 +79,10 @@
     <filter-name>ResponseOverrideFilter</filter-name> 
     <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class> 
 </filter>
-                    ]]></source> And add mappings for the pages that you will intercept, for example: 
+                    ]]></source>
+<p>
+                    And add mappings for the pages that you will intercept, for example:
+</p>
                     <source><![CDATA[
 <filter-mapping>
     <filter-name>ResponseOverrideFilter</filter-name> 

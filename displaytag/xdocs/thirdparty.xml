@@ -5,10 +5,10 @@
         <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
     </properties>
     <body>
-        <section name="Third Party Extensions &amp; related libraries">
+        <section name="Third Party Extensions and related libraries">
             <p>This pages lists third party extension and projects similar or derived from displaytag.</p>
 
-            <subsection name="&lt;nav:alphanavbar:*&gt;  tag library">
+            <subsection name="nav:alphanavbar tag library">
                 <p>
                     The Alphabetical Navigation Bar Java Display Tag Library, &lt;nav:alphanavbar: *&gt; , creates an
                     alphabetic navigation bar, by slicing and dicing string data stored in a java.util.List object into

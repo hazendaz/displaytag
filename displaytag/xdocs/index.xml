@@ -10,12 +10,12 @@
         patterns which will work in an MVC model. The library provides a significant amount of functionality while 
         still being simple and straight-forward to use.</p>
     </section>
-    <section name="News">
+    <!--<section name="News">
       <subsection name="July 11, 2004">
         <p> 1.0-rc1 is out! As usual, check out <a href="changes-report.html">changes</a> for details about new 
           features and fixed bugs and <a href="download.html">download the distribution here</a>. </p>
       </subsection>
-    </section>
+    </section>-->
     <section name="What can I do with it?">
       <p>Actually the display tag library can just... display tables! Give it a list of objects and it will handle 
         column display, sorting, paging, cropping, grouping, exporting, smart linking and decoration of the table in a 
