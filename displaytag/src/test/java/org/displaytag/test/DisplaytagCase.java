@@ -1,9 +1,12 @@
 package org.displaytag.test;
 
+import java.io.File;
 import java.net.URL;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -48,6 +51,9 @@ public abstract class DisplaytagCase extends TestCase
      */
     protected void setUp() throws Exception
     {
+        // removed compiled jsp from a previous run.
+        cleanupTempFile();
+
         // need to pass a web.xml file to setup servletunit working directory
         ClassLoader classLoader = getClass().getClassLoader();
         URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
@@ -68,6 +74,31 @@ public abstract class DisplaytagCase extends TestCase
         // shutdown servlet engine
         runner.shutDown();
         super.tearDown();
+    }
+
+    /**
+     * Clean up temporary files from a previous test.
+     */
+    private void cleanupTempFile()
+    {
+        if (SystemUtils.JAVA_IO_TMPDIR != null)
+        {
+            String path = SystemUtils.JAVA_IO_TMPDIR.substring(0, SystemUtils.JAVA_IO_TMPDIR.length() - 1)
+                + getJspName();
+
+            File tempFile = new File(StringUtils.replace(path, ".jsp", "$jsp.java"));
+            if (tempFile.exists())
+            {
+                log.debug("Deleting temporary file " + tempFile.getPath());
+                tempFile.delete();
+            }
+            tempFile = new File(StringUtils.replace(path, ".jsp", "$jsp.class"));
+            if (tempFile.exists())
+            {
+                log.debug("Deleting temporary file " + tempFile.getPath());
+                tempFile.delete();
+            }
+        }
     }
 
 }
