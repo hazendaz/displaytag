@@ -1,5 +1,7 @@
 package org.displaytag.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,10 +12,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>A RequestHelper object is used to read parameters from the request.
- * Main feature are handling of numeric parameters and the ability to create
- * Href objects from the current request
- * </p>
+ * A RequestHelper object is used to read parameters from the request. Main feature are handling of numeric parameters
+ * and the ability to create Href objects from the current request.
  * @author fgiust
  * @version $Revision$ ($Author$)
  * @see org.displaytag.util.Href
@@ -94,7 +94,14 @@ public class RequestHelper
             String paramName = (String) parametersName.nextElement();
 
             // put key/value in the map
-            map.put(paramName, this.request.getParameter(paramName));
+            try
+            {
+                map.put(paramName, URLEncoder.encode(this.request.getParameter(paramName), "UTF-8"));
+            }
+            catch (UnsupportedEncodingException e)
+            {
+                log.warn("UnsupportedEncodingException while trying to encode a parameter using UTF-8", e);
+            }
         }
 
         // return the Map

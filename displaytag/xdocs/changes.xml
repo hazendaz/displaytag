@@ -34,6 +34,10 @@
 	    Added a new configuration property <code>basic.empty.showtable</code> which let you choose if you want to display
 	    the table if the underlining list is empty.
       </action>
+      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+	   fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=840728">[840728]</a>: 
+       Breaks on '%' in values. Thanks to David Kowis for the bug report and the supplied patch.
+      </action>
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
