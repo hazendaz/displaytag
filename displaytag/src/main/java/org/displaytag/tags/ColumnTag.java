@@ -711,6 +711,11 @@ public class ColumnTag extends BodyTagSupport
         this.headerAttributeMap.clear();
         this.alreadySorted = false;
 
+        // this is required to fix bad tag pooling in tomcat, need to be tested in resin
+        this.sortable = false;
+        this.group = -1;
+        this.title = null;
+
         // fix for tag pooling in tomcat
         setBodyContent(null);
     }
@@ -720,13 +725,25 @@ public class ColumnTag extends BodyTagSupport
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("bodyContent", this.bodyContent).append(
-            "group", this.group).append("maxLength", this.maxLength).append("decorator", this.decorator).append("href",
-            this.href).append("title", this.title).append("paramScope", this.paramScope).append("property",
-            this.property).append("paramProperty", this.paramProperty).append("headerAttributeMap",
-            this.headerAttributeMap).append("paramName", this.paramName).append("autolink", this.autolink).append(
-            "nulls", this.nulls).append("maxWords", this.maxWords).append("attributeMap", this.attributeMap).append(
-            "sortable", this.sortable).append("paramId", this.paramId).append("alreadySorted", this.alreadySorted)
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("bodyContent", this.bodyContent)
+            .append("group", this.group)
+            .append("maxLength", this.maxLength)
+            .append("decorator", this.decorator)
+            .append("href", this.href)
+            .append("title", this.title)
+            .append("paramScope", this.paramScope)
+            .append("property", this.property)
+            .append("paramProperty", this.paramProperty)
+            .append("headerAttributeMap", this.headerAttributeMap)
+            .append("paramName", this.paramName)
+            .append("autolink", this.autolink)
+            .append("nulls", this.nulls)
+            .append("maxWords", this.maxWords)
+            .append("attributeMap", this.attributeMap)
+            .append("sortable", this.sortable)
+            .append("paramId", this.paramId)
+            .append("alreadySorted", this.alreadySorted)
             .toString();
     }
 }
