@@ -237,7 +237,7 @@
         <dependency>
             <groupId>maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
-            <version>1.1</version>
+            <version>1.2</version>
             <type>plugin</type>
             <url>http://maven-taglib.sourceforge.net</url>
             <properties>
