@@ -47,10 +47,19 @@
               <td>Indicates if you want the header to appear at the top of the table, the header contains the column names, and any additional action banners that might be required (like paging, export, etc...)</td>
             </tr>
             <tr>
+              <td>basic.empty.showtable</td>
+              <td class="source">false</td>
+              <td>true, false</td>
+              <td>Indicates if you want the table to show up also if the list is empty</td>
+            </tr>
+            <tr>
               <td>basic.msg.empty_list</td>
               <td class="source">Nothing found to display</td>
               <td>Any string</td>
-              <td>The message that is displayed with the list that this table is associated with is either null, or empty</td>
+              <td>The message that is displayed if the list that this table is associated with is either null, or empty.
+              	The message is displayed into the first table row if <code>basic.empty.showtable</code> is <code>true</code> or standalone if 
+              	<code>basic.empty.showtable</code> is <code>false</code>
+              </td>
             </tr>
             <tr>
               <td>export.banner</td>

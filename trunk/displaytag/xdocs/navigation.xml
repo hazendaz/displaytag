@@ -9,10 +9,6 @@
 			<item name="Live examples" href="http://www.displaytag.org" />
 		</links>
 
-		<menu name="displaytag">
-			<item name="Status" href="/status.html" />
-		</menu>
-
 		<menu name="Reference">
 			<item name="Download" href="/download.html" />
 			<item name="Install" href="/install.html" />
