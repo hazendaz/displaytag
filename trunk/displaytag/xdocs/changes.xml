@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<!--
+	"type" attribute can be: add, remove, update or fix. 
+-->
+<document>
+	<properties>
+		<title>Changes</title>
+		<author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+	</properties>
+
+	<body>
+
+		<p>
+			This file documents the changes that have been made to the display taglib. The most recently changes are
+			towards the top of this file. Changes are noted using the following key:
+		</p>
+
+		<blockquote>
+			<pre>
+				[!] New functionality [*] Changes that are 100% backward compatible [**] Changes that requiring little
+				or no modification to existing code [***] Changes requiring important modifications to existing code
+			</pre>
+		</blockquote>
+
+		<release version="0.9" date="in CVS">
+			<action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+				Mavenized! Thanks to Didier Dubois for the help on migrating the build system to maven.
+			</action>
+		</release>
+
+		
+		<!--
+			
+			
+			
+- the code has been totally rewritten. The number of classes has increased a lot starting from the original code, but this is due to a better organization of code: all the utility method have been moved out of the main tag classes and many utility classes have been added (more classes and package doesn't mean more complexity, only better organization). Particolar care has been taken in:
+
+- exception handling: an exception framework with dedicated exception for tag/functionalities and automatic logging. That was for me one of the ugliest thing in the old version (all the exception were thrown as generic JspException or RuntimeException). I think this important aspect is missing in the table- york module, right john?
+
+- logging: now the taglib uses jakarta commons-logging to provide a flexible logging adapter: for developers this makes easier to debug and test new funtionalities, for user this makes easier to integrate error logging into their existing logging system
+
+- output: no more out.write("<tr><td>xxx</td></tr>")... (well, probably a few lines to clean up are still there): all the html code has been moved in constants, or better, in dedicated objects wich are used to create the html output. For example the link are created using an A tag, html attribute are created using a specific subclass of map, and so on (well, it's more easy to look at the code than to explain). This makes easy to set attributes at runtimes, overwrite or add attributes, check validity before output... IMHO this is another point where I think the display09 module is better then table- york PS (strong coding standards have always been followed and checked with checkstyle, also if the check is not included in the ant build script)
+
+
+- rendered html code: the code is now completely xhtml STRICT compliant (you are able to set html transitional attributes, but the standard output does not contain none of them). The table structure has been improved (head and body sections); useless css classes are been removed and new useful ones have been added (the ones you need to display the sorting arrow). THIS IS THE ONLY "INCOMPATIBILITY" WITH THE OLD VERSION: all the older features are working. As I already explained in previous mails this only requires changing one css file and it's a matter of seconds: the html output of the previous version was _wrong_ and I can't to keep the existing "style" only for compatibility
+
+
+- and some of the new features:
++ (still undocumented) global configuration with a user supplied 
++ properties
+file (configurad in web.xml) which lets you personalize most of the tag output (for example, all the pagination stuff). Hi matt "* I like how display09 has the "number of items found" and export options outside of the table (rather than nested tables like in 0.8.5). The top one should probably be a <div> though, rather than a <span>.", you can configure it directly in the properties file. I also suggest using an <ul> for pagination, I decided to keep a <span> to meke output (without stylesheets) more similar to the previous one. I think I will add two copy of properties files before a release: a compatibility one for people who want to migrate from the previous version without changing too much their html "style", and a new reccomended "good structured xhtml" one. I'll also add the css classes used in the table here, so people can keep the previous names (ok, I'll let people specify the odious "table" class added to all the display tables). (IMHO another point where I think my version is superior to john's one)
+
++ lots of fixes! most of the currently submitted bugs in the sourceforge
+bug tracker are now fixed!
+
++ great new feature: tag attributes are appropriately cleaned and all 
++ the
+link attributes are encoded to let you use more table in the same page with indipendent paging, sorting and exporting. You can also put nested display:table tag! You can see this live on the online samples. Hi matt, the "d-9732" is the encoded attribute for the table, to let you use other tables in the same page without problems. As I can see in the sample output this part of code has been included in the table-york module too.
+
++ another requested features: link parameters are preserved in
+paging/sorting. Paging will always keep the correct order, and it will also mantain the correct order/page for all the table displayed (I don't know if this has been included in the table-york module)
+
++ well, probably the most important improvement: the iterator like 
++ approach
+wich let you specify content in the body of the column tag. You can use both the older method with the "property" attribute or the body, with no difference. Here I think there is a big difference between display09 and table york: display09 uses a mixed approach: the content of the column is evaluated during iteration ONLY IF SPECIFIED IN THE BODY OF THE TAG. If you specify the content in the "property" attribute it works like in the previous version, evaluating it only for display. So, with display09 if you set content using the property attribute and you have to display 10 of 1000 records _only 10 recors will be evaluated_; with table-york (john, correct me if I'm wrong) all the 1000 records are evaluated during iteration. This approach keeps the display09 code a lot more complex, but can really improve performance (remember the old reason for the choice for decorators against iteration?)
+
++ lots of other small addictions, like an attribute to define the 
++ default
+sorted column, the sample site refactoring, the ability to define everywhere objects/nested attributes with the beanutil style language + scope (es sessionScope.list.value.attribute(name).item[1] = session.getAttribute("list").getValue().getAttribute("name").getItem[1]),
+some decorators improvements and so on.
+
+
+		-->
+
+
+
+
+
+
+
+		<release version="0.8.5" date="March 23, 2003">
+			<action type="add" dev="Luiz-Otavio Zorzella" due-to="Luiz-Otavio Zorzella">
+				Allow column elements to be nested inside other tags. [!]
+			</action>
+			<action type="add" dev="Luiz-Otavio Zorzella" due-to="Luiz-Otavio Zorzella">
+				In decorators, added method getCollection() to allow for Collections, Iterators and Maps to be used as
+				well as Lists. [!]
+			</action>
+			<action type="add" dev="Luiz-Otavio Zorzella" due-to="Luiz-Otavio Zorzella">
+				Original table tag only works with Lists. Now works with Collections, Iterators and Maps as well
+				(though some functions, like group totals are not available to these, due to limitations on the
+				structures themselves). [!]
+			</action>
+			<action type="add" dev="ed-hill" due-to="Ed Hill">
+				Added startRow() to the decorator API to allow people to put headers on groupings as well as footers.
+				[!]
+			</action>
+			<action type="fix" dev="ed-hill" due-to="Ed Hill">
+				Fixed a caching bug in with tables that had multiple pages, the pageNumber is now reset to 1 in the tag
+				object. [*]
+			</action>
+			<action type="fix" dev="ed-hill" due-to="Ed Hill">
+				Fixed various with URL rewriting (? vs &amp;). [*]
+			</action>
+			<action type="fix" dev="ed-hill" due-to="Ed Hill">
+				Correct error message on bean property lookups. [*]
+			</action>
+			<action type="update" dev="mraible" due-to="Matt Raible">
+				Build/Deploy process updates to be more dynamic. [*]
+			</action>
+		</release>
+
+		<release version="0.8" date="May 25, 2002">
+
+			<action type="add" dev="" due-to="">
+				added various properties that can be override that effect the default strings and behaviors of table,
+				here are some brief examples of message and behaviors that you can now set, see examples-config.jsp for
+				a complete list [!!] basic.show.header - include the header at the top of the table
+				basic.msg.empty_list - string displayed when there are no items to show sort.behavior - sort just
+				viewable items, or entire list export.banner - message format shown in footer, you can localize
+				export.csv - include CSV export option export.csv.label - name of link (localize)
+				export.csv.include_header - include the column titles in the export? export.amount - export just the
+				page of data or the complete list export.decorated - decorate the data as it is exported?
+			</action>
+
+			<action type="add" dev="mraible" due-to="Matt Raible">
+				introduced two new column attributes "maxLength", "maxWords" that will restrict the size of strings
+				being shown in a column. [!]
+			</action>
+
+			<action type="add" dev="" due-to="">
+				introduced new column attribute "headerStyleClass" that allows you to override the class name used in
+				drawing the table's header cell for that column. [!]
+			</action>
+
+			<action type="add" dev="jay-paulsen" due-to="Jay Paulsen">
+				introduced ColumnDecorators - you can now decorate individual columns, this makes it easier for you to
+				define reuable DateFmt, MoneyFmt, etc... decorators rather then developing a customer decorator for
+				each table. Note, the decorator inteface is still not to my liking, expect changes before this tag gets
+				a 1.0 release. [!]
+			</action>
+
+			<action type="fix" dev="mraible" due-to="Matt Raible" due-to-email="mraible@users.sourceforge.net">
+				fixed a bug, where nulls were *not* being surpressed like they should be in the display, now nulls will
+				only be shown if you specify the nulls attribute of the column tag. [**]
+			</action>
+
+			<action type="fix" dev="Joachim Martin" due-to="Joachim Martin">
+				fixed my web.xml files in the various wars - they were not compliant and Tomcat would barf while
+				deploying them - I'm now testing under JRun 3.1/4.0 and Tomcat 4.0.4b3. [*]
+			</action>
+
+			<action type="fix" dev="Joachim Martin" due-to="Joachim Martin">
+				fixed bug in example-styles.jsp, was using a variable "page" which is a rarely used standard JSP
+				variable (JRun didn't care, Tomcat did), just renamed the variable so that example runs under Tomcat.
+				[*]
+			</action>
+
+			<action type="add" dev="" due-to="">
+				fixed bug that prevented the first column from being sorted in both ascending and descending order [*]
+			</action>
+
+			<action type="fix" dev="" due-to="">
+				fixed a problem where a decorated table would interfere with fetching the source list on subsequent
+				fetches [*]
+			</action>
+
+			<action type="fix" dev="" due-to="">
+				bug was introduced in 0.7 that prevented a decorated object from being exported correctly, that has
+				been fixed [*]
+			</action>
+
+			<action type="fix" dev="" due-to="">
+				bug was introduced in 0.7 that prevented a decorated object from being sorted correctly, that has been
+				fixed [*]
+			</action>
+
+			<action type="add" dev="" due-to="">
+				included a copy of the Artistic license that this program is distributed under [*]
+			</action>
+		</release>
+
+		<release version="0.7" date="March 10, 2002">
+
+			<action type="add" dev="" due-to="">
+				added the requestURI attribute, so that you could tell the table tag what URI was used to call it. [!]
+			</action>
+			<action type="fix" dev="" due-to="">
+				fixed some exporting bugs, added the ability to export in XML, although at this stage it is very crude.
+				[!]
+			</action>
+			<action type="fix" dev="" due-to="">
+				fixed sorting so that it sorts in both ascending and decending order based on multiple title clicks. [!]
+			</action>
+			<action type="add" dev="" due-to="">
+				updated all of the example jsp pages with a link that people can click on to view that pages source.
+				Also re-orged the pages so that the example table was always at the top of the page as the first thing
+				you saw, and the commentary behind the example followed. [!]
+			</action>
+			<action type="fix" dev="" due-to="">
+				The table tag now properly expects any decorators used to be children of the
+				org.apache.taglibs.display.TableDecorator class (it was in the wrong package before). Reported by
+				everyone... [**]
+			</action>
+			<action type="fix" dev="mraible" due-to="Matt Raible" due-to-email="mraible@users.sourceforge.net">
+				Underscore is not a legal character in CSS, so the various style names and attributes where changes to
+				be in upcase format. - table_cell -> tableCell - table_row_odd -> tableRowOdd - table_row_even ->
+				tableRowEven - table_row_action -> tableRowAction - table_cell_action -> tableCellAction -
+				table_row_header -> tableRowHeader - table_cell_header -> tableCellHeader. [**]
+			</action>
+			<action type="fix" dev="" due-to="">
+				Cleaned up the other examples that were incomplete. Fixed broken links, etc... [*]
+			</action>
+			<action type="fix" dev="Jim Canter" due-to="Jim Canter">
+				Cloned the ColumnTags as I added them to the TableTag so that the table tag works correctly with web
+				containers that reuse tags as an optimization. (Resin and Weblogic, probably others). This bug would
+				manifest itself with multiple duplicated columns. [*]
+			</action>
+			<action type="fix" dev="" due-to="">
+				flushed out the example-export example that shows how to automatically export data to CSV, excel and
+				XML formats. [*]
+			</action>
+			<action type="fix" dev="" due-to="">
+				flushed out the example-callback example that shows how to use a decorator to implement summing and
+				totalling... The functionality was included in the original version, but there wasn't an example that
+				showed how to use it. [*]
+			</action>
+			<action type="fix" dev="" due-to="">
+				fixed a NPE if you passed the table tag a null list. [*]
+			</action>
+			<action type="update" dev="" due-to="">
+				updated the example-grouping.jsp page to show a more report oriented example. [*]
+			</action>
+			<action type="fix" dev="" due-to="">
+				Included the pointer to the 2.2 DTD in the web.xml files. Thanks to Rob Evans. [*]
+			</action>
+			<action type="update" dev="" due-to="">
+				added 'flush="true"' to all of my jsp:includes in my examples to be more in sync with the JSP 1.1 spec.
+				Thanks to Dirk Storck [*]
+			</action>
+		</release>
+
+		<release version="First public alpha feedback release" date="Jan 7th, 2002">
+
+			<action type="add" dev="" due-to="">No changes recorded prior to this release.</action>
+		</release>
+
+	</body>
+</document>

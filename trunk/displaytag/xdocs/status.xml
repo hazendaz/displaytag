@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<document>
+
+	<properties>
+		<title>Overview</title>
+		<author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+	</properties>
+
+	<body>
+
+		<section name="Current status">
+			<p>
+				For now, focus has been on the table/column tags that are used to show data extracted from a List in
+				a simple and consistant way.
+			</p>
+		</section>
+
+		<section name="What&apos;s New">
+			<p>
+				Version
+				<strong>0.8.5</strong>
+				has been released (03/23/03). This release is primarily a bug-fixing release and also represents the
+				first release from the project at SourceForge. If you would like to have a say in the future direction
+				of this project, please join one of the
+				<a href="http://sourceforge.net/mail/?group_id=73068">mailing lists</a>
+				.
+			</p>
+
+			<p>
+				A complete
+				<a href="/changes-report.html">changelog</a>
+				is available, and click
+				<a href="/download.html">here to download</a>
+				the latest source or standalone jar file.
+			</p>
+		</section>
+
+	</body>
+</document>
