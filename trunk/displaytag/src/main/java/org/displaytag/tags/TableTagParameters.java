@@ -49,16 +49,6 @@ public final class TableTagParameters
     public static final String SORT_AMOUNT_LIST = "list";
 
     /**
-     * order parameter value = descending.
-     */
-    public static final int VALUE_SORT_DESCENDING = 1;
-
-    /**
-     * order parameter value = ascending.
-     */
-    public static final int VALUE_SORT_ASCENDING = 2;
-
-    /**
      * css class added to empty tables.
      */
     public static final String CSS_EMPTYLIST = "empty";

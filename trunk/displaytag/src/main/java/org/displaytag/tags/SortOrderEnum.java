@@ -1,41 +1,32 @@
-package org.displaytag.export;
+package org.displaytag.tags;
 
 import java.util.Iterator;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
- * Enumeration for media types.
+ * Enumeration for sort order.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
-public final class MediaTypeEnum
+public final class SortOrderEnum
 {
 
     /**
-     * Media type CSV = 1.
+     * Sorted in descending order (1, "descending").
      */
-    public static final MediaTypeEnum CSV = new MediaTypeEnum(1, "csv");
+    public static final SortOrderEnum DESCENDING = new SortOrderEnum(1, "descending");
 
     /**
-     * media type EXCEL = 2.
+     * Sorted in ascending order (2, "ascending").
      */
-    public static final MediaTypeEnum EXCEL = new MediaTypeEnum(2, "excel");
-
-    /**
-     * media type XML = 3.
-     */
-    public static final MediaTypeEnum XML = new MediaTypeEnum(3, "xml");
-
-    /**
-     * media type HTML = 4.
-     */
-    public static final MediaTypeEnum HTML = new MediaTypeEnum(4, "html");
+    public static final SortOrderEnum ASCENDING = new SortOrderEnum(2, "ascending");
 
     /**
      * array containing all the export types.
      */
-    public static final MediaTypeEnum[] ALL = { EXCEL, XML, CSV, HTML };
+    public static final SortOrderEnum[] ALL = { DESCENDING, ASCENDING };
 
     /**
      * Code; this is the primary key for these objects.
@@ -50,9 +41,9 @@ public final class MediaTypeEnum
     /**
      * private constructor. Use only constants.
      * @param code int code
-     * @param name description of media type
+     * @param name description of enumerated type
      */
-    private MediaTypeEnum(int code, String name)
+    private SortOrderEnum(int code, String name)
     {
         this.enumCode = code;
         this.enumName = name;
@@ -69,7 +60,7 @@ public final class MediaTypeEnum
 
     /**
      * returns the description.
-     * @return String description of the media type ("excel", "xml", "csv", "html")
+     * @return String description of the sort order ("ascending" or "descending")
      */
     public String getName()
     {
@@ -77,11 +68,11 @@ public final class MediaTypeEnum
     }
 
     /**
-     * lookup a media type by key.
+     * lookup a SortOrderEnum by key.
      * @param key int code
-     * @return MediaTypeEnum or null if no mediaType is found with the given key
+     * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
      */
-    public static MediaTypeEnum fromCode(int key)
+    public static SortOrderEnum fromCode(int key)
     {
         for (int i = 0; i < ALL.length; i++)
         {
@@ -95,11 +86,11 @@ public final class MediaTypeEnum
     }
 
     /**
-     * lookup a media type by an Integer key.
+     * lookup a SortOrderEnum by an Integer key.
      * @param key Integer code - null safe: a null key returns a null Enum
-     * @return MediaTypeEnum or null if no mediaType is found with the given key
+     * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
      */
-    public static MediaTypeEnum fromIntegerCode(Integer key)
+    public static SortOrderEnum fromIntegerCode(Integer key)
     {
         if (key == null)
         {
@@ -112,11 +103,11 @@ public final class MediaTypeEnum
     }
 
     /**
-     * Lookup a media type by a String key.
+     * Lookup a SortOrderEnum by a String key.
      * @param code String code - null safe: a null key returns a null Enum
-     * @return MediaTypeEnum or null if no mediaType is found with the given key
+     * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
      */
-    public static MediaTypeEnum fromName(String code)
+    public static SortOrderEnum fromName(String code)
     {
         for (int i = 0; i < ALL.length; i++)
         {
@@ -130,7 +121,7 @@ public final class MediaTypeEnum
     }
 
     /**
-     * returns an iterator on all the media type.
+     * returns an iterator on all the enumerated instaces.
      * @return iterator
      */
     public static Iterator iterator()
@@ -139,7 +130,7 @@ public final class MediaTypeEnum
     }
 
     /**
-     * returns the media type description.
+     * returns the enumeration description.
      * @see java.lang.Object#toString()
      */
     public String toString()
@@ -148,7 +139,7 @@ public final class MediaTypeEnum
     }
 
     /**
-     * Only a single instance of a specific MediaTypeEnum can be created, so we can check using ==.
+     * Only a single instance of a specific enumeration can be created, so we can check using ==.
      * @param o the object to compare to
      * @return hashCode
      */
@@ -167,7 +158,7 @@ public final class MediaTypeEnum
      */
     public int hashCode()
     {
-        return new HashCodeBuilder(1188997057, -1289297553).append(this.enumCode).toHashCode();
+        return new HashCodeBuilder(1123997057, -1289836553).append(this.enumCode).toHashCode();
     }
 
 }
