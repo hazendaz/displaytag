@@ -7,7 +7,6 @@
   <currentVersion>1.0-b3-SNAPSHOT</currentVersion>
   <organization>
     <name>sourceforge</name>
-    <identifier>sourceforge</identifier>
     <url>http://sourceforge.net</url>
     <logo>http://sourceforge.net/sflogo.php?group_id=${sf.groupid}&amp;type=2</logo>
   </organization>
@@ -18,7 +17,7 @@
   <shortDescription>Display tag library - open source suite of custom tags that provide high level web presentation patterns</shortDescription>
   <url>http://displaytag.sourceforge.net</url>
   <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=${sf.groupid}</issueTrackingUrl>
-  <siteAddress>displaytag.sourceforge.net</siteAddress>
+  <siteAddress>http://${pom.groupId}.sourceforge.net</siteAddress>
   <siteDirectory>/home/groups/d/di/displaytag/htdocs/</siteDirectory>
   <distributionDirectory>http://sourceforge.net/project/showfiles.php?group_id=${sf.groupid}</distributionDirectory>
   <repository>
@@ -66,7 +65,7 @@
       <roles>
         <role>Project admin</role>
       </roles>
-      <timezone />
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Fabrizio Giustina</name>
@@ -76,7 +75,7 @@
       <roles>
         <role>Java Developer</role>
       </roles>
-      <timezone>+18</timezone>
+      <timezone>-4</timezone>
     </developer>
     <developer>
       <name>Mathias Bogaert</name>
@@ -86,7 +85,7 @@
       <roles>
         <role>Java Developer</role>
       </roles>
-      <timezone />
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Benjamin Simpson</name>
@@ -96,7 +95,7 @@
       <roles>
         <role>Java Developer</role>
       </roles>
-      <timezone />
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>John York</name>
@@ -106,7 +105,7 @@
       <roles>
         <role>Java Developer</role>
       </roles>
-      <timezone />
+      <timezone>0</timezone>
     </developer>
     <developer>
       <name>Andy Pruitt</name>
@@ -122,10 +121,9 @@
   <contributors>
     <contributor>
       <name>Didier Dubois</name>
-      <id>Didier</id>
       <email>didier@ddubois.info</email>
       <organization />
-      <timezone />
+      <timezone>0</timezone>
     </contributor>
   </contributors>
   <!-- jar files the project is dependent on -->
