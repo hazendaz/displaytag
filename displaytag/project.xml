@@ -28,7 +28,7 @@
   </shortDescription>
 
   <url>http://displaytag.sourceforge.net</url>
-  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=73068&amp;atid=536613</issueTrackingUrl>
+  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=73068</issueTrackingUrl>
   <siteAddress>displaytag.sourceforge.net</siteAddress>
 
   <distributionDirectory>http://sourceforge.net/project/showfiles.php?group_id=73068</distributionDirectory>
@@ -154,7 +154,7 @@
     </dependency>
     <dependency>
       <id>commons-lang</id>
-      <version>1.0.1</version>
+      <version>2.0</version>
       <properties>
         <war.bundle>true</war.bundle>
       </properties>
@@ -213,7 +213,6 @@
   <reports>
     <report>maven-license-plugin</report>
     <report>maven-changes-plugin</report>
-    
     <report>maven-javadoc-plugin</report>
     <report>maven-jdepend-plugin</report>
     <report>maven-checkstyle-plugin</report>
@@ -223,7 +222,6 @@
     <report>maven-tasklist-plugin</report>
     <report>maven-simian-plugin</report>
     <report>maven-linkcheck-plugin</report>
-    
     <report>maven-changelog-plugin</report>
     <report>maven-file-activity-plugin</report>
     <report>maven-developer-activity-plugin</report>
