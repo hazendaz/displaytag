@@ -6,7 +6,7 @@
   <tlib-version>1.0-b3</tlib-version>
   <jsp-version>1.2</jsp-version>
   <short-name>display</short-name>
-  <uri>http://displaytag.sf.net</uri>
+  <uri>http://displaytag.sf.net/el</uri>
   <display-name>Display *: Tag Library (EL)</display-name>
   <description>The display tag library is an open source suite of custom tags that provide high level web presentation
  patterns which will work in a MVC model, and provide a significant amount of functionality while still being simple
@@ -65,18 +65,6 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <description>reference to the object used as source for the table. Can be an expression like
                requestScope.object.property. You need to define name or list. List is suggested.
         </description>
-    </attribute>
-    <attribute>
-      <name>property</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-        <description>@deprecated in displaytag 1.0. Use list.property in "name" attribute.</description>
-    </attribute>
-    <attribute>
-      <name>scope</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-        <description>@deprecated in displaytag 1.0. Use "pageScope.", "requestScope.", "sessionScope.", "applicationScope." prefixes in name.</description>
     </attribute>
     <attribute>
       <name>length</name>
