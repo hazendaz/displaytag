@@ -249,7 +249,10 @@ public class ColumnTag extends BodyTagSupport
     public void setUrl(String value)
     {
         HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
-        setHref(req.getContextPath() + value);
+        // call encodeURL to preserve session id when cookies are disabled
+        String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
+            .defaultString(req.getContextPath() + value));
+        this.href = new Href(encodedHref);
     }
 
     /**
