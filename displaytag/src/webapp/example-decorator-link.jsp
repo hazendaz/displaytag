@@ -24,7 +24,7 @@
 	primary key of the object).  Below I show how to use both examples.
 </p>
 
-<h3>Stuts-like approach</h3>
+<h3>Struts-like approach</h3>
 
 <p>
 	The column tag provides 5 struts-like attributes that can be set to create a
@@ -42,7 +42,7 @@
 	<dd>the name of the parameter that gets added to the URL specified above</dd>
 	
 	<dt>paramName</dt>
-	<dd>name of the bean that contains the data we want to tack on the the URL (typicall null, indicating the current object in the List)</dd>
+	<dd>name of the bean that contains the data we want to tack on the the URL (typically null, indicating the current object in the List)</dd>
 	
 	<dt>paramProperty</dt>
 	<dd>property to call on the object specified above to return the value that gets tacked onto the URL.</dd>

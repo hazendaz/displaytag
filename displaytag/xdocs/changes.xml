@@ -271,7 +271,7 @@
       </action>
       <action type="add" dev="" due-to="">
         updated all of the example jsp pages with a link that people can click on to view that pages source. Also
-        re-orged the pages so that the example table was always at the top of the page as the first thing you saw, and
+        re-organized the pages so that the example table was always at the top of the page as the first thing you saw, and
         the commentary behind the example followed.
       </action>
       <action type="fix" dev="" due-to="">

@@ -21,7 +21,7 @@
 	If you want to allow the user to sort the data as it is coming back, then you
 	need to just do two things, make sure that the data
 	returned from your property implements the Comparable interface (if it doesn't
-	nativly - use the decorator pattern as shown a couple of examples ago), and
+	natively - use the decorator pattern as shown a couple of examples ago), and
 	then set the attribute <code>sortable="true"</code> on the columns that you want
 	to be able to sort by.
 </p>

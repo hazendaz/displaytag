@@ -18,7 +18,7 @@
 </p>
 
 <p>
-	When sorting is enabled on the full list, the page number is automatically resetted if you change
+	When sorting is enabled on the full list, the page number is automatically reset if you change
 	the sorted column or the sort order.
 </p>
 
