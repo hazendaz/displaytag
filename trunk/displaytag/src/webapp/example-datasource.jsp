@@ -41,7 +41,7 @@
 	to display.
 </p>
 
-<div class="changed">
+<div>
 	<p>
 		The value of the <code>name</code> attribute can be expressed with a syntax similar to 
 		<acronym title="expression language">EL</acronym> of <acronym title="Java standard tag library">JSTL</acronym>.
@@ -118,7 +118,7 @@
 </display:table>
 
 
-<p class="changed">
+<p>
 	For compatibility with previous versions of the display tag library you can use the separated
 	<code>scope</code> and <code>property</code> attributes. This is now deprecated, since now
 	the code is optimized using the new expression language. Anyway, this will still work:

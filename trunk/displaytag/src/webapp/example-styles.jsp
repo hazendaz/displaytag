@@ -54,7 +54,7 @@
 	cellpadding), and it will be included in the rendered table.
 </p>
 
-<p class="changed">
+<p>
 	Starting from version 0.9 of the &lt;display:table&gt; there all html attributes
 	can be explicitly configured. Why?  So you can totally control the display of your table
 	and you can do that, as we hope, by exclusively using css.  Thereby avoiding deprecated html 
@@ -70,7 +70,7 @@
 	<code>headerClass</code> attribute.
 <p>
 
-<p class="changed">
+<p>
 	Note: the attribute <code>styleClass</code> used for the &lt;table&gt; and  &lt;column&gt; tag 
 	in previous version of the taglibrary is deprecated in favor of the standard html <code>class</code> attribute.
 </p>
@@ -94,14 +94,14 @@
 	shown according to your styles.
 </p>
 
-<p class="changed">
+<p>
 	Beginning with version 0.9 the &lt;display:table&gt; tag, the tag will produce
 	well formed html tables with 	&lt;thead&gt; and &lt;tbody&gt; sections. 
 	This renders useless the definition of few styles
 	used in previous versions. See the @deprecated paragraph at the bottom of the page for details
 </p>
 
-<p class="changed">
+<p>
  	New styles are added for sorted columns and pagination display 
 	is handled by properties.
 </p>
@@ -139,7 +139,7 @@
 
 <h3>Old Styles @deprecated</h3>
 
-<p class="changed">
+<p>
  	These css classes were applied in previous version of the &lt;display:*&gt; tag library. See the "now use"
 	column for direction on how migrate your css to the new version (a quick task which will also improve the
 	quality -and lower the weight- of your html output)
