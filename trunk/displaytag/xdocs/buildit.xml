@@ -23,7 +23,7 @@
 					Displaytag uses maven for build and site generation. First of all, you need to download and install
 					maven (tested with b10) from
 					<a href="http://maven.apache.org">maven.apache.org</a>
-					. Follow the instructions on Maven site on ow to do it.
+					. Follow the instructions on the Maven site on how to do it.
 				</p>
 			</subsection>
 
