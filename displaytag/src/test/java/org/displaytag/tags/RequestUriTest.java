@@ -1,5 +1,6 @@
 package org.displaytag.tags;
 
+import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -7,6 +8,7 @@ import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
 
 /**
  * Tests for requestUri column attribute.
@@ -52,10 +54,11 @@ public class RequestUriTest extends DisplaytagCase
         assertEquals("Expected one table in result.", 1, tables.length);
 
         WebLink[] links = response.getLinks();
-        assertEquals("Wrong number of links in result.", 3, links.length);
+        assertEquals("Wrong number of links in result.", MediaTypeEnum.getSize() - 1 // MediaTypeEnum also lists html
+            , links.length);
 
         assertEquals("Text in first link is wrong.", CONTEXT
-            + "/goforit?d-2106-e=2&"
+            + "/goforit?d-2106-e=1&"
             + TableTagParameters.PARAMETER_EXPORTING
             + "=1", links[0].getURLString());
     }

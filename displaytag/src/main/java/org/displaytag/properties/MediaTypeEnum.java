@@ -103,7 +103,7 @@ public final class MediaTypeEnum
      * @param key Integer code - null safe: a null key returns a null Enum
      * @return MediaTypeEnum or null if no mediaType is found with the given key
      */
-    public static MediaTypeEnum fromIntegerCode(Integer key)
+    public static MediaTypeEnum fromCode(Integer key)
     {
         if (key == null)
         {
@@ -111,6 +111,17 @@ public final class MediaTypeEnum
         }
 
         return fromCode(key.intValue());
+    }
+
+    /**
+     * lookup a media type by an Integer key.
+     * @param key Integer code - null safe: a null key returns a null Enum
+     * @return MediaTypeEnum or null if no mediaType is found with the given key
+     * @deprecated use fromCode(Integer)
+     */
+    public static MediaTypeEnum fromIntegerCode(Integer key)
+    {
+        return fromCode(key);
     }
 
     /**
@@ -138,6 +149,32 @@ public final class MediaTypeEnum
     public static Iterator iterator()
     {
         return ALL.iterator();
+    }
+
+    /**
+     * Register a new MediaType. If <code>name</code> is already assigned the existing instance is returned, otherwise
+     * a new instance is created.
+     * @param name media name
+     * @return assigned MediaTypeEnum instance
+     */
+    public static synchronized MediaTypeEnum registerMediaType(String name)
+    {
+        MediaTypeEnum existing = fromName(name);
+        if (existing != null)
+        {
+            existing = new MediaTypeEnum(ALL.size() + 1, name);
+            ALL.add(existing);
+        }
+        return existing;
+    }
+
+    /**
+     * Returns the number of media type currently loaded.
+     * @return number of media types loaded
+     */
+    public static int getSize()
+    {
+        return ALL.size();
     }
 
     /**
@@ -170,23 +207,6 @@ public final class MediaTypeEnum
     public int hashCode()
     {
         return new HashCodeBuilder(1188997057, -1289297553).append(this.enumCode).toHashCode();
-    }
-
-    /**
-     * Register a new MediaType. If <code>name</code> is already assigned the existing instance is returned, otherwise
-     * a new instance is created.
-     * @param name media name
-     * @return assigned MediaTypeEnum instance
-     */
-    public static MediaTypeEnum registerMediaType(String name)
-    {
-        MediaTypeEnum existing = fromName(name);
-        if (existing != null)
-        {
-            existing = new MediaTypeEnum(ALL.size() + 1, name);
-            ALL.add(existing);
-        }
-        return existing;
     }
 
 }

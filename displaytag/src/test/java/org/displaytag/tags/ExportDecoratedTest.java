@@ -11,6 +11,7 @@ import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
+
 /**
  * Tests for column decorators.
  * @author Fabrizio Giustina
