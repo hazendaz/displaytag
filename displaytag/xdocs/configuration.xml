@@ -197,12 +197,18 @@
                             <td class="source">
                                 &lt;span class="pagebanner"&gt; {0} {1} found, displaying {2} to {3}. &lt;/span&gt;
                             </td>
-                            <td>Any string in a message format with 4 placeholders</td>
+                            <td>Any string</td>
                             <td>
                                 What is shown in the pagination header when a partial list of the the objects in the
-                                list are being shown. {0} indicates the total number of objects in the list, {1} is
-                                replaced with the name of the items (plural}, {2} and {3} are replaced with the start
-                                and end index of the objects being shown respectively
+                                list are being shown. Parameters:
+                                <ul>
+                                    <li>{0}: total number of objects in the list</li>
+                                    <li>{1}: name of the items (plural)</li>
+                                    <li>{2}: start index of the objects being shown</li>
+                                    <li>{3}: end index of the objects being shown</li>
+                                    <li>{4}: current page</li>
+                                    <li>{5}: total number of pages</li>
+                                </ul>
                             </td>
                             <td>yes/yes</td>
                         </tr>
@@ -223,9 +229,16 @@
                             <td />
                             <td>
                                 What is shown in the pagination bar when there are more pages and the selected page is
-                                not the first or the last one. {0} will be replaced with the numbered pages list. {1}
-                                indicates the link to the first page, {2} the link to the previous page, {3} to the next
-                                page and {4} to the last page.
+                                not the first or the last one. Parameters:
+                                <ul>
+                                    <li>{0}: numbered pages list</li>
+                                    <li>{1}: link to the first page</li>
+                                    <li>{2}: link to the previous page</li>
+                                    <li>{3}: link to the next page</li>
+                                    <li>{4}: link to the last page</li>
+                                    <li>{5}: current page</li>
+                                    <li>{6}: total number of pages</li>
+                                </ul>
                             </td>
                             <td>yes/yes</td>
                         </tr>
@@ -237,9 +250,10 @@
                             </td>
                             <td />
                             <td>
-                                What is shown in the pagination bar when the first page is being shown. {0} will be
-                                replaced with the numbered pages list. {1} indicates the link to the first page, {2} the
-                                link to the previous page, {3} to the next page and {4} to the last page.
+                                What is shown in the pagination bar when the first page is being shown. Placeholders are
+                                the same as for
+                                <code>paging.banner.full</code>
+                                .
                             </td>
                             <td>yes/yes</td>
                         </tr>
@@ -251,9 +265,10 @@
                             </td>
                             <td />
                             <td>
-                                What is shown in the pagination bar when the last page is being shown. {0} will be
-                                replaced with the numbered pages list. {1} indicates the link to the first page, {2} the
-                                link to the previous page, {3} to the next page and {4} to the last page.
+                                What is shown in the pagination bar when the last page is being shown. Placeholders are
+                                the same as for
+                                <code>paging.banner.full</code>
+                                .
                             </td>
                             <td>yes/yes</td>
                         </tr>
@@ -262,9 +277,10 @@
                             <td class="source">&lt;span class="pagelinks"&gt;{0}&lt;/span&gt;</td>
                             <td />
                             <td>
-                                What is shown in the pagination bar when only one page is returned. {0} will be replaced
-                                with the numbered pages list. {1} indicates the link to the first page, {2} the link to
-                                the previous page, {3} to the next page and {4} to the last page.
+                                What is shown in the pagination bar when only one page is returned. Placeholders are the
+                                same as for
+                                <code>paging.banner.full</code>
+                                .
                             </td>
                             <td>yes/yes</td>
                         </tr>
