@@ -62,72 +62,66 @@ public class Href implements Cloneable
             noAnchorUrl = baseUrl;
         }
 
-
         if (noAnchorUrl.indexOf("?") == -1)
         {
             // simple url, no parameters
             this.url = noAnchorUrl;
+            return;
         }
-        else
+
+        // the Url already has parameters, put them in the parameter Map
+        StringTokenizer tokenizer = new StringTokenizer(noAnchorUrl, "?");
+
+        // base url (before "?")
+        this.url = tokenizer.nextToken();
+
+        if (!tokenizer.hasMoreTokens())
         {
-            // the Url already has parameters, put them in the parameter Map
-            StringTokenizer tokenizer = new StringTokenizer(noAnchorUrl, "?");
+            return;
+        }
 
-            // base url (before "?")
-            this.url = tokenizer.nextToken();
+        // process parameters
+        StringTokenizer paramTokenizer = new StringTokenizer(tokenizer.nextToken(), "&");
 
-            if (tokenizer.hasMoreTokens())
+        // split parameters (key=value)
+        while (paramTokenizer.hasMoreTokens())
+        {
+            // split key and value ...
+            String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), "=");
+
+            // encode name/value to prevent css
+            String escapedKey = StringEscapeUtils.escapeHtml(keyValue[0]);
+            String escapedValue = keyValue.length > 1 ? StringEscapeUtils.escapeHtml(keyValue[1]) : "";
+
+            if (!this.parameters.containsKey(escapedKey))
             {
-
-                StringTokenizer paramTokenizer = new StringTokenizer(tokenizer.nextToken(), "&");
-
-                // split parameters (key=value)
-                while (paramTokenizer.hasMoreTokens())
+                // ... and add it to the map
+                this.parameters.put(escapedKey, escapedValue);
+            }
+            else
+            {
+                // additional value for an existing parameter
+                Object previousValue = this.parameters.get(escapedKey);
+                if (previousValue != null && previousValue.getClass().isArray())
                 {
+                    Object[] previousArray = (Object[]) previousValue;
+                    Object[] newArray = new Object[previousArray.length + 1];
 
-                    // split key and value ...
-                    String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), "=");
+                    int j;
 
-
-                    // encode name/value to prevent css
-                    String escapedKey = StringEscapeUtils.escapeHtml(keyValue[0]);
-                    String escapedValue = keyValue.length > 1 ? StringEscapeUtils.escapeHtml(keyValue[1]) : "";
-
-                    if (!this.parameters.containsKey(escapedKey))
+                    for (j = 0; j < previousArray.length; j++)
                     {
-                        // ... and add it to the map
-                        this.parameters.put(escapedKey, escapedValue);
-                    }
-                    else
-                    {
-                        // additional value for an existing parameter
-                        Object previousValue = this.parameters.get(escapedKey);
-                        if (previousValue != null && previousValue.getClass().isArray())
-                        {
-                            Object[] previousArray = (Object[]) previousValue;
-                            Object[] newArray = new Object[previousArray.length + 1];
-
-                            int j;
-
-                            for (j = 0; j < previousArray.length; j++)
-                            {
-                                newArray[j] = previousArray[j];
-                            }
-
-                            newArray[j] = escapedValue;
-                            this.parameters.put(escapedKey, newArray);
-                        }
-                        else
-                        {
-                            this.parameters.put(escapedKey, new Object[]{previousValue, escapedValue});
-                        }
-
+                        newArray[j] = previousArray[j];
                     }
 
-
+                    newArray[j] = escapedValue;
+                    this.parameters.put(escapedKey, newArray);
+                }
+                else
+                {
+                    this.parameters.put(escapedKey, new Object[]{previousValue, escapedValue});
                 }
             }
-
         }
     }
 
