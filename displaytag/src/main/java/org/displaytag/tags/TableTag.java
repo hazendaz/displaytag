@@ -37,6 +37,7 @@ import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Anchor;
 import org.displaytag.util.CollectionUtil;
