@@ -258,9 +258,9 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>
-                An implicit variable of this name will be created and placed into NESTED scope. The object is also added
-                to pageContext under this name. Two tables in the same page can't have the same id (paging and sorting
-                will affect both).
+                Unique id used to identify this table. The object representing the current row is also added to the
+                pageContext under this name and the current row number is added using the key id_rowNum. Two tables in
+                the same page can't have the same id (paging and sorting will affect both).
             </description>
         </attribute>
         <attribute>
