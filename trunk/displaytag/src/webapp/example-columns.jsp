@@ -37,7 +37,7 @@
 </ul>
 
 <p class="changed">
-	These are two ways to define the content of a column. Of course, in the tag body
+	There are two ways to define the content of a column. Of course, in the tag body
 	you can use scriptlets or other custom tags.
 	Using the <code>property</code> attribute to define the content of a column is
 	usually faster and works better with sorting. If you add a <code>property</code>
