@@ -9,6 +9,9 @@
     </properties>
     <body>
         <release version="1.1-b1" description="Initial work following the 1.0 release">
+	        <action type="fix" dev="rapruitt" issue="DISPL-171" due-to="sillybears" >
+		        setSortProperty function was not overridden in ELColumnTag.
+	        </action>
 	        <action type="fix" dev="rapruitt" issue="DISPL-77">
 		        The default comparator now uses	a Collator instead of #compareTo; if more advanced functionality is
                 needed, you can specify your own Comparator (see in DISPL-18).  Code based on several patches and

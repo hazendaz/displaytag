@@ -142,6 +142,14 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         autoLinkExpr = value;
     }
 
+     /**
+     * @see org.displaytag.tags.ColumnTag#setSortProperty(java.lang.String)
+     * @param value EL expression for attribute value
+     */
+    public void setSortProperty(String value) {
+        sortPropertyExpr = value;
+    }
+
     /**
      * @see org.displaytag.tags.ColumnTag#setClass(java.lang.String)
      * @param value EL expression for attribute value
