@@ -11,3 +11,4 @@ cache
 build.properties
 work
 lib
+*.log
