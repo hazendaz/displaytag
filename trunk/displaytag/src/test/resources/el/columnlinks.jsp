@@ -18,6 +18,7 @@
         <display:column property="ant" href="/context/dynlink" paramId="param" paramProperty="ant" />
         <display:column property="ant" href="dynlink" paramId="param" paramProperty="ant" />
         <display:column property="ant" href="http://something/dynlink" paramId="param" paramProperty="ant" />
+        <display:column property="ant" href="http://something/dynlink" />
       </display:table>
     </body>
   </html>

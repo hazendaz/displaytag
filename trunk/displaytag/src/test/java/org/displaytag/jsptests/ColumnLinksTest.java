@@ -44,12 +44,13 @@ public class ColumnLinksTest extends DisplaytagCase
         assertEquals("Expected one table in result.", 1, tables.length);
 
         WebLink[] links = response.getLinks();
-        assertEquals("Wrong number of links in result.", 4, links.length);
+        assertEquals("Wrong number of links in result.", 5, links.length);
 
         assertEquals("Text in first link is wrong.", "/context/dynlink?param=ant", links[0].getURLString());
         assertEquals("Text in second link is wrong.", "/context/dynlink?param=ant", links[1].getURLString());
         assertEquals("Text in third link is wrong.", "dynlink?param=ant", links[2].getURLString());
         assertEquals("Text in fourth link is wrong.", "http://something/dynlink?param=ant", links[3].getURLString());
+        assertEquals("Text in fifth link is wrong.", "http://something/dynlink", links[4].getURLString());
     }
 
 }
