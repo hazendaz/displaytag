@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration>
+
+    <appender name="test-appender" class="org.apache.log4j.net.SocketAppender">
+    	<param name="RemoteHost" value="localhost" />
+    	<param name="Port" value="4445" />
+    </appender>
+    
+	<category name="org.displaytag">
+        <priority value="debug" />
+    </category>
+    
+    <root>
+        <priority value="error" />
+    	<appender-ref ref="test-appender" />
+    </root>
+     
+
+</log4j:configuration>
