@@ -9,16 +9,11 @@
         <j:forEach items="${goals}" var="goal" indexVar="goalNumber"> Now attaining goal number ${goalNumber}, which is 
             ${goal} <attainGoal name="${goal}" /> </j:forEach>
     </goal>
-    <!-- process tag reference -->
-    <preGoal name="xdoc:jelly-transform">
-        <!-- create tag reference -->
-        <attainGoal name="taglib:tagreference" />
-    </preGoal>
     <!-- set up tlds before test -->
     <preGoal name="test:test">
         <!-- generated tld should be ready before tests -->
         <!-- create 1.1 dtd -->
-        <attainGoal name="taglib:convert-12to11" />
+        <attainGoal name="taglib:convert-to11" />
         <!-- copy tlds to build dest -->
         <echo message="copying tld files in ${maven.src.dir}/tld to ${maven.build.dir}/tld" />
         <copy todir="${maven.build.dir}/tld" >
