@@ -8,7 +8,7 @@
     <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
   </properties>
   <body>
-    <release version="1.0-rc1" date="in CVS" description="1.0 release candidate. BugFix only.">
+    <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
       <action type="fix" dev="fgiust"> The EL version of the taglib has been refactored and cleaned up. All the 
         attributes, except deprecated ones, now accept EL expressions. </action>
       <action type="fix" dev="fgiust" issue="927804"> Improved attribute value handling following specifications for 
