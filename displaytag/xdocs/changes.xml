@@ -15,6 +15,11 @@
 	    The export filter introduced in b2 has been modified to avoid errors in Websphere 4 (or in any j2ee 1.2 containers,
 	    where the filter can't be used).
       </action>
+      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+	    All the css classes in the table tag are now customizable. You can change the original <code>even, odd, sorted, order1, order2</code> classes
+	    and also configure a css class to be added to any table or to any sortable column.
+	    See <a href="configuration.html#Exporting">Reference>Configuration</a> for the full list of configurable properties.
+      </action>
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
