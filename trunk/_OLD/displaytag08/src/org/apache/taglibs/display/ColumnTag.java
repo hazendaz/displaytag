@@ -118,7 +118,9 @@ import javax.servlet.jsp.tagext.TagSupport;
  *                    is limited to this number of words.  An elipse (...) is
  *                    appended to the end if this column is linked, and the user
  *                    can mouseover the elipse to get the full text. (optional)
- * </pre></p>
+ *
+ *   titleColSpan    - the number of columns that the title should span. Default is 1.
+ *
  */
 public class ColumnTag extends BodyTagSupport implements Cloneable {
     private String property;
@@ -135,6 +137,7 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
     private String paramScope;
     private int maxLength;
     private int maxWords;
+    private int titleColSpan = 1;
 
     private String width;
     private String align;
@@ -207,6 +210,9 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
         this.maxWords = v;
     }
 
+    public void setTitleColSpan(int titleColSpan) {
+        this.titleColSpan = titleColSpan;
+    }
 
     public void setWidth(String v) {
         this.width = v;
@@ -307,6 +313,10 @@ public class ColumnTag extends BodyTagSupport implements Cloneable {
 
     public int getMaxWords() {
         return this.maxWords;
+    }
+
+    public int getTitleColSpan() {
+        return titleColSpan;
     }
 
     public String getWidth() {
