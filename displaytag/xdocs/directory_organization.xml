@@ -11,10 +11,9 @@
 		<section name="Overview">
 			<p>
 				The display tag library uses Maven for build and documentation and tries to conform to general Maven
-				project layout. If you are used to work on maven project you should feel confortable with it. Here is a
-				description of folders and files organization, the
-				<strong>strong</strong>
-				names refer to project specific setting/files.
+				project layout. If you are used to working on a maven driven project you should feel confortable with it. 
+				Here is a description of the file and folder organization.  The
+				<strong>strong</strong>	names refer to project specific setting/files.
 			</p>
 		</section>
 		<section name="Common Directory Layout">
@@ -109,7 +108,7 @@
 					<td>
 						Maven projects use Jelly/JSL to transform documentation files in XML into HTML. Project
 						documentation should be placed in this directory. Maven converts all XML files in this
-						directory using JSL. Non-XML files (and directories) are copied without modificiation to permit
+						directory using JSL. Non-XML files (and directories) are copied without modification to permit
 						the inclusion of "other" types of documentation (including images). The generated HTML files
 						automatically inherit the Maven look-and-feel by default.
 					</td>
