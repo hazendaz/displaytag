@@ -728,9 +728,8 @@ public class ColumnTag extends BodyTagSupport
 
                 lCellValue = lValue;
             }
-
             // BodyContent will be null if the body was not eval'd, eg an empty list.
-            else if (lTableTag.getViewableData().isEmpty())
+            else if (lTableTag.isEmpty())
             {
                 lCellValue = Cell.EMPTY_CELL;
             }
@@ -798,7 +797,7 @@ public class ColumnTag extends BodyTagSupport
         }
 
         // If the list is empty, do not execute the body; may result in NPE
-        if (lTableTag.getViewableData().isEmpty())
+        if (lTableTag.isEmpty())
         {
             return SKIP_BODY;
         }
