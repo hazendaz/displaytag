@@ -94,6 +94,11 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private String requestURIExpr;
 
     /**
+     * Expression for the "requestURIcontext" tag attribute.
+     */
+    private String requestURIcontextExpr;
+
+    /**
      * Expression for the "rules" tag attribute.
      */
     private String rulesExpr;
@@ -254,6 +259,15 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
+     * @see org.displaytag.tags.TableTag#setRequestURIcontext(boolean)
+     * @param value EL expression for attribute value
+     */
+    public void setRequestURIcontext(String value)
+    {
+        requestURIcontextExpr = value;
+    }
+
+    /**
      * @see org.displaytag.tags.TableTag#setRules(java.lang.String)
      * @param value EL expression for attribute value
      */
@@ -372,6 +386,10 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         {
             super.setRequestURI(eval.evalString("requestURI", requestURIExpr)); //$NON-NLS-1$
         }
+        if (requestURIcontextExpr != null)
+        {
+            super.setRequestURIcontext(eval.evalBoolean("requestURIcontext", requestURIcontextExpr)); //$NON-NLS-1$
+        }
         if (rulesExpr != null)
         {
             super.setRules(eval.evalString("rules", rulesExpr)); //$NON-NLS-1$
@@ -409,6 +427,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         this.offsetExpr = null;
         this.pagesizeExpr = null;
         this.requestURIExpr = null;
+        this.requestURIcontextExpr = null;
         this.rulesExpr = null;
         this.sortExpr = null;
         this.styleExpr = null;
