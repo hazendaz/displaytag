@@ -11,19 +11,19 @@
   <body>
   	
   	<release version="1.0-b3" date="in CVS" description="">
-      <action type="add" dev="mraible" due-to="Matt Raible">
-        Thanks to Tim McCune, I added Expression Support ala JSTL.  To use it, just specify your taglib URI to be 
+      <action type="add" dev="mraible" due-to="Tim McCune">
+        Added Expression Support ala JSTL.  To use it, just specify your taglib URI to be 
         http://jakarta.apache.org/taglibs/display-el.  As part of this enhancement, I added
         (to the EL taglib only) a "titleKey" and "url" attribute.  The titleKey attribute
         will lookup it's value as a key in a JSTL bundle (declared using the &lt;fmt:bundle 
         tag or in your web.xml).  The url attribute is an enhancement to the "href" attribute
         which prepends the contextPath.  
       </action>
-      <action type="fix" dev="rapruitt" due-to="Andy Pruitt">
+      <action type="fix" dev="rapruitt">
 	    The export filter introduced in b2 has been modified to avoid errors in Websphere 4 (or in any j2ee 1.2 containers,
 	    where the filter can't be used).
       </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust">
 	    All the css classes in the table tag are now customizable. You can change the original <code>even, odd, sorted, order1, order2</code> classes
 	    and also configure a css class to be added to any table or to any sortable column.
 	    See <a href="configuration.html#Exporting">Reference>Configuration</a> for the full list of configurable properties.
@@ -33,45 +33,40 @@
 	    <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536616&amp;aid=858189">[858189]</a>
 	    )
       </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
-	    Added the "defaultsort" attribute to change the sorting order for the default sorted column (feature request
-	    <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536616&amp;aid=867217">[867217]</a>
-	    )
-      </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust" issue="867217">
+        Added the "defaultsort" attribute to change the sorting order for the default sorted column
+	    </action>
+      <action type="add" dev="fgiust">
 	    Added a new configuration property <code>basic.empty.showtable</code> which let you choose if you want to display
 	    the table if the underlining list is empty.
       </action>
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
-	   fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=840728">[840728]</a>: 
-       Breaks on '%' in values. Thanks to David Kowis for the bug report and the supplied patch.
+      <action type="fix" dev="fgiust" issue="840728" due-to="David Kowis">
+	      Breaks on '%' in values.
       </action>
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
-	   fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=849207">[849207]</a>: 
-       paramProperty is wrong when not fetched from iterated object.
+      <action type="fix" dev="fgiust" issue="849207">
+	      paramProperty is wrong when not fetched from iterated object.
       </action>
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
-	   fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=858888">[858888 ]</a>: 
-       requestURI parameters are overwritten by current values.
+      <action type="fix" dev="fgiust" issue="858888">
+	      requestURI parameters are overwritten by current values.
       </action>
       
       
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="fix" dev="fgiust">
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=814470">[814470]</a>: Invalid xhtml if empty list
       </action>
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="fix" dev="fgiust">
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=749119">[749119]</a>: paging.banner.placement property
       </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust">
         Automatic column discovery when no columns are defined. Instead of the simple output with the 
         object toString() and the message "please define column tags", the table tag will automatically add
         columns mapped to object properties. This is especially useful in development to quickly see and 
         test available properties.
       </action>
-      <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="update" dev="fgiust">
         The following methods in TableDecorator are now correctly declared as <code>final</code>:
         <code>getViewIndex()</code>, 
         <code>getListIndex()</code>, 
@@ -79,99 +74,96 @@
         <code>getCurrentRowObject()</code>. These methods should never be extended in subclasses of
         TableDecorator.
       </action>
-      <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="update" dev="fgiust">
         Removed the <code>value</code> property of ColumnTag. This was totally undocumented in previous versions 
         and is now useless.
       </action>
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
-      fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=823383">[823383]</a>: 
-      Body not cleared with pooled ColumnTags
+      <action type="fix" dev="fgiust" issue="823383">
+        Body not cleared with pooled ColumnTags
       </action>  
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
-      fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=814058">[814058]</a>: 
-      Sorting with table decorators.
+      <action type="fix" dev="fgiust" issue="814058">
+        Sorting with table decorators.
       </action>      
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
-      fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=830652">[830652]</a>: 
-      Parameters not preserved in requestURI.
+      <action type="fix" dev="fgiust" issue="830652">
+        Parameters not preserved in requestURI.
       </action>          
-      <action type="add" dev="rapruitt" due-to="Andy Pruitt">
-      Added a check for availability of correct version on commons-lang: a message is displayed if a wrong version is used.
+      <action type="add" dev="rapruitt">
+        Added a check for availability of correct version on commons-lang: a message is displayed if a wrong version is used.
       </action>           
-      <action type="add" dev="rapruitt" due-to="Andy Pruitt">
-      New jsp 1.2 tld is available. Tag reference documentation is automatically produced from dtd.
+      <action type="add" dev="rapruitt">
+        New jsp 1.2 tld is available. Tag reference documentation is automatically produced from dtd.
       </action>     
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="fix" dev="fgiust">
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=814462">[814462]</a>: 
       column JSP body should not execute if the list is empty
       </action>
-      <action type="add" dev="rapruitt" due-to="Andy Pruitt">
+      <action type="add" dev="rapruitt">
       Added filter (only for j2ee 1.3 containers) to allow exports from inside of an included JSP page.  See the install docs and javadocs for more
       information.
       Fixes <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=820763 ">[820763]</a>.
       </action>
-      <action type="update"  dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="update"  dev="fgiust">
           Exported data is now properly escaped for the output format
       </action>
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="fix" dev="fgiust">
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=773162">[773162]</a>: 
       include header in excel export
       </action>
-      <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="fix" dev="fgiust">
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=840011">[840011]</a>: 
       properties inheritance between table decorators
       </action>
-      <action type="fix" dev="rapruitt" due-to="Andy Pruitt">
+      <action type="fix" dev="rapruitt">
         fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=831806">[831806]</a>:
         User properties can now be loaded from files when deployed in unexploded WAR.
       </action>
-      <action type="update" dev="rapruitt" due-to="Andy Pruitt"> Altered the properties search
+      <action type="update" dev="rapruitt"> Altered the properties search
         process. Properties in the file displaytag.properties will now override properties from TableTag.properties. Users
             can add additional properties via the TableProperties#setUserProperties() method.
       </action>
-      <action type="add" dev="rapruitt" due-to="Andy Pruitt"> Added media attribute to ColumnTag. Broadened ExportTypeEnum
+      <action type="add" dev="rapruitt"> Added media attribute to ColumnTag. Broadened ExportTypeEnum
         to also cover the HTML case; renamed to MediaTypeEnum. Current mediaType exposed via scripting variable 'mediaType'.
         This can be used in column content to generate output based on madia type (don't output html when exporting and so on).
       </action>
     </release>
 
     <release version="1.0-b1" date="September 22, 2003" description="first beta of the completely rewritten library">
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust">
         Mavenized! Thanks to Didier Dubois for the help on migrating the build system to maven.
       </action>
-      <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="update" dev="fgiust">
         Totally refactored/rewritten. The whole library has been rewritten, improved package structure, code quality,
         logging and exception handling.
       </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust">
         Major addiction: the table tag works now also with an iterator approach, letting you specify content in the
         body of the column tag.
       </action>
-      <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="update" dev="fgiust">
         Better html output. The rendered html code is now completely xhtml STRICT compliant. Some of the css classes
         have been changed, check the docs for upgrading from previous versions.
       </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust">
         Global configuration with a user supplied properties file (configured in web.xml) which lets you personalize
         most of the tag output.
       </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust">
         Link attributes are encoded to let you use more table in the same page with independent paging, sorting and
         exporting. You can also put nested display:table tag!
       </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust">
         Link parameters are preserved in paging/sorting. Paging will always keep the correct order, and it will also
         maintain the correct order/page for all the table displayed.
       </action>
-      <action type="update" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="update" dev="fgiust">
         Example site refactored (xhtml strict+css), added new samples.
       </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust">
         It's now possible to define objects/nested attributes with the beanutils style language + scope (ex.
         sessionScope.list.value.attribute(name).item[1] =
         session.getAttribute("list").getValue().getAttribute("name").getItem[1])
       </action>
-      <action type="add" dev="fgiust" due-to="Fabrizio Giustina">
+      <action type="add" dev="fgiust">
         Lots of small changes/addiction:
         <ul>
           <li>renamed attributes "styleClass" to standard "class" ("styleClass" is retained but deprecated)</li>
@@ -190,27 +182,26 @@
 
     <release version="0.8.5" date="March 23, 2003">
       <action type="add" dev="Luiz-Otavio Zorzella" due-to="Luiz-Otavio Zorzella">
-        Allow column elements to be nested inside other tags. [!]
+        Allow column elements to be nested inside other tags.
       </action>
       <action type="add" dev="Luiz-Otavio Zorzella" due-to="Luiz-Otavio Zorzella">
         In decorators, added method getCollection() to allow for Collections, Iterators and Maps to be used as well as
-        Lists. [!]
+        Lists.
       </action>
       <action type="add" dev="Luiz-Otavio Zorzella" due-to="Luiz-Otavio Zorzella">
         Original table tag only works with Lists. Now works with Collections, Iterators and Maps as well (though some
-        functions, like group totals are not available to these, due to limitations on the structures themselves). [!]
+        functions, like group totals are not available to these, due to limitations on the structures themselves).
       </action>
-      <action type="add" dev="ed-hill" due-to="Ed Hill">
-        Added startRow() to the decorator API to allow people to put headers on groupings as well as footers. [!]
+      <action type="add" dev="ed-hill">
+        Added startRow() to the decorator API to allow people to put headers on groupings as well as footers.
       </action>
-      <action type="fix" dev="ed-hill" due-to="Ed Hill">
+      <action type="fix" dev="ed-hill">
         Fixed a caching bug in with tables that had multiple pages, the pageNumber is now reset to 1 in the tag object.
-        [*]
       </action>
-      <action type="fix" dev="ed-hill" due-to="Ed Hill">Fixed various with URL rewriting (? vs &amp;). [*]</action>
-      <action type="fix" dev="ed-hill" due-to="Ed Hill">Correct error message on bean property lookups. [*]</action>
-      <action type="update" dev="mraible" due-to="Matt Raible">
-        Build/Deploy process updates to be more dynamic. [*]
+      <action type="fix" dev="ed-hill">Fixed various with URL rewriting (? vs &amp;).</action>
+      <action type="fix" dev="ed-hill">Correct error message on bean property lookups.</action>
+      <action type="update" dev="mraible">
+        Build/Deploy process updates to be more dynamic.
       </action>
     </release>
 
@@ -225,114 +216,100 @@
         of link (localize) export.csv.include_header - include the column titles in the export? export.amount - export
         just the page of data or the complete list export.decorated - decorate the data as it is exported?
       </action>
-
-      <action type="add" dev="mraible" due-to="Matt Raible">
+      <action type="add" dev="mraible">
         introduced two new column attributes "maxLength", "maxWords" that will restrict the size of strings being shown
-        in a column. [!]
+        in a column.
       </action>
-
       <action type="add" dev="" due-to="">
         introduced new column attribute "headerStyleClass" that allows you to override the class name used in drawing
-        the table's header cell for that column. [!]
+        the table's header cell for that column.
       </action>
-
       <action type="add" dev="jay-paulsen" due-to="Jay Paulsen">
         introduced ColumnDecorators - you can now decorate individual columns, this makes it easier for you to define
         reusable DateFmt, MoneyFmt, etc... decorators rather then developing a customer decorator for each table. Note,
-        the decorator interface is still not to my liking, expect changes before this tag gets a 1.0 release. [!]
+        the decorator interface is still not to my liking, expect changes before this tag gets a 1.0 release.
       </action>
-
-      <action type="fix" dev="mraible" due-to="Matt Raible" due-to-email="mraible@users.sourceforge.net">
+      <action type="fix" dev="mraible">
         fixed a bug, where nulls were *not* being suppressed like they should be in the display, now nulls will only be
         shown if you specify the nulls attribute of the column tag. [**]
       </action>
-
       <action type="fix" dev="Joachim Martin" due-to="Joachim Martin">
         fixed my web.xml files in the various wars - they were not compliant and Tomcat would barf while deploying them
-        - I'm now testing under JRun 3.1/4.0 and Tomcat 4.0.4b3. [*]
+        - I'm now testing under JRun 3.1/4.0 and Tomcat 4.0.4b3.
       </action>
-
       <action type="fix" dev="Joachim Martin" due-to="Joachim Martin">
         fixed bug in example-styles.jsp, was using a variable "page" which is a rarely used standard JSP variable (JRun
-        didn't care, Tomcat did), just renamed the variable so that example runs under Tomcat. [*]
+        didn't care, Tomcat did), just renamed the variable so that example runs under Tomcat.
       </action>
-
       <action type="add" dev="" due-to="">
-        fixed bug that prevented the first column from being sorted in both ascending and descending order [*]
+        fixed bug that prevented the first column from being sorted in both ascending and descending order
       </action>
-
       <action type="fix" dev="" due-to="">
-        fixed a problem where a decorated table would interfere with fetching the source list on subsequent fetches [*]
+        fixed a problem where a decorated table would interfere with fetching the source list on subsequent fetches
       </action>
-
       <action type="fix" dev="" due-to="">
         bug was introduced in 0.7 that prevented a decorated object from being exported correctly, that has been fixed
-        [*]
       </action>
-
       <action type="fix" dev="" due-to="">
-        bug was introduced in 0.7 that prevented a decorated object from being sorted correctly, that has been fixed [*]
+        bug was introduced in 0.7 that prevented a decorated object from being sorted correctly, that has been fixed
       </action>
-
       <action type="add" dev="" due-to="">
-        included a copy of the Artistic license that this program is distributed under [*]
+        included a copy of the Artistic license that this program is distributed under
       </action>
     </release>
 
     <release version="0.7" date="March 10, 2002">
 
       <action type="add" dev="" due-to="">
-        added the requestURI attribute, so that you could tell the table tag what URI was used to call it. [!]
+        added the requestURI attribute, so that you could tell the table tag what URI was used to call it.
       </action>
       <action type="fix" dev="" due-to="">
-        fixed some exporting bugs, added the ability to export in XML, although at this stage it is very crude. [!]
+        fixed some exporting bugs, added the ability to export in XML, although at this stage it is very crude.
       </action>
       <action type="fix" dev="" due-to="">
-        fixed sorting so that it sorts in both ascending and descending order based on multiple title clicks. [!]
+        fixed sorting so that it sorts in both ascending and descending order based on multiple title clicks.
       </action>
       <action type="add" dev="" due-to="">
         updated all of the example jsp pages with a link that people can click on to view that pages source. Also
         re-orged the pages so that the example table was always at the top of the page as the first thing you saw, and
-        the commentary behind the example followed. [!]
+        the commentary behind the example followed.
       </action>
       <action type="fix" dev="" due-to="">
         The table tag now properly expects any decorators used to be children of the
         org.apache.taglibs.display.TableDecorator class (it was in the wrong package before). Reported by everyone...
-        [**]
       </action>
-      <action type="fix" dev="mraible" due-to="Matt Raible" due-to-email="mraible@users.sourceforge.net">
+      <action type="fix" dev="mraible">
         Underscore is not a legal character in CSS, so the various style names and attributes where changes to be in
         uppercase format. - table_cell -> tableCell - table_row_odd -> tableRowOdd - table_row_even -> tableRowEven -
         table_row_action -> tableRowAction - table_cell_action -> tableCellAction - table_row_header -> tableRowHeader
-        - table_cell_header -> tableCellHeader. [**]
+        - table_cell_header -> tableCellHeader.
       </action>
       <action type="fix" dev="" due-to="">
-        Cleaned up the other examples that were incomplete. Fixed broken links, etc... [*]
+        Cleaned up the other examples that were incomplete. Fixed broken links, etc...
       </action>
       <action type="fix" dev="Jim Canter" due-to="Jim Canter">
         Cloned the ColumnTags as I added them to the TableTag so that the table tag works correctly with web containers
         that reuse tags as an optimization. (Resin and Weblogic, probably others). This bug would manifest itself with
-        multiple duplicated columns. [*]
+        multiple duplicated columns.
       </action>
       <action type="fix" dev="" due-to="">
         flushed out the example-export example that shows how to automatically export data to CSV, excel and XML
-        formats. [*]
+        formats.
       </action>
       <action type="fix" dev="" due-to="">
         flushed out the example-callback example that shows how to use a decorator to implement summing and
         totaling... The functionality was included in the original version, but there wasn't an example that showed
-        how to use it. [*]
+        how to use it.
       </action>
-      <action type="fix" dev="" due-to="">fixed a NPE if you passed the table tag a null list. [*]</action>
+      <action type="fix" dev="" due-to="">fixed a NPE if you passed the table tag a null list.</action>
       <action type="update" dev="" due-to="">
-        updated the example-grouping.jsp page to show a more report oriented example. [*]
+        updated the example-grouping.jsp page to show a more report oriented example.
       </action>
-      <action type="fix" dev="" due-to="">
-        Included the pointer to the 2.2 DTD in the web.xml files. Thanks to Rob Evans. [*]
+      <action type="fix" dev="" due-to="Rob Evans">
+        Included the pointer to the 2.2 DTD in the web.xml files.
       </action>
-      <action type="update" dev="" due-to="">
-        added 'flush="true"' to all of my jsp:includes in my examples to be more in sync with the JSP 1.1 spec. Thanks
-        to Dirk Storck [*]
+      <action type="update" dev="" due-to="Dirk Storck">
+        added 'flush="true"' to all of my jsp:includes in my examples to be more in sync with the JSP 1.1 spec.
       </action>
     </release>
 
