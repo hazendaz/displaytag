@@ -2,7 +2,6 @@ package org.displaytag.tags;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -72,17 +71,20 @@ public class TableTag extends HtmlTableTag
      * If this buffer has been appended to at all, the contents of the buffer will be served as the sole output of the
      * request. Request variable.
      */
-    public static final String FILTER_CONTENT_OVERRIDE_BODY = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY";
+    public static final String FILTER_CONTENT_OVERRIDE_BODY
+            = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY";
 
     /**
      * If the request content is overriden, you must also set the content type appropriately. Request variable.
      */
-    public static final String FILTER_CONTENT_OVERRIDE_TYPE = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE";
+    public static final String FILTER_CONTENT_OVERRIDE_TYPE
+            = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE";
 
     /**
      * If the filename is specified, there will be a supplied filename. Request variable.
      */
-    public static final String FILTER_CONTENT_OVERRIDE_FILENAME = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_FILENAME";
+    public static final String FILTER_CONTENT_OVERRIDE_FILENAME
+            = "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_FILENAME";
 
     /**
      * logger.
@@ -540,7 +542,7 @@ public class TableTag extends HtmlTableTag
             log.debug("[" + getId() + "] doStartTag called");
         }
 
-        this.properties = TableProperties.getInstance();
+        this.properties = TableProperties.getInstance(pageContext.getRequest().getLocale());
         this.tableModel = new TableModel(this.properties);
 
         // copying id to the table model for logging
@@ -992,7 +994,6 @@ public class TableTag extends HtmlTableTag
     protected int doExport() throws JspException
     {
 
-        BaseExportView exportView = null;
         boolean exportFullList = this.properties.getExportFullList();
 
         if (log.isDebugEnabled())
@@ -1003,7 +1004,7 @@ public class TableTag extends HtmlTableTag
         boolean exportHeader = this.properties.getExportHeader(this.currentMediaType);
         boolean exportDecorated = this.properties.getExportDecorated();
 
-        exportView = ExportViewFactory.getView(
+        BaseExportView exportView = ExportViewFactory.getView(
             this.currentMediaType,
             this.tableModel,
             exportFullList,
@@ -1118,7 +1119,6 @@ public class TableTag extends HtmlTableTag
     public List getViewableData()
     {
 
-        List fullList = new ArrayList();
 
         // If the user has changed the way our default behavior works, then we
         // need to look for it now, and resort things if needed before we ask
@@ -1135,7 +1135,7 @@ public class TableTag extends HtmlTableTag
 
         // If they have asked for a subset of the list via the length
         // attribute, then only fetch those items out of the master list.
-        fullList = CollectionUtil.getListFromObject(originalData, this.offset, this.length);
+        List fullList = CollectionUtil.getListFromObject(originalData, this.offset, this.length);
 
         int pageOffset = this.offset;
         // If they have asked for just a page of the data, then use the
