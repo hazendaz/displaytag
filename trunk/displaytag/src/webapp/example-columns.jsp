@@ -15,19 +15,19 @@
 
 
 <p>
-	This starts to show you how to use the table tag, you point the table tag at
-	a datasource (a List), and then define a number of columns that map to
-	property methods (getXXX) for each object in the List.
+	This example starts to show you how to use the table tag.  You point the table tag at
+	a datasource (a List), then define a number of columns with properties that map to
+	accessor methods (getXXX) for each object in the List.
 </p>
 
 <p>
 	Note that you have one column tag for every column that you want to appear in
-	the table, and the column specifies what property is shown in that particular
+	the table.  And, the column specifies what property is shown in that particular
 	row.
 </p>
 
 <p class="changed">
-	You can define the content of a column adding a <code>property</code> attribute
+	You can define the content of a column by adding a <code>property</code> attribute
 	to the column tag or adding a content to the tag.
 </p>
 
@@ -37,7 +37,7 @@
 </ul>
 
 <p class="changed">
-	These are two way to define the content of a column. Of course in the tag body
+	These are two ways to define the content of a column. Of course, in the tag body
 	you can use scriptlets or other custom tags.
 	Using the <code>property</code> attribute to define the content of a column is
 	usually faster and works better with sorting. If you add a <code>property</code>
@@ -47,9 +47,9 @@
 <p>
 	The <code>property</code> attribute specifies what <code>getXXX</code> method is 
 	called on each item in the list.  
-	So for the second column, <code>getName</code> is called, and by default the 
-	property name is used as the header of the column (unless you give it an explicit
-	column name).
+	So for the second column, <code>getName</code> is called.  By default the 
+	property name is used as the header of the column unless you explicitly give the column 
+	a title.
 </p>
 
 
