@@ -29,7 +29,7 @@
     
     
 	  <category name="org.displaytag">
-        <priority value="debug" />
+        <priority value="info" />
     </category>
     
 	  <category name="org.apache.cactus">
