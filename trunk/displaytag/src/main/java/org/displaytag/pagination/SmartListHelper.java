@@ -4,12 +4,12 @@ import java.text.MessageFormat;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
+import org.displaytag.util.ShortToStringStyle;
 
 
 /**
@@ -66,7 +66,7 @@ public class SmartListHelper
      * display.
      * @param list List
      * @param fullSize size of the full list
-     * @param itemsInPage number of items in a page
+     * @param itemsInPage number of items in a page (int > 0)
      * @param tableProperties TableProperties
      */
     public SmartListHelper(List list, int fullSize, int itemsInPage, TableProperties tableProperties)
@@ -92,19 +92,12 @@ public class SmartListHelper
      */
     protected int computedPageCount()
     {
-
-        int result = 0;
-
-        if ((this.fullList != null) && (this.pageSize > 0))
-        {
-            int size = this.fullListSize;
-            int div = size / this.pageSize;
-            int mod = size % this.pageSize;
-            result = (mod == 0) ? div : div + 1;
-        }
+        int size = this.fullListSize;
+        int div = size / this.pageSize;
+        int mod = size % this.pageSize;
+        int result = (mod == 0) ? div : div + 1;
 
         return result;
-
     }
 
     /**
@@ -347,7 +340,7 @@ public class SmartListHelper
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("fullList", this.fullList) //$NON-NLS-1$
             .append("fullListSize", this.fullListSize) //$NON-NLS-1$
             .append("pageSize", this.pageSize) //$NON-NLS-1$

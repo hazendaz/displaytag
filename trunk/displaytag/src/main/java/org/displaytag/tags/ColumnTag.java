@@ -10,7 +10,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
@@ -23,6 +22,7 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
 
 
@@ -751,7 +751,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("bodyContent", this.bodyContent) //$NON-NLS-1$
             .append("group", this.group) //$NON-NLS-1$
             .append("maxLength", this.maxLength) //$NON-NLS-1$
