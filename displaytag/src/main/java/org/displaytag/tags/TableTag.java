@@ -64,19 +64,6 @@ import org.displaytag.util.TagConstants;
  *     <display:column property="active" sortable="true" />
  *   </display:list>
  *
- *
- * Attributes:
- * <dl>
- *   <dt>collection</dt><dd>-</dd>
- *   <dt>name</dt><dd>-</dd>
- *   <dt>property</dt><dd>-</dd>
- *   <dt>scope</dt><dd>-</dd>
- *   <dt>length</dt><dd>-</dd>
- *   <dt>offset</dt><dd>-</dd>
- *   <dt>pagesize</dt><dd>-</dd>
- *   <dt>decorator</dt><dd>-</dd>
- * </dl>
- *
  * @author mraible
  * @version $Revision$ ($Author$)
  **/
