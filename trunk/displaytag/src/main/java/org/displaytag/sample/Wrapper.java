@@ -6,29 +6,26 @@ import org.apache.commons.lang.time.FastDateFormat;
 import org.displaytag.decorator.TableDecorator;
 
 /**
- * This class is a decorator of the TestObjects that we keep in our List.  This
- * class provides a number of methods for formatting data, creating dynamic
- * links, and exercising some aspects of the display:table API functionality
+ * This class is a decorator of the TestObjects that we keep in our List. This class provides a number of methods for
+ * formatting data, creating dynamic links, and exercising some aspects of the display:table API functionality
  * @author epesh
  * @version $Revision$ ($Author$)
  */
 public class Wrapper extends TableDecorator
 {
     /**
-     * Field datefmt
+     * FastDateFormat used to format dates in getDate()
      */
     private FastDateFormat dateFormat = null;
 
     /**
-     * Field moneyfmt
+     * DecimalFormat used to format money in getMoney()
      */
     private DecimalFormat moneyFormat = null;
 
     /**
-     * Creates a new Wrapper decorator who's job is to reformat some of the
-     * data located in our TestObject's.
+     * Creates a new Wrapper decorator who's job is to reformat some of the data located in our TestObject's.
      */
-
     public Wrapper()
     {
         super();
@@ -40,8 +37,8 @@ public class Wrapper extends TableDecorator
     }
 
     /**
-     * Method getNullValue
-     * @return String
+     * Test method which always returns a null value
+     * @return <code>null</code>
      */
     public String getNullValue()
     {
@@ -50,9 +47,8 @@ public class Wrapper extends TableDecorator
 
     /**
      * Returns the date as a String in MM/dd/yy format
-     * @return String
+     * @return formatted date
      */
-
     public String getDate()
     {
         return this.dateFormat.format(((ListObject) this.getCurrentRowObject()).getDate());
@@ -62,15 +58,13 @@ public class Wrapper extends TableDecorator
      * Returns the money as a String in $ #,###,###.00 format
      * @return String
      */
-
     public String getMoney()
     {
         return this.moneyFormat.format(((ListObject) this.getCurrentRowObject()).getMoney());
     }
 
     /**
-     * Returns the TestObject's ID as a hyperlink that the person can click on
-     * and "drill down" for more details.
+     * Returns the TestObject's ID as a hyperlink that the person can click on and "drill down" for more details.
      * @return String
      */
     public String getLink1()
@@ -82,8 +76,8 @@ public class Wrapper extends TableDecorator
     }
 
     /**
-     * Returns an "action bar" of sorts that allow the user to perform various
-     * actions on the TestObject based on it's id.
+     * Returns an "action bar" of sorts that allow the user to perform various actions on the TestObject based on it's
+     * id.
      * @return String
      */
     public String getLink2()

@@ -5,26 +5,25 @@ import java.util.List;
 import org.displaytag.decorator.TableDecorator;
 
 /**
- * This decorator only does a summing of different groups in the reporting
- * style examples...
+ * This decorator only does a summing of different groups in the reporting style examples...
  * @author epesh
  * @version $Revision$ ($Author$)
  */
 public class TotalWrapper extends TableDecorator
 {
     /**
-     * Field cityTotal
+     * total amount
+     */
+    private double grandTotal = 0;
+    
+    /**
+     * total amount for city
      */
     private double cityTotal = 0;
 
     /**
-     * Field grandTotal
-     */
-    private double grandTotal = 0;
-
-    /**
-     * After every row completes we evaluate to see if we should be drawing a
-     * new total line and summing the results from the previous group.
+     * After every row completes we evaluate to see if we should be drawing a new total line and summing the results
+     * from the previous group.
      * @return String
      */
     public final String finishRow()

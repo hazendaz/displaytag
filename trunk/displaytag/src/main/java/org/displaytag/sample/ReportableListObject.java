@@ -2,9 +2,13 @@ package org.displaytag.sample;
 
 import java.util.Random;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
+import org.apache.commons.lang.builder.CompareToBuilder;
+
 /**
- * A test class that has data that looks more like information that comes back
- * in a report...
+ * A test class that has data that looks more like information that comes back in a report...
  * @author epesh
  * @version $Revision$ ($Author$)
  */
@@ -93,39 +97,30 @@ public class ReportableListObject extends Object implements Comparable
     }
 
     /**
-     * Method toString
-     * @return String
+     * @see java.lang.Comparable#compareTo(Object)
      */
-    public String toString()
+    public int compareTo(Object object)
     {
-        return "ReportableListObject(" + city + ":" + project + ":" + amount + ")";
+        ReportableListObject myClass = (ReportableListObject) object;
+        return new CompareToBuilder()
+            .append(this.project, myClass.project)
+            .append(this.amount, myClass.amount)
+            .append(this.city, myClass.city)
+            .append(this.task, myClass.task)
+            .toComparison();
     }
 
     /**
-     * Method compareTo
-     * @param anotherObject Object
-     * @return int
-     * @see java.lang.Comparable#compareTo(Object)
+     * @see java.lang.Object#toString()
      */
-    public int compareTo(Object anotherObject)
+    public String toString()
     {
-        ReportableListObject object1 = this;
-        ReportableListObject object2 = (ReportableListObject) anotherObject;
-
-        if (object1.city.equals(object2.city))
-        {
-            if (object1.project.equals(object2.project))
-            {
-                return (int) (object2.amount - object1.amount);
-            }
-            else
-            {
-                return object1.project.compareTo(object2.project);
-            }
-        }
-        else
-        {
-            return object1.city.compareTo(object2.city);
-        }
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("project", this.project)
+            .append("amount", this.amount)
+            .append("city", this.city)
+            .append("task", this.task)
+            .toString();
     }
+
 }
