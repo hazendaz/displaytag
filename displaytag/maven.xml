@@ -80,8 +80,8 @@
 		<echo message="deleting ${maven.war.webapp.dir}/META-INF" />
 		<delete file="${maven.war.webapp.dir}/META-INF" />
 
-		<echo message="copying ${maven.src.dir}/tld/displaytag-12.tld to dir ${maven.war.webapp.dir}/${maven.war.tld.dir}" />
-		<copy file="${maven.src.dir}/tld/displaytag-12.tld" todir="${maven.war.webapp.dir}/${maven.war.tld.dir}" />
+		<echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to dir ${maven.war.webapp.dir}/${maven.war.tld.dir}" />
+		<copy file="${maven.build.dir}/tld/displaytag-11.tld" todir="${maven.war.webapp.dir}/${maven.war.tld.dir}" />
 
 	</postGoal>
 
