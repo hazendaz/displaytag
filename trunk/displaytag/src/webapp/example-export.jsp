@@ -10,7 +10,7 @@
   <display:column property="id" title="ID"/>
   <display:column property="email" />
   <display:column property="status" />
-  <display:column property="longDescription" media="csv excel xml" title="Not On HTML"/>
+  <display:column property="longDescription" media="csv excel xml pdf" title="Not On HTML"/>
   <display:column property="date" />
   <display:column media="html" title="URL">
     <%-- n.b. that this could be done via the autolink attribute, but that rather defeats the purpose  :) --%>
@@ -23,8 +23,7 @@
 <p>
 	When you set the Table Tag's <strong>export</strong> attribute to "true", a footer will
 	appear below the table which will allow you to export the data being shown in
-	various formats, just click on the format (currently supporting CSV, Excel, and
-	a very crude XML).
+	various formats, just click on the format.
 </p>
 <p>
     If you need to change what you output based on the destination, use the <strong>media</strong> attribute of the Column Tag.

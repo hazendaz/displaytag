@@ -8,7 +8,7 @@
         <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
     </properties>
     <body>
-        <release version="1.0-rc2" date="in CVS" description="">
+        <release version="1.0-rc2" date="in CVS" description="Current development">
             <action type="fix" dev="fgiust" issue="962448">
                 getListIndex() in tableDecorator now correctly returns the index in the original list.
             </action>
@@ -22,10 +22,19 @@
             </action>
             <action type="fix" dev="fgiust" issue="1020948">NullpointerException in HeaderCell.</action>
             <action type="fix" dev="fgiust" issue="1016089">Param values not URLEncoded.</action>
-            <action type="update" dev="fgiust">
-                Exported output is now written directly when the export filter is not used.
+            <action type="update" dev="fgiust" issue="DISPL-22">
+                Exported output is now written directly (both with or without the export filter) and not buffered.
+                Decreases memory usage and increases speed.
             </action>
             <action type="fix" dev="fgiust" issue="DISPL-21">Export filter not working in WebLogic.</action>
+            <action type="add" dev="fgiust" issue="DISPL-13" due-to="Ivan Markov">
+                Export system has been reworked, allowing registration of user-defined export views. A PDF export view
+                has been added as an example (note that PDF export is not enabled by default in the distribution: you
+                need to set the
+                <code>export.pdf=true</code>
+                config parameter and include the required libraries). Public APIs for export views have changed (a new
+                interface has been added).
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
@@ -457,7 +466,7 @@
                 added 'flush="true"' to all of my jsp:includes in my examples to be more in sync with the JSP 1.1 spec.
             </action>
         </release>
-        <release version="First public alpha feedback release" date="Jan 7th, 2002">
+        <release version="0" date="Jan 7th, 2002" description="First public alpha feedback release">
             <action type="add" dev="" due-to="">No changes recorded prior to this release.</action>
         </release>
     </body>

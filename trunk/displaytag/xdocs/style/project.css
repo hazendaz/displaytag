@@ -45,7 +45,9 @@ body {
 .deprecated {
     text-decoration: line-through;
 }
-
+.comment {
+    color: green;
+}
 #menuDownloadable_docs li {
     background-image: url(../images/ico_file_pdf.png);
     padding-top: 3px;
@@ -122,7 +124,7 @@ h3 {
 }
 
 #navcolumn li {
-    margin: 0px 0 0px 4px;
+    margin: 0px 0 0px 3px;
     padding: 2px;
     list-style-position: outside;
     font-size: 7.5pt !important;

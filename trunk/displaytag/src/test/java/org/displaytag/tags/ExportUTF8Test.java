@@ -10,18 +10,18 @@ import com.meterware.httpunit.WebResponse;
 
 
 /**
- * Tests for "media" attribute support.
+ * Test for #968559.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ExportHeadersTest extends DisplaytagCase
+public class ExportUTF8Test extends DisplaytagCase
 {
 
     /**
      * Instantiates a new test case.
      * @param name test name
      */
-    public ExportHeadersTest(String name)
+    public ExportUTF8Test(String name)
     {
         super(name);
     }
@@ -31,7 +31,7 @@ public class ExportHeadersTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "media.jsp";
+        return "utf8.jsp";
     }
 
     /**
@@ -54,9 +54,10 @@ public class ExportHeadersTest extends DisplaytagCase
 
         response = runner.getResponse(request);
 
-        assertNull("Header Cache-Control not overwritten", response.getHeaderField("Cache-Control"));
-        assertNull("Header Expires not overwritten", response.getHeaderField("Expires"));
-        assertNull("Header Pragma not overwritten", response.getHeaderField("Pragma"));
+        String encoding = response.getCharacterSet();
+
+        assertEquals("Encoding is not utf-8 as expected", "utf-8", encoding);
+
     }
 
 }

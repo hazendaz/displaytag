@@ -15,7 +15,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.exception.DecoratorInstantiationException;
-import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.model.Cell;
@@ -478,9 +477,8 @@ public class ColumnTag extends BodyTagSupport
     /**
      * Tag setter.
      * @param media the space delimited list of supported types
-     * @throws InvalidTagAttributeValueException if an unknown media name is set
      */
-    public void setMedia(String media) throws InvalidTagAttributeValueException
+    public void setMedia(String media)
     {
         if (StringUtils.isBlank(media) || media.toLowerCase().indexOf("all") > -1)
         {
@@ -497,9 +495,12 @@ public class ColumnTag extends BodyTagSupport
                 MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
                 if (type == null)
                 {
-                    throw new InvalidTagAttributeValueException(getClass(), "media", value);
+                    log.warn("Unrecognized value for attribute \"media\" value=\"" + value + "\"");
                 }
-                this.supportedMedia.add(type);
+                else
+                {
+                    this.supportedMedia.add(type);
+                }
             }
         }
     }

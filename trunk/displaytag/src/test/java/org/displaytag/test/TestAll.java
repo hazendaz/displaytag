@@ -36,7 +36,6 @@ public class TestAll extends TestCase
      */
     private static Log log = LogFactory.getLog(TestAll.class);
 
-
     /**
      * Basic constructor - called by the test runners.
      * @param name test name
@@ -122,7 +121,6 @@ public class TestAll extends TestCase
         }
     }
 }
-
 
 /**
  * This class is responsible for searching a directory for class files. It builds a list of fully qualified class names

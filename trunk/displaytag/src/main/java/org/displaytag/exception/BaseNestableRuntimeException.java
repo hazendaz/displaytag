@@ -1,6 +1,5 @@
 package org.displaytag.exception;
 
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
@@ -36,7 +35,6 @@ public abstract class BaseNestableRuntimeException extends RuntimeException
 
         // log exception
         Log log = LogFactory.getLog(source);
-        log.error(toString());
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)

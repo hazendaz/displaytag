@@ -67,14 +67,13 @@
     <taglib-location>/WEB-INF/displaytag-{taglibversion}.tld</taglib-location>
 </taglib>
 ]]></source>
-
-			<p>
+<p>
 				<strong>STEP 5</strong>: <em>Optional</em>.
-				If you need to export data from an included JSP page, such 
-                    as from Struts, you should configure the ResponseOverrideFilter in your web.xml. (You do not need 
-                    the filter if you do not use exports, or if you do not use the table tag from a jsp page that is 
-                    included inside of another page.) Configure the Filter in your web.xml:
-             </p><source><![CDATA[
+Depending on your architecture, you may need to configure a filter to make export working. See the 
+<a href="export_filter.html">export filter</a> page for the details about why and when it can be needed.
+</p>
+<p>Configure the Filter in your web.xml:</p>
+             <source><![CDATA[
 <filter>
     <filter-name>ResponseOverrideFilter</filter-name> 
     <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class> 

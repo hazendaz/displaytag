@@ -1,7 +1,6 @@
 package org.displaytag.tags;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -12,7 +11,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -67,26 +65,13 @@ public class TableTag extends HtmlTableTag
      * name of the attribute added to page scope when exporting, containing an MediaTypeEnum this can be used in column
      * content to detect the output type and to return different data when exporting.
      */
-    public static final String PAGE_ATTRIBUTE_MEDIA = "mediaType";
+    public static final String PAGE_ATTRIBUTE_MEDIA = "mediaType"; //$NON-NLS-1$
 
     /**
-     * If this buffer has been appended to at all, the contents of the buffer will be served as the sole output of the
-     * request. Request variable.
+     * If this variable is found in the request, assume the export filter is enabled.
      */
     public static final String FILTER_CONTENT_OVERRIDE_BODY = //
-    "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY";
-
-    /**
-     * If the request content is overriden, you must also set the content type appropriately. Request variable.
-     */
-    public static final String FILTER_CONTENT_OVERRIDE_TYPE = //
-    "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE";
-
-    /**
-     * If the filename is specified, there will be a supplied filename. Request variable.
-     */
-    public static final String FILTER_CONTENT_OVERRIDE_FILENAME = //
-    "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_FILENAME";
+    "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY"; //$NON-NLS-1$
 
     /**
      * D1597A17A6.
@@ -304,7 +289,7 @@ public class TableTag extends HtmlTableTag
         }
         else
         {
-            throw new InvalidTagAttributeValueException(getClass(), "sort", value);
+            throw new InvalidTagAttributeValueException(getClass(), "sort", value); //$NON-NLS-1$
         }
     }
 
@@ -390,7 +375,7 @@ public class TableTag extends HtmlTableTag
         this.defaultSortOrder = SortOrderEnum.fromName(value);
         if (this.defaultSortOrder == null)
         {
-            throw new InvalidTagAttributeValueException(getClass(), "defaultorder", value);
+            throw new InvalidTagAttributeValueException(getClass(), "defaultorder", value); //$NON-NLS-1$
         }
     }
 
@@ -543,6 +528,9 @@ public class TableTag extends HtmlTableTag
     public int doStartTag() throws JspException
     {
         DependencyChecker.check();
+
+        // needed before column processing, elsewhere registered views will not be added
+        ExportViewFactory.getInstance();
 
         if (log.isDebugEnabled())
         {
@@ -766,7 +754,7 @@ public class TableTag extends HtmlTableTag
         // append scope
         if (StringUtils.isNotBlank(this.scope))
         {
-            fullName.append(this.scope).append("Scope.");
+            fullName.append(this.scope).append("Scope."); //$NON-NLS-1$
         }
 
         // base bean name
@@ -980,7 +968,7 @@ public class TableTag extends HtmlTableTag
                 String propertyName = (String) propertiesIterator.next();
 
                 // dont't want to add the standard "class" property
-                if (!"class".equals(propertyName))
+                if (!"class".equals(propertyName)) //$NON-NLS-1$
                 {
                     // creates a new header and add to the table model
                     HeaderCell headerCell = new HeaderCell();
@@ -1009,7 +997,7 @@ public class TableTag extends HtmlTableTag
         boolean exportHeader = this.properties.getExportHeader(this.currentMediaType);
         boolean exportDecorated = this.properties.getExportDecorated();
 
-        ExportView exportView = ExportViewFactory.getView(
+        ExportView exportView = ExportViewFactory.getInstance().getView(
             this.currentMediaType,
             this.tableModel,
             exportFullList,
@@ -1035,96 +1023,70 @@ public class TableTag extends HtmlTableTag
 
         HttpServletResponse response = (HttpServletResponse) this.pageContext.getResponse();
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
-        StringBuffer bodyBuffer = (StringBuffer) request.getAttribute(FILTER_CONTENT_OVERRIDE_BODY);
 
-        if (bodyBuffer != null)
+        // the FILTER_CONTENT_OVERRIDE_BODY object is now used simply as a marker
+        boolean usingFilter = (request.getAttribute(FILTER_CONTENT_OVERRIDE_BODY) != null);
+
+        // original encoding, be sure to add it back after reset()
+        String characterEncoding = response.getCharacterEncoding();
+
+        if (characterEncoding != null)
         {
-            // We are running under the export filter
-            StringBuffer contentTypeOverride = (StringBuffer) request.getAttribute(FILTER_CONTENT_OVERRIDE_TYPE);
-            contentTypeOverride.append(mimeType);
+            characterEncoding = "; charset=" + characterEncoding; //$NON-NLS-1$
+        }
 
-            StringWriter writer = new StringWriter();
+        if (usingFilter)
+        {
+            // We are running under the export filter, call it
+            log.debug("Exportfilter enabled, setting header");
+            response.addHeader(TableTagParameters.PARAMETER_EXPORTING, TagConstants.EMPTY_STRING);
+        }
+        else
+        {
+            log.debug("Exportfilter NOT enabled");
+            // response can't be already committed at this time
+            if (response.isCommitted())
+            {
+                throw new ExportException(getClass());
+            }
 
             try
             {
-                exportView.doExport(writer);
+                response.reset();
+                pageContext.getOut().clearBuffer();
             }
-            catch (IOException e)
+            catch (Exception e)
             {
-                throw new NestableRuntimeException(e);
+                throw new ExportException(getClass());
             }
-
-            bodyBuffer.append(writer.toString());
-
-            if (StringUtils.isNotEmpty(filename))
-            {
-                StringBuffer filenameOverride = (StringBuffer) request.getAttribute(FILTER_CONTENT_OVERRIDE_FILENAME);
-                filenameOverride.append(filename);
-            }
-
         }
 
-        // response can't be already committed at this time
-        if (response.isCommitted())
+        if (mimeType.indexOf("charset") > -1) //$NON-NLS-1$
         {
-            throw new ExportException(getClass());
+            // charset is already specified (see #921811)
+            response.setContentType(mimeType);
         }
-
-        JspWriter out = this.pageContext.getOut();
-
-        try
+        else
         {
-            out.clear();
+            response.setContentType(mimeType + StringUtils.defaultString(characterEncoding));
         }
-        catch (Exception e)
-        {
-            throw new ExportException(getClass());
-        }
-
-        allowCache(response);
-
-        response.setContentType(mimeType);
 
         if (StringUtils.isNotEmpty(filename))
         {
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+            response.setHeader("Content-Disposition", //$NON-NLS-1$
+                "attachment; filename=\"" + filename + "\""); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         try
         {
-            exportView.doExport(out);
+            exportView.doExport(response.getWriter());
+            log.debug("Export completed");
         }
         catch (IOException e)
         {
-            throw new NestableRuntimeException("IOException while writing data.", e);
+            throw new NestableRuntimeException(e);
         }
-    }
 
-    /**
-     * Set up headers to allow caching of exported file.
-     * @param response HttpServletResponse
-     */
-    private void allowCache(HttpServletResponse response)
-    {
-        // if cache is disabled using http header, export will not work.
-        // Try to remove bad headers overwriting them, since there is no way to remove a single header and reset()
-        // could remove other "useful" headers like content encoding
-        if (response.containsHeader("Cache-Control"))
-        {
-            response.setHeader("Cache-Control", "public");
-        }
-        if (response.containsHeader("Expires"))
-        {
-            response.setHeader("Expires", "Thu, 01 Dec 2069 16:00:00 GMT");
-        }
-        if (response.containsHeader("Pragma"))
-        {
-            // Pragma: no-cache
-            // http 1.0 equivalent of Cache-Control: no-cache
-            // there is no "Cache-Control: public" equivalent, so just try to set it to an empty String (note
-            // this is NOT a valid header)
-            response.setHeader("Pragma", "");
-        }
     }
 
     /**
@@ -1586,9 +1548,7 @@ public class TableTag extends HtmlTableTag
      */
     private String getExportLinks()
     {
-
         // Figure out what formats they want to export, make up a little string
-
         Href exportHref = new Href(this.baseHref);
 
         StringBuffer buffer = new StringBuffer();
@@ -1609,6 +1569,8 @@ public class TableTag extends HtmlTableTag
 
                 exportHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE), currentExportType
                     .getCode());
+
+                // export marker
                 exportHref.addParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
                 Anchor anchor = new Anchor(exportHref, this.properties.getExportLabel(currentExportType));

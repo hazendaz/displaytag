@@ -93,6 +93,30 @@
       </table>
       </subsection>
       
+      <subsection name="Optional">
+      <table>
+        <thead>
+        <tr>
+          <th colspan="2">Artifact ID</th> 
+          <th>Type</th>              
+          <th>Version</th>
+          <th colspan="4">URL/comments</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+          <td colspan="2">itext</td>
+          <td>jar</td>
+          <td>0.99</td>
+          <td colspan="4">
+             <a href="http://prdownloads.sourceforge.net/itext/">
+                http://prdownloads.sourceforge.net/itext/</a>
+                Needed at build time to compile classes for the PDF export. Needed at runtime to enable PDF export.
+          </td>
+         </tr>
+        </tbody>
+      </table>
+      </subsection>
       
       <subsection name="Only required to build or to run unit tests">
       <table>
@@ -128,7 +152,7 @@
          <tr>
           <td colspan="2">maven-taglib-plugin</td>
           <td>plugin</td>
-          <td>1.0</td>
+          <td>1.2</td>
           <td colspan="4">
               <a href="http://maven-taglib.sourceforge.net">http://maven-taglib.sourceforge.net</a>
               maven plugin needed to generate tag reference documentation page and to generate the 1.1 version of the tld
@@ -145,7 +169,7 @@
          <tr>
           <td colspan="2">httpunit</td>
           <td>jar</td>
-          <td>1.5.4</td>
+          <td>1.6</td>
           <td colspan="4">
               <a href="http://httpunit.sourceforge.net">http://httpunit.sourceforge.net</a>
               Needed to compile and run HttpUnit tests.
@@ -163,7 +187,7 @@
          <tr>
           <td colspan="2">nekohtml</td>
           <td>jar</td>
-          <td>0.8.1</td>
+          <td>0.9.1</td>
           <td colspan="4">Needed to run HttpUnit tests.</td>
          </tr>
          <tr>

@@ -299,6 +299,9 @@ span.csv {
 span.xml {
 	background-image: url(../img/ico_file_xml.png);
 }
+span.pdf {
+	background-image: url(../img/ico_file_pdf.png);
+}
 
 span.pagebanner {
 	background-color: #eee;
