@@ -15,7 +15,7 @@
 
 ]]></source>
 
-      <img src="images/tut_basic.png" width="402" heigth="137" alt="basic table" />
+      <img src="images/tut_basic.png" width="402" height="137" alt="basic table" />
       
       <p>
         The simplest possible usage of the table tag is to point the table tag at a java.util.List 
@@ -47,7 +47,7 @@
 
 ]]></source>
 
-    <img src="images/tut_columns.png" width="566" heigth="214" alt="table - columns" />
+    <img src="images/tut_columns.png" width="566" height="214" alt="table - columns" />
     
     <p>
       This example starts to show you how to use the table tag.  You point the table tag at
