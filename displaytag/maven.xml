@@ -2,7 +2,7 @@
 <project default="rebuild-all" xmlns:m="maven" xmlns:j="jelly:core" xmlns:u="jelly:util">
 
 	<goal name="rebuild-all">
-		<j:set var="goals" value="clean,jar:jar,war:war,cactus,site:generate" />
+		<j:set var="goals" value="clean,jar:jar,war:war,site:generate" />
 		<mkdir dir="${maven.build.dir}" />
 		<u:tokenize var="goals" delim=",">${goals}</u:tokenize>
 		<j:forEach items="${goals}" var="goal" indexVar="goalNumber">
@@ -85,7 +85,40 @@
 
 	</postGoal>
 
+    <!-- prepares the source zip file for distribution -->
+    <goal name="zip-sources">
+        
+        <mkdir dir="${maven.build.dir}/dist" />
+        
+        <zip destfile="${maven.build.dir}/dist/${pom.artifactId}-${pom.currentVersion}-src.zip">
+             <zipfileset dir="${maven.base.dir}" 
+             includes="src/**/*.*,xdocs/**/*.*,*.xml,LICENSE.txt,*.properties*" 
+             />
+        </zip>
+    </goal>
+    
+    <!-- prepares the binaries zipped file for the distribution -->
+    <goal name="zip-binaries">
+        
+        <mkdir dir="${maven.build.dir}/dist" />
+        
+        <zip destfile="${maven.build.dir}/dist/${pom.artifactId}-${pom.currentVersion}.zip">
+             <zipfileset dir="${maven.build.dir}" 
+             includes="${pom.artifactId}-${pom.currentVersion}.jar,${pom.artifactId}.war,docs/**/*.*" 
+             />
+             <zipfileset dir="${maven.build.dir}/tld" 
+             includes="*.tld" 
+             />
+             <zipfileset dir="${maven.base.dir}" 
+             includes="LICENSE.txt" 
+             />
+        </zip>
+    </goal>
 
-
+    <!-- prepares both the binary and source file for distribution -->
+    <goal name="zip-distribution">
+        <attainGoal name="zip-sources" />
+        <attainGoal name="zip-binaries" />    
+    </goal>
 
 </project>

@@ -6,7 +6,7 @@
   <groupId>displaytag</groupId>
   <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
-  <currentVersion>1.0-b2-SNAPSHOT</currentVersion>
+  <currentVersion>1.0-b2</currentVersion>
 
   <organization>
     <name>sourceforge</name>
@@ -229,6 +229,7 @@
     <report>maven-junit-report-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-junit-report-plugin</report>
+    <!--<report>maven-cactus-plugin</report>-->
     <report>maven-tasklist-plugin</report>
     <report>maven-simian-plugin</report>
     <report>maven-changelog-plugin</report>

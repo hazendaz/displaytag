@@ -26,12 +26,12 @@ import java.util.Arrays;
 
 /**
  * <p>
- * This tag works hand in hand with the TableTag to display a list of objects.  This describes a column of data in the
- * TableTag.  There can be any number of columns that make up the list.
+ * This tag works hand in hand with the TableTag to display a list of objects. This describes a column of data in the
+ * TableTag. There can be any number of columns that make up the list.
  * </p>
  * <p>
- * This tag does no work itself, it is simply a container of information.  The TableTag does all the work based on
- * the information provided in the attributes of this tag.
+ * This tag does no work itself, it is simply a container of information. The TableTag does all the work based on the
+ * information provided in the attributes of this tag.
  * <p>
  * @author mraible
  * @version $Revision$ ($Author$)
@@ -41,7 +41,7 @@ public class ColumnTag extends BodyTagSupport
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(ColumnTag.class);
+    private static Log log = LogFactory.getLog(ColumnTag.class);
 
     /**
      * html pass-through attributes for cells
@@ -54,21 +54,21 @@ public class ColumnTag extends BodyTagSupport
     private HtmlAttributeMap headerAttributeMap = new HtmlAttributeMap();
 
     /**
-     * the property method that is called to retrieve the information to be displayed in this column.
-     * This method is called on the current object in the iteration for the given row.
-     * The property format is in typical struts format for properties (required)
+     * the property method that is called to retrieve the information to be displayed in this column. This method is
+     * called on the current object in the iteration for the given row. The property format is in typical struts format
+     * for properties (required)
      */
     private String property;
 
     /**
-     * the title displayed for this column.  if this is omitted then the property name is used
-     * for the title of the column (optional)
+     * the title displayed for this column. if this is omitted then the property name is used for the title of the
+     * column (optional)
      */
     private String title;
 
     /**
-     * by default, null values don't appear in the list, by setting viewNulls to 'true', then
-     * null values will appear as "null" in the list (mostly useful for debugging) (optional)
+     * by default, null values don't appear in the list, by setting viewNulls to 'true', then null values will appear
+     * as "null" in the list (mostly useful for debugging) (optional)
      */
     private boolean nulls;
 
@@ -78,77 +78,76 @@ public class ColumnTag extends BodyTagSupport
     private boolean sortable;
 
     /**
-     * if set to true, then any email addresses and URLs found in the content of the column are
-     * automatically converted into a hypertext link.
+     * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
+     * into a hypertext link.
      */
     private boolean autolink;
 
     /**
-     * the grouping level (starting at 1 and incrementing) of this column (indicates if successive
-     * contain the same values, then they should not be displayed).  The level indicates that if a
-     * lower level no longer matches, then the matching for this higher level should start over as
-     * well. If this attribute is not included, then no grouping is performed. (optional)
+     * the grouping level (starting at 1 and incrementing) of this column (indicates if successive contain the same
+     * values, then they should not be displayed). The level indicates that if a lower level no longer matches, then
+     * the matching for this higher level should start over as well. If this attribute is not included, then no
+     * grouping is performed. (optional)
      */
     private int group = -1;
 
     /**
-     * if this attribute is provided, then the data that is shown for this column is wrapped inside
-     * a &lt;a href&gt; tag with the url provided through this attribute. Typically you would use
-     * this attribute along with one of the struts-like param attributes below to create a dynamic
-     * link so that each row creates a different URL based on the data that is being viewed. (optional)
+     * if this attribute is provided, then the data that is shown for this column is wrapped inside a &lt;a href&gt;
+     * tag with the url provided through this attribute. Typically you would use this attribute along with one of the
+     * struts-like param attributes below to create a dynamic link so that each row creates a different URL based on
+     * the data that is being viewed. (optional)
      */
     private Href href;
 
     /**
-     * The name of the request parameter that will be dynamically added to the generated href URL.
-     * The corresponding value is defined by the paramProperty and (optional) paramName attributes,
-     * optionally scoped by the paramScope attribute. (optional)
+     * The name of the request parameter that will be dynamically added to the generated href URL. The corresponding
+     * value is defined by the paramProperty and (optional) paramName attributes, optionally scoped by the paramScope
+     * attribute. (optional)
      */
     private String paramId;
 
     /**
-     * The name of a JSP bean that is a String containing the value for the request parameter named
-     * by paramId (if paramProperty is not specified), or a JSP bean whose property getter is called
-     * to return a String (if paramProperty is specified). The JSP bean is constrained to the bean
-     * scope specified by the paramScope property, if it is specified. If paramName is omitted, then
-     * it is assumed that the current object being iterated on is the target bean. (optional)
+     * The name of a JSP bean that is a String containing the value for the request parameter named by paramId (if
+     * paramProperty is not specified), or a JSP bean whose property getter is called to return a String (if
+     * paramProperty is specified). The JSP bean is constrained to the bean scope specified by the paramScope property,
+     * if it is specified. If paramName is omitted, then it is assumed that the current object being iterated on is the
+     * target bean. (optional)
      */
     private String paramName;
 
     /**
-     * The name of a property of the bean specified by the paramName attribute (or the current object
-     * being iterated on if paramName is not provided), whose return value must be a String containing
-     * the value of the request parameter (named by the paramId attribute) that will be dynamically
-     * added to this href URL. (optional)
+     * The name of a property of the bean specified by the paramName attribute (or the current object being iterated on
+     * if paramName is not provided), whose return value must be a String containing the value of the request parameter
+     * (named by the paramId attribute) that will be dynamically added to this href URL. (optional)
      * @deprecated use Expressions in paramName
      */
     private String paramProperty;
 
     /**
-     * The scope within which to search for the bean specified by the paramName attribute. If not
-     * specified, all scopes are searched. If paramName is not provided, then the current object
-     * being iterated on is assumed to be the target bean. (optional)
+     * The scope within which to search for the bean specified by the paramName attribute. If not specified, all scopes
+     * are searched. If paramName is not provided, then the current object being iterated on is assumed to be the
+     * target bean. (optional)
      * @deprecated use Expressions in paramName
      */
     private String paramScope;
 
     /**
-     * If this attribute is provided, then the column's displayed is limited to this number of
-     * characters.  An elipse (...) is appended to the end if this column is linked, and the user
-     * can mouseover the elipse to get the full text. (optional)
+     * If this attribute is provided, then the column's displayed is limited to this number of characters. An elipse
+     * (...) is appended to the end if this column is linked, and the user can mouseover the elipse to get the full
+     * text. (optional)
      */
     private int maxLength;
 
     /**
-     * If this attribute is provided, then the column's displayed is limited to this number of words.
-     * An elipse (...) is appended to the end if this column is linked, and the user can mouseover
-     * the elipse to get the full text. (optional)
+     * If this attribute is provided, then the column's displayed is limited to this number of words. An elipse (...)
+     * is appended to the end if this column is linked, and the user can mouseover the elipse to get the full text.
+     * (optional)
      */
     private int maxWords;
 
     /**
-     * a class that should be used to "decorate" the underlying object being displayed. If a decorator
-     * is specified for the entire table, then this decorator will decorate that decorator. (optional)
+     * a class that should be used to "decorate" the underlying object being displayed. If a decorator is specified for
+     * the entire table, then this decorator will decorate that decorator. (optional)
      */
     private String decorator;
 
@@ -239,7 +238,7 @@ public class ColumnTag extends BodyTagSupport
         catch (NumberFormatException e)
         {
             // ignore?
-            mLog.warn("Invalid \"group\" attribute: value=\"" + value + "\"");
+            log.warn("Invalid \"group\" attribute: value=\"" + value + "\"");
         }
     }
 
@@ -473,8 +472,10 @@ public class ColumnTag extends BodyTagSupport
             {
                 MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
                 if (type == null)
-                {   // Should be in a tag validator..
-                    String msg = "Unknown media type \"" + value
+                { // Should be in a tag validator..
+                    String msg =
+                        "Unknown media type \""
+                            + value
                             + "\"; media must be one or more values, space separated."
                             + " Possible values are:";
                     for (int j = 0; j < MediaTypeEnum.ALL.length; j++)
@@ -489,26 +490,26 @@ public class ColumnTag extends BodyTagSupport
         }
     }
 
-
     /**
      * Passes attribute information up to the parent TableTag.
-     *
-     * <p>When we hit the end of the tag, we simply let our parent (which better
-     * be a TableTag) know what the user wants to do with this column.
-     * We do that by simple registering this tag with the parent.  This tag's
-     * only job is to hold the configuration information to describe this
-     * particular column.  The TableTag does all the work.</p>
-     *
+     * <p>
+     * When we hit the end of the tag, we simply let our parent (which better be a TableTag) know what the user wants
+     * to do with this column. We do that by simple registering this tag with the parent. This tag's only job is to
+     * hold the configuration information to describe this particular column. The TableTag does all the work.
+     * </p>
      * @return int
-     * @throws JspException if this tag is being used outside of a
-     *    &lt;display:list...&gt; tag.
+     * @throws JspException if this tag is being used outside of a &lt;display:list...&gt; tag.
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
-     **/
+     */
     public int doEndTag() throws JspException
     {
-        MediaTypeEnum currentMediaType = (MediaTypeEnum) pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_EXPORT);
-        if (!availableForMedia(currentMediaType))
+        MediaTypeEnum currentMediaType = (MediaTypeEnum) pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
+        if (currentMediaType != null && !availableForMedia(currentMediaType))
         {
+            if (log.isDebugEnabled())
+            {
+                log.debug("skipping column body, currentMediaType=" + currentMediaType);
+            }
             return SKIP_BODY;
         }
 
@@ -517,7 +518,6 @@ public class ColumnTag extends BodyTagSupport
         // add column header only once
         if (tableTag.isFirstIteration())
         {
-
             HeaderCell headerCell = new HeaderCell();
             headerCell.setHeaderAttributes((HtmlAttributeMap) headerAttributeMap.clone());
             headerCell.setHtmlAttributes((HtmlAttributeMap) attributeMap.clone());
@@ -534,7 +534,6 @@ public class ColumnTag extends BodyTagSupport
             // href and parameter, create link
             if (href != null && paramId != null)
             {
-
                 Href colHref = new Href(href);
 
                 // parameter value is in a different object than the iterated one
@@ -593,7 +592,10 @@ public class ColumnTag extends BodyTagSupport
             }
 
             tableTag.addColumn(headerCell);
-            mLog.debug("columnTag.doEndTag() :: first iteration - adding header" + headerCell);
+            if (log.isDebugEnabled())
+            {
+                log.debug("columnTag.doEndTag() :: first iteration - adding header " + headerCell);
+            }
         }
 
         Cell cell;
@@ -677,7 +679,7 @@ public class ColumnTag extends BodyTagSupport
         }
         else
         {
-            MediaTypeEnum currentMediaType = (MediaTypeEnum) pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_EXPORT);
+            MediaTypeEnum currentMediaType = (MediaTypeEnum) pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
             if (!availableForMedia(currentMediaType))
             {
                 return SKIP_BODY;

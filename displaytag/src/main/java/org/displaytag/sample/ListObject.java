@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * Just a test class that returns columns of data that are useful for testing
@@ -303,7 +305,17 @@ public class ListObject extends Object
         {
             return email;
         }
-
+        
+        /**
+         * @see java.lang.Object#toString()
+         */
+        public String toString()
+        {
+            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("name", this.name)
+            .append("email", this.email)
+            .toString();
+        }
     }
 
 }

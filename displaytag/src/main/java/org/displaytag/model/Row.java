@@ -158,9 +158,9 @@ public class Row
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("rowObject", this.rowObject)
+        return new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
             .append("rowNumber", this.rowNumber)
+            .append("rowObject", this.rowObject)
             .toString();
     }
 }

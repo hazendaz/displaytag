@@ -10,7 +10,7 @@
 
   <body>
 
-    <release version="1.0-b2" date="in CVS" description="b2 is mainly focused on stabilizing the new library and fixing reported bugs">
+    <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
       <action type="fix" dev="fgiust" due-to="Fabrizio Giustina">
       fixed <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=73068&amp;atid=536613&amp;aid=814470">[814470]</a>: Invalid xhtml if empty list
       </action>
