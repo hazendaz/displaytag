@@ -85,7 +85,7 @@ public class Href
 
                     // encode name/value to prevent css
                     String escapedKey = StringEscapeUtils.escapeHtml(keyValue[0]);
-                    String escapedValue = StringEscapeUtils.escapeHtml(keyValue.length > 1 ? keyValue[1] : "");
+                    String escapedValue = keyValue.length > 1 ? StringEscapeUtils.escapeHtml(keyValue[1]) : "";
 
                     if (!this.parameters.containsKey(escapedKey))
                     {
