@@ -65,6 +65,4 @@ public class TotalWrapper extends TableDecorator
 
       return sb.toString();
    }
-
-
 }

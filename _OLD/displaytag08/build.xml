@@ -14,7 +14,7 @@
 <project name="display" default="main">
 
    <!-- Need to look into this one, if I don't disable the build fails -->
-   <property name="disable.examples.html" value="true"/>
+   <!--property name="disable.examples.html" value="false"/-->
 
    <!-- Setup the classpath with the jars the user has provided -->
 
@@ -83,13 +83,7 @@
    <!-- Target I typically call during development which builds the tag and -->
    <!-- war files, and then redeploys them to my server                     -->
 
-   <target name="cycle" depends="dist">
-      <!--
-      <copy todir="C:/JRun/servers/default/deploy" file="dist/display-examples.war"/>
-      <copy todir="C:/JRun/servers/default/deploy" file="dist/display-doc.war"/>
-      -->
-      <antcall target="site" />
-
+   <target name="cycle" depends="dist,site">
       <copy tofile="${env.CATALINA_HOME}/webapps/display-examples-${version}.war" file="dist/display-examples.war"/>
       <copy tofile="${env.CATALINA_HOME}/webapps/display-docs-${version}.war" file="dist/display-doc.war"/>
       <copy tofile="${env.CATALINA_HOME}/webapps/display-${version}.war" file="dist/display-site.war"/>
@@ -120,7 +114,7 @@
       </copy>
 
       <jar jarfile="${dist.dir}/${taglib.name}-site.war"
-         basedir="${build.dir}//${taglib.name}-site" />
+         basedir="${build.dir}/${taglib.name}-site" />
    </target>
 
     <!-- =================================================================== -->
@@ -135,10 +129,8 @@
                 <patternset id="srcfiles">
                     <!-- Exclude files that might be left over by various editors --> 
                     <exclude name="**/*.log"/>
-                    <exclude name="**/*.old"/>
                     <exclude name="**/*.bak"/>
                     <exclude name="**/*.*~"/>
-                    <exclude name="**/*.java.txt"/>
                     <!-- Exclude any old version of files removed by CVS -->
                     <exclude name="**/.#**"/>                    
                     <!-- Exclude build directory -->

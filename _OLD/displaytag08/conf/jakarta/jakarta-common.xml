@@ -181,7 +181,8 @@
   </target>
 
   <!-- Generates example html files from the escaped txt files -->
-  <target name="examples.html" unless="disable.examples.html">
+  <target name="examples.html" unless="disable.examples.html" 
+    description="Generates example .html files from the escaped .txt files">
     <!-- now format the .txt files as an xml file -->
     <replace dir="${build.examples}">
       <include name="**/*.txt"/>
@@ -201,11 +202,16 @@
     <style basedir="${build.examples}"
            destdir="${build.examples}"
            includes="**/*.txt"
+           excludes="**/*.java.txt"
            style="_tmp_examples.xsl"/>
     <!-- delete the temporary text files -->
     <delete>                   
       <fileset dir="${build.examples}" includes="**/*.txt, _tmp_examples.xsl"/>
     </delete>
+    <!-- copy java.txt examples to build directory -->
+    <copy todir="${build.examples}">
+        <fileset dir="${examples.src}/web" includes="*.java.txt"/>
+    </copy>
   </target>
 
   <!-- =================================================================== -->

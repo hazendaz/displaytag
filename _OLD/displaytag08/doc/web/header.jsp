@@ -31,7 +31,7 @@
 					<td width="100%"><font size="+2" color="#000000"><b> </b></font>
 						<table width="100%" border="0" cellspacing="0" cellpadding="9">
 							<tr>
-								<td><span class="header"><a href="/display-0.8/" style="color:Black; text-decoration:none">
+								<td><span class="header"><a href="/display-@version@/" style="color:Black; text-decoration:none">
 						The &lt;display:*&gt; tag library
 						</a> </span><br>
                   <a href="/display-@version@/">Overview</a><span class="menupipe"> | </span>
