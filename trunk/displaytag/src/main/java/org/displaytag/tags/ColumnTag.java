@@ -623,11 +623,6 @@ public class ColumnTag extends BodyTagSupport
 
         TableTag lTableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
-        if (lTableTag == null)
-        {
-            throw new TagStructureException(getClass(), "column", "table");
-        }
-
         // add column header only once
         if (lTableTag.isFirstIteration())
         {
@@ -733,6 +728,11 @@ public class ColumnTag extends BodyTagSupport
 
                 lCellValue = lValue;
             }
+            // BodyContent will be null if the body was not eval'd, eg an empty list.
+            else if ( lTableTag.getViewableData().isEmpty()  )
+            {
+                lCellValue = Cell.EMPTY_CELL;
+            }
             else
             {
                 throw new MissingAttributeException(
@@ -790,7 +790,21 @@ public class ColumnTag extends BodyTagSupport
      */
     public int doStartTag() throws JspException
     {
-        return super.doStartTag();
+        TableTag lTableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        if (lTableTag == null)
+        {
+            throw new TagStructureException(getClass(), "column", "table");
+        }
+
+        // If the list is empty, do not execute the body; may result in NPE
+        if ( lTableTag.getViewableData().isEmpty() )
+        {
+            return SKIP_BODY;
+        }
+        else
+        {
+            return super.doStartTag();
+        }
     }
 
 }
