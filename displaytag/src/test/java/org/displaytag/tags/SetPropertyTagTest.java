@@ -1,7 +1,5 @@
 package org.displaytag.tags;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -12,16 +10,11 @@ import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for SetProperty tag.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class SetPropertyTagTest extends DisplaytagCase
 {
-
-    /**
-     * logger.
-     */
-    private static Log log = LogFactory.getLog(SetPropertyTagTest.class);
 
     /**
      * Instantiates a new test case.

@@ -5,7 +5,7 @@ import org.displaytag.tags.MediaSupportTest;
 
 /**
  * Tests for "media" attribute.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ELMediaSupportTest extends MediaSupportTest

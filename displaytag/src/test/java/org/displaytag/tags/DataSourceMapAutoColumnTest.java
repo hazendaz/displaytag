@@ -1,8 +1,6 @@
 package org.displaytag.tags;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 
@@ -14,16 +12,11 @@ import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for different kind of "data sources".
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class DataSourceMapAutoColumnTest extends DisplaytagCase
 {
-
-    /**
-     * logger.
-     */
-    private static Log log = LogFactory.getLog(DataSourceMapAutoColumnTest.class);
 
     /**
      * Instantiates a new test case.

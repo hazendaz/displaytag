@@ -5,7 +5,7 @@ import org.displaytag.tags.FooterTagTest;
 
 /**
  * Tests for table footer.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ELFooterTagTest extends FooterTagTest

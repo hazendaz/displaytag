@@ -3,10 +3,9 @@ package org.displaytag.tags.el;
 import org.displaytag.tags.PaginationTest;
 
 
-
 /**
  * Tests for pagination.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ELPaginationTagTest extends PaginationTest
