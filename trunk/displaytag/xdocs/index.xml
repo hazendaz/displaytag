@@ -18,7 +18,7 @@
 
 		<section name="What can I do with it?">
 			<p>
-				Actually the display tag library can just... displaying tables! Give it a list of objects ant it will
+				Actually the display tag library can just... display tables! Give it a list of objects ant it will
 				handle displaying of columns, sorting, paging, cropping, grouping, exporting, smart linking and
 				decoration of the table in a nice and customizable xhtml style.
 			</p>

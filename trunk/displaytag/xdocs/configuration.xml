@@ -22,7 +22,7 @@
           For the whole web application, creating a custom propertes file and loading it using the
           <code>DisplayPropertiesLoaderServlet</code>
           included in the library jar.
-          <a href="/apidocs/org/displaytag/properties/apidocs/DisplayPropertiesLoaderServlet.html">See javadoc</a>
+          <a href="./apidocs/org/displaytag/properties/DisplayPropertiesLoaderServlet.html">See javadoc</a>
           for configuration details
         </li>
         <li>For a single table instance, using the &lt;display:setProperty> tag</li>
@@ -40,7 +40,7 @@
 
           <tr>
             <td>basic.show.header</td>
-            <td>true</td>
+            <td class="source">true</td>
             <td>true, false</td>
             <td>
               Indicates if you want the header to appear at the top of the table, the header contains the column names,
@@ -50,7 +50,7 @@
 
           <tr>
             <td>basic.msg.empty_list</td>
-            <td>Nothing found to display</td>
+            <td class="source">Nothing found to display</td>
             <td>Any string</td>
             <td>
               The message that is displayed with the list that this table is associated with is either null, or empty
@@ -59,7 +59,7 @@
 
           <tr>
             <td>export.banner</td>
-            <td>&lt;div class="exportlinks">Export options: {0}&lt;/div></td>
+            <td class="source">&lt;div class="exportlinks">Export options: {0}&lt;/div></td>
             <td>Any string in a message format with 1 placeholder</td>
             <td>
               Contains the string that is displayed in the table footer when the user indicates that they want to
@@ -70,28 +70,28 @@
 
           <tr>
             <td>export.banner.sepchar</td>
-            <td>|</td>
+            <td class="source">|</td>
             <td>Any string</td>
             <td>Used to seperate the valid export type (typically would be a bar a comma, or a dash).</td>
           </tr>
 
           <tr>
             <td>export.csv</td>
-            <td>true</td>
+            <td class="source">true</td>
             <td>true, false</td>
             <td>Should the tag present the option to export data in comma separated format (csv).</td>
           </tr>
 
           <tr>
             <td>export.csv.label</td>
-            <td>&lt;span class="export csv">CSV &lt;/span></td>
+            <td class="source">&lt;span class="export csv">CSV &lt;/span></td>
             <td>Any string</td>
             <td>The label on the link that the user clicks on to export the data in CSV format.</td>
           </tr>
 
           <tr>
             <td>export.csv.include_header</td>
-            <td>false</td>
+            <td class="source">false</td>
             <td>true, false</td>
             <td>
               If set to true, then the first line of the export will contain the column titles as displayed on the HTML
@@ -101,21 +101,21 @@
 
           <tr>
             <td>export.excel</td>
-            <td>true</td>
+            <td class="source">true</td>
             <td>true, false</td>
             <td>Should the tag present the option to export data in Excel format (tab seperated values)</td>
           </tr>
 
           <tr>
             <td>export.excel.label</td>
-            <td>&lt;span class="export excel">Excel &lt;/span></td>
+            <td class="source">&lt;span class="export excel">Excel &lt;/span></td>
             <td>Any string</td>
             <td>The label on the link that the user clicks on to export the data in Excel format</td>
           </tr>
 
           <tr>
             <td>export.excel.include_header</td>
-            <td>false</td>
+            <td class="source">false</td>
             <td>true, false</td>
             <td>
               If set to true, then the first line of the export will contain the column titles as displayed on the HTML
@@ -125,21 +125,21 @@
 
           <tr>
             <td>export.xml</td>
-            <td>true</td>
+            <td class="source">true</td>
             <td>true, false</td>
             <td>Should the tag present the option to export data in XML format</td>
           </tr>
 
           <tr>
             <td>export.xml.label</td>
-            <td>&lt;span class="export xml">XML &lt;/span></td>
+            <td class="source">&lt;span class="export xml">XML &lt;/span></td>
             <td>Any string</td>
             <td>The label on the link that the user clicks on to export the data in XML format</td>
           </tr>
 
           <tr>
             <td>export.amount</td>
-            <td>list</td>
+            <td class="source">list</td>
             <td>page, list</td>
             <td>
               Indicates how much data should be sent down to the user when they ask for a data export. By default, it
@@ -150,7 +150,7 @@
 
           <tr>
             <td>export.decorated</td>
-            <td>true</td>
+            <td class="source">true</td>
             <td>true, false</td>
             <td>
               Should the data be "decorated" as it is exported. The default value is true, but you might want to turn
@@ -160,7 +160,7 @@
 
           <tr>
             <td>paging.banner.placement</td>
-            <td>top</td>
+            <td class="source">top</td>
             <td>top, bottom, both</td>
             <td>
               When the table tag has to show the header for paging through a long list, this option indicates where
@@ -170,21 +170,21 @@
 
           <tr>
             <td>paging.banner.item_name</td>
-            <td>item</td>
+            <td class="source">item</td>
             <td>Any string</td>
             <td>What the various objects in the list being displayed should be refered to as (singular)</td>
           </tr>
 
           <tr>
             <td>paging.banner.items_name</td>
-            <td>items</td>
+            <td class="source">items</td>
             <td>Any string</td>
             <td>What the various objects in the list being displayed should be refered to as (plural)</td>
           </tr>
 
           <tr>
             <td>paging.banner.no_items_found</td>
-            <td>&lt;span class="pagebanner">No {0} found.&lt;/span></td>
+            <td class="source">&lt;span class="pagebanner">No {0} found.&lt;/span></td>
             <td>Any string in a message format with 1 placeholder</td>
             <td>
               What is shown in the pagination header when no objects are available in the list to be displayed. The
@@ -194,7 +194,7 @@
 
           <tr>
             <td>paging.banner.one_items_found</td>
-            <td>&lt;span class="pagebanner">One {0} found.&lt;/span></td>
+            <td class="source">&lt;span class="pagebanner">One {0} found.&lt;/span></td>
             <td>Any string in a message format with 1 placeholder</td>
             <td>
               What is shown in the pagination header when one object is available in the list to be displayed. The
@@ -204,7 +204,7 @@
 
           <tr>
             <td>paging.banner.all_items_found</td>
-            <td>&lt;span class="pagebanner">{0} {1} found, displaying all {2}.&lt;/span></td>
+            <td class="source">&lt;span class="pagebanner">{0} {1} found, displaying all {2}.&lt;/span></td>
             <td>Any string in a message format with 3 placeholders</td>
             <td>
               What is shown in the pagination header when all the objects in the list are being shown. {0} and {2} are
@@ -214,7 +214,7 @@
 
           <tr>
             <td>paging.banner.some_items_found</td>
-            <td>&lt;span class="pagebanner">{0} {1} found, displaying {2} to {3}.&lt;/span></td>
+            <td class="source">&lt;span class="pagebanner">{0} {1} found, displaying {2} to {3}.&lt;/span></td>
             <td>Any string in a message format with 4 placeholders</td>
             <td>
               What is shown in the pagination header when a partial list of the the objects in the list are being
@@ -225,14 +225,14 @@
 
           <tr>
             <td>paging.banner.group_size</td>
-            <td>8</td>
+            <td class="source">8</td>
             <td>Any reasonable number</td>
             <td>The number of pages to show in the header that this person can instantly jump to</td>
           </tr>
 
           <tr>
             <td>paging.banner.full</td>
-            <td>
+            <td class="source">
               &lt;span class="pagelinks">[&lt;a href="{1}">First&lt;/a>/&lt;a href="{2}">Prev&lt;/a>] {0} [&lt;a href="{3}">Next&lt;/a>/&lt;a
               href="{4}">Last&lt;/a>]&lt;/span>
             </td>
@@ -246,7 +246,7 @@
 
           <tr>
             <td>paging.banner.first</td>
-            <td>&lt;span class="pagelinks">[First/Prev] {0} [&lt;a href="{3}">Next&lt;/a>/&lt;a href="{4}">Last&lt;/a>]&lt;/span></td>
+            <td class="source">&lt;span class="pagelinks">[First/Prev] {0} [&lt;a href="{3}">Next&lt;/a>/&lt;a href="{4}">Last&lt;/a>]&lt;/span></td>
             <td />
             <td>
               What is shown in the pagination bar when the first page is being shown. {0} will be replaced with the
@@ -257,7 +257,7 @@
 
           <tr>
             <td>paging.banner.last</td>
-            <td>&lt;span class="pagelinks">[&lt;a href="{1}">First&lt;/a>/&lt;a href="{2}">Prev&lt;/a>] {0} [Next/Last]&lt;/span></td>
+            <td class="source">&lt;span class="pagelinks">[&lt;a href="{1}">First&lt;/a>/&lt;a href="{2}">Prev&lt;/a>] {0} [Next/Last]&lt;/span></td>
             <td />
             <td>
               What is shown in the pagination bar when the last page is being shown. {0} will be replaced with the
@@ -268,7 +268,7 @@
 
           <tr>
             <td>paging.banner.onepage</td>
-            <td>&lt;span class="pagelinks">{0}&lt;/span></td>
+            <td class="source">&lt;span class="pagelinks">{0}&lt;/span></td>
             <td />
             <td>
               What is shown in the pagination bar when only one page is returned. {0} will be replaced with the
@@ -279,21 +279,21 @@
 
           <tr>
             <td>paging.banner.page.selected</td>
-            <td>&lt;strong>{0}&lt;/strong></td>
+            <td class="source">&lt;strong>{0}&lt;/strong></td>
             <td />
             <td>selected page. {0} is replaced with the page number, {1} with the page url.</td>
           </tr>
 
           <tr>
             <td>paging.banner.page.link</td>
-            <td>&lt;a href="{1}" title="Go to page {0}">{0}&lt;/a></td>
+            <td class="source">&lt;a href="{1}" title="Go to page {0}">{0}&lt;/a></td>
             <td />
             <td>link to a page. {0} is replaced with the page number, {1} with the page url.</td>
           </tr>
 
           <tr>
             <td>paging.banner.page.separator</td>
-            <td>,</td>
+            <td class="source">,</td>
             <td />
             <td>separator between pages</td>
           </tr>
