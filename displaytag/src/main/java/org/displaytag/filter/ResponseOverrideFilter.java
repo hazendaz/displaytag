@@ -12,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,7 +31,6 @@ import org.displaytag.tags.TableTag;
  * jsp:include. If that is your intention, just add this Filter to your web.xml and map it to the appropriate requests,
  * using something like:
  * </p>
- * 
  * <pre>
  *  &lt;filter&gt;
  *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
@@ -45,8 +45,8 @@ import org.displaytag.tags.TableTag;
  *      &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
  *  &lt;/filter-mapping&gt;
  * </pre>
- * 
  * @author rapruitt
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  * @since 1.0
  */
@@ -68,6 +68,8 @@ public class ResponseOverrideFilter implements Filter
 
     /**
      * {@inheritDoc}
+     * @todo don't filter when not needed. Table tag should add a fixed attribute for exporting, and filter should work
+     * only if the parameter is found
      */
     public void doFilter(ServletRequest srequest, ServletResponse servletResponse, FilterChain filterChain)
         throws IOException, ServletException
@@ -101,15 +103,31 @@ public class ResponseOverrideFilter implements Filter
         if (buf != null && buf.length() > 0)
         {
             pageContent = buf.toString();
-            contentType = "" + request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_TYPE);
-            log.debug("Overriding output, writing new output with content type " + contentType);
+            contentType = ObjectUtils.toString(request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_TYPE));
+            if (log.isDebugEnabled())
+            {
+                log.debug("Overriding output, writing new output with content type " + contentType);
+            }
 
             StringBuffer filename = (StringBuffer) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_FILENAME);
+
+            try
+            {
+                // needed to reset headers (be sure there are no "no-cache" headers, else export will not work)
+                resp.reset();
+            }
+            catch (IllegalStateException ise)
+            {
+                log.debug("Can't reset response headers.");
+            }
+
             if (filename != null && StringUtils.isNotEmpty(filename.toString()))
             {
-                log.debug("Filename specified as " + filename);
-                HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-                httpResponse.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+                if (log.isDebugEnabled())
+                {
+                    log.debug("Filename specified as " + filename);
+                }
+                resp.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
             }
         }
         else
@@ -133,12 +151,10 @@ public class ResponseOverrideFilter implements Filter
         }
         servletResponse.setContentLength(pageContent.length());
 
-
         PrintWriter out = servletResponse.getWriter();
         out.write(pageContent);
         out.close();
     }
-
     /**
      * {@inheritDoc}
      */
