@@ -6,8 +6,9 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.ObjectLookupException;
-import org.displaytag.exception.RuntimeLookupExpression;
+import org.displaytag.exception.RuntimeLookupException;
 import org.displaytag.util.LookupUtil;
+
 
 /**
  * Comparator for rows.
@@ -16,6 +17,7 @@ import org.displaytag.util.LookupUtil;
  */
 public class RowSorter implements Comparator
 {
+
     /**
      * name of the property in bean.
      */
@@ -122,19 +124,14 @@ public class RowSorter implements Comparator
             }
             catch (ObjectLookupException e)
             {
-                throw new RuntimeLookupExpression(getClass(), this.property, e);
+                throw new RuntimeLookupException(getClass(), this.property, e);
             }
         }
     }
 
     /**
-     * <p>
-     * compare two given objects according to the pAscending flag
-     * </p>
-     * <p>
-     * Null values and not comparable objects are handled. Not comparable objects are compared using their string
-     * representation
-     * </p>
+     * Compares two given objects handlig nulls and not comparable objects are handled. Not comparable objects are
+     * compared using their string representation.
      * @param object1 first object to compare
      * @param object2 second object to compare
      * @return int result
@@ -179,10 +176,8 @@ public class RowSorter implements Comparator
     {
         if (object instanceof RowSorter)
         {
-            return new EqualsBuilder()
-                .append(this.property, ((RowSorter) object).property)
-                .append(this.columnIndex, ((RowSorter) object).columnIndex)
-                .isEquals();
+            return new EqualsBuilder().append(this.property, ((RowSorter) object).property).append(this.columnIndex,
+                ((RowSorter) object).columnIndex).isEquals();
         }
 
         return false;
