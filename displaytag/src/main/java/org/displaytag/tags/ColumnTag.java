@@ -606,10 +606,8 @@ public class ColumnTag extends BodyTagSupport
      */
     private void addHeaderToTable(TableTag tableTag) throws DecoratorInstantiationException, ObjectLookupException
     {
-        // start titlekey support
-
         // title has precedence over titleKey
-        if (this.title == null)
+        if (this.title == null && (this.titleKey != null || this.property != null))
         {
             // handle title i18n
             this.title = tableTag.getProperties().geResourceProvider().getResource(
@@ -618,7 +616,6 @@ public class ColumnTag extends BodyTagSupport
                 tableTag,
                 this.pageContext);
         }
-        // end titlekey support
 
         HeaderCell headerCell = new HeaderCell();
         headerCell.setHeaderAttributes((HtmlAttributeMap) this.headerAttributeMap.clone());
