@@ -1,9 +1,9 @@
 #! /bin/sh
 # script for displaytag nightly builds.
 # you only need to have this script locally, it will fetch sources from cvs, compile them, generate the website and upload everything.
-# IT WILL DOWNLOAD EVERYTHING TO "displaytag2" AND DELETE SUCH DIRECTORY WHEN FINISHED!
+# IT WILL DOWNLOAD EVERYTHING TO "displaytag" AND DELETE SUCH DIRECTORY WHEN FINISHED!
 
-WORKDIR=displaytag2
+WORKDIR=displaytag
 DEST=/home/groups/d/di/displaytag/htdocs/nightly/
 CVSREPO=:pserver:anonymous:@cvs1.sourceforge.net:/cvsroot/displaytag
 DATE=`date`
