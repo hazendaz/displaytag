@@ -113,7 +113,8 @@ public class Href
     }
 
     /**
-     * Sets the parameters in the Href. The value in the given Map will be escaped before added
+     * Sets the parameters in the Href. The value in the given Map will be escaped before added.
+     * Any parameter already in the map is removed.
      * @param parametersMap Map containing parameters
      */
     public void setParameterMap(Map parametersMap)
@@ -121,6 +122,17 @@ public class Href
         // create a new HashMap
         mParameters = new HashMap(parametersMap.size());
 
+        // copy the parameters
+        addParameterMap(parametersMap);
+    }
+
+    /**
+    * Sets the parameters in the Href. The value in the given Map will be escaped before added.
+    * Parameters in the original href are keeped.
+    * @param parametersMap Map containing parameters
+    */
+    public void addParameterMap(Map parametersMap)
+    {
         // copy value, escaping html
         Iterator mapIterator = parametersMap.entrySet().iterator();
         while (mapIterator.hasNext())
