@@ -105,7 +105,7 @@
                 <code>requestURIcontext</code>
                 table attribute added.
             </action>
-
+            <action type="add" dev="fgiust" issue="DISPL-81">Using ColumnDecorator with tag body.</action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
