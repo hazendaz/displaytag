@@ -1,7 +1,5 @@
 package org.displaytag.tags;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
