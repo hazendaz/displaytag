@@ -23,8 +23,8 @@
             <action type="fix" dev="fgiust" issue="1020948">NullpointerException in HeaderCell.</action>
             <action type="fix" dev="fgiust" issue="1016089">Param values not URLEncoded.</action>
             <action type="update" dev="fgiust" issue="DISPL-22">
-                Exported output is now written directly (both with or without the export filter) and not buffered.
-                Decreases memory usage and increases speed.
+                Exported output can now optionally be written directly (both with or without the export filter) and not
+                buffered.
             </action>
             <action type="fix" dev="fgiust" issue="DISPL-21">Export filter not working in WebLogic.</action>
             <action type="add" dev="fgiust" issue="DISPL-13" due-to="Ivan Markov">

@@ -1,8 +1,6 @@
 package org.displaytag.export;
 
-import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Writer;
 import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
@@ -35,7 +33,7 @@ import com.lowagie.text.pdf.PdfWriter;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class PdfView implements ExportView
+public class PdfView implements BinaryExportView
 {
 
     /**
@@ -116,21 +114,18 @@ public class PdfView implements ExportView
     }
 
     /**
-     * @see org.displaytag.export.ExportView#doExport(java.io.Writer)
+     * @see org.displaytag.export.BinaryExportView#doExport(OutputStream)
      */
-    public void doExport(Writer out) throws JspException
+    public void doExport(OutputStream out) throws JspException
     {
         try
         {
             // Initialize the table with the appropriate number of columns
             initTable();
 
-            // Initialize the OutputStream to which the PDF file is written
-            WriterOutputStream stream = new WriterOutputStream(out, this.model.getEncoding());
-
             // Initialize the Document and register it with PdfWriter listener and the OutputStream
             Document document = new Document(PageSize.A4.rotate(), 36, 36, 72, 72);
-            PdfWriter.getInstance(document, stream);
+            PdfWriter.getInstance(document, out);
 
             // Fill the virtual PDF table with the necessary data
             generatePDFTable();
@@ -206,46 +201,6 @@ public class PdfView implements ExportView
     public boolean outputPage()
     {
         return false;
-    }
-
-    /**
-     * The opposite of java.io.OutputStreamWriter: allow a stream to be written to a writer. (this is really a bad
-     * design, but needed if <code>getOut()</code> has already been called in response).
-     * @author Fabrizio Giustina
-     * @version $Revision$ ($Author$)
-     */
-    private static class WriterOutputStream extends OutputStream
-    {
-
-        /**
-         * Wrapped writer.
-         */
-        private Writer writer;
-
-        /**
-         * Response encoding.
-         */
-        private String encoding;
-
-        /**
-         * Instantiate a new outputStream which writes to <code>writer</code>.
-         * @param out Writer (usually a JspWriter)
-         * @param charEncoding response encoding
-         */
-        public WriterOutputStream(Writer out, String charEncoding)
-        {
-            this.writer = out;
-            this.encoding = charEncoding;
-        }
-
-        /**
-         * Write a byte to the jsp writer.
-         * @see java.io.OutputStream#write(int)
-         */
-        public void write(int b) throws IOException
-        {
-            writer.write(new String(new byte[]{(byte) b}, encoding));
-        }
     }
 
     /**

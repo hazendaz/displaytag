@@ -158,6 +158,16 @@ public class BufferedResponseWrapper12Impl implements BufferedResponseWrapper //
      */
     public ServletOutputStream getOutputStream() throws IOException
     {
+        if (state && !outRequested)
+        {
+            log.debug("getOutputStream() returned");
+
+            // ok, exporting in progress, discard old data and go on streaming
+            this.servletOutputStream.reset();
+            this.outputWriter.reset();
+            this.outRequested = true;
+            return ((HttpServletResponse) getResponse()).getOutputStream();
+        }
         return this.servletOutputStream;
     }
 

@@ -1,16 +1,18 @@
 package org.displaytag.filter;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
-import javax.servlet.ServletResponse;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.Messages;
+import org.displaytag.tags.TableTag;
+import org.displaytag.tags.TableTagParameters;
 
 
 /**
@@ -28,63 +30,83 @@ public class ExportDelegate
     private static Log log = LogFactory.getLog(ExportDelegate.class);
 
     /**
-     * @param wrapper
-     * @param servletResponse
-     * @throws UnsupportedEncodingException
+     * Actually writes exported data, extracting content from the Map stored in request with the
+     * <code>TableTag.FILTER_CONTENT_OVERRIDE_BODY</code> key.
+     * @param wrapper BufferedResponseWrapper implementation
+     * @param response HttpServletResponse
+     * @param request ServletRequest
      * @throws IOException
      */
-    protected static void writeExport(BufferedResponseWrapper wrapper, ServletResponse servletResponse)
-        throws UnsupportedEncodingException, IOException
+    protected static void writeExport(HttpServletResponse response, ServletRequest request,
+        BufferedResponseWrapper wrapper) throws IOException
     {
 
         if (wrapper.isOutRequested())
         {
             // data already written
-            log.debug("Everything done, exiting");
+            log.debug("Filter operating in unbuffered mode. Everything done, exiting");
             return;
         }
 
         // if you reach this point the PARAMETER_EXPORTING has been found, but the special header has never been set in
         // response (this is the signal from table tag that it is going to write exported data)
-        log.debug("Something went wrong, displaytag never requested writer as expected.");
+        log.debug("Filter operating in buffered mode. ");
 
-        String pageContent;
-        String contentType;
+        Map bean = (Map) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);
 
-        HttpServletResponse resp = (HttpServletResponse) servletResponse;
-        String characterEncoding = resp.getCharacterEncoding();
-        if (characterEncoding != null)
+        String filename = (String) bean.get(TableTagParameters.BEAN_FILENAME);
+        String contentType = (String) bean.get(TableTagParameters.BEAN_CONTENTTYPE);
+        Object pageContent = bean.get(TableTagParameters.BEAN_BODY);
+
+        if (StringUtils.isNotBlank(filename))
         {
-            characterEncoding = "; charset=" + characterEncoding; //$NON-NLS-1$
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
         }
-        log.debug(Messages.getString("ExportDelegate.notoverriding")); //$NON-NLS-1$
-        pageContent = wrapper.getContentAsString();
-        contentType = wrapper.getContentType();
 
-        if (contentType != null)
+        String characterEncoding = wrapper.getCharacterEncoding();
+        String wrappedContentType = wrapper.getContentType();
+
+        if (wrappedContentType != null && wrappedContentType.indexOf("charset") > -1)
         {
-            if (contentType.indexOf("charset") > -1) //$NON-NLS-1$
+            // charset is already specified (see #921811)
+            characterEncoding = StringUtils.substringAfter(wrappedContentType, "charset=");
+        }
+
+        if (characterEncoding != null && contentType.indexOf("charset") == -1) //$NON-NLS-1$
+        {
+            contentType += "; charset=" + characterEncoding; //$NON-NLS-1$
+        }
+
+        response.setContentType(contentType);
+
+        if (pageContent instanceof String)
+        {
+            // text content
+            if (characterEncoding != null)
             {
-                // charset is already specified (see #921811)
-                servletResponse.setContentType(contentType);
+                response.setContentLength(((String) pageContent).getBytes(characterEncoding).length);
             }
             else
             {
-                servletResponse.setContentType(contentType + StringUtils.defaultString(characterEncoding));
+                response.setContentLength(((String) pageContent).getBytes().length);
             }
-        }
 
-        if (characterEncoding != null)
-        {
-            servletResponse.setContentLength(pageContent.getBytes(characterEncoding).length);
+            PrintWriter out = response.getWriter();
+            out.write((String) pageContent);
+            out.flush();
         }
         else
         {
-            servletResponse.setContentLength(pageContent.getBytes().length);
+            // dealing with binary content
+            byte[] content = (byte[]) pageContent;
+            response.setContentLength(content.length);
+            OutputStream out = response.getOutputStream();
+            out.write(content);
+            out.flush();
         }
 
-        PrintWriter out = servletResponse.getWriter();
-        out.write(pageContent);
-        out.close();
+        // @todo this could swallow exceptions, if exported content is empty we should output data buffered in the
+        // wrapper
+
     }
 }

@@ -27,7 +27,7 @@ import org.displaytag.model.TableModel;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public abstract class BaseExportView implements ExportView
+public abstract class BaseExportView implements TextExportView
 {
 
     /**
@@ -200,7 +200,7 @@ public abstract class BaseExportView implements ExportView
     }
 
     /**
-     * @see org.displaytag.export.ExportView#doExport(java.io.Writer)
+     * @see org.displaytag.export.TextExportView#doExport(java.io.Writer)
      */
     public void doExport(Writer out) throws IOException, JspException
     {

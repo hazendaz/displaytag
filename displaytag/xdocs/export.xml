@@ -18,62 +18,83 @@
                 Displaytag includes few ready
                 <em>export view</em>
                 which allows you to export data in csv, excel o xml format. A simple Pdf export view is also available.
-The following table lists the predefined export options included in displaytag distribution.
+                The following table lists the predefined export options included in displaytag distribution.
             </p>
 
-<table>
-<thead>
-<tr>
-<th>Media</th>
-<th>Export View Class</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CSV</td>
-<td class="code">org.displaytag.export.CsvView</td>
-<td>Export to comma separated list</td>
-</tr>
-<tr>
-<td>Excel</td>
-<td class="code">org.displaytag.export.ExcelView</td>
-<td>Export to excel - ascii format, tab separated</td>
-</tr>
-<tr>
-<td>XML</td>
-<td class="code">org.displaytag.export.XmlView</td>
-<td>Simple xml output</td>
-</tr>
-<tr>
-<td>PDF</td>
-<td class="code">org.displaytag.export.PdfView</td>
-<td>Sample Pdf export view. This is not enabled by default in the distribution but can be enabled setting
-<code>export.pdf=true</code> in displaytag.properties and including the required IText dependency (see
-<a href="dependencies.html">displaytag dependencies</a>). Since you probably want to tweak the layout of your pdf
-output this is probably more useful as a base reference for creating your own Pdf export view.
-</td>
-</tr>
-</tbody>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Media</th>
+                        <th>Export View Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CSV</td>
+                        <td class="code">org.displaytag.export.CsvView</td>
+                        <td>Export to comma separated list</td>
+                    </tr>
+                    <tr>
+                        <td>Excel</td>
+                        <td class="code">org.displaytag.export.ExcelView</td>
+                        <td>Export to excel - ascii format, tab separated</td>
+                    </tr>
+                    <tr>
+                        <td>XML</td>
+                        <td class="code">org.displaytag.export.XmlView</td>
+                        <td>Simple xml output</td>
+                    </tr>
+                    <tr>
+                        <td>PDF</td>
+                        <td class="code">org.displaytag.export.PdfView</td>
+                        <td>
+                            Sample Pdf export view. This is not enabled by default in the distribution but can be
+                            enabled setting
+                            <code>export.pdf=true</code>
+                            in displaytag.properties and including the required IText dependency (see
+                            <a href="dependencies.html">displaytag dependencies</a>
+                            ). Since you probably want to tweak the layout of your pdf output this is probably more
+                            useful as a base reference for creating your own Pdf export view.
+                        </td>
+                    </tr>
+                </tbody>
 
 
-</table>
+            </table>
 
         </section>
 
         <section name="Configuring export and export views">
-<p>
-The <code>export.types</code> parameter contains the list of registered export views. For each export type you can
-configure other parameters: see the <code>export.<em>exportname</em>.*</code> parameters in 
-<a href="configuration.html">configuration</a>.
-</p>
-<p>
-You can enable/disable a specific export type using the <code>export.<em>exportname</em>.enabled</code> parameter.
-</p>
-<p>
-If you don't want some column to show during export (or you want them to show only during export) you can use the
-column <code>media</code> attribute (see tag reference for more details).
-</p>
+            <p>
+                The
+                <code>export.types</code>
+                parameter contains the list of registered export views. For each export type you can configure other
+                parameters: see the
+                <code>
+                    export.
+                    <em>exportname</em>
+                    .*
+                </code>
+                parameters in
+                <a href="configuration.html">configuration</a>
+                .
+            </p>
+            <p>
+                You can enable/disable a specific export type using the
+                <code>
+                    export.
+                    <em>exportname</em>
+                    .enabled
+                </code>
+                parameter.
+            </p>
+            <p>
+                If you don't want some column to show during export (or you want them to show only during export) you
+                can use the column
+                <code>media</code>
+                attribute (see tag reference for more details).
+            </p>
 
 
         </section>
@@ -82,17 +103,26 @@ column <code>media</code> attribute (see tag reference for more details).
             <ol>
                 <li>
                     Write your own exportView class. You need to implement the
-                    <code>org.displaytag.export.ExportView</code>
+                    <code>org.displaytag.export.TextExportView</code>
+                    or
+                    <code>org.displaytag.export.BinaryExportView</code>
                     interface. You can look at the
-                    <a href="xref/org/displaytag/export/PdfView.html">sample PDF export view</a>
-                    to see how it is implemented.
+                    <a href="xref/org/displaytag/export/PdfView.html">sample binary PDF export view</a>
+                    or to
+                    <a href="xref/org/displaytag/export/BaseExportView.html">
+                        the base text export view used by displaytag
+                    </a>
+                    .
                 </li>
                 <li>
                     Add a
                     <code>displaytag.properties</code>
                     file in your application classpath (if you already don't have one) and add the name of your export
                     media along with the default ones to the export type parameter:
-                    <source>export.types=csv excel xml <em>mymedia</em></source>
+                    <source>
+                        export.types=csv excel xml
+                        <em>mymedia</em>
+                    </source>
                 </li>
                 <li>
                     Always in
@@ -100,22 +130,65 @@ column <code>media</code> attribute (see tag reference for more details).
                     , add the following properties:
                     <source>
 
-export.<em>mymedia</em>=true<br/>
-export.<em>mymedia</em>.class=fully.qualified.class.name<br/>
-export.<em>mymedia</em>.label=Click here to try my export<br/>
-<span class="comment"># include header parameter is forwarded to your export view</span><br/>
-export.<em>mymedia</em>.include_header=true<br/>
-<span class="comment"># if set, file is downloaded instead of opened in the browser window</span><br/>
-export.<em>mymedia</em>.filename=
+                        export.
+                        <em>mymedia</em>
+                        =true
+                        <br />
+                        export.
+                        <em>mymedia</em>
+                        .class=fully.qualified.class.name
+                        <br />
+                        export.
+                        <em>mymedia</em>
+                        .label=Click here to try my export
+                        <br />
+                        <span class="comment"># include header parameter is forwarded to your export view</span>
+                        <br />
+                        export.
+                        <em>mymedia</em>
+                        .include_header=true
+                        <br />
+                        <span class="comment">
+                            # if set, file is downloaded instead of opened in the browser window
+                        </span>
+                        <br />
+                        export.
+                        <em>mymedia</em>
+                        .filename=
 
                     </source>
                 </li>
                 <li>
                     Try it. You should see a new link with the text you added to
-                    <code>export.<em>mymedia</em>.label</code>
+                    <code>
+                        export.
+                        <em>mymedia</em>
+                        .label
+                    </code>
                     . Clicking on it will made you Export view to be called and you will se the result in your browser.
                 </li>
             </ol>
+        </section>
+
+        <section name="Text/Binary export views">
+            <p>
+                Common displaytag export options (csv, xml and excel) output a simple text-based format. Other file
+                format requires binary content, like the sample Pdf included with the distribution.
+            </p>
+            <p>
+                Exporting binary data from a jsp is a bit tricky, since jsps are only designed to output characters: as
+                a starting point keep in mind that
+                <strong>binary export is not assured to work on any application server</strong>
+                , at least without the help of an external filter (see
+                <a href="export_filter.html">export filter</a>
+                ).
+            </p>
+            <p>
+                It may work without a filter if your application server allows jsps to call
+                <code>response.getOutputStream()</code>
+                , but this methods should not be used in jsps. Using an the export filter, expecially in buffered mode,
+                could solve the problem, since the output stream is requested by the filter, outside the jsp.
+            </p>
         </section>
 
     </body>

@@ -39,6 +39,14 @@ public class HtmlTagUtilTest extends TestCase
     /**
      * Test for the stripHTMLTags() method.
      */
+    public void testStripHtmlTagsWithQuote()
+    {
+        assertEquals("&quot;well&quot; done", HtmlTagUtil.stripHTMLTags("\"well\" done"));
+    }
+
+    /**
+     * Test for the stripHTMLTags() method.
+     */
     public void testStripHtmlTagsMultiple()
     {
         assertEquals("well done again", HtmlTagUtil
