@@ -82,8 +82,7 @@ public class DefaultRequestHelper implements RequestHelper
             try
             {
                 return new Integer(value);
-            }
-            catch (NumberFormatException e)
+            } catch (NumberFormatException e)
             {
                 // It's ok to ignore, simply return null
                 log.debug("Invalid \"" + key + "\" parameter from request: value=\"" + value + "\"");
@@ -110,14 +109,14 @@ public class DefaultRequestHelper implements RequestHelper
             String paramName = (String) parametersName.nextElement();
 
             // put key/value in the map
+            String[] originalValues = this.request.getParameterValues(paramName);
+            String[] values = new String[originalValues.length];
 
-            String[] values = this.request.getParameterValues(paramName);
             for (int i = 0; i < values.length; i++)
             {
-
                 // values[i] = URLEncoder.encode(values[i], "UTF-8");
                 // deprecated in java 1.4, but still need this for jre 1.3 compatibility
-                values[i] = URLEncoder.encode(StringUtils.defaultString(values[i]));
+                values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]));
             }
             map.put(paramName, values);
 
