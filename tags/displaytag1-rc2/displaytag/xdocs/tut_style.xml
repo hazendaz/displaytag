@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Controlling the look and feel of tables</title>
+    <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+  </properties>
+  <body>
+    <section name="Style">
+      <p>
+        You actually have a lot of flexibility in how the table is displayed, but of course you should probably stay 
+        close to the defaults in most cases. You adjust the look of the table via two methods:
+      </p>
+      <ol>
+        <li>pass through table and column attributes</li>
+        <li>style sheets</li>
+      </ol>
+      <subsection name="Html attributes">
+        <p>
+          You can assign to the &lt;display:table&gt; tag any standard html <strong>strict</strong> attribute (es. 
+          style, class, cellspacing, cellpadding), and it will be included in the rendered table.
+        </p>
+        <p>
+          Likewise, you can assign to the &lt;display:column&gt; tag any standard html attribute and it will be 
+          included in any &lt;td&gt; tag of the rendered table. You can also specify a class to be used only for the 
+          column header (&lt;th&gt;) using the <code>headerClass</code> attribute.
+        </p>
+        <p>
+          Html <strong>transitional</strong> attributes are also supported in version 1.0 but they will be removed 
+          soon, so you are encoraged to avoid any html presentational attribute (such as border, background, bgcolor, 
+          width, height...): there are replaced by an appropriate use of css rules.
+          See the <a 
+          href="tagreference.html">tag reference page</a> for the full list of supported/ deprecated attributes.
+        </p>
+      </subsection>
+      <subsection name="Style Sheets">
+        <p>
+          The &lt;display:table&gt; tag produces well formed html tables with &lt;thead&gt; and &lt;tbody&gt; 
+          sections. Css classes are also automatically added to rows/cells when needed.
+        </p>
+        <p>
+          You can easily customize the generated table simply specifing appropriate css rules in your stylesheet, 
+          based on these classes/selectors.
+        </p>
+        <p>
+          All the automatically added css classes can be customized in displaytag.properties. You can also add a css
+          class to any generated display:table if needed. This is the list of css classes added by default:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>class</th>
+              <th>assigned to</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>odd</td>
+              <td>assigned to the tr tag of all odd numbered data rows</td>
+            </tr>
+            <tr>
+              <td>even</td>
+              <td>assigned to the tr tag of all even numbered data rows</td>
+            </tr>
+            <tr>
+              <td>sorted</td>
+              <td>assigned to the th tag of the sorted column</td>
+            </tr>
+            <tr>
+              <td>order1</td>
+              <td>assigned to the th tag of the sorted column if sort order is ascending</td>
+            </tr>
+            <tr>
+              <td>order2</td>
+              <td>assigned to the th tag of the sorted column if sort order is descending</td>
+            </tr>
+            <tr>
+              <td>sortable</td>
+              <td>assigned to the th tag of a sortable column</td>
+            </tr>
+          </tbody>
+        </table>
+      </subsection>
+    </section>
+  </body>
+</document>
+
