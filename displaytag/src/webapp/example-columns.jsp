@@ -5,7 +5,7 @@
 
 <h2><a href="./index.jsp">Examples</a> > Basic, columns</h2>
 
-<display:table name="test" >
+<display:table name="test" style="border:1px solid black">
   <display:column property="id" title="ID" />
   <display:column property="name" />
   <display:column property="email" />

@@ -27,14 +27,14 @@
 </p>
 
 <p>
-	You can also use "<a href="example-decorator.jsp">decorators</a>" to provide the same type
-	of functionality.
+	You can also use "decorators" to provide the same type
+	of functionality. See:
 </p>
 
 <ul>
-	<li><a href="example-decorator.jsp">Standard, using decorators to transform/process data</a></li>
-	<li><a href="example-decorator-link.jsp">Standard, using decorators to create dynamic links</a></li>
-	<li><a href="example-callbacks.jsp">Wow, using callbacks to show totals</a></li>
+	<li><a href="example-decorator.jsp">Using decorators to transform/process data</a></li>
+	<li><a href="example-decorator-link.jsp">Using decorators to create dynamic links</a></li>
+	<li><a href="example-callbacks.jsp">Using callbacks to show totals</a></li>
 </ul>
 
 

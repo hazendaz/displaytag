@@ -29,9 +29,7 @@
 </p>
 
 <p>
-	Click <a href="./Wrapper.java.txt">here</a> to view the source for our Wrapper class. 
-	Notice the following 4 key things (and refer to the 
-	<a href="/display-docs/javadoc/org/apache/taglibs/display/TableDecorator.html">TableDecorator documentation</a> 
+	Notice the following 4 key things (and refer to the TableDecorator javadoc 
 	for some of the other details).
 </p>
 

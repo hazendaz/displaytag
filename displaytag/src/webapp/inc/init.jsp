@@ -1,1 +1,1 @@
-<%@ taglib uri="/WEB-INF/tld/displaytag.tld" prefix="display" %><%@ page import="org.displaytag.sample.*, java.util.*"%>
+<%@ taglib uri="/WEB-INF/displaytag.tld" prefix="display" %><%@ page import="org.displaytag.sample.*, java.util.*"%>
