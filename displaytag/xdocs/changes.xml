@@ -78,6 +78,13 @@
       <action type="add" dev="fgiust" >
 	       Added the new <code>sort.amount</code> configuration property.
       </action>
+      <action type="update" dev="fgiust" >
+	       Switching from Cactus to Servletunit tests. Servletunit tests resulted simpler to implement and more effective
+	       in testing tag output.
+      </action>
+      <action type="add" dev="fgiust" >
+	       Test coverage reports added to the build. Free license for the displaytag project kindly donated by Clover.
+      </action>
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
