@@ -154,11 +154,6 @@ public class ColumnTag extends BodyTagSupport
      */
     private Object mValue;
 
-    /**
-     * Field mDoubleQuote
-     */
-    private String mDoubleQuote;
-
     /** a class that should be used to "decorate" the underlying object being displayed. If a decorator
      * is specified for the entire table, then this decorator will decorate that decorator. (optional)
      */
@@ -455,15 +450,6 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * Method setDoubleQuote
-     * @param pAttributeValue String
-     */
-    public void setDoubleQuote(String pAttributeValue)
-    {
-        mDoubleQuote = pAttributeValue;
-    }
-
-    /**
      * Method setDecorator
      * @param pAttributeValue String
      */
@@ -605,15 +591,6 @@ public class ColumnTag extends BodyTagSupport
     public Object getValue()
     {
         return mValue;
-    }
-
-    /**
-     * Method getDoubleQuote
-     * @return String
-     */
-    public String getDoubleQuote()
-    {
-        return mDoubleQuote;
     }
 
     /**

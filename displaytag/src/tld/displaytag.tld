@@ -299,11 +299,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>doubleQuote</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>decorator</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
