@@ -29,12 +29,6 @@ public class TableTag extends org.displaytag.tags.TableTag
         _export = s;
     }
 
-    private String _footer;
-    public void setFooter(String s)
-    {
-        _footer = s;
-    }
-
     private String _length;
     public void setLength(String s)
     {
@@ -82,7 +76,6 @@ public class TableTag extends org.displaytag.tags.TableTag
         _decorator = null;
         _defaultsort = null;
         _export = null;
-        _footer = null;
         _length = null;
         _name = null;
         _offset = null;
@@ -118,10 +111,6 @@ public class TableTag extends org.displaytag.tags.TableTag
         if ((s = eval.evalString("export", _export)) != null)
         {
             super.setExport(s);
-        }
-        if ((s = eval.evalString("footer", _footer)) != null)
-        {
-            super.setFooter(s);
         }
         if ((s = eval.evalString("length", _length)) != null)
         {
