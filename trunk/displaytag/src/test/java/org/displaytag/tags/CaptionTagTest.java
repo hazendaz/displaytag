@@ -1,8 +1,6 @@
 package org.displaytag.tags;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -13,16 +11,11 @@ import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for caption tag.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class CaptionTagTest extends DisplaytagCase
 {
-
-    /**
-     * logger.
-     */
-    private static Log log = LogFactory.getLog(CaptionTagTest.class);
 
     /**
      * Instantiates a new test case.

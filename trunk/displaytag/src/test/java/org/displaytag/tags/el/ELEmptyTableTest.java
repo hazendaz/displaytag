@@ -5,7 +5,7 @@ import org.displaytag.tags.EmptyTableTest;
 
 /**
  * Tests with a null list.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ELEmptyTableTest extends EmptyTableTest

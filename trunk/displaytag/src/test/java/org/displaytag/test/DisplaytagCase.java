@@ -12,7 +12,7 @@ import com.meterware.servletunit.ServletRunner;
 
 /**
  * Base TestCase class for tests.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public abstract class DisplaytagCase extends TestCase
@@ -21,18 +21,12 @@ public abstract class DisplaytagCase extends TestCase
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(DisplaytagCase.class);
+    protected final Log log = LogFactory.getLog(getClass());
 
     /**
      * HttpUnit ServletRunner.
      */
     protected ServletRunner runner;
-
-    /**
-     * Returns the tested jsp name.
-     * @return jsp name
-     */
-    public abstract String getJspName();
 
     /**
      * Instantiates a new test case.
@@ -42,6 +36,12 @@ public abstract class DisplaytagCase extends TestCase
     {
         super(name);
     }
+
+    /**
+     * Returns the tested jsp name.
+     * @return jsp name
+     */
+    public abstract String getJspName();
 
     /**
      * @see junit.framework.TestCase#setUp()

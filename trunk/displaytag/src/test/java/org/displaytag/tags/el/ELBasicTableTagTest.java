@@ -5,7 +5,7 @@ import org.displaytag.tags.BasicTableTagTest;
 
 /**
  * Tests for basic displaytag functionalities.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ELBasicTableTagTest extends BasicTableTagTest

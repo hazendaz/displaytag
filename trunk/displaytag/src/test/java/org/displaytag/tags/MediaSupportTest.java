@@ -1,8 +1,6 @@
 package org.displaytag.tags;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
@@ -16,16 +14,11 @@ import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for "media" attribute support.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class MediaSupportTest extends DisplaytagCase
 {
-
-    /**
-     * logger.
-     */
-    private static Log log = LogFactory.getLog(MediaSupportTest.class);
 
     /**
      * Instantiates a new test case.

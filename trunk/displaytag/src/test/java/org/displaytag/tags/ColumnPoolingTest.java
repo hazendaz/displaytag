@@ -10,7 +10,7 @@ import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for column pooling in tomcat.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ColumnPoolingTest extends DisplaytagCase

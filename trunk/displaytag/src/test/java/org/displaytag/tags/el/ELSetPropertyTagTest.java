@@ -5,7 +5,7 @@ import org.displaytag.tags.SetPropertyTagTest;
 
 /**
  * Tests for setProperty tag.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ELSetPropertyTagTest extends SetPropertyTagTest
