@@ -92,7 +92,7 @@
       request.setAttribute("results", resultSet);
 %>
 
-      &lt;display:table name="requestScope.results" />
+      &lt;display:table name="requestScope.results.rows" />
 </source>
       </subsection>
         
