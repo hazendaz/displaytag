@@ -51,7 +51,7 @@ public class TotalWrapper extends TableDecorator
 
         if (listindex == ((List) getDecoratedObject()).size() - 1)
         {
-            nextCity = "XXXXXX"; // Last row hack, it's only a demo folks...
+            nextCity = "XXXXXX"; // Last row hack, it's only a demo folks... //$NON-NLS-1$
         }
         else
         {
@@ -63,14 +63,14 @@ public class TotalWrapper extends TableDecorator
         // City subtotals...
         if (!nextCity.equals(reportableObject.getCity()))
         {
-            buffer.append("\n<tr>\n<td>&nbsp;</td><td>&nbsp;</td><td><hr noshade size=\"1\"></td>");
-            buffer.append("\n<td>&nbsp;</td></tr>");
-
-            buffer.append("\n<tr><td>&nbsp;</td>");
-            buffer.append("\n<td align=\"right\"><b>" + reportableObject.getCity() + " Total:</b></td>\n<td><b>");
+            buffer.append("\n<tr>\n<td>&nbsp;</td><td>&nbsp;</td><td><hr noshade size=\"1\"></td>"); //$NON-NLS-1$
+            buffer.append("\n<td>&nbsp;</td></tr>"); //$NON-NLS-1$
+            buffer.append("\n<tr><td>&nbsp;</td>"); //$NON-NLS-1$
+            buffer.append("\n<td align=\"right\"><strong>" //$NON-NLS-1$
+                + reportableObject.getCity() + " Total:</strong></td>\n<td><strong>"); //$NON-NLS-1$
             buffer.append(this.cityTotal);
-            buffer.append("</b></td>\n<td>&nbsp;</td>\n</tr>");
-            buffer.append("\n<tr>\n<td colspan=\"4\">&nbsp;\n</td>\n</tr>");
+            buffer.append("</strong></td>\n<td>&nbsp;</td>\n</tr>"); //$NON-NLS-1$
+            buffer.append("\n<tr>\n<td colspan=\"4\">&nbsp;\n</td>\n</tr>"); //$NON-NLS-1$
 
             this.cityTotal = 0;
         }
@@ -78,11 +78,11 @@ public class TotalWrapper extends TableDecorator
         // Grand totals...
         if (getViewIndex() == ((List) getDecoratedObject()).size() - 1)
         {
-            buffer.append("<tr><td colspan=\"4\"><hr noshade size=\"1\"></td></tr>");
-            buffer.append("<tr><td>&nbsp;</td>");
-            buffer.append("<td align=\"right\"><b>Grand Total:</b></td><td><b>");
+            buffer.append("<tr><td colspan=\"4\"><hr></td></tr>"); //$NON-NLS-1$
+            buffer.append("<tr><td>&nbsp;</td>"); //$NON-NLS-1$
+            buffer.append("<td align=\"right\"><strong>Grand Total:</strong></td><td><strong>"); //$NON-NLS-1$
             buffer.append(this.grandTotal);
-            buffer.append("</b></td><td>&nbsp;</td></tr>");
+            buffer.append("</strong></td><td>&nbsp;</td></tr>"); //$NON-NLS-1$
         }
 
         return buffer.toString();

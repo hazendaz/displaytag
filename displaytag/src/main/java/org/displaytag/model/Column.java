@@ -116,7 +116,7 @@ public class Column
             object = this.header.getColumnDecorator().decorate(object);
         }
 
-        if (object == null || object.equals("null"))
+        if (object == null || object.equals("null")) //$NON-NLS-1$
         {
             if (!this.header.getShowNulls())
             {

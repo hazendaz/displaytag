@@ -36,12 +36,14 @@ public class ReportableListObject extends Object implements Comparable
     /**
      * city names.
      */
-    private static String[] cities = {"Roma", "Olympia", "Neapolis", "Carthago"};
+    private static String[] cities = //
+    {"Roma", "Olympia", "Neapolis", "Carthago"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
     /**
      * project names.
      */
-    private static String[] projects = {"Taxes", "Arts", "Army", "Gladiators"};
+    private static String[] projects = //
+    {"Taxes", "Arts", "Army", "Gladiators"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
     /**
      * city.
@@ -126,9 +128,12 @@ public class ReportableListObject extends Object implements Comparable
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("project", this.project).append(
-            "amount",
-            this.amount).append("city", this.city).append("task", this.task).toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //
+            .append("project", this.project) //$NON-NLS-1$
+            .append("amount", this.amount) //$NON-NLS-1$
+            .append("city", this.city) //$NON-NLS-1$
+            .append("task", this.task) //$NON-NLS-1$
+            .toString();
     }
 
 }
