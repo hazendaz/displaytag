@@ -14,7 +14,7 @@ public abstract class HtmlTableTag extends TemplateTag
     /**
      * Map containing all the standard html attributes
      */
-    private HtmlAttributeMap mAttributeMap = new HtmlAttributeMap();
+    private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
     /**
      * Method setWidth
@@ -22,7 +22,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setWidth(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, attributeValue);
     }
 
     /**
@@ -31,7 +31,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setBorder(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_BORDER, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_BORDER, attributeValue);
     }
 
     /**
@@ -40,7 +40,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setCellspacing(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_CELLSPACING, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_CELLSPACING, attributeValue);
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setCellpadding(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_CELLPADDING, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_CELLPADDING, attributeValue);
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setAlign(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, attributeValue);
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setBackground(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, attributeValue);
     }
 
     /**
@@ -77,7 +77,7 @@ public abstract class HtmlTableTag extends TemplateTag
     public void setBgcolor(String attributeValue)
     {
 
-        mAttributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, attributeValue);
     }
 
     /**
@@ -87,7 +87,7 @@ public abstract class HtmlTableTag extends TemplateTag
     public void setFrame(String attributeValue)
     {
 
-        mAttributeMap.put(TagConstants.ATTRIBUTE_FRAME, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_FRAME, attributeValue);
     }
 
     /**
@@ -97,7 +97,7 @@ public abstract class HtmlTableTag extends TemplateTag
     public void setHeight(String attributeValue)
     {
 
-        mAttributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, attributeValue);
     }
 
     /**
@@ -107,7 +107,7 @@ public abstract class HtmlTableTag extends TemplateTag
     public void setHspace(String attributeValue)
     {
 
-        mAttributeMap.put(TagConstants.ATTRIBUTE_HSPACE, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_HSPACE, attributeValue);
     }
 
     /**
@@ -116,7 +116,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setRules(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_RULES, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_RULES, attributeValue);
     }
 
     /**
@@ -125,7 +125,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setStyle(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_STYLE, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_STYLE, attributeValue);
     }
 
     /**
@@ -134,7 +134,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setSummary(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_SUMMARY, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_SUMMARY, attributeValue);
     }
 
     /**
@@ -143,7 +143,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setVspace(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_VSPACE, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_VSPACE, attributeValue);
     }
 
     /**
@@ -162,7 +162,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setClass(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_CLASS, attributeValue);
     }
 
     /**
@@ -171,7 +171,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void setId(String attributeValue)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_ID, attributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_ID, attributeValue);
         super.setId(attributeValue);
     }
 
@@ -182,7 +182,7 @@ public abstract class HtmlTableTag extends TemplateTag
     public String getOpenTag()
     {
 
-        if (mAttributeMap.size() == 0)
+        if (attributeMap.size() == 0)
         {
             return TagConstants.TAG_OPEN + TagConstants.TABLE_TAG_NAME + TagConstants.TAG_CLOSE;
         }
@@ -191,7 +191,7 @@ public abstract class HtmlTableTag extends TemplateTag
 
         lBuffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
 
-        lBuffer.append(mAttributeMap);
+        lBuffer.append(attributeMap);
 
         lBuffer.append(TagConstants.TAG_CLOSE);
 
@@ -213,7 +213,7 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public void release()
     {
-        mAttributeMap.clear();
+        attributeMap.clear();
         super.release();
     }
 

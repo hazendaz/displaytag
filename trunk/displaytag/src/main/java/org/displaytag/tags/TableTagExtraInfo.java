@@ -1,5 +1,6 @@
 package org.displaytag.tags;
 
+import javax.servlet.jsp.tagext.TagAttributeInfo;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
@@ -18,28 +19,31 @@ public class TableTagExtraInfo extends TagExtraInfo
 
     /**
      * Variabiles TableTag makes available in the pageContext
-     * @param pData TagData
+     * @param data TagData
      * @return VariableInfo[]
      * @see javax.servlet.jsp.tagext.TagData
      * @see javax.servlet.jsp.tagext.VariableInfo
      */
-    public VariableInfo[] getVariableInfo(TagData pData)
+    public VariableInfo[] getVariableInfo(TagData data)
     {
+
+        Object tagId = data.getAttributeString(TagAttributeInfo.ID);
+
         // if id is null don't define anything
-        if (pData.getId() == null)
+        if (tagId == null)
         {
             return new VariableInfo[] {
             };
         }
 
         // current row
-        VariableInfo lInfo1 = new VariableInfo(pData.getId(), "java.lang.Object", true, VariableInfo.NESTED);
+        VariableInfo info1 = new VariableInfo(tagId.toString(), "java.lang.Object", true, VariableInfo.NESTED);
 
         // current row number
-        VariableInfo lInfo2 =
-            new VariableInfo(pData.getId() + ROWNUM_SUFFIX, "java.lang.Integer", true, VariableInfo.NESTED);
+        VariableInfo info2 =
+            new VariableInfo(tagId.toString() + ROWNUM_SUFFIX, "java.lang.Integer", true, VariableInfo.NESTED);
 
-        return new VariableInfo[] { lInfo1, lInfo2 };
+        return new VariableInfo[] { info1, info2 };
     }
 
 }
