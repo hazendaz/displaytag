@@ -46,26 +46,6 @@ public final class TableTagParameters
     public static final String PARAMETER_EXPORTTYPE = "e";
 
     /**
-     * export type parameter value = no export
-     */
-    public static final int EXPORT_TYPE_NONE = -1;
-
-    /**
-     * export type parameter value = cvs export
-     */
-    public static final int EXPORT_TYPE_CSV = 1;
-
-    /**
-     * export type parameter value = excel export
-     */
-    public static final int EXPORT_TYPE_EXCEL = 2;
-
-    /**
-     * export type parameter value = xml export
-     */
-    public static final int EXPORT_TYPE_XML = 3;
-
-    /**
      * sort only the displayed page
      */
     public static final String SORT_AMOUNT_PAGE = "page";

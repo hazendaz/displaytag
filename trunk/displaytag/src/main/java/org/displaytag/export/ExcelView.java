@@ -1,5 +1,6 @@
 package org.displaytag.export;
 
+import org.apache.commons.lang.StringUtils;
 import org.displaytag.model.TableModel;
 
 /**
@@ -11,11 +12,11 @@ public class ExcelView extends BaseExportView
 {
 
     /**
-     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean)
+     * @see org.displaytag.export.BaseExportView#BaseExportView(TableModel, boolean, boolean)
      */
-    public ExcelView(TableModel pTableModel, boolean pExportFullList)
+    public ExcelView(TableModel tableModel, boolean exportFullList, boolean includeHeader)
     {
-        super(pTableModel, pExportFullList);
+        super(tableModel, exportFullList, includeHeader);
     }
 
     /**
@@ -97,6 +98,19 @@ public class ExcelView extends BaseExportView
     protected boolean getAlwaysAppendRowEnd()
     {
         return false;
+    }
+
+    /**
+     * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
+     */
+    protected Object escapeColumnValue(Object value)
+    {
+        if (value != null)
+        {
+            return StringUtils.trim(value.toString());
+        }
+
+        return null;
     }
 
 }

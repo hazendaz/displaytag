@@ -72,7 +72,8 @@ public class TableFooterTag extends BodyTagSupport
         if (tableTag.isFirstIteration())
         {
             firstIteration = true;
-            return BodyTagSupport.EVAL_BODY_TAG;
+            // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
+            return 2;
         }
         else
         {
