@@ -571,8 +571,8 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * When the tag starts, we just initialize some of our variables, and do a little bit of error checking to make
-     * sure that the user is not trying to give us parameters that we don't expect.
+     * When the tag starts, we just initialize some of our variables, and do a little bit of error checking to make sure
+     * that the user is not trying to give us parameters that we don't expect.
      * @return int
      * @throws JspException generic exception
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
@@ -971,9 +971,9 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * If no columns are provided, automatically add them from bean properties. Get the first object in the list and
-     * get all the properties (except the "class" property which is automatically skipped). Of course this isn't
-     * possible for empty lists.
+     * If no columns are provided, automatically add them from bean properties. Get the first object in the list and get
+     * all the properties (except the "class" property which is automatically skipped). Of course this isn't possible
+     * for empty lists.
      * @since 1.0
      */
     private void describeEmptyTable()
@@ -1557,11 +1557,9 @@ public class TableTag extends HtmlTableTag
             // create a new href
             Href navigationHref = new Href(this.baseHref);
 
-            // add page parameter with message format
-            navigationHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), "{0,number,#}");
-
             StringBuffer buffer = new StringBuffer().append(this.listHelper.getSearchResultsSummary()).append(
-                this.listHelper.getPageNavigationBar(navigationHref.toString()));
+                this.listHelper
+                    .getPageNavigationBar(navigationHref, encodeParameter(TableTagParameters.PARAMETER_PAGE)));
 
             return buffer.toString();
         }

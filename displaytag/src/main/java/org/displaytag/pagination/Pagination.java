@@ -9,6 +9,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.util.Href;
+
+
 /**
  * @author fgiust
  * @version $Revision$ ($Author$)
@@ -22,9 +25,14 @@ public class Pagination
     private static Log log = LogFactory.getLog(Pagination.class);
 
     /**
-     * MessageFormat for urls.
+     * Base href for urls.
      */
-    private MessageFormat urlFormat;
+    private Href href;
+
+    /**
+     * page parameter name.
+     */
+    private String pageParam;
 
     /**
      * first page.
@@ -54,11 +62,13 @@ public class Pagination
 
     /**
      * Constructor for Pagination.
-     * @param urlFormatString String
+     * @param baseHref Href used for links
+     * @param pageParameter name for the page parameter
      */
-    public Pagination(String urlFormatString)
+    public Pagination(Href baseHref, String pageParameter)
     {
-        this.urlFormat = new MessageFormat(urlFormatString);
+        this.href = baseHref;
+        this.pageParam = pageParameter;
     }
 
     /**
@@ -179,11 +189,8 @@ public class Pagination
      * @param fullBanner String basic banner
      * @return String formatted banner whith pages
      */
-    public String getFormattedBanner(
-        String numberedPageFormat,
-        String numberedPageSelectedFormat,
-        String numberedPageSeparator,
-        String fullBanner)
+    public String getFormattedBanner(String numberedPageFormat, String numberedPageSelectedFormat,
+        String numberedPageSeparator, String fullBanner)
     {
 
         StringBuffer buffer = new StringBuffer(100);
@@ -199,10 +206,10 @@ public class Pagination
 
             Integer pageNumber = new Integer(page.getNumber());
 
-            String urlString = this.urlFormat.format(new Object[] { pageNumber });
+            String urlString = ((Href) this.href.clone()).addParameter(this.pageParam, pageNumber).toString();
 
             // needed for MessageFormat : page number/url
-            Object[] pageObjects = { pageNumber, urlString };
+            Object[] pageObjects = {pageNumber, urlString};
 
             // selected page need a different formatter
             if (page.getSelected())
@@ -230,14 +237,12 @@ public class Pagination
         //  {2} previous page url
         //  {3} next page url
         //  {4} last page url
-        Object[] pageObjects =
-            {
-                numberedPageString,
-                this.urlFormat.format(new Object[] { getFirst()}),
-                this.urlFormat.format(new Object[] { getPrevious()}),
-                this.urlFormat.format(new Object[] { getNext()}),
-                this.urlFormat.format(new Object[] { getLast()}),
-                };
+        Object[] pageObjects = {
+            numberedPageString,
+            ((Href) this.href.clone()).addParameter(this.pageParam, getFirst()),
+            ((Href) this.href.clone()).addParameter(this.pageParam, getPrevious()),
+            ((Href) this.href.clone()).addParameter(this.pageParam, getNext()),
+            ((Href) this.href.clone()).addParameter(this.pageParam, getLast())};
 
         // return the full banner
         return MessageFormat.format(fullBanner, pageObjects);
@@ -254,7 +259,8 @@ public class Pagination
             .append("nextPage", this.nextPage)
             .append("previousPage", this.previousPage)
             .append("pages", this.pages)
-            .append("urlFormat", this.urlFormat)
+            .append("href", this.href)
+            .append("pageParam", this.pageParam)
             .toString();
     }
 }
