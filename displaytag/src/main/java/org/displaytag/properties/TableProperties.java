@@ -1,5 +1,6 @@
 package org.displaytag.properties;
 
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.MissingResourceException;
 import java.util.Properties;
@@ -30,19 +31,9 @@ public class TableProperties
 {
 
     /**
-     * logger
-     */
-    private static Log log = LogFactory.getLog(TableProperties.class);
-
-    /**
      * name of the default properties file name ("TableTag.properties")
      */
-    private static final String DEFAULT_FILENAME = "TableTag.properties";
-
-    /**
-     * current properties file name. Defaults to DEFAULT_FILENAME
-     */
-    private static String mPropertiesFilename = DEFAULT_FILENAME;
+    public static final String DEFAULT_FILENAME = "TableTag.properties";
 
     /**
      * The name of the local properties file that is searched for on the classpath. Settings in this file will override
@@ -51,10 +42,238 @@ public class TableProperties
     public static final String LOCAL_PROPERTIES = "displaytag";
 
     /**
+     * property <code>export.banner</code>.
+     */
+    public static final String PROPERTY_STRING_EXPORTBANNER = "export.banner";
+
+    /**
+     * property <code>export.banner.sepchar</code>.
+     */
+    public static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = "export.banner.sepchar";
+
+    /**
+     * property <code>export.decorated</code>.
+     */
+    public static final String PROPERTY_BOOLEAN_EXPORTDECORATED = "export.decorated";
+
+    /**
+     * property <code>export.amount</code>.
+     */
+    public static final String PROPERTY_STRING_EXPORTAMOUNT = "export.amount";
+
+    /**
+     * property <code>export.filename</code>.
+     */
+    public static final String PROPERTY_STRING_EXPORT_FILENAME = "export.filename";
+
+    /**
+     * property <code>basic.show.header</code>.
+     */
+    public static final String PROPERTY_BOOLEAN_SHOWHEADER = "basic.show.header";
+
+    /**
+     * property <code>basic.msg.empty_list</code>.
+     */
+    public static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = "basic.msg.empty_list";
+
+    /**
+     * property <code>paging.banner.placement</code>.
+     */
+    public static final String PROPERTY_STRING_BANNER_PLACEMENT = "paging.banner.placement";
+
+    /**
+     * property <code>error.msg.invalid_page</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_INVALIDPAGE = "error.msg.invalid_page";
+
+    /**
+     * property <code>paging.banner.item_name</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_ITEM_NAME = "paging.banner.item_name";
+
+    /**
+     * property <code>paging.banner.items_name</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_ITEMS_NAME = "paging.banner.items_name";
+
+    /**
+     * property <code>paging.banner.no_items_found</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_NOITEMS = "paging.banner.no_items_found";
+
+    /**
+     * property <code>paging.banner.one_item_found</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM = "paging.banner.one_item_found";
+
+    /**
+     * property <code>paging.banner.all_items_found</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS = "paging.banner.all_items_found";
+
+    /**
+     * property <code>paging.banner.some_items_found</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_FOUND_SOMEITEMS = "paging.banner.some_items_found";
+
+    /**
+     * property <code>paging.banner.group_size</code>.
+     */
+    public static final String PROPERTY_INT_PAGING_GROUPSIZE = "paging.banner.group_size";
+
+    /**
+     * property <code>paging.banner.onepage</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE = "paging.banner.onepage";
+
+    /**
+     * property <code>paging.banner.first</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_BANNER_FIRST = "paging.banner.first";
+
+    /**
+     * property <code>paging.banner.last</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_BANNER_LAST = "paging.banner.last";
+
+    /**
+     * property <code>paging.banner.full</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_BANNER_FULL = "paging.banner.full";
+
+    /**
+     * property <code>paging.banner.page.link</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_PAGE_LINK = "paging.banner.page.link";
+
+    /**
+     * property <code>paging.banner.page.selected</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_PAGE_SELECTED = "paging.banner.page.selected";
+
+    /**
+     * property <code>paging.banner.page.separator</code>.
+     */
+    public static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator";
+
+    /**
+     * property <code>css.tr.even</code>: holds the name of the css class added to even rows.
+     * Defaults to <code>even</code>.
+     */
+    public static final String PROPERTY_CSS_TR_EVEN = "css.tr.even";
+
+    /**
+     * property <code>css.tr.odd</code>: holds the name of the css class added to odd rows.
+     * Defaults to <code>odd</code>.
+     */
+    public static final String PROPERTY_CSS_TR_ODD = "css.tr.odd";
+
+    /**
+     * property <code>css.table</code>: holds the name of the css class added to the main table tag. By default no
+     * css class is added.
+     */
+    public static final String PROPERTY_CSS_TABLE = "css.table";
+
+    /**
+     * property <code>css.th.sortable</code>: holds the name of the css class added to the the header of a sortable
+     * column. By default no css class is added.
+     */
+    public static final String PROPERTY_CSS_TH_SORTABLE = "css.th.sortable";
+
+    /**
+     * property <code>css.th.sorted</code>: holds the name of the css class added to the the header of a sorted
+     * column. Defaults to <code>sorted</code>.
+     */
+    public static final String PROPERTY_CSS_TH_SORTED = "css.th.sorted";
+
+    /**
+     * prefix used for all the properties related to export ("export"). The full property name is <code>export.</code>
+     * <em>[export type]</em><code>.</code><em>[property name]</em>
+     */
+    public static final String PROPERTY_BOOLEAN_EXPORT_PREFIX = "export";
+
+    /**
+     * export property <code>label</code>.
+     */
+    public static final String EXPORTPROPERTY_STRING_LABEL = "label";
+
+    /**
+     * export property <code>include_header</code>.
+     */
+    public static final String EXPORTPROPERTY_BOOLEAN_EXPORTHEADER = "include_header";
+
+    /**
+     * export property <code>filename</code>. @todo unused at the moment
+     */
+    public static final String EXPORTPROPERTY_STRING_FILENAME = "filename";
+
+    /**
+     * export property <code>banner</code>. @todo unused at the moment
+     */
+    public static final String EXPORTPROPERTY_STRING_BANNER = "banner";
+
+    /**
      * The userProperties are local, non-default properties; these settings override the defaults from
      * displaytag.properties and TableTag.properties.
      */
     private static Properties userProperties = new Properties();
+
+    /**
+     * logger
+     */
+    private static Log log = LogFactory.getLog(TableProperties.class);
+
+    /**
+     * Loaded properties
+     */
+    private Properties properties;
+
+    /**
+     * Initialize a new TableProperties loading the default properties file and the user defined one
+     * @throws TablePropertiesLoadException for errors during loading of properties files
+     */
+    public TableProperties() throws TablePropertiesLoadException
+    {
+
+        Properties defaultProperties = new Properties();
+        try
+        {
+            defaultProperties.load(this.getClass().getResourceAsStream(DEFAULT_FILENAME));
+        }
+        catch (IOException e)
+        {
+            throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
+        }
+
+        properties = new Properties(defaultProperties);
+
+        // Try to load the properties from the local properties file, displaytag.properties.
+        try
+        {
+            ResourceBundle bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES);
+            Enumeration keys = bundle.getKeys();
+            while (keys.hasMoreElements())
+            {
+                String key = (String) keys.nextElement();
+                properties.setProperty(key, bundle.getString(key));
+            }
+        }
+        catch (MissingResourceException e)
+        {
+            log.info("Was not able to load a displaytag.properties; " + e.getMessage());
+        }
+
+        // Now copy in the user properties
+        Enumeration keys = userProperties.keys();
+        while (keys.hasMoreElements())
+        {
+            String key = (String) keys.nextElement();
+            if (key != null)
+            {
+                properties.setProperty(key, (String) userProperties.get(key));
+            }
+        }
+    }
 
     /**
      * Local, non-default properties; these settings override the defaults from displaytag.properties and
@@ -86,153 +305,7 @@ public class TableProperties
     }
 
     /**
-     * Loaded properties
-     */
-    private Properties properties;
-
-    /**
-     * prefix used for all the properties related to export ("export")
-     */
-    private static final String PROPERTY_BOOLEAN_EXPORT_PREFIX = "export";
-
-    /**
-     * Field PROPERTY_STRING_EXPORT_LABEL
-     */
-    private static final String PROPERTY_STRING_EXPORT_LABEL = "label";
-
-    /**
-     * Field PROPERTY_BOOLEAN_EXPORT_HEADER
-     */
-    private static final String PROPERTY_BOOLEAN_EXPORT_HEADER = "include_header";
-
-    /**
-     * Field PROPERTY_STRING_EXPORTBANNER
-     */
-    private static final String PROPERTY_STRING_EXPORTBANNER = "export.banner";
-    
-    /**
-     * Field PROPERTY_STRING_EXPORTBANNER_SEPARATOR
-     */
-    private static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = "export.banner.sepchar";
-
-    /**
-     * Field PROPERTY_BOOLEAN_EXPORTDECORATED
-     */
-    private static final String PROPERTY_BOOLEAN_EXPORTDECORATED = "export.decorated";
-
-    /**
-     * Field PROPERTY_STRING_EXPORTAMOUNT
-     */
-    private static final String PROPERTY_STRING_EXPORTAMOUNT = "export.amount";
-    
-    /**
-     * Field PROPERTY_STRING_EXPORT_FILENAME
-     */
-    private static final String PROPERTY_STRING_EXPORT_FILENAME = "export.filename";
-
-    /**
-     * Field PROPERTY_BOOLEAN_SHOWHEADER
-     */
-    private static final String PROPERTY_BOOLEAN_SHOWHEADER = "basic.show.header";
-    /**
-     * Field PROPERTY_STRING_EMPTYLIST_MESSAGE
-     */
-    private static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = "basic.msg.empty_list";
-
-    /**
-     * Field PROPERTY_STRING_BANNER_PLACEMENT
-     */
-    private static final String PROPERTY_STRING_BANNER_PLACEMENT = "paging.banner.placement";
-
-    /**
-     * Field PROPERTY_STRING_PAGING_INVALIDPAGE
-     */
-    private static final String PROPERTY_STRING_PAGING_INVALIDPAGE = "error.msg.invalid_page";
-
-    /**
-     * Field PROPERTY_STRING_PAGING_ITEM_NAME
-     */
-    private static final String PROPERTY_STRING_PAGING_ITEM_NAME = "paging.banner.item_name";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_ITEMS_NAME
-     */
-    private static final String PROPERTY_STRING_PAGING_ITEMS_NAME = "paging.banner.items_name";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_NOITEMS
-     */
-    private static final String PROPERTY_STRING_PAGING_NOITEMS = "paging.banner.no_items_found";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_FOUND_ONEITEM
-     */
-    private static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM = "paging.banner.one_item_found";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_FOUND_ALLITEMS
-     */
-    private static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS = "paging.banner.all_items_found";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_FOUND_SOMEITEMS
-     */
-    private static final String PROPERTY_STRING_PAGING_FOUND_SOMEITEMS = "paging.banner.some_items_found";
-
-    /**
-     * Field PROPERTY_INT_PAGING_GROUPSIZE
-     */
-    private static final String PROPERTY_INT_PAGING_GROUPSIZE = "paging.banner.group_size";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_BANNER_ONEPAGE
-     */
-    private static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE = "paging.banner.onepage";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_BANNER_FIRST
-     */
-    private static final String PROPERTY_STRING_PAGING_BANNER_FIRST = "paging.banner.first";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_BANNER_LAST
-     */
-    private static final String PROPERTY_STRING_PAGING_BANNER_LAST = "paging.banner.last";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_BANNER_FULL
-     */
-    private static final String PROPERTY_STRING_PAGING_BANNER_FULL = "paging.banner.full";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_PAGE_LINK
-     */
-    private static final String PROPERTY_STRING_PAGING_PAGE_LINK = "paging.banner.page.link";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_PAGE_SELECTED
-     */
-    private static final String PROPERTY_STRING_PAGING_PAGE_SELECTED = "paging.banner.page.selected";
-    
-    /**
-     * Field PROPERTY_STRING_PAGING_PAGE_SPARATOR
-     */
-    private static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator";
-
-    /**
-     * unused property
-     * @todo add the ability to set the exported file name
-     */
-    private static final String PROPERTY_STRING_SAVE_EXCEL_FILENAME = "save.excel.filename";
-    
-    /**
-     * unused property
-     * @todo check references and remove
-     */
-    private static final String PROPERTY_STRING_SAVE_EXCEL_BANNER = "save.excel.banner";
-
-    /**
-     * Method getPagingInvalidPage
+     * Getter for the <code>PROPERTY_STRING_PAGING_INVALIDPAGE</code> property.
      * @return String
      */
     public String getPagingInvalidPage()
@@ -241,7 +314,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingItemName
+     * Getter for the <code>PROPERTY_STRING_PAGING_ITEM_NAME</code> property.
      * @return String
      */
     public String getPagingItemName()
@@ -250,7 +323,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingItemsName
+     * Getter for the <code>PROPERTY_STRING_PAGING_ITEMS_NAME</code> property.
      * @return String
      */
     public String getPagingItemsName()
@@ -259,7 +332,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingFoundNoItems
+     * Getter for the <code>PROPERTY_STRING_PAGING_NOITEMS</code> property.
      * @return String
      */
     public String getPagingFoundNoItems()
@@ -268,7 +341,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingFoundOneItem
+     * Getter for the <code>PROPERTY_STRING_PAGING_FOUND_ONEITEM</code> property.
      * @return String
      */
     public String getPagingFoundOneItem()
@@ -277,7 +350,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingFoundAllItems
+     * Getter for the <code>PROPERTY_STRING_PAGING_FOUND_ALLITEMS</code> property.
      * @return String
      */
     public String getPagingFoundAllItems()
@@ -286,7 +359,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingFoundSomeItems
+     * Getter for the <code>PROPERTY_STRING_PAGING_FOUND_SOMEITEMS</code> property.
      * @return String
      */
     public String getPagingFoundSomeItems()
@@ -295,7 +368,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingGroupSize
+     * Getter for the <code>PROPERTY_INT_PAGING_GROUPSIZE</code> property.
      * @param defaultValue int
      * @return int
      */
@@ -305,7 +378,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingBannerOnePage
+     * Getter for the <code>PROPERTY_STRING_PAGING_BANNER_ONEPAGE</code> property.
      * @return String
      */
     public String getPagingBannerOnePage()
@@ -314,7 +387,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingBannerFirst
+     * Getter for the <code>PROPERTY_STRING_PAGING_BANNER_FIRST</code> property.
      * @return String
      */
     public String getPagingBannerFirst()
@@ -323,7 +396,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingBannerLast
+     * Getter for the <code>PROPERTY_STRING_PAGING_BANNER_LAST</code> property.
      * @return String
      */
     public String getPagingBannerLast()
@@ -332,7 +405,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingBannerFull
+     * Getter for the <code>PROPERTY_STRING_PAGING_BANNER_FULL</code> property.
      * @return String
      */
     public String getPagingBannerFull()
@@ -341,7 +414,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingPageLink
+     * Getter for the <code>PROPERTY_STRING_PAGING_PAGE_LINK</code> property.
      * @return String
      */
     public String getPagingPageLink()
@@ -350,7 +423,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingPageSelected
+     * Getter for the <code>PROPERTY_STRING_PAGING_PAGE_SELECTED</code> property.
      * @return String
      */
     public String getPagingPageSelected()
@@ -359,7 +432,7 @@ public class TableProperties
     }
 
     /**
-     * Method getPagingPageSeparator
+     * Getter for the <code>PROPERTY_STRING_PAGING_PAGE_SPARATOR</code> property.
      * @return String
      */
     public String getPagingPageSeparator()
@@ -385,22 +458,42 @@ public class TableProperties
     public boolean getExportHeader(MediaTypeEnum exportType)
     {
         return getBooleanProperty(
-            PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + PROPERTY_BOOLEAN_EXPORT_HEADER);
+            PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
     }
 
     /**
-     * Returns the label for the given export option
+     * Returns the label for the given export option.
      * @param exportType instance of MediaTypeEnum
      * @return String label
      */
     public String getExportLabel(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + PROPERTY_STRING_EXPORT_LABEL);
+        return getProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_LABEL);
     }
 
     /**
-     * Method getExportDecorated
-     * @return boolean
+     * Returns the filename for the given export option.
+     * @param exportType instance of MediaTypeEnum
+     * @return file name @todo unused
+     */
+    public String getExportFilename(MediaTypeEnum exportType)
+    {
+        return getProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_FILENAME);
+    }
+
+    /**
+     * Returns the banner for the given export option.
+     * @param exportType instance of MediaTypeEnum
+     * @return String @todo unused
+     */
+    public String getExportBanner(MediaTypeEnum exportType)
+    {
+        return getProperty(PROPERTY_BOOLEAN_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_BANNER);
+    }
+
+    /**
+     * Getter for the <code>PROPERTY_BOOLEAN_EXPORTDECORATED</code> property.
+     * @return boolean <code>true</code> if decorators should be used in exporting
      */
     public boolean getExportDecorated()
     {
@@ -408,8 +501,8 @@ public class TableProperties
     }
 
     /**
-     * Method getExportFileName
-     * @return String
+     * Getter for the <code>PROPERTY_STRING_EXPORT_FILENAME</code> property.
+     * @return String filename for export
      */
     public String getExportFileName()
     {
@@ -417,7 +510,7 @@ public class TableProperties
     }
 
     /**
-     * Method getExportBanner
+     * Getter for the <code>PROPERTY_STRING_EXPORTBANNER</code> property.
      * @return String
      */
     public String getExportBanner()
@@ -426,7 +519,7 @@ public class TableProperties
     }
 
     /**
-     * Method getExportBannerSeparator
+     * Getter for the <code>PROPERTY_STRING_EXPORTBANNER_SEPARATOR</code> property.
      * @return String
      */
     public String getExportBannerSeparator()
@@ -435,7 +528,7 @@ public class TableProperties
     }
 
     /**
-     * Method getShowHeader
+     * Getter for the <code>PROPERTY_BOOLEAN_SHOWHEADER</code> property.
      * @return boolean
      */
     public boolean getShowHeader()
@@ -444,7 +537,7 @@ public class TableProperties
     }
 
     /**
-     * Method getEmptyListMessage
+     * Getter for the <code>PROPERTY_BOOLEAN_SHOWHEADER</code> property.
      * @return String
      */
     public String getEmptyListMessage()
@@ -453,7 +546,7 @@ public class TableProperties
     }
 
     /**
-     * Method getExportFullList
+     * Getter for the <code>PROPERTY_STRING_EXPORTAMOUNT</code> property.
      * @return boolean
      */
     public boolean getExportFullList()
@@ -462,7 +555,7 @@ public class TableProperties
     }
 
     /**
-     * Method getAddPagingBannerTop
+     * Should paging banner be added before the table?
      * @return boolean
      */
     public boolean getAddPagingBannerTop()
@@ -472,7 +565,7 @@ public class TableProperties
     }
 
     /**
-     * Method getAddPagingBannerBottom
+     * Should paging banner be added after the table?
      * @return boolean
      */
     public boolean getAddPagingBannerBottom()
@@ -482,83 +575,9 @@ public class TableProperties
     }
 
     /**
-     * Method getSaveExcelFilename
-     * @return String
-     */
-    public String getSaveExcelFilename()
-    {
-        return getProperty(PROPERTY_STRING_SAVE_EXCEL_FILENAME);
-    }
-
-    /**
-     * Method getSaveExcelBanner
-     * @return String
-     */
-    public String getSaveExcelBanner()
-    {
-        return getProperty(PROPERTY_STRING_SAVE_EXCEL_BANNER);
-    }
-
-    /**
-     * Method getNoColumnMessage
-     * @return String
-     */
-    public String getNoColumnMessage()
-    {
-        return "Please provide column tags";
-    }
-
-    /**
-     * Initialize a new TableProperties loading the default properties file and the user defined one
-     * @throws TablePropertiesLoadException for errors during loading of properties files
-     */
-    public TableProperties() throws TablePropertiesLoadException
-    {
-
-        Properties defaultProperties = new Properties();
-        try
-        {
-            defaultProperties.load(this.getClass().getResourceAsStream(mPropertiesFilename));
-            properties = new Properties(defaultProperties);
-        }
-        catch (Exception ex)
-        {
-            throw new TablePropertiesLoadException(getClass(), mPropertiesFilename, ex);
-        }
-
-        // Try to load the properties from the local properties file,
-        // displaytag.properties.
-        try
-        {
-            ResourceBundle bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES);
-            Enumeration keys = bundle.getKeys();
-            while (keys.hasMoreElements())
-            {
-                String key = (String) keys.nextElement();
-                properties.setProperty(key, bundle.getString(key));
-            }
-        }
-        catch (MissingResourceException e)
-        {
-            log.info("Was not able to load a displaytag.properties; " + e.getMessage());
-        }
-
-        // Now copy in the user properties
-        Enumeration keys = userProperties.keys();
-        while (keys.hasMoreElements())
-        {
-            String key = (String) keys.nextElement();
-            if (key != null)
-            {
-                properties.setProperty(key, (String) userProperties.get(key));
-            }
-        }
-    }
-
-    /**
-     * Method getProperty
-     * @param key String
-     * @return String
+     * Reads a String property.
+     * @param key property name
+     * @return property value or <code>null</code> if property is not found
      */
     private String getProperty(String key)
     {
@@ -566,9 +585,9 @@ public class TableProperties
     }
 
     /**
-     * Method setProperty
-     * @param key String
-     * @param value String
+     * Sets a property.
+     * @param key property name
+     * @param value property value
      */
     public void setProperty(String key, String value)
     {
@@ -576,9 +595,9 @@ public class TableProperties
     }
 
     /**
-     * Method getBooleanProperty
-     * @param key String
-     * @return boolean
+     * Reads a boolean property.
+     * @param key property name
+     * @return boolean <code>true</code> if the property value is "true", <code>false</code> for any other value.
      */
     private boolean getBooleanProperty(String key)
     {
@@ -586,10 +605,10 @@ public class TableProperties
     }
 
     /**
-     * Method getIntProperty
-     * @param key String
-     * @param defaultValue int
-     * @return int
+     * Reads an int property.
+     * @param key property name
+     * @param defaultValue default value returned if property is not found or not a valid int value
+     * @return property value
      */
     private int getIntProperty(String key, int defaultValue)
     {
@@ -603,9 +622,13 @@ public class TableProperties
         {
             // Don't care, use default
             log.warn(
-                "Invalid value for \"pPropertyName\" property: value=\""
+                "Invalid value for \""
+                    + key
+                    + "\" property: value=\""
                     + getProperty(key)
-                    + "\"; using default \"pDefault\"");
+                    + "\"; using default \""
+                    + defaultValue
+                    + "\"");
         }
 
         return intValue;
