@@ -1,19 +1,12 @@
 package org.displaytag.tags;
 
 /**
- * <p>Constants for parameter names</p>
+ * Constants for parameter names.
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public final class TableTagParameters
 {
-
-    /**
-     * utility class - don't instantiate
-     */
-    private TableTagParameters()
-    {
-    }
 
     /**
      * name of the parameter specifying the current sorted column index
@@ -66,28 +59,20 @@ public final class TableTagParameters
     public static final int VALUE_SORT_ASCENDING = 2;
 
     /**
-     * css class added to odd rows
-     */
-    public static final String CSS_ODDROW = "odd";
-
-    /**
-     * css class added to even rows
-     */
-    public static final String CSS_EVENROW = "even";
-
-    /**
      * css class added to empty tables
      */
     public static final String CSS_EMPTYLIST = "empty";
 
     /**
-     * css class added to sorted columns
-     */
-    public static final String CSS_SORTEDCOLUMN = "sorted";
-
-    /**
      * prefix for the css class added to sorted column to specify order (0 and 1 is added)
      */
     public static final String CSS_SORTORDERPREFIX = "order";
+    
+    /**
+     * utility class - don't instantiate
+     */
+    private TableTagParameters()
+    {
+    }
 
 }

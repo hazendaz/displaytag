@@ -31,7 +31,7 @@ public class TableProperties
 {
 
     /**
-     * name of the default properties file name ("TableTag.properties")
+     * name of the default properties file name ("TableTag.properties").
      */
     public static final String DEFAULT_FILENAME = "TableTag.properties";
 
@@ -219,17 +219,17 @@ public class TableProperties
     private static Properties userProperties = new Properties();
 
     /**
-     * logger
+     * logger.
      */
     private static Log log = LogFactory.getLog(TableProperties.class);
 
     /**
-     * Loaded properties
+     * Loaded properties.
      */
     private Properties properties;
 
     /**
-     * Initialize a new TableProperties loading the default properties file and the user defined one
+     * Initialize a new TableProperties loading the default properties file and the user defined one.
      * @throws TablePropertiesLoadException for errors during loading of properties files
      */
     public TableProperties() throws TablePropertiesLoadException
@@ -245,7 +245,7 @@ public class TableProperties
             throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
         }
 
-        properties = new Properties(defaultProperties);
+        this.properties = new Properties(defaultProperties);
 
         // Try to load the properties from the local properties file, displaytag.properties.
         try
@@ -255,12 +255,12 @@ public class TableProperties
             while (keys.hasMoreElements())
             {
                 String key = (String) keys.nextElement();
-                properties.setProperty(key, bundle.getString(key));
+                this.properties.setProperty(key, bundle.getString(key));
             }
         }
         catch (MissingResourceException e)
         {
-            log.info("Was not able to load a displaytag.properties; " + e.getMessage());
+            log.debug("Was not able to load a displaytag.properties; " + e.getMessage());
         }
 
         // Now copy in the user properties
@@ -270,7 +270,7 @@ public class TableProperties
             String key = (String) keys.nextElement();
             if (key != null)
             {
-                properties.setProperty(key, (String) userProperties.get(key));
+                this.properties.setProperty(key, (String) userProperties.get(key));
             }
         }
     }
@@ -575,13 +575,58 @@ public class TableProperties
     }
 
     /**
+     * Returns the appropriate css class for a table row.
+     * @param rowNumber row number
+     * @return the value of <code>PROPERTY_CSS_TR_EVEN</code> if rowNumber is even or <code>PROPERTY_CSS_TR_ODD</code>
+     * if rowNumber is odd.
+     */
+    public String getCssRow(int rowNumber)
+    {
+        if (rowNumber % 2 == 0)
+        {    
+            return getProperty(PROPERTY_CSS_TR_ODD);
+        }
+        else
+        {
+            return getProperty(PROPERTY_CSS_TR_EVEN);            
+        }
+    }
+    
+    /**
+     * Returns the configured css class for a sorted column header.
+     * @return the value of <code>PROPERTY_CSS_TH_SORTED</code>
+     */
+    public String getCssSorted()
+    {
+        return getProperty(PROPERTY_CSS_TH_SORTED);
+    }
+    
+    /**
+     * Returns the configured css class for the main table tag.
+     * @return the value of <code>PROPERTY_CSS_TABLE</code>
+     */
+    public String getCssTable()
+    {
+        return getProperty(PROPERTY_CSS_TABLE);
+    }
+    
+    /**
+     * Returns the configured css class for a sortable column header.
+     * @return the value of <code>PROPERTY_CSS_TH_SORTABLE</code>
+     */
+    public String getCssSortable()
+    {
+        return getProperty(PROPERTY_CSS_TH_SORTABLE);
+    }
+    
+    /**
      * Reads a String property.
      * @param key property name
      * @return property value or <code>null</code> if property is not found
      */
     private String getProperty(String key)
     {
-        return properties.getProperty(key);
+        return this.properties.getProperty(key);
     }
 
     /**
@@ -591,7 +636,7 @@ public class TableProperties
      */
     public void setProperty(String key, String value)
     {
-        properties.setProperty(key, value);
+        this.properties.setProperty(key, value);
     }
 
     /**

@@ -16,7 +16,6 @@ import org.apache.commons.beanutils.PropertyUtils;
  * <p>
  * Decorator should never be subclassed directly. Use TableDecorator instead
  * </p>
- * 
  * @author mraible
  * @version $Revision$ ($Author$)
  */
@@ -24,52 +23,47 @@ abstract class Decorator
 {
 
     /**
-     * page context
-     */
-    private PageContext pageContext;
-
-    /**
-     * property info cache contains classname#propertyname Strings as keys and Booleans as values
+     * property info cache contains classname#propertyname Strings as keys and Booleans as values.
      */
     private static Map propertyMap = new HashMap();
 
+    /**
+     * page context.
+     */
+    private PageContext pageContext;
+    
     /**
      * decorated object. Usually a List
      */
     private Object decoratedObject;
 
     /**
-     * Initialize the TableTecorator instance
-     * 
-     * @param context
-     * PageContext
-     * @param decorated
-     * decorated object (usually a list)
+     * Initialize the TableTecorator instance.
+     * @param context PageContext
+     * @param decorated decorated object (usually a list)
      */
     public void init(PageContext context, Object decorated)
     {
-        pageContext = context;
-        decoratedObject = decorated;
+        this.pageContext = context;
+        this.decoratedObject = decorated;
     }
 
     /**
-     * returns the page context
-     * 
+     * returns the page context.
      * @return PageContext
      */
     public PageContext getPageContext()
     {
-        return pageContext;
+        return this.pageContext;
     }
 
     /**
-     * returns the decorated object
-     * 
+     * returns the decorated object.
      * @return Object
      */
     public Object getDecoratedObject()
     {
-        return decoratedObject;
+        return this.decoratedObject;
     }
 
     /**
@@ -78,15 +72,13 @@ abstract class Decorator
      */
     public void finish()
     {
-        pageContext = null;
-        decoratedObject = null;
+        this.pageContext = null;
+        this.decoratedObject = null;
     }
 
     /**
-     * look for a getter for the given property using introspection
-     * 
-     * @param propertyName
-     * name of the property to check
+     * Looks for a getter for the given property using introspection.
+     * @param propertyName name of the property to check
      * @return boolean true if the decorator has a getter for the given property
      */
     public boolean searchGetterFor(String propertyName)
@@ -109,9 +101,7 @@ abstract class Decorator
      * Check if a getter exists for a given property. Uses cached info if property has already been requested. This
      * method only check for a simple property, if pPropertyName contains multiple tokens only the first part is
      * evaluated
-     * 
-     * @param propertyName
-     * name of the property to check
+     * @param propertyName name of the property to check
      * @return boolean true if the decorator has a getter for the given property
      */
     public boolean hasGetterFor(String propertyName)

@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
+import org.displaytag.properties.TableProperties;
 
 /**
  * @author fgiust
@@ -59,14 +60,21 @@ public class TableModel
      * id inherited from the TableTag (needed only for logging)
      */
     private String id;
+    
+    /**
+     * configurable table properties
+     */
+    private TableProperties properties;
 
     /**
      * Constructor for TableModel
+     * @param tableProperties table properties
      */
-    public TableModel()
+    public TableModel(TableProperties tableProperties)
     {
         this.rowListFull = new ArrayList(20);
         this.headerCellList = new ArrayList(20);
+        this.properties = tableProperties;
     }
 
     /**
@@ -106,7 +114,7 @@ public class TableModel
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + id + "] adding row " + row);
+            log.debug("[" + this.id + "] adding row " + row);
         }
         this.rowListFull.add(row);
     }
@@ -266,7 +274,7 @@ public class TableModel
     {
         RowIterator iterator = new RowIterator(this.rowListPage, this.headerCellList, this.tableDecorator);
         // copy id for logging
-        iterator.setId(id);
+        iterator.setId(this.id);
         return iterator;
     }
 
@@ -279,7 +287,7 @@ public class TableModel
     {
         RowIterator iterator = new RowIterator(this.rowListFull, this.headerCellList, this.tableDecorator);
         // copy id for logging
-        iterator.setId(id);
+        iterator.setId(this.id);
         return iterator;
     }
 
@@ -320,7 +328,7 @@ public class TableModel
     {
         if (log.isDebugEnabled())
         {
-            log.debug("[" + id + "] sorting page list");
+            log.debug("[" + this.id + "] sorting page list");
         }
         sortRowList(this.rowListPage);
 
@@ -333,9 +341,18 @@ public class TableModel
     {
         if (log.isDebugEnabled())
         {
-            log.debug("[" + id + "] sorting full data");
+            log.debug("[" + this.id + "] sorting full data");
         }
         sortRowList(this.rowListFull);
+    }
+
+    /**
+     * Returns the table properties.
+     * @return the configured table properties.
+     */
+    public TableProperties getProperties()
+    {
+        return this.properties;
     }
 
 }

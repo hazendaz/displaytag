@@ -3,11 +3,10 @@ package org.displaytag.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.displaytag.tags.TableTagParameters;
-import org.displaytag.util.TagConstants;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.displaytag.util.TagConstants;
 
 /**
  * Holds informations for a table row
@@ -38,6 +37,18 @@ public class Row
     private TableModel tableModel;
 
     /**
+     * Constructor for Row
+     * @param object Object
+     * @param number int
+     */
+    public Row(Object object, int number)
+    {
+        this.rowObject = object;
+        this.rowNumber = number;
+        this.staticCells = new ArrayList();
+    }
+
+    /**
      * Setter for the row number
      * @param number row number
      */
@@ -61,18 +72,6 @@ public class Row
     public int getRowNumber()
     {
         return this.rowNumber;
-    }
-
-    /**
-     * Constructor for Row
-     * @param object Object
-     * @param number int
-     */
-    public Row(Object object, int number)
-    {
-        this.rowObject = object;
-        this.rowNumber = number;
-        this.staticCells = new ArrayList();
     }
 
     /**
@@ -131,17 +130,28 @@ public class Row
     }
 
     /**
-     * writes the open &lt;tr&gt; tag
-     * @return String &lt;tr&gt; tag
+     * Writes the open &lt;tr> tag
+     * @return String &lt;tr> tag with the appropriate css class attribute
      */
     public String getOpenTag()
     {
-        return TagConstants.TAG_OPEN
-            + TagConstants.TAGNAME_ROW
-            + (isOddRow()
-                ? " " + TagConstants.ATTRIBUTE_CLASS + "=\"" + TableTagParameters.CSS_ODDROW + "\""
-                : " " + TagConstants.ATTRIBUTE_CLASS + "=\"" + TableTagParameters.CSS_EVENROW + "\"")
-            + TagConstants.TAG_CLOSE;
+        String css = this.tableModel.getProperties().getCssRow(this.rowNumber);
+
+        if (StringUtils.isNotBlank(css))
+        {
+            return TagConstants.TAG_OPEN
+                + TagConstants.TAGNAME_ROW
+                + " "
+                + TagConstants.ATTRIBUTE_CLASS
+                + "=\""
+                + css
+                + "\""
+                + TagConstants.TAG_CLOSE;
+        }
+        else
+        {
+            return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + TagConstants.TAG_CLOSE;
+        }
     }
 
     /**

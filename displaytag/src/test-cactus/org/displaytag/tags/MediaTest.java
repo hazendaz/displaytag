@@ -23,13 +23,24 @@ public class MediaTest extends JspTestCase
      */
     private static Log log = LogFactory.getLog(MediaTest.class);
 
+    /**
+     * table tag
+     */
     TableTag table;
+    
+    /**
+     * table tag lifecycle
+     */
     JspTagLifecycle tableLifecycle;
+    
     JspTagLifecycle aLifecycle;
     JspTagLifecycle bLifecycle;
     JspTagLifecycle cLifecycle;
     JspTagLifecycle dLifecycle;
 
+    /**
+     * 
+     */
     protected void setUp() throws Exception
     {
         List testData = new ArrayList();
@@ -68,6 +79,7 @@ public class MediaTest extends JspTestCase
         bLifecycle.expectBodySkipped();
         cLifecycle.expectBodyEvaluated(2);
     }
+    
     public void endTestAsHtml(WebResponse response)
     {
         assertContains(response, KnownValue.ant);
