@@ -401,6 +401,7 @@
       <name>width</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
       <description>@deprecated; html attribute. Use "style" or "class" to set presentational attributes using 
         css.</description>
     </attribute>
