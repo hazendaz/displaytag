@@ -19,8 +19,8 @@ import org.displaytag.tags.TableTag;
 
 
 /**
- * Allow the author of an included JSP page to reset the content type to something else (like a binary stream), and
- * then write the new info back as the exclusive response, clearing the buffers of all previously added content.
+ * Allow the author of an included JSP page to reset the content type to something else (like a binary stream), and then
+ * write the new info back as the exclusive response, clearing the buffers of all previously added content.
  * <p>
  * The page author should write to, but not replace, the StringBuffer objects placed into request scope at
  * CONTENT_OVERRIDE_BODY and CONTENT_OVERRIDE_TYPE.
@@ -30,7 +30,7 @@ import org.displaytag.tags.TableTag;
  * jsp:include. If that is your intention, just add this Filter to your web.xml and map it to the appropriate requests,
  * using something like:
  * </p>
- *
+ * 
  * <pre>
  *  &lt;filter&gt;
  *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
@@ -45,7 +45,7 @@ import org.displaytag.tags.TableTag;
  *      &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
  *  &lt;/filter-mapping&gt;
  * </pre>
- *
+ * 
  * @author rapruitt
  * @version $Revision$ ($Author$)
  * @since 1.0
@@ -75,10 +75,9 @@ public class ResponseOverrideFilter implements Filter
         HttpServletRequest request = (HttpServletRequest) srequest;
 
         BufferedResponseWrapper wrapper = new BufferedResponseWrapper((HttpServletResponse) servletResponse);
-        // In a portlet environment, you do not have direct access to the actual request object, so any attributes
-        // that
-        // are added will not be visible outside of your portlet. So instead, users MUST append to the StringBuffer,
-        // so
+
+        // In a portlet environment, you do not have direct access to the actual request object, so any attribute that
+        // is added will not be visible outside of your portlet. So instead, users MUST append to the StringBuffer, so
         // that the portlets do not have to bind a new attribute to the request.
         request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, new StringBuffer(8096));
         request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_TYPE, new StringBuffer(80));
@@ -119,7 +118,19 @@ public class ResponseOverrideFilter implements Filter
             pageContent = wrapper.toString();
             contentType = wrapper.getContentType();
         }
-        servletResponse.setContentType(contentType + characterEncoding);
+
+        if (contentType != null)
+        {
+            if (contentType.indexOf("charset") > -1)
+            {
+                // charset is already specified (see #921811)
+                servletResponse.setContentType(contentType);
+            }
+            else
+            {
+                servletResponse.setContentType(contentType + characterEncoding);
+            }
+        }
         servletResponse.setContentLength(pageContent.length());
 
 
