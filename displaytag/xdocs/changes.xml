@@ -63,9 +63,11 @@
       <action type="add" dev="fgiust" issue="886050">
 	       Added a <code>caption</code> tag to display a table caption.
       </action>
-      <action type="update" dev="fgiust">
-	       A new <code>org.displaytag.util.ParamEncoder</code> class has been added, to allow users to generate encoded
-	       parameter names like tabletag does.
+      <action type="update" dev="fgiust"> A new <code>org.displaytag.util.ParamEncoder</code> class has been added, to 
+        allow users to generate encoded parameter names like tabletag does.
+          <strong>Important! From now tables in the same pages which use the sorting, paging or 
+          exporting feature MUST have a different ID
+          </strong>
       </action>
       <action type="add" dev="fgiust" >
 	       Added the new <code>sort.amount</code> configuration property.
