@@ -328,6 +328,13 @@ back of the container.  Best left undoc'd and experimental for now; should just 
         dynamic link so that each row creates a different URL based on the data that is being viewed. </description>
     </attribute>
     <attribute>
+      <name>url</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>The base URL used to construct the dynamic link. This attribute has the same functionality as the 
+        href attribute, but it pre-pends the contextPath. </description>
+    </attribute>
+    <attribute>
       <name>paramId</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
