@@ -995,21 +995,29 @@ public class TableTag extends TemplateTag {
                         }
                         // if value has been chopped, add leftover as title
                         if (chopped) {
-                            value = "<a href=\"" + tag.getHref() + separator + tag.getParamId() +
-                                    "=" + param + "\" title=\"" + leftover + "\">" + value + "</a>";
+                            value = "<a href=\"" + tag.getHref() + separator + tag.getParamId()
+                                    + "=" + param
+                                    + (tag.getTarget() != null ? "\" target=\"" + tag.getTarget() : "")
+                                    + "\" title=\"" + leftover + "\">" + value + "</a>";
                         }
                         else {
-                            value = "<a href=\"" + tag.getHref() + separator + tag.getParamId() +
-                                    "=" + param + "\">" + value + "</a>";
+                            value = "<a href=\"" + tag.getHref() + separator + tag.getParamId()
+                                    + "=" + param
+                                    + (tag.getTarget() != null ? "\" target=\"" + tag.getTarget() : "")
+                                    + "\">" + value + "</a>";
                         }
                     }
                     else {
                         // if value has been chopped, add leftover as title
                         if (chopped) {
-                            value = "<a href=\"" + tag.getHref() + "\" title=\"" + leftover + "\">" + value + "</a>";
+                            value = "<a href=\"" + tag.getHref()
+                                    + (tag.getTarget() != null ? "\" target=\"" + tag.getTarget() : "")
+                                    + "\" title=\"" + leftover + "\">" + value + "</a>";
                         }
                         else {
-                            value = "<a href=\"" + tag.getHref() + "\">" + value + "</a>";
+                            value = "<a href=\"" + tag.getHref()
+                                    + (tag.getTarget() != null ? "\" target=\"" + tag.getTarget() : "")
+                                    + "\">" + value + "</a>";
                         }
                     }
                 }

@@ -380,6 +380,13 @@
                     <availability>1.0</availability>
                 </attribute>
                 <attribute>
+                    <name>target</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>Href Target attribute</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
                     <name>paramId</name>
                     <required>false</required>
                     <rtexprvalue>true</rtexprvalue>
