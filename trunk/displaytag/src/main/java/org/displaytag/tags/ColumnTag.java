@@ -365,7 +365,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setNowrap(String value)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_NOWRAP, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_NOWRAP, "nowrap");
     }
 
     /**
