@@ -1,31 +1,29 @@
 package org.displaytag.tags;
 
 import org.displaytag.test.DisplaytagCase;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
-/* 
- * Date: Sep 19, 2004
- * Time: 6:26:05 PM
- * $Header$
- */
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 
 /**
  * Verify that the TableProperties will show values from the proper locale.
  * @author rapruitt
+ * @version $Revision$ ($Author$)
  */
 public class I18nPropertiesTest extends DisplaytagCase
 {
+
     /**
      * No results for an en locale.
      */
-    private String noResutsMsg_default = "There are no results.";
+    private static final String MSG_DEFAULT = "There are no results.";
+
     /**
      * No results for an it locale.
      */
-    private String noResultsMsg_it = "Non ci sono risultati.";
+    private static final String MSG_IT = "Non ci sono risultati.";
 
     /**
      * Instantiates a new test case.
@@ -53,7 +51,7 @@ public class I18nPropertiesTest extends DisplaytagCase
     {
 
         WebRequest request = new GetMethodWebRequest(jspName);
-        request.setHeaderField("Accept-Language","en-us,en;q=0.5");
+        request.setHeaderField("Accept-Language", "en-us,en;q=0.5");
 
         WebResponse response = runner.getResponse(request);
 
@@ -62,13 +60,12 @@ public class I18nPropertiesTest extends DisplaytagCase
             log.debug("RESPONSE: " + response.getText());
         }
 
-        assertTrue(response.getText().indexOf(noResutsMsg_default) > -1 );
-        assertTrue(response.getText().indexOf(noResultsMsg_it) == -1 );
-
+        assertTrue(response.getText().indexOf(MSG_DEFAULT) > -1);
+        assertTrue(response.getText().indexOf(MSG_IT) == -1);
 
         // Now, with an Italian locale.
         request = new GetMethodWebRequest(jspName);
-        request.setHeaderField("Accept-Language","it-it,it;q=0.5");
+        request.setHeaderField("Accept-Language", "it-it,it;q=0.5");
 
         response = runner.getResponse(request);
 
@@ -77,7 +74,7 @@ public class I18nPropertiesTest extends DisplaytagCase
             log.debug("RESPONSE: " + response.getText());
         }
 
-        assertTrue(response.getText().indexOf(noResultsMsg_it) > -1 );
-        assertTrue(response.getText().indexOf(noResutsMsg_default) == -1 );
+        assertTrue(response.getText().indexOf(MSG_IT) > -1);
+        assertTrue(response.getText().indexOf(MSG_DEFAULT) == -1);
     }
 }
