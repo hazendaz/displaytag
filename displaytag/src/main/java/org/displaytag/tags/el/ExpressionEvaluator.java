@@ -11,6 +11,7 @@ import org.apache.taglibs.standard.lang.support.ExpressionEvaluatorManager;
  * Utility class to help with the evaluation of JSTL Expression Language. It mainly encapsulates the calls to
  * ExpressionEvaluationManager to ease the use of this class.
  * @author Tim McCune
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class ExpressionEvaluator

@@ -13,7 +13,7 @@
  and straight-forward to use. The primary tag in the library is the Table tag.</description>
   <tag>
     <name>table</name>
-    <tag-class>org.displaytag.tags.el.TableTag</tag-class>
+    <tag-class>org.displaytag.tags.el.ELTableTag</tag-class>
     <tei-class>org.displaytag.tags.TableTagExtraInfo</tei-class>
     <body-content>JSP</body-content>
     <display-name>table</display-name>
@@ -242,7 +242,7 @@ back of the container.  Best left undoc'd and experimental for now; should just 
 
   <tag>
     <name>column</name>
-    <tag-class>org.displaytag.tags.el.ColumnTag</tag-class>
+    <tag-class>org.displaytag.tags.el.ELColumnTag</tag-class>
     <body-content>JSP</body-content>
     <display-name>column</display-name>
           <description>Displays a property of a row object inside a table.  MUST be nested inside of a Table tag.
