@@ -1,5 +1,7 @@
 package org.displaytag.exception;
 
+import org.displaytag.util.Messages;
+
 /**
  * Exception thrown when displaytag is unable to instantiate a class specified by the user in the properties file.
  * @author Fabrizio Giustina
@@ -22,11 +24,8 @@ public class FactoryInstantiationException extends BaseNestableJspTagException
      */
     public FactoryInstantiationException(Class source, String propertyName, String propertyValue, Throwable cause)
     {
-        super(source, "Cannot instantiate the class \""
-            + propertyValue
-            + "\", specified by the property \""
-            + propertyName
-            + "\".", cause);
+        super(source, Messages.getString("FactoryInstantiationException.msg", //$NON-NLS-1$
+            new Object[]{propertyValue, propertyName}), cause);
     }
 
     /**

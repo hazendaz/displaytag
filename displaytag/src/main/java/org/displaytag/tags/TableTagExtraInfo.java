@@ -18,7 +18,7 @@ public class TableTagExtraInfo extends TagExtraInfo
     /**
      * Suffix added to id for saving row number in pagecontext.
      */
-    public static final String ROWNUM_SUFFIX = "_rowNum";
+    public static final String ROWNUM_SUFFIX = "_rowNum"; //$NON-NLS-1$
 
     /**
      * Variables TableTag makes available in the pageContext.
@@ -37,19 +37,17 @@ public class TableTagExtraInfo extends TagExtraInfo
         if (tagId != null)
         {
             // current row
-            variables.add(new VariableInfo(tagId.toString(), "java.lang.Object", true, VariableInfo.NESTED));
+            variables.add(new VariableInfo(tagId.toString(), "java.lang.Object", //$NON-NLS-1$
+                true, VariableInfo.NESTED));
 
             // current row number
-            variables.add(new VariableInfo(tagId + ROWNUM_SUFFIX, "java.lang.Integer", true, VariableInfo.NESTED));
+            variables.add(new VariableInfo(tagId + ROWNUM_SUFFIX, "java.lang.Integer", //$NON-NLS-1$
+                true, VariableInfo.NESTED));
         }
 
-
         // media type row number
-        variables.add(new VariableInfo(
-            TableTag.PAGE_ATTRIBUTE_MEDIA,
-            "org.displaytag.properties.MediaTypeEnum",
-            true,
-            VariableInfo.NESTED));
+        variables.add(new VariableInfo(TableTag.PAGE_ATTRIBUTE_MEDIA, "org.displaytag.properties.MediaTypeEnum", //$NON-NLS-1$
+            true, VariableInfo.NESTED));
 
         return (VariableInfo[]) variables.toArray(new VariableInfo[]{});
     }

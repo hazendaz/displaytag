@@ -140,7 +140,10 @@ public abstract class BaseExportView
         Iterator iterator = this.model.getHeaderCellList().iterator();
 
         // start row
-        buffer.append(ROW_START);
+        if (ROW_START != null)
+        {
+            buffer.append(ROW_START);
+        }
 
         while (iterator.hasNext())
         {
@@ -154,7 +157,10 @@ public abstract class BaseExportView
                 columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());
             }
 
-            buffer.append(CELL_START);
+            if (CELL_START != null)
+            {
+                buffer.append(CELL_START);
+            }
 
             buffer.append(escapeColumnValue(columnHeader));
 
@@ -165,7 +171,10 @@ public abstract class BaseExportView
         }
 
         // end row
-        buffer.append(ROW_END);
+        if (ROW_END != null)
+        {
+            buffer.append(ROW_END);
+        }
 
         return buffer.toString();
 
@@ -191,7 +200,10 @@ public abstract class BaseExportView
         final boolean ALWAYS_APPEND_ROW_END = getAlwaysAppendRowEnd();
 
         // document start
-        buffer.append(DOCUMENT_START);
+        if (DOCUMENT_START != null)
+        {
+            buffer.append(DOCUMENT_START);
+        }
 
         if (this.header)
         {
@@ -225,7 +237,10 @@ public abstract class BaseExportView
             // iterator on columns
             ColumnIterator columnIterator = row.getColumnIterator(this.model.getHeaderCellList());
 
-            buffer.append(ROW_START);
+            if (ROW_START != null)
+            {
+                buffer.append(ROW_START);
+            }
 
             while (columnIterator.hasNext())
             {
@@ -236,7 +251,11 @@ public abstract class BaseExportView
                 // Get the value to be displayed for the column
                 value = column.getValue(this.decorated);
 
-                buffer.append(CELL_START);
+                if (CELL_START != null)
+                {
+                    buffer.append(CELL_START);
+                }
+
                 buffer.append(escapeColumnValue(value));
 
                 if (ALWAYS_APPEND_CELL_END || columnIterator.hasNext())
@@ -245,14 +264,17 @@ public abstract class BaseExportView
                 }
 
             }
-            if (ALWAYS_APPEND_ROW_END || rowIterator.hasNext())
+            if (ROW_END != null && (ALWAYS_APPEND_ROW_END || rowIterator.hasNext()))
             {
                 buffer.append(ROW_END);
             }
         }
 
-        // document start
-        buffer.append(DOCUMENT_END);
+        // document end
+        if (DOCUMENT_END != null)
+        {
+            buffer.append(DOCUMENT_END);
+        }
 
         return buffer.toString();
 

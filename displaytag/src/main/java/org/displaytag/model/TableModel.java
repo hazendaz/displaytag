@@ -73,14 +73,21 @@ public class TableModel
     private int pageOffset;
 
     /**
+     * Response encoding.
+     */
+    private String encoding;
+
+    /**
      * Constructor for TableModel.
      * @param tableProperties table properties
+     * @param charEncoding response encoding
      */
-    public TableModel(TableProperties tableProperties)
+    public TableModel(TableProperties tableProperties, String charEncoding)
     {
         this.rowListFull = new ArrayList(20);
         this.headerCellList = new ArrayList(20);
         this.properties = tableProperties;
+        this.encoding = charEncoding;
     }
 
     /**
@@ -361,4 +368,12 @@ public class TableModel
         return this.properties;
     }
 
+    /**
+     * Getter for character encoding.
+     * @return Returns the encoding used for response.
+     */
+    public String getEncoding()
+    {
+        return encoding;
+    }
 }

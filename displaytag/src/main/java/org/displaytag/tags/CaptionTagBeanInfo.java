@@ -25,12 +25,18 @@ public class CaptionTagBeanInfo extends SimpleBeanInfo
 
         try
         {
-            proplist.add(new PropertyDescriptor("class", CaptionTag.class, null, "setClass"));
-            proplist.add(new PropertyDescriptor("dir", CaptionTag.class, null, "setDir"));
-            proplist.add(new PropertyDescriptor("id", CaptionTag.class, null, "setId"));
-            proplist.add(new PropertyDescriptor("lang", CaptionTag.class, null, "setLang"));
-            proplist.add(new PropertyDescriptor("style", CaptionTag.class, null, "setStyle"));
-            proplist.add(new PropertyDescriptor("title", CaptionTag.class, null, "setTitle"));
+            proplist.add(new PropertyDescriptor("class", //$NON-NLS-1$
+                CaptionTag.class, null, "setClass")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("dir", //$NON-NLS-1$
+                CaptionTag.class, null, "setDir")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("id", //$NON-NLS-1$
+                CaptionTag.class, null, "setId")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("lang", //$NON-NLS-1$
+                CaptionTag.class, null, "setLang")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("style", //$NON-NLS-1$
+                CaptionTag.class, null, "setStyle")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("title", //$NON-NLS-1$
+                CaptionTag.class, null, "setTitle")); //$NON-NLS-1$ 
         }
         catch (IntrospectionException ex)
         {

@@ -62,7 +62,7 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
 
         if (tableTag == null)
         {
-            throw new TagStructureException(getClass(), "setProperty", "table");
+            throw new TagStructureException(getClass(), "setProperty", "table"); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         // read body only once
@@ -96,12 +96,12 @@ public class SetPropertyTag extends BodyTagSupport implements Cloneable
             TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
             // tableTag can't be null, it has been checked in doStartTag
-
             if (this.value == null)
             {
                 if (getBodyContent() == null)
                 {
-                    throw new MissingAttributeException(getClass(), new String[]{"value", "body content"});
+                    throw new MissingAttributeException(getClass(), //
+                        new String[]{"value", "body content"}); //$NON-NLS-1$ //$NON-NLS-2$
                 }
                 this.value = getBodyContent().getString();
             }

@@ -38,32 +38,20 @@ public final class DependencyChecker
         try
         {
             // Do they have commons lang ?
-            Class stringUtils = Class.forName("org.apache.commons.lang.StringUtils");
+            Class stringUtils = Class.forName("org.apache.commons.lang.StringUtils"); //$NON-NLS-1$
             try
             {
                 // this method is new in commons-lang 2.0
-                stringUtils.getMethod("capitalize", new Class[]{String.class});
+                stringUtils.getMethod("capitalize", new Class[]{String.class}); //$NON-NLS-1$
             }
             catch (NoSuchMethodException ee)
             {
-                throw new JspTagException(
-                    "\n\nYou appear to have an INCOMPATIBLE VERSION of the Commons Lang library.  \n"
-                        + "Displaytag requires version 2 of this library, and you appear to have a prior version in \n"
-                        + "your classpath.  You must remove this prior version AND ensure that ONLY version 2 is in \n"
-                        + "your classpath.\n "
-                        + "If commons-lang-1.x is in your classpath, be sure to remove it. \n"
-                        + "Be sure to delete all cached or temporary jar files from your application server; Tomcat \n"
-                        + "users should be sure to also check the CATALINA_HOME/shared folder; you may need to \n"
-                        + "restart the server. \n"
-                        + "commons-lang-2.jar is available in the displaytag distribution, or from the Jakarta \n"
-                        + "website at http://jakarta.apache.org/commons \n\n.");
+                throw new JspTagException(Messages.getString("DependencyChecker.lang.incompatible")); //$NON-NLS-1$
             }
         }
         catch (ClassNotFoundException e)
         {
-            throw new JspTagException("You do not appear to have the Commons Lang library, version 2.  "
-                + "commons-lang-2.jar is available in the displaytag distribution, or from the Jakarta website at "
-                + "http://jakarta.apache.org/commons .  ");
+            throw new JspTagException(Messages.getString("DependencyChecker.lang.missing")); //$NON-NLS-1$
         }
         commonsLangChecked = true;
     }

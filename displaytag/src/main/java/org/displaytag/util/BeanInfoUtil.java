@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+
 /**
  * <p>
  * Utility class which hides getter javabeans methods and return only setters.
@@ -38,7 +39,7 @@ public class BeanInfoUtil extends SimpleBeanInfo
 
     /**
      * create and returns an array of PropertyDescriptor for all the setXXX methods. Hide all the read-only properties
-     * @return PropertyDescriptor[] with all the <strong>writable</strong> properties
+     * @return PropertyDescriptor[] with all the <strong>writable </strong> properties
      * @see java.beans.BeanInfo#getPropertyDescriptors()
      */
     public final PropertyDescriptor[] getPropertyDescriptors()
@@ -50,7 +51,7 @@ public class BeanInfoUtil extends SimpleBeanInfo
         String className = getClass().getName();
 
         // remove "BeanInfo" to get the bean class
-        className = className.substring(0, className.indexOf("BeanInfo"));
+        className = className.substring(0, className.indexOf("BeanInfo")); //$NON-NLS-1$
 
         Class tagClass = null;
 
@@ -61,7 +62,7 @@ public class BeanInfoUtil extends SimpleBeanInfo
         }
         catch (ClassNotFoundException ex1)
         {
-            log.error("class not found: " + className);
+            log.error("Class not found: " + className);
         }
 
         // get the method array
@@ -75,10 +76,8 @@ public class BeanInfoUtil extends SimpleBeanInfo
             Method meth = methods[j];
 
             // look for setters only
-            if ((meth.getParameterTypes().length == 1)
-                && (methodName = meth.getName()).indexOf("set") == 0
-                && (methodName.length() > 3)
-                && Character.isUpperCase(methodName.charAt(3)))
+            if ((meth.getParameterTypes().length == 1) && (methodName = meth.getName()).indexOf("set") //$NON-NLS-1$
+                == 0 && (methodName.length() > 3) && Character.isUpperCase(methodName.charAt(3)))
             {
 
                 String attributeName = Character.toLowerCase(methodName.charAt(3)) + methodName.substring(4);

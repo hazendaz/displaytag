@@ -1,5 +1,7 @@
 package org.displaytag.exception;
 
+import org.displaytag.util.Messages;
+
 /**
  * Runtime exception thrown for problems in loading the (standard or user defined) property file.
  * @author Fabrizio Giustina
@@ -21,7 +23,8 @@ public class TablePropertiesLoadException extends BaseNestableRuntimeException
      */
     public TablePropertiesLoadException(Class source, String propertiesFileName, Throwable cause)
     {
-        super(source, "Unable to load file " + propertiesFileName, cause);
+        super(source, Messages.getString("TablePropertiesLoadException.msg", //$NON-NLS-1$
+            new Object[]{propertiesFileName}), cause);
     }
 
     /**

@@ -548,7 +548,7 @@ public class TableTag extends HtmlTableTag
         }
 
         this.properties = TableProperties.getInstance(pageContext.getRequest().getLocale());
-        this.tableModel = new TableModel(this.properties);
+        this.tableModel = new TableModel(this.properties, pageContext.getResponse().getCharacterEncoding());
 
         // copying id to the table model for logging
         this.tableModel.setId(getId());

@@ -1,5 +1,7 @@
 package org.displaytag.exception;
 
+import org.displaytag.util.Messages;
+
 /**
  * Exception thrown when an invalid value is given for a tag attribute.
  * @author Fabrizio Giustina
@@ -21,7 +23,8 @@ public class InvalidTagAttributeValueException extends BaseNestableJspTagExcepti
      */
     public InvalidTagAttributeValueException(Class source, String attributeName, Object attributeValue)
     {
-        super(source, "Invalid value for attribute \"" + attributeName + "\" value=\"" + attributeValue + "\"");
+        super(source, Messages.getString("InvalidTagAttributeValueException.msg", //$NON-NLS-1$
+            new Object[]{attributeName, attributeValue}));
     }
 
     /**

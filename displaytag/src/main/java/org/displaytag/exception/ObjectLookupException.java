@@ -1,5 +1,7 @@
 package org.displaytag.exception;
 
+import org.displaytag.util.Messages;
+
 /**
  * Exception thrown for errors in accessing bean properties.
  * @author Fabrizio Giustina
@@ -22,11 +24,9 @@ public class ObjectLookupException extends BaseNestableJspTagException
      */
     public ObjectLookupException(Class source, Object beanObject, String beanProperty, Throwable cause)
     {
-        super(source, "Error looking up property \""
-            + beanProperty
-            + "\" in object type \""
-            + ((beanObject == null) ? "null" : beanObject.getClass().getName())
-            + "\"", cause);
+        super(source, Messages.getString("ObjectLookupException.msg" //$NON-NLS-1$
+            , new Object[]{beanProperty, ((beanObject == null) ? "null" : beanObject.getClass().getName())}//$NON-NLS-1$
+            ), cause);
     }
 
     /**

@@ -21,7 +21,7 @@ public class ParamEncoder
     public ParamEncoder(String idAttribute)
     {
         // use name and id to get the unique identifier
-        String stringIdentifier = "x-" + idAttribute;
+        String stringIdentifier = "x-" + idAttribute; //$NON-NLS-1$
 
         // get the array
         char[] charArray = stringIdentifier.toCharArray();
@@ -35,7 +35,7 @@ public class ParamEncoder
         }
 
         // this is the full identifier used for all the parameters
-        this.parameterIdentifier = "d-" + checkSum + "-";
+        this.parameterIdentifier = "d-" + checkSum + "-"; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**

@@ -90,14 +90,15 @@ abstract class Decorator
         String simpleProperty = propertyName;
 
         // get the simple (not nested) bean property
-        if ((simpleProperty != null) && (simpleProperty.indexOf(".") > 0))
+        int indexOfDot = simpleProperty.indexOf("."); //$NON-NLS-1$
+        if ((simpleProperty != null) && (indexOfDot > 0))
         {
-            simpleProperty = simpleProperty.substring(0, simpleProperty.indexOf("."));
+            simpleProperty = simpleProperty.substring(0, indexOfDot);
         }
 
         Boolean cachedResult;
 
-        if ((cachedResult = (Boolean) propertyMap.get(getClass().getName() + "#" + simpleProperty)) != null)
+        if ((cachedResult = (Boolean) propertyMap.get(getClass().getName() + "#" + simpleProperty)) != null) //$NON-NLS-1$
         {
             return cachedResult.booleanValue();
         }
@@ -106,12 +107,13 @@ abstract class Decorator
         boolean hasGetter = searchGetterFor(propertyName);
 
         // save in cache
-        propertyMap.put(getClass().getName() + "#" + simpleProperty, new Boolean(hasGetter));
+        propertyMap.put(getClass().getName() + "#" + simpleProperty, new Boolean(hasGetter)); //$NON-NLS-1$
 
         // and return
         return hasGetter;
 
     }
+
     /**
      * Looks for a getter for the given property using introspection.
      * @param propertyName name of the property to check
@@ -145,6 +147,5 @@ abstract class Decorator
         return type != null;
 
     }
-
 
 }

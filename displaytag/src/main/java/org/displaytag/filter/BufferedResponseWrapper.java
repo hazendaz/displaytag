@@ -260,7 +260,7 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
     public void setDateHeader(String name, long date)
     {
         // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Expires".equalsIgnoreCase(name))
+        if (!"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
         {
             response.setDateHeader(name, date);
         }
@@ -273,7 +273,7 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
     public void addDateHeader(String name, long date)
     {
         // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Expires".equalsIgnoreCase(name))
+        if (!"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
         {
             response.addDateHeader(name, date);
         }
@@ -285,9 +285,9 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
     public void setHeader(String name, String value)
     {
         // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Cache-Control".equalsIgnoreCase(name)
-            && !"Pragma".equalsIgnoreCase(name)
-            && !"Expires".equalsIgnoreCase(name))
+        if (!"Cache-Control".equalsIgnoreCase(name) //$NON-NLS-1$
+            && !"Pragma".equalsIgnoreCase(name) //$NON-NLS-1$
+            && !"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
         {
             response.setHeader(name, value);
         }
@@ -299,9 +299,9 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
     public void addHeader(String name, String value)
     {
         // don't add headers that can prevent caching, export (opening in an external program) will not work
-        if (!"Cache-Control".equalsIgnoreCase(name)
-            && !"Pragma".equalsIgnoreCase(name)
-            && !"Expires".equalsIgnoreCase(name))
+        if (!"Cache-Control".equalsIgnoreCase(name) //$NON-NLS-1$
+            && !"Pragma".equalsIgnoreCase(name) //$NON-NLS-1$
+            && !"Expires".equalsIgnoreCase(name)) //$NON-NLS-1$
         {
             response.addHeader(name, value);
         }

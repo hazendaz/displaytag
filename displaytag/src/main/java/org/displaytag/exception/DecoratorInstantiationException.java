@@ -1,5 +1,8 @@
 package org.displaytag.exception;
 
+import org.displaytag.util.Messages;
+
+
 /**
  * Exception thrown when DecoratorFactory is unable to load a Decorator.
  * @author Fabrizio Giustina
@@ -21,9 +24,8 @@ public class DecoratorInstantiationException extends BaseNestableJspTagException
      */
     public DecoratorInstantiationException(Class source, String decorator, Throwable cause)
     {
-        super(source, "Unable to load "
-            + decorator
-            + (cause != null ? " due to a " + cause.getClass().getName() + " exception" : ""), cause);
+        super(source, Messages.getString("DecoratorInstantiationException.msg" //$NON-NLS-1$
+            , new Object[]{decorator, (cause != null ? cause.getClass().getName() : "")}), cause); //$NON-NLS-1$
     }
 
     /**

@@ -60,8 +60,12 @@ public class I18nPropertiesTest extends DisplaytagCase
             log.debug("RESPONSE: " + response.getText());
         }
 
-        assertTrue(response.getText().indexOf(MSG_DEFAULT) > -1);
-        assertTrue(response.getText().indexOf(MSG_IT) == -1);
+        assertTrue("Expected message\"" + MSG_DEFAULT + "\" has not been found in response with locale en", response
+            .getText()
+            .indexOf(MSG_DEFAULT) > -1);
+        assertTrue("Unexpected message\"" + MSG_IT + "\" has been found in response with locale en", response
+            .getText()
+            .indexOf(MSG_IT) == -1);
 
         // Now, with an Italian locale.
         request = new GetMethodWebRequest(jspName);
@@ -74,7 +78,11 @@ public class I18nPropertiesTest extends DisplaytagCase
             log.debug("RESPONSE: " + response.getText());
         }
 
-        assertTrue(response.getText().indexOf(MSG_IT) > -1);
-        assertTrue(response.getText().indexOf(MSG_DEFAULT) == -1);
+        assertTrue("Expected message\"" + MSG_IT + "\" has not been found in response with locale it", response
+            .getText()
+            .indexOf(MSG_IT) > -1);
+        assertTrue("Unexpected message\"" + MSG_DEFAULT + "\" has been found in response with locale it", response
+            .getText()
+            .indexOf(MSG_DEFAULT) == -1);
     }
 }

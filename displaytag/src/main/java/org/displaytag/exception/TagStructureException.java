@@ -1,5 +1,7 @@
 package org.displaytag.exception;
 
+import org.displaytag.util.Messages;
+
 /**
  * Exception thrown when a Tag is not properly nested into another one.
  * @author Fabrizio Giustina
@@ -21,7 +23,8 @@ public class TagStructureException extends BaseNestableJspTagException
      */
     public TagStructureException(Class source, String currentTag, String shoudBeNestedIn)
     {
-        super(source, "Tag \"" + currentTag + "\" should ne nested in \"" + shoudBeNestedIn + "\"");
+        super(source, Messages.getString("TagStructureException.msg", //$NON-NLS-1$
+            new Object[]{currentTag, shoudBeNestedIn}));
     }
 
     /**

@@ -1,5 +1,7 @@
 package org.displaytag.exception;
 
+import org.displaytag.util.Messages;
+
 /**
  * runtime exception thrown during sorting when a checked exception can't be used.
  * @author Fabrizio Giustina
@@ -20,7 +22,8 @@ public class RuntimeLookupException extends RuntimeException
      */
     public RuntimeLookupException(Class sourceClass, String property, BaseNestableJspTagException cause)
     {
-        super("LookupException while trying to fetch property \"" + property + "\"\nCause:     " + cause.getMessage());
+        super(Messages.getString("RuntimeLookupException.msg", //$NON-NLS-1$
+            new Object[]{property, cause.getMessage()}));
     }
 
 }

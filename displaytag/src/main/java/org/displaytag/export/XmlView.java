@@ -25,7 +25,7 @@ public class XmlView extends BaseExportView
      */
     protected String getRowStart()
     {
-        return "<row>\n";
+        return "<row>\n"; //$NON-NLS-1$
     }
 
     /**
@@ -33,7 +33,7 @@ public class XmlView extends BaseExportView
      */
     protected String getRowEnd()
     {
-        return "</row>\n";
+        return "</row>\n"; //$NON-NLS-1$
     }
 
     /**
@@ -41,7 +41,7 @@ public class XmlView extends BaseExportView
      */
     protected String getCellStart()
     {
-        return "<column>";
+        return "<column>"; //$NON-NLS-1$
     }
 
     /**
@@ -49,7 +49,7 @@ public class XmlView extends BaseExportView
      */
     protected String getCellEnd()
     {
-        return "</column>\n";
+        return "</column>\n"; //$NON-NLS-1$
     }
 
     /**
@@ -57,7 +57,7 @@ public class XmlView extends BaseExportView
      */
     protected String getDocumentStart()
     {
-        return "<?xml version=\"1.0\"?>\n<table>\n";
+        return "<?xml version=\"1.0\"?>\n<table>\n"; //$NON-NLS-1$
     }
 
     /**
@@ -65,7 +65,7 @@ public class XmlView extends BaseExportView
      */
     protected String getDocumentEnd()
     {
-        return "</table>\n";
+        return "</table>\n"; //$NON-NLS-1$
     }
 
     /**
@@ -89,7 +89,7 @@ public class XmlView extends BaseExportView
      */
     public String getMimeType()
     {
-        return "text/xml";
+        return "text/xml"; //$NON-NLS-1$
     }
 
     /**

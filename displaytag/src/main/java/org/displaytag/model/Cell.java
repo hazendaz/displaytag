@@ -92,7 +92,7 @@ public class Cell implements Comparable
      */
     public String toString()
     {
-        return new ToStringBuilder(this).append("staticValue", this.staticValue).toString();
+        return new ToStringBuilder(this).append("staticValue", this.staticValue).toString(); //$NON-NLS-1$
     }
 
 }
