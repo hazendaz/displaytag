@@ -21,7 +21,7 @@
         example that showed how to do this. </question>
       <answer>
         <p> There is a really good example of how to use displaytag to create an editable row of data located at <a 
-          href="http://demo.raibledesigns.com/appfuse/users-edit.jsp">http://demo.raibledesigns.com/appfuse/users-edit.jsp</a>. 
+          href="http://demo.raibledesigns.com/appfuse/demos/users-edit.jsp">http://demo.raibledesigns.com/appfuse/demos/users-edit.jsp</a>. 
           It contains the source code for how to do it. </p>
       </answer>
     </faq>
