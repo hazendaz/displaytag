@@ -628,7 +628,7 @@ public class ColumnTag extends BodyTagSupport
         headerCell.setSortProperty(this.sortProperty);
 
         // href and parameter, create link
-        if (this.href != null && this.paramId != null)
+        if (this.href != null)
         {
             Href colHref;
 
@@ -642,50 +642,53 @@ public class ColumnTag extends BodyTagSupport
                 colHref = new Href(this.href);
             }
 
-            // parameter value is in a different object than the iterated one
-            if (this.paramName != null || this.paramScope != null)
+            if (this.paramId != null)
             {
-                // create a complete string for compatibility with previous version before expression evaluation.
-                // this approach is optimized for new expressions, not for previous property/scope parameters
-                StringBuffer expression = new StringBuffer();
-
-                // append scope
-                if (StringUtils.isNotBlank(this.paramScope))
+                // parameter value is in a different object than the iterated one
+                if (this.paramName != null || this.paramScope != null)
                 {
-                    expression.append(this.paramScope).append("Scope.");
-                }
+                    // create a complete string for compatibility with previous version before expression evaluation.
+                    // this approach is optimized for new expressions, not for previous property/scope parameters
+                    StringBuffer expression = new StringBuffer();
 
-                // base bean name
-                if (this.paramId != null)
-                {
-                    expression.append(this.paramName);
+                    // append scope
+                    if (StringUtils.isNotBlank(this.paramScope))
+                    {
+                        expression.append(this.paramScope).append("Scope.");
+                    }
+
+                    // base bean name
+                    if (this.paramId != null)
+                    {
+                        expression.append(this.paramName);
+                    }
+                    else
+                    {
+                        expression.append(tableTag.getName());
+                    }
+
+                    // append property
+                    if (StringUtils.isNotBlank(this.paramProperty))
+                    {
+                        expression.append('.').append(this.paramProperty);
+                    }
+
+                    // evaluate expression.
+                    // note the value is fixed, not based on any object created during iteration
+                    // this is here for compatibility with the old version mainly
+                    Object paramValue = tableTag.evaluateExpression(expression.toString());
+
+                    // add parameter
+                    colHref.addParameter(this.paramId, paramValue);
                 }
                 else
                 {
-                    expression.append(tableTag.getName());
+                    // set id
+                    headerCell.setParamName(this.paramId);
+
+                    // set property
+                    headerCell.setParamProperty(this.paramProperty);
                 }
-
-                // append property
-                if (StringUtils.isNotBlank(this.paramProperty))
-                {
-                    expression.append('.').append(this.paramProperty);
-                }
-
-                // evaluate expression.
-                // note the value is fixed, not based on any object created during iteration
-                // this is here for compatibility with the old version mainly
-                Object paramValue = tableTag.evaluateExpression(expression.toString());
-
-                // add parameter
-                colHref.addParameter(this.paramId, paramValue);
-            }
-            else
-            {
-                // set id
-                headerCell.setParamName(this.paramId);
-
-                // set property
-                headerCell.setParamProperty(this.paramProperty);
             }
 
             // sets the base href
