@@ -72,6 +72,26 @@ public class AutolinkColumnDecoratorTest extends TestCase
     }
 
     /**
+     * Test simple https link.
+     */
+    public void testSimpleHttpsLink()
+    {
+        String linked = new AutolinkColumnDecorator().decorate("https://foo.bar");
+
+        assertEquals("<a href=\"https://foo.bar\">https://foo.bar</a>", linked);
+    }
+
+    /**
+     * Test simple ftp link.
+     */
+    public void testSimpleFtpLink()
+    {
+        String linked = new AutolinkColumnDecorator().decorate("ftp://foo.bar");
+
+        assertEquals("<a href=\"ftp://foo.bar\">ftp://foo.bar</a>", linked);
+    }
+
+    /**
      * Test simple email.
      */
     public void testSimpleEmail()
@@ -87,6 +107,24 @@ public class AutolinkColumnDecoratorTest extends TestCase
     {
         String linked = new AutolinkColumnDecorator().decorate("http://foo.bar .");
         assertEquals("<a href=\"http://foo.bar\">http://foo.bar</a> .", linked);
+    }
+
+    /**
+     * Test no link.
+     */
+    public void testNoLink()
+    {
+        String linked = new AutolinkColumnDecorator().decorate("aa://bb");
+        assertEquals("aa://bb", linked);
+    }
+
+    /**
+     * Test no link beginning.
+     */
+    public void testNoLinkBeginning()
+    {
+        String linked = new AutolinkColumnDecorator().decorate("://bb");
+        assertEquals("://bb", linked);
     }
 
 }
