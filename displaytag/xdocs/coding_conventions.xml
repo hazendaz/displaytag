@@ -24,10 +24,8 @@
 			<p>
 				Below is a list of coding conventions that are specific to this project. Anything else not
 				specificially mentioned here should follow the official
-				<link href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">
-					Sun Java Coding Conventions
-				</link>
-				.
+				<a href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">Sun 
+          Java Coding Conventions</a>.
 			</p>
 
 		</section>

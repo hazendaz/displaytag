@@ -26,8 +26,8 @@
               <td>no</td>
               <td>
                 reference to the object used as source for the table. Can be an expression like
-                <code>requestScope.object.property</code>
-                . You need to define name or list. List is suggested.
+                <code>requestScope.object.property</code>. 
+                You need to define name or list. Using name is suggested.
               </td>
             </tr>
             <tr>

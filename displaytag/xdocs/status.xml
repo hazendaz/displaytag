@@ -16,19 +16,29 @@
 		</section>
 
 		<section name="What&apos;s New">
+      
+      <subsection name="September 22, 2003">
 			<p>
-				Version
-				<strong>1.0-b1</strong>
-				has been released (09/22/03).
+				Version <strong>1.0-b1</strong> has been released! This is the first beta featuring a completely 
+        rewritten library and lots of new features. Build and documentation are now maven powered!
 			</p>
-
 			<p>
 				A complete
-				<a href="/changes-report.html">changelog</a>
+				<a href="changes-report.html">changelog</a>
 				is available, and click
-				<a href="/download.html">here to download</a>
-				the latest source or standalone jar file.
-			</p>
+				<a href="download.html">here to download</a>
+				the latest source or binary ditribution.
+			</p>      
+      </subsection>
+      
+      <subsection name="September 21, 2003">
+			<p>
+				Bugfix version <strong>0.8.6</strong> has been released. This is identical to the 0.8.5 version with
+        a fix in the export feature and jre 1.3 compatible binaries.
+			</p>    
+      </subsection>
+      
+
 		</section>
 
 	</body>
