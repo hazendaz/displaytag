@@ -12,10 +12,8 @@
   </goal>
   
   
-  <!-- process FAQ and tag reference -->
+  <!-- process tag reference -->
   <preGoal name="xdoc:jelly-transform">
-    <!-- preprocess faq.fml -->
-    <attainGoal name="faq" />
     <!-- create tag reference -->
     <attainGoal name="taglib:tagreference" />
   </preGoal>

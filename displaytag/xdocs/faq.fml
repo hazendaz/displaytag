@@ -19,7 +19,7 @@
 
 		<faq id="capitalize">
 			<question>Displaytag doesn't work, I get the following error: <code>java.lang.NoSuchMethodError:
-org.apache.commons.lang.StringUtils.capitalize(Ljava/lang/String;)Ljava/lang/String;</code></question>
+org.apache.commons.lang.StringUtils.capitalize(Ljava/lang/String;) Ljava/lang/String;</code></question>
 			<answer>
 				<p>
 					Displaytag needs commons-lang 2.0, the capitali<strong>z</strong>e method is not present in 1.0.
