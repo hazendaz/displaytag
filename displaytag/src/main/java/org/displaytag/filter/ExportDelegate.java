@@ -93,6 +93,12 @@ public final class ExportDelegate
             return;
         }
 
+        // clear headers
+        if (!response.isCommitted())
+        {
+            response.reset();
+        }
+
         String filename = (String) bean.get(TableTagParameters.BEAN_FILENAME);
         String contentType = (String) bean.get(TableTagParameters.BEAN_CONTENTTYPE);
 
