@@ -54,6 +54,18 @@
                 any used frameworks (JSTL, Struts, Spring adapter are included, other can be added be users).
             </action>
             <action type="fix" dev="fgiust" issue="DISPL-15">display-el:column titleKey not Resin compatible.</action>
+            <action type="fix" dev="fgiust" issue="DISPL-6">
+                Error: mediaType is already defined. To avoid errors when nested tables are used, the current
+                <code>mediaType</code>
+                <strong>is no more declared as a compile-time variable</strong>
+                . This means that you can still retrieve the current media type using
+                <code>pageContext.getAttribute("mediaType")</code>
+                but not using a scriptlet like
+                <code>
+                    <![CDATA[<%=mediaType%>]]>
+                </code>
+                . If you previously used this sintax you will have to fix your jsps when upgrading to 1.0 rc2.
+            </action>
         </release>
 
         <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
@@ -284,8 +296,8 @@
             </action>
             <action type="update" dev="fgiust">Exported data is now properly escaped for the output format.</action>
             <action type="fix" dev="fgiust" issue="773162">Include header in excel export.</action>
-            <action type="fix" dev="fgiust" fixes="840011">Properties inheritance between table decorators.</action>
-            <action type="fix" dev="rapruitt" fixes="831806">
+            <action type="fix" dev="fgiust" issue="840011">Properties inheritance between table decorators.</action>
+            <action type="fix" dev="rapruitt" issue="831806">
                 User properties can now be loaded from files when deployed in unexploded WAR.
             </action>
             <action type="update" dev="rapruitt">
