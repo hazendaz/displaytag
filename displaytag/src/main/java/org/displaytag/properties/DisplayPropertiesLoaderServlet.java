@@ -1,5 +1,9 @@
 package org.displaytag.properties;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -7,10 +11,6 @@ import javax.servlet.http.HttpServlet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
-
-import java.util.Properties;
-import java.io.InputStream;
-import java.io.IOException;
 
 
 /**
@@ -90,14 +90,17 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
         String file = getInitParameter(PROPERTIES_PARAMETER);
 
         // debug parameter
-        log.debug(PROPERTIES_PARAMETER + "=" + file); //$NON-NLS-1$
+        if (log.isDebugEnabled())
+        {
+            log.debug(PROPERTIES_PARAMETER + '=' + file);
+        }
 
         if (file != null)
         {
             InputStream propStream = servletConfig.getServletContext().getResourceAsStream(file);
             if (propStream == null)
             {
-                log.warn("unable to find " + file); //$NON-NLS-1$
+                log.warn("unable to find " + file);
                 return;
             }
             Properties props = new Properties();
@@ -107,8 +110,9 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
             }
             catch (IOException e)
             {
-                throw new ServletException("Cannot load " + file + ": " + e.getMessage(), e); //$NON-NLS-1$ //$NON-NLS-2$
+                throw new ServletException("Cannot load " + file + ": " + e.getMessage(), e);
             }
+
             // set the user properties
             TableProperties.setUserProperties(props);
         }
