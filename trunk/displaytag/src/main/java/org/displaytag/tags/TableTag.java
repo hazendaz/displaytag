@@ -208,6 +208,11 @@ public class TableTag extends HtmlTableTag
     private int defaultSortedColumn = -1;
 
     /**
+     * the sorting order for the sorted column.
+     */
+    private SortOrderEnum defaultSortOrder;
+
+    /**
      * static footer added using the footer tag.
      */
     private String footer;
@@ -326,6 +331,20 @@ public class TableTag extends HtmlTableTag
             throw new InvalidTagAttributeValueException(getClass(), "defaultsort", value);
         }
 
+    }
+
+    /**
+     * sets the sorting order for the sorted column.
+     * @param value "ascending" or "descending"
+     * @throws InvalidTagAttributeValueException if value is not one of "ascending" or "descending"
+     */
+    public void setDefaultorder(String value) throws InvalidTagAttributeValueException
+    {
+        this.defaultSortOrder = SortOrderEnum.fromName(value);
+        if (this.defaultSortOrder == null)
+        {
+            throw new InvalidTagAttributeValueException(getClass(), "defaultorder", value);
+        }
     }
 
     /**
@@ -669,6 +688,13 @@ public class TableTag extends HtmlTableTag
         SortOrderEnum paramOrder =
             SortOrderEnum.fromIntegerCode(
                 requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER)));
+
+        // if no order parameter is set use default
+        if (paramOrder == null)
+        {
+            paramOrder = this.defaultSortOrder;
+        }
+
         boolean order = SortOrderEnum.DESCENDING != paramOrder;
         this.tableModel.setSortOrderAscending(order);
 

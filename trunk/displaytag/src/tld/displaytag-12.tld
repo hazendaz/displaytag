@@ -234,6 +234,13 @@ back of the container.  Best left undoc'd and experimental for now; should just 
         <type>int</type>
         <description>The index of the column that will be used by default for sorting</description>
     </attribute>
+    <attribute>
+      <name>defaultorder</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+        <type>java.lang.String</type>
+        <description>The default order for the sorted column. Valid values are "ascending" (default) or "descending"</description>
+    </attribute>
       <example>
 &lt;display:table name="someList" export="true" id="row" requestURI="MyAction.do"&gt;
   &lt;display:column sortable="true" title="ID"&gt; &lt;c:out value="${row.id}"/&gt; &lt;/display:column&gt;

@@ -10,7 +10,7 @@
 
 <h2><a href="./index.jsp">Examples</a> > Wow, auto-sorting by columns</h2>
 
-<display:table name="sessionScope.stest" defaultsort="1">
+<display:table name="sessionScope.stest" defaultsort="1" defaultorder="descending">
   <display:column property="id" title="ID" sortable="true" headerClass="sortable" />
   <display:column property="name" sortable="true" headerClass="sortable"/>
   <display:column property="email" />
@@ -58,7 +58,9 @@
 <p class="changed">
 	You can also define the column to be sorted by default (if the user has not yet
 	clicked on any sortable column) specifying the column index in the <code>defaultsort</code>
-	attribute of the table tag. 
+	attribute of the table tag. The default order can be set using the <code>defaultorder</code>
+	attribute: the default value is <code>ascending</code>, you can set it to <code>descending</code>
+	to reverse the order.
 </p>
 
 
