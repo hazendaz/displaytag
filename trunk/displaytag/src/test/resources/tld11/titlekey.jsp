@@ -14,8 +14,8 @@
 							request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
             <display:table name="requestScope.test" id="table">
-							<display:column property="ant" titleKey="fookey" />
-							<display:column property="bee" titleKey="bazkey" />
+							<display:column property="ant" titleKey="fookey" sortable="true" />
+							<display:column property="bee" titleKey="bazkey" sortable="true" />
 							<display:column property="camel" />
 							<display:column property="bee" titleKey="missing" />
 						</display:table>
