@@ -10,7 +10,7 @@
     <organization>
         <name>sourceforge</name>
         <url>http://sourceforge.net</url>
-        <logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=2</logo>
+        <logo>http://sourceforge.net/sflogo.php?group_id=${maven.sourceforge.project.groupId}&amp;type=8</logo>
     </organization>
     <inceptionYear>2002</inceptionYear>
     <package>org.displaytag</package>
@@ -357,6 +357,16 @@
         but is set to JAVA_HOME/../lib/tools.jar in project.properties</comment>
             </properties>
         </dependency>
+        <dependency>
+            <groupId>itext</groupId>
+            <artifactId>itext</artifactId>
+            <version>0.99</version>
+            <url>http://prdownloads.sourceforge.net/itext/itext-0.99.jar</url>
+            <properties>
+                <war.bundle>true</war.bundle>
+                <comment>Needed to compile classes needed for the PDF export. Needed at runime to enable PDF export</comment>
+            </properties>
+        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
@@ -398,6 +408,7 @@
         <report>maven-simian-plugin</report>
         <report>maven-statcvs-plugin</report>
         <report>maven-faq-plugin</report>
+        <report>maven-jdiff-plugin</report>
         <!--<report>maven-xhtml-plugin</report>-->
     </reports>
 </project>
