@@ -562,7 +562,7 @@ public class ColumnTag extends BodyTagSupport
                     // append property
                     if (StringUtils.isNotBlank(this.paramProperty))
                     {
-                        expression.append('.').append(this.property);
+                        expression.append('.').append(this.paramProperty);
                     }
 
                     // evaluate expression.
