@@ -5,6 +5,9 @@ import java.util.Enumeration;
 import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Locale;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,11 +18,12 @@ import org.displaytag.util.RequestHelperFactory;
 
 /**
  * The properties used by the Table tags. The properties are loaded in the following order, in increasing order of
- * priority.
+ * priority.  The locale of getInstance() is used to determine the locale of the property file to use;
+ * if the key required does not exist in the specified file, the key will be loaded from a more general property file.
  * <ol>
  * <li>First, from the TableTag.properties included with the DisplayTag distribution.</li>
  * <li>Then, from the file displaytag.properties, if it is present; these properties are intended to be set by the user
- * for sitewide application.</li>
+ * for sitewide application. Messages are gathered according to the Locale of the property file.  </li>
  * <li>Finally, if this class has a userProperties defined, all of the properties from that Properties object are
  * copied in as well. The userProperties Properties can be set by the {@link DisplayPropertiesLoaderServlet}if it is
  * configured.</li>
@@ -29,7 +33,7 @@ import org.displaytag.util.RequestHelperFactory;
  * @version $Revision$ ($Author$)
  * @see DisplayPropertiesLoaderServlet
  */
-public final class TableProperties
+public final class TableProperties implements Cloneable
 {
 
     /**
@@ -246,11 +250,11 @@ public final class TableProperties
      */
     private static Properties userProperties = new Properties();
 
+
     /**
-     * The default Properties are shared, loaded only at the first access. Default properties are initialized with
-     * values contained in TableTag.properties and can be overridden in a custom displaytag.properties file.
+     * TableProperties for each locale are loaded as needed, and cloned for public usage.
      */
-    private static Properties defaultProperties;
+    private static Map prototypes = new HashMap();
 
     /**
      * Loaded properties (defaults from defaultProperties + custom from bundle).
@@ -258,65 +262,42 @@ public final class TableProperties
     private Properties properties;
 
     /**
-     * Initialize a new TableProperties loading the default properties file and the user defined one.
-     * @throws TablePropertiesLoadException for errors during loading of properties files
+     * The locale for these properties.
      */
-    private TableProperties() throws TablePropertiesLoadException
-    {
-        // default properties will not change unless this class is reloaded
-        if (defaultProperties == null)
-        {
-            defaultProperties = new Properties();
-
-            try
-            {
-                defaultProperties.load(this.getClass().getResourceAsStream(DEFAULT_FILENAME));
-            }
-            catch (IOException e)
-            {
-                throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
-            }
-
-            // loading of properties is expensive, so we save them in a static variable
-            // This will improve performance but will force user to restart the web application to see changes after
-            // modifying displaytag.properties in the WEB-INF/classes folder
-
-            loadUserProperties();
-        }
-
-        // copy properties so that they can be altered using the setProperty tag
-        this.properties = (Properties) defaultProperties.clone();
-    }
+    private Locale locale;
 
     /**
-     * Try to load the properties from the local properties file, displaytag.properties.
+     * Initialize a new TableProperties loading the default properties file and the user defined one.  There is no
+     * caching used here, caching is assumed to occur in the getInstance factory method.
+     * @param myLocale the locale we are in
+     * @throws TablePropertiesLoadException for errors during loading of properties files
      */
-    private void loadUserProperties()
+    private TableProperties(Locale myLocale) throws TablePropertiesLoadException
     {
-        ResourceBundle bundle = null;
+        this.locale = myLocale;
+        // default properties will not change unless this class is reloaded
+        Properties defaultProperties = new Properties();
+
         try
         {
-            bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES);
+            defaultProperties.load(this.getClass().getResourceAsStream(DEFAULT_FILENAME));
         }
-        catch (MissingResourceException e)
+        catch (IOException e)
         {
-            if (log.isDebugEnabled())
-            {
-                log.debug("Was not able to load a custom displaytag.properties; " + e.getMessage());
-            }
+            throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
         }
 
-        Properties mixedProperties = new Properties(defaultProperties);
+        // Lang locale properties are the most general
+        Locale langLocale = new Locale(locale.getLanguage());
+        properties = new Properties(defaultProperties);
+        addProperties(langLocale);
 
-        if (bundle != null)
-        {
-            Enumeration keys = bundle.getKeys();
-            while (keys.hasMoreElements())
-            {
-                String key = (String) keys.nextElement();
-                mixedProperties.setProperty(key, bundle.getString(key));
-            }
-        }
+        Locale countryLocale = new Locale(locale.getLanguage(), locale.getCountry());
+        addProperties(countryLocale);
+
+        // Variant locale are most specific, and override lang and country locale values
+        Locale variantLocale = new Locale(locale.getLanguage(), locale.getCountry(), locale.getVariant());
+        addProperties(variantLocale);
 
         // Now copy in the user properties (properties file set by calling setUserProperties()).
         // note setUserProperties() MUST BE CALLED before the first TableProperties instantation
@@ -326,46 +307,116 @@ public final class TableProperties
             String key = (String) keys.nextElement();
             if (key != null)
             {
-                mixedProperties.setProperty(key, (String) userProperties.get(key));
+                properties.setProperty(key, (String) userProperties.get(key));
             }
         }
-
-        defaultProperties = mixedProperties;
     }
 
     /**
-     * returns a new TableProperties instance.
+     * Try to load the properties from the local properties file, displaytag.properties, and merge them into the
+     * existing properties.
+     * @param  fromLocale the locale from which the properties are to be loaded
+     */
+    private void addProperties(Locale fromLocale)
+    {
+        ResourceBundle bundle = null;
+        try
+        {
+            bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES, fromLocale);
+        }
+        catch (MissingResourceException e)
+        {
+            if (log.isDebugEnabled())
+            {
+                log.debug("Was not able to load a custom displaytag.properties; " + e.getMessage());
+            }
+        }
+
+        if (bundle != null)
+        {
+            Enumeration keys = bundle.getKeys();
+            while (keys.hasMoreElements())
+            {
+                String key = (String) keys.nextElement();
+                properties.setProperty(key, bundle.getString(key));
+            }
+        }
+    }
+
+    /**
+     * Clones the properties as well.
+     * @return a new clone of oneself
+     * @throws CloneNotSupportedException  never thrown
+     */
+    protected Object clone() throws CloneNotSupportedException
+    {
+        TableProperties twin = (TableProperties) super.clone();
+        twin.properties = (Properties) this.properties.clone();
+        return twin;
+    }
+
+    /**
+     * Returns a new TableProperties instance for the given locale.
+     * @param locale the locale to use
      * @return TableProperties instance
      */
-    public static TableProperties getInstance()
+    public static TableProperties getInstance(Locale locale)
     {
-        return new TableProperties();
+        TableProperties props = (TableProperties) prototypes.get(locale);
+        if (props == null)
+        {
+            TableProperties lprops = new TableProperties(locale);
+            prototypes.put(locale, lprops);
+            props = lprops;
+        }
+        try
+        {
+            return (TableProperties) props.clone();
+        }
+        catch (CloneNotSupportedException e)
+        {
+            throw new UnknownError("Cannot clone properties? " + e.getMessage());
+        }
+    }
+
+    /**
+     * Unload all cached properties. This will not clear properties set by by setUserProperties; you must clear
+     * those manually.
+     */
+    public static void clearProperties()
+    {
+        prototypes.clear();
     }
 
     /**
      * Local, non-default properties; these settings override the defaults from displaytag.properties and
      * TableTag.properties. Please note that the values are copied in, so that multiple calls with non-overlapping
      * properties will be merged, not overwritten.
+     * Note: setUserProperties() MUST BE CALLED before the first TableProperties instantation.
      * @param overrideProperties - The local, non-default properties
      */
     public static void setUserProperties(Properties overrideProperties)
     {
-        userProperties = overrideProperties;
-
-        // if default properties are already loaded, copy keys here
+        // copy keys here, so that this can be invoked more than once from different sources.
         // if default properties are not yet loaded they will be copied in constructor
-        if (defaultProperties != null)
+        Enumeration keys = overrideProperties.keys();
+        while (keys.hasMoreElements())
         {
-            Enumeration keys = userProperties.keys();
-            while (keys.hasMoreElements())
+            String key = (String) keys.nextElement();
+            if (key != null)
             {
-                String key = (String) keys.nextElement();
-                if (key != null)
-                {
-                    defaultProperties.setProperty(key, (String) userProperties.get(key));
-                }
+                userProperties.setProperty(key, (String) overrideProperties.get(key));
             }
         }
+    }
+
+    /**
+     * The locale for which these properties are intended.
+     * @return the locale
+     */
+    public Locale getLocale()
+    {
+        return locale;
     }
 
     /**
@@ -521,7 +572,8 @@ public final class TableProperties
      */
     public boolean getExportHeader(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType
+                + "." + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
     }
 
     /**
