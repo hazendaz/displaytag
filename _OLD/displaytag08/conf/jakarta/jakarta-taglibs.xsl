@@ -20,7 +20,7 @@
   <!-- Process an entire document into an HTML page -->
   <xsl:template match="document">
     <xsl:variable name="project"
-                select="document('../project.xml')/project"/>
+                select="document('../../xml/display.xml')/project"/>
 
     <html>
     <head>
