@@ -3,9 +3,9 @@ package org.displaytag.exception;
 /**
  * runtime exception thrown during sorting when a checked exception can't be used.
  * @author fgiust
- * @version $Revision: 1 $ ($Author: Fgiust $)
+ * @version $Revision$ ($Author$)
  */
-public class RuntimeLookupExpression extends RuntimeException
+public class RuntimeLookupException extends RuntimeException
 {
 
     /**
@@ -13,9 +13,9 @@ public class RuntimeLookupExpression extends RuntimeException
      * @param property object property who caused the exception
      * @param cause previous (checked) exception
      */
-    public RuntimeLookupExpression(Class sourceClass, String property, BaseNestableJspTagException cause)
+    public RuntimeLookupException(Class sourceClass, String property, BaseNestableJspTagException cause)
     {
-        super("LookupExpression while trying to fetch property \"" + property + "\"\nCause:     " + cause.getMessage());
+        super("LookupException while trying to fetch property \"" + property + "\"\nCause:     " + cause.getMessage());
     }
 
 }
