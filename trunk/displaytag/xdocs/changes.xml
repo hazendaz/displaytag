@@ -41,6 +41,9 @@
       <action type="fix" dev="fgiust" issue="938653">
 	     Reset headers during export. This allows export with https and should fix reported problems with Tomcat 5.0.
       </action>
+      <action type="fix" dev="fgiust" issue="944863">
+	      Wrong tfoot position.
+      </action>
   	</release>
   	
   	<release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
