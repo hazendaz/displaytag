@@ -76,7 +76,7 @@ public class MediaSupportTest extends DisplaytagCase
     public void testAsXml() throws Exception
     {
 
-        ParamEncoder encoder = new ParamEncoder("table", "requestScope.test");
+        ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
         WebRequest request = new GetMethodWebRequest(getJspName());
