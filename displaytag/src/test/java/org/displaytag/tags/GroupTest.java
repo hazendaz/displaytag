@@ -1,4 +1,4 @@
-package org.displaytag.tags.el;
+package org.displaytag.tags;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +24,6 @@ public class GroupTest extends DisplaytagCase
      */
     private static Log log = LogFactory.getLog(GroupTest.class);
 
-
     /**
      * Instantiates a new test case.
      * @param name test name
@@ -35,13 +34,21 @@ public class GroupTest extends DisplaytagCase
     }
 
     /**
+     * @see org.displaytag.test.DisplaytagCase#getJspName()
+     */
+    public String getJspName()
+    {
+        return "http://localhost/tld11/group.jsp";
+    }
+
+    /**
      * Tests row grouping. bug #923446
      * @throws Exception any axception thrown during test.
      */
     public void testGroup() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest("http://localhost/el/group.jsp");
+        WebRequest request = new GetMethodWebRequest(getJspName());
 
         WebResponse response = runner.getResponse(request);
 

@@ -15,7 +15,7 @@ import com.meterware.servletunit.ServletRunner;
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
-public class DisplaytagCase extends TestCase
+public abstract class DisplaytagCase extends TestCase
 {
 
     /**
@@ -27,6 +27,12 @@ public class DisplaytagCase extends TestCase
      * HttpUnit ServletRunner.
      */
     protected ServletRunner runner;
+
+    /**
+     * Returns the tested jsp name.
+     * @return jsp name
+     */
+    public abstract String getJspName();
 
     /**
      * Instantiates a new test case.
