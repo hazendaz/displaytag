@@ -32,7 +32,6 @@ import javax.servlet.jsp.PageContext;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.lang.math.LongRange;
 import org.apache.commons.lang.math.Range;
 import org.apache.commons.logging.Log;
@@ -44,6 +43,7 @@ import org.displaytag.exception.ExportException;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.exception.WrappedRuntimeException;
 import org.displaytag.export.BinaryExportView;
 import org.displaytag.export.ExportView;
 import org.displaytag.export.ExportViewFactory;
@@ -279,9 +279,11 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Included row range. If no rows can be skipped the range is from 0 to Long.MAX_VALUE. Range check should be always
-     * done using containsLong().
+     * done using containsLong(). This is an instance of org.apache.commons.lang.math.Range, but it's declared as Object
+     * to avoid runtime errors while Jasper tries to compile the page and commons lang 2.0 is not available. Commons
+     * lang version will be checked in the doStartTag() method in order to provide a more user friendly message.
      */
-    private Range filteredRows;
+    private Object filteredRows;
 
     /**
      * Sets the list of parameter which should not be forwarded during sorting or pagination.
@@ -844,7 +846,7 @@ public class TableTag extends HtmlTableTag
      */
     protected boolean isIncludedRow()
     {
-        return filteredRows.containsLong(this.rowNumber);
+        return ((Range) filteredRows).containsLong(this.rowNumber);
     }
 
     /**
@@ -1179,7 +1181,7 @@ public class TableTag extends HtmlTableTag
         }
         catch (IOException e)
         {
-            throw new NestableRuntimeException(e);
+            throw new WrappedRuntimeException(getClass(), e);
         }
 
         return SKIP_PAGE;

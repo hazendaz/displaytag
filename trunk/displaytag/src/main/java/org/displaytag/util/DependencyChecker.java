@@ -59,12 +59,16 @@ public final class DependencyChecker
             }
             catch (NoSuchMethodException ee)
             {
-                throw new JspTagException(Messages.getString("DependencyChecker.lang.incompatible")); //$NON-NLS-1$
+                throw new JspTagException(Messages.getString("DependencyChecker.lib.incompatible", //$NON-NLS-1$
+                    new Object[]{"commons-lang", new Integer(2), "http://jakarta.apache.org/commons/lang"} //$NON-NLS-1$ //$NON-NLS-1$
+                    ));
             }
         }
         catch (ClassNotFoundException e)
         {
-            throw new JspTagException(Messages.getString("DependencyChecker.lang.missing")); //$NON-NLS-1$
+            throw new JspTagException(Messages.getString("DependencyChecker.lib.missing", //$NON-NLS-1$
+                new Object[]{"commons-lang", new Integer(2), "http://jakarta.apache.org/commons/lang"} //$NON-NLS-1$ //$NON-NLS-1$
+                ));
         }
         commonsLangChecked = true;
     }
