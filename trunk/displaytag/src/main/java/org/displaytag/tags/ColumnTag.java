@@ -212,15 +212,6 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * @deprecated use setSortable()
-     * @param value String
-     */
-    public void setSort(boolean value)
-    {
-        setSortable(value);
-    }
-
-    /**
      * setter for the "autolink" tag attribute.
      * @param value attribute value
      */
@@ -400,16 +391,6 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * setter for the "class" tag attribute.
-     * @param value attribute value
-     * @deprecated use the "class" attribute
-     */
-    public void setStyleClass(String value)
-    {
-        setClass(value);
-    }
-
-    /**
      * setter for the "style" tag attribute.
      * @param value attribute value
      */
@@ -452,16 +433,6 @@ public class ColumnTag extends BodyTagSupport
     public void setHeaderClass(String value)
     {
         this.headerAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
-    }
-
-    /**
-     * setter for the "headerStyleClass" tag attribute.
-     * @param value attribute value
-     * @deprecated use setHeaderClass()
-     */
-    public void setHeaderStyleClass(String value)
-    {
-        setHeaderClass(value);
     }
 
     /**

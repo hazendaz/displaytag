@@ -31,7 +31,7 @@
 						    request.setAttribute("row2",new java.util.ArrayList(theList));
             ]]> </jsp:scriptlet>
 					<c:forEach var="item" items="0,1,2">
-						<display:table id="row${item}" name="row${item}" sort="list" >
+						<display:table uid="row${item}" name="row${item}" sort="list" >
 						  <display:column property="value" sortable="true"/>
 						</display:table>
           </c:forEach>

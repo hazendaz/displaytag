@@ -113,9 +113,14 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private String idExpr;
 
     /**
-     * @see org.displaytag.tags.TableTag#setId(java.lang.String)
+     * Expression for the "htmlId" tag attribute.
      */
-    public void setId(String value)
+    private String htmlIdExpr;
+
+    /**
+     * @see org.displaytag.tags.TableTag#setUid(java.lang.String)
+     */
+    public void setUid(String value)
     {
         idExpr = value;
     }
@@ -283,7 +288,11 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
         if (idExpr != null)
         {
-            super.setId(eval.evalString("id", idExpr)); //$NON-NLS-1$
+            super.setUid(eval.evalString("uid", idExpr)); //$NON-NLS-1$
+        }
+        if (htmlIdExpr != null)
+        {
+            super.setHtmlId(eval.evalString("htmlId", htmlIdExpr)); //$NON-NLS-1$
         }
         if (cellpaddingExpr != null)
         {

@@ -37,6 +37,12 @@ public class CaptionTagBeanInfo extends SimpleBeanInfo
                 CaptionTag.class, null, "setStyle")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("title", //$NON-NLS-1$
                 CaptionTag.class, null, "setTitle")); //$NON-NLS-1$ 
+
+            // make ATG Dynamo happy:
+            // Attribute "className" of tag "caption" in taglib descriptor file displaytag-11.tld" must have a
+            // corresponding property in class "org.displaytag.tags.CaptionTag" with a public setter method
+            proplist.add(new PropertyDescriptor("className", //$NON-NLS-1$
+                CaptionTag.class, null, "setClass")); //$NON-NLS-1$ 
         }
         catch (IntrospectionException ex)
         {

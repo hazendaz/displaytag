@@ -237,6 +237,13 @@
             <description>html pass through attribute</description>
         </attribute>
         <attribute>
+            <name>htmlId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>html "id" pass through attribute</description>
+        </attribute>
+        <attribute>
             <name>vspace</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
@@ -258,9 +265,20 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>
+                See "uid". The id attribute can't be a runtime expression in jsp 1.0 compliant containers, while uid
+                will allow it.
+            </description>
+        </attribute>
+        <attribute>
+            <name>uid</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>
                 Unique id used to identify this table. The object representing the current row is also added to the
-                pageContext under this name and the current row number is added using the key id_rowNum. Two tables in
-                the same page can't have the same id (paging and sorting will affect both).
+                pageContext under this name and the current row number is added using the key uid_rowNum. Two tables in
+                the same page can't have the same uid (paging and sorting will affect both). If no "htmlId" is specified
+                the same value will be used for the html id of the generated table.
             </description>
         </attribute>
         <attribute>

@@ -175,13 +175,21 @@ public abstract class HtmlTableTag extends TemplateTag
     }
 
     /**
-     * setter for the "id" html attribute.
+     * setter for the "id" html attribute. Don't use setId() to avoid overriding original TagSupport method.
      * @param value attribute value
      */
-    public void setId(String value)
+    public void setHtmlId(String value)
     {
         this.attributeMap.put(TagConstants.ATTRIBUTE_ID, value);
-        super.setId(value);
+    }
+
+    /**
+     * getter for the "id" html attribute.
+     * @return attribute value
+     */
+    protected String getHtmlId()
+    {
+        return (String) this.attributeMap.get(TagConstants.ATTRIBUTE_ID);
     }
 
     /**
