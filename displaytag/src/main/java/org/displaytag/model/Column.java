@@ -16,9 +16,10 @@ import org.displaytag.util.LinkUtil;
 import org.displaytag.util.LookupUtil;
 import org.displaytag.util.TagConstants;
 
+
 /**
  * Represents a column in a table.
- * @author fgiust
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class Column
@@ -183,7 +184,7 @@ public class Column
             // clone the attribute map, don't want to add title to all the columns
             this.htmlAttributes = (HtmlAttributeMap) this.htmlAttributes.clone();
             // add title
-            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, fullValue);
+            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, StringUtils.replace(fullValue, "\"", "&#34;"));
         }
 
         // Are we supposed to set up a link to the data being displayed in this column...
