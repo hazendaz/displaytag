@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.exception.DecoratorInstantiationException;
+import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.MissingAttributeException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.TagStructureException;
@@ -71,8 +72,8 @@ public class ColumnTag extends BodyTagSupport
     private String title;
 
     /**
-     * by default, null values don't appear in the list, by setting viewNulls to 'true', then null values will appear
-     * as "null" in the list (mostly useful for debugging) (optional).
+     * by default, null values don't appear in the list, by setting viewNulls to 'true', then null values will appear as
+     * "null" in the list (mostly useful for debugging) (optional).
      */
     private boolean nulls;
 
@@ -89,17 +90,17 @@ public class ColumnTag extends BodyTagSupport
 
     /**
      * the grouping level (starting at 1 and incrementing) of this column (indicates if successive contain the same
-     * values, then they should not be displayed). The level indicates that if a lower level no longer matches, then
-     * the matching for this higher level should start over as well. If this attribute is not included, then no
-     * grouping is performed. (optional)
+     * values, then they should not be displayed). The level indicates that if a lower level no longer matches, then the
+     * matching for this higher level should start over as well. If this attribute is not included, then no grouping is
+     * performed. (optional)
      */
     private int group = -1;
 
     /**
-     * if this attribute is provided, then the data that is shown for this column is wrapped inside a &lt;a href&gt;
-     * tag with the url provided through this attribute. Typically you would use this attribute along with one of the
-     * struts-like param attributes below to create a dynamic link so that each row creates a different URL based on
-     * the data that is being viewed. (optional)
+     * if this attribute is provided, then the data that is shown for this column is wrapped inside a &lt;a href&gt; tag
+     * with the url provided through this attribute. Typically you would use this attribute along with one of the
+     * struts-like param attributes below to create a dynamic link so that each row creates a different URL based on the
+     * data that is being viewed. (optional)
      */
     private Href href;
 
@@ -129,8 +130,8 @@ public class ColumnTag extends BodyTagSupport
 
     /**
      * The scope within which to search for the bean specified by the paramName attribute. If not specified, all scopes
-     * are searched. If paramName is not provided, then the current object being iterated on is assumed to be the
-     * target bean. (optional)
+     * are searched. If paramName is not provided, then the current object being iterated on is assumed to be the target
+     * bean. (optional)
      * @deprecated use Expressions in paramName
      */
     private String paramScope;
@@ -143,8 +144,8 @@ public class ColumnTag extends BodyTagSupport
     private int maxLength;
 
     /**
-     * If this attribute is provided, then the column's displayed is limited to this number of words. An elipse (...)
-     * is appended to the end if this column is linked, and the user can mouseover the elipse to get the full text.
+     * If this attribute is provided, then the column's displayed is limited to this number of words. An elipse (...) is
+     * appended to the end if this column is linked, and the user can mouseover the elipse to get the full text.
      * (optional)
      */
     private int maxWords;
@@ -187,9 +188,9 @@ public class ColumnTag extends BodyTagSupport
      * setter for the "nulls" tag attribute.
      * @param value attribute value
      */
-    public void setNulls(String value)
+    public void setNulls(Object value)
     {
-        if (!Boolean.FALSE.toString().equals(value))
+        if (!Boolean.FALSE.equals(value) && !Boolean.FALSE.toString().equals(value))
         {
             this.nulls = true;
         }
@@ -200,9 +201,9 @@ public class ColumnTag extends BodyTagSupport
      * setter for the "sortable" tag attribute.
      * @param value attribute value
      */
-    public void setSortable(String value)
+    public void setSortable(Object value)
     {
-        if (!Boolean.FALSE.toString().equals(value))
+        if (!Boolean.FALSE.equals(value) && !Boolean.FALSE.toString().equals(value))
         {
             this.sortable = true;
         }
@@ -221,9 +222,9 @@ public class ColumnTag extends BodyTagSupport
      * setter for the "autolink" tag attribute.
      * @param value attribute value
      */
-    public void setAutolink(String value)
+    public void setAutolink(Object value)
     {
-        if (!Boolean.FALSE.toString().equals(value))
+        if (!Boolean.FALSE.equals(value) && !Boolean.FALSE.toString().equals(value))
         {
             this.autolink = true;
         }
@@ -232,17 +233,23 @@ public class ColumnTag extends BodyTagSupport
     /**
      * setter for the "group" tag attribute.
      * @param value attribute value
+     * @throws InvalidTagAttributeValueException if value is not a valid integer
      */
-    public void setGroup(String value)
+    public void setGroup(Object value) throws InvalidTagAttributeValueException
     {
+        if (value instanceof Integer)
+        {
+            this.group = ((Integer) value).intValue();
+            return;
+        }
+
         try
         {
-            this.group = Integer.parseInt(value);
+            this.group = Integer.parseInt((String) value);
         }
         catch (NumberFormatException e)
         {
-            // ignore?
-            log.warn("Invalid \"group\" attribute: value=\"" + value + "\"");
+            throw new InvalidTagAttributeValueException(getClass(), "group", value);
         }
     }
 
@@ -489,8 +496,10 @@ public class ColumnTag extends BodyTagSupport
                 MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
                 if (type == null)
                 { // Should be in a tag validator..
-                    String msg = "Unknown media type \"" + value
-                        + "\"; media must be one or more values, space separated." + " Possible values are:";
+                    String msg = "Unknown media type \""
+                        + value
+                        + "\"; media must be one or more values, space separated."
+                        + " Possible values are:";
                     for (int j = 0; j < MediaTypeEnum.ALL.length; j++)
                     {
                         MediaTypeEnum mediaTypeEnum = MediaTypeEnum.ALL[j];
@@ -506,9 +515,9 @@ public class ColumnTag extends BodyTagSupport
     /**
      * Passes attribute information up to the parent TableTag.
      * <p>
-     * When we hit the end of the tag, we simply let our parent (which better be a TableTag) know what the user wants
-     * to do with this column. We do that by simple registering this tag with the parent. This tag's only job is to
-     * hold the configuration information to describe this particular column. The TableTag does all the work.
+     * When we hit the end of the tag, we simply let our parent (which better be a TableTag) know what the user wants to
+     * do with this column. We do that by simple registering this tag with the parent. This tag's only job is to hold
+     * the configuration information to describe this particular column. The TableTag does all the work.
      * </p>
      * @return int
      * @throws JspException if this tag is being used outside of a &lt;display:list...&gt; tag.
@@ -729,25 +738,18 @@ public class ColumnTag extends BodyTagSupport
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("bodyContent", this.bodyContent)
-            .append("group", this.group)
-            .append("maxLength", this.maxLength)
-            .append("decorator", this.decorator)
-            .append("href", this.href)
-            .append("title", this.title)
-            .append("paramScope", this.paramScope)
-            .append("property", this.property)
-            .append("paramProperty", this.paramProperty)
-            .append("headerAttributeMap", this.headerAttributeMap)
-            .append("paramName", this.paramName)
-            .append("autolink", this.autolink)
-            .append("nulls", this.nulls)
-            .append("maxWords", this.maxWords)
-            .append("attributeMap", this.attributeMap)
-            .append("sortable", this.sortable)
-            .append("paramId", this.paramId)
-            .append("alreadySorted", this.alreadySorted)
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("bodyContent", this.bodyContent).append(
+            "group",
+            this.group).append("maxLength", this.maxLength).append("decorator", this.decorator).append(
+            "href",
+            this.href).append("title", this.title).append("paramScope", this.paramScope).append(
+            "property",
+            this.property).append("paramProperty", this.paramProperty).append(
+            "headerAttributeMap",
+            this.headerAttributeMap).append("paramName", this.paramName).append("autolink", this.autolink).append(
+            "nulls",
+            this.nulls).append("maxWords", this.maxWords).append("attributeMap", this.attributeMap).append(
+            "sortable",
+            this.sortable).append("paramId", this.paramId).append("alreadySorted", this.alreadySorted).toString();
     }
 }

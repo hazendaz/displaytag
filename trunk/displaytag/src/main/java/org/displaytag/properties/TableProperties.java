@@ -6,9 +6,9 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.util.RequestHelperFactory;
 
@@ -258,7 +258,6 @@ public final class TableProperties
      */
     private TableProperties() throws TablePropertiesLoadException
     {
-
         // default properties will not change unless this class is reloaded
         if (defaultProperties == null)
         {
@@ -708,10 +707,22 @@ public final class TableProperties
     /**
      * Returns an instance of configured requestHelperFactory.
      * @return RequestHelperFactory instance.
+     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
      */
-    public RequestHelperFactory getRequestHelperFactoryInstance()
+    public RequestHelperFactory getRequestHelperFactoryInstance() throws FactoryInstantiationException
     {
-        return (RequestHelperFactory) getClassPropertyInstance(PROPERTY_CLASS_REQUESTHELPERFACTORY);
+        Object loadedObject = getClassPropertyInstance(PROPERTY_CLASS_REQUESTHELPERFACTORY);
+
+        try
+        {
+            return (RequestHelperFactory) loadedObject;
+        }
+        catch (ClassCastException e)
+        {
+            throw new FactoryInstantiationException(getClass(), PROPERTY_CLASS_REQUESTHELPERFACTORY, loadedObject
+                .getClass()
+                .getName(), e);
+        }
     }
 
     /**
@@ -745,46 +756,25 @@ public final class TableProperties
     }
 
     /**
-     * Returns a configured Class instantiated callingClass.forName([configuration value]).
+     * Returns an instance of a configured Class. Returns a configured Class instantiated
+     * callingClass.forName([configuration value]).
      * @param key configuration key
-     * @return Class
+     * @return instance of configured class
+     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
      */
-    private Class getClassProperty(String key)
+    private Object getClassPropertyInstance(String key) throws FactoryInstantiationException
     {
         String className = getProperty(key);
 
-        Class classProperty = null;
         try
         {
-            classProperty = Class.forName(className);
-        }
-        catch (ClassNotFoundException e)
-        {
-            // @todo temporary catch! need to define where to handle exceptions
-            throw new NestableRuntimeException(e);
-        }
-        return classProperty;
-    }
-
-    /**
-     * Returns an instance of a configured Class.
-     * @param key configuration key
-     * @return instance of configured class
-     */
-    private Object getClassPropertyInstance(String key)
-    {
-        Class objectClass = getClassProperty(key);
-        Object instance = null;
-        try
-        {
-            instance = objectClass.newInstance();
+            Class classProperty = Class.forName(className);
+            return classProperty.newInstance();
         }
         catch (Exception e)
         {
-            // @todo temporary catch! need to define where to handle exceptions
-            throw new NestableRuntimeException(e);
+            throw new FactoryInstantiationException(getClass(), key, className, e);
         }
-        return instance;
     }
 
     /**
