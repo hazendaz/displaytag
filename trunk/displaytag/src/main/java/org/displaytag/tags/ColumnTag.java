@@ -222,24 +222,10 @@ public class ColumnTag extends BodyTagSupport
     /**
      * setter for the "group" tag attribute.
      * @param value attribute value
-     * @throws InvalidTagAttributeValueException if value is not a valid integer
      */
-    public void setGroup(Object value) throws InvalidTagAttributeValueException
+    public void setGroup(int value)
     {
-        if (value instanceof Integer)
-        {
-            this.group = ((Integer) value).intValue();
-            return;
-        }
-
-        try
-        {
-            this.group = Integer.parseInt((String) value);
-        }
-        catch (NumberFormatException e)
-        {
-            throw new InvalidTagAttributeValueException(getClass(), "group", value);
-        }
+        this.group = value;
     }
 
     /**
