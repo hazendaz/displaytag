@@ -27,13 +27,7 @@
 	<li><a href="example-pse.jsp">Paging + sorting + grouping + exporting working together</a></li>
 	<li><a href="example-twotables.jsp">2 or more tables working in the same page with independent sorting - paging</a></li>
 	<li><a href="example-nestedtables.jsp">Nested tables</a></li>
-	
-	
-	<!--
-	<li><a href="example-filtering.jsp">Wow, filtering by columns</a> (coming...)
-	<li><a href="example-resultset.jsp">By Demand, working with jdbc results</a> (coming...)
-	<li><a href="example-column-chooser.jsp">Wow, user choice over which columns get displayed</a> (coming...)
-	-->
+	<li><a href="example-caption-footer.jsp">Caption and footer</a></li>
 </ul>
 
 
