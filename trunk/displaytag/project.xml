@@ -2,11 +2,8 @@
 <project>
     <pomVersion>3</pomVersion>
     <id>displaytag</id>
-    <!--<artifactId>displaytag</artifactId>-->
     <name>Display tag library</name>
     <groupId>displaytag</groupId>
-    <!--<type>jar</type>-->
-    <!--<version>1.0-rc1-SNAPSHOT</version>-->
     <currentVersion>1.0-rc2</currentVersion>
     <organization>
         <name>sourceforge</name>
@@ -17,9 +14,9 @@
     <package>org.displaytag</package>
     <logo>/images/displaytag.png</logo>
     <description>
-        The display tag library is an open source suite of custom tags that provide high level web presentation patterns
-        which will work in a MVC model and provide a significant amount of functionality while still being simple and
-        straight-forward to use.
+        The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
+        which will work in an MVC model. The library provides a significant amount of functionality while still being
+        easy to use.
     </description>
     <shortDescription>Display tag library</shortDescription>
     <url>http://${pom.groupId}.sourceforge.net</url>
@@ -467,7 +464,7 @@
         <dependency>
             <groupId>ognl</groupId>
             <artifactId>ognl</artifactId>
-            <version>2.6.5 </version>
+            <version>2.6.5</version>
             <type>jar</type>
             <url>http://www.opensymphony.org/</url>
             <properties>
@@ -477,7 +474,7 @@
                 </comment>
             </properties>
         </dependency>
-        
+
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
