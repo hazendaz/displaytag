@@ -219,6 +219,16 @@ public final class TagConstants
     public static final String ATTRIBUTE_NOWRAP = "nowrap";
 
     /**
+     * html attribute <code>lang</code>.
+     */
+    public static final String ATTRIBUTE_LANG = "lang";
+
+    /**
+     * html attribute <code>dir</code>.
+     */
+    public static final String ATTRIBUTE_DIR = "dir";
+
+    /**
      * escaped ampersand <code>&amp;amp;</code>.
      */
     public static final String AMPERSAND = "&amp;";
