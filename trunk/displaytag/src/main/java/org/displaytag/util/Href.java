@@ -10,8 +10,8 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Object representing an URI (the href parameter of an &lt;a&gt; tag)
- * Provides methods to insert new parameters. It doesn't support multiple parameter values
+ * Object representing an URI (the href parameter of an &lt;a> tag). Provides methods to insert new parameters. It
+ * doesn't support multiple parameter values
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -19,17 +19,17 @@ public class Href
 {
 
     /**
-     * Field mBaseUrl
+     * Base url for the href
      */
     private String url;
 
     /**
-     * Field mParameters
+     * Url parameters
      */
     private HashMap parameters;
 
     /**
-     * Constructor for Href
+     * Construct a new Href parsing a URL. Parameters are stripped from the base url and saved in the parameters map
      * @param baseUrl String
      */
     public Href(String baseUrl)
@@ -84,7 +84,7 @@ public class Href
     }
 
     /**
-     * Method addParameter
+     * Adds a parameter to the href
      * @param name String
      * @param value Object
      */
@@ -94,7 +94,7 @@ public class Href
     }
 
     /**
-     * Method addParameter
+     * Adds an int parameter to the href
      * @param name String
      * @param value int
      */
@@ -104,7 +104,7 @@ public class Href
     }
 
     /**
-     * Method getParameterMap
+     * Getter for the map containing link parameters
      * @return HashMap
      */
     public HashMap getParameterMap()
@@ -113,8 +113,8 @@ public class Href
     }
 
     /**
-     * Sets the parameters in the Href. The value in the given Map will be escaped before added.
-     * Any parameter already in the map is removed.
+     * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
+     * added. Any parameter already present in the href object is removed.
      * @param parametersMap Map containing parameters
      */
     public void setParameterMap(Map parametersMap)
@@ -127,10 +127,10 @@ public class Href
     }
 
     /**
-    * Sets the parameters in the Href. The value in the given Map will be escaped before added.
-    * Parameters in the original href are keeped.
-    * @param parametersMap Map containing parameters
-    */
+     * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
+     * added. Parameters in the original href are kept.
+     * @param parametersMap Map containing parameters
+     */
     public void addParameterMap(Map parametersMap)
     {
         // copy value, escaping html
@@ -145,7 +145,7 @@ public class Href
     }
 
     /**
-     * Method getBaseUrl
+     * Getter for the base url (without parameters)
      * @return String
      */
     public String getBaseUrl()
