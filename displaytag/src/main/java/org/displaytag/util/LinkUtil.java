@@ -43,21 +43,20 @@ public final class LinkUtil
             return string;
         }
 
-        String workString = new String(string);
         int index = -1;
         StringBuffer buffer = new StringBuffer();
 
         // First check for email addresses.
 
-        while ((index = workString.indexOf("@")) != -1)
+        while ((index = string.indexOf("@")) != -1)
         {
             int start = 0;
-            int end = workString.length() - 1;
+            int end = string.length() - 1;
 
             // scan backwards...
             for (int j = index; j >= 0; j--)
             {
-                if (Character.isWhitespace(workString.charAt(j)))
+                if (Character.isWhitespace(string.charAt(j)))
                 {
                     start = j + 1;
                     break;
@@ -67,68 +66,64 @@ public final class LinkUtil
             // scan forwards...
             for (int j = index; j <= end; j++)
             {
-                if (Character.isWhitespace(workString.charAt(j)))
+                if (Character.isWhitespace(string.charAt(j)))
                 {
                     end = j - 1;
                     break;
                 }
             }
 
-            String email = workString.substring(start, (end - start + 1));
+            String email = string.substring(start, end + 1);
 
-            buffer.append(workString.substring(0, start)).append("<a href=\"mailto:").append(email + "\">").append(
-                email).append("</a>");
+            buffer.append(string.substring(0, start)).append("<a href=\"mailto:").append(email + "\">").append(
+                email).append(
+                "</a>");
 
-            if (end == workString.length())
+            if (end == string.length())
             {
-                workString = "";
+                string = "";
             }
             else
             {
-                workString = workString.substring(end + 1);
+                string = string.substring(end + 1);
             }
         }
 
-        workString = buffer.toString() + workString;
+        string = buffer.toString() + string;
         buffer = new StringBuffer();
 
         // Now check for urls...
-
-        while ((index = workString.indexOf(URL_HTTP)) != -1)
+        while ((index = string.indexOf(URL_HTTP)) != -1)
         {
-            int end = workString.length() - 1;
+            int end = string.length() - 1;
 
             // scan forwards...
             for (int j = index; j <= end; j++)
             {
-                if (Character.isWhitespace(workString.charAt(j)))
+                if (Character.isWhitespace(string.charAt(j)))
                 {
                     end = j - 1;
                     break;
                 }
             }
 
-            String url = workString.substring(index, (end - index + 1));
+            String url = string.substring(index, end + 1);
 
-            buffer
-                .append(workString.substring(0, index))
-                .append("<a href=\"")
-                .append(url)
-                .append("\">")
-                .append(url)
-                .append("</a>");
+            buffer.append(string.substring(0, index)).append("<a href=\"").append(url).append("\">").append(
+                url).append(
+                "</a>");
 
-            if (end == workString.length())
+            if (end == string.length())
             {
-                workString = "";
+                string = "";
             }
             else
             {
-                workString = workString.substring(end + 1);
+                string = string.substring(end + 1);
             }
         }
 
-        buffer.append(workString);
+        buffer.append(string);
         return buffer.toString();
     }
 
