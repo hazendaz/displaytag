@@ -40,7 +40,7 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * Returns the object representing the current row
+     * Get the object representing the current row
      * @return Object
      */
     public final Object getCurrentRowObject()
@@ -49,10 +49,9 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * Initialize the current row.
-     * Note this method is also called when sorting a table using a property supplied by the table decorator, so the
-     * method could be called multiple times during rendering. When used to initialize sorting the method is
-     * always called with 0, 0 as currentViewIndex and currentListIndex.
+     * Initialize the current row. Note this method is also called when sorting a table using a property supplied by
+     * the table decorator, so the method could be called multiple times during rendering. When used to initialize
+     * sorting the method is always called with 0, 0 as currentViewIndex and currentListIndex.
      * @param rowObject object representing the current row
      * @param currentViewIndex int index in the displayed list
      * @param currentListIndex int index in the original list
@@ -65,8 +64,7 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * Method called at the beginning of a row. Can be subclassed to provide specific data at
-     * the beginning of a row
+     * Called at the beginning of a row. Can be subclassed to provide specific data at the beginning of a row
      * @return empty String in the default implementation
      */
     public String startRow()
@@ -75,8 +73,7 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * Method called at the end of a row. Can be subclassed to provide specific data at
-     * the end of a row
+     * Called at the end of a row. Can be subclassed to provide specific data at the end of a row
      * @return empty String in the default implementation
      */
     public String finishRow()
@@ -85,8 +82,8 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * Method called at the end of evaluation. Can be subclassed to eventully clean up
-     * data. Always remember to also call super.finish()!
+     * Called at the end of evaluation. Can be subclassed to eventully clean up data. Always remember to also call
+     * super.finish()!
      */
     public void finish()
     {

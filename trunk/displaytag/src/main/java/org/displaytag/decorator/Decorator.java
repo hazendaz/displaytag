@@ -63,7 +63,8 @@ abstract class Decorator
     }
 
     /**
-     * Method called at the end of evaluation
+     * Called at the end of evaluation to clean up instance variable.
+     * A subclass of Decorator can override this method but should always call super.finish() before return
      */
     public void finish()
     {

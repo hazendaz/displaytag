@@ -14,9 +14,12 @@ import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 
 /**
- * <p>Base abstract class for simple export views</p>
- * <p>A class wich extends BaseExportView simple need to provide delimiters for rows
- * and columns</p>
+ * <p>
+ * Base abstract class for simple export views
+ * </p>
+ * <p>
+ * A class wich extends BaseExportView simple need to provide delimiters for rows and columns
+ * </p>
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -54,15 +57,6 @@ public abstract class BaseExportView
         this.model = tableModel;
         this.exportFull = exportFullList;
         this.header = includeHeader;
-    }
-
-    /**
-     * Returns the TableModel.
-     * @return TableModel
-     */
-    public TableModel getTableModel()
-    {
-        return this.model;
     }
 
     /**

@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.displaytag.model.TableModel;
 
 /**
- * <p>Export view for excel exporting</p>
+ * Export view for excel exporting
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -20,8 +20,8 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * Method getMimeType
-     * @return String
+     * @see org.displaytag.export.BaseExportView#getMimeType()
+     * @return "application/vnd.ms-excel"
      */
     public String getMimeType()
     {
@@ -29,8 +29,8 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * Method getRowStart
-     * @return String
+     * @see org.displaytag.export.BaseExportView#getRowStart()
+     * @return ""
      */
     protected String getRowStart()
     {
@@ -38,8 +38,8 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * Method getRowEnd
-     * @return String
+     * @see org.displaytag.export.BaseExportView#getRowEnd()
+     * @return "\n"
      */
     protected String getRowEnd()
     {
@@ -47,8 +47,8 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * Method getCellStart
-     * @return String
+     * @see org.displaytag.export.BaseExportView#getCellStart()
+     * @return ""
      */
     protected String getCellStart()
     {
@@ -56,8 +56,8 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * Method getCellEnd
-     * @return String
+     * @see org.displaytag.export.BaseExportView#getCellEnd()
+     * @return "\t"
      */
     protected String getCellEnd()
     {
@@ -65,8 +65,8 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * Method getDocumentStart
-     * @return String
+     * @see org.displaytag.export.BaseExportView#getDocumentStart()
+     * @return ""
      */
     protected String getDocumentStart()
     {
@@ -74,8 +74,8 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * Method getDocumentEnd
-     * @return String
+     * @see org.displaytag.export.BaseExportView#getDocumentEnd()
+     * @return ""
      */
     protected String getDocumentEnd()
     {
@@ -83,8 +83,8 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * Method getAlwaysAppendCellEnd
-     * @return boolean
+     * @see org.displaytag.export.BaseExportView#getAlwaysAppendCellEnd()
+     * @return false
      */
     protected boolean getAlwaysAppendCellEnd()
     {
@@ -92,8 +92,8 @@ public class ExcelView extends BaseExportView
     }
 
     /**
-     * Method getAlwaysAppendRowEnd
-     * @return boolean
+     * @see org.displaytag.export.BaseExportView#getAlwaysAppendRowEnd()
+     * @return false
      */
     protected boolean getAlwaysAppendRowEnd()
     {
