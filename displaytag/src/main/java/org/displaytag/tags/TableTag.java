@@ -44,6 +44,7 @@ import org.displaytag.util.CollectionUtil;
 import org.displaytag.util.Href;
 import org.displaytag.util.ParamEncoder;
 import org.displaytag.util.RequestHelper;
+import org.displaytag.util.RequestHelperFactory;
 import org.displaytag.util.TagConstants;
 
 
@@ -707,9 +708,12 @@ public class TableTag extends HtmlTableTag
      */
     private void initParameters() throws ObjectLookupException
     {
-        initHref();
+        // @todo exception handling
+        RequestHelperFactory rhf = this.properties.getRequestHelperFactoryInstance();
 
-        RequestHelper requestHelper = new RequestHelper((HttpServletRequest) this.pageContext.getRequest());
+        RequestHelper requestHelper = rhf.getRequestHelperInstance(this.pageContext);
+
+        initHref(requestHelper);
 
         Integer pageNumberParameter = requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE));
         this.pageNumber = (pageNumberParameter == null) ? 1 : pageNumberParameter.intValue();
@@ -800,12 +804,10 @@ public class TableTag extends HtmlTableTag
 
     /**
      * init the href object used to generate all the links for pagination, sorting, exporting.
+     * @param requestHelper request helper used to extract the base Href
      */
-    protected void initHref()
+    protected void initHref(RequestHelper requestHelper)
     {
-
-        RequestHelper requestHelper = new RequestHelper((HttpServletRequest) this.pageContext.getRequest());
-
         // get the href for this request
         Href normalHref = requestHelper.getHref();
 
@@ -823,7 +825,6 @@ public class TableTag extends HtmlTableTag
             // simply copy href
             this.baseHref = normalHref;
         }
-
     }
 
     /**

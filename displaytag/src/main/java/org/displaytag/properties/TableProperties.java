@@ -6,9 +6,11 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.TablePropertiesLoadException;
+import org.displaytag.util.RequestHelperFactory;
 
 
 /**
@@ -160,6 +162,11 @@ public class TableProperties
      * property <code>paging.banner.page.separator</code>.
      */
     public static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator";
+
+    /**
+     * property <code>factory.requestHelper</code>.
+     */
+    public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper";
 
     /**
      * property <code>css.tr.even</code>: holds the name of the css class added to even rows. Defaults to
@@ -674,6 +681,15 @@ public class TableProperties
     }
 
     /**
+     * Returns an instance of configured requestHelperFactory.
+     * @return RequestHelperFactory instance.
+     */
+    public RequestHelperFactory getRequestHelperFactoryInstance()
+    {
+        return (RequestHelperFactory) getClassPropertyInstance(PROPERTY_CLASS_REQUESTHELPERFACTORY);
+    }
+
+    /**
      * Reads a String property.
      * @param key property name
      * @return property value or <code>null</code> if property is not found
@@ -701,6 +717,49 @@ public class TableProperties
     private boolean getBooleanProperty(String key)
     {
         return Boolean.TRUE.toString().equals(getProperty(key));
+    }
+
+    /**
+     * Returns a configured Class instantiated callingClass.forName([configuration value]).
+     * @param key configuration key
+     * @return Class
+     */
+    private Class getClassProperty(String key)
+    {
+        String className = getProperty(key);
+
+        Class classProperty = null;
+        try
+        {
+            classProperty = Class.forName(className);
+        }
+        catch (ClassNotFoundException e)
+        {
+            // @todo temporary catch! need to define where to handle exceptions
+            throw new NestableRuntimeException(e);
+        }
+        return classProperty;
+    }
+
+    /**
+     * Returns an instance of a configured Class.
+     * @param key configuration key
+     * @return instance of configured class
+     */
+    private Object getClassPropertyInstance(String key)
+    {
+        Class objectClass = getClassProperty(key);
+        Object instance = null;
+        try
+        {
+            instance = objectClass.newInstance();
+        }
+        catch (Exception e)
+        {
+            // @todo temporary catch! need to define where to handle exceptions
+            throw new NestableRuntimeException(e);
+        }
+        return instance;
     }
 
     /**
