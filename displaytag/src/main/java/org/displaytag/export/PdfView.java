@@ -196,14 +196,6 @@ public class PdfView implements BinaryExportView
     }
 
     /**
-     * @see org.displaytag.export.ExportView#outputPage()
-     */
-    public boolean outputPage()
-    {
-        return false;
-    }
-
-    /**
      * Wraps IText-generated exceptions.
      * @author Fabrizio Giustina
      * @version $Revision$ ($Author$)
