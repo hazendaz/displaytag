@@ -435,15 +435,6 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Set the base href used in creating link.
-     * @param value Href
-     */
-    protected void setBaseHref(Href value)
-    {
-        this.baseHref = value;
-    }
-
-    /**
      * It's a getter.
      * @return the this.pageContext
      */
@@ -886,8 +877,24 @@ public class TableTag extends HtmlTableTag
             returnValue = doExport();
         }
 
-        // reset instance variables
-        cleanUp();
+        // reset instance variables (non attributes)
+        this.currentMediaType = null;
+        this.baseHref = null;
+        this.caption = null;
+        this.currentRow = null;
+        this.doAfterBodyExecuted = false;
+        this.footer = null;
+        this.listHelper = null;
+        this.nextRow = null;
+        this.pageNumber = 0;
+        this.paramEncoder = null;
+        this.previousOrder = false;
+        this.previousRow = null;
+        this.previousSortedColumn = 0;
+        this.properties = null;
+        this.rowNumber = 1;
+        this.tableIterator = null;
+        this.tableModel = null;
 
         // do not remove media attribute! if the table is nested in other tables this is still needed
         // this.pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
@@ -898,34 +905,6 @@ public class TableTag extends HtmlTableTag
         }
 
         return returnValue;
-    }
-
-    /**
-     * called to clean up instance variables at the end of tag evaluation.
-     */
-    private void cleanUp()
-    {
-        // clean up
-        this.listHelper = null;
-        this.export = false;
-        this.currentMediaType = null;
-        this.scope = null;
-        this.property = null;
-        this.decoratorName = null;
-        this.pagesize = 0;
-        this.length = 0;
-        this.offset = 0;
-        this.defaultSortedColumn = -1;
-        this.rowNumber = 1;
-        this.list = null;
-        this.sortFullTable = null;
-        this.doAfterBodyExecuted = false;
-        this.currentRow = null;
-        this.tableModel = null;
-        this.requestUri = null;
-        this.paramEncoder = null;
-        this.footer = null;
-        this.caption = null;
     }
 
     /**
@@ -1582,6 +1561,21 @@ public class TableTag extends HtmlTableTag
     public void release()
     {
         super.release();
+
+        // tag attributes
+        this.decoratorName = null;
+        this.defaultSortedColumn = -1;
+        this.defaultSortOrder = null;
+        this.export = false;
+        this.length = 0;
+        this.list = null;
+        this.name = null;
+        this.offset = 0;
+        this.pagesize = 0;
+        this.property = null;
+        this.requestUri = null;
+        this.scope = null;
+        this.sortFullTable = null;
     }
 
     /**
