@@ -13,7 +13,7 @@
 
   <display:column title="Related address">
   	<display:table name="<%="test.item[" + (parent_rowNum.intValue() -1)+ "].subList"%>" id="child" class="simple sublist">
-		<display:column property="name" />
+		<display:column property="name" class="textRed" />
 		<display:column property="email" />
 	</display:table>
   </display:column>
