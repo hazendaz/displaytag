@@ -1643,7 +1643,7 @@ public class TableTag extends HtmlTableTag
      * @param parameterName parameter name to encode
      * @return String encoded parameter name
      */
-    protected String encodeParameter(String parameterName)
+    public String encodeParameter(String parameterName)
     {
         // code used to encode the parameter already creeated?
         if (this.tableParameterIdentifier == null)
