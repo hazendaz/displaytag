@@ -1,10 +1,10 @@
-package org.displaytag.util;
+package org.displaytag.filter;
 
+import java.io.CharArrayWriter;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import java.io.CharArrayWriter;
-import java.io.PrintWriter;
 
 /**
  * Buffers the response; will not send anything directly through to the actual response. Note that this blocks the
