@@ -5,6 +5,8 @@ import java.net.URLEncoder;
 
 
 /**
+ * Wrapper class to choose between the java 1.4 implementation of UrlEncoder.encode(), when available, or the java 1.3
+ * implementation.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
@@ -65,12 +67,12 @@ public final class CompatibleUrlEncoder
             {
                 return (String) encodeMethod14.invoke(null, methodArgs);
             }
-            catch (Exception ex)
+            catch (Throwable ex)
             {
                 throw new RuntimeException("System error invoking URLEncoder.encode() by reflection with encoding ["
                     + encoding
                     + "]. "
-                    + ex.getMessage(), ex);
+                    + ex.getMessage());
             }
         }
 
