@@ -93,7 +93,9 @@ public class Href implements Cloneable, Serializable
 
             // encode name/value to prevent css
             String escapedKey = StringEscapeUtils.escapeHtml(keyValue[0]);
-            String escapedValue = StringEscapeUtils.escapeHtml(keyValue[1]);
+            String escapedValue = keyValue.length > 1
+                ? StringEscapeUtils.escapeHtml(keyValue[1])
+                : TagConstants.EMPTY_STRING;
 
             if (!this.parameters.containsKey(escapedKey))
             {
