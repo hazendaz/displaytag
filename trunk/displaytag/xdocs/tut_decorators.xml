@@ -49,7 +49,7 @@
 	<li>
 		Notice how the getDate() and getMoney() methods overload the return value
 		of your business object contained in the List.  They use the
-		<code>TableDecorator.getObject()</code> method to get a handle to the underlying
+		<code>TableDecorator.getCurrentRowObject()</code> method to get a handle to the underlying
 		business object, and then format it accordingly.
 	</li>
 	<li>

@@ -94,7 +94,7 @@
 <pre>
 	public String getLink1()
 	{
-		ListObject lObject= (ListObject)getObject();
+		ListObject lObject= (ListObject)getCurrentRowObject();
 		int lIndex= getListIndex();
 		return "&lt;a href=\"details.jsp?index=" + lIndex + "\">" + lObject.getId() + "&lt;/a>";
 	}
@@ -102,7 +102,7 @@
 
 	public String getLink2()
 	{
-		ListObject lObject= (ListObject)getObject();
+		ListObject lObject= (ListObject)getCurrentRowObject();
 		int lId= lObject.getId();
 
 		return "&lt;a href=\"details.jsp?id=" + lId
