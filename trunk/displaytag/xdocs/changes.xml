@@ -107,6 +107,9 @@
       <action type="fix" dev="fgiust" issue="917569">
         Binary releases are now compatible both with the 2.1 and 3.0 version of common-collections. 
       </action>
+      <action type="fix" dev="fgiust" issue="917200">
+        Error in paging for URLs containing "{}".
+      </action>
       
        
     </release>

@@ -10,6 +10,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.properties.TableProperties;
+import org.displaytag.util.Href;
+
 
 /**
  * <p>
@@ -76,8 +78,8 @@ public class SmartListHelper
 
         if (list == null || size < 1)
         {
-            throw new IllegalArgumentException(
-                "Bad arguments passed into " + "SmartListHelper() constructor. List=" + list + ", pagesize=" + size);
+            throw new IllegalArgumentException("Bad arguments passed into " + "SmartListHelper() constructor. List="
+                + list + ", pagesize=" + size);
         }
 
         this.properties = tableProperties;
@@ -98,8 +100,8 @@ public class SmartListHelper
     }
 
     /**
-     * Returns the computed number of pages it would take to show all the elements in the list given the pageSize we
-     * are working with.
+     * Returns the computed number of pages it would take to show all the elements in the list given the pageSize we are
+     * working with.
      * @return int computed number of pages
      */
     protected int computedPageCount()
@@ -130,8 +132,8 @@ public class SmartListHelper
     }
 
     /**
-     * Returns the index into the master list of the last object that should appear on the current page that the user
-     * is viewing.
+     * Returns the index into the master list of the last object that should appear on the current page that the user is
+     * viewing.
      * @return int
      */
     protected int getLastIndexForCurrentPage()
@@ -177,8 +179,7 @@ public class SmartListHelper
     }
 
     /**
-     * Returns a subsection of the list that contains just the elements that are supposed to be shown on the given
-     * page.
+     * Returns a subsection of the list that contains just the elements that are supposed to be shown on the given page.
      * @param pageNumber page number
      * @return List subsection of the list that contains just the elements that are supposed to be shown on the given
      * page
@@ -254,7 +255,7 @@ public class SmartListHelper
         {
             log.debug("returning paging.banner.no_items_found");
 
-            objs = new Object[] { this.properties.getPagingItemsName()};
+            objs = new Object[]{this.properties.getPagingItemsName()};
             message = this.properties.getPagingFoundNoItems();
 
         }
@@ -263,30 +264,28 @@ public class SmartListHelper
 
             log.debug("returning paging.banner.one_item_found");
 
-            objs = new Object[] { this.properties.getPagingItemName()};
+            objs = new Object[]{this.properties.getPagingItemName()};
             message = this.properties.getPagingFoundOneItem();
         }
         else if (computedPageCount() == 1)
         {
             log.debug("returning paging.banner.all_items_found");
 
-            objs =
-                new Object[] {
-                    new Integer(this.fullListSize),
-                    this.properties.getPagingItemsName(),
-                    this.properties.getPagingItemsName()};
+            objs = new Object[]{
+                new Integer(this.fullListSize),
+                this.properties.getPagingItemsName(),
+                this.properties.getPagingItemsName()};
             message = this.properties.getPagingFoundAllItems();
         }
         else
         {
             log.debug("returning paging.banner.some_items_found");
 
-            objs =
-                new Object[] {
-                    new Integer(this.fullListSize),
-                    this.properties.getPagingItemsName(),
-                    new Integer(getFirstIndexForCurrentPage() + 1),
-                    new Integer(getLastIndexForCurrentPage() + 1)};
+            objs = new Object[]{
+                new Integer(this.fullListSize),
+                this.properties.getPagingItemsName(),
+                new Integer(getFirstIndexForCurrentPage() + 1),
+                new Integer(getLastIndexForCurrentPage() + 1)};
             message = this.properties.getPagingFoundSomeItems();
         }
 
@@ -296,10 +295,11 @@ public class SmartListHelper
     /**
      * Returns a string containing the nagivation bar that allows the user to move between pages within the list. The
      * urlFormatString should be a URL that looks like the following: somepage.page?page={0}
-     * @param urlFormatString String
+     * @param baseHref Href used for links
+     * @param pageParameter name for the page parameter
      * @return String
      */
-    public String getPageNavigationBar(String urlFormatString)
+    public String getPageNavigationBar(Href baseHref, String pageParameter)
     {
 
         log.debug("getPageNavigationBar");
@@ -312,9 +312,12 @@ public class SmartListHelper
         int startPage = 1;
         int endPage = maxPages;
 
-        Pagination pagination = new Pagination(urlFormatString);
+        Pagination pagination = new Pagination(baseHref, pageParameter);
 
-        log.debug("this.pageCount=" + this.pageCount);
+        if (log.isDebugEnabled())
+        {
+            log.debug("this.pageCount=" + this.pageCount);
+        }
 
         // if no items are found still add pagination?
         if (count == 0)
@@ -384,11 +387,8 @@ public class SmartListHelper
 
         log.debug("getPageNavigationBar end");
 
-        return pagination.getFormattedBanner(
-            this.properties.getPagingPageLink(),
-            this.properties.getPagingPageSelected(),
-            this.properties.getPagingPageSeparator(),
-            bannerFormat);
+        return pagination.getFormattedBanner(this.properties.getPagingPageLink(), this.properties
+            .getPagingPageSelected(), this.properties.getPagingPageSeparator(), bannerFormat);
     }
 
     /**
