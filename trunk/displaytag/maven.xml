@@ -38,6 +38,8 @@
             <fileset dir=".">
                 <include name="lib/portlet*.jar" />
                 <include name="xdocs/**/*.*" />
+                <include name="checkstyle.xml" />
+                <include name="clover.license" />
             </fileset>
         </copy>
     </postGoal>
@@ -60,12 +62,4 @@
             <fileset dir="${maven.build.dir}/distributions" />
         </copy>
     </goal>
-
-    <postGoal name="dist:prepare-src-filesystem">
-        <copy todir="${maven.dist.src.assembly.dir}">
-            <fileset dir=".">
-                <include name="checkstyle.xml" />
-            </fileset>
-        </copy>
-    </postGoal>
 </project>
