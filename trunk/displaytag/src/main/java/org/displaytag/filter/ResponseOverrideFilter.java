@@ -2,7 +2,6 @@ package org.displaytag.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,7 +12,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -121,16 +119,6 @@ public class ResponseOverrideFilter implements Filter
             }
 
             StringBuffer filename = (StringBuffer) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_FILENAME);
-
-            try
-            {
-                // needed to reset headers (be sure there are no "no-cache" headers, else export will not work)
-                resp.reset();
-            }
-            catch (IllegalStateException ise)
-            {
-                log.debug("Can't reset response headers.");
-            }
 
             if (filename != null && StringUtils.isNotEmpty(filename.toString()))
             {

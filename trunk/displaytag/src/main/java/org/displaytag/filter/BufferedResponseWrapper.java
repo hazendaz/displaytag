@@ -259,7 +259,12 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
      */
     public void setDateHeader(String name, long date)
     {
-        response.setDateHeader(name, date);
+        // don't add headers that can prevent caching, export (opening in an external program) will not work
+        if (!"Expires".equalsIgnoreCase(name))
+        {
+            response.setDateHeader(name, date);
+        }
+
     }
 
     /**
@@ -267,7 +272,11 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
      */
     public void addDateHeader(String name, long date)
     {
-        response.addDateHeader(name, date);
+        // don't add headers that can prevent caching, export (opening in an external program) will not work
+        if (!"Expires".equalsIgnoreCase(name))
+        {
+            response.addDateHeader(name, date);
+        }
     }
 
     /**
@@ -275,7 +284,13 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
      */
     public void setHeader(String name, String value)
     {
-        response.setHeader(name, value);
+        // don't add headers that can prevent caching, export (opening in an external program) will not work
+        if (!"Cache-Control".equalsIgnoreCase(name)
+            && !"Pragma".equalsIgnoreCase(name)
+            && !"Expires".equalsIgnoreCase(name))
+        {
+            response.setHeader(name, value);
+        }
     }
 
     /**
@@ -283,7 +298,13 @@ public class BufferedResponseWrapper implements HttpServletResponse // don't ext
      */
     public void addHeader(String name, String value)
     {
-        response.addHeader(name, value);
+        // don't add headers that can prevent caching, export (opening in an external program) will not work
+        if (!"Cache-Control".equalsIgnoreCase(name)
+            && !"Pragma".equalsIgnoreCase(name)
+            && !"Expires".equalsIgnoreCase(name))
+        {
+            response.addHeader(name, value);
+        }
     }
 
     /**

@@ -56,7 +56,11 @@ public class ExportHeadersTest extends DisplaytagCase
 
         response = runner.getResponse(request);
 
-        assertNull("Header 'dummy' should be removed", response.getHeaderField("dummy"));
+        assertNotNull("Header 'dummy' should NOT be removed", response.getHeaderField("dummy"));
+        assertEquals("Header Cache-Control not overwritten", "public", response.getHeaderField("Cache-Control"));
+        assertEquals("Header Expires not overwritten", "Thu, 01 Dec 2069 16:00:00 GMT", response
+            .getHeaderField("Expires"));
+        assertEquals("Header Pragma not overwritten", "", response.getHeaderField("Pragma"));
     }
 
 }
