@@ -622,8 +622,10 @@ public class TableTag extends HtmlTableTag
 
         initParameters();
 
+        Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
         // set the PAGE_ATTRIBUTE_MEDIA attribute in the page scope
-        if (this.currentMediaType != null)
+        if (this.currentMediaType != null
+            && (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType)))
         {
             if (log.isDebugEnabled())
             {
@@ -1029,11 +1031,14 @@ public class TableTag extends HtmlTableTag
         // Get the data back in the representation that the user is after, do they want HTML/XML/CSV/EXCEL/etc...
         int returnValue = EVAL_PAGE;
 
-        if (MediaTypeEnum.HTML.equals(this.currentMediaType))
+        // check for nested tables
+        Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
+        if (MediaTypeEnum.HTML.equals(this.currentMediaType)
+            && (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType)))
         {
             writeHTMLData();
         }
-        else
+        else if (!MediaTypeEnum.HTML.equals(this.currentMediaType))
         {
             if (log.isDebugEnabled())
             {

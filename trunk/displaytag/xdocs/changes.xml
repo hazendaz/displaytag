@@ -28,6 +28,10 @@
             </action>
             <action type="fix" dev="fgiust" issue="DISPL-109">Center of paging banner number.</action>
             <action type="fix" dev="fgiust" issue="DISPL-145">Tag holding references to resources.</action>
+            <action type="fix" dev="fgiust" issue="DISPL-142">
+                Export of nested tables: now you can export the parent table without errors; nested tables are not
+                included during export.
+            </action>
         </release>
         <release version="1.0-rc2" date="November 19, 2004 " description="Final 1.0 release candidate">
             <action type="fix" dev="fgiust" issue="962448">

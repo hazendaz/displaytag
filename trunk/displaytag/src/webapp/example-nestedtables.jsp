@@ -44,6 +44,9 @@
 		sample only if you are not using sorting at the same time. If you use sorting the result will be wrong, 
 		since the original list is not affected by sorting.
 	</li>
+	<li>
+		Nested tables are not exported (how could you describe nested tables in csv or excel?).
+	</li>
 <ul>
 
 <%@ include file="inc/footer.jsp" %>
