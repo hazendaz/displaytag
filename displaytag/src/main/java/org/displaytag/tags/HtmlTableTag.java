@@ -148,7 +148,7 @@ public abstract class HtmlTableTag extends TemplateTag
 
     /**
      * set the html class attribute
-     * @deprecated: use setClass()
+     * @deprecated use setClass()
      * @param attributeValue String CSS class
      */
     public void setStyleClass(String attributeValue)
