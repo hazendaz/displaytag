@@ -2,7 +2,7 @@
 
 <% request.setAttribute( "test", new ReportList() ); %>
 
-<h2><a href="./index.jsp">Examples</a> > Two tables working together in the same page with indipendent paging-sorting</h2>
+<h2><a href="./index.jsp">Examples</a> > Two tables working together in the same page with independent paging-sorting</h2>
 
 
 <display:table name="test" sort="list" pagesize="8" id="table1">
@@ -20,11 +20,11 @@
 </display:table>
 
 <p>
-	Do you need to put more than one &lt;display:table&gt; in the same page, with indipendent 
+	Do you need to put more than one &lt;display:table&gt; in the same page, with independent 
 	pagination and sorting?
 </p>
 <p>
-	No problem: parameter in pagination, sorting and exporting are encoded to be readed only by
+	No problem: parameter in pagination, sorting and exporting are encoded to be processed only by
 	the source table. The only requirement is to provide a different <code>name</code> or 
 	<code>id</code> attribute for the table. If you click on sorting or pagination links in one 
 	of the previous tables the other one doesn't get affected by that.
