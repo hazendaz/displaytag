@@ -371,7 +371,6 @@ public class TableTag extends HtmlTableTag
         this.property = value;
     }
 
-
     /**
      * sets the sorting order for the sorted column.
      * @param value "ascending" or "descending"
@@ -524,7 +523,6 @@ public class TableTag extends HtmlTableTag
         // (this.rowNumber is incremented in doAfterBody)
         return this.rowNumber == 1;
     }
-
 
     /**
      * When the tag starts, we just initialize some of our variables, and do a little bit of error checking to make sure
@@ -861,9 +859,7 @@ public class TableTag extends HtmlTableTag
             this.tableModel.setTableDecorator(tableDecorator);
         }
 
-        List pageData = getViewableData();
-
-        this.tableModel.setRowListPage(pageData);
+        getViewableData();
 
         // Figure out how we should sort this data, typically we just sort
         // the data being shown, but the programmer can override this behavior
@@ -894,7 +890,6 @@ public class TableTag extends HtmlTableTag
 
             returnValue = doExport();
         }
-
 
         // do not remove media attribute! if the table is nested in other tables this is still needed
         // this.pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
@@ -1140,23 +1135,23 @@ public class TableTag extends HtmlTableTag
 
         // If they have asked for a subset of the list via the length
         // attribute, then only fetch those items out of the master list.
-
         fullList = CollectionUtil.getListFromObject(originalData, this.offset, this.length);
 
+        int pageOffset = this.offset;
         // If they have asked for just a page of the data, then use the
         // SmartListHelper to figure out what page they are after, etc...
-
         if (this.pagesize > 0)
         {
-
             this.listHelper = new SmartListHelper(fullList, this.pagesize, this.properties);
-
             this.listHelper.setCurrentPage(this.pageNumber);
-
+            pageOffset = this.listHelper.getFirstIndexForCurrentPage();
             fullList = this.listHelper.getListForCurrentPage();
-
         }
 
+        this.tableModel.setRowListPage(fullList);
+        this.tableModel.setPageOffset(pageOffset);
+
+        // returns the list for compatibility, its not used in TableTag
         return fullList;
     }
 

@@ -78,8 +78,11 @@ public class SmartListHelper
 
         if (list == null || size < 1)
         {
-            throw new IllegalArgumentException("Bad arguments passed into " + "SmartListHelper() constructor. List="
-                + list + ", pagesize=" + size);
+            throw new IllegalArgumentException("Bad arguments passed into "
+                + "SmartListHelper() constructor. List="
+                + list
+                + ", pagesize="
+                + size);
         }
 
         this.properties = tableProperties;
@@ -126,7 +129,7 @@ public class SmartListHelper
      * is viewing.
      * @return int index of the first object that should appear on the current page
      */
-    protected int getFirstIndexForCurrentPage()
+    public int getFirstIndexForCurrentPage()
     {
         return getFirstIndexForPage(this.currentPage);
     }
@@ -396,13 +399,10 @@ public class SmartListHelper
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("fullList", this.fullList)
-            .append("fullListSize", this.fullListSize)
-            .append("pageSize", this.pageSize)
-            .append("pageCount", this.pageCount)
-            .append("properties", this.properties)
-            .append("currentPage", this.currentPage)
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("fullList", this.fullList).append(
+            "fullListSize",
+            this.fullListSize).append("pageSize", this.pageSize).append("pageCount", this.pageCount).append(
+            "properties",
+            this.properties).append("currentPage", this.currentPage).toString();
     }
 }

@@ -68,6 +68,11 @@ public class TableModel
     private TableProperties properties;
 
     /**
+     * Starting offset for elements in the viewable list.
+     */
+    private int pageOffset;
+
+    /**
      * Constructor for TableModel.
      * @param tableProperties table properties
      */
@@ -76,6 +81,15 @@ public class TableModel
         this.rowListFull = new ArrayList(20);
         this.headerCellList = new ArrayList(20);
         this.properties = tableProperties;
+    }
+
+    /**
+     * Sets the starting offset for elements in the viewable list.
+     * @param pageOffset The pageOffset to set.
+     */
+    public void setPageOffset(int pageOffset)
+    {
+        this.pageOffset = pageOffset;
     }
 
     /**
@@ -278,7 +292,8 @@ public class TableModel
         RowIterator iterator = new RowIterator(
             full ? this.rowListFull : this.rowListPage,
             this.headerCellList,
-            this.tableDecorator);
+            this.tableDecorator,
+            this.pageOffset);
         // copy id for logging
         iterator.setId(this.id);
         return iterator;
