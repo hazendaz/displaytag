@@ -91,7 +91,7 @@ public final class SortOrderEnum
      * @param key Integer code - null safe: a null key returns a null Enum
      * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
      */
-    public static SortOrderEnum fromIntegerCode(Integer key)
+    public static SortOrderEnum fromCode(Integer key)
     {
         if (key == null)
         {
@@ -99,6 +99,17 @@ public final class SortOrderEnum
         }
 
         return fromCode(key.intValue());
+    }
+
+    /**
+     * lookup a SortOrderEnum by an Integer key.
+     * @param key Integer code - null safe: a null key returns a null Enum
+     * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
+     * @deprecated use fromCode(Integer)
+     */
+    public static SortOrderEnum fromIntegerCode(Integer key)
+    {
+        return fromCode(key);
     }
 
     /**
