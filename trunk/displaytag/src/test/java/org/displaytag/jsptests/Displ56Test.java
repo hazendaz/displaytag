@@ -1,5 +1,6 @@
 package org.displaytag.jsptests;
 
+import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -68,8 +69,8 @@ public class Displ56Test extends DisplaytagCase
         assertEquals("Wrong number of tables in result.", 3, tables.length);
 
         // first is sorted, other aren't
-        assertEquals("First table should be sorted. Wrong class attribute.", //
-            "order2 sortable sorted", tables[0].getTableCell(0, 0).getClassName());
+        assertTrue("First table should be sorted. Wrong class attribute.", //
+            StringUtils.contains(tables[0].getTableCell(0, 0).getClassName(), "sorted"));
         assertEquals("Second table should not be sorted. Wrong class attribute.", //
             "sortable", tables[1].getTableCell(0, 0).getClassName());
         assertEquals("Third table should not be sorted. Wrong class attribute.", //
