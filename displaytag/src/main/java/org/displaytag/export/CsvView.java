@@ -92,15 +92,27 @@ public class CsvView extends BaseExportView
     }
 
     /**
+     * Escaping for csv format:
+     * <ul>
+     * <li>Quotes inside quoted strings are escaped with a /</li>
+     * <li>Fields containings newlines or , are surrounded by ""</li>
+     * </ul>
+     * Note this is the standard CVS format and it's not handled well by excel
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
-     * @todo how to escape commas?
      */
     protected Object escapeColumnValue(Object value)
     {
         if (value != null)
         {
-            return StringUtils.replace(value.toString(), ",", ";");
+            String stringValue = StringUtils.trim(value.toString());
+            if (!StringUtils.containsNone(stringValue, new char[] { '\n', ',' }))
+            {
+                return "\"" + StringUtils.replace(stringValue, "\"", "\\\"") + "\"";
+            }
+
+            return stringValue;
         }
+
         return null;
     }
 

@@ -101,13 +101,19 @@ public class ExcelView extends BaseExportView
     }
 
     /**
+     * Escaping for excel format:
+     * <ul>
+     * <li>Quotes inside quoted strings are escaped with a double quote.</li>
+     * <li>Fields are surrounded by "" (should be optional, but sometimes you get a "Sylk error" without those)</li>
+     * </ul>
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
      */
     protected Object escapeColumnValue(Object value)
     {
         if (value != null)
         {
-            return StringUtils.trim(value.toString());
+            // quotes around fields are needed to avoid occasional "Sylk format invalid" messages from excel
+            return "\"" + StringUtils.replace(StringUtils.trim(value.toString()), "\"", "\"\"") + "\"";
         }
 
         return null;
