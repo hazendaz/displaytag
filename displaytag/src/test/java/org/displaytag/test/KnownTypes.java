@@ -49,4 +49,13 @@ public class KnownTypes
         return LONG_VALUE;
     }
 
+    /**
+     * getter for a null property.
+     * @return <code>null</code>
+     */
+    public Long getNullValue()
+    {
+        return null;
+    }
+
 }

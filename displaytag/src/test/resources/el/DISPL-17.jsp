@@ -11,13 +11,16 @@
 	</head>
 	<body>
 	<jsp:scriptlet> <![CDATA[
-            	 session.setAttribute( "stest", new org.displaytag.sample.TestList( 10, false ) );
+				java.util.List test = new java.util.ArrayList(2);
+				test.add(new org.displaytag.test.KnownValue());
+				test.add(new org.displaytag.test.KnownValue());
+            	session.setAttribute( "stest", test );
             ]]> </jsp:scriptlet>
 	<display:table id="wontWork" name="${sessionScope.stest}" defaultsort="1">
-		<display:column headerClass="wontSort" property="id" title="ID" sortable="true" />
-		<display:column headerClass="wontSort" property="name" sortable="true" />
-		<display:column headerClass="wontSort" property="email" sortable="true" />
-		<display:column headerClass="wontSort" property="status" sortable="true" />
+		<display:column headerClass="wontSort" property="ant" title="ID" sortable="true" />
+		<display:column headerClass="wontSort" property="bee" sortable="true" />
+		<display:column headerClass="wontSort" property="camel" sortable="true" />
+		<display:column headerClass="wontSort" property="ant" sortable="true" />
 	</display:table>
 	</body>
 	</html>
