@@ -1,9 +1,8 @@
 package org.displaytag.sample;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.time.FastDateFormat;
 import org.displaytag.decorator.ColumnDecorator;
 
 /**
@@ -15,16 +14,16 @@ public class LongDateWrapper implements ColumnDecorator
     /**
      * Field sdf
      */
-    private DateFormat mDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    private FastDateFormat dateFormat = FastDateFormat.getInstance("MM/dd/yyyy HH:mm:ss");
 
     /**
      * Method decorate
-     * @param pColumnValue Object
+     * @param columnValue Object
      * @return String
      */
-    public final String decorate(Object pColumnValue)
+    public final String decorate(Object columnValue)
     {
-        Date lDate = (Date) pColumnValue;
-        return mDateFormat.format(lDate);
+        Date date = (Date) columnValue;
+        return dateFormat.format(date);
     }
 }

@@ -16,52 +16,52 @@ public class MultipleHtmlAttribute implements Cloneable
     /**
      * HashSet containing splitted attribute values
      */
-    private HashSet mAttributeSet;
+    private HashSet attributeSet;
 
     /**
      * Constructor for MultipleHtmlAttribute
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public MultipleHtmlAttribute(String pAttributeValue)
+    public MultipleHtmlAttribute(String attributeValue)
     {
 
         // split initial attribute
-        String[] lAttributes = StringUtils.split(pAttributeValue);
+        String[] attributes = StringUtils.split(attributeValue);
 
-        addAllAttributesFromArray(lAttributes);
+        addAllAttributesFromArray(attributes);
     }
 
     /**
      * Constructor for MultipleHtmlAttribute
-     * @param pAttributes Object[]
+     * @param attributes Object[]
      */
-    private MultipleHtmlAttribute(Object[] pAttributes)
+    private MultipleHtmlAttribute(Object[] attributes)
     {
 
-        addAllAttributesFromArray(pAttributes);
+        addAllAttributesFromArray(attributes);
     }
 
     /**
      * add attributes from an array
-     * @param pAttributes Object[] Array containing attributes
+     * @param attributes Object[] Array containing attributes
      */
-    private void addAllAttributesFromArray(Object[] pAttributes)
+    private void addAllAttributesFromArray(Object[] attributes)
     {
 
         // number of attributes to add
-        int lLength = pAttributes.length;
+        int length = attributes.length;
 
         // create new HashSet with correct size
-        mAttributeSet = new HashSet(lLength);
+        this.attributeSet = new HashSet(length);
 
         // add all the splitted attributes
-        for (int lCounter = 0; lCounter < lLength; lCounter++)
+        for (int j = 0; j < length; j++)
         {
 
             // don't add if empty
-            if (!"".equals(pAttributes[lCounter]))
+            if (!"".equals(attributes[j]))
             {
-                mAttributeSet.add(pAttributes[lCounter]);
+                this.attributeSet.add(attributes[j]);
             }
 
         }
@@ -73,34 +73,34 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     public String toString()
     {
-        StringBuffer lBuffer = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
 
-        Iterator lIterator = mAttributeSet.iterator();
+        Iterator iterator = this.attributeSet.iterator();
 
-        while (lIterator.hasNext())
+        while (iterator.hasNext())
         {
             // apend next value
-            lBuffer.append(lIterator.next());
-            if (lIterator.hasNext())
+            buffer.append(iterator.next());
+            if (iterator.hasNext())
             {
                 // append a space if there are more
-                lBuffer.append(' ');
+                buffer.append(' ');
             }
         }
 
-        return lBuffer.toString();
+        return buffer.toString();
     }
 
     /**
      * Method addAttributeValue
-     * @param pAttributeValue String
+     * @param attributeValue String
      */
-    public void addAttributeValue(String pAttributeValue)
+    public void addAttributeValue(String attributeValue)
     {
         // don't add if empty
-        if (!"".equals(pAttributeValue))
+        if (!"".equals(attributeValue))
         {
-            mAttributeSet.add(pAttributeValue);
+            this.attributeSet.add(attributeValue);
         }
 
     }
@@ -112,7 +112,7 @@ public class MultipleHtmlAttribute implements Cloneable
     protected Object clone()
     {
         // creates a totally new object
-        return new MultipleHtmlAttribute(mAttributeSet.toArray());
+        return new MultipleHtmlAttribute(this.attributeSet.toArray());
     }
 
 }

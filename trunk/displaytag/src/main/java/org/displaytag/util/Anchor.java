@@ -1,7 +1,7 @@
 package org.displaytag.util;
 
 /**
- * <p>Anchor object used to output an html link (an &lt;a&gt; tag)</p>
+ * Anchor object used to output an html link (an &lt;a> tag)
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -11,90 +11,90 @@ public class Anchor
     /**
      * Href object to be written in the "href" html attribute
      */
-    private Href mHref;
+    private Href href;
 
     /**
      * link body text
      */
-    private String mLinkText;
+    private String linkText;
 
     /**
      * HashMap containing all the html attributes
      */
-    private HtmlAttributeMap mAttributeMap = new HtmlAttributeMap();
+    private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
     /**
      * Creates a new anchor with the supplied body text
-     * @param pLinkText String body text
+     * @param linkBody String body text
      */
-    public Anchor(String pLinkText)
+    public Anchor(String linkBody)
     {
-        mLinkText = pLinkText;
+        this.linkText = linkBody;
     }
 
     /**
      * Creates a new Anchor whit the supplied Href
-     * @param pHref Href
+     * @param linkHref Href
      */
-    public Anchor(Href pHref)
+    public Anchor(Href linkHref)
     {
-        mHref = pHref;
+        this.href = linkHref;
     }
 
     /**
      * Creates a new Anchor whit the supplied Href and body text
-     * @param pHref Href
-     * @param pLinkText String link body
+     * @param linkHref baseHref
+     * @param linkBody String link body
      */
-    public Anchor(Href pHref, String pLinkText)
+    public Anchor(Href linkHref, String linkBody)
     {
-        mHref = pHref;
-        mLinkText = pLinkText;
+        this.href = linkHref;
+        this.linkText = linkBody;
     }
 
     /**
      * setter the anchor Href
-     * @param pHref Href
+     * @param linkHref Href
      */
-    public void setHref(Href pHref)
+    public void setHref(Href linkHref)
     {
-        mHref = pHref;
+        this.href = linkHref;
     }
 
     /**
      * setter for the link body text
-     * @param pLinkText String
+     * @param linkBody String
      */
-    public void setText(String pLinkText)
+    public void setText(String linkBody)
     {
-        mLinkText = pLinkText;
+        this.linkText = linkBody;
     }
 
     /**
      * add a "class" attribute to the html link
-     * @param pClass String
+     * @param cssClass String
      */
-    public void setClass(String pClass)
+    public void setClass(String cssClass)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, pClass);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, cssClass);
     }
 
     /**
      * add a "style" attribute to the html link
-     * @param pStyle String
+     * @param style String
      */
-    public void setStyle(String pStyle)
+    public void setStyle(String style)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_STYLE, pStyle);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_STYLE, style);
     }
 
     /**
      * add a "title" attribute to the html link
-     * @param pTitle String
+     * @param title String
      */
-    public void setTitle(String pTitle)
+    public void setTitle(String title)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_TITLE, pTitle);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_TITLE, title);
     }
 
     /**
@@ -103,11 +103,11 @@ public class Anchor
      */
     private String getHrefString()
     {
-        if (mHref == null)
+        if (this.href == null)
         {
             return "";
         }
-        return " href=\"" + mHref.toString() + "\"";
+        return " href=\"" + this.href.toString() + "\"";
     }
 
     /**
@@ -118,21 +118,21 @@ public class Anchor
     {
 
         // shortcut for links with no attributes
-        if (mAttributeMap.size() == 0)
+        if (this.attributeMap.size() == 0)
         {
             return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ANCHOR + getHrefString() + TagConstants.TAG_CLOSE;
         }
 
         // append all attributes
-        StringBuffer lBuffer = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
 
-        lBuffer.append(TagConstants.TAG_OPEN).append(TagConstants.TAGNAME_ANCHOR).append(getHrefString());
+        buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TAGNAME_ANCHOR).append(getHrefString());
 
-        lBuffer.append(mAttributeMap);
+        buffer.append(this.attributeMap);
 
-        lBuffer.append(TagConstants.TAG_CLOSE);
+        buffer.append(TagConstants.TAG_CLOSE);
 
-        return lBuffer.toString();
+        return buffer.toString();
     }
 
     /**
@@ -150,7 +150,7 @@ public class Anchor
      */
     public String toString()
     {
-        return getOpenTag() + mLinkText + getCloseTag();
+        return getOpenTag() + this.linkText + getCloseTag();
     }
 
 }

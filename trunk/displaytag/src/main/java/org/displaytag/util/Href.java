@@ -10,8 +10,8 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * <p>Object representing an URI (the href parameter of an &lt;a&gt; tag)</p>
- * <p>Provides methods to insert new parameters. It doesn't support multiple parameter values</p>
+ * Object representing an URI (the href parameter of an &lt;a&gt; tag)
+ * Provides methods to insert new parameters. It doesn't support multiple parameter values
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -21,51 +21,51 @@ public class Href
     /**
      * Field mBaseUrl
      */
-    private String mBaseUrl;
+    private String url;
 
     /**
      * Field mParameters
      */
-    private HashMap mParameters;
+    private HashMap parameters;
 
     /**
      * Constructor for Href
-     * @param pBaseUrl String
+     * @param baseUrl String
      */
-    public Href(String pBaseUrl)
+    public Href(String baseUrl)
     {
-        mParameters = new HashMap();
+        parameters = new HashMap();
 
-        if (pBaseUrl.indexOf("?") == -1)
+        if (baseUrl.indexOf("?") == -1)
         {
             // simple url, no parameters
-            mBaseUrl = pBaseUrl;
+            url = baseUrl;
         }
         else
         {
             // the Url already has parameters, put them in the parameter Map
-            StringTokenizer lTokenizer = new StringTokenizer(pBaseUrl, "?");
+            StringTokenizer tokenizer = new StringTokenizer(baseUrl, "?");
 
             // base url (before "?")
-            mBaseUrl = lTokenizer.nextToken();
+            url = tokenizer.nextToken();
 
-            if (lTokenizer.hasMoreTokens())
+            if (tokenizer.hasMoreTokens())
             {
 
-                StringTokenizer lParamTokenizer = new StringTokenizer(lTokenizer.nextToken(), "&");
+                StringTokenizer paramTokenizer = new StringTokenizer(tokenizer.nextToken(), "&");
 
                 // split parameters (key=value)
-                while (lParamTokenizer.hasMoreTokens())
+                while (paramTokenizer.hasMoreTokens())
                 {
 
                     // split key and value ...
-                    String[] lKeyValue = StringUtils.split(lParamTokenizer.nextToken(), "=");
+                    String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), "=");
 
                     // ... and add it to the map
                     // ... but remember to encode name/value to prevent css
-                    mParameters.put(
-                        StringEscapeUtils.escapeHtml(lKeyValue[0]),
-                        StringEscapeUtils.escapeHtml(lKeyValue[1]));
+                    parameters.put(
+                        StringEscapeUtils.escapeHtml(keyValue[0]),
+                        StringEscapeUtils.escapeHtml(keyValue[1]));
 
                 }
             }
@@ -75,32 +75,32 @@ public class Href
 
     /**
      * Constructor for Href
-     * @param pHref Href
+     * @param href Href
      */
-    public Href(Href pHref)
+    public Href(Href href)
     {
-        mBaseUrl = pHref.getBaseUrl();
-        mParameters = pHref.getParameterMap();
+        url = href.getBaseUrl();
+        parameters = href.getParameterMap();
     }
 
     /**
      * Method addParameter
-     * @param pName String
-     * @param pValue Object
+     * @param name String
+     * @param value Object
      */
-    public void addParameter(String pName, Object pValue)
+    public void addParameter(String name, Object value)
     {
-        mParameters.put(pName, pValue);
+        parameters.put(name, value);
     }
 
     /**
      * Method addParameter
-     * @param pName String
-     * @param pValue int
+     * @param name String
+     * @param value int
      */
-    public void addParameter(String pName, int pValue)
+    public void addParameter(String name, int value)
     {
-        mParameters.put(pName, new Integer(pValue));
+        parameters.put(name, new Integer(value));
     }
 
     /**
@@ -109,7 +109,7 @@ public class Href
      */
     public HashMap getParameterMap()
     {
-        return (HashMap) mParameters.clone();
+        return (HashMap) parameters.clone();
     }
 
     /**
@@ -120,7 +120,7 @@ public class Href
     public void setParameterMap(Map parametersMap)
     {
         // create a new HashMap
-        mParameters = new HashMap(parametersMap.size());
+        parameters = new HashMap(parametersMap.size());
 
         // copy the parameters
         addParameterMap(parametersMap);
@@ -140,7 +140,7 @@ public class Href
             Map.Entry entry = (Map.Entry) mapIterator.next();
             String key = StringEscapeUtils.escapeHtml((String) entry.getKey());
             String value = StringEscapeUtils.escapeHtml((String) entry.getValue());
-            mParameters.put(key, value);
+            parameters.put(key, value);
         }
     }
 
@@ -150,7 +150,7 @@ public class Href
      */
     public String getBaseUrl()
     {
-        return mBaseUrl;
+        return url;
     }
 
     /**
@@ -161,28 +161,28 @@ public class Href
     {
 
         // no parameters? simply return the base Url
-        if (mParameters.size() == 0)
+        if (parameters.size() == 0)
         {
-            return mBaseUrl;
+            return url;
         }
 
-        StringBuffer lBuffer = new StringBuffer(30);
-        lBuffer.append(mBaseUrl).append('?');
-        Set lParameterSet = mParameters.entrySet();
+        StringBuffer buffer = new StringBuffer(30);
+        buffer.append(url).append('?');
+        Set parameterSet = parameters.entrySet();
 
-        Iterator lIterator = lParameterSet.iterator();
+        Iterator iterator = parameterSet.iterator();
 
-        while (lIterator.hasNext())
+        while (iterator.hasNext())
         {
-            Map.Entry lEntry = (Map.Entry) lIterator.next();
-            lBuffer.append(lEntry.getKey()).append('=').append(lEntry.getValue());
-            if (lIterator.hasNext())
+            Map.Entry entry = (Map.Entry) iterator.next();
+            buffer.append(entry.getKey()).append('=').append(entry.getValue());
+            if (iterator.hasNext())
             {
-                lBuffer.append(TagConstants.AMPERSAND);
+                buffer.append(TagConstants.AMPERSAND);
             }
         }
 
-        return lBuffer.toString();
+        return buffer.toString();
     }
 
 }

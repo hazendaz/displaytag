@@ -43,25 +43,25 @@ public class HtmlAttributeMap extends HashMap
         }
 
         // buffer extimated in number of attributes * 30
-        StringBuffer lBuffer = new StringBuffer(size() * 30);
+        StringBuffer buffer = new StringBuffer(size() * 30);
 
         // get the entrySet
-        Set lEntrySet = entrySet();
+        Set entrySet = entrySet();
 
-        Iterator lIterator = lEntrySet.iterator();
+        Iterator iterator = entrySet.iterator();
 
         // iterates on attributes
-        while (lIterator.hasNext())
+        while (iterator.hasNext())
         {
-            Map.Entry lEntry = (Map.Entry) lIterator.next();
+            Map.Entry entry = (Map.Entry) iterator.next();
 
             // append a new atribute
-            lBuffer.append(SPACE).append(lEntry.getKey()).append(EQUALS).append(DELIMITER).append(
-                lEntry.getValue()).append(
+            buffer.append(SPACE).append(entry.getKey()).append(EQUALS).append(DELIMITER).append(
+                entry.getValue()).append(
                 DELIMITER);
         }
 
         // return
-        return lBuffer.toString();
+        return buffer.toString();
     }
 }

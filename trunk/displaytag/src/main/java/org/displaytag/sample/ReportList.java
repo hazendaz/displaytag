@@ -21,7 +21,7 @@ public class ReportList extends ArrayList
     {
         super();
 
-        for (int lCount = 0; lCount < 20; lCount++)
+        for (int j = 0; j < 20; j++)
         {
             add(new ReportableListObject());
         }
@@ -32,13 +32,13 @@ public class ReportList extends ArrayList
     /**
      * Creates a TestList that is filled with [size] ReportableListObject suitable for
      * testing.
-     * @param pSize int
+     * @param size int
      */
-    public ReportList(int pSize)
+    public ReportList(int size)
     {
         super();
 
-        for (int lCount = 0; lCount < pSize; lCount++)
+        for (int j = 0; j < size; j++)
         {
             add(new ReportableListObject());
         }

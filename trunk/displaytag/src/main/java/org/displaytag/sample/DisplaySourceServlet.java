@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * <p>Servlet used to display jsp source for example pages</p>
+ * Servlet used to display jsp source for example pages
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -25,65 +25,65 @@ public class DisplaySourceServlet extends HttpServlet
     /**
      * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
      */
-    protected final void doGet(HttpServletRequest pRequest, HttpServletResponse pResponse)
+    protected final void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException
     {
 
-        String lJspFile = pRequest.getRequestURI();
+        String jspFile = request.getRequestURI();
 
         // lastIndexOf(".") can't be null, since the servlet is mapped to ".source"
-        lJspFile = lJspFile.substring(0, lJspFile.lastIndexOf("."));
+        jspFile = jspFile.substring(0, jspFile.lastIndexOf("."));
 
-        if (lJspFile.lastIndexOf("/") != -1)
+        if (jspFile.lastIndexOf("/") != -1)
         {
-            lJspFile = lJspFile.substring(lJspFile.lastIndexOf("/") + 1);
+            jspFile = jspFile.substring(jspFile.lastIndexOf("/") + 1);
         }
 
         // only want to show sample pages, don't play with url!
-        if (!lJspFile.startsWith("example-"))
+        if (!jspFile.startsWith("example-"))
         {
-            throw new ServletException("Invalid file selected: " + lJspFile);
+            throw new ServletException("Invalid file selected: " + jspFile);
         }
 
-        String lFullName = EXAMPLE_FOLDER + lJspFile;
+        String fullName = EXAMPLE_FOLDER + jspFile;
 
-        InputStream lInputStream = getServletContext().getResourceAsStream(lFullName);
+        InputStream inputStream = getServletContext().getResourceAsStream(fullName);
 
-        if (lInputStream == null)
+        if (inputStream == null)
         {
-            throw new ServletException("Unable to find JSP file: " + lJspFile);
+            throw new ServletException("Unable to find JSP file: " + jspFile);
         }
 
-        pResponse.setContentType("text/html");
+        response.setContentType("text/html");
 
-        PrintWriter lOut = pResponse.getWriter();
+        PrintWriter out = response.getWriter();
 
-        lOut.println(
+        out.println(
             "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
                 + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
-        lOut.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
-        lOut.println("<head>");
-        lOut.println("<title>");
-        lOut.println("source for " + lJspFile);
-        lOut.println("</title>");
-        lOut.println("<meta http-equiv=\"content-type\" content=\"text/html; charset=ISO-8859-1\" />");
-        lOut.println("</head>");
-        lOut.println("<body>");
-        lOut.println("<pre>");
-        for (int lChar = lInputStream.read(); lChar != -1; lChar = lInputStream.read())
+        out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
+        out.println("<head>");
+        out.println("<title>");
+        out.println("source for " + jspFile);
+        out.println("</title>");
+        out.println("<meta http-equiv=\"content-type\" content=\"text/html; charset=ISO-8859-1\" />");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<pre>");
+        for (int currentChar = inputStream.read(); currentChar != -1; currentChar = inputStream.read())
         {
-            if (lChar == '<')
+            if (currentChar == '<')
             {
-                lOut.print("&lt;");
+                out.print("&lt;");
             }
             else
             {
-                lOut.print((char) lChar);
+                out.print((char) currentChar);
             }
         }
-        lOut.println("</pre>");
-        lOut.println("</body>");
-        lOut.println("</html>");
+        out.println("</pre>");
+        out.println("</body>");
+        out.println("</html>");
     }
 
 }

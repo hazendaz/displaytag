@@ -48,7 +48,7 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
     /**
      * logger
      */
-    private Log mLog = LogFactory.getLog(DisplayPropertiesLoaderServlet.class);
+    private Log log = LogFactory.getLog(DisplayPropertiesLoaderServlet.class);
 
     /**
      * name of the parameter containing the properties file path
@@ -58,27 +58,27 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
     /**
      * Init: retrieve the confiuration parameter and set the user file name in
      * org.displaytag.tags.TableProperties
-     * @param pServletConfig ServletConfig
+     * @param servletConfig ServletConfig
      * @throws ServletException generic exception
      * @see javax.servlet.Servlet#init(ServletConfig)
      */
-    public final void init(ServletConfig pServletConfig) throws ServletException
+    public final void init(ServletConfig servletConfig) throws ServletException
     {
 
-        super.init(pServletConfig);
+        super.init(servletConfig);
 
         // read the parameter
-        String lFile = getInitParameter(PROPERTIES_PARAMETER);
+        String file = getInitParameter(PROPERTIES_PARAMETER);
 
         // debug parameter
-        mLog.debug(PROPERTIES_PARAMETER + "=" + lFile);
+        log.debug(PROPERTIES_PARAMETER + "=" + file);
 
-        if (lFile != null)
+        if (file != null)
         {
-            InputStream propStream = pServletConfig.getServletContext().getResourceAsStream(lFile);
+            InputStream propStream = servletConfig.getServletContext().getResourceAsStream(file);
             if (propStream == null)
             {
-                mLog.warn("unable to find " + lFile);
+                log.warn("unable to find " + file);
                 return;
             }
             Properties props = new Properties();
@@ -88,14 +88,14 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
             }
             catch (IOException e)
             {
-                throw new ServletException("Cannot load " + lFile + ": " + e.getMessage(), e);
+                throw new ServletException("Cannot load " + file + ": " + e.getMessage(), e);
             }
             // set the user properties
             TableProperties.setUserProperties(props);
         }
         else
         {
-            mLog.warn("No properties parameter found under key " + PROPERTIES_PARAMETER + " - are you"
+            log.warn("No properties parameter found under key " + PROPERTIES_PARAMETER + " - are you"
                     + "sure that you have configured this servlet correctly?");
         }
 

@@ -17,20 +17,20 @@ public final class HtmlTagUtil
 
     /**
      * costruct a tag from a name and a collection of attributes
-     * @param pTagName String tag name
-     * @param pAttributes HtmlAttributeMap containing all the tag attributes
+     * @param tagName String tag name
+     * @param attributes HtmlAttributeMap containing all the tag attributes
      * @return String open tag with attributes
      */
-    public static String createOpenTagString(String pTagName, HtmlAttributeMap pAttributes)
+    public static String createOpenTagString(String tagName, HtmlAttributeMap attributes)
     {
 
         StringBuffer buffer = new StringBuffer();
 
-        buffer.append(TagConstants.TAG_OPEN).append(pTagName);
+        buffer.append(TagConstants.TAG_OPEN).append(tagName);
 
-        if (pAttributes != null)
+        if (attributes != null)
         {
-            buffer.append(pAttributes.toString());
+            buffer.append(attributes.toString());
         }
         buffer.append(TagConstants.TAG_CLOSE);
 

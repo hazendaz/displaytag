@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.ObjectLookupException;
 
 /**
- * <p>Utility class with methods for object & properties retrieving</p>
+ * Utility class with methods for object & properties retrieving
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -21,7 +21,7 @@ public final class LookupUtil
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(LookupUtil.class);
+    private static Log log = LogFactory.getLog(LookupUtil.class);
 
     /**
      * don't instantiate a LookupUtil
@@ -32,9 +32,9 @@ public final class LookupUtil
 
     /**
      * Read an object from the pagecontext with the specified scope and eventually lookup a property in it
-     * @param pPageContext PageContext
-     * @param pBeanAndPropertyName String expression with bean name and attributes
-     * @param pScope One of the following values:
+     * @param pageContext PageContext
+     * @param beanAndPropertyName String expression with bean name and attributes
+     * @param scope One of the following values:
      * <ul>
      *   <li>PageContext.PAGE_SCOPE</li>
      *   <li>PageContext.REQUEST_SCOPE</li>
@@ -44,46 +44,46 @@ public final class LookupUtil
      * @return Object
      * @throws ObjectLookupException for errors while retrieving a property in the bean
      */
-    public static Object getBeanValue(PageContext pPageContext, String pBeanAndPropertyName, int pScope)
+    public static Object getBeanValue(PageContext pageContext, String beanAndPropertyName, int scope)
         throws ObjectLookupException
     {
 
-        if (pBeanAndPropertyName.indexOf(".") != -1)
+        if (beanAndPropertyName.indexOf(".") != -1)
         {
             // complex: property from a bean
 
-            String lObjectName = pBeanAndPropertyName.substring(0, pBeanAndPropertyName.indexOf("."));
-            String lBeanProperty = pBeanAndPropertyName.substring(pBeanAndPropertyName.indexOf(".") + 1);
-            Object lBeanObject;
+            String objectName = beanAndPropertyName.substring(0, beanAndPropertyName.indexOf("."));
+            String beanProperty = beanAndPropertyName.substring(beanAndPropertyName.indexOf(".") + 1);
+            Object beanObject;
 
-            if (mLog.isDebugEnabled())
+            if (log.isDebugEnabled())
             {
-                mLog.debug("getBeanValue - bean: {" + lObjectName + "}, property: {" + lBeanProperty + "}");
+                log.debug("getBeanValue - bean: {" + objectName + "}, property: {" + beanProperty + "}");
             }
 
             // get the bean
-            lBeanObject = pPageContext.getAttribute(lObjectName, pScope);
+            beanObject = pageContext.getAttribute(objectName, scope);
 
             // if null return
-            if (lBeanObject == null)
+            if (beanObject == null)
             {
                 return null;
             }
 
             // go get the property
-            return getBeanProperty(lBeanObject, lBeanProperty);
+            return getBeanProperty(beanObject, beanProperty);
 
         }
         else
         {
             // simple, only the javabean
 
-            if (mLog.isDebugEnabled())
+            if (log.isDebugEnabled())
             {
-                mLog.debug("getBeanValue - bean: {" + pBeanAndPropertyName + "}");
+                log.debug("getBeanValue - bean: {" + beanAndPropertyName + "}");
             }
 
-            return pPageContext.getAttribute(pBeanAndPropertyName, pScope);
+            return pageContext.getAttribute(beanAndPropertyName, scope);
         }
     }
 
@@ -92,125 +92,125 @@ public final class LookupUtil
      * <p>This method is a modificated version from commons-beanutils PropertyUtils.getProperty(). It allows
      * intermediate nulls in expression without throwing exception (es. it doesn't throw an exception for the property
      * <code>object.date.time</code> if <code>date</code> is null)</p>
-     * @param pBean javabean
-     * @param pName name of the property to read from the javabean
+     * @param bean javabean
+     * @param name name of the property to read from the javabean
      * @return Object
      * @throws ObjectLookupException for errors while retrieving a property in the bean
      */
-    public static Object getBeanProperty(Object pBean, String pName) throws ObjectLookupException
+    public static Object getBeanProperty(Object bean, String name) throws ObjectLookupException
     {
 
-        if (mLog.isDebugEnabled())
+        if (log.isDebugEnabled())
         {
-            mLog.debug("getProperty [" + pName + "] on bean " + pBean);
+            log.debug("getProperty [" + name + "] on bean " + bean);
         }
 
         try
         {
-            if (pBean == null)
+            if (bean == null)
             {
                 throw new IllegalArgumentException("No bean specified");
             }
-            if (pName == null)
+            if (name == null)
             {
                 throw new IllegalArgumentException("No name specified");
             }
 
-            int lIndexOfINDEXEDDELIM = -1;
-            int lIndexOfMAPPEDDELIM = -1;
-            int lIndexOfMAPPEDDELIM2 = -1;
-            int lIndexOfNESTEDDELIM = -1;
+            int indexOfINDEXEDDELIM = -1;
+            int indexOfMAPPEDDELIM = -1;
+            int indexOfMAPPEDDELIM2 = -1;
+            int indexOfNESTEDDELIM = -1;
             while (true)
             {
 
-                lIndexOfNESTEDDELIM = pName.indexOf(PropertyUtils.NESTED_DELIM);
-                lIndexOfMAPPEDDELIM = pName.indexOf(PropertyUtils.MAPPED_DELIM);
-                lIndexOfMAPPEDDELIM2 = pName.indexOf(PropertyUtils.MAPPED_DELIM2);
-                if (lIndexOfMAPPEDDELIM2 >= 0
-                    && lIndexOfMAPPEDDELIM >= 0
-                    && (lIndexOfNESTEDDELIM < 0 || lIndexOfNESTEDDELIM > lIndexOfMAPPEDDELIM))
+                indexOfNESTEDDELIM = name.indexOf(PropertyUtils.NESTED_DELIM);
+                indexOfMAPPEDDELIM = name.indexOf(PropertyUtils.MAPPED_DELIM);
+                indexOfMAPPEDDELIM2 = name.indexOf(PropertyUtils.MAPPED_DELIM2);
+                if (indexOfMAPPEDDELIM2 >= 0
+                    && indexOfMAPPEDDELIM >= 0
+                    && (indexOfNESTEDDELIM < 0 || indexOfNESTEDDELIM > indexOfMAPPEDDELIM))
                 {
-                    lIndexOfNESTEDDELIM = pName.indexOf(PropertyUtils.NESTED_DELIM, lIndexOfMAPPEDDELIM2);
+                    indexOfNESTEDDELIM = name.indexOf(PropertyUtils.NESTED_DELIM, indexOfMAPPEDDELIM2);
                 }
                 else
                 {
-                    lIndexOfNESTEDDELIM = pName.indexOf(PropertyUtils.NESTED_DELIM);
+                    indexOfNESTEDDELIM = name.indexOf(PropertyUtils.NESTED_DELIM);
                 }
-                if (lIndexOfNESTEDDELIM < 0)
+                if (indexOfNESTEDDELIM < 0)
                 {
                     break;
                 }
-                String lNext = pName.substring(0, lIndexOfNESTEDDELIM);
-                lIndexOfINDEXEDDELIM = lNext.indexOf(PropertyUtils.INDEXED_DELIM);
-                lIndexOfMAPPEDDELIM = lNext.indexOf(PropertyUtils.MAPPED_DELIM);
-                if (pBean instanceof Map)
+                String next = name.substring(0, indexOfNESTEDDELIM);
+                indexOfINDEXEDDELIM = next.indexOf(PropertyUtils.INDEXED_DELIM);
+                indexOfMAPPEDDELIM = next.indexOf(PropertyUtils.MAPPED_DELIM);
+                if (bean instanceof Map)
                 {
-                    pBean = ((Map) pBean).get(lNext);
+                    bean = ((Map) bean).get(next);
                 }
-                else if (lIndexOfMAPPEDDELIM >= 0)
+                else if (indexOfMAPPEDDELIM >= 0)
                 {
 
-                    pBean = PropertyUtils.getMappedProperty(pBean, lNext);
+                    bean = PropertyUtils.getMappedProperty(bean, next);
 
                 }
-                else if (lIndexOfINDEXEDDELIM >= 0)
+                else if (indexOfINDEXEDDELIM >= 0)
                 {
-                    pBean = PropertyUtils.getIndexedProperty(pBean, lNext);
+                    bean = PropertyUtils.getIndexedProperty(bean, next);
                 }
                 else
                 {
-                    pBean = PropertyUtils.getSimpleProperty(pBean, lNext);
+                    bean = PropertyUtils.getSimpleProperty(bean, next);
                 }
 
-                if (pBean == null)
+                if (bean == null)
                 {
-                    mLog.debug("Null property value for '" + pName.substring(0, lIndexOfNESTEDDELIM) + "'");
+                    log.debug("Null property value for '" + name.substring(0, indexOfNESTEDDELIM) + "'");
                     return null;
                 }
-                pName = pName.substring(lIndexOfNESTEDDELIM + 1);
+                name = name.substring(indexOfNESTEDDELIM + 1);
 
             }
 
-            lIndexOfINDEXEDDELIM = pName.indexOf(PropertyUtils.INDEXED_DELIM);
-            lIndexOfMAPPEDDELIM = pName.indexOf(PropertyUtils.MAPPED_DELIM);
+            indexOfINDEXEDDELIM = name.indexOf(PropertyUtils.INDEXED_DELIM);
+            indexOfMAPPEDDELIM = name.indexOf(PropertyUtils.MAPPED_DELIM);
 
-            if (pBean == null)
+            if (bean == null)
             {
-                mLog.debug("Null property value for '" + pName.substring(0, lIndexOfNESTEDDELIM) + "'");
+                log.debug("Null property value for '" + name.substring(0, indexOfNESTEDDELIM) + "'");
                 return null;
             }
-            else if (pBean instanceof Map)
+            else if (bean instanceof Map)
             {
-                pBean = ((Map) pBean).get(pName);
+                bean = ((Map) bean).get(name);
             }
-            else if (lIndexOfMAPPEDDELIM >= 0)
+            else if (indexOfMAPPEDDELIM >= 0)
             {
-                pBean = PropertyUtils.getMappedProperty(pBean, pName);
+                bean = PropertyUtils.getMappedProperty(bean, name);
             }
-            else if (lIndexOfINDEXEDDELIM >= 0)
+            else if (indexOfINDEXEDDELIM >= 0)
             {
-                pBean = PropertyUtils.getIndexedProperty(pBean, pName);
+                bean = PropertyUtils.getIndexedProperty(bean, name);
             }
             else
             {
-                pBean = PropertyUtils.getSimpleProperty(pBean, pName);
+                bean = PropertyUtils.getSimpleProperty(bean, name);
             }
         }
         catch (IllegalAccessException e)
         {
-            throw new ObjectLookupException(LookupUtil.class, pBean, pName, e);
+            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
         }
 
         catch (InvocationTargetException e)
         {
-            throw new ObjectLookupException(LookupUtil.class, pBean, pName, e);
+            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
         }
         catch (NoSuchMethodException e)
         {
-            throw new ObjectLookupException(LookupUtil.class, pBean, pName, e);
+            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
         }
 
-        return pBean;
+        return bean;
 
     }
 
