@@ -1,11 +1,11 @@
 package org.displaytag.tags;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HTMLElement;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
@@ -51,14 +51,16 @@ public class CaptionTagTest extends DisplaytagCase
 
         assertEquals("Expected one table in result.", 1, tables.length);
 
-        HTMLElement[] tags = response.getElementsWithName("caption");
+        String output = response.getText();
 
-        assertEquals("Expected one caption tag in result.", 1, tags.length);
+        assertTrue("Caption tag missing", StringUtils.contains(output, "<caption"));
 
-
-        assertEquals("theid", tags[0].getID());
-        assertEquals("theclass", tags[0].getClassName());
-        assertEquals("thetitle", tags[0].getTitle());
+        assertTrue(StringUtils.contains(output, "class=\"theclass\""));
+        assertTrue(StringUtils.contains(output, "dir=\"thedir\""));
+        assertTrue(StringUtils.contains(output, "id=\"theid\""));
+        assertTrue(StringUtils.contains(output, "lang=\"thelang\""));
+        assertTrue(StringUtils.contains(output, "style=\"thestyle\""));
+        assertTrue(StringUtils.contains(output, "title=\"thetitle\""));
 
     }
 }
