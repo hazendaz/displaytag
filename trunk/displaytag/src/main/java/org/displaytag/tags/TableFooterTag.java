@@ -21,9 +21,9 @@ public class TableFooterTag extends BodyTagSupport
     private static Log log = LogFactory.getLog(TableFooterTag.class);
 
     /**
-     * private boo
+     * is this the first iteration?
      */
-    private boolean firstIteration = false;
+    private boolean firstIteration;
 
     /**
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()

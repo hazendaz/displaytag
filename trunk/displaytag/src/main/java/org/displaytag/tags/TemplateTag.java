@@ -27,7 +27,7 @@ public abstract class TemplateTag extends BodyTagSupport
     {
         try
         {
-            JspWriter out = pageContext.getOut();
+            JspWriter out = this.pageContext.getOut();
             out.write(string);
         }
         catch (IOException e)
@@ -100,7 +100,7 @@ public abstract class TemplateTag extends BodyTagSupport
 
         }
 
-        return LookupUtil.getBeanValue(pageContext, expressionWithoutScope, scope);
+        return LookupUtil.getBeanValue(this.pageContext, expressionWithoutScope, scope);
 
     }
 

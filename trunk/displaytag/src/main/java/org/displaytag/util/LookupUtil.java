@@ -105,16 +105,19 @@ public final class LookupUtil
             log.debug("getProperty [" + name + "] on bean " + bean);
         }
 
+        if (bean == null)
+        {
+            throw new IllegalArgumentException("No bean specified");
+        }
+        if (name == null)
+        {
+            throw new IllegalArgumentException("No name specified");
+        }
+        
+        Object evalBean = bean;
+        
         try
         {
-            if (bean == null)
-            {
-                throw new IllegalArgumentException("No bean specified");
-            }
-            if (name == null)
-            {
-                throw new IllegalArgumentException("No name specified");
-            }
 
             int indexOfINDEXEDDELIM = -1;
             int indexOfMAPPEDDELIM = -1;
@@ -143,26 +146,26 @@ public final class LookupUtil
                 String next = name.substring(0, indexOfNESTEDDELIM);
                 indexOfINDEXEDDELIM = next.indexOf(PropertyUtils.INDEXED_DELIM);
                 indexOfMAPPEDDELIM = next.indexOf(PropertyUtils.MAPPED_DELIM);
-                if (bean instanceof Map)
+                if (evalBean instanceof Map)
                 {
-                    bean = ((Map) bean).get(next);
+                    evalBean = ((Map) evalBean).get(next);
                 }
                 else if (indexOfMAPPEDDELIM >= 0)
                 {
 
-                    bean = PropertyUtils.getMappedProperty(bean, next);
+                    evalBean = PropertyUtils.getMappedProperty(evalBean, next);
 
                 }
                 else if (indexOfINDEXEDDELIM >= 0)
                 {
-                    bean = PropertyUtils.getIndexedProperty(bean, next);
+                    evalBean = PropertyUtils.getIndexedProperty(evalBean, next);
                 }
                 else
                 {
-                    bean = PropertyUtils.getSimpleProperty(bean, next);
+                    evalBean = PropertyUtils.getSimpleProperty(evalBean, next);
                 }
 
-                if (bean == null)
+                if (evalBean == null)
                 {
                     log.debug("Null property value for '" + name.substring(0, indexOfNESTEDDELIM) + "'");
                     return null;
@@ -174,43 +177,43 @@ public final class LookupUtil
             indexOfINDEXEDDELIM = name.indexOf(PropertyUtils.INDEXED_DELIM);
             indexOfMAPPEDDELIM = name.indexOf(PropertyUtils.MAPPED_DELIM);
 
-            if (bean == null)
+            if (evalBean == null)
             {
                 log.debug("Null property value for '" + name.substring(0, indexOfNESTEDDELIM) + "'");
                 return null;
             }
-            else if (bean instanceof Map)
+            else if (evalBean instanceof Map)
             {
-                bean = ((Map) bean).get(name);
+                evalBean = ((Map) evalBean).get(name);
             }
             else if (indexOfMAPPEDDELIM >= 0)
             {
-                bean = PropertyUtils.getMappedProperty(bean, name);
+                evalBean = PropertyUtils.getMappedProperty(evalBean, name);
             }
             else if (indexOfINDEXEDDELIM >= 0)
             {
-                bean = PropertyUtils.getIndexedProperty(bean, name);
+                evalBean = PropertyUtils.getIndexedProperty(evalBean, name);
             }
             else
             {
-                bean = PropertyUtils.getSimpleProperty(bean, name);
+                evalBean = PropertyUtils.getSimpleProperty(evalBean, name);
             }
         }
         catch (IllegalAccessException e)
         {
-            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
+            throw new ObjectLookupException(LookupUtil.class, evalBean, name, e);
         }
 
         catch (InvocationTargetException e)
         {
-            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
+            throw new ObjectLookupException(LookupUtil.class, evalBean, name, e);
         }
         catch (NoSuchMethodException e)
         {
-            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
+            throw new ObjectLookupException(LookupUtil.class, evalBean, name, e);
         }
 
-        return bean;
+        return evalBean;
 
     }
 

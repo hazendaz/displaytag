@@ -16,12 +16,12 @@ public class Wrapper extends TableDecorator
     /**
      * FastDateFormat used to format dates in getDate()
      */
-    private FastDateFormat dateFormat = null;
+    private FastDateFormat dateFormat;
 
     /**
      * DecimalFormat used to format money in getMoney()
      */
-    private DecimalFormat moneyFormat = null;
+    private DecimalFormat moneyFormat;
 
     /**
      * Creates a new Wrapper decorator who's job is to reformat some of the data located in our TestObject's.

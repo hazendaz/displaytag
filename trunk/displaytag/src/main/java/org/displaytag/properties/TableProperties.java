@@ -88,7 +88,7 @@ public class TableProperties
     /**
      * Loaded properties
      */
-    private Properties properties = null;
+    private Properties properties;
 
     /**
      * prefix used for all the properties related to export ("export")

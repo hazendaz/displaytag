@@ -2,6 +2,7 @@ package org.displaytag.sample;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
@@ -70,7 +71,7 @@ public class ListObject extends Object
     /**
      * sub list used to test nested tables
      */
-    private ArrayList subList;
+    private List subList;
 
     /**
      * Constructor for ListObject
@@ -255,9 +256,9 @@ public class ListObject extends Object
 
     /**
      * Returns the subList.
-     * @return ArrayList
+     * @return List
      */
-    public ArrayList getSubList()
+    public List getSubList()
     {
         return this.subList;
     }

@@ -21,26 +21,24 @@ import org.apache.commons.logging.LogFactory;
  * <p>The page
  * author should write to, but not replace, the StringBuffer objects placed into request scope at CONTENT_OVERRIDE_BODY
  * and CONTENT_OVERRIDE_TYPE.</p>
- * <p/>
  * <p>This filter allows TableTag users to perform exports from pages that are run as includes, such as from Struts or
  * a jsp:include.  If that is your intention, just add this Filter to your web.xml and map it to the appropriate
  * requests, using something like: </p>
- * <p/>
  * <pre>
- * &lt;filter&gt;
- *     &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
- *     &lt;filter-class&gt;org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class&gt;
- * &lt;/filter&gt;
+ * &lt;filter>
+ *     &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
+ *     &lt;filter-class>org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class>
+ * &lt;/filter>
  * 
- * &lt;filter-mapping&gt;
- *     &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
- *     &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
- * &lt;/filter-mapping&gt;
+ * &lt;filter-mapping>
+ *     &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
+ *     &lt;url-pattern>*.do&lt;/url-pattern>
+ * &lt;/filter-mapping>
  * 
- * &lt;filter-mapping&gt;
- *     &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
- *     &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
- * &lt;/filter-mapping&gt;
+ * &lt;filter-mapping>
+ *     &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
+ *     &lt;url-pattern>*.jsp&lt;/url-pattern>
+ * &lt;/filter-mapping>
  * </pre>
  * @author rapruitt
  * @version $Revision$ ($Author$)

@@ -2,18 +2,24 @@ package org.displaytag.decorator;
 
 import java.beans.PropertyDescriptor;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
- * <p>This class provides some basic functionality for all objects which serve
- * as decorators for the objects in the List being displayed.<p>
- * <p>Decorator should never be subclassed directly. Use TableDecorator instead</p>
+ * <p>
+ * This class provides some basic functionality for all objects which serve as decorators for the objects in the List
+ * being displayed.
+ * <p>
+ * <p>
+ * Decorator should never be subclassed directly. Use TableDecorator instead
+ * </p>
+ * 
  * @author mraible
  * @version $Revision$ ($Author$)
- **/
+ */
 abstract class Decorator
 {
 
@@ -23,10 +29,9 @@ abstract class Decorator
     private PageContext pageContext;
 
     /**
-     * property info cache
-     * contains classname#propertyname Strings as keys and Booleans as values
+     * property info cache contains classname#propertyname Strings as keys and Booleans as values
      */
-    private static HashMap propertyMap = new HashMap();
+    private static Map propertyMap = new HashMap();
 
     /**
      * decorated object. Usually a List
@@ -35,8 +40,11 @@ abstract class Decorator
 
     /**
      * Initialize the TableTecorator instance
-     * @param context PageContext
-     * @param decorated decorated object (usually a list)
+     * 
+     * @param context
+     * PageContext
+     * @param decorated
+     * decorated object (usually a list)
      */
     public void init(PageContext context, Object decorated)
     {
@@ -46,6 +54,7 @@ abstract class Decorator
 
     /**
      * returns the page context
+     * 
      * @return PageContext
      */
     public PageContext getPageContext()
@@ -55,6 +64,7 @@ abstract class Decorator
 
     /**
      * returns the decorated object
+     * 
      * @return Object
      */
     public Object getDecoratedObject()
@@ -63,8 +73,8 @@ abstract class Decorator
     }
 
     /**
-     * Called at the end of evaluation to clean up instance variable.
-     * A subclass of Decorator can override this method but should always call super.finish() before return
+     * Called at the end of evaluation to clean up instance variable. A subclass of Decorator can override this method
+     * but should always call super.finish() before return
      */
     public void finish()
     {
@@ -74,7 +84,9 @@ abstract class Decorator
 
     /**
      * look for a getter for the given property using introspection
-     * @param propertyName name of the property to check
+     * 
+     * @param propertyName
+     * name of the property to check
      * @return boolean true if the decorator has a getter for the given property
      */
     public boolean searchGetterFor(String propertyName)
@@ -94,10 +106,12 @@ abstract class Decorator
     }
 
     /**
-     * Check if a getter exists for a given property. Uses cached info if property has already been requested.
-     * This method only check for a simple property, if pPropertyName contains multiple tokens only the first part is
+     * Check if a getter exists for a given property. Uses cached info if property has already been requested. This
+     * method only check for a simple property, if pPropertyName contains multiple tokens only the first part is
      * evaluated
-     * @param propertyName name of the property to check
+     * 
+     * @param propertyName
+     * name of the property to check
      * @return boolean true if the decorator has a getter for the given property
      */
     public boolean hasGetterFor(String propertyName)

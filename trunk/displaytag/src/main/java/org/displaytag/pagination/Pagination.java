@@ -3,6 +3,7 @@ package org.displaytag.pagination;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -46,10 +47,10 @@ public class Pagination
     private Integer nextPage;
 
     /**
-     * ArrayList containg NumberedPage objects
+     * List containg NumberedPage objects
      * @see org.displaytag.pagination.NumberedPage
      */
-    private ArrayList pages = new ArrayList();
+    private List pages = new ArrayList();
 
     /**
      * Constructor for Pagination

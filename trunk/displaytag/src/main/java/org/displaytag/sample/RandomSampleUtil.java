@@ -12,13 +12,7 @@ import java.util.Random;
 public final class RandomSampleUtil
 {
 
-    /**
-     * utility class, don't instantiate
-     */
-    private RandomSampleUtil()
-    {
-        super();
-    }
+
 
     /**
      * list of words
@@ -76,6 +70,14 @@ public final class RandomSampleUtil
      */
     private static Random random = new Random();
 
+    /**
+     * utility class, don't instantiate
+     */
+    private RandomSampleUtil()
+    {
+        super();
+    }
+    
     /**
      * returns a random word
      * @return random word

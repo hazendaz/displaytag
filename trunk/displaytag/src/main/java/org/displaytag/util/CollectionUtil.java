@@ -33,7 +33,7 @@ public final class CollectionUtil
     private static List getSubList(Iterator iterator, int startIndex, int numberOfItems)
     {
 
-        ArrayList croppedList = new ArrayList(numberOfItems);
+        List croppedList = new ArrayList(numberOfItems);
 
         int skippedRecordCount = 0;
         int copiedRecordCount = 0;

@@ -46,6 +46,7 @@ import org.displaytag.util.TagConstants;
  * simply provide the name of properties (get Methods) that are called against the objects in your list that gets
  * displayed. This tag works very much like the struts iterator tag, most of the attributes have the same name and
  * functionality as the struts tag.
+ * 
  * @author mraible
  * @version $Revision$ ($Author$)
  */
@@ -66,7 +67,7 @@ public class TableTag extends HtmlTableTag
     /**
      * Has the commons-lang dependency been checked?
      */
-    private static boolean commonsLangChecked = false;
+    private static boolean commonsLangChecked;
 
     /**
      * Iterator on collection
@@ -80,9 +81,10 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Used when user directly set a collection using the "list" attribute
+     * 
      * @deprecated place object in the page/request scope and use the "name" attribute
      */
-    private Object list = null;
+    private Object list;
 
     /**
      * name of the object to use for iteration. Can contain expression
@@ -91,21 +93,22 @@ public class TableTag extends HtmlTableTag
 
     /**
      * property to get into the bean defined by "name".
+     * 
      * @deprecated Use expressions in "name" attribute
      */
     private String property;
 
     /**
      * scope of the bean defined by "name". Use expressions in name instead
+     * 
      * @deprecated
      */
     private String scope;
 
     /**
-     * Hashtable wich contains previous row values. Needed for grouping
+     * Map which contains previous row values. Needed for grouping
      */
-
-    private Hashtable previousRow = null;
+    private Map previousRow;
 
     /**
      * table model - initialized in doStartTag()
@@ -120,12 +123,12 @@ public class TableTag extends HtmlTableTag
     /**
      * next row
      */
-    private Hashtable nextRow = null;
+    private Map nextRow;
 
     /**
      * length of list to display - reset in doEndTag()
      */
-    private int length = 0;
+    private int length;
 
     /**
      * table decorator class name - cleaned in doEndTag()
@@ -135,17 +138,17 @@ public class TableTag extends HtmlTableTag
     /**
      * page size - reset in doEndTag()
      */
-    private int pagesize = 0;
+    private int pagesize;
 
     /**
      * add export links - reset in doEndTag()
      */
-    private boolean export = false;
+    private boolean export;
 
     /**
      * Used by various functions when the person wants to do paging - cleaned in doEndTag()
      */
-    private SmartListHelper listHelper = null;
+    private SmartListHelper listHelper;
 
     /**
      * base href used for links - set in initParameters()
@@ -165,7 +168,7 @@ public class TableTag extends HtmlTableTag
     /**
      * list offset - reset in doEndTag()
      */
-    private int offset = 0;
+    private int offset;
 
     /**
      * export type - set in initParameters()
@@ -213,12 +216,12 @@ public class TableTag extends HtmlTableTag
     private String footer;
 
     /**
-     * Sets the content of the footer
+     * Sets the content of the footer.
      * @param string footer content
      */
     public void setFooter(String string)
     {
-        footer = string;
+        this.footer = string;
     }
 
     /**
@@ -231,7 +234,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * setter for the "sort" attribute
+     * setter for the "sort" attribute.
      * @param value "page" (sort a single page) or "list" (sort the full list)
      * @throws InvalidTagAttributeValueException if value is not "page" or "list"
      */
@@ -252,7 +255,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * setter for the "requestURI" attribute
+     * setter for the "requestURI" attribute.
      * @param value base URI for creating links
      */
     public void setRequestURI(String value)
@@ -261,7 +264,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Used to directly set a list (or any object you can iterate on)
+     * Used to directly set a list (or any object you can iterate on).
      * @param value Object
      * @deprecated use setName() to get the object from the page or request scope instead of setting it directly here
      */
@@ -271,7 +274,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Sets the name of the object to use for iteration
+     * Sets the name of the object to use for iteration.
      * @param value name of the object to use for iteration. Can contain expression
      */
     public void setName(String value)
@@ -280,7 +283,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * sets the property to get into the bean defined by "name"
+     * sets the property to get into the bean defined by "name".
      * @param value property name
      * @deprecated Use expressions in "name" attribute
      */
@@ -290,7 +293,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * sets the number of items to be displayed in the page
+     * sets the number of items to be displayed in the page.
      * @param value String
      * @throws InvalidTagAttributeValueException if value is not a valid integer
      */
@@ -309,7 +312,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * sets the index of the default sorted column
+     * sets the index of the default sorted column.
      * @param value index of the column to sort
      * @throws InvalidTagAttributeValueException if value is not a valid integer
      */
@@ -329,7 +332,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * sets the number of items that should be displayed for a single page
+     * sets the number of items that should be displayed for a single page.
      * @param value String
      * @throws InvalidTagAttributeValueException if value is not a valid integer
      */
@@ -349,6 +352,7 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Setter for object scope
+     * 
      * @param value String
      * @deprecated Use expressions in "name" attribute
      */
@@ -358,7 +362,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Setter for the decorator class name
+     * Setter for the decorator class name.
      * @param decorator fully qualified name of the table decorator to use
      */
     public void setDecorator(String decorator)
@@ -379,7 +383,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Setter for the list offset attribute
+     * Setter for the list offset attribute.
      * @param value String
      * @throws InvalidTagAttributeValueException if value is not a valid positive integer
      */
@@ -405,7 +409,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Set the base href used in creating link
+     * Set the base href used in creating link.
      * @param value Href
      */
     protected void setBaseHref(Href value)
@@ -415,12 +419,13 @@ public class TableTag extends HtmlTableTag
 
     /**
      * It's a getter.
-     * @return the PageContext
+     * @return the this.pageContext
      */
     public PageContext getPageContext()
     {
-        return pageContext;
+        return this.pageContext;
     }
+    
     /**
      * Returns the properties.
      * @return TableProperties
@@ -432,7 +437,7 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Called by interior column tags to help this tag figure out how it is supposed to display the information in the
-     * List it is supposed to display
+     * List it is supposed to display.
      * @param column an internal tag describing a column in this tableview
      */
     public void addColumn(HeaderCell column)
@@ -544,9 +549,9 @@ public class TableTag extends HtmlTableTag
         {
             if (log.isDebugEnabled())
             {
-                log.debug("[" + getId() + "] setting media [" + currentMediaType + "] in pagecontext");
+                log.debug("[" + getId() + "] setting media [" + this.currentMediaType + "] in this.pageContext");
             }
-            pageContext.setAttribute(PAGE_ATTRIBUTE_MEDIA, currentMediaType);
+            this.pageContext.setAttribute(PAGE_ATTRIBUTE_MEDIA, this.currentMediaType);
         }
 
         doIteration();
@@ -605,21 +610,21 @@ public class TableTag extends HtmlTableTag
             {
                 if ((iteratedObject != null))
                 {
-                    // set object into pageContext
+                    // set object into this.pageContext
                     if (log.isDebugEnabled())
                     {
-                        log.debug("[" + getId() + "] setting attribute \"" + getId() + "\" in pagecontext");
+                        log.debug("[" + getId() + "] setting attribute \"" + getId() + "\" in this.pageContext");
                     }
-                    pageContext.setAttribute(getId(), iteratedObject);
+                    this.pageContext.setAttribute(getId(), iteratedObject);
 
                 }
                 else
                 {
                     // if row is null remove previous object
-                    pageContext.removeAttribute(getId());
+                    this.pageContext.removeAttribute(getId());
                 }
-                // set the current row number into pageContext
-                pageContext.setAttribute(id + TableTagExtraInfo.ROWNUM_SUFFIX, new Integer(this.rowNumber));
+                // set the current row number into this.pageContext
+                this.pageContext.setAttribute(id + TableTagExtraInfo.ROWNUM_SUFFIX, new Integer(this.rowNumber));
             }
 
             // Row object for Cell values
@@ -655,7 +660,7 @@ public class TableTag extends HtmlTableTag
 
         initHref();
 
-        RequestHelper requestHelper = new RequestHelper((HttpServletRequest) pageContext.getRequest());
+        RequestHelper requestHelper = new RequestHelper((HttpServletRequest) this.pageContext.getRequest());
 
         Integer pageNumberParameter = requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE));
         this.pageNumber = (pageNumberParameter == null) ? 1 : pageNumberParameter.intValue();
@@ -737,7 +742,7 @@ public class TableTag extends HtmlTableTag
     protected void initHref()
     {
 
-        RequestHelper requestHelper = new RequestHelper((HttpServletRequest) pageContext.getRequest());
+        RequestHelper requestHelper = new RequestHelper((HttpServletRequest) this.pageContext.getRequest());
 
         // get the href for this request
         Href normalHref = requestHelper.getHref();
@@ -748,7 +753,7 @@ public class TableTag extends HtmlTableTag
             this.baseHref = new Href(this.requestUri);
 
             // ... ancd copy parameters from the curret request
-            HashMap parameterMap = normalHref.getParameterMap();
+            Map parameterMap = normalHref.getParameterMap();
             this.baseHref.addParameterMap(parameterMap);
         }
         else
@@ -813,7 +818,7 @@ public class TableTag extends HtmlTableTag
 
         if (tableDecorator != null)
         {
-            tableDecorator.init(pageContext, this.list);
+            tableDecorator.init(this.pageContext, this.list);
             this.tableModel.setTableDecorator(tableDecorator);
         }
 
@@ -877,7 +882,7 @@ public class TableTag extends HtmlTableTag
         this.tableParameterIdentifier = null;
 
         // do not remove media attribute! if the table is nested in other tables this is still needed
-        // pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
+        // this.pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
 
         if (log.isDebugEnabled())
         {
@@ -890,7 +895,7 @@ public class TableTag extends HtmlTableTag
     /**
      * If no columns are provided, automatically add them from bean properties. Get the first object in the list and
      * get all the properties (except the "class" property which is automatically skipped). Of course this isn't
-     * possible for empty lists
+     * possible for empty lists.
      * @since 1.0
      */
     private void describeEmptyTable()
@@ -947,7 +952,7 @@ public class TableTag extends HtmlTableTag
 
         boolean exportHeader = properties.getExportHeader(this.currentMediaType);
 
-        exportView = ExportViewFactory.getView(currentMediaType, this.tableModel, exportFullList, exportHeader);
+        exportView = ExportViewFactory.getView(this.currentMediaType, this.tableModel, exportFullList, exportHeader);
 
         String mimeType = exportView.getMimeType();
         String exportString = exportView.doExport();
@@ -965,16 +970,18 @@ public class TableTag extends HtmlTableTag
      */
     protected int writeExport(String mimeType, String exportString) throws JspException
     {
-        ServletResponse response = pageContext.getResponse();
-        JspWriter out = pageContext.getOut();
+        ServletResponse response = this.pageContext.getResponse();
+        JspWriter out = this.pageContext.getOut();
 
-        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-        StringBuffer bodyBuffer = (StringBuffer) request.getAttribute("org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERWRIDE_BODY");
+        HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
+        StringBuffer bodyBuffer =
+            (StringBuffer) request.getAttribute("org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERWRIDE_BODY");
         if (bodyBuffer != null)
         {
             // We are running under the export filter
             StringBuffer contentTypeOverride =
-                (StringBuffer) request.getAttribute("org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE");
+                (StringBuffer) request.getAttribute(
+                    "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_TYPE");
             contentTypeOverride.append(mimeType);
             bodyBuffer.append(exportString);
         }
@@ -983,11 +990,8 @@ public class TableTag extends HtmlTableTag
             try
             {
                 out.clear();
-
                 response.setContentType(mimeType);
-
                 out.write(exportString);
-
                 out.flush();
             }
             catch (Exception ex)
@@ -1208,14 +1212,14 @@ public class TableTag extends HtmlTableTag
         // close table body
         buffer.append(TagConstants.TAG_TBODY_CLOSE);
 
-        if (footer != null)
+        if (this.footer != null)
         {
             buffer.append(TagConstants.TAG_TFOOTER_OPEN);
-            buffer.append(footer);
+            buffer.append(this.footer);
             buffer.append(TagConstants.TAG_TFOOTER_CLOSE);
 
             // reset footer
-            footer = null;
+            this.footer = null;
         }
 
         // close table
@@ -1408,7 +1412,7 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * returns the formatted export links section
+     * returns the formatted export links section.
      * @return String export links section
      */
     private String getExportLinks()
@@ -1449,7 +1453,7 @@ public class TableTag extends HtmlTableTag
 
     /**
      * This takes a cloumn value and grouping index as the argument. It then groups the column and returns the
-     * appropritate string back to the caller.
+     * appropriate string back to the caller.
      * @param value String
      * @param group int
      * @return String

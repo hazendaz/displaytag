@@ -14,12 +14,12 @@ public class TotalWrapper extends TableDecorator
     /**
      * total amount
      */
-    private double grandTotal = 0;
+    private double grandTotal;
     
     /**
      * total amount for city
      */
-    private double cityTotal = 0;
+    private double cityTotal;
 
     /**
      * After every row completes we evaluate to see if we should be drawing a new total line and summing the results
@@ -32,8 +32,8 @@ public class TotalWrapper extends TableDecorator
         ReportableListObject reportableObject = (ReportableListObject) this.getCurrentRowObject();
         String nextCity = "";
 
-        cityTotal += reportableObject.getAmount();
-        grandTotal += reportableObject.getAmount();
+        this.cityTotal += reportableObject.getAmount();
+        this.grandTotal += reportableObject.getAmount();
 
         if (listindex == ((List) getDecoratedObject()).size() - 1)
         {
@@ -54,11 +54,11 @@ public class TotalWrapper extends TableDecorator
 
             buffer.append("\n<tr><td>&nbsp;</td>");
             buffer.append("\n<td align=\"right\"><b>" + reportableObject.getCity() + " Total:</b></td>\n<td><b>");
-            buffer.append(cityTotal);
+            buffer.append(this.cityTotal);
             buffer.append("</b></td>\n<td>&nbsp;</td>\n</tr>");
             buffer.append("\n<tr>\n<td colspan=\"4\">&nbsp;\n</td>\n</tr>");
 
-            cityTotal = 0;
+            this.cityTotal = 0;
         }
 
         // Grand totals...
@@ -67,7 +67,7 @@ public class TotalWrapper extends TableDecorator
             buffer.append("<tr><td colspan=\"4\"><hr noshade size=\"1\"></td></tr>");
             buffer.append("<tr><td>&nbsp;</td>");
             buffer.append("<td align=\"right\"><b>Grand Total:</b></td><td><b>");
-            buffer.append(grandTotal);
+            buffer.append(this.grandTotal);
             buffer.append("</b></td><td>&nbsp;</td></tr>");
         }
 
