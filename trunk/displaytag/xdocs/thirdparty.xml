@@ -24,7 +24,7 @@
                 <p>Implementation of the Core J2EE Patterns - Value List Handler.</p>
                 <p>Not based on displaytag, although it seems to inherit something in examples and documentation</p>
                 <p>
-                    <a href="http://valuelist.sourceforge.net">Alphabetical Navigation Bar</a>
+                    <a href="http://valuelist.sourceforge.net">Value List Handler</a>
                 </p>
             </subsection>
 
