@@ -9,7 +9,9 @@
         </head>
         <body>
             <jsp:scriptlet> <![CDATA[
-                request.setAttribute( "test", new org.displaytag.sample.ReportList(6) );
+                java.util.List test = new java.util.ArrayList();
+                test.add(new org.displaytag.test.KnownValue());
+                request.setAttribute( "test", test );
             ]]> </jsp:scriptlet>
             <display:table name="${requestScope.test}" id="table" />
         </body>
