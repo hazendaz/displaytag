@@ -37,8 +37,15 @@ public class MaxLengthTest extends DisplaytagCase
         WebResponse response = runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
-        assertEquals("Expected one table in result.", 1, tables.length);
+        assertEquals("Wrong number of tables.", 1, tables.length);
+        assertEquals("Wrong number of columns.", 4, tables[0].getColumnCount());
 
         assertEquals("Broken title.", "123\"567890\"123", tables[0].getTableCell(1, 0).getTitle());
+
+        assertEquals("Wrong content in column 1", "123\"567890...", tables[0].getCellAsText(1, 0));
+        assertEquals("Wrong content in column 2", "Lorem ipsum dolor...", tables[0].getCellAsText(1, 1));
+        assertEquals("Wrong content in column 3", "", tables[0].getCellAsText(1, 2));
+        assertEquals("Wrong content in column 4", "", tables[0].getCellAsText(1, 3));
+
     }
 }
