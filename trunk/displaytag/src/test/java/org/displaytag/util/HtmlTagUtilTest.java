@@ -154,6 +154,13 @@ public class HtmlTagUtilTest extends TestCase
     {
         assertEquals("well<br>", HtmlTagUtil.abbreviateHtmlString("well<br>", 5, false));
     }
+    /**
+     * Test for the abbreviateHtmlString() method.
+     */
+    public void testAbbreviateHtmlStringByLengthHtmlEmptyTag()
+    {
+        assertEquals("well <br/> ...", HtmlTagUtil.abbreviateHtmlString("well <br/> done", 6, false));
+    }
 
     /**
      * Test for the abbreviateHtmlString() method.
