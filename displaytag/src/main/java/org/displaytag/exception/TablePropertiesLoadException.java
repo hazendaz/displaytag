@@ -1,6 +1,6 @@
 package org.displaytag.exception;
 
-import org.displaytag.util.Messages;
+import org.displaytag.Messages;
 
 /**
  * Runtime exception thrown for problems in loading the (standard or user defined) property file.

@@ -1,7 +1,8 @@
 package org.displaytag.exception;
 
+
 import org.apache.commons.lang.ArrayUtils;
-import org.displaytag.util.Messages;
+import org.displaytag.Messages;
 
 
 /**

@@ -1,6 +1,9 @@
 package org.displaytag.util;
 
+
 import javax.servlet.jsp.JspTagException;
+
+import org.displaytag.Messages;
 
 
 /**

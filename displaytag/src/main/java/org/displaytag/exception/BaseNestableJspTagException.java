@@ -1,10 +1,11 @@
 package org.displaytag.exception;
 
+
 import javax.servlet.jsp.JspTagException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.util.Messages;
+import org.displaytag.Messages;
 
 
 /**
