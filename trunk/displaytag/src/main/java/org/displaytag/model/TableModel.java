@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.properties.TableProperties;
 
+
 /**
  * @author fgiust
  * @version $Revision$ ($Author$)
@@ -60,7 +61,7 @@ public class TableModel
      * id inherited from the TableTag (needed only for logging).
      */
     private String id;
-    
+
     /**
      * configurable table properties.
      */
@@ -307,13 +308,11 @@ public class TableModel
                 if (sortedHeaderCell.getBeanPropertyName() != null
                     || (this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size()))
                 {
-                    Collections.sort(
-                        list,
-                        new RowSorter(
-                            this.sortedColumn,
-                            sortedHeaderCell.getBeanPropertyName(),
-                            getTableDecorator(),
-                            this.sortOrderAscending));
+                    Collections.sort(list, new RowSorter(
+                        this.sortedColumn,
+                        sortedHeaderCell.getBeanPropertyName(),
+                        getTableDecorator(),
+                        this.sortOrderAscending));
                 }
             }
 

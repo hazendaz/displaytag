@@ -9,17 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.ServletOutputStream;
 
+
 /**
  * Buffers the response; will not send anything directly through to the actual response. Note that this blocks the
- * content-type from being set, you must set it manually in the response. For a given response, you should call
- * either #getWriter or #getOutputStream , but not both.
- *
+ * content-type from being set, you must set it manually in the response. For a given response, you should call either
+ * #getWriter or #getOutputStream , but not both.
  * @author rapruitt
  * @version $Revision$ ($Author$)
  * @since 1.0
  */
 public class BufferedResponseWrapper extends HttpServletResponseWrapper
 {
+
     /**
      * The buffered response.
      */
@@ -79,12 +80,12 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper
      */
     public PrintWriter getWriter()
     {
-         return new PrintWriter(this.outputWriter);
+        return new PrintWriter(this.outputWriter);
     }
 
     /**
      * Flush the buffer, not the response.
-     * @throws IOException if encountered when flushing 
+     * @throws IOException if encountered when flushing
      */
     public void flushBuffer() throws IOException
     {
@@ -96,15 +97,16 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper
      * {@inheritDoc}
      */
     public ServletOutputStream getOutputStream() throws IOException
-        {
-            return this.servletOutputStream;
-        }
+    {
+        return this.servletOutputStream;
+    }
 
     /**
      * A simple implementation of ServletOutputStream.
      */
     private class SimpleServletOutputStream extends ServletOutputStream
     {
+
         /**
          * My outputWriter stream, a buffer.
          */

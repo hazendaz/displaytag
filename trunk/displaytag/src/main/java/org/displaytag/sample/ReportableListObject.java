@@ -7,6 +7,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
 
+
 /**
  * A test class that has data that looks more like information that comes back in a report.
  * @author epesh
@@ -14,6 +15,7 @@ import org.apache.commons.lang.builder.CompareToBuilder;
  */
 public class ReportableListObject extends Object implements Comparable
 {
+
     /**
      * random number producer.
      */
@@ -22,13 +24,13 @@ public class ReportableListObject extends Object implements Comparable
     /**
      * city names.
      */
-    private static String[] cities = { "Roma", "Olympia", "Neapolis", "Carthago" };
+    private static String[] cities = {"Roma", "Olympia", "Neapolis", "Carthago"};
 
     /**
      * project names.
      */
-    private static String[] projects = { "Taxes", "Arts", "Army", "Gladiators" };
-    
+    private static String[] projects = {"Taxes", "Arts", "Army", "Gladiators"};
+
     /**
      * city.
      */
@@ -102,12 +104,8 @@ public class ReportableListObject extends Object implements Comparable
     public int compareTo(Object object)
     {
         ReportableListObject myClass = (ReportableListObject) object;
-        return new CompareToBuilder()
-            .append(this.project, myClass.project)
-            .append(this.amount, myClass.amount)
-            .append(this.city, myClass.city)
-            .append(this.task, myClass.task)
-            .toComparison();
+        return new CompareToBuilder().append(this.project, myClass.project).append(this.amount, myClass.amount).append(
+            this.city, myClass.city).append(this.task, myClass.task).toComparison();
     }
 
     /**
@@ -115,12 +113,8 @@ public class ReportableListObject extends Object implements Comparable
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-            .append("project", this.project)
-            .append("amount", this.amount)
-            .append("city", this.city)
-            .append("task", this.task)
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("project", this.project).append("amount",
+            this.amount).append("city", this.city).append("task", this.task).toString();
     }
 
 }

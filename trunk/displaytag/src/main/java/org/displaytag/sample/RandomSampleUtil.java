@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
+
 /**
  * Utility class used to get random word and sentences used in examples.
  * @author fgiust
@@ -15,53 +16,52 @@ public final class RandomSampleUtil
     /**
      * list of words.
      */
-    private static String[] words =
-        new String[] {
-            "Lorem",
-            "ipsum",
-            "dolor",
-            "sit",
-            "amet",
-            "consetetur",
-            "sadipscing",
-            "elitr",
-            "sed",
-            "diam",
-            "nonumy",
-            "eirmod",
-            "tempor",
-            "invidunt",
-            "ut",
-            "labore",
-            "et",
-            "dolore",
-            "magna",
-            "aliquyam",
-            "erat",
-            "sed",
-            "diam",
-            "voluptua",
-            "At",
-            "vero",
-            "eos",
-            "et",
-            "accusam",
-            "et",
-            "justo",
-            "duo",
-            "dolores",
-            "et",
-            "ea",
-            "rebum",
-            "Stet",
-            "clita",
-            "kasd",
-            "gubergren",
-            "no",
-            "sea",
-            "takimata",
-            "sanctus",
-            "est" };
+    private static String[] words = new String[]{
+        "Lorem",
+        "ipsum",
+        "dolor",
+        "sit",
+        "amet",
+        "consetetur",
+        "sadipscing",
+        "elitr",
+        "sed",
+        "diam",
+        "nonumy",
+        "eirmod",
+        "tempor",
+        "invidunt",
+        "ut",
+        "labore",
+        "et",
+        "dolore",
+        "magna",
+        "aliquyam",
+        "erat",
+        "sed",
+        "diam",
+        "voluptua",
+        "At",
+        "vero",
+        "eos",
+        "et",
+        "accusam",
+        "et",
+        "justo",
+        "duo",
+        "dolores",
+        "et",
+        "ea",
+        "rebum",
+        "Stet",
+        "clita",
+        "kasd",
+        "gubergren",
+        "no",
+        "sea",
+        "takimata",
+        "sanctus",
+        "est"};
 
     /**
      * random number producer.
@@ -75,7 +75,7 @@ public final class RandomSampleUtil
     {
         super();
     }
-    
+
     /**
      * returns a random word.
      * @return random word

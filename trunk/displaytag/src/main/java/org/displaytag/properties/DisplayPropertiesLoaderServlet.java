@@ -11,17 +11,25 @@ import java.util.Properties;
 import java.io.InputStream;
 import java.io.IOException;
 
+
 /**
- * <p>Servlet which loads a user supplied properties file for the display taglibrary.</p>
- * <p><strong>You probably do not need to use this servlet.  For most cases, you should simply add
- *  a displaytag.properties file to your system, to the same effect, and not have to configure this
- * servlet.</strong>  If you have both a displaytag.properties, and you configure this servlet, the
- * properties in the property file specified here will override the properties in the displaytag.properties.
+ * <p>
+ * Servlet which loads a user supplied properties file for the display taglibrary.
  * </p>
- * <p>To set a default properties for a whole web application configure this servlet in web.xml and set a
- * "properties.filename" parameter with the path to the properties file, relative to the web application root
- * (example: "WEB-INF/display.properties").</p>
- * <p>The original properties file is still loaded and used when any of the parameters is missing</p>
+ * <p>
+ * <strong>You probably do not need to use this servlet. For most cases, you should simply add a displaytag.properties
+ * file to your system, to the same effect, and not have to configure this servlet. </strong> If you have both a
+ * displaytag.properties, and you configure this servlet, the properties in the property file specified here will
+ * override the properties in the displaytag.properties.
+ * </p>
+ * <p>
+ * To set a default properties for a whole web application configure this servlet in web.xml and set a
+ * "properties.filename" parameter with the path to the properties file, relative to the web application root (example:
+ * "WEB-INF/display.properties").
+ * </p>
+ * <p>
+ * The original properties file is still loaded and used when any of the parameters is missing
+ * </p>
  * <p>
  * Sample Web.xml entry:
  * </p>
@@ -54,7 +62,7 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
      * logger.
      */
     private Log log = LogFactory.getLog(DisplayPropertiesLoaderServlet.class);
-    
+
     /**
      * Init: retrieve the confiuration parameter and set the user file name in
      * <code>org.displaytag.tags.TableProperties</code>.
@@ -96,7 +104,7 @@ public class DisplayPropertiesLoaderServlet extends HttpServlet
         else
         {
             log.warn("No properties parameter found under key " + PROPERTIES_PARAMETER + " - are you"
-                    + "sure that you have configured this servlet correctly?");
+                + "sure that you have configured this servlet correctly?");
         }
 
     }

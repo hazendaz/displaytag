@@ -19,18 +19,20 @@ public final class LinkUtil
     private LinkUtil()
     {
     }
-    
+
     /**
-     * <p>This takes the string that is passed in, and "auto-links" it, it turns
-     * email addresses into hyperlinks, and also turns things that looks like
-     * URLs into hyperlinks as well.  The rules are currently very basic, In
-     * Perl regex lingo...</p>
+     * <p>
+     * This takes the string that is passed in, and "auto-links" it, it turns email addresses into hyperlinks, and also
+     * turns things that looks like URLs into hyperlinks as well. The rules are currently very basic, In Perl regex
+     * lingo...
+     * </p>
      * <ul>
-     * <li>Email:  \b\S+\@[^\@\s]+\b</li>
-     * <li>URL:    (http|https|ftp)://\S+\b</li>
+     * <li>Email: \b\S+\@[^\@\s]+\b</li>
+     * <li>URL: (http|https|ftp)://\S+\b</li>
      * </ul>
-     * <p>I'm doing this via brute-force since I don't want to be dependent on a
-     * third party regex package.</p>
+     * <p>
+     * I'm doing this via brute-force since I don't want to be dependent on a third party regex package.
+     * </p>
      * @param string String
      * @return String
      */
@@ -40,7 +42,7 @@ public final class LinkUtil
         {
             return string;
         }
-        
+
         String workString = new String(string);
         int index = -1;
         StringBuffer buffer = new StringBuffer();
@@ -74,12 +76,8 @@ public final class LinkUtil
 
             String email = workString.substring(start, (end - start + 1));
 
-            buffer
-                .append(workString.substring(0, start))
-                .append("<a href=\"mailto:")
-                .append(email + "\">")
-                .append(email)
-                .append("</a>");
+            buffer.append(workString.substring(0, start)).append("<a href=\"mailto:").append(email + "\">").append(
+                email).append("</a>");
 
             if (end == workString.length())
             {
@@ -112,9 +110,13 @@ public final class LinkUtil
 
             String url = workString.substring(index, (end - index + 1));
 
-            buffer.append(workString.substring(0, index)).append("<a href=\"").append(url).append("\">").append(
-                url).append(
-                "</a>");
+            buffer
+                .append(workString.substring(0, index))
+                .append("<a href=\"")
+                .append(url)
+                .append("\">")
+                .append(url)
+                .append("</a>");
 
             if (end == workString.length())
             {
