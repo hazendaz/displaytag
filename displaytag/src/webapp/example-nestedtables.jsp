@@ -12,7 +12,8 @@
   <display:column property="description" title="Comments" />
 
   <display:column title="Related address">
-  	<display:table name="<%="test.item[" + (parent_rowNum.intValue() -1)+ "].subList"%>" id="child" class="simple sublist">
+    <% String nestedName="test.item[" + (parent_rowNum.intValue() -1)+ "].subList"; %>
+  	<display:table name="<%=nestedName%>" id="child" class="simple sublist">
 		<display:column property="name" class="textRed" />
 		<display:column property="email" />
 	</display:table>
