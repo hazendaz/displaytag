@@ -24,7 +24,7 @@ import org.displaytag.util.RequestHelperFactory;
  * copied in as well. The userProperties Properties can be set by the {@link DisplayPropertiesLoaderServlet}if it is
  * configured.</li>
  * </ol>
- * @author fgiust
+ * @author Fabrizio Giustina
  * @author rapruitt
  * @version $Revision$ ($Author$)
  * @see DisplayPropertiesLoaderServlet
@@ -77,6 +77,11 @@ public final class TableProperties
      * property <code>basic.msg.empty_list</code>.
      */
     public static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = "basic.msg.empty_list";
+
+    /**
+     * property <code>basic.msg.empty_list_row</code>.
+     */
+    public static final String PROPERTY_STRING_EMPTYLISTROW_MESSAGE = "basic.msg.empty_list_row";
 
     /**
      * property <code>basic.empty.showtable</code>.
@@ -592,6 +597,15 @@ public final class TableProperties
     public String getEmptyListMessage()
     {
         return getProperty(PROPERTY_STRING_EMPTYLIST_MESSAGE);
+    }
+
+    /**
+     * Getter for the <code>PROPERTY_STRING_EMPTYLISTROW_MESSAGE</code> property.
+     * @return String
+     */
+    public String getEmptyListRowMessage()
+    {
+        return getProperty(PROPERTY_STRING_EMPTYLISTROW_MESSAGE);
     }
 
     /**
