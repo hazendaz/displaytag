@@ -95,7 +95,7 @@
 </p>
 
 <p class="changed">
-	Beginning with the version 0.9 the &lt;display:table&gt; tag, the taglibrary produces
+	Beginning with version 0.9 the &lt;display:table&gt; tag, the tag will produce
 	well formed html tables with 	&lt;thead&gt; and &lt;tbody&gt; sections. 
 	This renders useless the definition of few styles
 	used in previous versions. See the @deprecated paragraph at the bottom of the page for details
