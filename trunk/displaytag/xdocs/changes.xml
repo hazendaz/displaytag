@@ -25,6 +25,9 @@
       <action type="fix" dev="fgiust" issue="926213">
 	    Added support for indexed/mapped properties in table decorators.
       </action>
+      <action type="fix" dev="fgiust" issue="920115">
+	    MaxLength not working with double quotes.
+      </action>
   	</release>
   	
   	<release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
