@@ -18,8 +18,8 @@ import org.displaytag.util.RequestHelperFactory;
  * priority.
  * <ol>
  * <li>First, from the TableTag.properties included with the DisplayTag distribution.</li>
- * <li>Then, from the file displaytag.properties, if it is present; these properties are intended to be set by the
- * user for sitewide application.</li>
+ * <li>Then, from the file displaytag.properties, if it is present; these properties are intended to be set by the user
+ * for sitewide application.</li>
  * <li>Finally, if this class has a userProperties defined, all of the properties from that Properties object are
  * copied in as well. The userProperties Properties can be set by the {@link DisplayPropertiesLoaderServlet}if it is
  * configured.</li>
@@ -169,7 +169,8 @@ public final class TableProperties
     public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper";
 
     /**
-     * property <code>css.tr.even</code>: holds the name of the css class for even rows. Defaults to <code>even</code>.
+     * property <code>css.tr.even</code>: holds the name of the css class for even rows. Defaults to
+     * <code>even</code>.
      */
     public static final String PROPERTY_CSS_TR_EVEN = "css.tr.even";
 
@@ -230,11 +231,6 @@ public final class TableProperties
     public static final String EXPORTPROPERTY_STRING_FILENAME = "filename";
 
     /**
-     * export property <code>banner</code>. @todo unused at the moment
-     */
-    public static final String EXPORTPROPERTY_STRING_BANNER = "banner";
-
-    /**
      * logger.
      */
     private static Log log = LogFactory.getLog(TableProperties.class);
@@ -257,11 +253,6 @@ public final class TableProperties
     private Properties properties;
 
     /**
-     * User-only properties (displaytag.properties).
-     */
-    private ResourceBundle bundle;
-
-    /**
      * Initialize a new TableProperties loading the default properties file and the user defined one.
      * @throws TablePropertiesLoadException for errors during loading of properties files
      */
@@ -281,26 +272,37 @@ public final class TableProperties
             {
                 throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
             }
+
+            // loading of properties is expensive, so we save them in a static variable
+            // This will improve performance but will force user to restart the web application to see changes after
+            // modifying displaytag.properties in the WEB-INF/classes folder
+
+            loadUserProperties();
         }
 
-        this.properties = new Properties(defaultProperties);
+        // copy properties so that they can be altered using the setProperty tag
+        this.properties = (Properties) defaultProperties.clone();
+    }
 
-        // Try to load the properties from the local properties file, displaytag.properties.
-        // @todo should we cache user properties like we do for defaults? This will improve performance but will force
-        // user to restart the web application to see changes after modifying displaytag.properties in the
-        // WEB-INF/classes folder
+    /**
+     * Try to load the properties from the local properties file, displaytag.properties.
+     */
+    private void loadUserProperties()
+    {
+        ResourceBundle bundle = null;
         try
         {
             bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES);
-
         }
         catch (MissingResourceException e)
         {
-            if (log.isDebugEnabled())
+            if (log.isInfoEnabled())
             {
-                log.debug("Was not able to load a custom displaytag.properties; " + e.getMessage());
+                log.info("Was not able to load a custom displaytag.properties; " + e.getMessage());
             }
         }
+
+        Properties mixedProperties = new Properties(defaultProperties);
 
         if (bundle != null)
         {
@@ -308,20 +310,23 @@ public final class TableProperties
             while (keys.hasMoreElements())
             {
                 String key = (String) keys.nextElement();
-                this.properties.setProperty(key, bundle.getString(key));
+                mixedProperties.setProperty(key, bundle.getString(key));
             }
         }
 
-        // Now copy in the user properties
+        // Now copy in the user properties (properties file set by calling setUserProperties()).
+        // note setUserProperties() MUST BE CALLED before the first TableProperties instantation
         Enumeration keys = userProperties.keys();
         while (keys.hasMoreElements())
         {
             String key = (String) keys.nextElement();
             if (key != null)
             {
-                this.properties.setProperty(key, (String) userProperties.get(key));
+                mixedProperties.setProperty(key, (String) userProperties.get(key));
             }
         }
+
+        defaultProperties = mixedProperties;
     }
 
     /**
@@ -335,29 +340,26 @@ public final class TableProperties
 
     /**
      * Local, non-default properties; these settings override the defaults from displaytag.properties and
-     * TableTag.properties.
-     * @return the Properties that was set
-     */
-    public static Properties getUserProperties()
-    {
-        return userProperties;
-    }
-
-    /**
-     * Local, non-default properties; these settings override the defaults from displaytag.properties and
      * TableTag.properties. Please note that the values are copied in, so that multiple calls with non-overlapping
      * properties will be merged, not overwritten.
      * @param overrideProperties - The local, non-default properties
      */
     public static void setUserProperties(Properties overrideProperties)
     {
-        Enumeration enum = overrideProperties.keys();
-        while (enum.hasMoreElements())
+        userProperties = overrideProperties;
+
+        // if default properties are already loaded, copy keys here
+        // if default properties are not yet loaded they will be copied in constructor
+        if (defaultProperties != null)
         {
-            String key = (String) enum.nextElement();
-            if (key != null && overrideProperties.get(key) != null)
+            Enumeration keys = userProperties.keys();
+            while (keys.hasMoreElements())
             {
-                userProperties.setProperty(key, (String) overrideProperties.get(key));
+                String key = (String) keys.nextElement();
+                if (key != null)
+                {
+                    defaultProperties.setProperty(key, (String) userProperties.get(key));
+                }
             }
         }
     }
@@ -536,16 +538,6 @@ public final class TableProperties
     public String getExportFilename(MediaTypeEnum exportType)
     {
         return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_FILENAME);
-    }
-
-    /**
-     * Returns the banner for the given export option.
-     * @param exportType instance of MediaTypeEnum
-     * @return String @todo unused
-     */
-    public String getExportBanner(MediaTypeEnum exportType)
-    {
-        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_BANNER);
     }
 
     /**
@@ -812,8 +804,13 @@ public final class TableProperties
         catch (NumberFormatException e)
         {
             // Don't care, use default
-            log.warn("Invalid value for \"" + key + "\" property: value=\"" + getProperty(key) + "\"; using default \""
-                + defaultValue + "\"");
+            log.warn("Invalid value for \""
+                + key
+                + "\" property: value=\""
+                + getProperty(key)
+                + "\"; using default \""
+                + defaultValue
+                + "\"");
         }
 
         return intValue;
