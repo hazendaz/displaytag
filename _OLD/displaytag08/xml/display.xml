@@ -2,564 +2,572 @@
 
 <document url="./display.xml">
 
-   <!-- More properties can be added.  Good place to stick loose
-        data needed elsewhere. -->
-   <properties>
-      <!-- The name here is used in the HTML <meta name="author"...> tag -->
-      <project>Display Tag Library</project>
-      <author>Ed Hill</author>
-   </properties>
+    <!-- More properties can be added.  Good place to stick loose
+         data needed elsewhere. -->
+    <properties>
+        <!-- The name here is used in the HTML <meta name="author"...> tag -->
+        <project>Display Tag Library</project>
+        <author>Ed Hill</author>
+    </properties>
 
-   <!-- The following defines elements used both to create the taglib
-        documentation and the tag library descriptor .tld file.  The
-        elements used are those from the JSP 1.2 TLD DTD and special
-        elements used when creating the tagib documentation.  Although
-        the JSP1.2 TLD DTD is used, this document can be used to
-        generate both a JSP 1.1 and a JSP 1.2 TLD.
-   -->
-   <taglib>
-      <!-- The following elements are from the JSP 1.2 TLD DTD -->
-      <!-- Version number of this tagib -->
-      <tlib-version>1.0</tlib-version>
-      <!-- Minimum version of JSP spec required -->
-      <jsp-version>1.1</jsp-version>
-      <!-- jakarta-taglib name of this tag library -->
-      <short-name>display</short-name>
-      <!-- URI of taglib -->
-      <uri>http://jakarta.apache.org/taglibs/display</uri>
-      <!-- The name to use in titles, etc. for the taglib -->
-      <display-name>Display Tag library</display-name>
+    <!-- The following defines elements used both to create the taglib
+         documentation and the tag library descriptor .tld file.  The
+         elements used are those from the JSP 1.2 TLD DTD and special
+         elements used when creating the tagib documentation.  Although
+         the JSP1.2 TLD DTD is used, this document can be used to
+         generate both a JSP 1.1 and a JSP 1.2 TLD.
+    -->
+    <taglib>
+        <!-- The following elements are from the JSP 1.2 TLD DTD -->
+        <!-- Version number of this tagib -->
+        <tlib-version>1.0</tlib-version>
+        <!-- Minimum version of JSP spec required -->
+        <jsp-version>1.1</jsp-version>
+        <!-- jakarta-taglib name of this tag library -->
+        <short-name>display</short-name>
+        <!-- URI of taglib -->
+        <uri>http://jakarta.apache.org/taglibs/display</uri>
+        <!-- The name to use in titles, etc. for the taglib -->
+        <display-name>Display Tag library</display-name>
 
-      <!-- JSP 1.2 tag library DTD only, not used for generating
-           documentation.
-      <large-icon></large-icon>
-      <small-icon></small-icon>
-      -->
+        <!-- JSP 1.2 tag library DTD only, not used for generating
+             documentation.
+        <large-icon></large-icon>
+        <small-icon></small-icon>
+        -->
 
-      <!-- Used for generating Overview section of HTML documentation
-           and for the description element for a JSP 1.2 TLD.
-           Enter information here as straight XHTML paragraphs.  Inside the
-           paragraphs regular XHTML can be used (but an external CSS is
-           encouraged). The information is copied into the generated HTML doc,
-           and the <p> elements are essential for that. -->
-      <description>
-         <p>
-         A description of the display tag library goes here...
-         </p>
-      </description>
+        <!-- Used for generating Overview section of HTML documentation
+             and for the description element for a JSP 1.2 TLD.
+             Enter information here as straight XHTML paragraphs.  Inside the
+             paragraphs regular XHTML can be used (but an external CSS is
+             encouraged). The information is copied into the generated HTML doc,
+             and the <p> elements are essential for that. -->
+        <description>
+            <p>
+                A description of the display tag library goes here...
+            </p>
+        </description>
 
-      <!-- The following elements are for JSP 1.2 tag libraries only,
-           and are not used for generating documentation yet.
+        <!-- The following elements are for JSP 1.2 tag libraries only,
+             and are not used for generating documentation yet.
 
-      <validator>
-      </validator>
-      <listener>
-      </listener>
-      -->
+        <validator>
+        </validator>
+        <listener>
+        </listener>
+        -->
 
-      <!-- The taglib-location is used to fill in the web.xml configuration
-           information in the HTML doc. -->
-      <taglib-location>/WEB-INF/display.tld</taglib-location>
+        <!-- The taglib-location is used to fill in the web.xml configuration
+             information in the HTML doc. -->
+        <taglib-location>/WEB-INF/display.tld</taglib-location>
 
-      <!-- The prefix is used to fill in the taglib directive
-           configuration information in the HTML doc. -->
-      <prefix>display</prefix>
+        <!-- The prefix is used to fill in the taglib directive
+             configuration information in the HTML doc. -->
+        <prefix>display</prefix>
 
-      <!-- This data must be straight text and is copied right into
-           the "Requirements" section of the HTML doc. -->
-      <requirements-info>
-        This custom tag library requires no software other than a servlet container
-        that supports the JavaServer Pages Specification, version 1.1 or higher.
-      </requirements-info>
+        <!-- This data must be straight text and is copied right into
+             the "Requirements" section of the HTML doc. -->
+        <requirements-info>
+            This custom tag library requires no software other than a servlet container
+            that supports the JavaServer Pages Specification, version 1.1 or higher.
+        </requirements-info>
 
-      <!-- The tagtoc element provides the ability to categorize the
-           tags in the tag library.  There must be at least one tagtoc.
-           1 .. N tags can be nested within a tagtoc.
-           -->
+        <!-- The tagtoc element provides the ability to categorize the
+             tags in the tag library.  There must be at least one tagtoc.
+             1 .. N tags can be nested within a tagtoc.
+             -->
 
-      <tagtoc name="Display Tags">
-         <tag>
-            <name>table</name>
-            <tag-class>org.apache.taglibs.display.TableTag</tag-class>
-            <tei-class>org.apache.taglibs.display.TableTagExtraInfo</tei-class>
+        <tagtoc name="Display Tags">
+            <tag>
+                <name>table</name>
+                <tag-class>org.apache.taglibs.display.TableTag</tag-class>
+                <tei-class>org.apache.taglibs.display.TableTagExtraInfo</tei-class>
 
-            <!--
-            <tag-class>org.apache.taglibs.i18n.BundleTag</tag-class>
-            <tei-class>org.apache.taglibs.i18n.BundleTEI</tei-class>
-            -->
-            <body-content>JSP</body-content>
-            <display-name>table</display-name>
-            <description>
-              Establishes the ResourceBundle to use for other i18n tags on the page.
-              Also determines the most appropriate Locale to use based on browser
-              settings if a locale is not provided.
-            </description>
-            <!-- One line summary of what tag does for Tag Summary section -->
-            <summary>Define a resource bundle for use by other i18n tags.</summary>
-            <!-- Version of taglib when this tag was added, or deprecated. -->
-            <availability>1.0</availability>
-            <!-- Any restrictions on use of the tag -->
-            <restrictions>
-              This tag must be placed early in the page (before any HTML) in order
-              for the output stream's content type to be set from the selected locale.
-              If a locale (or localeRef) is not provided, the "best" locale
-              will be determined from the browser settings and available locales
-              for the requested bundle.
-            </restrictions>
+                <!--
+                <tag-class>org.apache.taglibs.i18n.BundleTag</tag-class>
+                <tei-class>org.apache.taglibs.i18n.BundleTEI</tei-class>
+                -->
+                <body-content>JSP</body-content>
+                <display-name>table</display-name>
+                <description>
+                    Establishes the ResourceBundle to use for other i18n tags on the page.
+                    Also determines the most appropriate Locale to use based on browser
+                    settings if a locale is not provided.
+                </description>
+                <!-- One line summary of what tag does for Tag Summary section -->
+                <summary>Define a resource bundle for use by other i18n tags.</summary>
+                <!-- Version of taglib when this tag was added, or deprecated. -->
+                <availability>1.0</availability>
+                <!-- Any restrictions on use of the tag -->
+                <restrictions>
+                    This tag must be placed early in the page (before any HTML) in order
+                    for the output stream's content type to be set from the selected locale.
+                    If a locale (or localeRef) is not provided, the "best" locale
+                    will be determined from the browser settings and available locales
+                    for the requested bundle.
+                </restrictions>
 
-            <!-- Declaration of scripting variables created by tag. Used for
-                 generating HTML documentation and for JSP 1.2 DTD. -->
+                <!-- Declaration of scripting variables created by tag. Used for
+                     generating HTML documentation and for JSP 1.2 DTD. -->
 
-            <attribute>
-               <name>list</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <!-- The following element is non-standard, but probably will be
-                   standard in final JSP 1.2. For now it is only used for the HTML
-                   doc. -->
-               <description>
-                 Script variable id for use with standard
+                <attribute>
+                    <name>list</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <!-- The following element is non-standard, but probably will be
+                        standard in final JSP 1.2. For now it is only used for the HTML
+                        doc. -->
+                    <description>
+                        Script variable id for use with standard
 
-                  <b>jsp:getProperty</b>
-                 tag and as an attribute to other tags in this tag library.
-
-
-               </description>
-               <availability>1.0</availability>
-            </attribute>
-
-            <attribute>
-               <name>name</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>property</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>scope</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-
-            <attribute>
-               <name>length</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>offset</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>pagesize</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>decorator</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
+                        <b>jsp:getProperty</b>
+                        tag and as an attribute to other tags in this tag library.
 
 
-            <attribute>
-               <name>requestURI</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>The URL for the page that the table tag is living on
-               ...</description>
-               <availability>1.0</availability>
-            </attribute>
+                    </description>
+                    <availability>1.0</availability>
+                </attribute>
+
+                <attribute>
+                    <name>name</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>property</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>scope</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+
+                <attribute>
+                    <name>length</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>offset</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>pagesize</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>decorator</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
 
 
-            <attribute>
-               <name>width</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>styleClass</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>border</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>cellspacing</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>cellpadding</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>align</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>background</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>bgcolor</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>frame</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>height</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>hspace</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>rules</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>summary</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>vspace</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>export</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>display</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
+                <attribute>
+                    <name>requestURI</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>The URL for the page that the table tag is living on
+                        ...</description>
+                    <availability>1.0</availability>
+                </attribute>
 
 
-         </tag>
-
-         <tag>
-            <name>column</name>
-            <tag-class>org.apache.taglibs.display.ColumnTag</tag-class>
-
-            <body-content>JSP</body-content>
-            <display-name>column</display-name>
-            <description>
-              Format a message (using java.text.MessageFormat) from the value
-              resulting from looking up the provided key within the default or
-              specified resource bundle. Arguments to MessageFormat can be
-              supplied as an object array or as subtags within the message tag body.
-            </description>
-            <summary>
-              Displays internationalized text from a resource bundle.
-            </summary>
-            <availability>1.0</availability>
-            <restrictions>
-              Message tags require that a default bundle be provided (by placing
-              a bundle tag prior to the message tag) or that a bundle or bundleRef
-              attribute be supplied to the tag.
-            </restrictions>
-
-            <attribute>
-               <name>property</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>value</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>title</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-
-            <attribute>
-               <name>nulls</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>sort</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>autolink</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-
-            <attribute>
-               <name>href</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>paramId</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>paramName</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>paramProperty</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>paramScope</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-
-            <attribute>
-               <name>maxLength</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <info>
-                  <p>Max characters in a String to display in this column.
-                  The String will be appended with "...".</p>
-               </info>
-            </attribute>
-            <attribute>
-               <name>maxWords</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <info>
-                  <p>Max words in a String to display in this column.
-                  The String will be appended with "...".</p>
-               </info>
-            </attribute>
+                <attribute>
+                    <name>width</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>styleClass</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>border</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>cellspacing</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>cellpadding</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>align</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>background</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>bgcolor</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>frame</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>height</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>hspace</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>rules</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>summary</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>vspace</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>export</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>display</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
 
 
-            <attribute>
-               <name>width</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>styleClass</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
+            </tag>
 
-            <attribute>
-               <name>headerStyleClass</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
+            <tag>
+                <name>column</name>
+                <tag-class>org.apache.taglibs.display.ColumnTag</tag-class>
 
-            <attribute>
-               <name>align</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>background</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>bgcolor</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>height</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>nowrap</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>valign</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>group</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>doubleQuote</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
+                <body-content>JSP</body-content>
+                <display-name>column</display-name>
+                <description>
+                    Format a message (using java.text.MessageFormat) from the value
+                    resulting from looking up the provided key within the default or
+                    specified resource bundle. Arguments to MessageFormat can be
+                    supplied as an object array or as subtags within the message tag body.
+                </description>
+                <summary>
+                    Displays internationalized text from a resource bundle.
+                </summary>
+                <availability>1.0</availability>
+                <restrictions>
+                    Message tags require that a default bundle be provided (by placing
+                    a bundle tag prior to the message tag) or that a bundle or bundleRef
+                    attribute be supplied to the tag.
+                </restrictions>
 
-                        <attribute>
-               <name>decorator</name>
-               <required>false</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-         </tag>
+                <attribute>
+                    <name>property</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>value</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>title</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+
+                <attribute>
+                    <name>nulls</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>sort</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>autolink</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+
+                <attribute>
+                    <name>href</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>paramId</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>paramName</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>paramProperty</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>paramScope</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+
+                <attribute>
+                    <name>maxLength</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <info>
+                        <p>Max characters in a String to display in this column.
+                            The String will be appended with "...".</p>
+                    </info>
+                </attribute>
+                <attribute>
+                    <name>maxWords</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <info>
+                        <p>Max words in a String to display in this column.
+                            The String will be appended with "...".</p>
+                    </info>
+                </attribute>
+
+                <attribute>
+                    <name>titleColSpan</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <info>
+                        <p>How many columns should the title of this column span?</p>
+                    </info>
+                </attribute>
+
+                <attribute>
+                    <name>width</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>styleClass</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+
+                <attribute>
+                    <name>headerStyleClass</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+
+                <attribute>
+                    <name>align</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>background</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>bgcolor</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>height</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>nowrap</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>valign</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>group</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>doubleQuote</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+
+                <attribute>
+                    <name>decorator</name>
+                    <required>false</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+            </tag>
 
 
-         <tag>
-            <name>setProperty</name>
-            <tag-class>org.apache.taglibs.display.SetPropertyTag</tag-class>
+            <tag>
+                <name>setProperty</name>
+                <tag-class>org.apache.taglibs.display.SetPropertyTag</tag-class>
 
-            <body-content>JSP</body-content>
-            <display-name>setProperty</display-name>
-            <description>
-              Allows you to change a tables properties
-            </description>
-            <summary>
-              Allows you to change a tables properties
-            </summary>
-            <availability>1.0</availability>
-            <restrictions>
-              Must be used inside a table tag
-            </restrictions>
+                <body-content>JSP</body-content>
+                <display-name>setProperty</display-name>
+                <description>
+                    Allows you to change a tables properties
+                </description>
+                <summary>
+                    Allows you to change a tables properties
+                </summary>
+                <availability>1.0</availability>
+                <restrictions>
+                    Must be used inside a table tag
+                </restrictions>
 
-            <attribute>
-               <name>name</name>
-               <required>true</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
-            <attribute>
-               <name>value</name>
-               <required>true</required>
-               <rtexprvalue>true</rtexprvalue>
-               <description>...</description>
-               <availability>1.0</availability>
-            </attribute>
+                <attribute>
+                    <name>name</name>
+                    <required>true</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
+                <attribute>
+                    <name>value</name>
+                    <required>true</required>
+                    <rtexprvalue>true</rtexprvalue>
+                    <description>...</description>
+                    <availability>1.0</availability>
+                </attribute>
 
 
-         </tag>
-      </tagtoc>
+            </tag>
+        </tagtoc>
 
-   </taglib>
+    </taglib>
 
-   <revision release="0.7" date="03/10/2002">
-      <description>
-        The display tag library is still considered in beta.
-      </description>
-   </revision>
+    <revision release="0.7" date="03/10/2002">
+        <description>
+            The display tag library is still considered in beta.
+        </description>
+    </revision>
 
 </document>

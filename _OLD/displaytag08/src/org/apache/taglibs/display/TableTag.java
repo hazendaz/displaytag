@@ -1383,7 +1383,14 @@ public class TableTag extends TemplateTag {
 
         buf.append("<tr class=\"tableRowHeader\">");
 
+        int titleColumnsToSkip = 0;
+
         for (int i = 0; i < this.columns.size(); i++) {
+            if (titleColumnsToSkip > 0) {
+                titleColumnsToSkip--;
+                continue;
+            }
+
             ColumnTag tag = (ColumnTag) this.columns.get(i);
 
             buf.append("<th");
@@ -1392,6 +1399,12 @@ public class TableTag extends TemplateTag {
 
             if (tag.getAlign() != null)
                 buf.append(" align=\"" + tag.getAlign() + "\"");
+
+            int span = tag.getTitleColSpan();
+            if (span > 1) {
+                buf.append(" colspan=\"" + span + "\"");
+                titleColumnsToSkip = span - 1;
+            }
 
             if (tag.getHeaderStyleClass() != null) {
                 buf.append(" class=\"" + tag.getHeaderStyleClass() + "\">");
