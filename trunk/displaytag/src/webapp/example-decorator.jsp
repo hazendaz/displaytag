@@ -67,27 +67,23 @@
 	be called on the original object in your List.
 </p>
 
-<h3>New - Column Decorators</h3>
+<h3>Column Decorators</h3>
 
 <p>
-	You can now specify decorators that work on individual columns, this would allow
+	You can specify decorators that work on individual columns, this would allow
 	you to come up with data specific formatters, and just reuse them rather then
 	coming up with a custom decorator for each table that you want to show a
-	formatted date for.
+	formatted date for. This kind of decorator must implement the <code>ColumnDecorator</code> interface.
 </p>
 
 
-<display:table name="test"  >
+<display:table name="test">
   <display:column property="id" title="ID" />
   <display:column property="email" />
   <display:column property="status" />
   <display:column property="date" decorator="org.displaytag.sample.LongDateWrapper" />
 </display:table>
 
-<p>
-	There are other key API methods in the TableDecorator class that you can
-	overwrite, but those details are saved for a later example.
-</p>
 
 
 <%@ include file="inc/footer.jsp" %>

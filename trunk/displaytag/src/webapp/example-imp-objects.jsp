@@ -14,28 +14,34 @@
     <display:column title="((ListObject)testit).getMoney()"><%=((ListObject)testit).getMoney()%></display:column>
 </display:table>
 
-<p class="changed">
+<p>
 	If you add an <code>id</code> attribute the table tag makes the object corresponding
 	to the given row available in the page context so you could use it inside scriptlet code
 	or some other tag. Another implicit object exposed by the table tag is the row number,
 	named <code><em>id</em>_rowNum</code>.
 </p>
 
-<p class="changed">
+<p>
 	If you do not specify the <code>id</code> attribute no object is added to the pagecontext
 	by the table tag
 </p>
-
 <p>
-	You can also use "decorators" to provide the same type
-	of functionality. See:
+  This is a simple snippet which shows the use of the implicit objects created by the table tag with
+  <acronym title="Jsp Standard Tag Library">JSTL.</acronym>
 </p>
-
-<ul>
-	<li><a href="example-decorator.jsp">Using decorators to transform/process data</a></li>
-	<li><a href="example-decorator-link.jsp">Using decorators to create dynamic links</a></li>
-	<li><a href="example-callbacks.jsp">Using callbacks to show totals</a></li>
-</ul>
+<source>
+  <![CDATA[
+	<display table id="row" name="mylist">
+		<display:column title="row number" >
+			<c:out value="${row_rowNum}"/>
+		</display:column>
+		<display:column title="name" >
+			<c:out value="${row.first_name}"/>
+			<c:out value="${row.last_name}"/>
+		</display:column>
+  </display:table>
+]]>
+</source>
 
 
 <%@ include file="inc/footer.jsp" %>

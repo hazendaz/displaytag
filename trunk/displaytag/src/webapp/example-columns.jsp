@@ -26,7 +26,7 @@
 	row.
 </p>
 
-<p class="changed">
+<p>
 	You can define the content of a column by adding a <code>property</code> attribute
 	to the column tag or adding a content to the tag.
 </p>
@@ -36,7 +36,7 @@
 	<li>&lt;display:column title="email"&gt;email@it.com&lt;/display:column&gt;</li>
 </ul>
 
-<p class="changed">
+<p>
 	There are two ways to define the content of a column. Of course, in the tag body
 	you can use scriptlets or other custom tags.
 	Using the <code>property</code> attribute to define the content of a column is
