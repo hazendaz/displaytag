@@ -46,7 +46,22 @@ public class Displ107Test extends DisplaytagCase
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.CSV.getCode()));
 
         response = runner.getResponse(request);
+        checkContent(response);
 
+        // enabled filter
+        request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
+        response = runner.getResponse(request);
+        checkContent(response);
+
+    }
+
+    /**
+     * Actually check exported bytes
+     * @param response WebResponse
+     * @throws Exception any axception thrown during test.
+     */
+    private void checkContent(WebResponse response) throws Exception
+    {
         // we are really testing an xml output?
         assertEquals("Expected a different content type.", "text/csv", response.getContentType());
         assertEquals("Wrong encoding", "UTF8", response.getCharacterSet());
@@ -71,7 +86,6 @@ public class Displ107Test extends DisplaytagCase
                 result[j]);
 
         }
-
     }
 
 }
