@@ -6,7 +6,7 @@
   <id>displaytag</id>
   <groupId>displaytag</groupId>
   <type>jar</type>
-  <version>1.0-b3-SNAPSHOT</version>
+  <version>1.0-b3</version>
   <organization>
     <name>sourceforge</name>
     <url>http://sourceforge.net</url>
@@ -213,16 +213,6 @@
       <properties>
         <war.bundle>true</war.bundle>
         <comment>Required to build the library, needed at runtime only for the EL version of the taglib</comment>
-      </properties>
-    </dependency>
-    
-    <dependency>
-      <groupId>cactus</groupId>
-      <artifactId>cactus</artifactId>
-      <version>13-1.6dev</version>
-      <url>http://jakarta.apache.org/cactus/</url>
-      <properties>
-        <comment>Needed only to compile and run cactus unit tests</comment>
       </properties>
     </dependency>
     
