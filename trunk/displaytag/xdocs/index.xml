@@ -9,6 +9,13 @@
       <p>The display tag library is an open source suite of custom tags that provide high level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being simple and straight-forward to use.</p>
     </section>
     <section name="News">
+      <subsection name="March 7, 2004">
+        <p>
+          Nightly builds are now updated daily. The entire website is automatically refreshed once a day with the latest
+          documentation and reports.
+          No date for the next b3 release yet, but the <a href="changes-report.html">change log</a> is growing... 
+        </p>
+      </subsection>
       <subsection name="February 4, 2004">
         <p>
           New snapshot build posted.
