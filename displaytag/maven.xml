@@ -69,9 +69,13 @@
         <attainGoal name="convert-dtd" />
 	
 	    <!-- add tld to taglib jar -->
-        <echo message="copying ${maven.src.dir}/tld/displaytag.tld to file ${maven.build.dest}/META-INF/displaytag.tld" />
+        <echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to file ${maven.build.dest}/META-INF/displaytag.tld" />
         <copy file="${maven.build.dir}/tld/displaytag-11.tld"
             tofile="${maven.build.dest}/META-INF/displaytag.tld" />
+        <!-- add EL tld to taglib jar -->
+        <echo message="copying ${maven.src.dir}/tld/displaytag-el-12.tld to file ${maven.build.dest}/META-INF/displaytag-el.tld" />
+        <copy file="${maven.src.dir}/tld/displaytag-el-12.tld"
+            tofile="${maven.build.dest}/META-INF/displaytag-el.tld" />
 	</postGoal>
 
 	<!-- copy tld for example webapp -->

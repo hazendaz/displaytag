@@ -72,7 +72,7 @@
       <roles>
         <role>Project admin</role>
       </roles>
-      <timezone />
+      <timezone>-7</timezone>
     </developer>
     <developer>
       <name>Ed Hill</name>
@@ -187,7 +187,20 @@
       <id>servletapi</id>
       <version>2.3</version>
     </dependency>
-    
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>1.0.4</version>
+      <url>http://jakarta.apache.org/taglibs/</url>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
     <dependency>
       <id>junit</id>
       <version>3.8.1</version>
