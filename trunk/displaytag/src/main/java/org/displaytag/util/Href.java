@@ -50,11 +50,11 @@ public class Href implements Cloneable, Serializable
     {
         this.parameters = new HashMap();
 
-        int anchorposition;
         String noAnchorUrl;
+        int anchorposition = baseUrl.indexOf('#');
 
         // extract anchor from url
-        if ((anchorposition = baseUrl.indexOf('#')) != -1)
+        if (anchorposition != -1)
         {
             noAnchorUrl = baseUrl.substring(0, anchorposition);
             this.anchor = baseUrl.substring(anchorposition + 1);
