@@ -17,6 +17,11 @@
                 <display:column maxLength="10">
                     <jsp:text>123"567890"123</jsp:text>
                 </display:column>
+                <display:column maxWords="3">
+                    <jsp:text>Lorem ipsum dolor sit amet</jsp:text>
+                </display:column>
+                <display:column maxLength="3" />
+                <display:column maxWords="3" />
             </display:table>
         </body>
     </html>
