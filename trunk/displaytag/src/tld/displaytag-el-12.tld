@@ -3,7 +3,7 @@
 <!DOCTYPE taglib  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"  "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
 
 <taglib>
-  <tlib-version>1.0-b3</tlib-version>
+  <tlib-version>1.0-rc1</tlib-version>
   <jsp-version>1.2</jsp-version>
   <short-name>display</short-name>
   <uri>http://displaytag.sf.net/el</uri>
@@ -199,14 +199,14 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <name>export</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <type>boolean</type>
+        <!--<type>boolean</type>-->
         <description>enable/disable export. Valid values are true or false </description>
     </attribute>
     <attribute>
       <name>id</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <type>java.lang.String</type>
+        <!--<type>java.lang.String</type>-->
         <description>An implicit variable of this name will be created and placed into NESTED scope. The object is
             also added to pageContext under this name.</description>
     </attribute>
@@ -220,14 +220,14 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <name>defaultsort</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <type>int</type>
+        <!--<type>int</type>-->
         <description>The index of the column that will be used by default for sorting (starting from 1)</description>
     </attribute>
     <attribute>
       <name>defaultorder</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <type>java.lang.String</type>
+        <!--<type>java.lang.String</type>-->
         <description>The default order for the sorted column. Valid values are "ascending" (default) or "descending"</description>
     </attribute>
       <example>
@@ -272,7 +272,7 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <name>nulls</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <type>boolean</type>
+        <!--<type>boolean</type>-->
         <description>By default, null values don't appear in the list. By setting 'nulls' to 'true', then
      null values will appear as "null" in the list (mostly useful for debugging).  Defaults to 'false'. </description>
     </attribute>
@@ -286,14 +286,14 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <name>sortable</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <type>boolean</type>
+        <!--<type>boolean</type>-->
         <description>Set to 'true' to make the column sortable. Defaults to 'false'.</description>
     </attribute>
     <attribute>
       <name>autolink</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <type>boolean</type>
+        <!--<type>boolean</type>-->
         <description>Automatically hyperlink URLs and email addresses that appear in the column. Defaults to 'false'.</description>
     </attribute>
     <attribute>
@@ -494,7 +494,7 @@ back of the container.  Best left undoc'd and experimental for now; should just 
       <name>value</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
-        <type>java.lang.String</type>
+        <!--<type>java.lang.String</type>-->
         <description>The value to which the property is set. You can also set the property value in the 
           tag body.</description>
     </attribute>
