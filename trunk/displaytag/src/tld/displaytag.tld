@@ -171,11 +171,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
     <attribute>
-      <name>value</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-    </attribute>
-    <attribute>
       <name>title</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -319,14 +314,6 @@
       <rtexprvalue>true</rtexprvalue>
     </attribute>
   </tag>
-
-
-
-
-
-
-
-
 
 </taglib>
 

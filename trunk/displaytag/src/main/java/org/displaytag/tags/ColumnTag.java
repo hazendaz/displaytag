@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.ColumnDecorator;
 import org.displaytag.decorator.DecoratorFactory;
+import org.displaytag.exception.MissingAttributeException;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.model.Cell;
 import org.displaytag.model.HeaderCell;
@@ -39,47 +40,47 @@ public class ColumnTag extends BodyTagSupport
     /**
      * Field mStaticContent
      */
-    private String mStaticContent;
+    private String staticContent;
 
     /**
      * html pass-through attributes for cells
      */
-    private HtmlAttributeMap mAttributeMap = new HtmlAttributeMap();
+    private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
     /**
      * html pass-through attributes for cell headers
      */
-    private HtmlAttributeMap mHeaderAttributeMap = new HtmlAttributeMap();
+    private HtmlAttributeMap headerAttributeMap = new HtmlAttributeMap();
 
     /**
      * the property method that is called to retrieve the information to be displayed in this column.
      * This method is called on the current object in the iteration for the given row.
      * The property format is in typical struts format for properties (required)
      */
-    private String mProperty;
+    private String property;
 
     /**
      * the title displayed for this column.  if this is omitted then the property name is used
      * for the title of the column (optional)
      */
-    private String mTitle;
+    private String title;
 
     /**
      * by default, null values don't appear in the list, by setting viewNulls to 'true', then
      * null values will appear as "null" in the list (mostly useful for debugging) (optional)
      */
-    private boolean mNulls;
+    private boolean nulls;
 
     /**
      * Field mSortable
      */
-    private boolean mSortable;
+    private boolean sortable;
 
     /**
      * if set to true, then any email addresses and URLs found in the content of the column are
      * automatically converted into a hypertext link.
      */
-    private boolean mAutolink;
+    private boolean autolink;
 
     /**
      * the grouping level (starting at 1 and incrementing) of this column (indicates if successive
@@ -87,7 +88,7 @@ public class ColumnTag extends BodyTagSupport
      * lower level no longer matches, then the matching for this higher level should start over as
      * well. If this attribute is not included, then no grouping is performed. (optional)
      */
-    private int mGroup = -1;
+    private int group = -1;
 
     /**
      * if this attribute is provided, then the data that is shown for this column is wrapped inside
@@ -95,14 +96,14 @@ public class ColumnTag extends BodyTagSupport
      * this attribute along with one of the struts-like param attributes below to create a dynamic
      * link so that each row creates a different URL based on the data that is being viewed. (optional)
      */
-    private Href mHref;
+    private Href href;
 
     /**
      * The name of the request parameter that will be dynamically added to the generated href URL.
      * The corresponding value is defined by the paramProperty and (optional) paramName attributes,
      * optionally scoped by the paramScope attribute. (optional)
      */
-    private String mParamId;
+    private String paramId;
 
     /**
      * The name of a JSP bean that is a String containing the value for the request parameter named
@@ -111,7 +112,7 @@ public class ColumnTag extends BodyTagSupport
      * scope specified by the paramScope property, if it is specified. If paramName is omitted, then
      * it is assumed that the current object being iterated on is the target bean. (optional)
      */
-    private String mParamName;
+    private String paramName;
 
     /**
      * The name of a property of the bean specified by the paramName attribute (or the current object
@@ -120,7 +121,7 @@ public class ColumnTag extends BodyTagSupport
      * added to this href URL. (optional)
      * @deprecated use Expressions in paramName
      */
-    private String mParamProperty;
+    private String paramProperty;
 
     /**
      * The scope within which to search for the bean specified by the paramName attribute. If not
@@ -128,41 +129,42 @@ public class ColumnTag extends BodyTagSupport
      * being iterated on is assumed to be the target bean. (optional)
      * @deprecated use Expressions in paramName
      */
-    private String mParamScope;
+    private String paramScope;
 
     /**
      * If this attribute is provided, then the column's displayed is limited to this number of
      * characters.  An elipse (...) is appended to the end if this column is linked, and the user
      * can mouseover the elipse to get the full text. (optional)
      */
-    private int mMaxLength;
+    private int maxLength;
 
     /**
      * If this attribute is provided, then the column's displayed is limited to this number of words.
      * An elipse (...) is appended to the end if this column is linked, and the user can mouseover
      * the elipse to get the full text. (optional)
      */
-    private int mMaxWords;
+    private int maxWords;
 
     /**
      * Field mHeaderClazz
      */
-    private String mHeaderClazz;
+    private String headerClazz;
 
     /**
-     * static value if no property attribute is provided
-     */
-    private Object mValue;
-
-    /** a class that should be used to "decorate" the underlying object being displayed. If a decorator
+     * a class that should be used to "decorate" the underlying object being displayed. If a decorator
      * is specified for the entire table, then this decorator will decorate that decorator. (optional)
      */
-    private String mDecorator;
+    private String decorator;
 
     /**
      * Field mDecoratorObject
      */
-    private ColumnDecorator mDecoratorObject;
+    private ColumnDecorator decoratorObject;
+
+    /**
+     * Field mAlreadySorted
+     */
+    private boolean alreadySorted = false;
 
     /**
      * Method getStaticContent
@@ -171,291 +173,282 @@ public class ColumnTag extends BodyTagSupport
     public String getStaticContent()
     {
 
-        return mStaticContent;
+        return staticContent;
     }
 
     /**
      * Method setProperty
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setProperty(String pAttributeValue)
+    public void setProperty(String value)
     {
-        mProperty = pAttributeValue;
+        property = value;
     }
 
     /**
      * Method setTitle
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setTitle(String pAttributeValue)
+    public void setTitle(String value)
     {
-        mTitle = pAttributeValue;
+        title = value;
     }
 
     /**
      * Method setNulls
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setNulls(String pAttributeValue)
+    public void setNulls(String value)
     {
-        if (!Boolean.FALSE.toString().equals(pAttributeValue))
+        if (!Boolean.FALSE.toString().equals(value))
         {
-            mNulls = true;
+            nulls = true;
         }
 
     }
 
     /**
      * Method setSortable
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setSortable(String pAttributeValue)
+    public void setSortable(String value)
     {
-        if (!Boolean.FALSE.toString().equals(pAttributeValue))
+        if (!Boolean.FALSE.toString().equals(value))
         {
-            mSortable = true;
+            sortable = true;
         }
     }
 
     /**
      *
      * @deprecated use setSortable()
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setSort(String pAttributeValue)
+    public void setSort(String value)
     {
-        setSortable(pAttributeValue);
+        setSortable(value);
     }
 
     /**
      * Method setAutolink
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setAutolink(String pAttributeValue)
+    public void setAutolink(String value)
     {
-        if (!"false".equals(pAttributeValue))
+        if (!"false".equals(value))
         {
-            mAutolink = true;
+            autolink = true;
         }
     }
 
     /**
      * Method setGroup
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setGroup(String pAttributeValue)
+    public void setGroup(String value)
     {
         try
         {
-            mGroup = Integer.parseInt(pAttributeValue);
+            group = Integer.parseInt(value);
         }
         catch (NumberFormatException e)
         {
             // ignore?
-            mLog.warn("Invalid \"group\" attribute: value=\"" + pAttributeValue + "\"");
+            mLog.warn("Invalid \"group\" attribute: value=\"" + value + "\"");
         }
     }
 
     /**
      * Method setHref
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setHref(String pAttributeValue)
+    public void setHref(String value)
     {
-        mHref = new Href(pAttributeValue);
+        href = new Href(value);
     }
 
     /**
      * Method setParamId
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setParamId(String pAttributeValue)
+    public void setParamId(String value)
     {
-        mParamId = pAttributeValue;
+        paramId = value;
     }
 
     /**
      * Method setParamName
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setParamName(String pAttributeValue)
+    public void setParamName(String value)
     {
-        mParamName = pAttributeValue;
+        paramName = value;
     }
 
     /**
      * Method setParamProperty
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setParamProperty(String pAttributeValue)
+    public void setParamProperty(String value)
     {
-        mParamProperty = pAttributeValue;
+        paramProperty = value;
     }
 
     /**
      * Method setParamScope
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setParamScope(String pAttributeValue)
+    public void setParamScope(String value)
     {
-        mParamScope = pAttributeValue;
+        paramScope = value;
     }
 
     /**
      * Method setMaxLength
-     * @param pAttributeValue int
+     * @param value int
      */
-    public void setMaxLength(int pAttributeValue)
+    public void setMaxLength(int value)
     {
-        mMaxLength = pAttributeValue;
+        maxLength = value;
     }
 
     /**
      * Method setMaxWords
-     * @param pAttributeValue int
+     * @param value int
      */
-    public void setMaxWords(int pAttributeValue)
+    public void setMaxWords(int value)
     {
-        mMaxWords = pAttributeValue;
+        maxWords = value;
     }
 
     /**
      * Method setWidth
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setWidth(String pAttributeValue)
+    public void setWidth(String value)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, pAttributeValue);
-        mHeaderAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, pAttributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
+        headerAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
     }
 
     /**
      * Method setAlign
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setAlign(String pAttributeValue)
+    public void setAlign(String value)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, pAttributeValue);
-        mHeaderAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, pAttributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
+        headerAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
     }
 
     /**
      * Method setBackground
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setBackground(String pAttributeValue)
+    public void setBackground(String value)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, pAttributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, value);
     }
 
     /**
      * Method setBgcolor
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setBgcolor(String pAttributeValue)
+    public void setBgcolor(String value)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, pAttributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, value);
     }
 
     /**
      * Method setHeight
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setHeight(String pAttributeValue)
+    public void setHeight(String value)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, pAttributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, value);
     }
 
     /**
      * Method setNowrap
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setNowrap(String pAttributeValue)
+    public void setNowrap(String value)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_NOWRAP, pAttributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_NOWRAP, value);
     }
 
     /**
      * Method setValign
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setValign(String pAttributeValue)
+    public void setValign(String value)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_VALIGN, pAttributeValue);
+        attributeMap.put(TagConstants.ATTRIBUTE_VALIGN, value);
     }
 
     /**
      *
      * @deprecated use setClass()
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setStyleClass(String pAttributeValue)
+    public void setStyleClass(String value)
     {
-        setClass(pAttributeValue);
+        setClass(value);
     }
 
     /**
      * Method setClass
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setClass(String pAttributeValue)
+    public void setClass(String value)
     {
-        mAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(pAttributeValue));
+        attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
     }
 
     /**
      * Method addClass
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void addClass(String pAttributeValue)
+    public void addClass(String value)
     {
-        Object lClassAttributes = mAttributeMap.get(TagConstants.ATTRIBUTE_CLASS);
+        Object lClassAttributes = attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
 
         if (lClassAttributes == null)
         {
-            mAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(pAttributeValue));
+            attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
         }
         else
         {
-            ((MultipleHtmlAttribute) lClassAttributes).addAttributeValue(pAttributeValue);
+            ((MultipleHtmlAttribute) lClassAttributes).addAttributeValue(value);
         }
     }
 
     /**
      * Method setHeaderClass
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setHeaderClass(String pAttributeValue)
+    public void setHeaderClass(String value)
     {
-        mHeaderAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(pAttributeValue));
+        headerAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
     }
 
     /**
      *
      * @deprecated use setHeaderClass()
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setHeaderStyleClass(String pAttributeValue)
+    public void setHeaderStyleClass(String value)
     {
-        setHeaderClass(pAttributeValue);
-    }
-
-    /**
-     * Method setValue
-     * @param pAttributeValue Object
-     */
-    public void setValue(Object pAttributeValue)
-    {
-        mValue = pAttributeValue;
+        setHeaderClass(value);
     }
 
     /**
      * Method setDecorator
-     * @param pAttributeValue String
+     * @param value String
      */
-    public void setDecorator(String pAttributeValue)
+    public void setDecorator(String value)
     {
-        mDecorator = pAttributeValue;
+        decorator = value;
     }
 
     /**
@@ -464,7 +457,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public ColumnDecorator getDecoratorObject()
     {
-        return mDecoratorObject;
+        return decoratorObject;
     }
 
     /**
@@ -473,7 +466,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setDecoratorObject(ColumnDecorator pDecorator)
     {
-        mDecoratorObject = pDecorator;
+        decoratorObject = pDecorator;
     }
 
     /**
@@ -482,7 +475,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public String getProperty()
     {
-        return mProperty;
+        return property;
     }
 
     /**
@@ -491,7 +484,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public String getTitle()
     {
-        return mTitle;
+        return title;
     }
 
     /**
@@ -500,7 +493,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public boolean getShowNulls()
     {
-        return mNulls;
+        return nulls;
     }
 
     /**
@@ -509,7 +502,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public boolean getAutolink()
     {
-        return mAutolink;
+        return autolink;
     }
 
     /**
@@ -518,7 +511,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public Href getHref()
     {
-        return mHref;
+        return href;
     }
 
     /**
@@ -527,7 +520,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public String getParamId()
     {
-        return mParamId;
+        return paramId;
     }
 
     /**
@@ -536,7 +529,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public String getParamName()
     {
-        return mParamName;
+        return paramName;
     }
 
     /**
@@ -545,7 +538,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public String getParamProperty()
     {
-        return mParamProperty;
+        return paramProperty;
     }
 
     /**
@@ -554,7 +547,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public String getParamScope()
     {
-        return mParamScope;
+        return paramScope;
     }
 
     /**
@@ -563,7 +556,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public int getMaxLength()
     {
-        return mMaxLength;
+        return maxLength;
     }
 
     /**
@@ -572,7 +565,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public int getMaxWords()
     {
-        return mMaxWords;
+        return maxWords;
     }
 
     /**
@@ -581,16 +574,24 @@ public class ColumnTag extends BodyTagSupport
      */
     public String getHeaderStyleClass()
     {
-        return mHeaderClazz;
+        return headerClazz;
     }
 
     /**
-     * Method getValue
-     * @return Object
+     * Method isAlreadySorted
+     * @return boolean
      */
-    public Object getValue()
+    public boolean isAlreadySorted()
     {
-        return mValue;
+        return alreadySorted;
+    }
+
+    /**
+     * Method setAlreadySorted
+     */
+    public void setAlreadySorted()
+    {
+        alreadySorted = true;
     }
 
     /**
@@ -599,7 +600,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public String getDecoratorClassName()
     {
-        return mDecorator;
+        return decorator;
     }
 
     /**
@@ -632,41 +633,41 @@ public class ColumnTag extends BodyTagSupport
         {
 
             HeaderCell lHeaderCell = new HeaderCell();
-            lHeaderCell.setHeaderAttributes((HtmlAttributeMap) mHeaderAttributeMap.clone());
-            lHeaderCell.setHtmlAttributes((HtmlAttributeMap) mAttributeMap.clone());
-            lHeaderCell.setTitle(mTitle);
-            lHeaderCell.setSortable(mSortable);
-            lHeaderCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(mDecorator));
-            lHeaderCell.setBeanPropertyName(mProperty);
-            lHeaderCell.setShowNulls(mNulls);
-            lHeaderCell.setMaxLength(mMaxLength);
-            lHeaderCell.setMaxWords(mMaxWords);
-            lHeaderCell.setAutoLink(mAutolink);
-            lHeaderCell.setGroup(mGroup);
+            lHeaderCell.setHeaderAttributes((HtmlAttributeMap) headerAttributeMap.clone());
+            lHeaderCell.setHtmlAttributes((HtmlAttributeMap) attributeMap.clone());
+            lHeaderCell.setTitle(title);
+            lHeaderCell.setSortable(sortable);
+            lHeaderCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(decorator));
+            lHeaderCell.setBeanPropertyName(property);
+            lHeaderCell.setShowNulls(nulls);
+            lHeaderCell.setMaxLength(maxLength);
+            lHeaderCell.setMaxWords(maxWords);
+            lHeaderCell.setAutoLink(autolink);
+            lHeaderCell.setGroup(group);
 
             // href and parameter, create link
-            if (mHref != null && mParamId != null)
+            if (href != null && paramId != null)
             {
 
-                Href lColHref = new Href(mHref);
+                Href lColHref = new Href(href);
 
                 // parameter value is in a different object than the iterated one
-                if (mParamName != null || mParamScope != null)
+                if (paramName != null || paramScope != null)
                 {
                     // create a complete string for compatibility with previous version before expression evaluation.
                     // this approach is optimized for new expressions, not for previous property/scope parameters
                     StringBuffer lExpression = new StringBuffer();
 
                     // append scope
-                    if (mParamScope != null && !"".equals(mParamScope))
+                    if (paramScope != null && !"".equals(paramScope))
                     {
-                        lExpression.append(mParamScope).append("Scope.");
+                        lExpression.append(paramScope).append("Scope.");
                     }
 
                     // base bean name
-                    if (mParamId != null)
+                    if (paramId != null)
                     {
-                        lExpression.append(mParamName);
+                        lExpression.append(paramName);
                     }
                     else
                     {
@@ -674,9 +675,9 @@ public class ColumnTag extends BodyTagSupport
                     }
 
                     // append property
-                    if (mParamProperty != null && !"".equals(mParamProperty))
+                    if (paramProperty != null && !"".equals(paramProperty))
                     {
-                        lExpression.append('.').append(mProperty);
+                        lExpression.append('.').append(property);
                     }
 
                     // evaluate expression.
@@ -685,7 +686,7 @@ public class ColumnTag extends BodyTagSupport
                     Object lParamValue = lTableTag.evaluateExpression(lExpression.toString());
 
                     // add parameter
-                    lColHref.addParameter(mParamId, lParamValue);
+                    lColHref.addParameter(paramId, lParamValue);
                 }
                 else
                 {
@@ -693,10 +694,10 @@ public class ColumnTag extends BodyTagSupport
                     // work when only a part of the list is displayed
 
                     // set id
-                    lHeaderCell.setParamName(mParamId);
+                    lHeaderCell.setParamName(paramId);
 
                     // set property
-                    lHeaderCell.setParamProperty(mParamProperty);
+                    lHeaderCell.setParamProperty(paramProperty);
 
                 }
 
@@ -711,16 +712,12 @@ public class ColumnTag extends BodyTagSupport
 
         Cell lCell;
 
-        if (mProperty == null)
+        if (property == null)
         {
 
             Object lCellValue;
 
-            if (mValue != null)
-            {
-                lCellValue = mValue;
-            }
-            else if (getBodyContent() != null)
+            if (getBodyContent() != null)
             {
                 String lValue = null;
                 BodyContent lBodyContent = getBodyContent();
@@ -729,7 +726,7 @@ public class ColumnTag extends BodyTagSupport
                     lValue = lBodyContent.getString();
                 }
 
-                if (lValue == null && mNulls)
+                if (lValue == null && nulls)
                 {
                     lValue = "";
                 }
@@ -738,8 +735,9 @@ public class ColumnTag extends BodyTagSupport
             }
             else
             {
-                mLog.error("Column tag: you must specify a property or value attribute, or a body");
-                throw new JspException("Column tag: you must specify a property or value attribute, or a body");
+                throw new MissingAttributeException(
+                    getClass(),
+                    new String[] { "property attribute", "value attribute", "tag body" });
             }
             lCell = new Cell(lCellValue);
 
@@ -751,10 +749,10 @@ public class ColumnTag extends BodyTagSupport
 
         lTableTag.addCell(lCell);
 
-        mAttributeMap.clear();
-        mHeaderAttributeMap.clear();
-        mStaticContent = null;
-        mParamName = null;
+        attributeMap.clear();
+        headerAttributeMap.clear();
+        staticContent = null;
+        paramName = null;
 
         return super.doEndTag();
     }
@@ -772,7 +770,7 @@ public class ColumnTag extends BodyTagSupport
      **/
     public String toString()
     {
-        return "ColumnTag(" + mTitle + "," + mProperty + "," + mHref + ")";
+        return "ColumnTag(" + title + "," + property + "," + href + ")";
     }
 
     /**
@@ -781,53 +779,15 @@ public class ColumnTag extends BodyTagSupport
      */
     public void release()
     {
-
         super.release();
     }
 
     /**
-     * Field mColumnNumber
+     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
-    private int mColumnNumber;
-
-    /**
-     * Method setColumnNumber
-     * @param pColumnNumber int
-     */
-    public void setColumnNumber(int pColumnNumber)
+    public int doStartTag() throws JspException
     {
-        mColumnNumber = pColumnNumber;
-    }
-
-    /**
-     * Method getColumnNumber
-     * @return int
-     */
-    public int getColumnNumber()
-    {
-        return mColumnNumber;
-    }
-
-    /**
-     * Field mAlreadySorted
-     */
-    private boolean mAlreadySorted = false;
-
-    /**
-     * Method isAlreadySorted
-     * @return boolean
-     */
-    public boolean isAlreadySorted()
-    {
-        return mAlreadySorted;
-    }
-
-    /**
-     * Method setAlreadySorted
-     */
-    public void setAlreadySorted()
-    {
-        mAlreadySorted = true;
+        return super.doStartTag();
     }
 
 }
