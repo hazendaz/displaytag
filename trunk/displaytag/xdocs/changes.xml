@@ -56,7 +56,12 @@
       <action type="add" dev="fgiust" issue="887787">
 	      Added the "style" attribute to column tag.
       </action>
-     
+      <action type="fix" dev="rapruitt" issue="860387">
+          Export filter was not preserving the locale setting.
+      </action>
+      <action type="fix" dev="rapruitt" issue="886495">
+	      Export filter failed under Weblogic; fixed.
+      </action>
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">

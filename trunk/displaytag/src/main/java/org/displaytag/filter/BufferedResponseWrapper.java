@@ -2,13 +2,18 @@ package org.displaytag.filter;
 
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import javax.servlet.ServletOutputStream;
 
 /**
  * Buffers the response; will not send anything directly through to the actual response. Note that this blocks the
- * content-type from being set, you must set it manually in the response.
+ * content-type from being set, you must set it manually in the response. For a given response, you should call
+ * either #getWriter or #getOutputStream , but not both.
+ *
  * @author rapruitt
  * @version $Revision$ ($Author$)
  * @since 1.0
@@ -18,7 +23,11 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper
     /**
      * The buffered response.
      */
-    private CharArrayWriter output;
+    private CharArrayWriter outputWriter;
+    /**
+     * The outputWriter stream.
+     */
+    private SimpleServletOutputStream servletOutputStream;
 
     /**
      * The contentType.
@@ -31,23 +40,24 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper
     public BufferedResponseWrapper(HttpServletResponse response)
     {
         super(response);
-        this.output = new CharArrayWriter();
+        this.outputWriter = new CharArrayWriter();
+        this.servletOutputStream = new SimpleServletOutputStream();
     }
-    
+
     /**
      * Get the String representation.
      * @return the contents of the response
      */
     public String toString()
     {
-        return this.output.toString();
+        return this.outputWriter.toString() + this.servletOutputStream.toString();
     }
 
     /**
-    * If the app server sets the content-type of the response, it is sticky and you will not be able to change it.
-    * Therefore it is intercepted here.
+     * If the app server sets the content-type of the response, it is sticky and you will not be able to change it.
+     * Therefore it is intercepted here.
      * @return the ContentType that was most recently set
-    */
+     */
     public String getContentType()
     {
         return this.contentType;
@@ -64,17 +74,57 @@ public class BufferedResponseWrapper extends HttpServletResponseWrapper
     }
 
     /**
+     * Get the associated writer.
      * @return the associated print writer
      */
     public PrintWriter getWriter()
     {
-        return new PrintWriter(this.output);
+         return new PrintWriter(this.outputWriter);
     }
+
     /**
      * Flush the buffer, not the response.
+     * @throws IOException if encountered when flushing 
      */
-    public void flushBuffer()
+    public void flushBuffer() throws IOException
     {
-        this.output.flush();
+        this.outputWriter.flush();
+        this.servletOutputStream.outputStream.reset();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public ServletOutputStream getOutputStream() throws IOException
+        {
+            return this.servletOutputStream;
+        }
+
+    /**
+     * A simple implementation of ServletOutputStream.
+     */
+    private class SimpleServletOutputStream extends ServletOutputStream
+    {
+        /**
+         * My outputWriter stream, a buffer.
+         */
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        /**
+         * {@inheritDoc}
+         */
+        public void write(int b)
+        {
+            this.outputStream.write(b);
+        }
+
+        /**
+         * Get the contents of the outputStream.
+         * @return contents of the outputStream
+         */
+        public String toString()
+        {
+            return this.outputStream.toString();
+        }
     }
 }

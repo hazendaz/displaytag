@@ -89,14 +89,24 @@ public class ResponseOverrideFilter implements Filter
         String pageContent;
         String contentType;
         StringBuffer buf = (StringBuffer) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+        String characterEncoding = resp.getCharacterEncoding();
+        if (characterEncoding != null)
+        {
+            characterEncoding = "; charset=" + characterEncoding;
+        }
+        else
+        {
+            characterEncoding = "";
+        }
         if (buf != null && buf.length() > 0)
         {
             pageContent = buf.toString();
             contentType = "" + request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_TYPE);
             log.debug("Overriding output, writing new output with content type " + contentType);
 
-            String filename = (String) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_FILENAME);
-            if (StringUtils.isNotEmpty(filename))
+            StringBuffer filename = (StringBuffer) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_FILENAME);
+            if (filename != null && StringUtils.isNotEmpty(filename.toString()))
             {
                 log.debug("Filename specified as " + filename);
                 HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
@@ -109,9 +119,7 @@ public class ResponseOverrideFilter implements Filter
             pageContent = wrapper.toString();
             contentType = wrapper.getContentType();
         }
-
-
-        servletResponse.setContentType(contentType);
+        servletResponse.setContentType(contentType + characterEncoding);
         servletResponse.setContentLength(pageContent.length());
 
 
