@@ -25,8 +25,7 @@
 
 <p>
 	See the TableDecorator.finishRow() API documentation, along with the example
-	decorator that is used in this example page.  The source for the decorator for
-	this page is <a href="./TotalWrapper.java.txt">here</a>.
+	decorator that is used in this example page.
 </p>
 
 
