@@ -12,61 +12,21 @@
 	</goal>
 
 
-    <goal name="doc-tagreference">
-        <echo message="creating tag reference doc from tld" />
-        <!-- Major hack - set jaxp properties as they are foobared -->
-        ${systemScope.setProperty('javax.xml.transform.TransformerFactory','org.apache.xalan.processor.TransformerFactoryImpl')}
-
-        <xslt style="${maven.src.dir}/xslt/format-tld.xslt"
-            in="${maven.src.dir}/tld/displaytag-12.tld"
-            out="${maven.gen.docs}/tagreference.xml" >
-            <xmlcatalog>
-                <dtd 
-                    publicId="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
-                    location="${maven.src.dir}/xslt/web-jsptaglibrary_1_2.dtd"/>
-                <dtd 
-                    publicId="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
-                    location="${maven.src.dir}/xslt/web-jsptaglibrary_1_1.dtd"/>
-            </xmlcatalog>    
-        </xslt>
-    </goal>
-
-
-    <goal name="convert-dtd">
-        <echo message="creating jsp 1.1 version of the tld" />
-        <!-- Major hack - set jaxp properties as they are foobared -->
-
-        ${systemScope.setProperty('javax.xml.transform.TransformerFactory','org.apache.xalan.processor.TransformerFactoryImpl')}
-        <xslt style="${maven.src.dir}/xslt/convert-tld.xslt"
-            in="${maven.src.dir}/tld/displaytag-12.tld"
-            out="${maven.build.dir}/tld/displaytag-11.tld">
-            
-            <xmlcatalog>
-                <dtd 
-                    publicId="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
-                    location="${maven.src.dir}/xslt/web-jsptaglibrary_1_2.dtd"/>
-                <dtd 
-                    publicId="-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
-                    location="${maven.src.dir}/xslt/web-jsptaglibrary_1_1.dtd"/>
-            </xmlcatalog>  
-        </xslt>
-            
-        <copy file="${maven.src.dir}/tld/displaytag-12.tld"
-            tofile="${maven.build.dir}/tld/displaytag-12.tld" />
-    </goal>
-
-
     <preGoal name="xdoc:jelly-transform">
 		<!-- preprocess faq.fml -->
         <attainGoal name="faq" />
 		<!-- create tag reference -->
-        <attainGoal name="doc-tagreference" />
+        <attainGoal name="taglib:tagreference" />
 	</preGoal>
 
 
 	<postGoal name="java:jar-resources">
-		<!-- create 1.1 dtd -->
-        <attainGoal name="convert-dtd" />
+		    <!-- create 1.1 dtd -->
+        <attainGoal name="taglib:convert-12to11" />
+        
+        <!-- copy 1.2 tld -->
+        <copy file="${maven.src.dir}/tld/displaytag-12.tld"
+            tofile="${maven.build.dir}/tld/displaytag-12.tld" />
 	
 	    <!-- add tld to taglib jar -->
         <echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to file ${maven.build.dest}/META-INF/displaytag.tld" />
