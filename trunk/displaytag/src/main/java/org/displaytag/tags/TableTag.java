@@ -26,8 +26,8 @@ import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.export.BaseExportView;
-import org.displaytag.export.MediaTypeEnum;
 import org.displaytag.export.ExportViewFactory;
+import org.displaytag.export.MediaTypeEnum;
 import org.displaytag.model.Cell;
 import org.displaytag.model.Column;
 import org.displaytag.model.ColumnIterator;
@@ -1301,7 +1301,7 @@ public class TableTag extends HtmlTableTag
 
         // Ok, start bouncing through our list...
         RowIterator rowIterator = this.tableModel.getRowIterator();
-        
+
         // iterator on rows
         while (rowIterator.hasNext())
         {
@@ -1379,7 +1379,7 @@ public class TableTag extends HtmlTableTag
         {
             buffer.append(
                 "<tr class=\"empty\"><td colspan=\""
-                    + (this.tableModel.getNumberOfColumns() + 1)
+                    + (this.tableModel.getNumberOfColumns())
                     + "\">"
                     + this.properties.getEmptyListMessage()
                     + "</td></tr>");

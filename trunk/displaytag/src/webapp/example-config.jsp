@@ -1,8 +1,7 @@
 <%@ include file="inc/header.jsp" %>
 
 
-<% request.setAttribute( "test", new TestList(10, false) );
-   request.setAttribute( "empty", new ArrayList() ); %>
+<% request.setAttribute( "test", new TestList(10, false) ); %>
 <% request.setAttribute( "test2", new ArrayList() ); %>
 <% Object foo = session.getAttribute( "test3" );
    if( foo == null ) {
@@ -60,18 +59,24 @@
 <p>
 	Using <code>basic.empty.showtable=false</code>
 </p>
+
 <display:table name="requestScope.empty">
-	  <display:column property="column" title="column" />
+	<display:column property="column" title="column1" />
+	<display:column property="column" title="column2" />
+	<display:column property="column" title="column3" />
 </display:table>
 
-<br/>
-<br/>
 <p>
 	Using <code>basic.empty.showtable=true</code>
 </p>
+
+
 <display:table name="requestScope.empty">
-	<display:column property="column" title="column" />
+	<display:column property="column" title="column1" />
+	<display:column property="column" title="column2" />
+	<display:column property="column" title="column3" />
 	<display:setProperty name="basic.empty.showtable" value="true" />
 </display:table>
+
 
 <%@ include file="inc/footer.jsp" %>
