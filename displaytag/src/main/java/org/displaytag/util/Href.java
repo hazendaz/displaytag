@@ -218,7 +218,7 @@ public class Href
             Object key = entry.getKey();
             Object value = entry.getValue();
 
-            if (value.getClass().isArray())
+            if (value != null && value.getClass().isArray())
             {
                 String[] values = (String[]) value;
                 for (int i = 0; i < values.length; i++)
