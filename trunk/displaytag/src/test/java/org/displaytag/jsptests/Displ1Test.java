@@ -48,7 +48,6 @@ public class Displ1Test extends DisplaytagCase
         assertEquals("Expected 1 table in result.", 1, tables.length);
         assertEquals("Wrong title in column", "averylongemail@mail.com", tables[0].getTableCell(1, 0).getTitle());
 
-        log.debug(response.getText());
         WebLink[] links = tables[0].getTableCell(1, 0).getLinks();
         assertEquals("Expected link not found", 1, links.length);
         assertEquals("Wrong text in link", "averylongemail@...", links[0].getText());

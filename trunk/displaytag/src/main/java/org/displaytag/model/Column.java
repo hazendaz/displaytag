@@ -2,6 +2,7 @@ package org.displaytag.model;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.displaytag.decorator.AutolinkColumnDecorator;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
@@ -10,7 +11,6 @@ import org.displaytag.util.CompatibleUrlEncoder;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
-import org.displaytag.util.LinkUtil;
 import org.displaytag.util.LookupUtil;
 import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
@@ -149,17 +149,17 @@ public class Column
         // are we supposed to set up a link to the data being displayed in this column?
         if (this.header.getAutoLink())
         {
-            fullValue = LinkUtil.autoLink(fullValue);
+            fullValue = AutolinkColumnDecorator.INSTANCE.decorate(fullValue);
         }
 
         // trim the string if a maxLength or maxWords is defined
         if (this.header.getMaxLength() > 0)
         {
-            choppedValue = LinkUtil.abbreviateHtmlString(fullValue, this.header.getMaxLength(), false);
+            choppedValue = HtmlTagUtil.abbreviateHtmlString(fullValue, this.header.getMaxLength(), false);
         }
         else if (this.header.getMaxWords() > 0)
         {
-            choppedValue = LinkUtil.abbreviateHtmlString(fullValue, this.header.getMaxWords(), true);
+            choppedValue = HtmlTagUtil.abbreviateHtmlString(fullValue, this.header.getMaxWords(), true);
         }
         else
         {
@@ -172,7 +172,7 @@ public class Column
             // clone the attribute map, don't want to add title to all the columns
             this.htmlAttributes = (HtmlAttributeMap) this.htmlAttributes.clone();
             // add title
-            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, LinkUtil.stripHTMLTags(fullValue));
+            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, HtmlTagUtil.stripHTMLTags(fullValue));
         }
 
         if (this.header.getHref() != null)

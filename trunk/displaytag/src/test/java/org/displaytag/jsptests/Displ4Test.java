@@ -43,7 +43,6 @@ public class Displ4Test extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(jspName);
         WebResponse response = runner.getResponse(request);
 
-        log.debug(response.getText());
         WebTable[] tables = response.getTables();
         assertEquals("Expected 1 table in result.", 1, tables.length);
         assertEquals("Wrong title in column", "\"the link\" is here", tables[0].getTableCell(1, 0).getTitle());
