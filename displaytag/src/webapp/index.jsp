@@ -2,7 +2,7 @@
 <h2>Examples</h2>
 
 <p>
-	The following examples all show the functionality of the table/column tags.  These
+	The following examples show the functionality of the table/column tags.  These
 	example pages also allow you to view the JSP source, so you can see how you
 	might interface with the tag in your own application.
 </p>
@@ -25,7 +25,7 @@
 	<li><a href="example-config.jsp">Config, overriding default behaviors/messages</a></li>
 	<li><a href="example-misc.jsp">Misc, odds and ends</a></li>	
 	<li><a href="example-pse.jsp"><strong>New</strong>, paging + sorting + grouping + exporting working together</a></li>
-	<li><a href="example-twotables.jsp"><strong>New</strong>, 2 or more table working in the same page with indipendent sorting - paging</a></li>
+	<li><a href="example-twotables.jsp"><strong>New</strong>, 2 or more tables working in the same page with independent sorting - paging</a></li>
 	<li><a href="example-nestedtables.jsp"><strong>New</strong>, nested tables</a></li>
 	
 	
