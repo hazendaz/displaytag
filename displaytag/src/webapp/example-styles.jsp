@@ -13,7 +13,7 @@
 %>
 
 
-<h2><a href="./index.jsp">Examples</a> > Basic, columns - different styles</h2>
+<h2><a href="./index.jsp">Examples</a> > Styles</h2>
 
 <ul id="stylelist">
 	<li><a href="example-styles.jsp?class=isis">ISIS</a></li>
@@ -55,15 +55,6 @@
 </p>
 
 <p>
-	Starting from version 0.9 of the &lt;display:table&gt; there all html attributes
-	can be explicitly configured. Why?  So you can totally control the display of your table
-	and you can do that, as we hope, by exclusively using css.  Thereby avoiding deprecated html 
-	presentation attributes.  Did you notice this website was written strictly using xhtml?
-</p>
-
-
-
-<p>
 	Likewise, you can assign to the &lt;display:column&gt; tag any standard html attribute 
 	and it will be included in any &lt;td&gt; tag of the rendered table.
 	You can also specify a class to be used only for the column header (&lt;th&gt;) adding a 
@@ -94,18 +85,6 @@
 	shown according to your styles.
 </p>
 
-<p>
-	Beginning with version 0.9 the &lt;display:table&gt; tag, the tag will produce
-	well formed html tables with 	&lt;thead&gt; and &lt;tbody&gt; sections. 
-	This renders useless the definition of few styles
-	used in previous versions. See the @deprecated paragraph at the bottom of the page for details
-</p>
-
-<p>
- 	New styles are added for sorted columns and pagination display 
-	is handled by properties.
-</p>
-
 <table>
 	<thead>
 		<tr>
@@ -133,78 +112,6 @@
 		<tr>
 			<td>order2</td>
 			<td>assigned to the th tag of the sorted column if sort order is descending</td>
-		</tr>
-	</tbody>
-</table>
-
-<h3>Old Styles @deprecated</h3>
-
-<p>
- 	These css classes were applied in previous version of the &lt;display:*&gt; tag library. See the "now use"
-	column for direction on how migrate your css to the new version (a quick task which will also improve the
-	quality -and lower the weight- of your html output)
-</p>
-
-<table>
-	<thead>
-		<tr>
-			<th>class</th>
-			<th>was</th>
-			<th>now use</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>table</td>
-			<td>assigned to the main table tag</td>
-			<td>on class is assigned by default. You can add your own adding a "class" attribute to the &lt;display:table&gt; tag</td>
-		</tr>
-		<tr>
-			<td>tableRowAction</td>
-			<td>assigned to the tr tag of the action row (paging, export, etc...)</td>
-			<td>You can totally customize the html generated using properties, no css class is added by default</td>
-		</tr>
-		<tr>
-			<td>tableRowHeader</td>
-			<td>assigned to the tr tag of the header row</td>
-			<td>
-				Assign a style to <code>thead tr</code> element, you don't need a class. 
-				If you want this style to be applied only to the &lt;display:table&gt; simply add a class or id
-				to the table tag and create a children rule in css like <code>table.myclass thead tr {color:red;}</code>
-			</td>
-		</tr>
-		<tr>
-			<td>tableRowOdd</td>
-			<td>assigned to the tr tag of all odd numbered data rows</td>
-			<td>the name of the class is now simply "odd"</td>
-		</tr>
-		<tr>
-			<td>tableRowEven</td>
-			<td>assigned to the tr tag of all even numbered data rows</td>
-			<td>the name of the class is now simply "even"</td>
-		</tr>
-		<tr>
-			<td>tableCellAction</td>
-			<td>assigned to the td tag of all actions cells (paging, export, etc...)</td>
-			<td>You can totally customize the html generated using properties, no css class is added by default</td>
-		</tr>
-		<tr>
-			<td>tableCellHeader</td>
-			<td>assigned to the td tag of all header cells</td>
-			<td>
-				Assign a style to <code>thead th</code> element, you don't need a class. 
-				If you want this style to be applied only to the &lt;display:table&gt;, simply add a class or id
-				to the table tag and create a parent.child rule in css like <code>table.myclass thead th {color:red;}</code>
-			</td>
-		</tr>
-		<tr>
-			<td>tableCell</td>
-			<td>assigned to the td tag of all data cells</td>
-			<td>
-				Assign a style to <code>tbody td</code> element. You don't need a class.
-				If you want this style to be applied only to the &lt;display:table&gt;, simply add a class or id
-				to the table tag and create a parent.child rule in css like <code>table.myclass tbody td {color:red;}</code>
-			</td>
 		</tr>
 	</tbody>
 </table>

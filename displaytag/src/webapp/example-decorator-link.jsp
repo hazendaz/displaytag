@@ -8,7 +8,7 @@
    request.setAttribute("testparam", "sendamail");
 %>
 
-<h2><a href="./index.jsp">Examples</a> > Standard, creating dynamic links</h2>
+<h2><a href="./index.jsp">Examples</a> > Creating dynamic links</h2>
 
 
 

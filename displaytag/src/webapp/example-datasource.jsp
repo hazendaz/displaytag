@@ -2,7 +2,7 @@
 
 <% request.setAttribute( "test", new TestList(10, false) ); %>
 
-<h2><a href="./index.jsp">Examples</a> > Basic, acquiring your List of data</h2>
+<h2><a href="./index.jsp">Examples</a> > Acquiring your List of data</h2>
 
 
 <p>
@@ -74,15 +74,6 @@
 	</p>
 	
 	<code>session.getAttribute("list").getValue().getAttribute("name").getItem(1)</code>
-	
-	
-	<p>
-		Note: Why not using really LE? Two main reasons:
-	</p>
-	<ul>
-		<li>compatibility with &lt; 0.9 version of the display tag library</li>
-		<li>compatibility with J2EE 1.2 (JSTL and LE require j2ee 1.3)</li>
-	</ul>
 </div>
 
 <p>
@@ -110,46 +101,6 @@
 
 
 <display:table name="sessionScope.holder.list" >
-  <display:column property="id" title="ID" />
-  <display:column property="name" />
-  <display:column property="email" />
-  <display:column property="status" />
-  <display:column property="description" title="Comments"/>
-</display:table>
-
-
-<p>
-	For compatibility with previous versions of the display tag library you can use the separated
-	<code>scope</code> and <code>property</code> attributes. This is now deprecated, since now
-	the code is optimized using the new expression language. Anyway, this will still work:
-</p>
-
-<code>
-@deprecated!
-&lt;display:table name="holder" property="list" scope="session"&gt;
-</code>
-
-
-
-
-
-
-
-<p>
-	If you are doing sick stuff in your JSP pages, you can also pass in the list
-	of objects directly into the tag.  Although I would hope this approach is not
-	used very often... The table below is generated from the following scriptlet
-	code and attributes: (Note it only has 5 rows)
-</p>
-
-<pre>
-&lt;% List blech = new TestList(5, false); %&gt;
-&lt;display:table list="&lt;%= blech %&gt;" &gt;
-</pre>
-
-<% List blech = new TestList(5, false); %>
-
-<display:table list="<%= blech %>" >
   <display:column property="id" title="ID" />
   <display:column property="name" />
   <display:column property="email" />

@@ -11,13 +11,6 @@
                 patterns which will work in an MVC model. The library provides a significant amount of functionality
                 while still being easy to use.
             </p>
-            <p>
-                <strong>
-                    This is the documentation for displaytag 1.0rc2. If the version of displaytag you are using is older
-                    or newer than this version, then this is the wrong documentation to be using. Read the version that
-                    came with your copy of displaytag.
-                </strong>
-            </p>
         </section>
         <section name="What can I do with it?">
             <p>

@@ -2,7 +2,7 @@
 
 <% request.setAttribute( "test", new TestList(4, false) ); %>
 
-<h2><a href="./index.jsp">Examples</a> > Wow, nested tables</h2>
+<h2><a href="./index.jsp">Examples</a> > Nested tables</h2>
 
 
 <display:table name="test" id="parent">

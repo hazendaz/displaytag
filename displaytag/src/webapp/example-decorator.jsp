@@ -3,7 +3,7 @@
 <% request.setAttribute( "test", new TestList(10, false) ); %>
 
 
-<h2><a href="./index.jsp">Examples</a> > Standard, using decorators to transform data</h2>
+<h2><a href="./index.jsp">Examples</a> > Using decorators to transform data</h2>
 
 <display:table name="test" decorator="org.displaytag.sample.Wrapper" >
   <display:column property="id" title="ID" />

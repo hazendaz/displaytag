@@ -14,7 +14,9 @@
     <display:column property="name" />
     <display:column title="static value">static</display:column>
     <display:column title="row number (testit_rowNum)"><%=pageContext.getAttribute("testit_rowNum")%></display:column>
-    <display:column title="((ListObject)testit).getMoney()"><%=((ListObject)pageContext.getAttribute("testit")).getMoney()%></display:column>
+    <display:column title="((ListObject)testit).getMoney()">
+      <%=((ListObject)pageContext.getAttribute("testit")).getMoney()%>
+    </display:column>
 </display:table>
 ]]>
             </source>
