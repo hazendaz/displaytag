@@ -688,14 +688,15 @@ public class TableTag extends TemplateTag
       // Get the data back in the representation that the user is after, do they
       // want HTML/XML/CSV/PDF/etc...
 
+       /* JBO 2003/03/29: I added the toString() for 1.3 compatibility */
       if( this.exportType == EXPORT_TYPE_NONE ) {
-         buf.append( this.getHTMLData( viewableData ) );
+         buf.append( this.getHTMLData( viewableData ).toString() );
       } else if( this.exportType == EXPORT_TYPE_CSV ) {
-         buf.append( this.getRawData( viewableData ) );
+         buf.append( this.getRawData( viewableData ).toString() );
       } else if( this.exportType == EXPORT_TYPE_EXCEL ) {
-         buf.append( this.getExcelData( viewableData ) );
+         buf.append( this.getExcelData( viewableData ).toString() );
       } else if( this.exportType == EXPORT_TYPE_XML ) {
-         buf.append( this.getXMLData( viewableData ) );
+         buf.append( this.getXMLData( viewableData ).toString() );
       }
 
       // FIXME - Narayan had code to show raw data via an attribute, I've
@@ -746,14 +747,14 @@ public class TableTag extends TemplateTag
     public static Iterator getIterator (Object o) throws JspException {
 
 	Iterator iterator = null;
-	
+
 	if( o instanceof Collection ) {
 	    iterator = ( (Collection)o ).iterator();
 	} else if( o instanceof Iterator ) {
 	    iterator = (Iterator)o;
 	} else if( o instanceof Map ) {
 	    iterator = ( (Map)o ).entrySet().iterator();
-	    /* 
+	    /*
 	     *   This depends on importing struts.util.* -- see remarks in the import section of the file
 	     *
 	     * } else if( o instanceof Enumeration ) {
@@ -809,7 +810,7 @@ public class TableTag extends TemplateTag
        * copy the entire set to a List -- not good at all if paging
        * (though functional -- I tested). Furthermore, RowSetDynaClass
        * is not yet officially released, so I'm leaving this out for
-       * now. 
+       * now.
        *
        * Anyway, the proper semantics would involve a class like ResultSetDynaClass,
        * but with some changes to the Iterator I'l trying to work on.
@@ -821,7 +822,7 @@ public class TableTag extends TemplateTag
        *       throw new JspException( "Problems iterating over ResultSet.", e);
        *       }
        */
-      
+
       if( collection.getClass().isArray() )
          collection = Arrays.asList( (Object[])collection );
 
@@ -912,7 +913,7 @@ public class TableTag extends TemplateTag
    {
        if (! (viewableData instanceof List))
 	   throw new RuntimeException ("This function is only supported if the given collection is a java.util.List.");
-   
+
 
       // At this point we have all the objects that are supposed to be shown
       // sitting in our internal list ready to be shown, so if they have clicked
@@ -962,7 +963,7 @@ public class TableTag extends TemplateTag
       // Ok, start bouncing through our list.........
 
       int rowcnt = 0;
-      buf.append( this.getTableHeader() );
+      buf.append( this.getTableHeader().toString() );
       Iterator iterator = viewableData.iterator();
 
       while( iterator.hasNext() ) {
@@ -1007,7 +1008,7 @@ public class TableTag extends TemplateTag
             ColumnTag tag = (ColumnTag)this.columns.get( i );
 
             buf.append( "<td " );
-            buf.append( tag.getCellAttributes() );
+            buf.append( tag.getCellAttributes().toString() );
             buf.append( ">" );
 
             // Get the value to be displayed for the column
@@ -1139,7 +1140,7 @@ public class TableTag extends TemplateTag
             if( tag.getGroup() != null ) {
                try {
                   //System.err.println ( "Tag getGroup : " + tag.getGroup() );
-                  buf.append( this.groupColumns( value.toString(), new Integer( (String)tag.getGroup() ).intValue() ) );
+                  buf.append( this.groupColumns( value.toString(), new Integer( (String)tag.getGroup() ).intValue() ).toString() );
                } catch( Exception e ) {
                   System.err.println( e.getMessage() );
                   e.printStackTrace( System.err );
@@ -1153,7 +1154,7 @@ public class TableTag extends TemplateTag
                   buf.append( value.toString().substring( value.toString().length() - 3,
                      value.toString().length() ) + "</a>" );
                } else {
-                  buf.append( value );
+                  buf.append( value.toString() );
                }
 
             }
@@ -1195,7 +1196,7 @@ public class TableTag extends TemplateTag
       }
 
 
-      buf.append( this.getTableFooter() );
+      buf.append( this.getTableFooter().toString() );
 
       buf.append( "</table>\n" );
 
@@ -1279,7 +1280,7 @@ public class TableTag extends TemplateTag
             if( tag.getDoubleQuote() != null ) {
                buf.append( "\"" + value + "\"" );
             } else {
-               buf.append( value );
+               buf.append( value.toString() );
             }
 
             if( this.columns.size() > ( i + 1 ) ) {
@@ -1474,7 +1475,7 @@ public class TableTag extends TemplateTag
       }
 
       buf.append( "<table " );
-      buf.append( this.getTableAttributes() );
+      buf.append( this.getTableAttributes().toString() );
       buf.append( ">\n" );
 
       // If they don't want the header shown for some reason, then stop here.

@@ -11,7 +11,7 @@
     <!ENTITY common SYSTEM "file:./conf/jakarta/jakarta-common.xml">
 ]>
 
-<project name="display" default="main">
+<project name="display" default="main" basedir=".">
 
    <!-- Need to look into this one, if I don't disable the build fails -->
    <!--property name="disable.examples.html" value="false"/-->
