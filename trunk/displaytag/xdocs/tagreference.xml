@@ -352,11 +352,6 @@
               </td>
             </tr>
             <tr>
-              <td>doubleQuote</td>
-              <td>no</td>
-              <td>-</td>
-            </tr>
-            <tr>
               <td>decorator</td>
               <td>no</td>
               <td>fully qualified class name of a ColumnDecorator</td>
