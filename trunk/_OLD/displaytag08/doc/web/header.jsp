@@ -2,9 +2,9 @@
 
 <html>
 	<head><title>The &lt;display:*&gt; tag library</title>
-<META HTTP-EQUIV="Expires" CONTENT="-1">
-<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache" />
 
    <link rel=stylesheet href="./site.css" type="text/css">
 	</head>
@@ -45,7 +45,7 @@
                <td bgcolor="#ffeeaa" align="right" valign="bottom">
                <table border="0" cellspacing="7" cellpadding="0">
                <tr>
-               <td align="right" valign="bottom" nowrap>Version: 0.8 (03/10/2002)</td>
+               <td align="right" valign="bottom" nowrap>Version: @version@ (@versiondate@)</td>
                </tr>
                </table>
                </td>

@@ -98,8 +98,8 @@
    <!-- Assemble the documentation application                              -->
    <!-- =================================================================== -->
    <target name="site" depends="prepare">
-      <mkdir dir="${build.dir}/${taglib.name}/${taglib.name}-site" />
-      <mkdir dir="${build.dir}/${taglib.name}/${taglib.name}-site/WEB-INF" />
+      <mkdir dir="${build.dir}/${taglib.name}-site" />
+      <mkdir dir="${build.dir}/${taglib.name}-site/WEB-INF" />
 
       <tstamp>
          <format property="timestamp" pattern="MM/dd/yyyy hh:mm:ss aa" />
@@ -109,38 +109,51 @@
       <filter token="versiondate" value="${versiondate}" />
       <filter token="buildtime" value="${timestamp}" />
 
-      <copy todir="${build.dir}/${taglib.name}/${taglib.name}-site/WEB-INF"
+      <copy todir="${build.dir}/${taglib.name}-site/WEB-INF"
          filtering="true" overwrite="true">
          <fileset dir="site/conf"/>
       </copy>
 
-      <copy todir="${build.dir}/display/display-site" filtering="true" overwrite="true">
+      <copy todir="${build.dir}/display-site" filtering="true" overwrite="true">
          <fileset dir="site/web"/>
       </copy>
 
       <jar jarfile="${dist.dir}/${taglib.name}-site.war"
-         basedir="${build.dir}/${taglib.name}/${taglib.name}-site" />
+         basedir="${build.dir}//${taglib.name}-site" />
    </target>
 
     <!-- =================================================================== -->
     <!--            Creates source distribution of project                   -->
     <!-- =================================================================== -->
-    <target name="dist-src" depends="clean"
+    <target name="dist-src" depends="dist"
         description="create source distribution for release (in parent directory)">
         <property name="src.archive.name" value="${taglib.name}-src-${version}"/>
         <property name="src.archive.target" value="../${src.archive.name}"/>
         <zip zipfile="${src.archive.target}.zip">
             <zipfileset prefix="${taglib.name}" dir="${basedir}">
                 <patternset id="srcfiles">
-                    <!-- Exclude files that might be left over by various editors -->   
-                    <exclude name="*.log"/>
-                    <exclude name="*.old"/>
-                    <exclude name="*.bak"/>
-                    <exclude name="*.*~"/>
-                    <exclude name="*.java.txt"/>
+                    <!-- Exclude files that might be left over by various editors --> 
+                    <exclude name="**/*.log"/>
+                    <exclude name="**/*.old"/>
+                    <exclude name="**/*.bak"/>
+                    <exclude name="**/*.*~"/>
+                    <exclude name="**/*.java.txt"/>
                     <!-- Exclude any old version of files removed by CVS -->
-                    <exclude name=".#**"/>
-                    <include name="**"/>      
+                    <exclude name="**/.#**"/>                    
+                    <!-- Exclude build directory -->
+                    <exclude name="${build.dir}/**"/>
+                    <!-- For some reason, excluding files and then including ** 
+                         doesn't seem to work with a patternset, so I'm 
+                         including each directory/file individually. -->
+                    <include name="build.xml"/>
+                    <include name="dist/*"/>  
+                    <include name="conf/**"/>
+                    <include name="doc/**"/>
+                    <include name="examples/**"/>
+                    <include name="lib/**"/>
+                    <include name="site/**"/>
+                    <include name="src/**"/>
+                    <include name="xml/**"/>
                 </patternset>
             </zipfileset>
         </zip>
