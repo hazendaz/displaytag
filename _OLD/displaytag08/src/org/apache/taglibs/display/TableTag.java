@@ -472,8 +472,7 @@ public class TableTag extends TemplateTag {
      * display
      *
      * @param obj an internal tag describing a column in this tableview
-     **/
-
+     */
     public void addColumn(ColumnTag obj) {
         columns.add(obj);
     }
@@ -484,7 +483,7 @@ public class TableTag extends TemplateTag {
      * When the tag starts, we just initialize some of our variables, and do a
      * little bit of error checking to make sure that the user is not trying
      * to give us parameters that we don't expect.
-     **/
+     */
     public int doStartTag() throws JspException {
         columns = new ArrayList(10);
 
@@ -1502,7 +1501,6 @@ public class TableTag extends TemplateTag {
             }
         }
 
-
         String qString = req.getQueryString();
         if (qString != null && !qString.equals("")) {
             url += separator + URLEncoder.encode(qString) + "&";
@@ -1561,7 +1559,6 @@ public class TableTag extends TemplateTag {
             this.previousRow.putAll(nextRow);
             this.nextRow.clear();
         }
-
 
         if (!this.nextRow.containsKey(new Integer(group))) {
             // Key not found in the nextRow so adding this key now... remember all the old values.
@@ -1665,7 +1662,7 @@ public class TableTag extends TemplateTag {
             results.append("\"");
         }
         else {
-            results.append(" cellspacing=\"1\"");
+            results.append(" cellspacing=\"0\"");
         }
 
         if (this.cellpadding != null) {
@@ -1724,6 +1721,7 @@ public class TableTag extends TemplateTag {
             results.append(this.summary);
             results.append("\"");
         }
+
         if (this.vspace != null) {
             results.append(" vspace=\"");
             results.append(this.vspace);
@@ -1953,7 +1951,6 @@ public class TableTag extends TemplateTag {
             }
 
             String email = work.substring(start, (end - start + 1));
-
             results = results + work.substring(0, start) +
                     "<a href=\"mailto:" + email + "\">" + email + "</a>";
 
@@ -2038,7 +2035,7 @@ public class TableTag extends TemplateTag {
         prop.setProperty("paging.banner.items_name", "items");
         prop.setProperty("paging.banner.no_items_found", "No {0} found.");
         prop.setProperty("paging.banner.one_item_found", "1 {0} found.");
-        prop.setProperty("paging.banner.all_items_found", "{0} {1} found, showing all {2}");
+        prop.setProperty("paging.banner.all_items_found", "{0} {1} found, displaying all {2}");
         prop.setProperty("paging.banner.some_items_found", "{0} {1} found, displaying {2} to {3}");
         prop.setProperty("paging.banner.include_first_last", "false");
         prop.setProperty("paging.banner.first_label", "First");
