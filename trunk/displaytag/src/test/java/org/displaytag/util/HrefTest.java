@@ -133,14 +133,28 @@ public class HrefTest extends TestCase
     }
 
     /**
-     * Test the generation of an Href object from another Href.
+     * Test the clone() implementation.
      */
-    public final void testHrefClone()
+    public final void testClone()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
         Href href = new Href(url);
         Href clone = (Href) href.clone();
-        compareUrls(href.toString(), clone.toString());
+        assertEquals(href, clone);
+
+        clone.addParameter("onlyinclone", "1");
+        assertFalse(href.equals(clone));
+    }
+
+    /**
+     * Tests the equals() implementation.
+     */
+    public final void testEquals()
+    {
+        String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
+        Href href = new Href(url);
+        Href href2 = new Href(url);
+        assertEquals(href, href2);
     }
 
     /**
@@ -153,7 +167,8 @@ public class HrefTest extends TestCase
         href.addParameter("param3", "value3");
         href.addParameter("param4", 4);
         String newUrl = href.toString();
-        compareUrls(newUrl,
+        compareUrls(
+            newUrl,
             "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2&param3=value3&param4=4#thisanchor");
     }
 
@@ -172,7 +187,8 @@ public class HrefTest extends TestCase
         href.setParameterMap(parameterMap);
 
         String newUrl = href.toString();
-        compareUrls(newUrl,
+        compareUrls(
+            newUrl,
             "http://www.displaytag.org/displaytag/index.jsp?new1=new1value&new2=new2value&new3=#thisanchor");
     }
 
@@ -191,7 +207,8 @@ public class HrefTest extends TestCase
         href.addParameterMap(parameterMap);
 
         String newUrl = href.toString();
-        compareUrls(newUrl,
+        compareUrls(
+            newUrl,
             "http://www.displaytag.org/displaytag/index.jsp?param1=1&new1=new1value&new2=new2value&new3=#thisanchor");
 
     }
@@ -261,7 +278,9 @@ public class HrefTest extends TestCase
             String[] generatedParameters = StringUtils.split(StringUtils.replace(generatedSplit[1], "&amp;", "&"), '&');
             String[] expectedParameters = StringUtils.split(StringUtils.replace(expectedSplit[1], "&amp;", "&"), '&');
 
-            assertEquals("Compared urls have different number of parameters", expectedParameters.length,
+            assertEquals(
+                "Compared urls have different number of parameters",
+                expectedParameters.length,
                 generatedParameters.length);
 
             for (int j = 0; j < expectedParameters.length; j++)
