@@ -43,7 +43,7 @@ public class MockFilterSupport extends HttpServlet
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        log.info("Mock servlet called, simulating filter");
+        log.debug("Mock servlet called, simulating filter");
         Filter filter = new ResponseOverrideFilter();
         filter.init(null);
         filter.doFilter(request, response, new MockFilterChain());
