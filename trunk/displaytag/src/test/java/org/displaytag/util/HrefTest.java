@@ -164,6 +164,24 @@ public class HrefTest extends TestCase
     }
 
     /**
+     * test for addParameterMap() with overriding parameters.
+     */
+    public final void testAddParameterMapOverridingParameters()
+    {
+        String url = "http://www.displaytag.org/displaytag/index.jsp?param1=original#thisanchor";
+        Href href = new Href(url);
+
+        Map parameterMap = new HashMap();
+        parameterMap.put("param1", "original");
+        parameterMap.put("new1", "new1value");
+        href.addParameterMap(parameterMap);
+
+        String newUrl = href.toString();
+        compareUrls(newUrl, "http://www.displaytag.org/displaytag/index.jsp?param1=original&new1=new1value#thisanchor");
+
+    }
+
+    /**
      * test for base url extraction.
      */
     public final void testGetBaseUrl()
