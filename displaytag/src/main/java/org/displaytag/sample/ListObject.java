@@ -81,7 +81,7 @@ public class ListObject extends Object
         String firstName = RandomSampleUtil.getRandomWord();
         String lastName = RandomSampleUtil.getRandomWord();
 
-        this.name = StringUtils.capitalise(firstName) + " " + StringUtils.capitalise(lastName);
+        this.name = StringUtils.capitalize(firstName) + " " + StringUtils.capitalize(lastName);
 
         this.email = firstName + "-" + lastName + "@" + RandomSampleUtil.getRandomWord() + ".com";
 
