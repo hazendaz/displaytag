@@ -38,5 +38,30 @@
 		</faq>
 
 	</part>
+	
+	
+	<part id="rendering">
+		<title>Rendering</title>
+
+		<faq id="headers">
+			<question>
+			    How can I display static headers in a table, so that headers remain visible
+			    while user scrolls the table body?
+			</question>
+			<answer>
+				<p>
+					You can do that simply using css, adding an height and the 
+					<code>overflow: scroll</code> property to the <code>tbody</code>
+					element. Unfortunately this will work perfectly in Netscape/Mozilla, but
+					not in Internet Explorer. If you want to do something similar in IE you
+					will probably need to play with javascript. 
+					The table tag can't be used to display a splitted table (a table with headers only 
+					and a table with body), sorry. This simply because a correct, xhtml , accessible
+					table MUST have headers and body.
+				</p>
+			</answer>
+		</faq>
+
+	</part>
 
 </faqs>
