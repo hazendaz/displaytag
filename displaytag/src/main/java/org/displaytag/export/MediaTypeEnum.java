@@ -6,7 +6,6 @@ import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * Enumeration for media types.
- * 
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -14,27 +13,27 @@ public final class MediaTypeEnum
 {
 
     /**
-     * Media type CSV = 1
+     * Media type CSV = 1.
      */
     public static final MediaTypeEnum CSV = new MediaTypeEnum(1, "csv");
 
     /**
-     * media type EXCEL = 2
+     * media type EXCEL = 2.
      */
     public static final MediaTypeEnum EXCEL = new MediaTypeEnum(2, "excel");
 
     /**
-     * media type XML = 3
+     * media type XML = 3.
      */
     public static final MediaTypeEnum XML = new MediaTypeEnum(3, "xml");
 
     /**
-     * media type HTML = 4
+     * media type HTML = 4.
      */
     public static final MediaTypeEnum HTML = new MediaTypeEnum(4, "html");
 
     /**
-     * array containing all the export types
+     * array containing all the export types.
      */
     public static final MediaTypeEnum[] ALL = { EXCEL, XML, CSV, HTML };
 
@@ -44,17 +43,14 @@ public final class MediaTypeEnum
     private final int enumCode;
 
     /**
-     * description
+     * description.
      */
     private final String enumName;
 
     /**
-     * private constructor. Use only constants
-     * 
-     * @param code
-     * int code
-     * @param name
-     * description of media type
+     * private constructor. Use only constants.
+     * @param code int code
+     * @param name description of media type
      */
     private MediaTypeEnum(int code, String name)
     {
@@ -63,18 +59,16 @@ public final class MediaTypeEnum
     }
 
     /**
-     * returns the int code
-     * 
+     * returns the int code.
      * @return int code
      */
     public int getCode()
     {
-        return enumCode;
+        return this.enumCode;
     }
 
     /**
-     * returns the description
-     * 
+     * returns the description.
      * @return String description of the media type ("excel", "xml", "csv", "html")
      */
     public String getName()
@@ -83,10 +77,8 @@ public final class MediaTypeEnum
     }
 
     /**
-     * lookup an media type by key
-     * 
-     * @param key
-     * int code
+     * lookup an media type by key.
+     * @param key int code
      * @return MediaTypeEnumor null if no mediaType is found with the given key
      */
     public static MediaTypeEnum fromCode(int key)
@@ -103,10 +95,8 @@ public final class MediaTypeEnum
     }
 
     /**
-     * lookup an media type by an Integer key
-     * 
-     * @param key
-     * Integer code - null safe: a null key returns a null Enum
+     * lookup an media type by an Integer key.
+     * @param key Integer code - null safe: a null key returns a null Enum
      * @return MediaTypeEnumor null if no mediaType is found with the given key
      */
     public static MediaTypeEnum fromIntegerCode(Integer key)
@@ -123,8 +113,7 @@ public final class MediaTypeEnum
 
     /**
      * Lookup an media type by a String key.
-     * @param code
-     * String code - null safe: a null key returns a null Enum
+     * @param code String code - null safe: a null key returns a null Enum
      * @return MediaTypeEnumor null if no mediaType is found with the given key
      */
     public static MediaTypeEnum fromName(String code)
@@ -141,8 +130,7 @@ public final class MediaTypeEnum
     }
 
     /**
-     * returns an iterator on all the media type
-     * 
+     * returns an iterator on all the media type.
      * @return iterator
      */
     public static Iterator iterator()
@@ -151,8 +139,7 @@ public final class MediaTypeEnum
     }
 
     /**
-     * returns the media type description
-     * 
+     * returns the media type description.
      * @see java.lang.Object#toString()
      */
     public String toString()
@@ -161,10 +148,8 @@ public final class MediaTypeEnum
     }
 
     /**
-     * Only a single instance of a specific MediaTypeEnum can be created, so we can check using ==
-     * 
-     * @param o
-     * the object to compare to
+     * Only a single instance of a specific MediaTypeEnum can be created, so we can check using ==.
+     * @param o the object to compare to
      * @return hashCode
      */
     public boolean equals(Object o)
