@@ -22,6 +22,11 @@ public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider
 {
 
     /**
+     * prefix/suffix for missing entries.
+     */
+    public static final String UNDEFINED_KEY = "???"; //$NON-NLS-1$
+
+    /**
      * logger.
      */
     private static Log log = LogFactory.getLog(I18nSpringAdapter.class);
@@ -42,30 +47,26 @@ public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider
         MessageSource messageSource = RequestContextUtils.getWebApplicationContext(pageContext.getRequest());
         if (messageSource == null)
         {
+            log.warn("messageSource not found");
             return null;
-            // @todo log a warn? thrown ax exception?
         }
+
+        // if resourceKey isn't defined either, use defaultValue
+        String key = (resourceKey != null) ? resourceKey : defaultValue;
 
         String message = null;
-        if (resourceKey != null)
+
+        message = messageSource.getMessage(key, null, null, RequestContextUtils
+            .getLocale((HttpServletRequest) pageContext.getRequest()));
+
+        // if user explicitely added a titleKey we guess this is an error
+        if (message == null && resourceKey != null)
         {
-            message = messageSource.getMessage(resourceKey, null, null, RequestContextUtils
-                .getLocale((HttpServletRequest) pageContext.getRequest()));
             log.debug("Missing resource for key [" + resourceKey + "]");
-
-            // if user explicitely added a resourceKey we guess this is an error
-            if (resourceKey != null)
-            {
-                message = "??" + resourceKey + "??";
-            }
-
-        }
-        else
-        {
-            message = messageSource.getMessage(defaultValue, null, null, RequestContextUtils
-                .getLocale((HttpServletRequest) pageContext.getRequest()));
+            message = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;
         }
 
         return message;
+
     }
 }
