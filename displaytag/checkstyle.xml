@@ -198,7 +198,7 @@
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.design.MutableExceptionCheck">
             <property name="format" value="^.*Exception$|^.*Error$"/>
-            <property name="severity" value="warning"/>
+            <property name="severity" value="ignore"/>
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.design.ThrowsCountCheck">
             <property name="max" value="5"/>
