@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project >
+<project xmlns:j="jelly:core" xmlns:u="jelly:util" default="rebuild-all">
+    <goal name="rebuild-all" prereqs="pom,clean,jar:jar,war:war,dist:build" />
+    <goal name="nightly" prereqs="rebuild-all,prepare-snapshot,site:sshdeploy" />
+
+    <!-- set up tlds before test -->
+    <preGoal name="jar:jar">
+        <!-- generated tld should be ready before tests -->
+        <!-- create 1.1 dtd -->
+        <attainGoal name="taglib:convert" />
+        <!-- copy tlds to build dest -->
+        <echo message="copying tld files in ${maven.src.dir}/tld to ${maven.build.dir}/tld" />
+        <copy todir="${maven.build.dir}/tld">
+            <fileset dir="${maven.src.dir}/tld">
+                <include name="*.tld" />
+            </fileset>
+        </copy>
+        <!-- add tlds to taglib jar -->
+        <echo message="copying tld files ${maven.build.dir}/tld to ${maven.build.dest}/META-INF" />
+        <copy todir="${maven.build.dest}/META-INF">
+            <fileset dir="${maven.build.dir}/tld">
+                <include name="*.tld" />
+            </fileset>
+        </copy>
+    </preGoal>
+
+    <!-- copy tld for example webapp -->
+    <postGoal name="war:webapp">
+        <echo message="deleting ${maven.war.webapp.dir}/META-INF" />
+        <delete file="${maven.war.webapp.dir}/META-INF" />
+        <echo
+            message="copying ${maven.build.dir}/tld/displaytag-11.tld to dir ${maven.war.webapp.dir}/${maven.war.tld.dir}" />
+        <copy file="${maven.build.dir}/tld/displaytag-11.tld" todir="${maven.war.webapp.dir}/${maven.war.tld.dir}" />
+    </postGoal>
+    <postGoal name="dist:prepare-src-filesystem">
+        <copy todir="${maven.dist.src.assembly.dir}">
+            <fileset dir=".">
+                <include name="lib/portlet*.jar" />
+                <include name="xdocs/**/*.*" />
+                <include name="checkstyle.xml" />
+                <include name="clover.license" />
+            </fileset>
+        </copy>
+    </postGoal>
+    <postGoal name="dist:prepare-bin-filesystem">
+        <copy todir="${maven.dist.bin.assembly.dir}">
+            <fileset dir="${maven.build.dir}/tld">
+                <include name="*.tld" />
+            </fileset>
+            <fileset dir="${maven.build.dir}">
+                <include name="${pom.artifactId}.war" />
+            </fileset>
+        </copy>
+    </postGoal>
+    <postGoal name="site">
+        <attainGoal name="pdf" />
+    </postGoal>
+    <!-- zip and copy snapshot build for deploy -->
+    <goal name="prepare-snapshot" prereqs="dist:build">
+        <copy todir="${maven.build.dir}/docs/nightly">
+            <fileset dir="${maven.build.dir}/distributions" />
+        </copy>
+    </goal>
+</project>

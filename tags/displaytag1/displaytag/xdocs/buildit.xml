@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<document>
+
+    <properties>
+        <title>Building from source</title>
+        <author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+    </properties>
+
+    <body>
+
+        <section name="Building from Source">
+
+            <subsection name="Getting the source">
+                <p>
+					Refer to the
+                    <a href="download.html">download</a>
+					section for how to download a source release of a snapshot from CVS.
+                </p>
+            </subsection>
+
+            <subsection name="Installing Maven">
+                <p>
+					Displaytag uses maven for build and site generation. First of all, you need to download and install
+					maven (you will need at least Maven 1.0) from
+                    <a href="http://maven.apache.org">maven.apache.org</a>
+					. Follow the instructions on the Maven site on how to do this.
+                </p>
+            </subsection>
+
+            <subsection name="Run it!">
+                <p>
+					It couldn't be more simple: go to the folder containing the (unzipped) source, type
+                    <strong>maven</strong>
+					and watch the show. For this you need a working internet connection since maven will first try to
+					download all the needed libraries (see
+                    <a href="dependencies.html">dependencies</a>
+					) from a remote repository.
+                </p>
+                <p>
+					Running maven without arguments will execute the default goal, which will build the library, the
+					sample webapp, and the documentation site (this one). You can run
+                    <strong>maven -g</strong>
+					to see the available goals. Running
+                    <strong>maven jar</strong>
+					will simply create the library jar without the sample site and documentation.
+                </p>
+
+            </subsection>
+        </section>
+
+    </body>
+</document>
