@@ -3,7 +3,8 @@ package org.displaytag.tags;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.cactus.JspTestCase;
+import junit.framework.Test;
+
 import org.apache.cactus.WebRequest;
 import org.apache.cactus.WebResponse;
 import org.apache.cactus.extension.jsp.JspTagLifecycle;
@@ -12,11 +13,12 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.test.KnownValue;
 
+
 /**
  * @author rapruitt
  * @version $Revision$ ($Author$)
  */
-public class MediaTest extends JspTestCase
+public class MediaTest extends DisplaytagTestCase
 {
 
     /**
@@ -50,6 +52,23 @@ public class MediaTest extends JspTestCase
     JspTagLifecycle columnThreeLifecycle;
 
     /**
+     * @param name test name
+     */
+    public MediaTest(String name)
+    {
+        super(name);
+    }
+
+    /**
+     * @param name test name
+     * @param test test instance
+     */
+    public MediaTest(String name, Test test)
+    {
+        super(name, test);
+    }
+
+    /**
      * set up the test.
      */
     protected void setUp()
@@ -59,7 +78,8 @@ public class MediaTest extends JspTestCase
         testData.add(new KnownValue());
 
         this.table = new TableTag();
-        this.table.setList(testData);
+        request.setAttribute("test", testData);
+        this.table.setName("requestScope.test");
         this.table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE);
         this.tableLifecycle = new JspTagLifecycle(this.pageContext, this.table);
 
@@ -109,9 +129,8 @@ public class MediaTest extends JspTestCase
      */
     public void beginTestAsXml(WebRequest webrequest)
     {
-        webrequest.addParameter(
-            this.table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE),
-            "" + MediaTypeEnum.XML.getCode());
+        webrequest.addParameter(this.table.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE), ""
+            + MediaTypeEnum.XML.getCode());
     }
 
     /**
@@ -136,33 +155,6 @@ public class MediaTest extends JspTestCase
         assertContains(webresponse, KnownValue.BEE);
         assertContains(webresponse, KnownValue.CAMEL);
         log.debug("RESPONSE" + webresponse.getText());
-    }
-
-    /**
-     * Convenience function that asserts that a substring can be found in a the returned HTTP response body.
-     * @param theResponse the response from the server side.
-     * @param theSubstring the substring to look for
-     */
-    public void assertContains(WebResponse theResponse, String theSubstring)
-    {
-        String target = theResponse.getText();
-        if (target.indexOf(theSubstring) < 0)
-        {
-            fail("Response did not contain the substring: [" + theSubstring + "]");
-        }
-    }
-    /**
-     * Convenience function that asserts that a substring can be found in a the returned HTTP response body.
-     * @param theResponse the response from the server side.
-     * @param theSubstring the substring to look for
-     */
-    public void assertDoesNotContain(WebResponse theResponse, String theSubstring)
-    {
-        String target = theResponse.getText();
-        if (target.indexOf(theSubstring) > -1)
-        {
-            fail("Response did not contain the substring: [" + theSubstring + "]");
-        }
     }
 
 }
