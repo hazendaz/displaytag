@@ -147,9 +147,9 @@
           <td colspan="2">servletapi</td>
           <td>jar</td>
           <td>2.3</td>
-          <td colspan="4">Servlet 2.3 support is required to build the library. At runtime only servet 2.2 (tomcat 3, websphere 4)
-         is strictly needed, servlet 2.3 support (tomcat 4, websphere 5) is needed only for the EL version of the taglib
-         </td>
+          <td colspan="4">Servlet 2.3 support is required to build the library. At runtime only servlet 2.2 (tomcat 3, 
+            websphere 4) is strictly needed, servlet 2.3 support (tomcat 4, websphere 5) is needed only for the EL 
+            version of the taglib </td>
          </tr>
          <tr>
           <td colspan="2">httpunit</td>
