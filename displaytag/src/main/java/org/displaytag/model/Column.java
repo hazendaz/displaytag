@@ -14,7 +14,6 @@ package org.displaytag.model;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.displaytag.decorator.AutolinkColumnDecorator;
-import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.Anchor;
@@ -95,14 +94,15 @@ public class Column
         }
         else if (this.header.getBeanPropertyName() != null)
         {
-            TableDecorator tableDecorator = this.row.getParentTable().getTableDecorator();
 
             // if a decorator has been set, and if decorator has a getter for the requested property only, check
             // decorator
-            if (decorated && tableDecorator != null && tableDecorator.hasGetterFor(this.header.getBeanPropertyName()))
+            if (decorated && this.row.getParentTable().getTableDecorator() != null
+                    && this.row.getParentTable().getTableDecorator().hasGetterFor(this.header.getBeanPropertyName()))
             {
 
-                object = LookupUtil.getBeanProperty(tableDecorator, this.header.getBeanPropertyName());
+                object = LookupUtil.getBeanProperty(this.row.getParentTable().getTableDecorator(),
+                        this.header.getBeanPropertyName());
             }
             else
             {

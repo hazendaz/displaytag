@@ -77,7 +77,11 @@ public class TableTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("uid", //$NON-NLS-1$
                 TableTag.class, null, "setUid")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("htmlId", //$NON-NLS-1$
-                TableTag.class, null, "setHtmlId")); //$NON-NLS-1$ 
+                TableTag.class, null, "setHtmlId")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("varTotals", //$NON-NLS-1$
+                TableTag.class, null, "setVarTotals")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("width", //$NON-NLS-1$
+                TableTag.class, null, "setWidth")); //$NON-NLS-1$
 
             // deprecated attributes
             proplist.add(new PropertyDescriptor("list", //$NON-NLS-1$
@@ -108,7 +112,8 @@ public class TableTagBeanInfo extends SimpleBeanInfo
         }
         catch (IntrospectionException ex)
         {
-            // ignore, this should never happen
+            throw new RuntimeException("You got an introspection exception - maybe defining a property that is not"
+                    + " defined in the TableTag?: " + ex.getMessage(), ex);
         }
 
         PropertyDescriptor[] result = new PropertyDescriptor[proplist.size()];

@@ -84,6 +84,8 @@ public class ELTableTagBeanInfo extends SimpleBeanInfo
                 ELTableTag.class, null, "setUid")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("htmlId", //$NON-NLS-1$ 
                 ELTableTag.class, null, "setHtmlId")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("varTotals", //$NON-NLS-1$
+                TableTag.class, null, "setVarTotals")); //$NON-NLS-1$
 
             // deprecated attributes (not supporting expressions)
             proplist.add(new PropertyDescriptor("width", //$NON-NLS-1$ 
@@ -91,25 +93,11 @@ public class ELTableTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("styleClass", //$NON-NLS-1$ 
                 ELTableTag.class, null, "setClass")); //$NON-NLS-1$ 
 
-            proplist.add(new PropertyDescriptor("border", //$NON-NLS-1$ 
-                TableTag.class, null, "setBorder")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("align", //$NON-NLS-1$ 
-                TableTag.class, null, "setAlign")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("background", //$NON-NLS-1$ 
-                TableTag.class, null, "setBackground")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("bgcolor", //$NON-NLS-1$ 
-                TableTag.class, null, "setBgcolor")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("height", //$NON-NLS-1$ 
-                TableTag.class, null, "setHeight")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("hspace", //$NON-NLS-1$ 
-                TableTag.class, null, "setHspace")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("vspace", //$NON-NLS-1$ 
-                TableTag.class, null, "setVspace")); //$NON-NLS-1$ 
-
         }
         catch (IntrospectionException ex)
         {
-            // ignore, this should never happen
+            throw new RuntimeException("You got an introspection exception - maybe defining a property that is not"
+                    + " defined in the ElTableTag?: " + ex.getMessage(), ex);
         }
 
         PropertyDescriptor[] result = new PropertyDescriptor[proplist.size()];

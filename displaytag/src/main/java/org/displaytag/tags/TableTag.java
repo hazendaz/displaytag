@@ -205,6 +205,12 @@ public class TableTag extends HtmlTableTag
      */
     private String uid;
 
+    /**
+     * The variable name to store totals in.
+     */
+    private String varTotals;
+
+
     // -- end tag attributes --
 
     /**
@@ -273,6 +279,11 @@ public class TableTag extends HtmlTableTag
     private String footer;
 
     /**
+     * Is this the last iteration we will be performing?  We only output the footer on the last iteration.
+     */
+    private boolean lastIteration;
+
+    /**
      * static caption added using the footer tag.
      */
     private String caption;
@@ -284,6 +295,15 @@ public class TableTag extends HtmlTableTag
      * lang version will be checked in the doStartTag() method in order to provide a more user friendly message.
      */
     private Object filteredRows;
+
+    /**
+     * Is this the last iteration?
+     * @return boolean <code>true</code> if this is the last iteration
+     */
+    protected boolean isLastIteration()
+    {
+        return this.lastIteration;
+    }
 
     /**
      * Sets the list of parameter which should not be forwarded during sorting or pagination.
@@ -452,6 +472,25 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
+     * The variable name in which the totals map is stored.
+     * @param varTotalsName the value
+     */
+    public void setVarTotals(String varTotalsName)
+    {
+        this.varTotals = varTotalsName;
+    }
+
+    /**
+     * Get the name that the totals should be stored under.
+     * @return the var name in pageContext
+     */
+    public String getVarTotals()
+    {
+        return this.varTotals;
+    }
+
+
+    /**
      * sets the number of items to be displayed in the page.
      * @param value number of items to display in a page
      */
@@ -570,7 +609,10 @@ public class TableTag extends HtmlTableTag
         // check if null: could be null if list is empty, we don't need to fill rows
         if (this.currentRow != null)
         {
+            int columnNumber = this.currentRow.getCellList().size();
             this.currentRow.addCell(cell);
+            HeaderCell header = (HeaderCell) tableModel.getHeaderCellList().get(columnNumber);
+            header.addCell(new Column(header, cell, currentRow));
         }
     }
 
@@ -709,10 +751,13 @@ public class TableTag extends HtmlTableTag
             // Row object for Cell values
             this.currentRow = new Row(iteratedObject, this.rowNumber);
 
+            this.lastIteration = !this.tableIterator.hasNext();
+
             // new iteration
             // using int to avoid deprecation error in compilation using j2ee 1.3
             return 2;
         }
+        this.lastIteration = true;
 
         if (log.isDebugEnabled())
         {
@@ -1681,11 +1726,50 @@ public class TableTag extends HtmlTableTag
             }
         }
 
+        if (this.varTotals != null)
+        {
+            this.pageContext.setAttribute(this.varTotals, getTotals());
+        }
+
         if (this.tableModel.getRowListPage().size() == 0)
         {
             write(MessageFormat.format(properties.getEmptyListRowMessage(), new Object[]{new Integer(this.tableModel
                 .getNumberOfColumns())}), out);
         }
+    }
+
+    /**
+     * Get the column totals Map. If there is no varTotals defined, there are no totals.
+     * @return a Map of totals where the key is the column number and the value is the total for that column
+     */
+    protected Map getTotals()
+    {
+        Map totalsMap = new HashMap();
+        if (this.varTotals != null)
+        {
+            List headers = this.tableModel.getHeaderCellList();
+            for (Iterator iterator = headers.iterator(); iterator.hasNext();)
+            {
+                HeaderCell headerCell = (HeaderCell) iterator.next();
+                if (headerCell.isTotaled())
+                {
+                    totalsMap.put("column" + (headerCell.getColumnNumber() + 1), new Double(headerCell.getTotal()));
+                }
+            }
+        }
+        return totalsMap;
+    }
+
+    /**
+     * Get the table model for this tag. Sometimes required by local tags that cooperate with DT.  USE THIS
+     * METHOD WITH EXTREME CAUTION; IT PROVIDES ACCESS TO THE INTERNALS OF DISPLAYTAG, WHICH ARE NOT TO BE CONSIDERED
+     * STABLE PUBLIC INTERFACES.
+     *
+     * @return the TableModel
+     */
+    public TableModel getTableModel()
+    {
+        return this.tableModel;
     }
 
     /**

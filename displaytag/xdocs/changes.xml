@@ -8,6 +8,15 @@
         <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
     </properties>
     <body>
+        <release version="1.1-b1" description="Initial work following the 1.0 release">
+	        <action type="fix" dev="rapruitt" issue="DISPL-164" >
+		        Footer tag will now execute its body only on the last iteration of the table, instead of on the first.
+	        </action>
+	        <action type="add" dev="rapruitt">
+		        Added direct suppport for column totals.  Users can access the totals via JSTL in the body of the footer
+                or JSP following the tag.
+	        </action>
+        </release>
         <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
             <action type="fix" dev="fgiust">
                 Fixed some remaining https issues when saving exported files in Internet Explorer with the export filter
@@ -89,7 +98,7 @@
                 <code>
                     <![CDATA[<%=mediaType%>]]>
                 </code>
-                . If you previously used this sintax you will have to fix your jsps when upgrading to 1.0 rc2.
+                . If you previously used this syntax you will have to fix your jsps when upgrading to 1.0 rc2.
             </action>
             <action type="update" dev="fgiust">
                 The

@@ -44,6 +44,6 @@ public class FooterTagTest extends DisplaytagCase
 
         assertEquals("Expected one table in result.", 1, tables.length);
 
-        assertEquals("Bad footer content.", "1footer", tables[0].getCellAsText(1, 0));
+        assertEquals("Bad footer content.", "3footer", tables[0].getCellAsText(1, 0));
     }
 }
