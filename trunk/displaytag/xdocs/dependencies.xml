@@ -106,15 +106,6 @@
         </thead>
         <tbody>
          <tr>
-          <td colspan="2">clover</td>
-          <td>jar</td>
-          <td>1.2.3</td>
-          <td colspan="4">
-              <a href="http://www.thecortex.net/clover">http://www.thecortex.net/clover</a>
-              Required to generate test coverage reports. Not needed at runtime.
-          </td>
-         </tr>
-         <tr>
           <td colspan="2">portlet-api</td>
           <td>jar</td>
           <td>unknown</td>
