@@ -89,4 +89,33 @@ public class MediaSupportTest extends DisplaytagCase
         assertTrue("Unexpected value [" + KnownValue.ANT + "] found", !StringUtils.contains(output, KnownValue.ANT));
 
     }
+
+    /**
+     * Test that headers are correctly removed.
+     * @throws Exception any axception thrown during test.
+     */
+    public void testKeepHeaders() throws Exception
+    {
+        WebRequest request = new GetMethodWebRequest(getJspName());
+        WebResponse response = runner.getResponse(request);
+        assertNotNull("Missing expected header 'dummy'", response.getHeaderField("dummy"));
+    }
+
+    /**
+     * Test that headers are correctly removed.
+     * @throws Exception any axception thrown during test.
+     */
+    public void testRemovedHeaders() throws Exception
+    {
+
+        ParamEncoder encoder = new ParamEncoder("table");
+        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+
+        WebRequest request = new GetMethodWebRequest(getJspName());
+        request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
+
+        WebResponse response = runner.getResponse(request);
+
+        assertNull("Header 'dummy' should be removed", response.getHeaderField("dummy"));
+    }
 }
