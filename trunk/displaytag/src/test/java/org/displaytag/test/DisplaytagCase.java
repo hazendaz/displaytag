@@ -23,6 +23,11 @@ public abstract class DisplaytagCase extends TestCase
 {
 
     /**
+     * Context mapped to the test application.
+     */
+    public static final String CONTEXT = "/context";
+
+    /**
      * logger.
      */
     protected final Log log = LogFactory.getLog(getClass());
@@ -60,7 +65,7 @@ public abstract class DisplaytagCase extends TestCase
      */
     public void test11() throws Exception
     {
-        doTest("http://localhost/context/tld11/" + getJspName());
+        doTest("http://localhost" + CONTEXT + "/tld11/" + getJspName());
     }
 
     /**
@@ -69,7 +74,7 @@ public abstract class DisplaytagCase extends TestCase
      */
     public void testEL() throws Exception
     {
-        doTest("http://localhost/context/el/" + getJspName());
+        doTest("http://localhost" + CONTEXT + "/el/" + getJspName());
     }
 
     /**
@@ -87,7 +92,7 @@ public abstract class DisplaytagCase extends TestCase
         String path = webXmlUrl.getFile();
 
         // start servletRunner
-        runner = new ServletRunner(path, "/context");
+        runner = new ServletRunner(path, CONTEXT);
 
         // register the filter servlet
         runner.registerServlet("*" + MockFilterSupport.FILTERED_EXTENSION, MockFilterSupport.class.getName());

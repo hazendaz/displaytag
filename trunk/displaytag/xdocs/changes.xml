@@ -47,6 +47,9 @@
       <action type="fix" dev="fgiust" issue="842234">
 	      Fixed export.decorated property.
       </action>
+      <action type="fix" dev="fgiust">
+	      Context path is automatically added to "requestURI" table attribute (only if link starts with "/").
+      </action>
   	</release>
   	
   	<release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
