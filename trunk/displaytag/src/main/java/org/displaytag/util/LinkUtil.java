@@ -36,14 +36,14 @@ public final class LinkUtil
      */
     public static String autoLink(String string)
     {
-        String workString = new String(string);
-        int index = -1;
-        StringBuffer buffer = new StringBuffer();
-
         if (string == null || string.length() == 0)
         {
             return string;
         }
+        
+        String workString = new String(string);
+        int index = -1;
+        StringBuffer buffer = new StringBuffer();
 
         // First check for email addresses.
 
