@@ -46,6 +46,9 @@ public class EmptyTableTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals(0, tables.length);
+        // only the second table should be shown
+        assertEquals(1, tables.length);
+
+        assertEquals("Empty table message: colspan should be 2", 2, tables[0].getTableCell(1, 0).getColSpan());
     }
 }
