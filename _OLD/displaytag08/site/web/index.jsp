@@ -102,5 +102,9 @@ Please send any comments, suggestions, bug reports, etc... to:<p>
 The SourceForge Project Team<br />
 <a href="mailto:displaytag-user@lists.sourceforge.net">displaytag-user@lists.sourceforge.net</a><br />
 <a href="http://sf.net/projects/displaytag">http://sf.net/projects/displaytag</a>
-
+<br /><br />
+<a href="http://sourceforge.net" title="This Logo is designed to track statistics"> 
+<img src="http://sourceforge.net/sflogo.php?group_id=73068&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo"></a>
+<br /><br />
+</p>
 <jsp:include page="footer.jsp" flush="true" />
