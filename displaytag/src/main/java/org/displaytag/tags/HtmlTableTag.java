@@ -30,26 +30,6 @@ public abstract class HtmlTableTag extends TemplateTag
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
     /**
-     * setter for the "width" html attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setWidth(String value)
-    {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
-    }
-
-    /**
-     * setter for the "border" html attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setBorder(String value)
-    {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_BORDER, value);
-    }
-
-    /**
      * setter for the "cellspacing" html attribute.
      * @param value attribute value
      */
@@ -68,65 +48,12 @@ public abstract class HtmlTableTag extends TemplateTag
     }
 
     /**
-     * setter for the "align" html attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setAlign(String value)
-    {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
-    }
-
-    /**
-     * setter for the "background" html attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setBackground(String value)
-    {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, value);
-    }
-
-    /**
-     * setter for the "bgcolor" html attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setBgcolor(String value)
-    {
-
-        this.attributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, value);
-    }
-
-    /**
      * setter for the "frame" html attribute.
      * @param value attribute value
      */
     public void setFrame(String value)
     {
         this.attributeMap.put(TagConstants.ATTRIBUTE_FRAME, value);
-    }
-
-    /**
-     * setter for the "height" html attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setHeight(String value)
-    {
-
-        this.attributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, value);
-    }
-
-    /**
-     * setter for the "hspace" html attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setHspace(String value)
-    {
-
-        this.attributeMap.put(TagConstants.ATTRIBUTE_HSPACE, value);
     }
 
     /**
@@ -154,26 +81,6 @@ public abstract class HtmlTableTag extends TemplateTag
     public void setSummary(String value)
     {
         this.attributeMap.put(TagConstants.ATTRIBUTE_SUMMARY, value);
-    }
-
-    /**
-     * setter for the "vspace" html attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setVspace(String value)
-    {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_VSPACE, value);
-    }
-
-    /**
-     * setter for the "class" html attribute.
-     * @param value attribute value
-     * @deprecated use setClass()
-     */
-    public void setStyleClass(String value)
-    {
-        setClass(value);
     }
 
     /**
