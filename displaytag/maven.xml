@@ -1,124 +1,104 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<project default="rebuild-all" xmlns:m="maven" xmlns:j="jelly:core" xmlns:u="jelly:util">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:j="jelly:core" xmlns:u="jelly:util" default="rebuild-all">
+  
+  <!-- default goal -->
+  <goal name="rebuild-all">
+    <j:set var="goals" value="pom,clean,jar:jar,war:war,site:generate,zip-distribution" />
+    <mkdir dir="${maven.build.dir}" />
+    <u:tokenize var="goals" delim=",">${goals}</u:tokenize>
+    <j:forEach items="${goals}" var="goal" indexVar="goalNumber">
+      Now attaining goal number ${goalNumber}, which is ${goal}
+      <attainGoal name="${goal}" />
+    </j:forEach>
+  </goal>
 
-	<goal name="rebuild-all">
-		<j:set var="goals" value="pom,clean,jar:jar,war:war,site:generate,zip-distribution" />
-		<mkdir dir="${maven.build.dir}" />
-		<u:tokenize var="goals" delim=",">${goals}</u:tokenize>
-		<j:forEach items="${goals}" var="goal" indexVar="goalNumber">
-			Now attaining goal number ${goalNumber}, which is ${goal}
-			<attainGoal name="${goal}" />
-		</j:forEach>
-	</goal>
-
-
+  
+  <!-- process FAQ and tag reference -->
   <preGoal name="xdoc:jelly-transform">
-		<!-- preprocess faq.fml -->
-        <attainGoal name="faq" />
-		<!-- create tag reference -->
-        <attainGoal name="taglib:tagreference" />
-	</preGoal>
+    <!-- preprocess faq.fml -->
+    <attainGoal name="faq" />
+    <!-- create tag reference -->
+    <attainGoal name="taglib:tagreference" />
+  </preGoal>
 
 
-	<preGoal name="test:test">
-        <!-- generated tld should be ready before tests -->
-        <!-- create 1.1 dtd -->
-        <attainGoal name="taglib:convert-12to11" />
-        
-        <!-- copy 1.2 tld -->
-        <copy file="${maven.src.dir}/tld/displaytag-12.tld"
-            tofile="${maven.build.dir}/tld/displaytag-12.tld" />
-	
-	      <!-- add tld to taglib jar -->
-        <echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to file ${maven.build.dest}/META-INF/displaytag.tld" />
-        <copy file="${maven.build.dir}/tld/displaytag-11.tld"
-            tofile="${maven.build.dest}/META-INF/displaytag.tld" />
-        <!-- add EL tld to taglib jar -->
-        <echo message="copying ${maven.src.dir}/tld/displaytag-el-12.tld to file ${maven.build.dest}/META-INF/displaytag-el.tld" />
-        <copy file="${maven.src.dir}/tld/displaytag-el-12.tld"
-            tofile="${maven.build.dest}/META-INF/displaytag-el.tld" />
-	</preGoal>
-
-	<!-- copy tld for example webapp -->
-	<postGoal name="war:webapp">
-		<echo message="deleting ${maven.war.webapp.dir}/META-INF" />
-		<delete file="${maven.war.webapp.dir}/META-INF" />
-
-		<echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to dir ${maven.war.webapp.dir}/${maven.war.tld.dir}" />
-		<copy file="${maven.build.dir}/tld/displaytag-11.tld" todir="${maven.war.webapp.dir}/${maven.war.tld.dir}" />
-	</postGoal>
-
-    <!-- prepares the source zip file for distribution -->
-    <goal name="zip-sources">
-        
-        <mkdir dir="${maven.build.dir}/dist" />
-        
-        <zip destfile="${maven.build.dir}/dist/${pom.artifactId}-${pom.currentVersion}-src.zip">
-             <zipfileset dir="${maven.base.dir}" 
-             includes="src/**/*.*,xdocs/**/*.*,*.xml,LICENSE.txt,*.properties*" 
-             />
-        </zip>
-    </goal>
+  <!-- set up tlds before test -->
+  <preGoal name="test:test">
+    <!-- generated tld should be ready before tests -->
+    <!-- create 1.1 dtd -->
+    <attainGoal name="taglib:convert-12to11" />
+    <!-- copy 1.2 tld -->
+    <copy file="${maven.src.dir}/tld/displaytag-12.tld" tofile="${maven.build.dir}/tld/displaytag-12.tld" />
+    <!-- add tld to taglib jar -->
+    <echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to file ${maven.build.dest}/META-INF/displaytag.tld" />
+    <copy file="${maven.build.dir}/tld/displaytag-11.tld" tofile="${maven.build.dest}/META-INF/displaytag.tld" />
+    <!-- add EL tld to taglib jar -->
+    <echo message="copying ${maven.src.dir}/tld/displaytag-el-12.tld to file ${maven.build.dest}/META-INF/displaytag-el.tld" />
+    <copy file="${maven.src.dir}/tld/displaytag-el-12.tld" tofile="${maven.build.dest}/META-INF/displaytag-el.tld" />
+  </preGoal>
+  
     
-    <!-- prepares the binaries zipped file for the distribution -->
-    <goal name="zip-binaries">
-        
-        <mkdir dir="${maven.build.dir}/dist" />
-        
-        <zip destfile="${maven.build.dir}/dist/${pom.artifactId}-${pom.currentVersion}.zip">
-             <zipfileset dir="${maven.build.dir}" 
-             includes="${pom.artifactId}-${pom.currentVersion}.jar,${pom.artifactId}.war,docs/**/*.*" 
-             />
-             <zipfileset dir="${maven.build.dir}/tld" 
-             includes="*.tld" 
-             />
-             <zipfileset dir="${maven.base.dir}" 
-             includes="LICENSE.txt" 
-             />
-        </zip>
-    </goal>
-
-    <!-- prepares both the binary and source file for distribution -->
-    <goal name="zip-distribution">
-        <attainGoal name="zip-sources" />
-        <attainGoal name="zip-binaries" />    
-    </goal>
-
-
-	<!-- prepares snapshot build and deploy -->
-	<goal name="build-and-deploy">
-		
-        <attainGoal name="clean" />
-        <attainGoal name="jar:jar" />
-        <attainGoal name="war:war" />
-        <attainGoal name="cactus" />
-        <attainGoal name="site:generate" />
-        
-        <attainGoal name="prepare-snapshot-deploy" />
-        
-        <attainGoal name="site:sshdeploy" />
-	</goal>
-	
-	<!-- zip and copy snapshot build for deploy -->
-	<goal name="prepare-snapshot">
-		
-		<attainGoal name="zip-distribution" />
-    <copy todir="${maven.build.dir}/docs/nightly" >
-			<fileset dir="${maven.build.dir}/dist" includes="*.zip"/>
-    </copy>
-	</goal>
-	
-  <postGoal name="site">
-    <attainGoal name="pdf"/>
-    <copy todir="${maven.build.dir}/docs" file="${maven.build.dir}/pdf/displaytag.pdf" />
+  <!-- copy tld for example webapp -->
+  <postGoal name="war:webapp">
+    <echo message="deleting ${maven.war.webapp.dir}/META-INF" />
+    <delete file="${maven.war.webapp.dir}/META-INF" />
+    <echo message="copying ${maven.build.dir}/tld/displaytag-11.tld to dir ${maven.war.webapp.dir}/${maven.war.tld.dir}" />
+    <copy file="${maven.build.dir}/tld/displaytag-11.tld" todir="${maven.war.webapp.dir}/${maven.war.tld.dir}" />
   </postGoal>
   
-  <goal name="nightly">
-    <attainGoal name="rebuild-all"/>
+    
+  <!-- prepares the binaries zipped file for the distribution -->
+  <goal name="zip-binaries">
+    <mkdir dir="${maven.build.dir}/distributions" />
+    <zip destfile="${maven.build.dir}/distributions/${pom.artifactId}-${pom.currentVersion}.zip">
+      <zipfileset dir="${maven.build.dir}" includes="${pom.artifactId}-${pom.currentVersion}.jar,${pom.artifactId}.war,docs/**/*.*" />
+      <zipfileset dir="${maven.build.dir}/tld" includes="*.tld" />
+      <zipfileset dir="${maven.base.dir}" includes="LICENSE.txt" />
+    </zip>
+  </goal>
+  
+  
+  <!-- prepares both the binary and source file for distribution -->
+  <goal name="zip-distribution">
+    <attainGoal name="dist:build-src" />
+    <attainGoal name="zip-binaries" />
+  </goal>
+  
+  
+  <!-- prepares snapshot build and deploy -->
+  <goal name="build-and-deploy">
+    <attainGoal name="clean" />
+    <attainGoal name="jar:jar" />
+    <attainGoal name="war:war" />
+    <attainGoal name="cactus" />
+    <attainGoal name="site:generate" />
+    <attainGoal name="prepare-snapshot-deploy" />
+    <attainGoal name="site:sshdeploy" />
+  </goal>
+  
+    
+  <!-- zip and copy snapshot build for deploy -->
+  <goal name="prepare-snapshot">
+    <attainGoal name="zip-distribution" />
     <copy todir="${maven.build.dir}/docs/nightly">
-			<fileset dir="${maven.build.dir}/dist"/>
+      <fileset dir="${maven.build.dir}/distributions" includes="*.zip" />
     </copy>
-    <attainGoal name="site:sshdeploy"/>
+  </goal>
+  
+  
+  <postGoal name="site">
+    <attainGoal name="pdf" />
+    <copy todir="${maven.build.dir}/docs" file="${maven.build.dir}/pdf/displaytag.pdf" />
+  </postGoal>
+
+
+  <goal name="nightly">
+    <attainGoal name="rebuild-all" />
+    <copy todir="${maven.build.dir}/docs/nightly">
+      <fileset dir="${maven.build.dir}/distributions" />
+    </copy>
+    <attainGoal name="site:sshdeploy" />
   </goal>
 
 </project>
+
