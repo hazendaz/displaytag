@@ -106,11 +106,11 @@
 		int lId= lObject.getId();
 
 		return "&lt;a href=\"details.jsp?id=" + lId
-			+ "&action=view\">View&lt;/a> | "
+			+ "&amp;action=view\">View&lt;/a> | "
 			+ "&lt;a href=\"details.jsp?id=" + lId
-			+ "&action=edit\">Edit&lt;/a> | "
+			+ "&amp;action=edit\">Edit&lt;/a> | "
 			+ "&lt;a href=\"details.jsp?id=" + lId
-			+ "&action=delete\">Delete&lt;/a>";
+			+ "&amp;action=delete\">Delete&lt;/a>";
 	}
 </pre>
 
