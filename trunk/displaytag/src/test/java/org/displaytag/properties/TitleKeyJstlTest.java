@@ -23,6 +23,14 @@ public class TitleKeyJstlTest extends AbstractTitleKeyTest
     }
 
     /**
+     * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
+     */
+    protected String getExpectedSuffix()
+    {
+        return "";
+    }
+
+    /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getI18nResourceProvider()
      */
     protected I18nResourceProvider getI18nResourceProvider()

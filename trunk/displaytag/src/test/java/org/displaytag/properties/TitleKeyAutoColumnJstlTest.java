@@ -23,6 +23,14 @@ public class TitleKeyAutoColumnJstlTest extends AbstractTitleKeyAutoColumnTest
     }
 
     /**
+     * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
+     */
+    protected String getExpectedSuffix()
+    {
+        return "";
+    }
+
+    /**
      * @see org.displaytag.properties.AbstractTitleKeyAutoColumnTest#getI18nResourceProvider()
      */
     protected I18nResourceProvider getI18nResourceProvider()
