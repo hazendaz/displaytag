@@ -103,18 +103,15 @@
 	<!-- zip and copy snapshot build for deploy -->
 	<goal name="prepare-snapshot">
 		
-		<!-- temporary workaround for checkstyle plugin build -->
-        <attainGoal name="checkstyle" />
-        <attainGoal name="xdoc" />
-        <!-- end workaround -->
-        
-	    <attainGoal name="zip-distribution" />
-        
-        <copy todir="${maven.build.dir}/docs/nightly" >
-			<fileset dir="${maven.build.dir}/dist" 
-             includes="*.zip" 
-             />
-        </copy>
+		<attainGoal name="zip-distribution" />
+    <copy todir="${maven.build.dir}/docs/nightly" >
+			<fileset dir="${maven.build.dir}/dist" includes="*.zip"/>
+    </copy>
 	</goal>
+	
+  <postGoal name="site">
+    <attainGoal name="pdf"/>
+    <copy todir="${maven.build.dir}/docs" file="${maven.build.dir}/pdf/displaytag.pdf" />
+  </postGoal>
 
 </project>
