@@ -6,11 +6,18 @@ import javax.servlet.jsp.JspTagException;
 /**
  * An user-friendly dependency checker. This will check the presence of libraries needed by displaytag, throwing an
  * Exception with an informative message if the library is missing or the version is not compatible.
- * @author Fabrizo Giustina
+ * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class DependencyChecker
+public final class DependencyChecker
 {
+
+    /**
+     * Don't instantiate.
+     */
+    private DependencyChecker()
+    {
+    }
 
     /**
      * Has the commons-lang dependency been checked?
