@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -73,7 +75,7 @@ public class TableTag extends HtmlTableTag
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(TableTag.class);
+    private static Log log = LogFactory.getLog(TableTag.class);
 
     /**
      * Iterator on collection
@@ -368,15 +370,15 @@ public class TableTag extends HtmlTableTag
     {
         try
         {
-            int lUserOffset = Integer.parseInt(pStringValue);
+            int userOffset = Integer.parseInt(pStringValue);
 
-            if (lUserOffset < 1)
+            if (userOffset < 1)
             {
                 throw new InvalidTagAttributeValueException(getClass(), "offset", pStringValue);
             }
 
             // mOffset is 0 based, subtract 1
-            mOffset = (lUserOffset - 1);
+            mOffset = (userOffset - 1);
         }
         catch (NumberFormatException e)
         {
@@ -412,7 +414,7 @@ public class TableTag extends HtmlTableTag
      **/
     public void addColumn(HeaderCell pColumn)
     {
-        mLog.debug("addColumn " + pColumn);
+        log.debug("addColumn " + pColumn);
         mTableModel.addColumnHeader(pColumn);
     }
 
@@ -451,9 +453,9 @@ public class TableTag extends HtmlTableTag
     public int doStartTag() throws JspException
     {
 
-        if (mLog.isDebugEnabled())
+        if (log.isDebugEnabled())
         {
-            mLog.debug("doStartTag()");
+            log.debug("doStartTag()");
         }
 
         mTableModel = new TableModel();
@@ -479,9 +481,9 @@ public class TableTag extends HtmlTableTag
         // doAfterBody() has been called, body is not empty
         mDoAfterBodyExecuted = true;
 
-        if (mLog.isDebugEnabled())
+        if (log.isDebugEnabled())
         {
-            mLog.debug("doAfterBody() - iterator with id = " + id + " on row number " + mRowNumber);
+            log.debug("doAfterBody() - iterator with id = " + id + " on row number " + mRowNumber);
         }
 
         // increment mRowNumber
@@ -500,9 +502,9 @@ public class TableTag extends HtmlTableTag
     protected int doIteration() throws JspException
     {
 
-        if (mLog.isDebugEnabled())
+        if (log.isDebugEnabled())
         {
-            mLog.debug("doIteration()");
+            log.debug("doIteration()");
         }
 
         // Row already filled?
@@ -516,18 +518,18 @@ public class TableTag extends HtmlTableTag
         if (mIterator.hasNext())
         {
 
-            Object lIteratedObject = mIterator.next();
+            Object iteratedObject = mIterator.next();
 
             if (getId() != null)
             {
-                if ((lIteratedObject != null))
+                if ((iteratedObject != null))
                 {
                     // set object into pageContext
-                    if (mLog.isDebugEnabled())
+                    if (log.isDebugEnabled())
                     {
-                        mLog.debug("setting attribute \"" + getId() + "\" in pagecontext");
+                        log.debug("setting attribute \"" + getId() + "\" in pagecontext");
                     }
-                    pageContext.setAttribute(getId(), lIteratedObject);
+                    pageContext.setAttribute(getId(), iteratedObject);
 
                 }
                 else
@@ -540,11 +542,11 @@ public class TableTag extends HtmlTableTag
             }
 
             // Row object for Cell values
-            mCurrentRow = new Row(lIteratedObject, mRowNumber);
+            mCurrentRow = new Row(iteratedObject, mRowNumber);
 
-            if (mLog.isDebugEnabled())
+            if (log.isDebugEnabled())
             {
-                mLog.debug("doIteration() returning EVAL_BODY_TAG");
+                log.debug("doIteration() returning EVAL_BODY_TAG");
             }
 
             // new iteration
@@ -552,9 +554,9 @@ public class TableTag extends HtmlTableTag
         }
         else
         {
-            if (mLog.isDebugEnabled())
+            if (log.isDebugEnabled())
             {
-                mLog.debug("doIteration() - iterator [" + id + "] ended after " + mRowNumber + " rows");
+                log.debug("doIteration() - iterator [" + id + "] ended after " + mRowNumber + " rows");
             }
 
             // end iteration
@@ -571,73 +573,71 @@ public class TableTag extends HtmlTableTag
 
         initHref();
 
-        RequestHelper lRequestHelper = new RequestHelper((HttpServletRequest) pageContext.getRequest());
+        RequestHelper requestHelper = new RequestHelper((HttpServletRequest) pageContext.getRequest());
 
-        Integer lPageNumberParameter =
-            lRequestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE));
-        mPageNumber = (lPageNumberParameter == null) ? 1 : lPageNumberParameter.intValue();
+        Integer pageNumberParameter = requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE));
+        mPageNumber = (pageNumberParameter == null) ? 1 : pageNumberParameter.intValue();
 
-        Integer lSortColumnParameter =
-            lRequestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
-        int lSortColumn = (lSortColumnParameter == null) ? mDefaultSortedColumn : lSortColumnParameter.intValue();
-        mTableModel.setSortedColumnNumber(lSortColumn);
+        Integer sortColumnParameter = requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
+        int sortColumn = (sortColumnParameter == null) ? mDefaultSortedColumn : sortColumnParameter.intValue();
+        mTableModel.setSortedColumnNumber(sortColumn);
 
         mTableModel.setSortFullTable(mSortFullTable);
 
-        Integer lParamOrder = lRequestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER));
-        boolean lOrder = !(new Integer(TableTagParameters.VALUE_SORT_DESCENDING).equals(lParamOrder));
-        mTableModel.setSortOrderAscending(lOrder);
+        Integer paramOrder = requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER));
+        boolean order = !(new Integer(TableTagParameters.VALUE_SORT_DESCENDING).equals(paramOrder));
+        mTableModel.setSortOrderAscending(order);
 
         // if the behaviour is sort full page we need to go back to page one if sort of order is changed
-        if (mSortFullTable && (lSortColumn != -1))
+        if (mSortFullTable && (sortColumn != -1))
         {
 
             // save actual sort to href
-            mBaseHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSSORT), lSortColumn);
-            mBaseHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSORDER), lParamOrder);
+            mBaseHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSSORT), sortColumn);
+            mBaseHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSORDER), paramOrder);
 
             // read previous sort from request
-            Integer lPreviousSortColumnParameter =
-                lRequestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
-            mPreviousSortColumn = (lPreviousSortColumnParameter == null) ? -1 : lPreviousSortColumnParameter.intValue();
+            Integer previousSortColumnParameter =
+                requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
+            mPreviousSortColumn = (previousSortColumnParameter == null) ? -1 : previousSortColumnParameter.intValue();
 
-            Integer lPreviousParamOrder =
-                lRequestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSORDER));
-            mPreviousOrder = !(new Integer(TableTagParameters.VALUE_SORT_DESCENDING).equals(lPreviousParamOrder));
+            Integer previousParamOrder =
+                requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PREVIOUSORDER));
+            mPreviousOrder = !(new Integer(TableTagParameters.VALUE_SORT_DESCENDING).equals(previousParamOrder));
 
         }
 
-        Integer lExportTypeParameter =
-            lRequestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
+        Integer exportTypeParameter =
+            requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
         mExportType =
-            (lExportTypeParameter == null) ? TableTagParameters.EXPORT_TYPE_NONE : lExportTypeParameter.intValue();
+            (exportTypeParameter == null) ? TableTagParameters.EXPORT_TYPE_NONE : exportTypeParameter.intValue();
 
         // if list is null check
         if (mList == null)
         {
             // create a complete string for compatibility with previous version before expression evaluation.
             // this approach is optimized for new expressions, not for previous property/scope parameters
-            StringBuffer lFullName = new StringBuffer();
+            StringBuffer fullName = new StringBuffer();
 
             // append scope
             if (mScope != null && !"".equals(mScope))
             {
-                lFullName.append(mScope).append("Scope.");
+                fullName.append(mScope).append("Scope.");
             }
 
             // base bean name
             if (mName != null)
             {
-                lFullName.append(mName);
+                fullName.append(mName);
             }
 
             // append property
             if (mProperty != null && !"".equals(mProperty))
             {
-                lFullName.append('.').append(mProperty);
+                fullName.append('.').append(mProperty);
             }
 
-            mList = evaluateExpression(lFullName.toString());
+            mList = evaluateExpression(fullName.toString());
 
         }
 
@@ -652,10 +652,10 @@ public class TableTag extends HtmlTableTag
     protected void initHref() throws JspException
     {
 
-        RequestHelper lRequestHelper = new RequestHelper((HttpServletRequest) pageContext.getRequest());
+        RequestHelper requestHelper = new RequestHelper((HttpServletRequest) pageContext.getRequest());
 
         // get the href for this request
-        Href lNormalHref = lRequestHelper.getHref();
+        Href normalHref = requestHelper.getHref();
 
         if (mRequestUri != null)
         {
@@ -663,13 +663,13 @@ public class TableTag extends HtmlTableTag
             mBaseHref = new Href(mRequestUri);
 
             // ... ancd copy parameters from the curret request
-            HashMap lParameterMap = lNormalHref.getParameterMap();
-            mBaseHref.setParameterMap(lParameterMap);
+            HashMap parameterMap = normalHref.getParameterMap();
+            mBaseHref.setParameterMap(parameterMap);
         }
         else
         {
             // simply copy href
-            mBaseHref = lNormalHref;
+            mBaseHref = normalHref;
         }
 
     }
@@ -685,14 +685,14 @@ public class TableTag extends HtmlTableTag
     public int doEndTag() throws JspException
     {
 
-        if (mLog.isDebugEnabled())
+        if (log.isDebugEnabled())
         {
-            mLog.debug("doEndTag");
+            log.debug("doEndTag");
         }
 
         if (!mDoAfterBodyExecuted)
         {
-            mLog.debug(
+            log.debug(
                 "tag body is empty. Manually iterates on collection to preserve compatibility with previous version");
 
             // first row (created in doStartTag)
@@ -705,26 +705,35 @@ public class TableTag extends HtmlTableTag
             // other rows
             while (mIterator.hasNext())
             {
-                Object lIteratedObject = mIterator.next();
+                Object iteratedObject = mIterator.next();
                 mRowNumber++;
 
                 // Row object for Cell values
-                mCurrentRow = new Row(lIteratedObject, mRowNumber);
+                mCurrentRow = new Row(iteratedObject, mRowNumber);
 
                 mTableModel.addRow(mCurrentRow);
             }
         }
 
-        TableDecorator lTableDecorator = DecoratorFactory.loadTableDecorator(mDecoratorName);
+        // here
 
-        if (lTableDecorator != null)
+        // new in 1.0-b2
+        // if no rows are defined automatically get all properties from bean
+        if (mTableModel.isEmpty())
         {
-            lTableDecorator.init(pageContext, mList);
-            mTableModel.setTableDecorator(lTableDecorator);
+            describeEmptyTable();
         }
 
-        List lPageData = getViewableData();
-        mTableModel.setRowListPage(lPageData);
+        TableDecorator tableDecorator = DecoratorFactory.loadTableDecorator(mDecoratorName);
+
+        if (tableDecorator != null)
+        {
+            tableDecorator.init(pageContext, mList);
+            mTableModel.setTableDecorator(tableDecorator);
+        }
+
+        List pageData = getViewableData();
+        mTableModel.setRowListPage(pageData);
 
         // Figure out how we should sort this data, typically we just sort
         // the data being shown, but the programmer can override this behavior
@@ -736,7 +745,7 @@ public class TableTag extends HtmlTableTag
 
         // Figure out where this data is going, if this is an export, then
         // we don't add the header and footer information
-        StringBuffer lBuffer = new StringBuffer(8000);
+        StringBuffer buffer = new StringBuffer(8000);
 
         // Get the data back in the representation that the user is after, do they
         // want HTML/XML/CSV/EXCEL/etc...
@@ -745,22 +754,22 @@ public class TableTag extends HtmlTableTag
         // other export types, we need to clear our buffer before we can write
         // out the data
 
-        int lReturnValue = EVAL_PAGE;
+        int returnValue = EVAL_PAGE;
 
         if (mExportType == TableTagParameters.EXPORT_TYPE_NONE)
         {
-            lBuffer.append(getHTMLData());
-            write(lBuffer);
+            buffer.append(getHTMLData());
+            write(buffer);
         }
         else
         {
 
-            if (mLog.isDebugEnabled())
+            if (log.isDebugEnabled())
             {
-                mLog.debug("doEndTag - exporting");
+                log.debug("doEndTag - exporting");
             }
 
-            lReturnValue = doExport();
+            returnValue = doExport();
 
         }
 
@@ -783,12 +792,55 @@ public class TableTag extends HtmlTableTag
         mRequestUri = null;
         mTableParameterIdentifier = null;
 
-        if (mLog.isDebugEnabled())
+        if (log.isDebugEnabled())
         {
-            mLog.debug("doEndTag - end");
+            log.debug("doEndTag - end");
         }
 
-        return lReturnValue;
+        return returnValue;
+    }
+
+    /**
+     * If no columns are provided, automatically add them from bean properties.
+     * Get the first object in the list and get all the properties (except the
+     * "class" property which is automatically skipped).
+     * Of course this isn't possible for empty lists
+     * @since 1.0
+     */
+    private void describeEmptyTable()
+    {
+        mIterator = IteratorUtils.getIterator(mList);
+        if (mIterator.hasNext())
+        {
+            Object iteratedObject = mIterator.next();
+            Map objectProperties = new HashMap();
+            try
+            {
+                objectProperties = BeanUtils.describe(iteratedObject);
+            }
+            catch (Exception e)
+            {
+                log.warn("Unable to automatically add columns: " + e.getMessage(), e);
+            }
+
+            // iterator on properties names
+            Iterator propertiesIterator = objectProperties.keySet().iterator();
+
+            while (propertiesIterator.hasNext())
+            {
+                // get the property name
+                String property = (String) propertiesIterator.next();
+
+                // dont't want to add the standard "class" property
+                if (!"class".equals(property))
+                {
+                    // creates a new header and add to the table model
+                    HeaderCell headerCell = new HeaderCell();
+                    headerCell.setBeanPropertyName(property);
+                    mTableModel.addColumnHeader(headerCell);
+                }
+            }
+        }
     }
 
     /**
@@ -799,39 +851,39 @@ public class TableTag extends HtmlTableTag
     protected int doExport() throws JspException
     {
 
-        BaseExportView lExportView;
-        boolean lExportFullList = mProp.getExportFullList();
+        BaseExportView exportView;
+        boolean exportFullList = mProp.getExportFullList();
 
-        mLog.debug("mExportType=" + mExportType);
+        log.debug("exportType=" + mExportType);
         switch (mExportType)
         {
 
             case TableTagParameters.EXPORT_TYPE_CSV :
-                mLog.debug("export CSV");
-                lExportView = new CsvView(mTableModel, lExportFullList);
+                log.debug("export CSV");
+                exportView = new CsvView(mTableModel, exportFullList);
                 break;
             case TableTagParameters.EXPORT_TYPE_EXCEL :
-                mLog.debug("export EXCEL");
-                lExportView = new ExcelView(mTableModel, lExportFullList);
+                log.debug("export EXCEL");
+                exportView = new ExcelView(mTableModel, exportFullList);
                 break;
             case TableTagParameters.EXPORT_TYPE_XML :
-                mLog.debug("export XML");
-                lExportView = new XmlView(mTableModel, lExportFullList);
+                log.debug("export XML");
+                exportView = new XmlView(mTableModel, exportFullList);
                 break;
             default :
-                lExportView = null;
+                exportView = null;
 
         }
 
-        if (lExportView == null)
+        if (exportView == null)
         {
             throw new JspException("Invalid export type: " + mExportType);
         }
 
-        String lMimeType = lExportView.getMimeType();
-        String lExportString = lExportView.doExport();
+        String mimeType = exportView.getMimeType();
+        String exportString = exportView.doExport();
 
-        return writeExport(lMimeType, lExportString);
+        return writeExport(mimeType, exportString);
     }
 
     /**
@@ -843,30 +895,30 @@ public class TableTag extends HtmlTableTag
      */
     protected int writeExport(String pMimeType, String pExportString) throws JspException
     {
-        ServletResponse lResponse = pageContext.getResponse();
-        JspWriter lOut = pageContext.getOut();
+        ServletResponse response = pageContext.getResponse();
+        JspWriter out = pageContext.getOut();
 
-        int lReturnValue = EVAL_PAGE;
+        int returnValue = EVAL_PAGE;
 
         try
         {
-            lOut.clear();
+            out.clear();
 
-            lResponse.setContentType(pMimeType);
+            response.setContentType(pMimeType);
 
-            lOut.write(pExportString);
+            out.write(pExportString);
 
-            lOut.flush();
+            out.flush();
 
-            lReturnValue = SKIP_PAGE;
+            returnValue = SKIP_PAGE;
         }
         catch (Exception ex)
         {
-            mLog.error(ex.getMessage(), ex);
+            log.error(ex.getMessage(), ex);
             throw new JspException(ex.getMessage());
         }
 
-        return lReturnValue;
+        return returnValue;
     }
 
     /**
@@ -885,7 +937,7 @@ public class TableTag extends HtmlTableTag
     public List getViewableData() throws JspException
     {
 
-        List lFullList = new ArrayList();
+        List fullList = new ArrayList();
 
         // If the user has changed the way our default behavior works, then we
         // need to look for it now, and resort things if needed before we ask
@@ -898,12 +950,12 @@ public class TableTag extends HtmlTableTag
             mTableModel.sortFullList();
         }
 
-        Object lOriginalData = mTableModel.getRowListFull();
+        Object originalData = mTableModel.getRowListFull();
 
         // If they have asked for a subset of the list via the length
         // attribute, then only fetch those items out of the master list.
 
-        lFullList = CollectionUtil.getListFromObject(lOriginalData, mOffset, mLength);
+        fullList = CollectionUtil.getListFromObject(originalData, mOffset, mLength);
 
         // If they have asked for just a page of the data, then use the
         // SmartListHelper to figure out what page they are after, etc...
@@ -911,15 +963,15 @@ public class TableTag extends HtmlTableTag
         if (mPagesize > 0)
         {
 
-            mHelper = new SmartListHelper(lFullList, mPagesize, mProp);
+            mHelper = new SmartListHelper(fullList, mPagesize, mProp);
 
             mHelper.setCurrentPage(mPageNumber);
 
-            lFullList = mHelper.getListForCurrentPage();
+            fullList = mHelper.getListForCurrentPage();
 
         }
 
-        return lFullList;
+        return fullList;
     }
 
     /**
@@ -929,7 +981,7 @@ public class TableTag extends HtmlTableTag
      */
     private String getHTMLData() throws JspException
     {
-        StringBuffer lBuffer = new StringBuffer(8000);
+        StringBuffer buffer = new StringBuffer(8000);
 
         // variables to hold the previous row columns values.
         mPreviousRow = new Hashtable(10);
@@ -941,111 +993,111 @@ public class TableTag extends HtmlTableTag
         if (mProp.getAddPagingBannerTop())
         {
             // search result and navigation bar
-            lBuffer.append(getSearchResultAndNavigation());
+            buffer.append(getSearchResultAndNavigation());
         }
 
         // open table
-        lBuffer.append(getOpenTag());
+        buffer.append(getOpenTag());
 
         // thead
         if (mProp.getShowHeader())
         {
-            lBuffer.append(getTableHeader());
+            buffer.append(getTableHeader());
         }
 
         // open table body
-        lBuffer.append(TagConstants.TAG_TBODY_OPEN);
+        buffer.append(TagConstants.TAG_TBODY_OPEN);
 
         // Ok, start bouncing through our list...
-        RowIterator lRowIterator = mTableModel.getRowIterator();
+        RowIterator rowIterator = mTableModel.getRowIterator();
 
         // iterator on rows
-        while (lRowIterator.hasNext())
+        while (rowIterator.hasNext())
         {
-            Row lRow = lRowIterator.next();
-            if (mLog.isDebugEnabled())
+            Row row = rowIterator.next();
+            if (log.isDebugEnabled())
             {
-                mLog.debug("lRowIterator.next()=" + lRow);
+                log.debug("lRowIterator.next()=" + row);
             }
             if (mTableModel.getTableDecorator() != null)
             {
 
-                String lStringStartRow = mTableModel.getTableDecorator().startRow();
-                if (lStringStartRow != null)
+                String stringStartRow = mTableModel.getTableDecorator().startRow();
+                if (stringStartRow != null)
                 {
-                    lBuffer.append(lStringStartRow);
+                    buffer.append(stringStartRow);
                 }
 
             }
 
             // open tr
-            lBuffer.append(lRow.getOpenTag());
+            buffer.append(row.getOpenTag());
 
             // iterator on columns
-            mLog.debug("creating ColumnIterator on " + mTableModel.getHeaderCellList());
-            ColumnIterator lColumnIterator = lRow.getColumnIterator(mTableModel.getHeaderCellList());
+            log.debug("creating ColumnIterator on " + mTableModel.getHeaderCellList());
+            ColumnIterator columnIterator = row.getColumnIterator(mTableModel.getHeaderCellList());
 
-            while (lColumnIterator.hasNext())
+            while (columnIterator.hasNext())
             {
                 // mLog.debug("lColumnIterator.hasNext()");
-                Column lColumn = lColumnIterator.nextColumn();
+                Column column = columnIterator.nextColumn();
 
-                Object lValue;
+                Object value;
 
                 // Get the value to be displayed for the column
                 try
                 {
-                    lBuffer.append(lColumn.getOpenTag());
+                    buffer.append(column.getOpenTag());
 
-                    lValue = lColumn.getChoppedAndLinkedValue();
+                    value = column.getChoppedAndLinkedValue();
                 }
                 catch (Exception ex)
                 {
-                    mLog.error(ex.getMessage(), ex);
+                    log.error(ex.getMessage(), ex);
                     throw new JspException(ex.getMessage());
                 }
 
                 // Ok, let's write this column's cell...
 
-                if (lColumn.getGroup() != -1)
+                if (column.getGroup() != -1)
                 {
                     try
                     {
-                        lBuffer.append(groupColumns(lValue.toString(), lColumn.getGroup()));
+                        buffer.append(groupColumns(value.toString(), column.getGroup()));
                     }
                     catch (Exception e)
                     {
-                        mLog.error(e.getMessage(), e);
+                        log.error(e.getMessage(), e);
                     }
                 }
                 else
                 {
 
-                    lBuffer.append(lValue);
+                    buffer.append(value);
                 }
 
-                lBuffer.append(lColumn.getCloseTag());
+                buffer.append(column.getCloseTag());
 
             }
 
             // no columns?
             if (mTableModel.isEmpty())
             {
-                mLog.debug("table has no columns");
-                lBuffer.append(TagConstants.TAG_TD_OPEN);
-                lBuffer.append(lRow.getObject().toString());
-                lBuffer.append(TagConstants.TAG_TD_CLOSE);
+                log.debug("table has no columns");
+                buffer.append(TagConstants.TAG_TD_OPEN);
+                buffer.append(row.getObject().toString());
+                buffer.append(TagConstants.TAG_TD_CLOSE);
             }
 
             // close tr
-            lBuffer.append(lRow.getCloseTag());
+            buffer.append(row.getCloseTag());
 
             if (mTableModel.getTableDecorator() != null)
             {
-                String lEndRow = mTableModel.getTableDecorator().finishRow();
-                if (lEndRow != null)
+                String endRow = mTableModel.getTableDecorator().finishRow();
+                if (endRow != null)
                 {
-                    lBuffer.append(lEndRow);
+                    buffer.append(endRow);
                 }
             }
 
@@ -1053,8 +1105,8 @@ public class TableTag extends HtmlTableTag
 
         if (mTableModel.getRowListPage().size() == 0)
         {
-            lBuffer.append("\t\t<tr class=\"even empty\">\n");
-            lBuffer.append(
+            buffer.append("\t\t<tr class=\"even empty\">\n");
+            buffer.append(
                 "<td colspan=\""
                     + (mTableModel.getNumberOfColumns() + 1)
                     + "\">"
@@ -1063,18 +1115,18 @@ public class TableTag extends HtmlTableTag
         }
 
         // close table body
-        lBuffer.append(TagConstants.TAG_TBODY_CLOSE);
+        buffer.append(TagConstants.TAG_TBODY_CLOSE);
 
-        lBuffer.append(this.getTableFooter());
+        buffer.append(this.getTableFooter());
 
         if (mTableModel.getTableDecorator() != null)
         {
             mTableModel.getTableDecorator().finish();
         }
 
-        mLog.debug("getHTMLData end");
+        log.debug("getHTMLData end");
 
-        return lBuffer.toString();
+        return buffer.toString();
 
     }
 
@@ -1085,39 +1137,39 @@ public class TableTag extends HtmlTableTag
      **/
     private String getTableHeader()
     {
-        mLog.debug("getTableHeader");
-        StringBuffer lBuffer = new StringBuffer();
+        log.debug("getTableHeader");
+        StringBuffer buffer = new StringBuffer();
 
         // open thead
-        lBuffer.append(TagConstants.TAG_THEAD_OPEN);
+        buffer.append(TagConstants.TAG_THEAD_OPEN);
 
         // open tr
-        lBuffer.append(TagConstants.TAG_TR_OPEN);
+        buffer.append(TagConstants.TAG_TR_OPEN);
 
         // no columns?
         if (mTableModel.isEmpty())
         {
-            lBuffer.append(TagConstants.TAG_TH_OPEN);
-            lBuffer.append(mProp.getNoColumnMessage());
-            lBuffer.append(TagConstants.TAG_TH_CLOSE);
+            buffer.append(TagConstants.TAG_TH_OPEN);
+            buffer.append(mProp.getNoColumnMessage());
+            buffer.append(TagConstants.TAG_TH_CLOSE);
         }
 
         // iterator on columns for header
-        Iterator lIterator = mTableModel.getHeaderCellList().iterator();
+        Iterator iterator = mTableModel.getHeaderCellList().iterator();
 
-        while (lIterator.hasNext())
+        while (iterator.hasNext())
         {
             // get the header cell
-            HeaderCell lHeaderCell = (HeaderCell) lIterator.next();
+            HeaderCell headerCell = (HeaderCell) iterator.next();
 
             // if sorted add styles
-            if (lHeaderCell.isAlreadySorted())
+            if (headerCell.isAlreadySorted())
             {
                 // sorted css class
-                lHeaderCell.addHeaderClass(TableTagParameters.CSS_SORTEDCOLUMN);
+                headerCell.addHeaderClass(TableTagParameters.CSS_SORTEDCOLUMN);
 
                 // sort order css class
-                lHeaderCell.addHeaderClass(
+                headerCell.addHeaderClass(
                     TableTagParameters.CSS_SORTORDERPREFIX
                         + (mTableModel.isSortOrderAscending()
                             ? TableTagParameters.VALUE_SORT_DESCENDING
@@ -1125,35 +1177,35 @@ public class TableTag extends HtmlTableTag
             }
 
             // append th with html attributes
-            lBuffer.append(lHeaderCell.getHeaderOpenTag());
+            buffer.append(headerCell.getHeaderOpenTag());
 
             // title
-            String lHeader = lHeaderCell.getTitle();
+            String header = headerCell.getTitle();
 
             // column is sortable, create link
-            if (lHeaderCell.getSortable())
+            if (headerCell.getSortable())
             {
 
                 // costruct Href from base href, preserving parameters
-                Href lHref = new Href(mBaseHref);
+                Href href = new Href(mBaseHref);
 
                 // add column number as link parameter
-                lHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), lHeaderCell.getColumnNumber());
+                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
 
-                boolean lNowOrderAscending;
-                if (lHeaderCell.isAlreadySorted() && mTableModel.isSortOrderAscending())
+                boolean nowOrderAscending;
+                if (headerCell.isAlreadySorted() && mTableModel.isSortOrderAscending())
                 {
-                    lHref.addParameter(
+                    href.addParameter(
                         encodeParameter(TableTagParameters.PARAMETER_ORDER),
                         TableTagParameters.VALUE_SORT_DESCENDING);
-                    lNowOrderAscending = false;
+                    nowOrderAscending = false;
                 }
                 else
                 {
-                    lHref.addParameter(
+                    href.addParameter(
                         encodeParameter(TableTagParameters.PARAMETER_ORDER),
                         TableTagParameters.VALUE_SORT_ASCENDING);
-                    lNowOrderAscending = true;
+                    nowOrderAscending = true;
                 }
 
                 // only if user want to sort the full table
@@ -1161,35 +1213,34 @@ public class TableTag extends HtmlTableTag
                 if (mTableModel.isSortFullTable())
                 {
                     // if sorting (column or order) is changed reset page
-                    if (lHeaderCell.getColumnNumber() != mPreviousSortColumn
-                        || ((lNowOrderAscending ^ mPreviousOrder)))
+                    if (headerCell.getColumnNumber() != mPreviousSortColumn || ((nowOrderAscending ^ mPreviousOrder)))
                     {
-                        lHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
+                        href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
                     }
                 }
 
                 // create link
-                Anchor lHrefTag = new Anchor(lHref, lHeader);
+                Anchor anchor = new Anchor(href, header);
 
                 // append to buffer
-                lBuffer.append(lHrefTag.toString());
+                buffer.append(anchor.toString());
             }
             else
             {
-                lBuffer.append(lHeader);
+                buffer.append(header);
             }
 
-            lBuffer.append(lHeaderCell.getHeaderCloseTag());
+            buffer.append(headerCell.getHeaderCloseTag());
         }
 
         // close tr
-        lBuffer.append(TagConstants.TAG_TR_CLOSE);
+        buffer.append(TagConstants.TAG_TR_CLOSE);
 
         // close thead
-        lBuffer.append(TagConstants.TAG_THEAD_CLOSE);
+        buffer.append(TagConstants.TAG_THEAD_CLOSE);
 
-        mLog.debug("getTableHeader::end");
-        return lBuffer.toString();
+        log.debug("getTableHeader::end");
+        return buffer.toString();
     }
 
     /**
@@ -1198,24 +1249,24 @@ public class TableTag extends HtmlTableTag
      **/
     private String getTableFooter()
     {
-        StringBuffer lBuffer = new StringBuffer(1000);
+        StringBuffer buffer = new StringBuffer(1000);
 
         // close table
-        lBuffer.append(getCloseTag());
+        buffer.append(getCloseTag());
 
         // Put the page stuff there if it needs to be there...
         if (mProp.getAddPagingBannerBottom())
         {
-            lBuffer.append(getSearchResultAndNavigation());
+            buffer.append(getSearchResultAndNavigation());
         }
 
         // add export links
         if (mExport)
         {
-            addExportLinks(lBuffer);
+            addExportLinks(buffer);
         }
 
-        return lBuffer.toString();
+        return buffer.toString();
     }
 
     /**
@@ -1224,24 +1275,24 @@ public class TableTag extends HtmlTableTag
      */
     private String getSearchResultAndNavigation()
     {
-        if (mLog.isDebugEnabled())
+        if (log.isDebugEnabled())
         {
-            mLog.debug("starting getSearchResultAndNavigation");
+            log.debug("starting getSearchResultAndNavigation");
         }
 
         if (mPagesize != 0 && mHelper != null)
         {
             // create a new href
-            Href lNavigationHref = new Href(mBaseHref);
+            Href navigationHref = new Href(mBaseHref);
 
             // add page parameter with message format
-            lNavigationHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), "{0,number,#}");
+            navigationHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), "{0,number,#}");
 
-            StringBuffer lAll =
+            StringBuffer buffer =
                 new StringBuffer().append(mHelper.getSearchResultsSummary()).append(
-                    mHelper.getPageNavigationBar(lNavigationHref.toString()));
+                    mHelper.getPageNavigationBar(navigationHref.toString()));
 
-            return lAll.toString();
+            return buffer.toString();
         }
         return "";
     }
@@ -1255,49 +1306,49 @@ public class TableTag extends HtmlTableTag
 
         // Figure out what formats they want to export, make up a little string
 
-        Href lExportHref = new Href(mBaseHref);
+        Href exportHref = new Href(mBaseHref);
 
-        StringBuffer lFormats = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
         if (mProp.getAddCsvExport())
         {
-            lExportHref.addParameter(
+            exportHref.addParameter(
                 encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE),
                 TableTagParameters.EXPORT_TYPE_CSV);
 
-            Anchor lATag = new Anchor(lExportHref, mProp.getExportCsvLabel());
-            lFormats.append(lATag.toString());
+            Anchor anchor = new Anchor(exportHref, mProp.getExportCsvLabel());
+            buffer.append(anchor.toString());
         }
 
         if (mProp.getAddExcelExport())
         {
-            if (lFormats.length() > 0)
+            if (buffer.length() > 0)
             {
-                lFormats.append(mProp.getExportBannerSeparator());
+                buffer.append(mProp.getExportBannerSeparator());
             }
-            lExportHref.addParameter(
+            exportHref.addParameter(
                 encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE),
                 TableTagParameters.EXPORT_TYPE_EXCEL);
 
-            Anchor lATag = new Anchor(lExportHref, mProp.getExportExcelLabel());
-            lFormats.append(lATag.toString());
+            Anchor anchor = new Anchor(exportHref, mProp.getExportExcelLabel());
+            buffer.append(anchor.toString());
         }
 
         if (mProp.getAddXmlExport())
         {
-            if (lFormats.length() > 0)
+            if (buffer.length() > 0)
             {
-                lFormats.append(mProp.getExportBannerSeparator());
+                buffer.append(mProp.getExportBannerSeparator());
             }
-            lExportHref.addParameter(
+            exportHref.addParameter(
                 encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE),
                 TableTagParameters.EXPORT_TYPE_XML);
 
-            Anchor lATag = new Anchor(lExportHref, mProp.getExportXmlLabel());
-            lFormats.append(lATag.toString());
+            Anchor anchor = new Anchor(exportHref, mProp.getExportXmlLabel());
+            buffer.append(anchor.toString());
         }
 
-        Object[] lObjects = { lFormats };
-        pBuffer.append(MessageFormat.format(mProp.getExportBanner(), lObjects));
+        String[] exportOptions = { buffer.toString()};
+        pBuffer.append(MessageFormat.format(mProp.getExportBanner(), exportOptions));
     }
 
     /**
@@ -1333,11 +1384,10 @@ public class TableTag extends HtmlTableTag
         //  so return ""
         if (mPreviousRow.containsKey(new Integer(pGroup)))
         {
-            for (int lCount = 1; lCount <= pGroup; lCount++)
+            for (int j = 1; j <= pGroup; j++)
             {
 
-                if (!((String) mPreviousRow.get(new Integer(lCount)))
-                    .equals(((String) mNextRow.get(new Integer(lCount)))))
+                if (!((String) mPreviousRow.get(new Integer(j))).equals(((String) mNextRow.get(new Integer(j)))))
                 {
                     // no match found so return this value back to the caller.
                     return pValue;
@@ -1395,21 +1445,21 @@ public class TableTag extends HtmlTableTag
         if (mTableParameterIdentifier == null)
         {
             // use name and id to get the unique identifier
-            String lStringIdentifier = "x-" + getId() + mName;
+            String stringIdentifier = "x-" + getId() + mName;
 
             // get the array
-            char[] lChar = lStringIdentifier.toCharArray();
+            char[] charArray = stringIdentifier.toCharArray();
 
             // calculate a simple checksum-like value
-            int lCheckSum = 0;
+            int checkSum = 0;
 
-            for (int lCount = 0; lCount < lChar.length; lCount++)
+            for (int j = 0; j < charArray.length; j++)
             {
-                lCheckSum += lChar[lCount] * lCount;
+                checkSum += charArray[j] * j;
             }
 
             // this is the full identifier used for all the parameters
-            mTableParameterIdentifier = "d-" + lCheckSum + "-";
+            mTableParameterIdentifier = "d-" + checkSum + "-";
 
         }
 

@@ -53,8 +53,19 @@ public class ColumnIterator
      */
     public Column nextColumn()
     {
+        HeaderCell header = (HeaderCell) mHeaderIterator.next();
+
+        Cell cell = Cell.EMPTY_CELL;
+
+        // if cells is not present simply return an empty cell.
+        // this is needed for automatic properties discovery
+        if (mCellIterator.hasNext())
+        {
+            cell = (Cell) mCellIterator.next();
+        }
+
         // create a new column using the next value in the header and cell iterators and returns it
-        return new Column((HeaderCell) mHeaderIterator.next(), (Cell) mCellIterator.next(), mParentRow);
+        return new Column(header, cell, mParentRow);
     }
 
 }
