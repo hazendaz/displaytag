@@ -4,9 +4,10 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 /**
  * @author fgiust
  * @version $Revision$ ($Author$)
@@ -17,57 +18,57 @@ public class Pagination
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(Pagination.class);
+    private static Log log = LogFactory.getLog(Pagination.class);
 
     /**
      * MessageFormat for urls
      */
-    private MessageFormat mUrlFormat;
+    private MessageFormat urlFormat;
 
     /**
      * first page
      */
-    private Integer mFirst;
+    private Integer firstPage;
 
     /**
      * last page
      */
-    private Integer mLast;
+    private Integer lastPage;
 
     /**
      * previous page
      */
-    private Integer mPrevious;
+    private Integer previousPage;
 
     /**
      * next page
      */
-    private Integer mNext;
+    private Integer nextPage;
 
     /**
      * ArrayList containg NumberedPage objects
      * @see org.displaytag.pagination.NumberedPage
      */
-    private ArrayList mPages = new ArrayList();
+    private ArrayList pages = new ArrayList();
 
     /**
      * Constructor for Pagination
-     * @param pUrlFormatString String
+     * @param urlFormatString String
      */
-    public Pagination(String pUrlFormatString)
+    public Pagination(String urlFormatString)
     {
-        mUrlFormat = new MessageFormat(pUrlFormatString);
+        this.urlFormat = new MessageFormat(urlFormatString);
     }
 
     /**
      * add a page
-     * @param pNumber int page number
-     * @param pSelected is the page selected?
+     * @param number int page number
+     * @param isSelected is the page selected?
      */
-    public void addPage(int pNumber, boolean pSelected)
+    public void addPage(int number, boolean isSelected)
     {
-        mLog.debug("addpage " + pNumber);
-        mPages.add(new NumberedPage(pNumber, pSelected));
+        log.debug("addpage " + number);
+        pages.add(new NumberedPage(number, isSelected));
     }
 
     /**
@@ -76,7 +77,7 @@ public class Pagination
      */
     public boolean isFirst()
     {
-        return mFirst == null;
+        return firstPage == null;
     }
 
     /**
@@ -85,7 +86,7 @@ public class Pagination
      */
     public boolean isLast()
     {
-        return mLast == null;
+        return lastPage == null;
     }
 
     /**
@@ -94,7 +95,7 @@ public class Pagination
      */
     public boolean isOnePage()
     {
-        return (mPages == null) || mPages.size() <= 1;
+        return (pages == null) || pages.size() <= 1;
     }
 
     /**
@@ -103,16 +104,16 @@ public class Pagination
      */
     public Integer getFirst()
     {
-        return mFirst;
+        return firstPage;
     }
 
     /**
      * Set the number of the first page
-     * @param pFirst Integer number of the first page
+     * @param first Integer number of the first page
      */
-    public void setFirst(Integer pFirst)
+    public void setFirst(Integer first)
     {
-        mFirst = pFirst;
+        firstPage = first;
     }
 
     /**
@@ -121,16 +122,16 @@ public class Pagination
      */
     public Integer getLast()
     {
-        return mLast;
+        return lastPage;
     }
 
     /**
      * Set the number of the last page
-     * @param pLast Integer number of the last page
+     * @param last Integer number of the last page
      */
-    public void setLast(Integer pLast)
+    public void setLast(Integer last)
     {
-        mLast = pLast;
+        lastPage = last;
     }
 
     /**
@@ -139,16 +140,16 @@ public class Pagination
      */
     public Integer getPrevious()
     {
-        return mPrevious;
+        return previousPage;
     }
 
     /**
      * Set the number of the previous page
-     * @param pPrevious Integer number of the previous page
+     * @param previous Integer number of the previous page
      */
-    public void setPrevious(Integer pPrevious)
+    public void setPrevious(Integer previous)
     {
-        mPrevious = pPrevious;
+        previousPage = previous;
     }
 
     /**
@@ -157,70 +158,70 @@ public class Pagination
      */
     public Integer getNext()
     {
-        return mNext;
+        return nextPage;
     }
 
     /**
      * Set the number of the next page
-     * @param pNext Integer number of the next page
+     * @param next Integer number of the next page
      */
-    public void setNext(Integer pNext)
+    public void setNext(Integer next)
     {
-        mNext = pNext;
+        nextPage = next;
     }
 
     /**
      * returns the appropriate banner for the pagination
-     * @param pNumberedPageFormat String to be used for a not selected page
-     * @param pNumberedPageSelectedFormat String to be used for a selected page
-     * @param pNumberedPageSeparator separator beetween pages
-     * @param pFullBanner String basic banner
+     * @param numberedPageFormat String to be used for a not selected page
+     * @param numberedPageSelectedFormat String to be used for a selected page
+     * @param numberedPageSeparator separator beetween pages
+     * @param fullBanner String basic banner
      * @return String formatted banner whith pages
      */
     public String getFormattedBanner(
-        String pNumberedPageFormat,
-        String pNumberedPageSelectedFormat,
-        String pNumberedPageSeparator,
-        String pFullBanner)
+        String numberedPageFormat,
+        String numberedPageSelectedFormat,
+        String numberedPageSeparator,
+        String fullBanner)
     {
 
-        StringBuffer lBuffer = new StringBuffer(100);
+        StringBuffer buffer = new StringBuffer(100);
 
         // numbered page list
-        Iterator lPageIterator = mPages.iterator();
+        Iterator pageIterator = pages.iterator();
 
-        while (lPageIterator.hasNext())
+        while (pageIterator.hasNext())
         {
 
             // get NumberedPage from iterator
-            NumberedPage lPage = (NumberedPage) lPageIterator.next();
+            NumberedPage page = (NumberedPage) pageIterator.next();
 
-            Integer lPageNumber = new Integer(lPage.getNumber());
+            Integer pageNumber = new Integer(page.getNumber());
 
-            String lUrlString = mUrlFormat.format(new Object[] { lPageNumber });
+            String urlString = this.urlFormat.format(new Object[] { pageNumber });
 
             // needed for MessageFormat : page number/url
-            Object[] lPageObjects = { lPageNumber, lUrlString };
+            Object[] pageObjects = { pageNumber, urlString };
 
             // selected page need a different formatter
-            if (lPage.getSelected())
+            if (page.getSelected())
             {
-                lBuffer.append(MessageFormat.format(pNumberedPageSelectedFormat, lPageObjects));
+                buffer.append(MessageFormat.format(numberedPageSelectedFormat, pageObjects));
             }
             else
             {
-                lBuffer.append(MessageFormat.format(pNumberedPageFormat, lPageObjects));
+                buffer.append(MessageFormat.format(numberedPageFormat, pageObjects));
             }
 
             // next? add page separator
-            if (lPageIterator.hasNext())
+            if (pageIterator.hasNext())
             {
-                lBuffer.append(pNumberedPageSeparator);
+                buffer.append(numberedPageSeparator);
             }
         }
 
         // String for numbered pages
-        String lNumberedPageString = lBuffer.toString();
+        String numberedPageString = buffer.toString();
 
         //  Object array
         //  {0} full String for numbered pages
@@ -228,17 +229,31 @@ public class Pagination
         //  {2} previous page url
         //  {3} next page url
         //  {4} last page url
-        Object[] lPageObjects =
+        Object[] pageObjects =
             {
-                lNumberedPageString,
-                mUrlFormat.format(new Object[] { getFirst()}),
-                mUrlFormat.format(new Object[] { getPrevious()}),
-                mUrlFormat.format(new Object[] { getNext()}),
-                mUrlFormat.format(new Object[] { getLast()}),
+                numberedPageString,
+                this.urlFormat.format(new Object[] { getFirst()}),
+                this.urlFormat.format(new Object[] { getPrevious()}),
+                this.urlFormat.format(new Object[] { getNext()}),
+                this.urlFormat.format(new Object[] { getLast()}),
                 };
 
         // return the full banner
-        return MessageFormat.format(pFullBanner, lPageObjects);
+        return MessageFormat.format(fullBanner, pageObjects);
     }
 
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("firstPage", this.firstPage)
+            .append("lastPage", this.lastPage)
+            .append("nextPage", this.nextPage)
+            .append("previousPage", this.previousPage)
+            .append("pages", this.pages)
+            .append("urlFormat", this.urlFormat)
+            .toString();
+    }
 }
