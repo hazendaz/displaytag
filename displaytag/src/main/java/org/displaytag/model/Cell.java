@@ -21,7 +21,7 @@ public class Cell implements Comparable
     /**
      * content of the cell
      */
-    private Object mStaticValue;
+    private Object staticValue;
 
     /**
      * Creates a new empty cell. This should never be done, use EMPTY_CELL instead
@@ -32,52 +32,52 @@ public class Cell implements Comparable
 
     /**
      * Creates a cell with a static value
-     * @param pStaticValue Object value of the Cell object
+     * @param value Object value of the Cell object
      */
-    public Cell(Object pStaticValue)
+    public Cell(Object value)
     {
-        mStaticValue = pStaticValue;
+        this.staticValue = value;
     }
 
     /**
      * get the static value for the cell
-     * @return the Object value of mStaticValue.
+     * @return the Object value of this.staticValue.
      */
     public Object getStaticValue()
     {
-        return mStaticValue;
+        return this.staticValue;
     }
 
     /**
      * set the static value of the cell
-     * @param pStaticValue - the new value for mStaticValue
+     * @param value - the new value for this.staticValue
      */
-    public void setStaticValue(Object pStaticValue)
+    public void setStaticValue(Object value)
     {
-        mStaticValue = pStaticValue;
+        this.staticValue = value;
     }
 
     /**
      * Compare the Cell value to another Cell
-     * @param pObj Object to compare this cell to
+     * @param obj Object to compare this cell to
      * @return int
      * @see java.lang.Comparable#compareTo(Object)
      */
-    public int compareTo(Object pObj)
+    public int compareTo(Object obj)
     {
 
-        if (mStaticValue == null)
+        if (this.staticValue == null)
         {
             return -1;
         }
 
-        if (pObj instanceof Cell)
+        if (obj instanceof Cell)
         {
-            return ((Comparable) mStaticValue).compareTo(((Cell) pObj).getStaticValue());
+            return ((Comparable) this.staticValue).compareTo(((Cell) obj).getStaticValue());
         }
         else
         {
-            return ((Comparable) mStaticValue).compareTo(pObj);
+            return ((Comparable) this.staticValue).compareTo(obj);
         }
 
     }
@@ -88,7 +88,7 @@ public class Cell implements Comparable
      */
     public String toString()
     {
-        return new ToStringBuilder(this).append("staticValue", mStaticValue).toString();
+        return new ToStringBuilder(this).append("staticValue", this.staticValue).toString();
     }
 
 }

@@ -14,28 +14,28 @@ public class ColumnIterator
     /**
      * current row
      */
-    private Row mParentRow;
+    private Row parentRow;
 
     /**
      * Internal iterator on header cells
      */
-    private Iterator mHeaderIterator;
+    private Iterator headerIterator;
 
     /**
      * Internal iterator on cells
      */
-    private Iterator mCellIterator;
+    private Iterator cellIterator;
 
     /**
      * Create a new ColumnIterator given a list of column and a row
-     * @param pColumns List containinf column objects
-     * @param pParentRow current Row
+     * @param columns List containing column objects
+     * @param row current Row
      */
-    public ColumnIterator(List pColumns, Row pParentRow)
+    public ColumnIterator(List columns, Row row)
     {
-        mHeaderIterator = pColumns.iterator();
-        mCellIterator = pParentRow.getCellList().iterator();
-        mParentRow = pParentRow;
+        this.headerIterator = columns.iterator();
+        this.cellIterator = row.getCellList().iterator();
+        this.parentRow = row;
     }
 
     /**
@@ -44,7 +44,7 @@ public class ColumnIterator
      */
     public boolean hasNext()
     {
-        return mHeaderIterator.hasNext();
+        return this.headerIterator.hasNext();
     }
 
     /**
@@ -53,19 +53,19 @@ public class ColumnIterator
      */
     public Column nextColumn()
     {
-        HeaderCell header = (HeaderCell) mHeaderIterator.next();
+        HeaderCell header = (HeaderCell) this.headerIterator.next();
 
         Cell cell = Cell.EMPTY_CELL;
 
         // if cells is not present simply return an empty cell.
         // this is needed for automatic properties discovery
-        if (mCellIterator.hasNext())
+        if (this.cellIterator.hasNext())
         {
-            cell = (Cell) mCellIterator.next();
+            cell = (Cell) this.cellIterator.next();
         }
 
         // create a new column using the next value in the header and cell iterators and returns it
-        return new Column(header, cell, mParentRow);
+        return new Column(header, cell, this.parentRow);
     }
 
 }
