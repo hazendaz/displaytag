@@ -116,6 +116,7 @@ public class PdfView implements BinaryExportView
     /**
      * The overall PDF table generator.
      * @throws JspException for errors during value retrieving from the table model
+     * @throws BadElementException IText exception
      */
     protected void generatePDFTable() throws JspException, BadElementException
     {
@@ -162,6 +163,7 @@ public class PdfView implements BinaryExportView
 
     /**
      * Generates the header cells, which persist on every page of the PDF document.
+     * @throws BadElementException IText exception
      */
     protected void generateHeaders() throws BadElementException
     {
