@@ -11,11 +11,13 @@
                 <prop key="*">UrlFilenameViewController</prop>
             </props>
         </property>
+				<!--
         <property name="interceptors">
             <list>
                 <bean class="org.displaytag.filter.DisplayTagSpringInterceptor" />
             </list>
         </property>
+				-->
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
