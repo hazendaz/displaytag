@@ -1,8 +1,7 @@
 package org.displaytag.tags;
 
-import javax.servlet.jsp.tagext.BodyContent;
-
 import org.apache.cactus.WebResponse;
+import org.apache.cactus.extension.jsp.JspTagLifecycle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.sample.TestList;
@@ -22,6 +21,11 @@ public class CaptionTagTest extends DisplaytagTestCase
     private static Log log = LogFactory.getLog(CaptionTagTest.class);
 
     /**
+     * caption tag lifecycle.
+     */
+    JspTagLifecycle captionLifeCycle;
+
+    /**
      * @param name test name
      */
     public CaptionTagTest(String name)
@@ -30,10 +34,10 @@ public class CaptionTagTest extends DisplaytagTestCase
     }
 
     /**
-     * base test for the caption tag. @todo unfinished test!
+     * test set up.
      * @throws Exception any exception thrown during test.
      */
-    public void testCaption() throws Exception
+    protected void setUp() throws Exception
     {
         CaptionTag tag = new CaptionTag();
         tag.setPageContext(this.pageContext);
@@ -44,32 +48,29 @@ public class CaptionTagTest extends DisplaytagTestCase
         tag.setLang("english");
         tag.setDir("ltr");
 
-
         // table setup
         TableTag table = new TableTag();
         table.setPageContext(this.pageContext);
-        request.setAttribute("test", new TestList(2, false));
-        table.setName("requestScope.test");
+        this.pageContext.setAttribute("test", new TestList(2, false));
+        table.setName("pageScope.test");
 
         tag.setParent(table);
 
-        // start lifecycle methods
-        tag.doStartTag();
+        JspTagLifecycle tableLifeCycle = new JspTagLifecycle(this.pageContext, table);
+        captionLifeCycle = tableLifeCycle.addNestedTag(tag);
+        captionLifeCycle.addNestedText("This is the caption content");
 
-        BodyContent bodyContent = this.pageContext.pushBody();
-        tag.setBodyContent(bodyContent);
-        tag.doInitBody();
-        bodyContent.println("This is the caption content");
+        tableLifeCycle.invoke();
+    }
 
-        // actually handles the processing of the body
-        tag.doAfterBody();
-
-        // after the body processing completes
-        tag.doEndTag();
-
-        // finally call popBody
-        this.pageContext.popBody();
-
+    /**
+     * base test for the caption tag.
+     * @throws Exception any exception thrown during test.
+     */
+    public void testCaption() throws Exception
+    {
+        captionLifeCycle.expectBodyEvaluated(1);
+        captionLifeCycle.expectBodyEvaluated(2);
     }
 
     /**
@@ -78,10 +79,16 @@ public class CaptionTagTest extends DisplaytagTestCase
      */
     public void endCaption(WebResponse webresponse)
     {
-        assertContains(webresponse, "<caption");
-        assertContains(webresponse, ">This is the caption content<");
+        log.debug("RESPONSE: " + webresponse.getText());
 
-        log.debug("RESPONSE" + webresponse.getText());
+        assertContains(webresponse, "<caption");
+        assertContains(webresponse, "class=\"cssclass\"");
+        assertContains(webresponse, "id=\"captionid\"");
+        assertContains(webresponse, "style=\"border: 1px solid red\"");
+        assertContains(webresponse, "title=\"caption title\"");
+        assertContains(webresponse, "lang=\"english\"");
+        assertContains(webresponse, "dir=\"ltr\"");
+        assertContains(webresponse, ">This is the caption content</caption>");
     }
 
 
