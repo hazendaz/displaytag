@@ -187,6 +187,12 @@ public class ColumnTag extends BodyTagSupport
     private String titleKey;
 
     /**
+     * The name of the bean property if a decorator is used and sorting need to be still on on the property itself.
+     * Useful for displaying data with links but sorting on original value.
+     */
+    private String sortProperty;
+
+    /**
      * setter for the "property" tag attribute.
      * @param value attribute value
      */
@@ -456,6 +462,15 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
+     * setter for the "sortProperty" tag attribute.
+     * @param value attribute value
+     */
+    public void setSortProperty(String value)
+    {
+        this.sortProperty = value;
+    }
+
+    /**
      * Is this column configured for the media type?
      * @param mediaType the currentMedia type
      * @return true if the column should be displayed for this request
@@ -610,6 +625,7 @@ public class ColumnTag extends BodyTagSupport
         headerCell.setMaxWords(this.maxWords);
         headerCell.setAutoLink(this.autolink);
         headerCell.setGroup(this.group);
+        headerCell.setSortProperty(this.sortProperty);
 
         // href and parameter, create link
         if (this.href != null && this.paramId != null)
@@ -699,6 +715,7 @@ public class ColumnTag extends BodyTagSupport
         this.supportedMedia = null;
         this.title = null;
         this.titleKey = null;
+        this.sortProperty = null;
     }
 
     /**
@@ -751,6 +768,7 @@ public class ColumnTag extends BodyTagSupport
             .append("sortable", this.sortable) //$NON-NLS-1$
             .append("paramId", this.paramId) //$NON-NLS-1$
             .append("alreadySorted", this.alreadySorted) //$NON-NLS-1$
+            .append("sortProperty", this.sortProperty) //$NON-NLS-1$
             .toString();
     }
 }
