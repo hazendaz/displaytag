@@ -288,7 +288,7 @@ public class HeaderCell
         }
         else if (mBeanPropertyName != null)
         {
-            return StringUtils.capitalise(mBeanPropertyName);
+            return StringUtils.capitalize(mBeanPropertyName);
         }
 
         return "";
