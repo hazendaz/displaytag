@@ -10,18 +10,18 @@ import com.meterware.httpunit.WebResponse;
 
 
 /**
- * Tests for export file name property.
+ * Tests for full list export.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ExportFileNameTest extends DisplaytagCase
+public class ExportFullTest extends DisplaytagCase
 {
 
     /**
      * Instantiates a new test case.
      * @param name test name
      */
-    public ExportFileNameTest(String name)
+    public ExportFullTest(String name)
     {
         super(name);
     }
@@ -31,7 +31,7 @@ public class ExportFileNameTest extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "exportfilename.jsp";
+        return "exportfull.jsp";
     }
 
     /**
@@ -46,15 +46,13 @@ public class ExportFileNameTest extends DisplaytagCase
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
         WebRequest request = new GetMethodWebRequest(jspName);
-        request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
+        request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.CSV.getCode()));
 
         WebResponse response = runner.getResponse(request);
 
         // we are really testing an xml output?
-        assertEquals("Expected a different content type.", "text/xml", response.getContentType());
-        assertEquals("Wrong or missing disposition/filename.", "attachment; filename=\"file.txt\"", response
-            .getHeaderField("CONTENT-DISPOSITION"));
-
+        assertEquals("Expected a different content type.", "text/csv", response.getContentType());
+        assertEquals("Wrong content.", "1\n2\n3\n", response.getText());
     }
 
 }
