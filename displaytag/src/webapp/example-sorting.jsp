@@ -26,7 +26,7 @@
 	to be able to sort by.
 </p>
 
-<p class="changed">
+<p>
 	Note the <code>sortable</code> attribute was previously named <code>sort</code>.
 	The sort attribute is still supported for compatibility with previous versions.
 </p>
@@ -51,11 +51,11 @@
 	that we don't change the ordering of the original list.
 </p>
 
-<p class="changed">
+<p>
 	All the parameters received in the first request are preserved in sorting.
 </p>
 
-<p class="changed">
+<p>
 	You can also define the column to be sorted by default (if the user has not yet
 	clicked on any sortable column) specifying the column index in the <code>defaultsort</code>
 	attribute of the table tag. The default order can be set using the <code>defaultorder</code>
