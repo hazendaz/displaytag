@@ -3,7 +3,7 @@
 
 	<goal name="rebuild-all">
 		<!-- Any ant task, or jelly tags can go here thanks to jeez -->
-		<j:set var="goals" value="clean,jar:jar,jar:install-snapshot,war:war,war:install-snapshot,site:generate" />
+		<j:set var="goals" value="clean,jar:jar,war:war,site:generate" />
 		<mkdir dir="${maven.build.dir}" />
 		<u:tokenize var="goals" delim=",">${goals}</u:tokenize>
 		<j:forEach items="${goals}" var="goal" indexVar="goalNumber">
