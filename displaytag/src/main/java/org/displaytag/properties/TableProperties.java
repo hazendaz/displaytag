@@ -286,17 +286,8 @@ public final class TableProperties implements Cloneable
             throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
         }
 
-        // Lang locale properties are the most general
-        Locale langLocale = new Locale(locale.getLanguage());
         properties = new Properties(defaultProperties);
-        addProperties(langLocale);
-
-        Locale countryLocale = new Locale(locale.getLanguage(), locale.getCountry());
-        addProperties(countryLocale);
-
-        // Variant locale are most specific, and override lang and country locale values
-        Locale variantLocale = new Locale(locale.getLanguage(), locale.getCountry(), locale.getVariant());
-        addProperties(variantLocale);
+        addProperties(myLocale);
 
         // Now copy in the user properties (properties file set by calling setUserProperties()).
         // note setUserProperties() MUST BE CALLED before the first TableProperties instantation
