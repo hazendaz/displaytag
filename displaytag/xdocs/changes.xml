@@ -62,6 +62,12 @@
       <action type="fix" dev="rapruitt" issue="886495">
 	      Export filter failed under Weblogic; fixed.
       </action>
+      <action type="fix" dev="fgiust" issue="897946">
+	       RequestURI attribute does not handle anchors ('#') properly.
+      </action>
+      <action type="fix" dev="fgiust" issue="873684">
+	       Sortable attribute not working.
+      </action>
     </release>
 
     <release version="1.0-b2" date="December 8, 2003" description="b2 is mainly focused on stabilizing the new 1.0 branch">
