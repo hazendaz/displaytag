@@ -190,7 +190,7 @@ public abstract class BaseExportView
         }
 
         //get the correct iterator (full or partial list according to the mExportFullList field)
-        RowIterator rowIterator = exportFull ? this.model.getFullListRowIterator() : this.model.getRowIterator();
+        RowIterator rowIterator = this.exportFull ? this.model.getFullListRowIterator() : this.model.getRowIterator();
 
         // iterator on rows
         while (rowIterator.hasNext())

@@ -12,12 +12,12 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.properties.TableProperties;
 /**
  * <p>
- * Utility class that chops up a List of objects into small bite size pieces
- * that are more suitable for display.
+ * Utility class that chops up a List of objects into small bite size pieces that are more suitable for display.
  * </p>
  * <p>
  * This class is a stripped down version of the WebListHelper from Tim Dawson (tdawson@is.com)
  * </p>
+ * 
  * @author epesh
  * @version $Revision$ ($Author$)
  */
@@ -57,14 +57,18 @@ public class SmartListHelper
     /**
      * TableProperties
      */
-    private TableProperties properties = null;
+    private TableProperties properties;
 
     /**
-     * Creates a SmarListHelper instance that will help you chop up a list
-     * into bite size pieces that are suitable for display.
-     * @param list List
-     * @param size number of items in a page
-     * @param tableProperties TableProperties
+     * Creates a SmarListHelper instance that will help you chop up a list into bite size pieces that are suitable for
+     * display.
+     * 
+     * @param list
+     * List
+     * @param size
+     * number of items in a page
+     * @param tableProperties
+     * TableProperties
      */
     public SmartListHelper(List list, int size, TableProperties tableProperties)
     {
@@ -98,8 +102,9 @@ public class SmartListHelper
     }
 
     /**
-     * Returns the computed number of pages it would take to show all the
-     * elements in the list given the pageSize we are working with.
+     * Returns the computed number of pages it would take to show all the elements in the list given the pageSize we
+     * are working with.
+     * 
      * @return int computed number of pages
      */
     protected int computedPageCount()
@@ -120,8 +125,9 @@ public class SmartListHelper
     }
 
     /**
-     * Returns the index into the master list of the first object that
-     * should appear on the current page that the user is viewing.
+     * Returns the index into the master list of the first object that should appear on the current page that the user
+     * is viewing.
+     * 
      * @return int index of the first object that should appear on the current page
      */
     protected int getFirstIndexForCurrentPage()
@@ -130,8 +136,9 @@ public class SmartListHelper
     }
 
     /**
-     * Returns the index into the master list of the last object that should
-     * appear on the current page that the user is viewing.
+     * Returns the index into the master list of the last object that should appear on the current page that the user
+     * is viewing.
+     * 
      * @return int
      */
     protected int getLastIndexForCurrentPage()
@@ -141,9 +148,10 @@ public class SmartListHelper
     }
 
     /**
-     * Returns the index into the master list of the first object that
-     * should appear on the given page.
-     * @param pageNumber page number
+     * Returns the index into the master list of the first object that should appear on the given page.
+     * 
+     * @param pageNumber
+     * page number
      * @return int index of the first object that should appear on the given page
      */
     protected int getFirstIndexForPage(int pageNumber)
@@ -152,9 +160,10 @@ public class SmartListHelper
     }
 
     /**
-     * Returns the index into the master list of the last object that should
-     * appear on the given page.
-     * @param pageNumber page number
+     * Returns the index into the master list of the last object that should appear on the given page.
+     * 
+     * @param pageNumber
+     * page number
      * @return int index of the last object that should appear on the given page
      */
     protected int getLastIndexForPage(int pageNumber)
@@ -168,8 +177,9 @@ public class SmartListHelper
     }
 
     /**
-     * Returns a subsection of the list that contains just the elements that
-     * are supposed to be shown on the current page the user is viewing.
+     * Returns a subsection of the list that contains just the elements that are supposed to be shown on the current
+     * page the user is viewing.
+     * 
      * @return List subsection of the list that contains the elements that are supposed to be shown on the current page
      */
 
@@ -180,11 +190,13 @@ public class SmartListHelper
     }
 
     /**
-     * Returns a subsection of the list that contains just the elements that
-     * are supposed to be shown on the given page.
-     * @param pageNumber page number
-     * @return List subsection of the list that contains just the elements that
-     * are supposed to be shown on the given page
+     * Returns a subsection of the list that contains just the elements that are supposed to be shown on the given
+     * page.
+     * 
+     * @param pageNumber
+     * page number
+     * @return List subsection of the list that contains just the elements that are supposed to be shown on the given
+     * page
      */
     protected List getListForPage(int pageNumber)
     {
@@ -221,7 +233,9 @@ public class SmartListHelper
 
     /**
      * Set's the page number that the user is viewing.
-     * @param pageNumber page number
+     * 
+     * @param pageNumber
+     * page number
      */
     public void setCurrentPage(int pageNumber)
     {
@@ -230,7 +244,8 @@ public class SmartListHelper
 
         if (pageNumber < 1 || ((pageNumber != 1) && (pageNumber > this.pageCount)))
         {
-            // invalid page: better don't throw an exception, since this could easily happen
+            // invalid page: better don't throw an exception, since this could
+            // easily happen
             // (list changed, user bookmarked the page)
             this.currentPage = 1;
         }
@@ -241,14 +256,10 @@ public class SmartListHelper
     }
 
     /**
-     * Return the little summary message that lets the user know how many
-     * objects are in the list they are viewing, and where in the list they
-     * are currently positioned.  The message looks like:
-     *
-     * nnn <item(s)> found, displaying nnn to nnn.
-     *
-     * <item(s)> is replaced by either itemName or itemNames depending on if
-     * it should be signular or plural.
+     * Return the little summary message that lets the user know how many objects are in the list they are viewing, and
+     * where in the list they are currently positioned. The message looks like: nnn <item(s)>found, displaying nnn to
+     * nnn. <item(s)>is replaced by either itemName or itemNames depending on if it should be signular or plural.
+     * 
      * @return String
      */
     public String getSearchResultsSummary()
@@ -299,13 +310,11 @@ public class SmartListHelper
     }
 
     /**
-     * Returns a string containing the nagivation bar that allows the user
-     * to move between pages within the list.
-     *
-     * The urlFormatString should be a URL that looks like the following:
-     *
-     * somepage.page?page={0}
-     * @param urlFormatString String
+     * Returns a string containing the nagivation bar that allows the user to move between pages within the list. The
+     * urlFormatString should be a URL that looks like the following: somepage.page?page={0}
+     * 
+     * @param urlFormatString
+     * String
      * @return String
      */
     public String getPageNavigationBar(String urlFormatString)

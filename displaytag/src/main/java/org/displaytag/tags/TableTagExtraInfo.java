@@ -5,6 +5,7 @@ import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author fgiust
@@ -28,7 +29,7 @@ public class TableTagExtraInfo extends TagExtraInfo
      */
     public VariableInfo[] getVariableInfo(TagData data)
     {
-        ArrayList variables = new ArrayList(4);
+        List variables = new ArrayList(4);
 
         Object tagId = data.getAttributeString(TagAttributeInfo.ID);
 

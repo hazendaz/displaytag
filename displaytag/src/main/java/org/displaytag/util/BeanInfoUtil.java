@@ -6,6 +6,7 @@ import java.beans.SimpleBeanInfo;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,7 +29,7 @@ public class BeanInfoUtil extends SimpleBeanInfo
     /**
      * logger
      */
-    private static Log mLog = LogFactory.getLog(BeanInfoUtil.class);
+    private static Log log = LogFactory.getLog(BeanInfoUtil.class);
 
     /**
      * create and returns an array of PropertyDescriptor for all the setXXX methods. Hide all the read-only properties
@@ -38,7 +39,7 @@ public class BeanInfoUtil extends SimpleBeanInfo
     public final PropertyDescriptor[] getPropertyDescriptors()
     {
 
-        ArrayList pdArray = new ArrayList();
+        List pdArray = new ArrayList();
 
         // get the full class name
         String className = getClass().getName();
@@ -55,7 +56,7 @@ public class BeanInfoUtil extends SimpleBeanInfo
         }
         catch (ClassNotFoundException ex1)
         {
-            mLog.error("class not found: " + className);
+            log.error("class not found: " + className);
         }
 
         // get the method array

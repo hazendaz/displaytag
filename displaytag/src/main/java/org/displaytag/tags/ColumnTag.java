@@ -1,28 +1,28 @@
 package org.displaytag.tags;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.exception.MissingAttributeException;
 import org.displaytag.exception.TagStructureException;
+import org.displaytag.export.MediaTypeEnum;
 import org.displaytag.model.Cell;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
-import org.displaytag.export.MediaTypeEnum;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Arrays;
 
 /**
  * <p>
@@ -154,7 +154,7 @@ public class ColumnTag extends BodyTagSupport
     /**
      * is the column already sorted?
      */
-    private boolean alreadySorted = false;
+    private boolean alreadySorted;
 
     /**
      * The media supported attribute.
@@ -167,7 +167,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setProperty(String value)
     {
-        property = value;
+        this.property = value;
     }
 
     /**
@@ -176,7 +176,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setTitle(String value)
     {
-        title = value;
+        this.title = value;
     }
 
     /**
@@ -187,7 +187,7 @@ public class ColumnTag extends BodyTagSupport
     {
         if (!Boolean.FALSE.toString().equals(value))
         {
-            nulls = true;
+            this.nulls = true;
         }
 
     }
@@ -200,7 +200,7 @@ public class ColumnTag extends BodyTagSupport
     {
         if (!Boolean.FALSE.toString().equals(value))
         {
-            sortable = true;
+            this.sortable = true;
         }
     }
 
@@ -221,7 +221,7 @@ public class ColumnTag extends BodyTagSupport
     {
         if (!Boolean.FALSE.toString().equals(value))
         {
-            autolink = true;
+            this.autolink = true;
         }
     }
 
@@ -233,7 +233,7 @@ public class ColumnTag extends BodyTagSupport
     {
         try
         {
-            group = Integer.parseInt(value);
+            this.group = Integer.parseInt(value);
         }
         catch (NumberFormatException e)
         {
@@ -248,7 +248,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setHref(String value)
     {
-        href = new Href(value);
+        this.href = new Href(value);
     }
 
     /**
@@ -257,7 +257,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setParamId(String value)
     {
-        paramId = value;
+        this.paramId = value;
     }
 
     /**
@@ -266,7 +266,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setParamName(String value)
     {
-        paramName = value;
+        this.paramName = value;
     }
 
     /**
@@ -275,7 +275,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setParamProperty(String value)
     {
-        paramProperty = value;
+        this.paramProperty = value;
     }
 
     /**
@@ -284,7 +284,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setParamScope(String value)
     {
-        paramScope = value;
+        this.paramScope = value;
     }
 
     /**
@@ -293,7 +293,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setMaxLength(int value)
     {
-        maxLength = value;
+        this.maxLength = value;
     }
 
     /**
@@ -302,7 +302,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setMaxWords(int value)
     {
-        maxWords = value;
+        this.maxWords = value;
     }
 
     /**
@@ -312,8 +312,8 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setWidth(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
-        headerAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
+        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
     }
 
     /**
@@ -323,8 +323,8 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setAlign(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
-        headerAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
+        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
     }
 
     /**
@@ -334,7 +334,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setBackground(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, value);
     }
 
     /**
@@ -344,7 +344,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setBgcolor(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, value);
     }
 
     /**
@@ -354,7 +354,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setHeight(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, value);
     }
 
     /**
@@ -364,7 +364,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setNowrap(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_NOWRAP, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_NOWRAP, value);
     }
 
     /**
@@ -374,7 +374,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setValign(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_VALIGN, value);
+        this.attributeMap.put(TagConstants.ATTRIBUTE_VALIGN, value);
     }
 
     /**
@@ -393,7 +393,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setClass(String value)
     {
-        attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
     }
 
     /**
@@ -402,11 +402,11 @@ public class ColumnTag extends BodyTagSupport
      */
     public void addClass(String value)
     {
-        Object classAttributes = attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
+        Object classAttributes = this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
 
         if (classAttributes == null)
         {
-            attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+            this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
         }
         else
         {
@@ -420,7 +420,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setHeaderClass(String value)
     {
-        headerAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
     }
 
     /**
@@ -439,7 +439,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setDecorator(String value)
     {
-        decorator = value;
+        this.decorator = value;
     }
 
     /**
@@ -449,7 +449,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public boolean availableForMedia(MediaTypeEnum mediaType)
     {
-        return supportedMedia.contains(mediaType);
+        return this.supportedMedia.contains(mediaType);
     }
 
     /**
@@ -460,10 +460,10 @@ public class ColumnTag extends BodyTagSupport
     {
         if (StringUtils.isBlank(media) || media.toLowerCase().indexOf("all") > -1)
         {
-            supportedMedia = Arrays.asList(MediaTypeEnum.ALL);
+            this.supportedMedia = Arrays.asList(MediaTypeEnum.ALL);
             return;
         }
-        supportedMedia = new ArrayList();
+        this.supportedMedia = new ArrayList();
         String[] values = StringUtils.split(media);
         for (int i = 0; i < values.length; i++)
         {
@@ -485,7 +485,7 @@ public class ColumnTag extends BodyTagSupport
                     }
                     throw new IllegalArgumentException(msg + ".");
                 }
-                supportedMedia.add(type);
+                this.supportedMedia.add(type);
             }
         }
     }
@@ -503,7 +503,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public int doEndTag() throws JspException
     {
-        MediaTypeEnum currentMediaType = (MediaTypeEnum) pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
+        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
         if (currentMediaType != null && !availableForMedia(currentMediaType))
         {
             if (log.isDebugEnabled())
@@ -519,40 +519,40 @@ public class ColumnTag extends BodyTagSupport
         if (tableTag.isFirstIteration())
         {
             HeaderCell headerCell = new HeaderCell();
-            headerCell.setHeaderAttributes((HtmlAttributeMap) headerAttributeMap.clone());
-            headerCell.setHtmlAttributes((HtmlAttributeMap) attributeMap.clone());
-            headerCell.setTitle(title);
-            headerCell.setSortable(sortable);
-            headerCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(decorator));
-            headerCell.setBeanPropertyName(property);
-            headerCell.setShowNulls(nulls);
-            headerCell.setMaxLength(maxLength);
-            headerCell.setMaxWords(maxWords);
-            headerCell.setAutoLink(autolink);
-            headerCell.setGroup(group);
+            headerCell.setHeaderAttributes((HtmlAttributeMap) this.headerAttributeMap.clone());
+            headerCell.setHtmlAttributes((HtmlAttributeMap) this.attributeMap.clone());
+            headerCell.setTitle(this.title);
+            headerCell.setSortable(this.sortable);
+            headerCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(this.decorator));
+            headerCell.setBeanPropertyName(this.property);
+            headerCell.setShowNulls(this.nulls);
+            headerCell.setMaxLength(this.maxLength);
+            headerCell.setMaxWords(this.maxWords);
+            headerCell.setAutoLink(this.autolink);
+            headerCell.setGroup(this.group);
 
             // href and parameter, create link
-            if (href != null && paramId != null)
+            if (this.href != null && this.paramId != null)
             {
-                Href colHref = new Href(href);
+                Href colHref = new Href(this.href);
 
                 // parameter value is in a different object than the iterated one
-                if (paramName != null || paramScope != null)
+                if (this.paramName != null || this.paramScope != null)
                 {
                     // create a complete string for compatibility with previous version before expression evaluation.
                     // this approach is optimized for new expressions, not for previous property/scope parameters
                     StringBuffer expression = new StringBuffer();
 
                     // append scope
-                    if (paramScope != null && !"".equals(paramScope))
+                    if (this.paramScope != null && !"".equals(this.paramScope))
                     {
-                        expression.append(paramScope).append("Scope.");
+                        expression.append(this.paramScope).append("Scope.");
                     }
 
                     // base bean name
-                    if (paramId != null)
+                    if (this.paramId != null)
                     {
-                        expression.append(paramName);
+                        expression.append(this.paramName);
                     }
                     else
                     {
@@ -560,9 +560,9 @@ public class ColumnTag extends BodyTagSupport
                     }
 
                     // append property
-                    if (paramProperty != null && !"".equals(paramProperty))
+                    if (this.paramProperty != null && !"".equals(this.paramProperty))
                     {
-                        expression.append('.').append(property);
+                        expression.append('.').append(this.property);
                     }
 
                     // evaluate expression.
@@ -571,7 +571,7 @@ public class ColumnTag extends BodyTagSupport
                     Object paramValue = tableTag.evaluateExpression(expression.toString());
 
                     // add parameter
-                    colHref.addParameter(paramId, paramValue);
+                    colHref.addParameter(this.paramId, paramValue);
                 }
                 else
                 {
@@ -579,10 +579,10 @@ public class ColumnTag extends BodyTagSupport
                     // work when only a part of the list is displayed
 
                     // set id
-                    headerCell.setParamName(paramId);
+                    headerCell.setParamName(this.paramId);
 
                     // set property
-                    headerCell.setParamProperty(paramProperty);
+                    headerCell.setParamProperty(this.paramProperty);
 
                 }
 
@@ -600,7 +600,7 @@ public class ColumnTag extends BodyTagSupport
 
         Cell cell;
 
-        if (property == null)
+        if (this.property == null)
         {
 
             Object cellValue;
@@ -614,7 +614,7 @@ public class ColumnTag extends BodyTagSupport
                     value = bodyContent.getString();
                 }
 
-                if (value == null && nulls)
+                if (value == null && this.nulls)
                 {
                     value = "";
                 }
@@ -642,10 +642,10 @@ public class ColumnTag extends BodyTagSupport
 
         tableTag.addCell(cell);
 
-        attributeMap.clear();
-        headerAttributeMap.clear();
-        paramName = null;
-        decorator = null;
+        this.attributeMap.clear();
+        this.headerAttributeMap.clear();
+        this.paramName = null;
+        this.decorator = null;
 
         // fix for tag pooling in tomcat
         setBodyContent(null);
@@ -679,7 +679,8 @@ public class ColumnTag extends BodyTagSupport
         }
         else
         {
-            MediaTypeEnum currentMediaType = (MediaTypeEnum) pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
+            MediaTypeEnum currentMediaType =
+                (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
             if (!availableForMedia(currentMediaType))
             {
                 return SKIP_BODY;

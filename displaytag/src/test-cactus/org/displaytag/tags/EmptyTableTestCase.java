@@ -22,31 +22,31 @@ public class EmptyTableTestCase extends JspTestCase
     {
         // set up table
         List testData = new ArrayList();
-        table = new TableTag();
-        table.setList(testData);
-        tableLifecycle = new JspTagLifecycle(pageContext, table);
+        this.table = new TableTag();
+        this.table.setList(testData);
+        this.tableLifecycle = new JspTagLifecycle(this.pageContext, this.table);
 
         // column with property
         ColumnTag column = new ColumnTag();
         column.setProperty("xxx");
-        columnPropertyLifecycle = tableLifecycle.addNestedTag(column);
+        this.columnPropertyLifecycle = this.tableLifecycle.addNestedTag(column);
 
         // column with body
         ColumnTag column3 = new ColumnTag();
-        columnBodyLifecycle = tableLifecycle.addNestedTag(column3);
-        columnBodyLifecycle.addNestedText("column body");
+        this.columnBodyLifecycle = this.tableLifecycle.addNestedTag(column3);
+        this.columnBodyLifecycle.addNestedText("column body");
 
     }
 
     public void testEmptyTable() throws Exception
     {
-        tableLifecycle.invoke();
+        this.tableLifecycle.invoke();
 
         // body should be always skipped when using property
-        columnPropertyLifecycle.expectBodySkipped();
+        this.columnPropertyLifecycle.expectBodySkipped();
 
         // body should also be skipped when list is empty
-        columnBodyLifecycle.expectBodySkipped();
+        this.columnBodyLifecycle.expectBodySkipped();
     }
 
 }

@@ -31,7 +31,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
     public BaseNestableJspTagException(Class source, String message)
     {
         super(message);
-        sourceClass = source;
+        this.sourceClass = source;
 
         // log exception
         Log log = LogFactory.getLog(source);
@@ -100,7 +100,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
      */
     public Throwable getCause()
     {
-        return nestedException;
+        return this.nestedException;
     }
 
     /**
@@ -111,17 +111,17 @@ public abstract class BaseNestableJspTagException extends JspTagException
     {
         StringBuffer buffer = new StringBuffer();
 
-        String className = sourceClass.getName();
+        String className = this.sourceClass.getName();
         className = className.substring(className.lastIndexOf("."));
 
         buffer.append("Exception: ");
         buffer.append("[").append(className).append("] ");
         buffer.append(getMessage());
 
-        if (nestedException != null)
+        if (this.nestedException != null)
         {
             buffer.append("\nCause:     ");
-            buffer.append(nestedException.getMessage());
+            buffer.append(this.nestedException.getMessage());
         }
 
         return buffer.toString();

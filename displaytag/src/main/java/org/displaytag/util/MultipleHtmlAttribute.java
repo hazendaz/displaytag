@@ -2,6 +2,7 @@ package org.displaytag.util;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -14,9 +15,9 @@ public class MultipleHtmlAttribute implements Cloneable
 {
 
     /**
-     * HashSet containing splitted attribute values
+     * Set containing splitted attribute values
      */
-    private HashSet attributeSet;
+    private Set attributeSet;
 
     /**
      * Constructor for MultipleHtmlAttribute
