@@ -1246,12 +1246,15 @@ public class TableTag extends HtmlTableTag
             // get the header cell
             HeaderCell headerCell = (HeaderCell) iterator.next();
 
-            String cssSortable = this.properties.getCssSortable();
-            if (StringUtils.isNotBlank(cssSortable))
+            if (headerCell.getSortable())
             {
-                headerCell.addHeaderClass(cssSortable);
+                String cssSortable = this.properties.getCssSortable();
+                if (StringUtils.isNotBlank(cssSortable))
+                {
+                    headerCell.addHeaderClass(cssSortable);
+                }
             }
-            
+
             // if sorted add styles
             if (headerCell.isAlreadySorted())
             {
@@ -1264,11 +1267,12 @@ public class TableTag extends HtmlTableTag
                 }
 
                 // sort order css class
-                headerCell.addHeaderClass(
-                    TableTagParameters.CSS_SORTORDERPREFIX
-                        + (this.tableModel.isSortOrderAscending()
-                            ? TableTagParameters.VALUE_SORT_DESCENDING
-                            : TableTagParameters.VALUE_SORT_ASCENDING));
+                String cssOrder = this.properties.getCssOrder(this.tableModel.isSortOrderAscending());
+
+                if (StringUtils.isNotBlank(cssOrder))
+                {
+                    headerCell.addHeaderClass(cssOrder);
+                }
             }
 
             // append th with html attributes

@@ -62,11 +62,6 @@ public final class TableTagParameters
      * css class added to empty tables.
      */
     public static final String CSS_EMPTYLIST = "empty";
-
-    /**
-     * prefix for the css class added to sorted column to specify order (0 and 1 is added).
-     */
-    public static final String CSS_SORTORDERPREFIX = "order";
     
     /**
      * utility class - don't instantiate.
