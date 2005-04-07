@@ -255,6 +255,16 @@
 	            The classname of comparator to use when sorting this column, or the comparator itself.
 	            Defaults to the DefaultComparator.
 	        </description>
+	    </attribute>
+	    <attribute>
+	        <name>valueClass</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	        <description>
+	            The fully qualified classname of the actual value of this column, or the Class itself.
+	            Used as a hint by exporters, since some export formats distinguish between data types. (For example,
+	            excel distinguishes between dates, numbers, and strings.)
+	        </description>
 	    </attribute>	    
         <attribute>
             <name>titleKey</name>

@@ -87,6 +87,8 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
                 ColumnTag.class, null, "setAlign")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("comparator", //$NON-NLS-1$
                 ColumnTag.class, null, "setComparator")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("valueClass", //$NON-NLS-1$
+                ColumnTag.class, null, "setValueClass")); //$NON-NLS-1$
 
             // deprecated attribute
             proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$
