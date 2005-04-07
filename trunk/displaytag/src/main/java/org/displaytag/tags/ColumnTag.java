@@ -107,6 +107,11 @@ public class ColumnTag extends BodyTagSupport
     private Comparator comparator = new DefaultComparator();
 
     /**
+     * If not null, we will happily coerce the column value to this class.
+     */
+    private Class valueClass;
+
+    /**
      * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
      * into a hypertext link.
      */
@@ -231,6 +236,38 @@ public class ColumnTag extends BodyTagSupport
     public void setProperty(String value)
     {
         this.property = value;
+    }
+
+    /**
+     * Setter.
+     * @param valueClassObj the parameter
+     */
+    public void setValueClass(Object valueClassObj)
+    {
+        if (valueClassObj instanceof Class)
+        {
+            this.valueClass = (Class) valueClassObj;
+        }
+        else if (valueClassObj instanceof String)
+        {
+            String valueClassName = valueClassObj.toString();
+            if (StringUtils.isNotBlank(valueClassName))
+            {
+                try
+                {
+                    valueClass = Thread.currentThread().getContextClassLoader().loadClass(valueClassName);
+                }
+                catch (ClassNotFoundException e)
+                {
+                    throw new RuntimeException("InstantiationException setting value class as "
+                             + valueClassName + ": " + e.getMessage(), e);
+                }
+            }
+        }
+        else
+        {
+            valueClass = null;
+        }
     }
 
     /**
@@ -657,6 +694,7 @@ public class ColumnTag extends BodyTagSupport
         headerCell.setPropertyConvertor(PropertyConvertorFactory.createNumberConverter(tableTag.getProperties()));
         headerCell.setTotaled(this.totaled);
         headerCell.setComparator(this.comparator);
+        headerCell.setColumnValueClass(valueClass);
 
         // href and parameter, create link
         if (this.href != null)
@@ -760,6 +798,8 @@ public class ColumnTag extends BodyTagSupport
         this.title = null;
         this.titleKey = null;
         this.sortProperty = null;
+        this.comparator = null;
+        this.valueClass = null;
     }
 
     /**

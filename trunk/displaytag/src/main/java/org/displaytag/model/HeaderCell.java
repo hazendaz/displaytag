@@ -127,6 +127,11 @@ public class HeaderCell
     private boolean totaled;
 
     /**
+     * Get the destination class for this column.
+     */
+    private Class valueClass;
+
+    /**
      * The running total for the column.
      */
     private double total;
@@ -635,5 +640,22 @@ public class HeaderCell
                 throw new RuntimeException(e);
             }
         }
+    }
+    /**
+     * Simple accessor.
+     * @return get the value
+     */
+    public Class getColumnValueClass()
+    {
+        return this.valueClass;
+    }
+
+    /**
+     * Simple setter.
+     * @param theClass
+     */
+    public void setColumnValueClass(Class theClass)
+    {
+        this.valueClass = theClass;
     }
 }

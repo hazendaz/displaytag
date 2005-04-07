@@ -31,15 +31,26 @@ public class DefaultPropertyConvertor implements Converter
         {
             throw new NullPointerException("Value cannot be null");
         }
-        if (!Number.class.equals(type))
+        if (type == null)
         {
-            throw new UnsupportedOperationException("This class can only convert to Number.");
+            throw new NullPointerException("Type cannot be null");
         }
-        if (value instanceof Number)
+        if (String.class.equals(type))
         {
-            return (Number) value;
+            return value.toString();
         }
-        return convertStringToNumber(value.toString());
+        else if (Number.class.isAssignableFrom(type))
+        {
+            if (value instanceof Number)
+            {
+                return (Number) value;
+            }
+            else
+            {
+                return convertStringToNumber(value.toString());
+            }
+        }
+        throw new UnsupportedOperationException("This class does not support conversion to type " + type);
     }
 
     /**
@@ -59,7 +70,7 @@ public class DefaultPropertyConvertor implements Converter
         }
         catch (NumberFormatException e)
         {
-            // It cannot be handled - fall through and throw an exception
+            // It cannot be handled -- users should write a subclass if they are seeing this message..
             log.warn("Cannot convert " + value + " to a number, " + e.getMessage()
                      + " -- assuming a value of zero.", e);
             return new Double(0);

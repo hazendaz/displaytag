@@ -76,6 +76,15 @@ public class Column
     }
 
     /**
+     * Get the header cell for this column.
+     * @return the cell
+     */
+    public HeaderCell getHeaderCell()
+    {
+        return this.header;
+    }
+
+    /**
      * Gets the value, after calling the table / column decorator is requested.
      * @param decorated boolean
      * @return Object
