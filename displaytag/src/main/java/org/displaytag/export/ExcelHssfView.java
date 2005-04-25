@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.displaytag.Messages;
 import org.displaytag.conversion.PropertyConvertorFactory;
@@ -70,6 +71,7 @@ public class ExcelHssfView implements BinaryExportView
      * Converter for producing numeric cell values.
      */
     private Converter propertyConvertor;
+    private short pctFormat = HSSFDataFormat.getBuiltinFormat("0.00%");
 
     /**
      * Default constructor.
@@ -179,7 +181,14 @@ public class ExcelHssfView implements BinaryExportView
                         value = propertyConvertor.convert(valueClass, value);
                         if (Number.class.isAssignableFrom(valueClass))
                         {
-                            cell.setCellValue(((Number) value).doubleValue());
+                            if (value.toString().indexOf("%")>-1){
+                                cell.setCellValue(((Number) value).doubleValue()/100);
+                                HSSFCellStyle cellStyle = wb.createCellStyle();
+                                cellStyle.setDataFormat(pctFormat);
+                                cell.setCellStyle(cellStyle);
+                            } else {
+                                cell.setCellValue(((Number) value).doubleValue());
+                            }
                         }
                         else if (Date.class.isAssignableFrom(valueClass))
                         {
@@ -199,7 +208,15 @@ public class ExcelHssfView implements BinaryExportView
                         if (isNumber(value.toString()))
                         {
                             Number num = (Number) propertyConvertor.convert(Number.class, value.toString());
-                            cell.setCellValue(num.doubleValue());
+                            // Percentage
+                            if (value.toString().indexOf("%")>-1){
+                                cell.setCellValue(num.doubleValue()/100);
+                                HSSFCellStyle cellStyle = wb.createCellStyle();
+                                cellStyle.setDataFormat(pctFormat);
+                                cell.setCellStyle(cellStyle);
+                            } else {
+                                cell.setCellValue(num.doubleValue());
+                            }
                         }
                         else if (value instanceof Date)
                         {
