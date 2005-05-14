@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>Which tld?</title>
+        <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+    </properties>
+    <body>
+        <section name="Tlds">
+            <p> Displaytag comes with 3 different tlds at the moment. Look at this table to understand which is the 
+                right one for you. </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>tld</th>
+                        <th>URI</th>
+                        <th>description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>displaytag-11.tld</code></td>
+                        <td>http://displaytag.sf.net</td>
+                        <td>Jsp 1.1 version of the tld, you will need to use this one if you plan to install your 
+                            application on container only supporting j2ee 1.2 (Tomcat 3, Websphere 4, WebLogic 6...).</td>
+                    </tr>
+                    <tr>
+                        <td><code>displaytag-12.tld</code></td>
+                        <td>http://displaytag.sf.net</td>
+                        <td>Jsp 1.2 version of the tld: requires j2ee 1.3 (Tomcat 4, WebSphere 5, WebLogic 7...). Use 
+                            this version if you are not looking for j2ee 1.2 compatibility and don't need <acronym 
+                            title="Expression Language">EL</acronym> support.</td>
+                    </tr>
+                    <tr>
+                        <td><code>displaytag-el-12.tld</code></td>
+                        <td>http://displaytag.sf.net/el</td>
+                        <td><acronym title="Expression Language">EL</acronym> version of the tag library. It offers the 
+                            same features as the standard 1.2 version, plus Expression Language Support. It will 
+                            require a couple of addictional libraries, see the dependencies page. <strong>Don't use 
+                            this one if you are looking for EL support on jsp 2.0 containers (Tomcat 5).</strong> In 
+                            Jsp 2.0 compatible servers expressions are evaluated directly by the container, so you can 
+                            use the standard 1.2 tld and still have EL support (the EL tld will not work, since 
+                            expressions wil be evaluated twice).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </body>
+</document>

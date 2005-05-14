@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Displaytag tutorial</title>
+    <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+  </properties>
+  <body>
+    <section name="Simplest case, no columns">
+      
+  <source><![CDATA[
+
+<% request.setAttribute( "test", new TestList(10, false) ); %>
+
+<display:table name="test" />
+
+]]></source>
+
+      <img src="images/tut_basic.png" width="402" height="137" alt="basic table" />
+      
+      <p>
+        The simplest possible usage of the table tag is to point the table tag at a java.util.List 
+        implementation and do nothing else. The table tag will iterate through the list and display 
+        a column for each property contained in the objects.
+      </p>
+      <p>
+        Typically, the only time that you would want to use the tag in this simple way would be during development 
+        as a sanity check. For production, you should always define at least a single column.
+      </p>
+
+      
+    </section>
+    
+    
+    <section name="Basic, columns">
+    
+<source><![CDATA[
+
+<% request.setAttribute( "test", new TestList(10, false) ); %>
+
+<display:table name="test">
+  <display:column property="id" title="ID" />
+  <display:column property="name" />
+  <display:column property="email" />
+  <display:column property="status" />
+  <display:column property="description" title="Comments"/>
+</display:table>
+
+]]></source>
+
+    <img src="images/tut_columns.png" width="566" height="214" alt="table - columns" />
+    
+    <p>
+      This example starts to show you how to use the table tag.  You point the table tag at
+      a datasource (a List), then define a number of columns with properties that map to
+      accessor methods (getXXX) for each object in the List.
+    </p>
+    
+    <p>
+      Note that you have one column tag for every column that you want to appear in
+      the table.  And, the column specifies what property is shown in that particular
+      row.
+    </p>
+    
+    <p>
+      You can define the content of a column by adding a <code>property</code> attribute
+      to the column tag or adding a content to the tag.
+    </p>
+    
+    <ul>
+      <li><![CDATA[<display:column property="email" />]]></li>
+      <li><![CDATA[<display:column title="email">email@it.com</display:column>]]></li>
+    </ul>
+
+    <p>
+      There are two ways to define the content of a column. Of course, in the tag body
+      you can use scriptlets or other custom tags.
+      Using the <code>property</code> attribute to define the content of a column is
+      usually faster and works better with sorting. If you add a <code>property</code>
+      attribute the tag body is ignored.
+    </p>
+    <p>
+      Adding content in the column body you can easily concatenate or "decorate" fields available in objects in the list.
+			See the <a href="tut_implicitobjects.html">implicit objects</a> chapter for more details.
+    </p>
+    <p>
+      The <code>property</code> attribute specifies what <code>getXXX</code> method is 
+      called on each item in the list.  
+      So for the second column, <code>getName</code> is called.  By default the 
+      property name is used as the header of the column unless you explicitly give the column 
+      a title.
+    </p>
+    </section>
+
+    
+    
+  </body>
+</document>
+
