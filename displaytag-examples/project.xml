@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
+    <extend>../displaytag-doc/project.xml</extend>
     <pomVersion>3</pomVersion>
     <id>displaytag-examples</id>
     <name>Display tag library examples</name>
@@ -32,44 +33,6 @@
     </repository>
     <versions/>
     <mailingLists/>
-    <developers>
-        <developer>
-            <name>Fabrizio Giustina</name>
-            <id>fgiust</id>
-            <email>fgiust AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <name>Matt Raible</name>
-            <id>matt</id>
-            <email>mraible AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
-            <name>Mathias Bogaert</name>
-            <id>pathoss</id>
-            <email>pathoss AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <timezone>0</timezone>
-        </developer>
-        <developer>
-            <name>Benjamin Simpson</name>
-            <id>javabencom</id>
-            <email>javabencom AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <timezone>0</timezone>
-        </developer>
-        <developer>
-            <name>Andy Pruitt</name>
-            <id>rapruitt</id>
-            <email>rapruitt AT users.sourceforge.net</email>
-            <organization>Sourceforge</organization>
-            <timezone>-6</timezone>
-        </developer>
-    </developers>
-    <contributors/>
     <licenses>
         <license>
             <name>Artistic License</name>
@@ -77,6 +40,16 @@
         </license>
     </licenses>
     <dependencies>
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+                <eclipse.dependency>true</eclipse.dependency>
+            </properties>
+        </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
@@ -146,15 +119,6 @@
             <version>0.99</version>
             <type>jar</type>
             <url>http://prdownloads.sourceforge.net/itext/</url>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>displaytag</groupId>
-            <artifactId>displaytag</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <type>jar</type>
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
