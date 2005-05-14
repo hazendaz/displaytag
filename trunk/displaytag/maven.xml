@@ -4,30 +4,10 @@
     <goal name="rebuild-all" prereqs="pom,clean,jar:jar,dist:build" />
     <goal name="nightly" prereqs="rebuild-all,prepare-snapshot,site:sshdeploy" />
 
-    <!-- set up tlds before test -->
-    <preGoal name="jar:jar">
-        <!-- generated tld should be ready before tests -->
-        <!-- create 1.1 dtd -->
-        <attainGoal name="taglib:convert" />
-        <!-- copy tlds to build dest -->
-        <echo message="copying tld files in ${maven.src.dir}/tld to ${maven.build.dir}/tld" />
-        <copy todir="${maven.build.dir}/tld">
-            <fileset dir="${maven.src.dir}/tld">
-                <include name="*.tld" />
-            </fileset>
-        </copy>
-        <!-- add tlds to taglib jar -->
-        <echo message="copying tld files ${maven.build.dir}/tld to ${maven.build.dest}/META-INF" />
-        <copy todir="${maven.build.dest}/META-INF">
-            <fileset dir="${maven.build.dir}/tld">
-                <include name="*.tld" />
-            </fileset>
-        </copy>
-    </preGoal>
+
     <postGoal name="dist:prepare-src-filesystem">
         <copy todir="${maven.dist.src.assembly.dir}">
             <fileset dir=".">
-                <include name="lib/portlet*.jar" />
                 <include name="xdocs/**/*.*" />
                 <include name="checkstyle.xml" />
                 <include name="clover.license" />
