@@ -1,1 +1,5 @@
 .wtpmodules
+.deployables
+target
+.classpath
+.project
