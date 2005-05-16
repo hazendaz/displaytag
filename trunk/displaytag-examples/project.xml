@@ -51,6 +51,16 @@
             </properties>
         </dependency>
         <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag-export-poi</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+                <eclipse.dependency>true</eclipse.dependency>
+            </properties>
+        </dependency>
+        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.6.1</version>

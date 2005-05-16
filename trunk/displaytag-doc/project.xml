@@ -2,7 +2,7 @@
 <project>
     <pomVersion>3</pomVersion>
     <id>displaytag-doc</id>
-    <name>Display tag library</name>
+    <name>Display tag library documentation</name>
     <groupId>displaytag</groupId>
     <currentVersion>1.1-SNAPSHOT</currentVersion>
     <organization>
