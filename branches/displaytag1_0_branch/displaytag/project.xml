@@ -303,7 +303,7 @@
         <dependency>
             <groupId>maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
-            <version>1.2.2</version>
+            <version>1.3</version>
             <type>plugin</type>
             <url>http://maven-taglib.sourceforge.net</url>
             <properties>
@@ -482,22 +482,22 @@
 
     </dependencies>
     <build>
-        <sourceDirectory>src/java</sourceDirectory>
-        <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
         <unitTest>
             <includes>
                 <include>**/TestAll.java</include>
             </includes>
             <resources>
                 <resource>
-                    <directory>src/test-resources</directory>
+                    <directory>src/test/resources</directory>
                     <filtering>false</filtering>
                 </resource>
             </resources>
         </unitTest>
         <resources>
             <resource>
-                <directory>src/java</directory>
+                <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.properties</include>
                 </includes>
