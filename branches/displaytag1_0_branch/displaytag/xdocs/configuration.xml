@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Configuration</title>
+        <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+    </properties>
+    <body>
+        <section name="Configuration properties">
+            <p>
+                This table lists all the configurable properties for the tag libraries. The default properties are
+                defined in the
+                <code>TableTag.properties</code>
+                file included in the library jar.
+            </p>
+            <p>There are 2 ways to override default property settings:</p>
+            <ul>
+                <li>
+                    For the whole web application, create a custom properties file named "displaytag.properties" and
+                    place it in the application classpath. Displaytag will use the locale of the request object to
+                    determine the locale of the property file to use; if the key required does not exist in the
+                    specified file, the key will be loaded from a more general property file.
+                </li>
+                <li>For a single table instance, using the &lt;display:setProperty&gt; tag</li>
+            </ul>
+            <p>
+                Include in your custom properties file only the properties you need to change. If a property is not
+                defined in the user file, the default from the TableTag.properties included in the jar is used.
+            </p>
+            <subsection name="I18n">
+                <p>
+                    Some properties contain messages you may wish to display according to the user Locale. To do that
+                    first add a default
+                    <code>displaytag.properties</code>
+                    file where you set all the locale independent entries and default messages. Then you can add
+                    localized properties file (for example
+                    <code>displaytag_IT.properties</code>
+                    ).
+                </p>
+            </subsection>
+            <subsection name="Generic">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Default</th>
+                            <th>Valid Values</th>
+                            <th>Description</th>
+                            <th>Can be set using file/setProperty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>basic.show.header</td>
+                            <td class="source">true</td>
+                            <td>true, false</td>
+                            <td>
+                                Indicates if you want the header to appear at the top of the table, the header contains
+                                the column names, and any additional action banners that might be required (like paging,
+                                export, etc...)
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>basic.empty.showtable</td>
+                            <td class="source">false</td>
+                            <td>true, false</td>
+                            <td>Indicates if you want the table to show up also if the list is empty</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>basic.msg.empty_list</td>
+                            <td class="source">Nothing found to display</td>
+                            <td>Any string</td>
+                            <td>
+                                The message that is displayed if the list that this table is associated with is either
+                                null, or empty. Used only if
+                                <code>basic.empty.showtable</code>
+                                is
+                                <code>false</code>
+                                .
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>basic.msg.empty_list_row</td>
+                            <td class="source">
+                                &lt;tr class="empty">&lt;td colspan="{0}">Nothing found to display.&lt;/td>&lt;/tr>
+                            </td>
+                            <td>Any string</td>
+                            <td>
+                                The message that is displayed into the first table row if the list that this table is
+                                associated with is either null, or empty. {0} is replaced with the total column number
+                                to generate a correct colspan. Used only if
+                                <code>basic.empty.showtable</code>
+                                is
+                                <code>true</code>
+                                .
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>sort.amount</td>
+                            <td class="source">page</td>
+                            <td>page, list</td>
+                            <td>
+                                Indicates if the full list should be sorted before paging or if the sorting only affects
+                                items in the current page. Default behaviour is to sort only items in the current page
+                                (first paging, then sorting).
+                            </td>
+                            <td>yes/no</td>
+                        </tr>
+                        <tr>
+                            <td>export.banner</td>
+                            <td class="source">&lt;div class="exportlinks"&gt; Export options: {0} &lt;/div&gt;</td>
+                            <td>Any string in a message format with 1 placeholder</td>
+                            <td>
+                                Contains the string that is displayed in the table footer when the user indicates that
+                                they want to enable the export function. The placeholder is replaced with links to the
+                                various export formats that are support.
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>export.banner.sepchar</td>
+                            <td class="source">|</td>
+                            <td>Any string</td>
+                            <td>
+                                Used to separate the valid export type (typically would be a bar, a comma, or a dash).
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.placement</td>
+                            <td class="source">top</td>
+                            <td>top, bottom, both</td>
+                            <td>
+                                When the table tag has to show the header for paging through a long list, this option
+                                indicates where that header should be shown in relation to the table
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.item_name</td>
+                            <td class="source">item</td>
+                            <td>Any string</td>
+                            <td>
+                                What the various objects in the list being displayed should be referred to as (singular)
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.items_name</td>
+                            <td class="source">items</td>
+                            <td>Any string</td>
+                            <td>
+                                What the various objects in the list being displayed should be referred to as (plural)
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.no_items_found</td>
+                            <td class="source">&lt;span class="pagebanner"&gt; No {0} found. &lt;/span&gt;</td>
+                            <td>Any string in a message format with 1 placeholder</td>
+                            <td>
+                                What is shown in the pagination header when no objects are available in the list to be
+                                displayed. The single placeholder is replaced with the name of the items in the list
+                                (plural)
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.one_item_found</td>
+                            <td class="source">&lt;span class="pagebanner"&gt; One {0} found. &lt;/span&gt;</td>
+                            <td>Any string in a message format with 1 placeholder</td>
+                            <td>
+                                What is shown in the pagination header when one object is available in the list to be
+                                displayed. The single placeholder is replaced with the name of the items in the list
+                                (singular)
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.all_items_found</td>
+                            <td class="source">
+                                &lt;span class="pagebanner"&gt; {0} {1} found, displaying all {2}. &lt;/span&gt;
+                            </td>
+                            <td>Any string in a message format with 3 placeholders</td>
+                            <td>
+                                What is shown in the pagination header when all the objects in the list are being shown.
+                                {0} and {2} are replaced with the number of objects in the list, {1} is replaced with
+                                the name of the items {plural}
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.some_items_found</td>
+                            <td class="source">
+                                &lt;span class="pagebanner"&gt; {0} {1} found, displaying {2} to {3}. &lt;/span&gt;
+                            </td>
+                            <td>Any string</td>
+                            <td>
+                                What is shown in the pagination header when a partial list of the objects in the
+                                list are being shown. Parameters:
+                                <ul>
+                                    <li>{0}: total number of objects in the list</li>
+                                    <li>{1}: name of the items (plural)</li>
+                                    <li>{2}: start index of the objects being shown</li>
+                                    <li>{3}: end index of the objects being shown</li>
+                                    <li>{4}: current page</li>
+                                    <li>{5}: total number of pages</li>
+                                </ul>
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.group_size</td>
+                            <td class="source">8</td>
+                            <td>Any reasonable number</td>
+                            <td>The number of pages to show in the header that this person can instantly jump to</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.full</td>
+                            <td class="source">
+                                &lt;span class="pagelinks"&gt; [&lt;a href="{1}"&gt;First&lt;/a&gt;/ &lt;a
+                                href="{2}"&gt;Prev&lt;/a&gt;] {0} [ &lt;a href="{3}"&gt;Next&lt;/a&gt;/ &lt;a
+                                href="{4}"&gt;Last &lt;/a&gt;]&lt;/span&gt;
+                            </td>
+                            <td/>
+                            <td>
+                                What is shown in the pagination bar when there are more pages and the selected page is
+                                not the first or the last one. Parameters:
+                                <ul>
+                                    <li>{0}: numbered pages list</li>
+                                    <li>{1}: link to the first page</li>
+                                    <li>{2}: link to the previous page</li>
+                                    <li>{3}: link to the next page</li>
+                                    <li>{4}: link to the last page</li>
+                                    <li>{5}: current page</li>
+                                    <li>{6}: total number of pages</li>
+                                </ul>
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.first</td>
+                            <td class="source">
+                                &lt;span class="pagelinks"&gt; [First/Prev] {0} [ &lt;a href="{3}"&gt;Next&lt;/a&gt;/
+                                &lt;a href="{4}"&gt;Last&lt;/a&gt;] &lt;/span&gt;
+                            </td>
+                            <td/>
+                            <td>
+                                What is shown in the pagination bar when the first page is being shown. Placeholders are
+                                the same as for
+                                <code>paging.banner.full</code>
+                                .
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.last</td>
+                            <td class="source">
+                                &lt;span class="pagelinks"&gt;[ &lt;a href="{1}"&gt;First&lt;/a&gt;/ &lt;a
+                                href="{2}"&gt;Prev&lt;/a&gt;] {0} [Next/Last] &lt;/span&gt;
+                            </td>
+                            <td/>
+                            <td>
+                                What is shown in the pagination bar when the last page is being shown. Placeholders are
+                                the same as for
+                                <code>paging.banner.full</code>
+                                .
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.onepage</td>
+                            <td class="source">&lt;span class="pagelinks"&gt;{0}&lt;/span&gt;</td>
+                            <td/>
+                            <td>
+                                What is shown in the pagination bar when only one page is returned. Placeholders are the
+                                same as for
+                                <code>paging.banner.full</code>
+                                .
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.page.selected</td>
+                            <td class="source">&lt;strong&gt;{0}&lt;/strong&gt;</td>
+                            <td/>
+                            <td>selected page. {0} is replaced with the page number, {1} with the page url.</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner. page.link</td>
+                            <td class="source">&lt;a href="{1}" title="Go to page {0}"&gt;{0}&lt;/a&gt;</td>
+                            <td/>
+                            <td>link to a page. {0} is replaced with the page number, {1} with the page url.</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>paging.banner.page.separator</td>
+                            <td class="source">,</td>
+                            <td/>
+                            <td>separator between pages</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>factory.requestHelper</td>
+                            <td class="source">org.displaytag.util.DefaultRequestHelperFactory</td>
+                            <td>Class name for a valid RequestHelperFactory implementation</td>
+                            <td>
+                                RequestHelperFactory to be used. You can replace the default one if you need to generate
+                                links with a different format (for example in portal applications).
+                            </td>
+                            <td>yes/no</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </subsection>
+            <subsection name="Exporting">
+                <p>
+                    Displaytag supports exporting to excel, csv, and xml formats. Some configurable properties
+                    are specific for one of these format. Replace "
+                    <em>{export name}</em>
+                    " in the property name with "excel", "csv" or "xml". Some of the properties won't work in
+                    any export format.
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Default</th>
+                            <th>Valid Values</th>
+                            <th>Description</th>
+                            <th>Can be set using file/setProperty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>export.types</td>
+                            <td class="source">csv excel xml pdf</td>
+                            <td>whitespace separated list of configured export types</td>
+                            <td>Holds the list of configured export types.</td>
+                            <td>yes/no</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                export.
+                                <em>{export name}</em>
+                            </td>
+                            <td class="source">true</td>
+                            <td>true, false</td>
+                            <td>Should the tag present the option to export data in this specific format.</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                export.
+                                <em>{export name}</em>.class
+                            </td>
+                            <td class="source"></td>
+                            <td>
+                                Any valid class which implements the
+                                <code>org.displaytag.export.ExportView</code>
+                                interface
+                            </td>
+                            <td>Fully qualified class name for the class which will be used for exporting.</td>
+                            <td>yes/no</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                export.
+                                <em>{export name}</em>.label
+                            </td>
+                            <td class="source">
+                                &lt;span class="export
+                                <em>{export name}</em>
+                                "&gt;
+                                <em>{export name}</em>
+                                &lt;/span&gt;
+                            </td>
+                            <td>Any string</td>
+                            <td>
+                                The label on the link that the user clicks on to export the data in a specific format.
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                export.
+                                <em>{export name}</em>.include_header
+                            </td>
+                            <td class="source">false</td>
+                            <td>true, false</td>
+                            <td>
+                                If set to true, the first line of the export will contain column titles as
+                                displayed on the HTML page. The header by default is not included in when exporting.
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                export.
+                                <em>{export name}</em>.filename
+                            </td>
+                            <td class="source">
+                                <em>none</em>
+                            </td>
+                            <td>any valid file name</td>
+                            <td>When saving exported files the user will be prompted to use this file name.</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>export.amount</td>
+                            <td class="source">list</td>
+                            <td>page, list</td>
+                            <td>
+                                Indicates how much data should be sent down to the user when they ask for a data export.
+                                <em>By default, it sends the entire list</em>. But, you can instruct the table tag to
+                                only send down the data that is currently being shown on the page
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>export.decorated</td>
+                            <td class="source">true</td>
+                            <td>true, false</td>
+                            <td>
+                                Should the data be "decorated" as it is exported. The default value is true, but you
+                                might want to turn off any decoration that is for example HTML specific when exporting
+                                the data.
+                            </td>
+                            <td>yes/yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </subsection>
+            <subsection name="css">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>Default</th>
+                            <th>Valid Values</th>
+                            <th>Description</th>
+                            <th>Can be set using file/setProperty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>css.tr.even</td>
+                            <td class="source">even</td>
+                            <td>any valid css class name</td>
+                            <td>css class automatically added to even rows</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>css.tr.odd</td>
+                            <td class="source">odd</td>
+                            <td>any valid css class name</td>
+                            <td>css class automatically added to odd rows</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>css.th.sorted</td>
+                            <td class="source">sorted</td>
+                            <td>any valid css class name</td>
+                            <td>css class automatically added to the header of sorted columns</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>css.th.ascending</td>
+                            <td class="source">order1</td>
+                            <td>any valid css class name</td>
+                            <td>css class automatically added to the header of a column sorted is ascending order</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>css.th.descending</td>
+                            <td class="source">order2</td>
+                            <td>any valid css class name</td>
+                            <td>css class automatically added to the header of a column sorted is descending order</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>css.table</td>
+                            <td class="source">
+                                <em>none</em>
+                            </td>
+                            <td>any valid css class name</td>
+                            <td>css class automatically added to the main table tag</td>
+                            <td>yes/yes</td>
+                        </tr>
+                        <tr>
+                            <td>css.th.sortable</td>
+                            <td class="source">
+                                <em>none</em>
+                            </td>
+                            <td>any valid css class name</td>
+                            <td>css class automatically added to any sortable column</td>
+                            <td>yes/yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </subsection>
+        </section>
+    </body>
+</document>
+

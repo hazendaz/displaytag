@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>Installation Guide</title>
+        <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+    </properties>
+    <body>
+        <section name="Installation Guide">
+            <p>
+                This package comes with pre-built binaries located in the dist directory. Those distribution files are:
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>file</th>
+                        <th>description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>displaytag.war</td>
+                        <td>documentation and examples</td>
+                    </tr>
+                    <tr>
+                        <td>displaytag.jar</td>
+                        <td>the taglib jar</td>
+                    </tr>
+                    <tr>
+                        <td>displaytag.tld</td>
+                        <td>the taglib tld file</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                To quickly view the documentation and examples showing the features and functionality of the display
+                taglib, just deploy the displaytag.war file to your application server (the details of how differ from
+                server to server) or servlet container.
+            </p>
+            <p>If you would like to make use of the display taglib in your own application, do the following:</p>
+
+            <p>
+                <strong>STEP 1</strong>
+                : Drop the displaytag-{version}.jar file in your application
+                <code>WEB-INF/lib</code>
+                directory
+            </p>
+            <p>
+                <strong>STEP 2</strong>
+                : Make sure that following libraries are in your
+                <code>WEB-INF/lib</code>
+                directory (or made available via the classpath to your application server). Refer to the
+                <a href="dependencies.html">dependencies</a>
+                document for the correct version of these libraries. You can download a copy of everything from
+                <a href="http://jakarta.apache.org">jakarta</a>
+                or you can grab them from the example webapp in the bin distribution.
+            </p>
+            <ul>
+                <li>commons-logging.jar</li>
+                <li>commons-lang.jar</li>
+                <li>commons-collections.jar</li>
+                <li>commons-beanutils.jar</li>
+                <li>log4j.jar</li>
+            </ul>
+
+            <p>
+                <strong>STEP 3</strong>
+                :
+                <em>Needed only for JSP 1.1 containers</em>
+                . Drop the displaytag-{taglibversion}.tld file in your application
+                <code>WEB-INF/</code>
+                directory. Refer to the
+                <a href="tlds.html">tlds</a>
+                page for the available tlds.
+            </p>
+            <p>
+                <strong>STEP 4</strong>
+                :
+                <em>Needed only for JSP 1.1 containers</em>.
+                Define a taglib element like the following in your /WEB-INF/web.xml file
+            </p>
+            <source>
+                <![CDATA[
+<taglib> 
+    <taglib-uri>http://displaytag.sf.net</taglib-uri> 
+    <taglib-location>/WEB-INF/displaytag-{taglibversion}.tld</taglib-location>
+</taglib>
+                ]]>
+            </source>
+            <p>
+                <strong>STEP 5</strong>
+                :
+                <em>Optional</em>.
+                Depending on your architecture, you may need to configure a filter to make export work. See the
+                <a href="export_filter.html">export filter</a>
+                page for the details about how to do it and when you could need it.
+            </p>
+            <p>
+                <strong>DONE</strong>
+                : Define the tag extension in each JSP page that uses the display taglib. The uri directives must match
+                what you defined in the web.xml file above OR the URI defined in one of the tlds in the jar file. With
+                JSP 1.2 containers, the jar file is automatically scanned and you don't need to define an entry in your
+                web.xml file. The prefix identifies the tags in the tag library within the JSP page.
+                <source>
+                    <![CDATA[<%@ taglib uri="http://displaytag.sf.net" prefix="display" %>]]>
+                </source>
+                The declaration, if you are using a JSP XML syntax, looks like:
+                <source>
+                    <![CDATA[
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:display="urn:jsptld:http://displaytag.sf.net">
+                    ]]>
+                </source>
+            </p>
+            <p>
+                For more help with general taglib use, please see:
+                <a href="http://jakarta.apache.org/taglibs/tutorial.html">
+                    http://jakarta.apache.org/taglibs/tutorial.html
+                </a>
+            </p>
+        </section>
+    </body>
+</document>

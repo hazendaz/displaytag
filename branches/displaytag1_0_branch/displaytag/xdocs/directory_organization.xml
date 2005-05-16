@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<document>
+
+    <properties>
+        <title>Directory organization</title>
+        <author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+    </properties>
+
+    <body>
+
+        <section name="Overview">
+            <p>
+				The display tag library uses Maven for build and documentation and tries to conform to general Maven
+				project layout. If you are used to working on a maven-driven project you should feel comfortable with it.
+				Here is a description of the file and folder organization.  The
+                <strong>strong</strong>	names refer to project specific setting/files.
+            </p>
+        </section>
+        <section name="Common Directory Layout">
+            <table>
+                <tr>
+                    <th>Directory or file name</th>
+                    <th>Content</th>
+                    <th>Comment</th>
+                </tr>
+                <tr>
+                    <td>LICENSE.txt</td>
+                    <td>The license for the project.</td>
+                    <td>
+						This file contains the license that applies to the project.
+                    </td>
+                </tr>
+                <tr>
+                    <td>project.xml</td>
+                    <td>Maven project descriptor</td>
+                    <td>
+						This file contains the basic project configuration for maven (project name, developers, urls,
+						dependencies, etc).
+                    </td>
+                </tr>
+                <tr>
+                    <td>project.properties</td>
+                    <td>A file defining project specific properties.</td>
+                    <td>
+							This file can be used to override maven default properties for the core and properties for
+							the various plugins.
+
+							It can also be used to define any maven properties used by a project. The properties
+							defined in this file should be applicable to most users of your project, as opposed to
+							custom properties for a specific build/user which should be defined in
+                        <code>${project.home}/build.properties</code>
+							.
+                    </td>
+                </tr>
+                <tr>
+                    <td>maven.xml</td>
+                    <td>Maven configuration for defining build goals</td>
+                    <td>
+						This file contains the default maven goals for the project, plus added pre-post operations to be
+						performed.
+                    </td>
+                </tr>
+                <tr>
+                    <td>src/</td>
+                    <td>Source code</td>
+                    <td>
+						This is the main directory for all the source code, subdivided in subdirectory to separate
+						different "kind" of code.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>src/java</strong>
+                    </td>
+                    <td>Java source code</td>
+                    <td>
+						This directory contains all the java source code both for the library and the example webapp.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>src/webapp</strong>
+                    </td>
+                    <td>Example webapp source</td>
+                    <td>
+						This directory contains all the code (JSP, images, web.xml configuration) for the example
+						webapp.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>src/tld</strong>
+                    </td>
+                    <td>tld</td>
+                    <td>
+						This directory contains the tag library definition file (tld), which is
+						added in the library jar and in the examples war during the build.
+                    </td>
+                </tr>
+                <tr>
+                    <td>xdocs/</td>
+                    <td>Documentation files in XML format.</td>
+                    <td>
+						Maven projects use Jelly/JSL to transform documentation files in XML into HTML. Project
+						documentation should be placed in this directory. Maven converts all XML files in this
+						directory using JSL. Non-XML files (and directories) are copied without modification to permit
+						the inclusion of "other" types of documentation (including images). The generated HTML files
+						automatically inherit the Maven look-and-feel by default.
+                    </td>
+                </tr>
+                <tr>
+                    <td>xdocs/navigation.xml</td>
+                    <td>Navigation links for site.</td>
+                    <td>
+						Maven projects use Jelly stylesheets to transform documentation files in XML into HTML (XHTML
+						for the most part). This file includes the navigation links that are added to each xdoc
+						transformed in the
+                        <code>xdocs</code>
+						directory.
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <strong>checkstyle.xml</strong>
+                    </td>
+                    <td>Checkstyle configuration file</td>
+                    <td>Configuration file containing checkstyle settings used during generation of reports.</td>
+                </tr>
+            </table>
+        </section>
+        <section name="Maven-Generated Layout">
+            <table>
+                <tr>
+                    <th>Directory name</th>
+                    <th>Content</th>
+                    <th>Comment</th>
+                </tr>
+                <tr>
+                    <td>target/</td>
+                    <td>Contains compiled classes and JARs.</td>
+                    <td>
+						The contents of the target/ directory should be enough to use the project. This directory
+						contains the final JAR and WAR that are generated.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/classes</td>
+                    <td>Contains compiled classes.</td>
+                    <td>
+						The target/classes directory contains all compiled classes. This directory is used when
+						packaging the final JAR for a project.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/generated-docs</td>
+                    <td>Contains Maven generated xdocs.</td>
+                    <td>
+						The target/generated-docs directory contains all of the Maven-generated xdocs. All content
+						generated by Maven is first converted to xdoc format, so the same stylesheet used to transform
+						the rest of the site can be used on generated content. The contents of this directory are
+						transformed and stored in the docs/ directory.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs</td>
+                    <td>Documentation files intended for the website publication.</td>
+                    <td>
+						The docs/ directory contains only generated documentation that is intended to be published as
+						the project's website. This directory includes the Velocity/DVSL generated HTML files,
+						JavaDocs, cross-referenced sources, and various generated reports. Generally, all documentation
+						is stored in the xdocs/ directory and then "transformed" into this directory. The specific
+						documents that Maven generates are described below.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/index.html</td>
+                    <td>Starting point for browsing the documentation.</td>
+                    <td>
+						Browsing the documentation locally should yield the same results as browsing the documentation
+						on the project's home page.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/apidocs</td>
+                    <td>API documentation.</td>
+                    <td>
+						Maven automatically generates JavaDocs for projects using the JavaDoc utility. Placing the API
+						documentation under docs/apidocs/ makes it slightly easier for other documentation files under
+						docs/ to reference API documentation and vice versa.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/xref</td>
+                    <td>Cross-referenced source code.</td>
+                    <td>
+						Maven automatically generates cross-referenced source code that enables easy browsing of an
+						entire source tree. Placing the cross-referenced sources under docs/xref/ makes it slightly
+						easier for other documentation files under docs/ to reference API documentation and vice versa.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/mail-lists.html</td>
+                    <td>Mailing list documentation.</td>
+                    <td>
+						Maven automatically generates a list of mailing lists based on the information provided in the
+						project descriptor.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/team-list.html</td>
+                    <td>The list of project team members.</td>
+                    <td>
+						Maven automatically generates a list of project team members based on the information provided
+						in the project descriptor.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/dependencies.html</td>
+                    <td>The list of dependencies.</td>
+                    <td>
+						Maven automatically generates a list of dependencies based on the information provided in the
+						project descriptor.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/changelog.html</td>
+                    <td>The CVS change log.</td>
+                    <td>
+						Maven automatically generates a change log from CVS log messages. This log is currently limited
+						to the past 30 days (but will be configurable in the future).
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/file-activity-report.html</td>
+                    <td>The File Activity Report.</td>
+                    <td>
+						Maven automatically generates a log from your SCM listing file changes in the last 30 days.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/developer-activity-report.html</td>
+                    <td>The Developer Activity Report.</td>
+                    <td>
+						Maven automatically generates a log from your SCM listing changes per developer in the last 30
+						days.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/jdepend-report.html</td>
+                    <td>Metric report.</td>
+                    <td>
+						Maven automatically generates a report on various source code metrics. This report can provide
+						further insight into a project.
+                    </td>
+                </tr>
+                <tr>
+                    <td>target/docs/checkstyle-report.html</td>
+                    <td>Checkstyle report.</td>
+                    <td>
+						Maven automatically generates a report on the results of Checkstyle. This report provides
+						assurance that the coding conventions for your project are being followed.
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Exporting</title>
+        <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+    </properties>
+    <body>
+        <section name="Exporting data">
+
+
+            <p>
+                When you set the Table Tag's
+                <strong>export</strong>
+                attribute to "true", a footer will appear below the table which will allow you to export the data being
+                shown in various formats.
+            </p>
+            <p>
+                Displaytag includes a few ready made
+                <em>export views</em>
+                which allow you to export data in CSV, excel,  and XML format. A simple PDF export view is also available.
+                The following table lists the predefined export options included in displaytag distribution.
+            </p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Media</th>
+                        <th>Export View Class</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CSV</td>
+                        <td class="code">org.displaytag.export.CsvView</td>
+                        <td>Export to comma separated list</td>
+                    </tr>
+                    <tr>
+                        <td>Excel</td>
+                        <td class="code">org.displaytag.export.ExcelView</td>
+                        <td>Export to excel - ascii format, tab separated</td>
+                    </tr>
+                    <tr>
+                        <td>XML</td>
+                        <td class="code">org.displaytag.export.XmlView</td>
+                        <td>Simple xml output</td>
+                    </tr>
+                    <tr>
+                        <td>PDF</td>
+                        <td class="code">org.displaytag.export.PdfView</td>
+                        <td>
+                            Sample PDF export view. This is not enabled by default in the distribution but can be
+                            enabled by setting
+                            <code>export.pdf=true</code>
+                            in displaytag.properties and including the required IText dependency (see
+                            <a href="dependencies.html">displaytag dependencies</a>
+                            ). Since you probably want to tweak the layout of your pdf output, this is probably more
+                            useful as a base reference for creating your own PDF export view.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+        <section name="Configuring export and export views">
+            <p>
+                The
+                <code>export.types</code>
+                parameter contains the list of registered export views. For each export type you can configure other
+                parameters: see the
+                <code>
+                    export.
+                    <em>exportname</em>.*
+                </code>
+                parameters in
+                <a href="configuration.html">configuration</a>
+                .
+            </p>
+            <p>
+                You can enable/disable a specific export type using the
+                <code>
+                    export.
+                    <em>exportname</em>.enabled
+                </code>
+                parameter.
+            </p>
+            <p>
+                If you don't want some column to show during export (or you only want them to show during export) you
+                can use the column
+                <code>media</code>
+                attribute (see tag reference for more details).
+            </p>
+
+
+        </section>
+
+        <section name="Adding a new Export view">
+            <ol>
+                <li>
+                    Write your own exportView class. You need to implement the
+                    <code>org.displaytag.export.TextExportView</code>
+                    or
+                    <code>org.displaytag.export.BinaryExportView</code>
+                    interface. You can look at the
+                    <a href="xref/org/displaytag/export/PdfView.html">sample binary PDF export view</a>
+                    or to
+                    <a href="xref/org/displaytag/export/BaseExportView.html">
+                        the base text export view used by displaytag
+                    </a>
+                    .
+                </li>
+                <li>
+                    Add a
+                    <code>displaytag.properties</code>
+                    file in your application classpath (if you already don't have one) and add the name of your export
+                    media along with the default ones to the export type parameter:
+                    <source>
+                        <![CDATA[
+export.types=csv excel xml [mymedia]
+                        ]]>
+                    </source>
+                </li>
+                <li>
+                    Always in
+                    <code>displaytag.properties</code>
+                    , add the following properties:
+                    <source>
+                        <![CDATA[
+export.[mymedia]=true
+                     
+export.[mymedia].class=fully.qualified.class.name
+ 
+export.[mymedia].label=Click here to try my export
+
+# include header parameter is forwarded to your export view
+export.[mymedia].include_header=true
+                     
+# if set, file is downloaded instead of opened in the browser window
+export.[mymedia].filename=
+                        ]]>
+                    </source>
+                </li>
+                <li>
+                    Try it. You should see a new link with the text you added to
+                    <code>
+                        export.
+                        <em>mymedia</em>
+                        .label
+                    </code>
+                    . Clicking on it will invoke your Export view.  You should see the results in your browser.
+                </li>
+            </ol>
+        </section>
+
+        <section name="Text/Binary export views">
+            <p>
+                Common displaytag export options (CSV, Xml and Excel) output a simple text-based format. Other file
+                formats require binary content, like the sample PDF included with the distribution.
+            </p>
+            <p>
+                Exporting binary data from a JSP is a bit tricky, since JSPs are only designed to output characters: as
+                a starting point keep in mind that
+                <strong>binary export is not assured to work on every application server</strong>
+                , at least without the help of an external filter (see
+                <a href="export_filter.html">export filter</a>
+                ).
+            </p>
+            <p>
+                It may work without a filter if your application server allows JSPs to call
+                <code>response.getOutputStream()</code>
+                , but this method really shouldn't be used in JSPs.  Using an the export filter, especially in buffered
+                mode, could solve the problem, since the output stream is requested by the filter outside the JSP.
+            </p>
+        </section>
+
+    </body>
+</document>
+
