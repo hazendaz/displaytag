@@ -550,6 +550,11 @@ public class ColumnTag extends BodyTagSupport
         return this.supportedMedia.contains(mediaType);
     }
 
+    private TableTag getTableTag()
+    {
+        return (TableTag) findAncestorWithClass(this, TableTag.class);
+    }
+
     /**
      * Tag setter.
      * @param media the space delimited list of supported types
@@ -594,7 +599,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public int doEndTag() throws JspException
     {
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        TableTag tableTag = getTableTag();
 
         MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
         if (currentMediaType != null && !availableForMedia(currentMediaType))
@@ -617,34 +622,21 @@ public class ColumnTag extends BodyTagSupport
             return super.doEndTag();
         }
 
-        Cell cell;
-        if (this.property == null)
+        HtmlAttributeMap perRowValues = new HtmlAttributeMap();
+        perRowValues.put(TagConstants.ATTRIBUTE_STYLE, this.attributeMap.get(TagConstants.ATTRIBUTE_STYLE));
+        perRowValues.put(TagConstants.ATTRIBUTE_CLASS, this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS));
+
+        Cell cell = new Cell(null);
+        cell.setPerRowAttributes(perRowValues);
+
+        if (this.property == null && this.bodyContent != null)
         {
-
-            Object cellValue;
-
-            if (this.bodyContent != null)
+            String value = this.bodyContent.getString();
+            if (value == null && this.nulls)
             {
-                String value = this.bodyContent.getString();
-
-                if (value == null && this.nulls)
-                {
-                    value = TagConstants.EMPTY_STRING;
-                }
-
-                cellValue = value;
+                value = TagConstants.EMPTY_STRING;
             }
-            // BodyContent will be null if the body was not eval'd, eg an empty list.
-            else
-            {
-                cellValue = Cell.EMPTY_CELL;
-            }
-            cell = new Cell(cellValue);
-
-        }
-        else
-        {
-            cell = Cell.EMPTY_CELL;
+            cell.setStaticValue(value);
         }
 
         tableTag.addCell(cell);
@@ -807,7 +799,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public int doStartTag() throws JspException
     {
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        TableTag tableTag = getTableTag();
         if (tableTag == null)
         {
             throw new TagStructureException(getClass(), "column", "table");

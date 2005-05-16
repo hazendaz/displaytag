@@ -9,6 +9,9 @@
     </properties>
     <body>
         <release version="1.1-b1" description="Initial work following the 1.0 release">
+	        <action type="add" dev="rapruitt" due-to="rapruitt" >
+		        Support for per-row css attributes.
+	        </action>
 	        <action type="add" dev="rapruitt" issue="DISPL-162" due-to="fguist,karsten,rapruitt" >
 		        Added Fabrizio's POI exporter, with patches from myself and Karsten Voges.  To enable, add an entry to
                 your displaytag.properties of 'export.excel.class=org.displaytag.export.ExcelHssfView'.  Also added
