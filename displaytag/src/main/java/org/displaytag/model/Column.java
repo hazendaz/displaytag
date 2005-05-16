@@ -145,17 +145,8 @@ public class Column
     public String getOpenTag() throws ObjectLookupException, DecoratorException
     {
         this.stringValue = createChoppedAndLinkedValue();
-        HtmlAttributeMap atts;
-        if (htmlAttributes == null)
-        {
-            atts = cell.getPerRowAttributes();
-        }
-        else
-        {
-            atts = (HtmlAttributeMap) this.htmlAttributes.clone();
-            atts.putAll(cell.getPerRowAttributes());
-        }
-        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, atts);
+
+        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, this.htmlAttributes);
     }
 
     /**
