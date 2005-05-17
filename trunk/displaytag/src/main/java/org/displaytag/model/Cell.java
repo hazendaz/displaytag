@@ -12,6 +12,7 @@
 package org.displaytag.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.ShortToStringStyle;
 
 
@@ -21,13 +22,12 @@ import org.displaytag.util.ShortToStringStyle;
  * </p>
  * <p>
  * A cell is used only when the content is placed as content of the column tag and need to be evaluated during
- * iteration. If the content is set using the <code>value</code> attribute in the column tag no cell is created and
- * EMPTY_CELL is used as placeholder.
+ * iteration.
  * </p>
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class Cell implements Comparable
+public class Cell implements Comparable, Cloneable
 {
 
     /**
@@ -39,6 +39,11 @@ public class Cell implements Comparable
      * content of the cell.
      */
     private Object staticValue;
+
+    /**
+     * Per row html attributes (style, class).
+     */
+    private HtmlAttributeMap attributes;
 
     /**
      * Creates a new empty cell. This should never be done, use EMPTY_CELL instead.
@@ -106,6 +111,16 @@ public class Cell implements Comparable
     {
         return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("staticValue", this.staticValue).toString(); //$NON-NLS-1$
+    }
+
+    public void setPerRowAttributes(HtmlAttributeMap perRowValues)
+    {
+        this.attributes = perRowValues;
+    }
+
+    public HtmlAttributeMap getPerRowAttributes()
+    {
+        return this.attributes;
     }
 
 }

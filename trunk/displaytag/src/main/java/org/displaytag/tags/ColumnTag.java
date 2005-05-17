@@ -11,10 +11,10 @@
  */
 package org.displaytag.tags;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Comparator;
 import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,20 +25,20 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.conversion.PropertyConvertorFactory;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.model.Cell;
-import org.displaytag.model.HeaderCell;
 import org.displaytag.model.DefaultComparator;
+import org.displaytag.model.HeaderCell;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
-import org.displaytag.conversion.PropertyConvertorFactory;
 
 
 /**
@@ -207,12 +207,12 @@ public class ColumnTag extends BodyTagSupport
     private String sortProperty;
 
     /**
-     * Should the value of the column be summed?  Requires that the value of the column be convertible to a Number.
+     * Should the value of the column be summed? Requires that the value of the column be convertible to a Number.
      */
     private boolean totaled;
 
     /**
-     * Should the value of the column be summed?  Requires that the value of the column be convertible to a Number.
+     * Should the value of the column be summed? Requires that the value of the column be convertible to a Number.
      * @return true if the column should be totaled
      */
     public boolean isTotaled()
@@ -222,7 +222,7 @@ public class ColumnTag extends BodyTagSupport
 
     /**
      * Setter for totals.
-     * @param totals    the value
+     * @param totals the value
      */
     public void setTotal(boolean totals)
     {
@@ -260,7 +260,9 @@ public class ColumnTag extends BodyTagSupport
                 catch (ClassNotFoundException e)
                 {
                     throw new RuntimeException("InstantiationException setting value class as "
-                             + valueClassName + ": " + e.getMessage(), e);
+                        + valueClassName
+                        + ": "
+                        + e.getMessage(), e);
                 }
             }
         }
@@ -272,7 +274,7 @@ public class ColumnTag extends BodyTagSupport
 
     /**
      * Set the comparator, classname or object.
-     * @param comparatorObj       the comparator, classname or object
+     * @param comparatorObj the comparator, classname or object
      */
     public void setComparator(Object comparatorObj)
     {
@@ -291,7 +293,9 @@ public class ColumnTag extends BodyTagSupport
             catch (ClassNotFoundException e)
             {
                 throw new RuntimeException("InstantiationException setting column comparator as "
-                         + comparatorClassname + ": " + e.getMessage(), e);
+                    + comparatorClassname
+                    + ": "
+                    + e.getMessage(), e);
             }
             try
             {
@@ -300,18 +304,24 @@ public class ColumnTag extends BodyTagSupport
             catch (InstantiationException e)
             {
                 throw new RuntimeException("InstantiationException setting column comparator as "
-                         + comparatorClassname + ": " + e.getMessage(), e);
+                    + comparatorClassname
+                    + ": "
+                    + e.getMessage(), e);
             }
             catch (IllegalAccessException e)
             {
                 throw new RuntimeException("IllegalAccessException setting column comparator as "
-                         + comparatorClassname + ": " + e.getMessage(), e);
+                    + comparatorClassname
+                    + ": "
+                    + e.getMessage(), e);
             }
         }
         else
         {
-            throw new IllegalArgumentException("Value for comparator: " + comparatorObj
-                     + " of type " + comparatorObj.getClass().getName());
+            throw new IllegalArgumentException("Value for comparator: "
+                + comparatorObj
+                + " of type "
+                + comparatorObj.getClass().getName());
         }
     }
 
@@ -471,7 +481,6 @@ public class ColumnTag extends BodyTagSupport
         this.headerAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
     }
 
-
     /**
      * setter for the "style" tag attribute.
      * @param value attribute value
@@ -550,6 +559,11 @@ public class ColumnTag extends BodyTagSupport
         return this.supportedMedia.contains(mediaType);
     }
 
+    private TableTag getTableTag()
+    {
+        return (TableTag) findAncestorWithClass(this, TableTag.class);
+    }
+
     /**
      * Tag setter.
      * @param media the space delimited list of supported types
@@ -594,7 +608,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public int doEndTag() throws JspException
     {
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        TableTag tableTag = getTableTag();
 
         MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
         if (currentMediaType != null && !availableForMedia(currentMediaType))
@@ -617,34 +631,21 @@ public class ColumnTag extends BodyTagSupport
             return super.doEndTag();
         }
 
-        Cell cell;
-        if (this.property == null)
+        HtmlAttributeMap perRowValues = new HtmlAttributeMap();
+        perRowValues.put(TagConstants.ATTRIBUTE_STYLE, this.attributeMap.get(TagConstants.ATTRIBUTE_STYLE));
+        perRowValues.put(TagConstants.ATTRIBUTE_CLASS, this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS));
+
+        Cell cell = new Cell(null);
+        cell.setPerRowAttributes(perRowValues);
+
+        if (this.property == null && this.bodyContent != null)
         {
-
-            Object cellValue;
-
-            if (this.bodyContent != null)
+            String value = this.bodyContent.getString();
+            if (value == null && this.nulls)
             {
-                String value = this.bodyContent.getString();
-
-                if (value == null && this.nulls)
-                {
-                    value = TagConstants.EMPTY_STRING;
-                }
-
-                cellValue = value;
+                value = TagConstants.EMPTY_STRING;
             }
-            // BodyContent will be null if the body was not eval'd, eg an empty list.
-            else
-            {
-                cellValue = Cell.EMPTY_CELL;
-            }
-            cell = new Cell(cellValue);
-
-        }
-        else
-        {
-            cell = Cell.EMPTY_CELL;
+            cell.setStaticValue(value);
         }
 
         tableTag.addCell(cell);
@@ -807,7 +808,7 @@ public class ColumnTag extends BodyTagSupport
      */
     public int doStartTag() throws JspException
     {
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+        TableTag tableTag = getTableTag();
         if (tableTag == null)
         {
             throw new TagStructureException(getClass(), "column", "table");
@@ -830,7 +831,6 @@ public class ColumnTag extends BodyTagSupport
             DefaultComparator def = (DefaultComparator) comparator;
             def.setCollator(Collator.getInstance(tableTag.getProperties().getLocale()));
         }
-
 
         return super.doStartTag();
     }
