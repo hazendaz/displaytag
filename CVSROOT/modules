@@ -26,3 +26,5 @@
 # spread out over the entire source repository.
 
 #displaytag2 displaytag
+
+displaytag-all displaytag displaytag-doc displaytag-examples displaytag-export-poi
