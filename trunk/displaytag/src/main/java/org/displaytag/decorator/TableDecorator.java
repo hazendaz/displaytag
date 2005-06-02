@@ -104,4 +104,12 @@ public abstract class TableDecorator extends Decorator
         super.finish();
     }
 
+    /**
+     * call back to add an additional row class to the current row
+     * @return CSS class attribute value for the current row
+     */
+    public String addRowClass()
+    {
+       return null;
+    }
 }

@@ -148,7 +148,24 @@ public class Row
     public String getOpenTag()
     {
         String css = this.tableModel.getProperties().getCssRow(this.rowNumber);
-
+        
+        if (this.tableModel.getTableDecorator() != null) 
+        {
+            String addStyle = this.tableModel.getTableDecorator().addRowClass();
+            
+            if (StringUtils.isNotBlank(addStyle))
+            {
+               if (StringUtils.isNotBlank(css))
+               {
+                   css = css + " " + addStyle;
+               }
+               else
+               {
+                   css = addStyle;
+               }           
+            }
+        }
+        
         if (StringUtils.isNotBlank(css))
         {
             return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + " " //$NON-NLS-1$
