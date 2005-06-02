@@ -105,10 +105,19 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * call back to add an additional row class to the current row
+     * Call back to add an additional row class to the current row
      * @return CSS class attribute value for the current row
      */
     public String addRowClass()
+    {
+       return null;
+    }
+    
+    /**
+     * Call back to allow setting an "id" attribute on a row
+     * @return HTML id attribute value for the current row
+     */
+    public String setRowId()
     {
        return null;
     }
