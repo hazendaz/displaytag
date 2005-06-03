@@ -53,7 +53,7 @@ public class TldTest extends TestCase
      */
     public void test12Tld() throws Exception
     {
-        checkTld("/src/tld/displaytag-12.tld");
+        checkTld("/src/main/resources/META-INF/displaytag-12.tld");
     }
 
     /**
@@ -62,7 +62,7 @@ public class TldTest extends TestCase
      */
     public void testELTld() throws Exception
     {
-        checkTld("/src/tld/displaytag-el-12.tld");
+        checkTld("/src/main/resources/META-INF/displaytag-el-12.tld");
     }
 
     /**
