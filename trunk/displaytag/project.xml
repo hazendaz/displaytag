@@ -243,15 +243,6 @@
             </properties>
         </dependency>
         <dependency>
-            <groupId>maven-plugins</groupId>
-            <artifactId>maven-findbugs-plugin</artifactId>
-            <version>0.8.4</version>
-            <type>plugin</type>
-            <properties>
-                <comment>maven plugin for the findbug report</comment>
-            </properties>
-        </dependency>
-        <dependency>
             <groupId>maven</groupId>
             <artifactId>maven-clover-plugin</artifactId>
             <version>1.8</version>
@@ -263,7 +254,7 @@
         <dependency>
             <groupId>statcvs</groupId>
             <artifactId>maven-statcvs-plugin</artifactId>
-            <version>2.4</version>
+            <version>2.7</version>
             <type>plugin</type>
             <properties>
                 <comment>maven plugin for the cvs report</comment>
@@ -438,7 +429,6 @@
         <report>taglib</report>
         <report>maven-jdepend-plugin</report>
         <report>maven-pmd-plugin</report>
-        <report>maven-findbugs-plugin</report>
         <report>maven-jxr-plugin</report>
         <report>maven-junit-report-plugin</report>
         <report>maven-clover-plugin</report>

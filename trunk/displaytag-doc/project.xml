@@ -1,176 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-    <pomVersion>3</pomVersion>
-    <id>displaytag-doc</id>
-    <name>Display tag library documentation</name>
-    <groupId>displaytag</groupId>
-    <currentVersion>1.1-SNAPSHOT</currentVersion>
-    <organization>
-        <name>the Displaytag team</name>
-        <url>http://sourceforge.net/projects/displaytag</url>
-        <logo>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</logo>
-    </organization>
-    <inceptionYear>2002</inceptionYear>
-    <package>org.displaytag</package>
-    <logo>/images/displaytag.png</logo>
-    <description>
-        The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
-        which will work in an MVC model. The library provides a significant amount of functionality while still being
-        easy to use.
-    </description>
-    <shortDescription>Display tag library</shortDescription>
-    <url>http://diplaytag.sourceforge.net</url>
-    <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
-    <siteAddress>shell.sourceforge.net</siteAddress>
-    <siteDirectory>/home/groups/d/di/displaytag/htdocs/11/</siteDirectory>
-    <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</connection>
-        <developerConnection>
-            scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag
-        </developerConnection>
-        <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
-    </repository>
-    <versions>
-        <version>
-            <id>1.0-b1</id>
-            <name>1.0-b1</name>
-            <tag>displaytag1-b1</tag>
-        </version>
-        <version>
-            <id>1.0-b2</id>
-            <name>1.0-b2</name>
-            <tag>displaytag1-b2</tag>
-        </version>
-        <version>
-            <id>1.0-b3</id>
-            <name>1.0-b3</name>
-            <tag>displaytag1-b3</tag>
-        </version>
-        <version>
-            <id>1.0-rc1</id>
-            <name>1.0-rc1</name>
-            <tag>displaytag1-rc1</tag>
-        </version>
-        <version>
-            <id>1.0-rc2</id>
-            <name>1.0-rc2</name>
-            <tag>displaytag1-rc2</tag>
-        </version>
-        <version>
-            <id>1.0</id>
-            <name>1.0</name>
-            <tag>displaytag1</tag>
-        </version>
-    </versions>
-    <mailingLists>
-        <mailingList>
-            <name>${pom.name} User Mailing list</name>
-            <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</subscribe>
-            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</unsubscribe>
-            <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-user</archive>
-        </mailingList>
-        <mailingList>
-            <name>${pom.name} Developer Mailing list</name>
-            <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</subscribe>
-            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</unsubscribe>
-            <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-devel</archive>
-        </mailingList>
-        <mailingList>
-            <name>${pom.name} Cvs Mailing list</name>
-            <subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</subscribe>
-            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</unsubscribe>
-            <archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-cvs</archive>
-        </mailingList>
-    </mailingLists>
-    <developers>
-        <developer>
-            <name>Fabrizio Giustina</name>
-            <id>fgiust</id>
-            <email>fgiust(at)users.sourceforge.net</email>
-            <organization></organization>
-            <roles>
-                <role>Project admin and main developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <name>Matt Raible</name>
-            <id>matt</id>
-            <email>mraible(at)users.sourceforge.net</email>
-            <organization>Raible Designs</organization>
-            <roles>
-                <role>Project admin</role>
-            </roles>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
-            <name>Andy Pruitt</name>
-            <id>rapruitt</id>
-            <email>rapruitt(at)users.sourceforge.net</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <timezone>-6</timezone>
-        </developer>
-        <developer>
-            <name>Benjamin Simpson</name>
-            <id>javabencom</id>
-            <email>javabencom(at)users.sourceforge.net</email>
-            <roles>
-                <role>Documentation editor</role>
-            </roles>
-            <timezone>0</timezone>
-        </developer>
-        <developer>
-            <name>Mathias Bogaert</name>
-            <id>pathoss</id>
-            <email>pathoss(at)users.sourceforge.net</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-            <timezone>0</timezone>
-        </developer>
-    </developers>
-    <contributors>
-        <contributor>
-            <name>Didier Dubois</name>
-            <email>didier(at)ddubois.info</email>
-            <roles>
-                <role>Initial help on the maven build system</role>
-            </roles>
-            <timezone>0</timezone>
-        </contributor>
-        <contributor>
-            <name>Ed Hill</name>
-            <email>ed-hill(at)users.sourceforge.net</email>
-            <roles>
-                <role>Initial developer of the tag library</role>
-            </roles>
-            <timezone>0</timezone>
-        </contributor>
-    </contributors>
-    <licenses>
-        <license>
-            <name>Artistic License</name>
-            <url>http://displaytag.sourceforge.net/license.html</url>
-        </license>
-    </licenses>
-    <reports>
-        <report>maven-license-plugin</report>
-        <report>maven-checkstyle-plugin</report>
-        <report>maven-changes-plugin</report>
-        <report>maven-javadoc-plugin</report>
-        <report>taglib</report>
-        <report>maven-jdepend-plugin</report>
-        <report>maven-pmd-plugin</report>
-        <report>maven-findbugs-plugin</report>
-        <report>maven-jxr-plugin</report>
-        <report>maven-junit-report-plugin</report>
-        <report>maven-clover-plugin</report>
-        <report>maven-tasklist-plugin</report>
-        <report>maven-simian-plugin</report>
-        <report>maven-statcvs-plugin</report>
-        <report>maven-faq-plugin</report>
-    </reports>
+	<pomVersion>3</pomVersion>
+	<id>displaytag-doc</id>
+	<name>Display tag library documentation</name>
+	<groupId>displaytag</groupId>
+	<currentVersion>1.1-SNAPSHOT</currentVersion>
+	<organization>
+		<name>the Displaytag team</name>
+		<url>http://sourceforge.net/projects/displaytag</url>
+		<logo>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</logo>
+	</organization>
+	<inceptionYear>2002</inceptionYear>
+	<package>org.displaytag</package>
+	<logo>/images/displaytag.png</logo>
+	<description>
+		The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
+		which will work in an MVC model. The library provides a significant amount of functionality while still being
+		easy to use.
+	</description>
+	<shortDescription>Display tag library</shortDescription>
+	<url>http://diplaytag.sourceforge.net</url>
+	<issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
+	<siteAddress>shell.sourceforge.net</siteAddress>
+	<siteDirectory>/home/groups/d/di/displaytag/htdocs/11/</siteDirectory>
+	<repository>
+		<connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</connection>
+		<developerConnection>
+			scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag
+		</developerConnection>
+		<url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
+	</repository>
+	<versions>
+		<version>
+			<id>1.0-b1</id>
+			<name>1.0-b1</name>
+			<tag>displaytag1-b1</tag>
+		</version>
+		<version>
+			<id>1.0-b2</id>
+			<name>1.0-b2</name>
+			<tag>displaytag1-b2</tag>
+		</version>
+		<version>
+			<id>1.0-b3</id>
+			<name>1.0-b3</name>
+			<tag>displaytag1-b3</tag>
+		</version>
+		<version>
+			<id>1.0-rc1</id>
+			<name>1.0-rc1</name>
+			<tag>displaytag1-rc1</tag>
+		</version>
+		<version>
+			<id>1.0-rc2</id>
+			<name>1.0-rc2</name>
+			<tag>displaytag1-rc2</tag>
+		</version>
+		<version>
+			<id>1.0</id>
+			<name>1.0</name>
+			<tag>displaytag1</tag>
+		</version>
+	</versions>
+	<mailingLists>
+		<mailingList>
+			<name>${pom.name} User Mailing list</name>
+			<subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</subscribe>
+			<unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-user</unsubscribe>
+			<archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-user</archive>
+		</mailingList>
+		<mailingList>
+			<name>${pom.name} Developer Mailing list</name>
+			<subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</subscribe>
+			<unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-devel</unsubscribe>
+			<archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-devel</archive>
+		</mailingList>
+		<mailingList>
+			<name>${pom.name} Cvs Mailing list</name>
+			<subscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</subscribe>
+			<unsubscribe>http://lists.sourceforge.net/lists/listinfo/${pom.groupId}-cvs</unsubscribe>
+			<archive>http://sourceforge.net/mailarchive/forum.php?forum=${pom.groupId}-cvs</archive>
+		</mailingList>
+	</mailingLists>
+	<developers>
+		<developer>
+			<name>Fabrizio Giustina</name>
+			<id>fgiust</id>
+			<email>fgiust(at)users.sourceforge.net</email>
+			<organization></organization>
+			<roles>
+				<role>Project admin and main developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+		<developer>
+			<name>Matt Raible</name>
+			<id>matt</id>
+			<email>mraible(at)users.sourceforge.net</email>
+			<organization>Raible Designs</organization>
+			<roles>
+				<role>Project admin</role>
+			</roles>
+			<timezone>-7</timezone>
+		</developer>
+		<developer>
+			<name>Andy Pruitt</name>
+			<id>rapruitt</id>
+			<email>rapruitt(at)users.sourceforge.net</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>-6</timezone>
+		</developer>
+		<developer>
+			<name>Benjamin Simpson</name>
+			<id>javabencom</id>
+			<email>javabencom(at)users.sourceforge.net</email>
+			<roles>
+				<role>Documentation editor</role>
+			</roles>
+			<timezone>0</timezone>
+		</developer>
+		<developer>
+			<name>Mathias Bogaert</name>
+			<id>pathoss</id>
+			<email>pathoss(at)users.sourceforge.net</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>0</timezone>
+		</developer>
+	</developers>
+	<contributors>
+		<contributor>
+			<name>Didier Dubois</name>
+			<email>didier(at)ddubois.info</email>
+			<roles>
+				<role>Initial help on the maven build system</role>
+			</roles>
+			<timezone>0</timezone>
+		</contributor>
+		<contributor>
+			<name>Ed Hill</name>
+			<email>ed-hill(at)users.sourceforge.net</email>
+			<roles>
+				<role>Initial developer of the tag library</role>
+			</roles>
+			<timezone>0</timezone>
+		</contributor>
+	</contributors>
+	<licenses>
+		<license>
+			<name>Artistic License</name>
+			<url>http://displaytag.sourceforge.net/license.html</url>
+		</license>
+	</licenses>
+	<dependencies>
+		<dependency>
+			<groupId>statcvs</groupId>
+			<artifactId>maven-statcvs-plugin</artifactId>
+			<version>2.7</version>
+			<type>plugin</type>
+			<properties>
+				<comment>maven plugin for the cvs report</comment>
+			</properties>
+		</dependency>
+	</dependencies>
+	<reports>
+		<report>maven-license-plugin</report>
+		<report>maven-changes-plugin</report>
+		<report>maven-statcvs-plugin</report>
+		<report>maven-faq-plugin</report>
+	</reports>
 </project>
 

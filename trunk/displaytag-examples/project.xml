@@ -151,7 +151,6 @@
         <report>maven-checkstyle-plugin</report>
         <report>maven-jdepend-plugin</report>
         <report>maven-pmd-plugin</report>
-        <report>maven-findbugs-plugin</report>
         <report>maven-jxr-plugin</report>
         <report>maven-simian-plugin</report>
     </reports>
