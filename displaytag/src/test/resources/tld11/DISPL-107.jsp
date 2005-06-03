@@ -1,5 +1,5 @@
 <jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" 
-  xmlns:display="urn:jsptld:../../../src/tld/displaytag-12.tld">
+  xmlns:display="urn:jsptld:../../../src/main/resources/META-INF/displaytag-12.tld">
   <jsp:directive.page contentType="text/html; charset=UTF8" />
   <jsp:text> <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> ]]> </jsp:text>
@@ -16,7 +16,7 @@
             ]]> </jsp:scriptlet>
       <display:table name="requestScope.test" id="table" export="true">
         <display:column property="ant"/>
-        <display:column><jsp:text>аим</jsp:text></display:column>
+        <display:column><jsp:text>пїЅпїЅпїЅ</jsp:text></display:column>
       </display:table>
     </body>
   </html>

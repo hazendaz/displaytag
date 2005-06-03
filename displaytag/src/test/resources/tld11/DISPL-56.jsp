@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<%@ taglib uri="../../../src/tld/displaytag-12.tld" prefix="display" %>
+<%@ taglib uri="../../../src/main/resources/META-INF/displaytag-12.tld" prefix="display" %>
 <html>
  <head>
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
