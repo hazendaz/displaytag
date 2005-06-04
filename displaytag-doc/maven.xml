@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project >
 <project xmlns:j="jelly:core" xmlns:u="jelly:util" default="rebuild-all">
-    <goal name="rebuild-all" prereqs="pom,clean,jar:jar,dist:build" />
+    <goal name="rebuild-all" prereqs="multiproject:install,multiproject:site" />
     <goal name="nightly" prereqs="rebuild-all,prepare-snapshot,site:sshdeploy" />
 
 
