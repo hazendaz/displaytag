@@ -11,6 +11,8 @@
  */
 package org.displaytag.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
@@ -127,8 +130,15 @@ public class DefaultRequestHelper implements RequestHelper
 
             for (int i = 0; i < values.length; i++)
             {
-                values[i] = CompatibleUrlEncoder.encode(StringUtils.defaultString(originalValues[i]), response
-                    .getCharacterEncoding());
+                try
+                {
+                    values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]), StringUtils
+                        .defaultString(response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
+                }
+                catch (UnsupportedEncodingException e)
+                {
+                    throw new NestableRuntimeException(e);
+                }
             }
             map.put(paramName, values);
 

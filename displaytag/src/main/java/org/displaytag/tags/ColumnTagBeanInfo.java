@@ -89,6 +89,8 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
                 ColumnTag.class, null, "setComparator")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("valueClass", //$NON-NLS-1$
                 ColumnTag.class, null, "setValueClass")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("defaultorder", //$NON-NLS-1$
+                ColumnTag.class, null, "setDefaultorder")); //$NON-NLS-1$
 
             // deprecated attribute
             proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$
@@ -102,7 +104,8 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
         catch (IntrospectionException ex)
         {
             throw new RuntimeException("You got an introspection exception - maybe defining a property that is not"
-                    + " defined in the ColumnTag?: " + ex.getMessage(), ex);
+                + " defined in the ColumnTag?: "
+                + ex.getMessage(), ex);
         }
 
         PropertyDescriptor[] result = new PropertyDescriptor[proplist.size()];

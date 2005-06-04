@@ -28,12 +28,14 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.conversion.PropertyConvertorFactory;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.exception.DecoratorInstantiationException;
+import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.model.Cell;
 import org.displaytag.model.DefaultComparator;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
@@ -100,6 +102,11 @@ public class ColumnTag extends BodyTagSupport
      * is the column sortable?
      */
     private boolean sortable;
+
+    /**
+     * Defalt sort order for this column.
+     */
+    private SortOrderEnum defaultorder;
 
     /**
      * The comparator to use when sorting this column.
@@ -559,6 +566,10 @@ public class ColumnTag extends BodyTagSupport
         return this.supportedMedia.contains(mediaType);
     }
 
+    /**
+     * Looks up the parent table tag.
+     * @return a table tag instance.
+     */
     private TableTag getTableTag()
     {
         return (TableTag) findAncestorWithClass(this, TableTag.class);
@@ -592,6 +603,20 @@ public class ColumnTag extends BodyTagSupport
                     this.supportedMedia.add(type);
                 }
             }
+        }
+    }
+
+    /**
+     * sets the sorting order for the sorted column.
+     * @param value "ascending" or "descending"
+     * @throws InvalidTagAttributeValueException if value is not one of "ascending" or "descending"
+     */
+    public void setDefaultorder(String value) throws InvalidTagAttributeValueException
+    {
+        this.defaultorder = SortOrderEnum.fromName(value);
+        if (this.defaultorder == null)
+        {
+            throw new InvalidTagAttributeValueException(getClass(), "defaultorder", value); //$NON-NLS-1$
         }
     }
 
@@ -696,6 +721,7 @@ public class ColumnTag extends BodyTagSupport
         headerCell.setTotaled(this.totaled);
         headerCell.setComparator(this.comparator);
         headerCell.setColumnValueClass(valueClass);
+        headerCell.setDefaultSortOrder(this.defaultorder);
 
         // href and parameter, create link
         if (this.href != null)
@@ -801,6 +827,7 @@ public class ColumnTag extends BodyTagSupport
         this.sortProperty = null;
         this.comparator = null;
         this.valueClass = null;
+        this.defaultorder = null;
     }
 
     /**
@@ -860,6 +887,8 @@ public class ColumnTag extends BodyTagSupport
             .append("paramId", this.paramId) //$NON-NLS-1$
             .append("alreadySorted", this.alreadySorted) //$NON-NLS-1$
             .append("sortProperty", this.sortProperty) //$NON-NLS-1$
+            .append("defaultSortOrder", this.defaultorder) //$NON-NLS-1$
             .toString();
     }
+
 }

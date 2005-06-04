@@ -134,6 +134,11 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String sortPropertyExpr;
 
     /**
+     * Expression for the "defaultorder" tag attribute.
+     */
+    private String defaultorderExpr;
+
+    /**
      * @see org.displaytag.tags.ColumnTag#setAutolink(boolean)
      * @param value EL expression for attribute value
      */
@@ -142,7 +147,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         autoLinkExpr = value;
     }
 
-     /**
+    /**
      * @see org.displaytag.tags.ColumnTag#setSortProperty(java.lang.String)
      * @param value EL expression for attribute value
      */
@@ -323,6 +328,15 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
+     * @see org.displaytag.tags.TableTag#setDefaultorder(java.lang.String)
+     * @param value EL expression for attribute value
+     */
+    public void setDefaultorder(String value)
+    {
+        defaultorderExpr = value;
+    }
+    
+    /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
     public int doStartTag() throws JspException
@@ -427,6 +441,10 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         {
             super.setSortProperty(eval.evalString("sortProperty", sortPropertyExpr)); //$NON-NLS-1$
         }
+        if (defaultorderExpr != null)
+        {
+            super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr)); //$NON-NLS-1$
+        }
     }
 
     /**
@@ -456,6 +474,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         this.titleKeyExpr = null;
         this.urlExpr = null;
         this.sortPropertyExpr = null;
+        this.defaultorderExpr = null;
     }
 
 }

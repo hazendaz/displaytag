@@ -11,13 +11,17 @@
  */
 package org.displaytag.model;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.displaytag.decorator.AutolinkColumnDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.Anchor;
-import org.displaytag.util.CompatibleUrlEncoder;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
@@ -106,12 +110,13 @@ public class Column
 
             // if a decorator has been set, and if decorator has a getter for the requested property only, check
             // decorator
-            if (decorated && this.row.getParentTable().getTableDecorator() != null
-                    && this.row.getParentTable().getTableDecorator().hasGetterFor(this.header.getBeanPropertyName()))
+            if (decorated
+                && this.row.getParentTable().getTableDecorator() != null
+                && this.row.getParentTable().getTableDecorator().hasGetterFor(this.header.getBeanPropertyName()))
             {
 
-                object = LookupUtil.getBeanProperty(this.row.getParentTable().getTableDecorator(),
-                        this.header.getBeanPropertyName());
+                object = LookupUtil.getBeanProperty(this.row.getParentTable().getTableDecorator(), this.header
+                    .getBeanPropertyName());
             }
             else
             {
@@ -242,9 +247,16 @@ public class Column
 
             if (paramValue != null)
             {
-                colHref.addParameter(this.header.getParamName(), CompatibleUrlEncoder.encode(
-                    paramValue.toString(),
-                    this.row.getParentTable().getEncoding()));
+                try
+                {
+                    colHref.addParameter(this.header.getParamName(), URLEncoder.encode(
+                        paramValue.toString(),
+                        StringUtils.defaultString(this.row.getParentTable().getEncoding(), "UTF8"))); //$NON-NLS-1$
+                }
+                catch (UnsupportedEncodingException e)
+                {
+                    throw new NestableRuntimeException(e);
+                }
             }
         }
         return colHref;
