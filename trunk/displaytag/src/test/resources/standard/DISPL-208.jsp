@@ -13,8 +13,10 @@
           testData.add(new org.displaytag.test.KnownValue());
           request.setAttribute( "test", testData);
       ]]> </jsp:scriptlet>
-      <display:table name="requestScope.test" requestURI="https://go">
+      <display:table name="requestScope.test" uid="table">
         <display:column property="ant" sortable="true" defaultorder="descending"/>
+        <display:column property="ant" sortable="true" defaultorder="ascending"/>
+        <display:column property="ant" sortable="true" />
       </display:table>
     </body>
   </html>
