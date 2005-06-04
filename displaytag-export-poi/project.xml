@@ -46,5 +46,10 @@
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 	</build>
+    <reports>
+        <report>maven-checkstyle-plugin</report>
+        <report>maven-pmd-plugin</report>
+        <report>maven-jxr-plugin</report>
+    </reports>
 </project>
 
