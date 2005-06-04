@@ -8,6 +8,12 @@
             <item name="Live examples" href="http://displaytag.homeip.net" />
         </links>
 
+        <menu name="Modules">
+            <item name="Main taglib" href="/multiproject/displaytag/index.html" />
+            <item name="Example application" href="/multiproject/displaytag-examples/index.html" />
+            <item name="Excel export module" href="/multiproject/displaytag-export-poi/index.html" />
+        </menu>
+
         <menu name="Reference">
             <item name="Download" href="/download.html" />
             <item name="Install" href="/install.html" />
