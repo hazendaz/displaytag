@@ -17,6 +17,8 @@ import java.beans.SimpleBeanInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.displaytag.tags.ColumnTag;
+
 
 /**
  * BeanInfo descriptor for the <code>ELColumnTag</code> class. Unevaluated EL expression has to be kept separately
@@ -38,53 +40,55 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
         try
         {
             proplist.add(new PropertyDescriptor("autolink", //$NON-NLS-1$
-                ELColumnTag.class, null, "setAutolink")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setAutolink")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("class", //$NON-NLS-1$
-                ELColumnTag.class, null, "setClass")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setClass")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("decorator", //$NON-NLS-1$
-                ELColumnTag.class, null, "setDecorator")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setDecorator")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("group", //$NON-NLS-1$
-                ELColumnTag.class, null, "setGroup")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setGroup")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("headerClass", //$NON-NLS-1$
-                ELColumnTag.class, null, "setHeaderClass")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setHeaderClass")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("href", //$NON-NLS-1$
-                ELColumnTag.class, null, "setHref")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setHref")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("maxLength", //$NON-NLS-1$
-                ELColumnTag.class, null, "setMaxLength")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setMaxLength")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("maxWords", //$NON-NLS-1$
-                ELColumnTag.class, null, "setMaxWords")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setMaxWords")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("media", //$NON-NLS-1$
-                ELColumnTag.class, null, "setMedia")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setMedia")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("nulls", //$NON-NLS-1$
-                ELColumnTag.class, null, "setNulls")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setNulls")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("paramId", //$NON-NLS-1$
-                ELColumnTag.class, null, "setParamId")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setParamId")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("paramName", //$NON-NLS-1$
-                ELColumnTag.class, null, "setParamName")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setParamName")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("paramProperty", //$NON-NLS-1$
-                ELColumnTag.class, null, "setParamProperty")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setParamProperty")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("paramScope", //$NON-NLS-1$
-                ELColumnTag.class, null, "setParamScope")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setParamScope")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("property", //$NON-NLS-1$
-                ELColumnTag.class, null, "setProperty")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setProperty")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("sortable", //$NON-NLS-1$
-                ELColumnTag.class, null, "setSortable")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setSortable")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("style", //$NON-NLS-1$
-                ELColumnTag.class, null, "setStyle")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setStyle")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("total", //$NON-NLS-1$
                 ELColumnTag.class, null, "setTotal")); // map //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("title", //$NON-NLS-1$
-                ELColumnTag.class, null, "setTitle")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setTitle")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("titleKey", //$NON-NLS-1$
-                ELColumnTag.class, null, "setTitleKey")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setTitleKey")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("url", //$NON-NLS-1$
-                ELColumnTag.class, null, "setUrl")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setUrl")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("sortProperty", //$NON-NLS-1$
-                ELColumnTag.class, null, "setSortProperty")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setSortProperty")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("comparator", //$NON-NLS-1$
                 ELColumnTag.class, null, "setComparator")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("valueClass", //$NON-NLS-1$
                 ELColumnTag.class, null, "setValueClass")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("defaultorder", //$NON-NLS-1$
+                ELColumnTag.class, null, "setDefaultorder")); //$NON-NLS-1$
 
             // deprecated attribute
             proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$
@@ -92,7 +96,7 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
             proplist.add(new PropertyDescriptor("styleClass", //$NON-NLS-1$
                 ELColumnTag.class, null, "setStyle")); // map //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("headerStyleClass", //$NON-NLS-1$
-                ELColumnTag.class, null, "setHeaderClass")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setHeaderClass")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("width", //$NON-NLS-1$
                 ELColumnTag.class, null, "setWidth")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("align", //$NON-NLS-1$
@@ -102,7 +106,8 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
         catch (IntrospectionException ex)
         {
             throw new RuntimeException("You got an introspection exception - maybe defining a property that is not"
-                    + " defined in the bean?: " + ex.getMessage(), ex);
+                + " defined in the bean?: "
+                + ex.getMessage(), ex);
         }
 
         PropertyDescriptor[] result = new PropertyDescriptor[proplist.size()];

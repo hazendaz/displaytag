@@ -210,7 +210,6 @@ public class TableTag extends HtmlTableTag
      */
     private String varTotals;
 
-
     // -- end tag attributes --
 
     /**
@@ -279,7 +278,7 @@ public class TableTag extends HtmlTableTag
     private String footer;
 
     /**
-     * Is this the last iteration we will be performing?  We only output the footer on the last iteration.
+     * Is this the last iteration we will be performing? We only output the footer on the last iteration.
      */
     private boolean lastIteration;
 
@@ -488,7 +487,6 @@ public class TableTag extends HtmlTableTag
     {
         return this.varTotals;
     }
-
 
     /**
      * sets the number of items to be displayed in the page.
@@ -1575,7 +1573,17 @@ public class TableTag extends HtmlTableTag
         // add column number as link parameter
         href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
 
-        boolean nowOrderAscending = !(headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending());
+        boolean nowOrderAscending = true;
+
+        if (headerCell.getDefaultSortOrder() != null)
+        {
+            boolean sortAscending = SortOrderEnum.ASCENDING.equals(headerCell.getDefaultSortOrder());
+            nowOrderAscending = (!headerCell.isAlreadySorted()) ? sortAscending : !sortAscending;
+        }
+        else
+        {
+            nowOrderAscending = !(headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending());
+        }
 
         int sortOrderParam = nowOrderAscending ? SortOrderEnum.ASCENDING.getCode() : SortOrderEnum.DESCENDING.getCode();
         href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), sortOrderParam);
@@ -1761,10 +1769,9 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Get the table model for this tag. Sometimes required by local tags that cooperate with DT.  USE THIS
-     * METHOD WITH EXTREME CAUTION; IT PROVIDES ACCESS TO THE INTERNALS OF DISPLAYTAG, WHICH ARE NOT TO BE CONSIDERED
-     * STABLE PUBLIC INTERFACES.
-     *
+     * Get the table model for this tag. Sometimes required by local tags that cooperate with DT. USE THIS METHOD WITH
+     * EXTREME CAUTION; IT PROVIDES ACCESS TO THE INTERNALS OF DISPLAYTAG, WHICH ARE NOT TO BE CONSIDERED STABLE PUBLIC
+     * INTERFACES.
      * @return the TableModel
      */
     public TableModel getTableModel()

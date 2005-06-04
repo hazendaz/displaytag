@@ -50,12 +50,12 @@ public abstract class DisplaytagCase extends TestCase
     public abstract void doTest(String jspName) throws Exception;
 
     /**
-     * run the test with the jsp 11 tld.
+     * run the test with the non-el tld.
      * @throws Exception any axception thrown during test.
      */
     public void test11() throws Exception
     {
-        doTest("http://localhost" + CONTEXT + "/tld11/" + getJspName());
+        doTest("http://localhost" + CONTEXT + "/standard/" + getJspName());
     }
 
     /**

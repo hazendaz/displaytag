@@ -142,7 +142,9 @@
 		</module>
 		<module name="JavadocStyle">
 			<property name="severity" value="info" />
-			<property name="tokens" value="INTERFACE_DEF, CLASS_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF" />
+			<property name="excludeScope" value="nothing" />
+			<property name="checkEmptyJavadoc" value="false" />
+			<property name="checkFirstSentence" value="false" />
 		</module>
 		<module name="JavadocType">
 			<property name="authorFormat" value="^[a-zA-Z @\.]*$" />
@@ -217,5 +219,20 @@
 		<module name="WhitespaceAround"></module>
 		<module name="ModifierOrder"></module>
 		<module name="RedundantModifier"></module>
+		<module name="HiddenField">
+			<property name="ignoreConstructorParameter" value="true" />
+			<property name="ignoreSetter" value="true" />
+		</module>
+		<module name="JavadocStyle">
+			<property name="excludeScope" value="nothing" />
+		</module>
+		<module name="JavadocStyle">
+			<property name="excludeScope" value="nothing" />
+			<property name="checkFirstSentence" value="false" />
+		</module>
+		<module name="JavadocStyle">
+			<property name="excludeScope" value="nothing" />
+			<property name="checkFirstSentence" value="false" />
+		</module>
 	</module>
 </module>

@@ -51,9 +51,9 @@ public class TldTest extends TestCase
      * Check displaytag 1.2 dtd.
      * @throws Exception any Exception generated during test.
      */
-    public void test12Tld() throws Exception
+    public void testStandardTld() throws Exception
     {
-        checkTld("/src/main/resources/META-INF/displaytag-12.tld");
+        checkTld("/src/main/resources/META-INF/displaytag.tld");
     }
 
     /**
@@ -62,7 +62,7 @@ public class TldTest extends TestCase
      */
     public void testELTld() throws Exception
     {
-        checkTld("/src/main/resources/META-INF/displaytag-el-12.tld");
+        checkTld("/src/main/resources/META-INF/displaytag-el.tld");
     }
 
     /**

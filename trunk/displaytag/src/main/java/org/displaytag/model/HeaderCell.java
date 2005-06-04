@@ -11,20 +11,21 @@
  */
 package org.displaytag.model;
 
+import java.util.Comparator;
+
+import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.beanutils.Converter;
 import org.displaytag.decorator.ColumnDecorator;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
-import org.displaytag.exception.ObjectLookupException;
-import org.displaytag.exception.DecoratorException;
-
-import java.util.Comparator;
 
 
 /**
@@ -125,6 +126,11 @@ public class HeaderCell
      * Should we be attempting to tabulate the totals?
      */
     private boolean totaled;
+
+    /**
+     * Defalt sort order for this column.
+     */
+    private SortOrderEnum defaultSortOrder;
 
     /**
      * Get the destination class for this column.
@@ -352,6 +358,16 @@ public class HeaderCell
         this.title = value;
     }
 
+    public Class getColumnValueClass()
+    {
+        return this.valueClass;
+    }
+
+    public void setColumnValueClass(Class theClass)
+    {
+        this.valueClass = theClass;
+    }
+
     /**
      * Returns the HtmlAttributeMap containg all the html attributes for the <strong>td </strong> tags.
      * @return HtmlAttributeMap with td attributes
@@ -528,6 +544,24 @@ public class HeaderCell
     }
 
     /**
+     * Sets the default sort order for this column
+     * @return default order
+     */
+    public SortOrderEnum getDefaultSortOrder()
+    {
+        return this.defaultSortOrder;
+    }
+
+    /**
+     * Gets the default sort order for this column
+     * @param order default order
+     */
+    public void setDefaultSortOrder(SortOrderEnum order)
+    {
+        this.defaultSortOrder = order;
+    }
+
+    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
@@ -550,7 +584,7 @@ public class HeaderCell
 
     /**
      * Set the column comparator.
-     * @param columnComparator    the value
+     * @param columnComparator the value
      */
     public void setComparator(Comparator columnComparator)
     {
@@ -566,10 +600,9 @@ public class HeaderCell
         return this.comparator;
     }
 
-
     /**
      * Will we be keeping a total for this column?
-     * @return  true if we are totaling
+     * @return true if we are totaling
      */
     public boolean isTotaled()
     {
@@ -586,9 +619,9 @@ public class HeaderCell
     }
 
     /**
-     * Add the value of this parameter to the column total. The param will be converted to a number
-     * via a property Converter.
-     * @param value  the value
+     * Add the value of this parameter to the column total. The param will be converted to a number via a property
+     * Converter.
+     * @param value the value
      * @see Converter#convert(Class, Object)
      */
     private void addToTotal(Object value)
@@ -607,19 +640,18 @@ public class HeaderCell
     }
 
     /**
-     * Resets the current total to the parameter.  Do not use this method unless you wish to manually set the total;
+     * Resets the current total to the parameter. Do not use this method unless you wish to manually set the total;
      * addToTotal is the standard technique.
-     * @param totalForColumn        the value
+     * @param totalForColumn the value
      */
     public void setTotal(double totalForColumn)
     {
         this.total = totalForColumn;
     }
 
-
     /**
      * Add a new cell to this column.
-     * @param column          the value
+     * @param column the value
      */
     public void addCell(Column column)
     {
@@ -641,21 +673,5 @@ public class HeaderCell
             }
         }
     }
-    /**
-     * Simple accessor.
-     * @return get the value
-     */
-    public Class getColumnValueClass()
-    {
-        return this.valueClass;
-    }
 
-    /**
-     * Simple setter.
-     * @param theClass
-     */
-    public void setColumnValueClass(Class theClass)
-    {
-        this.valueClass = theClass;
-    }
 }
