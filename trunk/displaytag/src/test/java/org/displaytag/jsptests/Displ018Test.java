@@ -8,12 +8,10 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
 
-/*
- * Created Date: Jan 5, 2005
- */
-
 /**
+ * Tests for DISPL-18 - Setting own comparator for column sorting.
  * @author rapruitt
+ * @version $Revision$ ($Author$)
  */
 public class Displ018Test extends DisplaytagCase
 {
