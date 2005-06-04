@@ -8,12 +8,14 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
 
-/**
- * Tests for DISPL-58 - Additional attribute: specify property used for sorting.
- * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+/*
+ * Created Date: Jan 5, 2005
  */
-public class Displ58Test extends DisplaytagCase
+
+/**
+ * @author rapruitt
+ */
+public class Displ018Test extends DisplaytagCase
 {
 
     /**
@@ -21,7 +23,7 @@ public class Displ58Test extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "DISPL-58.jsp";
+        return "DISPL-18.jsp";
     }
 
     /**
@@ -55,4 +57,5 @@ public class Displ58Test extends DisplaytagCase
         }
 
     }
+
 }

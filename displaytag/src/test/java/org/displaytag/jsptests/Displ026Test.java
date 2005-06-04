@@ -12,7 +12,7 @@ import com.meterware.httpunit.WebResponse;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class Displ26Test extends DisplaytagCase
+public class Displ026Test extends DisplaytagCase
 {
 
     /**

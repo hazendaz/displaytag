@@ -1,22 +1,19 @@
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebLink;
-import com.meterware.httpunit.WebTable;
-import com.meterware.httpunit.TableCell;
-import org.xml.sax.SAXException;
 import org.displaytag.test.DisplaytagCase;
 
-/* 
- * Created Date: Jan 5, 2005
- */
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 
 /**
- * @author rapruitt
+ * Tests for DISPL-58 - Additional attribute: specify property used for sorting.
+ * @author Fabrizio Giustina
+ * @version $Revision$ ($Author$)
  */
-public class Displ18Test extends DisplaytagCase
+public class Displ058Test extends DisplaytagCase
 {
 
     /**
@@ -24,7 +21,7 @@ public class Displ18Test extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "DISPL-18.jsp";
+        return "DISPL-58.jsp";
     }
 
     /**
@@ -58,5 +55,4 @@ public class Displ18Test extends DisplaytagCase
         }
 
     }
-
 }

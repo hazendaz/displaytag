@@ -16,7 +16,7 @@ import com.meterware.httpunit.WebTable;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class Displ17Test extends DisplaytagCase
+public class Displ017Test extends DisplaytagCase
 {
 
     /**
