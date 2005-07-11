@@ -193,16 +193,19 @@
       <groupId>httpunit</groupId>
       <artifactId>httpunit</artifactId>
       <version>1.6</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>nekohtml</groupId>
       <artifactId>nekohtml</artifactId>
       <version>0.9.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>jtidy</groupId>
       <artifactId>jtidy</artifactId>
       <version>4aug2000r7-dev</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>xerces</groupId>
@@ -223,56 +226,67 @@
       <groupId>taglibs</groupId>
       <artifactId>standard</artifactId>
       <version>1.0.4</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>rhino</groupId>
       <artifactId>js</artifactId>
       <version>1.5R4.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>tomcat</groupId>
       <artifactId>jasper-compiler</artifactId>
       <version>4.0.4</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>tomcat</groupId>
       <artifactId>jasper-runtime</artifactId>
       <version>4.0.4</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>struts</groupId>
       <artifactId>struts</artifactId>
       <version>1.2.4</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>commons-digester</groupId>
       <artifactId>commons-digester</artifactId>
       <version>1.4.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>springframework</groupId>
       <artifactId>spring</artifactId>
       <version>1.1.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>opensymphony</groupId>
       <artifactId>webwork</artifactId>
       <version>2.1.5</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>opensymphony</groupId>
       <artifactId>xwork</artifactId>
       <version>1.0.3</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>opensymphony</groupId>
       <artifactId>oscore</artifactId>
       <version>2.2.4</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ognl</groupId>
       <artifactId>ognl</artifactId>
       <version>2.6.5</version>
+      <scope>test</scope>
     </dependency>
     <!--
       <dependency>
