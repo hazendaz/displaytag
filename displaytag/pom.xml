@@ -1,12 +1,15 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
   <modelVersion>3</modelVersion>
-  <groupId>displaytag</groupId>
+  <groupId>org.displaytag</groupId>
   <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
   <version>1.1-SNAPSHOT</version>
-  <description>The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
+  <description>
+    The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
     which will work in an MVC model. The library provides a significant amount of functionality while still being easy
-    to use.</description>
+    to use.
+  </description>
   <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
   <inceptionYear>2002</inceptionYear>
   <mailingLists>
@@ -272,11 +275,11 @@
       <version>2.6.5</version>
     </dependency>
     <!--
-	<dependency>
+      <dependency>
       <groupId>jdk</groupId>
       <artifactId>tools</artifactId>
       <version>1.4</version>
-    </dependency>
-	-->
+      </dependency>
+    -->
   </dependencies>
 </project>
