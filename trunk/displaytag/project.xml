@@ -1,4 +1,6 @@
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/3.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/3.0.0 http://maven.apache.org/maven-v3_0_0.xsd ">
   <pomVersion>3</pomVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag</artifactId>
@@ -14,7 +16,7 @@
   <logo>/images/displaytag.png</logo>
   <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
   <inceptionYear>2002</inceptionYear>
-  <gumpRepositoryId></gumpRepositoryId>
+
   <siteAddress>shell.sourceforge.net</siteAddress>
   <siteDirectory>/home/groups/d/di/displaytag/htdocs/11/</siteDirectory>
   <distributionSite></distributionSite>
@@ -180,7 +182,7 @@
     <url>http://sourceforge.net/projects/displaytag</url>
     <logo>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</logo>
   </organization>
-  <package>org.displaytag</package>
+  <packageName>org.displaytag</packageName>
   <build>
     <nagEmailAddress></nagEmailAddress>
     <sourceDirectory>src/main/java</sourceDirectory>
