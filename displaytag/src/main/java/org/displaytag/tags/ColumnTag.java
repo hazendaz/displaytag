@@ -104,6 +104,11 @@ public class ColumnTag extends BodyTagSupport
     private boolean sortable;
 
     /**
+     * Name given to the server when sorting this column
+     */
+    private String sortName;
+
+    /**
      * Defalt sort order for this column.
      */
     private SortOrderEnum defaultorder;
@@ -607,6 +612,15 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
+     * sets the name given to the server when sorting this column
+     * @param sortName name given to the server to sort this column
+     */
+    public void setSortName(String sortName)
+    {
+        this.sortName = sortName;
+    }
+
+    /**
      * sets the sorting order for the sorted column.
      * @param value "ascending" or "descending"
      * @throws InvalidTagAttributeValueException if value is not one of "ascending" or "descending"
@@ -722,6 +736,7 @@ public class ColumnTag extends BodyTagSupport
         headerCell.setComparator(this.comparator);
         headerCell.setColumnValueClass(valueClass);
         headerCell.setDefaultSortOrder(this.defaultorder);
+        headerCell.setSortName(this.sortName);
 
         // href and parameter, create link
         if (this.href != null)
@@ -821,6 +836,7 @@ public class ColumnTag extends BodyTagSupport
         this.paramScope = null;
         this.property = null;
         this.sortable = false;
+        this.sortName = null;
         this.supportedMedia = null;
         this.title = null;
         this.titleKey = null;

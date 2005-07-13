@@ -52,6 +52,11 @@ public class TableModel
     private List rowListPage;
 
     /**
+     * Name of the column currently sorted (only used when sort=external)
+     */
+    private String sortedColumnName = null;
+
+    /**
      * sort order = ascending?
      */
     private boolean sortOrderAscending = true;
@@ -92,6 +97,11 @@ public class TableModel
     private String encoding;
 
     /**
+     * Are we sorting locally? (Default True)
+     */
+    private boolean localSort = true;
+
+    /**
      * Constructor for TableModel.
      * @param tableProperties table properties
      * @param charEncoding response encoding
@@ -102,6 +112,23 @@ public class TableModel
         this.headerCellList = new ArrayList(20);
         this.properties = tableProperties;
         this.encoding = charEncoding;
+    }
+
+    /**
+     * Sets whether the table performs local in memory sorting of the data
+     * @param localSort
+     */
+    public void setLocalSort(boolean localSort)
+    {
+        this.localSort = localSort;
+    }
+
+    /**
+     * @return sorting in local memory
+     */
+    public boolean isLocalSort()
+    {
+        return localSort;
     }
 
     /**
@@ -153,6 +180,24 @@ public class TableModel
             log.debug("[" + this.id + "] adding row " + row);
         }
         this.rowListFull.add(row);
+    }
+
+    /**
+     * Name of the currently sorted column
+     * @return name of the currently sorted column
+     */
+    public String getSortedColumnName()
+    {
+        return sortedColumnName;
+    }
+
+    /**
+     * sets the name of the currently sorted column
+     * @param sortedColumnName
+     */
+    public void setSortedColumnName(String sortedColumnName)
+    {
+        this.sortedColumnName = sortedColumnName;
     }
 
     /**
@@ -283,9 +328,20 @@ public class TableModel
      */
     public void addColumnHeader(HeaderCell headerCell)
     {
-        if (this.sortedColumn == this.headerCellList.size())
+        if (this.sortedColumnName == null)
         {
-            headerCell.setAlreadySorted();
+            if (this.sortedColumn == this.headerCellList.size())
+            {
+                headerCell.setAlreadySorted();
+            }
+        }
+        else
+        {
+            // the sorted parameter was a string so try and find that column name and set it as sorted
+            if (this.sortedColumnName.equals(headerCell.getSortName()))
+            {
+                headerCell.setAlreadySorted();
+            }
         }
         headerCell.setColumnNumber(this.headerCellList.size());
 

@@ -22,14 +22,12 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringUtils;
@@ -68,6 +66,7 @@ import org.displaytag.util.ParamEncoder;
 import org.displaytag.util.RequestHelper;
 import org.displaytag.util.RequestHelperFactory;
 import org.displaytag.util.TagConstants;
+import org.displaytag.Messages;
 
 
 /**
@@ -161,6 +160,11 @@ public class TableTag extends HtmlTableTag
     private int pagesize;
 
     /**
+     * list contains only viewable data
+     */
+    private boolean partialList;
+
+    /**
      * add export links.
      */
     private boolean export;
@@ -171,9 +175,24 @@ public class TableTag extends HtmlTableTag
     private int offset;
 
     /**
+     * Integer containing total size of the data displaytag is paginating
+     */
+    private Object size;
+
+    /**
+     * Name of the Integer in some scope containing the size of the data displaytag is paginating
+     */
+    private String sizeObjectName = null;
+
+    /**
      * sort the full list?
      */
     private Boolean sortFullTable;
+
+    /**
+     * are we doing any local sorting? (defaults to True)
+     */
+    private Boolean localSort = Boolean.TRUE;
 
     /**
      * Request uri.
@@ -341,6 +360,31 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
+     * set the Integer containing the total size of the data displaytag is paginating
+     * @param size Integer containing the total size of the data
+     */
+    public void setSize(Object size)
+    {
+        if (size instanceof String)
+        {
+            this.sizeObjectName = (String) size;
+        }
+        else
+        {
+            this.size = size;
+        }
+    }
+
+    /**
+     * set the name of the Integer in some scope containing the total size of the data to be paginated
+     * @param sizeObjectName name of the Integer containing the total size of the data to be paginated
+     */
+    public void setSizeObjectName(String sizeObjectName)
+    {
+        this.sizeObjectName = sizeObjectName;
+    }
+
+    /**
      * setter for the "sort" attribute.
      * @param value "page" (sort a single page) or "list" (sort the full list)
      * @throws InvalidTagAttributeValueException if value is not "page" or "list"
@@ -354,6 +398,10 @@ public class TableTag extends HtmlTableTag
         else if (TableTagParameters.SORT_AMOUNT_LIST.equals(value))
         {
             this.sortFullTable = Boolean.TRUE;
+        }
+        else if (TableTagParameters.SORT_AMOUNT_EXTERNAL.equals(value))
+        {
+            this.localSort = Boolean.FALSE;
         }
         else
         {
@@ -514,6 +562,16 @@ public class TableTag extends HtmlTableTag
     public void setPagesize(int value)
     {
         this.pagesize = value;
+    }
+
+    /**
+     * tells display tag that the values contained in the list are the viewable data only, there may be more results not
+     * given to displaytag
+     * @param partialList boolean value telling us there may be more data not given to displaytag
+     */
+    public void setPartialList(boolean partialList)
+    {
+        this.partialList = partialList;
     }
 
     /**
@@ -771,12 +829,30 @@ public class TableTag extends HtmlTableTag
      * @throws ObjectLookupException for problems in evaluating the expression in the "name" attribute
      * @throws FactoryInstantiationException for problems in instantiating a RequestHelperFactory
      */
-    private void initParameters() throws ObjectLookupException, FactoryInstantiationException
+    private void initParameters() throws JspTagException, FactoryInstantiationException
     {
         if (rhf == null)
         {
             // first time initialization
             rhf = this.properties.getRequestHelperFactoryInstance();
+        }
+
+        // set the table model to perform in memory local sorting
+        if (this.localSort != null)
+        {
+            this.tableModel.setLocalSort(this.localSort.booleanValue());
+        }
+        if (this.partialList)
+        {
+            // if we don't have all the data then ensure they aren't trying to sort the whole list
+            if (Boolean.TRUE.equals(this.sortFullTable))
+            {
+                throw new JspTagException(Messages.getString("InvalidTagAttributeValueExceptionWhen.msg", new Object[]{
+                    "sort",
+                    "full",
+                    "partialList",
+                    "true"}));
+            }
         }
 
         RequestHelper requestHelper = rhf.getRequestHelperInstance(this.pageContext);
@@ -786,9 +862,37 @@ public class TableTag extends HtmlTableTag
         Integer pageNumberParameter = requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE));
         this.pageNumber = (pageNumberParameter == null) ? 1 : pageNumberParameter.intValue();
 
-        Integer sortColumnParameter = requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
-        int sortColumn = (sortColumnParameter == null) ? this.defaultSortedColumn : sortColumnParameter.intValue();
-        this.tableModel.setSortedColumnNumber(sortColumn);
+        int sortColumn = -1;
+        if (!this.tableModel.isLocalSort())
+        {
+            // our sort column parameter may be a string, check that first
+            String sortColumnName = requestHelper.getParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
+
+            if (sortColumnName == null)
+            {
+                this.tableModel.setSortedColumnNumber(this.defaultSortedColumn);
+            }
+            else
+            {
+                // try parsing this value to see if its an integer
+                try
+                {
+                    sortColumn = Integer.parseInt(sortColumnName);
+                    this.tableModel.setSortedColumnNumber(sortColumn); // its an int set as normal
+                }
+                catch (Throwable t)
+                {
+                    this.tableModel.setSortedColumnName(sortColumnName); // its a string, set as string
+                }
+            }
+        }
+        else
+        {
+            Integer sortColumnParameter = requestHelper
+                .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
+            sortColumn = (sortColumnParameter == null) ? this.defaultSortedColumn : sortColumnParameter.intValue();
+            this.tableModel.setSortedColumnNumber(sortColumn);
+        }
 
         // default value
         boolean finalSortFull = this.properties.getSortFullList();
@@ -834,11 +938,34 @@ public class TableTag extends HtmlTableTag
             this.list = this.listAttribute;
         }
 
+        // if we are doing partialLists then ensure we have our size object
+        if (this.partialList)
+        {
+            if ((this.sizeObjectName == null) && (this.size == null))
+            {
+            }
+            if (this.sizeObjectName != null)
+            {
+                // retrieve the object from scope
+                this.size = evaluateExpression(this.sizeObjectName);
+            }
+            if (size == null)
+            {
+                throw new JspTagException(Messages.getString("MissingAttributeException.msg", new Object[]{"size"}));
+            }
+            else if (!(size instanceof Integer))
+            {
+                throw new JspTagException(Messages.getString(
+                    "InvalidTypeException.msg",
+                    new Object[]{"size", "Integer"}));
+            }
+        }
+
         // do we really need to skip any row?
-        boolean wishOptimizedIteration = (this.pagesize > 0 // we are paging
+        boolean wishOptimizedIteration = ((this.pagesize > 0 // we are paging
             || this.offset > 0 // or we are skipping some records using offset
         || this.length > 0 // or we are limiting the records using length
-        );
+        ) && !partialList); // only optimize if we have the full list
 
         // can we actually skip any row?
         if (wishOptimizedIteration && (this.list instanceof Collection) // we need to know the size
@@ -1066,9 +1193,13 @@ public class TableTag extends HtmlTableTag
         // Figure out how we should sort this data, typically we just sort
         // the data being shown, but the programmer can override this behavior
 
-        if (!this.tableModel.isSortFullTable())
+        if (this.tableModel.isLocalSort())
         {
-            this.tableModel.sortPageList();
+            if (!this.tableModel.isSortFullTable())
+            {
+                this.tableModel.sortPageList();
+            }
+
         }
 
         // Get the data back in the representation that the user is after, do they want HTML/XML/CSV/EXCEL/etc...
@@ -1363,10 +1494,13 @@ public class TableTag extends HtmlTableTag
         // things if needed before we ask for the viewable part. (this is a bad place for this, this should be
         // refactored and moved somewhere else).
 
-        if (this.tableModel.isSortFullTable())
+        if (this.tableModel.isLocalSort())
         {
-            // Sort the total list...
-            this.tableModel.sortFullList();
+            if (this.tableModel.isSortFullTable())
+            {
+                // Sort the total list...
+                this.tableModel.sortFullList();
+            }
         }
 
         Object originalData = this.tableModel.getRowListFull();
@@ -1380,7 +1514,8 @@ public class TableTag extends HtmlTableTag
         // SmartListHelper to figure out what page they are after, etc...
         if (this.pagesize > 0)
         {
-            this.listHelper = new SmartListHelper(fullList, fullList.size(), this.pagesize, this.properties);
+            this.listHelper = new SmartListHelper(fullList, (this.partialList) ? ((Integer) size).intValue() : fullList
+                .size(), this.pagesize, this.properties, this.partialList);
             this.listHelper.setCurrentPage(this.pageNumber);
             pageOffset = this.listHelper.getFirstIndexForCurrentPage();
             fullList = this.listHelper.getListForCurrentPage();
@@ -1571,7 +1706,14 @@ public class TableTag extends HtmlTableTag
         Href href = new Href(this.baseHref);
 
         // add column number as link parameter
-        href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
+        if (!this.localSort.booleanValue() && (headerCell.getSortName() != null))
+        {
+            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getSortName());
+        }
+        else
+        {
+            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
+        }
 
         boolean nowOrderAscending = true;
 
@@ -1589,7 +1731,8 @@ public class TableTag extends HtmlTableTag
         href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), sortOrderParam);
 
         // If user want to sort the full table I need to reset the page number.
-        if (this.tableModel.isSortFullTable())
+        // or if we aren't sorting locally we need to reset the page as well.
+        if (this.tableModel.isSortFullTable() || !this.tableModel.isLocalSort())
         {
             href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
         }
@@ -1876,9 +2019,11 @@ public class TableTag extends HtmlTableTag
         this.export = false;
         this.length = 0;
         this.listAttribute = null;
+        this.localSort = null;
         this.name = null;
         this.offset = 0;
         this.pagesize = 0;
+        this.partialList = false;
         this.property = null;
         this.requestUri = null;
         this.dontAppendContext = false;

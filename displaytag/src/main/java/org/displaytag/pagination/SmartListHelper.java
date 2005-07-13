@@ -63,6 +63,11 @@ public class SmartListHelper
     private int pageCount;
 
     /**
+     * the list we hold is only part of the full dataset
+     */
+    private boolean partialList;
+
+    /**
      * index of current page.
      */
     private int currentPage;
@@ -80,7 +85,12 @@ public class SmartListHelper
      * @param itemsInPage number of items in a page (int > 0)
      * @param tableProperties TableProperties
      */
-    public SmartListHelper(List list, int fullSize, int itemsInPage, TableProperties tableProperties)
+    public SmartListHelper(
+        List list,
+        int fullSize,
+        int itemsInPage,
+        TableProperties tableProperties,
+        boolean partialList)
     {
         if (log.isDebugEnabled())
         {
@@ -94,6 +104,7 @@ public class SmartListHelper
         this.fullListSize = fullSize;
         this.pageCount = computedPageCount();
         this.currentPage = 1;
+        this.partialList = partialList;
     }
 
     /**
@@ -139,7 +150,14 @@ public class SmartListHelper
      */
     protected int getFirstIndexForPage(int pageNumber)
     {
-        return (pageNumber - 1) * this.pageSize;
+        if (this.partialList)
+        {
+            return 0;
+        }
+        else
+        {
+            return (pageNumber - 1) * this.pageSize;
+        }
     }
 
     /**
@@ -149,12 +167,19 @@ public class SmartListHelper
      */
     protected int getLastIndexForPage(int pageNumber)
     {
+        if (this.partialList)
+        {
+            // return the min of pageSize or list size on the off chance they gave us more data than pageSize allows
+            return Math.min(this.pageSize - 1, this.fullList.size() - 1);
+        }
+        else
+        {
+            int firstIndex = getFirstIndexForPage(pageNumber);
+            int pageIndex = this.pageSize - 1;
+            int lastIndex = this.fullListSize - 1;
 
-        int firstIndex = getFirstIndexForPage(pageNumber);
-        int pageIndex = this.pageSize - 1;
-        int lastIndex = this.fullListSize - 1;
-
-        return Math.min(firstIndex + pageIndex, lastIndex);
+            return Math.min(firstIndex + pageIndex, lastIndex);
+        }
     }
 
     /**
@@ -347,6 +372,6 @@ public class SmartListHelper
             .append("pageCount", this.pageCount) //$NON-NLS-1$
             .append("properties", this.properties) //$NON-NLS-1$
             .append("currentPage", this.currentPage) //$NON-NLS-1$
-            .toString();
+            .append("partialList", this.partialList).toString();
     }
 }
