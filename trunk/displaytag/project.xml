@@ -16,7 +16,6 @@
   <logo>/images/displaytag.png</logo>
   <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
   <inceptionYear>2002</inceptionYear>
-
   <siteAddress>shell.sourceforge.net</siteAddress>
   <siteDirectory>/home/groups/d/di/displaytag/htdocs/11/</siteDirectory>
   <distributionSite></distributionSite>
@@ -116,6 +115,11 @@
       <roles>
         <role>Initial developer of the tag library</role>
       </roles>
+      <timezone>0</timezone>
+    </contributor>
+    <contributor>
+      <name>David Erickson</name>
+      <email></email>
       <timezone>0</timezone>
     </contributor>
   </contributors>
