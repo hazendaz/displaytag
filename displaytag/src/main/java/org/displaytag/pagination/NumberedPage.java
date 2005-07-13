@@ -12,7 +12,7 @@
 package org.displaytag.pagination;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.displaytag.util.ShortToStringStyle;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 
 /**
@@ -67,7 +67,7 @@ public class NumberedPage
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
             .append("selected", this.selected) //$NON-NLS-1$
             .append("number", this.number) //$NON-NLS-1$
             .toString();

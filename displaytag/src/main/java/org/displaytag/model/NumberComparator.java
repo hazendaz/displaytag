@@ -1,18 +1,19 @@
 package org.displaytag.model;
 
-import org.displaytag.conversion.DefaultPropertyConvertor;
-import org.apache.commons.beanutils.Converter;
-
 import java.util.Comparator;
+
+import org.apache.commons.beanutils.Converter;
+import org.displaytag.conversion.DefaultPropertyConvertor;
+
 
 /**
  * Sorts 2 numbers, converted from objects using the Convertor.
  * @author rapruitt
  * @version $Revision$ ($Author$)
-
  */
 public class NumberComparator implements Comparator
 {
+
     /**
      * Used to convert from object.
      */

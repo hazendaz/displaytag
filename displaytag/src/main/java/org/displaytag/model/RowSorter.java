@@ -54,7 +54,6 @@ public class RowSorter implements Comparator
      */
     private Comparator comparator;
 
-
     /**
      * Initialize a new RowSorter.
      * @param sortedColumnIndex index of the sorted column
@@ -64,8 +63,12 @@ public class RowSorter implements Comparator
      * @param ascendingOrder boolean ascending order?
      * @param compar the comparator to use
      */
-    public RowSorter(int sortedColumnIndex, String beanProperty, TableDecorator tableDecorator,
-                     boolean ascendingOrder, Comparator compar)
+    public RowSorter(
+        int sortedColumnIndex,
+        String beanProperty,
+        TableDecorator tableDecorator,
+        boolean ascendingOrder,
+        Comparator compar)
     {
         this.columnIndex = sortedColumnIndex;
         this.property = beanProperty;

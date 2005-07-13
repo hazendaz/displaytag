@@ -39,7 +39,6 @@ public abstract class HtmlTableTag extends TemplateTag
         this.attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
     }
 
-
     /**
      * setter for the "cellspacing" html attribute.
      * @param value attribute value

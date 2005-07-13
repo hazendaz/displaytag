@@ -22,12 +22,14 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.StringUtils;
@@ -35,6 +37,7 @@ import org.apache.commons.lang.math.LongRange;
 import org.apache.commons.lang.math.Range;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.Messages;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
@@ -66,7 +69,6 @@ import org.displaytag.util.ParamEncoder;
 import org.displaytag.util.RequestHelper;
 import org.displaytag.util.RequestHelperFactory;
 import org.displaytag.util.TagConstants;
-import org.displaytag.Messages;
 
 
 /**

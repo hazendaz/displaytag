@@ -16,11 +16,11 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.properties.TableProperties;
-import org.displaytag.util.ShortToStringStyle;
 
 
 /**
@@ -465,7 +465,7 @@ public class TableModel
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
             .append("rowListFull", this.rowListFull) //$NON-NLS-1$
             .append("rowListPage", this.rowListPage) //$NON-NLS-1$
             .append("properties", this.properties) //$NON-NLS-1$
