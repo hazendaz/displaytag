@@ -93,6 +93,10 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
                 ColumnTag.class, null, "setValueClass")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("defaultorder", //$NON-NLS-1$
                 ColumnTag.class, null, "setDefaultorder")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("headerScope", //$NON-NLS-1$
+                ColumnTag.class, null, "setHeaderScope")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("scope", //$NON-NLS-1$
+                ColumnTag.class, null, "setScope")); //$NON-NLS-1$
 
             // deprecated attribute
             proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$

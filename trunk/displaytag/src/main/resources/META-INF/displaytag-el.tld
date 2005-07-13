@@ -490,6 +490,18 @@
         is ommitted the value for the sort param will default to the column number.
       </description>
     </attribute>
+    <attribute>
+      <name>headerScope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>"scope" html attribute added only for header cells.</description>
+    </attribute>
+    <attribute>
+      <name>scope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>"scope" html attribute.</description>
+    </attribute>
   </tag>
   <tag>
     <name>setProperty</name>

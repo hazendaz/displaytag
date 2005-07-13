@@ -454,6 +454,24 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
+     * setter for the "scope" tag attribute.
+     * @param value attribute value
+     */
+    public void setScope(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_SCOPE, value);
+    }
+
+    /**
+     * setter for the "headerScope" tag attribute.
+     * @param value attribute value
+     */
+    public void setHeaderScope(String value)
+    {
+        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_SCOPE, value);
+    }
+
+    /**
      * setter for the "maxLength" tag attribute.
      * @param value attribute value
      */

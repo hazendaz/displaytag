@@ -89,6 +89,10 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
                 ELColumnTag.class, null, "setValueClass")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("defaultorder", //$NON-NLS-1$
                 ELColumnTag.class, null, "setDefaultorder")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("headerScope", //$NON-NLS-1$
+                ELColumnTag.class, null, "setHeaderScope")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("scope", //$NON-NLS-1$
+                ELColumnTag.class, null, "setScope")); //$NON-NLS-1$
 
             // deprecated attribute
             proplist.add(new PropertyDescriptor("sort", //$NON-NLS-1$
