@@ -385,7 +385,6 @@
         @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
       </description>
     </attribute>
-
     <attribute>
       <name>align</name>
       <required>false</required>
@@ -605,6 +604,20 @@
         sortName="buzz", then the href for this column to sort will have a parameter d-(encodedId)-s=buzz. If sortName
         is ommitted the value for the sort param will default to the column number.
       </description>
+    </attribute>
+    <attribute>
+      <name>headerScope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>"scope" html attribute added only for header cells.</description>
+    </attribute>
+    <attribute>
+      <name>scope</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>"scope" html attribute.</description>
     </attribute>
   </tag>
   <tag>

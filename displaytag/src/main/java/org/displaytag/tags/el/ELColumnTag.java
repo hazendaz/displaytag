@@ -144,6 +144,16 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String defaultorderExpr;
 
     /**
+     * Expression for the "scope" tag attribute.
+     */
+    private String scopeExpr;
+
+    /**
+     * Expression for the "headerScope" tag attribute.
+     */
+    private String headerScopeExpr;
+
+    /**
      * @see org.displaytag.tags.ColumnTag#setAutolink(boolean)
      * @param value EL expression for attribute value
      */
@@ -351,6 +361,24 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
+     * @see org.displaytag.tags.ColumnTag#setScope(java.lang.String)
+     * @param value EL expression for attribute value
+     */
+    public void setScope(String value)
+    {
+        scopeExpr = value;
+    }
+
+    /**
+     * @see org.displaytag.tags.ColumnTag#setHeaderScope(java.lang.String)
+     * @param value EL expression for attribute value
+     */
+    public void setHeaderScope(String value)
+    {
+        headerScopeExpr = value;
+    }
+
+    /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
     public int doStartTag() throws JspException
@@ -463,6 +491,14 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         {
             super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr)); //$NON-NLS-1$
         }
+        if (scopeExpr != null)
+        {
+            super.setScope(eval.evalString("scope", scopeExpr)); //$NON-NLS-1$
+        }
+        if (headerScopeExpr != null)
+        {
+            super.setHeaderScope(eval.evalString("headerScope", headerScopeExpr)); //$NON-NLS-1$
+        }
     }
 
     /**
@@ -493,6 +529,8 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         this.urlExpr = null;
         this.sortPropertyExpr = null;
         this.defaultorderExpr = null;
+        this.scopeExpr = null;
+        this.headerScopeExpr = null;
     }
 
 }
