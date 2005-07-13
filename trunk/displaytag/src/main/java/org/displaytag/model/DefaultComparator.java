@@ -1,17 +1,18 @@
 package org.displaytag.model;
 
-import java.util.Comparator;
 import java.text.Collator;
+import java.util.Comparator;
 
 
 /**
- * Default comparator.  Was previously part of RowSorter.
+ * Default comparator. Was previously part of RowSorter.
  * @author fguist
  * @author rapruitt
  * @version $Revision$ ($Author$)
  */
 public class DefaultComparator implements Comparator
 {
+
     /**
      * Use this collator.
      */
@@ -38,9 +39,8 @@ public class DefaultComparator implements Comparator
     /**
      * Compares two given objects. Not comparable objects are compared using their string representation. String
      * comparisons are done using a Collator.
-     * @param object1       first parameter
-     * @param object2       second parameter
-     *
+     * @param object1 first parameter
+     * @param object2 second parameter
      * @return the value
      */
     public int compare(Object object1, Object object2)

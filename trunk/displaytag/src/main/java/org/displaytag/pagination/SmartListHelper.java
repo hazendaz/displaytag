@@ -15,12 +15,12 @@ import java.text.MessageFormat;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
-import org.displaytag.util.ShortToStringStyle;
 
 
 /**
@@ -365,7 +365,7 @@ public class SmartListHelper
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
             .append("fullList", this.fullList) //$NON-NLS-1$
             .append("fullListSize", this.fullListSize) //$NON-NLS-1$
             .append("pageSize", this.pageSize) //$NON-NLS-1$

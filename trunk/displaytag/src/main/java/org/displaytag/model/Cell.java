@@ -12,8 +12,8 @@
 package org.displaytag.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.ShortToStringStyle;
 
 
 /**
@@ -109,7 +109,7 @@ public class Cell implements Comparable, Cloneable
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
             .append("staticValue", this.staticValue).toString(); //$NON-NLS-1$
     }
 

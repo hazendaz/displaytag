@@ -17,6 +17,7 @@ import java.net.URLEncoder;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.displaytag.decorator.AutolinkColumnDecorator;
 import org.displaytag.exception.DecoratorException;
@@ -26,7 +27,6 @@ import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.LookupUtil;
-import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
 
 
@@ -286,7 +286,7 @@ public class Column
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
             .append("cell", this.cell) //$NON-NLS-1$
             .append("header", this.header) //$NON-NLS-1$
             .append("htmlAttributes", this.htmlAttributes) //$NON-NLS-1$

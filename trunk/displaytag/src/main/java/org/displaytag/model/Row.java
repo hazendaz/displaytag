@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.displaytag.util.ShortToStringStyle;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.util.TagConstants;
 
 
@@ -148,24 +148,24 @@ public class Row
     public String getOpenTag()
     {
         String css = this.tableModel.getProperties().getCssRow(this.rowNumber);
-        
-        if (this.tableModel.getTableDecorator() != null) 
+
+        if (this.tableModel.getTableDecorator() != null)
         {
             String addStyle = this.tableModel.getTableDecorator().addRowClass();
-            
+
             if (StringUtils.isNotBlank(addStyle))
             {
-               if (StringUtils.isNotBlank(css))
-               {
-                   css = css + " " + addStyle;
-               }
-               else
-               {
-                   css = addStyle;
-               }           
+                if (StringUtils.isNotBlank(css))
+                {
+                    css = css + " " + addStyle;
+                }
+                else
+                {
+                    css = addStyle;
+                }
             }
         }
-        
+
         if (StringUtils.isNotBlank(css))
         {
             return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + " " //$NON-NLS-1$
@@ -192,7 +192,7 @@ public class Row
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
             .append("rowNumber", this.rowNumber) //$NON-NLS-1$
             .append("rowObject", this.rowObject) //$NON-NLS-1$
             .toString();

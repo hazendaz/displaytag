@@ -11,12 +11,13 @@
  */
 package org.displaytag.tags;
 
+import java.util.Map;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.displaytag.exception.TagStructureException;
 
-import java.util.Map;
 
 /**
  * Display a table footer. Html only, not included in export.
@@ -31,7 +32,6 @@ public class TableFooterTag extends BodyTagSupport
      * D1597A17A6.
      */
     private static final long serialVersionUID = 899149338534L;
-
 
     /**
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
