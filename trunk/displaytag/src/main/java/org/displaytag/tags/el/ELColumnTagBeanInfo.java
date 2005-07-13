@@ -17,8 +17,6 @@ import java.beans.SimpleBeanInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.displaytag.tags.ColumnTag;
-
 
 /**
  * BeanInfo descriptor for the <code>ELColumnTag</code> class. Unevaluated EL expression has to be kept separately
@@ -71,6 +69,8 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
                 ELColumnTag.class, null, "setProperty")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("sortable", //$NON-NLS-1$
                 ELColumnTag.class, null, "setSortable")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("sortName", //$NON-NLS-1$
+                ELColumnTag.class, null, "setSortName")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("style", //$NON-NLS-1$
                 ELColumnTag.class, null, "setStyle")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("total", //$NON-NLS-1$

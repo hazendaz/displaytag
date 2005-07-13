@@ -129,6 +129,11 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String sortableExpr;
 
     /**
+     * Expression for the "sortName" tag attribute.
+     */
+    private String sortNameExpr;
+
+    /**
      * Expression for the "sortProperty" tag attribute.
      */
     private String sortPropertyExpr;
@@ -292,6 +297,15 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
+     * @param value EL expression for attribute value
+     * @see org.displaytag.tags.ColumnTag#setSortName(java.lang.String)
+     */
+    public void setSortName(String value)
+    {
+        sortNameExpr = value;
+    }
+
+    /**
      * @see org.displaytag.tags.ColumnTag#setTitle(java.lang.String)
      * @param value EL expression for attribute value
      */
@@ -335,7 +349,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     {
         defaultorderExpr = value;
     }
-    
+
     /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
@@ -414,6 +428,10 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         if (sortableExpr != null)
         {
             super.setSortable(eval.evalBoolean("sortable", sortableExpr)); //$NON-NLS-1$
+        }
+        if (sortNameExpr != null)
+        {
+            super.setSortName(eval.evalString("sortName", sortNameExpr)); //$NON-NLS-1$
         }
         if (styleExpr != null)
         {

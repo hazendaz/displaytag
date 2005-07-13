@@ -73,6 +73,11 @@ public class HeaderCell
     private boolean sortable;
 
     /**
+     * Name given to the server when sorting this column
+     */
+    private String sortName;
+
+    /**
      * ColumnDecorator.
      */
     private ColumnDecorator columnDecorator;
@@ -329,6 +334,24 @@ public class HeaderCell
     public void setSortable(boolean isSortable)
     {
         this.sortable = isSortable;
+    }
+
+    /**
+     * Get name given to server for sorting this column
+     * @return name given to server for sorting this column
+     */
+    public String getSortName()
+    {
+        return sortName;
+    }
+
+    /**
+     * Set name given to server for sorting this column
+     * @param sortName name given to server for sorting this column
+     */
+    public void setSortName(String sortName)
+    {
+        this.sortName = sortName;
     }
 
     /**

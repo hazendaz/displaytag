@@ -67,6 +67,8 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
                 ColumnTag.class, null, "setProperty")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("sortable", //$NON-NLS-1$
                 ColumnTag.class, null, "setSortable")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("sortName", //$NON-NLS-1$
+                ColumnTag.class, null, "setSortName")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("style", //$NON-NLS-1$
                 ColumnTag.class, null, "setStyle")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("title", //$NON-NLS-1$
