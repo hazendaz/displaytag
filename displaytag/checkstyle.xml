@@ -192,18 +192,6 @@
 		</module>
 		<module name="MethodLength"></module>
 		<module name="ParameterNumber"></module>
-		<module name="usage.OneMethodPrivateField">
-			<property name="severity" value="ignore" />
-			<property name="ignoreFormat" value="^log$" />
-		</module>
-		<module name="usage.UnusedLocalVariable"></module>
-		<module name="usage.UnusedParameter">
-			<property name="severity" value="ignore" />
-		</module>
-		<module name="usage.UnusedPrivateField">
-			<property name="ignoreFormat" value="^serialVersionUID$" />
-		</module>
-		<module name="usage.UnusedPrivateMethod"></module>
 		<module name="EmptyForIteratorPad"></module>
 		<module name="NoWhitespaceAfter">
 			<property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS, UNARY_PLUS" />

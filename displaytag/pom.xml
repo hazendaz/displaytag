@@ -122,37 +122,6 @@
     <name>the Displaytag team</name>
     <url>http://sourceforge.net/projects/displaytag</url>
   </organization>
-  <build>
-    <sourceDirectory>D:\apps\displaytagNG\displaytag\src\main\java</sourceDirectory>
-    <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
-    <testSourceDirectory>D:\apps\displaytagNG\displaytag\src\test\java</testSourceDirectory>
-    <directory>D:\apps\displaytagNG\displaytag\target</directory>
-    <outputDirectory>D:\apps\displaytagNG\displaytag\target\classes</outputDirectory>
-    <testOutputDirectory>D:\apps\displaytagNG\displaytag\target\test-classes</testOutputDirectory>
-    <defaultGoal></defaultGoal>
-    <resources>
-      <resource>
-        <targetPath></targetPath>
-        <directory>D:\apps\displaytagNG\displaytag\src\main\java</directory>
-        <includes>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-      <resource>
-        <targetPath></targetPath>
-        <directory>D:\apps\displaytagNG\displaytag\src\main\resources</directory>
-        <includes>
-          <include>**/*.*</include>
-        </includes>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>D:\apps\displaytagNG\displaytag\src\test\resources</directory>
-      </testResource>
-    </testResources>
-    <finalName>displaytag-1.1-SNAPSHOT</finalName>
-  </build>
   <dependencies>
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -180,19 +149,26 @@
       <version>1.2.8</version>
     </dependency>
     <dependency>
-      <groupId>servletapi</groupId>
-      <artifactId>servletapi</artifactId>
-      <version>2.3</version>
+      <groupId>geronimo-spec</groupId>
+      <artifactId>geronimo-spec-servlet</artifactId>
+      <version>2.4-rc4</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>geronimo-spec</groupId>
+      <artifactId>geronimo-spec-jsp</artifactId>
+      <version>2.0-rc4</version>
+      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
-      <version>1.0.2</version>
+      <version>1.1.2</version>
     </dependency>
     <dependency>
       <groupId>httpunit</groupId>
       <artifactId>httpunit</artifactId>
-      <version>1.6</version>
+      <version>1.6.1-20050820.090213</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -211,11 +187,13 @@
       <groupId>xerces</groupId>
       <artifactId>xerces</artifactId>
       <version>2.4.0</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>xml-apis</groupId>
       <artifactId>xml-apis</artifactId>
       <version>1.0.b2</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>itext</groupId>
@@ -226,7 +204,7 @@
       <groupId>taglibs</groupId>
       <artifactId>standard</artifactId>
       <version>1.0.4</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>rhino</groupId>
@@ -237,20 +215,26 @@
     <dependency>
       <groupId>tomcat</groupId>
       <artifactId>jasper-compiler</artifactId>
-      <version>4.0.4</version>
+      <version>5.5.9</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>tomcat</groupId>
       <artifactId>jasper-runtime</artifactId>
-      <version>4.0.4</version>
+      <version>5.5.9</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-el</groupId>
+      <artifactId>commons-el</artifactId>
+      <version>1.0</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>struts</groupId>
       <artifactId>struts</artifactId>
       <version>1.2.4</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>commons-digester</groupId>
@@ -262,19 +246,20 @@
       <groupId>springframework</groupId>
       <artifactId>spring</artifactId>
       <version>1.1.1</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>opensymphony</groupId>
       <artifactId>webwork</artifactId>
       <version>2.1.5</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
+      <!-- @todo should be in webwork pom -->
       <groupId>opensymphony</groupId>
       <artifactId>xwork</artifactId>
       <version>1.0.3</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>opensymphony</groupId>
@@ -286,30 +271,53 @@
       <groupId>ognl</groupId>
       <artifactId>ognl</artifactId>
       <version>2.6.5</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
-    <!--
-      <dependency>
-      <groupId>jdk</groupId>
-      <artifactId>tools</artifactId>
-      <version>1.4</version>
-      </dependency>
-    -->
   </dependencies>
-  <plugin>
-    <artifactId>maven-taglib-plugin</artifactId>
-    <version>2.0-SNAPSHOT</version>
-    <goals>
-      <goal>
-        <id>run</id>
-        <configuration>
-          <taglib>
-            <src>
-              <dir>src/pippo</dir>
-            </src>
-          </taglib>
-        </configuration>
-      </goal>
-    </goals>
-  </plugin>
+  <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
+    <defaultGoal>install</defaultGoal>
+    <resources>
+      <resource>
+        <targetPath></targetPath>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-taglib-plugin</artifactId>
+        <version>2.0-beta-1-SNAPSHOT</version>
+        <goals>
+          <goal>
+            <id>validate</id>
+          </goal>
+        </goals>
+      </plugin>
+    </plugins>
+  </build>
+  <repositories>
+    <repository>
+      <id>displaytag-sourceforge</id>
+      <url>http://displaytag.sourceforge.net/m2repo</url>
+    </repository>
+    <repository>
+      <id>maven-taglib-sourceforge</id>
+      <url>http://maven-taglib.sourceforge.net/m2repo</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-taglib-sourceforge</id>
+      <url>http://maven-taglib.sourceforge.net/m2repo</url>
+    </pluginRepository>
+  </pluginRepositories>
 </project>

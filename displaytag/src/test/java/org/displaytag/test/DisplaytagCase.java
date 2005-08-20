@@ -83,10 +83,6 @@ public abstract class DisplaytagCase extends TestCase
 
         // start servletRunner
         runner = new ServletRunner(new File(path), CONTEXT);
-
-        // register the filter servlet
-        // replaced by native filter support in httpunit 1.6
-        // runner.registerServlet("*" + MockFilterSupport.FILTERED_EXTENSION, MockFilterSupport.class.getName());
         log.debug("ServletRunner setup OK");
 
         super.setUp();
@@ -99,6 +95,7 @@ public abstract class DisplaytagCase extends TestCase
     {
         // shutdown servlet engine
         runner.shutDown();
+
         super.tearDown();
     }
 
