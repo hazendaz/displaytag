@@ -1,10 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
-  <modelVersion>3</modelVersion>
-  <groupId>org.displaytag</groupId>
+  <modelVersion>4</modelVersion>
+  <groupId>displaytag</groupId>
   <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
   <version>1.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <description>
     The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
     which will work in an MVC model. The library provides a significant amount of functionality while still being easy
@@ -12,6 +13,12 @@
   </description>
   <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
   <inceptionYear>2002</inceptionYear>
+  <distributionManagement>
+    <repository>
+      <id>displaytag-sourceforge</id>
+      <url>scpexe://displaytag.sourceforge.net/m2repo</url>
+    </repository>
+  </distributionManagement>
   <mailingLists>
     <mailingList>
       <name>Display tag library User Mailing list</name>
@@ -149,9 +156,9 @@
       <version>1.2.8</version>
     </dependency>
     <dependency>
-      <groupId>geronimo-spec</groupId>
-      <artifactId>geronimo-spec-servlet</artifactId>
-      <version>2.4-rc4</version>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
+      <version>2.4</version>
       <type>jar</type>
     </dependency>
     <dependency>
@@ -159,6 +166,7 @@
       <artifactId>geronimo-spec-jsp</artifactId>
       <version>2.0-rc4</version>
       <type>jar</type>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
@@ -166,7 +174,7 @@
       <version>1.1.2</version>
     </dependency>
     <dependency>
-      <groupId>httpunit</groupId>
+      <groupId>com.meterware.httpunit</groupId>
       <artifactId>httpunit</artifactId>
       <version>1.6.1-20050820.090213</version>
       <scope>test</scope>
@@ -294,6 +302,20 @@
     </testResources>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.4</source>
+          <target>1.4</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <testFailureIgnore>true</testFailureIgnore>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-taglib-plugin</artifactId>
         <version>2.0-beta-1-SNAPSHOT</version>
         <goals>
@@ -302,8 +324,38 @@
           </goal>
         </goals>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration><!--
+          <projectnatures>
+            org.eclipse.jdt.core.javanature, org.eclipse.wst.common.modulecore.ModuleCoreNature
+          </projectnatures>
+          <buildcommands>
+          <String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</String>
+          <String>org.eclipse.jdt.core.javabuilder</String>
+          <String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</String>
+          </buildcommands>
+          <classpathContainers>
+            org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v5.5,
+            org.eclipse.jst.j2ee.internal.web.container/displaytag
+          </classpathContainers>-->
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <!--  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-taglib-plugin</artifactId>
+        </plugin>-->
+    </plugins>
+  </reporting>
   <repositories>
     <repository>
       <id>displaytag-sourceforge</id>
