@@ -16,4 +16,8 @@
     <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
     <param-value>jstlresources</param-value>
   </context-param>
+  <mime-mapping>
+    <extension>jsp</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
 </web-app>
