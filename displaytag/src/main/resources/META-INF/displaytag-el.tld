@@ -353,11 +353,12 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <description>
+        <![CDATA[
         The base URL used to construct the dynamic link. If this attribute is provided, then the data that is shown for
         this column is wrapped inside a &lt;a href&gt; tag with the url provided through this attribute. Typically you
         would use this attribute along with one of the struts-like param attributes (param*) to create a dynamic link so
         that each row creates a different URL based on the data that is being viewed. An empty href value will generate
-        a link to the current page, preserving parameters just like for paging links.
+        a link to the current page, preserving parameters just like for paging links.]]>
       </description>
     </attribute>
     <attribute>
