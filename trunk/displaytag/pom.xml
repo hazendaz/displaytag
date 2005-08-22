@@ -15,8 +15,7 @@
   <inceptionYear>2002</inceptionYear>
   <distributionManagement>
     <repository>
-      <id>displaytag-sourceforge</id>
-      <url>scpexe://displaytag.sourceforge.net/m2repo</url>
+      <id>displaytag</id>
     </repository>
   </distributionManagement>
   <mailingLists>
@@ -176,7 +175,7 @@
     <dependency>
       <groupId>com.meterware.httpunit</groupId>
       <artifactId>httpunit</artifactId>
-      <version>1.6.1-20050820.090213</version>
+      <version>1.6.2-20050822.131008</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -327,19 +326,20 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
-        <configuration><!--
-          <projectnatures>
+        <configuration>
+          <!--
+            <projectnatures>
             org.eclipse.jdt.core.javanature, org.eclipse.wst.common.modulecore.ModuleCoreNature
-          </projectnatures>
-          <buildcommands>
-          <String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</String>
-          <String>org.eclipse.jdt.core.javabuilder</String>
-          <String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</String>
-          </buildcommands>
-          <classpathContainers>
+            </projectnatures>
+            <buildcommands>
+            <String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</String>
+            <String>org.eclipse.jdt.core.javabuilder</String>
+            <String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</String>
+            </buildcommands>
+            <classpathContainers>
             org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v5.5,
             org.eclipse.jst.j2ee.internal.web.container/displaytag
-          </classpathContainers>-->
+            </classpathContainers>-->
         </configuration>
       </plugin>
     </plugins>
@@ -358,12 +358,9 @@
   </reporting>
   <repositories>
     <repository>
-      <id>displaytag-sourceforge</id>
-      <url>http://displaytag.sourceforge.net/m2repo</url>
-    </repository>
-    <repository>
-      <id>maven-taglib-sourceforge</id>
-      <url>http://maven-taglib.sourceforge.net/m2repo</url>
+      <id>displaytag</id>
+      <url>http://displaytag.sourceforge.net/maven</url>
+      <layout>legacy</layout>
     </repository>
   </repositories>
   <pluginRepositories>
