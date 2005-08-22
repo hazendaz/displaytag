@@ -16,6 +16,7 @@
   <distributionManagement>
     <repository>
       <id>displaytag</id>
+      <url>http://displaytag.sourceforge.net/maven</url>
     </repository>
   </distributionManagement>
   <mailingLists>
@@ -359,8 +360,7 @@
   <repositories>
     <repository>
       <id>displaytag</id>
-      <url>http://displaytag.sourceforge.net/maven</url>
-      <layout>legacy</layout>
+      <url>http://displaytag.sourceforge.net/m2repo</url>
     </repository>
   </repositories>
   <pluginRepositories>
