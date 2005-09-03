@@ -54,7 +54,7 @@ public class TableModel
     /**
      * Name of the column currently sorted (only used when sort=external)
      */
-    private String sortedColumnName = null;
+    private String sortedColumnName;
 
     /**
      * sort order = ascending?
