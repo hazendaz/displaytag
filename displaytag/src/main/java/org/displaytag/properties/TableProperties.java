@@ -285,6 +285,67 @@ public final class TableProperties implements Cloneable
      */
     private static final String PROPERTY_CONVERTOR_CLASSNAME = "property_convertor_classname"; //$NON-NLS-1$
 
+    // <JBN>
+    /**
+     * Property <code>pagination.sort.param</code>. If external pagination 
+     * and sorting is used, it holds the name of the parameter used to hold
+     * the sort criterion in generated links 
+     */
+    public static final String PROPERTY_STRING_PAGINATION_SORT_PARAM = 
+        "pagination.sort.param"; //$NON-NLS-1$
+    
+    /**
+     * Property <code>pagination.sortdirection.param</code>. If external pagination 
+     * and sorting is used, it holds the name of the parameter used to hold
+     * the sort direction in generated links (asc or desc)
+     */
+    public static final String PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM = 
+        "pagination.sortdirection.param"; //$NON-NLS-1$
+    
+    /**
+     * Property <code>pagination.pagenumber.param</code>. If external pagination 
+     * and sorting is used, it holds the name of the parameter used to hold
+     * the page number in generated links 
+     */
+    public static final String PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM = 
+        "pagination.pagenumber.param"; //$NON-NLS-1$
+    
+    /**
+     * Property <code>pagination.searchid.param</code>. If external pagination 
+     * and sorting is used, it holds the name of the parameter used to hold
+     * the search ID in generated links 
+     */
+    public static final String PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM = 
+        "pagination.searchid.param"; //$NON-NLS-1$
+    
+    /**
+     * Property <code>pagination.sort.asc.value</code>. If external pagination 
+     * and sorting is used, it holds the value of the parameter of the sort direction
+     * parameter for "ascending"
+     */
+    public static final String PROPERTY_STRING_PAGINATION_ASC_VALUE = 
+        "pagination.sort.asc.value"; //$NON-NLS-1$
+    
+    /**
+     * Property <code>pagination.sort.desc.value</code>. If external pagination 
+     * and sorting is used, it holds the value of the parameter of the sort direction
+     * parameter for "descending"
+     */
+    public static final String PROPERTY_STRING_PAGINATION_DESC_VALUE = 
+        "pagination.sort.desc.value"; //$NON-NLS-1$
+    
+    /**
+     * Property <code>pagination.sort.skippagenumber</code>. If external pagination 
+     * and sorting is used, it determines if the current page number must be added in
+     * sort links or not. If this property is true, it means that each click on a 
+     * generated sort link will re-sort the list, and go back to the default page 
+     * number. If it is false, each click on a generated sort link will re-sort the list, 
+     * and ask the current page number.
+     */
+    public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = 
+        "pagination.sort.skippagenumber"; //$NON-NLS-1$
+    // </JBN>
+    
     /**
      * Separator char used in property names.
      */
@@ -1008,6 +1069,81 @@ public final class TableProperties implements Cloneable
         }
     }
 
+    // <JBN>
+    public String getPaginationSortParam()
+    {
+        String result = getProperty(PROPERTY_STRING_PAGINATION_SORT_PARAM);
+        if (result == null)
+        {
+            result = "sort";
+        }
+        return result;
+    }
+
+    public String getPaginationPageNumberParam()
+    {
+        String result = getProperty(PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM);
+        if (result == null)
+        {
+            result = "page";
+        }
+        return result;
+    }
+
+    public String getPaginationSortDirectionParam()
+    {
+        String result = getProperty(PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM);
+        if (result == null)
+        {
+            result = "dir";
+        }
+        return result;
+    }
+
+    public String getPaginationSearchIdParam()
+    {
+        String result = getProperty(PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM);
+        if (result == null)
+        {
+            result = "searchId";
+        }
+        return result;
+    }
+
+    public String getPaginationAscValue()
+    {
+        String result = getProperty(PROPERTY_STRING_PAGINATION_ASC_VALUE);
+        if (result == null)
+        {
+            result = "asc";
+        }
+        return result;
+    }
+
+    public String getPaginationDescValue()
+    {
+        String result = getProperty(PROPERTY_STRING_PAGINATION_DESC_VALUE);
+        if (result == null)
+        {
+            result = "desc";
+        }
+        return result;
+    }
+
+    public boolean getPaginationSkipPageNumberInSort()
+    {
+        String s = getProperty(PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);
+        if (s == null)
+        {
+            return true;
+        }
+        else
+        {
+            return getBooleanProperty(PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);
+        }
+    }
+    // </JBN>
+    
     /**
      * Returns the configured resource provider instance. If necessary instantiate the resource provider from config and
      * then keep a cached instance.

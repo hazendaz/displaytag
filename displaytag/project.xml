@@ -410,6 +410,15 @@
       </properties>
     </dependency>
     <dependency>
+      <groupId>eclipse</groupId>
+      <artifactId>jdtcore</artifactId>
+      <version>3.0.1</version>
+      <type>jar</type>
+      <properties>
+        <comment>Needed to run HttpUnit tests (default compiler used by tomcat)</comment>
+      </properties>
+    </dependency>
+    <dependency>
       <groupId>tomcat</groupId>
       <artifactId>jasper-runtime</artifactId>
       <version>5.5.9</version>

@@ -20,4 +20,12 @@
     <extension>jsp</extension>
     <mime-type>text/html</mime-type>
   </mime-mapping>
+  <taglib>
+    <taglib-uri>http://displaytag.sf.net</taglib-uri>
+    <taglib-location>/../classes/META-INF/displaytag.tld</taglib-location>
+  </taglib>
+  <taglib>
+    <taglib-uri>http://displaytag.sf.net/el</taglib-uri>
+    <taglib-location>../../../main/resources/META-INF/displaytag-el.tld</taglib-location>
+  </taglib>
 </web-app>
