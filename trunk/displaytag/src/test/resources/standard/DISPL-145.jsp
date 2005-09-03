@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<%@ taglib uri="../../../src/main/resources/META-INF/displaytag.tld" prefix="display"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
   <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
       <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
@@ -11,7 +11,7 @@
           testData.add(new org.displaytag.test.KnownValue());
           request.setAttribute( "test", testData);
       %>
-      
+
       <%
       for (int j = 0; j<2; j++)
       {

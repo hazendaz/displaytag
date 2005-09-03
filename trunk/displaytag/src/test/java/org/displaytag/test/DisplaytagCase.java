@@ -5,8 +5,6 @@ import java.net.URL;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -72,10 +70,6 @@ public abstract class DisplaytagCase extends TestCase
      */
     protected void setUp() throws Exception
     {
-        // remove any compiled jsp from a previous run.
-        cleanupTempFile("tld11/" + getJspName());
-        cleanupTempFile("el/" + getJspName());
-
         // need to pass a web.xml file to setup servletunit working directory
         ClassLoader classLoader = getClass().getClassLoader();
         URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
@@ -105,43 +99,6 @@ public abstract class DisplaytagCase extends TestCase
     public String getName()
     {
         return getClass().getName() + "." + super.getName() + " (" + getJspName() + ")";
-    }
-
-    /**
-     * Clean up temporary files from a previous test.
-     * @param jspName jsp name, with full path
-     */
-    private void cleanupTempFile(String jspName)
-    {
-        URL resourceUrl = getClass().getResource("/" + jspName);
-        if (resourceUrl != null && SystemUtils.JAVA_IO_TMPDIR != null)
-        {
-            File jspFile = new File(resourceUrl.getFile());
-            long jspModified = jspFile.lastModified();
-
-            String path = SystemUtils.JAVA_IO_TMPDIR + jspName;
-
-            File tempFile = new File(StringUtils.replace(path, ".jsp", "$jsp.java"));
-
-            // delete file only if jsp has been modified
-            if (tempFile.exists() && tempFile.lastModified() < jspModified)
-            {
-                if (log.isDebugEnabled())
-                {
-                    log.debug("Deleting temporary file " + tempFile.getPath());
-                }
-                tempFile.delete();
-            }
-            tempFile = new File(StringUtils.replace(path, ".jsp", "$jsp.class"));
-            if (tempFile.exists() && tempFile.lastModified() < jspModified)
-            {
-                if (log.isDebugEnabled())
-                {
-                    log.debug("Deleting temporary file " + tempFile.getPath());
-                }
-                tempFile.delete();
-            }
-        }
     }
 
 }

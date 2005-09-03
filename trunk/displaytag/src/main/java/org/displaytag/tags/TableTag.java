@@ -57,6 +57,8 @@ import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
+import org.displaytag.pagination.PaginatedList;
+import org.displaytag.pagination.PaginatedListSmartListHelper;
 import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.SortOrderEnum;
@@ -315,6 +317,15 @@ public class TableTag extends HtmlTableTag
      * lang version will be checked in the doStartTag() method in order to provide a more user friendly message.
      */
     private Object filteredRows;
+
+    // <JBN>
+    /**
+     * The paginated list containing the external pagination and sort parameters The presence of this paginated list is
+     * what determines if external pagination and sorting is used or not.
+     */
+    private PaginatedList paginatedList;
+
+    // </JBN>
 
     /**
      * Is this the last iteration?
@@ -655,6 +666,27 @@ public class TableTag extends HtmlTableTag
         {
             log.debug("[" + getUid() + "] addColumn " + column);
         }
+
+        // <JBN>
+        if ((this.paginatedList != null) && (column.getSortable()))
+        {
+            String sortCriterion = paginatedList.getSortCriterion();
+
+            String sortProperty = column.getSortProperty();
+            if (sortProperty == null)
+            {
+                sortProperty = column.getBeanPropertyName();
+            }
+
+            if ((sortCriterion != null) && sortCriterion.equals(sortProperty))
+            {
+                int sortColumn = this.tableModel.getNumberOfColumns();
+                this.tableModel.setSortedColumnNumber(sortColumn);
+                column.setAlreadySorted();
+            }
+        }
+        // </JBN>
+
         this.tableModel.addColumnHeader(column);
     }
 
@@ -833,6 +865,12 @@ public class TableTag extends HtmlTableTag
      */
     private void initParameters() throws JspTagException, FactoryInstantiationException
     {
+        if (this.list instanceof PaginatedList)
+        {
+            this.paginatedList = (PaginatedList) this.list;
+            this.list = this.paginatedList.getList();
+        }
+
         if (rhf == null)
         {
             // first time initialization
@@ -865,7 +903,7 @@ public class TableTag extends HtmlTableTag
         this.pageNumber = (pageNumberParameter == null) ? 1 : pageNumberParameter.intValue();
 
         int sortColumn = -1;
-        if (!this.tableModel.isLocalSort())
+        if (!this.tableModel.isLocalSort() && this.paginatedList == null)
         {
             // our sort column parameter may be a string, check that first
             String sortColumnName = requestHelper.getParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
@@ -888,12 +926,16 @@ public class TableTag extends HtmlTableTag
                 }
             }
         }
-        else
+        else if (this.paginatedList == null)
         {
             Integer sortColumnParameter = requestHelper
                 .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
             sortColumn = (sortColumnParameter == null) ? this.defaultSortedColumn : sortColumnParameter.intValue();
             this.tableModel.setSortedColumnNumber(sortColumn);
+        }
+        else
+        {
+            sortColumn = defaultSortedColumn;
         }
 
         // default value
@@ -907,17 +949,25 @@ public class TableTag extends HtmlTableTag
 
         this.tableModel.setSortFullTable(finalSortFull);
 
-        SortOrderEnum paramOrder = SortOrderEnum.fromCode(requestHelper
-            .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER)));
-
-        // if no order parameter is set use default
-        if (paramOrder == null)
+        if (this.paginatedList == null)
         {
-            paramOrder = this.defaultSortOrder;
-        }
+            SortOrderEnum paramOrder = SortOrderEnum.fromCode(requestHelper
+                .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER)));
 
-        boolean order = SortOrderEnum.DESCENDING != paramOrder;
-        this.tableModel.setSortOrderAscending(order);
+            // if no order parameter is set use default
+            if (paramOrder == null)
+            {
+                paramOrder = this.defaultSortOrder;
+            }
+
+            boolean order = SortOrderEnum.DESCENDING != paramOrder;
+            this.tableModel.setSortOrderAscending(order);
+        }
+        else
+        {
+            SortOrderEnum direction = paginatedList.getSortDirection();
+            this.tableModel.setSortOrderAscending(direction == SortOrderEnum.ASCENDING);
+        }
 
         Integer exportTypeParameter = requestHelper
             .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
@@ -1195,13 +1245,12 @@ public class TableTag extends HtmlTableTag
         // Figure out how we should sort this data, typically we just sort
         // the data being shown, but the programmer can override this behavior
 
-        if (this.tableModel.isLocalSort())
+        if (this.paginatedList == null || this.tableModel.isLocalSort())
         {
             if (!this.tableModel.isSortFullTable())
             {
                 this.tableModel.sortPageList();
             }
-
         }
 
         // Get the data back in the representation that the user is after, do they want HTML/XML/CSV/EXCEL/etc...
@@ -1496,7 +1545,7 @@ public class TableTag extends HtmlTableTag
         // things if needed before we ask for the viewable part. (this is a bad place for this, this should be
         // refactored and moved somewhere else).
 
-        if (this.tableModel.isLocalSort())
+        if (this.paginatedList == null || this.tableModel.isLocalSort())
         {
             if (this.tableModel.isSortFullTable())
             {
@@ -1514,7 +1563,7 @@ public class TableTag extends HtmlTableTag
         int pageOffset = this.offset;
         // If they have asked for just a page of the data, then use the
         // SmartListHelper to figure out what page they are after, etc...
-        if (this.pagesize > 0)
+        if (this.paginatedList == null && this.pagesize > 0)
         {
             this.listHelper = new SmartListHelper(fullList, (this.partialList) ? ((Integer) size).intValue() : fullList
                 .size(), this.pagesize, this.properties, this.partialList);
@@ -1522,7 +1571,10 @@ public class TableTag extends HtmlTableTag
             pageOffset = this.listHelper.getFirstIndexForCurrentPage();
             fullList = this.listHelper.getListForCurrentPage();
         }
-
+        else if (this.paginatedList != null)
+        {
+            this.listHelper = new PaginatedListSmartListHelper(this.paginatedList, this.properties);
+        }
         this.tableModel.setRowListPage(fullList);
         this.tableModel.setPageOffset(pageOffset);
     }
@@ -1707,36 +1759,76 @@ public class TableTag extends HtmlTableTag
         // costruct Href from base href, preserving parameters
         Href href = new Href(this.baseHref);
 
-        // add column number as link parameter
-        if (!this.localSort.booleanValue() && (headerCell.getSortName() != null))
+        if (this.paginatedList == null)
         {
-            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getSortName());
+            // add column number as link parameter
+            if (!this.localSort.booleanValue() && (headerCell.getSortName() != null))
+            {
+                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getSortName());
+            }
+            else
+            {
+                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
+            }
+
+            boolean nowOrderAscending = true;
+
+            if (headerCell.getDefaultSortOrder() != null)
+            {
+                boolean sortAscending = SortOrderEnum.ASCENDING.equals(headerCell.getDefaultSortOrder());
+                nowOrderAscending = (!headerCell.isAlreadySorted()) ? sortAscending : !sortAscending;
+            }
+            else
+            {
+                nowOrderAscending = !(headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending());
+            }
+
+            int sortOrderParam = nowOrderAscending ? SortOrderEnum.ASCENDING.getCode() : SortOrderEnum.DESCENDING
+                .getCode();
+            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), sortOrderParam);
+
+            // If user want to sort the full table I need to reset the page number.
+            // or if we aren't sorting locally we need to reset the page as well.
+            if (this.tableModel.isSortFullTable() || !this.tableModel.isLocalSort())
+            {
+                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
+            }
         }
         else
         {
-            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
-        }
+            if (properties.getPaginationSkipPageNumberInSort())
+            {
+                href.removeParameter(properties.getPaginationPageNumberParam());
+            }
 
-        boolean nowOrderAscending = true;
+            String sortProperty = headerCell.getSortProperty();
+            if (sortProperty == null)
+            {
+                sortProperty = headerCell.getBeanPropertyName();
+            }
 
-        if (headerCell.getDefaultSortOrder() != null)
-        {
-            boolean sortAscending = SortOrderEnum.ASCENDING.equals(headerCell.getDefaultSortOrder());
-            nowOrderAscending = (!headerCell.isAlreadySorted()) ? sortAscending : !sortAscending;
-        }
-        else
-        {
-            nowOrderAscending = !(headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending());
-        }
-
-        int sortOrderParam = nowOrderAscending ? SortOrderEnum.ASCENDING.getCode() : SortOrderEnum.DESCENDING.getCode();
-        href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), sortOrderParam);
-
-        // If user want to sort the full table I need to reset the page number.
-        // or if we aren't sorting locally we need to reset the page as well.
-        if (this.tableModel.isSortFullTable() || !this.tableModel.isLocalSort())
-        {
-            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
+            href.addParameter(properties.getPaginationSortParam(), sortProperty);
+            String dirParam;
+            if (headerCell.isAlreadySorted())
+            {
+                if (this.tableModel.isSortOrderAscending())
+                {
+                    dirParam = properties.getPaginationDescValue();
+                }
+                else
+                {
+                    dirParam = properties.getPaginationAscValue();
+                }
+            }
+            else
+            {
+                dirParam = properties.getPaginationAscValue();
+            }
+            href.addParameter(properties.getPaginationSortDirectionParam(), dirParam);
+            if (paginatedList.getSearchId() != null)
+            {
+                href.addParameter(properties.getPaginationSearchIdParam(), paginatedList.getSearchId());
+            }
         }
 
         return href;
@@ -1947,15 +2039,29 @@ public class TableTag extends HtmlTableTag
      */
     private void writeSearchResultAndNavigation()
     {
-        if (this.pagesize != 0 && this.listHelper != null)
+        if ((this.paginatedList == null && this.pagesize != 0 && this.listHelper != null)
+            || (this.paginatedList != null))
         {
             // create a new href
             Href navigationHref = new Href(this.baseHref);
 
             write(this.listHelper.getSearchResultsSummary());
-            write(this.listHelper.getPageNavigationBar(
-                navigationHref,
-                encodeParameter(TableTagParameters.PARAMETER_PAGE)));
+
+            String pageParameter;
+            if (paginatedList == null)
+            {
+                pageParameter = encodeParameter(TableTagParameters.PARAMETER_PAGE);
+            }
+            else
+            {
+                pageParameter = properties.getPaginationPageNumberParam();
+                if ((paginatedList.getSearchId() != null)
+                    && (!navigationHref.getParameterMap().containsKey(properties.getPaginationSearchIdParam())))
+                {
+                    navigationHref.addParameter(properties.getPaginationSearchIdParam(), paginatedList.getSearchId());
+                }
+            }
+            write(this.listHelper.getPageNavigationBar(navigationHref, pageParameter));
         }
     }
 
@@ -2034,6 +2140,7 @@ public class TableTag extends HtmlTableTag
         this.excludedParams = null;
         this.filteredRows = null;
         this.uid = null;
+        this.paginatedList = null;
     }
 
     /**
