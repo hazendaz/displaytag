@@ -26,6 +26,6 @@
   </taglib>
   <taglib>
     <taglib-uri>http://displaytag.sf.net/el</taglib-uri>
-    <taglib-location>../../../main/resources/META-INF/displaytag-el.tld</taglib-location>
+    <taglib-location>/../classes/META-INF/displaytag-el.tld</taglib-location>
   </taglib>
 </web-app>
