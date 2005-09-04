@@ -2,7 +2,7 @@
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <html>
  <head>
-    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <title>Displaytag unit test</title>
   </head>
 <body>
