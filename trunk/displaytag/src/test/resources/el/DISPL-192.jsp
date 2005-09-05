@@ -11,10 +11,12 @@
       <jsp:scriptlet> <![CDATA[
           java.util.List testData = new java.util.ArrayList();
           testData.add(new org.displaytag.test.KnownValue());
+          testData.add(new org.displaytag.test.KnownValue());
+          testData.add(new org.displaytag.test.KnownValue());
           request.setAttribute( "test", testData);
       ]]> </jsp:scriptlet>
-      <display:table name="requestScope.test" requestURI="https://go">
-        <display:column property="ant" sortable="true" defaultorder="descending"/>
+      <display:table name="requestScope.test" decorator="org.displaytag.decorator.TableDecoratorCssRow">
+        <display:column property="ant"/>
       </display:table>
     </body>
   </html>
