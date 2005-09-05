@@ -296,7 +296,7 @@
     <dependency>
       <groupId>com.meterware.httpunit</groupId>
       <artifactId>httpunit</artifactId>
-      <version>1.6.2-20050822.131008</version>
+      <version>1.6.2-20050905.191521</version>
       <properties>
         <comment>Needed to compile and run HttpUnit tests.</comment>
       </properties>
