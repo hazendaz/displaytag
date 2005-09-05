@@ -29,20 +29,21 @@
             <item name="Style" href="/tut_style.html" />
             <item name="Export" href="/export.html" />
             <item name="I18n" href="/i18n.html" />
+            <item name="External sorting" href="/tut_externalSortAndPage.html" />
         </menu>
-        
+
         <menu name="Feedback">
             <item name="FAQ" href="/faq.html" />
             <item name="Reporting bugs" href="/issue-tracking.html" />
             <item name="Mailing Lists" href="/mail-lists.html" />
         </menu>
-        
+
         <menu name="Developers">
             <item name="Source Repository" href="/cvs-usage.html" />
             <item name="Building from sources" href="/buildit.html" />
             <item name="Directory Organization" href="/directory_organization.html" />
         </menu>
-        
+
 
 
     </body>
