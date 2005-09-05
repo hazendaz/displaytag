@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>External Sorting And Paging (Partial Lists)</title>
+        <author email="halcyon(at)ratemod.com">David Erickson</author>
+    </properties>
+    <body>
+        <section name="External Sorting">
+
+            <source>
+                <![CDATA[
+<display:table name="testList" sort="external" defaultsort="1" id="element">
+  <display:column property="id" title="ID" sortable="true" sortName="id" />
+  <display:column property="firstName" sortable="true" sortName="firstName" title="First Name" />
+  <display:column property="lastName" sortable="true" sortName="lastName" title="Last Name" />
+  <display:column property="address" sortable="true" sortName="address" title="Email Address"/>
+</display:table>
+]]>
+            </source>
+
+            <p>
+                When using the <code>sort="external"</code> property you are telling DisplayTag that your list is already sorted
+                according to some specific column before the tag gets it.  This is a must when used with partial lists as we will
+                see below, however you can use it by itself.  A new property named <code>sortName</code> has been addeed to the
+                column tag.  The purpose of this property is for convenience when writing the backend code that actually does the
+                sorting of the data.  For example the header link for the column with property <code>id</code> in the sample code
+                above will render a link containing <code>d-(encoded table id)-s=id</code>.  If you remove the <code>sortName</code>
+                property from the column the link will instead contain <code>d-(encoded table id)-s=0</code>, which is the
+                index of the column rather than the name.  Once again it is solely for convenience.
+            </p>
+            <p>
+                The first time you access a jsp with a DisplayTag in it, there are two ways for the tag to know how your data is
+                sorted.  Firstly it will check for a request parameter <code>d-(encoded table id)-s</code>.  If that parameter
+                exists, and its value matches the <code>sortName</code> of one of the declared column tags, then when it is rendered
+                to html it will set the matching column as being sorted.  If that parameter does not exist it will examine the
+                <code>defaultsort</code> property of the table tag, if it exists then it will render the corresponding column as sorted.
+                Otherwise no column will be rendered as being sorted.  So really you have two options.  Set your backend to sort your
+                data based on a set column when there is no request parameter, and set your <code>defaultsort</code> parameter to
+                match that column.  Or ensure that all links pointing to your page that houses the DisplayTag have a
+                <code>d-(encoded table id)-s=(column index or sortName)</code> parameter in them.
+            </p>
+            <p>
+                To determine the request parameter name for column sorting you can do:
+                <code>new ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_SORT))</code>.  To get the order (ASC/DESC):
+                <code>new ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER))</code>.  Descending is 2, Ascending is 1.
+            </p>
+        </section>
+        <section name="External Sorting And Paging (Partial Lists)">
+            <source>
+                <![CDATA[
+<display:table name="testList" sort="external" defaultsort="1" pagesize="20" id="element" partialList="true" size="resultSize">
+  <display:column property="id" title="ID" sortable="true" sortName="id" />
+  <display:column property="firstName" sortable="true" sortName="firstName" title="First Name" />
+  <display:column property="lastName" sortable="true" sortName="lastName" title="Last Name" />
+  <display:column property="address" sortable="true" sortName="address" title="Email Address"/>
+</display:table>]]>
+            </source>
+            <p>
+                All of the above information for external sorting applies to partial lists.  Additionally there are two new
+                properties on the table tag: <code>partialList</code> and <code>size</code>.  To enable partial lists simply
+                set <code>partialList="true"</code> on the table tag.  Next you must tell Display Tag the total size of your list
+                since you are only making a specific subset of it available to the tag.  You do this by storing the total list size
+                in a java.lang.Integer object and putting it into some scope available to DisplayTag.  Then you set
+                <code>size=(name the Integer was stored under)</code> on the table tag.  Very easy.  It is also important that you
+                specify a pagesize on the table tag.  It is also a good idea to set your backend to load a default amount of your list
+                when there are no request parameters, probably the first page worth of data.
+            </p>
+            <p>
+                To determine the starting record you need to return based on the request parameters provided via Display Tag you can do:
+                <code>(Integer.parseInt(request.getParameter((new ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER)))) - 1) * pageSize</code>.
+                To get the ending record just add pageSize to the above value.
+            </p>
+        </section>
+    </body>
+</document>
+
