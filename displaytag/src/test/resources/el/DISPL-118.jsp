@@ -1,6 +1,6 @@
-<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" 
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
   xmlns:display="urn:jsptld:http://displaytag.sf.net/el">
-  <jsp:text> <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  <jsp:text> <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> ]]> </jsp:text>
   <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head>
@@ -21,6 +21,9 @@
 		<display:setProperty name="paging.banner.first">
 			<jsp:text><div id="PAGEONE">PAGEONE</div></jsp:text>
 		</display:setProperty>
+        <display:setProperty name="paging.banner.last">
+          <jsp:text><div id="PAGETWO">PAGETWO</div></jsp:text>
+        </display:setProperty>
       </display:table>
     </body>
   </html>
