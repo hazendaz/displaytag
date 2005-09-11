@@ -22,6 +22,9 @@
 		<display:setProperty name="paging.banner.first">
 			<jsp:text><div id="PAGEONE">PAGEONE</div></jsp:text>
 		</display:setProperty>
+        <display:setProperty name="paging.banner.last">
+          <jsp:text><div id="PAGETWO">PAGETWO</div></jsp:text>
+        </display:setProperty>
       </display:table>
     </body>
   </html>

@@ -107,7 +107,6 @@ public class SmartListHelper
         this.partialList = partialList;
     }
 
-    // <JBN>
     /**
      * Constructor that can be used by subclasses. Subclasses that use this constructor must also override all the
      * public methods, since this constructor does nothing.
@@ -115,7 +114,6 @@ public class SmartListHelper
     protected SmartListHelper()
     {
     }
-    // </JBN>
 
     /**
      * Returns the computed number of pages it would take to show all the elements in the list given the pageSize we are
@@ -126,8 +124,7 @@ public class SmartListHelper
     {
         int size = this.fullListSize;
         int div = size / this.pageSize;
-        int mod = size % this.pageSize;
-        int result = (mod == 0) ? div : div + 1;
+        int result = (size % this.pageSize == 0) ? div : div + 1;
 
         return result;
     }
@@ -234,11 +231,16 @@ public class SmartListHelper
                 new Object[]{new Integer(pageNumber), new Integer(this.pageCount)}));
         }
 
-        if (pageNumber < 1 || ((pageNumber != 1) && (pageNumber > this.pageCount)))
+        if (pageNumber < 1)
         {
             // invalid page: better don't throw an exception, since this could easily happen
             // (list changed, user bookmarked the page)
             this.currentPage = 1;
+        }
+        else if (pageNumber != 1 && pageNumber > this.pageCount)
+        {
+            // invalid page: set to last page
+            this.currentPage = this.pageCount;
         }
         else
         {

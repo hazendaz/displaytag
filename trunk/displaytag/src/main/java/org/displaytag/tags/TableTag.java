@@ -1035,10 +1035,11 @@ public class TableTag extends HtmlTableTag
                 int fullSize = ((Collection) this.list).size();
                 start = (this.pageNumber - 1) * this.pagesize;
 
-                // invalid page requested, go back to page one
+                // invalid page requested, go back to last page
                 if (start > fullSize)
                 {
-                    start = 0;
+                    int div = fullSize / this.pagesize;
+                    start = (fullSize % this.pagesize == 0) ? div : div + 1;
                 }
 
                 end = start + this.pagesize;

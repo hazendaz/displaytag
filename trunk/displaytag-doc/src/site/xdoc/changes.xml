@@ -62,6 +62,9 @@
       <action type="fix" dev="fgiust" issue="DISPL-232">
         paging.banner.full: {6} is not the total number of pages.
       </action>
+      <action type="fix" dev="fgiust" issue="DISPL-212">
+        Table displayed incorrectly with fully loaded last page and page number+1 for page parameter.
+      </action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
       <action type="fix" dev="fgiust">

@@ -5,17 +5,17 @@ import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HTMLElement;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 
 /**
- * Test for DISPL-118 - Exception when requesting invalid page of paged table.
+ * Test for DISPL-212 - Table displayed incorrectly with fully loaded last page and page number+1 for page parameter.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class Displ118Test extends DisplaytagCase
+public class Displ212Test extends DisplaytagCase
 {
 
     /**
@@ -23,11 +23,11 @@ public class Displ118Test extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "DISPL-118.jsp";
+        return "DISPL-212.jsp";
     }
 
     /**
-     * No exception when an invalid page is requested.
+     * Last page should be loaded.
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
@@ -44,11 +44,15 @@ public class Displ118Test extends DisplaytagCase
             log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
-        assertEquals("Expected one table in result.", 1, tables.length);
-
-        assertNotNull("Not in page 2 as expected?", response.getElementWithID("PAGETWO"));
+        HTMLElement pagination = response.getElementWithID("pagination");
+        assertNotNull("Paging banner not found.", pagination);
+        assertEquals("Pagination links are not as expected.", "1, [2]", pagination.getText());
 
     }
 
+    public void test11() throws Exception
+    {
+        // @todo Auto-generated method stub
+        super.test11();
+    }
 }
