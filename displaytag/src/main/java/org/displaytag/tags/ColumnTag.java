@@ -751,7 +751,11 @@ public class ColumnTag extends BodyTagSupport
         headerCell.setSortProperty(this.sortProperty);
         headerCell.setPropertyConvertor(PropertyConvertorFactory.createNumberConverter(tableTag.getProperties()));
         headerCell.setTotaled(this.totaled);
-        headerCell.setComparator(this.comparator);
+
+        Comparator headerComparator = (comparator == null) ? comparator : new DefaultComparator(Collator
+            .getInstance(tableTag.getProperties().getLocale()));
+
+        headerCell.setComparator(headerComparator);
         headerCell.setColumnValueClass(valueClass);
         headerCell.setDefaultSortOrder(this.defaultorder);
         headerCell.setSortName(this.sortName);
@@ -885,12 +889,6 @@ public class ColumnTag extends BodyTagSupport
         if (!availableForMedia(currentMediaType))
         {
             return SKIP_BODY;
-        }
-
-        if (comparator instanceof DefaultComparator)
-        {
-            DefaultComparator def = (DefaultComparator) comparator;
-            def.setCollator(Collator.getInstance(tableTag.getProperties().getLocale()));
         }
 
         return super.doStartTag();

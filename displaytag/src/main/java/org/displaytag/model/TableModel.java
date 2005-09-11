@@ -392,24 +392,17 @@ public class TableModel
                 if (sortedHeaderCell.getBeanPropertyName() != null
                     || (this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size()))
                 {
-                    if (sortedHeaderCell.getSortProperty() != null)
-                    {
-                        Collections.sort(list, new RowSorter(
-                            this.sortedColumn,
-                            sortedHeaderCell.getSortProperty(),
-                            getTableDecorator(),
-                            this.sortOrderAscending,
-                            sortedHeaderCell.getComparator()));
-                    }
-                    else
-                    {
-                        Collections.sort(list, new RowSorter(
-                            this.sortedColumn,
-                            sortedHeaderCell.getBeanPropertyName(),
-                            getTableDecorator(),
-                            this.sortOrderAscending,
-                            sortedHeaderCell.getComparator()));
-                    }
+
+                    String sorted = (sortedHeaderCell.getSortProperty() != null)
+                        ? sortedHeaderCell.getSortProperty()
+                        : sortedHeaderCell.getBeanPropertyName();
+
+                    Collections.sort(list, new RowSorter(
+                        this.sortedColumn,
+                        sorted,
+                        getTableDecorator(),
+                        this.sortOrderAscending,
+                        sortedHeaderCell.getComparator()));
                 }
             }
 
