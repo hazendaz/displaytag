@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/3.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/3.0.0 http://maven.apache.org/maven-v3_0_0.xsd ">
+  xsi:schemaLocation="http://maven.apache.org/POM/3.0.0 http://maven.apache.org/maven-v3_0_0.xsd">
   <pomVersion>3</pomVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag</artifactId>
@@ -186,7 +186,7 @@
     <url>http://sourceforge.net/projects/displaytag</url>
     <logo>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</logo>
   </organization>
-  <packageName>org.displaytag</packageName>
+  <package>org.displaytag</package>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
