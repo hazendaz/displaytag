@@ -1,8 +1,11 @@
-<%@ include file="inc/header.jsp" %>
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+  <jsp:directive.page contentType="text/html; charset=UTF-8" />
+  <jsp:directive.page import="org.displaytag.sample.*" />
+  <jsp:include page="inc/header.jsp" flush="true" />
 
-<% request.setAttribute( "test", new TestList(10, false) ); %>
+<jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) ); </jsp:scriptlet>
 
-<% String lClass = "isis";
+<jsp:scriptlet> String lClass = "isis";
    if( request.getParameter( "class" ) != null ) {
       lClass = request.getParameter( "class" );
 	  if (!("isis".equals(lClass) || "its".equals(lClass) || "mars".equals(lClass) || "simple".equals(lClass) || "report".equals(lClass) || "mark".equals(lClass)))
@@ -10,10 +13,10 @@
 		lClass="";
 	  }
    }
-%>
+</jsp:scriptlet>
 
 
-<h2><a href="./index.jsp">Examples</a> > Styles</h2>
+<h2><a href="./index.jsp">Examples</a> &amp;raquo; Styles</h2>
 
 <ul id="stylelist">
 	<li><a href="example-styles.jsp?class=isis">ISIS</a></li>
@@ -25,7 +28,7 @@
 </ul>
 
 
-<display:table name="test" class="<%=lClass%>">
+<display:table name="test" class="<jsp:scriptlet>=lClass</jsp:scriptlet>">
   <display:column property="id" title="ID" class="idcol"/>
   <display:column property="name" />
   <display:column property="email" />
@@ -117,4 +120,6 @@
 </table>
 
 
-<%@ include file="inc/footer.jsp" %>
+  <jsp:include page="inc/footer.jsp" flush="true" />
+
+</jsp:root>

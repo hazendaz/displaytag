@@ -4,9 +4,12 @@
     <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">]]>
   </jsp:text>
 
-  <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <jsp:text>
+    <![CDATA[<html xmlns="http://www.w3.org/1999/xhtml" lang="en">]]>
+  </jsp:text>
+
   <head>
-  <title>The &lt;display:*&gt; tag library</title>
+  <title>The <![CDATA[&lt;display:*>]]> tag library</title>
   <meta http-equiv="Expires" content="-1" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Cache-Control" content="no-cache" />
@@ -14,10 +17,12 @@
   <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, print" />
   </head>
 
-  <body>
+  <jsp:text>
+    <![CDATA[<body>]]>
+  </jsp:text>
 
   <div id="header">
-  <h1>The &amp;lt;display:*> tag library <small>1.1</small></h1>
+  <h1>The <![CDATA[&lt;display:*>]]> tag library <small>1.1</small></h1>
 
   <ul>
     <li><a href="http://displaytag.sf.net">Documentation</a></li>
@@ -28,11 +33,7 @@
 
   <jsp:scriptlet>if (request.getRequestURI().indexOf("example-") != -1) {</jsp:scriptlet>
   <ul id="showsource">
-    <li>
-
-    <![CDATA[<a href="]]><c:out value="${request.requestURI}" /><![CDATA[.source">View JSP Source</a>]]>
-
-    </li>
+    <li><![CDATA[<a href="]]><c:out value="${request.requestURI}" /><![CDATA[.source">View JSP Source</a>]]></li>
   </ul>
   <jsp:scriptlet>}</jsp:scriptlet>
 

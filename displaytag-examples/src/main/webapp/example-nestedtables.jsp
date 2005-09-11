@@ -1,8 +1,11 @@
-<%@ include file="inc/header.jsp" %>
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+  <jsp:directive.page contentType="text/html; charset=UTF-8" />
+  <jsp:directive.page import="org.displaytag.sample.*" />
+  <jsp:include page="inc/header.jsp" flush="true" />
 
-<% request.setAttribute( "test", new TestList(4, false) ); %>
+<jsp:scriptlet> request.setAttribute( "test", new TestList(4, false) ); </jsp:scriptlet>
 
-<h2><a href="./index.jsp">Examples</a> > Nested tables</h2>
+<h2><a href="./index.jsp">Examples</a> &amp;raquo; Nested tables</h2>
 
 
 <display:table name="test" id="parent">
@@ -12,8 +15,8 @@
   <display:column property="description" title="Comments" />
 
   <display:column title="Related address">
-    <% String nestedName="test.item[" + (parent_rowNum.intValue() -1)+ "].subList"; %>
-  	<display:table name="<%=nestedName%>" id="child" class="simple sublist">
+    <jsp:scriptlet> String nestedName="test.item[" + (parent_rowNum.intValue() -1)+ "].subList"; </jsp:scriptlet>
+  	<display:table name="<jsp:scriptlet>=nestedName</jsp:scriptlet>" id="child" class="simple sublist">
 		<display:column property="name" class="textRed" />
 		<display:column property="email" />
 	</display:table>
@@ -49,4 +52,6 @@
 	</li>
 <ul>
 
-<%@ include file="inc/footer.jsp" %>
+  <jsp:include page="inc/footer.jsp" flush="true" />
+
+</jsp:root>

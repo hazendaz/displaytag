@@ -1,8 +1,10 @@
-<%@ include file="inc/header.jsp" %>
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page">
+  <jsp:directive.page contentType="text/html; charset=UTF-8" />
+  <jsp:include page="inc/header.jsp" flush="true" />
 
-<h2>404</h2>
-<p>
-    File not found.
-</p>
+  <h2>404</h2>
+  <p>File not found.</p>
 
-<%@ include file="inc/footer.jsp" %>
+  <jsp:include page="inc/footer.jsp" flush="true" />
+
+</jsp:root>

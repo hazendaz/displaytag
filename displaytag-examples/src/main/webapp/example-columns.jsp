@@ -1,4 +1,5 @@
 <jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+  <jsp:directive.page contentType="text/html; charset=UTF8" />
   <jsp:directive.page import="org.displaytag.sample.*" />
   <jsp:include page="inc/header.jsp" flush="true" />
 
@@ -27,8 +28,8 @@ request.setAttribute( "test", new TestList(10, false) );
   content to the tag.</p>
 
   <ul>
-    <li>&amp;lt;display:column property="email" /></li>
-    <li>&amp;lt;display:column title="email">email@it.com&amp;lt;/display:column></li>
+    <li><code><![CDATA[&lt;display:column property="email" />]]></code></li>
+    <li><code><![CDATA[&lt;display:column title="email">email@it.com&lt;/display:column>]]></code></li>
   </ul>
 
   <p>There are two ways to define the content of a column. Of course, in the tag body you can use scriptlets or other

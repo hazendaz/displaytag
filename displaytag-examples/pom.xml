@@ -88,7 +88,7 @@
     <dependency>
       <groupId>taglibs</groupId>
       <artifactId>standard</artifactId>
-      <version>1.0.4</version>
+      <version>1.0.6</version>
       <type>jar</type>
     </dependency>
   </dependencies>
