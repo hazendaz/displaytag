@@ -65,6 +65,10 @@
       <action type="fix" dev="fgiust" issue="DISPL-212">
         Table displayed incorrectly with fully loaded last page and page number+1 for page parameter.
       </action>
+      <action type="fix" dev="fgiust" issue="DISPL-234">
+        HTML title not added with chopped value (using maxlenght with a column containing a String of maxlength + 3
+        chars)
+      </action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
       <action type="fix" dev="fgiust">
