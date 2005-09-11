@@ -2,7 +2,7 @@
     xmlns:display="urn:jsptld:http://displaytag.sf.net/el">
     <jsp:text> <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> ]]> </jsp:text>
-    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
         <head>
             <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
             <title>Displaytag unit test</title>
@@ -11,18 +11,13 @@
             <jsp:scriptlet> <![CDATA[
                 java.util.List testData = new java.util.ArrayList();
                 testData.add(new org.displaytag.test.KnownValue());
-                testData.add(new org.displaytag.test.KnownValue());
-                testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
-            <display:table name="requestScope.test" id="table" pagesize="1">
+            <display:table name="requestScope.test" id="table" >
+                <display:column title="link" maxLength="15" autolink="true">
+                  <jsp:text>averylongemail@mail.com</jsp:text>
+                </display:column>
                 <display:column property="ant"/>
-								<display:setProperty name="paging.banner.first">
-									<jsp:text><span id="numbers">{5}|{6}</span></jsp:text>
-								</display:setProperty>
-								<display:setProperty name="paging.banner.some_items_found">
-									<jsp:text><span id="label">{4}|{5}</span></jsp:text>
-								</display:setProperty>
             </display:table>
         </body>
     </html>

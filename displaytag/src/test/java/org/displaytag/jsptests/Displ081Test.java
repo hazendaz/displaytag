@@ -21,7 +21,7 @@ public class Displ081Test extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "DISPL-81.jsp";
+        return "DISPL-081.jsp";
     }
 
     /**
