@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.logging.Log;
@@ -125,7 +126,9 @@ public class DefaultRequestHelper implements RequestHelper
             String paramName = (String) parametersName.nextElement();
 
             // put key/value in the map
-            String[] originalValues = this.request.getParameterValues(paramName);
+            String[] originalValues = (String[]) ObjectUtils.defaultIfNull(
+                this.request.getParameterValues(paramName),
+                new String[0]);
             String[] values = new String[originalValues.length];
 
             for (int i = 0; i < values.length; i++)
