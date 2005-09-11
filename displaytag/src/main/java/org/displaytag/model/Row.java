@@ -13,10 +13,13 @@ package org.displaytag.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
 
@@ -147,7 +150,9 @@ public class Row
      */
     public String getOpenTag()
     {
-        String css = this.tableModel.getProperties().getCssRow(this.rowNumber);
+        Map rowAttributes = new HtmlAttributeMap();
+        MultipleHtmlAttribute cssAttribute = new MultipleHtmlAttribute(this.tableModel.getProperties().getCssRow(
+            this.rowNumber));
 
         if (this.tableModel.getTableDecorator() != null)
         {
@@ -155,27 +160,27 @@ public class Row
 
             if (StringUtils.isNotBlank(addStyle))
             {
-                if (StringUtils.isNotBlank(css))
-                {
-                    css = css + " " + addStyle;
-                }
-                else
-                {
-                    css = addStyle;
-                }
+                cssAttribute.addAttributeValue(addStyle);
+            }
+
+            String id = this.tableModel.getTableDecorator().setRowId();
+            if (StringUtils.isNotBlank(id))
+            {
+                rowAttributes.put(TagConstants.ATTRIBUTE_ID, id);
             }
         }
 
-        if (StringUtils.isNotBlank(css))
-        {
-            return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + " " //$NON-NLS-1$
-                + TagConstants.ATTRIBUTE_CLASS + "=\"" //$NON-NLS-1$
-                + css + "\"" //$NON-NLS-1$
-                + TagConstants.TAG_CLOSE;
-        }
+        rowAttributes.put(TagConstants.ATTRIBUTE_CLASS, cssAttribute);
 
-        return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + TagConstants.TAG_CLOSE;
+        StringBuffer tag = new StringBuffer();
+        tag.append(TagConstants.TAG_OPEN);
+        tag.append(TagConstants.TAGNAME_ROW);
 
+        tag.append(rowAttributes.toString());
+
+        tag.append(TagConstants.TAG_CLOSE);
+
+        return tag.toString();
     }
 
     /**
