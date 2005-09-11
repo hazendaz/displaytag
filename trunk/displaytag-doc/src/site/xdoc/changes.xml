@@ -59,6 +59,9 @@
         page number is > than group size (it only can be accessed using the "last" link.
       </action>
       <action type="update" dev="fgiust">Example pages have been converted to jsp/xml syntax.</action>
+      <action type="fix" dev="fgiust" issue="DISPL-232">
+        paging.banner.full: {6} is not the total number of pages.
+      </action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
       <action type="fix" dev="fgiust">
