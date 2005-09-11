@@ -24,7 +24,7 @@ public class Displ056Test extends DisplaytagCase
      */
     public String getJspName()
     {
-        return "DISPL-56.jsp";
+        return "DISPL-056.jsp";
     }
 
     /**
@@ -38,6 +38,11 @@ public class Displ056Test extends DisplaytagCase
         WebResponse response;
 
         response = runner.getResponse(request);
+
+        if (log.isDebugEnabled())
+        {
+            log.debug(response.getText());
+        }
 
         WebTable[] tables = response.getTables();
         assertEquals("Wrong number of tables in result.", 3, tables.length);

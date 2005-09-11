@@ -11,21 +11,18 @@
             <jsp:scriptlet> <![CDATA[
                 java.util.List testData = new java.util.ArrayList();
                 testData.add(new org.displaytag.test.KnownValue());
+                testData.add(new org.displaytag.test.KnownValue());
+                testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
-            <display:table name="${requestScope.test}" id="table">
-                <display:column sortable="true">
-                    <jsp:text>xxx</jsp:text>
-                </display:column>
-                <display:column sortable="true">
-                    <jsp:text>xxx</jsp:text>
-                </display:column>
-                <display:column sortable="true">
-                    <jsp:text>xxx</jsp:text>
-                </display:column>
-                <display:column>
-                    <jsp:text>xxx</jsp:text>
-                </display:column>
+            <display:table name="requestScope.test" id="table" pagesize="1">
+                <display:column property="ant"/>
+								<display:setProperty name="paging.banner.first">
+									<jsp:text><span id="numbers">{5}|{6}</span></jsp:text>
+								</display:setProperty>
+								<display:setProperty name="paging.banner.some_items_found">
+									<jsp:text><span id="label">{4}|{5}</span></jsp:text>
+								</display:setProperty>
             </display:table>
         </body>
     </html>
