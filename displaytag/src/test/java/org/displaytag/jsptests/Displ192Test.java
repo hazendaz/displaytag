@@ -45,7 +45,10 @@ public class Displ192Test extends DisplaytagCase
         assertEquals("Wrong number of tables in result.", 1, tables.length);
         assertEquals("Wrong number of rows in result.", 4, tables[0].getRowCount());
 
-        log.info(response.getText());
+        if (log.isDebugEnabled())
+        {
+            log.debug(response.getText());
+        }
 
         TableRow[] rows = tables[0].getRows();
         assertEquals("Wrong number of rows in result.", 4, rows.length);
