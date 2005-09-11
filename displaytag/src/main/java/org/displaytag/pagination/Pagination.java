@@ -274,7 +274,7 @@ public class Pagination
             ((Href) this.href.clone()).addParameter(this.pageParam, getNext()),
             ((Href) this.href.clone()).addParameter(this.pageParam, getLast()),
             this.currentPage,
-            new Integer(pages.size())};
+            this.lastPage};
 
         // return the full banner
         return MessageFormat.format(fullBanner, pageObjects);
