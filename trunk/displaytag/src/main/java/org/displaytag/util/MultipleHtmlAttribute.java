@@ -11,8 +11,8 @@
  */
 package org.displaytag.util;
 
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -55,7 +55,7 @@ public class MultipleHtmlAttribute implements Cloneable
         int length = attributes.length;
 
         // create new HashSet with correct size
-        this.attributeSet = new HashSet(length);
+        this.attributeSet = new LinkedHashSet(length);
 
         // add all the splitted attributes
         for (int j = 0; j < length; j++)

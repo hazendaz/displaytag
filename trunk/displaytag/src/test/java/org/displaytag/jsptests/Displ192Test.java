@@ -55,7 +55,6 @@ public class Displ192Test extends DisplaytagCase
         assertEquals("even", rows[2].getClassName());
         assertEquals("odd highlighted", rows[3].getClassName());
 
-        // @todo id are not generated? check the test decorator is correct
         assertEquals("", rows[0].getID());
         assertEquals("rowid0", rows[1].getID());
         assertEquals("rowid1", rows[2].getID());
