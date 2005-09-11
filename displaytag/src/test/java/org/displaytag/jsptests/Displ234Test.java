@@ -48,12 +48,12 @@ public class Displ234Test extends DisplaytagCase
             .getTableCell(1, 0)
             .getAttribute("title"));
         assertEquals("Wrong or missing title for cropped text.", "12345678901234", tables[0]
-            .getTableCell(2, 0)
+            .getTableCell(1, 1)
             .getAttribute("title"));
         assertEquals("Wrong or missing title for cropped text.", "12345678901234567", tables[0]
-            .getTableCell(3, 0)
+            .getTableCell(1, 2)
             .getAttribute("title"));
-        assertEquals("Title should not be added.", "", tables[0].getTableCell(4, 0).getAttribute("title"));
+        assertEquals("Title should not be added.", "", tables[0].getTableCell(1, 3).getAttribute("title"));
 
     }
 
