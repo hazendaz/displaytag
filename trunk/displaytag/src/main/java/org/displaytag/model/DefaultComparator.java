@@ -28,6 +28,22 @@ public class DefaultComparator implements Comparator
     }
 
     /**
+     * Instantiate a default comparator with no collator specified.
+     */
+    public DefaultComparator()
+    {
+    }
+
+    /**
+     * Instantiate a default comparator with a specified collator.
+     * @param collatorToUse collator instance
+     */
+    public DefaultComparator(Collator collatorToUse)
+    {
+        this.collator = collatorToUse;
+    }
+
+    /**
      * Set the collator.
      * @param collatorToUse the value
      */
