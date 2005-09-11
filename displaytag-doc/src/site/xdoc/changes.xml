@@ -54,6 +54,11 @@
         following the tag.
       </action>
       <action type="update" dev="fgiust">Updated dependencies: commons-beanutils 1.7, commons-collection 3.1.</action>
+      <action type="fix" dev="fgiust" issue="DISPL-213">
+        Page Listing Incorrect: the last page doesn't show up in the page list when it only contains one record and the
+        page number is > than group size (it only can be accessed using the "last" link.
+      </action>
+      <action type="update" dev="fgiust">Example pages have been converted to jsp/xml syntax.</action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
       <action type="fix" dev="fgiust">
