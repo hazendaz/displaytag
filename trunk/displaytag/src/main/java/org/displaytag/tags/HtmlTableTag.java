@@ -144,18 +144,10 @@ public abstract class HtmlTableTag extends TemplateTag
      */
     public String getOpenTag()
     {
-
-        if (this.attributeMap.size() == 0)
-        {
-            return TagConstants.TAG_OPEN + TagConstants.TABLE_TAG_NAME + TagConstants.TAG_CLOSE;
-        }
-
         StringBuffer buffer = new StringBuffer();
 
         buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
-
-        buffer.append(this.attributeMap);
-
+        buffer.append(attributeMap);
         buffer.append(TagConstants.TAG_CLOSE);
 
         return buffer.toString();
@@ -177,6 +169,16 @@ public abstract class HtmlTableTag extends TemplateTag
     {
         this.attributeMap.clear();
         super.release();
+    }
+
+    /**
+     * Return a map of html attributes. Should be used for extensions only, html attributes are normally printed out in
+     * the <code>getOpenTag()</code> method.
+     * @return map of html attributes
+     */
+    public HtmlAttributeMap getAttributeMap()
+    {
+        return this.attributeMap;
     }
 
 }

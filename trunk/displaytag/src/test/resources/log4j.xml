@@ -38,11 +38,7 @@
   <category name="com.opensymphony">
     <priority value="warn" />
   </category>
-  <category name="org.displaytag.jsptests.Displ107Test">
-    <priority value="debug" />
-    <appender-ref ref="console" />
-  </category>
-  <category name="org.displaytag.jsptests.Displ192Test">
+  <category name="org.displaytag.jsptests.Displ999Test">
     <priority value="debug" />
     <appender-ref ref="console" />
   </category>

@@ -318,14 +318,11 @@ public class TableTag extends HtmlTableTag
      */
     private Object filteredRows;
 
-    // <JBN>
     /**
      * The paginated list containing the external pagination and sort parameters The presence of this paginated list is
      * what determines if external pagination and sorting is used or not.
      */
     private PaginatedList paginatedList;
-
-    // </JBN>
 
     /**
      * Is this the last iteration?
@@ -610,11 +607,6 @@ public class TableTag extends HtmlTableTag
      */
     public void setUid(String value)
     {
-        if (getHtmlId() == null)
-        {
-            setHtmlId(value); // by default id is actually used for the html id attribute, if no htmlId is added
-        }
-
         this.uid = value;
     }
 
@@ -2118,6 +2110,11 @@ public class TableTag extends HtmlTableTag
      */
     public void release()
     {
+        if (log.isDebugEnabled())
+        {
+            log.debug("[" + getUid() + "] release() called");
+        }
+
         super.release();
 
         // tag attributes
@@ -2167,6 +2164,31 @@ public class TableTag extends HtmlTableTag
         }
 
         return this.paramEncoder.encodeParameterName(parameterName);
+    }
+
+    /**
+     * create the open tag containing all the attributes.
+     * @return open tag string: <code>%lt;table attribute="value" ... ></code>
+     */
+    public String getOpenTag()
+    {
+
+        if (this.uid != null && getAttributeMap().get(TagConstants.ATTRIBUTE_ID) == null)
+        {
+            // we need to clone the attribute map in order to "fix" the html id when using only the "uid" attribute
+            Map localAttributeMap = (Map) getAttributeMap().clone();
+            localAttributeMap.put(TagConstants.ATTRIBUTE_ID, this.uid);
+
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
+            buffer.append(localAttributeMap);
+            buffer.append(TagConstants.TAG_CLOSE);
+
+            return buffer.toString();
+
+        }
+
+        return super.getOpenTag();
     }
 
 }

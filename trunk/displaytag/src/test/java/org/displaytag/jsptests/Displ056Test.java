@@ -27,6 +27,18 @@ public class Displ056Test extends DisplaytagCase
         return "DISPL-056.jsp";
     }
 
+    public void test11() throws Exception
+    {
+        // @todo Auto-generated method stub
+        super.test11();
+    }
+
+    public void testEL() throws Exception
+    {
+        // @todo Auto-generated method stub
+        super.testEL();
+    }
+
     /**
      * Try to sort generated tables.
      * @param jspName jsp name, with full path
@@ -77,9 +89,11 @@ public class Displ056Test extends DisplaytagCase
         assertTrue("First table should be sorted. Wrong class attribute.", //
             StringUtils.contains(tables[0].getTableCell(0, 0).getClassName(), "sorted"));
         assertEquals("Second table should not be sorted. Wrong class attribute.", //
-            "sortable", tables[1].getTableCell(0, 0).getClassName());
+            "sortable",
+            tables[1].getTableCell(0, 0).getClassName());
         assertEquals("Third table should not be sorted. Wrong class attribute.", //
-            "sortable", tables[2].getTableCell(0, 0).getClassName());
+            "sortable",
+            tables[2].getTableCell(0, 0).getClassName());
 
         // and just to be sure also check values: sorted table
         for (int j = 1; j < tables[0].getRowCount(); j++)
