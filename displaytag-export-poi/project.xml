@@ -13,6 +13,11 @@
   </organization>
   <inceptionYear>2002</inceptionYear>
   <logo>/images/displaytag.png</logo>
+  <shortDescription>Display tag library</shortDescription>
+  <url>http://displaytag.sourceforge.net</url>
+  <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
+  <siteAddress>shell.sourceforge.net</siteAddress>
+  <siteDirectory>/home/groups/d/di/displaytag/htdocs/11/multiproject/displaytag-export-poi</siteDirectory>
   <dependencies>
     <dependency>
       <groupId>displaytag</groupId>

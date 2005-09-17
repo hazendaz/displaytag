@@ -23,7 +23,7 @@
   <url>http://displaytag.sourceforge.net</url>
   <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
   <siteAddress>shell.sourceforge.net</siteAddress>
-  <siteDirectory>/home/groups/d/di/displaytag/htdocs/11/examples</siteDirectory>
+  <siteDirectory>/home/groups/d/di/displaytag/htdocs/11/multiproject/examples</siteDirectory>
   <repository>
     <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-examples</connection>
     <developerConnection>
