@@ -45,7 +45,7 @@ public class DataSourceMapTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Expected one table in result.", 1, tables.length);
+        assertEquals("Wrong number of tables.", 1, tables.length);
 
         assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
 

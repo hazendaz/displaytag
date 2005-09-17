@@ -45,7 +45,7 @@ public class RequestUriTest extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Expected one table in result.", 1, tables.length);
+        assertEquals("Wrong number of tables.", 1, tables.length);
 
         WebLink[] links = response.getLinks();
         assertEquals("Wrong number of links in result.", MediaTypeEnum.getSize() - 1 // MediaTypeEnum also lists html

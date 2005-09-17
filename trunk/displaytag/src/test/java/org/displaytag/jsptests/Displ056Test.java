@@ -27,18 +27,6 @@ public class Displ056Test extends DisplaytagCase
         return "DISPL-056.jsp";
     }
 
-    public void test11() throws Exception
-    {
-        // @todo Auto-generated method stub
-        super.test11();
-    }
-
-    public void testEL() throws Exception
-    {
-        // @todo Auto-generated method stub
-        super.testEL();
-    }
-
     /**
      * Try to sort generated tables.
      * @param jspName jsp name, with full path

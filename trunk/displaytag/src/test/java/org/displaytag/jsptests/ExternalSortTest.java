@@ -52,21 +52,23 @@ public class ExternalSortTest extends DisplaytagCase
 
         WebLink[] links = response.getLinks();
 
-        TestCase.assertEquals("0", links[0].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
-        TestCase.assertEquals("2", links[0].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
+        assertEquals("0", links[0].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
+        assertEquals("2", links[0].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
 
-        TestCase.assertEquals("buzz", links[1].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
-        TestCase.assertEquals("2", links[1].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
+        assertEquals("buzz", links[1].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
+        assertEquals("2", links[1].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
 
         // test that the column with sortName buzz was set as sorted and now has a link to sort desc
-        TestCase.assertEquals("number", links[2].getParameterValues(p2.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
-        TestCase.assertEquals("1", links[2].getParameterValues(p2.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
+        assertEquals(
+            "number",
+            links[2].getParameterValues(p2.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
+        assertEquals("1", links[2].getParameterValues(p2.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
 
         // now ensure that our data has not been sorted at all since we are doing it 'externally'
         WebTable[] tables = response.getTables();
-        TestCase.assertEquals("1", tables[1].getCellAsText(1, 0));
-        TestCase.assertEquals("4", tables[1].getCellAsText(2, 0));
-        TestCase.assertEquals("2", tables[1].getCellAsText(3, 0));
-        TestCase.assertEquals("3", tables[1].getCellAsText(4, 0));
+        assertEquals("1", tables[1].getCellAsText(1, 0));
+        assertEquals("4", tables[1].getCellAsText(2, 0));
+        assertEquals("2", tables[1].getCellAsText(3, 0));
+        assertEquals("3", tables[1].getCellAsText(4, 0));
     }
 }
