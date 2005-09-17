@@ -12,12 +12,12 @@
     which will work in an MVC model. The library provides a significant amount of functionality while still being easy
     to use.
   </description>
-  <url>http://diplaytag.sourceforge.net</url>
+  <url>http://displaytag.sourceforge.net</url>
   <logo>/images/displaytag.png</logo>
   <issueTrackingUrl>http://jira.codehaus.org/browse/DISPL</issueTrackingUrl>
   <inceptionYear>2002</inceptionYear>
   <siteAddress>shell.sourceforge.net</siteAddress>
-  <siteDirectory>/home/groups/d/di/displaytag/htdocs/11/</siteDirectory>
+  <siteDirectory>/home/groups/d/di/displaytag/htdocs/11/multiproject/displaytag</siteDirectory>
   <distributionSite></distributionSite>
   <distributionDirectory></distributionDirectory>
   <mailingLists>
