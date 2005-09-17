@@ -69,6 +69,9 @@
         HTML title not added with chopped value (using maxlenght with a column containing a String of maxlength + 3
         chars)
       </action>
+      <action type="fix" dev="fgiust" issue="DISPL-243">
+        Default column sort breaks sorting after a few sorts of the column
+      </action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
       <action type="fix" dev="fgiust">
