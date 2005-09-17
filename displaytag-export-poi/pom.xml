@@ -1,10 +1,59 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
-  <modelVersion>4</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
   <artifactId>displaytag-export-poi</artifactId>
   <name>Display excel export module</name>
   <groupId>displaytag</groupId>
   <version>1.1-SNAPSHOT</version>
+  <organization>
+    <name>the Displaytag team</name>
+    <url>http://sourceforge.net/projects/displaytag</url>
+  </organization>
+  <inceptionYear>2002</inceptionYear>
+  <url>http://displaytag.sourceforge.net</url>
+  <description>
+    The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
+    which will work in an MVC model. The library provides a significant amount of functionality while still being easy
+    to use.
+  </description>
+  <licenses>
+    <license>
+      <name>Artistic License</name>
+      <url>http://displaytag.sourceforge.net/license.html</url>
+    </license>
+  </licenses>
+  <distributionManagement>
+    <repository>
+      <id>displaytag</id>
+      <url>http://displaytag.sourceforge.net/maven</url>
+    </repository>
+  </distributionManagement>
+  <developers>
+    <developer>
+      <id>fgiust</id>
+      <name>Fabrizio Giustina</name>
+      <email>fgiust(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Project admin and main developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>rapruitt</id>
+      <name>Andy Pruitt</name>
+      <email>rapruitt(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+  </developers>
   <dependencies>
     <dependency>
       <groupId>displaytag</groupId>
