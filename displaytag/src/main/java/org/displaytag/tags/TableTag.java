@@ -1769,7 +1769,9 @@ public class TableTag extends HtmlTableTag
             if (headerCell.getDefaultSortOrder() != null)
             {
                 boolean sortAscending = SortOrderEnum.ASCENDING.equals(headerCell.getDefaultSortOrder());
-                nowOrderAscending = (!headerCell.isAlreadySorted()) ? sortAscending : !sortAscending;
+                nowOrderAscending = headerCell.isAlreadySorted()
+                    ? !this.tableModel.isSortOrderAscending()
+                    : sortAscending;
             }
             else
             {
