@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
-  <modelVersion>4</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
   <artifactId>displaytag-examples</artifactId>
   <name>Display tag library examples</name>
   <groupId>displaytag</groupId>
@@ -11,18 +11,86 @@
     <url>http://sourceforge.net/projects/displaytag</url>
   </organization>
   <inceptionYear>2002</inceptionYear>
+  <url>http://displaytag.sourceforge.net</url>
   <description>
     The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
     which will work in an MVC model. The library provides a significant amount of functionality while still being easy
     to use.
   </description>
-  <url>http://displaytag.sourceforge.net</url>
   <licenses>
     <license>
       <name>Artistic License</name>
       <url>http://displaytag.sourceforge.net/license.html</url>
     </license>
   </licenses>
+  <distributionManagement>
+    <repository>
+      <id>displaytag</id>
+      <url>http://displaytag.sourceforge.net/maven</url>
+    </repository>
+  </distributionManagement>
+  <developers>
+    <developer>
+      <id>fgiust</id>
+      <name>Fabrizio Giustina</name>
+      <email>fgiust(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Project admin and main developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>matt</id>
+      <name>Matt Raible</name>
+      <email>mraible(at)users.sourceforge.net</email>
+      <url></url>
+      <organization>Raible Designs</organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Project admin</role>
+      </roles>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
+      <id>rapruitt</id>
+      <name>Andy Pruitt</name>
+      <email>rapruitt(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+    <developer>
+      <id>javabencom</id>
+      <name>Benjamin Simpson</name>
+      <email>javabencom(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Documentation editor</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <id>pathoss</id>
+      <name>Mathias Bogaert</name>
+      <email>pathoss(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
   <dependencies>
     <dependency>
       <groupId>displaytag</groupId>

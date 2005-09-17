@@ -1,0 +1,182 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>displaytag</groupId>
+  <artifactId>displaytag-doc</artifactId>
+  <name>Display tag library</name>
+  <packaging>jar</packaging>
+  <version>1.1-SNAPSHOT</version>
+  <organization>
+    <name>the Displaytag team</name>
+    <url>http://sourceforge.net/projects/displaytag</url>
+  </organization>
+  <inceptionYear>2002</inceptionYear>
+  <url>http://displaytag.sourceforge.net</url>
+  <description>
+    The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
+    which will work in an MVC model. The library provides a significant amount of functionality while still being easy
+    to use.
+  </description>
+  <licenses>
+    <license>
+      <name>Artistic License</name>
+      <url>http://displaytag.sourceforge.net/license.html</url>
+    </license>
+  </licenses>
+  <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
+  <distributionManagement>
+    <repository>
+      <id>displaytag</id>
+      <url>http://displaytag.sourceforge.net/maven</url>
+    </repository>
+  </distributionManagement>
+  <mailingLists>
+    <mailingList>
+      <name>Display tag library User Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</unsubscribe>
+      <post></post>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-user</archive>
+    </mailingList>
+    <mailingList>
+      <name>Display tag library Developer Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</unsubscribe>
+      <post></post>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-devel</archive>
+    </mailingList>
+    <mailingList>
+      <name>Display tag library Cvs Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</unsubscribe>
+      <post></post>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-cvs</archive>
+    </mailingList>
+  </mailingLists>
+  <developers>
+    <developer>
+      <id>fgiust</id>
+      <name>Fabrizio Giustina</name>
+      <email>fgiust(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Project admin and main developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>matt</id>
+      <name>Matt Raible</name>
+      <email>mraible(at)users.sourceforge.net</email>
+      <url></url>
+      <organization>Raible Designs</organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Project admin</role>
+      </roles>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
+      <id>rapruitt</id>
+      <name>Andy Pruitt</name>
+      <email>rapruitt(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+    <developer>
+      <id>javabencom</id>
+      <name>Benjamin Simpson</name>
+      <email>javabencom(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Documentation editor</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <id>pathoss</id>
+      <name>Mathias Bogaert</name>
+      <email>pathoss(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Ed Hill</name>
+      <email>ed-hill(at)users.sourceforge.net</email>
+      <url></url>
+      <organization></organization>
+      <organizationUrl></organizationUrl>
+      <roles>
+        <role>Initial developer of the tag library</role>
+      </roles>
+      <timezone>0</timezone>
+    </contributor>
+  </contributors>
+  <licenses>
+    <license>
+      <name>Artistic License</name>
+      <url>http://displaytag.sourceforge.net/license.html</url>
+      <distribution></distribution>
+      <comments></comments>
+    </license>
+  </licenses>
+  <organization>
+    <name>the Displaytag team</name>
+    <url>http://sourceforge.net/projects/displaytag</url>
+  </organization>
+  <dependencies></dependencies>
+  <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
+    <defaultGoal>install</defaultGoal>
+    <resources>
+      <resource>
+        <targetPath></targetPath>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+  <repositories>
+    <repository>
+      <id>displaytag</id>
+      <url>http://displaytag.sourceforge.net/m2repo</url>
+    </repository>
+  </repositories>
+  <modules>
+    <module>../displaytag</module>
+    <module>../displaytag-export-poi</module>
+    <module>../displaytag-examples</module>
+  </modules>
+</project>

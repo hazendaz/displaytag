@@ -108,7 +108,7 @@ h3 {
 
 
 
-#navcolumn h5 { 
+#navcolumn h5 {
     padding: 3px 3px 3px 10px;
     font-variant: small-caps;
     font-family: Arial, Helvetica, sans-serif;
@@ -117,6 +117,15 @@ h3 {
     letter-spacing: 1px;
     border: none;
     background-image: url(../images/sections.png);
+}
+
+
+#navcolumn #menuDocumentation h5,
+#navcolumn #menuCore_Tag_library h5,
+#navcolumn #menuExample_application h5,
+#navcolumn #menuExcel_export_module h5 {
+    background-image: none;
+    background-color: #fff;
 }
 
 #navcolumn {
@@ -135,6 +144,7 @@ h3 {
     padding-left: 16px !important;
     padding-left/**/: 2px !important;
 }
+
 
 #navcolumn a {
     color: #BDB76B;
@@ -251,7 +261,7 @@ a.externalLink, a.newWindow {
 }
 a.externalLink/* */{
     background-image: url(../images/ico_external.png) !important;
-    
+
 }
 a.newWindow/* */{
     background-image: url(../images/ico_newwindow.png) !important;
