@@ -1,47 +1,35 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
-  <modelVersion>4</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
-  <version>1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
+  <version>1.1-SNAPSHOT</version>
+  <organization>
+    <name>the Displaytag team</name>
+    <url>http://sourceforge.net/projects/displaytag</url>
+  </organization>
+  <inceptionYear>2002</inceptionYear>
+  <url>http://displaytag.sourceforge.net</url>
   <description>
     The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
     which will work in an MVC model. The library provides a significant amount of functionality while still being easy
     to use.
   </description>
+  <licenses>
+    <license>
+      <name>Artistic License</name>
+      <url>http://displaytag.sourceforge.net/license.html</url>
+    </license>
+  </licenses>
   <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
-  <inceptionYear>2002</inceptionYear>
   <distributionManagement>
     <repository>
       <id>displaytag</id>
       <url>http://displaytag.sourceforge.net/maven</url>
     </repository>
   </distributionManagement>
-  <mailingLists>
-    <mailingList>
-      <name>Display tag library User Mailing list</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</unsubscribe>
-      <post></post>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-user</archive>
-    </mailingList>
-    <mailingList>
-      <name>Display tag library Developer Mailing list</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</unsubscribe>
-      <post></post>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-devel</archive>
-    </mailingList>
-    <mailingList>
-      <name>Display tag library Cvs Mailing list</name>
-      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</subscribe>
-      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</unsubscribe>
-      <post></post>
-      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-cvs</archive>
-    </mailingList>
-  </mailingLists>
   <developers>
     <developer>
       <id>fgiust</id>
@@ -230,8 +218,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>eclipse</groupId>
-      <artifactId>jdt-core</artifactId>
+      <groupId>org.eclipse.jdt</groupId>
+      <artifactId>core</artifactId>
       <version>3.0.1</version>
       <scope>test</scope>
     </dependency>
@@ -324,15 +312,17 @@
           <testFailureIgnore>true</testFailureIgnore>
         </configuration>
       </plugin>
-      <plugin>
+      <!--
+        <plugin>
         <artifactId>maven-taglib-plugin</artifactId>
         <version>2.0-beta-1-SNAPSHOT</version>
         <goals>
-          <goal>
-            <id>validate</id>
-          </goal>
+        <goal>
+        <id>validate</id>
+        </goal>
         </goals>
-      </plugin>
+        </plugin>
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
@@ -344,7 +334,9 @@
           <buildcommands>
             <java.lang.String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</java.lang.String>
             <java.lang.String>org.eclipse.jdt.core.javabuilder</java.lang.String>
-            <java.lang.String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver</java.lang.String>
+            <java.lang.String>
+              org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver
+            </java.lang.String>
           </buildcommands>
         </configuration>
       </plugin>
@@ -368,10 +360,11 @@
       <url>http://displaytag.sourceforge.net/m2repo</url>
     </repository>
   </repositories>
-  <pluginRepositories>
+  <!-- <pluginRepositories>
     <pluginRepository>
-      <id>maven-taglib-sourceforge</id>
-      <url>http://maven-taglib.sourceforge.net/m2repo</url>
+    <id>maven-taglib-sourceforge</id>
+    <url>http://maven-taglib.sourceforge.net/m2repo</url>
     </pluginRepository>
-  </pluginRepositories>
+    </pluginRepositories>
+  -->
 </project>
