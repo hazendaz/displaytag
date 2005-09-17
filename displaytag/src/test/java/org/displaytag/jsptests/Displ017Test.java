@@ -63,7 +63,7 @@ public class Displ017Test extends DisplaytagCase
     {
         WebTable[] tables = response.getTables();
 
-        assertEquals("Expected one table in result.", 1, tables.length);
+        assertEquals("Wrong number of tables.", 1, tables.length);
         assertEquals("Wrong number of columns in result.", 4, tables[0].getColumnCount());
 
         for (int j = 0; j < 4; j++)
