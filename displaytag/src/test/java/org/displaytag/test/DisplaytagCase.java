@@ -2,6 +2,7 @@ package org.displaytag.test;
 
 import java.io.File;
 import java.net.URL;
+import java.net.URLDecoder;
 
 import junit.framework.TestCase;
 
@@ -73,7 +74,7 @@ public abstract class DisplaytagCase extends TestCase
         // need to pass a web.xml file to setup servletunit working directory
         ClassLoader classLoader = getClass().getClassLoader();
         URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
-        String path = webXmlUrl.getFile();
+        String path = URLDecoder.decode(webXmlUrl.getFile(), "UTF-8");
 
         // start servletRunner
         runner = new ServletRunner(new File(path), CONTEXT);
