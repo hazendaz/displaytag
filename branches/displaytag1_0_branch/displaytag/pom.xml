@@ -1,0 +1,242 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>displaytag</groupId>
+  <artifactId>displaytag</artifactId>
+  <name>Display tag library</name>
+  <version>1.0</version>
+  <description>
+    The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
+    which will work in an MVC model. The library provides a significant amount of functionality while still being easy
+    to use.
+  </description>
+  <url>http://displaytag.sourceforge.net</url>
+  <issueManagement>
+    <url>http://jira.codehaus.org/browse/DISPL</url>
+  </issueManagement>
+  <inceptionYear>2002</inceptionYear>
+  <mailingLists>
+    <mailingList>
+      <name>${pom.name} User Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-user</archive>
+    </mailingList>
+    <mailingList>
+      <name>${pom.name} Developer Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-devel</archive>
+    </mailingList>
+    <mailingList>
+      <name>${pom.name} Cvs Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-cvs</archive>
+    </mailingList>
+  </mailingLists>
+  <developers>
+    <developer>
+      <id>matt</id>
+      <name>Matt Raible</name>
+      <email>mraible AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
+      <id>fgiust</id>
+      <name>Fabrizio Giustina</name>
+      <email>fgiust AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>pathoss</id>
+      <name>Mathias Bogaert</name>
+      <email>pathoss AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <id>javabencom</id>
+      <name>Benjamin Simpson</name>
+      <email>javabencom AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <id>johnryork</id>
+      <name>John York</name>
+      <email>johnryork AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <id>rapruitt</id>
+      <name>Andy Pruitt</name>
+      <email>rapruitt AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>-6</timezone>
+    </developer>
+    <developer>
+      <id>ed-hill</id>
+      <name>Ed Hill</name>
+      <email>ed-hill AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Didier Dubois</name>
+      <email>didier@ddubois.info</email>
+      <timezone>0</timezone>
+    </contributor>
+  </contributors>
+  <licenses>
+    <license>
+      <name>Artistic License</name>
+      <url>http://displaytag.sourceforge.net/license.html</url>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</connection>
+    <developerConnection>
+      scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag
+    </developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
+  </scm>
+  <organization>
+    <name>the Displaytag team</name>
+    <url>http://sourceforge.net/projects/displaytag</url>
+  </organization>
+  <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.8</version>
+    </dependency>
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.3</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>httpunit</groupId>
+      <artifactId>httpunit</artifactId>
+      <version>1.6</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>itext</groupId>
+      <artifactId>itext</artifactId>
+      <version>0.99</version>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>jasper-compiler</artifactId>
+      <version>4.0.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>tomcat</groupId>
+      <artifactId>jasper-runtime</artifactId>
+      <version>4.0.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>jetspeed</groupId>
+      <artifactId>portlet-api</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>jdk</groupId>
+      <artifactId>tools</artifactId>
+      <version>1.3</version>
+      <scope>system</scope>
+      <systemPath>${java.home}/../lib/tools.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>struts</groupId>
+      <artifactId>struts</artifactId>
+      <version>1.2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>opensymphony</groupId>
+      <artifactId>webwork</artifactId>
+      <version>2.1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>opensymphony</groupId>
+      <artifactId>xwork</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+  </dependencies>
+  <distributionManagement>
+    <site>
+      <id>default</id>
+      <name>Default Site</name>
+      <url>scp://shell.sourceforge.net//home/groups/d/di/displaytag/htdocs/</url>
+    </site>
+  </distributionManagement>
+</project>
