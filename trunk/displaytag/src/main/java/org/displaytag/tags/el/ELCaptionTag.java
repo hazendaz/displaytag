@@ -50,6 +50,11 @@ public class ELCaptionTag extends CaptionTag
     private String langExpr;
 
     /**
+     * Expression for the "media" tag attribute.
+     */
+    private String mediaExpr;
+
+    /**
      * Expression for the "style" tag attribute.
      */
     private String styleExpr;
@@ -89,6 +94,15 @@ public class ELCaptionTag extends CaptionTag
     public void setLang(String value)
     {
         langExpr = value;
+    }
+
+    /**
+     * @see org.displaytag.tags.CaptionTag#setMedia(java.lang.String)
+     * @param value EL expression for attribute value
+     */
+    public void setMedia(String value)
+    {
+        mediaExpr = value;
     }
 
     /**
@@ -140,6 +154,10 @@ public class ELCaptionTag extends CaptionTag
         {
             super.setLang(eval.evalString("lang", langExpr)); //$NON-NLS-1$
         }
+        if (mediaExpr != null)
+        {
+            super.setMedia(eval.evalString("media", mediaExpr)); //$NON-NLS-1$
+        }
         if (styleExpr != null)
         {
             super.setStyle(eval.evalString("style", styleExpr)); //$NON-NLS-1$
@@ -160,6 +178,7 @@ public class ELCaptionTag extends CaptionTag
         this.dirExpr = null;
         this.idExpr = null;
         this.langExpr = null;
+        this.mediaExpr = null;
         this.styleExpr = null;
         this.titleExpr = null;
     }

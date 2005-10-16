@@ -11,12 +11,15 @@
  */
 package org.displaytag.tags;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.displaytag.exception.TagStructureException;
+import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.util.MediaUtil;
 
 
 /**
@@ -25,13 +28,18 @@ import org.displaytag.exception.TagStructureException;
  * @author rapruitt
  * @version $Revision$ ($Author$)
  */
-public class TableFooterTag extends BodyTagSupport
+public class TableFooterTag extends BodyTagSupport implements MediaUtil.SupportsMedia
 {
 
     /**
      * D1597A17A6.
      */
     private static final long serialVersionUID = 899149338534L;
+
+    /**
+     * The media supported attribute.
+     */
+    private List supportedMedia;
 
     /**
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
@@ -43,6 +51,12 @@ public class TableFooterTag extends BodyTagSupport
         if (tableTag == null)
         {
             throw new TagStructureException(getClass(), "footer", "table");
+        }
+
+        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
+        if (currentMediaType != null && !MediaUtil.availableForMedia(this, currentMediaType))
+        {
+            return SKIP_BODY;
         }
 
         if (tableTag.isLastIteration())
@@ -68,6 +82,12 @@ public class TableFooterTag extends BodyTagSupport
             throw new TagStructureException(getClass(), "footer", "table");
         }
 
+        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
+        if (!MediaUtil.availableForMedia(this, currentMediaType))
+        {
+            return SKIP_BODY;
+        }
+
         // Run the footer only when all of the cells have been populated
         if (tableTag.isLastIteration())
         {
@@ -83,4 +103,37 @@ public class TableFooterTag extends BodyTagSupport
         return SKIP_BODY;
     }
 
+    /**
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
+     */
+    public void setSupportedMedia(List media)
+    {
+        this.supportedMedia = media;
+    }
+
+    /**
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
+     */
+    public List getSupportedMedia()
+    {
+        return this.supportedMedia;
+    }
+
+    /**
+     * Tag setter.
+     * @param media the space delimited list of supported types
+     */
+    public void setMedia(String media)
+    {
+        MediaUtil.setMedia(this, media);
+    }
+
+    /**
+     * @see javax.servlet.jsp.tagext.Tag#release()
+     */
+    public void release()
+    {
+        super.release();
+        this.supportedMedia = null;
+    }
 }

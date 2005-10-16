@@ -39,6 +39,7 @@ import org.apache.jasper.compiler.JspRuntimeContext;
 import org.apache.jasper.compiler.Localizer;
 import org.apache.jasper.runtime.JspSourceDependent;
 
+
 /**
  * <p>
  * <strong>This is a copy of the <code>JspServletWrapper</code> class included in tomcat 5.5.9, with only a single
@@ -46,16 +47,10 @@ import org.apache.jasper.runtime.JspSourceDependent;
  * catch during the servlet call has been removed to easily get the real cause of errors instead of obscure
  * <code>JasperException</code>s</strong>. (fgiust)
  * </p>
- *
- * The JSP engine (a.k.a Jasper).
- *
- * The servlet container is responsible for providing a
- * URLClassLoader for the web application context Jasper
- * is being used in. Jasper will try get the Tomcat
- * ServletContext attribute for its ServletContext class
- * loader, if that fails, it uses the parent class loader.
- * In either case, it must be a URLClassLoader.
- *
+ * The JSP engine (a.k.a Jasper). The servlet container is responsible for providing a URLClassLoader for the web
+ * application context Jasper is being used in. Jasper will try get the Tomcat ServletContext attribute for its
+ * ServletContext class loader, if that fails, it uses the parent class loader. In either case, it must be a
+ * URLClassLoader.
  * @author Anil K. Vijendran
  * @author Harish Prabandham
  * @author Remy Maucherat
@@ -63,95 +58,117 @@ import org.apache.jasper.runtime.JspSourceDependent;
  * @author Glenn Nielsen
  */
 
-public class JspServletWrapper {
+public class JspServletWrapper
+{
 
     // Logger
     private Log log = LogFactory.getLog(JspServletWrapper.class);
 
     private Servlet theServlet;
+
     private String jspUri;
+
     private Class servletClass;
+
     private Class tagHandlerClass;
+
     private JspCompilationContext ctxt;
+
     private long available = 0L;
+
     private ServletConfig config;
+
     private Options options;
+
     private boolean firstTime = true;
+
     private boolean reload = true;
+
     private boolean isTagFile;
+
     private int tripCount;
+
     private JasperException compileException;
+
     private long servletClassLastModifiedTime;
+
     private long lastModificationTest = 0L;
 
     /*
      * JspServletWrapper for JSP pages.
      */
-    JspServletWrapper(ServletConfig config, Options options, String jspUri,
-                      boolean isErrorPage, JspRuntimeContext rctxt)
-            throws JasperException {
+    JspServletWrapper(ServletConfig config, Options options, String jspUri, boolean isErrorPage, JspRuntimeContext rctxt)
+        throws JasperException
+    {
 
-    this.isTagFile = false;
+        this.isTagFile = false;
         this.config = config;
         this.options = options;
         this.jspUri = jspUri;
-        ctxt = new JspCompilationContext(jspUri, isErrorPage, options,
-                     config.getServletContext(),
-                     this, rctxt);
+        ctxt = new JspCompilationContext(jspUri, isErrorPage, options, config.getServletContext(), this, rctxt);
     }
 
     /*
      * JspServletWrapper for tag files.
      */
-    public JspServletWrapper(ServletContext servletContext,
-                 Options options,
-                 String tagFilePath,
-                 TagInfo tagInfo,
-                 JspRuntimeContext rctxt,
-                 URL tagFileJarUrl)
-        throws JasperException {
+    public JspServletWrapper(
+        ServletContext servletContext,
+        Options options,
+        String tagFilePath,
+        TagInfo tagInfo,
+        JspRuntimeContext rctxt,
+        URL tagFileJarUrl) throws JasperException
+    {
 
-    this.isTagFile = true;
+        this.isTagFile = true;
         this.config = null; // not used
         this.options = options;
-    this.jspUri = tagFilePath;
-    this.tripCount = 0;
-        ctxt = new JspCompilationContext(jspUri, tagInfo, options,
-                     servletContext, this, rctxt,
-                     tagFileJarUrl);
+        this.jspUri = tagFilePath;
+        this.tripCount = 0;
+        ctxt = new JspCompilationContext(jspUri, tagInfo, options, servletContext, this, rctxt, tagFileJarUrl);
     }
 
-    public JspCompilationContext getJspEngineContext() {
+    public JspCompilationContext getJspEngineContext()
+    {
         return ctxt;
     }
 
-    public void setReload(boolean reload) {
+    public void setReload(boolean reload)
+    {
         this.reload = reload;
     }
 
-    public Servlet getServlet()
-        throws ServletException, IOException, FileNotFoundException
+    public Servlet getServlet() throws ServletException, IOException, FileNotFoundException
     {
-        if (reload) {
-            synchronized (this) {
+        if (reload)
+        {
+            synchronized (this)
+            {
                 // Synchronizing on jsw enables simultaneous loading
                 // of different pages, but not the same page.
-                if (reload) {
+                if (reload)
+                {
                     // This is to maintain the original protocol.
                     destroy();
 
-                    try {
+                    try
+                    {
                         servletClass = ctxt.load();
                         theServlet = (Servlet) servletClass.newInstance();
-                    } catch( IllegalAccessException ex1 ) {
-                        throw new JasperException( ex1 );
-                    } catch( InstantiationException ex ) {
-                        throw new JasperException( ex );
+                    }
+                    catch (IllegalAccessException ex1)
+                    {
+                        throw new JasperException(ex1);
+                    }
+                    catch (InstantiationException ex)
+                    {
+                        throw new JasperException(ex);
                     }
 
                     theServlet.init(config);
 
-                    if (!firstTime) {
+                    if (!firstTime)
+                    {
                         ctxt.getRuntimeContext().incrementJspReloadCount();
                     }
 
@@ -162,29 +179,32 @@ public class JspServletWrapper {
         return theServlet;
     }
 
-    public ServletContext getServletContext() {
+    public ServletContext getServletContext()
+    {
         return config.getServletContext();
     }
 
     /**
      * Sets the compilation exception for this JspServletWrapper.
-     *
      * @param je The compilation exception
      */
-    public void setCompilationException(JasperException je) {
+    public void setCompilationException(JasperException je)
+    {
         this.compileException = je;
     }
 
     /**
-     * Sets the last-modified time of the servlet class file associated with
-     * this JspServletWrapper.
-     *
+     * Sets the last-modified time of the servlet class file associated with this JspServletWrapper.
      * @param lastModified Last-modified time of servlet class
      */
-    public void setServletClassLastModifiedTime(long lastModified) {
-        if (this.servletClassLastModifiedTime < lastModified) {
-            synchronized (this) {
-                if (this.servletClassLastModifiedTime < lastModified) {
+    public void setServletClassLastModifiedTime(long lastModified)
+    {
+        if (this.servletClassLastModifiedTime < lastModified)
+        {
+            synchronized (this)
+            {
+                if (this.servletClassLastModifiedTime < lastModified)
+                {
                     this.servletClassLastModifiedTime = lastModified;
                     reload = true;
                 }
@@ -195,112 +215,143 @@ public class JspServletWrapper {
     /**
      * Compile (if needed) and load a tag file
      */
-    public Class loadTagFile() throws JasperException {
+    public Class loadTagFile() throws JasperException
+    {
 
-        try {
-            if (ctxt.isRemoved()) {
+        try
+        {
+            if (ctxt.isRemoved())
+            {
                 throw new FileNotFoundException(jspUri);
             }
-            if (options.getDevelopment() || firstTime ) {
-                synchronized (this) {
+            if (options.getDevelopment() || firstTime)
+            {
+                synchronized (this)
+                {
                     firstTime = false;
                     ctxt.compile();
                 }
-            } else {
-                if (compileException != null) {
+            }
+            else
+            {
+                if (compileException != null)
+                {
                     throw compileException;
                 }
             }
 
-            if (reload) {
+            if (reload)
+            {
                 tagHandlerClass = ctxt.load();
             }
-        } catch (FileNotFoundException ex) {
+        }
+        catch (FileNotFoundException ex)
+        {
             throw new JasperException(ex);
-    }
+        }
 
-    return tagHandlerClass;
+        return tagHandlerClass;
     }
 
     /**
-     * Compile and load a prototype for the Tag file.  This is needed
-     * when compiling tag files with circular dependencies.  A prototpe
-     * (skeleton) with no dependencies on other other tag files is
-     * generated and compiled.
+     * Compile and load a prototype for the Tag file. This is needed when compiling tag files with circular
+     * dependencies. A prototpe (skeleton) with no dependencies on other other tag files is generated and compiled.
      */
-    public Class loadTagFilePrototype() throws JasperException {
+    public Class loadTagFilePrototype() throws JasperException
+    {
 
-    ctxt.setPrototypeMode(true);
-    try {
-        return loadTagFile();
-    } finally {
-        ctxt.setPrototypeMode(false);
-    }
+        ctxt.setPrototypeMode(true);
+        try
+        {
+            return loadTagFile();
+        }
+        finally
+        {
+            ctxt.setPrototypeMode(false);
+        }
     }
 
     /**
      * Get a list of files that the current page has source dependency on.
      */
-    public java.util.List getDependants() {
-    try {
-        Object target;
-        if (isTagFile) {
-                if (reload) {
+    public java.util.List getDependants()
+    {
+        try
+        {
+            Object target;
+            if (isTagFile)
+            {
+                if (reload)
+                {
                     tagHandlerClass = ctxt.load();
                 }
-        target = tagHandlerClass.newInstance();
-        } else {
-        target = getServlet();
+                target = tagHandlerClass.newInstance();
+            }
+            else
+            {
+                target = getServlet();
+            }
+            if (target != null && target instanceof JspSourceDependent)
+            {
+                return ((JspSourceDependent) target).getDependants();
+            }
         }
-        if (target != null && target instanceof JspSourceDependent) {
-        return ((JspSourceDependent) target).getDependants();
+        catch (Throwable ex)
+        {
         }
-    } catch (Throwable ex) {
-    }
-    return null;
+        return null;
     }
 
-    public boolean isTagFile() {
-    return this.isTagFile;
+    public boolean isTagFile()
+    {
+        return this.isTagFile;
     }
 
-    public int incTripCount() {
-    return tripCount++;
+    public int incTripCount()
+    {
+        return tripCount++;
     }
 
-    public int decTripCount() {
-    return tripCount--;
+    public int decTripCount()
+    {
+        return tripCount--;
     }
 
-    public void service(HttpServletRequest request,
-                        HttpServletResponse response,
-                        boolean precompile)
-        throws ServletException, IOException, FileNotFoundException {
-        try {
+    public void service(HttpServletRequest request, HttpServletResponse response, boolean precompile)
+        throws ServletException, IOException, FileNotFoundException
+    {
+        try
+        {
 
-            if (ctxt.isRemoved()) {
+            if (ctxt.isRemoved())
+            {
                 throw new FileNotFoundException(jspUri);
             }
 
-            if ((available > 0L) && (available < Long.MAX_VALUE)) {
+            if ((available > 0L) && (available < Long.MAX_VALUE))
+            {
                 response.setDateHeader("Retry-After", available);
-                response.sendError
-                    (HttpServletResponse.SC_SERVICE_UNAVAILABLE,
-                     Localizer.getMessage("jsp.error.unavailable"));
+                response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, Localizer
+                    .getMessage("jsp.error.unavailable"));
             }
 
             /*
              * (1) Compile
              */
-            if (options.getDevelopment() || firstTime ) {
-                synchronized (this) {
+            if (options.getDevelopment() || firstTime)
+            {
+                synchronized (this)
+                {
                     firstTime = false;
 
                     // The following sets reload to true, if necessary
                     ctxt.compile();
                 }
-            } else {
-                if (compileException != null) {
+            }
+            else
+            {
+                if (compileException != null)
+                {
                     // Throw cached compilation exception
                     throw compileException;
                 }
@@ -312,78 +363,97 @@ public class JspServletWrapper {
             getServlet();
 
             // If a page is to be precompiled only, return.
-            if (precompile) {
+            if (precompile)
+            {
                 return;
             }
 
             /*
              * (3) Service request
              */
-            if (theServlet instanceof SingleThreadModel) {
-               // sync on the wrapper so that the freshness
-               // of the page is determined right before servicing
-               synchronized (this) {
-                   theServlet.service(request, response);
+            if (theServlet instanceof SingleThreadModel)
+            {
+                // sync on the wrapper so that the freshness
+                // of the page is determined right before servicing
+                synchronized (this)
+                {
+                    theServlet.service(request, response);
                 }
-            } else {
+            }
+            else
+            {
                 theServlet.service(request, response);
             }
 
-        } catch (UnavailableException ex) {
-            String includeRequestUri = (String)
-                request.getAttribute("javax.servlet.include.request_uri");
-            if (includeRequestUri != null) {
+        }
+        catch (UnavailableException ex)
+        {
+            String includeRequestUri = (String) request.getAttribute("javax.servlet.include.request_uri");
+            if (includeRequestUri != null)
+            {
                 // This file was included. Throw an exception as
                 // a response.sendError() will be ignored by the
                 // servlet engine.
                 throw ex;
-            } else {
-                int unavailableSeconds = ex.getUnavailableSeconds();
-                if (unavailableSeconds <= 0) {
-                    unavailableSeconds = 60;        // Arbitrary default
-                }
-                available = System.currentTimeMillis() +
-                    (unavailableSeconds * 1000L);
-                response.sendError
-                    (HttpServletResponse.SC_SERVICE_UNAVAILABLE,
-                     ex.getMessage());
             }
-        } catch (FileNotFoundException ex) {
+            else
+            {
+                int unavailableSeconds = ex.getUnavailableSeconds();
+                if (unavailableSeconds <= 0)
+                {
+                    unavailableSeconds = 60; // Arbitrary default
+                }
+                available = System.currentTimeMillis() + (unavailableSeconds * 1000L);
+                response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE, ex.getMessage());
+            }
+        }
+        catch (FileNotFoundException ex)
+        {
             ctxt.incrementRemoved();
-            String includeRequestUri = (String)
-                request.getAttribute("javax.servlet.include.request_uri");
-            if (includeRequestUri != null) {
+            String includeRequestUri = (String) request.getAttribute("javax.servlet.include.request_uri");
+            if (includeRequestUri != null)
+            {
                 // This file was included. Throw an exception as
                 // a response.sendError() will be ignored by the
                 // servlet engine.
                 throw new ServletException(ex);
-            } else {
-                try {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND,
-                                      ex.getMessage());
-                } catch (IllegalStateException ise) {
-                    log.error(Localizer.getMessage("jsp.error.file.not.found",
-                           ex.getMessage()),
-                  ex);
+            }
+            else
+            {
+                try
+                {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, ex.getMessage());
+                }
+                catch (IllegalStateException ise)
+                {
+                    log.error(Localizer.getMessage("jsp.error.file.not.found", ex.getMessage()), ex);
                 }
             }
-        } catch (ServletException ex) {
-        throw ex;
-        } catch (IOException ex) {
-            throw ex;
-        } catch (IllegalStateException ex) {
+        }
+        catch (ServletException ex)
+        {
             throw ex;
         }
-// CHANGED by fgiust
-//        } catch (Exception ex) {
-//            log.error(ex.getClass().getName(), ex);
-//            throw new JasperException(ex);
-//        }
-// END CHANGED by fgiust
+        catch (IOException ex)
+        {
+            throw ex;
+        }
+        catch (IllegalStateException ex)
+        {
+            throw ex;
+        }
+        // CHANGED by fgiust
+        // } catch (Exception ex) {
+        // log.error(ex.getClass().getName(), ex);
+        // throw new JasperException(ex);
+        // }
+        // END CHANGED by fgiust
     }
 
-    public void destroy() {
-        if (theServlet != null) {
+    public void destroy()
+    {
+        if (theServlet != null)
+        {
             theServlet.destroy();
         }
     }
@@ -391,13 +461,16 @@ public class JspServletWrapper {
     /**
      * @return Returns the lastModificationTest.
      */
-    public long getLastModificationTest() {
+    public long getLastModificationTest()
+    {
         return lastModificationTest;
     }
+
     /**
      * @param lastModificationTest The lastModificationTest to set.
      */
-    public void setLastModificationTest(long lastModificationTest) {
+    public void setLastModificationTest(long lastModificationTest)
+    {
         this.lastModificationTest = lastModificationTest;
     }
 

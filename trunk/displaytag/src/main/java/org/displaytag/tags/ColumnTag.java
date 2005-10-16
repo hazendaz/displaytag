@@ -12,7 +12,6 @@
 package org.displaytag.tags;
 
 import java.text.Collator;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -39,6 +38,7 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MediaUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
@@ -56,7 +56,7 @@ import org.displaytag.util.TagConstants;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ColumnTag extends BodyTagSupport
+public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
 {
 
     /**
@@ -575,21 +575,6 @@ public class ColumnTag extends BodyTagSupport
     }
 
     /**
-     * Is this column configured for the media type?
-     * @param mediaType the currentMedia type
-     * @return true if the column should be displayed for this request
-     */
-    public boolean availableForMedia(MediaTypeEnum mediaType)
-    {
-        if (supportedMedia == null)
-        {
-            return true;
-        }
-
-        return this.supportedMedia.contains(mediaType);
-    }
-
-    /**
      * Looks up the parent table tag.
      * @return a table tag instance.
      */
@@ -604,29 +589,23 @@ public class ColumnTag extends BodyTagSupport
      */
     public void setMedia(String media)
     {
-        if (StringUtils.isBlank(media) || media.toLowerCase().indexOf("all") > -1)
-        {
-            this.supportedMedia = null;
-            return;
-        }
-        this.supportedMedia = new ArrayList();
-        String[] values = StringUtils.split(media);
-        for (int i = 0; i < values.length; i++)
-        {
-            String value = values[i];
-            if (!StringUtils.isBlank(value))
-            {
-                MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
-                if (type == null)
-                {
-                    log.warn("Unrecognized value for attribute \"media\" value=\"" + value + "\"");
-                }
-                else
-                {
-                    this.supportedMedia.add(type);
-                }
-            }
-        }
+        MediaUtil.setMedia(this, media);
+    }
+
+    /**
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
+     */
+    public void setSupportedMedia(List media)
+    {
+        this.supportedMedia = media;
+    }
+
+    /**
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
+     */
+    public List getSupportedMedia()
+    {
+        return this.supportedMedia;
     }
 
     /**
@@ -668,7 +647,7 @@ public class ColumnTag extends BodyTagSupport
         TableTag tableTag = getTableTag();
 
         MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-        if (currentMediaType != null && !availableForMedia(currentMediaType))
+        if (currentMediaType != null && !MediaUtil.availableForMedia(this, currentMediaType))
         {
             if (log.isDebugEnabled())
             {
@@ -886,7 +865,7 @@ public class ColumnTag extends BodyTagSupport
         }
 
         MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-        if (!availableForMedia(currentMediaType))
+        if (!MediaUtil.availableForMedia(this, currentMediaType))
         {
             return SKIP_BODY;
         }

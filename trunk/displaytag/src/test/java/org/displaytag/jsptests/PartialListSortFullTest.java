@@ -1,10 +1,10 @@
 package org.displaytag.jsptests;
 
+import org.displaytag.test.DisplaytagCase;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
-import org.displaytag.test.DisplaytagCase;
-import junit.framework.TestCase;
 
 
 /**
@@ -38,8 +38,8 @@ public class PartialListSortFullTest extends DisplaytagCase
 
         try
         {
-          response = runner.getResponse(request);
-          TestCase.fail("Should have thrown an exception, its invalid to have sort=full when partialList=true");
+            response = runner.getResponse(request);
+            fail("Should have thrown an exception, its invalid to have sort=full when partialList=true");
         }
         catch (Throwable t)
         {

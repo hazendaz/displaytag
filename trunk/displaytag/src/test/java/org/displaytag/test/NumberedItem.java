@@ -1,6 +1,5 @@
 package org.displaytag.test;
 
-
 /**
  * Simple test objects which wraps an int value.
  * @author Fabrizio Giustina

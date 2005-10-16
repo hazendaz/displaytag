@@ -1,14 +1,14 @@
 package org.displaytag.conversion;
 
-import org.displaytag.properties.TableProperties;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.beanutils.ConvertUtilsBean;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.Map;
-import java.util.HashMap;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.displaytag.properties.TableProperties;
 
 
 /**
@@ -20,7 +20,7 @@ public final class PropertyConvertorFactory
 {
 
     /**
-     *  The convert utils bean, with standard converters registered.
+     * The convert utils bean, with standard converters registered.
      */
     private static ConvertUtilsBean defaultConvertorSource = new ConvertUtilsBean();
 
