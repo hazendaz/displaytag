@@ -1,22 +1,14 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="Display tag library">
-
-    <title>Display tag library</title>
-
-    <body>
-        <links>
-            <item name="Live examples" href="http://displaytag.homeip.net" />
-        </links>
-
-       <menu name="Excel export module">
-       </menu>
-
-        <menu name="Modules">
-            <item name="Documentation" href="../../index.html" />
-            <item name="Core Tag library" href="../displaytag/index.html" />
-            <item name="Example application" href="../displaytag-examples/index.html" />
-            <item name="Excel export module" href="../displaytag-export-poi/index.html" />
-        </menu>
-
-    </body>
+  <title>Display tag library</title>
+  <body>
+    <menu name="Excel export module"><!--  --></menu>
+    <menu name="Modules">
+      <item name="Documentation" href="../index.html" />
+      <item name="Core Tag library" href="../displaytag/index.html" />
+      <item name="Example application" href="../displaytag-examples/index.html" />
+      <item name="Excel export module" href="../displaytag-export-poi/index.html" />
+    </menu>
+    ${reports}
+  </body>
 </project>

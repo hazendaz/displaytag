@@ -18,11 +18,11 @@
     to use.
   </description>
   <scm>
-    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</connection>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc</connection>
     <developerConnection>
-      scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag
+      scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc
     </developerConnection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-doc/</url>
   </scm>
   <issueManagement>
     <url>http://jira.codehaus.org/BrowseProject.jspa?id=10800</url>
@@ -190,7 +190,7 @@
     <site>
       <id>displaytag</id>
       <name>displaytag</name>
-      <url>scp://shell.sourceforge.net//home/groups/d/di/displaytag/htdocs/11/multiproject/displaytag-parent</url>
+      <url>scp://shell.sourceforge.net//home/groups/d/di/displaytag/htdocs/11/</url>
     </site>
   </distributionManagement>
   <ciManagement>
