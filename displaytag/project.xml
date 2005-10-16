@@ -336,7 +336,7 @@
     <dependency>
       <groupId>itext</groupId>
       <artifactId>itext</artifactId>
-      <version>0.99</version>
+      <version>1.3</version>
       <url>http://prdownloads.sourceforge.net/itext/</url>
       <properties>
         <war.bundle>true</war.bundle>

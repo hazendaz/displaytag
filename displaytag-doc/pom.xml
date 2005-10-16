@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag-doc</artifactId>
-  <name>Display tag library</name>
+  <name>Display tag library documentation</name>
   <packaging>jar</packaging>
   <version>1.1-SNAPSHOT</version>
   <organization>
@@ -17,19 +17,22 @@
     which will work in an MVC model. The library provides a significant amount of functionality while still being easy
     to use.
   </description>
+  <scm>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</connection>
+    <developerConnection>
+      scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag
+    </developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
+  </scm>
+  <issueManagement>
+    <url>http://jira.codehaus.org/BrowseProject.jspa?id=10800</url>
+  </issueManagement>
   <licenses>
     <license>
       <name>Artistic License</name>
       <url>http://displaytag.sourceforge.net/license.html</url>
     </license>
   </licenses>
-  <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
-  <distributionManagement>
-    <repository>
-      <id>displaytag</id>
-      <url>http://displaytag.sourceforge.net/maven</url>
-    </repository>
-  </distributionManagement>
   <mailingLists>
     <mailingList>
       <name>Display tag library User Mailing list</name>
@@ -128,52 +131,90 @@
       <timezone>0</timezone>
     </contributor>
   </contributors>
-  <licenses>
-    <license>
-      <name>Artistic License</name>
-      <url>http://displaytag.sourceforge.net/license.html</url>
-      <distribution></distribution>
-      <comments></comments>
-    </license>
-  </licenses>
-  <organization>
-    <name>the Displaytag team</name>
-    <url>http://sourceforge.net/projects/displaytag</url>
-  </organization>
-  <dependencies></dependencies>
   <build>
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <testSourceDirectory>src/test/java</testSourceDirectory>
-    <defaultGoal>install</defaultGoal>
-    <resources>
-      <resource>
-        <targetPath></targetPath>
-        <directory>src/main/resources</directory>
-        <includes>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-      </testResource>
-    </testResources>
-  </build>
-  <reporting>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.4</source>
+          <target>1.4</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <projectnatures>
+            <java.lang.String>org.eclipse.jdt.core.javanature</java.lang.String>
+            <java.lang.String>org.eclipse.wst.common.modulecore.ModuleCoreNature</java.lang.String>
+          </projectnatures>
+          <buildcommands>
+            <java.lang.String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</java.lang.String>
+            <java.lang.String>org.eclipse.jdt.core.javabuilder</java.lang.String>
+            <java.lang.String>
+              org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver
+            </java.lang.String>
+          </buildcommands>
+        </configuration>
       </plugin>
     </plugins>
-  </reporting>
+  </build>
   <repositories>
     <repository>
       <id>displaytag</id>
       <url>http://displaytag.sourceforge.net/m2repo</url>
     </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-taglib-sourceforge</id>
+      <url>http://maven-taglib.sourceforge.net/m2repo</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <distributionManagement>
+    <repository>
+      <id>displaytag</id>
+      <url>http://displaytag.sourceforge.net/maven</url>
+      <layout>legacy</layout>
+    </repository>
+    <site>
+      <id>displaytag</id>
+      <name>displaytag</name>
+      <url>scp://shell.sourceforge.net//home/groups/d/di/displaytag/htdocs/11/multiproject/displaytag-parent</url>
+    </site>
+  </distributionManagement>
+  <ciManagement>
+    <notifiers>
+      <notifier>
+        <configuration>
+          <address>displaytag-continuum@lists.sourceforge.net</address>
+        </configuration>
+        <type>mail</type>
+      </notifier>
+    </notifiers>
+  </ciManagement>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>changes-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
   <modules>
     <module>../displaytag</module>
     <module>../displaytag-export-poi</module>
