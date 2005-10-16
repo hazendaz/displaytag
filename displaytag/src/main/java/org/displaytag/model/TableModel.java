@@ -102,6 +102,16 @@ public class TableModel
     private boolean localSort = true;
 
     /**
+     * Table caption.
+     */
+    private String caption;
+
+    /**
+     * Table footer.
+     */
+    private String footer;
+
+    /**
      * Constructor for TableModel.
      * @param tableProperties table properties
      * @param charEncoding response encoding
@@ -454,6 +464,42 @@ public class TableModel
     }
 
     /**
+     * Obtain this table's caption.
+     * @return This table's caption.
+     */
+    public String getCaption()
+    {
+        return this.caption;
+    }
+
+    /**
+     * Set this table's caption.
+     * @param caption This table's caption.
+     */
+    public void setCaption(String caption)
+    {
+        this.caption = caption;
+    }
+
+    /**
+     * Obtain this table's footer.
+     * @return This table's footer.
+     */
+    public String getFooter()
+    {
+        return this.footer;
+    }
+
+    /**
+     * Set this table's footer.
+     * @param footer This table's footer.
+     */
+    public void setFooter(String footer)
+    {
+        this.footer = footer;
+    }
+
+    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
@@ -472,6 +518,8 @@ public class TableModel
             .append("sortedColumnHeader", this.getSortedColumnHeader()) //$NON-NLS-1$
             .append("sorted", this.isSorted()) //$NON-NLS-1$
             .append("tableDecorator", this.tableDecorator) //$NON-NLS-1$
+            .append("caption", this.getCaption()) //$NON-NLS-1
+            .append("footer", this.getFooter()) //$NON-NLS-1
             .toString();
     }
 }

@@ -85,7 +85,8 @@ public class AutolinkColumnDecorator implements ColumnDecorator
 
             buffer.append(work.substring(0, start)).append("<a href=\"mailto:") //$NON-NLS-1$
                 .append(email + "\">") //$NON-NLS-1$
-                .append(email).append("</a>"); //$NON-NLS-1$
+                .append(email)
+                .append("</a>"); //$NON-NLS-1$
 
             if (end == work.length())
             {
@@ -141,8 +142,10 @@ public class AutolinkColumnDecorator implements ColumnDecorator
             String url = work.substring(fullUrlBegin, urlEnd);
 
             buffer.append(work.substring(0, fullUrlBegin)).append("<a href=\"")//$NON-NLS-1$
-                .append(url).append("\">")//$NON-NLS-1$
-                .append(url).append("</a>"); //$NON-NLS-1$
+                .append(url)
+                .append("\">")//$NON-NLS-1$
+                .append(url)
+                .append("</a>"); //$NON-NLS-1$
 
             if (urlEnd >= work.length())
             {

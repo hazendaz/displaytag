@@ -150,8 +150,10 @@ public final class LookupUtil
         {
             // don't throw exceptions for nulls; the bean and name have already been checked; this is being thrown when
             // the bean property value is itself null.
-            log.debug("Caught IllegalArgumentException from beanutils while looking up "
-                    + name + " in bean " + bean, e);
+            log
+                .debug(
+                    "Caught IllegalArgumentException from beanutils while looking up " + name + " in bean " + bean,
+                    e);
             return null;
         }
     }

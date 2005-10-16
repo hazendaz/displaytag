@@ -17,7 +17,8 @@ public class KnownTypes
     public static final String TIME_PROPERTY = "time";
 
     /**
-     * constant for the "time" property value.  For the curious, evals to Mon Mar 01 18:00:00 CST 3875 (if you are in Chicago).
+     * constant for the "time" property value. For the curious, evals to Mon Mar 01 18:00:00 CST 3875 (if you are in
+     * Chicago).
      */
     public static final Date TIME_VALUE = new Date(60121180800000L);
 

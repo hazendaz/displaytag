@@ -49,7 +49,8 @@ public class RequestUriTest extends DisplaytagCase
 
         WebLink[] links = response.getLinks();
         assertEquals("Wrong number of links in result.", MediaTypeEnum.getSize() - 1 // MediaTypeEnum also lists html
-            , links.length);
+            ,
+            links.length);
 
         URLAssert.assertEquals(CONTEXT
             + "/goforit?"

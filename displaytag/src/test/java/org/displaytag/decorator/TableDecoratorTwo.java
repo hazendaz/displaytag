@@ -1,6 +1,5 @@
 package org.displaytag.decorator;
 
-
 /**
  * Test decorator used in tests.
  * @author Fabrizio Giustina

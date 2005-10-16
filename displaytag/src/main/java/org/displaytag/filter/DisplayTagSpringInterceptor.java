@@ -38,7 +38,7 @@ import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
  * a jsp:include. If that is your intention, just add this interceptor to your spring dispatcher context xml and map it
  * to the appropriate requests, using something like:
  * </p>
- *
+ * 
  * <pre>
  * &lt;bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
  *   &lt;property name="interceptors">
@@ -48,19 +48,19 @@ import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
  *   &lt;/property
  * &lt;/bean>
  * </pre>
- *
+ * 
  * <p>
  * By default the interceptor buffers all the export content before writing it out. You can set an optional parameter
  * <code>buffer</code> to <code>false</code> to make the interceptor write directly to the output stream. This could
  * be faster and uses less memory, but the content length will not be set.
  * </p>
- *
+ * 
  * <pre>
  *  &lt;bean class="org.displaytag.filter.DisplayTagSpringInterceptor">
  *      &lt;property name="buffer">&lt;value>false&lt;/value>&lt;/property>
  *  &lt;/bean>
  *  </pre>
- *
+ * 
  * @author Keith Garry Boyce
  * @author rapruitt
  * @author Fabrizio Giustina

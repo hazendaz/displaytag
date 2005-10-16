@@ -18,7 +18,6 @@ import java.io.Writer;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -40,11 +39,9 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.TableDecorator;
-import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ExportException;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
-import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.WrappedRuntimeException;
 import org.displaytag.export.BinaryExportView;
 import org.displaytag.export.ExportView;
@@ -52,10 +49,8 @@ import org.displaytag.export.ExportViewFactory;
 import org.displaytag.export.TextExportView;
 import org.displaytag.model.Cell;
 import org.displaytag.model.Column;
-import org.displaytag.model.ColumnIterator;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
-import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 import org.displaytag.pagination.PaginatedList;
 import org.displaytag.pagination.PaginatedListSmartListHelper;
@@ -63,6 +58,7 @@ import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.properties.TableProperties;
+import org.displaytag.render.HtmlTableWriter;
 import org.displaytag.util.Anchor;
 import org.displaytag.util.CollectionUtil;
 import org.displaytag.util.DependencyChecker;
@@ -236,11 +232,6 @@ public class TableTag extends HtmlTableTag
     // -- end tag attributes --
 
     /**
-     * Map which contains previous row values. Needed for grouping
-     */
-    private Map previousRow;
-
-    /**
      * table model - initialized in doStartTag().
      */
     private TableModel tableModel;
@@ -249,11 +240,6 @@ public class TableTag extends HtmlTableTag
      * current row.
      */
     private Row currentRow;
-
-    /**
-     * next row.
-     */
-    private Map nextRow;
 
     /**
      * Used by various functions when the person wants to do paging - cleaned in doEndTag().
@@ -296,7 +282,7 @@ public class TableTag extends HtmlTableTag
     private ParamEncoder paramEncoder;
 
     /**
-     * static footer added using the footer tag.
+     * Static footer added using the footer tag.
      */
     private String footer;
 
@@ -306,9 +292,14 @@ public class TableTag extends HtmlTableTag
     private boolean lastIteration;
 
     /**
-     * static caption added using the footer tag.
+     * Static caption added using the footer tag.
      */
     private String caption;
+
+    /**
+     * Child caption tag
+     */
+    private CaptionTag captionTag;
 
     /**
      * Included row range. If no rows can be skipped the range is from 0 to Long.MAX_VALUE. Range check should be always
@@ -349,6 +340,16 @@ public class TableTag extends HtmlTableTag
     public void setFooter(String string)
     {
         this.footer = string;
+        this.tableModel.setFooter(this.footer);
+    }
+
+    /**
+     * Obtain the footer content. Called by TableWriters to render the footer.
+     * @return string footer content
+     */
+    public String getFooter()
+    {
+        return this.footer;
     }
 
     /**
@@ -358,6 +359,25 @@ public class TableTag extends HtmlTableTag
     public void setCaption(String string)
     {
         this.caption = string;
+        this.tableModel.setCaption(this.caption);
+    }
+
+    /**
+     * Set the child caption tag.
+     * @param captionTag Child caption tag
+     */
+    public void setCaptionTag(CaptionTag captionTag)
+    {
+        this.captionTag = captionTag;
+    }
+
+    /**
+     * Obtain the child caption tag.
+     * @return The child caption tag
+     */
+    public CaptionTag getCaptionTag()
+    {
+        return this.captionTag;
     }
 
     /**
@@ -852,7 +872,6 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Reads parameters from the request and initialize all the needed table model attributes.
-     * @throws ObjectLookupException for problems in evaluating the expression in the "name" attribute
      * @throws FactoryInstantiationException for problems in instantiating a RequestHelperFactory
      */
     private void initParameters() throws JspTagException, FactoryInstantiationException
@@ -1225,7 +1244,19 @@ public class TableTag extends HtmlTableTag
             describeEmptyTable();
         }
 
-        TableDecorator tableDecorator = DecoratorFactory.loadTableDecorator(this.decoratorName);
+        // TableDecorator tableDecorator = DecoratorFactory.loadTableDecorator(this.decoratorName);
+        String tableDecoratorName = null;
+        Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
+        if (MediaTypeEnum.HTML.equals(this.currentMediaType)
+            && (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType)))
+        {
+            tableDecoratorName = this.decoratorName;
+        }
+        else if (!MediaTypeEnum.HTML.equals(this.currentMediaType))
+        {
+            tableDecoratorName = this.getProperties().getExportDecoratorName(this.currentMediaType);
+        }
+        TableDecorator tableDecorator = DecoratorFactory.loadTableDecorator(tableDecoratorName);
 
         if (tableDecorator != null)
         {
@@ -1250,7 +1281,7 @@ public class TableTag extends HtmlTableTag
         int returnValue = EVAL_PAGE;
 
         // check for nested tables
-        Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
+        // Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
         if (MediaTypeEnum.HTML.equals(this.currentMediaType)
             && (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType)))
         {
@@ -1287,14 +1318,13 @@ public class TableTag extends HtmlTableTag
         this.currentMediaType = null;
         this.baseHref = null;
         this.caption = null;
+        this.captionTag = null;
         this.currentRow = null;
         this.doAfterBodyExecuted = false;
         this.footer = null;
         this.listHelper = null;
-        this.nextRow = null;
         this.pageNumber = 0;
         this.paramEncoder = null;
-        this.previousRow = null;
         this.properties = null;
         this.rowNumber = 1;
         this.tableIterator = null;
@@ -1573,98 +1603,26 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * called when data have to be displayed in a html page.
+     * Uses HtmlTableWriter to write table called when data have to be displayed in a html page.
      * @throws JspException generic exception
      */
     private void writeHTMLData() throws JspException
     {
         JspWriter out = this.pageContext.getOut();
 
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + getUid() + "] getHTMLData called for table [" + getUid() + "]");
-        }
-
-        boolean noItems = this.tableModel.getRowListPage().size() == 0;
-
-        if (noItems && !this.properties.getEmptyListShowTable())
-        {
-            write(this.properties.getEmptyListMessage(), out);
-            return;
-        }
-
-        // variables to hold the previous row columns values.
-        this.previousRow = new Hashtable(10);
-
-        // variables to hold next row column values.
-        this.nextRow = new Hashtable(10);
-
-        // Put the page stuff there if it needs to be there...
-        if (this.properties.getAddPagingBannerTop())
-        {
-            // search result and navigation bar
-            writeSearchResultAndNavigation();
-        }
-
         String css = this.properties.getCssTable();
         if (StringUtils.isNotBlank(css))
         {
             this.addClass(css);
         }
-
-        // open table
-        write(getOpenTag(), out);
-
-        // caption
-        if (this.caption != null)
-        {
-            write(this.caption, out);
-        }
-
-        // thead
-        if (this.properties.getShowHeader())
-        {
-            writeTableHeader();
-        }
-
-        if (this.footer != null)
-        {
-            write(TagConstants.TAG_TFOOTER_OPEN, out);
-            write(this.footer, out);
-            write(TagConstants.TAG_TFOOTER_CLOSE, out);
-            // reset footer
-            this.footer = null;
-        }
-
-        // open table body
-        write(TagConstants.TAG_TBODY_OPEN, out);
-
-        // write table body
-        writeTableBody();
-
-        // close table body
-        write(TagConstants.TAG_TBODY_CLOSE, out);
-
-        // close table
-        write(getCloseTag(), out);
-
-        writeTableFooter();
-
-        if (this.tableModel.getTableDecorator() != null)
-        {
-            this.tableModel.getTableDecorator().finish();
-        }
-
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + getUid() + "] getHTMLData end");
-        }
+        // use HtmlTableWriter to write table
+        new HtmlTableWriter(this, out).writeTable(this.tableModel, this.getUid());
     }
 
     /**
      * Generates the table header, including the first row of the table which displays the titles of the columns.
      */
-    private void writeTableHeader()
+    public void writeTableHeader()
     {
         JspWriter out = this.pageContext.getOut();
 
@@ -1830,155 +1788,6 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * This takes a column value and grouping index as the argument. It then groups the column and returns the
-     * appropriate string back to the caller.
-     * @param value String
-     * @param group int
-     * @return String
-     */
-    private String groupColumns(String value, int group)
-    {
-
-        if ((group == 1) && this.nextRow.size() > 0)
-        {
-            // we are at the begining of the next row so copy the contents from nextRow to the previousRow.
-            this.previousRow.clear();
-            this.previousRow.putAll(this.nextRow);
-            this.nextRow.clear();
-        }
-
-        if (!this.nextRow.containsKey(new Integer(group)))
-        {
-            // Key not found in the nextRow so adding this key now...
-            // remember all the old values.
-            this.nextRow.put(new Integer(group), value);
-        }
-
-        // Start comparing the value we received, along with the grouping index.
-        // if no matching value is found in the previous row then return the value.
-        // if a matching value is found then this value should not get printed out
-        // so return an empty String
-        if (this.previousRow.containsKey(new Integer(group)))
-        {
-            for (int j = 1; j <= group; j++)
-            {
-
-                if (!((String) this.previousRow.get(new Integer(j))).equals((this.nextRow.get(new Integer(j)))))
-                {
-                    // no match found so return this value back to the caller.
-                    return value;
-                }
-            }
-        }
-
-        // This is used, for when there is no data in the previous row,
-        // It gets used only the first time.
-        if (this.previousRow.size() == 0)
-        {
-            return value;
-        }
-
-        // There is corresponding value in the previous row
-        // this value doesn't need to be printed, return an empty String
-        return TagConstants.EMPTY_STRING;
-    }
-
-    /**
-     * Writes the table body content.
-     * @throws ObjectLookupException for errors in looking up properties in objects
-     * @throws DecoratorException for errors returned by decorators
-     */
-    private void writeTableBody() throws ObjectLookupException, DecoratorException
-    {
-        JspWriter out = this.pageContext.getOut();
-
-        // Ok, start bouncing through our list (only the visible part)
-        RowIterator rowIterator = this.tableModel.getRowIterator(false);
-
-        // iterator on rows
-        while (rowIterator.hasNext())
-        {
-            Row row = rowIterator.next();
-            if (log.isDebugEnabled())
-            {
-                log.debug("[" + getUid() + "] rowIterator.next()=" + row);
-            }
-            if (this.tableModel.getTableDecorator() != null)
-            {
-                String stringStartRow = this.tableModel.getTableDecorator().startRow();
-                if (stringStartRow != null)
-                {
-                    write(stringStartRow, out);
-                }
-            }
-
-            // open tr
-            write(row.getOpenTag(), out);
-
-            // iterator on columns
-            if (log.isDebugEnabled())
-            {
-                log.debug("[" + getUid() + "] creating ColumnIterator on " + this.tableModel.getHeaderCellList());
-            }
-            ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
-
-            while (columnIterator.hasNext())
-            {
-                Column column = columnIterator.nextColumn();
-
-                // Get the value to be displayed for the column
-                write(column.getOpenTag(), out);
-                String value = column.getChoppedAndLinkedValue();
-
-                // check if column is grouped
-                if (column.getGroup() != -1)
-                {
-                    value = this.groupColumns(value, column.getGroup());
-                }
-
-                // add column value
-                write(value, out);
-                write(column.getCloseTag(), out);
-            }
-
-            // no columns?
-            if (this.tableModel.isEmpty())
-            {
-                if (log.isDebugEnabled())
-                {
-                    log.debug("[" + getUid() + "] table has no columns");
-                }
-                write(TagConstants.TAG_TD_OPEN, out);
-                write(row.getObject().toString(), out);
-                write(TagConstants.TAG_TD_CLOSE, out);
-            }
-
-            // close tr
-            write(row.getCloseTag(), out);
-
-            if (this.tableModel.getTableDecorator() != null)
-            {
-                String endRow = this.tableModel.getTableDecorator().finishRow();
-                if (endRow != null)
-                {
-                    write(endRow, out);
-                }
-            }
-        }
-
-        if (this.varTotals != null)
-        {
-            this.pageContext.setAttribute(this.varTotals, getTotals());
-        }
-
-        if (this.tableModel.getRowListPage().size() == 0)
-        {
-            write(MessageFormat.format(properties.getEmptyListRowMessage(), new Object[]{new Integer(this.tableModel
-                .getNumberOfColumns())}), out);
-        }
-    }
-
-    /**
      * Get the column totals Map. If there is no varTotals defined, there are no totals.
      * @return a Map of totals where the key is the column number and the value is the total for that column
      */
@@ -2014,7 +1823,7 @@ public class TableTag extends HtmlTableTag
     /**
      * Generates table footer with links for export commands.
      */
-    private void writeTableFooter()
+    public void writeNavigationAndExportLinks()
     {
         // Put the page stuff there if it needs to be there...
         if (this.properties.getAddPagingBannerBottom())
@@ -2032,7 +1841,7 @@ public class TableTag extends HtmlTableTag
     /**
      * generates the search result and navigation bar.
      */
-    private void writeSearchResultAndNavigation()
+    public void writeSearchResultAndNavigation()
     {
         if ((this.paginatedList == null && this.pagesize != 0 && this.listHelper != null)
             || (this.paginatedList != null))

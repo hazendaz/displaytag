@@ -256,6 +256,12 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_EXPORT_PREFIX = "export"; //$NON-NLS-1$
 
     /**
+     * suffix used to set the export decorator property name. The full property name is <code>export.</code>
+     * <em>[export type]</em><code>.</code><em>decorator</em>
+     */
+    public static final String PROPERTY_EXPORT_DECORATOR_SUFFIX = "decorator"; //$NON-NLS-1$
+
+    /**
      * property <code>export.types</code>: holds the list of export available export types.
      */
     public static final String PROPERTY_EXPORTTYPES = "export.types"; //$NON-NLS-1$
@@ -287,65 +293,51 @@ public final class TableProperties implements Cloneable
 
     // <JBN>
     /**
-     * Property <code>pagination.sort.param</code>. If external pagination 
-     * and sorting is used, it holds the name of the parameter used to hold
-     * the sort criterion in generated links 
+     * Property <code>pagination.sort.param</code>. If external pagination and sorting is used, it holds the name of
+     * the parameter used to hold the sort criterion in generated links
      */
-    public static final String PROPERTY_STRING_PAGINATION_SORT_PARAM = 
-        "pagination.sort.param"; //$NON-NLS-1$
-    
+    public static final String PROPERTY_STRING_PAGINATION_SORT_PARAM = "pagination.sort.param"; //$NON-NLS-1$
+
     /**
-     * Property <code>pagination.sortdirection.param</code>. If external pagination 
-     * and sorting is used, it holds the name of the parameter used to hold
-     * the sort direction in generated links (asc or desc)
+     * Property <code>pagination.sortdirection.param</code>. If external pagination and sorting is used, it holds the
+     * name of the parameter used to hold the sort direction in generated links (asc or desc)
      */
-    public static final String PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM = 
-        "pagination.sortdirection.param"; //$NON-NLS-1$
-    
+    public static final String PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM = "pagination.sortdirection.param"; //$NON-NLS-1$
+
     /**
-     * Property <code>pagination.pagenumber.param</code>. If external pagination 
-     * and sorting is used, it holds the name of the parameter used to hold
-     * the page number in generated links 
+     * Property <code>pagination.pagenumber.param</code>. If external pagination and sorting is used, it holds the
+     * name of the parameter used to hold the page number in generated links
      */
-    public static final String PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM = 
-        "pagination.pagenumber.param"; //$NON-NLS-1$
-    
+    public static final String PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM = "pagination.pagenumber.param"; //$NON-NLS-1$
+
     /**
-     * Property <code>pagination.searchid.param</code>. If external pagination 
-     * and sorting is used, it holds the name of the parameter used to hold
-     * the search ID in generated links 
+     * Property <code>pagination.searchid.param</code>. If external pagination and sorting is used, it holds the name
+     * of the parameter used to hold the search ID in generated links
      */
-    public static final String PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM = 
-        "pagination.searchid.param"; //$NON-NLS-1$
-    
+    public static final String PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM = "pagination.searchid.param"; //$NON-NLS-1$
+
     /**
-     * Property <code>pagination.sort.asc.value</code>. If external pagination 
-     * and sorting is used, it holds the value of the parameter of the sort direction
-     * parameter for "ascending"
+     * Property <code>pagination.sort.asc.value</code>. If external pagination and sorting is used, it holds the
+     * value of the parameter of the sort direction parameter for "ascending"
      */
-    public static final String PROPERTY_STRING_PAGINATION_ASC_VALUE = 
-        "pagination.sort.asc.value"; //$NON-NLS-1$
-    
+    public static final String PROPERTY_STRING_PAGINATION_ASC_VALUE = "pagination.sort.asc.value"; //$NON-NLS-1$
+
     /**
-     * Property <code>pagination.sort.desc.value</code>. If external pagination 
-     * and sorting is used, it holds the value of the parameter of the sort direction
-     * parameter for "descending"
+     * Property <code>pagination.sort.desc.value</code>. If external pagination and sorting is used, it holds the
+     * value of the parameter of the sort direction parameter for "descending"
      */
-    public static final String PROPERTY_STRING_PAGINATION_DESC_VALUE = 
-        "pagination.sort.desc.value"; //$NON-NLS-1$
-    
+    public static final String PROPERTY_STRING_PAGINATION_DESC_VALUE = "pagination.sort.desc.value"; //$NON-NLS-1$
+
     /**
-     * Property <code>pagination.sort.skippagenumber</code>. If external pagination 
-     * and sorting is used, it determines if the current page number must be added in
-     * sort links or not. If this property is true, it means that each click on a 
-     * generated sort link will re-sort the list, and go back to the default page 
-     * number. If it is false, each click on a generated sort link will re-sort the list, 
-     * and ask the current page number.
+     * Property <code>pagination.sort.skippagenumber</code>. If external pagination and sorting is used, it
+     * determines if the current page number must be added in sort links or not. If this property is true, it means that
+     * each click on a generated sort link will re-sort the list, and go back to the default page number. If it is
+     * false, each click on a generated sort link will re-sort the list, and ask the current page number.
      */
-    public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = 
-        "pagination.sort.skippagenumber"; //$NON-NLS-1$
+    public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = "pagination.sort.skippagenumber"; //$NON-NLS-1$
+
     // </JBN>
-    
+
     /**
      * Separator char used in property names.
      */
@@ -1041,7 +1033,6 @@ public final class TableProperties implements Cloneable
         return getProperty(PROPERTY_CONVERTOR_CLASSNAME);
     }
 
-
     /**
      * Returns an instance of configured requestHelperFactory.
      * @return RequestHelperFactory instance.
@@ -1142,8 +1133,9 @@ public final class TableProperties implements Cloneable
             return getBooleanProperty(PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);
         }
     }
+
     // </JBN>
-    
+
     /**
      * Returns the configured resource provider instance. If necessary instantiate the resource provider from config and
      * then keep a cached instance.
@@ -1278,5 +1270,15 @@ public final class TableProperties implements Cloneable
         }
 
         return defaultValue;
+    }
+
+    /**
+     * Obtain the name of the decorator configured for a given media type.
+     * @param thatEnum A media type
+     * @return The name of the decorator configured for a given media type.
+     */
+    public String getExportDecoratorName(MediaTypeEnum thatEnum)
+    {
+        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + thatEnum + SEP + PROPERTY_EXPORT_DECORATOR_SUFFIX);
     }
 }

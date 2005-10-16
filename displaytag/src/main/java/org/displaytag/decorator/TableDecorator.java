@@ -110,15 +110,15 @@ public abstract class TableDecorator extends Decorator
      */
     public String addRowClass()
     {
-       return null;
+        return null;
     }
-    
+
     /**
      * Call back to allow setting an "id" attribute on a row
      * @return HTML id attribute value for the current row
      */
     public String setRowId()
     {
-       return null;
+        return null;
     }
 }
