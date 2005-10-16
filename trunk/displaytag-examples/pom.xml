@@ -1,174 +1,88 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>displaytag</groupId>
+    <artifactId>displaytag-doc</artifactId>
+    <version>1.1-SNAPSHOT</version>
+    <relativePath>../displaytag-doc/pom.xml</relativePath>
+  </parent>
   <artifactId>displaytag-examples</artifactId>
   <name>Display tag library examples</name>
   <groupId>displaytag</groupId>
   <packaging>war</packaging>
   <version>1.1-SNAPSHOT</version>
-  <organization>
-    <name>the Displaytag team</name>
-    <url>http://sourceforge.net/projects/displaytag</url>
-  </organization>
-  <inceptionYear>2002</inceptionYear>
-  <url>http://displaytag.sourceforge.net</url>
-  <description>
-    The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
-    which will work in an MVC model. The library provides a significant amount of functionality while still being easy
-    to use.
-  </description>
-  <licenses>
-    <license>
-      <name>Artistic License</name>
-      <url>http://displaytag.sourceforge.net/license.html</url>
-    </license>
-  </licenses>
-  <distributionManagement>
-    <repository>
-      <id>displaytag</id>
-      <url>http://displaytag.sourceforge.net/maven</url>
-    </repository>
-  </distributionManagement>
-  <developers>
-    <developer>
-      <id>fgiust</id>
-      <name>Fabrizio Giustina</name>
-      <email>fgiust(at)users.sourceforge.net</email>
-      <url></url>
-      <organization></organization>
-      <organizationUrl></organizationUrl>
-      <roles>
-        <role>Project admin and main developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>matt</id>
-      <name>Matt Raible</name>
-      <email>mraible(at)users.sourceforge.net</email>
-      <url></url>
-      <organization>Raible Designs</organization>
-      <organizationUrl></organizationUrl>
-      <roles>
-        <role>Project admin</role>
-      </roles>
-      <timezone>-7</timezone>
-    </developer>
-    <developer>
-      <id>rapruitt</id>
-      <name>Andy Pruitt</name>
-      <email>rapruitt(at)users.sourceforge.net</email>
-      <url></url>
-      <organization></organization>
-      <organizationUrl></organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-6</timezone>
-    </developer>
-    <developer>
-      <id>javabencom</id>
-      <name>Benjamin Simpson</name>
-      <email>javabencom(at)users.sourceforge.net</email>
-      <url></url>
-      <organization></organization>
-      <organizationUrl></organizationUrl>
-      <roles>
-        <role>Documentation editor</role>
-      </roles>
-      <timezone>0</timezone>
-    </developer>
-    <developer>
-      <id>pathoss</id>
-      <name>Mathias Bogaert</name>
-      <email>pathoss(at)users.sourceforge.net</email>
-      <url></url>
-      <organization></organization>
-      <organizationUrl></organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>0</timezone>
-    </developer>
-  </developers>
   <dependencies>
     <dependency>
       <groupId>displaytag</groupId>
       <artifactId>displaytag</artifactId>
       <version>1.1-SNAPSHOT</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>displaytag</groupId>
       <artifactId>displaytag-export-poi</artifactId>
       <version>1.1-SNAPSHOT</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
       <version>1.7.0</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>commons-collections</groupId>
       <artifactId>commons-collections</artifactId>
       <version>2.1.1</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.1</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>1.0.4</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.8</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>servletapi</groupId>
       <artifactId>servletapi</artifactId>
       <version>2.3</version>
-      <type>jar</type>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>itext</groupId>
       <artifactId>itext</artifactId>
       <version>0.99</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.0.2</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>taglibs</groupId>
       <artifactId>standard</artifactId>
       <version>1.0.6</version>
-      <type>jar</type>
+    </dependency>
+    <dependency>
+      <!-- needed for http://jira.codehaus.org/browse/MNG-1178 -->
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-    <sourceDirectory>src/java</sourceDirectory>
-    <resources>
-      <resource>
-        <directory>src/resources</directory>
-        <includes>
-          <include>**/*.*</include>
-        </includes>
-      </resource>
-    </resources>
-  </build>
+  <!--
+    <distributionManagement>
+    <site>
+    <id>displaytag</id>
+    <name>displaytag</name>
+    <url>scp://shell.sourceforge.net//home/groups/d/di/displaytag/htdocs/11/multiproject/displaytag-examples</url>
+    </site>
+    </distributionManagement> -->
 </project>
