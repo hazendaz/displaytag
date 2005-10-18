@@ -69,8 +69,8 @@
       <artifactId>standard</artifactId>
       <version>1.0.6</version>
     </dependency>
+    <!-- needed for http://jira.codehaus.org/browse/MNG-1178 -->
     <dependency>
-      <!-- needed for http://jira.codehaus.org/browse/MNG-1178 -->
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
