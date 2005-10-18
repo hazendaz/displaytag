@@ -16,7 +16,9 @@
       <item name="Download" href="/download.html" />
       <item name="Install" href="/install.html" />
       <item name="Tlds" href="/tlds.html" />
-      <item name="Tag reference" href="/tagreference-displaytag-12.html" />
+      <!--
+        first of all we need a m2 taglib plugin
+        <item name="Tag reference" href="/tagreference-displaytag-12.html" />-->
       <item name="Configuration" href="/configuration.html" />
       <item name="Export filter" href="/export_filter.html" />
       <item name="FAQ" href="/faq.html" />
@@ -41,6 +43,7 @@
       <item name="Coding Conventions" href="/coding_conventions.html" />
       <item name="Building from sources" href="/buildit.html" />
     </menu>
+    ${reports}
     <menu name="" type="footer">
       <item name="Sourceforge" href="http://sourceforge.net/projects/displaytag"
         img="http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8" />
