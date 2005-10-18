@@ -9,7 +9,7 @@
     <menu name="Modules">
       <item name="Documentation" href="../index.html" />
       <item name="Core Tag library" href="../displaytag/index.html" />
-      <item name="Example application" href="../displaytag-examples/index.html" />
+      <item name="Example application" href="index.html" />
       <item name="Excel export module" href="../displaytag-export-poi/index.html" />
     </menu>
     <menu name="Reference">
