@@ -8,7 +8,7 @@
     <menu name="Core Tag library"><!--  --></menu>
     <menu name="Modules">
       <item name="Documentation" href="../index.html" />
-      <item name="Core Tag library" href="../displaytag/index.html" />
+      <item name="Core Tag library" href="index.html" />
       <item name="Example application" href="../displaytag-examples/index.html" />
       <item name="Excel export module" href="../displaytag-export-poi/index.html" />
     </menu>
