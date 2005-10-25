@@ -15,11 +15,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.jsp.PageContext;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
+import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
 
 
@@ -112,16 +115,45 @@ public class TableModel
     private String footer;
 
     /**
+     * Jsp page context.
+     */
+    private PageContext pageContext;
+
+    /**
+     * Current media.
+     */
+    private MediaTypeEnum media;
+
+    /**
      * Constructor for TableModel.
      * @param tableProperties table properties
      * @param charEncoding response encoding
      */
-    public TableModel(TableProperties tableProperties, String charEncoding)
+    public TableModel(TableProperties tableProperties, String charEncoding, PageContext pageContext)
     {
         this.rowListFull = new ArrayList(20);
         this.headerCellList = new ArrayList(20);
         this.properties = tableProperties;
         this.encoding = charEncoding;
+        this.pageContext = pageContext;
+    }
+
+    /**
+     * Gets the current media type.
+     * @return current media (html, pdf ...)
+     */
+    public MediaTypeEnum getMedia()
+    {
+        return this.media;
+    }
+
+    /**
+     * sets the current media type.
+     * @param media current media (html, pdf ...)
+     */
+    public void setMedia(MediaTypeEnum media)
+    {
+        this.media = media;
     }
 
     /**
@@ -518,8 +550,9 @@ public class TableModel
             .append("sortedColumnHeader", this.getSortedColumnHeader()) //$NON-NLS-1$
             .append("sorted", this.isSorted()) //$NON-NLS-1$
             .append("tableDecorator", this.tableDecorator) //$NON-NLS-1$
-            .append("caption", this.getCaption()) //$NON-NLS-1
-            .append("footer", this.getFooter()) //$NON-NLS-1
+            .append("caption", this.caption) //$NON-NLS-1
+            .append("footer", this.footer) //$NON-NLS-1
+            .append("media", this.media) //$NON-NLS-1
             .toString();
     }
 }

@@ -106,7 +106,7 @@ public class ToStringTest extends TestCase
      */
     public void testTableModel()
     {
-        checkToString(new TableModel(null, null));
+        checkToString(new TableModel(null, null, null));
     }
 
     /**
