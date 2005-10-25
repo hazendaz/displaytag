@@ -24,10 +24,12 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testLongTextWithLink()
     {
-        String linked = new AutolinkColumnDecorator()
-            .decorate("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
+        Object linked = new AutolinkColumnDecorator().decorate(
+            "A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
                 + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. "
-                + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. http://foo.bar.");
+                + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. http://foo.bar.",
+            null,
+            null);
 
         assertEquals("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
             + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. "
@@ -39,10 +41,12 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testLongTextWithEmail()
     {
-        String linked = new AutolinkColumnDecorator()
-            .decorate("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
+        Object linked = new AutolinkColumnDecorator().decorate(
+            "A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
                 + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. "
-                + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. foo@bar.com.");
+                + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. foo@bar.com.",
+            null,
+            null);
 
         assertEquals("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
             + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. "
@@ -54,7 +58,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testGarbledUrl()
     {
-        String linked = new AutolinkColumnDecorator().decorate("http://foo.bar cat http://stoat");
+        Object linked = new AutolinkColumnDecorator().decorate("http://foo.bar cat http://stoat", null, null);
 
         assertEquals(
             "<a href=\"http://foo.bar\">http://foo.bar</a> cat <a href=\"http://stoat\">http://stoat</a>",
@@ -66,7 +70,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testSimpleLink()
     {
-        String linked = new AutolinkColumnDecorator().decorate("http://foo.bar");
+        Object linked = new AutolinkColumnDecorator().decorate("http://foo.bar", null, null);
 
         assertEquals("<a href=\"http://foo.bar\">http://foo.bar</a>", linked);
     }
@@ -76,7 +80,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testSimpleHttpsLink()
     {
-        String linked = new AutolinkColumnDecorator().decorate("https://foo.bar");
+        Object linked = new AutolinkColumnDecorator().decorate("https://foo.bar", null, null);
 
         assertEquals("<a href=\"https://foo.bar\">https://foo.bar</a>", linked);
     }
@@ -86,7 +90,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testSimpleFtpLink()
     {
-        String linked = new AutolinkColumnDecorator().decorate("ftp://foo.bar");
+        Object linked = new AutolinkColumnDecorator().decorate("ftp://foo.bar", null, null);
 
         assertEquals("<a href=\"ftp://foo.bar\">ftp://foo.bar</a>", linked);
     }
@@ -96,7 +100,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testSimpleEmail()
     {
-        String linked = new AutolinkColumnDecorator().decorate("foo@bar.com");
+        Object linked = new AutolinkColumnDecorator().decorate("foo@bar.com", null, null);
         assertEquals("<a href=\"mailto:foo@bar.com\">foo@bar.com</a>", linked);
     }
 
@@ -105,7 +109,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testSimpleLinkPlusDot()
     {
-        String linked = new AutolinkColumnDecorator().decorate("http://foo.bar .");
+        Object linked = new AutolinkColumnDecorator().decorate("http://foo.bar .", null, null);
         assertEquals("<a href=\"http://foo.bar\">http://foo.bar</a> .", linked);
     }
 
@@ -114,7 +118,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testNoLink()
     {
-        String linked = new AutolinkColumnDecorator().decorate("aa://bb");
+        Object linked = new AutolinkColumnDecorator().decorate("aa://bb", null, null);
         assertEquals("aa://bb", linked);
     }
 
@@ -123,7 +127,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
      */
     public void testNoLinkBeginning()
     {
-        String linked = new AutolinkColumnDecorator().decorate("://bb");
+        Object linked = new AutolinkColumnDecorator().decorate("://bb", null, null);
         assertEquals("://bb", linked);
     }
 
