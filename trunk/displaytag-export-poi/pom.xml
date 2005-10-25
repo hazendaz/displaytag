@@ -11,6 +11,13 @@
   <name>Display excel export module</name>
   <groupId>displaytag</groupId>
   <version>1.1-SNAPSHOT</version>
+  <scm>
+    <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-export-poi</connection>
+    <developerConnection>
+      scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-export-poi
+    </developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-export-poi/</url>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>displaytag</groupId>

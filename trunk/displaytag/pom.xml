@@ -12,6 +12,13 @@
   <name>Display tag library</name>
   <packaging>jar</packaging>
   <version>1.1-SNAPSHOT</version>
+  <scm>
+    <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</connection>
+    <developerConnection>
+      scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag
+    </developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>commons-beanutils</groupId>
