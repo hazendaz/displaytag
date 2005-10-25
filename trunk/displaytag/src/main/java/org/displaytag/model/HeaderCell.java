@@ -17,7 +17,7 @@ import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.displaytag.decorator.ColumnDecorator;
+import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.properties.SortOrderEnum;
@@ -78,9 +78,9 @@ public class HeaderCell
     private String sortName;
 
     /**
-     * ColumnDecorator.
+     * ColumnDecorators.
      */
-    private ColumnDecorator columnDecorator;
+    private DisplaytagColumnDecorator[] columnDecorators;
 
     /**
      * column number.
@@ -302,20 +302,20 @@ public class HeaderCell
 
     /**
      * Returns the columnDecorator object for this column.
-     * @return ColumnDecorator
+     * @return DisplaytagColumnDecorator
      */
-    public ColumnDecorator getColumnDecorator()
+    public DisplaytagColumnDecorator[] getColumnDecorators()
     {
-        return this.columnDecorator;
+        return this.columnDecorators;
     }
 
     /**
      * Sets the columnDecorator object for this column.
-     * @param decorator - the ColumnDecorator
+     * @param decorator - the DisplaytagColumnDecorator
      */
-    public void setColumnDecorator(ColumnDecorator decorator)
+    public void setColumnDecorators(DisplaytagColumnDecorator[] decorator)
     {
-        this.columnDecorator = decorator;
+        this.columnDecorators = decorator;
     }
 
     /**

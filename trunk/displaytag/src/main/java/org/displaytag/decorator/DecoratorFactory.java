@@ -11,7 +11,11 @@
  */
 package org.displaytag.decorator;
 
+import javax.servlet.jsp.PageContext;
+
+import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.DecoratorInstantiationException;
+import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.ReflectHelper;
 
 
@@ -74,10 +78,10 @@ public final class DecoratorFactory
      * to make sure it is a subclass of the ColumnDecorator object). If there are any problems loading the decorator
      * then this will throw a DecoratorInstantiationException which will get propagated up to the page.
      * @param columnDecoratorName String full decorator class name
-     * @return instance of ColumnDecorator
+     * @return instance of DisplaytagColumnDecorator
      * @throws DecoratorInstantiationException if unable to load ColumnDecorator
      */
-    public static ColumnDecorator loadColumnDecorator(String columnDecoratorName)
+    public static DisplaytagColumnDecorator loadColumnDecorator(String columnDecoratorName)
         throws DecoratorInstantiationException
     {
         if (columnDecoratorName == null || columnDecoratorName.length() == 0)
@@ -88,7 +92,24 @@ public final class DecoratorFactory
         try
         {
             Class decoratorClass = ReflectHelper.classForName(columnDecoratorName);
-            return (ColumnDecorator) decoratorClass.newInstance();
+
+            Object decorator = decoratorClass.newInstance();
+
+            if (decorator instanceof DisplaytagColumnDecorator)
+            {
+                return (DisplaytagColumnDecorator) decorator;
+            }
+            else if (decorator instanceof ColumnDecorator)
+            {
+                return new DeprecatedDecoratorWrapper((ColumnDecorator) decorator);
+            }
+            else
+            {
+                throw new DecoratorInstantiationException(
+                    DecoratorFactory.class,
+                    columnDecoratorName,
+                    new ClassCastException(decorator.getClass().getName()));
+            }
         }
 
         catch (ClassNotFoundException e)
@@ -103,10 +124,38 @@ public final class DecoratorFactory
         {
             throw new DecoratorInstantiationException(DecoratorFactory.class, columnDecoratorName, e);
         }
-        catch (ClassCastException e)
-        {
-            throw new DecoratorInstantiationException(DecoratorFactory.class, columnDecoratorName, e);
-        }
     }
 
+    /**
+     * Wrapper class for handling decorators implementing the deprecated ColumnDecorator interface as 1.1
+     * <code>DisplaytagColumnDecorator</code>s.
+     */
+    private static class DeprecatedDecoratorWrapper implements DisplaytagColumnDecorator
+    {
+
+        /**
+         * Wrapped 1.0 decorator.
+         */
+        private ColumnDecorator decorator;
+
+        /**
+         * Instantiates a new wrapper for old decorators.
+         * @param decorator ColumnDecorator instance
+         */
+        public DeprecatedDecoratorWrapper(ColumnDecorator decorator)
+        {
+            this.decorator = decorator;
+        }
+
+        /**
+         * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object,
+         * javax.servlet.jsp.PageContext, org.displaytag.properties.MediaTypeEnum)
+         */
+        public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
+            throws DecoratorException
+        {
+            return decorator.decorate(columnValue);
+        }
+
+    }
 }

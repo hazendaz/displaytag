@@ -11,8 +11,11 @@
  */
 package org.displaytag.decorator;
 
+import javax.servlet.jsp.PageContext;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.TagConstants;
 
 
@@ -22,13 +25,13 @@ import org.displaytag.util.TagConstants;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class AutolinkColumnDecorator implements ColumnDecorator
+public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
 {
 
     /**
      * Instance used for the "autolink" tag attribute. Will be removed in future along with the attribute.
      */
-    public static final ColumnDecorator INSTANCE = new AutolinkColumnDecorator();
+    public static final DisplaytagColumnDecorator INSTANCE = new AutolinkColumnDecorator();
 
     /**
      * "://".
@@ -42,10 +45,11 @@ public class AutolinkColumnDecorator implements ColumnDecorator
     new String[]{"http", "https", "ftp"}; //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$
 
     /**
-     * @see org.displaytag.decorator.ColumnDecorator#decorate(java.lang.Object)
+     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
-    public String decorate(Object columnValue)
+    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
     {
+
         if (columnValue == null)
         {
             return null;
@@ -85,8 +89,7 @@ public class AutolinkColumnDecorator implements ColumnDecorator
 
             buffer.append(work.substring(0, start)).append("<a href=\"mailto:") //$NON-NLS-1$
                 .append(email + "\">") //$NON-NLS-1$
-                .append(email)
-                .append("</a>"); //$NON-NLS-1$
+                .append(email).append("</a>"); //$NON-NLS-1$
 
             if (end == work.length())
             {
@@ -142,10 +145,8 @@ public class AutolinkColumnDecorator implements ColumnDecorator
             String url = work.substring(fullUrlBegin, urlEnd);
 
             buffer.append(work.substring(0, fullUrlBegin)).append("<a href=\"")//$NON-NLS-1$
-                .append(url)
-                .append("\">")//$NON-NLS-1$
-                .append(url)
-                .append("</a>"); //$NON-NLS-1$
+                .append(url).append("\">")//$NON-NLS-1$
+                .append(url).append("</a>"); //$NON-NLS-1$
 
             if (urlEnd >= work.length())
             {

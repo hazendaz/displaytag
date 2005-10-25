@@ -12,6 +12,7 @@
 package org.displaytag.tags;
 
 import java.text.Collator;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.conversion.PropertyConvertorFactory;
 import org.displaytag.decorator.DecoratorFactory;
+import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
@@ -720,7 +722,20 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         headerCell.setHtmlAttributes((HtmlAttributeMap) this.attributeMap.clone());
         headerCell.setTitle(evalTitle);
         headerCell.setSortable(this.sortable);
-        headerCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(this.decorator));
+
+        // handle multiple chained decorators, whitespace separated
+        if (StringUtils.isNotEmpty(this.decorator))
+        {
+            String[] decoratorNames = StringUtils.split(this.decorator);
+            List decorators = new ArrayList(decoratorNames.length);
+            for (int j = 0; j < decoratorNames.length; j++)
+            {
+                decorators.add(DecoratorFactory.loadColumnDecorator(decoratorNames[j]));
+            }
+            headerCell.setColumnDecorators((DisplaytagColumnDecorator[]) decorators
+                .toArray(new DisplaytagColumnDecorator[decorators.size()]));
+        }
+
         headerCell.setBeanPropertyName(this.property);
         headerCell.setShowNulls(this.nulls);
         headerCell.setMaxLength(this.maxLength);

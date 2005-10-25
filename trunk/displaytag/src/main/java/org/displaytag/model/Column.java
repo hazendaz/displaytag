@@ -20,6 +20,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.displaytag.decorator.AutolinkColumnDecorator;
+import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.Anchor;
@@ -125,9 +126,14 @@ public class Column
             }
         }
 
-        if (decorated && (this.header.getColumnDecorator() != null))
+        DisplaytagColumnDecorator[] decorators = this.header.getColumnDecorators();
+        if (decorated && decorators != null)
         {
-            object = this.header.getColumnDecorator().decorate(object);
+            for (int j = 0; j < decorators.length; j++)
+            {
+                // @todo handle pageContext and media attributes
+                object = decorators[j].decorate(object, null, null);
+            }
         }
 
         if (object == null || "null".equals(object)) //$NON-NLS-1$
@@ -179,7 +185,8 @@ public class Column
         // are we supposed to set up a link to the data being displayed in this column?
         if (this.header.getAutoLink())
         {
-            fullValue = AutolinkColumnDecorator.INSTANCE.decorate(fullValue);
+            // @todo handle pageContext and MediaType parameters
+            fullValue = (String) AutolinkColumnDecorator.INSTANCE.decorate(fullValue, null, null);
         }
 
         // trim the string if a maxLength or maxWords is defined
