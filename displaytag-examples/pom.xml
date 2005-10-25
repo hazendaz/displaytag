@@ -12,6 +12,13 @@
   <groupId>displaytag</groupId>
   <packaging>war</packaging>
   <version>1.1-SNAPSHOT</version>
+  <scm>
+    <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-examples</connection>
+    <developerConnection>
+      scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-examples
+    </developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-examples/</url>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>displaytag</groupId>

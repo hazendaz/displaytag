@@ -68,7 +68,7 @@ a.newWindow,a.newWindow:link,a.newWindow:visited,a.newWindow:active,a.newWindow:
 
 h2 {
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 19px;
+	font-size: 28px;
 	color: #666;
 	background: none;
 	font-weight: normal;
@@ -79,11 +79,11 @@ h2 {
 
 h3 {
 	font-family: Arial, Helvetica, sans-serif;
-	padding: 4px 4px 4px 20px;
+	padding: 4px 4px 4px 0;
 	color: #999 !important;
 	background: none;
 	font-weight: none;
-	font-size: 19px;
+	font-size: 20px;
 	border: none;
 	border-bottom: 1px dotted #ccc;
 }
@@ -123,13 +123,14 @@ p {
 }
 
 #navcolumn h5 {
-	font-size: smaller;
-	border-bottom: 1px solid #aaa;
+	font-size: 11px;
 	padding-top: 2px;
 	padding-left: 9px;
-	color: #49635a;
+	color: #999;
 	background-repeat: no-repeat;
 	background-position: left bottom;
+	font-variant: small-caps;
+	border: none;
 }
 
 table.bodyTable th {
