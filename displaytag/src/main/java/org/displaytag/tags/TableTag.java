@@ -31,6 +31,7 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.LongRange;
 import org.apache.commons.lang.math.Range;
@@ -759,17 +760,21 @@ public class TableTag extends HtmlTableTag
         }
 
         this.properties = TableProperties.getInstance((HttpServletRequest) pageContext.getRequest());
-        this.tableModel = new TableModel(this.properties, pageContext.getResponse().getCharacterEncoding());
+        this.tableModel = new TableModel(
+            this.properties,
+            pageContext.getResponse().getCharacterEncoding(),
+            pageContext);
 
         // copying id to the table model for logging
         this.tableModel.setId(getUid());
 
         initParameters();
 
+        this.tableModel.setMedia(this.currentMediaType);
+
         Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
         // set the PAGE_ATTRIBUTE_MEDIA attribute in the page scope
-        if (this.currentMediaType != null
-            && (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType)))
+        if (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType))
         {
             if (log.isDebugEnabled())
             {
@@ -982,11 +987,10 @@ public class TableTag extends HtmlTableTag
 
         Integer exportTypeParameter = requestHelper
             .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
-        this.currentMediaType = MediaTypeEnum.fromCode(exportTypeParameter);
-        if (this.currentMediaType == null)
-        {
-            this.currentMediaType = MediaTypeEnum.HTML;
-        }
+
+        this.currentMediaType = (MediaTypeEnum) ObjectUtils.defaultIfNull(
+            MediaTypeEnum.fromCode(exportTypeParameter),
+            MediaTypeEnum.HTML);
 
         String fullName = getFullObjectName();
 
