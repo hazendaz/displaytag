@@ -75,6 +75,15 @@
       <action type="fix" dev="fgiust" issue="DISPL-246">
         Wrong header set in BufferedResponseWrapper when a charset is already defined (missing '=')
       </action>
+      <action type="add" dev="fgiust" issue="DISPL-139">
+        New
+        <code>DisplaytagColumnDecorator</code>
+        interface, which replaces the previous
+        <code>ColumnDecorator</code>
+        and adds pageContext and media type access. The
+        <code>ColumnDecorator</code>
+        interface is nor deprecated, but compatibility with old column decorators is preserved.
+      </action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
       <action type="fix" dev="fgiust">

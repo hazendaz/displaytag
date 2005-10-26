@@ -7,20 +7,19 @@ import org.displaytag.properties.MediaTypeEnum;
 
 
 /**
- * A column decorator which adds a "decorated: " prefix.
+ * A column decorator which adds a prefix from the "prefix" pageContext attribute.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class PrefixColumnDecorator implements DisplaytagColumnDecorator
+public class PageContextPrefixColumnDecorator implements DisplaytagColumnDecorator
 {
 
     /**
-     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, javax.servlet.jsp.PageContext,
-     * org.displaytag.properties.MediaTypeEnum)
+     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
     {
-        return "decorated: " + columnValue;
+        return pageContext.getAttribute("prefix").toString() + columnValue;
     }
 
 }
