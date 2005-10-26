@@ -8,7 +8,7 @@
     <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
   </properties>
   <body>
-    <release version="1.1-dev" description="Initial work following the 1.0 release">
+    <release version="1.1-SNAPSHOT" date="not yet released" description="Initial work following the 1.0 release">
       <action type="add" dev="fgiust" issue="DISPL-224" due-to="octalpus">
         New
         <code>scope</code>

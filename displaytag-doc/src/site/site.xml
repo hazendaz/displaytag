@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="Display tag library">
   <title>Display tag library</title>
+  <bannerRight>
+    <name>Displaytag</name>
+    <src>images/displaytag.png</src>
+    <href>http://displaytag.sourceforge.net/11/</href>
+  </bannerRight>
   <body>
     <links>
       <item name="Live examples" href="http://displaytag.homeip.net" />
