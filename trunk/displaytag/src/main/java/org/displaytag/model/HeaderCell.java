@@ -113,11 +113,6 @@ public class HeaderCell
     private int maxWords;
 
     /**
-     * autolink url?
-     */
-    private boolean autoLink;
-
-    /**
      * group the column?
      */
     private int group;
@@ -173,24 +168,6 @@ public class HeaderCell
     public void setGroup(int groupingOrder)
     {
         this.group = groupingOrder;
-    }
-
-    /**
-     * is autolink enabled?
-     * @return true if autolink is enabled for the column
-     */
-    public boolean getAutoLink()
-    {
-        return this.autoLink;
-    }
-
-    /**
-     * enable or disable autolink for the column.
-     * @param autoLinkEnabled boolean autolink enabled
-     */
-    public void setAutoLink(boolean autoLinkEnabled)
-    {
-        this.autoLink = autoLinkEnabled;
     }
 
     /**
