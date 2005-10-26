@@ -19,7 +19,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.lang.exception.NestableRuntimeException;
-import org.displaytag.decorator.AutolinkColumnDecorator;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
@@ -131,8 +130,9 @@ public class Column
         {
             for (int j = 0; j < decorators.length; j++)
             {
-                // @todo handle pageContext and media attributes
-                object = decorators[j].decorate(object, null, null);
+                object = decorators[j].decorate(object, row.getParentTable().getPageContext(), row
+                    .getParentTable()
+                    .getMedia());
             }
         }
 
@@ -181,13 +181,6 @@ public class Column
 
         String fullValue = ObjectUtils.toString(getValue(true));
         String choppedValue;
-
-        // are we supposed to set up a link to the data being displayed in this column?
-        if (this.header.getAutoLink())
-        {
-            // @todo handle pageContext and MediaType parameters
-            fullValue = (String) AutolinkColumnDecorator.INSTANCE.decorate(fullValue, null, null);
-        }
 
         // trim the string if a maxLength or maxWords is defined
         if (this.header.getMaxLength() > 0)

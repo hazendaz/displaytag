@@ -139,6 +139,15 @@ public class TableModel
     }
 
     /**
+     * Returns the jsp page context
+     * @return page context
+     */
+    protected PageContext getPageContext()
+    {
+        return this.pageContext;
+    }
+
+    /**
      * Gets the current media type.
      * @return current media (html, pdf ...)
      */
