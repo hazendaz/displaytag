@@ -57,7 +57,7 @@ div.exportlinks {
 	background-color: #eee;
 	border: 1px dotted #999;
 	padding: 2px 4px 2px 4px;
-	margin: -10px 0 10px 0;
+	margin: 2px 0 10px 0;
 	width: 79%;
 }
 
@@ -82,6 +82,10 @@ span.xml {
 
 span.pdf {
 	background-image: url(../img/ico_file_pdf.png);
+}
+
+span.rtf {
+	background-image: url(../img/ico_file_rtf.png);
 }
 
 span.pagebanner {

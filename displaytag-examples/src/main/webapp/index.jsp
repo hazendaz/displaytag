@@ -28,6 +28,7 @@
     <li><a href="example-nestedtables.jsp">Nested tables</a></li>
     <li><a href="example-caption-footer.jsp">Caption and footer</a></li>
     <li><a href="example-misc.jsp">Misc, odds and ends</a></li>
+    <li><a href="example-new-export.jsp">WYSIWYG data exporting (alpha)</a></li>
   </ul>
 
 
