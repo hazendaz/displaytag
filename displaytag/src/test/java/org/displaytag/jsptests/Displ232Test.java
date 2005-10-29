@@ -48,6 +48,19 @@ public class Displ232Test extends DisplaytagCase
         assertNotNull("Paging banner not found.", pagination);
         assertEquals("Total number of pages is not displayted properly.", "[10]", pagination.getText());
 
+        request = new GetMethodWebRequest(jspName);
+        request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "10");
+        response = runner.getResponse(request);
+
+        if (log.isDebugEnabled())
+        {
+            log.debug(response.getText());
+        }
+
+        pagination = response.getElementWithID("pagination");
+        assertNotNull("Paging banner not found.", pagination);
+        assertEquals("Total number of pages is not displayted properly.", "[10]", pagination.getText());
+
     }
 
 }

@@ -23,6 +23,9 @@
                 <display:setProperty name="paging.banner.full">
 	                <jsp:text><div id="pagination">[{6}]</div></jsp:text>
                 </display:setProperty>
+                <display:setProperty name="paging.banner.last">
+                  <jsp:text><div id="pagination">[{6}]</div></jsp:text>
+                </display:setProperty>
             </display:table>
         </body>
     </html>

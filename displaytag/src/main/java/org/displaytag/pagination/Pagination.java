@@ -258,7 +258,6 @@ public class Pagination
 
         // String for numbered pages
         String numberedPageString = buffer.toString();
-
         // Object array
         // {0} full String for numbered pages
         // {1} first page url
@@ -274,7 +273,7 @@ public class Pagination
             ((Href) this.href.clone()).addParameter(this.pageParam, getNext()),
             ((Href) this.href.clone()).addParameter(this.pageParam, getLast()),
             this.currentPage,
-            this.lastPage};
+            this.isLast() ? this.currentPage : this.lastPage}; // this.lastPage is null if the last page is displayed
 
         // return the full banner
         return MessageFormat.format(fullBanner, pageObjects);
