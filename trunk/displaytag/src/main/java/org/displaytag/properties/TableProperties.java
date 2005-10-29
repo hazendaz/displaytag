@@ -463,33 +463,35 @@ public final class TableProperties implements Cloneable
      */
     public static LocaleResolver getLocaleResolverInstance() throws TablePropertiesLoadException
     {
-        // special handling, table properties is not yet instantiated
-        String className = null;
-
-        ResourceBundle defaultUserProperties = loadUserProperties(Locale.getDefault());
-
-        // if available, user properties have higher precedence
-        if (defaultUserProperties != null)
-        {
-            try
-            {
-                className = defaultUserProperties.getString(PROPERTY_CLASS_LOCALERESOLVER);
-            }
-            catch (MissingResourceException e)
-            {
-                // no problem
-            }
-        }
-
-        // still null? load defaults
-        if (className == null)
-        {
-            Properties defaults = loadBuiltInProperties();
-            className = defaults.getProperty(PROPERTY_CLASS_LOCALERESOLVER);
-        }
 
         if (localeResolver == null)
         {
+
+            // special handling, table properties is not yet instantiated
+            String className = null;
+
+            ResourceBundle defaultUserProperties = loadUserProperties(Locale.getDefault());
+
+            // if available, user properties have higher precedence
+            if (defaultUserProperties != null)
+            {
+                try
+                {
+                    className = defaultUserProperties.getString(PROPERTY_CLASS_LOCALERESOLVER);
+                }
+                catch (MissingResourceException e)
+                {
+                    // no problem
+                }
+            }
+
+            // still null? load defaults
+            if (className == null)
+            {
+                Properties defaults = loadBuiltInProperties();
+                className = defaults.getProperty(PROPERTY_CLASS_LOCALERESOLVER);
+            }
+
             if (className != null)
             {
                 try
