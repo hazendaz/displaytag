@@ -160,11 +160,11 @@ public class RowSorter implements Comparator
         int returnValue;
         if (object1 == null && object2 != null)
         {
-            returnValue = 1;
+            returnValue = -1;
         }
         else if (object1 != null && object2 == null)
         {
-            returnValue = -1;
+            returnValue = 1;
         }
         else if (object1 == null && object2 == null)
         {
