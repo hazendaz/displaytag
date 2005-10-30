@@ -22,10 +22,10 @@
   </mime-mapping>
   <taglib>
     <taglib-uri>http://displaytag.sf.net</taglib-uri>
-    <taglib-location>/../classes/META-INF/displaytag.tld</taglib-location>
+    <taglib-location>/../../src/main/resources/META-INF/displaytag.tld</taglib-location>
   </taglib>
   <taglib>
     <taglib-uri>http://displaytag.sf.net/el</taglib-uri>
-    <taglib-location>/../classes/META-INF/displaytag-el.tld</taglib-location>
+    <taglib-location>/../../src/main/resources/META-INF/displaytag-el.tld</taglib-location>
   </taglib>
 </web-app>
