@@ -19,6 +19,27 @@
     </developerConnection>
     <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-examples/</url>
   </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <projectnatures>
+            <java.lang.String>org.eclipse.jdt.core.javanature</java.lang.String>
+            <java.lang.String>org.eclipse.wst.common.modulecore.ModuleCoreNature</java.lang.String>
+          </projectnatures>
+          <buildcommands>
+            <java.lang.String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</java.lang.String>
+            <java.lang.String>org.eclipse.jdt.core.javabuilder</java.lang.String>
+            <java.lang.String>
+              org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver
+            </java.lang.String>
+          </buildcommands>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <groupId>displaytag</groupId>
@@ -31,50 +52,37 @@
       <version>1.1-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>1.7.0</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>2.1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.4</version>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.8</version>
-    </dependency>
-    <dependency>
-      <groupId>servletapi</groupId>
-      <artifactId>servletapi</artifactId>
-      <version>2.3</version>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>itext</groupId>
-      <artifactId>itext</artifactId>
-      <version>0.99</version>
     </dependency>
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
-      <version>1.0.2</version>
     </dependency>
     <dependency>
       <groupId>taglibs</groupId>
       <artifactId>standard</artifactId>
-      <version>1.0.6</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>itext</groupId>
+      <artifactId>itext</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>poi</groupId>
+      <artifactId>poi</artifactId>
     </dependency>
     <!-- needed for http://jira.codehaus.org/browse/MNG-1178 -->
     <dependency>
@@ -84,12 +92,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <!--
-    <distributionManagement>
-    <site>
-    <id>displaytag</id>
-    <name>displaytag</name>
-    <url>scp://shell.sourceforge.net//home/groups/d/di/displaytag/htdocs/11/multiproject/displaytag-examples</url>
-    </site>
-    </distributionManagement> -->
 </project>
