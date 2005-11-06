@@ -238,6 +238,11 @@
         <groupId>commons-logging</groupId>
         <artifactId>commons-logging</artifactId>
         <version>1.0.4</version>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.8</version>
         <exclusions>
           <exclusion>
             <groupId>avalon-framework</groupId>
@@ -254,11 +259,6 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.8</version>
-      </dependency>
-      <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
         <version>2.4</version>
@@ -271,7 +271,7 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>jstl</groupId>
+        <groupId>javax.servlet</groupId>
         <artifactId>jstl</artifactId>
         <version>1.1.2</version>
       </dependency>
@@ -289,7 +289,7 @@
       <dependency>
         <groupId>taglibs</groupId>
         <artifactId>standard</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.6</version>
         <scope>compile</scope>
       </dependency>
       <dependency>
@@ -299,8 +299,8 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.eclipse.jdt</groupId>
-        <artifactId>core</artifactId>
+        <groupId>eclipse</groupId>
+        <artifactId>jdtcore</artifactId>
         <version>3.0.1</version>
         <scope>test</scope>
       </dependency>
