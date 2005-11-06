@@ -51,7 +51,7 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>jstl</groupId>
+      <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
     </dependency>
     <dependency>
@@ -79,8 +79,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.jdt</groupId>
-      <artifactId>core</artifactId>
+      <groupId>eclipse</groupId>
+      <artifactId>jdtcore</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -91,13 +91,13 @@
     <dependency>
       <groupId>commons-el</groupId>
       <artifactId>commons-el</artifactId>
-      <scope>compile</scope>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>struts</groupId>
       <artifactId>struts</artifactId>
     </dependency>
-    <!-- @todo should be in springframework pom -->
+    <!-- @todo should be in springframework pom ? -->
     <dependency>
       <groupId>commons-digester</groupId>
       <artifactId>commons-digester</artifactId>
@@ -121,7 +121,7 @@
     <dependency>
       <groupId>opensymphony</groupId>
       <artifactId>oscore</artifactId>
-      <optional>true</optional>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ognl</groupId>
@@ -144,32 +144,34 @@
   </build>
   <reporting>
     <plugins>
-      <!--
-        <plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
-        </plugin>
-        <plugin>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jxr-maven-plugin</artifactId>
-        </plugin>
-        <plugin>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changes-maven-plugin</artifactId>
-        </plugin>
-        <plugin>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>surefire-report-maven-plugin</artifactId>
-        </plugin>
-        <plugin>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clover-plugin</artifactId>
-        </plugin>
-        <plugin>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        </plugin>
-      -->
+        <configuration>
+          <excludes>**/org/apache/**</excludes>
+          <propertiesFile>checkstyle.xml</propertiesFile>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>net.sf.maventaglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
