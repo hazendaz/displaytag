@@ -15,6 +15,7 @@ import java.text.MessageFormat;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import javax.servlet.jsp.JspException;
 
@@ -330,8 +331,7 @@ public abstract class TableWriterTemplate
             // now we are going to create the current row; reset the decorator to the current row
             if (tableDecorator != null)
             {
-                tableDecorator.initRow(currentRow.getObject(), currentRow.getRowNumber(), currentRow.getRowNumber() + rowIterator.getPageOffset());
-                writeDecoratedRowStart(model);
+                tableDecorator.initRow(currentRow.getObject(), currentRow.getRowNumber(), currentRow.getRowNumber() + rowIterator.getPageOffset());                
             }
 
             // open row
@@ -340,13 +340,14 @@ public abstract class TableWriterTemplate
 
             Iterator headerCellsIter = model.getHeaderCellList().iterator();
             boolean hasReachedGroupEnd = false;
+            ArrayList structsForRow = new ArrayList(model.getHeaderCellList().size());
             while (headerCellsIter.hasNext())
             {
                 HeaderCell header = (HeaderCell) headerCellsIter.next();
 
                 // Get the value to be displayed for the column
                 CellStruct struct = (CellStruct) currentRowValues.get(new Integer(header.getColumnNumber()));
-                String displayValue = struct.bodyValue;
+                struct.decoratedValue = struct.bodyValue;
                 // Check and see if there is a grouping transition. If there is, then notify the decorator
                 if (header.getGroup() != -1)
                 {
@@ -374,17 +375,24 @@ public abstract class TableWriterTemplate
                     }
                     if (tableDecorator != null)
                     {
-                        displayValue = tableDecorator.displayValue(struct.bodyValue, groupingValue);
+                        struct.decoratedValue = tableDecorator.displayGroupedValue(struct.bodyValue, groupingValue);
                     }
                     else if (groupingValue == GROUP_END || groupingValue == GROUP_NO_CHANGE)
                     {
-                        displayValue = TagConstants.EMPTY_STRING;
+                        struct.decoratedValue = TagConstants.EMPTY_STRING;
                     }
                 }
+                structsForRow.add(struct);
+            }
 
-                // add column value
+            if (tableDecorator != null)
+            {
+                writeDecoratedRowStart(model);
+            }
+            for (Iterator iterator = structsForRow.iterator(); iterator.hasNext();) {
+                CellStruct struct = (CellStruct) iterator.next();
                 writeColumnOpener(struct.column);
-                writeColumnValue(displayValue, struct.column);
+                writeColumnValue(struct.decoratedValue, struct.column);
                 writeColumnCloser(struct.column);
             }
 
@@ -513,6 +521,7 @@ public abstract class TableWriterTemplate
     {
         Column column;
         String bodyValue;
+        String decoratedValue;
 
         public CellStruct(Column theColumn, String bodyValueParam)
         {
