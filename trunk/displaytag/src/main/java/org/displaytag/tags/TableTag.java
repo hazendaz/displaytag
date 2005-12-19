@@ -44,6 +44,8 @@ import org.displaytag.exception.ExportException;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.WrappedRuntimeException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.exception.DecoratorException;
 import org.displaytag.export.BinaryExportView;
 import org.displaytag.export.ExportView;
 import org.displaytag.export.ExportViewFactory;
@@ -53,6 +55,8 @@ import org.displaytag.model.Column;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
+import org.displaytag.model.RowIterator;
+import org.displaytag.model.ColumnIterator;
 import org.displaytag.pagination.PaginatedList;
 import org.displaytag.pagination.PaginatedListSmartListHelper;
 import org.displaytag.pagination.SmartListHelper;
@@ -87,6 +91,8 @@ public class TableTag extends HtmlTableTag
      * content to detect the output type and to return different data when exporting.
      */
     public static final String PAGE_ATTRIBUTE_MEDIA = "mediaType"; //$NON-NLS-1$
+
+
 
     /**
      * If this variable is found in the request, assume the export filter is enabled.
@@ -241,6 +247,11 @@ public class TableTag extends HtmlTableTag
      * current row.
      */
     private Row currentRow;
+
+    /**
+     * next row.
+     */
+
 
     /**
      * Used by various functions when the person wants to do paging - cleaned in doEndTag().
@@ -1264,7 +1275,7 @@ public class TableTag extends HtmlTableTag
 
         if (tableDecorator != null)
         {
-            tableDecorator.init(this.pageContext, this.list);
+            tableDecorator.init(this.pageContext, this.list, this.tableModel);
             this.tableModel.setTableDecorator(tableDecorator);
         }
 
@@ -1795,7 +1806,7 @@ public class TableTag extends HtmlTableTag
      * Get the column totals Map. If there is no varTotals defined, there are no totals.
      * @return a Map of totals where the key is the column number and the value is the total for that column
      */
-    protected Map getTotals()
+    public Map getTotals()
     {
         Map totalsMap = new HashMap();
         if (this.varTotals != null)
@@ -2006,5 +2017,6 @@ public class TableTag extends HtmlTableTag
 
         return super.getOpenTag();
     }
+
 
 }

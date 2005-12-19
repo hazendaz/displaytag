@@ -12,12 +12,11 @@
 package org.displaytag.render;
 
 import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.JspException;
 
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
-import org.displaytag.model.Column;
-import org.displaytag.model.Row;
-import org.displaytag.model.TableModel;
+import org.displaytag.model.*;
 import org.displaytag.tags.CaptionTag;
 import org.displaytag.tags.TableTag;
 import org.displaytag.util.TagConstants;
@@ -257,4 +256,13 @@ public class HtmlTableWriter extends TableWriterAdapter
     {
         this.tableTag.write(string, out);
     }
+
+    public void writeTable(TableModel model, String id) throws JspException {
+        super.writeTable(model, id);
+        if (tableTag.getVarTotals() != null){
+            tableTag.getPageContext().setAttribute(tableTag.getVarTotals(), tableTag.getTotals());
+        }                                                                                                 
+    }
+
+
 }

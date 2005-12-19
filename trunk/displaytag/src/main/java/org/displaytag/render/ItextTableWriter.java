@@ -261,7 +261,7 @@ public class ItextTableWriter extends TableWriterAdapter
      */
     protected void writeColumnOpener(Column column) throws ObjectLookupException, DecoratorException
     {
-        column.getOpenTag(); // has side effect, setting its stringValue, which affects grouping logic.
+        column.initialize(); // has side effect, setting its stringValue, which affects grouping logic.
     }
 
     /**
