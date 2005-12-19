@@ -25,7 +25,7 @@
     <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-doc/</url>
   </scm>
   <issueManagement>
-    <url>http://jira.codehaus.org/BrowseProject.jspa?id=10800</url>
+    <url>http://jira.codehaus.org/browse/DISPL</url>
   </issueManagement>
   <licenses>
     <license>
@@ -141,23 +141,6 @@
           <target>1.4</target>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <configuration>
-          <projectnatures>
-            <java.lang.String>org.eclipse.jdt.core.javanature</java.lang.String>
-            <java.lang.String>org.eclipse.wst.common.modulecore.ModuleCoreNature</java.lang.String>
-          </projectnatures>
-          <buildcommands>
-            <java.lang.String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</java.lang.String>
-            <java.lang.String>org.eclipse.jdt.core.javabuilder</java.lang.String>
-            <java.lang.String>
-              org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver
-            </java.lang.String>
-          </buildcommands>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -265,9 +248,9 @@
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>geronimo-spec</groupId>
-        <artifactId>geronimo-spec-jsp</artifactId>
-        <version>2.0-rc4</version>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jsp-api</artifactId>
+        <version>2.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>

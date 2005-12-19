@@ -11,12 +11,14 @@
  */
 package org.displaytag.decorator;
 
-
-import org.displaytag.model.TableModel;
-import org.displaytag.util.TagConstants;
-import org.displaytag.render.TableWriterTemplate;
-
 import javax.servlet.jsp.PageContext;
+
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.model.TableModel;
+import org.displaytag.render.TableWriterTemplate;
+import org.displaytag.util.LookupUtil;
+import org.displaytag.util.TagConstants;
+
 
 /**
  * @author epesh
@@ -44,7 +46,7 @@ public abstract class TableDecorator extends Decorator
     /**
      * The associated table model.
      */
-    private TableModel tableModel;
+    protected TableModel tableModel;
 
     /**
      * Setter for tablemodel
@@ -63,8 +65,6 @@ public abstract class TableDecorator extends Decorator
     {
         return tableModel;
     }
-
-
 
     /**
      * return the index in the displayed list.
@@ -149,8 +149,9 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * Call back to add an additional row class to the current row
+     * Call back to add an additional row class to the current row.
      * @return CSS class attribute value for the current row
+     * @since 1.1
      */
     public String addRowClass()
     {
@@ -158,10 +159,11 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * Call back to allow setting an "id" attribute on a row
+     * Call back to allow setting an "id" attribute on a row.
      * @return HTML id attribute value for the current row
+     * @since 1.1
      */
-    public String setRowId()
+    public String addRowId()
     {
         return null;
     }
@@ -185,8 +187,8 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * What value should I display in this cell?  The default value for grouped columns is to not display any value if
-     * the cellValue has not changed on an interior iteration.  Only invoked for columns that are grouped.
+     * What value should I display in this cell? The default value for grouped columns is to not display any value if
+     * the cellValue has not changed on an interior iteration. Only invoked for columns that are grouped.
      * @param cellValue
      * @param groupingStatus
      * @return the value to display
@@ -205,6 +207,25 @@ public abstract class TableDecorator extends Decorator
 
     public boolean isLastRow()
     {
-        return ( getListIndex() == getTableModel().getRowListPage().size() - 1);
+        return (getListIndex() == getTableModel().getRowListPage().size() - 1);
     }
+
+    /**
+     * Shortcut for evaluating properties in the current row object. Can be useful for implementing anonymous decorators
+     * in jsp pages without having to know/import the decorated object Class.
+     * @param propertyName property to lookup in current row object. Can also be a nested or indexed property.
+     * @since 1.1
+     */
+    protected Object evaluate(String propertyName)
+    {
+        try
+        {
+            return LookupUtil.getBeanProperty(getCurrentRowObject(), propertyName);
+        }
+        catch (ObjectLookupException e)
+        {
+            return null;
+        }
+    }
+
 }

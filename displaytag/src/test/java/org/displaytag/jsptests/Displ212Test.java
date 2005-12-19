@@ -49,10 +49,4 @@ public class Displ212Test extends DisplaytagCase
         assertEquals("Pagination links are not as expected.", "1, [2]", pagination.getText());
 
     }
-
-    public void test11() throws Exception
-    {
-        // @todo Auto-generated method stub
-        super.test11();
-    }
 }

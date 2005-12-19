@@ -43,7 +43,7 @@ public class Displ139Test extends DisplaytagCase
         WebTable[] tables = response.getTables();
         assertEquals("Wrong number of tables.", 1, tables.length);
 
-        assertEquals("Wrong (undecorated?) value", "pageContext: ant", tables[0].getCellAsText(1, 0));
+        assertEquals("Wrong (undecorated?) value", "pageContext: html ant", tables[0].getCellAsText(1, 0));
 
     }
 

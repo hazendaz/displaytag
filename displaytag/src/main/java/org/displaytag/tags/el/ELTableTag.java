@@ -161,6 +161,24 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
+     * @see org.displaytag.tags.TableTag#setStyle(java.lang.String)
+     * @param value EL expression for attribute value
+     */
+    public void setStyle(String value)
+    {
+        styleExpr = value;
+    }
+
+    /**
+     * @see org.displaytag.tags.TableTag#setSummary(java.lang.String)
+     * @param value EL expression for attribute value
+     */
+    public void setSummary(String value)
+    {
+        summaryExpr = value;
+    }
+
+    /**
      * @see org.displaytag.tags.TableTag#setCellspacing(java.lang.String)
      * @param value EL expression for attribute value
      */

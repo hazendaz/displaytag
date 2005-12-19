@@ -156,17 +156,26 @@ public class Row
 
         if (this.tableModel.getTableDecorator() != null)
         {
-            String addStyle = this.tableModel.getTableDecorator().addRowClass();
-
-            if (StringUtils.isNotBlank(addStyle))
+            try
             {
-                cssAttribute.addAttributeValue(addStyle);
+                String addStyle = this.tableModel.getTableDecorator().addRowClass();
+
+                if (StringUtils.isNotBlank(addStyle))
+                {
+                    cssAttribute.addAttributeValue(addStyle);
+                }
+
+                String id = this.tableModel.getTableDecorator().addRowId();
+                if (StringUtils.isNotBlank(id))
+                {
+                    rowAttributes.put(TagConstants.ATTRIBUTE_ID, id);
+                }
             }
-
-            String id = this.tableModel.getTableDecorator().setRowId();
-            if (StringUtils.isNotBlank(id))
+            catch (NoSuchMethodError e)
             {
-                rowAttributes.put(TagConstants.ATTRIBUTE_ID, id);
+                // this catch is here to allow decorators compiled with displaytag 1.0 work with 1.1
+                // since the addRowClass() and addRowId() are new in displaytag 1.1 earlier decorators could throw
+                // a NoSuchMethodError... be nice with them till a next major release
             }
         }
 

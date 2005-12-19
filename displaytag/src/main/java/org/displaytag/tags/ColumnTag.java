@@ -30,6 +30,7 @@ import org.displaytag.conversion.PropertyConvertorFactory;
 import org.displaytag.decorator.AutolinkColumnDecorator;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
+import org.displaytag.decorator.MessageFormatColumnDecorator;
 import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
@@ -122,15 +123,16 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     private Comparator comparator = new DefaultComparator();
 
     /**
-     * If not null, we will happily coerce the column value to this class.
-     */
-    private Class valueClass;
-
-    /**
      * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
      * into a hypertext link.
      */
     private boolean autolink;
+
+    /**
+     * A MessageFormat patter that will be used to decorate objects in the column. Can be used as a "shortcut" for
+     * simple column decorations.
+     */
+    private String format;
 
     /**
      * the grouping level (starting at 1 and incrementing) of this column (indicates if successive contain the same
@@ -254,40 +256,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     }
 
     /**
-     * Setter.
-     * @param valueClassObj the parameter
-     */
-    public void setValueClass(Object valueClassObj)
-    {
-        if (valueClassObj instanceof Class)
-        {
-            this.valueClass = (Class) valueClassObj;
-        }
-        else if (valueClassObj instanceof String)
-        {
-            String valueClassName = valueClassObj.toString();
-            if (StringUtils.isNotBlank(valueClassName))
-            {
-                try
-                {
-                    valueClass = Thread.currentThread().getContextClassLoader().loadClass(valueClassName);
-                }
-                catch (ClassNotFoundException e)
-                {
-                    throw new RuntimeException("InstantiationException setting value class as "
-                        + valueClassName
-                        + ": "
-                        + e.getMessage(), e);
-                }
-            }
-        }
-        else
-        {
-            valueClass = null;
-        }
-    }
-
-    /**
      * Set the comparator, classname or object.
      * @param comparatorObj the comparator, classname or object
      */
@@ -347,6 +315,15 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     public void setTitle(String value)
     {
         this.title = value;
+    }
+
+    /**
+     * setter for the "format" tag attribute.
+     * @param value attribute value
+     */
+    public void setFormat(String value)
+    {
+        this.format = value;
     }
 
     /**
@@ -490,28 +467,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     public void setMaxWords(int value)
     {
         this.maxWords = value;
-    }
-
-    /**
-     * setter for the "width" tag attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setWidth(String value)
-    {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
-        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
-    }
-
-    /**
-     * setter for the "align" tag attribute.
-     * @param value attribute value
-     * @deprecated use css in "class" or "style"
-     */
-    public void setAlign(String value)
-    {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
-        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
     }
 
     /**
@@ -732,7 +687,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             String[] decoratorNames = StringUtils.split(this.decorator);
             for (int j = 0; j < decoratorNames.length; j++)
             {
-                decorators.add(DecoratorFactory.loadColumnDecorator(decoratorNames[j]));
+                decorators.add(DecoratorFactory.loadColumnDecorator(this.pageContext, decoratorNames[j]));
             }
 
         }
@@ -741,6 +696,12 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         if (this.autolink)
         {
             decorators.add(AutolinkColumnDecorator.INSTANCE);
+        }
+
+        // another "special" decorator
+        if (StringUtils.isNotBlank(this.format))
+        {
+            decorators.add(new MessageFormatColumnDecorator(this.format, tableTag.getProperties().getLocale()));
         }
 
         headerCell.setColumnDecorators((DisplaytagColumnDecorator[]) decorators
@@ -759,7 +720,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             .getInstance(tableTag.getProperties().getLocale()));
 
         headerCell.setComparator(headerComparator);
-        headerCell.setColumnValueClass(valueClass);
         headerCell.setDefaultSortOrder(this.defaultorder);
         headerCell.setSortName(this.sortName);
 
@@ -867,7 +827,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         this.titleKey = null;
         this.sortProperty = null;
         this.comparator = null;
-        this.valueClass = null;
         this.defaultorder = null;
     }
 
@@ -915,6 +874,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             .append("headerAttributeMap", this.headerAttributeMap) //$NON-NLS-1$
             .append("paramName", this.paramName) //$NON-NLS-1$
             .append("autolink", this.autolink) //$NON-NLS-1$
+            .append("format", this.format) //$NON-NLS-1$
             .append("nulls", this.nulls) //$NON-NLS-1$
             .append("maxWords", this.maxWords) //$NON-NLS-1$
             .append("attributeMap", this.attributeMap) //$NON-NLS-1$

@@ -17,7 +17,7 @@
                   new org.displaytag.test.KnownValue()
                 });
             ]]> </jsp:scriptlet>
-  <display:table name="requestScope.test" id="table" pagesize="2" defaultsort="1">
+  <display:table name="requestScope.test" id="table" pagesize="2" defaultsort="1" defaultorder="ascending">
     <display:column property="ant" sortable="true" />
     <display:column property="bee" sortable="true" />
     <display:column property="camel" sortable="true" />

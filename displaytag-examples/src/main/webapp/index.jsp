@@ -28,10 +28,12 @@
     <li><a href="example-nestedtables.jsp">Nested tables</a></li>
     <li><a href="example-caption-footer.jsp">Caption and footer</a></li>
     <li><a href="example-misc.jsp">Misc, odds and ends</a></li>
-    <li><a href="example-new-export.jsp">WYSIWYG data exporting (alpha)</a></li>
+    <li><a href="example-new-export.jsp">WYSIWYG data exporting (beta)</a></li>
+    <li><a href="example-format.jsp">DISPL-28 - format</a></li>
+    <li><a href="example-columnlist.jsp">DISPL-85 Dynamic Column Creation</a></li>
+    <li><a href="example-rowclass.jsp">DISPL-110 Ability to highlight selected table row</a></li>
+    <li><a href="example-columnsummation.jsp">DISPL-199 Column Summation</a></li>
   </ul>
-
-
   <jsp:include page="inc/footer.jsp" flush="true" />
 
 </jsp:root>

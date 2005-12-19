@@ -1,0 +1,49 @@
+                                    ------------------------------
+                                              Download
+                                    ------------------------------
+                                          Fabrizio Giustina
+                                    ------------------------------
+                                              11-11-2005
+                                    ------------------------------
+
+Download
+
+releases
+
+   You can download source and binary distributions from [33]the
+   SourceForge Server .
+
+     [33] http://sourceforge.net/project/showfiles.php?group_id=73068
+
+development snapshot
+
+   The latest snapshot build (usually uploaded in sync with this
+   website) can be downloaded directly from [34]here. Get this one only
+   if you are a developer or you absolutely need a feature/fix added
+   before the latest release (see [35]changes for the full change log).
+
+     [34] http://displaytag.sourceforge.net/11/nightly
+     [35] http://displaytag.sourceforge.net/11/changes-report.html
+
+source code from CVS
+
+   You can also obtain the source from the SourceForge CVS Server, see
+   [36]Source Repository.
+
+     [36] http://displaytag.sourceforge.net/11/cvs-usage.html
+
+Files
+
+   The "bin" versions include the following:
+     * displaytag.jar - the jar file that contains the taglib classes,
+       you need to drop this file into your web application WEB-INF/lib
+       directory.
+     * displaytag.tld - the tld file that contains the tag library
+       descriptor, you need to drop this file into your web application
+       WEB-INF directory.
+     * displaytag.war - the documentation and the example applications
+       that appear on this web site, optionally drop this into your web
+       container deployment directory.
+
+   The "src" versions includes the complete source code to the tag
+   library, the various example pages, and the documentation.

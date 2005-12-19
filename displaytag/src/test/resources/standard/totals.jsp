@@ -1,5 +1,5 @@
 <jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
-  xmlns:c="urn:jsptld:../WEB-INF/tld/c.tld"
+  xmlns:c="urn:jsptld:http://java.sun.com/jstl/core"
   xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:text> <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> ]]> </jsp:text>

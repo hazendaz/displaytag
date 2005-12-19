@@ -15,7 +15,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,7 +26,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
@@ -44,8 +42,6 @@ import org.displaytag.exception.ExportException;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.WrappedRuntimeException;
-import org.displaytag.exception.ObjectLookupException;
-import org.displaytag.exception.DecoratorException;
 import org.displaytag.export.BinaryExportView;
 import org.displaytag.export.ExportView;
 import org.displaytag.export.ExportViewFactory;
@@ -55,8 +51,6 @@ import org.displaytag.model.Column;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
-import org.displaytag.model.RowIterator;
-import org.displaytag.model.ColumnIterator;
 import org.displaytag.pagination.PaginatedList;
 import org.displaytag.pagination.PaginatedListSmartListHelper;
 import org.displaytag.pagination.SmartListHelper;
@@ -64,7 +58,6 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.render.HtmlTableWriter;
-import org.displaytag.util.Anchor;
 import org.displaytag.util.CollectionUtil;
 import org.displaytag.util.DependencyChecker;
 import org.displaytag.util.Href;
@@ -91,8 +84,6 @@ public class TableTag extends HtmlTableTag
      * content to detect the output type and to return different data when exporting.
      */
     public static final String PAGE_ATTRIBUTE_MEDIA = "mediaType"; //$NON-NLS-1$
-
-
 
     /**
      * If this variable is found in the request, assume the export filter is enabled.
@@ -138,18 +129,6 @@ public class TableTag extends HtmlTableTag
      * name of the object to use for iteration. Can contain expressions.
      */
     private String name;
-
-    /**
-     * property to get into the bean defined by "name".
-     * @deprecated Use expressions in "name" attribute
-     */
-    private String property;
-
-    /**
-     * scope of the bean defined by "name". Use expressions in name instead
-     * @deprecated
-     */
-    private String scope;
 
     /**
      * length of list to display.
@@ -199,7 +178,7 @@ public class TableTag extends HtmlTableTag
     /**
      * are we doing any local sorting? (defaults to True)
      */
-    private Boolean localSort = Boolean.TRUE;
+    private boolean localSort = true;
 
     /**
      * Request uri.
@@ -251,7 +230,6 @@ public class TableTag extends HtmlTableTag
     /**
      * next row.
      */
-
 
     /**
      * Used by various functions when the person wants to do paging - cleaned in doEndTag().
@@ -356,15 +334,6 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Obtain the footer content. Called by TableWriters to render the footer.
-     * @return string footer content
-     */
-    public String getFooter()
-    {
-        return this.footer;
-    }
-
-    /**
      * Sets the content of the caption. Called by a nested caption tag.
      * @param string caption content
      */
@@ -443,7 +412,7 @@ public class TableTag extends HtmlTableTag
         }
         else if (TableTagParameters.SORT_AMOUNT_EXTERNAL.equals(value))
         {
-            this.localSort = Boolean.FALSE;
+            this.localSort = false;
         }
         else
         {
@@ -509,16 +478,6 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Sets the property to get into the bean defined by "name".
-     * @param value property name
-     * @deprecated Use expressions in "name" attribute
-     */
-    public void setProperty(String value)
-    {
-        this.property = value;
-    }
-
-    /**
      * sets the sorting order for the sorted column.
      * @param value "ascending" or "descending"
      * @throws InvalidTagAttributeValueException if value is not one of "ascending" or "descending"
@@ -530,16 +489,6 @@ public class TableTag extends HtmlTableTag
         {
             throw new InvalidTagAttributeValueException(getClass(), "defaultorder", value); //$NON-NLS-1$
         }
-    }
-
-    /**
-     * Setter for object scope.
-     * @param value String
-     * @deprecated Use expressions in "name" attribute
-     */
-    public void setScope(String value)
-    {
-        this.scope = value;
     }
 
     /**
@@ -652,15 +601,6 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * It's a getter.
-     * @return the this.pageContext
-     */
-    public PageContext getPageContext()
-    {
-        return this.pageContext;
-    }
-
-    /**
      * Returns the properties.
      * @return TableProperties
      */
@@ -691,7 +631,6 @@ public class TableTag extends HtmlTableTag
             log.debug("[" + getUid() + "] addColumn " + column);
         }
 
-        // <JBN>
         if ((this.paginatedList != null) && (column.getSortable()))
         {
             String sortCriterion = paginatedList.getSortCriterion();
@@ -709,7 +648,6 @@ public class TableTag extends HtmlTableTag
                 column.setAlreadySorted();
             }
         }
-        // </JBN>
 
         this.tableModel.addColumnHeader(column);
     }
@@ -725,8 +663,14 @@ public class TableTag extends HtmlTableTag
         {
             int columnNumber = this.currentRow.getCellList().size();
             this.currentRow.addCell(cell);
-            HeaderCell header = (HeaderCell) tableModel.getHeaderCellList().get(columnNumber);
-            header.addCell(new Column(header, cell, currentRow));
+
+            // just be sure that the number of columns has not been altered by conditionally including column tags in
+            // different rows. This is not supported, but better avoid IndexOutOfBounds...
+            if (columnNumber < tableModel.getHeaderCellList().size())
+            {
+                HeaderCell header = (HeaderCell) tableModel.getHeaderCellList().get(columnNumber);
+                header.addCell(new Column(header, cell, currentRow));
+            }
         }
     }
 
@@ -771,10 +715,7 @@ public class TableTag extends HtmlTableTag
         }
 
         this.properties = TableProperties.getInstance((HttpServletRequest) pageContext.getRequest());
-        this.tableModel = new TableModel(
-            this.properties,
-            pageContext.getResponse().getCharacterEncoding(),
-            pageContext);
+        this.tableModel = new TableModel(this.properties, pageContext.getResponse().getCharacterEncoding(), pageContext);
 
         // copying id to the table model for logging
         this.tableModel.setId(getUid());
@@ -905,10 +846,8 @@ public class TableTag extends HtmlTableTag
         }
 
         // set the table model to perform in memory local sorting
-        if (this.localSort != null)
-        {
-            this.tableModel.setLocalSort(this.localSort.booleanValue());
-        }
+        this.tableModel.setLocalSort(this.localSort);
+
         if (this.partialList)
         {
             // if we don't have all the data then ensure they aren't trying to sort the whole list
@@ -1114,24 +1053,7 @@ public class TableTag extends HtmlTableTag
             return null;
         }
 
-        StringBuffer fullName = new StringBuffer(30);
-
-        // append scope
-        if (StringUtils.isNotBlank(this.scope))
-        {
-            fullName.append(this.scope).append("Scope."); //$NON-NLS-1$
-        }
-
-        // base bean name
-        fullName.append(this.name);
-
-        // append property
-        if (StringUtils.isNotBlank(this.property))
-        {
-            fullName.append('.').append(this.property);
-        }
-
-        return fullName.toString();
+        return this.name;
     }
 
     /**
@@ -1271,7 +1193,7 @@ public class TableTag extends HtmlTableTag
         {
             tableDecoratorName = this.getProperties().getExportDecoratorName(this.currentMediaType);
         }
-        TableDecorator tableDecorator = DecoratorFactory.loadTableDecorator(tableDecoratorName);
+        TableDecorator tableDecorator = DecoratorFactory.loadTableDecorator(this.pageContext, tableDecoratorName);
 
         if (tableDecorator != null)
         {
@@ -1631,175 +1553,18 @@ public class TableTag extends HtmlTableTag
             this.addClass(css);
         }
         // use HtmlTableWriter to write table
-        new HtmlTableWriter(this, out).writeTable(this.tableModel, this.getUid());
-    }
-
-    /**
-     * Generates the table header, including the first row of the table which displays the titles of the columns.
-     */
-    public void writeTableHeader()
-    {
-        JspWriter out = this.pageContext.getOut();
-
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + getUid() + "] getTableHeader called");
-        }
-
-        // open thead
-        write(TagConstants.TAG_THEAD_OPEN, out);
-
-        // open tr
-        write(TagConstants.TAG_TR_OPEN, out);
-
-        // no columns?
-        if (this.tableModel.isEmpty())
-        {
-            write(TagConstants.TAG_TH_OPEN, out);
-            write(TagConstants.TAG_TH_CLOSE, out);
-        }
-
-        // iterator on columns for header
-        Iterator iterator = this.tableModel.getHeaderCellList().iterator();
-
-        while (iterator.hasNext())
-        {
-            // get the header cell
-            HeaderCell headerCell = (HeaderCell) iterator.next();
-
-            if (headerCell.getSortable())
-            {
-                String cssSortable = this.properties.getCssSortable();
-                headerCell.addHeaderClass(cssSortable);
-            }
-
-            // if sorted add styles
-            if (headerCell.isAlreadySorted())
-            {
-                // sorted css class
-                headerCell.addHeaderClass(this.properties.getCssSorted());
-
-                // sort order css class
-                headerCell.addHeaderClass(this.properties.getCssOrder(this.tableModel.isSortOrderAscending()));
-            }
-
-            // append th with html attributes
-            write(headerCell.getHeaderOpenTag(), out);
-
-            // title
-            String header = headerCell.getTitle();
-
-            // column is sortable, create link
-            if (headerCell.getSortable())
-            {
-                // creates the link for sorting
-                Anchor anchor = new Anchor(getSortingHref(headerCell), header);
-
-                // append to buffer
-                header = anchor.toString();
-            }
-
-            write(header, out);
-            write(headerCell.getHeaderCloseTag(), out);
-        }
-
-        // close tr
-        write(TagConstants.TAG_TR_CLOSE, out);
-
-        // close thead
-        write(TagConstants.TAG_THEAD_CLOSE, out);
-
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + getUid() + "] getTableHeader end");
-        }
-    }
-
-    /**
-     * Generates the link to be added to a column header for sorting.
-     * @param headerCell header cell the link should be added to
-     * @return Href for sorting
-     */
-    private Href getSortingHref(HeaderCell headerCell)
-    {
-        // costruct Href from base href, preserving parameters
-        Href href = new Href(this.baseHref);
-
-        if (this.paginatedList == null)
-        {
-            // add column number as link parameter
-            if (!this.localSort.booleanValue() && (headerCell.getSortName() != null))
-            {
-                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getSortName());
-            }
-            else
-            {
-                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
-            }
-
-            boolean nowOrderAscending = true;
-
-            if (headerCell.getDefaultSortOrder() != null)
-            {
-                boolean sortAscending = SortOrderEnum.ASCENDING.equals(headerCell.getDefaultSortOrder());
-                nowOrderAscending = headerCell.isAlreadySorted()
-                    ? !this.tableModel.isSortOrderAscending()
-                    : sortAscending;
-            }
-            else
-            {
-                nowOrderAscending = !(headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending());
-            }
-
-            int sortOrderParam = nowOrderAscending ? SortOrderEnum.ASCENDING.getCode() : SortOrderEnum.DESCENDING
-                .getCode();
-            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), sortOrderParam);
-
-            // If user want to sort the full table I need to reset the page number.
-            // or if we aren't sorting locally we need to reset the page as well.
-            if (this.tableModel.isSortFullTable() || !this.tableModel.isLocalSort())
-            {
-                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
-            }
-        }
-        else
-        {
-            if (properties.getPaginationSkipPageNumberInSort())
-            {
-                href.removeParameter(properties.getPaginationPageNumberParam());
-            }
-
-            String sortProperty = headerCell.getSortProperty();
-            if (sortProperty == null)
-            {
-                sortProperty = headerCell.getBeanPropertyName();
-            }
-
-            href.addParameter(properties.getPaginationSortParam(), sortProperty);
-            String dirParam;
-            if (headerCell.isAlreadySorted())
-            {
-                if (this.tableModel.isSortOrderAscending())
-                {
-                    dirParam = properties.getPaginationDescValue();
-                }
-                else
-                {
-                    dirParam = properties.getPaginationAscValue();
-                }
-            }
-            else
-            {
-                dirParam = properties.getPaginationAscValue();
-            }
-            href.addParameter(properties.getPaginationSortDirectionParam(), dirParam);
-            if (paginatedList.getSearchId() != null)
-            {
-                href.addParameter(properties.getPaginationSearchIdParam(), paginatedList.getSearchId());
-            }
-        }
-
-        return href;
+        new HtmlTableWriter(
+            this.tableModel,
+            this.properties,
+            this.baseHref,
+            this.export,
+            out,
+            getCaptionTag(),
+            this.paginatedList,
+            this.listHelper,
+            this.pagesize,
+            getAttributeMap(),
+            this.uid).writeTable(this.tableModel, this.getUid());
     }
 
     /**
@@ -1836,93 +1601,6 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Generates table footer with links for export commands.
-     */
-    public void writeNavigationAndExportLinks()
-    {
-        // Put the page stuff there if it needs to be there...
-        if (this.properties.getAddPagingBannerBottom())
-        {
-            writeSearchResultAndNavigation();
-        }
-
-        // add export links (only if the table is not empty)
-        if (this.export && this.tableModel.getRowListPage().size() != 0)
-        {
-            writeExportLinks();
-        }
-    }
-
-    /**
-     * generates the search result and navigation bar.
-     */
-    public void writeSearchResultAndNavigation()
-    {
-        if ((this.paginatedList == null && this.pagesize != 0 && this.listHelper != null)
-            || (this.paginatedList != null))
-        {
-            // create a new href
-            Href navigationHref = new Href(this.baseHref);
-
-            write(this.listHelper.getSearchResultsSummary());
-
-            String pageParameter;
-            if (paginatedList == null)
-            {
-                pageParameter = encodeParameter(TableTagParameters.PARAMETER_PAGE);
-            }
-            else
-            {
-                pageParameter = properties.getPaginationPageNumberParam();
-                if ((paginatedList.getSearchId() != null)
-                    && (!navigationHref.getParameterMap().containsKey(properties.getPaginationSearchIdParam())))
-                {
-                    navigationHref.addParameter(properties.getPaginationSearchIdParam(), paginatedList.getSearchId());
-                }
-            }
-            write(this.listHelper.getPageNavigationBar(navigationHref, pageParameter));
-        }
-    }
-
-    /**
-     * Writes the formatted export links section.
-     */
-    private void writeExportLinks()
-    {
-        // Figure out what formats they want to export, make up a little string
-        Href exportHref = new Href(this.baseHref);
-
-        StringBuffer buffer = new StringBuffer(200);
-        Iterator iterator = MediaTypeEnum.iterator();
-
-        while (iterator.hasNext())
-        {
-            MediaTypeEnum currentExportType = (MediaTypeEnum) iterator.next();
-
-            if (this.properties.getAddExport(currentExportType))
-            {
-
-                if (buffer.length() > 0)
-                {
-                    buffer.append(this.properties.getExportBannerSeparator());
-                }
-
-                exportHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE), currentExportType
-                    .getCode());
-
-                // export marker
-                exportHref.addParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
-
-                Anchor anchor = new Anchor(exportHref, this.properties.getExportLabel(currentExportType));
-                buffer.append(anchor.toString());
-            }
-        }
-
-        String[] exportOptions = {buffer.toString()};
-        write(MessageFormat.format(this.properties.getExportBanner(), exportOptions));
-    }
-
-    /**
      * Called by the setProperty tag to override some default behavior or text String.
      * @param propertyName String property name
      * @param propertyValue String property value
@@ -1951,15 +1629,13 @@ public class TableTag extends HtmlTableTag
         this.export = false;
         this.length = 0;
         this.listAttribute = null;
-        this.localSort = null;
+        this.localSort = true;
         this.name = null;
         this.offset = 0;
         this.pagesize = 0;
         this.partialList = false;
-        this.property = null;
         this.requestUri = null;
         this.dontAppendContext = false;
-        this.scope = null;
         this.sortFullTable = null;
         this.excludedParams = null;
         this.filteredRows = null;
@@ -1971,7 +1647,7 @@ public class TableTag extends HtmlTableTag
      * Returns the name.
      * @return String
      */
-    public String getName()
+    protected String getName()
     {
         return this.name;
     }
@@ -1992,31 +1668,5 @@ public class TableTag extends HtmlTableTag
 
         return this.paramEncoder.encodeParameterName(parameterName);
     }
-
-    /**
-     * create the open tag containing all the attributes.
-     * @return open tag string: <code>%lt;table attribute="value" ... ></code>
-     */
-    public String getOpenTag()
-    {
-
-        if (this.uid != null && getAttributeMap().get(TagConstants.ATTRIBUTE_ID) == null)
-        {
-            // we need to clone the attribute map in order to "fix" the html id when using only the "uid" attribute
-            Map localAttributeMap = (Map) getAttributeMap().clone();
-            localAttributeMap.put(TagConstants.ATTRIBUTE_ID, this.uid);
-
-            StringBuffer buffer = new StringBuffer();
-            buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
-            buffer.append(localAttributeMap);
-            buffer.append(TagConstants.TAG_CLOSE);
-
-            return buffer.toString();
-
-        }
-
-        return super.getOpenTag();
-    }
-
 
 }

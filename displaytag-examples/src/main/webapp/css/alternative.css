@@ -19,7 +19,7 @@ table.mars tr.odd {
 	background-color: #eec;
 }
 
-table.simple thead tr {
+table.simple thead tr th {
 	background-color: #eee;
 }
 

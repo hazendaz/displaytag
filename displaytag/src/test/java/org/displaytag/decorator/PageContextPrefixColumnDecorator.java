@@ -19,7 +19,7 @@ public class PageContextPrefixColumnDecorator implements DisplaytagColumnDecorat
      */
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
     {
-        return pageContext.getAttribute("prefix").toString() + columnValue;
+        return pageContext.getAttribute("prefix").toString() + media.getName() + " " + columnValue;
     }
 
 }

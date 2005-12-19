@@ -126,7 +126,7 @@ public class Column
         }
 
         DisplaytagColumnDecorator[] decorators = this.header.getColumnDecorators();
-        if (decorated && decorators != null)
+        if (decorated)
         {
             for (int j = 0; j < decorators.length; j++)
             {
@@ -170,11 +170,11 @@ public class Column
      * Initialize the cell value.
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
-
      * @throws DecoratorException
      * @throws ObjectLookupException
      */
-    public void initialize() throws DecoratorException, ObjectLookupException {
+    public void initialize() throws DecoratorException, ObjectLookupException
+    {
         if (this.stringValue == null)
         {
             this.stringValue = createChoppedAndLinkedValue();

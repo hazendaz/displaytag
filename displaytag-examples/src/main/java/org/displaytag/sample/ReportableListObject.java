@@ -65,6 +65,11 @@ public class ReportableListObject extends Object implements Comparable
     private double amount;
 
     /**
+     * count.
+     */
+    private int count;
+
+    /**
      * Constructor for ReportableListObject.
      */
     public ReportableListObject()
@@ -73,6 +78,7 @@ public class ReportableListObject extends Object implements Comparable
         this.city = cities[random.nextInt(cities.length)];
         this.project = projects[random.nextInt(projects.length)];
         this.task = RandomSampleUtil.getRandomSentence(4);
+        this.count = random.nextInt(10);
     }
 
     /**
@@ -82,6 +88,15 @@ public class ReportableListObject extends Object implements Comparable
     public String getCity()
     {
         return this.city;
+    }
+
+    /**
+     * Getter for <code>count</code>.
+     * @return Returns the count.
+     */
+    public int getCount()
+    {
+        return this.count;
     }
 
     /**

@@ -34,6 +34,11 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String autoLinkExpr;
 
     /**
+     * Expression for the "format" tag attribute.
+     */
+    private String formatExpr;
+
+    /**
      * Expression for the "class" tag attribute.
      */
     private String classExpr;
@@ -178,6 +183,15 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     public void setClass(String value)
     {
         classExpr = value;
+    }
+
+    /**
+     * @see org.displaytag.tags.ColumnTag#setFormat(java.lang.String)
+     * @param value EL expression for attribute value
+     */
+    public void setFormat(String value)
+    {
+        formatExpr = value;
     }
 
     /**
@@ -400,6 +414,10 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         {
             super.setAutolink(eval.evalBoolean("autolink", autoLinkExpr)); //$NON-NLS-1$
         }
+        if (formatExpr != null)
+        {
+            super.setFormat(eval.evalString("format", formatExpr)); //$NON-NLS-1$
+        }
         if (classExpr != null)
         {
             super.setClass(eval.evalString("class", classExpr)); //$NON-NLS-1$
@@ -531,6 +549,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         this.defaultorderExpr = null;
         this.scopeExpr = null;
         this.headerScopeExpr = null;
+        this.formatExpr = null;
     }
 
 }

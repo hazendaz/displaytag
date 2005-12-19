@@ -19,27 +19,6 @@
     </developerConnection>
     <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-examples/</url>
   </scm>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <configuration>
-          <projectnatures>
-            <java.lang.String>org.eclipse.jdt.core.javanature</java.lang.String>
-            <java.lang.String>org.eclipse.wst.common.modulecore.ModuleCoreNature</java.lang.String>
-          </projectnatures>
-          <buildcommands>
-            <java.lang.String>org.eclipse.wst.common.modulecore.ComponentStructuralBuilder</java.lang.String>
-            <java.lang.String>org.eclipse.jdt.core.javabuilder</java.lang.String>
-            <java.lang.String>
-              org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver
-            </java.lang.String>
-          </buildcommands>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
   <dependencies>
     <dependency>
       <groupId>displaytag</groupId>
@@ -54,6 +33,11 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>

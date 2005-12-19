@@ -13,6 +13,7 @@ package org.displaytag.sample;
 
 import java.util.List;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.displaytag.decorator.TableDecorator;
 
 
@@ -49,16 +50,12 @@ public abstract class TotalWrapperTemplate extends TableDecorator
     {
         int listindex = ((List) getDecoratedObject()).indexOf(this.getCurrentRowObject());
         ReportableListObject reportableObject = (ReportableListObject) this.getCurrentRowObject();
-        String nextCity;
+        String nextCity = null;
 
         this.cityTotal += reportableObject.getAmount();
         this.grandTotal += reportableObject.getAmount();
 
-        if (listindex == ((List) getDecoratedObject()).size() - 1)
-        {
-            nextCity = "XXXXXX"; // Last row hack, it's only a demo folks... //$NON-NLS-1$
-        }
-        else
+        if (listindex != ((List) getDecoratedObject()).size() - 1)
         {
             nextCity = ((ReportableListObject) ((List) getDecoratedObject()).get(listindex + 1)).getCity();
         }
@@ -66,7 +63,7 @@ public abstract class TotalWrapperTemplate extends TableDecorator
         this.buffer = new StringBuffer(1000);
 
         // City subtotals...
-        if (!nextCity.equals(reportableObject.getCity()))
+        if (!ObjectUtils.equals(nextCity, reportableObject.getCity()))
         {
             writeCityTotal(reportableObject.getCity(), this.cityTotal);
             this.cityTotal = 0;

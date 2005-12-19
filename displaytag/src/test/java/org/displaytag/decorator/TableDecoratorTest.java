@@ -35,8 +35,8 @@ public class TableDecoratorTest extends TestCase
     protected void setUp() throws Exception
     {
         super.setUp();
-        this.one = DecoratorFactory.loadTableDecorator(TableDecoratorOne.class.getName());
-        this.two = DecoratorFactory.loadTableDecorator(TableDecoratorTwo.class.getName());
+        this.one = new TableDecoratorOne();
+        this.two = new TableDecoratorTwo();
     }
 
     /**

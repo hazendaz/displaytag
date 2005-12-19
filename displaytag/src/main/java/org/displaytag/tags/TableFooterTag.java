@@ -142,7 +142,8 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * Tag getter.
      */
-    public boolean isShowAsLastRow() {
+    public boolean isShowAsLastRow()
+    {
         return showAsLastRow;
     }
 
@@ -150,7 +151,8 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
      * Tag setter.
      * @param showAsLastRow the space delimited list of supported types
      */
-    public void setShowAsLastRow(boolean showAsLastRow) {
+    public void setShowAsLastRow(boolean showAsLastRow)
+    {
         this.showAsLastRow = showAsLastRow;
     }
 }

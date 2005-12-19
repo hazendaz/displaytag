@@ -103,8 +103,7 @@ public final class ExportViewFactory
         catch (NoClassDefFoundError e)
         {
             log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
-                ,
-                new Object[]{name, viewClassName, e.getMessage()}));
+                , new Object[]{name, viewClassName, e.getMessage()}));
             return;
         }
 
@@ -127,8 +126,7 @@ public final class ExportViewFactory
         catch (NoClassDefFoundError e)
         {
             log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
-                ,
-                new Object[]{name, viewClassName, e.getMessage()}));
+                , new Object[]{name, viewClassName, e.getMessage()}));
             return;
         }
 

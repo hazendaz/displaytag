@@ -133,11 +133,6 @@ public class HeaderCell
     private SortOrderEnum defaultSortOrder;
 
     /**
-     * Get the destination class for this column.
-     */
-    private Class valueClass;
-
-    /**
      * The running total for the column.
      */
     private double total;
@@ -283,7 +278,7 @@ public class HeaderCell
      */
     public DisplaytagColumnDecorator[] getColumnDecorators()
     {
-        return this.columnDecorators;
+        return this.columnDecorators != null ? this.columnDecorators : new DisplaytagColumnDecorator[0];
     }
 
     /**
@@ -356,16 +351,6 @@ public class HeaderCell
     public void setTitle(String value)
     {
         this.title = value;
-    }
-
-    public Class getColumnValueClass()
-    {
-        return this.valueClass;
-    }
-
-    public void setColumnValueClass(Class theClass)
-    {
-        this.valueClass = theClass;
     }
 
     /**

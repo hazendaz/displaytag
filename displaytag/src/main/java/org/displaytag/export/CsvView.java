@@ -83,19 +83,14 @@ public class CsvView extends BaseExportView
      */
     protected String escapeColumnValue(Object value)
     {
-        if (value != null)
+        String stringValue = StringUtils.trim(value.toString());
+        if (!StringUtils.containsNone(stringValue, new char[]{'\n', ','}))
         {
-            String stringValue = StringUtils.trim(value.toString());
-            if (!StringUtils.containsNone(stringValue, new char[]{'\n', ','}))
-            {
-                return "\"" + //$NON-NLS-1$
-                    StringUtils.replace(stringValue, "\"", "\\\"") + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            }
-
-            return stringValue;
+            return "\"" + //$NON-NLS-1$
+                StringUtils.replace(stringValue, "\"", "\\\"") + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
 
-        return null;
+        return stringValue;
     }
 
 }
