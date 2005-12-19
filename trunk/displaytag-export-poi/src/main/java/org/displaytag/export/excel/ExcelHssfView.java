@@ -7,21 +7,17 @@ import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
 
-import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.displaytag.Messages;
-import org.displaytag.conversion.PropertyConvertorFactory;
 import org.displaytag.exception.BaseNestableJspTagException;
 import org.displaytag.exception.SeverityEnum;
 import org.displaytag.export.BinaryExportView;
@@ -31,7 +27,6 @@ import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
-import org.displaytag.properties.TableProperties;
 
 
 /**
@@ -67,22 +62,6 @@ public class ExcelHssfView implements BinaryExportView
      * Generated sheet.
      */
     private HSSFSheet sheet;
-
-    /**
-     * Converter for producing numeric cell values.
-     */
-    private Converter propertyConvertor;
-
-    private short pctFormat = HSSFDataFormat.getBuiltinFormat("0.00%");
-
-    /**
-     * Default constructor.
-     */
-    public ExcelHssfView()
-    {
-        TableProperties properties = TableProperties.getInstance(null);
-        propertyConvertor = PropertyConvertorFactory.createNumberConverter(properties);
-    }
 
     /**
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
@@ -174,68 +153,24 @@ public class ExcelHssfView implements BinaryExportView
                     HSSFCell cell = xlsRow.createCell((short) colNum++);
                     cell.setEncoding(HSSFCell.ENCODING_UTF_16);
 
-                    Class valueClass = column.getHeaderCell().getColumnValueClass();
-                    if (valueClass != null)
+                    if (value instanceof Number)
                     {
-                        value = propertyConvertor.convert(valueClass, value);
-                        if (Number.class.isAssignableFrom(valueClass))
-                        {
-                            if (value.toString().indexOf("%") > -1)
-                            {
-                                cell.setCellValue(((Number) value).doubleValue() / 100);
-                                HSSFCellStyle cellStyle = wb.createCellStyle();
-                                cellStyle.setDataFormat(pctFormat);
-                                cell.setCellStyle(cellStyle);
-                            }
-                            else
-                            {
-                                cell.setCellValue(((Number) value).doubleValue());
-                            }
-                        }
-                        else if (Date.class.isAssignableFrom(valueClass))
-                        {
-                            cell.setCellValue((Date) value);
-                        }
-                        else if (Calendar.class.isAssignableFrom(valueClass))
-                        {
-                            cell.setCellValue((Calendar) value);
-                        }
-                        else
-                        {
-                            cell.setCellValue(escapeColumnValue(value));
-                        }
+                        Number num = (Number) value;
+                        cell.setCellValue(num.doubleValue());
+                    }
+                    else if (value instanceof Date)
+                    {
+                        cell.setCellValue((Date) value);
+                    }
+                    else if (value instanceof Calendar)
+                    {
+                        cell.setCellValue((Calendar) value);
                     }
                     else
                     {
-                        if (isNumber(value.toString()))
-                        {
-                            Number num = (Number) propertyConvertor.convert(Number.class, value.toString());
-                            // Percentage
-                            if (value.toString().indexOf("%") > -1)
-                            {
-                                cell.setCellValue(num.doubleValue() / 100);
-                                HSSFCellStyle cellStyle = wb.createCellStyle();
-                                cellStyle.setDataFormat(pctFormat);
-                                cell.setCellStyle(cellStyle);
-                            }
-                            else
-                            {
-                                cell.setCellValue(num.doubleValue());
-                            }
-                        }
-                        else if (value instanceof Date)
-                        {
-                            cell.setCellValue((Date) value);
-                        }
-                        else if (value instanceof Calendar)
-                        {
-                            cell.setCellValue((Calendar) value);
-                        }
-                        else
-                        {
-                            cell.setCellValue(escapeColumnValue(value));
-                        }
+                        cell.setCellValue(escapeColumnValue(value));
                     }
+
                 }
             }
             wb.write(out);
@@ -268,33 +203,6 @@ public class ExcelHssfView implements BinaryExportView
         // unescape so that \n gets back to newline
         returnString = StringEscapeUtils.unescapeJava(returnString);
         return returnString;
-    }
-
-    /**
-     * Is this value numeric? You should probably override this method to handle your locale.
-     * @param rawValue the object value
-     * @return true if numeric
-     */
-    protected boolean isNumber(String rawValue)
-    {
-        if (rawValue == null)
-        {
-            return false;
-        }
-        String rawV = rawValue;
-        if (rawV.indexOf('%') > -1)
-        {
-            rawV = rawV.replace('%', ' ').trim();
-        }
-        if (rawV.indexOf('$') > -1)
-        {
-            rawV = rawV.replace('$', ' ').trim();
-        }
-        if (rawV.indexOf(',') > -1)
-        {
-            rawV = StringUtils.replace(rawV, ",", "");
-        }
-        return NumberUtils.isNumber(rawV.trim());
     }
 
     /**

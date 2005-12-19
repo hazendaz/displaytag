@@ -1,0 +1,24 @@
+                                    ------------------------------
+                                              Migrating
+                                    ------------------------------
+                                          Fabrizio Giustina
+                                    ------------------------------
+                                              11-11-2005
+                                    ------------------------------
+
+
+
+Updating from displaytag 1.0
+
+Deprecated features removed
+
+   This is a list of functionalities deprecated in displaytag 1.0 which
+   have been removed in following versions.
+     * The org.apache.taglibs.display package (used in version 0.8.x)
+       has been removed. Only use classes in the org.displaytag and
+       children package.
+     * Deprecated presentational html attributes in table and column
+       tag have been removed. Use the style or class attributes to add
+       formatting using css.
+     * The deprecated styleClass and headerStyleClass attributes have
+       been removed, use the html class and headerClass attributes.

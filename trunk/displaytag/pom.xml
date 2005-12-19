@@ -46,8 +46,8 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>geronimo-spec</groupId>
-      <artifactId>geronimo-spec-jsp</artifactId>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -126,7 +126,7 @@
     <dependency>
       <groupId>ognl</groupId>
       <artifactId>ognl</artifactId>
-      <optional>true</optional>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
@@ -164,14 +164,16 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clover-plugin</artifactId>
       </plugin>
-      <plugin>
+      <!--
+        <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
-          <excludes>**/org/apache/**</excludes>
-          <propertiesFile>checkstyle.xml</propertiesFile>
+        <excludes>**/org/apache/**</excludes>
+        <propertiesFile>checkstyle.xml</propertiesFile>
         </configuration>
-      </plugin>
+        </plugin>
+      -->
       <plugin>
         <groupId>net.sf.maventaglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>

@@ -10,16 +10,11 @@
   <body>
     <release version="1.1-SNAPSHOT" date="not yet released" description="Initial work following the 1.0 release">
       <action type="add" dev="fgiust" issue="DISPL-224" due-to="octalpus">
-        New
-        <code>scope</code>
-        and
-        <code>headerScope</code>
-        attributes added to the column tag (output an html "scope" attribute for web accessibility).
+        New [[scope]] and [[headerScope]] attributes added to the column tag (output an html "scope" attribute for web
+        accessibility).
       </action>
       <action type="add" dev="fgiust" issue="DISPL-208">
-        Column level default sort order. A new
-        <code>sortorder</code>
-        attribute has been added to the column tag.
+        Column level default sort order. A new [[sortorder]] attribute has been added to the column tag.
       </action>
       <action type="update" dev="fgiust">
         Displaytag 1.1 will require java 1.4 and a servlet 2.3 compatible container. Support for java 1.3 and servlet
@@ -28,8 +23,7 @@
       <action type="add" dev="rapruitt" due-to="rapruitt">Support for per-row css attributes.</action>
       <action type="add" dev="rapruitt" issue="DISPL-162" due-to="fguist,karsten,rapruitt">
         Added Fabrizio's POI exporter, with patches from myself and Karsten Voges. To enable, add an entry to your
-        displaytag.properties of 'export.excel.class=org.displaytag.export.ExcelHssfView'. Also added valueClass hints
-        to the column tag, so that you can indicate whether or not a column is a number. It is highly recommended that
+        displaytag.properties of 'export.excel.class=org.displaytag.export.ExcelHssfView'. It is highly recommended that
         users register a Converter and override the isNumber method of the exporter in order to get proper translation
         of numeric data into excel.
       </action>
@@ -76,13 +70,9 @@
         Wrong header set in BufferedResponseWrapper when a charset is already defined (missing '=')
       </action>
       <action type="add" dev="fgiust" issue="DISPL-139">
-        New
-        <code>DisplaytagColumnDecorator</code>
-        interface, which replaces the previous
-        <code>ColumnDecorator</code>
-        and adds pageContext and media type access. The
-        <code>ColumnDecorator</code>
-        interface is nor deprecated, but compatibility with old column decorators is preserved.
+        New [[DisplaytagColumnDecorator]] interface, which replaces the previous [[ColumnDecorator]] and adds
+        pageContext and media type access. The [[ColumnDecorator]] interface is nor deprecated, but compatibility with
+        old column decorators is preserved.
       </action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
@@ -132,83 +122,61 @@
       <action type="add" dev="fgiust" issue="DISPL-13" due-to="Ivan Markov">
         Export system has been reworked, allowing registration of user-defined export views. A PDF export view has been
         added as an example (note that PDF export is not enabled by default in the distribution: you need to set the
-        <code>export.pdf=true</code>
-        config parameter and include the required libraries). Public APIs for export views have changed (a new interface
-        has been added).
+        [[export.pdf=true]] config parameter and include the required libraries). Public APIs for export views have
+        changed (a new interface has been added).
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-12">
         Algorithm in org.displaytag.util.ParamEncoder produces easily colliding keys.
       </action>
       <action type="add" dev="fgiust" issue="DISPL-35">
-        Enable / disable param forwarding. A new
-        <code>excludedParams</code>
-        attribute has been added to the table tag, which allows you to specify the list of parameters which should not
-        be forwarded during paging or sorting.
-        <code>*</code>
+        Enable / disable param forwarding. A new [[excludedParams]] attribute has been added to the table tag, which
+        allows you to specify the list of parameters which should not be forwarded during paging or sorting. [[*]]
         matches any parameter.
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-53">
-        The
-        <code>titleKey</code>
-        column attribute has been added to the standard version of the taglib too. The i18n support for titleKey has
-        been refactored, adding a configurable resource provider which can wrap the localization support of any used
-        frameworks (JSTL, Struts, Spring adapter are included, other can be added be users).
+        The [[titleKey]] column attribute has been added to the standard version of the taglib too. The i18n support for
+        titleKey has been refactored, adding a configurable resource provider which can wrap the localization support of
+        any used frameworks (JSTL, Struts, Spring adapter are included, other can be added be users).
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-15">display-el:column titleKey not Resin compatible.</action>
       <action type="fix" dev="fgiust" issue="DISPL-6">
-        Error: mediaType is already defined. To avoid errors when nested tables are used, the current
-        <code>mediaType</code>
+        Error: mediaType is already defined. To avoid errors when nested tables are used, the current [[mediaType]]
         <strong>is no more declared as a compile-time variable</strong>
-        . This means that you can still retrieve the current media type using
-        <code>pageContext.getAttribute("mediaType")</code>
-        but not using a scriptlet like
-        <code>
-          <![CDATA[<%=mediaType%>]]>
-        </code>
-        . If you previously used this syntax you will have to fix your jsps when upgrading to 1.0 rc2.
+        . This means that you can still retrieve the current media type using [[pageContext.getAttribute("mediaType")]]
+        but not using a scriptlet like [[
+        <![CDATA[<%=mediaType%>]]>
+        ]] . If you previously used this syntax you will have to fix your jsps when upgrading to 1.0 rc2.
       </action>
       <action type="update" dev="fgiust">
-        The
-        <code>name</code>
-        attribute in the EL version of table Tag will now work both with EL expressions and with the "standard"
-        displaytag sintax.
+        The [[name]] attribute in the EL version of table Tag will now work both with EL expressions and with the
+        "standard" displaytag sintax.
       </action>
       <action type="update" dev="fgiust" issue="DISPL-3">
         Column JSP body should only execute for rows being shown. Now column body is skipped if current row is not
         needed for display or sorting (be careful, if you sort the full list row need to be evaluated).
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-9">Send user back to Page 1 on Desc/Asc.</action>
-      <action type="add" dev="fgiust" issue="DISPL-26">
-        More params for
-        <code>paging.banner.*_items_found</code>
-        .
-      </action>
+      <action type="add" dev="fgiust" issue="DISPL-26">More params for [[paging.banner.*_items_found]] .</action>
       <action type="fix" dev="fgiust" issue="DISPL-4">Html tags in "title" attribute when using maxLength.</action>
       <action type="fix" dev="fgiust" issue="DISPL-1">Autolink and maxlength problem.</action>
       <action type="fix" dev="fgiust" issue="DISPL-73" due-to="Mikko Wilkman">
         Unicode export with ResponseOverrideFilter fails because of improper content length setting.
       </action>
       <action type="update" dev="fgiust" issue="DISPL-2">
-        Ability to use java var in id attribute in tabletag. A new
-        <code>uid</code>
-        attribute has been added for jsp 1.0 containers (look at the FAQ for more details).
+        Ability to use java var in id attribute in tabletag. A new [[uid]] attribute has been added for jsp 1.0
+        containers (look at the FAQ for more details).
       </action>
       <action type="add" dev="fgiust">
-        New
-        <code>htmlId</code>
-        attribute which let you specify the value for the id attribute in the generated table.
+        New [[htmlId]] attribute which let you specify the value for the id attribute in the generated table.
       </action>
       <action type="add" dev="fgiust" issue="DISPL-106" due-to="Richard HALLIER">Webwork i18n support.</action>
       <action type="add" dev="fgiust" issue="DISPL-104">
         Need ability to disable prepending of context to the contents of the requestURI attribute. New
-        <code>requestURIcontext</code>
-        table attribute added.
+        [[requestURIcontext]] table attribute added.
       </action>
       <action type="add" dev="fgiust" issue="DISPL-81">Using ColumnDecorator with tag body.</action>
       <action type="add" dev="fgiust" issue="DISPL-58">
-        New
-        <code>sortProperty</code>
-        attribute in column tag: specify property used for sorting.
+        New [[sortProperty]] attribute in column tag: specify property used for sorting.
       </action>
       <action type="update" dev="fgiust" issue="DISPL-117">Allow ColumnTag to generate links to current page.</action>
       <action type="update" dev="fgiust" issue="DISPL-112" due-to="Paul McCulloch">
@@ -233,11 +201,8 @@
       </action>
       <action type="fix" dev="fgiust" issue="920115">MaxLength not working with double quotes.</action>
       <action type="add" dev="fgiust">
-        New property
-        <code>basic.msg.empty_list_row</code>
-        which let you customize the message for an empty table while using
-        <code>basic.empty.showtable = true</code>
-        . This also allows you to customize the previously fixed "empty" css class.
+        New property [[basic.msg.empty_list_row]] which let you customize the message for an empty table while using
+        [[basic.empty.showtable = true]] . This also allows you to customize the previously fixed "empty" css class.
       </action>
       <action type="fix" dev="fgiust" issue="895915">Export links are not shown for empty tables.</action>
       <action type="fix" dev="fgiust" issue="921811">
@@ -273,9 +238,8 @@
         prevent caching are overwritten.
       </action>
       <action type="fix" dev="fgiust">
-        Automatic column discovery is turned off for Strings. Avoid displaying a single column "
-        <code>Bytes</code>
-        " when the source collection contains Strings.
+        Automatic column discovery is turned off for Strings. Avoid displaying a single column " [[Bytes]] " when the
+        source collection contains Strings.
       </action>
     </release>
     <release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
@@ -288,17 +252,15 @@
         started using with in the b2 release.
       </action>
       <action type="add" dev="fgiust" issue="851250">
-        All the css classes in the table tag are now customizable. You can change the original
-        <code>even, odd, sorted, order1, order2</code>
-        classes and also configure a css class to be added to any table or to any sortable column.
+        All the css classes in the table tag are now customizable. You can change the original [[even, odd, sorted,
+        order1, order2]] classes and also configure a css class to be added to any table or to any sortable column.
       </action>
       <action type="add" dev="fgiust" issue="867217">
         Added the "defaultsort" attribute to change the sorting order for the default sorted column.
       </action>
       <action type="add" dev="fgiust">
-        Added a new configuration property
-        <code>basic.empty.showtable</code>
-        which let you choose if you want to display the table if the underlining list is empty.
+        Added a new configuration property [[basic.empty.showtable]] which let you choose if you want to display the
+        table if the underlining list is empty.
       </action>
       <action type="fix" dev="fgiust" issue="840728" due-to="David Kowis">Breaks on '%' in values.</action>
       <action type="fix" dev="fgiust" issue="849207">
@@ -314,25 +276,16 @@
         RequestURI attribute does not handle anchors ('#') properly.
       </action>
       <action type="fix" dev="fgiust" issue="873684">Sortable attribute not working.</action>
-      <action type="add" dev="fgiust" issue="886050">
-        Added a
-        <code>caption</code>
-        tag to display a table caption.
-      </action>
+      <action type="add" dev="fgiust" issue="886050">Added a [[caption]] tag to display a table caption.</action>
       <action type="update" dev="fgiust">
-        A new
-        <code>org.displaytag.util.ParamEncoder</code>
-        class has been added, to allow users to generate encoded parameter names like tabletag does.
+        A new [[org.displaytag.util.ParamEncoder]] class has been added, to allow users to generate encoded parameter
+        names like tabletag does.
         <strong>
           Important! From now tables in the same pages which use the sorting, paging or exporting feature MUST have a
           different ID
         </strong>
       </action>
-      <action type="add" dev="fgiust">
-        Added the new
-        <code>sort.amount</code>
-        configuration property.
-      </action>
+      <action type="add" dev="fgiust">Added the new [[sort.amount]] configuration property.</action>
       <action type="update" dev="fgiust">
         Switching from Cactus to Servletunit tests. Servletunit tests resulted simpler to implement and more effective
         in testing tag output.
@@ -344,21 +297,14 @@
       <action type="add" dev="fgiust">
         Support for arrays of Maps has been added in automatic column discovery. If you pass an array of map objects to
         the table tag the list of columns will be generated from the keys of the first map in the array. This allows to
-        use the result of a jstl sql:query tag in a display:table without columns (use
-        <code>
-          result
-          <strong>.rows</strong>
-        </code>
-        in the name attribute).
+        use the result of a jstl sql:query tag in a display:table without columns (use [[ result
+        <strong>.rows</strong>
+        ]] in the name attribute).
       </action>
       <action type="add" dev="mraible" due-to="Tim McCune">
-        Added Expression Support ala JSTL. To use it, just specify your taglib URI to be
-        <code>http://displaytag.sf.net/el</code>
+        Added Expression Support ala JSTL. To use it, just specify your taglib URI to be [[http://displaytag.sf.net/el]]
         . The EL sintax is replacing the old proprietary sintax in the table "name" attribute. Note that the old
-        <code>scope</code>
-        and
-        <code>property</code>
-        attributes are no more supported in the EL version of the tag.
+        [[scope]] and [[property]] attributes are no more supported in the EL version of the tag.
         <strong>EL support in this release is preliminary and it's due to change in next releases</strong>
         .
       </action>
@@ -396,22 +342,13 @@
         properties. This is especially useful in development to quickly see and test available properties.
       </action>
       <action type="update" dev="fgiust">
-        The following methods in TableDecorator are now correctly declared as
-        <code>final</code>
-        :
-        <code>getViewIndex()</code>
-        ,
-        <code>getListIndex()</code>
-        ,
-        <code>initRow(Object, int, int)</code>
-        ,
-        <code>getCurrentRowObject()</code>
-        . These methods should never be extended in subclasses of TableDecorator.
+        The following methods in TableDecorator are now correctly declared as [[final]] : [[getViewIndex()]] ,
+        [[getListIndex()]] , [[initRow(Object, int, int)]] , [[getCurrentRowObject()]] . These methods should never be
+        extended in subclasses of TableDecorator.
       </action>
       <action type="update" dev="fgiust">
-        Removed the
-        <code>value</code>
-        property of ColumnTag. This was totally undocumented in previous versions and is now useless.
+        Removed the [[value]] property of ColumnTag. This was totally undocumented in previous versions and is now
+        useless.
       </action>
       <action type="fix" dev="fgiust" issue="823383">Body not cleared with pooled ColumnTags.</action>
       <action type="fix" dev="fgiust" issue="814058">Sorting with table decorators.</action>

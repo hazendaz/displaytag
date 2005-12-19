@@ -269,16 +269,6 @@
       </description>
     </attribute>
     <attribute>
-      <name>valueClass</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <description>
-        The fully qualified classname of the actual value of this column, or the Class itself. Used as a hint by
-        exporters, since some export formats distinguish between data types. (For example, excel distinguishes between
-        dates, numbers, and strings.)
-      </description>
-    </attribute>
-    <attribute>
       <name>titleKey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -309,12 +299,7 @@
         you should expect to override this value locally.)
       </description>
     </attribute>
-    <attribute>
-      <name>sort</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <description>@deprecated: use "sortable"</description>
-    </attribute>
+
     <attribute>
       <name>sortable</name>
       <required>false</required>
@@ -336,6 +321,16 @@
       <rtexprvalue>true</rtexprvalue>
       <description>
         Automatically hyperlink URLs and email addresses that appear in the column. Defaults to 'false'.
+      </description>
+    </attribute>
+    <attribute>
+      <name>format</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>
+        A MessageFormat patter that will be used to decorate objects in the column. Can be used as a "shortcut" for
+        simple column decorations.
       </description>
     </attribute>
     <attribute>
@@ -551,10 +546,10 @@ or
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
       <description>
-        Use this attribute to keep a footer from being output during an export. The caption will only render for
-        the named media type(s) - it won't be added to the table if the current request media is not supported.
-        Can be any space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'.
-        See the export page in the example webapp for more details.
+        Use this attribute to keep a footer from being output during an export. The caption will only render for the
+        named media type(s) - it won't be added to the table if the current request media is not supported. Can be any
+        space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'. See the export page
+        in the example webapp for more details.
       </description>
     </attribute>
     <example>
@@ -622,10 +617,10 @@ or
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
       <description>
-        Use this attribute to keep a caption from being output during an export. The caption will only render for
-        the named media type(s) - it won't be added to the table if the current request media is not supported.
-        Can be any space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'.
-        See the export page in the example webapp for more details.
+        Use this attribute to keep a caption from being output during an export. The caption will only render for the
+        named media type(s) - it won't be added to the table if the current request media is not supported. Can be any
+        space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'. See the export page
+        in the example webapp for more details.
       </description>
     </attribute>
     <example>

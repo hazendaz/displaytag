@@ -12,20 +12,25 @@
 package org.displaytag.render;
 
 import java.text.MessageFormat;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import org.displaytag.model.*;
+import org.displaytag.decorator.TableDecorator;
+import org.displaytag.model.Column;
+import org.displaytag.model.ColumnIterator;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.RowIterator;
+import org.displaytag.model.TableModel;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.TagConstants;
-import org.displaytag.decorator.TableDecorator;
 
 
 /**
@@ -38,13 +43,17 @@ import org.displaytag.decorator.TableDecorator;
  * write the tables as PDF, Excel, RTF and other formats. TableTagData.writeHTMLData now calls an HTML extension of this
  * class to write tables in HTML format to a JSP page.)
  * @author Jorge L. Barroso
- * @version $Revision$ ($Author$)
+ * @version $Id$
  */
 public abstract class TableWriterTemplate
 {
+
     public static final short GROUP_START = -2;
+
     public static final short GROUP_END = 5;
+
     public static final short GROUP_START_AND_END = 3;
+
     public static final short GROUP_NO_CHANGE = 0;
 
     /**
@@ -278,12 +287,11 @@ public abstract class TableWriterTemplate
                 currentRow = nextRow;
             }
 
-
             if (previousRow != null)
             {
                 previousRowValues.putAll(currentRowValues);
             }
-            if (! nextRowValues.isEmpty())
+            if (!nextRowValues.isEmpty())
             {
                 currentRowValues.putAll(nextRowValues);
             }
@@ -306,7 +314,6 @@ public abstract class TableWriterTemplate
                     currentRowValues.put(new Integer(column.getHeaderCell().getColumnNumber()), struct);
                 }
             }
-
 
             nextRowValues.clear();
             // Populate the next row values
@@ -331,12 +338,12 @@ public abstract class TableWriterTemplate
             // now we are going to create the current row; reset the decorator to the current row
             if (tableDecorator != null)
             {
-                tableDecorator.initRow(currentRow.getObject(), currentRow.getRowNumber(), currentRow.getRowNumber() + rowIterator.getPageOffset());                
+                tableDecorator.initRow(currentRow.getObject(), currentRow.getRowNumber(), currentRow.getRowNumber()
+                    + rowIterator.getPageOffset());
             }
 
             // open row
             writeRowOpener(currentRow);
-
 
             Iterator headerCellsIter = model.getHeaderCellList().iterator();
             boolean hasReachedGroupEnd = false;
@@ -357,20 +364,26 @@ public abstract class TableWriterTemplate
                     String priorBodyValue = prior != null ? prior.bodyValue : null;
                     String nextBodyValue = next != null ? next.bodyValue : null;
                     short groupingValue = groupColumns(struct.bodyValue, priorBodyValue, nextBodyValue);
-                    hasReachedGroupEnd = hasReachedGroupEnd || groupingValue == GROUP_END || groupingValue == GROUP_NO_CHANGE;
+                    hasReachedGroupEnd = hasReachedGroupEnd
+                        || groupingValue == GROUP_END
+                        || groupingValue == GROUP_NO_CHANGE;
 
                     if (tableDecorator != null)
                     {
                         switch (groupingValue)
                         {
-                            case GROUP_START:               tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
-                                                            break;
-                            case GROUP_END :                tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
-                                                            break;
-                            case GROUP_START_AND_END:       tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
-                                                            tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
-                                                            break;
-                            default:                        break;
+                            case GROUP_START :
+                                tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
+                                break;
+                            case GROUP_END :
+                                tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
+                                break;
+                            case GROUP_START_AND_END :
+                                tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
+                                tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
+                                break;
+                            default :
+                                break;
                         }
                     }
                     if (tableDecorator != null)
@@ -389,7 +402,8 @@ public abstract class TableWriterTemplate
             {
                 writeDecoratedRowStart(model);
             }
-            for (Iterator iterator = structsForRow.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = structsForRow.iterator(); iterator.hasNext();)
+            {
                 CellStruct struct = (CellStruct) iterator.next();
                 writeColumnOpener(struct.column);
                 writeColumnValue(struct.decoratedValue, struct.column);
@@ -405,6 +419,7 @@ public abstract class TableWriterTemplate
                 // render empty row
                 writeRowWithNoColumns(currentRow.getObject().toString());
             }
+
             // close row
             writeRowCloser(currentRow);
             // decorate row finish
@@ -413,7 +428,6 @@ public abstract class TableWriterTemplate
                 writeDecoratedRowFinish(model);
             }
         }
-
 
         // render empty list message
         if (model.getRowListPage().size() == 0)
@@ -455,7 +469,7 @@ public abstract class TableWriterTemplate
      * @param column The table column for which the content is written.
      * @throws Exception if it encounters an error while writing.
      */
-    protected abstract void writeColumnValue(String value, Column column) throws Exception;
+    protected abstract void writeColumnValue(Object value, Column column) throws Exception;
 
     /**
      * Called by writeTableBody to write the end of the column structure.
@@ -492,35 +506,37 @@ public abstract class TableWriterTemplate
      */
     protected abstract void writeEmptyListRowMessage(String message) throws Exception;
 
+    /**
+     * This takes a column value and grouping index as the argument. It then groups the column and returns the
+     * appropriate string back to the caller.
+     * @param value String current cell value
+     * @return String
+     */
+    private short groupColumns(String value, String previous, String next)
+    {
+        short groupingKey = GROUP_NO_CHANGE;
+        String safeCompare = StringUtils.defaultString(value);
+        if (next == null || !safeCompare.equals(next))
+        {
+            // at the end of the list
+            groupingKey += GROUP_END;
+        }
 
+        if (previous == null || !safeCompare.equals(previous))
+        {
+            // At the start of the list
+            groupingKey += GROUP_START;
+        }
+        return groupingKey;
+    }
 
-/**
-  * This takes a column value and grouping index as the argument. It then groups the column and returns the
-  * appropriate string back to the caller.
-  * @param value String current cell value
-  * @return String
-  */
- private short groupColumns(String value, String previous, String next)
- {
-     short groupingKey = GROUP_NO_CHANGE;
-     String safeCompare = StringUtils.defaultString(value);
-     if (next == null || ! safeCompare.equals(next))
-     {
-         // at the end of the list
-         groupingKey += GROUP_END;
-     }
-
-     if (previous == null || ! safeCompare.equals(previous))
-     {
-         // At the start of the list
-         groupingKey += GROUP_START;
-     }
-     return groupingKey;
- }
     static class CellStruct
     {
+
         Column column;
+
         String bodyValue;
+
         String decoratedValue;
 
         public CellStruct(Column theColumn, String bodyValueParam)

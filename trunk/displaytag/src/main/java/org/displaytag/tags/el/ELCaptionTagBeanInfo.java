@@ -38,33 +38,19 @@ public class ELCaptionTagBeanInfo extends SimpleBeanInfo
         try
         {
             proplist.add(new PropertyDescriptor("class", //$NON-NLS-1$
-                ELCaptionTag.class,
-                null,
-                "setClass")); //$NON-NLS-1$ 
+                ELCaptionTag.class, null, "setClass")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("dir", //$NON-NLS-1$
-                ELCaptionTag.class,
-                null,
-                "setDir")); //$NON-NLS-1$ 
+                ELCaptionTag.class, null, "setDir")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("id", //$NON-NLS-1$
-                ELCaptionTag.class,
-                null,
-                "setId")); //$NON-NLS-1$ 
+                ELCaptionTag.class, null, "setId")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("lang", //$NON-NLS-1$
-                ELCaptionTag.class,
-                null,
-                "setLang")); //$NON-NLS-1$ 
+                ELCaptionTag.class, null, "setLang")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("media", //$NON-NLS-1$
-                ELColumnTag.class,
-                null,
-                "setMedia")); //$NON-NLS-1$ 
+                ELColumnTag.class, null, "setMedia")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("style", //$NON-NLS-1$
-                ELCaptionTag.class,
-                null,
-                "setStyle")); //$NON-NLS-1$ 
+                ELCaptionTag.class, null, "setStyle")); //$NON-NLS-1$ 
             proplist.add(new PropertyDescriptor("title", //$NON-NLS-1$
-                ELCaptionTag.class,
-                null,
-                "setTitle")); //$NON-NLS-1$ 
+                ELCaptionTag.class, null, "setTitle")); //$NON-NLS-1$ 
         }
         catch (IntrospectionException ex)
         {

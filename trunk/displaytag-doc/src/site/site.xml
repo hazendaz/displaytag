@@ -44,7 +44,6 @@
       <item name="PDF manual" href="displaytag.pdf" />
     </menu>
     <menu name="Developers">
-      <item name="Directory Organization" href="/directory_organization.html" />
       <item name="Coding Conventions" href="/coding_conventions.html" />
       <item name="Building from sources" href="/buildit.html" />
     </menu>

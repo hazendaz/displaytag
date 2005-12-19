@@ -201,6 +201,15 @@ public class TableModel
     }
 
     /**
+     * get the table id.
+     * @return table id
+     */
+    public String getId()
+    {
+        return this.id;
+    }
+
+    /**
      * get the full list.
      * @return the full list containing Row objects
      */
@@ -564,4 +573,5 @@ public class TableModel
             .append("media", this.media) //$NON-NLS-1
             .toString();
     }
+
 }

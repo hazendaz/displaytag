@@ -14,6 +14,7 @@ package org.displaytag.render;
 import java.awt.Color;
 import java.util.Iterator;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.decorator.itext.DecoratesItext;
@@ -39,7 +40,7 @@ import com.lowagie.text.Table;
 /**
  * A table writer that formats table as and writes it to an iText document.
  * @author Jorge L. Barroso
- * @version $Revision$ ($Author$)
+ * @version $Id$
  * @see org.displaytag.render.TableWriterTemplate
  */
 public class ItextTableWriter extends TableWriterAdapter
@@ -266,9 +267,9 @@ public class ItextTableWriter extends TableWriterAdapter
 
     /**
      * Write a column's value to a iText document.
-     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(java.lang.String,org.displaytag.model.Column)
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)
      */
-    protected void writeColumnValue(String value, Column column) throws BadElementException
+    protected void writeColumnValue(Object value, Column column) throws BadElementException
     {
         this.table.addCell(getCell(value));
     }
@@ -282,14 +283,14 @@ public class ItextTableWriter extends TableWriterAdapter
     }
 
     /**
-     * Returns a formatted cell for the given value. (Background: factored from PdfView)
+     * Returns a formatted cell for the given value.
      * @param value cell value
      * @return Cell
      * @throws BadElementException if errors occurs while generating content.
      */
-    private Cell getCell(String value) throws BadElementException
+    private Cell getCell(Object value) throws BadElementException
     {
-        Cell cell = new Cell(new Chunk(StringUtils.trimToEmpty(value), this.defaultFont));
+        Cell cell = new Cell(new Chunk(StringUtils.trimToEmpty(ObjectUtils.toString(value)), this.defaultFont));
         cell.setVerticalAlignment(Element.ALIGN_TOP);
         cell.setLeading(8);
         return cell;

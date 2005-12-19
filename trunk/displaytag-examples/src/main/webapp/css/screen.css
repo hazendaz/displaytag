@@ -2,6 +2,8 @@
 
 @import url("alternative.css");
 
+@import url("teststyles.css");
+
 body {
 	background-color: #fff;
 	padding: 0 0 0 0;
@@ -35,10 +37,11 @@ img {
 	border: none;
 }
 
-hr {
+table hr {
 	height: 1px;
-	color: #000;
 	clear: both;
+	margin: none;
+	width: 100%;
 }
 
 textarea {
@@ -95,7 +98,8 @@ div#header ul li a:hover {
 h2 {
 	font-size: 1.4em;
 	font-family: Arial, Helvetica !important;
-	font-weight: bold; margin : 10px 0 20px 0;
+	font-weight: bold;
+	margin: 10px 0 20px 0;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #ddd;;
 	margin: 10px 0 20px 0;
@@ -176,5 +180,15 @@ table.sublist td,table.sublist th {
 }
 
 code {
-	background-color: #cdf;
+	background-color: #eee;
+	padding: 0 2px 0 2px;
+}
+
+hr {
+	height: 1px;
+	color: #fff;
+	border: none;
+	border-top: 1px dotted #ccc;
+	margin: 20px 0 20px 0;
+	width: 50%;
 }

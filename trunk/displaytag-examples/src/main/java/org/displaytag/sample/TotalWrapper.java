@@ -11,29 +11,143 @@
  */
 package org.displaytag.sample;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.jsp.PageContext;
+
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.decorator.TableDecorator;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.TableModel;
 
 
 /**
  * This decorator only does a summing of different groups in the reporting style examples...
- * @author epesh
  * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+ * @version $Id$
  */
 public class TotalWrapper extends TableDecorator
 {
 
     /**
-     * total amount.
+     * Logger.
      */
-    private double grandTotal;
+    private static Log log = LogFactory.getLog(TotalWrapper.class);
 
     /**
-     * total amount for city.
+     * total amount.
      */
-    private double cityTotal;
+    private Map grandTotals = new HashMap();
+
+    /**
+     * total amount for current group.
+     */
+    private Map subTotals = new HashMap();
+
+    /**
+     * Previous values needed for grouping.
+     */
+    private Map previousValues = new HashMap();
+
+    /**
+     * Name of the property used for grouping.
+     */
+    private String groupPropertyName;
+
+    private String subtotalLabel = "Subtotal";
+
+    private String totalLabel = "Total";
+
+    /**
+     * Setter for <code>subtotalLabel</code>.
+     * @param subtotalLabel The subtotalLabel to set.
+     */
+    public void setSubtotalLabel(String subtotalLabel)
+    {
+        this.subtotalLabel = subtotalLabel;
+    }
+
+    /**
+     * Setter for <code>totalLabel</code>.
+     * @param totalLabel The totalLabel to set.
+     */
+    public void setTotalLabel(String totalLabel)
+    {
+        this.totalLabel = totalLabel;
+    }
+
+    /**
+     * @see org.displaytag.decorator.Decorator#init(PageContext, Object, TableModel)
+     */
+    public void init(PageContext context, Object decorated, TableModel tableModel)
+    {
+        super.init(context, decorated, tableModel);
+
+        // reset
+        groupPropertyName = null;
+        grandTotals.clear();
+        subTotals.clear();
+        previousValues.clear();
+
+        for (Iterator it = tableModel.getHeaderCellList().iterator(); it.hasNext();)
+        {
+            HeaderCell cell = (HeaderCell) it.next();
+            if (cell.getGroup() == 1)
+            {
+                groupPropertyName = cell.getBeanPropertyName();
+            }
+        }
+    }
+
+    public String startRow()
+    {
+        String subtotalRow = null;
+
+        if (groupPropertyName != null)
+        {
+            Object groupedPropertyValue = evaluate(groupPropertyName);
+            Object previousGroupedPropertyValue = previousValues.get(groupPropertyName);
+            // subtotals
+            if (previousGroupedPropertyValue != null
+                && !ObjectUtils.equals(previousGroupedPropertyValue, groupedPropertyValue))
+            {
+                subtotalRow = createTotalRow(false);
+            }
+            previousValues.put(groupPropertyName, groupedPropertyValue);
+        }
+
+        for (Iterator it = tableModel.getHeaderCellList().iterator(); it.hasNext();)
+        {
+            HeaderCell cell = (HeaderCell) it.next();
+            if (cell.isTotaled())
+            {
+                String totalPropertyName = cell.getBeanPropertyName();
+                Number amount = (Number) evaluate(totalPropertyName);
+
+                Number previousSubTotal = (Number) subTotals.get(totalPropertyName);
+                Number previousGrandTotals = (Number) grandTotals.get(totalPropertyName);
+
+                subTotals.put(totalPropertyName, new Double((previousSubTotal != null
+                    ? previousSubTotal.doubleValue()
+                    : 0)
+                    + (amount != null ? amount.doubleValue() : 0)));
+
+                grandTotals.put(totalPropertyName, new Double((previousGrandTotals != null ? previousGrandTotals
+                    .doubleValue() : 0)
+                    + (amount != null ? amount.doubleValue() : 0)));
+            }
+        }
+
+        return subtotalRow;
+    }
 
     /**
      * After every row completes we evaluate to see if we should be drawing a new total line and summing the results
@@ -42,48 +156,73 @@ public class TotalWrapper extends TableDecorator
      */
     public final String finishRow()
     {
-        int listindex = ((List) getDecoratedObject()).indexOf(this.getCurrentRowObject());
-        ReportableListObject reportableObject = (ReportableListObject) this.getCurrentRowObject();
-        String nextCity;
-
-        this.cityTotal += reportableObject.getAmount();
-        this.grandTotal += reportableObject.getAmount();
-
-        if (listindex == ((List) getDecoratedObject()).size() - 1)
-        {
-            nextCity = "XXXXXX"; // Last row hack, it's only a demo folks... //$NON-NLS-1$
-        }
-        else
-        {
-            nextCity = ((ReportableListObject) ((List) getDecoratedObject()).get(listindex + 1)).getCity();
-        }
-
         StringBuffer buffer = new StringBuffer(1000);
-
-        // City subtotals...
-        if (!nextCity.equals(reportableObject.getCity()))
-        {
-            buffer.append("\n<tr>\n<td>&nbsp;</td><td>&nbsp;</td><td><hr noshade size=\"1\"></td>"); //$NON-NLS-1$
-            buffer.append("\n<td>&nbsp;</td></tr>"); //$NON-NLS-1$
-            buffer.append("\n<tr><td>&nbsp;</td>"); //$NON-NLS-1$
-            buffer.append("\n<td align=\"right\"><strong>" //$NON-NLS-1$
-                + reportableObject.getCity() + " Total:</strong></td>\n<td><strong>"); //$NON-NLS-1$
-            buffer.append(this.cityTotal);
-            buffer.append("</strong></td>\n<td>&nbsp;</td>\n</tr>"); //$NON-NLS-1$
-            buffer.append("\n<tr>\n<td colspan=\"4\">&nbsp;\n</td>\n</tr>"); //$NON-NLS-1$
-
-            this.cityTotal = 0;
-        }
 
         // Grand totals...
         if (getViewIndex() == ((List) getDecoratedObject()).size() - 1)
         {
-            buffer.append("<tr><td colspan=\"4\"><hr></td></tr>"); //$NON-NLS-1$
-            buffer.append("<tr><td>&nbsp;</td>"); //$NON-NLS-1$
-            buffer.append("<td align=\"right\"><strong>Grand Total:</strong></td><td><strong>"); //$NON-NLS-1$
-            buffer.append(this.grandTotal);
-            buffer.append("</strong></td><td>&nbsp;</td></tr>"); //$NON-NLS-1$
+            if (groupPropertyName != null)
+            {
+                buffer.append(createTotalRow(false));
+            }
+            buffer.append(createTotalRow(true));
         }
+        return buffer.toString();
+
+    }
+
+    protected String createTotalRow(boolean grandTotal)
+    {
+        StringBuffer buffer = new StringBuffer(1000);
+        buffer.append("<tr class=\"total\">"); //$NON-NLS-1$
+
+        List headerCells = tableModel.getHeaderCellList();
+
+        for (Iterator it = headerCells.iterator(); it.hasNext();)
+        {
+            HeaderCell cell = (HeaderCell) it.next();
+            String cssClass = ObjectUtils.toString(cell.getHtmlAttributes().get("class"));
+
+            buffer.append("<td"); //$NON-NLS-1$
+            if (StringUtils.isNotEmpty(cssClass))
+            {
+                buffer.append(" class=\""); //$NON-NLS-1$
+                buffer.append(cssClass);
+                buffer.append("\""); //$NON-NLS-1$
+            }
+            buffer.append(">"); //$NON-NLS-1$
+
+            if (cell.isTotaled())
+            {
+                String totalPropertyName = cell.getBeanPropertyName();
+                Object total = grandTotal ? grandTotals.get(totalPropertyName) : subTotals.get(totalPropertyName);
+
+                DisplaytagColumnDecorator[] decorators = cell.getColumnDecorators();
+                for (int j = 0; j < decorators.length; j++)
+                {
+                    try
+                    {
+                        total = decorators[j].decorate(total, this.getPageContext(), tableModel.getMedia());
+                    }
+                    catch (DecoratorException e)
+                    {
+                        log.warn(e.getMessage(), e);
+                        // ignore, use undecorated value for totals
+                    }
+                }
+                buffer.append(total);
+            }
+            else if (groupPropertyName != null && groupPropertyName.equals(cell.getBeanPropertyName()))
+            {
+                buffer.append(grandTotal ? totalLabel : subtotalLabel);
+            }
+
+            buffer.append("</td>"); //$NON-NLS-1$
+
+        }
+
+        // reset subtotal
+        this.subTotals.clear();
 
         return buffer.toString();
     }

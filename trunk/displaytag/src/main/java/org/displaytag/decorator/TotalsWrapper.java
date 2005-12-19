@@ -1,5 +1,13 @@
 package org.displaytag.decorator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.jsp.PageContext;
+
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -15,22 +23,15 @@ import org.displaytag.model.TableModel;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.TagConstants;
 
-import javax.servlet.jsp.PageContext;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 
 /**
  * A TableDecorator that, in conjunction with totaled and grouped columns, produces multi level subtotals on arbitrary
  * String groupings.
- *
  * @author rapruitt
  */
 public class TotalsWrapper extends TableDecorator
 {
+
     /**
      * Logger.
      */
@@ -60,10 +61,12 @@ public class TotalsWrapper extends TableDecorator
      * Maps the groups to their current totals.
      */
     private Map groupNumberToGroupTotal = new HashMap();
+
     /**
      * No current reset group.
      */
     private final static int NO_RESET_GROUP = 4200;
+
     /**
      * The deepest reset group.
      */
@@ -161,7 +164,7 @@ public class TotalsWrapper extends TableDecorator
                     continue;
                 }
                 totals.printTotals(getListIndex(), out);
-                totals.setStartRow(getListIndex()+1);
+                totals.setStartRow(getListIndex() + 1);
             }
             returnValue = out.toString();
         }
@@ -209,7 +212,7 @@ public class TotalsWrapper extends TableDecorator
     {
         TableModel model = getTableModel();
         List fullList = model.getRowListFull();
-        List window = fullList.subList(startRow, stopRow+1);
+        List window = fullList.subList(startRow, stopRow + 1);
         double total = 0;
         for (Iterator iterator = window.iterator(); iterator.hasNext();)
         {
@@ -245,8 +248,12 @@ public class TotalsWrapper extends TableDecorator
 
     public String getTotalsTdOpen(HeaderCell header, String styleClass)
     {
-        return TagConstants.TAG_OPEN + TagConstants.TAGNAME_COLUMN + " class=\""
-                + StringUtils.defaultString(styleClass) + "\"" + TagConstants.TAG_CLOSE;
+        return TagConstants.TAG_OPEN
+            + TagConstants.TAGNAME_COLUMN
+            + " class=\""
+            + StringUtils.defaultString(styleClass)
+            + "\""
+            + TagConstants.TAG_CLOSE;
     }
 
     public String getTotalsRowOpen()
@@ -264,10 +271,11 @@ public class TotalsWrapper extends TableDecorator
         return "" + total;
     }
 
-
     class GroupTotals
     {
+
         private int columnNumber;
+
         private int firstRowOfCurrentSet;
 
         public GroupTotals(HeaderCell headerCell)
@@ -276,19 +284,17 @@ public class TotalsWrapper extends TableDecorator
             this.firstRowOfCurrentSet = 0;
         }
 
-
         public void printTotals(int currentRow, StringBuffer out)
         {
 
             // For each column, output:
             List headerCells = getTableModel().getHeaderCellList();
-            if (firstRowOfCurrentSet < currentRow)  // If there is more than one row, show a total
+            if (firstRowOfCurrentSet < currentRow) // If there is more than one row, show a total
             {
                 out.append(getTotalsRowOpen());
                 for (Iterator iterator = headerCells.iterator(); iterator.hasNext();)
                 {
                     HeaderCell headerCell = (HeaderCell) iterator.next();
-
 
                     if (columnNumber == headerCell.getColumnNumber())
                     {

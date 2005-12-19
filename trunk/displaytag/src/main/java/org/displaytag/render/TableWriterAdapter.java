@@ -22,7 +22,7 @@ import org.displaytag.model.TableModel;
  * of interest. This class also protects subclasses from future additions to TableWriterTemplate they may not be
  * interested in.
  * @author Jorge L. Barroso
- * @version $Revision$ ($Author$)
+ * @version $Id$
  */
 public abstract class TableWriterAdapter extends TableWriterTemplate
 {
@@ -133,9 +133,9 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     }
 
     /**
-     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(java.lang.String,org.displaytag.model.Column)
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)
      */
-    protected void writeColumnValue(String value, Column column) throws Exception
+    protected void writeColumnValue(Object value, Column column) throws Exception
     {
     }
 

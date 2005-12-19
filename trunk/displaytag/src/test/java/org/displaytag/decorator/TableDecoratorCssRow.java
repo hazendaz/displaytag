@@ -9,9 +9,9 @@ public class TableDecoratorCssRow extends TableDecorator
 {
 
     /**
-     * @see org.displaytag.decorator.TableDecorator#setRowId()
+     * @see org.displaytag.decorator.TableDecorator#addRowId()
      */
-    public String setRowId()
+    public String addRowId()
     {
         return "rowid" + getViewIndex();
     }

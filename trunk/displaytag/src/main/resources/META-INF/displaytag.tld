@@ -45,26 +45,6 @@
       </description>
     </attribute>
     <attribute>
-      <name>property</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
-      <description>
-        @deprecated in displaytag 1.0. Use list.property in "name" attribute. Not supported in the EL version of the
-        tag.
-      </description>
-    </attribute>
-    <attribute>
-      <name>scope</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
-      <description>
-        @deprecated in displaytag 1.0. Use "pageScope.", "requestScope.", "sessionScope.", "applicationScope." prefixes
-        in name. Not supported in the EL version of the tag.
-      </description>
-    </attribute>
-    <attribute>
       <name>length</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -136,15 +116,6 @@
         column; columns that are not marked as to total="true" will be omitted from the map. The variable will ONLY be
         available within the footer tag and after the end of the table, it is not available with the body of the table
         or columns.
-      </description>
-    </attribute>
-    <attribute>
-      <name>width</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
-      <description>
-        @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
       </description>
     </attribute>
     <attribute>
@@ -333,16 +304,6 @@
       </description>
     </attribute>
     <attribute>
-      <name>valueClass</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <description>
-        The fully qualified classname of the actual value of this column, or the Class itself. Used as a hint by
-        exporters, since some export formats distinguish between data types. (For example, excel distinguishes between
-        dates, numbers, and strings.)
-      </description>
-    </attribute>
-    <attribute>
       <name>titleKey</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
@@ -362,38 +323,6 @@
         "null" in the list (mostly useful for debugging). Defaults to 'false'.
       </description>
     </attribute>
-    <!--
-      <attribute>
-      <name>pattern</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
-      <description>
-      The Format pattern to use.  The exact Format implementation is chosen by the factory class
-      designated in the property "property_convertor_classname".  (Default converter is
-      org.displaytag.conversion.DefaultPropertyConvertor, but you should expect to override this value
-      locally.)
-      </description>
-      </attribute>
-    -->
-    <attribute>
-      <name>width</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
-      <description>
-        @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-      </description>
-    </attribute>
-    <attribute>
-      <name>align</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
-      <description>
-        @deprecated html attribute. Use "style" or "class" to set presentational attributes using css.
-      </description>
-    </attribute>
     <attribute>
       <name>total</name>
       <required>false</required>
@@ -406,13 +335,7 @@
         you should expect to override this value locally.)
       </description>
     </attribute>
-    <attribute>
-      <name>sort</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>boolean</type>
-      <description>@deprecated: use "sortable"</description>
-    </attribute>
+
     <attribute>
       <name>sortable</name>
       <required>false</required>
@@ -436,6 +359,16 @@
       <type>boolean</type>
       <description>
         Automatically hyperlink URLs and email addresses that appear in the column. Defaults to 'false'.
+      </description>
+    </attribute>
+    <attribute>
+      <name>format</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>
+        A MessageFormat patter that will be used to decorate objects in the column. Can be used as a "shortcut" for
+        simple column decorations.
       </description>
     </attribute>
     <attribute>
@@ -670,10 +603,10 @@ or
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
       <description>
-        Use this attribute to keep a footer from being output during an export. The caption will only render for
-        the named media type(s) - it won't be added to the table if the current request media is not supported.
-        Can be any space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'.
-        See the export page in the example webapp for more details.
+        Use this attribute to keep a footer from being output during an export. The caption will only render for the
+        named media type(s) - it won't be added to the table if the current request media is not supported. Can be any
+        space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'. See the export page
+        in the example webapp for more details.
       </description>
     </attribute>
     <example>
@@ -747,10 +680,10 @@ or
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
       <description>
-        Use this attribute to keep a caption from being output during an export. The caption will only render for
-        the named media type(s) - it won't be added to the table if the current request media is not supported.
-        Can be any space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'.
-        See the export page in the example webapp for more details.
+        Use this attribute to keep a caption from being output during an export. The caption will only render for the
+        named media type(s) - it won't be added to the table if the current request media is not supported. Can be any
+        space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'. See the export page
+        in the example webapp for more details.
       </description>
     </attribute>
     <example>

@@ -15,7 +15,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
-import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -29,40 +28,38 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.hssf.util.Region;
-import org.displaytag.conversion.PropertyConvertorFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.decorator.hssf.DecoratesHssf;
 import org.displaytag.model.Column;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
-import org.displaytag.properties.TableProperties;
+
 
 /**
- * A table writer that formats a table in Excel's spreadsheet format,
- * and writes it to an HSSF workbook.
- * 
+ * A table writer that formats a table in Excel's spreadsheet format, and writes it to an HSSF workbook.
  * @author Jorge L. Barroso
  * @version $Revision$ ($Author$)
  * @see org.displaytag.render.TableWriterTemplate
  */
 public class HssfTableWriter extends TableWriterAdapter
 {
+
     /**
      * The workbook to which the table is written.
      */
     private HSSFWorkbook wb;
-    
+
     /**
      * Generated sheet.
      */
     private HSSFSheet sheet;
-    
+
     /**
      * Current row number.
      */
     private int rowNum;
-    
+
     /**
      * Current row.
      */
@@ -77,17 +74,12 @@ public class HssfTableWriter extends TableWriterAdapter
      * Current cell.
      */
     private HSSFCell currentCell;
-    
-    /**
-     * Converter for producing numeric cell values.
-     */
-    private Converter propertyConvertor;
 
     /**
      * Percent Excel format.
      */
     private short pctFormat = HSSFDataFormat.getBuiltinFormat("0.00%");
-    
+
     /**
      * This table writer uses an HSSF workbook to write the table.
      * @param wb The HSSF workbook to write the table.
@@ -96,15 +88,14 @@ public class HssfTableWriter extends TableWriterAdapter
     {
         this.wb = wb;
     }
-    
+
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)
      */
     protected void writeTableOpener(TableModel model) throws Exception
     {
-        this.sheet             = wb.createSheet("-");
-        this.rowNum            = 0;
-        this.propertyConvertor = PropertyConvertorFactory.createNumberConverter(TableProperties.getInstance(null));
+        this.sheet = wb.createSheet("-");
+        this.rowNum = 0;
     }
 
     /**
@@ -118,7 +109,7 @@ public class HssfTableWriter extends TableWriterAdapter
         bold.setFontHeightInPoints((short) 14);
         style.setFont(bold);
         style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        
+
         this.colNum = 0;
         this.currentRow = this.sheet.createRow(this.rowNum++);
         this.currentCell = this.currentRow.createCell((short) this.colNum);
@@ -130,14 +121,13 @@ public class HssfTableWriter extends TableWriterAdapter
 
     /**
      * Obtain the region over which to merge a cell.
-     * 
      * @param first Column number of first cell from which to merge.
      * @param last Column number of last cell over which to merge.
      * @return The region over which to merge a cell.
      */
     private Region getMergeCellsRegion(short first, short last)
     {
-         return new Region(this.currentRow.getRowNum(), first, this.currentRow.getRowNum(), last);
+        return new Region(this.currentRow.getRowNum(), first, this.currentRow.getRowNum(), last);
     }
 
     /**
@@ -166,7 +156,7 @@ public class HssfTableWriter extends TableWriterAdapter
      */
     protected void writeDecoratedRowStart(TableModel model)
     {
-         model.getTableDecorator().startRow();
+        model.getTableDecorator().startRow();
     }
 
     /**
@@ -174,8 +164,8 @@ public class HssfTableWriter extends TableWriterAdapter
      */
     protected void writeRowOpener(Row row) throws Exception
     {
-         this.currentRow = this.sheet.createRow(rowNum++);
-         this.colNum = 0;
+        this.currentRow = this.sheet.createRow(rowNum++);
+        this.colNum = 0;
     }
 
     /**
@@ -190,75 +180,41 @@ public class HssfTableWriter extends TableWriterAdapter
     }
 
     /**
-     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(java.lang.String,org.displaytag.model.Column)
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)
      */
-    protected void writeColumnValue(String val, Column column) throws Exception
+    protected void writeColumnValue(Object value, Column column) throws Exception
     {
-        Object value = (val == null) ? "" : val;
-        Class valueClass = column.getHeaderCell().getColumnValueClass();
-        if (valueClass != null)
+        if (value instanceof Number)
         {
-            value = this.propertyConvertor.convert(valueClass, value);
-            if (Number.class.isAssignableFrom(valueClass))
+            Number num = (Number) value;
+            // Percentage
+            if (value.toString().indexOf("%") > -1)
             {
-                if (value.toString().indexOf("%") > -1)
-                {
-                    this.currentCell.setCellValue(((Number) value).doubleValue() / 100);
-                    HSSFCellStyle cellStyle = wb.createCellStyle();
-                    cellStyle.setDataFormat(pctFormat);
-                    this.currentCell.setCellStyle(cellStyle);
-                }
-                else
-                {
-                    this.currentCell.setCellValue(((Number) value).doubleValue());
-                }
-            }
-            else if (Date.class.isAssignableFrom(valueClass))
-            {
-                this.currentCell.setCellValue((Date) value);
-            }
-            else if (Calendar.class.isAssignableFrom(valueClass))
-            {
-                this.currentCell.setCellValue((Calendar) value);
+                this.currentCell.setCellValue(num.doubleValue() / 100);
+                HSSFCellStyle cellStyle = this.wb.createCellStyle();
+                cellStyle.setDataFormat(this.pctFormat);
+                this.currentCell.setCellStyle(cellStyle);
             }
             else
             {
-                this.currentCell.setCellValue(this.escapeColumnValue(value));
+                this.currentCell.setCellValue(num.doubleValue());
             }
+        }
+        else if (value instanceof Date)
+        {
+            this.currentCell.setCellValue((Date) value);
+        }
+        else if (value instanceof Calendar)
+        {
+            this.currentCell.setCellValue((Calendar) value);
         }
         else
         {
-            if (this.isNumber(value.toString()))
-            {
-                Number num = (Number) this.propertyConvertor.convert(Number.class, value.toString());
-                // Percentage
-                if (value.toString().indexOf("%") > -1)
-                {
-                    this.currentCell.setCellValue(num.doubleValue() / 100);
-                    HSSFCellStyle cellStyle = this.wb.createCellStyle();
-                    cellStyle.setDataFormat(this.pctFormat);
-                    this.currentCell.setCellStyle(cellStyle);
-                }
-                else
-                {
-                    this.currentCell.setCellValue(num.doubleValue());
-                }
-            }
-            else if (value instanceof Date)
-            {
-                this.currentCell.setCellValue((Date) value);
-            }
-            else if (value instanceof Calendar)
-            {
-                this.currentCell.setCellValue((Calendar) value);
-            }
-            else
-            {
-                this.currentCell.setCellValue(this.escapeColumnValue(value));
-            }
+            this.currentCell.setCellValue(this.escapeColumnValue(value));
         }
+
     }
-    
+
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
      */
@@ -270,7 +226,7 @@ public class HssfTableWriter extends TableWriterAdapter
         this.rowNum = this.sheet.getLastRowNum();
         this.rowNum++;
     }
-    
+
     /**
      * @see org.displaytag.render.TableWriterTemplate#writePostBodyFooter(org.displaytag.model.TableModel)
      */
@@ -278,20 +234,18 @@ public class HssfTableWriter extends TableWriterAdapter
     {
         this.colNum = 0;
         this.currentRow = this.sheet.createRow(this.rowNum++);
-        this.writeHeaderFooter(model.getFooter(), this.currentRow,
-                               this.getHeaderFooterStyle());
+        this.writeHeaderFooter(model.getFooter(), this.currentRow, this.getHeaderFooterStyle());
         this.rowSpanTable(model);
     }
-    
+
     /**
      * Make a row span the width of the table.
-     * 
      * @param model The table model representing the rendered table.
      */
     private void rowSpanTable(TableModel model)
     {
-        this.sheet.addMergedRegion(this.getMergeCellsRegion(this.currentCell.getCellNum(),
-                                                           (short) (model.getNumberOfColumns() - 1)));
+        this.sheet.addMergedRegion(this.getMergeCellsRegion(this.currentCell.getCellNum(), (short) (model
+            .getNumberOfColumns() - 1)));
     }
 
     /**
@@ -352,10 +306,9 @@ public class HssfTableWriter extends TableWriterAdapter
         }
         return NumberUtils.isNumber(rawV.trim());
     }
-    
+
     /**
      * Writes a table header or a footer.
-     * 
      * @param value Header or footer value to be rendered.
      * @param row The row in which to write the header or footer.
      * @param style Style used to render the header or footer.
@@ -367,7 +320,7 @@ public class HssfTableWriter extends TableWriterAdapter
         this.currentCell.setCellStyle(style);
         this.currentCell.setEncoding(HSSFCell.ENCODING_UTF_16);
     }
-    
+
     /**
      * Obtain the style used to render a header or footer.
      * @return The style used to render a header or footer.
