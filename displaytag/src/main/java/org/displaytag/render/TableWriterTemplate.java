@@ -12,20 +12,19 @@
 package org.displaytag.render;
 
 import java.text.MessageFormat;
-import java.util.Hashtable;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.model.Column;
-import org.displaytag.model.ColumnIterator;
-import org.displaytag.model.Row;
-import org.displaytag.model.RowIterator;
-import org.displaytag.model.TableModel;
+import org.apache.commons.lang.StringUtils;
+import org.displaytag.model.*;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.TagConstants;
+import org.displaytag.decorator.TableDecorator;
 
 
 /**
@@ -42,21 +41,15 @@ import org.displaytag.util.TagConstants;
  */
 public abstract class TableWriterTemplate
 {
+    public static final short GROUP_START = -2;
+    public static final short GROUP_END = 5;
+    public static final short GROUP_START_AND_END = 3;
+    public static final short GROUP_NO_CHANGE = 0;
 
     /**
      * logger.
      */
     private static Log log = LogFactory.getLog(TableWriterTemplate.class);
-
-    /**
-     * Holds the previous row columns values.
-     */
-    private Map previousRow;
-
-    /**
-     * Holds the next row columns values.
-     */
-    private Map nextRow;
 
     /**
      * Table unique id.
@@ -94,12 +87,6 @@ public abstract class TableWriterTemplate
                 writeEmptyListMessage(properties.getEmptyListMessage());
                 return;
             }
-
-            // variables to hold the previous row columns values.
-            this.previousRow = new Hashtable(10);
-
-            // variables to hold next row column values.
-            this.nextRow = new Hashtable(10);
 
             // Put the page stuff there if it needs to be there...
             if (properties.getAddPagingBannerTop())
@@ -269,51 +256,138 @@ public abstract class TableWriterTemplate
         RowIterator rowIterator = model.getRowIterator(false);
 
         // iterator on rows
-        while (rowIterator.hasNext())
+        TableDecorator tableDecorator = model.getTableDecorator();
+        Row previousRow = null;
+        Row currentRow = null;
+        Row nextRow = null;
+        Map previousRowValues = new HashMap(10);
+        Map currentRowValues = new HashMap(10);
+        Map nextRowValues = new HashMap(10);
+
+        while (nextRow != null || rowIterator.hasNext())
         {
-            Row row = rowIterator.next();
-            if (log.isDebugEnabled())
+            // The first pass
+            if (currentRow == null)
             {
-                log.debug("[" + this.id + "] rowIterator.next()=" + row);
+                currentRow = rowIterator.next();
             }
-            // decorate row start
-            if (model.getTableDecorator() != null)
+            else
             {
+                previousRow = currentRow;
+                currentRow = nextRow;
+            }
+
+
+            if (previousRow != null)
+            {
+                previousRowValues.putAll(currentRowValues);
+            }
+            if (! nextRowValues.isEmpty())
+            {
+                currentRowValues.putAll(nextRowValues);
+            }
+            // handle the first pass
+            else
+            {
+                ColumnIterator columnIterator = currentRow.getColumnIterator(model.getHeaderCellList());
+                // iterator on columns
+                if (log.isDebugEnabled())
+                {
+                    log.debug(" creating ColumnIterator on " + model.getHeaderCellList());
+                }
+                while (columnIterator.hasNext())
+                {
+                    Column column = columnIterator.nextColumn();
+
+                    // Get the value to be displayed for the column
+                    column.initialize();
+                    CellStruct struct = new CellStruct(column, column.getChoppedAndLinkedValue());
+                    currentRowValues.put(new Integer(column.getHeaderCell().getColumnNumber()), struct);
+                }
+            }
+
+
+            nextRowValues.clear();
+            // Populate the next row values
+            nextRow = rowIterator.hasNext() ? rowIterator.next() : null;
+            if (nextRow != null)
+            {
+                ColumnIterator columnIterator = nextRow.getColumnIterator(model.getHeaderCellList());
+                // iterator on columns
+                if (log.isDebugEnabled())
+                {
+                    log.debug(" creating ColumnIterator on " + model.getHeaderCellList());
+                }
+                while (columnIterator.hasNext())
+                {
+                    Column column = columnIterator.nextColumn();
+                    column.initialize();
+                    // Get the value to be displayed for the column
+                    CellStruct struct = new CellStruct(column, column.getChoppedAndLinkedValue());
+                    nextRowValues.put(new Integer(column.getHeaderCell().getColumnNumber()), struct);
+                }
+            }
+            // now we are going to create the current row; reset the decorator to the current row
+            if (tableDecorator != null)
+            {
+                tableDecorator.initRow(currentRow.getObject(), currentRow.getRowNumber(), currentRow.getRowNumber() + rowIterator.getPageOffset());
                 writeDecoratedRowStart(model);
             }
 
             // open row
-            writeRowOpener(row);
+            writeRowOpener(currentRow);
 
-            // iterator on columns
-            if (log.isDebugEnabled())
+
+            Iterator headerCellsIter = model.getHeaderCellList().iterator();
+            boolean hasReachedGroupEnd = false;
+            while (headerCellsIter.hasNext())
             {
-                log.debug("[" + this.id + "] creating ColumnIterator on " + model.getHeaderCellList());
-            }
-            ColumnIterator columnIterator = row.getColumnIterator(model.getHeaderCellList());
+                HeaderCell header = (HeaderCell) headerCellsIter.next();
 
-            while (columnIterator.hasNext())
-            {
-                Column column = columnIterator.nextColumn();
-
-                // open column
-                writeColumnOpener(column);
-                // get the value to be displayed for the column
-                String value = column.getChoppedAndLinkedValue();
-
-                // check if column is grouped
-                if (column.getGroup() != -1)
+                // Get the value to be displayed for the column
+                CellStruct struct = (CellStruct) currentRowValues.get(new Integer(header.getColumnNumber()));
+                String displayValue = struct.bodyValue;
+                // Check and see if there is a grouping transition. If there is, then notify the decorator
+                if (header.getGroup() != -1)
                 {
-                    value = this.groupColumns(value, column.getGroup());
+                    CellStruct prior = (CellStruct) previousRowValues.get(new Integer(header.getColumnNumber()));
+                    CellStruct next = (CellStruct) nextRowValues.get(new Integer(header.getColumnNumber()));
+                    // Why npe?
+                    String priorBodyValue = prior != null ? prior.bodyValue : null;
+                    String nextBodyValue = next != null ? next.bodyValue : null;
+                    short groupingValue = groupColumns(struct.bodyValue, priorBodyValue, nextBodyValue);
+                    hasReachedGroupEnd = hasReachedGroupEnd || groupingValue == GROUP_END || groupingValue == GROUP_NO_CHANGE;
+
+                    if (tableDecorator != null)
+                    {
+                        switch (groupingValue)
+                        {
+                            case GROUP_START:               tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
+                                                            break;
+                            case GROUP_END :                tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
+                                                            break;
+                            case GROUP_START_AND_END:       tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
+                                                            tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
+                                                            break;
+                            default:                        break;
+                        }
+                    }
+                    if (tableDecorator != null)
+                    {
+                        displayValue = tableDecorator.displayValue(struct.bodyValue, groupingValue);
+                    }
+                    else if (groupingValue == GROUP_END || groupingValue == GROUP_NO_CHANGE)
+                    {
+                        displayValue = TagConstants.EMPTY_STRING;
+                    }
                 }
 
-                // render column value
-                writeColumnValue(value, column);
-                // close column
-                writeColumnCloser(column);
+                // add column value
+                writeColumnOpener(struct.column);
+                writeColumnValue(displayValue, struct.column);
+                writeColumnCloser(struct.column);
             }
 
-            // no columns?
             if (model.isEmpty())
             {
                 if (log.isDebugEnabled())
@@ -321,18 +395,17 @@ public abstract class TableWriterTemplate
                     log.debug("[" + this.id + "] table has no columns");
                 }
                 // render empty row
-                writeRowWithNoColumns(row.getObject().toString());
+                writeRowWithNoColumns(currentRow.getObject().toString());
             }
-
             // close row
-            writeRowCloser(row);
-
+            writeRowCloser(currentRow);
             // decorate row finish
             if (model.getTableDecorator() != null)
             {
                 writeDecoratedRowFinish(model);
             }
         }
+
 
         // render empty list message
         if (model.getRowListPage().size() == 0)
@@ -411,56 +484,40 @@ public abstract class TableWriterTemplate
      */
     protected abstract void writeEmptyListRowMessage(String message) throws Exception;
 
-    /**
-     * Given a column value and grouping index, this method groups the column and returns the appropriate string back to
-     * the caller. (Background: This method refactors TableTagData.writeTableBody method. See above.)
-     * @param value String
-     * @param group int
-     * @return String
-     */
-    private String groupColumns(String value, int group)
+
+
+/**
+  * This takes a column value and grouping index as the argument. It then groups the column and returns the
+  * appropriate string back to the caller.
+  * @param value String current cell value
+  * @return String
+  */
+ private short groupColumns(String value, String previous, String next)
+ {
+     short groupingKey = GROUP_NO_CHANGE;
+     String safeCompare = StringUtils.defaultString(value);
+     if (next == null || ! safeCompare.equals(next))
+     {
+         // at the end of the list
+         groupingKey += GROUP_END;
+     }
+
+     if (previous == null || ! safeCompare.equals(previous))
+     {
+         // At the start of the list
+         groupingKey += GROUP_START;
+     }
+     return groupingKey;
+ }
+    static class CellStruct
     {
-        if ((group == 1) && this.nextRow.size() > 0)
+        Column column;
+        String bodyValue;
+
+        public CellStruct(Column theColumn, String bodyValueParam)
         {
-            // we are at the begining of the next row so copy the contents from nextRow to the previousRow.
-            this.previousRow.clear();
-            this.previousRow.putAll(this.nextRow);
-            this.nextRow.clear();
+            this.column = theColumn;
+            this.bodyValue = bodyValueParam;
         }
-
-        if (!this.nextRow.containsKey(new Integer(group)))
-        {
-            // Key not found in the nextRow so adding this key now...
-            // remember all the old values.
-            this.nextRow.put(new Integer(group), value);
-        }
-
-        // Start comparing the value we received, along with the grouping index.
-        // if no matching value is found in the previous row then return the value.
-        // if a matching value is found then this value should not get printed out
-        // so return an empty String
-        if (this.previousRow.containsKey(new Integer(group)))
-        {
-            for (int j = 1; j <= group; j++)
-            {
-
-                if (!((String) this.previousRow.get(new Integer(j))).equals((this.nextRow.get(new Integer(j)))))
-                {
-                    // no match found so return this value back to the caller.
-                    return value;
-                }
-            }
-        }
-
-        // This is used, for when there is no data in the previous row,
-        // It gets used only the first time.
-        if (this.previousRow.size() == 0)
-        {
-            return value;
-        }
-
-        // There is corresponding value in the previous row
-        // this value doesn't need to be printed, return an empty String
-        return TagConstants.EMPTY_STRING;
     }
 }

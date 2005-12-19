@@ -41,6 +41,8 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
      */
     private List supportedMedia;
 
+    private boolean showAsLastRow = false;
+
     /**
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
      */
@@ -135,5 +137,20 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     {
         super.release();
         this.supportedMedia = null;
+    }
+
+    /**
+     * Tag getter.
+     */
+    public boolean isShowAsLastRow() {
+        return showAsLastRow;
+    }
+
+    /**
+     * Tag setter.
+     * @param showAsLastRow the space delimited list of supported types
+     */
+    public void setShowAsLastRow(boolean showAsLastRow) {
+        this.showAsLastRow = showAsLastRow;
     }
 }

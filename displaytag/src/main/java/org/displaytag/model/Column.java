@@ -150,14 +150,35 @@ public class Column
     /**
      * Generates the cell open tag.
      * @return String td open tag
+     */
+    public String getOpenTag()
+    {
+        HtmlAttributeMap atts;
+        if (htmlAttributes == null)
+        {
+            atts = cell.getPerRowAttributes();
+        }
+        else
+        {
+            atts = (HtmlAttributeMap) this.htmlAttributes.clone();
+            atts.putAll(cell.getPerRowAttributes());
+        }
+        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, atts);
+    }
+
+    /**
+     * Initialize the cell value.
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
-     */
-    public String getOpenTag() throws ObjectLookupException, DecoratorException
-    {
-        this.stringValue = createChoppedAndLinkedValue();
 
-        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, this.htmlAttributes);
+     * @throws DecoratorException
+     * @throws ObjectLookupException
+     */
+    public void initialize() throws DecoratorException, ObjectLookupException {
+        if (this.stringValue == null)
+        {
+            this.stringValue = createChoppedAndLinkedValue();
+        }
     }
 
     /**
@@ -265,7 +286,7 @@ public class Column
     }
 
     /**
-     * get the final value to be displayed in the table. This method can only be called after getOpenTag(), where the
+     * get the final value to be displayed in the table. This method can only be called after initialize(), where the
      * content is evaluated
      * @return String final value to be displayed in the table
      */

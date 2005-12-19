@@ -11,6 +11,13 @@
  */
 package org.displaytag.decorator;
 
+
+import org.displaytag.model.TableModel;
+import org.displaytag.util.TagConstants;
+import org.displaytag.render.TableWriterTemplate;
+
+import javax.servlet.jsp.PageContext;
+
 /**
  * @author epesh
  * @author Fabrizio Giustina
@@ -33,6 +40,31 @@ public abstract class TableDecorator extends Decorator
      * index in original list.
      */
     private int listIndex = -1;
+
+    /**
+     * The associated table model.
+     */
+    private TableModel tableModel;
+
+    /**
+     * Setter for tablemodel
+     * @param tableModel
+     */
+    public void setTableModel(TableModel tableModel)
+    {
+        this.tableModel = tableModel;
+    }
+
+    /**
+     * Getter for table model.
+     * @return the table model
+     */
+    public TableModel getTableModel()
+    {
+        return tableModel;
+    }
+
+
 
     /**
      * return the index in the displayed list.
@@ -59,6 +91,18 @@ public abstract class TableDecorator extends Decorator
     public final Object getCurrentRowObject()
     {
         return this.currentRowObject;
+    }
+
+    /**
+     * Initialize the TableTecorator instance.
+     * @param context PageContext
+     * @param decorated decorated object (usually a list)
+     * @param model the tableModel
+     */
+    public void init(PageContext context, Object decorated, TableModel model)
+    {
+        setTableModel(model);
+        this.init(context, decorated);
     }
 
     /**
@@ -120,5 +164,47 @@ public abstract class TableDecorator extends Decorator
     public String setRowId()
     {
         return null;
+    }
+
+    /**
+     * Indicates that we are begining a new group.
+     * @param value of the current cell
+     * @param group number of the current column
+     */
+    public void startOfGroup(String value, int group)
+    {
+    }
+
+    /**
+     * Called at the end of a group. Can be subclassed to provide specific data at the end of a row.
+     * @param value of the current cell
+     * @param groupThatHasEnded number of the current column
+     */
+    public void endOfGroup(String value, int groupThatHasEnded)
+    {
+    }
+
+    /**
+     * What value should I display in this cell?  The default value for grouped columns is to not display any value if
+     * the cellValue has not changed on an interior iteration.
+     * @param cellValue
+     * @param groupingStatus
+     * @return the value to display
+     */
+    public String displayValue(String cellValue, short groupingStatus)
+    {
+        if (groupingStatus == TableWriterTemplate.GROUP_END || groupingStatus == TableWriterTemplate.GROUP_NO_CHANGE)
+        {
+            return TagConstants.EMPTY_STRING;
+        }
+        else
+        {
+            return cellValue;
+        }
+    }
+
+    public boolean isLastRow()
+    {
+        return ( getListIndex() == getTableModel().getRowListPage().size() - 1);
     }
 }
