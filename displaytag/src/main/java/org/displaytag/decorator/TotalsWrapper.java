@@ -39,7 +39,7 @@ public class TotalsWrapper extends TableDecorator
     /**
      * CSS class appplied to subtotal headers.
      */
-    public static final String SUBTOTAL_HEADER_CLASS = "subtotal-header"; 
+    public static final String SUBTOTAL_HEADER_CLASS = "subtotal-header";
 
     /**
      * CSS class applied to subtotal labels.
@@ -119,7 +119,7 @@ public class TotalsWrapper extends TableDecorator
         headerRows.add(tr);
     }
 
-    public String displayValue(String value, short groupingStatus)
+    public String displayGroupedValue(String value, short groupingStatus)
     {
         return "&nbsp;";
     }
@@ -187,7 +187,8 @@ public class TotalsWrapper extends TableDecorator
             {
                 try
                 {
-                    return column.createChoppedAndLinkedValue();
+                    column.initialize();
+                    return column.getChoppedAndLinkedValue();
                 }
                 catch (ObjectLookupException e)
                 {
@@ -222,7 +223,8 @@ public class TotalsWrapper extends TableDecorator
                     Number value;
                     try
                     {
-                        value = (Number) propertyConvertor.convert(Number.class, column.createChoppedAndLinkedValue());
+                        column.initialize();
+                        value = (Number) propertyConvertor.convert(Number.class, column.getChoppedAndLinkedValue());
                     }
                     catch (ObjectLookupException e)
                     {

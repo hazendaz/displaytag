@@ -186,12 +186,12 @@ public abstract class TableDecorator extends Decorator
 
     /**
      * What value should I display in this cell?  The default value for grouped columns is to not display any value if
-     * the cellValue has not changed on an interior iteration.
+     * the cellValue has not changed on an interior iteration.  Only invoked for columns that are grouped.
      * @param cellValue
      * @param groupingStatus
      * @return the value to display
      */
-    public String displayValue(String cellValue, short groupingStatus)
+    public String displayGroupedValue(String cellValue, short groupingStatus)
     {
         if (groupingStatus == TableWriterTemplate.GROUP_END || groupingStatus == TableWriterTemplate.GROUP_NO_CHANGE)
         {
