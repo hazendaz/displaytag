@@ -11,22 +11,20 @@ Third Party Extensions and related libraries
    This page lists third party extensions and projects similar to or
    derived from ours.
 
-nav:alphanavbar tag library
+* nav:alphanavbar tag library
 
    The Alphabetical Navigation Bar Java Display Tag Library,
    <nav:alphanavbar: *> , creates an alphabetic navigation bar by
    slicing and dicing string data stored in a java.util.List object
    into 36 alphabetically sorted sub list.
 
-   [33]Alphabetical Navigation Bar
+   {{{http://www.aikiinc.com/alphanavbar/}Alphabetical Navigation Bar}}
 
-     [33] http://www.aikiinc.com/alphanavbar/
-
-Valuelist
+* Valuelist
 
    Implementation of the Core J2EE Patterns - Value List Handler.
 
    Not based on displaytag, although it seems to inherit something in
    examples and documentation.
 
-   [34]Value List Handler
+   {{{http://valuelist.sourceforge.net}Value List Handler}}

@@ -6,26 +6,32 @@
                                               11-11-2005
                                     ------------------------------
 
-Configuration properties
+Configuration
+
+* Configuration properties
 
    This table lists all the configurable properties for the tag
    libraries. The default properties are defined in the
    TableTag.properties file included in the library jar.
 
    There are 2 ways to override default property settings:
+
      * For the whole web application, create a custom properties file
        named "displaytag.properties" and place it in the application
        classpath. Displaytag will use the locale of the request object
        to determine the locale of the property file to use; if the key
        required does not exist in the specified file, the key will be
        loaded from a more general property file.
+
      * For a single table instance, using the <display:setProperty> tag
+
+     []
 
    Include in your custom properties file only the properties you need
    to change. If a property is not defined in the user file, the
    default from the TableTag.properties included in the jar is used.
 
-I18n
+* I18n
 
    Some properties contain messages you may wish to display according
    to the user Locale. To do that first add a default
@@ -33,20 +39,42 @@ I18n
    entries and default messages. Then you can add localized properties
    file (for example displaytag_IT.properties ).
 
-Generic
+* Generic
 
-   Property Default Valid Values Description Can be set using
-   file/setProperty
-   basic.show.header true true, false Indicates if you want the header
-   to appear at the top of the table, the header contains the column
-   names, and any additional action banners that might be required
-   (like paging, export, etc...) yes/yes
-   basic.empty.showtable false true, false Indicates if you want the
-   table to show up also if the list is empty yes/yes
-   basic.msg.empty_list Nothing found to display Any string The message
-   that is displayed if the list that this table is associated with is
-   either null, or empty. Used only if basic.empty.showtable is false .
-   yes/yes
+
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| Property                 | Default          | Valid Values       | Description                                                    | allowed in | allowed in  |
+|                          |                  |                    |                                                                | properties | setProperty |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| basic.show.header        | true             | true, false        | Indicates if you want the header to appear at the top of       | yes        | yes         |
+|                          |                  |                    | the table, the header contains the column names, and any       |            |             |
+|                          |                  |                    | additional action banners that might be required (like         |            |             |
+|                          |                  |                    | paging, export, etc...)                                        |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| basic.empty.showtable    | false            | true, false        | Indicates if you want the table to show up also if the list is | yes        | yes         |
+|                          |                  |                    | empty                                                          |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| basic.msg.empty_list     | Nothing found to | any string         | The message that is displayed if the list that this table is   | yes        | yes         |
+|                          | display          |                    | associated with is either null, or empty. Used only if         |            |             |
+|                          |                  |                    | basic.empty.showtable is false                                 |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+|                          |                  |                    |                                                                |            |             |
+|                          |                  |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+|                          |                  |                    |                                                                |            |             |
+|                          |                  |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+|                          |                  |                    |                                                                |            |             |
+|                          |                  |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+|                          |                  |                    |                                                                |            |             |
+|                          |                  |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+|                          |                  |                    |                                                                |            |             |
+|                          |                  |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+
+
    basic.msg.empty_list_row <tr class="empty"><td colspan="{0}">Nothing
    found to display.</td></tr> Any string The message that is displayed
    into the first table row if the list that this table is associated
@@ -148,58 +176,95 @@ Generic
    conversion to Number. Override with blank to use the default
    implementation from BeanUtils. Used in totals, etc. yes/yes
 
-Exporting
+* Exporting
 
    Displaytag supports exporting to excel, csv, and xml formats. Some
    configurable properties are specific for one of these format.
-   Replace " {export name} " in the property name with "excel", "csv"
+
+   Replace <export name> in the property name with "excel", "csv"
    or "xml". Some of the properties won't work in any export format.
-   Property Default Valid Values Description Can be set using
-   file/setProperty
-   export.types csv excel xml pdf whitespace separated list of
-   configured export types Holds the list of configured export types.
-   yes/no
-   export. {export name} true true, false Should the tag present the
-   option to export data in this specific format. yes/yes
+
+
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| Property                 | Default          | Valid Values       | Description                                                    | allowed in | allowed in  |
+|                          |                  |                    |                                                                | properties | setProperty |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| export.types             | csv excel xml    | any string         | Whitespace separated list of configured export types           | yes        | no          |
+|                          | pdf              |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| export.<export name>     | true             | true, false        | Should the tag present the option to export data in this       | yes        | yes         |
+|                          |                  |                    | specific format                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+|                          |                  |                    |                                                                |            |             |
+|                          |                  |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+|                          |                  |                    |                                                                |            |             |
+|                          |                  |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+|                          |                  |                    |                                                                |            |             |
+|                          |                  |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+|                          |                  |                    |                                                                |            |             |
+|                          |                  |                    |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+
+
    export. {export name}.class Any valid class which implements the
    org.displaytag.export.ExportView interface Fully qualified class
    name for the class which will be used for exporting. yes/no
+
    export. {export name}.label <span class="export {export name} ">
    {export name} </span> Any string The label on the link that the user
    clicks on to export the data in a specific format. yes/yes
+
    export. {export name}.include_header false true, false If set to
    true, the first line of the export will contain column titles as
    displayed on the HTML page. The header by default is not included in
    when exporting. yes/yes
+
    export. {export name}.filename none any valid file name When saving
    exported files the user will be prompted to use this file name.
    yes/yes
+
    export.amount list page, list Indicates how much data should be sent
    down to the user when they ask for a data export. By default, it
    sends the entire list. But, you can instruct the table tag to only
    send down the data that is currently being shown on the page yes/yes
+
    export.decorated true true, false Should the data be "decorated" as
    it is exported. The default value is true, but you might want to
    turn off any decoration that is for example HTML specific when
    exporting the data. yes/yes
 
-css
 
-   Property Default Valid Values Description Can be set using
-   file/setProperty
-   css.tr.even even any valid css class name css class automatically
-   added to even rows yes/yes
-   css.tr.odd odd any valid css class name css class automatically
-   added to odd rows yes/yes
-   css.th.sorted sorted any valid css class name css class
-   automatically added to the header of sorted columns yes/yes
-   css.th.ascending order1 any valid css class name css class
-   automatically added to the header of a column sorted is ascending
-   order yes/yes
-   css.th.descending order2 any valid css class name css class
-   automatically added to the header of a column sorted is descending
-   order yes/yes
-   css.table none any valid css class name css class automatically
-   added to the main table tag yes/yes
-   css.th.sortable none any valid css class name css class
-   automatically added to any sortable column yes/yes
+
+
+* CSS
+
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| Property                 | Default          | Valid Values       | Description                                                    | allowed in | allowed in  |
+|                          |                  |                    |                                                                | properties | setProperty |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| css.tr.even              | even             | any valid css      | css class automatically added to even rows                     | yes        | yes         |
+|                          |                  | class name         |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| css.tr.odd               | odd              | any valid css      | css class automatically added to odd rows                      | yes        | yes         |
+|                          |                  | class name         |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| css.th.sorted            | sorted           | any valid css      | css class automatically added to the header of sorted columns  | yes        | yes         |
+|                          |                  | class name         |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| css.th.ascending         | order1           | any valid css      | css class automatically added to the header of a column sorted | yes        | yes         |
+|                          |                  | class name         | in ascending order                                             |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| css.th.descending        | order2           | any valid css      | css class automatically added to the header of a column sorted | yes        | yes         |
+|                          |                  | class name         | in descending order                                            |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| css.table                | none             | any valid css      | css class automatically added to the main table tag            | yes        | yes         |
+|                          |                  | class name         |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+| css.th.sortable          | none             | any valid css      | css class automatically added to any sortable column           | yes        | yes         |
+|                          |                  | class name         |                                                                |            |             |
+*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+
+

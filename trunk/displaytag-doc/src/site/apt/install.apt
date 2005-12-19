@@ -43,23 +43,7 @@ your application server). Refer to the dependencies document for the correct ver
 
      * log4j.jar
 
-
-
-
-
-  STEP 3 : Needed only for JSP 1.1 containers . Drop the displaytag-{taglibversion}.tld file in your application WEB-INF/ directory. Refer to the tlds page for the available tlds.
-
-  STEP 4 : Needed only for JSP 1.1 containers. Define a taglib element like the following in your /WEB-INF/web.xml file
-
-
-	<taglib>
-	    <taglib-uri>http://displaytag.sf.net</taglib-uri>
-	    <taglib-location>/WEB-INF/displaytag-{taglibversion}.tld</taglib-location>
-	</taglib>
-
-
-
-  STEP 5 : Optional. Depending on your architecture, you may need to configure a filter to make export work.
+  STEP 3 : Optional. Depending on your architecture, you may need to configure a filter to make export work.
 See the export filter page for the details about how to do it and when you could need it.
 
   DONE : Define the tag extension in each JSP page that uses the display taglib. The uri directives must match what you
@@ -76,4 +60,4 @@ defined in the web.xml file above OR the URI defined in one of the tlds in the j
 
 
 
-  For more help with general taglib use, please see: http://jakarta.apache.org/taglibs/tutorial.html
+  For more help with general taglib use, please see: {{{http://jakarta.apache.org/taglibs/tutorial.html}}}
