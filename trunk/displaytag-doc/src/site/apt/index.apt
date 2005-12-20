@@ -6,10 +6,10 @@
                                     26-10-2005
                                     ------------------
 
-Warning
+Warning!
 
- This documentation is related to the displaytag 1.1 development. If you are looking for the latest production-quality
-displaytag release, 1.0, please go {{{http://displaytag.sourceforge.net}here}}.
+ This documentation is related to the displaytag <<1.1>> development. If you are looking for the latest production-quality
+displaytag release, 1.0, please go {{{http://displaytag.sourceforge.net/10}<<here>>}}.
 
  Displaytag 1.1 is a work in progress and it's not considered stable for production use. New APIs and attributes are not
 consolidated yet and could likely change before a release.

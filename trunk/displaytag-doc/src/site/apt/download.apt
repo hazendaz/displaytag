@@ -15,12 +15,10 @@ Download
 
 * development snapshot
 
-   The latest snapshot build (usually uploaded in sync with this
-   website) can be downloaded directly from {{{nightly}here}}.
+   The latest snapshot builds can be downloaded directly from the {{{http://displaytag.sourceforge.net/m2repo/displaytag/}displaytag maven 2 repository}}.
 
-   Get this one only
-   if you are a developer or you absolutely need a feature/fix added
-   before the latest release (see {{{hanges-report.html}changes}} for the full change log).
+   Get this one only if you are a developer or you absolutely need a feature/fix added
+   before the latest release (see {{{changes-report.html}changes}} for the full change log).
 
 * source code from CVS
 
