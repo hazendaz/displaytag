@@ -179,10 +179,9 @@ public class TotalsWrapper extends TableDecorator
 
     String getCellValue(int columnNumber, int rowNumber)
     {
-        TableModel model = getTableModel();
-        List fullList = model.getRowListFull();
+        List fullList = tableModel.getRowListFull();
         Row row = (Row) fullList.get(rowNumber);
-        ColumnIterator columnIterator = row.getColumnIterator(model.getHeaderCellList());
+        ColumnIterator columnIterator = row.getColumnIterator(tableModel.getHeaderCellList());
         while (columnIterator.hasNext())
         {
             Column column = columnIterator.nextColumn();
@@ -210,14 +209,13 @@ public class TotalsWrapper extends TableDecorator
 
     double getTotalForColumn(int columnNumber, int startRow, int stopRow)
     {
-        TableModel model = getTableModel();
-        List fullList = model.getRowListFull();
+        List fullList = tableModel.getRowListFull();
         List window = fullList.subList(startRow, stopRow + 1);
         double total = 0;
         for (Iterator iterator = window.iterator(); iterator.hasNext();)
         {
             Row row = (Row) iterator.next();
-            ColumnIterator columnIterator = row.getColumnIterator(model.getHeaderCellList());
+            ColumnIterator columnIterator = row.getColumnIterator(tableModel.getHeaderCellList());
             while (columnIterator.hasNext())
             {
                 Column column = columnIterator.nextColumn();
@@ -288,7 +286,7 @@ public class TotalsWrapper extends TableDecorator
         {
 
             // For each column, output:
-            List headerCells = getTableModel().getHeaderCellList();
+            List headerCells = tableModel.getHeaderCellList();
             if (firstRowOfCurrentSet < currentRow) // If there is more than one row, show a total
             {
                 out.append(getTotalsRowOpen());

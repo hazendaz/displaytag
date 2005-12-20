@@ -49,24 +49,6 @@ public abstract class TableDecorator extends Decorator
     protected TableModel tableModel;
 
     /**
-     * Setter for tablemodel
-     * @param tableModel
-     */
-    public void setTableModel(TableModel tableModel)
-    {
-        this.tableModel = tableModel;
-    }
-
-    /**
-     * Getter for table model.
-     * @return the table model
-     */
-    public TableModel getTableModel()
-    {
-        return tableModel;
-    }
-
-    /**
      * return the index in the displayed list.
      * @return int index in the displayed list
      */
@@ -97,11 +79,11 @@ public abstract class TableDecorator extends Decorator
      * Initialize the TableTecorator instance.
      * @param context PageContext
      * @param decorated decorated object (usually a list)
-     * @param model the tableModel
+     * @param tableModel the tableModel
      */
-    public void init(PageContext context, Object decorated, TableModel model)
+    public void init(PageContext context, Object decorated, TableModel tableModel)
     {
-        setTableModel(model);
+        this.tableModel = tableModel;
         this.init(context, decorated);
     }
 
@@ -207,7 +189,7 @@ public abstract class TableDecorator extends Decorator
 
     public boolean isLastRow()
     {
-        return (getListIndex() == getTableModel().getRowListPage().size() - 1);
+        return getListIndex() == this.tableModel.getRowListPage().size() - 1;
     }
 
     /**
