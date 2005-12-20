@@ -220,7 +220,7 @@ public class Column
         // chopped content? add the full content to the column "title" attribute
         // note, simply checking that length is less than before can't be enough due to the "..." added if the string is
         // cropped
-        if (choppedValue.length() != fullValue.length() || !choppedValue.endsWith(StringUtils.substring(fullValue, -3)))
+        if (!ObjectUtils.equals(fullValue, choppedValue))
         {
             // clone the attribute map, don't want to add title to all the columns
             this.htmlAttributes = (HtmlAttributeMap) this.htmlAttributes.clone();
