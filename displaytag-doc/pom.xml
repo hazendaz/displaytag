@@ -149,17 +149,10 @@
       <url>http://displaytag.sourceforge.net/m2repo</url>
     </repository>
   </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>maven-taglib-sourceforge</id>
-      <url>http://maven-taglib.sourceforge.net/m2repo</url>
-    </pluginRepository>
-  </pluginRepositories>
   <distributionManagement>
     <repository>
       <id>displaytag</id>
-      <url>http://displaytag.sourceforge.net/maven</url>
-      <layout>legacy</layout>
+      <url>scp://shell.sourceforge.net//home/groups/d/di/displaytag/htdocs/m2repo</url>
     </repository>
     <site>
       <id>displaytag</id>

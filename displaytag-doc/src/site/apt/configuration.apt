@@ -146,15 +146,18 @@ Configuration
      * {6}: total number of pages
 
    yes/yes
+
    paging.banner.first <span class="pagelinks"> [First/Prev] {0} [ <a
    href="{3}">Next</a>/ <a href="{4}">Last</a>] </span> What is shown
    in the pagination bar when the first page is being shown.
    Placeholders are the same as for paging.banner.full . yes/yes
+
    paging.banner.last <span class="pagelinks">[ <a
    href="{1}">First</a>/ <a href="{2}">Prev</a>] {0} [Next/Last]
    </span> What is shown in the pagination bar when the last page is
    being shown. Placeholders are the same as for paging.banner.full .
    yes/yes
+
    paging.banner.onepage <span class="pagelinks">{0}</span> What is
    shown in the pagination bar when only one page is returned.
    Placeholders are the same as for paging.banner.full . yes/yes
@@ -163,18 +166,24 @@ Configuration
    paging.banner.page.link <a href="{1}" title="Go to page {0}">{0}</a>
    link to a page. {0} is replaced with the page number, {1} with the
    page url. yes/yes
+
    paging.banner.page.separator , separator between pages yes/yes
+
    factory.requestHelper
    org.displaytag.util.DefaultRequestHelperFactory Class name for a
    valid RequestHelperFactory implementation RequestHelperFactory to be
    used. You can replace the default one if you need to generate links
    with a different format (for example in portal applications). yes/no
    property_convertor_classname
+
    org.displaytag.conversion.DefaultPropertyConvertor Class name for a
    valid org.apache.commons.beanutils.Converter implementation Used to
    convert property values from Object to Number. You must handle
    conversion to Number. Override with blank to use the default
    implementation from BeanUtils. Used in totals, etc. yes/yes
+
+
+
 
 * Exporting
 
@@ -185,56 +194,40 @@ Configuration
    or "xml". Some of the properties won't work in any export format.
 
 
-*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
-| Property                 | Default          | Valid Values       | Description                                                    | allowed in | allowed in  |
-|                          |                  |                    |                                                                | properties | setProperty |
-*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
-| export.types             | csv excel xml    | any string         | Whitespace separated list of configured export types           | yes        | no          |
-|                          | pdf              |                    |                                                                |            |             |
-*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
-| export.<export name>     | true             | true, false        | Should the tag present the option to export data in this       | yes        | yes         |
-|                          |                  |                    | specific format                                                |            |             |
-*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
-|                          |                  |                    |                                                                |            |             |
-|                          |                  |                    |                                                                |            |             |
-*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
-|                          |                  |                    |                                                                |            |             |
-|                          |                  |                    |                                                                |            |             |
-*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
-|                          |                  |                    |                                                                |            |             |
-|                          |                  |                    |                                                                |            |             |
-*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
-|                          |                  |                    |                                                                |            |             |
-|                          |                  |                    |                                                                |            |             |
-*--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
+*------------------------------------+-----------------------------+-----------------------------+---------------------------------------------------+------------+-------------+
+| Property                           | Default                     | Valid Values                | Description                                       | allowed in | allowed in  |
+|                                    |                             |                             |                                                   | properties | setProperty |
+*------------------------------------+-----------------------------+-----------------------------+---------------------------------------------------+------------+-------------+
+| export.types                       | csv excel xml               | any string                  | Whitespace separated list of configured export types           | yes  | no   |
+|                                    | pdf                         |                             |                                                                |      |      |
+*------------------------------------+-----------------------------+-----------------------------+----------------------------------------------------------------+------+------+
+| export.<export name>               | true                        | true, false                 | Should the tag present the option to export data in this       | yes  | yes  |
+|                                    |                             |                             | specific format                                                |      |      |
+*------------------------------------+-----------------------------+-----------------------------+----------------------------------------------------------------+------+------+
+| export.<export name>.class         |                             | Any valid class             | Fully qualified class name for the class which will be used    | yes  | no   |
+|                                    |                             | that implements the         | for exporting                                                  |      |      |
+|                                    |                             | org.displaytag.export.ExportView interface |                                                 |      |      |
+*------------------------------------+-----------------------------+-----------------------------+----------------------------------------------------------------+------+------+
+| export.<export name>.label         | <span class="export         | Any string                  | The label on the link that the user clicks on to export the    | yes  | yes  |
+|                                    | <export name>">             |                             | data in a specific format                                      |      |      |
+|                                    | <export name> </span>       |                             |                                                                |      |      |
+*------------------------------------+-----------------------------+-----------------------------+----------------------------------------------------------------+------+------+
+| export.<export name>.include_header | false                      | true, false                 | If set to true, the first line of the export will contain      | yes  | yes  |
+|                                    |                             |                             | column titles as displayed on the HTML page.                   |      |      |
+*------------------------------------+-----------------------------+-----------------------------+----------------------------------------------------------------+------+------+
+| export.<export name>.filename      | none                        | any valid file name         | When saving exported files the user will be prompted to use    | yes  | yes  |
+|                                    |                             |                             | this file name                                                 |      |      |
+*------------------------------------+-----------------------------+-----------------------------+----------------------------------------------------------------+------+------+
+| export.amount                      | list                        | page, list                  | Indicates how much data should be sent down to the user when   | yes  | yes  |
+|                                    |                             |                             | they ask for a data export. By default, it sends the entire    |      |      |
+|                                    |                             |                             | list. You can instruct the table tag to only send down the     |      |      |
+|                                    |                             |                             | data that is currently being shown on the page                 |      |      |
+*------------------------------------+-----------------------------+-----------------------------+----------------------------------------------------------------+------+------+
+| export.decorated                   | true                        | true, false                 | Should the data be "decorated" as it is exported.              | yes  | yes  |
+|                                    |                             |                             |                                                                |      |      |
+*------------------------------------+-----------------------------+-----------------------------+----------------------------------------------------------------+------+------+
 
 
-   export. {export name}.class Any valid class which implements the
-   org.displaytag.export.ExportView interface Fully qualified class
-   name for the class which will be used for exporting. yes/no
-
-   export. {export name}.label <span class="export {export name} ">
-   {export name} </span> Any string The label on the link that the user
-   clicks on to export the data in a specific format. yes/yes
-
-   export. {export name}.include_header false true, false If set to
-   true, the first line of the export will contain column titles as
-   displayed on the HTML page. The header by default is not included in
-   when exporting. yes/yes
-
-   export. {export name}.filename none any valid file name When saving
-   exported files the user will be prompted to use this file name.
-   yes/yes
-
-   export.amount list page, list Indicates how much data should be sent
-   down to the user when they ask for a data export. By default, it
-   sends the entire list. But, you can instruct the table tag to only
-   send down the data that is currently being shown on the page yes/yes
-
-   export.decorated true true, false Should the data be "decorated" as
-   it is exported. The default value is true, but you might want to
-   turn off any decoration that is for example HTML specific when
-   exporting the data. yes/yes
 
 
 
