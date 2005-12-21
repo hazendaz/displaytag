@@ -716,7 +716,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         headerCell.setPropertyConvertor(PropertyConvertorFactory.createNumberConverter(tableTag.getProperties()));
         headerCell.setTotaled(this.totaled);
 
-        Comparator headerComparator = (comparator == null) ? comparator : new DefaultComparator(Collator
+        Comparator headerComparator = (comparator != null) ? comparator : new DefaultComparator(Collator
             .getInstance(tableTag.getProperties().getLocale()));
 
         headerCell.setComparator(headerComparator);
