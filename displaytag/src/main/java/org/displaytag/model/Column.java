@@ -248,7 +248,7 @@ public class Column
     private Href getColumnHref(String columnContent) throws ObjectLookupException
     {
         // copy href
-        Href colHref = new Href(this.header.getHref());
+        Href colHref = (Href)this.header.getHref().clone();
 
         // do we need to add a param?
         if (this.header.getParamName() != null)

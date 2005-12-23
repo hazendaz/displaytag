@@ -416,7 +416,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     private Href getSortingHref(HeaderCell headerCell)
     {
         // costruct Href from base href, preserving parameters
-        Href href = new Href(this.baseHref);
+        Href href = (Href)this.baseHref.clone();
 
         if (this.paginatedList == null)
         {
@@ -539,7 +539,7 @@ public class HtmlTableWriter extends TableWriterAdapter
             || (this.paginatedList != null))
         {
             // create a new href
-            Href navigationHref = new Href(this.baseHref);
+            Href navigationHref = (Href)this.baseHref.clone();
 
             write(this.listHelper.getSearchResultsSummary());
 
@@ -567,7 +567,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     private void writeExportLinks()
     {
         // Figure out what formats they want to export, make up a little string
-        Href exportHref = new Href(this.baseHref);
+        Href exportHref = (Href)this.baseHref.clone();
 
         StringBuffer buffer = new StringBuffer(200);
         Iterator iterator = MediaTypeEnum.iterator();

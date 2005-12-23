@@ -13,7 +13,7 @@ import org.displaytag.test.URLAssert;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class HrefTest extends TestCase
+public class DefaultHrefTest extends TestCase
 {
 
     /**
@@ -30,7 +30,7 @@ public class HrefTest extends TestCase
     public final void testSimpleHref()
     {
         String url = "http://www.displaytag.org/displaytag";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -41,7 +41,7 @@ public class HrefTest extends TestCase
     public final void testHrefWithParameters()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -52,7 +52,7 @@ public class HrefTest extends TestCase
     public final void testHrefParamWithoutValue()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -63,7 +63,7 @@ public class HrefTest extends TestCase
     public final void testHrefMultipleParamWithoutValue()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1&param2=2";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -74,7 +74,7 @@ public class HrefTest extends TestCase
     public final void testHrefWithMultipleParameters()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2&param2=3&param2=4&param2=";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -85,7 +85,7 @@ public class HrefTest extends TestCase
     public final void testHrefWithAnchor()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp#thisanchor";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -96,7 +96,7 @@ public class HrefTest extends TestCase
     public final void testHrefWithEmptyAnchor()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -107,7 +107,7 @@ public class HrefTest extends TestCase
     public final void testHrefWithAnchorAndParameters()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -118,7 +118,7 @@ public class HrefTest extends TestCase
     public final void testHrefWithQuotes()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=aquote'test";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -129,8 +129,8 @@ public class HrefTest extends TestCase
     public final void testHrefCopy()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
-        Href href = new Href(url);
-        Href copy = new Href(href);
+        Href href = new DefaultHref(url);
+        Href copy = (Href)href.clone();
         URLAssert.assertEquals(copy.toString(), href.toString());
     }
 
@@ -140,7 +140,7 @@ public class HrefTest extends TestCase
     public final void testClone()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         Href clone = (Href) href.clone();
         assertEquals(href, clone);
 
@@ -154,8 +154,8 @@ public class HrefTest extends TestCase
     public final void testEquals()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
-        Href href = new Href(url);
-        Href href2 = new Href(url);
+        Href href = new DefaultHref(url);
+        Href href2 = new DefaultHref(url);
         assertEquals(href, href2);
     }
 
@@ -165,7 +165,7 @@ public class HrefTest extends TestCase
     public final void testAddParameter()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         href.addParameter("param3", "value3");
         href.addParameter("param4", 4);
         String newUrl = href.toString();
@@ -180,7 +180,7 @@ public class HrefTest extends TestCase
     public final void testSetParameterMap()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp#thisanchor";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
 
         Map parameterMap = new HashMap();
         parameterMap.put("new1", "new1value");
@@ -200,7 +200,7 @@ public class HrefTest extends TestCase
     public final void testAddParameterMap()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1#thisanchor";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
 
         Map parameterMap = new HashMap();
         parameterMap.put("new1", "new1value");
@@ -221,7 +221,7 @@ public class HrefTest extends TestCase
     public final void testAddParameterMapMultiValue()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
 
         Map parameterMap = new HashMap();
         parameterMap.put("param1", new String[]{"à", "<"});
@@ -238,7 +238,7 @@ public class HrefTest extends TestCase
     public final void testAddParameterMapOverridingParameters()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=original#thisanchor";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
 
         Map parameterMap = new HashMap();
         parameterMap.put("param1", "original");
@@ -258,7 +258,7 @@ public class HrefTest extends TestCase
     public final void testGetBaseUrl()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         assertEquals(href.getBaseUrl(), "http://www.displaytag.org/displaytag/index.jsp");
     }
 
@@ -270,7 +270,7 @@ public class HrefTest extends TestCase
         String url = "http://www.displaytag.org/EProcurement/do/searchWorkflowAction?initiator=AVINASH&wfid="
             + "&approvedTDate=&initiatedFDate=&status=default&d-3824-p=2&initiatedTDate=04/28/2004"
             + "&approvedFDate=&method=search&approver=";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         String newUrl = href.toString();
         URLAssert.assertEquals(url, newUrl);
     }
@@ -281,7 +281,7 @@ public class HrefTest extends TestCase
     public final void testNoBaseUrl()
     {
         String url = "?param1=1&param2=2#thisanchor";
-        Href href = new Href(url);
+        Href href = new DefaultHref(url);
         assertEquals(href.getBaseUrl(), "");
         URLAssert.assertEquals(url, href.toString());
     }

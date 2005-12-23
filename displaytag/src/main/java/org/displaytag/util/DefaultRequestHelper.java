@@ -71,7 +71,7 @@ public class DefaultRequestHelper implements RequestHelper
     {
         String requestURI = this.request.getRequestURI();
         // call encodeURL to preserve session id when cookies are disabled
-        Href href = new Href(this.response.encodeURL(requestURI));
+        Href href = new DefaultHref(this.response.encodeURL(requestURI));
         href.setParameterMap(getParameterMap());
         return href;
     }
