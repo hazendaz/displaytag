@@ -40,6 +40,7 @@ import org.displaytag.model.DefaultComparator;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.SortOrderEnum;
+import org.displaytag.util.DefaultHref;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MediaUtil;
@@ -380,7 +381,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         // call encodeURL to preserve session id when cookies are disabled
         String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
             .defaultString(value));
-        this.href = new Href(encodedHref);
+        this.href = new DefaultHref(encodedHref);
     }
 
     /**
@@ -394,7 +395,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         // call encodeURL to preserve session id when cookies are disabled
         String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
             .defaultString(req.getContextPath() + value));
-        this.href = new Href(encodedHref);
+        this.href = new DefaultHref(encodedHref);
     }
 
     /**
@@ -731,11 +732,11 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             // empty base url, use href with parameters from parent table
             if (StringUtils.isEmpty(this.href.getBaseUrl()))
             {
-                colHref = new Href(tableTag.getBaseHref());
+                colHref = (Href) tableTag.getBaseHref().clone();
             }
             else
             {
-                colHref = new Href(this.href);
+                colHref = (Href) this.href.clone();
             }
 
             if (this.paramId != null)

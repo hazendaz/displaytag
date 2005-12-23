@@ -59,6 +59,7 @@ import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.render.HtmlTableWriter;
 import org.displaytag.util.CollectionUtil;
+import org.displaytag.util.DefaultHref;
 import org.displaytag.util.DependencyChecker;
 import org.displaytag.util.Href;
 import org.displaytag.util.ParamEncoder;
@@ -1120,7 +1121,7 @@ public class TableTag extends HtmlTableTag
 
             // call encodeURL to preserve session id when cookies are disabled
             fullURI = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(fullURI);
-            this.baseHref = new Href(fullURI);
+            this.baseHref = new DefaultHref(fullURI);
 
             // ... and copy parameters from the current request
             Map parameterMap = normalHref.getParameterMap();
