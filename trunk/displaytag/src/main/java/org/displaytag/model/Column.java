@@ -153,10 +153,12 @@ public class Column
      */
     public String getOpenTag()
     {
+        HtmlAttributeMap rowAttributes = cell.getPerRowAttributes();
+
         HtmlAttributeMap atts;
-        if (htmlAttributes == null)
+        if (htmlAttributes == null || rowAttributes == null)
         {
-            atts = cell.getPerRowAttributes();
+            atts = rowAttributes;
         }
         else
         {
@@ -248,7 +250,7 @@ public class Column
     private Href getColumnHref(String columnContent) throws ObjectLookupException
     {
         // copy href
-        Href colHref = (Href)this.header.getHref().clone();
+        Href colHref = (Href) this.header.getHref().clone();
 
         // do we need to add a param?
         if (this.header.getParamName() != null)
