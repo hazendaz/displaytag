@@ -95,21 +95,18 @@ p {
 }
 
 #breadcrumbs {
-	height: 20px;
-	padding: 5px 10px 3px 20px;
+	overflow: hidden;
+	padding: 3px 10px 3px 20px;
 	background-image: url(../images/breadcrumbs.png);
 	background-repeat: repeat-x;
 	border: none;
+	background-color: #fff !important;
 }
 
 #breadcrumbs a {
 	font-weight: bold;
 	color: #999;
 	text-decoration: underline;
-}
-
-* html #breadcrumbs {
-	padding-bottom: 8px;
 }
 
 #leftColumn {
@@ -188,7 +185,9 @@ table {
 	height: 93px;
 	background-color: #e2f3b8;
 }
-
+#banner  a#bannerRight img{
+    margin: 10px 10px 0 0 !important;
+}
 #navcolumn ul {
 	margin: 5px 0 15px -0em;
 }
