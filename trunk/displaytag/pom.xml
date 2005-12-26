@@ -79,8 +79,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>eclipse</groupId>
-      <artifactId>jdtcore</artifactId>
+      <groupId>tomcat</groupId>
+      <artifactId>jasper-compiler-jdt</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
