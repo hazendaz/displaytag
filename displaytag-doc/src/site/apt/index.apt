@@ -6,7 +6,9 @@
                                     26-10-2005
                                     ------------------
 
-Warning!
+Display tag library 1.1
+
+* Warning!
 
  This documentation is related to the displaytag <<1.1>> development. If you are looking for the latest production-quality
 displaytag release, 1.0, please go {{{http://displaytag.sourceforge.net/10}<<here>>}}.
@@ -15,13 +17,19 @@ displaytag release, 1.0, please go {{{http://displaytag.sourceforge.net/10}<<her
 consolidated yet and could likely change before a release.
 
 
-Overview
+* Thanks to...
+
+ {{{http://www.hpa.com.au}HPA}} sponsored the development of some of the features included in this release
+ [images/hpa-logo.png]
+
+
+* Overview
 
  The display tag library is an open source suite of custom tags that provide high-level web presentation patterns which
 will work in an MVC model. The library provides a significant amount of functionality while still being easy to use.
 
 
-What can I do with it?
+* What can I do with it?
 
  Actually the display tag library can just... display tables! Give it a list of objects and it will handle column
 display, sorting, paging, cropping, grouping, exporting, smart linking and decoration of a table in a customizable XHTML

@@ -10,20 +10,17 @@
     <links>
       <item name="Live examples" href="http://displaytag.homeip.net" />
     </links>
-    <menu name="Documentation"><!--  --></menu>
     <menu name="Modules">
-      <item name="Documentation" href="index.html" />
-      <item name="Core Tag library" href="./displaytag/index.html" />
-      <item name="Example application" href="./displaytag-examples/index.html" />
-      <item name="Excel export module" href="./displaytag-export-poi/index.html" />
+      <item name="Documentation" href="/index.html" />
+      <item name="Core Tag library" href="/displaytag/index.html" />
+      <item name="Example application" href="/displaytag-examples/index.html" />
+      <item name="Excel export module" href="/displaytag-export-poi/index.html" />
+      <item name="Portlet support" href="/displaytag-portlet/index.html" />
     </menu>
     <menu name="Reference">
       <item name="Download" href="/download.html" />
       <item name="Install" href="/install.html" />
       <item name="Tlds" href="/tlds.html" />
-      <!--
-        first of all we need a m2 taglib plugin
-        <item name="Tag reference" href="/tagreference-displaytag-12.html" />-->
       <item name="Configuration" href="/configuration.html" />
       <item name="Export filter" href="/export_filter.html" />
       <item name="FAQ" href="/faq.html" />
@@ -40,11 +37,9 @@
       <item name="I18n" href="/i18n.html" />
       <item name="External sorting" href="/tut_externalSortAndPage.html" />
     </menu>
-    <!--
-    <menu name="Downloadable docs">
-      <item name="PDF manual" href="displaytag.pdf" />
+    <menu name="Displaytag Extensions">
+      <item name="Portlet" href="/portlet.html" />
     </menu>
-    -->
     <menu name="Developers">
       <item name="Coding Conventions" href="/coding_conventions.html" />
       <item name="Building from sources" href="/buildit.html" />

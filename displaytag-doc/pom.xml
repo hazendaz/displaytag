@@ -141,6 +141,31 @@
           <target>1.4</target>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>site</phase>
+            <configuration>
+              <tasks>
+                <!-- keep a common navigation -->
+                <copy todir="src/site" overwrite="true">
+                  <fileset dir="../displaytag-doc/src/site">
+                    <include name="site.xml" />
+                  </fileset>
+                </copy>
+                <replace token='href="/' value='href="../' dir="..">
+                  <include name="displaytag*/src/site/site.xml" />
+                  <exclude name="displaytag-doc/src/site/site.xml" />
+                </replace>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -152,12 +177,12 @@
   <distributionManagement>
     <repository>
       <id>displaytag</id>
-      <url>scp://shell.sourceforge.net//home/groups/d/di/displaytag/htdocs/m2repo</url>
+      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/m2repo</url>
     </repository>
     <site>
       <id>displaytag</id>
       <name>displaytag</name>
-      <url>scp://shell.sourceforge.net//home/groups/d/di/displaytag/htdocs/11/</url>
+      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>
     </site>
   </distributionManagement>
   <ciManagement>
@@ -185,6 +210,7 @@
   <modules>
     <module>../displaytag</module>
     <module>../displaytag-export-poi</module>
+    <module>../displaytag-portlet</module>
     <module>../displaytag-examples</module>
   </modules>
   <dependencyManagement>
@@ -271,19 +297,19 @@
       <dependency>
         <groupId>tomcat</groupId>
         <artifactId>jasper-compiler</artifactId>
-        <version>5.5.9</version>
+        <version>5.5.12</version>
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>eclipse</groupId>
-        <artifactId>jdtcore</artifactId>
-        <version>3.0.1</version>
+        <groupId>tomcat</groupId>
+        <artifactId>jasper-compiler-jdt</artifactId>
+        <version>5.5.12</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>tomcat</groupId>
         <artifactId>jasper-runtime</artifactId>
-        <version>5.5.9</version>
+        <version>5.5.12</version>
         <scope>test</scope>
       </dependency>
       <dependency>
