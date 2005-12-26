@@ -42,10 +42,7 @@ import org.apache.jasper.runtime.JspSourceDependent;
 
 /**
  * <p>
- * <strong>This is a copy of the <code>JspServletWrapper</code> class included in tomcat 5.5.9, with only a single
- * modification in the method <code>service(HttpServletRequest, HttpServletResponse, precompile)</code>. A generic
- * catch during the servlet call has been removed to easily get the real cause of errors instead of obscure
- * <code>JasperException</code>s</strong>. (fgiust)
+ * fgiust: patched in order to let RuntimeException slip through without being hidden in ServletException's during HttpUnit tests.
  * </p>
  * The JSP engine (a.k.a Jasper). The servlet container is responsible for providing a URLClassLoader for the web
  * application context Jasper is being used in. Jasper will try get the Tomcat ServletContext attribute for its
@@ -293,7 +290,7 @@ public class JspServletWrapper
             }
             if (target != null && target instanceof JspSourceDependent)
             {
-                return ((JspSourceDependent) target).getDependants();
+                return ((java.util.List) ((JspSourceDependent) target).getDependants());
             }
         }
         catch (Throwable ex)
@@ -432,6 +429,14 @@ public class JspServletWrapper
         }
         catch (ServletException ex)
         {
+            // FG start patch
+            Throwable cause = ex.getCause();
+            if (cause instanceof RuntimeException)
+            {
+                throw (RuntimeException) cause;
+            }
+            // FG end patch
+
             throw ex;
         }
         catch (IOException ex)
@@ -442,12 +447,16 @@ public class JspServletWrapper
         {
             throw ex;
         }
-        // CHANGED by fgiust
-        // } catch (Exception ex) {
-        // log.error(ex.getClass().getName(), ex);
-        // throw new JasperException(ex);
-        // }
-        // END CHANGED by fgiust
+        // FG start patch
+        catch (RuntimeException ex)
+        {
+            throw ex;
+        }
+        // FG end patch
+        catch (Exception ex)
+        {
+            throw new JasperException(ex);
+        }
     }
 
     public void destroy()
