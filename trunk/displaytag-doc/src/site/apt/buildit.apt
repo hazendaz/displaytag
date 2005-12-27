@@ -23,15 +23,17 @@ Building from Source
 * Installing Maven
 
  Displaytag uses maven 2 for build and site generation. First of all, you need to download and install Maven (minimum
-required version 2.0) from {{{http://maven.apache.org}maven.apache.org}}.
+required version 2.0.1) from {{{http://maven.apache.org}maven.apache.org}}.
 Follow the instructions on the Maven site on how to do this.
 
 
 * Run it!
 
  Go to the displaytag-doc folder, type
+
 +----------------------------+
  mvn install
 +----------------------------+
+
  and watch the show. For this you need a working internet connection since maven will first try to download all the
- needed libraries (see {{{dependencies.html}dependencies}}) from a remote repository.
+ needed libraries from a remote repository.

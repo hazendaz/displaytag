@@ -18,7 +18,7 @@
     to use.
   </description>
   <scm>
-    <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc</connection>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc</connection>
     <developerConnection>
       scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc
     </developerConnection>
@@ -30,7 +30,7 @@
   <licenses>
     <license>
       <name>Artistic License</name>
-      <url>http://displaytag.sourceforge.net/license.html</url>
+      <url>http://cvs.sourceforge.net/viewcvs.py/*checkout*/displaytag/displaytag/LICENSE.txt</url>
     </license>
   </licenses>
   <mailingLists>
@@ -132,6 +132,12 @@
     </contributor>
   </contributors>
   <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh-external</artifactId>
+      </extension>
+    </extensions>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -141,30 +147,47 @@
           <target>1.4</target>
         </configuration>
       </plugin>
-      <plugin>
+      <!--
+        <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
-          <execution>
-            <phase>site</phase>
-            <configuration>
-              <tasks>
-                <!-- keep a common navigation -->
-                <copy todir="src/site" overwrite="true">
-                  <fileset dir="../displaytag-doc/src/site">
-                    <include name="site.xml" />
-                  </fileset>
-                </copy>
-                <replace token='href="/' value='href="../' dir="..">
-                  <include name="displaytag*/src/site/site.xml" />
-                  <exclude name="displaytag-doc/src/site/site.xml" />
-                </replace>
-              </tasks>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
+        <execution>
+        <phase>site</phase>
+        <configuration>
+        <tasks>
+
+        <copy todir="src/site" overwrite="true">
+        <fileset dir="../displaytag-doc/src/site">
+        <include name="site.xml" />
+        </fileset>
+        </copy>
+        <replace token='href="/' value='href="../' dir="..">
+        <include name="displaytag*/src/site/site.xml" />
+        <exclude name="displaytag-doc/src/site/site.xml" />
+        </replace>
+        </tasks>
+        </configuration>
+        <goals>
+        <goal>run</goal>
+        </goals>
+        </execution>
         </executions>
+        </plugin>
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <stagingDirectory>../site-staging</stagingDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clover-plugin</artifactId>
+        <configuration>
+          <jdk>1.4</jdk>
+          <licenseFile>clover.license</licenseFile>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -178,11 +201,13 @@
     <repository>
       <id>displaytag</id>
       <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/m2repo</url>
+      <uniqueVersion>true</uniqueVersion>
     </repository>
     <site>
       <id>displaytag</id>
       <name>displaytag</name>
-      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>
+      <url>file://d:/apps/displaytag/site-staging</url>
+      <!-- <url>scpexe://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>-->
     </site>
   </distributionManagement>
   <ciManagement>

@@ -21,7 +21,7 @@ body {
 td,select,input,li {
 	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-size: 12px;
-	color: #333333;
+	color: #333;
 }
 
 code {
@@ -29,6 +29,10 @@ code {
 }
 
 a {
+	text-decoration: underline;
+}
+
+#leftColumn a {
 	text-decoration: none;
 }
 
@@ -37,11 +41,11 @@ a:link {
 }
 
 a:visited {
-	color: #666666;
+	color: #666;
 }
 
 a:active,a:hover {
-	color: #990000;
+	color: #900;
 }
 
 #legend li.externalLink {
@@ -122,12 +126,13 @@ p {
 #navcolumn h5 {
 	font-size: 11px;
 	padding-top: 2px;
-	padding-left: 9px;
+	padding-left: 12px;
 	color: #999;
 	background-repeat: no-repeat;
-	background-position: left bottom;
+	background-position: left 5px;
 	font-variant: small-caps;
 	border: none;
+	background-image: url(../images/nav-titles.png);
 }
 
 table.bodyTable th {
@@ -185,9 +190,11 @@ table {
 	height: 93px;
 	background-color: #e2f3b8;
 }
-#banner  a#bannerRight img{
-    margin: 10px 10px 0 0 !important;
+
+#banner  a#bannerRight img {
+	margin: 10px 10px 0 0 !important;
 }
+
 #navcolumn ul {
 	margin: 5px 0 15px -0em;
 }
@@ -198,6 +205,14 @@ table {
 
 #navcolumn ul a:hover {
 	color: red;
+}
+
+#navcolumn ul li.expanded ul {
+	margin-top: 0;
+}
+
+#navcolumn ul li.expanded ul li {
+	padding-left: 8px;
 }
 
 #intro {
@@ -220,4 +235,17 @@ table {
 	margin: 20px 0px 20px 0px;
 	border-top: solid #ccc 1px;
 	color: #333333;
+}
+
+dl {
+	border: 1px dotted #ccc;
+	background-color: transparent;
+}
+
+dt {
+	background-color: transparent;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #999 !important;
+	font-weight: bold;
+	font-size: 16px;
 }

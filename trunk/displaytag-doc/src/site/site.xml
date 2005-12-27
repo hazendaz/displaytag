@@ -1,28 +1,24 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="Display tag library">
-  <title>Display tag library</title>
+<project xmlns="http://maven.apache.org/site/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/site/4.0.0 D:/apps/maven/doxia/doxia-decoration-model/target/generated-site/xsd/decoration-1.0.0.xsd"
+  name="Display tag library">
+  <publishDate position="left" format="MM-dd-yyyy hh:mm" />
   <bannerRight>
     <name>Displaytag</name>
-    <src>images/displaytag.png</src>
+    <src>http://displaytag.sourceforge.net/11/images/displaytag.png</src>
     <href>http://displaytag.sourceforge.net/11/</href>
   </bannerRight>
   <body>
     <links>
       <item name="Live examples" href="http://displaytag.homeip.net" />
     </links>
-    <menu name="Modules">
-      <item name="Documentation" href="/index.html" />
-      <item name="Core Tag library" href="/displaytag/index.html" />
-      <item name="Example application" href="/displaytag-examples/index.html" />
-      <item name="Excel export module" href="/displaytag-export-poi/index.html" />
-      <item name="Portlet support" href="/displaytag-portlet/index.html" />
-    </menu>
     <menu name="Reference">
       <item name="Download" href="/download.html" />
       <item name="Install" href="/install.html" />
       <item name="Tlds" href="/tlds.html" />
+      <item name="Tag reference" href="/displaytag/tagreference.html" />
       <item name="Configuration" href="/configuration.html" />
       <item name="Export filter" href="/export_filter.html" />
+      <item name="Migrating" href="/migrating.html" />
       <item name="FAQ" href="/faq.html" />
       <item name="Related projects" href="/thirdparty.html" />
     </menu>
@@ -38,20 +34,64 @@
       <item name="External sorting" href="/tut_externalSortAndPage.html" />
     </menu>
     <menu name="Displaytag Extensions">
-      <item name="Portlet" href="/portlet.html" />
+      <item name="Jsr-168 Portlet support" href="/portlet.html" />
     </menu>
     <menu name="Developers">
       <item name="Coding Conventions" href="/coding_conventions.html" />
       <item name="Building from sources" href="/buildit.html" />
     </menu>
-    ${reports}
-    <menu name="" type="footer">
-      <item name="Sourceforge" href="http://sourceforge.net/projects/displaytag"
-        img="http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8" />
-      <item name="Code Coverage by Clover" href="http://www.cenqua.com/clover"
-        img="http://www.cenqua.com/clover/images/clovered1.gif" />
-      <item name="Support this project!" href="http://sourceforge.net/donate/index.php?group_id=73068"
-        img="images/project-support.png" />
+    <menu name="Project Info">
+      <item name="Continuous Integration" href="/integration.html" />
+      <item name="Dependencies" href="/dependencies.html" />
+      <item name="Issue Tracking" href="/issue-tracking.html" />
+      <item name="Mailing Lists" href="/mail-lists.html" />
+      <item name="Project License" href="/license.html" />
+      <item name="Project Team" href="/team-list.html" />
+      <item name="Source Repository" href="/source-repository.html" />
     </menu>
+    <menu name="Project Reports">
+      <item name="Changes Report" href="/changes-report.html" />
+      <item name="Jira Report" href="/jira-report.html" />
+      <item name="Main tag library" href="/displaytag/index.html" collapse="false">
+        <item name="Javadoc" href="/displaytag/apidocs/index.html" />
+        <item name="Clover" href="/displaytag/clover/index.html" external="true" />
+        <item name="Maven Surefire Report" href="/displaytag/surefire-report.html" />
+        <item name="Source Xref" href="/displaytag/jxr.html" />
+        <item name="JDepend Report" href="/displaytag/jdepend-report.html" />
+        <item name="Tag library validation" href="/displaytag/taglibvalidation.html" />
+        <item name="Tag reference" href="/displaytag/tagreference.html" />
+        <!-- <item name="Taglibdoc documentation" href="/displaytag/tlddoc/index.html" />-->
+      </item>
+      <item name="Excel export module" href="/displaytag-export-poi/index.html" collapse="false">
+        <item name="Javadoc" href="/displaytag-export-poi/apidocs/index.html" />
+        <item name="Source Xref" href="/displaytag-export-poi/jxr.html" />
+        <item name="Maven Surefire Report" href="/displaytag-export-poi/surefire-report.html" />
+      </item>
+      <item name="Portlet support" href="/displaytag-portlet/index.html" collapse="false">
+        <item name="Javadoc" href="/displaytag-portlet/apidocs/index.html" />
+        <item name="Source Xref" href="/displaytag-portlet/jxr.html" />
+        <item name="Maven Surefire Report" href="/displaytag-portlet/surefire-report.html" />
+      </item>
+      <item name="Example application" href="/displaytag-examples/index.html" collapse="false">
+        <item name="Source Xref" href="/displaytag-examples/jxr.html" />
+      </item>
+    </menu>
+    <poweredBy>
+      <poweredBy>
+        <name>Sourceforge</name>
+        <src>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</src>
+        <href>http://sourceforge.net/projects/displaytag</href>
+      </poweredBy>
+      <poweredBy>
+        <name>Code Coverage by Clover</name>
+        <src>http://www.cenqua.com/clover/images/clovered1.gif</src>
+        <href>http://www.cenqua.com/clover</href>
+      </poweredBy>
+      <poweredBy>
+        <name>Support this project!</name>
+        <src>images/project-support.png</src>
+        <href>http://sourceforge.net/donate/index.php?group_id=73068</href>
+      </poweredBy>
+    </poweredBy>
   </body>
 </project>

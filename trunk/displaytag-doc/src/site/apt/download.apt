@@ -8,20 +8,20 @@
 
 Download
 
-* releases
+* Releases
 
    You can download source and binary distributions from the
-   {{{ http://sourceforge.net/project/showfiles.php?group_id=73068}SourceForge file server}}.
+   {{{http://sourceforge.net/project/showfiles.php?group_id=73068}SourceForge file server}}.
 
-* development snapshot
+* Development snapshot
 
    The latest snapshot builds can be downloaded directly from the {{{http://displaytag.sourceforge.net/m2repo/displaytag/}displaytag maven 2 repository}}.
 
    Get this one only if you are a developer or you absolutely need a feature/fix added
    before the latest release (see {{{changes-report.html}changes}} for the full change log).
 
-* source code from CVS
+* Source code from CVS
 
    You can also obtain the source from the SourceForge CVS Server, see
-   {{{cvs-usage.html}Source Repository}}.
+   {{{source-repository.html}Source Repository}}.
 

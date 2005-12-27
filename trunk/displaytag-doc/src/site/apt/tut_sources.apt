@@ -8,17 +8,23 @@
 
 Data sources
 
-Expressions
+* Expressions
 
    Up until this point, we have simply had a List object available to
    us under the name "list" in the request scope that has driven the
    display of the tables shown. We have been setting up that bean with
    the following scriptlet, but presumably you would be doing something
    similar in your Action class rather then raw on this jsp page.
+
++-------------------------------------------------------------------+
 <% request.setAttribute( "test", new TestList( 10 ) ); %>
++-------------------------------------------------------------------+
 
    This table is called with the following attributes:
+
++-------------------------------------------------------------------+
 <display:table name="test">
++-------------------------------------------------------------------+
 
    You can also acquire a handle to the list you want to display by
    specifying not only a bean name, but also a bean property (a getter
@@ -36,10 +42,16 @@ Expressions
 
    You can define the scope of the bean adding one of the following
    suffix:
+
      * pageScope
+
      * requestScope (default)
+
      * sessionScope
+
      * applicationScope
+
+     []
 
    You can also access javabean style properties, mapped properties or
    indexed properties in the bean, also nested. The syntax for
@@ -47,25 +59,39 @@ Expressions
    property specifying it between () and an indexed property using [].
 
    So the following:
-   sessionScope.list.value.attribute(name).item[$1\47]
+----------------------------------------------------------------------
+   sessionScope.list.value.attribute(name).item[1]
+----------------------------------------------------------------------
 
    is equivalent to:
-   session.getAttribute("list").getValue().getAttribute("name").getItem
-   (1)
+----------------------------------------------------------------------
+   session.getAttribute("list").getValue().getAttribute("name").getItem(1)
+----------------------------------------------------------------------
 
-Supported data
+* Supported data
 
    The table tag actually supports the following kind of objects:
+
      * a Collection
+
      * an Enumeration
+
      * a Map (values are displayed in row)
+
      * a Dictionary (values are displayed in row)
+
      * an array
+
      * an Iterator
+
      * any Object with an iterator() method
+
      * ... any other object will be displayed on a single row
 
-From a db?
+     []
+
+
+* From a db?
 
    Displaytag will never support retrieving data from a db directly.
    Displaytag is here to help you in displaying data, not to retrieve
@@ -93,11 +119,7 @@ From a db?
 
    2) Using dynabeans
 
-   see
-   [33]http://jakarta.apache.org/commons/beanutils/api/org/apache/commo
-   ns/beanutils/RowSetDynaClass.html
-
-     [33] http://jakarta.apache.org/commons/beanutils/api/org/apache/commons/beanutils/RowSetDynaClass.html
+   see {{{http://jakarta.apache.org/commons/beanutils/api/org/apache/commons/beanutils/RowSetDynaClass.html}}}
 
 +-------------------------------------------------------------------+
 <%

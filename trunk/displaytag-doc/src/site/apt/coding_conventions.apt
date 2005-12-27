@@ -21,9 +21,9 @@ Forewords
    the official {{{http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html}Sun Java Coding Conventions}}.
 
 
-Project specific coding conventions
+* Project specific coding conventions
 
-1. Brackets
+  [[1]] Brackets
 
    All brackets (class, method, if, try, etc) must begin and end on a
    new line. Example :
@@ -40,7 +40,7 @@ public class SomeClass
 }
 +-------------------------------------------------------------------+
 
- Brackets are mandatory, even for single line statements !
+    Brackets are mandatory, even for single line statements!
 
 +-------------------------------------------------------------------+
 // Incorrect
@@ -54,7 +54,9 @@ if (expression)
 }
 +-------------------------------------------------------------------+
 
-   2. Blank Spaces
+
+
+  [[2]] Blank Spaces
 
    keywords followed by a parenthesis should be separated by a space.
    Example :
@@ -85,14 +87,17 @@ while (d++ = s++)
 printSize("size is " + foo + "\n");
 +-------------------------------------------------------------------+
 
-3. Indentations
+
+  [[3]] Indentations
 
    4 spaces. NO tabs . Period. We understand that a lot of you like to
    use tabs, but the fact of the matter is that in a distributed
    development environment, when the cvs commit messages get sent to a
    mailing list, they are almost impossible to read if you use tabs.
 
-4. Comments
+
+
+   [[4]] Comments
 
    Javadoc SHOULD exist on all your class members (methods + class
    variables), including the private ones. Also, if you are working on
@@ -103,7 +108,9 @@ printSize("size is " + foo + "\n");
    Also add code comments when you think it's necessary (like
    assumptions), especially when the code is not obvious.
 
-5. Author references
+
+
+  [[5]] Author references
 
    If you contribute to a file (code or documentation), add yourself to
    the top of the file (below the existing authors). For java files the
@@ -113,7 +120,8 @@ printSize("size is " + foo + "\n");
 @author devnickname
 +-------------------------------------------------------------------+
 
-7. Class variables
+
+  [[6]] Class variables
 
    Class variables should not have any prefix and must be referenced
    using the this object. Example :
@@ -130,7 +138,9 @@ public class SomeClass
 }
 +-------------------------------------------------------------------+
 
- 8. Parameter names
+
+
+  [[7]] Parameter names
 
    Method parameters should not have any prefix. For example :
 
@@ -140,11 +150,13 @@ public void someMethod(String className)
 }
 +-------------------------------------------------------------------+
 
- 9. Line length
+
+  [[8]] Line length
 
    Avoid lines longer than 120 characters for Code, comments, ...
 
-10. Versioning
+
+  [[9]] Versioning
 
    All .java files should have a @version tag like the one below.
 
@@ -152,12 +164,13 @@ public void someMethod(String className)
 @version $Id$
 +-------------------------------------------------------------------+
 
- 11. Qualified imports
+
+  [[10]] Qualified imports
 
    All import statements should containing the full class name of
    classes to import and should not use the "*" notation :
 
-   An example :
+   An example:
 
 +-------------------------------------------------------------------+
 // Correct

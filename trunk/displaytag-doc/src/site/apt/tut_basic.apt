@@ -8,15 +8,18 @@
 
 Simplest case, no columns
 
+* Basic table
 
+[images/tut_basic.png] display:table
+
++-------------------------------------------------------------------+
 <% request.setAttribute( "test", new TestList(10, false) ); %>
 
 <display:table name="test" />
-
-   basic table
++-------------------------------------------------------------------+
 
    The simplest possible usage of the table tag is to point the table
-   tag at a java.util.List implementation and do nothing else. The
+   tag at a <<<java.util.List>>> implementation and do nothing else. The
    table tag will iterate through the list and display a column for
    each property contained in the objects.
 
@@ -24,7 +27,9 @@ Simplest case, no columns
    simple way would be during development as a sanity check. For
    production, you should always define at least a single column.
 
-Basic, columns
+* Basic, columns
+
+[images/tut_columns.png] display:table with columns
 
 +-------------------------------------------------------------------+
 <% request.setAttribute( "test", new TestList(10, false) ); %>
@@ -38,7 +43,6 @@ Basic, columns
 </display:table>
 +-------------------------------------------------------------------+
 
-   table - columns
 
    This example starts to show you how to use the table tag. You point
    the table tag at a datasource (a List), then define a number of
@@ -51,8 +55,11 @@ Basic, columns
 
    You can define the content of a column by adding a property
    attribute to the column tag or adding a content to the tag.
-     * <display:column property="email" />
-     * <display:column title="email">email@it.com</display:column>
+
+---------------------------------------------------------------------
+   <display:column property="email" />
+   <display:column title="email">email@it.com</display:column>
+---------------------------------------------------------------------
 
    There are two ways to define the content of a column. Of course, in
    the tag body you can use scriptlets or other custom tags. Using the
@@ -62,9 +69,7 @@ Basic, columns
 
    Adding content in the column body you can easily concatenate or
    "decorate" fields available in objects in the list. See the
-   [33]implicit objects chapter for more details.
-
-     [33] http://displaytag.sourceforge.net/11/tut_implicitobjects.html
+   {{{tut_implicitobjects.html}implicit objects}} chapter for more details.
 
    The property attribute specifies what getXXX method is called on
    each item in the list. So for the second column, getName is called.

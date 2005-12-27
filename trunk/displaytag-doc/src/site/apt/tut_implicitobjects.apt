@@ -29,7 +29,7 @@ Implicit objects created by table
 
    These objects are saved as attributes in the page scope (you can
    access it using pageContext.getAttribute("id") ). They are also
-   defined as nested variables (accessible using <%=id%> ), but only if
+   defined as nested variables (accessible using <<<\<%=id%\>>>> ), but only if
    the value of the id atribute is not a runtime expression. The
    preferred way for fetching the value is to always use
    pageContext.getAttribute().
@@ -40,6 +40,7 @@ Implicit objects created by table
    This is a simple snippet which shows the use of the implicit objects
    created by the table tag with JSTL.
 
++-------------------------------------------------------------------+
   <display table id="row" name="mylist">
     <display:column title="row number" >
       <c:out value="${row_rowNum}"/>
@@ -49,3 +50,4 @@ Implicit objects created by table
       <c:out value="${row.last_name}"/>
     </display:column>
   </display:table>
++-------------------------------------------------------------------+
