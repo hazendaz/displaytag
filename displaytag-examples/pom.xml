@@ -12,8 +12,9 @@
   <groupId>displaytag</groupId>
   <packaging>war</packaging>
   <version>1.1-SNAPSHOT</version>
+  <description>Example webapp for the display tag library</description>
   <scm>
-    <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-examples</connection>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-examples</connection>
     <developerConnection>
       scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-examples
     </developerConnection>
@@ -76,4 +77,34 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>site</phase>
+            <configuration>
+              <tasks>
+                <copy todir="src/site" overwrite="true" file="../displaytag-doc/src/site/site.xml" />
+                <replace token='href="/' value='href="../' file="src/site/site.xml" />
+                <replace token='href="../displaytag-examples/' value='href="' file="src/site/site.xml" />
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

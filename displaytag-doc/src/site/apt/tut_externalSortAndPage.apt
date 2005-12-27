@@ -19,7 +19,7 @@ External Sorting
 
 
 
-   When using the sort="external" property you are telling DisplayTag
+   When using the <<<sort="external">>> property you are telling DisplayTag
    that your list is already sorted according to some specific column
    before the tag gets it. This is a must when used with partial lists
    as we will see below, however you can use it by itself. A new
@@ -48,13 +48,23 @@ External Sorting
    id)-s=(column index or sortName) parameter in them.
 
    To determine the request parameter name for column sorting you can
-   do: new
-   ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_SORT))
-   . To get the order (ASC/DESC): new
-   ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER)
-   ). Descending is 2, Ascending is 1.
+   do:
 
-External Sorting And Paging (Partial Lists)
++-------------------------------------------------------------------+
+   new ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_SORT))
++-------------------------------------------------------------------+
+
+   To get the order (ASC/DESC):
+
++-------------------------------------------------------------------+
+   new ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER))
++-------------------------------------------------------------------+
+
+   Descending is 2, Ascending is 1.
+
+
+
+* External Sorting And Paging (Partial Lists)
 
 +-------------------------------------------------------------------+
 <display:table name="testList" sort="external" defaultsort="1" pagesize="20" id="element" partialList="true" size="resultSize">

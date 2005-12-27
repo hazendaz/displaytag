@@ -11,8 +11,12 @@
   <name>Display excel export module</name>
   <groupId>displaytag</groupId>
   <version>1.1-SNAPSHOT</version>
+  <description>
+    The Display excel export module is an optional displaytag extension which will allow you to export data using the
+    Microsoft Excel binary format through Jakarta POI.
+  </description>
   <scm>
-    <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-export-poi</connection>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-export-poi</connection>
     <developerConnection>
       scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-export-poi
     </developerConnection>
@@ -47,4 +51,46 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>surefire-report-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>site</phase>
+            <configuration>
+              <tasks>
+                <copy todir="src/site" overwrite="true" file="../displaytag-doc/src/site/site.xml" />
+                <replace token='href="/' value='href="../' file="src/site/site.xml" />
+                <replace token='href="../displaytag-export-poi/' value='href="' file="src/site/site.xml" />
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

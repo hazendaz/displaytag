@@ -11,7 +11,7 @@ Decorators
    A "decorator" is a design pattern where one object provides a layer
    of functionality by wrapping or "decorating" another object.
 
-Table decorators
+* Table decorators
 
 +-------------------------------------------------------------------+
 <display:table name="test" decorator="org.displaytag.sample.Wrapper" >
@@ -34,22 +34,28 @@ Table decorators
 
    Notice the following 4 key things (and refer to the TableDecorator
    javadoc for some of the other details).
+
      * The Wrapper class must be a subclass of TableDecorator. There is
        various bootstrapping and API methods that are called inside the
        TableDecorator class and your class must subclass it for things
        to work properly (you will get a JspException if your class does
        not subclass it).
+
      * Be smart and create your formatters just once in the constructor
        method - performance will be a lot better...
+
      * Notice how the getDate() and getMoney() methods overload the
        return value of your business object contained in the List. They
        use the TableDecorator.getCurrentRowObject() method to get a
        handle to the underlying business object, and then format it
        accordingly.
+
      * We do not have to overload each of the other business object
        properties (like getID, getEmail, etc...). The decorator class
        is called first, but if it doesn't implement the method for the
        property called, then the underlying business class is called.
+
+     []
 
    The way this works is that a single decorator object is created
    right before the table tag starts iterating through your List,
@@ -59,7 +65,7 @@ Table decorators
    decorator doesn't implement the given property, the method will be
    called on the original object in your List.
 
-Column Decorators
+* Column Decorators
 
    You can also specify decorators that work on individual columns,
    this would allow you to come up with data specific formatters, and
@@ -76,14 +82,14 @@ Column Decorators
 +-------------------------------------------------------------------+
 
 
-Table decorators, column decorators or code in the column body?
+* Table decorators, column decorators or code in the column body?
 
    As a rule of thumb, a decorator is faster than using scriptlet or
    custom tags in the column body when using paging. When the column
    body is filled and full list is sorted, all the records need to be
    "prepared" by the table tag iterating on the whole list. If the
    column body is used the content will be evaluated for any row, also
-   for the non displayed ones; using property , on the other hand, will
+   for the non displayed ones; using property, on the other hand, will
    cause the decorator only to be called for displayed rows.
 
    A table decorator have the power to add extra properties to your
