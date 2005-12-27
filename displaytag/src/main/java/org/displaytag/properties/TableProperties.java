@@ -58,9 +58,9 @@ public final class TableProperties implements Cloneable
 {
 
     /**
-     * name of the default properties file name ("TableTag.properties").
+     * name of the default properties file name ("displaytag.properties").
      */
-    public static final String DEFAULT_FILENAME = "TableTag.properties"; //$NON-NLS-1$
+    public static final String DEFAULT_FILENAME = "displaytag.properties"; //$NON-NLS-1$
 
     /**
      * The name of the local properties file that is searched for on the classpath. Settings in this file will override
