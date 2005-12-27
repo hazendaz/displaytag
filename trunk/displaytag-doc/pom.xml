@@ -206,8 +206,8 @@
     <site>
       <id>displaytag</id>
       <name>displaytag</name>
-      <url>file://d:/apps/displaytag/site-staging</url>
-      <!-- <url>scpexe://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>-->
+      <!-- <url>file://d:/apps/displaytag/site-staging</url>-->
+      <url>scpexe://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>
     </site>
   </distributionManagement>
   <ciManagement>
