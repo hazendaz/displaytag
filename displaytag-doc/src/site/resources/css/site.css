@@ -195,6 +195,10 @@ table {
 	margin: 10px 10px 0 0 !important;
 }
 
+#banner  a#bannerLeft img {
+	margin: 10px 0 0 10px !important;
+}
+
 #navcolumn ul {
 	margin: 5px 0 15px -0em;
 }
@@ -248,4 +252,11 @@ dt {
 	color: #999 !important;
 	font-weight: bold;
 	font-size: 16px;
+}
+
+hr {
+	border: none;
+	border-bottom: 1px solid #ccc;
+	background-color: transparent;
+	height: 1px;
 }
