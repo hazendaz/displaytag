@@ -53,6 +53,7 @@
       <item name="Changes Report" href="/changes-report.html" />
       <item name="Jira Report" href="/jira-report.html" />
       <item name="Main tag library" href="/displaytag/index.html" collapse="false">
+        <item name="Dependencies" href="/displaytag/dependencies.html" />
         <item name="Javadoc" href="/displaytag/apidocs/index.html" />
         <item name="Clover" href="/displaytag/clover/index.html" external="true" />
         <item name="Maven Surefire Report" href="/displaytag/surefire-report.html" />
@@ -63,16 +64,19 @@
         <!-- <item name="Taglibdoc documentation" href="/displaytag/tlddoc/index.html" />-->
       </item>
       <item name="Excel export module" href="/displaytag-export-poi/index.html" collapse="false">
+        <item name="Dependencies" href="/displaytag-export-poi/dependencies.html" />
         <item name="Javadoc" href="/displaytag-export-poi/apidocs/index.html" />
         <item name="Source Xref" href="/displaytag-export-poi/jxr.html" />
         <item name="Maven Surefire Report" href="/displaytag-export-poi/surefire-report.html" />
       </item>
       <item name="Portlet support" href="/displaytag-portlet/index.html" collapse="false">
+        <item name="Dependencies" href="/displaytag-portlet/dependencies.html" />
         <item name="Javadoc" href="/displaytag-portlet/apidocs/index.html" />
         <item name="Source Xref" href="/displaytag-portlet/jxr.html" />
         <item name="Maven Surefire Report" href="/displaytag-portlet/surefire-report.html" />
       </item>
       <item name="Example application" href="/displaytag-examples/index.html" collapse="false">
+        <item name="Dependencies" href="/displaytag-examples/dependencies.html" />
         <item name="Source Xref" href="/displaytag-examples/jxr.html" />
       </item>
     </menu>

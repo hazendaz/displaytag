@@ -39,6 +39,7 @@
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -53,6 +54,7 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -71,7 +73,7 @@
     <dependency>
       <groupId>taglibs</groupId>
       <artifactId>standard</artifactId>
-      <scope>compile</scope>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>tomcat</groupId>
@@ -96,27 +98,22 @@
     <dependency>
       <groupId>struts</groupId>
       <artifactId>struts</artifactId>
-    </dependency>
-    <!-- @todo should be in springframework pom ? -->
-    <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <scope>test</scope>
+      <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>springframework</groupId>
-      <artifactId>spring</artifactId>
-      <!--  <optional>true</optional> -->
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>opensymphony</groupId>
       <artifactId>webwork</artifactId>
-      <!--  <optional>true</optional> -->
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>opensymphony</groupId>
       <artifactId>xwork</artifactId>
-      <!--  <optional>true</optional> -->
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>opensymphony</groupId>
