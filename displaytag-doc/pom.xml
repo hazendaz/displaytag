@@ -30,7 +30,7 @@
   <licenses>
     <license>
       <name>Artistic License</name>
-      <url>http://cvs.sourceforge.net/viewcvs.py/*checkout*/displaytag/displaytag/LICENSE.txt</url>
+      <url>LICENSE.txt</url>
     </license>
   </licenses>
   <mailingLists>
@@ -357,10 +357,24 @@
         <optional>true</optional>
       </dependency>
       <dependency>
-        <groupId>springframework</groupId>
-        <artifactId>spring</artifactId>
-        <version>1.1.1</version>
-        <optional>true</optional>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>1.2.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>1.2.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-mock</artifactId>
+        <version>1.2.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-sandbox</artifactId>
+        <version>1.2.6</version>
       </dependency>
       <dependency>
         <groupId>opensymphony</groupId>
