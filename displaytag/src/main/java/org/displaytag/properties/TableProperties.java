@@ -26,12 +26,12 @@ import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
-import org.displaytag.exception.WrappedRuntimeException;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
 import org.displaytag.util.DefaultRequestHelperFactory;
@@ -597,7 +597,7 @@ public final class TableProperties implements Cloneable
         catch (CloneNotSupportedException e)
         {
             // should never happen
-            throw new WrappedRuntimeException(getClass(), e);
+            throw new UnhandledException(e);
         }
         twin.properties = (Properties) this.properties.clone();
         return twin;

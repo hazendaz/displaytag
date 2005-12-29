@@ -17,6 +17,7 @@ import java.beans.SimpleBeanInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.UnhandledException;
 import org.displaytag.tags.TableTag;
 
 
@@ -94,7 +95,7 @@ public class ELTableTagBeanInfo extends SimpleBeanInfo
         }
         catch (IntrospectionException ex)
         {
-            throw new RuntimeException("You got an introspection exception - maybe defining a property that is not"
+            throw new UnhandledException("You got an introspection exception - maybe defining a property that is not"
                 + " defined in the ElTableTag?: "
                 + ex.getMessage(), ex);
         }

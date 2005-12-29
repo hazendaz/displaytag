@@ -16,6 +16,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.UnhandledException;
 
 
 /**
@@ -113,7 +114,7 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     protected Object clone()
     {
-        MultipleHtmlAttribute clone = this;
+        MultipleHtmlAttribute clone;
 
         try
         {
@@ -122,6 +123,7 @@ public class MultipleHtmlAttribute implements Cloneable
         catch (CloneNotSupportedException e)
         {
             // should never happen
+            throw new UnhandledException(e);
         }
 
         // copy attributes

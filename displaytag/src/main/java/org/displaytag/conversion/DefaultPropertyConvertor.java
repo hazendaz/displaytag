@@ -28,14 +28,6 @@ public class DefaultPropertyConvertor implements Converter
      */
     public Object convert(Class type, Object value)
     {
-        if (value == null)
-        {
-            throw new NullPointerException("Value cannot be null");
-        }
-        if (type == null)
-        {
-            throw new NullPointerException("Type cannot be null");
-        }
         if (String.class.equals(type))
         {
             return value.toString();

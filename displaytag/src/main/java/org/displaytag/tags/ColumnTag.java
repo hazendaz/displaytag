@@ -230,15 +230,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     private boolean totaled;
 
     /**
-     * Should the value of the column be summed? Requires that the value of the column be convertible to a Number.
-     * @return true if the column should be totaled
-     */
-    public boolean isTotaled()
-    {
-        return totaled;
-    }
-
-    /**
      * Setter for totals.
      * @param totals the value
      */
@@ -486,24 +477,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     public void setClass(String value)
     {
         this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
-    }
-
-    /**
-     * Adds a css class to the class attribute (html class suports multiple values).
-     * @param value attribute value
-     */
-    public void addClass(String value)
-    {
-        Object classAttributes = this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
-
-        if (classAttributes == null)
-        {
-            this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
-        }
-        else
-        {
-            ((MultipleHtmlAttribute) classAttributes).addAttributeValue(value);
-        }
     }
 
     /**

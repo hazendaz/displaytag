@@ -17,6 +17,8 @@ import java.beans.SimpleBeanInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.UnhandledException;
+
 
 /**
  * Beaninfo class for tableTag. Needed to make the "class" tag attribute working and to handle the swith between
@@ -112,7 +114,7 @@ public class TableTagBeanInfo extends SimpleBeanInfo
         }
         catch (IntrospectionException ex)
         {
-            throw new RuntimeException("You got an introspection exception - maybe defining a property that is not"
+            throw new UnhandledException("You got an introspection exception - maybe defining a property that is not"
                 + " defined in the TableTag?: "
                 + ex.getMessage(), ex);
         }
