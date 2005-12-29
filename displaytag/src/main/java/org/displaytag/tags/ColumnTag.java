@@ -598,13 +598,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             return super.doEndTag();
         }
 
-        HtmlAttributeMap perRowValues = new HtmlAttributeMap();
-        perRowValues.put(TagConstants.ATTRIBUTE_STYLE, this.attributeMap.get(TagConstants.ATTRIBUTE_STYLE));
-        perRowValues.put(TagConstants.ATTRIBUTE_CLASS, this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS));
-
-        Cell cell = new Cell(null);
-        cell.setPerRowAttributes(perRowValues);
-
+        Cell cell = null;
         if (this.property == null && this.bodyContent != null)
         {
             String value = this.bodyContent.getString();
@@ -612,10 +606,33 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             {
                 value = TagConstants.EMPTY_STRING;
             }
-            cell.setStaticValue(value);
+            cell = new Cell(value);
         }
 
-        tableTag.addCell(cell);
+        Object rowStyle = this.attributeMap.get(TagConstants.ATTRIBUTE_STYLE);
+        Object rowClass = this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
+        if (rowStyle != null || rowClass != null)
+        {
+            HtmlAttributeMap perRowValues = new HtmlAttributeMap();
+            if (rowStyle != null)
+            {
+                perRowValues.put(TagConstants.ATTRIBUTE_STYLE, rowStyle);
+            }
+            if (rowClass != null)
+            {
+                perRowValues.put(TagConstants.ATTRIBUTE_CLASS, rowClass);
+            }
+            if (cell == null)
+            {
+                cell = new Cell(null);
+            }
+            cell.setPerRowAttributes(perRowValues);
+        }
+
+        if (cell != null)
+        {
+            tableTag.addCell(cell);
+        }
 
         // cleanup non-attribute variables
         this.alreadySorted = false;
