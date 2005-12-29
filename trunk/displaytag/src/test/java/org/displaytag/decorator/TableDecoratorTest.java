@@ -45,6 +45,7 @@ public class TableDecoratorTest extends TestCase
     public void testDecoratorPropertyCache()
     {
         assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one"));
+        assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one.something"));
         assertTrue("decorator two - property two, expected true", this.two.hasGetterFor("two"));
 
         assertFalse("decorator one - property two, expected false", this.one.hasGetterFor("two"));
