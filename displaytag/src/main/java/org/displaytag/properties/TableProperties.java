@@ -30,6 +30,8 @@ import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
+import org.displaytag.decorator.DecoratorFactory;
+import org.displaytag.decorator.DefaultDecoratorFactory;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.localization.I18nResourceProvider;
@@ -197,6 +199,11 @@ public final class TableProperties implements Cloneable
      * property <code>factory.requestHelper</code>.
      */
     public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper"; //$NON-NLS-1$
+
+    /**
+     * property <code>factory.decorators</code>.
+     */
+    public static final String PROPERTY_CLASS_DECORATORFACTORY = "factory.decorator"; //$NON-NLS-1$
 
     /**
      * property <code>locale.provider</code>.
@@ -379,6 +386,11 @@ public final class TableProperties implements Cloneable
      * The locale for these properties.
      */
     private Locale locale;
+
+    /**
+     * Cache for dinamically instantiated object (request factory, decorator factory).
+     */
+    private Map objectCache = new HashMap();
 
     /**
      * Setter for I18nResourceProvider. A resource provider is usually set using displaytag properties, this accessor is
@@ -1062,7 +1074,32 @@ public final class TableProperties implements Cloneable
         }
     }
 
-    // <JBN>
+    /**
+     * Returns an instance of configured DecoratorFactory.
+     * @return DecoratorFactory instance.
+     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
+     */
+    public DecoratorFactory getDecoratorFactoryInstance() throws FactoryInstantiationException
+    {
+        Object loadedObject = getClassPropertyInstance(PROPERTY_CLASS_DECORATORFACTORY);
+
+        if (loadedObject == null)
+        {
+            return new DefaultDecoratorFactory();
+        }
+
+        try
+        {
+            return (DecoratorFactory) loadedObject;
+        }
+        catch (ClassCastException e)
+        {
+            throw new FactoryInstantiationException(getClass(), PROPERTY_CLASS_DECORATORFACTORY, loadedObject
+                .getClass()
+                .getName(), e);
+        }
+    }
+
     public String getPaginationSortParam()
     {
         String result = getProperty(PROPERTY_STRING_PAGINATION_SORT_PARAM);
@@ -1233,6 +1270,12 @@ public final class TableProperties implements Cloneable
      */
     private Object getClassPropertyInstance(String key) throws FactoryInstantiationException
     {
+        Object instance = objectCache.get(key);
+        if (instance != null)
+        {
+            return instance;
+        }
+
         String className = getProperty(key);
 
         // shouldn't be null, but better check it
@@ -1244,7 +1287,9 @@ public final class TableProperties implements Cloneable
         try
         {
             Class classProperty = ReflectHelper.classForName(className);
-            return classProperty.newInstance();
+            instance = classProperty.newInstance();
+            objectCache.put(key, instance);
+            return instance;
         }
         catch (Exception e)
         {

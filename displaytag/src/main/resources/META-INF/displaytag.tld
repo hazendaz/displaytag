@@ -335,7 +335,6 @@
         you should expect to override this value locally.)
       </description>
     </attribute>
-
     <attribute>
       <name>sortable</name>
       <required>false</required>
@@ -523,8 +522,9 @@
       <rtexprvalue>true</rtexprvalue>
       <type>java.lang.String</type>
       <description>
-        The fully qualified class name of a class that should be used to "decorate" the underlying object being
-        displayed. The class should implement org.displaytag.decorator.ColumnDecorator. If a decorator is specified for
+        Whitespace separated list of column decorators to apply to the current column. A table decorator name can be the
+        name of an object in page, request, session or application scope or a fully qualified class name of a class
+        implementing the org.displaytag.decorator.DisplaytagColumnDecorator interface. If a decorator is specified for
         the entire table, then this decorator will decorate that decorator.
       </description>
     </attribute>

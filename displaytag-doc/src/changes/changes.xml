@@ -90,7 +90,17 @@
         using column property="[0]", column property="[1]" to access indexed properties.
       </action>
       <action type="add" dev="fgiust" issue="DISPL-245" due-to="Jorge L. Barroso">
-        Export enhancements: new RTF export view, refactoring of export code for easier extension.
+        Export enhancements: new RTF export view, refactoring of export code for easier extension, expose caption and
+        footer to export view.
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-110">
+        Ability to highlight selected table row. You can use the addRowClass() and addRowId() callbacks in
+        TableDecorator to specificy a different class or id for each row. Check the sample application for an example on
+        how to do this easily.
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-222">
+        Ability to use a custom DecoratorFactory. You can now specify a custom decorator factory by setting the new
+        factory.decorator property in displaytag.properties.
       </action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">

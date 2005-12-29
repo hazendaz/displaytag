@@ -151,9 +151,15 @@ Configuration
 | paging.banner.page.separator       | ,                              | any string                  | separator between pages                                        | yes  | yes  |
 |                                    |                                |                             |                                                                |      |      |
 *------------------------------------+--------------------------------+-----------------------------+----------------------------------------------------------------+------+------+
-| factory.requestHelper              | <<<org.displaytag.util.DefaultRequestHelperFactory>>> | Class name for a valid | RequestHelperFactory to be used.             | yes  | no   |
-|                                    |                                | <<<RequestHelperFactory>>>  | You can replace the default one if you need to generate links  |      |      |
-|                                    |                                | implementatio               | with a different format (for example in portal applications)   |      |      |
+| factory.requestHelper              | <<<org.displaytag.util.DefaultRequestHelperFactory>>> |      | RequestHelperFactory to be used.                               | yes  | no   |
+|                                    |                                | Class name for a valid      | You can replace the default one if you need to generate links  |      |      |
+|                                    |                                | <<<RequestHelperFactory>>>  | with a different format (for example in portal applications)   |      |      |
+|                                    |                                | implementation              |                                                                |      |      |
+*------------------------------------+--------------------------------+-----------------------------+----------------------------------------------------------------+------+------+
+| factory.decorator                  | <<<org.displaytag.decorator.DefaultDecoratorFactory>>>       | DecoratorFactory to be used.                                   | yes  | no   |
+|                                    |                                | Class name for a valid      | You can replace the default one in order to load decorator     |      |      |
+|                                    |                                | <<<DecoratorFactory>>>      | instances from different sources (e.g. you could use Spring    |      |      |
+|                                    |                                | implementation              | managed beans)                                                 |      |      |
 *------------------------------------+--------------------------------+-----------------------------+----------------------------------------------------------------+------+------+
 | property_convertor_classname       | <<<org.displaytag.conversion.DefaultPropertyConvertor>>> | Class name for a valid | Used to convert property values from      | yes  | yes  |
 |                                    |                                | <<<org.apache.commons.beanutils.Converter>>> | Object to Number. Used in totals, etc.        |      |      |
