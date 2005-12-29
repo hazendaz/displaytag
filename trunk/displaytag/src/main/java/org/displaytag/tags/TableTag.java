@@ -36,7 +36,6 @@ import org.apache.commons.lang.math.Range;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
-import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.ExportException;
 import org.displaytag.exception.FactoryInstantiationException;
@@ -1192,9 +1191,11 @@ public class TableTag extends HtmlTableTag
         }
         else if (!MediaTypeEnum.HTML.equals(this.currentMediaType))
         {
-            tableDecoratorName = this.getProperties().getExportDecoratorName(this.currentMediaType);
+            tableDecoratorName = this.properties.getExportDecoratorName(this.currentMediaType);
         }
-        TableDecorator tableDecorator = DecoratorFactory.loadTableDecorator(this.pageContext, tableDecoratorName);
+        TableDecorator tableDecorator = this.properties.getDecoratorFactoryInstance().loadTableDecorator(
+            this.pageContext,
+            tableDecoratorName);
 
         if (tableDecorator != null)
         {

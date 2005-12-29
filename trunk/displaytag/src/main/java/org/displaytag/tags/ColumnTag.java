@@ -28,7 +28,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.conversion.PropertyConvertorFactory;
 import org.displaytag.decorator.AutolinkColumnDecorator;
-import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.decorator.MessageFormatColumnDecorator;
 import org.displaytag.exception.DecoratorInstantiationException;
@@ -661,9 +660,10 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             String[] decoratorNames = StringUtils.split(this.decorator);
             for (int j = 0; j < decoratorNames.length; j++)
             {
-                decorators.add(DecoratorFactory.loadColumnDecorator(this.pageContext, decoratorNames[j]));
+                decorators.add(tableTag.getProperties().getDecoratorFactoryInstance().loadColumnDecorator(
+                    this.pageContext,
+                    decoratorNames[j]));
             }
-
         }
 
         // a "special" decorator, but simply a decorator now...
