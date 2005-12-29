@@ -61,9 +61,8 @@
       <id>fgiust</id>
       <name>Fabrizio Giustina</name>
       <email>fgiust(at)users.sourceforge.net</email>
-      <url></url>
-      <organization></organization>
-      <organizationUrl></organizationUrl>
+      <organization>Openmind</organization>
+      <organizationUrl>http://www.openmindonline.it</organizationUrl>
       <roles>
         <role>Project admin and main developer</role>
       </roles>
@@ -73,9 +72,7 @@
       <id>matt</id>
       <name>Matt Raible</name>
       <email>mraible(at)users.sourceforge.net</email>
-      <url></url>
       <organization>Raible Designs</organization>
-      <organizationUrl></organizationUrl>
       <roles>
         <role>Project admin</role>
       </roles>
@@ -85,9 +82,6 @@
       <id>rapruitt</id>
       <name>Andy Pruitt</name>
       <email>rapruitt(at)users.sourceforge.net</email>
-      <url></url>
-      <organization></organization>
-      <organizationUrl></organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>
@@ -97,9 +91,6 @@
       <id>javabencom</id>
       <name>Benjamin Simpson</name>
       <email>javabencom(at)users.sourceforge.net</email>
-      <url></url>
-      <organization></organization>
-      <organizationUrl></organizationUrl>
       <roles>
         <role>Documentation editor</role>
       </roles>
@@ -109,9 +100,6 @@
       <id>pathoss</id>
       <name>Mathias Bogaert</name>
       <email>pathoss(at)users.sourceforge.net</email>
-      <url></url>
-      <organization></organization>
-      <organizationUrl></organizationUrl>
       <roles>
         <role>Developer</role>
       </roles>
@@ -122,13 +110,16 @@
     <contributor>
       <name>Ed Hill</name>
       <email>ed-hill(at)users.sourceforge.net</email>
-      <url></url>
-      <organization></organization>
-      <organizationUrl></organizationUrl>
       <roles>
         <role>Initial developer of the tag library</role>
       </roles>
       <timezone>0</timezone>
+    </contributor>
+    <contributor>
+      <name>Eric Dalquist</name>
+      <roles>
+        <role>JSR-168 support</role>
+      </roles>
     </contributor>
   </contributors>
   <build>
@@ -229,6 +220,9 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changes-maven-plugin</artifactId>
+        <configuration>
+          <link_template>%URL%/%ISSUE%</link_template>
+        </configuration>
       </plugin>
     </plugins>
   </reporting>
@@ -346,15 +340,7 @@
       <dependency>
         <groupId>struts</groupId>
         <artifactId>struts</artifactId>
-        <version>1.2.4</version>
-      </dependency>
-      <!-- @todo should be in springframework pom -->
-      <dependency>
-        <groupId>commons-digester</groupId>
-        <artifactId>commons-digester</artifactId>
-        <version>1.4.1</version>
-        <scope>test</scope>
-        <optional>true</optional>
+        <version>1.2.7</version>
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
