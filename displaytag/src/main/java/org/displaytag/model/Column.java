@@ -155,15 +155,11 @@ public class Column
     {
         HtmlAttributeMap rowAttributes = cell.getPerRowAttributes();
 
-        HtmlAttributeMap atts;
-        if (htmlAttributes == null || rowAttributes == null)
+        HtmlAttributeMap atts = htmlAttributes;
+        if (rowAttributes != null)
         {
-            atts = rowAttributes;
-        }
-        else
-        {
-            atts = (HtmlAttributeMap) this.htmlAttributes.clone();
-            atts.putAll(cell.getPerRowAttributes());
+            atts = (HtmlAttributeMap) atts.clone();
+            atts.putAll(rowAttributes);
         }
         return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, atts);
     }
