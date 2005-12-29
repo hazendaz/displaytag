@@ -19,6 +19,7 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -67,8 +68,8 @@ public final class LookupUtil
         if (beanAndPropertyName.indexOf('.') != -1)
         {
             // complex: property from a bean
-            String objectName = beanAndPropertyName.substring(0, beanAndPropertyName.indexOf('.'));
-            String beanProperty = beanAndPropertyName.substring(beanAndPropertyName.indexOf('.') + 1);
+            String objectName = StringUtils.substringBefore(beanAndPropertyName, ".");
+            String beanProperty = StringUtils.substringAfter(beanAndPropertyName, ".");
             Object beanObject;
 
             if (log.isDebugEnabled())
