@@ -14,15 +14,20 @@ Issue Tracking
    Please note that the issue tracker on sourceforge is not used
    anymore and any remaining item will be moved to the new tracker.
 
-Bug reporting
+* Bug reporting
 
    Before submitting a bug to the {{{http://jira.codehaus.org/browse/DISPL}JIRA}} above, please be sure you
    have done your homework. This includes:
-    1. Reading the FAQ to understand the correct behavior
-    2. Searching the JIRA for a comparable issue; you may not be the
+
+    [[1]] Reading the FAQ to understand the correct behavior
+
+    [[2]] Searching the JIRA for a comparable issue; you may not be the
        first person to find this bug
-    3. Searching the user list archives if you are not sure the
+
+    [[3]] Searching the user list archives if you are not sure the
        behavior you are experiencing is a bug
+
+    []
 
    Post help requests to the user mailing list.
 
@@ -32,7 +37,7 @@ Bug reporting
    are free to discuss it in the developer mailing list (without
    attaching code or patches to mails).
 
-Feature requests and patches for new features
+* Feature requests and patches for new features
 
    As always, use the JIRA to submit feature requests (in the RFE
    category).
@@ -44,14 +49,19 @@ Feature requests and patches for new features
 
    If you want to see your patch quickly applied by committers, you
    should be able to provide the following items:
-    1. A CVS diff against the latest CVS version. No, a zip file with
+
+    [[1]] A CVS diff against the latest CVS version. No, a zip file with
        all modified sources is not OK.
-    2. One or more junit tests related to the new feature. Also, be
+
+    [[2]] One or more junit tests related to the new feature. Also, be
        sure to run all of the existing testcases to verify that you are
        not breaking existing code. Look in the src/test directory to
        understand how to write simple JSP test cases.
-    3. Update the documentation (xdoc files and/or the sample
+
+    [[3]] Update the documentation (xdoc files and/or the sample
        application).
+
+    []
 
    If all of these requirements are met, your patch will likely be
    accepted soon. If you only provide a zip with the modified source

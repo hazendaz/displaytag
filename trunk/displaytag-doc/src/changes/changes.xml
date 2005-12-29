@@ -20,7 +20,7 @@
         Displaytag 1.1 will require java 1.4 and a servlet 2.3 compatible container. Support for java 1.3 and servlet
         2.2 has been dropped.
       </action>
-      <action type="add" dev="rapruitt" due-to="rapruitt">Support for per-row css attributes.</action>
+      <action type="add" dev="rapruitt" issue="DISPL-49">Support for per-row css attributes.</action>
       <action type="add" dev="rapruitt" issue="DISPL-162" due-to="fguist,karsten,rapruitt">
         Added Fabrizio's POI exporter, with patches from myself and Karsten Voges. To enable, add an entry to your
         displaytag.properties of 'export.excel.class=org.displaytag.export.ExcelHssfView'. It is highly recommended that
@@ -73,6 +73,24 @@
         New [[DisplaytagColumnDecorator]] interface, which replaces the previous [[ColumnDecorator]] and adds
         pageContext and media type access. The [[ColumnDecorator]] interface is nor deprecated, but compatibility with
         old column decorators is preserved.
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-268" due-to="Eric Dalquist">
+        Support JSR168 based portlets. New displaytag-portlet optional module for JSR-168 support.
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-25">
+        Multiple Column Decorators. Now you can specify multiple column decorators in the "decorator" column attribute
+        (whitespace separated).
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-28">
+        New "format" attribute added to display column. You can now specify a MessageFormat pattern for simple
+        formatting instead of implementing a specific column decorator.
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-68">
+        Allow row object to be of type Collection. Now you can use a list of lists as a source for a display:table,
+        using column property="[0]", column property="[1]" to access indexed properties.
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-245" due-to="Jorge L. Barroso">
+        Export enhancements: new RTF export view, refactoring of export code for easier extension.
       </action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
