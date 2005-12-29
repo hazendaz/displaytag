@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.NestableRuntimeException;
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
@@ -140,7 +140,7 @@ public class DefaultRequestHelper implements RequestHelper
                 }
                 catch (UnsupportedEncodingException e)
                 {
-                    throw new NestableRuntimeException(e);
+                    throw new UnhandledException(e);
                 }
             }
             map.put(paramName, values);

@@ -421,15 +421,6 @@ public class HeaderCell
     }
 
     /**
-     * return the open tag for a cell (td).
-     * @return String &lt;td> tag with attributes
-     */
-    public String getOpenTag()
-    {
-        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, this.htmlAttributes);
-    }
-
-    /**
      * return the open tag for a column header (th).
      * @return String &lt;th&gt; tag with attributes
      */
@@ -622,16 +613,6 @@ public class HeaderCell
     public double getTotal()
     {
         return this.total;
-    }
-
-    /**
-     * Resets the current total to the parameter. Do not use this method unless you wish to manually set the total;
-     * addToTotal is the standard technique.
-     * @param totalForColumn the value
-     */
-    public void setTotal(double totalForColumn)
-    {
-        this.total = totalForColumn;
     }
 
     /**

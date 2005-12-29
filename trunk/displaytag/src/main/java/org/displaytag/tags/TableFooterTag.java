@@ -41,6 +41,9 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
      */
     private List supportedMedia;
 
+    /**
+     * Show the footer as a last table row.
+     */
     private boolean showAsLastRow = false;
 
     /**
@@ -135,16 +138,9 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
      */
     public void release()
     {
-        super.release();
         this.supportedMedia = null;
-    }
-
-    /**
-     * Tag getter.
-     */
-    public boolean isShowAsLastRow()
-    {
-        return showAsLastRow;
+        this.showAsLastRow = false;
+        super.release();
     }
 
     /**

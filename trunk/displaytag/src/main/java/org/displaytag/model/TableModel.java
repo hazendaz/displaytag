@@ -243,15 +243,6 @@ public class TableModel
     }
 
     /**
-     * Name of the currently sorted column
-     * @return name of the currently sorted column
-     */
-    public String getSortedColumnName()
-    {
-        return sortedColumnName;
-    }
-
-    /**
      * sets the name of the currently sorted column
      * @param sortedColumnName
      */

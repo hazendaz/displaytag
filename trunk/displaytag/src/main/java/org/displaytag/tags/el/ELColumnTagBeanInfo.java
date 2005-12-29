@@ -17,6 +17,8 @@ import java.beans.SimpleBeanInfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.UnhandledException;
+
 
 /**
  * BeanInfo descriptor for the <code>ELColumnTag</code> class. Unevaluated EL expression has to be kept separately
@@ -97,7 +99,7 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
         }
         catch (IntrospectionException ex)
         {
-            throw new RuntimeException("You got an introspection exception - maybe defining a property that is not"
+            throw new UnhandledException("You got an introspection exception - maybe defining a property that is not"
                 + " defined in the bean?: "
                 + ex.getMessage(), ex);
         }

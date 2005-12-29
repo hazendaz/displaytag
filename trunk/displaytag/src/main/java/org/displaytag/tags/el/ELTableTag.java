@@ -341,14 +341,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#getHtmlId()
-     */
-    public String getHtmlId()
-    {
-        return htmlIdExpr;
-    }
-
-    /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
     public int doStartTag() throws JspException

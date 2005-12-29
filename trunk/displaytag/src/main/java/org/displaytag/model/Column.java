@@ -16,9 +16,9 @@ import java.net.URLEncoder;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
@@ -280,7 +280,7 @@ public class Column
                 }
                 catch (UnsupportedEncodingException e)
                 {
-                    throw new NestableRuntimeException(e);
+                    throw new UnhandledException(e);
                 }
             }
         }
@@ -295,15 +295,6 @@ public class Column
     public String getChoppedAndLinkedValue()
     {
         return this.stringValue;
-    }
-
-    /**
-     * returns the grouping order of this column or -1 if the column is not grouped.
-     * @return int grouping order of this column or -1 if the column is not grouped
-     */
-    public int getGroup()
-    {
-        return this.header.getGroup();
     }
 
     /**

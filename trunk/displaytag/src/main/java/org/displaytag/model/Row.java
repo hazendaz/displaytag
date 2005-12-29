@@ -73,14 +73,6 @@ public class Row
     }
 
     /**
-     * @return true if the current row number is odd
-     */
-    public boolean isOddRow()
-    {
-        return this.rowNumber % 2 == 0;
-    }
-
-    /**
      * Getter for the row number.
      * @return row number
      */

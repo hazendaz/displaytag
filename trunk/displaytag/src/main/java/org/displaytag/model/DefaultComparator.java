@@ -19,15 +19,6 @@ public class DefaultComparator implements Comparator
     private Collator collator = Collator.getInstance();
 
     /**
-     * Get the collator.
-     * @return the collator
-     */
-    public Collator getCollator()
-    {
-        return collator;
-    }
-
-    /**
      * Instantiate a default comparator with no collator specified.
      */
     public DefaultComparator()
@@ -39,15 +30,6 @@ public class DefaultComparator implements Comparator
      * @param collatorToUse collator instance
      */
     public DefaultComparator(Collator collatorToUse)
-    {
-        this.collator = collatorToUse;
-    }
-
-    /**
-     * Set the collator.
-     * @param collatorToUse the value
-     */
-    public void setCollator(Collator collatorToUse)
     {
         this.collator = collatorToUse;
     }

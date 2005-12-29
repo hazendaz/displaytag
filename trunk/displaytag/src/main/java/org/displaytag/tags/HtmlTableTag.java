@@ -102,15 +102,6 @@ public abstract class HtmlTableTag extends TemplateTag
     }
 
     /**
-     * getter for the "id" html attribute.
-     * @return attribute value
-     */
-    protected String getHtmlId()
-    {
-        return (String) this.attributeMap.get(TagConstants.ATTRIBUTE_ID);
-    }
-
-    /**
      * Adds a css class to the class attribute (html class suports multiple values).
      * @param value attribute value
      */
@@ -126,30 +117,6 @@ public abstract class HtmlTableTag extends TemplateTag
         {
             ((MultipleHtmlAttribute) classAttributes).addAttributeValue(value);
         }
-    }
-
-    /**
-     * create the open tag containing all the attributes.
-     * @return open tag string: <code>%lt;table attribute="value" ... ></code>
-     */
-    public String getOpenTag()
-    {
-        StringBuffer buffer = new StringBuffer();
-
-        buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
-        buffer.append(attributeMap);
-        buffer.append(TagConstants.TAG_CLOSE);
-
-        return buffer.toString();
-    }
-
-    /**
-     * create the closing tag.
-     * @return <code>%lt;/table></code>
-     */
-    public String getCloseTag()
-    {
-        return TagConstants.TAG_OPENCLOSING + TagConstants.TABLE_TAG_NAME + TagConstants.TAG_CLOSE;
     }
 
     /**

@@ -20,6 +20,7 @@ import java.util.StringTokenizer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -350,9 +351,9 @@ public class DefaultHref implements Href
         {
             href = (DefaultHref) super.clone();
         }
-        catch (CloneNotSupportedException cnse)
+        catch (CloneNotSupportedException e)
         {
-            throw new RuntimeException("Caught CloneNotSupportedException in Clonable class.", cnse);
+            throw new UnhandledException(e);
         }
 
         href.parameters = new HashMap(this.parameters);
