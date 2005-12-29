@@ -49,7 +49,7 @@ public abstract class TableDecorator extends Decorator
     protected TableModel tableModel;
 
     /**
-     * return the index in the displayed list.
+     * Return the index in the displayed list.
      * @return int index in the displayed list
      */
     public final int getViewIndex()
@@ -58,8 +58,9 @@ public abstract class TableDecorator extends Decorator
     }
 
     /**
-     * return the index in the original list.
-     * @return int index in the original list
+     * Return the index in the full list (view index + offset). Note that the index returned if from the <strong>sorted</strong>
+     * list, and not from the original one.
+     * @return int index in the full list
      */
     public final int getListIndex()
     {
