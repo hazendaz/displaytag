@@ -16,8 +16,8 @@
           request.setAttribute( "test", new Object[]{testdata, testdata});
       ]]> </jsp:scriptlet>
       <display:table name="test">
-        <display:column property="1"/>
-        <display:column property="2"/>
+        <display:column property="[0]"/>
+        <display:column property="[1]"/>
       </display:table>
     </body>
   </html>

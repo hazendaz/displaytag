@@ -12,11 +12,14 @@
 package org.displaytag.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.ObjectLookupException;
@@ -25,7 +28,7 @@ import org.displaytag.exception.ObjectLookupException;
 /**
  * Utility class with methods for object and properties retrieving.
  * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+ * @version $Id$
  */
 public final class LookupUtil
 {
@@ -111,14 +114,9 @@ public final class LookupUtil
      */
     public static Object getBeanProperty(Object bean, String name) throws ObjectLookupException
     {
-        if (bean == null)
-        {
-            throw new IllegalArgumentException("Bean cannot be null");
-        }
-        if (name == null)
-        {
-            throw new IllegalArgumentException("Property name cannot be null");
-        }
+
+        Validate.notNull(bean, "No bean specified");
+        Validate.notNull(name, "No name specified");
 
         if (log.isDebugEnabled())
         {
@@ -127,7 +125,7 @@ public final class LookupUtil
 
         try
         {
-            return PropertyUtils.getProperty(bean, name);
+            return getProperty(bean, name);
         }
         catch (IllegalAccessException e)
         {
@@ -156,6 +154,179 @@ public final class LookupUtil
                     e);
             return null;
         }
+    }
+
+    /**
+     * Return the value of the (possibly nested) property of the specified name, for the specified bean, with no type
+     * conversions.
+     * @param bean Bean whose property is to be extracted
+     * @param name Possibly nested name of the property to be extracted
+     * @return Object
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws BeanPropertyLookupException in caso di errori nella lettura di proprietà del bean
+     */
+    public static Object getProperty(Object bean, String name) throws IllegalAccessException,
+        InvocationTargetException, NoSuchMethodException
+    {
+        if (log.isDebugEnabled())
+        {
+            log.debug("getProperty [" + name + "] on bean " + bean);
+        }
+
+        Validate.notNull(bean, "No bean specified");
+        Validate.notNull(name, "No name specified");
+
+        Object evalBean = bean;
+        String evalName = name;
+
+        if (evalBean == null)
+        {
+            throw new IllegalArgumentException("No bean specified");
+        }
+        if (evalName == null)
+        {
+            throw new IllegalArgumentException("No name specified");
+        }
+
+        int indexOfINDEXEDDELIM = -1;
+        int indexOfMAPPEDDELIM = -1;
+        int indexOfMAPPEDDELIM2 = -1;
+        int indexOfNESTEDDELIM = -1;
+        while (true)
+        {
+
+            indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM);
+            indexOfMAPPEDDELIM = evalName.indexOf(PropertyUtils.MAPPED_DELIM);
+            indexOfMAPPEDDELIM2 = evalName.indexOf(PropertyUtils.MAPPED_DELIM2);
+            if (indexOfMAPPEDDELIM2 >= 0
+                && indexOfMAPPEDDELIM >= 0
+                && (indexOfNESTEDDELIM < 0 || indexOfNESTEDDELIM > indexOfMAPPEDDELIM))
+            {
+                indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM, indexOfMAPPEDDELIM2);
+            }
+            else
+            {
+                indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM);
+            }
+            if (indexOfNESTEDDELIM < 0)
+            {
+                break;
+            }
+            String next = evalName.substring(0, indexOfNESTEDDELIM);
+            indexOfINDEXEDDELIM = next.indexOf(PropertyUtils.INDEXED_DELIM);
+            indexOfMAPPEDDELIM = next.indexOf(PropertyUtils.MAPPED_DELIM);
+            if (evalBean instanceof Map)
+            {
+                evalBean = ((Map) evalBean).get(next);
+            }
+            else if (indexOfMAPPEDDELIM >= 0)
+            {
+
+                evalBean = PropertyUtils.getMappedProperty(evalBean, next);
+
+            }
+            else if (indexOfINDEXEDDELIM >= 0)
+            {
+                evalBean = getIndexedProperty(evalBean, next);
+            }
+            else
+            {
+                evalBean = PropertyUtils.getSimpleProperty(evalBean, next);
+            }
+
+            if (evalBean == null)
+            {
+                log.debug("Null property value for '" + evalName.substring(0, indexOfNESTEDDELIM) + "'");
+                return null;
+            }
+            evalName = evalName.substring(indexOfNESTEDDELIM + 1);
+
+        }
+
+        indexOfINDEXEDDELIM = evalName.indexOf(PropertyUtils.INDEXED_DELIM);
+        indexOfMAPPEDDELIM = evalName.indexOf(PropertyUtils.MAPPED_DELIM);
+
+        if (evalBean == null)
+        {
+            log.debug("Null property value for '" + evalName.substring(0, indexOfNESTEDDELIM) + "'");
+            return null;
+        }
+        else if (evalBean instanceof Map)
+        {
+            evalBean = ((Map) evalBean).get(evalName);
+        }
+        else if (indexOfMAPPEDDELIM >= 0)
+        {
+            evalBean = PropertyUtils.getMappedProperty(evalBean, evalName);
+        }
+        else if (indexOfINDEXEDDELIM >= 0)
+        {
+            evalBean = getIndexedProperty(evalBean, evalName);
+        }
+        else
+        {
+            evalBean = PropertyUtils.getSimpleProperty(evalBean, evalName);
+        }
+
+        return evalBean;
+
+    }
+
+    /**
+     * Return the value of the specified indexed property of the specified bean, with no type conversions. The
+     * zero-relative index of the required value must be included (in square brackets) as a suffix to the property name,
+     * or <code>IllegalArgumentException</code> will be thrown. In addition to supporting the JavaBeans specification,
+     * this method has been extended to support <code>List</code> objects as well.
+     * @param bean Bean whose property is to be extracted
+     * @param name <code>propertyname[index]</code> of the property value to be extracted
+     * @return Object
+     * @exception IllegalAccessException if the caller does not have access to the property accessor method
+     * @exception InvocationTargetException if the property accessor method throws an exception
+     * @exception NoSuchMethodException if an accessor method for this propety cannot be found
+     */
+    public static Object getIndexedProperty(Object bean, String name) throws IllegalAccessException,
+        InvocationTargetException, NoSuchMethodException
+    {
+
+        Validate.notNull(bean, "No bean specified");
+        Validate.notNull(name, "No name specified");
+
+        String evalName = name;
+
+        // Identify the index of the requested individual property
+        int delim = evalName.indexOf(PropertyUtils.INDEXED_DELIM);
+        int delim2 = evalName.indexOf(PropertyUtils.INDEXED_DELIM2);
+        if ((delim < 0) || (delim2 <= delim))
+        {
+            throw new IllegalArgumentException("Invalid indexed property '" + evalName + "'");
+        }
+        int index = -1;
+        try
+        {
+            String subscript = evalName.substring(delim + 1, delim2);
+            index = Integer.parseInt(subscript);
+        }
+        catch (NumberFormatException e)
+        {
+            throw new IllegalArgumentException("Invalid indexed property '" + evalName + "'");
+        }
+        evalName = evalName.substring(0, delim);
+
+        if (log.isDebugEnabled())
+        {
+            log.debug("getIndexedProperty property name={" + evalName + "} with index " + index);
+
+        }
+
+        if ("".equals(evalName) && (bean instanceof List))
+        {
+            return ((List) bean).get(index);
+        }
+        // Request the specified indexed property value
+        return (PropertyUtils.getIndexedProperty(bean, evalName, index));
+
     }
 
 }
