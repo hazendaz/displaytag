@@ -42,6 +42,9 @@ Migrating from displaytag 1.0
      * The deprecated <<<styleClass>>> and <<<headerStyleClass>>> attributes have been removed,
        use the <<<class>>> and <<<headerClass>>> attributes.
 
+     * The deprecated <<<DisplayPropertiesLoaderServlet>>> has been removed. The recommended way
+       to load custom properties is adding a <<<displaytag.properties>>> file to your classpath.
+
 
 * API changes
 
