@@ -72,15 +72,6 @@ public class Cell implements Comparable, Cloneable
     }
 
     /**
-     * set the static value of the cell.
-     * @param value - the new value for this.staticValue
-     */
-    public void setStaticValue(Object value)
-    {
-        this.staticValue = value;
-    }
-
-    /**
      * Compare the Cell value to another Cell.
      * @param obj Object to compare this cell to
      * @return int

@@ -629,10 +629,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             cell.setPerRowAttributes(perRowValues);
         }
 
-        if (cell != null)
-        {
-            tableTag.addCell(cell);
-        }
+        tableTag.addCell(cell != null ? cell : Cell.EMPTY_CELL);
 
         // cleanup non-attribute variables
         this.alreadySorted = false;
