@@ -832,16 +832,30 @@ public class TableTag extends HtmlTableTag
      */
     private void initParameters() throws JspTagException, FactoryInstantiationException
     {
-        if (this.list instanceof PaginatedList)
-        {
-            this.paginatedList = (PaginatedList) this.list;
-            this.list = this.paginatedList.getList();
-        }
 
         if (rhf == null)
         {
             // first time initialization
             rhf = this.properties.getRequestHelperFactoryInstance();
+        }
+
+        String fullName = getFullObjectName();
+
+        // only evaluate if needed, else use list attribute
+        if (fullName != null)
+        {
+            this.list = evaluateExpression(fullName);
+        }
+        else if (this.list == null)
+        {
+            // needed to allow removing the collection of objects if not set directly
+            this.list = this.listAttribute;
+        }
+
+        if (this.list instanceof PaginatedList)
+        {
+            this.paginatedList = (PaginatedList) this.list;
+            this.list = this.paginatedList.getList();
         }
 
         // set the table model to perform in memory local sorting
@@ -940,19 +954,6 @@ public class TableTag extends HtmlTableTag
         this.currentMediaType = (MediaTypeEnum) ObjectUtils.defaultIfNull(
             MediaTypeEnum.fromCode(exportTypeParameter),
             MediaTypeEnum.HTML);
-
-        String fullName = getFullObjectName();
-
-        // only evaluate if needed, else use list attribute
-        if (fullName != null)
-        {
-            this.list = evaluateExpression(fullName);
-        }
-        else if (this.list == null)
-        {
-            // needed to allow removing the collection of objects if not set directly
-            this.list = this.listAttribute;
-        }
 
         // if we are doing partialLists then ensure we have our size object
         if (this.partialList)

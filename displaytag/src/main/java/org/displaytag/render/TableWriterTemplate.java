@@ -162,10 +162,6 @@ public abstract class TableWriterTemplate
         }
     }
 
-    /*
-     * writeTable callback methods
-     */
-
     /**
      * Called by writeTable to write a message explaining that the table model contains no data.
      * @param emptyListMessage A message explaining that the table model contains no data.
