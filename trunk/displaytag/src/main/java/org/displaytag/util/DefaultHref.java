@@ -59,7 +59,16 @@ public class DefaultHref implements Href
     public DefaultHref(String baseUrl)
     {
         this.parameters = new HashMap();
+        setFullUrl(baseUrl);
+    }
 
+    /**
+     * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
+     */
+    public void setFullUrl(String baseUrl)
+    {
+        this.url = null;
+        this.anchor = null;
         String noAnchorUrl;
         int anchorposition = baseUrl.indexOf('#');
 

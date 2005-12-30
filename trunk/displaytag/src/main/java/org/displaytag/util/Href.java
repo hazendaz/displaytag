@@ -73,6 +73,12 @@ public interface Href extends Cloneable, Serializable
     String getBaseUrl();
 
     /**
+     * Set the full url, overriding any existing parameter.
+     * @param url full url
+     */
+    void setFullUrl(String url);
+
+    /**
      * Returns the URI anchor.
      * @return anchor or <code>null</code> if no anchor has been set.
      */
