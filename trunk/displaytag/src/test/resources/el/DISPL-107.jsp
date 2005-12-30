@@ -12,9 +12,9 @@
       <jsp:scriptlet> <![CDATA[
                 java.util.List testData = new java.util.ArrayList();
                 testData.add(new org.displaytag.test.KnownValue());
-                request.setAttribute( "test", testData);
+                application.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
-      <display:table name="requestScope.test" id="table" export="true">
+      <display:table name="applicationScope.test" id="table" export="true">
         <display:column property="ant"/>
         <display:column><jsp:text>àèì</jsp:text></display:column>
       </display:table>

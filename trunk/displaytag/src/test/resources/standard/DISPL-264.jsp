@@ -11,9 +11,9 @@
     <body>
       <jsp:scriptlet> <![CDATA[
           Object[] testData = new Object[]{new org.displaytag.test.KnownValue()};
-          request.setAttribute( "test", testData);
+          pageContext.setAttribute( "test", testData);
       ]]> </jsp:scriptlet>
-      <display:table name="test" export="true">
+      <display:table name="pageScope.test" export="true">
         <display:column property="ant"/>
       </display:table>
     </body>
