@@ -59,7 +59,9 @@ public class SimplePaginatedList implements PaginatedList
     public List getList()
     {
         int startOffset = objectsPerPage * (currentPage - 1);
-        return fullList.subList(startOffset, Math.min(fullList.size(), startOffset + objectsPerPage));
+        List sublist = fullList.subList(startOffset, Math.min(fullList.size(), startOffset + objectsPerPage));
+        System.out.println(sublist);
+        return sublist;
     }
 
     /**

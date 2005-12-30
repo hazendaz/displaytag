@@ -13,8 +13,8 @@
           org.displaytag.pagination.SimplePaginatedList testData = new org.displaytag.pagination.SimplePaginatedList(2,2);
           request.setAttribute( "test", testData);
       ]]> </jsp:scriptlet>
-      <display:table name="test" uid="table">
-        <display:column property="number"/>
+      <display:table name="test" uid="table" sort="list">
+        <display:column property="number" sortable="true"/>
       </display:table>
     </body>
   </html>

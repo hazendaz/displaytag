@@ -416,7 +416,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     private Href getSortingHref(HeaderCell headerCell)
     {
         // costruct Href from base href, preserving parameters
-        Href href = (Href)this.baseHref.clone();
+        Href href = (Href) this.baseHref.clone();
 
         if (this.paginatedList == null)
         {
@@ -472,14 +472,8 @@ public class HtmlTableWriter extends TableWriterAdapter
             String dirParam;
             if (headerCell.isAlreadySorted())
             {
-                if (this.tableModel.isSortOrderAscending())
-                {
-                    dirParam = properties.getPaginationDescValue();
-                }
-                else
-                {
-                    dirParam = properties.getPaginationAscValue();
-                }
+                dirParam = tableModel.isSortOrderAscending() ? properties.getPaginationDescValue() : properties
+                    .getPaginationAscValue();
             }
             else
             {
@@ -539,7 +533,7 @@ public class HtmlTableWriter extends TableWriterAdapter
             || (this.paginatedList != null))
         {
             // create a new href
-            Href navigationHref = (Href)this.baseHref.clone();
+            Href navigationHref = (Href) this.baseHref.clone();
 
             write(this.listHelper.getSearchResultsSummary());
 
@@ -567,7 +561,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     private void writeExportLinks()
     {
         // Figure out what formats they want to export, make up a little string
-        Href exportHref = (Href)this.baseHref.clone();
+        Href exportHref = (Href) this.baseHref.clone();
 
         StringBuffer buffer = new StringBuffer(200);
         Iterator iterator = MediaTypeEnum.iterator();

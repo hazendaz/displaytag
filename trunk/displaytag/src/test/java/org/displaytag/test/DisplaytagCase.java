@@ -6,6 +6,8 @@ import java.net.URLDecoder;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -102,4 +104,30 @@ public abstract class DisplaytagCase extends TestCase
         return getClass().getName() + "." + super.getName() + " (" + getJspName() + ")";
     }
 
+    /**
+     * Compare 2 arrays of string ignoring order.
+     * @param message message to output in case of failure
+     * @param expected expected array
+     * @param actual actual array
+     */
+    public void assertEqualsIgnoreOrder(String message, String[] expected, String[] actual)
+    {
+        if (expected.length != actual.length)
+        {
+            fail(message + " Wrong number of values, expected " + expected.length + ", actual " + actual.length);
+        }
+
+        outer : for (int j = 0; j < expected.length; j++)
+        {
+            String exp = expected[j];
+            for (int q = 0; q < actual.length; q++)
+            {
+                if (StringUtils.equals(exp, actual[q]))
+                {
+                    continue outer;
+                }
+            }
+            fail(message + " Expected value \"" + exp + "\" not found in actual array: " + ArrayUtils.toString(actual));
+        }
+    }
 }
