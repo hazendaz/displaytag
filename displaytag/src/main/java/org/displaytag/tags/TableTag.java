@@ -58,7 +58,6 @@ import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.render.HtmlTableWriter;
 import org.displaytag.util.CollectionUtil;
-import org.displaytag.util.DefaultHref;
 import org.displaytag.util.DependencyChecker;
 import org.displaytag.util.Href;
 import org.displaytag.util.ParamEncoder;
@@ -1063,7 +1062,7 @@ public class TableTag extends HtmlTableTag
     protected void initHref(RequestHelper requestHelper)
     {
         // get the href for this request
-        Href normalHref = requestHelper.getHref();
+        this.baseHref = requestHelper.getHref();
 
         if (this.excludedParams != null)
         {
@@ -1078,7 +1077,7 @@ public class TableTag extends HtmlTableTag
                     this.paramEncoder = new ParamEncoder(getUid());
                 }
 
-                Iterator paramsIterator = normalHref.getParameterMap().keySet().iterator();
+                Iterator paramsIterator = baseHref.getParameterMap().keySet().iterator();
                 while (paramsIterator.hasNext())
                 {
                     String key = (String) paramsIterator.next();
@@ -1086,7 +1085,7 @@ public class TableTag extends HtmlTableTag
                     // don't remove parameters added by the table tag
                     if (!this.paramEncoder.isParameterEncoded(key))
                     {
-                        normalHref.removeParameter(key);
+                        baseHref.removeParameter(key);
                     }
                 }
             }
@@ -1094,7 +1093,7 @@ public class TableTag extends HtmlTableTag
             {
                 for (int j = 0; j < splittedExcludedParams.length; j++)
                 {
-                    normalHref.removeParameter(splittedExcludedParams[j]);
+                    baseHref.removeParameter(splittedExcludedParams[j]);
                 }
             }
         }
@@ -1120,17 +1119,14 @@ public class TableTag extends HtmlTableTag
 
             // call encodeURL to preserve session id when cookies are disabled
             fullURI = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(fullURI);
-            this.baseHref = new DefaultHref(fullURI);
 
-            // ... and copy parameters from the current request
-            Map parameterMap = normalHref.getParameterMap();
-            this.baseHref.addParameterMap(parameterMap);
+            baseHref.setFullUrl(fullURI);
+
+            // // ... and copy parameters from the current request
+            // Map parameterMap = normalHref.getParameterMap();
+            // this.baseHref.addParameterMap(parameterMap);
         }
-        else
-        {
-            // simply copy href
-            this.baseHref = normalHref;
-        }
+
     }
 
     /**

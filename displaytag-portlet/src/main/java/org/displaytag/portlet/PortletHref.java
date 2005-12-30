@@ -136,6 +136,14 @@ public class PortletHref implements Href
     }
 
     /**
+     * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
+     */
+    public void setFullUrl(String baseUrl)
+    {
+        // do nothing
+    }
+
+    /**
      * @return Returns the isAction.
      */
     public boolean isAction()
