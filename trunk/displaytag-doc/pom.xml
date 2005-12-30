@@ -218,6 +218,14 @@
         <artifactId>maven-project-info-reports-plugin</artifactId>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>../displaytag-doc/checkstyle.xml</configLocation>
+          <enableRulesSummary>false</enableRulesSummary>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changes-maven-plugin</artifactId>
         <configuration>
