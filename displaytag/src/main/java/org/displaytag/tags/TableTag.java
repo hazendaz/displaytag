@@ -642,8 +642,7 @@ public class TableTag extends HtmlTableTag
 
             if ((sortCriterion != null) && sortCriterion.equals(sortProperty))
             {
-                int sortColumn = this.tableModel.getNumberOfColumns();
-                this.tableModel.setSortedColumnNumber(sortColumn);
+                this.tableModel.setSortedColumnNumber(this.tableModel.getNumberOfColumns());
                 column.setAlreadySorted();
             }
         }
@@ -859,20 +858,7 @@ public class TableTag extends HtmlTableTag
         }
 
         // set the table model to perform in memory local sorting
-        this.tableModel.setLocalSort(this.localSort);
-
-        if (this.partialList)
-        {
-            // if we don't have all the data then ensure they aren't trying to sort the whole list
-            if (Boolean.TRUE.equals(this.sortFullTable))
-            {
-                throw new JspTagException(Messages.getString("InvalidTagAttributeValueExceptionWhen.msg", new Object[]{
-                    "sort",
-                    "full",
-                    "partialList",
-                    "true"}));
-            }
-        }
+        this.tableModel.setLocalSort(this.localSort && (this.paginatedList == null));
 
         RequestHelper requestHelper = rhf.getRequestHelperInstance(this.pageContext);
 
@@ -882,7 +868,7 @@ public class TableTag extends HtmlTableTag
         this.pageNumber = (pageNumberParameter == null) ? 1 : pageNumberParameter.intValue();
 
         int sortColumn = -1;
-        if (!this.tableModel.isLocalSort() && this.paginatedList == null)
+        if (!this.tableModel.isLocalSort())
         {
             // our sort column parameter may be a string, check that first
             String sortColumnName = requestHelper.getParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
@@ -926,7 +912,11 @@ public class TableTag extends HtmlTableTag
             finalSortFull = this.sortFullTable.booleanValue();
         }
 
-        this.tableModel.setSortFullTable(finalSortFull);
+        // if a partial list is used and sort="list" is specified, assume the partial list is already sorted
+        if (!this.partialList || !finalSortFull)
+        {
+            this.tableModel.setSortFullTable(finalSortFull);
+        }
 
         if (this.paginatedList == null)
         {
