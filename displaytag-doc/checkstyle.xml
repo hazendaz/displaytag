@@ -62,7 +62,6 @@
     <module name="FinalLocalVariable">
       <property name="severity" value="ignore" />
     </module>
-    <module name="HiddenField"></module>
     <module name="IllegalCatch">
       <property name="severity" value="info" />
     </module>
