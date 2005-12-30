@@ -63,6 +63,7 @@
         <item name="Dependencies" href="/displaytag/dependencies.html" />
         <item name="Javadoc" href="/displaytag/apidocs/index.html" />
         <item name="Checkstyle" href="/displaytag/checkstyle.html" />
+        <item name="PMD" href="/displaytag/pmd.html" />
         <item name="Clover" href="/displaytag/clover/index.html" external="true" />
         <item name="Maven Surefire Report" href="/displaytag/surefire-report.html" />
         <item name="Source Xref" href="/displaytag/jxr.html" />
@@ -75,6 +76,7 @@
         <item name="Dependencies" href="/displaytag-export-poi/dependencies.html" />
         <item name="Javadoc" href="/displaytag-export-poi/apidocs/index.html" />
         <item name="Checkstyle" href="/displaytag-export-poi/checkstyle.html" />
+        <item name="PMD" href="/displaytag-export-poi/pmd.html" />
         <item name="Source Xref" href="/displaytag-export-poi/jxr.html" />
         <item name="Maven Surefire Report" href="/displaytag-export-poi/surefire-report.html" />
       </item>
@@ -82,6 +84,7 @@
         <item name="Dependencies" href="/displaytag-portlet/dependencies.html" />
         <item name="Javadoc" href="/displaytag-portlet/apidocs/index.html" />
         <item name="Checkstyle" href="/displaytag-portlet/checkstyle.html" />
+        <item name="PMD" href="/displaytag-portlet/pmd.html" />
         <item name="Source Xref" href="/displaytag-portlet/jxr.html" />
         <item name="Maven Surefire Report" href="/displaytag-portlet/surefire-report.html" />
       </item>
