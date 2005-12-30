@@ -59,11 +59,13 @@ Data sources
    property specifying it between () and an indexed property using [].
 
    So the following:
+
 ----------------------------------------------------------------------
    sessionScope.list.value.attribute(name).item[1]
 ----------------------------------------------------------------------
 
    is equivalent to:
+
 ----------------------------------------------------------------------
    session.getAttribute("list").getValue().getAttribute("name").getItem(1)
 ----------------------------------------------------------------------

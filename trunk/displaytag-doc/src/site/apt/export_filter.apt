@@ -33,7 +33,7 @@ output, but if you want to try a pdf export or other custom binary formats you w
 problems.
 
 
-The solution
+* The solution
 
  The first attempt can be using a larger page buffer in your jsp pages, for example:
  <<<&lt;%@ page buffer = "16kb" %&gt;>>>
@@ -45,7 +45,7 @@ The solution
 
 
 
-Installing the export filter
+* Installing the export filter
 
  Configure the Filter in your web.xml:
 
