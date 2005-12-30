@@ -116,23 +116,29 @@ p {
 #leftColumn {
 	margin: 10px 0 10px 0;
 	border: 1px solid #ccc;
+	border-top: none;
 	border-left: none;
-	padding-right: 5px;
-	padding-left: 5px;;
-	padding-right: 5px;
+	padding-right: 0;
+	padding-left: 0;
+	width: 180px;
 	background-color: #e2f3b8;
+}
+
+#navcolumn {
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 #navcolumn h5 {
 	font-size: 11px;
-	padding-top: 2px;
-	padding-left: 12px;
-	color: #999;
-	background-repeat: no-repeat;
+	padding: 1px 0 1px 12px;
+	color: #666;
 	background-position: left 5px;
 	font-variant: small-caps;
 	border: none;
-	background-image: url(../images/nav-titles.png);
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	background-color: #ECFEBC;
 }
 
 table.bodyTable th {
@@ -200,7 +206,7 @@ table {
 }
 
 #navcolumn ul {
-	margin: 5px 0 15px -0em;
+	margin: 3px 0 5px -0em;
 }
 
 #navcolumn ul a {
@@ -211,12 +217,24 @@ table {
 	color: red;
 }
 
+#navcolumn ul li {
+	background-image: url(../images/list.png);
+	background-position: top left;
+}
+
+#navcolumn ul li.expanded {
+	background-image: none;
+	font-weight: bold;
+	color: #666;
+}
+
 #navcolumn ul li.expanded ul {
 	margin-top: 0;
+	margin-bottom: 0;
 }
 
 #navcolumn ul li.expanded ul li {
-	padding-left: 8px;
+	font-weight: normal;
 }
 
 #intro {
