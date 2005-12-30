@@ -34,9 +34,8 @@ public class Displ264Test extends DisplaytagCase
     public void doTest(String jspName) throws Exception
     {
         WebRequest request = new GetMethodWebRequest(jspName);
+        request.setParameter("test", "value");
         WebResponse response = runner.getResponse(request);
-
-        // request.setParameter("test", "value");
 
         if (log.isDebugEnabled())
         {
