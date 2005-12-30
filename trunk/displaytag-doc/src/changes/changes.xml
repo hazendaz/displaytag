@@ -102,6 +102,12 @@
         Ability to use a custom DecoratorFactory. You can now specify a custom decorator factory by setting the new
         factory.decorator property in displaytag.properties.
       </action>
+      <action type="add" dev="fgiust" issue="DISPL-31">
+        Decorators can now be loaded from objects available in page, request, session or application scope. The default
+        decorator factory will first look for an existing instance then, if not found, it will assume the name it's the
+        fully qualify class name for a decorator and will try to instantiate it using reflection. This allows an easier
+        generation of decorators directly in the jsp page, see the sample webapp for an example.
+      </action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
       <action type="fix" dev="fgiust">
