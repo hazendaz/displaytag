@@ -44,7 +44,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
 
     private int computePageCount()
     {
-        int pageCount = paginatedList.getFullListSize() / paginatedList.getObjectsPerPage();
+        int pageCount = paginatedList.getFullListSize() / Math.max(1, paginatedList.getObjectsPerPage());
         if ((paginatedList.getFullListSize() % paginatedList.getObjectsPerPage()) > 0)
         {
             pageCount++;
