@@ -2,6 +2,11 @@
   xsi:schemaLocation="http://maven.apache.org/site/4.0.0 D:/apps/maven/doxia/doxia-decoration-model/target/generated-site/xsd/decoration-1.0.0.xsd"
   name="Display tag library">
   <publishDate position="left" format="MM-dd-yyyy hh:mm" />
+  <bannerLeft>
+    <name>Sourceforge</name>
+    <src>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=2</src>
+    <href>http://sourceforge.net/projects/displaytag</href>
+  </bannerLeft>
   <bannerRight>
     <name>Displaytag</name>
     <src>http://displaytag.sourceforge.net/11/images/displaytag.png</src>
@@ -12,6 +17,7 @@
       <item name="Live examples" href="http://displaytag.homeip.net" />
     </links>
     <menu name="Reference">
+      <item name="About" href="/index.html" />
       <item name="Download" href="/download.html" />
       <item name="Install" href="/install.html" />
       <item name="Tlds" href="/tlds.html" />
