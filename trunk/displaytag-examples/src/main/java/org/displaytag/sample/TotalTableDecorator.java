@@ -11,6 +11,7 @@
  */
 package org.displaytag.sample;
 
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -64,9 +65,9 @@ public class TotalTableDecorator extends TableDecorator
     private String groupPropertyName;
 
     /**
-     * Label used for subtotals. Default: "Subtotal".
+     * Label used for subtotals. Default: "{0} total".
      */
-    private String subtotalLabel = "Subtotal";
+    private String subtotalLabel = "{0} subtotal";
 
     /**
      * Label used for totals. Default: "Total".
@@ -221,12 +222,15 @@ public class TotalTableDecorator extends TableDecorator
             }
             else if (groupPropertyName != null && groupPropertyName.equals(cell.getBeanPropertyName()))
             {
-                buffer.append(grandTotal ? totalLabel : subtotalLabel);
+                buffer.append(grandTotal ? totalLabel : MessageFormat.format(subtotalLabel, new Object[]{previousValues
+                    .get(groupPropertyName)}));
             }
 
             buffer.append("</td>"); //$NON-NLS-1$
 
         }
+
+        buffer.append("</tr>"); //$NON-NLS-1$
 
         // reset subtotal
         this.subTotals.clear();
