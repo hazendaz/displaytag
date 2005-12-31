@@ -321,9 +321,17 @@ public final class LookupUtil
 
         }
 
-        if ("".equals(evalName) && (bean instanceof List))
+        // addd support for lists and arrays
+        if (StringUtils.isEmpty(evalName))
         {
-            return ((List) bean).get(index);
+            if (bean instanceof List)
+            {
+                return ((List) bean).get(index);
+            }
+            else if (bean.getClass().isArray())
+            {
+                return ((Object[]) bean)[index];
+            }
         }
         // Request the specified indexed property value
         return (PropertyUtils.getIndexedProperty(bean, evalName, index));
