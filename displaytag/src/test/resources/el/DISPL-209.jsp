@@ -10,14 +10,7 @@
     </head>
     <body>
       <jsp:scriptlet>
-      java.util.List listA = new java.util.ArrayList();
-      listA.add("a");
-      java.util.List listB = new java.util.ArrayList();
-      listB.add("b");
-      java.util.List listC = new java.util.ArrayList();
-      listC.add("c");
-
-      Object[] testData = new Object[]{listC, listA, listB};
+      Object[] testData = new Object[]{new String[]{"c"}, new String[]{"a"}, new String[]{"b"}};
           request.setAttribute( "test", testData);
       </jsp:scriptlet>
       <display:table name="test" decorator="org.displaytag.decorator.ListIndexTableDecorator" defaultsort="1">
