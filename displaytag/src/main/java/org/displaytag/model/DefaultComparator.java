@@ -1,3 +1,14 @@
+/**
+ * Licensed under the Artistic License; you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://displaytag.sourceforge.net/license.html
+ *
+ * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.displaytag.model;
 
 import java.text.Collator;
@@ -16,13 +27,15 @@ public class DefaultComparator implements Comparator
     /**
      * Use this collator.
      */
-    private Collator collator = Collator.getInstance();
+    private Collator collator;
 
     /**
      * Instantiate a default comparator with no collator specified.
      */
     public DefaultComparator()
     {
+        this.collator = Collator.getInstance();
+        collator.setStrength(Collator.PRIMARY); // ignore case and accents
     }
 
     /**
