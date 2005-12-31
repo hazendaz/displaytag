@@ -294,12 +294,6 @@ public final class TableProperties implements Cloneable
     public static final String EXPORTPROPERTY_STRING_FILENAME = "filename"; //$NON-NLS-1$
 
     /**
-     * property convertor classname <code>property_convertor_classname</code>.
-     */
-    private static final String PROPERTY_CONVERTOR_CLASSNAME = "property_convertor_classname"; //$NON-NLS-1$
-
-    // <JBN>
-    /**
      * Property <code>pagination.sort.param</code>. If external pagination and sorting is used, it holds the name of
      * the parameter used to hold the sort criterion in generated links
      */
@@ -1036,15 +1030,6 @@ public final class TableProperties implements Cloneable
     public String getExportClass(String exportName)
     {
         return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportName + SEP + EXPORTPROPERTY_STRING_CLASS);
-    }
-
-    /**
-     * Returns the class name for the Converter.
-     * @return the fq class name
-     */
-    public String getPropertyConvertorClass()
-    {
-        return getProperty(PROPERTY_CONVERTOR_CLASSNAME);
     }
 
     /**

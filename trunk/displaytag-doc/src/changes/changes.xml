@@ -22,10 +22,9 @@
       </action>
       <action type="add" dev="rapruitt" issue="DISPL-49">Support for per-row css attributes.</action>
       <action type="add" dev="rapruitt" issue="DISPL-162" due-to="fguist,karsten,rapruitt">
-        Added Fabrizio's POI exporter, with patches from myself and Karsten Voges. To enable, add an entry to your
-        displaytag.properties of 'export.excel.class=org.displaytag.export.ExcelHssfView'. It is highly recommended that
-        users register a Converter and override the isNumber method of the exporter in order to get proper translation
-        of numeric data into excel.
+        Added new displaytag-export-poi module, with a new binary excel export view using jakarta POI. To enable, add
+        the displayatg-export-poi and poi jars to your classpath, then configure it into your displaytag.properties
+        using 'export.excel.class=org.displaytag.export.ExcelHssfView'.
       </action>
       <action type="fix" dev="rapruitt" issue="DISPL-171" due-to="sillybears">
         setSortProperty function was not overridden in ELColumnTag.

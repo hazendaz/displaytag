@@ -338,6 +338,10 @@ public abstract class TableWriterTemplate
                     + rowIterator.getPageOffset());
             }
 
+            if (tableDecorator != null)
+            {
+                writeDecoratedRowStart(model);
+            }
             // open row
             writeRowOpener(currentRow);
 
@@ -394,10 +398,6 @@ public abstract class TableWriterTemplate
                 structsForRow.add(struct);
             }
 
-            if (tableDecorator != null)
-            {
-                writeDecoratedRowStart(model);
-            }
             for (Iterator iterator = structsForRow.iterator(); iterator.hasNext();)
             {
                 CellStruct struct = (CellStruct) iterator.next();

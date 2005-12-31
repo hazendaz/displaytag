@@ -26,7 +26,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.conversion.PropertyConvertorFactory;
 import org.displaytag.decorator.AutolinkColumnDecorator;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.decorator.MessageFormatColumnDecorator;
@@ -701,7 +700,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         headerCell.setMaxWords(this.maxWords);
         headerCell.setGroup(this.group);
         headerCell.setSortProperty(this.sortProperty);
-        headerCell.setPropertyConvertor(PropertyConvertorFactory.createNumberConverter(tableTag.getProperties()));
         headerCell.setTotaled(this.totaled);
 
         Comparator headerComparator = (comparator != null) ? comparator : new DefaultComparator(Collator

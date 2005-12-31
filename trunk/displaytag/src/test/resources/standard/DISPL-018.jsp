@@ -13,22 +13,22 @@
                 request.setAttribute( "test", new org.displaytag.test.ShuffledNumberedList());
             ]]> </jsp:scriptlet>
       <display:table name="requestScope.test" defaultsort="1">
-        <display:column property="number" comparator="org.displaytag.model.NumberComparator"/>
+        <display:column property="number" comparator="org.displaytag.test.NumberComparator"/>
         <display:column property="number" />
         <display:caption><jsp:text>property: ascending</jsp:text></display:caption>
       </display:table>
       <display:table name="requestScope.test" defaultsort="1">
-        <display:column property="number" decorator="org.displaytag.decorator.PercentualColumnDecorator" comparator="org.displaytag.model.NumberComparator"/>
+        <display:column property="number" decorator="org.displaytag.decorator.PercentualColumnDecorator" comparator="org.displaytag.test.NumberComparator"/>
         <display:column property="number" />
         <display:caption><jsp:text>decorated property: ascending</jsp:text></display:caption>
       </display:table>
       <display:table name="requestScope.test" defaultsort="1">
-        <display:column property="number" sortProperty="number" decorator="org.displaytag.decorator.PercentualColumnDecorator" comparator="org.displaytag.model.NumberComparator"/>
+        <display:column property="number" sortProperty="number" decorator="org.displaytag.decorator.PercentualColumnDecorator" comparator="org.displaytag.test.NumberComparator"/>
         <display:column property="number" />
         <display:caption><jsp:text>decorated property + sortProperty: ascending</jsp:text></display:caption>
       </display:table>
       <display:table name="requestScope.test" defaultsort="1">
-        <display:column sortProperty="number" comparator="org.displaytag.model.NumberComparator"><jsp:text>abc</jsp:text></display:column>
+        <display:column sortProperty="number" comparator="org.displaytag.test.NumberComparator"><jsp:text>abc</jsp:text></display:column>
         <display:caption><jsp:text>body + sortProperty: ascending</jsp:text></display:caption>
         <display:column property="number" />
       </display:table>
