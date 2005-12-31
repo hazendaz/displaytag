@@ -234,11 +234,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      */
     protected void writeDecoratedRowStart(TableModel model)
     {
-        String stringStartRow = model.getTableDecorator().startRow();
-        if (stringStartRow != null)
-        {
-            this.write(stringStartRow);
-        }
+        this.write(model.getTableDecorator().startRow());
     }
 
     /**
@@ -293,11 +289,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      */
     protected void writeDecoratedRowFinish(TableModel model)
     {
-        String endRow = model.getTableDecorator().finishRow();
-        if (endRow != null)
-        {
-            this.write(endRow);
-        }
+        this.write(model.getTableDecorator().finishRow());
     }
 
     /**

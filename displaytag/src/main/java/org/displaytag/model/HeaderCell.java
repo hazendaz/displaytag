@@ -138,11 +138,6 @@ public class HeaderCell
     private double total;
 
     /**
-     * Convertor to use.
-     */
-    private Converter propertyConvertor;
-
-    /**
      * Use this comparator for sorting.
      */
     private Comparator comparator;
@@ -550,15 +545,6 @@ public class HeaderCell
     }
 
     /**
-     * Set the property convertor.
-     * @param propConv the value
-     */
-    public void setPropertyConvertor(Converter propConv)
-    {
-        this.propertyConvertor = propConv;
-    }
-
-    /**
      * Set the column comparator.
      * @param columnComparator the value
      */
@@ -602,8 +588,10 @@ public class HeaderCell
      */
     private void addToTotal(Object value)
     {
-        double paramValue = ((Number) this.propertyConvertor.convert(Number.class, value)).doubleValue();
-        this.total = this.total + paramValue;
+        if (value != null)
+        {
+            this.total = this.total + ((Number) value).doubleValue();
+        }
     }
 
     /**

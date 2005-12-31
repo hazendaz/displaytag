@@ -161,11 +161,6 @@ Configuration
 |                                    |                                | <<<DecoratorFactory>>>      | instances from different sources (e.g. you could use Spring    |      |      |
 |                                    |                                | implementation              | managed beans)                                                 |      |      |
 *------------------------------------+--------------------------------+-----------------------------+----------------------------------------------------------------+------+------+
-| property_convertor_classname       | <<<org.displaytag.conversion.DefaultPropertyConvertor>>> | Class name for a valid | Used to convert property values from      | yes  | yes  |
-|                                    |                                | <<<org.apache.commons.beanutils.Converter>>> | Object to Number. Used in totals, etc.        |      |      |
-|                                    |                                | implementation              |                                                                |      |      |
-*------------------------------------+--------------------------------+-----------------------------+----------------------------------------------------------------+------+------+
-
 
 
 * Exporting

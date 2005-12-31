@@ -1,3 +1,14 @@
+/**
+ * Licensed under the Artistic License; you may not use this file
+ * except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://displaytag.sourceforge.net/license.html
+ *
+ * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+ * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+ */
 package org.displaytag.decorator;
 
 import java.util.ArrayList;
@@ -8,11 +19,9 @@ import java.util.Map;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.conversion.PropertyConvertorFactory;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.model.Column;
@@ -20,7 +29,6 @@ import org.displaytag.model.ColumnIterator;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
-import org.displaytag.properties.TableProperties;
 import org.displaytag.util.TagConstants;
 
 
@@ -28,6 +36,7 @@ import org.displaytag.util.TagConstants;
  * A TableDecorator that, in conjunction with totaled and grouped columns, produces multi level subtotals on arbitrary
  * String groupings.
  * @author rapruitt
+ * @author Fabrizio Giustina
  */
 public class TotalsWrapper extends TableDecorator
 {
@@ -51,11 +60,6 @@ public class TotalsWrapper extends TableDecorator
      * CSS class applied to subtotal totals.
      */
     public static final String SUBTOTAL_VALUE_CLASS = "subtotal-sum";
-
-    /**
-     * Converter for producing numeric cell values.
-     */
-    private Converter propertyConvertor;
 
     /**
      * Maps the groups to their current totals.
@@ -82,13 +86,6 @@ public class TotalsWrapper extends TableDecorator
      */
     private List headerRows = new ArrayList(5);
 
-    public TotalsWrapper()
-    {
-        super();
-        TableProperties properties = TableProperties.getInstance(null);
-        propertyConvertor = PropertyConvertorFactory.createNumberConverter(properties);
-    }
-
     public void init(PageContext context, Object decorated, TableModel model)
     {
         super.init(context, decorated, model);
@@ -114,7 +111,7 @@ public class TotalsWrapper extends TableDecorator
         tr.append("<tr>");
         for (int i = 1; i < group; i++)
         {
-            tr.append("<td>&nbsp;</td>\n");
+            tr.append("<td></td>\n");
         }
         tr.append("<td class=\"").append(SUBTOTAL_HEADER_CLASS).append(" group-").append(group).append("\">");
         tr.append(value).append("</td>\n");
@@ -124,7 +121,7 @@ public class TotalsWrapper extends TableDecorator
 
     public String displayGroupedValue(String value, short groupingStatus)
     {
-        return "&nbsp;";
+        return "";
     }
 
     public String startRow()
@@ -221,23 +218,25 @@ public class TotalsWrapper extends TableDecorator
                 Column column = columnIterator.nextColumn();
                 if (column.getHeaderCell().getColumnNumber() == columnNumber)
                 {
-                    Number value;
+                    Number value = null;
                     try
                     {
-                        column.initialize();
-                        value = (Number) propertyConvertor.convert(Number.class, column.getChoppedAndLinkedValue());
+                        value = (Number) column.getValue(false);
                     }
                     catch (ObjectLookupException e)
                     {
-                        logger.error("Error: " + e.getMessage(), e);
-                        throw new RuntimeException("Error: " + e.getMessage(), e);
+                        // @todo Auto-generated catch block
+                        e.printStackTrace();
                     }
                     catch (DecoratorException e)
                     {
-                        logger.error("Error: " + e.getMessage(), e);
-                        throw new RuntimeException("Error: " + e.getMessage(), e);
+                        // @todo Auto-generated catch block
+                        e.printStackTrace();
                     }
-                    total += value.doubleValue();
+                    if (value != null)
+                    {
+                        total += value.doubleValue();
+                    }
                 }
             }
         }
@@ -317,7 +316,6 @@ public class TotalsWrapper extends TableDecorator
                             style += " " + SUBTOTAL_LABEL_CLASS + " ";
                         }
                         out.append(getTotalsTdOpen(headerCell, style));
-                        out.append("&nbsp;");
                     }
                     out.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
                 }
