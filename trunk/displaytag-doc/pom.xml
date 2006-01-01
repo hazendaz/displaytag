@@ -131,6 +131,12 @@
     </extensions>
     <plugins>
       <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <testFailureIgnore>true</testFailureIgnore>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
@@ -138,33 +144,6 @@
           <target>1.4</target>
         </configuration>
       </plugin>
-      <!--
-        <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-        <execution>
-        <phase>site</phase>
-        <configuration>
-        <tasks>
-
-        <copy todir="src/site" overwrite="true">
-        <fileset dir="../displaytag-doc/src/site">
-        <include name="site.xml" />
-        </fileset>
-        </copy>
-        <replace token='href="/' value='href="../' dir="..">
-        <include name="displaytag*/src/site/site.xml" />
-        <exclude name="displaytag-doc/src/site/site.xml" />
-        </replace>
-        </tasks>
-        </configuration>
-        <goals>
-        <goal>run</goal>
-        </goals>
-        </execution>
-        </executions>
-        </plugin>
-      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
@@ -219,6 +198,13 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <quiet>true</quiet>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <configLocation>../displaytag-doc/checkstyle.xml</configLocation>
@@ -236,6 +222,46 @@
           <link_template>%URL%/%ISSUE%</link_template>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>net.sourceforge.maven-taglib</groupId>
+        <artifactId>maven-taglib-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clover-plugin</artifactId>
+        <configuration>
+          <jdk>1.4</jdk>
+          <licenseFile>clover.license</licenseFile>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>surefire-report-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
+      </plugin>
+      <!--
+        <plugin>
+        <groupId>statcvs</groupId>
+        <artifactId>maven-statcvs-plugin</artifactId>
+        <configuration>
+        <history>true</history>
+        <fork>true</fork>
+        </configuration>
+        </plugin>
+      -->
+      <!--
+        <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>changelog-maven-plugin</artifactId>
+        </plugin>
+      -->
     </plugins>
   </reporting>
   <modules>
@@ -275,7 +301,7 @@
       <dependency>
         <groupId>log4j</groupId>
         <artifactId>log4j</artifactId>
-        <version>1.2.8</version>
+        <version>1.2.12</version>
         <exclusions>
           <exclusion>
             <groupId>avalon-framework</groupId>
