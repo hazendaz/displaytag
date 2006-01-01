@@ -329,7 +329,16 @@
       <type>java.lang.String</type>
       <description>
         A MessageFormat patter that will be used to decorate objects in the column. Can be used as a "shortcut" for
-        simple column decorations.
+        simple column decorations. @since 1.1
+      </description>
+    </attribute>
+    <attribute>
+      <name>escapeXml</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>
+        Set it to true to escape special characters in html and xml output. Defaults to 'false'. @since 1.1
       </description>
     </attribute>
     <attribute>

@@ -41,6 +41,8 @@ public class ELColumnTagBeanInfo extends SimpleBeanInfo
         {
             proplist.add(new PropertyDescriptor("autolink", //$NON-NLS-1$
                 ELColumnTag.class, null, "setAutolink")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("escapeXml", //$NON-NLS-1$
+                ELColumnTag.class, null, "setEscapeXml")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("class", //$NON-NLS-1$
                 ELColumnTag.class, null, "setClass")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("decorator", //$NON-NLS-1$

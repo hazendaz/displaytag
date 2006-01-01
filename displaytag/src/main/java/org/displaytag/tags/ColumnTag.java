@@ -28,6 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.AutolinkColumnDecorator;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
+import org.displaytag.decorator.EscapeXmlColumnDecorator;
 import org.displaytag.decorator.MessageFormatColumnDecorator;
 import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
@@ -126,6 +127,11 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      * into a hypertext link.
      */
     private boolean autolink;
+
+    /**
+     * Automatically escape column content for html and xml media.
+     */
+    private boolean escapeXml;
 
     /**
      * A MessageFormat patter that will be used to decorate objects in the column. Can be used as a "shortcut" for
@@ -341,6 +347,15 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     public void setAutolink(boolean value)
     {
         this.autolink = value;
+    }
+
+    /**
+     * setter for the "escapeXml" tag attribute.
+     * @param value attribute value
+     */
+    public void setEscapeXml(boolean value)
+    {
+        this.escapeXml = value;
     }
 
     /**
@@ -679,13 +694,15 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             }
         }
 
-        // a "special" decorator, but simply a decorator now...
+        // "special" decorators
+        if (this.escapeXml)
+        {
+            decorators.add(EscapeXmlColumnDecorator.INSTANCE);
+        }
         if (this.autolink)
         {
             decorators.add(AutolinkColumnDecorator.INSTANCE);
         }
-
-        // another "special" decorator
         if (StringUtils.isNotBlank(this.format))
         {
             decorators.add(new MessageFormatColumnDecorator(this.format, tableTag.getProperties().getLocale()));
@@ -814,6 +831,8 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         this.sortProperty = null;
         this.comparator = null;
         this.defaultorder = null;
+        this.escapeXml = false;
+        this.format = null;
     }
 
     /**

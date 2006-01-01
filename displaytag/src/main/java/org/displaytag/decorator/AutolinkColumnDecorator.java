@@ -29,7 +29,7 @@ public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
 {
 
     /**
-     * Instance used for the "autolink" tag attribute. Will be removed in future along with the attribute.
+     * Instance used for the "autolink" tag attribute.
      */
     public static final DisplaytagColumnDecorator INSTANCE = new AutolinkColumnDecorator();
 
