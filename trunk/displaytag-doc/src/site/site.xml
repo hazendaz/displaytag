@@ -70,7 +70,7 @@
         <item name="JDepend Report" href="/displaytag/jdepend-report.html" />
         <item name="Tag library validation" href="/displaytag/taglibvalidation.html" />
         <item name="Tag reference" href="/displaytag/tagreference.html" />
-        <!-- <item name="Taglibdoc documentation" href="/displaytag/tlddoc/index.html" />-->
+        <item name="Taglibdoc documentation" href="/displaytag/tlddoc/index.html" />
       </item>
       <item name="Excel export module" href="/displaytag-export-poi/index.html" collapse="false">
         <item name="Dependencies" href="/displaytag-export-poi/dependencies.html" />
