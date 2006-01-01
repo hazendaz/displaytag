@@ -34,6 +34,11 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String autoLinkExpr;
 
     /**
+     * Expression for the "escapeXml" tag attribute.
+     */
+    private String escapeXmlExpr;
+
+    /**
      * Expression for the "format" tag attribute.
      */
     private String formatExpr;
@@ -414,6 +419,10 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         {
             super.setAutolink(eval.evalBoolean("autolink", autoLinkExpr)); //$NON-NLS-1$
         }
+        if (escapeXmlExpr != null)
+        {
+            super.setEscapeXml(eval.evalBoolean("escapeXml", escapeXmlExpr)); //$NON-NLS-1$
+        }
         if (formatExpr != null)
         {
             super.setFormat(eval.evalString("format", formatExpr)); //$NON-NLS-1$
@@ -550,6 +559,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         this.scopeExpr = null;
         this.headerScopeExpr = null;
         this.formatExpr = null;
+        this.escapeXmlExpr = null;
     }
 
 }
