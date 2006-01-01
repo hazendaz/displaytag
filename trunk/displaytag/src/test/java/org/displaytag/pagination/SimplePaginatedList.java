@@ -60,7 +60,6 @@ public class SimplePaginatedList implements PaginatedList
     {
         int startOffset = objectsPerPage * (currentPage - 1);
         List sublist = fullList.subList(startOffset, Math.min(fullList.size(), startOffset + objectsPerPage));
-        System.out.println(sublist);
         return sublist;
     }
 
