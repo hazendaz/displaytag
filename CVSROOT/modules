@@ -27,4 +27,4 @@
 
 #displaytag2 displaytag
 
-displaytag-all -a displaytag displaytag-doc displaytag-examples displaytag-export-poi
+displaytag-all -a displaytag displaytag-doc displaytag-examples displaytag-export-poi displaytag-portlet
