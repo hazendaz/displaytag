@@ -137,24 +137,26 @@
           </includes>
         </configuration>
       </plugin>
-      <plugin>
+      <!-- moved to parent module
+        <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
-          <execution>
-            <phase>site</phase>
-            <configuration>
-              <tasks>
-                <copy todir="src/site" overwrite="true" file="../displaytag-doc/src/site/site.xml" />
-                <replace token='href="/' value='href="../' file="src/site/site.xml" />
-                <replace token='href="../displaytag/' value='href="' file="src/site/site.xml" />
-              </tasks>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
+        <execution>
+        <phase>site</phase>
+        <configuration>
+        <tasks>
+        <copy todir="src/site" overwrite="true" file="../displaytag-doc/src/site/site.xml" />
+        <replace token='href="/' value='href="../' file="src/site/site.xml" />
+        <replace token='href="../displaytag/' value='href="' file="src/site/site.xml" />
+        </tasks>
+        </configuration>
+        <goals>
+        <goal>run</goal>
+        </goals>
+        </execution>
         </executions>
-      </plugin>
+        </plugin>
+      -->
     </plugins>
   </build>
 </project>

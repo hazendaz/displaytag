@@ -77,26 +77,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>site</phase>
-            <configuration>
-              <tasks>
-                <copy todir="src/site" overwrite="true" file="../displaytag-doc/src/site/site.xml" />
-                <replace token='href="/' value='href="../' file="src/site/site.xml" />
-                <replace token='href="../displaytag-examples/' value='href="' file="src/site/site.xml" />
-              </tasks>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 </project>
