@@ -67,7 +67,7 @@ import org.displaytag.util.Href;
  * <td>"true" requests a secure URL, anything else requests a standard URL</td>
  * </tr>
  * </table>
- * @author Eric Dalquist <a href="mailto:edalquist@unicon.net">edalquist@unicon.net</a>
+ * @author Eric Dalquist <a href="mailto:dalquist@gmail.com">dalquist@gmail.com</a>
  * @version $Id$
  */
 public class PortletHref implements Href

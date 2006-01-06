@@ -19,7 +19,7 @@ import org.displaytag.util.RequestHelperFactory;
 
 /**
  * Generates {@link PortletRequestHelper} objects.
- * @author Eric Dalquist <a href="mailto:edalquist@unicon.net">edalquist@unicon.net</a>
+ * @author Eric Dalquist <a href="mailto:dalquist@gmail.com">dalquist@gmail.com</a>
  * @version $Id$
  */
 public class PortletRequestHelperFactory implements RequestHelperFactory
