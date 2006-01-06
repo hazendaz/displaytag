@@ -73,6 +73,11 @@ import org.displaytag.util.Href;
 public class PortletHref implements Href
 {
 
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
     // Predicated for type checking the parameter map
     private static final Predicate PRED_TYPE_OF_STRING = new InstanceofPredicate(String.class);
 
@@ -103,7 +108,7 @@ public class PortletHref implements Href
 
     private final RenderResponse renderResponse;
 
-    private final Map parameters = PredicatedMap.decorate(new HashMap(), PRED_TYPE_OF_STRING, PRED_OR_STR_STRARR);
+    private Map parameters = this.createParameterMap();
 
     private boolean isAction = false;
 
@@ -421,7 +426,7 @@ public class PortletHref implements Href
         }
 
         href.isAction = this.isAction;
-        href.parameters.clear();
+        href.parameters = this.createParameterMap();
         href.parameters.putAll(this.parameters);
         href.requestedMode = this.requestedMode;
         href.requestedState = this.requestedState;
@@ -551,5 +556,10 @@ public class PortletHref implements Href
         {
             return url.toString() + "#" + this.getAnchor();
         }
+    }
+
+    private Map createParameterMap()
+    {
+        return PredicatedMap.decorate(new HashMap(), PRED_TYPE_OF_STRING, PRED_OR_STR_STRARR);
     }
 }
