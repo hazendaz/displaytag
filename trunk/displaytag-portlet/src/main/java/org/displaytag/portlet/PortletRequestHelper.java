@@ -28,7 +28,7 @@ import org.displaytag.util.RequestHelper;
  * {@link #JAVAX_PORTLET_RESPONSE}. <br>
  * <br>
  * If the pluto portlet container is being used these objects should be setup appropriatly already.
- * @author Eric Dalquist <a href="mailto:edalquist@unicon.net">edalquist@unicon.net</a>
+ * @author Eric Dalquist <a href="mailto:dalquist@gmail.com">dalquist@gmail.com</a>
  * @version $Id$
  */
 public class PortletRequestHelper implements RequestHelper
@@ -82,7 +82,7 @@ public class PortletRequestHelper implements RequestHelper
 
         if (this.portletRequest.isSecure())
         {
-            href.addParameter(PortletHref.PARAM_SECURE, Boolean.TRUE.toString());
+            href.setRequestedSecure(true);
         }
 
         return href;
