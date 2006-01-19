@@ -31,7 +31,6 @@ import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
 import org.displaytag.util.TagConstants;
 
-
 /**
  * A TableDecorator that, in conjunction with totaled and grouped columns, produces multi level subtotals on arbitrary
  * String groupings.
@@ -47,19 +46,24 @@ public class TotalsWrapper extends TableDecorator
     private Log logger = LogFactory.getLog(TotalsWrapper.class);
 
     /**
+     * CSS class applied to grand totals.
+     */
+    public String grandTotalLabel = "grandtotal-sum";
+
+    /**
      * CSS class appplied to subtotal headers.
      */
-    public static final String SUBTOTAL_HEADER_CLASS = "subtotal-header";
+    private String subtotalHeaderClass = "subtotal-header";
 
     /**
      * CSS class applied to subtotal labels.
      */
-    public static final String SUBTOTAL_LABEL_CLASS = "subtotal-label";
+    private String subtotalLabelClass = "subtotal-label";
 
     /**
      * CSS class applied to subtotal totals.
      */
-    public static final String SUBTOTAL_VALUE_CLASS = "subtotal-sum";
+    private String subtotalValueClass = "subtotal-sum";
 
     /**
      * Maps the groups to their current totals.
@@ -96,7 +100,7 @@ public class TotalsWrapper extends TableDecorator
             HeaderCell headerCell = (HeaderCell) iterator.next();
             if (headerCell.getGroup() > 0)
             {
-                groupNumberToGroupTotal.put(new Integer(headerCell.getGroup()), new GroupTotals(headerCell));
+                groupNumberToGroupTotal.put(new Integer(headerCell.getGroup()), new GroupTotals(headerCell.getColumnNumber()));
                 if (headerCell.getGroup() > innermostGroup)
                 {
                     innermostGroup = headerCell.getGroup();
@@ -105,15 +109,55 @@ public class TotalsWrapper extends TableDecorator
         }
     }
 
+    public String getGrandTotalLabel()
+    {
+        return grandTotalLabel;
+    }
+
+    public void setGrandTotalLabel(String grandTotalLabel)
+    {
+        this.grandTotalLabel = grandTotalLabel;
+    }
+
+    public String getSubtotalValueClass()
+    {
+        return subtotalValueClass;
+    }
+
+    public void setSubtotalValueClass(String subtotalValueClass)
+    {
+        this.subtotalValueClass = subtotalValueClass;
+    }
+
+    public String getSubtotalLabelClass()
+    {
+        return subtotalLabelClass;
+    }
+
+    public void setSubtotalLabelClass(String subtotalLabelClass)
+    {
+        this.subtotalLabelClass = subtotalLabelClass;
+    }
+
+    public String getSubtotalHeaderClass()
+    {
+        return subtotalHeaderClass;
+    }
+
+    public void setSubtotalHeaderClass(String subtotalHeaderClass)
+    {
+        this.subtotalHeaderClass = subtotalHeaderClass;
+    }
+
     public void startOfGroup(String value, int group)
     {
         StringBuffer tr = new StringBuffer();
         tr.append("<tr>");
         for (int i = 1; i < group; i++)
         {
-            tr.append("<td></td>\n");
+            tr.append("<td>&nbsp;</td>\n");
         }
-        tr.append("<td class=\"").append(SUBTOTAL_HEADER_CLASS).append(" group-").append(group).append("\">");
+        tr.append("<td colspan=\"100%\" class=\"").append(getSubtotalHeaderClass()).append(" group-").append(group).append("\">");
         tr.append(value).append("</td>\n");
         tr.append("</tr>");
         headerRows.add(tr);
@@ -121,7 +165,7 @@ public class TotalsWrapper extends TableDecorator
 
     public String displayGroupedValue(String value, short groupingStatus)
     {
-        return "";
+        return "&nbsp;";
     }
 
     public String startRow()
@@ -171,10 +215,29 @@ public class TotalsWrapper extends TableDecorator
         }
         deepestResetGroup = NO_RESET_GROUP;
         headerRows.clear();
+        if (isLastRow())
+        {
+            returnValue = StringUtils.defaultString(returnValue);
+            returnValue += totalAllRows();
+        }
         return returnValue;
     }
 
-    String getCellValue(int columnNumber, int rowNumber)
+    /**
+     * Issue a grand total row at the bottom.
+     * @return               the suitable string
+     */
+    protected String totalAllRows()
+    {
+        GroupTotals grandTotal = new GroupTotals(-1);
+        StringBuffer out = new StringBuffer();
+        grandTotal.setStartRow(0);
+        grandTotal.setTotalValueClass(getGrandTotalLabel());
+        grandTotal.printTotals(getListIndex(), out);
+        return out.toString();
+    }
+
+    protected String getCellValue(int columnNumber, int rowNumber)
     {
         List fullList = tableModel.getRowListFull();
         Row row = (Row) fullList.get(rowNumber);
@@ -204,7 +267,7 @@ public class TotalsWrapper extends TableDecorator
         throw new RuntimeException("Unable to find column " + columnNumber + " in the list of columns");
     }
 
-    double getTotalForColumn(int columnNumber, int startRow, int stopRow)
+    protected double getTotalForColumn(int columnNumber, int startRow, int stopRow)
     {
         List fullList = tableModel.getRowListFull();
         List window = fullList.subList(startRow, stopRow + 1);
@@ -225,13 +288,11 @@ public class TotalsWrapper extends TableDecorator
                     }
                     catch (ObjectLookupException e)
                     {
-                        // @todo Auto-generated catch block
-                        e.printStackTrace();
+                        logger.error(e);
                     }
                     catch (DecoratorException e)
                     {
-                        // @todo Auto-generated catch block
-                        e.printStackTrace();
+                        logger.error(e);
                     }
                     if (value != null)
                     {
@@ -265,7 +326,24 @@ public class TotalsWrapper extends TableDecorator
 
     public String formatTotal(HeaderCell header, double total)
     {
-        return "" + total;
+        Object displayValue = new Double(total);
+        if (header.getColumnDecorators().length > 0)
+        {
+            for (int i = 0; i < header.getColumnDecorators().length; i++)
+            {
+                DisplaytagColumnDecorator decorator = header.getColumnDecorators()[i];
+                try
+                {
+                    displayValue = decorator.decorate(displayValue, this.getPageContext(), tableModel.getMedia());
+                }
+                catch (DecoratorException e)
+                {
+                    logger.warn(e.getMessage(), e);
+                    // ignore, use undecorated value for totals
+                }
+            }
+        }
+        return displayValue.toString();
     }
 
     class GroupTotals
@@ -275,9 +353,19 @@ public class TotalsWrapper extends TableDecorator
 
         private int firstRowOfCurrentSet;
 
-        public GroupTotals(HeaderCell headerCell)
+        /**
+         * The label class.
+         */
+        protected String totalLabelClass = getSubtotalLabelClass();
+
+        /**
+         * The value class.
+         */
+        protected String totalValueClass = getSubtotalValueClass();
+
+        public GroupTotals(int headerCellColumn)
         {
-            this.columnNumber = headerCell.getColumnNumber();
+            this.columnNumber = headerCellColumn;
             this.firstRowOfCurrentSet = 0;
         }
 
@@ -297,14 +385,14 @@ public class TotalsWrapper extends TableDecorator
                     {
                         // a totals label if it is the column for the current group
                         String currentLabel = getCellValue(columnNumber, firstRowOfCurrentSet);
-                        out.append(getTotalsTdOpen(headerCell, SUBTOTAL_LABEL_CLASS + " group-" + (columnNumber + 1)));
+                        out.append(getTotalsTdOpen(headerCell, getTotalLabelClass() + " group-" + (columnNumber + 1)));
                         out.append(getTotalRowLabel(currentLabel));
                     }
                     else if (headerCell.isTotaled())
                     {
                         // a total if the column should be totaled
                         double total = getTotalForColumn(headerCell.getColumnNumber(), firstRowOfCurrentSet, currentRow);
-                        out.append(getTotalsTdOpen(headerCell, SUBTOTAL_VALUE_CLASS + " group-" + (columnNumber + 1)));
+                        out.append(getTotalsTdOpen(headerCell, getTotalValueClass() + " group-" + (columnNumber + 1)));
                         out.append(formatTotal(headerCell, total));
                     }
                     else
@@ -313,9 +401,10 @@ public class TotalsWrapper extends TableDecorator
                         String style = "group-" + (columnNumber + 1);
                         if (headerCell.getColumnNumber() < innermostGroup)
                         {
-                            style += " " + SUBTOTAL_LABEL_CLASS + " ";
+                            style += " " + getTotalLabelClass() + " ";
                         }
                         out.append(getTotalsTdOpen(headerCell, style));
+                        out.append("&nbsp;");
                     }
                     out.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
                 }
@@ -326,6 +415,22 @@ public class TotalsWrapper extends TableDecorator
         public void setStartRow(int i)
         {
             firstRowOfCurrentSet = i;
+        }
+
+        public String getTotalLabelClass() {
+            return totalLabelClass;
+        }
+
+        public void setTotalLabelClass(String totalLabelClass) {
+            this.totalLabelClass = totalLabelClass;
+        }
+
+        public String getTotalValueClass() {
+            return totalValueClass;
+        }
+
+        public void setTotalValueClass(String totalValueClass) {
+            this.totalValueClass = totalValueClass;
         }
     }
 }
