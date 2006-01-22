@@ -164,6 +164,11 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String headerScopeExpr;
 
     /**
+     * Expression for the "value" tag attribute.
+     */
+    private String valueExpr;
+
+    /**
      * @see org.displaytag.tags.ColumnTag#setAutolink(boolean)
      * @param value EL expression for attribute value
      */
@@ -398,6 +403,15 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
+     * @see org.displaytag.tags.ColumnTag#setValue(java.lang.Object)
+     * @param value EL expression for attribute value
+     */
+    public void setValue(String value)
+    {
+        this.valueExpr = value;
+    }
+
+    /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
     public int doStartTag() throws JspException
@@ -526,6 +540,10 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         {
             super.setHeaderScope(eval.evalString("headerScope", headerScopeExpr)); //$NON-NLS-1$
         }
+        if (valueExpr != null)
+        {
+            super.setValue(eval.eval("value", headerScopeExpr, Object.class)); //$NON-NLS-1$
+        }
     }
 
     /**
@@ -560,6 +578,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         this.headerScopeExpr = null;
         this.formatExpr = null;
         this.escapeXmlExpr = null;
+        this.valueExpr = null;
     }
 
 }
