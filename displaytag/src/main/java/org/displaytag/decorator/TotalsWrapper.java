@@ -31,6 +31,7 @@ import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
 import org.displaytag.util.TagConstants;
 
+
 /**
  * A TableDecorator that, in conjunction with totaled and grouped columns, produces multi level subtotals on arbitrary
  * String groupings.
@@ -41,6 +42,16 @@ public class TotalsWrapper extends TableDecorator
 {
 
     /**
+     * No current reset group.
+     */
+    private static final int NO_RESET_GROUP = 4200;
+
+    /**
+     * Controls when the subgroup is ended
+     */
+    protected int innermostGroup;
+
+    /**
      * Logger.
      */
     private Log logger = LogFactory.getLog(TotalsWrapper.class);
@@ -48,7 +59,7 @@ public class TotalsWrapper extends TableDecorator
     /**
      * CSS class applied to grand totals.
      */
-    public String grandTotalLabel = "grandtotal-sum";
+    private String grandTotalLabel = "grandtotal-sum";
 
     /**
      * CSS class appplied to subtotal headers.
@@ -71,19 +82,9 @@ public class TotalsWrapper extends TableDecorator
     private Map groupNumberToGroupTotal = new HashMap();
 
     /**
-     * No current reset group.
-     */
-    private final static int NO_RESET_GROUP = 4200;
-
-    /**
      * The deepest reset group.
      */
     private int deepestResetGroup = NO_RESET_GROUP;
-
-    /**
-     * Controls when the subgroup is ended
-     */
-    private int innermostGroup;
 
     /**
      * Holds the header rows and their content for a particular group.
@@ -100,7 +101,8 @@ public class TotalsWrapper extends TableDecorator
             HeaderCell headerCell = (HeaderCell) iterator.next();
             if (headerCell.getGroup() > 0)
             {
-                groupNumberToGroupTotal.put(new Integer(headerCell.getGroup()), new GroupTotals(headerCell.getColumnNumber()));
+                groupNumberToGroupTotal.put(new Integer(headerCell.getGroup()), new GroupTotals(headerCell
+                    .getColumnNumber()));
                 if (headerCell.getGroup() > innermostGroup)
                 {
                     innermostGroup = headerCell.getGroup();
@@ -157,7 +159,12 @@ public class TotalsWrapper extends TableDecorator
         {
             tr.append("<td>&nbsp;</td>\n");
         }
-        tr.append("<td colspan=\"100%\" class=\"").append(getSubtotalHeaderClass()).append(" group-").append(group).append("\">");
+        tr
+            .append("<td colspan=\"100%\" class=\"")
+            .append(getSubtotalHeaderClass())
+            .append(" group-")
+            .append(group)
+            .append("\">");
         tr.append(value).append("</td>\n");
         tr.append("</tr>");
         headerRows.add(tr);
@@ -225,7 +232,7 @@ public class TotalsWrapper extends TableDecorator
 
     /**
      * Issue a grand total row at the bottom.
-     * @return               the suitable string
+     * @return the suitable string
      */
     protected String totalAllRows()
     {
@@ -349,10 +356,6 @@ public class TotalsWrapper extends TableDecorator
     class GroupTotals
     {
 
-        private int columnNumber;
-
-        private int firstRowOfCurrentSet;
-
         /**
          * The label class.
          */
@@ -362,6 +365,10 @@ public class TotalsWrapper extends TableDecorator
          * The value class.
          */
         protected String totalValueClass = getSubtotalValueClass();
+
+        private int columnNumber;
+
+        private int firstRowOfCurrentSet;
 
         public GroupTotals(int headerCellColumn)
         {
@@ -417,19 +424,23 @@ public class TotalsWrapper extends TableDecorator
             firstRowOfCurrentSet = i;
         }
 
-        public String getTotalLabelClass() {
+        public String getTotalLabelClass()
+        {
             return totalLabelClass;
         }
 
-        public void setTotalLabelClass(String totalLabelClass) {
+        public void setTotalLabelClass(String totalLabelClass)
+        {
             this.totalLabelClass = totalLabelClass;
         }
 
-        public String getTotalValueClass() {
+        public String getTotalValueClass()
+        {
             return totalValueClass;
         }
 
-        public void setTotalValueClass(String totalValueClass) {
+        public void setTotalValueClass(String totalValueClass)
+        {
             this.totalValueClass = totalValueClass;
         }
     }

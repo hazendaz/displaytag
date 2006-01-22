@@ -44,7 +44,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * Show the footer as a last table row.
      */
-    private boolean showAsLastRow = false;
+    private boolean showAsLastRow;
 
     /**
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()

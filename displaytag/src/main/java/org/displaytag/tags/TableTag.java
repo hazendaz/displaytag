@@ -167,7 +167,7 @@ public class TableTag extends HtmlTableTag
     /**
      * Name of the Integer in some scope containing the size of the data displaytag is paginating
      */
-    private String sizeObjectName = null;
+    private String sizeObjectName;
 
     /**
      * sort the full list?
