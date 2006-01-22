@@ -11,7 +11,7 @@
    request.setAttribute("testparam", "sendamail");
 </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Creating dynamic links</h2>
+  <h2>Creating dynamic links</h2>
 
 
 

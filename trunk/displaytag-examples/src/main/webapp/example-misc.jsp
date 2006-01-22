@@ -12,7 +12,7 @@
    }
 </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Miscellaneous...</h2>
+  <h2>Miscellaneous...</h2>
 
   <p>This page shows how to use various bells and whistles that are features of the display taglib that you might not be
   aware of.</p>

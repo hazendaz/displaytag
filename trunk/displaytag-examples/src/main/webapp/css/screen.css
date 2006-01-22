@@ -4,18 +4,13 @@
 
 @import url("teststyles.css");
 
-body {
-	background-color: #fff;
-	padding: 0 0 0 0;
-	margin: 0 0 0 0;
-}
 
 body,input,select,td,textarea {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 11px;
 }
 
-h1,h2,h3,h4,h5,h6,p,strong,div,form,acronym,label,table,td,th,span,a,hr,code,pre,hr
+h3,h4,h5,h6,p,strong,div,form,acronym,label,table,td,th,span,a,hr,code,pre,hr
 	{
 	margin: 0;
 	padding: 0;
@@ -53,99 +48,12 @@ dt {
 	font-weight: bold;
 }
 
-.clear {
-	clear: both;
-}
-
-h1 {
-	font-size: 2em;
-}
-
-h1 a {
-	color: #000;
-}
-
-div#header {
-	background-color: #fea;
-	border-top: 1px solid #000;
-	border-bottom: 1px solid #000;
-	padding: 20px 10px 30px 15px;
-	margin: 10px 5% 20px 5%;
-}
-
-div#header ul {
-	margin: 10px 0 0 0;
-}
-
-div#header ul li {
-	list-style-type: none;
-	float: left;
-	padding: 0 10px 0 0;
-	font-weight: bold;
-}
-
-div#header ul li a {
-	display: block;
-	color: #f00;
-	border-left: 1px solid red;
-	padding-left: 5px;
-}
-
-div#header ul li a:hover {
-	border-left: 1px solid #000;
-}
-
-h2 {
-	font-size: 1.4em;
-	font-family: Arial, Helvetica !important;
-	font-weight: bold;
-	margin: 10px 0 20px 0;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #ddd;;
-	margin: 10px 0 20px 0;
-}
-
-p {
-	margin: 0 0 10px 0;
-}
 
 acronym {
 	border-bottom: 1px dashed #000;
 	cursor: help;
 }
 
-div#body {
-	margin: 0 5% 20px 5%;
-	padding: 20px 20px 20px 20px;
-	border: 1px dashed #666;
-}
-
-div#validxhtml {
-	float: right;
-	background-color: #eee;
-	border: 1px dotted #999;
-	padding: 2px;
-	margin: 5px;
-	width: 100px;
-	text-align: center;
-}
-
-div#footer {
-	border-top: 1px solid #666;
-	padding: 5px 5px 5px 5px;
-	text-align: right;
-}
-
-div#footer span {
-	float: left;
-}
-
-/*.changed {
-	background-color: #ee0;
-	border: 1px solid #ccc;
-	padding: 10px;
-	margin: 10px;
-}*/
 ul#stylelist {
 	margin: 0 0 30px 0;
 }

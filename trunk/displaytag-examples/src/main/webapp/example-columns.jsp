@@ -7,7 +7,7 @@
 request.setAttribute( "test", new TestList(10, false) );
 </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Columns</h2>
+  <h2>Columns</h2>
 
   <display:table name="test">
     <display:column property="id" title="ID" />

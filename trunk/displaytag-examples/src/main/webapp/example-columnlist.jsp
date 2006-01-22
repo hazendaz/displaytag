@@ -62,7 +62,7 @@
   </jsp:scriptlet>
 
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Using predefined column lists</h2>
+  <h2>Using predefined column lists</h2>
 
   <p>This example shows how a predefined set of columns can be applied to a table.</p>
   <p>All you have to do is feeding the table with a list of beans/Maps which contains the needed column attributes and

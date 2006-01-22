@@ -10,7 +10,7 @@
    }
 </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Two tables working together in the same page with independent
+  <h2>Two tables working together in the same page with independent
   paging-sorting</h2>
 
 

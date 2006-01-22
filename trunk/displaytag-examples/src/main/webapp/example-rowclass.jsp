@@ -5,7 +5,7 @@
 
   <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) ); </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Decorating row class and id attributes</h2>
+  <h2>Decorating row class and id attributes</h2>
 
   <jsp:scriptlet>
         request.setAttribute("dyndecorator", new org.displaytag.decorator.TableDecorator()

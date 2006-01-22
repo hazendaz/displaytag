@@ -6,7 +6,7 @@
   <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) ); </jsp:scriptlet>
 
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Using decorators to transform data</h2>
+  <h2>Using decorators to transform data</h2>
 
   <display:table name="test" decorator="org.displaytag.sample.Wrapper">
     <display:column property="id" title="ID" />

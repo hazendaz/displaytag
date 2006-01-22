@@ -6,7 +6,7 @@
   <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) ); </jsp:scriptlet>
 
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Data exporting</h2>
+  <h2>Data exporting</h2>
 
 
   <display:table name="test" export="true" id="currentRowObject">

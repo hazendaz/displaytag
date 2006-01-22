@@ -9,7 +9,7 @@
    }
 </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Auto-paging of long lists</h2>
+  <h2>Auto-paging of long lists</h2>
 
   <display:table name="sessionScope.test" pagesize="10">
     <display:column property="id" title="ID" />

@@ -8,7 +8,7 @@
 
   <jsp:include page="header.jsp" flush="true" />
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Test Object Details</h2>
+  <h2>Test Object Details</h2>
 
   <p>This shows the details of the object that you just clicked on, you can image that this page could be an edit panel,
   or another report, or perhaps just like what is shown here - additional detailed information about the object that you

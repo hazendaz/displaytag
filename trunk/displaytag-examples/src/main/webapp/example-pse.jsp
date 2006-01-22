@@ -4,7 +4,7 @@
   <jsp:include page="inc/header.jsp" flush="true" />
   <jsp:scriptlet> request.setAttribute( "test", new ReportList() ); </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Paging + sorting + grouping + exporting working together</h2>
+  <h2>Paging + sorting + grouping + exporting working together</h2>
 
 
   <display:table name="test" export="true" sort="list" pagesize="8">
