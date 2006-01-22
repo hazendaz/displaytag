@@ -562,6 +562,17 @@
       <type>java.lang.String</type>
       <description>"scope" html attribute.</description>
     </attribute>
+    <attribute>
+      <name>value</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.Object</type>
+      <description>
+        Static value to be used for the column. It has the same meaning of setting a value in the tag body, but values
+        set using this attribute will not be coerced to Strings. You may need to use the value attribute instead of a
+        scriptlet in the tag body if you need to calculate totals on numeric values.
+      </description>
+    </attribute>
   </tag>
   <tag>
     <name>setProperty</name>

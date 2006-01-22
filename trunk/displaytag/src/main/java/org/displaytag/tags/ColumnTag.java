@@ -108,7 +108,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     private boolean sortable;
 
     /**
-     * Name given to the server when sorting this column
+     * Name given to the server when sorting this column.
      */
     private String sortName;
 
@@ -234,6 +234,11 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     private boolean totaled;
 
     /**
+     * Static value for this cell, equivalent to column body.
+     */
+    private Object value;
+
+    /**
      * Setter for totals.
      * @param totals the value
      */
@@ -249,6 +254,15 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     public void setProperty(String value)
     {
         this.property = value;
+    }
+
+    /**
+     * setter for the "value" tag attribute.
+     * @param value attribute value
+     */
+    public void setValue(Object value)
+    {
+        this.value = value;
     }
 
     /**
@@ -833,6 +847,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         this.defaultorder = null;
         this.escapeXml = false;
         this.format = null;
+        this.value = null;
     }
 
     /**
