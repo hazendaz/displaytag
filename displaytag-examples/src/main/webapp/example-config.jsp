@@ -13,7 +13,7 @@
    }
 </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Config, Overriding defaults</h2>
+  <h2>Config, Overriding defaults behaviors/messages</h2>
 
 
   <p>There are a number of "default" values and strings used by the display tags to show messages, decide which options

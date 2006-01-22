@@ -9,3 +9,4 @@ build.properties
 .wtpmodules
 .deployables
 .settings
+.checkstyle

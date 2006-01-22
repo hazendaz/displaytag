@@ -1,4 +1,4 @@
-<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net/el">
   <jsp:directive.page contentType="text/html; charset=UTF-8" />
   <jsp:directive.page import="org.displaytag.sample.*" />
   <jsp:include page="inc/header.jsp" flush="true" />
@@ -13,10 +13,11 @@
 		lClass="";
 	  }
    }
+   pageContext.setAttribute("tableclass", lClass);
 </jsp:scriptlet>
 
 
-<h2><a href="./index.jsp">Examples</a> &amp;raquo; Styles</h2>
+<h2>Styles</h2>
 
 <ul id="stylelist">
 	<li><a href="example-styles.jsp?class=isis">ISIS</a></li>
@@ -28,7 +29,7 @@
 </ul>
 
 
-<display:table name="test" class="<jsp:scriptlet>=lClass</jsp:scriptlet>">
+<display:table name="test" class="${tableclass}">
   <display:column property="id" title="ID" class="idcol"/>
   <display:column property="name" />
   <display:column property="email" />
@@ -58,14 +59,14 @@
 </p>
 
 <p>
-	Likewise, you can assign to the &lt;display:column&gt; tag any standard html attribute 
+	Likewise, you can assign to the &lt;display:column&gt; tag any standard html attribute
 	and it will be included in any &lt;td&gt; tag of the rendered table.
-	You can also specify a class to be used only for the column header (&lt;th&gt;) adding a 
+	You can also specify a class to be used only for the column header (&lt;th&gt;) adding a
 	<code>headerClass</code> attribute.
-<p>
+</p>
 
 <p>
-	Note: the attribute <code>styleClass</code> used for the &lt;table&gt; and  &lt;column&gt; tag 
+	Note: the attribute <code>styleClass</code> used for the &lt;table&gt; and  &lt;column&gt; tag
 	in previous version of the taglibrary is deprecated in favor of the standard html <code>class</code> attribute.
 </p>
 

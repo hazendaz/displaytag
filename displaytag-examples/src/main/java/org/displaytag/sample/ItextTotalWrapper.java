@@ -20,6 +20,7 @@ import com.lowagie.text.Chunk;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
+import com.lowagie.text.Rectangle;
 import com.lowagie.text.Table;
 
 
@@ -67,7 +68,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate implements Decorates
      */
     public String startRow()
     {
-        this.table.setDefaultCellBorder(Cell.BOTTOM);
+        this.table.setDefaultCellBorder(Rectangle.BOTTOM);
         return null;
     }
 

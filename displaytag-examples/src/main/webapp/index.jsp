@@ -4,7 +4,9 @@
 
   <h2>Examples</h2>
 
-  <p>The following examples show the functionality of the table and column tags. These example pages also allow you to
+  <p>The following examples show the functionality of the table and column tags.</p>
+
+  <p>These example pages also allow you to
   view the JSP source, so you can see how you might interface with the tag in your own application.</p>
 
   <ul>

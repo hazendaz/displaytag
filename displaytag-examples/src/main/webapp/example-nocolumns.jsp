@@ -3,7 +3,7 @@
   <jsp:directive.page import="org.displaytag.sample.*" />
   <jsp:include page="inc/header.jsp" flush="true" />
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Simplest case, no columns</h2>
+  <h2>Simplest case, no columns</h2>
 
   <jsp:scriptlet> request.setAttribute( "test", new ReportList(6) ); </jsp:scriptlet>
   <display:table name="test" />

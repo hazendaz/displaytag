@@ -5,7 +5,7 @@
 
   <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) ); </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Acquiring your List of data</h2>
+  <h2>Acquiring your List of data</h2>
 
 
   <p>Up until this point, we have simply had a List object available to us under the name "list" in the request scope

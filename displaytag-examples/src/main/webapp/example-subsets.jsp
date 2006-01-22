@@ -5,7 +5,7 @@
 
   <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) ); </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Showing subsets of data from the List</h2>
+  <h2>Showing subsets of data from the List</h2>
 
   <h4>Complete List</h4>
 

@@ -5,7 +5,7 @@
 
   <jsp:scriptlet> request.setAttribute( "test", new ReportList(10) ); </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Using callbacks to show totals</h2>
+  <h2>Using callbacks to show totals</h2>
 
 
   <display:table name="test" class="simple nocol" decorator="org.displaytag.sample.TotalWrapper">

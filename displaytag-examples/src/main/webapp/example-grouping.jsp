@@ -5,7 +5,7 @@
 
   <jsp:scriptlet> request.setAttribute( "test", new ReportList() ); </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Column grouping</h2>
+  <h2>Column grouping</h2>
 
   <display:table name="test" class="simple">
     <display:column property="city" title="CITY" group="1" />

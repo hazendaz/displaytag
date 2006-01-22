@@ -11,7 +11,7 @@
 </jsp:scriptlet>
 
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Auto-sorting by columns</h2>
+  <h2>Auto-sorting by columns</h2>
 
   <display:table name="sessionScope.stest" defaultsort="1" defaultorder="descending">
     <display:column property="id" title="ID" sortable="true" headerClass="sortable" />

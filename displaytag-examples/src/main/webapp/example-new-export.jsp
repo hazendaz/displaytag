@@ -5,7 +5,7 @@
 
   <jsp:scriptlet> request.setAttribute( "test", new ReportList(10) ); </jsp:scriptlet>
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; "What You See Is What You Get" Exports</h2>
+  <h2>"What You See Is What You Get" Exports</h2>
 
   <display:table name="test" class="simple nocol" export="true" decorator="org.displaytag.sample.HtmlTotalWrapper">
     <display:setProperty name="export.pdf.decorator" value="org.displaytag.sample.ItextTotalWrapper" />
@@ -32,7 +32,7 @@
     <display:column property="task" title="TASK" />
   </display:table>
 
-  <p>The purpose of this example is two-fold:</strong></p>
+  <p>The purpose of this example is two-fold:</p>
 
   <ol>
     <li>to demonstrate exports that mimic the HTML data presentation. What you see rendered in the Excel, PDF, and RTF

@@ -6,7 +6,7 @@
   <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) ); </jsp:scriptlet>
 
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Caption &amp; footer</h2>
+  <h2>Caption &amp; footer</h2>
 
   <display:table name="test">
     <display:caption>this is a table caption</display:caption>

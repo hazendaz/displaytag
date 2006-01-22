@@ -1,4 +1,5 @@
-<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net"
+ xmlns:c="urn:jsptld:http://java.sun.com/jstl/core">
   <jsp:directive.page contentType="text/html; charset=UTF-8" />
   <jsp:directive.page import="org.displaytag.sample.*" />
   <jsp:include page="inc/header.jsp" flush="true" />
@@ -6,7 +7,7 @@
   <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) ); </jsp:scriptlet>
 
 
-  <h2><a href="./index.jsp">Examples</a> &amp;raquo; Implicit objects created by table</h2>
+  <h2>Implicit objects created by table</h2>
 
 
   <display:table name="test" id="testit">
@@ -14,10 +15,10 @@
     <display:column property="name" />
     <display:column title="static value">static</display:column>
     <display:column title="row number (testit_rowNum)">
-      <jsp:expression>pageContext.getAttribute("testit_rowNum")</jsp:expression>
+      <c:out value="${testit_rowNum}"/>
     </display:column>
     <display:column title="((ListObject)testit).getMoney()">
-      <jsp:scriptlet>=((ListObject)pageContext.getAttribute("testit")).getMoney()</jsp:scriptlet>
+      <c:out value="${testit.money}"/>
     </display:column>
   </display:table>
 

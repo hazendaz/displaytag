@@ -1,12 +1,22 @@
 <jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page">
   <jsp:text>
-    <![CDATA[</div>]]>
+    <![CDATA[</div></div></div>]]>
   </jsp:text>
 
-  <div id="validxhtml"><img src="img/valid-xhtml10.png" alt="Valid XHTML 1.0!" height="31" width="88" /></div>
 
-  <div id="footer"><em>Please send any questions or suggestions to <a
-    href="mailto:displaytag-user@lists.sourceforge.net">displaytag-user@lists.sourceforge.net</a></em></div>
+  <div class="clear">
+  <hr />
+  </div>
+  <div id="footer">
+
+
+  <div class="xright">&#169; 2002-2006 the Displaytag team</div>
+  <div class="clear">
+  <hr />
+  </div>
+  </div>
+
+
 
   <jsp:text>
     <![CDATA[</body></html>]]>

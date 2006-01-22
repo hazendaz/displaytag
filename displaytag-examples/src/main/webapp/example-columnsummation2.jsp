@@ -17,7 +17,7 @@
   <hr />
 
   <p>The table above shows a simple report, grouped by the "city" value, and with some amount.</p>
-  <p>The following tables are based on the same code, with the only addition of a table decorator <code>org.displaytag.decorator.TotalTableDecorator</code>.
+  <p>The following tables are based on the same code, with the only addition of a table decorator <code>org.displaytag.sample.TotalTableDecorator</code>.
   </p>
   <p>The decorator will generate totals for any column with the <code>total</code> attribute set, and subtotal rows by
   grouping using the column with a <code>group</code> attribute set to 1.</p>
@@ -26,7 +26,7 @@
 
   <p>Group by city, total for amount and count</p>
 
-  <display:table name="test" class="simple nocol" defaultsort="1" decorator="org.displaytag.decorator.TotalTableDecorator">
+  <display:table name="test" class="simple nocol" defaultsort="1" decorator="org.displaytag.decorator.TotalsWrapper">
     <display:column property="city" group="1" />
     <display:column property="project" />
     <display:column property="amount" format="{0,number,0.00} $" headerClass="r" class="r" total="true" />
@@ -38,9 +38,9 @@
   <p>Group by project and city, totals for amount only, customize labels.</p>
 
   <jsp:scriptlet>
-     org.displaytag.decorator.TotalTableDecorator totals = new org.displaytag.decorator.TotalTableDecorator();
-     totals.setTotalLabel("full total");
-     totals.setSubtotalLabel("partial amount");
+     org.displaytag.decorator.TotalsWrapper totals = new org.displaytag.decorator.TotalsWrapper();
+     //totals.setTotalLabel("full total");
+     //totals.setSubtotalLabel("partial amount");
      pageContext.setAttribute("totals", totals);
   </jsp:scriptlet>
 
