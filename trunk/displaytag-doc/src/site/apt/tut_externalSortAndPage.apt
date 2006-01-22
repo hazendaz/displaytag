@@ -51,13 +51,13 @@ External Sorting
    do:
 
 +-------------------------------------------------------------------+
-   new ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_SORT))
+   new ParamEncoder(tableId).encode(TableTagParameters.PARAMETER_SORT))
 +-------------------------------------------------------------------+
 
    To get the order (ASC/DESC):
 
 +-------------------------------------------------------------------+
-   new ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER))
+   new ParamEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER))
 +-------------------------------------------------------------------+
 
    Descending is 2, Ascending is 1.
@@ -91,7 +91,9 @@ External Sorting
 
    To determine the starting record you need to return based on the
    request parameters provided via Display Tag you can do:
-   (Integer.parseInt(request.getParameter((new
-   ParameterEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER)
-   ))) - 1) * pageSize. To get the ending record just add pageSize to
-   the above value.
+
++-------------------------------------------------------------------+
+   (Integer.parseInt(request.getParameter((new ParamEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER)))) - 1) * pageSize.
++-------------------------------------------------------------------+
+
+   To get the ending record just add pageSize to the above value.

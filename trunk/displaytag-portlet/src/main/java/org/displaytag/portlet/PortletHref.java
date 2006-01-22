@@ -73,21 +73,6 @@ import org.displaytag.util.Href;
 public class PortletHref implements Href
 {
 
-    /**
-     * D1597A17A6.
-     */
-    private static final long serialVersionUID = 899149338534L;
-
-    // Predicated for type checking the parameter map
-    private static final Predicate PRED_TYPE_OF_STRING = new InstanceofPredicate(String.class);
-
-    private static final Predicate PRED_TYPE_OF_STRING_ARRY = new InstanceofPredicate(String[].class);
-
-    private static final Predicate PRED_OR_STR_STRARR = new AnyPredicate(new Predicate[]{
-        PRED_TYPE_OF_STRING,
-        PRED_TYPE_OF_STRING_ARRY,
-        NullPredicate.INSTANCE});
-
     // Constants for working with the special parameters
     private static final String PARAM_PREFIX = "portlet:";
 
@@ -103,6 +88,21 @@ public class PortletHref implements Href
 
     public static final String TYPE_ACTION = "action";
 
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    // Predicated for type checking the parameter map
+    private static final Predicate PRED_TYPE_OF_STRING = new InstanceofPredicate(String.class);
+
+    private static final Predicate PRED_TYPE_OF_STRING_ARRY = new InstanceofPredicate(String[].class);
+
+    private static final Predicate PRED_OR_STR_STRARR = new AnyPredicate(new Predicate[]{
+        PRED_TYPE_OF_STRING,
+        PRED_TYPE_OF_STRING_ARRY,
+        NullPredicate.INSTANCE});
+
     // Portlet request and response are needed for feature checking and generating the URLs
     private final PortletRequest portletRequest;
 
@@ -110,15 +110,15 @@ public class PortletHref implements Href
 
     private Map parameters = this.createParameterMap();
 
-    private boolean isAction = false;
+    private boolean isAction;
 
-    private PortletMode requestedMode = null;
+    private PortletMode requestedMode;
 
-    private WindowState requestedState = null;
+    private WindowState requestedState;
 
-    private boolean requestedSecure = false;
+    private boolean requestedSecure;
 
-    private String anchor = null;
+    private String anchor;
 
     /**
      * Creates a new PortletHref. The actual PortletURL object is not generated until the toString method is called.
@@ -341,7 +341,7 @@ public class PortletHref implements Href
             }
             else if (value == null || value instanceof String)
             {
-                this.addParameter(name, (String) value);
+                this.addParameter(name, value);
             }
             else
             {

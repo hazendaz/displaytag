@@ -1,10 +1,8 @@
-<project xmlns="http://maven.apache.org/site/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/site/4.0.0 D:/apps/maven/doxia/doxia-decoration-model/target/generated-site/xsd/decoration-1.0.0.xsd"
-  name="Display tag library">
+<project name="Display tag library">
   <publishDate position="left" format="MM-dd-yyyy hh:mm" />
   <bannerLeft>
     <name>Sourceforge</name>
-    <src>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=2</src>
+    <src>http://sourceforge.net/sflogo.php?group_id=73068&amp;amp;type=2</src>
     <href>http://sourceforge.net/projects/displaytag</href>
   </bannerLeft>
   <bannerRight>
@@ -93,22 +91,25 @@
         <item name="Source Xref" href="/displaytag-examples/jxr.html" />
       </item>
     </menu>
-    <poweredBy>
-      <poweredBy>
-        <name>Sourceforge</name>
-        <src>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</src>
-        <href>http://sourceforge.net/projects/displaytag</href>
-      </poweredBy>
-      <poweredBy>
-        <name>Code Coverage by Clover</name>
-        <src>http://www.cenqua.com/clover/images/clovered1.gif</src>
-        <href>http://www.cenqua.com/clover</href>
-      </poweredBy>
-      <poweredBy>
-        <name>Support this project!</name>
-        <src>images/project-support.png</src>
-        <href>http://sourceforge.net/donate/index.php?group_id=73068</href>
-      </poweredBy>
-    </poweredBy>
   </body>
+   <!--
+    <poweredBy>
+    <logo>
+      <img>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</img>
+        <name>Sourceforge</name>
+        <href>http://sourceforge.net/projects/displaytag</href>
+    </logo>
+      <logo>
+        <img>http://www.cenqua.com/clover/images/clovered1.gif</img>
+        <name>Code Coverage by Clover</name>
+        <href>http://www.cenqua.com/clover</href>
+      </logo>
+      <logo>
+        <img>images/project-support.png</img>
+        <name>Support this project!</name>
+        <href>http://sourceforge.net/donate/index.php?group_id=73068</href>
+      </logo>
+
+      </poweredBy>-->
+
 </project>

@@ -106,8 +106,4 @@ public interface Href extends Cloneable, Serializable
      */
     boolean equals(Object object);
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
-    int hashCode();
 }

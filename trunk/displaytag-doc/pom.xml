@@ -188,6 +188,13 @@
           <licenseFile>clover.license</licenseFile>
         </configuration>
       </plugin>
+      <plugin>
+         <artifactId>maven-assembly-plugin</artifactId>
+         <configuration>
+           <descriptor>src/main/assembly/bin.xml</descriptor>
+           <finalName>displaytag-${pom.version}</finalName>
+         </configuration>
+      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -248,6 +255,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>changes-maven-plugin</artifactId>
         <configuration>
+          <inherited>false</inherited>
           <link_template>%URL%/%ISSUE%</link_template>
         </configuration>
       </plugin>

@@ -130,7 +130,7 @@ public class DefaultHrefTest extends TestCase
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
         Href href = new DefaultHref(url);
-        Href copy = (Href)href.clone();
+        Href copy = (Href) href.clone();
         URLAssert.assertEquals(copy.toString(), href.toString());
     }
 
@@ -224,7 +224,7 @@ public class DefaultHrefTest extends TestCase
         Href href = new DefaultHref(url);
 
         Map parameterMap = new HashMap();
-        parameterMap.put("param1", new String[]{"à", "<"});
+        parameterMap.put("param1", new String[]{"ï¿½", "<"});
         href.addParameterMap(parameterMap);
 
         String newUrl = href.toString();
