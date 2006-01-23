@@ -849,6 +849,7 @@ public class PageContextImpl extends PageContext implements VariableResolver {
                 {
                     throw (RuntimeException) rootCause;
                 }
+                rootCause.printStackTrace();
                 // FG end patch
                 throw new ServletException(t.getClass().getName() + ": " +
                                            t.getMessage(), rootCause);
