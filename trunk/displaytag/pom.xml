@@ -62,7 +62,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.meterware.httpunit</groupId>
+      <groupId>httpunit</groupId>
       <artifactId>httpunit</artifactId>
       <scope>test</scope>
     </dependency>
