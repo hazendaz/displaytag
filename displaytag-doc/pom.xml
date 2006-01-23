@@ -206,7 +206,7 @@
     <site>
       <id>displaytag</id>
       <name>displaytag</name>
-      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>
+      <url>scpexe://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>
     </site>
   </distributionManagement>
   <ciManagement>
