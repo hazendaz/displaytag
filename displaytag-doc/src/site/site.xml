@@ -35,7 +35,7 @@
       <item name="Style" href="/tut_style.html" />
       <item name="Export" href="/export.html" />
       <item name="I18n" href="/i18n.html" />
-      <item name="External sorting" href="/tut_externalSortAndPage.html" />
+      <item name="External paging/sorting" href="/tut_externalSortAndPage.html" />
     </menu>
     <menu name="Displaytag Extensions">
       <item name="Jsr-168 Portlet support" href="/portlet.html" />

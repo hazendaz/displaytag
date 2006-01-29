@@ -1,12 +1,66 @@
                                     ------------------------------
-                                          External Sorting
+                                      External Paging and Sorting
                                     ------------------------------
                                           Fabrizio Giustina
                                     ------------------------------
                                               11-11-2005
                                     ------------------------------
 
-External Sorting
+
+External Paging and Sorting
+
+ The default behavior of displaytag is working with a full list, handling sorting and paging trasparently. Sometimes,
+ however, you could need to give displaytag only the records displayed, handling sorting and paging by yourself (this is
+ what we call "partial list support").
+
+ Displaytag 1.1 offers two alternative ways for working with partial lists:
+
+ * the first one uses the valuelist pattern, and requires that the object that you give to displaytag implements the
+ <<<org.displaytag.pagination.PaginatedList>>> interface. You can pass this object to displaytag as an usual list, and
+ it will extract paging and sorting information from it. This way is more recommended if you have to build your backend
+ layer and you can easily follow this pattern.
+
+ * a second way, recommended if you only have to use partial list for few tables that show a performance problem using
+ full lists, is passing all the needed parameters as separate tag attributes (recors to be shown, page number, total
+ number of records...)
+
+ []
+
+
+* Using the Valuelist pattern
+
+	If the object passed to the displaytag as a list is in fact an instance of <<<org.displaytag.pagination.PaginatedList>>>
+	(and not a collection), displaytag will assume that the list is externally sorted and paginated.
+	Implementing this interface is trivial, and an adapter over existing classes can easily be written.
+	See the <<<org.displaytag.pagination.PaginatedList>>> javadocs for more details.
+
+
+	In order for the generated pagination and sort links to be "understandable" by the application, they are not generated
+	the same way as for a traditional DisplayTag table. Indeed, since the table is externally sorted and paginated, the
+	application must be able to easily get the sort and pagination parameters, without having to decode the DisplayTag
+	encoded parameters.
+
+	These sort and pagination links are generated based on additional properties. These properties can be overridden
+	using \<display:setProperty/\>, in order to be able to have different sort of page parameters in the application,
+	or to have multiple tables in a single HTML page.
+
+	If the default values of these properties are used, the href of the sort links will look like this:
+
+---------------------------------
+	http://foo.bar.com/context/requestUri?sort=name&dir=asc&originalParameters=originalValues.
+---------------------------------
+
+	The href of the pagination links will look like this:
+
+---------------------------------
+	http://foo.bar.com/context/requestUri?sort=name&dir=asc&page=5&originalParameters=originalValues
+---------------------------------
+
+
+
+* Without implementing the PaginatedList interface
+
+** External sort
 
 +-------------------------------------------------------------------+
 <display:table name="testList" sort="external" defaultsort="1" id="element">
@@ -64,7 +118,7 @@ External Sorting
 
 
 
-* External Sorting And Paging (Partial Lists)
+** External Sorting And Paging (Partial Lists)
 
 +-------------------------------------------------------------------+
 <display:table name="testList" sort="external" defaultsort="1" pagesize="20" id="element" partialList="true" size="resultSize">
