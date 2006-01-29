@@ -271,6 +271,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      */
     public void setComparator(Object comparatorObj)
     {
+        // @todo don't do this! Setters should remains simple setters and any evaluation should be done in doEndTag()!
         if (comparatorObj instanceof Comparator)
         {
             this.comparator = (Comparator) comparatorObj;
