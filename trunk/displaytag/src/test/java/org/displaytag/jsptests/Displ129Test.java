@@ -6,6 +6,7 @@ import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HTMLElement;
 import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
@@ -71,6 +72,11 @@ public class Displ129Test extends DisplaytagCase
         WebLink sortingLink = headerLinks[0];
         assertEqualsIgnoreOrder("Wrong parameters.", new String[]{"sort", "searchid", "dir"}, sortingLink
             .getParameterNames());
+
+        HTMLElement pagebanner = response.getElementWithID("pagebanner");
+        assertEquals("Wrong page banner", "10|3|4", pagebanner.getText());
+        HTMLElement pagelinks = response.getElementWithID("pagelinks");
+        assertEquals("Wrong page links", "1|[2]|3|4|5", pagelinks.getText());
 
     }
 

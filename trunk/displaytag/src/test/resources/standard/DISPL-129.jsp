@@ -15,6 +15,15 @@
       ]]> </jsp:scriptlet>
       <display:table name="test" uid="table" sort="list">
         <display:column property="number" sortable="true"/>
+        <display:setProperty name="paging.banner.some_items_found">
+           <div id="pagebanner">{0}|{2}|{3}</div>
+        </display:setProperty>
+        <display:setProperty name="paging.banner.full">
+           <div id="pagelinks">{0}</div>
+        </display:setProperty>
+        <display:setProperty name="paging.banner.page.selected" value="[{0}]"/>
+        <display:setProperty name="paging.banner.page.link" value="{0}"/>
+        <display:setProperty name="paging.banner.page.separator" value="|"/>
       </display:table>
     </body>
   </html>
