@@ -55,8 +55,8 @@ public class Displ220Test extends DisplaytagCase
 
         assertEquals("Wrong column content.", "aaa", tables[0].getCellAsText(1, 0));
         assertEquals("Wrong column content.", "AAb", tables[0].getCellAsText(2, 0));
-        assertEquals("Wrong column content.", "‡Ac", tables[0].getCellAsText(3, 0));
-        assertEquals("Wrong column content.", "A‡d", tables[0].getCellAsText(4, 0));
+        assertEquals("Wrong column content.", "√†Ac", tables[0].getCellAsText(3, 0));
+        assertEquals("Wrong column content.", "A√†d", tables[0].getCellAsText(4, 0));
         assertEquals("Wrong column content.", "bbb", tables[0].getCellAsText(5, 0));
     }
 

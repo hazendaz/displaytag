@@ -224,7 +224,7 @@ public class DefaultHrefTest extends TestCase
         Href href = new DefaultHref(url);
 
         Map parameterMap = new HashMap();
-        parameterMap.put("param1", new String[]{"�", "<"});
+        parameterMap.put("param1", new String[]{"à", "<"});
         href.addParameterMap(parameterMap);
 
         String newUrl = href.toString();

@@ -36,7 +36,7 @@ public class Displ249Test extends DisplaytagCase
     public void doTest(String jspName) throws Exception
     {
         WebRequest request = new PostMethodWebRequest(jspName); // use post
-        String paramValue = "aàeèiìoòuù";
+        String paramValue = "aÃ eÃ¨iÃ¬oÃ²uÃ¹";
         request.setParameter("testparam", paramValue);
 
         WebResponse response = runner.getResponse(request);
