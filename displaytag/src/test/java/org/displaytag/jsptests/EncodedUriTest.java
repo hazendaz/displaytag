@@ -35,7 +35,7 @@ public class EncodedUriTest extends DisplaytagCase
     public void doTest(String jspName) throws Exception
     {
         WebRequest request = new GetMethodWebRequest(jspName);
-        request.setParameter("city", "München");
+        request.setParameter("city", "MÃ¼nchen");
 
         WebResponse response = runner.getResponse(request);
 
