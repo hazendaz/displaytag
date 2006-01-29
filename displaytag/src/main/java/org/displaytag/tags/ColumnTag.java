@@ -120,7 +120,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * The comparator to use when sorting this column.
      */
-    private Comparator comparator = new DefaultComparator();
+    private Comparator comparator;
 
     /**
      * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
@@ -627,14 +627,13 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         }
 
         Cell cell = null;
-        if (this.property == null && this.bodyContent != null)
+        if (this.property == null && this.value != null)
         {
-            String value = this.bodyContent.getString();
-            if (value == null && this.nulls)
-            {
-                value = TagConstants.EMPTY_STRING;
-            }
             cell = new Cell(value);
+        }
+        else if (this.property == null && this.bodyContent != null)
+        {
+            cell = new Cell(this.bodyContent.getString());
         }
 
         Object rowStyle = this.attributeMap.get(TagConstants.ATTRIBUTE_STYLE);

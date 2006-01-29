@@ -169,6 +169,20 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String valueExpr;
 
     /**
+     * Expression for the "comparator" tag attribute.
+     */
+    private String comparatorExpr;
+
+    /**
+     * @see org.displaytag.tags.ColumnTag#setComparator(Object)
+     * @param value EL expression for attribute value
+     */
+    public void setComparator(String value)
+    {
+        comparatorExpr = value;
+    }
+
+    /**
      * @see org.displaytag.tags.ColumnTag#setAutolink(boolean)
      * @param value EL expression for attribute value
      */
@@ -542,8 +556,13 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         }
         if (valueExpr != null)
         {
-            super.setValue(eval.eval("value", headerScopeExpr, Object.class)); //$NON-NLS-1$
+            super.setValue(eval.eval("value", valueExpr, Object.class)); //$NON-NLS-1$
         }
+        if (comparatorExpr != null)
+        {
+            super.setValue(eval.eval("comparator", comparatorExpr, Object.class)); //$NON-NLS-1$
+        }
+
     }
 
     /**

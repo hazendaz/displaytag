@@ -145,7 +145,7 @@ public class TableTag extends HtmlTableTag
     private int pagesize;
 
     /**
-     * list contains only viewable data
+     * list contains only viewable data.
      */
     private boolean partialList;
 
