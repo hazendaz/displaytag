@@ -294,9 +294,7 @@
       <type>boolean</type>
       <description>
         If true, will total the contents of this column. This value is available via the Map named in varTotals for the
-        table. Column values are converted into Number's via the factory class designated in the property
-        "property_convertor_classname". (Default converter is org.displaytag.conversion.DefaultPropertyConvertor, but
-        you should expect to override this value locally.)
+        table. Column values need to Numbers.
       </description>
     </attribute>
     <attribute>
