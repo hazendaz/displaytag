@@ -11,16 +11,15 @@
     <body>
       <jsp:scriptlet> <![CDATA[
           java.util.List testData = new java.util.ArrayList();
-          testData.add(new org.displaytag.test.KnownValue());
-          testData.add(new org.displaytag.test.KnownValue());
-          testData.add(new org.displaytag.test.KnownValue());
+          testData.add(new org.displaytag.test.NumberedItem(1));
+          testData.add(new org.displaytag.test.NumberedItem(2));
+          testData.add(new org.displaytag.test.NumberedItem(4));
           request.setAttribute( "test", testData);
       ]]> </jsp:scriptlet>
-      <!--
-      <display:table name="requestScope.test" decorator="org.displaytag.decorator.TableDecoratorCssRow">
-        <display:column property="ant"/>
+      <display:table name="requestScope.test" varTotals="totals">
+        <display:column property="number" total="true"/>
       </display:table>
-      -->
+      <div id="divtotal"><jsp:expression>((java.util.Map)pageContext.getAttribute("totals")).get("column1")</jsp:expression></div>
     </body>
   </html>
 </jsp:root>
