@@ -29,7 +29,7 @@
   </jsp:text>
 
   <div id="banner"><a href="index.jsp" id="bannerRight"> <img
-    src="http://displaytag.sourceforge.net/11/images/displaytag.png" alt="" /> </a>
+    src="img/displaytag.png" alt="" /> </a>
 
   <div class="clear">
   <hr />
@@ -94,7 +94,7 @@
 
   <jsp:scriptlet>if (request.getRequestURI().indexOf("example-") != -1) {</jsp:scriptlet>
   <ul id="showsource">
-    <li><![CDATA[<a href="]]><c:out value="${pageContext.request.requestURI}" /><![CDATA[.source">View JSP Source</a>]]></li>
+    <li><![CDATA[<a href="]]><c:out value="${pageContext.request.requestURI}" /><![CDATA[.source">View source</a>]]></li>
   </ul>
   <jsp:scriptlet>}</jsp:scriptlet>
   <jsp:text>

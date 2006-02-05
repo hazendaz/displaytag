@@ -7,7 +7,7 @@
 
   <h2>Showing subsets of data from the List</h2>
 
-  <h4>Complete List</h4>
+  <h3>Complete List</h3>
 
   <display:table name="test">
     <display:column property="id" title="ID" />
@@ -16,7 +16,7 @@
   </display:table>
 
 
-  <h4>First 5 Items</h4>
+  <h3>First 5 Items</h3>
 
   <display:table name="test" length="5">
     <display:column property="id" title="ID" />
@@ -25,7 +25,7 @@
   </display:table>
 
 
-  <h4>Items 3-8</h4>
+  <h3>Items 3-8</h3>
 
   <display:table name="test" offset="3" length="5">
     <display:column property="id" title="ID" />

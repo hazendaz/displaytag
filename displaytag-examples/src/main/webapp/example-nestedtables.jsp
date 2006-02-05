@@ -10,19 +10,19 @@
 
 
 <display:table name="test" id="parent">
-
   <display:column property="id" />
   <display:column property="status" />
   <display:column property="description" title="Comments" />
 
+  <c:set var="nestedName" value="test.item[${parent_rowNum -1}].subList" />
+
   <display:column title="Related address">
-    <c:set var="nestedName" value="test.item[${parent_rowNum -1}.subList" />
+
   	<display:table name="${nestedName}" id="child" class="simple sublist">
 		<display:column property="name" class="textRed" />
 		<display:column property="email" />
 	</display:table>
   </display:column>
-
 </display:table>
 
 

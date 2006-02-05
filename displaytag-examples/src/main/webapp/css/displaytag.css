@@ -1,11 +1,11 @@
 table {
 	border: 1px solid #666;
 	width: 80%;
-	margin: 20px 0 20px 0;
+	margin: 20px 0 20px 0 !important;
 }
 
 th,td {
-	padding: 2px 4px 2px 4px;
+	padding: 2px 4px 2px 4px !important;
 	text-align: left;
 	vertical-align: top;
 }

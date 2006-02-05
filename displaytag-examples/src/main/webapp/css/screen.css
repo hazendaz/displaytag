@@ -4,13 +4,12 @@
 
 @import url("teststyles.css");
 
-
 body,input,select,td,textarea {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 11px;
 }
 
-h3,h4,h5,h6,p,strong,div,form,acronym,label,table,td,th,span,a,hr,code,pre,hr
+h4,h5,h6,p,strong,div,form,acronym,label,table,td,th,span,a,hr,code,pre,hr
 	{
 	margin: 0;
 	padding: 0;
@@ -48,14 +47,15 @@ dt {
 	font-weight: bold;
 }
 
-
 acronym {
 	border-bottom: 1px dashed #000;
 	cursor: help;
 }
 
 ul#stylelist {
-	margin: 0 0 30px 0;
+	margin: 0 0 20px 0;
+	height: 20px;
+	padding: 0;
 }
 
 ul#stylelist li {
@@ -64,18 +64,34 @@ ul#stylelist li {
 	width: 100px;
 	border: 1px solid #ccc;
 	background-color: #eee;
+	padding: 2px;;
+	float: left;
+	width: 100px;
+	border: 1px solid #ccc;
+	background-color: #eee;
 	padding: 2px;
-	margin-right: 2px;
+	margin: 0 2px 0 0;
 }
 
 ul#showsource {
 	float: right;
-	background-color: #eee;
-	border: 1px dotted #999;
-	padding: 2px 4px 2px 4px;
-	margin: 5px;
+	padding: 0;
+	margin: 15px 20px 0 0;
 	width: 100px;
+	height: 33px;
 	list-style-type: none;
+	background-image: url("../img/viewsource.png");
+	background-repeat: no-repeat;
+	margin-bottom: -30px;
+	text-align: center;
+	line-height: 30px;
+	font-weight: bold;
+}
+
+ul#showsource a,ul#showsource a:visited {
+	font-size: 11px;
+	font-family: verdana;
+	color: #fff;
 }
 
 table.sublist {

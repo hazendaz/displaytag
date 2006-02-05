@@ -20,6 +20,7 @@
   to display, etc... This is useful if you want to change the behavior of the tag a little (for example, don't show the
   header, or only show 1 export option), or if you need to localize some of the default messages and banners.</p>
 
+  <hr/>
 
   <display:table name="sessionScope.test3" export="true" pagesize="10" decorator="org.displaytag.sample.Wrapper">
     <display:column property="id" title="ID" />
@@ -34,7 +35,11 @@
     <display:setProperty name="paging.banner.group_size" value="6" />
     <display:setProperty name="paging.banner.item_name" value="Cat" />
     <display:setProperty name="paging.banner.items_name" value="Cats" />
-    <display:setProperty name="paging.banner.some_items_found" value="{0} {1} sleeping, waking {2} to {3}" />
+    <display:setProperty name="paging.banner.some_items_found">
+      <![CDATA[
+        <span class="pagebanner">{0} {1} sleeping, waking {2} to {3}</span>
+      ]]>
+    </display:setProperty>
     <display:setProperty name="paging.banner.full">
       <![CDATA[
 		<span class="pagelinks">
@@ -47,15 +52,17 @@
   </display:table>
 
 
-  <p>The defaults can be overriden for just this table via the &lt;display:setProperty name=... value=...&gt; tag, or
+  <p>The defaults can be overriden for just this table via the <code>&amp;lt;display:setProperty name="..." value="..."&gt;</code> tag, or
   you can override for the entire site via a displaytag.properties file or by directly setting properties at runtime.
-  See the <a href="http://displaytag.sourceforge.net/configuration.html">configuration documentation</a> for the full
+  See the <a href="http://displaytag.sourceforge.net/11/configuration.html">configuration documentation</a> for the full
   list of properties, their default values, and details on how to configure them in your system.</p>
+
+  <hr/>
 
   <p>The following sample shows how you can change the behaviour for empty tables (showing the table or a simple
   message) using the "basic.empty.showtable" property.</p>
 
-  <p>Using <code>basic.empty.showtable=false</code></p>
+  <h3>Using <code>basic.empty.showtable=false</code></h3>
 
   <display:table name="requestScope.empty">
     <display:column property="column" title="column1" />
@@ -63,7 +70,7 @@
     <display:column property="column" title="column3" />
   </display:table>
 
-  <p>Using <code>basic.empty.showtable=true</code></p>
+  <h3>Using <code>basic.empty.showtable=true</code></h3>
 
 
   <display:table name="requestScope.empty">
