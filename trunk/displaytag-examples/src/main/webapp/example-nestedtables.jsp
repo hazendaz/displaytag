@@ -18,7 +18,7 @@
 
   <display:column title="Related address">
 
-  	<display:table name="${nestedName}" id="child" class="simple sublist">
+  	<display:table name="${nestedName}" id="child${parent_rowNum}" class="simple sublist">
 		<display:column property="name" class="textRed" />
 		<display:column property="email" />
 	</display:table>
@@ -28,7 +28,7 @@
 
 
 <p>
-	In this sample you can see two nested &lt;display:table&gt;. Table tags can be nested to create sublist,
+	In this sample you can see two nested &amp;lt;display:table&gt;. Table tags can be nested to create sublist,
 	but you need to consider some limitations:
 </p>
 
