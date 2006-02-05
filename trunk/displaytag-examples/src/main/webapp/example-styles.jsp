@@ -97,23 +97,23 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
+		<tr class="odd">
 			<td>odd</td>
 			<td>assigned to the tr tag of all odd numbered data rows</td>
 		</tr>
-		<tr>
+		<tr class="even">
 			<td>even</td>
 			<td>assigned to the tr tag of all even numbered data rows</td>
 		</tr>
-		<tr>
+		<tr class="odd">
 			<td>sorted</td>
 			<td>assigned to the th tag of the sorted column</td>
 		</tr>
-		<tr>
+		<tr class="even">
 			<td>order1</td>
 			<td>assigned to the th tag of the sorted column if sort order is ascending</td>
 		</tr>
-		<tr>
+		<tr class="odd">
 			<td>order2</td>
 			<td>assigned to the th tag of the sorted column if sort order is descending</td>
 		</tr>
