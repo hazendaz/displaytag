@@ -87,8 +87,10 @@ public class Wrapper extends TableDecorator
         int index = getListIndex();
 
         return "<a href=\"details.jsp?index=" //$NON-NLS-1$
-            + index + "\">" //$NON-NLS-1$
-            + object.getId() + "</a>"; //$NON-NLS-1$
+            + index
+            + "\">" //$NON-NLS-1$
+            + object.getId()
+            + "</a>"; //$NON-NLS-1$
     }
 
     /**
@@ -102,10 +104,13 @@ public class Wrapper extends TableDecorator
         int id = object.getId();
 
         return "<a href=\"details.jsp?id=" //$NON-NLS-1$
-            + id + "&action=view\">View</a> | " //$NON-NLS-1$
+            + id
+            + "&amp;action=view\">View</a> | " //$NON-NLS-1$
             + "<a href=\"details.jsp?id=" //$NON-NLS-1$
-            + id + "&action=edit\">Edit</a> | " //$NON-NLS-1$
+            + id
+            + "&amp;action=edit\">Edit</a> | " //$NON-NLS-1$
             + "<a href=\"details.jsp?id=" //$NON-NLS-1$
-            + id + "&action=delete\">Delete</a>"; //$NON-NLS-1$
+            + id
+            + "&amp;action=delete\">Delete</a>"; //$NON-NLS-1$
     }
 }

@@ -26,7 +26,7 @@
   the page context so you could use it inside scriptlet code or some other tag. Another implicit object exposed by the
   table tag is the row number, named <code><em>id</em>_rowNum</code>.</p>
   <p>These objects are saved as attributes in the page scope (you can access it using <code>pageContext.getAttribute("id")</code>).
-  They are also defined as nested variables (accessible using <code>&lt;%=id%&gt;</code>), but only if the value of the
+  They are also defined as nested variables (accessible using <code>&amp;lt;%=id%&gt;</code>), but only if the value of the
   id atribute is not a runtime expression. The preferred way for fetching the value is to always use
   pageContext.getAttribute().</p>
   <p>If you do not specify the <code>id</code> attribute no object is added to the pagecontext by the table tag</p>
@@ -34,6 +34,8 @@
     title="Jsp Standard Tag Library">JSTL.</acronym></p>
 
   <pre>
+  <![CDATA[
+
   &lt;display:table id="row" name="mylist">
     &lt;display:column title="row number" >
       &lt;c:out value="${row_rowNum}"/>
@@ -43,6 +45,7 @@
       &lt;c:out value="${row.last_name}"/>
     &lt;/display:column>
   &lt;/display:table>
+  ]]>
 </pre>
 
 

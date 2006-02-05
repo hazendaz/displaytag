@@ -54,19 +54,19 @@
 <h3>Html attributes</h3>
 
 <p>
-	You can assign to the &lt;display:table&gt; tag any standard html attribute (es. cellspacing,
+	You can assign to the &amp;lt;display:table&gt; tag any standard html attribute (es. cellspacing,
 	cellpadding), and it will be included in the rendered table.
 </p>
 
 <p>
-	Likewise, you can assign to the &lt;display:column&gt; tag any standard html attribute
-	and it will be included in any &lt;td&gt; tag of the rendered table.
-	You can also specify a class to be used only for the column header (&lt;th&gt;) adding a
+	Likewise, you can assign to the &amp;lt;display:column&gt; tag any standard html attribute
+	and it will be included in any &amp;lt;td&gt; tag of the rendered table.
+	You can also specify a class to be used only for the column header (&amp;lt;th&gt;) adding a
 	<code>headerClass</code> attribute.
 </p>
 
 <p>
-	Note: the attribute <code>styleClass</code> used for the &lt;table&gt; and  &lt;column&gt; tag
+	Note: the attribute <code>styleClass</code> used for the &amp;lt;table&gt; and  &amp;lt;column&gt; tag
 	in previous version of the taglibrary is deprecated in favor of the standard html <code>class</code> attribute.
 </p>
 
@@ -79,7 +79,7 @@
 	While attributes might be the most comfortable way to change the appearance
 	of your table, using style sheets is more powerful.  We use style sheets to
 	make the header a dark color, make rows an alternate color, and set the fonts
-	within the cells to a smaller version of verdana.  As the &lt;display:table&gt;
+	within the cells to a smaller version of verdana.  As the &amp;lt;display:table&gt;
 	tag is drawing, it assigns the following class names to elements.
 </p>
 

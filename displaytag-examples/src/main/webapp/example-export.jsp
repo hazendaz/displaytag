@@ -1,4 +1,5 @@
-<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net/el"
+ xmlns:c="urn:jsptld:http://java.sun.com/jstl/core">
   <jsp:directive.page contentType="text/html; charset=UTF-8" />
   <jsp:directive.page import="org.displaytag.sample.*" />
   <jsp:include page="inc/header.jsp" flush="true" />
@@ -8,7 +9,6 @@
 
   <h2>Data exporting</h2>
 
-
   <display:table name="test" export="true" id="currentRowObject">
     <display:setProperty name="export.rtf.filename" value="example.rtf"/>
     <display:column property="id" title="ID" />
@@ -17,9 +17,7 @@
     <display:column property="longDescription" media="csv excel xml pdf" title="Not On HTML" />
     <display:column property="date" />
     <display:column media="html" title="URL">
-      <!-- n.b. that this could be done via the autolink attribute, but that rather defeats the purpose  :) -->
-      <jsp:scriptlet> String url = ((ListObject)pageContext.findAttribute("currentRowObject")).getUrl();</jsp:scriptlet>
-      <a href="${url}"><c:out value="${url}" /></a>
+      <![CDATA[<a href="]]><c:out value="${currentRowObject.url}" /><![CDATA[">]]><c:out value="${currentRowObject.url}" /><![CDATA[</a>]]>
     </display:column>
     <display:column media="csv excel" title="URL" property="url" />
     <display:setProperty name="export.pdf" value="true" />
