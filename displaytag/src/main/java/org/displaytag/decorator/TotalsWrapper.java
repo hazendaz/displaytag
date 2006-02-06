@@ -47,7 +47,7 @@ public class TotalsWrapper extends TableDecorator
     private static final int NO_RESET_GROUP = 4200;
 
     /**
-     * Controls when the subgroup is ended
+     * Controls when the subgroup is ended.
      */
     protected int innermostGroup;
 
@@ -157,8 +157,9 @@ public class TotalsWrapper extends TableDecorator
         tr.append("<tr>");
         for (int i = 1; i < group; i++)
         {
-            tr.append("<td>&nbsp;</td>\n");
+            tr.append("<td></td>\n");
         }
+        // @todo colspan="100%" is not valid, the value should be the number of columns
         tr
             .append("<td colspan=\"100%\" class=\"")
             .append(getSubtotalHeaderClass())
@@ -170,9 +171,10 @@ public class TotalsWrapper extends TableDecorator
         headerRows.add(tr);
     }
 
+    // @todo what this is used for
     public String displayGroupedValue(String value, short groupingStatus)
     {
-        return "&nbsp;";
+        return "";
     }
 
     public String startRow()
@@ -313,6 +315,7 @@ public class TotalsWrapper extends TableDecorator
 
     public String getTotalsTdOpen(HeaderCell header, String styleClass)
     {
+        // @todo add the same css classspecified for column
         return TagConstants.TAG_OPEN
             + TagConstants.TAGNAME_COLUMN
             + " class=\""
@@ -411,7 +414,6 @@ public class TotalsWrapper extends TableDecorator
                             style += " " + getTotalLabelClass() + " ";
                         }
                         out.append(getTotalsTdOpen(headerCell, style));
-                        out.append("&nbsp;");
                     }
                     out.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
                 }
