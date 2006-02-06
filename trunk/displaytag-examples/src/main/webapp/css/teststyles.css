@@ -18,12 +18,12 @@ tr.bad td.money {
 	color: #fff;
 }
 
-td.r, th.r {
+td.r,th.r {
 	text-align: right;
 	padding-right: 10px;
 }
 
-tr.total td {
+tr.total td,tr.subtotal td {
 	background-color: #eee;
 	font-weight: bold;
 }
