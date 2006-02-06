@@ -121,6 +121,9 @@
         <role>JSR-168 support</role>
       </roles>
     </contributor>
+    <contributor>
+      <name>Jorge Barroso</name>
+    </contributor>
   </contributors>
   <build>
     <plugins>
