@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.servlet.jsp.PageContext;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -313,15 +314,34 @@ public class TotalsWrapper extends TableDecorator
         return total;
     }
 
-    public String getTotalsTdOpen(HeaderCell header, String styleClass)
+    public String getTotalsTdOpen(HeaderCell header, String totalClass)
     {
-        // @todo add the same css classspecified for column
-        return TagConstants.TAG_OPEN
-            + TagConstants.TAGNAME_COLUMN
-            + " class=\""
-            + StringUtils.defaultString(styleClass)
-            + "\""
-            + TagConstants.TAG_CLOSE;
+
+        String cssClass = ObjectUtils.toString(header.getHtmlAttributes().get("class"));
+
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(TagConstants.TAG_OPEN);
+        buffer.append(TagConstants.TAGNAME_COLUMN);
+        if (cssClass != null || totalClass != null)
+        {
+            buffer.append(" class=\"");
+
+            if (cssClass != null)
+            {
+                buffer.append(cssClass);
+                if (totalClass != null)
+                {
+                    buffer.append(" ");
+                }
+            }
+            if (totalClass != null)
+            {
+                buffer.append(totalClass);
+            }
+            buffer.append("\"");
+        }
+        buffer.append(TagConstants.TAG_CLOSE);
+        return buffer.toString();
     }
 
     public String getTotalsRowOpen()
