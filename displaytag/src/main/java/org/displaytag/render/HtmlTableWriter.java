@@ -416,6 +416,7 @@ public class HtmlTableWriter extends TableWriterAdapter
             if (!this.tableModel.isLocalSort() && (headerCell.getSortName() != null))
             {
                 href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getSortName());
+                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORTUSINGNAME), "1");
             }
             else
             {

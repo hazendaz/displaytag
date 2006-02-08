@@ -32,6 +32,7 @@ import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.LongRange;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang.math.Range;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -873,22 +874,24 @@ public class TableTag extends HtmlTableTag
             // our sort column parameter may be a string, check that first
             String sortColumnName = requestHelper.getParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
 
+            // if usename is not null, sortColumnName is the name, if not is the column index
+            String usename = requestHelper.getParameter(encodeParameter(TableTagParameters.PARAMETER_SORTUSINGNAME));
+
             if (sortColumnName == null)
             {
                 this.tableModel.setSortedColumnNumber(this.defaultSortedColumn);
             }
             else
             {
-                // try parsing this value to see if its an integer
-                // @todo bad, bad, bad. Never use try/catch for this kind of things, add new parameters if needed
-                try
+                if (usename != null)
+                {
+
+                    this.tableModel.setSortedColumnName(sortColumnName); // its a string, set as string
+                }
+                else if (NumberUtils.isNumber(sortColumnName))
                 {
                     sortColumn = Integer.parseInt(sortColumnName);
                     this.tableModel.setSortedColumnNumber(sortColumn); // its an int set as normal
-                }
-                catch (Throwable t)
-                {
-                    this.tableModel.setSortedColumnName(sortColumnName); // its a string, set as string
                 }
             }
         }
@@ -951,6 +954,7 @@ public class TableTag extends HtmlTableTag
         {
             if ((this.sizeObjectName == null) && (this.size == null))
             {
+                // ?
             }
             if (this.sizeObjectName != null)
             {

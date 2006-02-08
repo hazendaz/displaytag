@@ -37,6 +37,7 @@ public class Displ280Test extends DisplaytagCase
 
         ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "1");
+        request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORTUSINGNAME), "1");
 
         WebResponse response = runner.getResponse(request);
 
@@ -55,8 +56,10 @@ public class Displ280Test extends DisplaytagCase
         }
 
         assertEquals("Wrong value in first row. Table incorrectly sorted?", "2", tables[0].getCellAsText(1, 1));
-        assertEquals("Column 1 should not be marked as sorted.", "sortable", tables[0].getTableCell(0, 1).getClassName());
-        assertEquals("Column 2 should not be marked as sorted.", "sortable sorted order1", tables[0]
+        assertEquals("Column 1 should not be marked as sorted.", "sortable", tables[0]
+            .getTableCell(0, 1)
+            .getClassName());
+        assertEquals("Column 2 should be marked as sorted.", "sortable sorted order1", tables[0]
             .getTableCell(0, 2)
             .getClassName());
 
