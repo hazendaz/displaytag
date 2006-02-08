@@ -41,6 +41,7 @@ public class ExternalSortTest extends DisplaytagCase
         ParamEncoder p2 = new ParamEncoder("table2");
 
         request.setParameter(p2.encodeParameterName(TableTagParameters.PARAMETER_SORT), "number");
+        request.setParameter(p2.encodeParameterName(TableTagParameters.PARAMETER_SORTUSINGNAME), "1");
 
         WebResponse response = runner.getResponse(request);
 

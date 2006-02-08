@@ -25,6 +25,11 @@ public final class TableTagParameters
     public static final String PARAMETER_SORT = "s"; //$NON-NLS-1$
 
     /**
+     * name of the parameter specifying that the sorted column will be specified using name and not index.
+     */
+    public static final String PARAMETER_SORTUSINGNAME = "n"; //$NON-NLS-1$
+
+    /**
      * name of the parameter specifying the current page number.
      */
     public static final String PARAMETER_PAGE = "p"; //$NON-NLS-1$
