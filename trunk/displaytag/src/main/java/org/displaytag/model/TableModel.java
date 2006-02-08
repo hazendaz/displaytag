@@ -55,7 +55,7 @@ public class TableModel
     private List rowListPage;
 
     /**
-     * Name of the column currently sorted (only used when sort=external)
+     * Name of the column currently sorted (only used when sort=external).
      */
     private String sortedColumnName;
 
@@ -139,7 +139,7 @@ public class TableModel
     }
 
     /**
-     * Returns the jsp page context
+     * Returns the jsp page context.
      * @return page context
      */
     protected PageContext getPageContext()
@@ -166,7 +166,7 @@ public class TableModel
     }
 
     /**
-     * Sets whether the table performs local in memory sorting of the data
+     * Sets whether the table performs local in memory sorting of the data.
      * @param localSort
      */
     public void setLocalSort(boolean localSort)

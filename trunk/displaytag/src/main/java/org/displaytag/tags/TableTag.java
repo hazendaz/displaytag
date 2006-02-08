@@ -286,7 +286,7 @@ public class TableTag extends HtmlTableTag
     private String caption;
 
     /**
-     * Child caption tag
+     * Child caption tag.
      */
     private CaptionTag captionTag;
 
@@ -880,6 +880,7 @@ public class TableTag extends HtmlTableTag
             else
             {
                 // try parsing this value to see if its an integer
+                // @todo bad, bad, bad. Never use try/catch for this kind of things, add new parameters if needed
                 try
                 {
                     sortColumn = Integer.parseInt(sortColumnName);
@@ -1194,8 +1195,7 @@ public class TableTag extends HtmlTableTag
 
         // Figure out how we should sort this data, typically we just sort
         // the data being shown, but the programmer can override this behavior
-
-        if (this.paginatedList == null || this.tableModel.isLocalSort())
+        if (this.paginatedList == null && this.tableModel.isLocalSort())
         {
             if (!this.tableModel.isSortFullTable())
             {

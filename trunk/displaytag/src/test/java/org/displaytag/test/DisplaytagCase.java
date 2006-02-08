@@ -114,7 +114,16 @@ public abstract class DisplaytagCase extends TestCase
     {
         if (expected.length != actual.length)
         {
-            fail(message + " Wrong number of values, expected " + expected.length + ", actual " + actual.length);
+            fail(message
+                + " Wrong number of values, expected "
+                + expected.length
+                + " ("
+                + ArrayUtils.toString(expected)
+                + "), actual "
+                + actual.length
+                + " ("
+                + ArrayUtils.toString(actual)
+                + ")");
         }
 
         outer : for (int j = 0; j < expected.length; j++)
