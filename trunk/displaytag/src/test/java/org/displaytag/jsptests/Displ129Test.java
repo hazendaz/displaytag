@@ -38,10 +38,12 @@ public class Displ129Test extends DisplaytagCase
     public void doTest(String jspName) throws Exception
     {
         WebRequest request = new GetMethodWebRequest(jspName);
-        WebResponse response = runner.getResponse(request);
 
         ParamEncoder encoder = new ParamEncoder("table");
-        request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
+        String pageParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE);
+        request.setParameter(pageParameter, "2");
+
+        WebResponse response = runner.getResponse(request);
 
         if (log.isDebugEnabled())
         {
@@ -70,8 +72,10 @@ public class Displ129Test extends DisplaytagCase
         WebLink[] headerLinks = headerCell.getLinks();
         assertEquals("Sorting link not found.", 1, headerLinks.length);
         WebLink sortingLink = headerLinks[0];
-        assertEqualsIgnoreOrder("Wrong parameters.", new String[]{"sort", "searchid", "dir"}, sortingLink
-            .getParameterNames());
+        assertEqualsIgnoreOrder(
+            "Wrong parameters.",
+            new String[]{"sort", "searchid", "dir", pageParameter},
+            sortingLink.getParameterNames());
 
         HTMLElement pagebanner = response.getElementWithID("pagebanner");
         assertEquals("Wrong page banner", "10|3|4", pagebanner.getText());
