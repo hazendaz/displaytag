@@ -641,11 +641,6 @@ public class HtmlTableWriter extends TableWriterAdapter
     public void writeTable(TableModel model, String id) throws JspException
     {
         super.writeTable(model, id);
-        // @todo totals are not written
-        // if (tableTag.getVarTotals() != null)
-        // {
-        // tableTag.getPageContext().setAttribute(tableTag.getVarTotals(), tableTag.getTotals());
-        // }
     }
 
     /**

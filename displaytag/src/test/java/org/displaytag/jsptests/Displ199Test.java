@@ -45,10 +45,10 @@ public class Displ199Test extends DisplaytagCase
         assertEquals("Wrong number of tables.", 1, tables.length);
 
         HTMLElement divtotal = response.getElementWithID("divtotal");
-        assertEquals("7", divtotal.getText());
+        assertEquals("7.0", divtotal.getText());
 
         // @todo
-        // test using decorator, currenlty in the sample webapp
+        // test using decorator
 
     }
 

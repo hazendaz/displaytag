@@ -1558,6 +1558,11 @@ public class TableTag extends HtmlTableTag
             this.pagesize,
             getAttributeMap(),
             this.uid).writeTable(this.tableModel, this.getUid());
+
+        if (this.varTotals != null)
+        {
+            pageContext.setAttribute(this.varTotals, getTotals());
+        }
     }
 
     /**
