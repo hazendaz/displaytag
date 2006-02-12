@@ -8,16 +8,11 @@
 
 Display tag library 1.1
 
-* Warning!
+ This documentation is related to the displaytag <<1.1>> release.
 
- This documentation is related to the displaytag <<1.1>> development. If you are looking for the latest production-quality
-displaytag release, 1.0, please go {{{http://displaytag.sourceforge.net/10}<<here>>}}.
-
- Displaytag 1.1 is a work in progress and it's not considered stable for production use. New APIs and attributes are not
-consolidated yet and could likely change before a release.
-
- Be sure to read the {{{migrating.html}migration guide}} for upgrading an existing application from displaytag 1.0.
- A full {{{changes-report.html}changelog}} is also available.
+ Displaytag 1.1 offers several enhancements over 1.0: the most notable news are support for partial lists and enhanced
+ decorator APIs, but there is also a lot more. Be sure to read the {{{migrating.html}migration guide}} for upgrading an
+ existing application from displaytag 1.0. A full {{{changes-report.html}changelog}} is also available.
 
 
 * Thanks to...
