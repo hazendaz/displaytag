@@ -1,35 +1,32 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
-  <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
-    <groupId>displaytag</groupId>
     <artifactId>displaytag-doc</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <groupId>displaytag</groupId>
+    <version>1.1</version>
     <relativePath>../displaytag-doc/pom.xml</relativePath>
   </parent>
-  <artifactId>displaytag-examples</artifactId>
-  <name>Display tag library examples</name>
+  <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
+  <artifactId>displaytag-examples</artifactId>
   <packaging>war</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <name>Display tag library examples</name>
+  <version>1.1</version>
   <description>Example webapp for the display tag library</description>
   <scm>
     <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-examples</connection>
-    <developerConnection>
-      scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-examples
-    </developerConnection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-examples</developerConnection>
     <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-examples/</url>
   </scm>
   <dependencies>
     <dependency>
-      <groupId>displaytag</groupId>
-      <artifactId>displaytag</artifactId>
-      <version>1.1-SNAPSHOT</version>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
     </dependency>
     <dependency>
-      <groupId>displaytag</groupId>
-      <artifactId>displaytag-export-poi</artifactId>
-      <version>1.1-SNAPSHOT</version>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -40,22 +37,6 @@
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>taglibs</groupId>
-      <artifactId>standard</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
     </dependency>
     <dependency>
       <groupId>itext</groupId>
@@ -69,12 +50,27 @@
       <groupId>poi</groupId>
       <artifactId>poi</artifactId>
     </dependency>
-    <!-- needed for http://jira.codehaus.org/browse/MNG-1178 -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>displaytag</groupId>
+      <artifactId>displaytag-export-poi</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>displaytag</groupId>
+      <artifactId>displaytag</artifactId>
+      <version>1.1</version>
     </dependency>
   </dependencies>
 </project>

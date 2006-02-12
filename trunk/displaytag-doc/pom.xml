@@ -1,38 +1,27 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
+<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag-doc</artifactId>
-  <name>Display tag library documentation</name>
   <packaging>pom</packaging>
-  <version>1.1-SNAPSHOT</version>
-  <organization>
-    <name>the Displaytag team</name>
-    <url>http://sourceforge.net/projects/displaytag</url>
-  </organization>
-  <inceptionYear>2002</inceptionYear>
-  <url>http://displaytag.sourceforge.net</url>
-  <description>
-    The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
+  <name>Display tag library documentation</name>
+  <version>1.1</version>
+  <description>The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
     which will work in an MVC model. The library provides a significant amount of functionality while still being easy
-    to use.
-  </description>
-  <scm>
-    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc</connection>
-    <developerConnection>
-      scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc
-    </developerConnection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-doc/</url>
-  </scm>
+    to use.</description>
+  <url>http://displaytag.sourceforge.net</url>
   <issueManagement>
     <url>http://jira.codehaus.org/browse/DISPL</url>
   </issueManagement>
-  <licenses>
-    <license>
-      <name>Artistic License</name>
-      <url>LICENSE.txt</url>
-    </license>
-  </licenses>
+  <ciManagement>
+    <notifiers>
+      <notifier>
+        <configuration>
+          <address>displaytag-continuum@lists.sourceforge.net</address>
+        </configuration>
+      </notifier>
+    </notifiers>
+  </ciManagement>
+  <inceptionYear>2002</inceptionYear>
   <mailingLists>
     <mailingList>
       <name>Display tag library User Mailing list</name>
@@ -125,6 +114,21 @@
       <name>Jorge Barroso</name>
     </contributor>
   </contributors>
+  <licenses>
+    <license>
+      <name>Artistic License</name>
+      <url>LICENSE.txt</url>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc</developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-doc/</url>
+  </scm>
+  <organization>
+    <name>the Displaytag team</name>
+    <url>http://sourceforge.net/projects/displaytag</url>
+  </organization>
   <build>
     <plugins>
       <plugin>
@@ -132,27 +136,27 @@
         <executions>
           <execution>
             <phase>site</phase>
-            <configuration>
-              <tasks>
-                <copy todir="../${pom.artifactId}/src/site" overwrite="true" flatten="true">
-                  <fileset dir="..">
-                    <include name="displaytag-doc/src/site/site.xml" />
-                    <exclude name="${pom.artifactId}/src/site/site.xml" />
-                  </fileset>
-                </copy>
-                <replace token='href="/' value='href="../' dir="..">
-                  <include name="${pom.artifactId}/src/site/site.xml" />
-                  <exclude name="displaytag-doc/src/site/site.xml" />
-                </replace>
-                <replace token='href="../${pom.artifactId}/' value='href="' dir="..">
-                  <include name="${pom.artifactId}/src/site/site.xml" />
-                  <exclude name="displaytag-doc/src/site/site.xml" />
-                </replace>
-              </tasks>
-            </configuration>
             <goals>
               <goal>run</goal>
             </goals>
+            <configuration>
+              <tasks>
+                <copy overwrite="true" todir="../${pom.artifactId}/src/site" flatten="true">
+                  <fileset dir="..">
+                    <include name="displaytag-doc/src/site/site.xml"></include>
+                    <exclude name="${pom.artifactId}/src/site/site.xml"></exclude>
+                  </fileset>
+                </copy>
+                <replace value="href=&quot;../" token="href=&quot;/" dir="..">
+                  <include name="${pom.artifactId}/src/site/site.xml"></include>
+                  <exclude name="displaytag-doc/src/site/site.xml"></exclude>
+                </replace>
+                <replace value="href=&quot;" token="href=&quot;../${pom.artifactId}/" dir="..">
+                  <include name="${pom.artifactId}/src/site/site.xml"></include>
+                  <exclude name="displaytag-doc/src/site/site.xml"></exclude>
+                </replace>
+              </tasks>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -163,7 +167,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <source>1.4</source>
@@ -171,14 +174,12 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
           <stagingDirectory>../site-staging</stagingDirectory>
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clover-plugin</artifactId>
         <configuration>
           <jdk>1.4</jdk>
@@ -194,49 +195,25 @@
       </plugin>
     </plugins>
   </build>
+  <modules>
+    <module>../displaytag</module>
+    <module>../displaytag-export-poi</module>
+    <module>../displaytag-portlet</module>
+    <module>../displaytag-examples</module>
+  </modules>
   <repositories>
     <repository>
       <id>displaytag</id>
       <url>http://displaytag.sourceforge.net/m2repo</url>
     </repository>
   </repositories>
-  <distributionManagement>
-    <repository>
-      <id>displaytag</id>
-      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/m2repo</url>
-      <uniqueVersion>true</uniqueVersion>
-    </repository>
-    <site>
-      <id>displaytag</id>
-      <name>displaytag</name>
-      <url>scpexe://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>
-    </site>
-  </distributionManagement>
-  <ciManagement>
-    <notifiers>
-      <notifier>
-        <configuration>
-          <address>displaytag-continuum@lists.sourceforge.net</address>
-        </configuration>
-        <type>mail</type>
-      </notifier>
-    </notifiers>
-  </ciManagement>
   <reporting>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <groupId>net.sourceforge.maven-taglib</groupId>
+        <artifactId>maven-taglib-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <quiet>true</quiet>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <configLocation>../displaytag-doc/checkstyle.xml</configLocation>
@@ -244,8 +221,23 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clover-plugin</artifactId>
+        <configuration>
+          <jdk>1.4</jdk>
+          <licenseFile>clover.license</licenseFile>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <quiet>true</quiet>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -256,16 +248,8 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>net.sourceforge.maven-taglib</groupId>
-        <artifactId>maven-taglib-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-clover-plugin</artifactId>
-        <configuration>
-          <jdk>1.4</jdk>
-          <licenseFile>clover.license</licenseFile>
-        </configuration>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -275,34 +259,8 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>surefire-report-maven-plugin</artifactId>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jdepend-maven-plugin</artifactId>
-      </plugin>
-      <!--
-        <plugin>
-        <groupId>statcvs</groupId>
-        <artifactId>maven-statcvs-plugin</artifactId>
-        <configuration>
-        <history>true</history>
-        <fork>true</fork>
-        </configuration>
-        </plugin>
-      -->
-      <!--
-        <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>changelog-maven-plugin</artifactId>
-        </plugin>
-      -->
     </plugins>
   </reporting>
-  <modules>
-    <module>../displaytag</module>
-    <module>../displaytag-export-poi</module>
-    <module>../displaytag-portlet</module>
-    <module>../displaytag-examples</module>
-  </modules>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -337,16 +295,16 @@
         <version>1.2.12</version>
         <exclusions>
           <exclusion>
-            <groupId>avalon-framework</groupId>
             <artifactId>avalon-framework</artifactId>
+            <groupId>avalon-framework</groupId>
           </exclusion>
           <exclusion>
-            <groupId>logkit</groupId>
             <artifactId>logkit</artifactId>
+            <groupId>logkit</groupId>
           </exclusion>
           <exclusion>
-            <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
+            <groupId>log4j</groupId>
           </exclusion>
         </exclusions>
       </dependency>
@@ -464,4 +422,15 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <distributionManagement>
+    <repository>
+      <id>displaytag</id>
+      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/m2repo</url>
+    </repository>
+    <site>
+      <id>displaytag</id>
+      <name>displaytag</name>
+      <url>scpexe://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>
+    </site>
+  </distributionManagement>
 </project>
