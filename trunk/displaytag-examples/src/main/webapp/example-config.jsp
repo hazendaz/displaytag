@@ -22,7 +22,7 @@
 
   <hr/>
 
-  <display:table name="sessionScope.test3" export="true" pagesize="10" decorator="org.displaytag.sample.Wrapper">
+  <display:table name="sessionScope.test3" export="true" pagesize="10" decorator="org.displaytag.sample.decorators.Wrapper">
     <display:column property="id" title="ID" />
     <display:column property="name" />
     <display:column property="email" />

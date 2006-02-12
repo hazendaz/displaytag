@@ -8,10 +8,10 @@
   <h2>Using callbacks to show totals</h2>
 
 
-  <display:table name="test" class="simple nocol" decorator="org.displaytag.sample.TotalWrapper">
+  <display:table name="test" class="simple nocol" decorator="org.displaytag.decorator.TotalTableDecorator">
     <display:column property="city" title="CITY" group="1" />
     <display:column property="project" title="PROJECT" group="2" />
-    <display:column property="amount" title="HOURS" />
+    <display:column property="amount" title="HOURS" total="true" />
     <display:column property="task" title="TASK" />
   </display:table>
 

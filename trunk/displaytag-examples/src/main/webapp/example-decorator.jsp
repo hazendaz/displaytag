@@ -8,7 +8,7 @@
 
   <h2>Using decorators to transform data</h2>
 
-  <display:table name="test" decorator="org.displaytag.sample.Wrapper">
+  <display:table name="test" decorator="org.displaytag.sample.decorators.Wrapper">
     <display:column property="id" title="ID" />
     <display:column property="email" />
     <display:column property="status" />

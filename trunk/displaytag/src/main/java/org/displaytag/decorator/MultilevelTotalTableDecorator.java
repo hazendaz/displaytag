@@ -39,7 +39,7 @@ import org.displaytag.util.TagConstants;
  * @author rapruitt
  * @author Fabrizio Giustina
  */
-public class TotalsWrapper extends TableDecorator
+public class MultilevelTotalTableDecorator extends TableDecorator
 {
 
     /**
@@ -55,7 +55,7 @@ public class TotalsWrapper extends TableDecorator
     /**
      * Logger.
      */
-    private Log logger = LogFactory.getLog(TotalsWrapper.class);
+    private Log logger = LogFactory.getLog(MultilevelTotalTableDecorator.class);
 
     /**
      * CSS class applied to grand totals.
@@ -160,19 +160,12 @@ public class TotalsWrapper extends TableDecorator
         {
             tr.append("<td></td>\n");
         }
-        // @todo colspan="100%" is not valid, the value should be the number of columns
-        tr
-            .append("<td colspan=\"100%\" class=\"")
-            .append(getSubtotalHeaderClass())
-            .append(" group-")
-            .append(group)
-            .append("\">");
+        tr.append("<td class=\"").append(getSubtotalHeaderClass()).append(" group-").append(group).append("\">");
         tr.append(value).append("</td>\n");
         tr.append("</tr>");
         headerRows.add(tr);
     }
 
-    // @todo what this is used for
     public String displayGroupedValue(String value, short groupingStatus)
     {
         return "";

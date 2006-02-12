@@ -100,7 +100,7 @@
 ]]>
 </pre>
 
-  <display:table name="sessionScope.details" decorator="org.displaytag.sample.Wrapper">
+  <display:table name="sessionScope.details" decorator="org.displaytag.sample.decorators.Wrapper">
     <display:column property="link1" title="ID" />
     <display:column property="email" />
     <display:column property="link2" title="Actions" />

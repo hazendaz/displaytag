@@ -10,9 +10,7 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-package org.displaytag.sample;
-
-import org.displaytag.decorator.itext.DecoratesItext;
+package org.displaytag.sample.decorators;
 
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Cell;
@@ -30,7 +28,9 @@ import com.lowagie.text.Table;
  * @author Jorge L. Barroso
  * @version $Revision$ ($Author$)
  */
-public class ItextTotalWrapper extends TotalWrapperTemplate implements DecoratesItext
+public class ItextTotalWrapper extends TotalWrapperTemplate
+    implements
+    org.displaytag.render.ItextTableWriter.ItextDecorator
 {
 
     /**

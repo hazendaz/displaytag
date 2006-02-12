@@ -7,12 +7,12 @@
 
   <h2>"What You See Is What You Get" Exports</h2>
 
-  <display:table name="test" class="simple nocol" export="true" decorator="org.displaytag.sample.HtmlTotalWrapper">
-    <display:setProperty name="export.pdf.decorator" value="org.displaytag.sample.ItextTotalWrapper" />
+  <display:table name="test" class="simple nocol" export="true" decorator="org.displaytag.sample.decorators.HtmlTotalWrapper">
+    <display:setProperty name="export.pdf.decorator" value="org.displaytag.sample.decorators.ItextTotalWrapper" />
     <display:setProperty name="export.pdf.filename" value="example.pdf" />
-    <display:setProperty name="export.rtf.decorator" value="org.displaytag.sample.ItextTotalWrapper" />
+    <display:setProperty name="export.rtf.decorator" value="org.displaytag.sample.decorators.ItextTotalWrapper" />
     <display:setProperty name="export.rtf.filename" value="example.rtf" />
-    <display:setProperty name="export.excel.decorator" value="org.displaytag.sample.HssfTotalWrapper" />
+    <display:setProperty name="export.excel.decorator" value="org.displaytag.sample.decorators.HssfTotalWrapper" />
     <display:setProperty name="export.excel.filename" value="example.xls" />
     <display:setProperty name="export.csv" value="false" />
     <display:setProperty name="export.xml" value="false" />

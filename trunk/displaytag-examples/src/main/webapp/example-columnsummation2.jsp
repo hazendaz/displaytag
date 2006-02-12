@@ -26,7 +26,7 @@
 
   <p>Group by city, total for amount and count</p>
 
-  <display:table name="test" class="simple nocol" defaultsort="1" decorator="org.displaytag.decorator.TotalsWrapper">
+  <display:table name="test" class="simple nocol" defaultsort="1" decorator="org.displaytag.decorator.MultilevelTotalTableDecorator">
     <display:column property="city" group="1" />
     <display:column property="project" />
     <display:column property="amount" format="{0,number,0.00} $" headerClass="r" class="r" total="true" />
@@ -38,7 +38,7 @@
   <p>Group by project and city, totals for amount only, customize labels.</p>
 
   <jsp:scriptlet>
-     org.displaytag.decorator.TotalsWrapper totals = new org.displaytag.decorator.TotalsWrapper();
+     org.displaytag.decorator.MultilevelTotalTableDecorator totals = new org.displaytag.decorator.MultilevelTotalTableDecorator();
      //totals.setTotalLabel("full total");
      //totals.setSubtotalLabel("partial amount");
      pageContext.setAttribute("totals", totals);

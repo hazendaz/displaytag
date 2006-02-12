@@ -10,7 +10,8 @@
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-package org.displaytag.sample;
+package org.displaytag.sample.decorators;
+
 
 /**
  * Same idea implemented in HtmlTableWriter applied to decorators.
