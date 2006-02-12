@@ -17,7 +17,6 @@ import java.util.Iterator;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.decorator.TableDecorator;
-import org.displaytag.decorator.itext.DecoratesItext;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.model.Column;
@@ -242,7 +241,7 @@ public class ItextTableWriter extends TableWriterAdapter
      */
     protected void writeDecoratedRowStart(TableModel model)
     {
-        DecoratesItext decorator = (DecoratesItext) model.getTableDecorator();
+        ItextDecorator decorator = (ItextDecorator) model.getTableDecorator();
         decorator.setTable(this.table);
         decorator.setFont(this.defaultFont);
         ((TableDecorator) decorator).startRow();
@@ -371,4 +370,26 @@ public class ItextTableWriter extends TableWriterAdapter
         Font font = chunk.font();
         chunk.setFont(FontFactory.getFont(font.getFamilyname(), font.size(), Font.BOLD, color));
     }
+
+    /**
+     * An implementor of this interface decorates tables and columns appearing in iText documents.
+     * @author Jorge L. Barroso
+     * @version $Revision$ ($Author$)
+     */
+    public interface ItextDecorator
+    {
+
+        /**
+         * Set the iText table used to render a table model.
+         * @param table The iText table used to render a table model.
+         */
+        void setTable(Table table);
+
+        /**
+         * Set the font used to render a table's content.
+         * @param font The font used to render a table's content.
+         */
+        void setFont(Font font);
+    }
+
 }

@@ -9,12 +9,13 @@
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
-package org.displaytag.sample;
+package org.displaytag.sample.decorators;
 
 import java.text.DecimalFormat;
 
 import org.apache.commons.lang.time.FastDateFormat;
 import org.displaytag.decorator.TableDecorator;
+import org.displaytag.sample.ListObject;
 
 
 /**

@@ -19,7 +19,7 @@ import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
@@ -511,14 +511,13 @@ public abstract class TableWriterTemplate
     private short groupColumns(String value, String previous, String next)
     {
         short groupingKey = GROUP_NO_CHANGE;
-        String safeCompare = StringUtils.defaultString(value);
-        if (next == null || !safeCompare.equals(next))
+        if (next == null || !ObjectUtils.equals(value, next))
         {
             // at the end of the list
             groupingKey += GROUP_END;
         }
 
-        if (previous == null || !safeCompare.equals(previous))
+        if (previous == null || !ObjectUtils.equals(value, previous))
         {
             // At the start of the list
             groupingKey += GROUP_START;
