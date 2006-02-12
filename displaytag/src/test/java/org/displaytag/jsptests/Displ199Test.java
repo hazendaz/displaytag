@@ -41,14 +41,14 @@ public class Displ199Test extends DisplaytagCase
             log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables.", 1, tables.length);
-
         HTMLElement divtotal = response.getElementWithID("divtotal");
         assertEquals("7.0", divtotal.getText());
 
-        // @todo
-        // test using decorator
+        WebTable[] tables = response.getTables();
+        assertEquals("Wrong number of tables.", 1, tables.length);
+        WebTable table = tables[0];
+        assertEquals("Wrong number of rows.", 5, table.getRowCount());
+        assertEquals("Total not found in las row.", "7.0", table.getCellAsText(4, 0));
 
     }
 
