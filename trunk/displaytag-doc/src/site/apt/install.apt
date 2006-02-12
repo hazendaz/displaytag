@@ -10,22 +10,24 @@ Installation Guide
 
 * Manual installation
 
-  This package comes with pre-built binaries located in the dist directory. Those distribution files are:
+  This package comes with pre-built binaries. Those distribution files are:
 
-*-----------------+-------------------------------+
-| file            | description                   |
-*-----------------+-------------------------------+
-| displaytag.war  | documentation and examples    |
-*-----------------+-------------------------------+
-| displaytag.jar  | the taglib jar                |
-*-----------------+-------------------------------+
-| displaytag.tld  | the taglib tld file           |
-*-----------------+-------------------------------+
+*--------------------------------------------+---------------------------------------------+
+|| file                                      || description                               ||
+*--------------------------------------------+---------------------------------------------+
+| displaytag-1.1.jar                         | main taglib jar                             |
+*--------------------------------------------+---------------------------------------------+
+| displaytag-export-poi-1.1.jar              | optional excel export module                |
+*--------------------------------------------+---------------------------------------------+
+| displaytag-portlet-1.1.jar                 | adapt displaytag for use in JSR-168 portals |
+*--------------------------------------------+---------------------------------------------+
+| displaytag-examples-1.1.war                | web application with examples               |
+*--------------------------------------------+---------------------------------------------+
 
 
 
   To quickly view the documentation and examples showing the features and functionality of the display taglib, just
-deploy the displaytag.war file to your application server (the details of how differ from server to server) or servlet
+deploy the sample web application to your application server (the details of how differ from server to server) or servlet
 container.
 
   If you would like to make use of the display taglib in your own application, do the following:
@@ -36,18 +38,26 @@ container.
         your application server).
         Refer to the dependencies document for the correct version of these libraries.
         You can download a copy of everything from jakarta or you can grab them from the example webapp in the bin distribution.
+        The following is the list of dependencies:
 
-     * commons-logging.jar
+     * commons-logging
 
-     * commons-lang.jar
+     * commons-lang
 
-     * commons-collections.jar
+     * commons-collections
 
-     * commons-beanutils.jar
+     * commons-beanutils
 
-     * log4j.jar
+     * log4j
+
+     * itext (optional, for pdf/rtf export)
 
      []
+
+        You may want to include also the <<<displaytag-export-poi>>> jar, which adds an excel binary export using
+        jakarta POI. The <<<poi>>> jar is required by displaytag-export-poi
+
+
 
   [[3]] Optional. Depending on your architecture, you may need to configure a filter to make export work.
 See the {{{export_filter.html}export filter}} page for the details about how to do it and when you could need it.

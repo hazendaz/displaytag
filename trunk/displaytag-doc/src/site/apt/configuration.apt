@@ -45,8 +45,8 @@ Configuration
 * Generic
 
 *------------------------------------+--------------------------------+-----------------------------+---------------------------------------------------+------------+-------------+
-| Property                           | Default                        | Valid Values                | Description                                       | allowed in | allowed in  |
-|                                    |                                |                             |                                                   | properties | setProperty |
+|| Property                          || Default                       || Valid Values               || Description                                    || allowed in || allowed in ||
+||                                   ||                               ||                            ||                                                || properties || setProperty||
 *------------------------------------+--------------------------------+-----------------------------+---------------------------------------------------+------------+-------------+
 | basic.show.header                  | true                           | true, false                 | Indicates if you want the header to appear at the top of       | yes  | yes  |
 |                                    |                                |                             | the table, the header contains the column names, and any       |      |      |
@@ -172,9 +172,9 @@ Configuration
    or "xml". Some of the properties won't work in any export format.
 
 
-*------------------------------------+-----------------------------+-----------------------------+---------------------------------------------------+------------+-------------+
-| Property                           | Default                     | Valid Values                | Description                                       | allowed in | allowed in  |
-|                                    |                             |                             |                                                   | properties | setProperty |
+*------------------------------------+--------------------------------+-----------------------------+---------------------------------------------------+------------+-------------+
+|| Property                          || Default                       || Valid Values               || Description                                    || allowed in || allowed in ||
+||                                   ||                               ||                            ||                                                || properties || setProperty||
 *------------------------------------+-----------------------------+-----------------------------+---------------------------------------------------+------------+-------------+
 | export.types                       | csv excel xml               | any string                  | Whitespace separated list of configured export types           | yes  | no   |
 |                                    | pdf                         |                             |                                                                |      |      |
@@ -213,8 +213,8 @@ Configuration
 * CSS
 
 *--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
-| Property                 | Default          | Valid Values       | Description                                                    | allowed in | allowed in  |
-|                          |                  |                    |                                                                | properties | setProperty |
+|| Property                || Default         || Valid Values      || Description                                                 || allowed in || allowed in ||
+||                         ||                 ||                   ||                                                             || properties || setProperty||
 *--------------------------+------------------+--------------------+----------------------------------------------------------------+------------+-------------+
 | css.tr.even              | even             | any valid css      | css class automatically added to even rows                     | yes        | yes         |
 |                          |                  | class name         |                                                                |            |             |
