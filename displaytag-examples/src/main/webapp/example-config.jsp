@@ -54,8 +54,7 @@
 
   <p>The defaults can be overriden for just this table via the <code>&amp;lt;display:setProperty name="..." value="..."&gt;</code> tag, or
   you can override for the entire site via a displaytag.properties file or by directly setting properties at runtime.
-  See the <a href="http://displaytag.sourceforge.net/11/configuration.html">configuration documentation</a> for the full
-  list of properties, their default values, and details on how to configure them in your system.</p>
+  Look for the "configuration" section in the displaytag documentation for the full list of properties, their default values, and details on how to configure them in your system.</p>
 
   <hr/>
 

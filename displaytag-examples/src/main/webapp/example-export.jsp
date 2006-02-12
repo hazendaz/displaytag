@@ -33,9 +33,9 @@
 
   <p>Please note that the basic export functionality will <strong>not</strong> work when the JSP page is included in
   another page via a jsp:include or the RequestDispatcher. Front end frameworks such as Struts and Tiles will do this
-  behind the scenes. If you want to use export functionality in any of these scenarios, you must configure the <a
-    href="http://displaytag.sourceforge.net/install.html#export-filter">export filter</a>. Also, make sure you check the
-  <a href="http://displaytag.sourceforge.net/faq.html#action">FAQ</a>.</p>
+  behind the scenes. If you want to use export functionality in any of these scenarios, you must configure an export filter
+  (configuration is explained in the displaytag documentation).
+  Also, make sure you check the FAQ on displaytag website.</p>
 
 
   <jsp:include page="inc/footer.jsp" flush="true" />
