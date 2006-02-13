@@ -56,6 +56,8 @@ public abstract class TableWriterTemplate
 
     public static final short GROUP_NO_CHANGE = 0;
 
+    protected static final int NO_RESET_GROUP = 42000;
+
     /**
      * logger.
      */
@@ -65,6 +67,9 @@ public abstract class TableWriterTemplate
      * Table unique id.
      */
     private String id;
+
+    int lowestEndedGroup;
+    int lowestStartedGroup;
 
     /**
      * Given a table model, this method creates a table, sorting and grouping it per its configuration, while delegating
@@ -338,16 +343,10 @@ public abstract class TableWriterTemplate
                     + rowIterator.getPageOffset());
             }
 
-            if (tableDecorator != null)
-            {
-                writeDecoratedRowStart(model);
-            }
-            // open row
-            writeRowOpener(currentRow);
-
             Iterator headerCellsIter = model.getHeaderCellList().iterator();
-            boolean hasReachedGroupEnd = false;
             ArrayList structsForRow = new ArrayList(model.getHeaderCellList().size());
+            lowestEndedGroup = NO_RESET_GROUP;
+            lowestStartedGroup = NO_RESET_GROUP;
             while (headerCellsIter.hasNext())
             {
                 HeaderCell header = (HeaderCell) headerCellsIter.next();
@@ -363,10 +362,8 @@ public abstract class TableWriterTemplate
                     // Why npe?
                     String priorBodyValue = prior != null ? prior.bodyValue : null;
                     String nextBodyValue = next != null ? next.bodyValue : null;
-                    short groupingValue = groupColumns(struct.bodyValue, priorBodyValue, nextBodyValue);
-                    hasReachedGroupEnd = hasReachedGroupEnd
-                        || groupingValue == GROUP_END
-                        || groupingValue == GROUP_NO_CHANGE;
+                    short groupingValue = groupColumns(struct.bodyValue,
+                            priorBodyValue, nextBodyValue, header.getGroup());
 
                     if (tableDecorator != null)
                     {
@@ -388,7 +385,8 @@ public abstract class TableWriterTemplate
                     }
                     if (tableDecorator != null)
                     {
-                        struct.decoratedValue = tableDecorator.displayGroupedValue(struct.bodyValue, groupingValue);
+                        struct.decoratedValue = tableDecorator.displayGroupedValue(struct.bodyValue,
+                                groupingValue, header.getColumnNumber());
                     }
                     else if (groupingValue == GROUP_END || groupingValue == GROUP_NO_CHANGE)
                     {
@@ -397,6 +395,13 @@ public abstract class TableWriterTemplate
                 }
                 structsForRow.add(struct);
             }
+
+            if (tableDecorator != null)
+            {
+                writeDecoratedRowStart(model);
+            }
+            // open row
+            writeRowOpener(currentRow);
 
             for (Iterator iterator = structsForRow.iterator(); iterator.hasNext();)
             {
@@ -508,19 +513,32 @@ public abstract class TableWriterTemplate
      * @param value String current cell value
      * @return String
      */
-    private short groupColumns(String value, String previous, String next)
+    protected short groupColumns(String value, String previous, String next, int currentGroup)
     {
+
         short groupingKey = GROUP_NO_CHANGE;
-        if (next == null || !ObjectUtils.equals(value, next))
+        if (lowestEndedGroup < currentGroup)
+        {
+            // if a lower group has ended, cascade so that all subgroups end as well
+            groupingKey += GROUP_END;
+        }
+        else if (next == null || !ObjectUtils.equals(value, next))
         {
             // at the end of the list
             groupingKey += GROUP_END;
+            lowestEndedGroup = currentGroup;
         }
 
-        if (previous == null || !ObjectUtils.equals(value, previous))
+        if (lowestStartedGroup < currentGroup)
+        {
+            // if a lower group has started, cascade so that all subgroups restart as well
+            groupingKey += GROUP_START;
+        }
+        else if (previous == null || !ObjectUtils.equals(value, previous))
         {
             // At the start of the list
             groupingKey += GROUP_START;
+            lowestStartedGroup = currentGroup;
         }
         return groupingKey;
     }

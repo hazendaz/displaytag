@@ -176,7 +176,7 @@ public abstract class TableDecorator extends Decorator
      * @param groupingStatus
      * @return the value to display
      */
-    public String displayGroupedValue(String cellValue, short groupingStatus)
+    public String displayGroupedValue(String cellValue, short groupingStatus, int columnNumber)
     {
         if (groupingStatus == TableWriterTemplate.GROUP_END || groupingStatus == TableWriterTemplate.GROUP_NO_CHANGE)
         {

@@ -107,3 +107,36 @@ span.pagelinks {
 	border-top: none;
 	margin-bottom: -5px;
 }
+
+
+.group-1 {
+    font-weight:bold;
+    padding-bottom:10px;
+    border-top:1px solid black;
+}
+.group-2 {
+    font-style:italic;
+    border-top: 1px solid black;
+
+}
+.subtotal-sum, .grandtotal-sum {
+    font-weight:bold;
+    text-align:right;
+}
+.subtotal-header {
+    padding-bottom: 0px;
+    border-top: 1px solid white;
+}
+.subtotal-label, .grandtotal-label {
+    border-top: 1px solid white;
+    font-weight: bold;
+}
+.grouped-table tr.even {
+    background-color: #fff;
+}
+.grouped-table tr.odd {
+    background-color: #fff;
+}
+.grandtotal-row {
+    border-top: 2px solid black;
+}
