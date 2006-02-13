@@ -64,6 +64,22 @@
   </display:table>
 
   <hr />
+    <jsp:scriptlet>
+       org.displaytag.decorator.MultilevelTotalTableDecorator subtotals = new org.displaytag.decorator.MultilevelTotalTableDecorator();
+       subtotals.setGrandTotalDescription("Total Across All Categories");    // optional, defaults to Grand Total
+       subtotals.setSubtotalLabel("{0} Subtotal", request.getLocale());      // optional, defaults to "{0} Total"
+       pageContext.setAttribute("subtotaler", subtotals);
+    </jsp:scriptlet>
+
+    <p>If you need subtotals for subgroups, try the MultilevelTotalTableDecorator. Items with only one entry are not
+    totaled separately, but items that occur more than once are subtotaled together.</p>
+    <display:table name="test" class="simple grouped-table" defaultsort="1" decorator="subtotaler">
+      <display:column property="city"  group="1" title="City" />
+      <display:column property="project"  group="2" title="Project" />
+      <display:column property="amount" format="{0,number,$0.00}" headerClass="r" class="r" total="true" />
+      <display:column property="count" format="{0,number,0}" headerClass="r" class="r" total="true"/>
+    </display:table>
+
 
   <jsp:include page="inc/footer.jsp" flush="true" />
 
