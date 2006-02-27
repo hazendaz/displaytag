@@ -121,9 +121,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc</connection>
-    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-doc</developerConnection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-doc/</url>
+    <connection>scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc</connection>
+    <developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc</developerConnection>
+    <url>http://svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-doc/</url>
   </scm>
   <organization>
     <name>the Displaytag team</name>
