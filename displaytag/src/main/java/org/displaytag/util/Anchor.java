@@ -1,19 +1,8 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.util;
 
 /**
  * Anchor object used to output an html link (an &lt;a> tag).
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class Anchor
@@ -33,6 +22,24 @@ public class Anchor
      * HashMap containing all the html attributes.
      */
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
+
+    /**
+     * Creates a new anchor with the supplied body text.
+     * @param linkBody String body text
+     */
+    public Anchor(String linkBody)
+    {
+        this.linkText = linkBody;
+    }
+
+    /**
+     * Creates a new Anchor whit the supplied Href.
+     * @param linkHref Href
+     */
+    public Anchor(Href linkHref)
+    {
+        this.href = linkHref;
+    }
 
     /**
      * Creates a new Anchor whit the supplied Href and body text.
@@ -98,9 +105,9 @@ public class Anchor
     {
         if (this.href == null)
         {
-            return TagConstants.EMPTY_STRING;
+            return "";
         }
-        return " href=\"" + this.href.toString() + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+        return " href=\"" + this.href.toString() + "\"";
     }
 
     /**

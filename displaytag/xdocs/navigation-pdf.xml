@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Display tag library">
+
+	<title>Display tag library</title>
+
+	<body>
+	  
+    <menu name="Overview">
+        <item name="Introduction" href="/index.html"/>
+        <item name="Dependencies" href="/dependencies.html"/>   
+    </menu>
+    
+		<menu name="Reference">
+			<item name="Download" href="/download.html" />
+			<item name="Install" href="/install.html" />
+			<item name="Tag reference" href="/tagreference.html" />
+			<item name="Configuration" href="/configuration.html" />
+			<item name="FAQ" href="/faq.html" />       
+      <item name="Mailing Lists" href="/mail-lists.html"/>
+		</menu>
+		
+		
+		<menu name="Tutorial">
+      <item name="Basic" href="/tut_basic.html"/>
+			<item name="Style" href="/tut_style.html" />
+		</menu>
+
+		<menu name="Developers">
+      <item name="Source" href="/cvs-usage.html"/>
+			<item name="Directory Organization" href="/directory_organization.html" />
+			<item name="Coding Conventions" href="/coding_conventions.html" />
+			<item name="Building from sources" href="/buildit.html" />
+		</menu>
+		
+		
+		<menu name="History">
+        <item name="Change log" href="/changes-report.html"/>
+    </menu>
+
+	</body>
+</project>

@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.model;
 
 import java.util.Iterator;
@@ -18,10 +7,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 
-
 /**
- * Iterator on table rows.
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class RowIterator
@@ -53,23 +40,16 @@ public class RowIterator
     private String id;
 
     /**
-     * Starting offset for items n the current page. Needed to calculare the index in the original list
-     */
-    private int pageOffset;
-
-    /**
      * Constructor for RowIterator.
      * @param rowList List containing Row objects
      * @param columnList List containing CellHeader objects
      * @param tableDecorator TableDecorator
-     * @param offset Starting offset for items n the current page
      */
-    protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator, int offset)
+    protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator)
     {
         this.iterator = rowList.iterator();
         this.rowNumber = 0;
         this.decorator = tableDecorator;
-        this.pageOffset = offset;
     }
 
     /**
@@ -88,11 +68,6 @@ public class RowIterator
     public boolean hasNext()
     {
         return this.iterator.hasNext();
-    }
-
-    public int getPageOffset()
-    {
-        return this.pageOffset;
     }
 
     /**
@@ -117,7 +92,7 @@ public class RowIterator
 
         if (this.decorator != null)
         {
-            this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber + getPageOffset());
+            this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber);
         }
 
         return row;

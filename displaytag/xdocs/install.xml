@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<document>
+
+	<properties>
+		<title>License</title>
+		<author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+	</properties>
+
+	<body>
+
+		<section name="Installation Guide">
+
+			<p>
+				This package comes with pre-built binaries located in the dist directory. Those distribution files are:
+			</p>
+
+			<table>
+				<thead>
+					<tr>
+						<th>file</th>
+						<th>description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>displaytag.war</td>
+						<td>documentation and examples</td>
+					</tr>
+					<tr>
+						<td>displaytag.jar</td>
+						<td>the taglib jar</td>
+					</tr>
+					<tr>
+						<td>displaytag.tld</td>
+						<td>the taglib tld file</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p>
+				To quickly view the documentation and examples showing the features and functionality of the display
+				taglib, just deploy the displaytag.war file to your application server (the details of how differ from
+				server to server).
+			</p>
+
+			<p>If you would like to make use of the display taglib in your own application, do the following:</p>
+
+			<ol>
+				<li>Drop the displaytag.tld file in your application /WEB-INF/ directory</li>
+				<li>Drop the displaytag.jar file in your application /WEB-INF/lib directory</li>
+
+				<li>
+					<p>
+              <strong>Make sure that following libraries are in your WEB-INF/lib directory (or made available via the
+                classpath to your application server).</strong>
+          </p>
+					<ul>
+						<li>commons-logging.jar</li>
+						<li>commons-lang.jar</li>
+						<li>commons-collections.jar</li>
+						<li>commons-beanutils.jar</li>
+						<li>log4j.jar</li>
+					</ul>
+          <p>
+              Refer to the <a href="dependencies.html">dependencies</a> document for the correct version of these libraries.
+              You can download a copy of everything from <a href="http://jakarta.apache.org">jakarta</a> or you can grab them
+              from the example webapp in the bin distribution.
+          </p>
+				</li>
+
+				<li>Define a taglib element like the following in your /WEB-INF/web.xml file
+
+				<source>
+  &lt;taglib>
+    &lt;taglib-uri>http://displaytag.org&lt;/taglib-uri>
+    &lt;taglib-location>/WEB-INF/displaytag.tld&lt;/taglib-location>
+  &lt;/taglib>
+				</source>
+        
+        </li>
+        
+				<li><a name="export-filter"></a>
+					(optional) If you need to export data from an included JSP page, such as from Struts, you should configure
+					the ResponseOverrideFilter in your web.xml.  (You do not need the filter if you do not use exports,
+					or if you do not use the table tag from a jsp page that is included inside of another page.)
+                    Configure the Filter in your web.xml:
+
+				<source>
+ &lt;filter&gt;
+  &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+  &lt;filter-class&gt;org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+  </source>
+					And add mappings for the pages that you will intercept, for example:
+  <source>
+  &lt;filter-mapping&gt;
+  &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+  &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+  &lt;filter-mapping&gt;
+  &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+  &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+  </source>
+				</li>
+
+				<li>
+					Define the tag extension in each JSP page that uses the display taglib. The uri directives must
+					match what you defined in the web.xml file above. The prefix identifies the tags in the tag
+					library within the JSP page.
+
+				<source>
+  &lt;%@ taglib uri="http://displaytag.org" prefix="display" %>
+        </source>
+				</li>
+
+			</ol>
+
+			<p>
+				For more help with using taglibs in general, please see:
+				<a href="http://jakarta.apache.org/taglibs/tutorial.html">
+					http://jakarta.apache.org/taglibs/tutorial.html
+				</a>
+			</p>
+
+		</section>
+
+	</body>
+</document>

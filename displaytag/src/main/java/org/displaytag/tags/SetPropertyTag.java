@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags;
 
 import javax.servlet.jsp.JspException;
@@ -20,16 +9,10 @@ import org.displaytag.exception.TagStructureException;
 
 /**
  * @author epesh
- * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class SetPropertyTag extends BodyTagSupport
+public class SetPropertyTag extends BodyTagSupport implements Cloneable
 {
-
-    /**
-     * D1597A17A6.
-     */
-    private static final long serialVersionUID = 899149338534L;
 
     /**
      * property name.
@@ -73,7 +56,7 @@ public class SetPropertyTag extends BodyTagSupport
 
         if (tableTag == null)
         {
-            throw new TagStructureException(getClass(), "setProperty", "table"); //$NON-NLS-1$ //$NON-NLS-2$
+            throw new TagStructureException(getClass(), "setProperty", "table");
         }
 
         // read body only once
@@ -83,9 +66,11 @@ public class SetPropertyTag extends BodyTagSupport
             // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
             return 2;
         }
-
-        this.firstIteration = false;
-        return SKIP_BODY;
+        else
+        {
+            this.firstIteration = false;
+            return SKIP_BODY;
+        }
 
     }
 
@@ -107,12 +92,12 @@ public class SetPropertyTag extends BodyTagSupport
             TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
             // tableTag can't be null, it has been checked in doStartTag
+
             if (this.value == null)
             {
                 if (getBodyContent() == null)
                 {
-                    throw new MissingAttributeException(getClass(), //
-                        new String[]{"value", "body content"}); //$NON-NLS-1$ //$NON-NLS-2$
+                    throw new MissingAttributeException(getClass(), new String[]{"value", "body content"});
                 }
                 this.value = getBodyContent().getString();
             }

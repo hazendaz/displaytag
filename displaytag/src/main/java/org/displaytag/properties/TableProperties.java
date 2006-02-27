@@ -1,349 +1,234 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.properties;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.Tag;
-
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
+import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.Messages;
-import org.displaytag.decorator.DecoratorFactory;
-import org.displaytag.decorator.DefaultDecoratorFactory;
-import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
-import org.displaytag.localization.I18nResourceProvider;
-import org.displaytag.localization.LocaleResolver;
-import org.displaytag.util.DefaultRequestHelperFactory;
-import org.displaytag.util.ReflectHelper;
 import org.displaytag.util.RequestHelperFactory;
 
 
 /**
  * The properties used by the Table tags. The properties are loaded in the following order, in increasing order of
- * priority. The locale of getInstance() is used to determine the locale of the property file to use; if the key
- * required does not exist in the specified file, the key will be loaded from a more general property file.
+ * priority.
  * <ol>
  * <li>First, from the TableTag.properties included with the DisplayTag distribution.</li>
  * <li>Then, from the file displaytag.properties, if it is present; these properties are intended to be set by the user
- * for sitewide application. Messages are gathered according to the Locale of the property file.</li>
+ * for sitewide application.</li>
  * <li>Finally, if this class has a userProperties defined, all of the properties from that Properties object are
- * copied in as well.</li>
+ * copied in as well. The userProperties Properties can be set by the {@link DisplayPropertiesLoaderServlet}if it is
+ * configured.</li>
  * </ol>
- * @author Fabrizio Giustina
+ * @author fgiust
  * @author rapruitt
  * @version $Revision$ ($Author$)
+ * @see DisplayPropertiesLoaderServlet
  */
-public final class TableProperties implements Cloneable
+public final class TableProperties
 {
 
     /**
-     * name of the default properties file name ("displaytag.properties").
+     * name of the default properties file name ("TableTag.properties").
      */
-    public static final String DEFAULT_FILENAME = "displaytag.properties"; //$NON-NLS-1$
+    public static final String DEFAULT_FILENAME = "TableTag.properties";
 
     /**
      * The name of the local properties file that is searched for on the classpath. Settings in this file will override
      * the defaults loaded from TableTag.properties.
      */
-    public static final String LOCAL_PROPERTIES = "displaytag"; //$NON-NLS-1$
+    public static final String LOCAL_PROPERTIES = "displaytag";
 
     /**
      * property <code>export.banner</code>.
      */
-    public static final String PROPERTY_STRING_EXPORTBANNER = "export.banner"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_EXPORTBANNER = "export.banner";
 
     /**
      * property <code>export.banner.sepchar</code>.
      */
-    public static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = "export.banner.sepchar"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = "export.banner.sepchar";
 
     /**
      * property <code>export.decorated</code>.
      */
-    public static final String PROPERTY_BOOLEAN_EXPORTDECORATED = "export.decorated"; //$NON-NLS-1$
+    public static final String PROPERTY_BOOLEAN_EXPORTDECORATED = "export.decorated";
 
     /**
      * property <code>export.amount</code>.
      */
-    public static final String PROPERTY_STRING_EXPORTAMOUNT = "export.amount"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_EXPORTAMOUNT = "export.amount";
 
     /**
      * property <code>sort.amount</code>.
      */
-    public static final String PROPERTY_STRING_SORTAMOUNT = "sort.amount"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_SORTAMOUNT = "sort.amount";
 
     /**
      * property <code>basic.show.header</code>.
      */
-    public static final String PROPERTY_BOOLEAN_SHOWHEADER = "basic.show.header"; //$NON-NLS-1$
+    public static final String PROPERTY_BOOLEAN_SHOWHEADER = "basic.show.header";
 
     /**
      * property <code>basic.msg.empty_list</code>.
      */
-    public static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = "basic.msg.empty_list"; //$NON-NLS-1$
-
-    /**
-     * property <code>basic.msg.empty_list_row</code>.
-     */
-    public static final String PROPERTY_STRING_EMPTYLISTROW_MESSAGE = "basic.msg.empty_list_row"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = "basic.msg.empty_list";
 
     /**
      * property <code>basic.empty.showtable</code>.
      */
-    public static final String PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE = "basic.empty.showtable"; //$NON-NLS-1$
+    public static final String PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE = "basic.empty.showtable";
 
     /**
      * property <code>paging.banner.placement</code>.
      */
-    public static final String PROPERTY_STRING_BANNER_PLACEMENT = "paging.banner.placement"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_BANNER_PLACEMENT = "paging.banner.placement";
 
     /**
      * property <code>error.msg.invalid_page</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_INVALIDPAGE = "error.msg.invalid_page"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_INVALIDPAGE = "error.msg.invalid_page";
 
     /**
      * property <code>paging.banner.item_name</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_ITEM_NAME = "paging.banner.item_name"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_ITEM_NAME = "paging.banner.item_name";
 
     /**
      * property <code>paging.banner.items_name</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_ITEMS_NAME = "paging.banner.items_name"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_ITEMS_NAME = "paging.banner.items_name";
 
     /**
      * property <code>paging.banner.no_items_found</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_NOITEMS = "paging.banner.no_items_found"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_NOITEMS = "paging.banner.no_items_found";
 
     /**
      * property <code>paging.banner.one_item_found</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM = "paging.banner.one_item_found"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM = "paging.banner.one_item_found";
 
     /**
      * property <code>paging.banner.all_items_found</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS = "paging.banner.all_items_found"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS = "paging.banner.all_items_found";
 
     /**
      * property <code>paging.banner.some_items_found</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_FOUND_SOMEITEMS = "paging.banner.some_items_found"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_FOUND_SOMEITEMS = "paging.banner.some_items_found";
 
     /**
      * property <code>paging.banner.group_size</code>.
      */
-    public static final String PROPERTY_INT_PAGING_GROUPSIZE = "paging.banner.group_size"; //$NON-NLS-1$
+    public static final String PROPERTY_INT_PAGING_GROUPSIZE = "paging.banner.group_size";
 
     /**
      * property <code>paging.banner.onepage</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE = "paging.banner.onepage"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE = "paging.banner.onepage";
 
     /**
      * property <code>paging.banner.first</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_BANNER_FIRST = "paging.banner.first"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_BANNER_FIRST = "paging.banner.first";
 
     /**
      * property <code>paging.banner.last</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_BANNER_LAST = "paging.banner.last"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_BANNER_LAST = "paging.banner.last";
 
     /**
      * property <code>paging.banner.full</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_BANNER_FULL = "paging.banner.full"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_BANNER_FULL = "paging.banner.full";
 
     /**
      * property <code>paging.banner.page.link</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_PAGE_LINK = "paging.banner.page.link"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_PAGE_LINK = "paging.banner.page.link";
 
     /**
      * property <code>paging.banner.page.selected</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_PAGE_SELECTED = "paging.banner.page.selected"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_PAGE_SELECTED = "paging.banner.page.selected";
 
     /**
      * property <code>paging.banner.page.separator</code>.
      */
-    public static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator"; //$NON-NLS-1$
+    public static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = "paging.banner.page.separator";
 
     /**
      * property <code>factory.requestHelper</code>.
      */
-    public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper"; //$NON-NLS-1$
-
-    /**
-     * property <code>factory.decorators</code>.
-     */
-    public static final String PROPERTY_CLASS_DECORATORFACTORY = "factory.decorator"; //$NON-NLS-1$
-
-    /**
-     * property <code>locale.provider</code>.
-     */
-    public static final String PROPERTY_CLASS_LOCALEPROVIDER = "locale.provider"; //$NON-NLS-1$
-
-    /**
-     * property <code>locale.resolver</code>.
-     */
-    public static final String PROPERTY_CLASS_LOCALERESOLVER = "locale.resolver"; //$NON-NLS-1$
+    public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper";
 
     /**
      * property <code>css.tr.even</code>: holds the name of the css class for even rows. Defaults to
      * <code>even</code>.
      */
-    public static final String PROPERTY_CSS_TR_EVEN = "css.tr.even"; //$NON-NLS-1$
+    public static final String PROPERTY_CSS_TR_EVEN = "css.tr.even";
 
     /**
      * property <code>css.tr.odd</code>: holds the name of the css class for odd rows. Defaults to <code>odd</code>.
      */
-    public static final String PROPERTY_CSS_TR_ODD = "css.tr.odd"; //$NON-NLS-1$
+    public static final String PROPERTY_CSS_TR_ODD = "css.tr.odd";
 
     /**
      * property <code>css.table</code>: holds the name of the css class added to the main table tag. By default no
      * css class is added.
      */
-    public static final String PROPERTY_CSS_TABLE = "css.table"; //$NON-NLS-1$
+    public static final String PROPERTY_CSS_TABLE = "css.table";
 
     /**
      * property <code>css.th.sortable</code>: holds the name of the css class added to the the header of a sortable
      * column. By default no css class is added.
      */
-    public static final String PROPERTY_CSS_TH_SORTABLE = "css.th.sortable"; //$NON-NLS-1$
+    public static final String PROPERTY_CSS_TH_SORTABLE = "css.th.sortable";
 
     /**
      * property <code>css.th.sorted</code>: holds the name of the css class added to the the header of a sorted
      * column. Defaults to <code>sorted</code>.
      */
-    public static final String PROPERTY_CSS_TH_SORTED = "css.th.sorted"; //$NON-NLS-1$
+    public static final String PROPERTY_CSS_TH_SORTED = "css.th.sorted";
 
     /**
      * property <code>css.th.ascending</code>: holds the name of the css class added to the the header of a column
      * sorted in ascending order. Defaults to <code>order1</code>.
      */
-    public static final String PROPERTY_CSS_TH_SORTED_ASCENDING = "css.th.ascending"; //$NON-NLS-1$
+    public static final String PROPERTY_CSS_TH_SORTED_ASCENDING = "css.th.ascending";
 
     /**
      * property <code>css.th.descending</code>: holds the name of the css class added to the the header of a column
      * sorted in descending order. Defaults to <code>order2</code>.
      */
-    public static final String PROPERTY_CSS_TH_SORTED_DESCENDING = "css.th.descending"; //$NON-NLS-1$
+    public static final String PROPERTY_CSS_TH_SORTED_DESCENDING = "css.th.descending";
 
     /**
      * prefix used for all the properties related to export ("export"). The full property name is <code>export.</code>
      * <em>[export type]</em><code>.</code><em>[property name]</em>
      */
-    public static final String PROPERTY_EXPORT_PREFIX = "export"; //$NON-NLS-1$
-
-    /**
-     * suffix used to set the export decorator property name. The full property name is <code>export.</code>
-     * <em>[export type]</em><code>.</code><em>decorator</em>
-     */
-    public static final String PROPERTY_EXPORT_DECORATOR_SUFFIX = "decorator"; //$NON-NLS-1$
-
-    /**
-     * property <code>export.types</code>: holds the list of export available export types.
-     */
-    public static final String PROPERTY_EXPORTTYPES = "export.types"; //$NON-NLS-1$
+    public static final String PROPERTY_EXPORT_PREFIX = "export";
 
     /**
      * export property <code>label</code>.
      */
-    public static final String EXPORTPROPERTY_STRING_LABEL = "label"; //$NON-NLS-1$
-
-    /**
-     * export property <code>class</code>.
-     */
-    public static final String EXPORTPROPERTY_STRING_CLASS = "class"; //$NON-NLS-1$
+    public static final String EXPORTPROPERTY_STRING_LABEL = "label";
 
     /**
      * export property <code>include_header</code>.
      */
-    public static final String EXPORTPROPERTY_BOOLEAN_EXPORTHEADER = "include_header"; //$NON-NLS-1$
+    public static final String EXPORTPROPERTY_BOOLEAN_EXPORTHEADER = "include_header";
 
     /**
      * export property <code>filename</code>.
      */
-    public static final String EXPORTPROPERTY_STRING_FILENAME = "filename"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sort.param</code>. If external pagination and sorting is used, it holds the name of
-     * the parameter used to hold the sort criterion in generated links
-     */
-    public static final String PROPERTY_STRING_PAGINATION_SORT_PARAM = "pagination.sort.param"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sortdirection.param</code>. If external pagination and sorting is used, it holds the
-     * name of the parameter used to hold the sort direction in generated links (asc or desc)
-     */
-    public static final String PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM = "pagination.sortdirection.param"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.pagenumber.param</code>. If external pagination and sorting is used, it holds the
-     * name of the parameter used to hold the page number in generated links
-     */
-    public static final String PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM = "pagination.pagenumber.param"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.searchid.param</code>. If external pagination and sorting is used, it holds the name
-     * of the parameter used to hold the search ID in generated links
-     */
-    public static final String PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM = "pagination.searchid.param"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sort.asc.value</code>. If external pagination and sorting is used, it holds the
-     * value of the parameter of the sort direction parameter for "ascending"
-     */
-    public static final String PROPERTY_STRING_PAGINATION_ASC_VALUE = "pagination.sort.asc.value"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sort.desc.value</code>. If external pagination and sorting is used, it holds the
-     * value of the parameter of the sort direction parameter for "descending"
-     */
-    public static final String PROPERTY_STRING_PAGINATION_DESC_VALUE = "pagination.sort.desc.value"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sort.skippagenumber</code>. If external pagination and sorting is used, it
-     * determines if the current page number must be added in sort links or not. If this property is true, it means that
-     * each click on a generated sort link will re-sort the list, and go back to the default page number. If it is
-     * false, each click on a generated sort link will re-sort the list, and ask the current page number.
-     */
-    public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = "pagination.sort.skippagenumber"; //$NON-NLS-1$
-
-    // </JBN>
-
-    /**
-     * Separator char used in property names.
-     */
-    private static final char SEP = '.';
+    public static final String EXPORTPROPERTY_STRING_FILENAME = "filename";
 
     /**
      * logger.
@@ -357,20 +242,10 @@ public final class TableProperties implements Cloneable
     private static Properties userProperties = new Properties();
 
     /**
-     * Configured resource provider. If no ResourceProvider is configured, an no-op one is used. This instance is
-     * initialized at first use and shared.
+     * The default Properties are shared, loaded only at the first access. Default properties are initialized with
+     * values contained in TableTag.properties and can be overridden in a custom displaytag.properties file.
      */
-    private static I18nResourceProvider resourceProvider;
-
-    /**
-     * Configured locale resolver.
-     */
-    private static LocaleResolver localeResolver;
-
-    /**
-     * TableProperties for each locale are loaded as needed, and cloned for public usage.
-     */
-    private static Map prototypes = new HashMap();
+    private static Properties defaultProperties;
 
     /**
      * Loaded properties (defaults from defaultProperties + custom from bundle).
@@ -378,189 +253,66 @@ public final class TableProperties implements Cloneable
     private Properties properties;
 
     /**
-     * The locale for these properties.
+     * Initialize a new TableProperties loading the default properties file and the user defined one.
+     * @throws TablePropertiesLoadException for errors during loading of properties files
      */
-    private Locale locale;
-
-    /**
-     * Cache for dinamically instantiated object (request factory, decorator factory).
-     */
-    private Map objectCache = new HashMap();
-
-    /**
-     * Setter for I18nResourceProvider. A resource provider is usually set using displaytag properties, this accessor is
-     * needed for tests.
-     * @param provider I18nResourceProvider instance
-     */
-    protected static void setResourceProvider(I18nResourceProvider provider)
+    private TableProperties() throws TablePropertiesLoadException
     {
-        resourceProvider = provider;
-    }
 
-    /**
-     * Setter for LocaleResolver. A locale resolver is usually set using displaytag properties, this accessor is needed
-     * for tests.
-     * @param resolver LocaleResolver instance
-     */
-    protected static void setLocaleResolver(LocaleResolver resolver)
-    {
-        localeResolver = resolver;
-    }
-
-    /**
-     * Loads default properties (TableTag.properties).
-     * @return loaded properties
-     * @throws TablePropertiesLoadException if default properties file can't be found
-     */
-    private static Properties loadBuiltInProperties() throws TablePropertiesLoadException
-    {
-        Properties defaultProperties = new Properties();
-
-        try
+        // default properties will not change unless this class is reloaded
+        if (defaultProperties == null)
         {
-            InputStream is = TableProperties.class.getResourceAsStream(DEFAULT_FILENAME);
-            if (is == null)
+            defaultProperties = new Properties();
+
+            try
             {
-                throw new TablePropertiesLoadException(TableProperties.class, DEFAULT_FILENAME, null);
+                defaultProperties.load(this.getClass().getResourceAsStream(DEFAULT_FILENAME));
             }
-            defaultProperties.load(is);
-        }
-        catch (IOException e)
-        {
-            throw new TablePropertiesLoadException(TableProperties.class, DEFAULT_FILENAME, e);
+            catch (IOException e)
+            {
+                throw new TablePropertiesLoadException(getClass(), DEFAULT_FILENAME, e);
+            }
+
+            // loading of properties is expensive, so we save them in a static variable
+            // This will improve performance but will force user to restart the web application to see changes after
+            // modifying displaytag.properties in the WEB-INF/classes folder
+
+            loadUserProperties();
         }
 
-        return defaultProperties;
+        // copy properties so that they can be altered using the setProperty tag
+        this.properties = (Properties) defaultProperties.clone();
     }
 
     /**
-     * Loads user properties (displaytag.properties) according to the given locale. User properties are not guarantee to
-     * exist, so the method can return <code>null</code> (no exception will be thrown).
-     * @param locale requested Locale
-     * @return loaded properties
+     * Try to load the properties from the local properties file, displaytag.properties.
      */
-    private static ResourceBundle loadUserProperties(Locale locale)
+    private void loadUserProperties()
     {
         ResourceBundle bundle = null;
         try
         {
-            bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES, locale);
+            bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES);
         }
         catch (MissingResourceException e)
         {
-            // if no resource bundle is found, try using the context classloader
-            try
+            if (log.isInfoEnabled())
             {
-                bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES, locale, Thread
-                    .currentThread()
-                    .getContextClassLoader());
-            }
-            catch (MissingResourceException mre)
-            {
-                if (log.isDebugEnabled())
-                {
-                    log.debug(Messages.getString("TableProperties.propertiesnotfound", //$NON-NLS-1$
-                        new Object[]{mre.getMessage()}));
-                }
+                log.info("Was not able to load a custom displaytag.properties; " + e.getMessage());
             }
         }
 
-        return bundle;
-    }
+        Properties mixedProperties = new Properties(defaultProperties);
 
-    /**
-     * Returns the configured Locale Resolver. This method is called before the loading of localized properties.
-     * @return LocaleResolver instance.
-     * @throws TablePropertiesLoadException if the default <code>TableTag.properties</code> file is not found.
-     */
-    public static LocaleResolver getLocaleResolverInstance() throws TablePropertiesLoadException
-    {
-
-        if (localeResolver == null)
+        if (bundle != null)
         {
-
-            // special handling, table properties is not yet instantiated
-            String className = null;
-
-            ResourceBundle defaultUserProperties = loadUserProperties(Locale.getDefault());
-
-            // if available, user properties have higher precedence
-            if (defaultUserProperties != null)
+            Enumeration keys = bundle.getKeys();
+            while (keys.hasMoreElements())
             {
-                try
-                {
-                    className = defaultUserProperties.getString(PROPERTY_CLASS_LOCALERESOLVER);
-                }
-                catch (MissingResourceException e)
-                {
-                    // no problem
-                }
-            }
-
-            // still null? load defaults
-            if (className == null)
-            {
-                Properties defaults = loadBuiltInProperties();
-                className = defaults.getProperty(PROPERTY_CLASS_LOCALERESOLVER);
-            }
-
-            if (className != null)
-            {
-                try
-                {
-                    Class classProperty = ReflectHelper.classForName(className);
-                    localeResolver = (LocaleResolver) classProperty.newInstance();
-
-                    log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
-                        new Object[]{ClassUtils.getShortClassName(LocaleResolver.class), className}));
-                }
-                catch (Throwable e)
-                {
-                    log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
-                        new Object[]{
-                            ClassUtils.getShortClassName(LocaleResolver.class),
-                            e.getClass().getName(),
-                            e.getMessage()}));
-                }
-            }
-            else
-            {
-                log.info(Messages.getString("TableProperties.noconfigured", //$NON-NLS-1$
-                    new Object[]{ClassUtils.getShortClassName(LocaleResolver.class)}));
-            }
-
-            // still null?
-            if (localeResolver == null)
-            {
-                // fallback locale resolver
-                localeResolver = new LocaleResolver()
-                {
-
-                    public Locale resolveLocale(HttpServletRequest request)
-                    {
-                        return request.getLocale();
-                    }
-                };
+                String key = (String) keys.nextElement();
+                mixedProperties.setProperty(key, bundle.getString(key));
             }
         }
-
-        return localeResolver;
-    }
-
-    /**
-     * Initialize a new TableProperties loading the default properties file and the user defined one. There is no
-     * caching used here, caching is assumed to occur in the getInstance factory method.
-     * @param myLocale the locale we are in
-     * @throws TablePropertiesLoadException for errors during loading of properties files
-     */
-    private TableProperties(Locale myLocale) throws TablePropertiesLoadException
-    {
-        this.locale = myLocale;
-        // default properties will not change unless this class is reloaded
-        Properties defaultProperties = loadBuiltInProperties();
-
-        properties = new Properties(defaultProperties);
-        addProperties(myLocale);
 
         // Now copy in the user properties (properties file set by calling setUserProperties()).
         // note setUserProperties() MUST BE CALLED before the first TableProperties instantation
@@ -570,117 +322,46 @@ public final class TableProperties implements Cloneable
             String key = (String) keys.nextElement();
             if (key != null)
             {
-                properties.setProperty(key, (String) userProperties.get(key));
+                mixedProperties.setProperty(key, (String) userProperties.get(key));
             }
         }
+
+        defaultProperties = mixedProperties;
     }
 
     /**
-     * Try to load the properties from the local properties file, displaytag.properties, and merge them into the
-     * existing properties.
-     * @param userLocale the locale from which the properties are to be loaded
-     */
-    private void addProperties(Locale userLocale)
-    {
-        ResourceBundle bundle = loadUserProperties(userLocale);
-
-        if (bundle != null)
-        {
-            Enumeration keys = bundle.getKeys();
-            while (keys.hasMoreElements())
-            {
-                String key = (String) keys.nextElement();
-                properties.setProperty(key, bundle.getString(key));
-            }
-        }
-    }
-
-    /**
-     * Clones the properties as well.
-     * @return a new clone of oneself
-     */
-    protected Object clone()
-    {
-        TableProperties twin;
-        try
-        {
-            twin = (TableProperties) super.clone();
-        }
-        catch (CloneNotSupportedException e)
-        {
-            // should never happen
-            throw new UnhandledException(e);
-        }
-        twin.properties = (Properties) this.properties.clone();
-        return twin;
-    }
-
-    /**
-     * Returns a new TableProperties instance for the given locale.
-     * @param request HttpServletRequest needed to extract the locale to use. If null the default locale will be used.
+     * returns a new TableProperties instance.
      * @return TableProperties instance
      */
-    public static TableProperties getInstance(HttpServletRequest request)
+    public static TableProperties getInstance()
     {
-        Locale locale;
-        if (request != null)
-        {
-            locale = getLocaleResolverInstance().resolveLocale(request);
-        }
-        else
-        {
-            // for some configuration parameters locale doesn't matter
-            locale = Locale.getDefault();
-        }
-
-        TableProperties props = (TableProperties) prototypes.get(locale);
-        if (props == null)
-        {
-            TableProperties lprops = new TableProperties(locale);
-            prototypes.put(locale, lprops);
-            props = lprops;
-        }
-        return (TableProperties) props.clone();
-    }
-
-    /**
-     * Unload all cached properties. This will not clear properties set by by setUserProperties; you must clear those
-     * manually.
-     */
-    public static void clearProperties()
-    {
-        prototypes.clear();
+        return new TableProperties();
     }
 
     /**
      * Local, non-default properties; these settings override the defaults from displaytag.properties and
      * TableTag.properties. Please note that the values are copied in, so that multiple calls with non-overlapping
-     * properties will be merged, not overwritten. Note: setUserProperties() MUST BE CALLED before the first
-     * TableProperties instantation.
+     * properties will be merged, not overwritten.
      * @param overrideProperties - The local, non-default properties
      */
     public static void setUserProperties(Properties overrideProperties)
     {
-        // copy keys here, so that this can be invoked more than once from different sources.
+        userProperties = overrideProperties;
+
+        // if default properties are already loaded, copy keys here
         // if default properties are not yet loaded they will be copied in constructor
-        Enumeration keys = overrideProperties.keys();
-        while (keys.hasMoreElements())
+        if (defaultProperties != null)
         {
-            String key = (String) keys.nextElement();
-            if (key != null)
+            Enumeration keys = userProperties.keys();
+            while (keys.hasMoreElements())
             {
-                userProperties.setProperty(key, (String) overrideProperties.get(key));
+                String key = (String) keys.nextElement();
+                if (key != null)
+                {
+                    defaultProperties.setProperty(key, (String) userProperties.get(key));
+                }
             }
         }
-    }
-
-    /**
-     * The locale for which these properties are intended.
-     * @return the locale
-     */
-    public Locale getLocale()
-    {
-        return locale;
     }
 
     /**
@@ -748,12 +429,12 @@ public final class TableProperties implements Cloneable
 
     /**
      * Getter for the <code>PROPERTY_INT_PAGING_GROUPSIZE</code> property.
+     * @param defaultValue int
      * @return int
      */
-    public int getPagingGroupSize()
+    public int getPagingGroupSize(int defaultValue)
     {
-        // default size is 8
-        return getIntProperty(PROPERTY_INT_PAGING_GROUPSIZE, 8);
+        return getIntProperty(PROPERTY_INT_PAGING_GROUPSIZE, defaultValue);
     }
 
     /**
@@ -826,7 +507,7 @@ public final class TableProperties implements Cloneable
      */
     public boolean getAddExport(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType.getName());
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType.getName());
     }
 
     /**
@@ -836,11 +517,7 @@ public final class TableProperties implements Cloneable
      */
     public boolean getExportHeader(MediaTypeEnum exportType)
     {
-        return getBooleanProperty(PROPERTY_EXPORT_PREFIX
-            + SEP
-            + exportType.getName()
-            + SEP
-            + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
+        return getBooleanProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);
     }
 
     /**
@@ -850,7 +527,17 @@ public final class TableProperties implements Cloneable
      */
     public String getExportLabel(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType.getName() + SEP + EXPORTPROPERTY_STRING_LABEL);
+        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_LABEL);
+    }
+
+    /**
+     * Returns the filename for the given export option.
+     * @param exportType instance of MediaTypeEnum
+     * @return file name
+     */
+    public String getExportFilename(MediaTypeEnum exportType)
+    {
+        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_FILENAME);
     }
 
     /**
@@ -860,7 +547,7 @@ public final class TableProperties implements Cloneable
      */
     public String getExportFileName(MediaTypeEnum exportType)
     {
-        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportType.getName() + SEP + EXPORTPROPERTY_STRING_FILENAME);
+        return getProperty(PROPERTY_EXPORT_PREFIX + "." + exportType + "." + EXPORTPROPERTY_STRING_FILENAME);
     }
 
     /**
@@ -909,15 +596,6 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Getter for the <code>PROPERTY_STRING_EMPTYLISTROW_MESSAGE</code> property.
-     * @return String
-     */
-    public String getEmptyListRowMessage()
-    {
-        return getProperty(PROPERTY_STRING_EMPTYLISTROW_MESSAGE);
-    }
-
-    /**
      * Getter for the <code>PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE</code> property.
      * @return boolean <code>true</code> if table should be displayed also if no items are found
      */
@@ -932,7 +610,7 @@ public final class TableProperties implements Cloneable
      */
     public boolean getExportFullList()
     {
-        return "list".equals(getProperty(PROPERTY_STRING_EXPORTAMOUNT)); //$NON-NLS-1$
+        return "list".equals(getProperty(PROPERTY_STRING_EXPORTAMOUNT));
     }
 
     /**
@@ -941,7 +619,7 @@ public final class TableProperties implements Cloneable
      */
     public boolean getSortFullList()
     {
-        return "list".equals(getProperty(PROPERTY_STRING_SORTAMOUNT)); //$NON-NLS-1$
+        return "list".equals(getProperty(PROPERTY_STRING_SORTAMOUNT));
     }
 
     /**
@@ -951,7 +629,7 @@ public final class TableProperties implements Cloneable
     public boolean getAddPagingBannerTop()
     {
         String placement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
-        return "top".equals(placement) || "both".equals(placement); //$NON-NLS-1$ //$NON-NLS-2$
+        return "top".equals(placement) || "both".equals(placement);
     }
 
     /**
@@ -961,7 +639,7 @@ public final class TableProperties implements Cloneable
     public boolean getAddPagingBannerBottom()
     {
         String placement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
-        return "bottom".equals(placement) || "both".equals(placement); //$NON-NLS-1$ //$NON-NLS-2$
+        return "bottom".equals(placement) || "both".equals(placement);
     }
 
     /**
@@ -972,7 +650,14 @@ public final class TableProperties implements Cloneable
      */
     public String getCssRow(int rowNumber)
     {
-        return getProperty((rowNumber % 2 == 0) ? PROPERTY_CSS_TR_ODD : PROPERTY_CSS_TR_EVEN);
+        if (rowNumber % 2 == 0)
+        {
+            return getProperty(PROPERTY_CSS_TR_ODD);
+        }
+        else
+        {
+            return getProperty(PROPERTY_CSS_TR_EVEN);
+        }
     }
 
     /**
@@ -983,7 +668,14 @@ public final class TableProperties implements Cloneable
      */
     public String getCssOrder(boolean ascending)
     {
-        return getProperty(ascending ? PROPERTY_CSS_TH_SORTED_ASCENDING : PROPERTY_CSS_TH_SORTED_DESCENDING);
+        if (ascending)
+        {
+            return getProperty(PROPERTY_CSS_TH_SORTED_ASCENDING);
+        }
+        else
+        {
+            return getProperty(PROPERTY_CSS_TH_SORTED_DESCENDING);
+        }
     }
 
     /**
@@ -1014,212 +706,12 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Returns the configured list of media.
-     * @return the value of <code>PROPERTY_EXPORTTYPES</code>
-     */
-    public String[] getExportTypes()
-    {
-        String list = getProperty(PROPERTY_EXPORTTYPES);
-        if (list == null)
-        {
-            return new String[0];
-        }
-
-        return StringUtils.split(list);
-    }
-
-    /**
-     * Returns the class responsible for the given export.
-     * @param exportName export name
-     * @return String classname
-     */
-    public String getExportClass(String exportName)
-    {
-        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + exportName + SEP + EXPORTPROPERTY_STRING_CLASS);
-    }
-
-    /**
      * Returns an instance of configured requestHelperFactory.
      * @return RequestHelperFactory instance.
-     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
      */
-    public RequestHelperFactory getRequestHelperFactoryInstance() throws FactoryInstantiationException
+    public RequestHelperFactory getRequestHelperFactoryInstance()
     {
-        Object loadedObject = getClassPropertyInstance(PROPERTY_CLASS_REQUESTHELPERFACTORY);
-
-        // should not be null, but avoid errors just in case... see DISPL-148
-        if (loadedObject == null)
-        {
-            return new DefaultRequestHelperFactory();
-        }
-
-        try
-        {
-            return (RequestHelperFactory) loadedObject;
-        }
-        catch (ClassCastException e)
-        {
-            throw new FactoryInstantiationException(getClass(), PROPERTY_CLASS_REQUESTHELPERFACTORY, loadedObject
-                .getClass()
-                .getName(), e);
-        }
-    }
-
-    /**
-     * Returns an instance of configured DecoratorFactory.
-     * @return DecoratorFactory instance.
-     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
-     */
-    public DecoratorFactory getDecoratorFactoryInstance() throws FactoryInstantiationException
-    {
-        Object loadedObject = getClassPropertyInstance(PROPERTY_CLASS_DECORATORFACTORY);
-
-        if (loadedObject == null)
-        {
-            return new DefaultDecoratorFactory();
-        }
-
-        try
-        {
-            return (DecoratorFactory) loadedObject;
-        }
-        catch (ClassCastException e)
-        {
-            throw new FactoryInstantiationException(getClass(), PROPERTY_CLASS_DECORATORFACTORY, loadedObject
-                .getClass()
-                .getName(), e);
-        }
-    }
-
-    public String getPaginationSortParam()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_SORT_PARAM);
-        if (result == null)
-        {
-            result = "sort";
-        }
-        return result;
-    }
-
-    public String getPaginationPageNumberParam()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM);
-        if (result == null)
-        {
-            result = "page";
-        }
-        return result;
-    }
-
-    public String getPaginationSortDirectionParam()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM);
-        if (result == null)
-        {
-            result = "dir";
-        }
-        return result;
-    }
-
-    public String getPaginationSearchIdParam()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM);
-        if (result == null)
-        {
-            result = "searchId";
-        }
-        return result;
-    }
-
-    public String getPaginationAscValue()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_ASC_VALUE);
-        if (result == null)
-        {
-            result = "asc";
-        }
-        return result;
-    }
-
-    public String getPaginationDescValue()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_DESC_VALUE);
-        if (result == null)
-        {
-            result = "desc";
-        }
-        return result;
-    }
-
-    public boolean getPaginationSkipPageNumberInSort()
-    {
-        String s = getProperty(PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);
-        if (s == null)
-        {
-            return true;
-        }
-        else
-        {
-            return getBooleanProperty(PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);
-        }
-    }
-
-    // </JBN>
-
-    /**
-     * Returns the configured resource provider instance. If necessary instantiate the resource provider from config and
-     * then keep a cached instance.
-     * @return I18nResourceProvider instance.
-     * @see I18nResourceProvider
-     */
-    public I18nResourceProvider geResourceProvider()
-    {
-        String className = getProperty(PROPERTY_CLASS_LOCALEPROVIDER);
-
-        if (resourceProvider == null)
-        {
-            if (className != null)
-            {
-                try
-                {
-                    Class classProperty = ReflectHelper.classForName(className);
-                    resourceProvider = (I18nResourceProvider) classProperty.newInstance();
-
-                    log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
-                        new Object[]{ClassUtils.getShortClassName(I18nResourceProvider.class), className}));
-                }
-                catch (Throwable e)
-                {
-                    log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
-                        new Object[]{
-                            ClassUtils.getShortClassName(I18nResourceProvider.class),
-                            e.getClass().getName(),
-                            e.getMessage()}));
-                }
-            }
-            else
-            {
-                log.info(Messages.getString("TableProperties.noconfigured", //$NON-NLS-1$
-                    new Object[]{ClassUtils.getShortClassName(I18nResourceProvider.class)}));
-            }
-
-            // still null?
-            if (resourceProvider == null)
-            {
-                // fallback provider, no i18n
-                resourceProvider = new I18nResourceProvider()
-                {
-
-                    // Always returns null
-                    public String getResource(String titleKey, String property, Tag tag, PageContext context)
-                    {
-                        return null;
-                    }
-                };
-            }
-        }
-
-        return resourceProvider;
+        return (RequestHelperFactory) getClassPropertyInstance(PROPERTY_CLASS_REQUESTHELPERFACTORY);
     }
 
     /**
@@ -1253,39 +745,46 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Returns an instance of a configured Class. Returns a configured Class instantiated
-     * callingClass.forName([configuration value]).
+     * Returns a configured Class instantiated callingClass.forName([configuration value]).
      * @param key configuration key
-     * @return instance of configured class
-     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
+     * @return Class
      */
-    private Object getClassPropertyInstance(String key) throws FactoryInstantiationException
+    private Class getClassProperty(String key)
     {
-        Object instance = objectCache.get(key);
-        if (instance != null)
-        {
-            return instance;
-        }
-
         String className = getProperty(key);
 
-        // shouldn't be null, but better check it
-        if (className == null)
-        {
-            return null;
-        }
-
+        Class classProperty = null;
         try
         {
-            Class classProperty = ReflectHelper.classForName(className);
-            instance = classProperty.newInstance();
-            objectCache.put(key, instance);
-            return instance;
+            classProperty = Class.forName(className);
+        }
+        catch (ClassNotFoundException e)
+        {
+            // @todo temporary catch! need to define where to handle exceptions
+            throw new NestableRuntimeException(e);
+        }
+        return classProperty;
+    }
+
+    /**
+     * Returns an instance of a configured Class.
+     * @param key configuration key
+     * @return instance of configured class
+     */
+    private Object getClassPropertyInstance(String key)
+    {
+        Class objectClass = getClassProperty(key);
+        Object instance = null;
+        try
+        {
+            instance = objectClass.newInstance();
         }
         catch (Exception e)
         {
-            throw new FactoryInstantiationException(getClass(), key, className, e);
+            // @todo temporary catch! need to define where to handle exceptions
+            throw new NestableRuntimeException(e);
         }
+        return instance;
     }
 
     /**
@@ -1296,27 +795,25 @@ public final class TableProperties implements Cloneable
      */
     private int getIntProperty(String key, int defaultValue)
     {
+        int intValue = defaultValue;
+
         try
         {
-            return Integer.parseInt(getProperty(key));
+            intValue = Integer.parseInt(getProperty(key));
         }
         catch (NumberFormatException e)
         {
             // Don't care, use default
-            log.warn(Messages.getString("TableProperties.invalidvalue", //$NON-NLS-1$
-                new Object[]{key, getProperty(key), new Integer(defaultValue)}));
+            log.warn("Invalid value for \""
+                + key
+                + "\" property: value=\""
+                + getProperty(key)
+                + "\"; using default \""
+                + defaultValue
+                + "\"");
         }
 
-        return defaultValue;
+        return intValue;
     }
 
-    /**
-     * Obtain the name of the decorator configured for a given media type.
-     * @param thatEnum A media type
-     * @return The name of the decorator configured for a given media type.
-     */
-    public String getExportDecoratorName(MediaTypeEnum thatEnum)
-    {
-        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + thatEnum + SEP + PROPERTY_EXPORT_DECORATOR_SUFFIX);
-    }
 }

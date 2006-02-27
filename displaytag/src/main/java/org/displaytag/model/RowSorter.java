@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.model;
 
 import java.util.Comparator;
@@ -23,7 +12,7 @@ import org.displaytag.util.LookupUtil;
 
 /**
  * Comparator for rows.
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class RowSorter implements Comparator
@@ -50,31 +39,19 @@ public class RowSorter implements Comparator
     private int columnIndex;
 
     /**
-     * Comparator used for comparisons.
-     */
-    private Comparator comparator;
-
-    /**
      * Initialize a new RowSorter.
      * @param sortedColumnIndex index of the sorted column
      * @param beanProperty name of the property. If pProperty is null column index is used to get a static cell value
      * from the row object
      * @param tableDecorator TableDecorator instance
      * @param ascendingOrder boolean ascending order?
-     * @param compar the comparator to use
      */
-    public RowSorter(
-        int sortedColumnIndex,
-        String beanProperty,
-        TableDecorator tableDecorator,
-        boolean ascendingOrder,
-        Comparator compar)
+    public RowSorter(int sortedColumnIndex, String beanProperty, TableDecorator tableDecorator, boolean ascendingOrder)
     {
         this.columnIndex = sortedColumnIndex;
         this.property = beanProperty;
         this.decorator = tableDecorator;
         this.ascending = ascendingOrder;
-        this.comparator = compar;
     }
 
     /**
@@ -106,75 +83,85 @@ public class RowSorter implements Comparator
             }
 
             return checkNullsAndCompare(obj1, obj2);
-        }
 
-        if (object1 instanceof Row)
-        {
-            obj1 = ((Row) object1).getObject();
         }
-        if (object2 instanceof Row)
+        else
         {
-            obj2 = ((Row) object2).getObject();
-        }
-
-        try
-        {
-            Object result1;
-            Object result2;
-
-            // If they have supplied a decorator, then make sure and use it for the sorting as well
-            if (this.decorator != null && this.decorator.hasGetterFor(this.property))
+            if (object1 instanceof Row)
             {
-                // set the row before sending to the decorator
-                this.decorator.initRow(obj1, 0, 0);
-
-                result1 = LookupUtil.getBeanProperty(this.decorator, this.property);
-
-                // set the row before sending to the decorator
-                this.decorator.initRow(obj2, 0, 0);
-
-                result2 = LookupUtil.getBeanProperty(this.decorator, this.property);
+                obj1 = ((Row) object1).getObject();
             }
-            else
+            if (object2 instanceof Row)
             {
-                result1 = LookupUtil.getBeanProperty(obj1, this.property);
-                result2 = LookupUtil.getBeanProperty(obj2, this.property);
+                obj2 = ((Row) object2).getObject();
             }
 
-            return checkNullsAndCompare(result1, result2);
-        }
-        catch (ObjectLookupException e)
-        {
-            throw new RuntimeLookupException(getClass(), this.property, e);
+            try
+            {
+                Object result1 = null;
+                Object result2 = null;
+
+                // If they have supplied a decorator, then make sure and use it for the sorting as well
+                if (this.decorator != null && this.decorator.hasGetterFor(this.property))
+                {
+                    // set the row before sending to the decorator
+                    this.decorator.initRow(obj1, 0, 0);
+
+                    result1 = LookupUtil.getBeanProperty(this.decorator, this.property);
+
+                    // set the row before sending to the decorator
+                    this.decorator.initRow(obj2, 0, 0);
+
+                    result2 = LookupUtil.getBeanProperty(this.decorator, this.property);
+                }
+                else
+                {
+                    result1 = LookupUtil.getBeanProperty(obj1, this.property);
+                    result2 = LookupUtil.getBeanProperty(obj2, this.property);
+                }
+
+                return checkNullsAndCompare(result1, result2);
+            }
+            catch (ObjectLookupException e)
+            {
+                throw new RuntimeLookupException(getClass(), this.property, e);
+            }
         }
     }
 
     /**
-     * Compares two given objects, and handles the case where nulls are present.
+     * Compares two given objects handlig nulls and not comparable objects are handled. Not comparable objects are
+     * compared using their string representation.
      * @param object1 first object to compare
      * @param object2 second object to compare
      * @return int result
      */
     private int checkNullsAndCompare(Object object1, Object object2)
     {
-        int returnValue;
-        if (object1 == null && object2 != null)
+        int returnValue = 0;
+
+        if (object1 instanceof Comparable && object2 instanceof Comparable)
         {
-            returnValue = -1;
-        }
-        else if (object1 != null && object2 == null)
-        {
-            returnValue = 1;
+            returnValue = ((Comparable) object1).compareTo(object2);
         }
         else if (object1 == null && object2 == null)
         {
-            // both null
             returnValue = 0;
+        }
+        else if (object1 == null && object2 != null)
+        {
+            returnValue = 1;
+        }
+        else if (object1 != null && object2 == null)
+        {
+            returnValue = -1;
         }
         else
         {
-            returnValue = comparator.compare(object1, object2);
+            // if object are not null and don't implement comparable, compare using string values
+            returnValue = object1.toString().compareTo(object2.toString());
         }
+
         int ascendingInt = this.ascending ? 1 : -1;
         return ascendingInt * returnValue;
     }
@@ -189,8 +176,7 @@ public class RowSorter implements Comparator
     {
         if (object instanceof RowSorter)
         {
-            return new EqualsBuilder().append(this.property, ((RowSorter) object).property).append(
-                this.columnIndex,
+            return new EqualsBuilder().append(this.property, ((RowSorter) object).property).append(this.columnIndex,
                 ((RowSorter) object).columnIndex).isEquals();
         }
 

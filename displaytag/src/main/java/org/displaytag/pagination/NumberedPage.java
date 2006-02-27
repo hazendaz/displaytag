@@ -1,23 +1,11 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.pagination;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-
 /**
  * Object representing a page.
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class NumberedPage
@@ -67,9 +55,9 @@ public class NumberedPage
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("selected", this.selected) //$NON-NLS-1$
-            .append("number", this.number) //$NON-NLS-1$
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("selected", this.selected)
+            .append("number", this.number)
             .toString();
     }
 }

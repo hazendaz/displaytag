@@ -1,17 +1,5 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -20,17 +8,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.Messages;
 
 
 /**
  * Default RequestHelper implementation.
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  * @see org.displaytag.util.Href
  * @see org.displaytag.util.RequestHelper
@@ -71,7 +56,7 @@ public class DefaultRequestHelper implements RequestHelper
     {
         String requestURI = this.request.getRequestURI();
         // call encodeURL to preserve session id when cookies are disabled
-        Href href = new DefaultHref(this.response.encodeURL(requestURI));
+        Href href = new Href(this.response.encodeURL(requestURI));
         href.setParameterMap(getParameterMap());
         return href;
     }
@@ -101,8 +86,7 @@ public class DefaultRequestHelper implements RequestHelper
             catch (NumberFormatException e)
             {
                 // It's ok to ignore, simply return null
-                log.debug(Messages.getString("RequestHelper.invalidparameter", //$NON-NLS-1$
-                    new Object[]{key, value}));
+                log.debug("Invalid \"" + key + "\" parameter from request: value=\"" + value + "\"");
             }
         }
 
@@ -126,22 +110,14 @@ public class DefaultRequestHelper implements RequestHelper
             String paramName = (String) parametersName.nextElement();
 
             // put key/value in the map
-            String[] originalValues = (String[]) ObjectUtils.defaultIfNull(
-                this.request.getParameterValues(paramName),
-                new String[0]);
-            String[] values = new String[originalValues.length];
 
+            String[] values = this.request.getParameterValues(paramName);
             for (int i = 0; i < values.length; i++)
             {
-                try
-                {
-                    values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]), StringUtils
-                        .defaultString(response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
-                }
-                catch (UnsupportedEncodingException e)
-                {
-                    throw new UnhandledException(e);
-                }
+
+                // values[i] = URLEncoder.encode(values[i], "UTF-8");
+                // deprecated in java 1.4, but still need this for jre 1.3 compatibility
+                values[i] = URLEncoder.encode(StringUtils.defaultString(values[i]));
             }
             map.put(paramName, values);
 
@@ -150,5 +126,6 @@ public class DefaultRequestHelper implements RequestHelper
         // return the Map
         return map;
     }
+
 
 }

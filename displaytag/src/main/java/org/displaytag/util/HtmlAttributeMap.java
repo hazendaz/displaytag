@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.util;
 
 import java.util.HashMap;
@@ -16,19 +5,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * Extends Map providing only a different toString() method which can be used in printing attributes inside an html tag.
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class HtmlAttributeMap extends HashMap
 {
-
-    /**
-     * D1597A17A6.
-     */
-    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Attribute value delimiter.
@@ -54,7 +37,7 @@ public class HtmlAttributeMap extends HashMap
         // fast exit when no attribute are present
         if (size() == 0)
         {
-            return TagConstants.EMPTY_STRING;
+            return "";
         }
 
         // buffer extimated in number of attributes * 30
@@ -71,13 +54,9 @@ public class HtmlAttributeMap extends HashMap
             Map.Entry entry = (Map.Entry) iterator.next();
 
             // append a new atribute
-            buffer
-                .append(SPACE)
-                .append(entry.getKey())
-                .append(EQUALS)
-                .append(DELIMITER)
-                .append(entry.getValue())
-                .append(DELIMITER);
+            buffer.append(SPACE).append(entry.getKey()).append(EQUALS).append(DELIMITER).append(
+                entry.getValue()).append(
+                DELIMITER);
         }
 
         // return

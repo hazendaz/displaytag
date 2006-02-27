@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.pagination;
 
 import java.text.MessageFormat;
@@ -24,8 +13,7 @@ import org.displaytag.util.Href;
 
 
 /**
- * Helper class for generation of paging banners.
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class Pagination
@@ -67,11 +55,6 @@ public class Pagination
     private Integer nextPage;
 
     /**
-     * current page.
-     */
-    private Integer currentPage;
-
-    /**
      * List containg NumberedPage objects.
      * @see org.displaytag.pagination.NumberedPage
      */
@@ -95,10 +78,7 @@ public class Pagination
      */
     public void addPage(int number, boolean isSelected)
     {
-        if (log.isDebugEnabled())
-        {
-            log.debug("adding page " + number);
-        }
+        log.debug("addpage " + number);
         this.pages.add(new NumberedPage(number, isSelected));
     }
 
@@ -202,15 +182,6 @@ public class Pagination
     }
 
     /**
-     * Sets the number of the current page.
-     * @param current number of the current page
-     */
-    public void setCurrent(Integer current)
-    {
-        this.currentPage = current;
-    }
-
-    /**
      * Returns the appropriate banner for the pagination.
      * @param numberedPageFormat String to be used for a not selected page
      * @param numberedPageSelectedFormat String to be used for a selected page
@@ -221,6 +192,7 @@ public class Pagination
     public String getFormattedBanner(String numberedPageFormat, String numberedPageSelectedFormat,
         String numberedPageSeparator, String fullBanner)
     {
+
         StringBuffer buffer = new StringBuffer(100);
 
         // numbered page list
@@ -258,22 +230,19 @@ public class Pagination
 
         // String for numbered pages
         String numberedPageString = buffer.toString();
-        // Object array
-        // {0} full String for numbered pages
-        // {1} first page url
-        // {2} previous page url
-        // {3} next page url
-        // {4} last page url
-        // {5} current page
-        // {6} total pages
+
+        //  Object array
+        //  {0} full String for numbered pages
+        //  {1} first page url
+        //  {2} previous page url
+        //  {3} next page url
+        //  {4} last page url
         Object[] pageObjects = {
             numberedPageString,
             ((Href) this.href.clone()).addParameter(this.pageParam, getFirst()),
             ((Href) this.href.clone()).addParameter(this.pageParam, getPrevious()),
             ((Href) this.href.clone()).addParameter(this.pageParam, getNext()),
-            ((Href) this.href.clone()).addParameter(this.pageParam, getLast()),
-            this.currentPage,
-            this.isLast() ? this.currentPage : this.lastPage}; // this.lastPage is null if the last page is displayed
+            ((Href) this.href.clone()).addParameter(this.pageParam, getLast())};
 
         // return the full banner
         return MessageFormat.format(fullBanner, pageObjects);
@@ -284,15 +253,14 @@ public class Pagination
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("firstPage", this.firstPage) //$NON-NLS-1$
-            .append("lastPage", this.lastPage) //$NON-NLS-1$
-            .append("currentPage", this.currentPage) //$NON-NLS-1$
-            .append("nextPage", this.nextPage) //$NON-NLS-1$
-            .append("previousPage", this.previousPage) //$NON-NLS-1$
-            .append("pages", this.pages) //$NON-NLS-1$
-            .append("href", this.href) //$NON-NLS-1$
-            .append("pageParam", this.pageParam) //$NON-NLS-1$
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("firstPage", this.firstPage)
+            .append("lastPage", this.lastPage)
+            .append("nextPage", this.nextPage)
+            .append("previousPage", this.previousPage)
+            .append("pages", this.pages)
+            .append("href", this.href)
+            .append("pageParam", this.pageParam)
             .toString();
     }
 }

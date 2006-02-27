@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Overview</title>
+    <author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+  </properties>
+  <body>
+    <section name="Overview">
+      <p>The display tag library is an open source suite of custom tags that provide high level web presentation patterns which will work in an MVC model. The library provides a significant amount of functionality while still being simple and straight-forward to use.</p>
+    </section>
+    <section name="News">
+      <subsection name="April 12, 2004">
+        <p>
+          1.0-b3 is out! Check out
+          <a href="changes-report.html">changes</a>
+          for details about new features and fixed bugs and
+          <a href="download.html">download the distribution here</a>
+          . This will be the last beta for 1.0, we are moving to rc1 now.
+        </p>
+        <p> If you want to try the new EL version of the tag library added in b3 please pay attention to the tag 
+          reference: the EL version is compatible with the "standard" version for most of the attributes but you have 
+          to declare the table source using an EL expression. So if you previously used 
+            <code>&lt;display:table name="requestScope.object.property"></code>
+          you need to change it to
+          <code>&lt;display:table name="${requestScope.object.property}"></code>
+          </p>
+      </subsection>
+      <subsection name="March 7, 2004">
+        <p>
+          Nightly builds are now updated daily. The entire website is automatically refreshed once a day with the latest
+          documentation and reports.
+          No date for the next b3 release yet, but the <a href="changes-report.html">change log</a> is growing... 
+        </p>
+      </subsection>
+      <subsection name="February 4, 2004">
+        <p>
+          New snapshot build posted.
+        </p>
+      </subsection>
+      <subsection name="January 3, 2004">
+        <p>
+          Snapshot builds are now available. See <a href="download.html">download</a> for details.
+          Also check the nice <a href="statcvs/index.html">statcvs</a> reports, I finally managed to make
+          this maven plugin working...
+        </p>
+      </subsection>
+      <subsection name="December 30, 2003">
+        <p>
+          Started working on 1.0-b3 release. The site is always updated with
+          the latest changes, so be sure to refer to the docs included in the
+          distribution zip for previous releases.
+          We will try to make nightly build available shortly.
+        </p>
+      </subsection>
+    </section>
+    <section name="What can I do with it?">
+      <p>Actually the display tag library can just... display tables! Give it a list of objects and it will handle column display, sorting, paging, cropping, grouping, exporting, smart linking and decoration of the table in a nice and customizable xhtml style.</p>
+      <p>This is a sample of tables generated from lists using the &lt;display:table&gt; tag:</p>
+      <img src="images/sample_snapshot.png" width="562" height="543" alt="sample tables produced with the display:table tag" />
+    </section>
+  </body>
+</document>
+

@@ -2,15 +2,13 @@ package org.displaytag.decorator;
 
 import junit.framework.TestCase;
 
-
 /**
- * Test for TableDecorator.
- * @author Fabrizio Giustina
+ * test for TableDecorator.
+ * @author fgiust
  * @version $Revision: 1 $ ($Author: Fgiust $)
  */
 public class TableDecoratorTest extends TestCase
 {
-
     /**
      * test decorator one.
      */
@@ -22,11 +20,12 @@ public class TableDecoratorTest extends TestCase
     private TableDecorator two;
 
     /**
-     * @see junit.framework.TestCase#getName()
+     * Constructor for TableDecoratorTest.
+     * @param name test name
      */
-    public String getName()
+    public TableDecoratorTest(String name)
     {
-        return getClass().getName() + "." + super.getName();
+        super(name);
     }
 
     /**
@@ -35,53 +34,57 @@ public class TableDecoratorTest extends TestCase
     protected void setUp() throws Exception
     {
         super.setUp();
-        this.one = new TableDecoratorOne();
-        this.two = new TableDecoratorTwo();
+        this.one = DecoratorFactory.loadTableDecorator(TableDecoratorOne.class.getName());
+        this.two = DecoratorFactory.loadTableDecorator(TableDecoratorTwo.class.getName());
     }
 
     /**
-     * test that property list is not shared between decorators. (testcase for [840011])
+     * test that property list is not shared between decorators.
+     * (testcase for [840011])
      */
     public void testDecoratorPropertyCache()
     {
         assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one"));
-        assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one.something"));
         assertTrue("decorator two - property two, expected true", this.two.hasGetterFor("two"));
 
         assertFalse("decorator one - property two, expected false", this.one.hasGetterFor("two"));
         assertFalse("decorator two - property one, expected false", this.two.hasGetterFor("one"));
     }
 
-    /**
-     * test for mapped property support. (testcase for [926213])
-     */
-    public void testMappedProperty()
-    {
-        assertTrue("mapped property not recognized", this.one.hasGetterFor("mapped(one)"));
-    }
+}
+
+/**
+ * test decorator one.
+ * @author fgiust
+ * @version $Revision: 1 $ ($Author: Fgiust $)
+ */
+class TableDecoratorOne extends TableDecorator
+{
 
     /**
-     * test for mapped property support. (testcase for [926213])
+     * getter property for "one".
+     * @return "one"
      */
-    public void testNotExistingMappedProperty()
+    public String getOne()
     {
-        assertFalse("Invalid mapped property recognized", this.one.hasGetterFor("something(one)"));
+        return "one";
     }
+}
+
+/**
+ * test decorator two.
+ * @author fgiust
+ * @version $Revision: 1 $ ($Author: Fgiust $)
+ */
+class TableDecoratorTwo extends TableDecorator
+{
 
     /**
-     * test for indexed property support. (testcase for [926213])
+     * getter property for "two".
+     * @return "two"
      */
-    public void testIndexedProperty()
+    public String getTwo()
     {
-        assertTrue("indexed property not recognized", this.one.hasGetterFor("indexed[0]"));
+        return "two";
     }
-
-    /**
-     * test for indexed property support. (testcase for [926213])
-     */
-    public void testNotExistingIndexedProperty()
-    {
-        assertFalse("Invalid indexed property recognized", this.one.hasGetterFor("something[0]"));
-    }
-
 }
