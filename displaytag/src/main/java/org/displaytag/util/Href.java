@@ -1,109 +1,176 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.util;
 
-import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 
 /**
- * Interface representing an URI (the href parameter of an &lt;a> tag). Provides methods to insert new parameters. It
- * doesn't support multiple parameter values
- * @author Fabrizio Giustina
+ * <p>Object representing an URI (the href parameter of an &lt;a&gt; tag)</p>
+ * <p>Provides methods to insert new parameters. It doesn't support multiple parameter values</p>
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
-public interface Href extends Cloneable, Serializable
+public class Href
 {
 
     /**
-     * Adds a parameter to the href.
-     * @param name String
-     * @param value Object
-     * @return this Href instance, useful for concatenation.
+     * Field mBaseUrl
      */
-    Href addParameter(String name, Object value);
+    private String mBaseUrl;
 
     /**
-     * Removes a parameter from the href.
-     * @param name String
+     * Field mParameters
      */
-    void removeParameter(String name);
+    private HashMap mParameters;
 
     /**
-     * Adds an int parameter to the href.
-     * @param name String
-     * @param value int
-     * @return this Href instance, useful for concatenation.
+     * Constructor for Href
+     * @param pBaseUrl String
      */
-    Href addParameter(String name, int value);
+    public Href(String pBaseUrl)
+    {
+        mParameters = new HashMap();
+
+        if (pBaseUrl.indexOf("?") == -1)
+        {
+            // simple url, no parameters
+            mBaseUrl = pBaseUrl;
+        }
+        else
+        {
+            // the Url already has parameters, put them in the parameter Map
+            StringTokenizer lTokenizer = new StringTokenizer(pBaseUrl, "?");
+
+            // base url (before "?")
+            mBaseUrl = lTokenizer.nextToken();
+
+            if (lTokenizer.hasMoreTokens())
+            {
+
+                StringTokenizer lParamTokenizer = new StringTokenizer(lTokenizer.nextToken(), "&");
+
+                // split parameters (key=value)
+                while (lParamTokenizer.hasMoreTokens())
+                {
+
+                    // split key and value ...
+                    String[] lKeyValue = StringUtils.split(lParamTokenizer.nextToken(), "=");
+
+                    // ... and add it to the map
+                    // ... but remember to encode name/value to prevent css
+                    mParameters.put(
+                        StringEscapeUtils.escapeHtml(lKeyValue[0]),
+                        StringEscapeUtils.escapeHtml(lKeyValue[1]));
+
+                }
+            }
+
+        }
+    }
 
     /**
-     * Getter for the map containing link parameters. The returned map is always a copy and not the original instance.
-     * @return parameter Map (copy)
+     * Constructor for Href
+     * @param pHref Href
      */
-    Map getParameterMap();
+    public Href(Href pHref)
+    {
+        mBaseUrl = pHref.getBaseUrl();
+        mParameters = pHref.getParameterMap();
+    }
 
     /**
-     * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
-     * added. Any parameter already present in the href object is removed.
+     * Method addParameter
+     * @param pName String
+     * @param pValue Object
+     */
+    public void addParameter(String pName, Object pValue)
+    {
+        mParameters.put(pName, pValue);
+    }
+
+    /**
+     * Method addParameter
+     * @param pName String
+     * @param pValue int
+     */
+    public void addParameter(String pName, int pValue)
+    {
+        mParameters.put(pName, new Integer(pValue));
+    }
+
+    /**
+     * Method getParameterMap
+     * @return HashMap
+     */
+    public HashMap getParameterMap()
+    {
+        return (HashMap) mParameters.clone();
+    }
+
+    /**
+     * Sets the parameters in the Href. The value in the given Map will be escaped before added
      * @param parametersMap Map containing parameters
      */
-    void setParameterMap(Map parametersMap);
+    public void setParameterMap(Map parametersMap)
+    {
+        // create a new HashMap
+        mParameters = new HashMap(parametersMap.size());
+
+        // copy value, escaping html
+        Iterator mapIterator = parametersMap.entrySet().iterator();
+        while (mapIterator.hasNext())
+        {
+            Map.Entry entry = (Map.Entry) mapIterator.next();
+            String key = StringEscapeUtils.escapeHtml((String) entry.getKey());
+            String value = StringEscapeUtils.escapeHtml((String) entry.getValue());
+            mParameters.put(key, value);
+        }
+    }
 
     /**
-     * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
-     * added. Parameters in the original href are kept and not overridden.
-     * @param parametersMap Map containing parameters
-     */
-    void addParameterMap(Map parametersMap);
-
-    /**
-     * Getter for the base url (without parameters).
+     * Method getBaseUrl
      * @return String
      */
-    String getBaseUrl();
+    public String getBaseUrl()
+    {
+        return mBaseUrl;
+    }
 
     /**
-     * Set the full url, overriding any existing parameter.
-     * @param url full url
-     */
-    void setFullUrl(String url);
-
-    /**
-     * Returns the URI anchor.
-     * @return anchor or <code>null</code> if no anchor has been set.
-     */
-    String getAnchor();
-
-    /**
-     * Setter for the URI anchor.
-     * @param name string to be used as anchor name (without #).
-     */
-    void setAnchor(String name);
-
-    /**
-     * toString: output the full url with parameters.
+     * toString: output the full url with parameters
      * @return String
      */
-    String toString();
+    public String toString()
+    {
 
-    /**
-     * @see java.lang.Object#clone()
-     */
-    Object clone();
+        // no parameters? simply return the base Url
+        if (mParameters.size() == 0)
+        {
+            return mBaseUrl;
+        }
 
-    /**
-     * @see java.lang.Object#equals(Object)
-     */
-    boolean equals(Object object);
+        StringBuffer lBuffer = new StringBuffer(30);
+        lBuffer.append(mBaseUrl).append('?');
+        Set lParameterSet = mParameters.entrySet();
+
+        Iterator lIterator = lParameterSet.iterator();
+
+        while (lIterator.hasNext())
+        {
+            Map.Entry lEntry = (Map.Entry) lIterator.next();
+            lBuffer.append(lEntry.getKey()).append('=').append(lEntry.getValue());
+            if (lIterator.hasNext())
+            {
+                lBuffer.append(TagConstants.AMPERSAND);
+            }
+        }
+
+        return lBuffer.toString();
+    }
 
 }

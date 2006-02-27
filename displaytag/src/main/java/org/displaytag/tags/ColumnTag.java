@@ -1,909 +1,856 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.decorator.AutolinkColumnDecorator;
-import org.displaytag.decorator.DisplaytagColumnDecorator;
-import org.displaytag.decorator.EscapeXmlColumnDecorator;
-import org.displaytag.decorator.MessageFormatColumnDecorator;
-import org.displaytag.exception.DecoratorInstantiationException;
-import org.displaytag.exception.InvalidTagAttributeValueException;
-import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.decorator.ColumnDecorator;
+import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.model.Cell;
-import org.displaytag.model.DefaultComparator;
 import org.displaytag.model.HeaderCell;
-import org.displaytag.properties.MediaTypeEnum;
-import org.displaytag.properties.SortOrderEnum;
-import org.displaytag.util.DefaultHref;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.MediaUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
-
 /**
  * <p>
- * This tag works hand in hand with the TableTag to display a list of objects. This describes a column of data in the
- * TableTag. There can be any number of columns that make up the list.
+ * This tag works hand in hand with the TableTag to display a list of objects.  This describes a column of data in the
+ * TableTag.  There can be any number of columns that make up the list.
  * </p>
  * <p>
- * This tag does no work itself, it is simply a container of information. The TableTag does all the work based on the
- * information provided in the attributes of this tag.
+ * This tag does no work itself, it is simply a container of information.  The TableTag does all the work based on
+ * the information provided in the attributes of this tag.
  * <p>
  * @author mraible
- * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
+public class ColumnTag extends BodyTagSupport
 {
 
     /**
-     * D1597A17A6.
+     * logger
      */
-    private static final long serialVersionUID = 899149338534L;
+    private static Log mLog = LogFactory.getLog(ColumnTag.class);
 
     /**
-     * logger.
+     * Field mStaticContent
      */
-    private static Log log = LogFactory.getLog(ColumnTag.class);
+    private String mStaticContent;
 
     /**
-     * html pass-through attributes for cells.
+     * html pass-through attributes for cells
      */
-    private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
+    private HtmlAttributeMap mAttributeMap = new HtmlAttributeMap();
 
     /**
-     * html pass-through attributes for cell headers.
+     * html pass-through attributes for cell headers
      */
-    private HtmlAttributeMap headerAttributeMap = new HtmlAttributeMap();
+    private HtmlAttributeMap mHeaderAttributeMap = new HtmlAttributeMap();
 
     /**
-     * the property method that is called to retrieve the information to be displayed in this column. This method is
-     * called on the current object in the iteration for the given row. The property format is in typical struts format
-     * for properties (required)
+     * the property method that is called to retrieve the information to be displayed in this column.
+     * This method is called on the current object in the iteration for the given row.
+     * The property format is in typical struts format for properties (required)
      */
-    private String property;
+    private String mProperty;
 
     /**
-     * the title displayed for this column. if this is omitted then the property name is used for the title of the
-     * column (optional).
+     * the title displayed for this column.  if this is omitted then the property name is used
+     * for the title of the column (optional)
      */
-    private String title;
+    private String mTitle;
 
     /**
-     * by default, null values don't appear in the list, by setting viewNulls to 'true', then null values will appear as
-     * "null" in the list (mostly useful for debugging) (optional).
+     * by default, null values don't appear in the list, by setting viewNulls to 'true', then
+     * null values will appear as "null" in the list (mostly useful for debugging) (optional)
      */
-    private boolean nulls;
+    private boolean mNulls;
 
     /**
-     * is the column sortable?
+     * Field mSortable
      */
-    private boolean sortable;
+    private boolean mSortable;
 
     /**
-     * Name given to the server when sorting this column.
+     * if set to true, then any email addresses and URLs found in the content of the column are
+     * automatically converted into a hypertext link.
      */
-    private String sortName;
+    private boolean mAutolink;
 
     /**
-     * Defalt sort order for this column.
+     * the grouping level (starting at 1 and incrementing) of this column (indicates if successive
+     * contain the same values, then they should not be displayed).  The level indicates that if a
+     * lower level no longer matches, then the matching for this higher level should start over as
+     * well. If this attribute is not included, then no grouping is performed. (optional)
      */
-    private SortOrderEnum defaultorder;
+    private int mGroup = -1;
 
     /**
-     * The comparator to use when sorting this column.
+     * if this attribute is provided, then the data that is shown for this column is wrapped inside
+     * a &lt;a href&gt; tag with the url provided through this attribute. Typically you would use
+     * this attribute along with one of the struts-like param attributes below to create a dynamic
+     * link so that each row creates a different URL based on the data that is being viewed. (optional)
      */
-    private Comparator comparator;
+    private Href mHref;
 
     /**
-     * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
-     * into a hypertext link.
+     * The name of the request parameter that will be dynamically added to the generated href URL.
+     * The corresponding value is defined by the paramProperty and (optional) paramName attributes,
+     * optionally scoped by the paramScope attribute. (optional)
      */
-    private boolean autolink;
+    private String mParamId;
 
     /**
-     * Automatically escape column content for html and xml media.
+     * The name of a JSP bean that is a String containing the value for the request parameter named
+     * by paramId (if paramProperty is not specified), or a JSP bean whose property getter is called
+     * to return a String (if paramProperty is specified). The JSP bean is constrained to the bean
+     * scope specified by the paramScope property, if it is specified. If paramName is omitted, then
+     * it is assumed that the current object being iterated on is the target bean. (optional)
      */
-    private boolean escapeXml;
+    private String mParamName;
 
     /**
-     * A MessageFormat patter that will be used to decorate objects in the column. Can be used as a "shortcut" for
-     * simple column decorations.
-     */
-    private String format;
-
-    /**
-     * the grouping level (starting at 1 and incrementing) of this column (indicates if successive contain the same
-     * values, then they should not be displayed). The level indicates that if a lower level no longer matches, then the
-     * matching for this higher level should start over as well. If this attribute is not included, then no grouping is
-     * performed. (optional)
-     */
-    private int group = -1;
-
-    /**
-     * if this attribute is provided, then the data that is shown for this column is wrapped inside a &lt;a href&gt; tag
-     * with the url provided through this attribute. Typically you would use this attribute along with one of the
-     * struts-like param attributes below to create a dynamic link so that each row creates a different URL based on the
-     * data that is being viewed. (optional)
-     */
-    private Href href;
-
-    /**
-     * The name of the request parameter that will be dynamically added to the generated href URL. The corresponding
-     * value is defined by the paramProperty and (optional) paramName attributes, optionally scoped by the paramScope
-     * attribute. (optional)
-     */
-    private String paramId;
-
-    /**
-     * The name of a JSP bean that is a String containing the value for the request parameter named by paramId (if
-     * paramProperty is not specified), or a JSP bean whose property getter is called to return a String (if
-     * paramProperty is specified). The JSP bean is constrained to the bean scope specified by the paramScope property,
-     * if it is specified. If paramName is omitted, then it is assumed that the current object being iterated on is the
-     * target bean. (optional)
-     */
-    private String paramName;
-
-    /**
-     * The name of a property of the bean specified by the paramName attribute (or the current object being iterated on
-     * if paramName is not provided), whose return value must be a String containing the value of the request parameter
-     * (named by the paramId attribute) that will be dynamically added to this href URL. (optional)
+     * The name of a property of the bean specified by the paramName attribute (or the current object
+     * being iterated on if paramName is not provided), whose return value must be a String containing
+     * the value of the request parameter (named by the paramId attribute) that will be dynamically
+     * added to this href URL. (optional)
      * @deprecated use Expressions in paramName
      */
-    private String paramProperty;
+    private String mParamProperty;
 
     /**
-     * The scope within which to search for the bean specified by the paramName attribute. If not specified, all scopes
-     * are searched. If paramName is not provided, then the current object being iterated on is assumed to be the target
-     * bean. (optional)
+     * The scope within which to search for the bean specified by the paramName attribute. If not
+     * specified, all scopes are searched. If paramName is not provided, then the current object
+     * being iterated on is assumed to be the target bean. (optional)
      * @deprecated use Expressions in paramName
      */
-    private String paramScope;
+    private String mParamScope;
 
     /**
-     * If this attribute is provided, then the column's displayed is limited to this number of characters. An elipse
-     * (...) is appended to the end if this column is linked, and the user can mouseover the elipse to get the full
-     * text. (optional)
+     * If this attribute is provided, then the column's displayed is limited to this number of
+     * characters.  An elipse (...) is appended to the end if this column is linked, and the user
+     * can mouseover the elipse to get the full text. (optional)
      */
-    private int maxLength;
+    private int mMaxLength;
 
     /**
-     * If this attribute is provided, then the column's displayed is limited to this number of words. An elipse (...) is
-     * appended to the end if this column is linked, and the user can mouseover the elipse to get the full text.
-     * (optional)
+     * If this attribute is provided, then the column's displayed is limited to this number of words.
+     * An elipse (...) is appended to the end if this column is linked, and the user can mouseover
+     * the elipse to get the full text. (optional)
      */
-    private int maxWords;
+    private int mMaxWords;
 
     /**
-     * a class that should be used to "decorate" the underlying object being displayed. If a decorator is specified for
-     * the entire table, then this decorator will decorate that decorator. (optional)
+     * Field mHeaderClazz
      */
-    private String decorator;
+    private String mHeaderClazz;
 
     /**
-     * is the column already sorted?
+     * static value if no property attribute is provided
      */
-    private boolean alreadySorted;
+    private Object mValue;
 
     /**
-     * The media supported attribute.
+     * Field mDoubleQuote
      */
-    private List supportedMedia;
+    private String mDoubleQuote;
+
+    /** a class that should be used to "decorate" the underlying object being displayed. If a decorator
+     * is specified for the entire table, then this decorator will decorate that decorator. (optional)
+     */
+    private String mDecorator;
 
     /**
-     * Property in a resource bundle to be used as the title for the column.
+     * Field mDecoratorObject
      */
-    private String titleKey;
+    private ColumnDecorator mDecoratorObject;
 
     /**
-     * The name of the bean property if a decorator is used and sorting need to be still on on the property itself.
-     * Useful for displaying data with links but sorting on original value.
+     * Method getStaticContent
+     * @return String
      */
-    private String sortProperty;
-
-    /**
-     * Should the value of the column be summed? Requires that the value of the column be convertible to a Number.
-     */
-    private boolean totaled;
-
-    /**
-     * Static value for this cell, equivalent to column body.
-     */
-    private Object value;
-
-    /**
-     * Setter for totals.
-     * @param totals the value
-     */
-    public void setTotal(boolean totals)
+    public String getStaticContent()
     {
-        this.totaled = totals;
+
+        return mStaticContent;
     }
 
     /**
-     * setter for the "property" tag attribute.
-     * @param value attribute value
+     * Method setProperty
+     * @param pAttributeValue String
      */
-    public void setProperty(String value)
+    public void setProperty(String pAttributeValue)
     {
-        this.property = value;
+        mProperty = pAttributeValue;
     }
 
     /**
-     * setter for the "value" tag attribute.
-     * @param value attribute value
+     * Method setTitle
+     * @param pAttributeValue String
      */
-    public void setValue(Object value)
+    public void setTitle(String pAttributeValue)
     {
-        this.value = value;
+        mTitle = pAttributeValue;
     }
 
     /**
-     * Set the comparator, classname or object.
-     * @param comparatorObj the comparator, classname or object
+     * Method setNulls
+     * @param pAttributeValue String
      */
-    public void setComparator(Object comparatorObj)
+    public void setNulls(String pAttributeValue)
     {
-        // @todo don't do this! Setters should remains simple setters and any evaluation should be done in doEndTag()!
-        if (comparatorObj instanceof Comparator)
+        if (!Boolean.FALSE.toString().equals(pAttributeValue))
         {
-            this.comparator = (Comparator) comparatorObj;
+            mNulls = true;
         }
-        else if (comparatorObj instanceof String)
+
+    }
+
+    /**
+     * Method setSortable
+     * @param pAttributeValue String
+     */
+    public void setSortable(String pAttributeValue)
+    {
+        if (!Boolean.FALSE.toString().equals(pAttributeValue))
         {
-            String comparatorClassname = (String) comparatorObj;
-            Class compClass;
-            try
-            {
-                compClass = Thread.currentThread().getContextClassLoader().loadClass(comparatorClassname);
-            }
-            catch (ClassNotFoundException e)
-            {
-                throw new RuntimeException("InstantiationException setting column comparator as "
-                    + comparatorClassname
-                    + ": "
-                    + e.getMessage(), e);
-            }
-            try
-            {
-                this.comparator = (Comparator) compClass.newInstance();
-            }
-            catch (InstantiationException e)
-            {
-                throw new RuntimeException("InstantiationException setting column comparator as "
-                    + comparatorClassname
-                    + ": "
-                    + e.getMessage(), e);
-            }
-            catch (IllegalAccessException e)
-            {
-                throw new RuntimeException("IllegalAccessException setting column comparator as "
-                    + comparatorClassname
-                    + ": "
-                    + e.getMessage(), e);
-            }
+            mSortable = true;
+        }
+    }
+
+    /**
+     *
+     * @deprecated: use setSortable()
+     * @param pAttributeValue String
+     */
+    public void setSort(String pAttributeValue)
+    {
+        setSortable(pAttributeValue);
+    }
+
+    /**
+     * Method setAutolink
+     * @param pAttributeValue String
+     */
+    public void setAutolink(String pAttributeValue)
+    {
+        if (!"false".equals(pAttributeValue))
+        {
+            mAutolink = true;
+        }
+    }
+
+    /**
+     * Method setGroup
+     * @param pAttributeValue String
+     */
+    public void setGroup(String pAttributeValue)
+    {
+        try
+        {
+            mGroup = Integer.parseInt(pAttributeValue);
+        }
+        catch (NumberFormatException e)
+        {
+            // ignore?
+            mLog.warn("Invalid \"group\" attribute: value=\"" + pAttributeValue + "\"");
+        }
+    }
+
+    /**
+     * Method setHref
+     * @param pAttributeValue String
+     */
+    public void setHref(String pAttributeValue)
+    {
+        mHref = new Href(pAttributeValue);
+    }
+
+    /**
+     * Method setParamId
+     * @param pAttributeValue String
+     */
+    public void setParamId(String pAttributeValue)
+    {
+        mParamId = pAttributeValue;
+    }
+
+    /**
+     * Method setParamName
+     * @param pAttributeValue String
+     */
+    public void setParamName(String pAttributeValue)
+    {
+        mParamName = pAttributeValue;
+    }
+
+    /**
+     * Method setParamProperty
+     * @param pAttributeValue String
+     */
+    public void setParamProperty(String pAttributeValue)
+    {
+        mParamProperty = pAttributeValue;
+    }
+
+    /**
+     * Method setParamScope
+     * @param pAttributeValue String
+     */
+    public void setParamScope(String pAttributeValue)
+    {
+        mParamScope = pAttributeValue;
+    }
+
+    /**
+     * Method setMaxLength
+     * @param pAttributeValue int
+     */
+    public void setMaxLength(int pAttributeValue)
+    {
+        mMaxLength = pAttributeValue;
+    }
+
+    /**
+     * Method setMaxWords
+     * @param pAttributeValue int
+     */
+    public void setMaxWords(int pAttributeValue)
+    {
+        mMaxWords = pAttributeValue;
+    }
+
+    /**
+     * Method setWidth
+     * @param pAttributeValue String
+     */
+    public void setWidth(String pAttributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, pAttributeValue);
+        mHeaderAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, pAttributeValue);
+    }
+
+    /**
+     * Method setAlign
+     * @param pAttributeValue String
+     */
+    public void setAlign(String pAttributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, pAttributeValue);
+        mHeaderAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, pAttributeValue);
+    }
+
+    /**
+     * Method setBackground
+     * @param pAttributeValue String
+     */
+    public void setBackground(String pAttributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, pAttributeValue);
+    }
+
+    /**
+     * Method setBgcolor
+     * @param pAttributeValue String
+     */
+    public void setBgcolor(String pAttributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, pAttributeValue);
+    }
+
+    /**
+     * Method setHeight
+     * @param pAttributeValue String
+     */
+    public void setHeight(String pAttributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, pAttributeValue);
+    }
+
+    /**
+     * Method setNowrap
+     * @param pAttributeValue String
+     */
+    public void setNowrap(String pAttributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_NOWRAP, pAttributeValue);
+    }
+
+    /**
+     * Method setValign
+     * @param pAttributeValue String
+     */
+    public void setValign(String pAttributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_VALIGN, pAttributeValue);
+    }
+
+    /**
+     *
+     * @deprecated: use setClass()
+     * @param pAttributeValue String
+     */
+    public void setStyleClass(String pAttributeValue)
+    {
+        setClass(pAttributeValue);
+    }
+
+    /**
+     * Method setClass
+     * @param pAttributeValue String
+     */
+    public void setClass(String pAttributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(pAttributeValue));
+    }
+
+    /**
+     * Method addClass
+     * @param pAttributeValue String
+     */
+    public void addClass(String pAttributeValue)
+    {
+        Object lClassAttributes = mAttributeMap.get(TagConstants.ATTRIBUTE_CLASS);
+
+        if (lClassAttributes == null)
+        {
+            mAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(pAttributeValue));
         }
         else
         {
-            throw new IllegalArgumentException("Value for comparator: "
-                + comparatorObj
-                + " of type "
-                + comparatorObj.getClass().getName());
+            ((MultipleHtmlAttribute) lClassAttributes).addAttributeValue(pAttributeValue);
         }
     }
 
     /**
-     * setter for the "title" tag attribute.
-     * @param value attribute value
+     * Method setHeaderClass
+     * @param pAttributeValue String
      */
-    public void setTitle(String value)
+    public void setHeaderClass(String pAttributeValue)
     {
-        this.title = value;
+        mHeaderAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(pAttributeValue));
     }
 
     /**
-     * setter for the "format" tag attribute.
-     * @param value attribute value
+     *
+     * @deprecated: use setHeaderClass()
+     * @param pAttributeValue String
      */
-    public void setFormat(String value)
+    public void setHeaderStyleClass(String pAttributeValue)
     {
-        this.format = value;
+        setHeaderClass(pAttributeValue);
     }
 
     /**
-     * setter for the "nulls" tag attribute.
-     * @param value attribute value
+     * Method setValue
+     * @param pAttributeValue Object
      */
-    public void setNulls(boolean value)
+    public void setValue(Object pAttributeValue)
     {
-        this.nulls = value;
+        mValue = pAttributeValue;
     }
 
     /**
-     * setter for the "sortable" tag attribute.
-     * @param value attribute value
+     * Method setDoubleQuote
+     * @param pAttributeValue String
      */
-    public void setSortable(boolean value)
+    public void setDoubleQuote(String pAttributeValue)
     {
-        this.sortable = value;
+        mDoubleQuote = pAttributeValue;
     }
 
     /**
-     * setter for the "autolink" tag attribute.
-     * @param value attribute value
+     * Method setDecorator
+     * @param pAttributeValue String
      */
-    public void setAutolink(boolean value)
+    public void setDecorator(String pAttributeValue)
     {
-        this.autolink = value;
+        mDecorator = pAttributeValue;
     }
 
     /**
-     * setter for the "escapeXml" tag attribute.
-     * @param value attribute value
+     * Method getDecoratorObject
+     * @return ColumnDecorator
      */
-    public void setEscapeXml(boolean value)
+    public ColumnDecorator getDecoratorObject()
     {
-        this.escapeXml = value;
+        return mDecoratorObject;
     }
 
     /**
-     * setter for the "group" tag attribute.
-     * @param value attribute value
+     * Method setDecoratorObject
+     * @param pDecorator ColumnDecorator
      */
-    public void setGroup(int value)
+    public void setDecoratorObject(ColumnDecorator pDecorator)
     {
-        this.group = value;
+        mDecoratorObject = pDecorator;
     }
 
     /**
-     * setter for the "titleKey" tag attribute.
-     * @param value property name
+     * Method getProperty
+     * @return String
      */
-    public void setTitleKey(String value)
+    public String getProperty()
     {
-        this.titleKey = value;
+        return mProperty;
     }
 
     /**
-     * setter for the "href" tag attribute.
-     * @param value attribute value
+     * Method getTitle
+     * @return String
      */
-    public void setHref(String value)
+    public String getTitle()
     {
-        // call encodeURL to preserve session id when cookies are disabled
-        String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
-            .defaultString(value));
-        this.href = new DefaultHref(encodedHref);
+        return mTitle;
     }
 
     /**
-     * setter for the "url" tag attribute. This has the same meaning of href, but prepends the context path to the given
-     * URI.
-     * @param value attribute value
+     * Method getShowNulls
+     * @return boolean
      */
-    public void setUrl(String value)
+    public boolean getShowNulls()
     {
-        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
-        // call encodeURL to preserve session id when cookies are disabled
-        String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
-            .defaultString(req.getContextPath() + value));
-        this.href = new DefaultHref(encodedHref);
+        return mNulls;
     }
 
     /**
-     * setter for the "paramId" tag attribute.
-     * @param value attribute value
+     * Method getAutolink
+     * @return boolean
      */
-    public void setParamId(String value)
+    public boolean getAutolink()
     {
-        this.paramId = value;
+        return mAutolink;
     }
 
     /**
-     * setter for the "paramName" tag attribute.
-     * @param value attribute value
+     * Method getHref
+     * @return Href
      */
-    public void setParamName(String value)
+    public Href getHref()
     {
-        this.paramName = value;
+        return mHref;
     }
 
     /**
-     * setter for the "paramProperty" tag attribute.
-     * @param value attribute value
+     * Method getParamId
+     * @return String
      */
-    public void setParamProperty(String value)
+    public String getParamId()
     {
-        this.paramProperty = value;
+        return mParamId;
     }
 
     /**
-     * setter for the "paramScope" tag attribute.
-     * @param value attribute value
+     * Method getParamName
+     * @return String
      */
-    public void setParamScope(String value)
+    public String getParamName()
     {
-        this.paramScope = value;
+        return mParamName;
     }
 
     /**
-     * setter for the "scope" tag attribute.
-     * @param value attribute value
+     * Method getParamProperty
+     * @return String
      */
-    public void setScope(String value)
+    public String getParamProperty()
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_SCOPE, value);
+        return mParamProperty;
     }
 
     /**
-     * setter for the "headerScope" tag attribute.
-     * @param value attribute value
+     * Method getParamScope
+     * @return String
      */
-    public void setHeaderScope(String value)
+    public String getParamScope()
     {
-        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_SCOPE, value);
+        return mParamScope;
     }
 
     /**
-     * setter for the "maxLength" tag attribute.
-     * @param value attribute value
+     * Method getMaxLength
+     * @return int
      */
-    public void setMaxLength(int value)
+    public int getMaxLength()
     {
-        this.maxLength = value;
+        return mMaxLength;
     }
 
     /**
-     * setter for the "maxWords" tag attribute.
-     * @param value attribute value
+     * Method getMaxWords
+     * @return int
      */
-    public void setMaxWords(int value)
+    public int getMaxWords()
     {
-        this.maxWords = value;
+        return mMaxWords;
     }
 
     /**
-     * setter for the "style" tag attribute.
-     * @param value attribute value
+     * Method getHeaderStyleClass
+     * @return String
      */
-    public void setStyle(String value)
+    public String getHeaderStyleClass()
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);
+        return mHeaderClazz;
     }
 
     /**
-     * setter for the "class" tag attribute.
-     * @param value attribute value
+     * Method getValue
+     * @return Object
      */
-    public void setClass(String value)
+    public Object getValue()
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+        return mValue;
     }
 
     /**
-     * setter for the "headerClass" tag attribute.
-     * @param value attribute value
+     * Method getDoubleQuote
+     * @return String
      */
-    public void setHeaderClass(String value)
+    public String getDoubleQuote()
     {
-        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+        return mDoubleQuote;
     }
 
     /**
-     * setter for the "decorator" tag attribute.
-     * @param value attribute value
+     * Method getDecoratorClassName
+     * @return String
      */
-    public void setDecorator(String value)
+    public String getDecoratorClassName()
     {
-        this.decorator = value;
-    }
-
-    /**
-     * setter for the "sortProperty" tag attribute.
-     * @param value attribute value
-     */
-    public void setSortProperty(String value)
-    {
-        this.sortProperty = value;
-    }
-
-    /**
-     * Looks up the parent table tag.
-     * @return a table tag instance.
-     */
-    private TableTag getTableTag()
-    {
-        return (TableTag) findAncestorWithClass(this, TableTag.class);
-    }
-
-    /**
-     * Tag setter.
-     * @param media the space delimited list of supported types
-     */
-    public void setMedia(String media)
-    {
-        MediaUtil.setMedia(this, media);
-    }
-
-    /**
-     * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
-     */
-    public void setSupportedMedia(List media)
-    {
-        this.supportedMedia = media;
-    }
-
-    /**
-     * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
-     */
-    public List getSupportedMedia()
-    {
-        return this.supportedMedia;
-    }
-
-    /**
-     * sets the name given to the server when sorting this column
-     * @param sortName name given to the server to sort this column
-     */
-    public void setSortName(String sortName)
-    {
-        this.sortName = sortName;
-    }
-
-    /**
-     * sets the sorting order for the sorted column.
-     * @param value "ascending" or "descending"
-     * @throws InvalidTagAttributeValueException if value is not one of "ascending" or "descending"
-     */
-    public void setDefaultorder(String value) throws InvalidTagAttributeValueException
-    {
-        this.defaultorder = SortOrderEnum.fromName(value);
-        if (this.defaultorder == null)
-        {
-            throw new InvalidTagAttributeValueException(getClass(), "defaultorder", value); //$NON-NLS-1$
-        }
+        return mDecorator;
     }
 
     /**
      * Passes attribute information up to the parent TableTag.
-     * <p>
-     * When we hit the end of the tag, we simply let our parent (which better be a TableTag) know what the user wants to
-     * do with this column. We do that by simple registering this tag with the parent. This tag's only job is to hold
-     * the configuration information to describe this particular column. The TableTag does all the work.
-     * </p>
+     *
+     * <p>When we hit the end of the tag, we simply let our parent (which better
+     * be a TableTag) know what the user wants to do with this column.
+     * We do that by simple registering this tag with the parent.  This tag's
+     * only job is to hold the configuration information to describe this
+     * particular column.  The TableTag does all the work.</p>
+     *
      * @return int
-     * @throws JspException if this tag is being used outside of a &lt;display:list...&gt; tag.
+     * @throws JspException if this tag is being used outside of a
+     *    &lt;display:list...&gt; tag.
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
-     */
+     **/
+
     public int doEndTag() throws JspException
     {
-        TableTag tableTag = getTableTag();
 
-        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-        if (currentMediaType != null && !MediaUtil.availableForMedia(this, currentMediaType))
+        TableTag lTableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+
+        if (lTableTag == null)
         {
-            if (log.isDebugEnabled())
-            {
-                log.debug("skipping column body, currentMediaType=" + currentMediaType);
-            }
-            return SKIP_BODY;
+            throw new TagStructureException(getClass(), "column", "table");
         }
 
         // add column header only once
-        if (tableTag.isFirstIteration())
+        if (lTableTag.isFirstIteration())
         {
-            addHeaderToTable(tableTag);
-        }
 
-        if (!tableTag.isIncludedRow())
-        {
-            return super.doEndTag();
-        }
+            HeaderCell lHeaderCell = new HeaderCell();
+            lHeaderCell.setHeaderAttributes((HtmlAttributeMap) mHeaderAttributeMap.clone());
+            lHeaderCell.setHtmlAttributes((HtmlAttributeMap) mAttributeMap.clone());
+            lHeaderCell.setTitle(mTitle);
+            lHeaderCell.setSortable(mSortable);
+            lHeaderCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(mDecorator));
+            lHeaderCell.setBeanPropertyName(mProperty);
+            lHeaderCell.setShowNulls(mNulls);
+            lHeaderCell.setMaxLength(mMaxLength);
+            lHeaderCell.setMaxWords(mMaxWords);
+            lHeaderCell.setAutoLink(mAutolink);
+            lHeaderCell.setGroup(mGroup);
 
-        Cell cell = null;
-        if (this.property == null && this.value != null)
-        {
-            cell = new Cell(value);
-        }
-        else if (this.property == null && this.bodyContent != null)
-        {
-            cell = new Cell(this.bodyContent.getString());
-        }
-
-        Object rowStyle = this.attributeMap.get(TagConstants.ATTRIBUTE_STYLE);
-        Object rowClass = this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
-        if (rowStyle != null || rowClass != null)
-        {
-            HtmlAttributeMap perRowValues = new HtmlAttributeMap();
-            if (rowStyle != null)
+            // href and parameter, create link
+            if (mHref != null && mParamId != null)
             {
-                perRowValues.put(TagConstants.ATTRIBUTE_STYLE, rowStyle);
-            }
-            if (rowClass != null)
-            {
-                perRowValues.put(TagConstants.ATTRIBUTE_CLASS, rowClass);
-            }
-            if (cell == null)
-            {
-                cell = new Cell(null);
-            }
-            cell.setPerRowAttributes(perRowValues);
-        }
 
-        tableTag.addCell(cell != null ? cell : Cell.EMPTY_CELL);
+                Href lColHref = new Href(mHref);
 
-        // cleanup non-attribute variables
-        this.alreadySorted = false;
-
-        return super.doEndTag();
-    }
-
-    /**
-     * Adds the current header to the table model calling addColumn in the parent table tag. This method should be
-     * called only at first iteration.
-     * @param tableTag parent table tag
-     * @throws DecoratorInstantiationException for error during column decorator instantiation
-     * @throws ObjectLookupException for errors in looking up values
-     */
-    private void addHeaderToTable(TableTag tableTag) throws DecoratorInstantiationException, ObjectLookupException
-    {
-        // don't modify "title" directly
-        String evalTitle = this.title;
-
-        // title has precedence over titleKey
-        if (evalTitle == null && (this.titleKey != null || this.property != null))
-        {
-            // handle title i18n
-            evalTitle = tableTag.getProperties().geResourceProvider().getResource(
-                this.titleKey,
-                this.property,
-                tableTag,
-                this.pageContext);
-        }
-
-        HeaderCell headerCell = new HeaderCell();
-        headerCell.setHeaderAttributes((HtmlAttributeMap) this.headerAttributeMap.clone());
-        headerCell.setHtmlAttributes((HtmlAttributeMap) this.attributeMap.clone());
-        headerCell.setTitle(evalTitle);
-        headerCell.setSortable(this.sortable);
-
-        List decorators = new ArrayList();
-
-        // handle multiple chained decorators, whitespace separated
-        if (StringUtils.isNotEmpty(this.decorator))
-        {
-            String[] decoratorNames = StringUtils.split(this.decorator);
-            for (int j = 0; j < decoratorNames.length; j++)
-            {
-                decorators.add(tableTag.getProperties().getDecoratorFactoryInstance().loadColumnDecorator(
-                    this.pageContext,
-                    decoratorNames[j]));
-            }
-        }
-
-        // "special" decorators
-        if (this.escapeXml)
-        {
-            decorators.add(EscapeXmlColumnDecorator.INSTANCE);
-        }
-        if (this.autolink)
-        {
-            decorators.add(AutolinkColumnDecorator.INSTANCE);
-        }
-        if (StringUtils.isNotBlank(this.format))
-        {
-            decorators.add(new MessageFormatColumnDecorator(this.format, tableTag.getProperties().getLocale()));
-        }
-
-        headerCell.setColumnDecorators((DisplaytagColumnDecorator[]) decorators
-            .toArray(new DisplaytagColumnDecorator[decorators.size()]));
-
-        headerCell.setBeanPropertyName(this.property);
-        headerCell.setShowNulls(this.nulls);
-        headerCell.setMaxLength(this.maxLength);
-        headerCell.setMaxWords(this.maxWords);
-        headerCell.setGroup(this.group);
-        headerCell.setSortProperty(this.sortProperty);
-        headerCell.setTotaled(this.totaled);
-
-        Comparator headerComparator = (comparator != null) ? comparator : new DefaultComparator(Collator
-            .getInstance(tableTag.getProperties().getLocale()));
-
-        headerCell.setComparator(headerComparator);
-        headerCell.setDefaultSortOrder(this.defaultorder);
-        headerCell.setSortName(this.sortName);
-
-        // href and parameter, create link
-        if (this.href != null)
-        {
-            Href colHref;
-
-            // empty base url, use href with parameters from parent table
-            if (StringUtils.isEmpty(this.href.getBaseUrl()))
-            {
-                colHref = (Href) tableTag.getBaseHref().clone();
-            }
-            else
-            {
-                colHref = (Href) this.href.clone();
-            }
-
-            if (this.paramId != null)
-            {
                 // parameter value is in a different object than the iterated one
-                if (this.paramName != null || this.paramScope != null)
+                if (mParamName != null || mParamScope != null)
                 {
                     // create a complete string for compatibility with previous version before expression evaluation.
                     // this approach is optimized for new expressions, not for previous property/scope parameters
-                    StringBuffer expression = new StringBuffer();
+                    StringBuffer lExpression = new StringBuffer();
 
                     // append scope
-                    if (StringUtils.isNotBlank(this.paramScope))
+                    if (mParamScope != null && !"".equals(mParamScope))
                     {
-                        expression.append(this.paramScope).append("Scope.");
+                        lExpression.append(mParamScope).append("Scope.");
                     }
 
                     // base bean name
-                    if (this.paramId != null)
+                    if (mParamId != null)
                     {
-                        expression.append(this.paramName);
+                        lExpression.append(mParamName);
                     }
                     else
                     {
-                        expression.append(tableTag.getName());
+                        lExpression.append(lTableTag.getName());
                     }
 
                     // append property
-                    if (StringUtils.isNotBlank(this.paramProperty))
+                    if (mParamProperty != null && !"".equals(mParamProperty))
                     {
-                        expression.append('.').append(this.paramProperty);
+                        lExpression.append('.').append(mProperty);
                     }
 
                     // evaluate expression.
                     // note the value is fixed, not based on any object created during iteration
                     // this is here for compatibility with the old version mainly
-                    Object paramValue = tableTag.evaluateExpression(expression.toString());
+                    Object lParamValue = lTableTag.evaluateExpression(lExpression.toString());
 
                     // add parameter
-                    colHref.addParameter(this.paramId, paramValue);
+                    lColHref.addParameter(mParamId, lParamValue);
                 }
                 else
                 {
+                    // lookup value as a property on the list object. This should not be done here to avoid useless
+                    // work when only a part of the list is displayed
+
                     // set id
-                    headerCell.setParamName(this.paramId);
+                    lHeaderCell.setParamName(mParamId);
 
                     // set property
-                    headerCell.setParamProperty(this.paramProperty);
+                    lHeaderCell.setParamProperty(mParamProperty);
+
                 }
+
+                // sets the base href
+                lHeaderCell.setHref(lColHref);
+
             }
 
-            // sets the base href
-            headerCell.setHref(colHref);
-
+            lTableTag.addColumn(lHeaderCell);
+            mLog.debug("columnTag.doEndTag() :: first iteration - adding header" + lHeaderCell);
         }
 
-        tableTag.addColumn(headerCell);
+        Cell lCell;
 
-        if (log.isDebugEnabled())
+        if (mProperty == null)
         {
-            log.debug("columnTag.addHeaderToTable() :: first iteration - adding header " + headerCell);
+
+            Object lCellValue;
+
+            if (mValue != null)
+            {
+                lCellValue = mValue;
+            }
+            else if (getBodyContent() != null)
+            {
+                String lValue = null;
+                BodyContent lBodyContent = getBodyContent();
+                if (lBodyContent != null)
+                {
+                    lValue = lBodyContent.getString();
+                }
+
+                if (lValue == null && mNulls)
+                {
+                    lValue = "";
+                }
+
+                lCellValue = lValue;
+            }
+            else
+            {
+                mLog.error("Column tag: you must specify a property or value attribute, or a body");
+                throw new JspException("Column tag: you must specify a property or value attribute, or a body");
+            }
+            lCell = new Cell(lCellValue);
+
         }
+        else
+        {
+            lCell = Cell.EMPTY_CELL;
+        }
+
+        lTableTag.addCell(lCell);
+
+        mAttributeMap.clear();
+        mHeaderAttributeMap.clear();
+        mStaticContent = null;
+        mParamName = null;
+
+        return super.doEndTag();
     }
 
     /**
+     * Returns a String representation of this Tag that is suitable for
+     * printing while debugging.  The format of the string is subject to change
+     * but it currently:
+     *
+     * <p><code>ColumnTag([title],[property],[href])</code></p>
+     *
+     * <p>Where the placeholders in brackets are replaced with their appropriate
+     * instance variables.</p>
+     * @return String
+     **/
+    public String toString()
+    {
+        return "ColumnTag(" + mTitle + "," + mProperty + "," + mHref + ")";
+    }
+
+    /**
+     * Method release
      * @see javax.servlet.jsp.tagext.Tag#release()
      */
     public void release()
     {
+
         super.release();
-        this.attributeMap.clear();
-        this.autolink = false;
-        this.decorator = null;
-        this.group = -1;
-        this.headerAttributeMap.clear();
-        this.href = null;
-        this.maxLength = 0;
-        this.maxWords = 0;
-        this.nulls = false;
-        this.paramId = null;
-        this.paramName = null;
-        this.paramProperty = null;
-        this.paramScope = null;
-        this.property = null;
-        this.sortable = false;
-        this.sortName = null;
-        this.supportedMedia = null;
-        this.title = null;
-        this.titleKey = null;
-        this.sortProperty = null;
-        this.comparator = null;
-        this.defaultorder = null;
-        this.escapeXml = false;
-        this.format = null;
-        this.value = null;
     }
 
     /**
-     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
+     * Field mColumnNumber
      */
-    public int doStartTag() throws JspException
+    private int mColumnNumber;
+
+    /**
+     * Method setColumnNumber
+     * @param pColumnNumber int
+     */
+    public void setColumnNumber(int pColumnNumber)
     {
-        TableTag tableTag = getTableTag();
-        if (tableTag == null)
-        {
-            throw new TagStructureException(getClass(), "column", "table");
-        }
-
-        // If the list is empty, do not execute the body; may result in NPE
-        if (tableTag.isEmpty() || !tableTag.isIncludedRow())
-        {
-            return SKIP_BODY;
-        }
-
-        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-        if (!MediaUtil.availableForMedia(this, currentMediaType))
-        {
-            return SKIP_BODY;
-        }
-
-        return super.doStartTag();
+        mColumnNumber = pColumnNumber;
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * Method getColumnNumber
+     * @return int
      */
-    public String toString()
+    public int getColumnNumber()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("bodyContent", this.bodyContent) //$NON-NLS-1$
-            .append("group", this.group) //$NON-NLS-1$
-            .append("maxLength", this.maxLength) //$NON-NLS-1$
-            .append("decorator", this.decorator) //$NON-NLS-1$
-            .append("href", this.href) //$NON-NLS-1$
-            .append("title", this.title) //$NON-NLS-1$
-            .append("paramScope", this.paramScope) //$NON-NLS-1$
-            .append("property", this.property) //$NON-NLS-1$
-            .append("paramProperty", this.paramProperty) //$NON-NLS-1$
-            .append("headerAttributeMap", this.headerAttributeMap) //$NON-NLS-1$
-            .append("paramName", this.paramName) //$NON-NLS-1$
-            .append("autolink", this.autolink) //$NON-NLS-1$
-            .append("format", this.format) //$NON-NLS-1$
-            .append("nulls", this.nulls) //$NON-NLS-1$
-            .append("maxWords", this.maxWords) //$NON-NLS-1$
-            .append("attributeMap", this.attributeMap) //$NON-NLS-1$
-            .append("sortable", this.sortable) //$NON-NLS-1$
-            .append("paramId", this.paramId) //$NON-NLS-1$
-            .append("alreadySorted", this.alreadySorted) //$NON-NLS-1$
-            .append("sortProperty", this.sortProperty) //$NON-NLS-1$
-            .append("defaultSortOrder", this.defaultorder) //$NON-NLS-1$
-            .toString();
+        return mColumnNumber;
+    }
+
+    /**
+     * Field mAlreadySorted
+     */
+    private boolean mAlreadySorted = false;
+
+    /**
+     * Method isAlreadySorted
+     * @return boolean
+     */
+    public boolean isAlreadySorted()
+    {
+        return mAlreadySorted;
+    }
+
+    /**
+     * Method setAlreadySorted
+     */
+    public void setAlreadySorted()
+    {
+        mAlreadySorted = true;
     }
 
 }

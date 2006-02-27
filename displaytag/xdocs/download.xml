@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<document>
+
+	<properties>
+		<title>Download</title>
+		<author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+	</properties>
+
+	<body>
+
+		<section name="Download">
+
+			<p>
+				You can download source and binary distribution from
+				<a href="http://sourceforge.net/project/showfiles.php?group_id=73068">the SourceForge Server</a>
+				.
+			</p>
+
+			<p>The "bin" versions include the following:</p>
+
+			<ul>
+				<li>
+					<strong>displaytag.jar</strong>
+					- the jar file that contains the taglib classes, you need to drop this file into your web
+					application WEB-INF/lib directory.
+				</li>
+				<li>
+					<strong>displaytag.tld</strong>
+					- the tld file that contains the tag library descriptor, you need to drop this file into your web
+					application WEB-INF directory.
+				</li>
+				<li>
+					<strong>displaytag.war</strong>
+					- the documentation and the example applications that appear on this web site, optionally drop this
+					into your web container deployment directory.
+				</li>
+			</ul>
+
+			<p>
+				The "src" versions include the pre-built binaries (located in the dist directory when unpacked), plus
+				the complete source code to the tag library, the various example pages, and the documentation.
+			</p>
+
+			<p>
+				You can also obtain the source from the SourceForge CVS Server, see
+				<a href="cvs-usage.html">Source Repository</a>
+				.
+			</p>
+
+		</section>
+
+	</body>
+</document>

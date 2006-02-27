@@ -1,459 +1,281 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.jsp.PageContext;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
-import org.displaytag.properties.MediaTypeEnum;
-import org.displaytag.properties.TableProperties;
-
 
 /**
- * Table Model. Holds table data for presentation.
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class TableModel
 {
 
     /**
-     * logger.
+     * logger
      */
-    private static Log log = LogFactory.getLog(TableModel.class);
+    private static Log mLog = LogFactory.getLog(TableModel.class);
+
+    /** list of HeaderCell **/
+    private List mHeaderCellList;
+
+    /** full list (contains Row objects) **/
+    private List mRowListFull;
+
+    /** list of data to be displayed in page **/
+    private List mRowListPage;
+
+    /** sort order = ascending? **/
+    private boolean mSortOrderAscending = true;
+
+    /** sort full List? (false sort only displayed page) **/
+    private boolean mSortFullTable = true;
 
     /**
-     * list of HeaderCell.
+     * index of the sorted column (-1 if the table is not sorted)
      */
-    private List headerCellList;
+    private int mSortColumn = -1;
+
+    /** Table decorator **/
+    private TableDecorator mTableDecorator;
 
     /**
-     * full list (contains Row objects).
+     * Constructor for TableModel
      */
-    private List rowListFull;
-
-    /**
-     * list of data to be displayed in page.
-     */
-    private List rowListPage;
-
-    /**
-     * Name of the column currently sorted (only used when sort=external).
-     */
-    private String sortedColumnName;
-
-    /**
-     * sort order = ascending?
-     */
-    private boolean sortOrderAscending = true;
-
-    /**
-     * sort full List? (false sort only displayed page).
-     */
-    private boolean sortFullTable = true;
-
-    /**
-     * index of the sorted column (-1 if the table is not sorted).
-     */
-    private int sortedColumn = -1;
-
-    /**
-     * Table decorator.
-     */
-    private TableDecorator tableDecorator;
-
-    /**
-     * id inherited from the TableTag (needed only for logging).
-     */
-    private String id;
-
-    /**
-     * configurable table properties.
-     */
-    private TableProperties properties;
-
-    /**
-     * Starting offset for elements in the viewable list.
-     */
-    private int pageOffset;
-
-    /**
-     * Response encoding.
-     */
-    private String encoding;
-
-    /**
-     * Are we sorting locally? (Default True)
-     */
-    private boolean localSort = true;
-
-    /**
-     * Table caption.
-     */
-    private String caption;
-
-    /**
-     * Table footer.
-     */
-    private String footer;
-
-    /**
-     * Jsp page context.
-     */
-    private PageContext pageContext;
-
-    /**
-     * Current media.
-     */
-    private MediaTypeEnum media;
-
-    /**
-     * Constructor for TableModel.
-     * @param tableProperties table properties
-     * @param charEncoding response encoding
-     */
-    public TableModel(TableProperties tableProperties, String charEncoding, PageContext pageContext)
+    public TableModel()
     {
-        this.rowListFull = new ArrayList(20);
-        this.headerCellList = new ArrayList(20);
-        this.properties = tableProperties;
-        this.encoding = charEncoding;
-        this.pageContext = pageContext;
+        mRowListFull = new ArrayList(20);
+        mHeaderCellList = new ArrayList(20);
     }
 
     /**
-     * Returns the jsp page context.
-     * @return page context
-     */
-    protected PageContext getPageContext()
-    {
-        return this.pageContext;
-    }
-
-    /**
-     * Gets the current media type.
-     * @return current media (html, pdf ...)
-     */
-    public MediaTypeEnum getMedia()
-    {
-        return this.media;
-    }
-
-    /**
-     * sets the current media type.
-     * @param media current media (html, pdf ...)
-     */
-    public void setMedia(MediaTypeEnum media)
-    {
-        this.media = media;
-    }
-
-    /**
-     * Sets whether the table performs local in memory sorting of the data.
-     * @param localSort
-     */
-    public void setLocalSort(boolean localSort)
-    {
-        this.localSort = localSort;
-    }
-
-    /**
-     * @return sorting in local memory
-     */
-    public boolean isLocalSort()
-    {
-        return localSort;
-    }
-
-    /**
-     * Sets the starting offset for elements in the viewable list.
-     * @param offset The page offset to set.
-     */
-    public void setPageOffset(int offset)
-    {
-        this.pageOffset = offset;
-    }
-
-    /**
-     * Setter for the tablemodel id.
-     * @param tableId same id of table tag, needed for logging
-     */
-    public void setId(String tableId)
-    {
-        this.id = tableId;
-    }
-
-    /**
-     * get the table id.
-     * @return table id
-     */
-    public String getId()
-    {
-        return this.id;
-    }
-
-    /**
-     * get the full list.
+     * get the full list
      * @return the full list containing Row objects
      */
     public List getRowListFull()
     {
-        return this.rowListFull;
+        return mRowListFull;
     }
 
     /**
-     * gets the partial (paginated) list.
+     * get the partial (paginated) list
      * @return the partial list to display in page (contains Row objects)
      */
     public List getRowListPage()
     {
-        return this.rowListPage;
+        return mRowListPage;
     }
 
     /**
-     * adds a Row object to the table.
-     * @param row Row
+     * add a Row object to the table
+     * @param pRow Row
      */
-    public void addRow(Row row)
+    public void addRow(Row pRow)
     {
-        row.setParentTable(this);
+        pRow.setParentTable(this);
 
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + this.id + "] adding row " + row);
-        }
-        this.rowListFull.add(row);
+        mLog.debug("adding row");
+
+        mRowListFull.add(pRow);
     }
 
     /**
-     * sets the name of the currently sorted column
-     * @param sortedColumnName
+     * set the sort full table property. If true the full list is sorted,
+     * if false sorting is applied only to the displayed sublist
+     * @param pSortFullTable boolean
      */
-    public void setSortedColumnName(String sortedColumnName)
+    public void setSortFullTable(boolean pSortFullTable)
     {
-        this.sortedColumnName = sortedColumnName;
+        mSortFullTable = pSortFullTable;
     }
 
     /**
-     * sets the sort full table property. If true the full list is sorted, if false sorting is applied only to the
-     * displayed sublist.
-     * @param sortFull boolean
-     */
-    public void setSortFullTable(boolean sortFull)
-    {
-        this.sortFullTable = sortFull;
-    }
-
-    /**
-     * return the sort full table property.
+     * return the sort full table property
      * @return boolean true if sorting is applied to the full list
      */
     public boolean isSortFullTable()
     {
-        return this.sortFullTable;
+        return mSortFullTable;
     }
 
     /**
-     * return the sort order of the page.
+     * return the sort order of the page
      * @return true if sort order is ascending
      */
     public boolean isSortOrderAscending()
     {
-        return this.sortOrderAscending;
+        return mSortOrderAscending;
 
     }
 
     /**
-     * set the sort order of the list.
-     * @param isSortOrderAscending true to sort in ascending order
+     * set the sort order of the list
+     * @param pSortOrderAscending true to sort in ascending order
      */
-    public void setSortOrderAscending(boolean isSortOrderAscending)
+    public void setSortOrderAscending(boolean pSortOrderAscending)
     {
-        this.sortOrderAscending = isSortOrderAscending;
+        mSortOrderAscending = pSortOrderAscending;
     }
 
     /**
-     * @param rowList - the new value for this.rowListPage
+     *
+     * @param pRowListPage - the new value for mRowListPage
      */
-    public void setRowListPage(List rowList)
+    public void setRowListPage(List pRowListPage)
     {
-        this.rowListPage = rowList;
+
+        mRowListPage = pRowListPage;
     }
 
     /**
-     * getter for the Table Decorator.
+     * getter for the Table Decorator
      * @return TableDecorator
      */
     public TableDecorator getTableDecorator()
     {
-        return this.tableDecorator;
+        return mTableDecorator;
     }
 
     /**
-     * setter for the table decorator.
-     * @param decorator - the TableDecorator object
+     * setter for the table decorator
+     * @param pTableDecorator - the TableDecorator object
      */
-    public void setTableDecorator(TableDecorator decorator)
+    public void setTableDecorator(TableDecorator pTableDecorator)
     {
-        this.tableDecorator = decorator;
+        mTableDecorator = pTableDecorator;
     }
 
     /**
-     * returns true if the table is sorted.
+     * return true if the table is sorted
      * @return boolean true if the table is sorted
      */
     public boolean isSorted()
     {
-        return this.sortedColumn != -1;
+        return mSortColumn != -1;
     }
 
     /**
-     * returns the HeaderCell for the sorted column.
+     * return the HeaderCell for the sorted column
      * @return HeaderCell
      */
     public HeaderCell getSortedColumnHeader()
     {
-        if (this.sortedColumn < 0 || (this.sortedColumn > (this.headerCellList.size() - 1)))
+        if (mSortColumn < 0 || (mSortColumn > (mHeaderCellList.size() - 1)))
         {
             return null;
         }
-        return (HeaderCell) this.headerCellList.get(this.sortedColumn);
+        return (HeaderCell) mHeaderCellList.get(mSortColumn);
     }
 
     /**
-     * return the number of columns in the table.
+     * return the number of columns in the table
      * @return int number of columns
      */
     public int getNumberOfColumns()
     {
-        return this.headerCellList.size();
+        return mHeaderCellList.size();
     }
 
     /**
-     * return true is the table has no columns.
+     * return true is the table has no columns
      * @return boolean
      */
     public boolean isEmpty()
     {
-        return this.headerCellList.size() == 0;
+        return mHeaderCellList.size() == 0;
     }
 
     /**
-     * return the index of the sorted column.
+     * return the index of the sorted column
      * @return index of the sorted column or -1 if the table is not sorted
      */
     public int getSortedColumnNumber()
     {
-        return this.sortedColumn;
+        return mSortColumn;
     }
 
     /**
-     * set the sorted column index.
-     * @param sortIndex - the index of the sorted column
+     * set the sorted column index
+     * @param pSortColumn - the index of the sorted column
      */
-    public void setSortedColumnNumber(int sortIndex)
+    public void setSortedColumnNumber(int pSortColumn)
     {
-        this.sortedColumn = sortIndex;
+        mSortColumn = pSortColumn;
     }
 
     /**
-     * Adds a column header (HeaderCell object).
-     * @param headerCell HeaderCell
+     * Method addColumnHeader
+     * @param pHeaderCell HeaderCell
      */
-    public void addColumnHeader(HeaderCell headerCell)
+    public void addColumnHeader(HeaderCell pHeaderCell)
     {
-        if (this.sortedColumnName == null)
+        if (mSortColumn == mHeaderCellList.size())
         {
-            if (this.sortedColumn == this.headerCellList.size())
-            {
-                headerCell.setAlreadySorted();
-            }
+            pHeaderCell.setAlreadySorted();
         }
-        else
-        {
-            // the sorted parameter was a string so try and find that column name and set it as sorted
-            if (this.sortedColumnName.equals(headerCell.getSortName()))
-            {
-                headerCell.setAlreadySorted();
-            }
-        }
-        headerCell.setColumnNumber(this.headerCellList.size());
+        pHeaderCell.setColumnNumber(mHeaderCellList.size());
 
-        this.headerCellList.add(headerCell);
+        mHeaderCellList.add(pHeaderCell);
     }
 
     /**
-     * List containing headerCell objects.
-     * @return List containing headerCell objects
+     * Method getHeaderCellList
+     * @return List
      */
     public List getHeaderCellList()
     {
-        return this.headerCellList;
+        return mHeaderCellList;
     }
 
     /**
-     * returns a RowIterator on the requested (full|page) list.
+     * returns a RowIterator on the requested (full|page) list
      * @return RowIterator
-     * @param full if <code>true</code> returns an iterator on te full list, if <code>false</code> only on the
-     * viewable part.
      * @see org.displaytag.model.RowIterator
      */
-    public RowIterator getRowIterator(boolean full)
+    public RowIterator getRowIterator()
     {
-        RowIterator iterator = new RowIterator(
-            full ? this.rowListFull : this.rowListPage,
-            this.headerCellList,
-            this.tableDecorator,
-            this.pageOffset);
-        // copy id for logging
-        iterator.setId(this.id);
-        return iterator;
+        return new RowIterator(mRowListPage, mHeaderCellList, mTableDecorator);
     }
 
     /**
-     * sorts the given list of Rows. The method is called internally by sortFullList() and sortPageList().
-     * @param list List
+     * returns a RowIterator on the _full_ list. Needed for export views
+     * @return RowIterator
+     * @see org.displaytag.model.RowIterator
      */
-    private void sortRowList(List list)
+    public RowIterator getFullListRowIterator()
     {
+        return new RowIterator(mRowListFull, mHeaderCellList, mTableDecorator);
+    }
+
+    /**
+     * Method sortRowList
+     * @param pList List
+     */
+    private void sortRowList(List pList)
+    {
+        mLog.debug("sortRowList()");
+
         if (isSorted())
         {
-            HeaderCell sortedHeaderCell = getSortedColumnHeader();
+            HeaderCell lSortedHeaderCell = getSortedColumnHeader();
 
-            if (sortedHeaderCell != null)
+            if (lSortedHeaderCell != null)
             {
                 // If it is an explicit value, then sort by that, otherwise sort by the property...
-                if (sortedHeaderCell.getBeanPropertyName() != null
-                    || (this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size()))
+                if (lSortedHeaderCell.getBeanPropertyName() != null
+                    || (mSortColumn != -1 && mSortColumn < mHeaderCellList.size()))
                 {
-
-                    String sorted = (sortedHeaderCell.getSortProperty() != null)
-                        ? sortedHeaderCell.getSortProperty()
-                        : sortedHeaderCell.getBeanPropertyName();
-
-                    Collections.sort(list, new RowSorter(
-                        this.sortedColumn,
-                        sorted,
-                        getTableDecorator(),
-                        this.sortOrderAscending,
-                        sortedHeaderCell.getComparator()));
+                    Collections.sort(
+                        pList,
+                        new RowSorter(
+                            mSortColumn,
+                            lSortedHeaderCell.getBeanPropertyName(),
+                            getTableDecorator(),
+                            mSortOrderAscending));
                 }
             }
 
@@ -462,107 +284,22 @@ public class TableModel
     }
 
     /**
-     * sort the list displayed in page.
+     * sort the list displayed in page
      */
     public void sortPageList()
     {
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + this.id + "] sorting page list");
-        }
-        sortRowList(this.rowListPage);
+        mLog.debug("sortFullData()");
+        sortRowList(mRowListPage);
 
     }
 
     /**
-     * sort the full list of data.
+     * sort the full list of data
      */
     public void sortFullList()
     {
-        if (log.isDebugEnabled())
-        {
-            log.debug("[" + this.id + "] sorting full data");
-        }
-        sortRowList(this.rowListFull);
-    }
-
-    /**
-     * Returns the table properties.
-     * @return the configured table properties.
-     */
-    public TableProperties getProperties()
-    {
-        return this.properties;
-    }
-
-    /**
-     * Getter for character encoding.
-     * @return Returns the encoding used for response.
-     */
-    public String getEncoding()
-    {
-        return encoding;
-    }
-
-    /**
-     * Obtain this table's caption.
-     * @return This table's caption.
-     */
-    public String getCaption()
-    {
-        return this.caption;
-    }
-
-    /**
-     * Set this table's caption.
-     * @param caption This table's caption.
-     */
-    public void setCaption(String caption)
-    {
-        this.caption = caption;
-    }
-
-    /**
-     * Obtain this table's footer.
-     * @return This table's footer.
-     */
-    public String getFooter()
-    {
-        return this.footer;
-    }
-
-    /**
-     * Set this table's footer.
-     * @param footer This table's footer.
-     */
-    public void setFooter(String footer)
-    {
-        this.footer = footer;
-    }
-
-    /**
-     * @see java.lang.Object#toString()
-     */
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("rowListFull", this.rowListFull) //$NON-NLS-1$
-            .append("rowListPage", this.rowListPage) //$NON-NLS-1$
-            .append("properties", this.properties) //$NON-NLS-1$
-            .append("empty", this.isEmpty()) //$NON-NLS-1$
-            .append("encoding", this.encoding) //$NON-NLS-1$
-            .append("numberOfColumns", this.getNumberOfColumns()) //$NON-NLS-1$
-            .append("headerCellList", this.headerCellList) //$NON-NLS-1$
-            .append("sortFullTable", this.sortFullTable) //$NON-NLS-1$
-            .append("sortedColumnNumber", this.getSortedColumnNumber()) //$NON-NLS-1$
-            .append("sortOrderAscending", this.sortOrderAscending) //$NON-NLS-1$
-            .append("sortedColumnHeader", this.getSortedColumnHeader()) //$NON-NLS-1$
-            .append("sorted", this.isSorted()) //$NON-NLS-1$
-            .append("tableDecorator", this.tableDecorator) //$NON-NLS-1$
-            .append("caption", this.caption) //$NON-NLS-1
-            .append("footer", this.footer) //$NON-NLS-1
-            .append("media", this.media) //$NON-NLS-1
-            .toString();
+        mLog.debug("sort FullData");
+        sortRowList(mRowListFull);
     }
 
 }

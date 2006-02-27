@@ -1,141 +1,220 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags;
 
 import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
-
 /**
- * Base tag which provides setters for all the standard html attributes.
- * @author Fabrizio Giustina
+ * <p>Base tag wich provides setters for all the standard html attributes</p>
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public abstract class HtmlTableTag extends TemplateTag
 {
 
     /**
-     * Map containing all the standard html attributes.
+     * Map containing all the standard html attributes
      */
-    private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
+    private HtmlAttributeMap mAttributeMap = new HtmlAttributeMap();
 
     /**
-     * setter for the "cellspacing" html attribute.
-     * @param value attribute value
+     * Method setWidth
+     * @param attributeValue String
      */
-    public void setCellspacing(String value)
+    public void setWidth(String attributeValue)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_CELLSPACING, value);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, attributeValue);
     }
 
     /**
-     * setter for the "cellpadding" html attribute.
-     * @param value attribute value
+     * Method setBorder
+     * @param attributeValue String
      */
-    public void setCellpadding(String value)
+    public void setBorder(String attributeValue)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_CELLPADDING, value);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_BORDER, attributeValue);
     }
 
     /**
-     * setter for the "frame" html attribute.
-     * @param value attribute value
+     * Method setCellspacing
+     * @param attributeValue String
      */
-    public void setFrame(String value)
+    public void setCellspacing(String attributeValue)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_FRAME, value);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_CELLSPACING, attributeValue);
     }
 
     /**
-     * setter for the "rules" html attribute.
-     * @param value attribute value
+     * Method setCellpadding
+     * @param attributeValue String
      */
-    public void setRules(String value)
+    public void setCellpadding(String attributeValue)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_RULES, value);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_CELLPADDING, attributeValue);
     }
 
     /**
-     * setter for the "style" html attribute.
-     * @param value attribute value
+     * Method setAlign
+     * @param attributeValue String
      */
-    public void setStyle(String value)
+    public void setAlign(String attributeValue)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, attributeValue);
     }
 
     /**
-     * setter for the "summary" html attribute.
-     * @param value attribute value
+     * Method setBackground
+     * @param attributeValue String
      */
-    public void setSummary(String value)
+    public void setBackground(String attributeValue)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_SUMMARY, value);
+        mAttributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, attributeValue);
     }
 
     /**
-     * setter for the "class" html attribute.
-     * @param value attribute value
+     * Method setBgcolor
+     * @param attributeValue String
      */
-    public void setClass(String value)
+    public void setBgcolor(String attributeValue)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+
+        mAttributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, attributeValue);
     }
 
     /**
-     * setter for the "id" html attribute. Don't use setId() to avoid overriding original TagSupport method.
-     * @param value attribute value
+     * Method setFrame
+     * @param attributeValue String
      */
-    public void setHtmlId(String value)
+    public void setFrame(String attributeValue)
     {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_ID, value);
+
+        mAttributeMap.put(TagConstants.ATTRIBUTE_FRAME, attributeValue);
     }
 
     /**
-     * Adds a css class to the class attribute (html class suports multiple values).
-     * @param value attribute value
+     * Method setHeight
+     * @param attributeValue String
      */
-    public void addClass(String value)
+    public void setHeight(String attributeValue)
     {
-        Object classAttributes = this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
 
-        if (classAttributes == null)
+        mAttributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, attributeValue);
+    }
+
+    /**
+     * Method setHspace
+     * @param attributeValue String
+     */
+    public void setHspace(String attributeValue)
+    {
+
+        mAttributeMap.put(TagConstants.ATTRIBUTE_HSPACE, attributeValue);
+    }
+
+    /**
+     * Method setRules
+     * @param attributeValue String
+     */
+    public void setRules(String attributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_RULES, attributeValue);
+    }
+
+    /**
+     * Method setRules
+     * @param attributeValue String
+     */
+    public void setStyle(String attributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_STYLE, attributeValue);
+    }
+
+    /**
+     * Method setSummary
+     * @param attributeValue String
+     */
+    public void setSummary(String attributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_SUMMARY, attributeValue);
+    }
+
+    /**
+     * Method setVspace
+     * @param attributeValue String
+     */
+    public void setVspace(String attributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_VSPACE, attributeValue);
+    }
+
+    /**
+     * set the html class attribute
+     * @deprecated: use setClass()
+     * @param attributeValue String CSS class
+     */
+    public void setStyleClass(String attributeValue)
+    {
+        setClass(attributeValue);
+    }
+
+    /**
+     * Method setClass
+     * @param attributeValue String attribute value
+     */
+    public void setClass(String attributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, attributeValue);
+    }
+
+    /**
+     * Method setId
+     * @param attributeValue String
+     */
+    public void setId(String attributeValue)
+    {
+        mAttributeMap.put(TagConstants.ATTRIBUTE_ID, attributeValue);
+        super.setId(attributeValue);
+    }
+
+    /**
+     * Method getOpenTag
+     * @return String
+     */
+    public String getOpenTag()
+    {
+
+        if (mAttributeMap.size() == 0)
         {
-            this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+            return TagConstants.TAG_OPEN + TagConstants.TABLE_TAG_NAME + TagConstants.TAG_CLOSE;
         }
-        else
-        {
-            ((MultipleHtmlAttribute) classAttributes).addAttributeValue(value);
-        }
+
+        StringBuffer lBuffer = new StringBuffer();
+
+        lBuffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
+
+        lBuffer.append(mAttributeMap);
+
+        lBuffer.append(TagConstants.TAG_CLOSE);
+
+        return lBuffer.toString();
     }
 
     /**
+     * Method getCloseTag
+     * @return String
+     */
+    public String getCloseTag()
+    {
+        return TagConstants.TAG_OPENCLOSING + TagConstants.TABLE_TAG_NAME + TagConstants.TAG_CLOSE;
+    }
+
+    /**
+     * Method release
      * @see javax.servlet.jsp.tagext.Tag#release()
      */
     public void release()
     {
-        this.attributeMap.clear();
+        mAttributeMap.clear();
         super.release();
-    }
-
-    /**
-     * Return a map of html attributes. Should be used for extensions only, html attributes are normally printed out in
-     * the <code>getOpenTag()</code> method.
-     * @return map of html attributes
-     */
-    public HtmlAttributeMap getAttributeMap()
-    {
-        return this.attributeMap;
     }
 
 }

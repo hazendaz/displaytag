@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<document>
+
+	<properties>
+		<title>License</title>
+		<author email="fgiust AT users.sourceforge.net">Fabrizio Giustina</author>
+	</properties>
+
+	<body>
+
+		<section name="Installation Guide">
+
+			<p>
+				This package comes with pre-built binaries located in the dist directory. Those distribution files are:
+			</p>
+
+			<table>
+				<thead>
+					<tr>
+						<th>file</th>
+						<th>description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>displaytag.war</td>
+						<td>documentation and examples</td>
+					</tr>
+					<tr>
+						<td>displaytag.jar</td>
+						<td>the taglib jar</td>
+					</tr>
+					<tr>
+						<td>displaytag.tld</td>
+						<td>the taglib tld file</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<p>
+				To quickly view the documentation and examples showing the features and functionality of the display
+				taglib, just deploy the displaytag.war file to your application server (the details of how differ from
+				server to server).
+			</p>
+
+			<p>To make use of the display taglib in your own application, then do the following:</p>
+
+			<ol>
+				<li>drop the displaytag.tld file in your application /WEB-INF/ directory</li>
+				<li>drop the displaytag.jar file in your application /WEB-INF/lib directory</li>
+
+				<li>
+					make sure that following libraries are in your WEB-INF/lib directory (or made available via the
+					classpath to your application server).
+					<ul>
+						<li>commons-logging.jar</li>
+						<li>commons-lang.jar</li>
+						<li>commons-collections.jar</li>
+						<li>commons-beanutils.jar</li>
+					</ul>
+				</li>
+
+				<li>define a taglib element like the following in your /WEB-INF/web.xml file</li>
+
+				<pre>
+					&lt;taglib> &lt;taglib-uri>http://displaytag.org&lt;/taglib-uri>
+					&lt;taglib-location>/WEB-INF/displaytag.tld&lt;/taglib-location> &lt;/taglib>
+				</pre>
+
+				<li>
+					define the tag extension in each JSP page that uses the display taglib. The uri directives must
+					match what you defined in the web.xml file above.. The prefix indentifies the tags in the tag
+					library within the JSP page.
+				</li>
+
+				<pre>&lt;%@ taglib uri="http://displaytag.org" prefix="display" %></pre>
+			</ol>
+
+			<p>
+				As you can tell in step 3, this package makes use of a couple of dependent libraries. For now, I have
+				included that those libraries in my lib directory. In the future I will not provide that library with
+				this package, you will be expected to fetch them yourself.
+			</p>
+
+			<p>
+				For more help with using taglibs in general, please see:
+				<a href="http://jakarta.apache.org/taglibs/tutorial.html">
+					http://jakarta.apache.org/taglibs/tutorial.html
+				</a>
+			</p>
+
+		</section>
+
+	</body>
+</document>

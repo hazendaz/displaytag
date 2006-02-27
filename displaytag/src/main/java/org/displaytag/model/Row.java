@@ -1,206 +1,163 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.TagConstants;
 
-
 /**
- * Holds informations for a table row.
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
+
 public class Row
 {
 
     /**
-     * Object holding values for the current row.
+     * Field mRowObject
      */
-    private Object rowObject;
+    private Object mRowObject;
 
     /**
-     * List of cell objects.
+     * Field mStaticCells
      */
-    private List staticCells;
+    private List mStaticCells;
+    /**
+     * Field mRowNumber
+     */
+    private int mRowNumber;
 
     /**
-     * Row number.
+     * Field mTableModel
      */
-    private int rowNumber;
+    private TableModel mTableModel;
 
     /**
-     * TableModel which the row belongs to.
+     *
+     * @param pRowNumber - the new value for mRowNumber
      */
-    private TableModel tableModel;
-
-    /**
-     * Constructor for Row.
-     * @param object Object
-     * @param number int
-     */
-    public Row(Object object, int number)
+    public void setRowNumber(int pRowNumber)
     {
-        this.rowObject = object;
-        this.rowNumber = number;
-        this.staticCells = new ArrayList();
+        mRowNumber = pRowNumber;
     }
 
     /**
-     * Setter for the row number.
-     * @param number row number
+     *
+     * @return true if isOddRow is set to true.
      */
-    public void setRowNumber(int number)
+    public boolean isOddRow()
     {
-        this.rowNumber = number;
+        return mRowNumber % 2 == 0;
     }
 
     /**
-     * Getter for the row number.
-     * @return row number
+     * Method getRowNumber
+     * @return int
      */
     public int getRowNumber()
     {
-        return this.rowNumber;
+        return mRowNumber;
     }
 
     /**
-     * Adds a cell to the row.
-     * @param cell Cell
+     * Constructor for Row
+     * @param pRowObject Object
+     * @param pRowNumber int
      */
-    public void addCell(Cell cell)
+    public Row(Object pRowObject, int pRowNumber)
     {
-        this.staticCells.add(cell);
+        mRowObject = pRowObject;
+        mRowNumber = pRowNumber;
+        mStaticCells = new ArrayList();
     }
 
     /**
-     * getter for the list of Cell object.
-     * @return List containing Cell objects
+     * Method addCell
+     * @param pCell Cell
+     */
+    public void addCell(Cell pCell)
+    {
+        // mLog.debug("adding cell " + pCell + " to collection " + mStaticCells);
+        mStaticCells.add(pCell);
+    }
+
+    /**
+     * Method getCellList
+     * @return List
      */
     public List getCellList()
     {
-        return this.staticCells;
+        return mStaticCells;
     }
 
     /**
-     * getter for the object holding values for the current row.
-     * @return Object object holding values for the current row
+     * Method getObject
+     * @return Object
      */
     public Object getObject()
     {
-        return this.rowObject;
+        return mRowObject;
     }
 
     /**
-     * Iterates on columns.
-     * @param columns List
+     * Method toString
+     * @return String
+     */
+    public String toString()
+    {
+        return mRowObject.toString();
+    }
+
+    /**
+     * Method getColumnIterator
+     * @param pColumns List
      * @return ColumnIterator
      */
-    public ColumnIterator getColumnIterator(List columns)
+    public ColumnIterator getColumnIterator(List pColumns)
     {
-        return new ColumnIterator(columns, this);
+        return new ColumnIterator(pColumns, this);
     }
 
     /**
-     * Setter for the table model the row belongs to.
-     * @param table TableModel
+     * Method setParentTable
+     * @param pTableModel TableModel
      */
-    protected void setParentTable(TableModel table)
+    protected void setParentTable(TableModel pTableModel)
     {
-        this.tableModel = table;
+        mTableModel = pTableModel;
     }
 
     /**
-     * Getter for the table model the row belongs to.
+     * Method getParentTable
      * @return TableModel
      */
     protected TableModel getParentTable()
     {
-        return this.tableModel;
+        return mTableModel;
     }
 
     /**
-     * Writes the open &lt;tr> tag.
-     * @return String &lt;tr> tag with the appropriate css class attribute
+     * writes the open &lt;tr&gt; tag
+     * @return String &lt;tr&gt; tag
      */
     public String getOpenTag()
     {
-        Map rowAttributes = new HtmlAttributeMap();
-        MultipleHtmlAttribute cssAttribute = new MultipleHtmlAttribute(this.tableModel.getProperties().getCssRow(
-            this.rowNumber));
-
-        if (this.tableModel.getTableDecorator() != null)
-        {
-            try
-            {
-                String addStyle = this.tableModel.getTableDecorator().addRowClass();
-
-                if (StringUtils.isNotBlank(addStyle))
-                {
-                    cssAttribute.addAttributeValue(addStyle);
-                }
-
-                String id = this.tableModel.getTableDecorator().addRowId();
-                if (StringUtils.isNotBlank(id))
-                {
-                    rowAttributes.put(TagConstants.ATTRIBUTE_ID, id);
-                }
-            }
-            catch (NoSuchMethodError e)
-            {
-                // this catch is here to allow decorators compiled with displaytag 1.0 work with 1.1
-                // since the addRowClass() and addRowId() are new in displaytag 1.1 earlier decorators could throw
-                // a NoSuchMethodError... be nice with them till a next major release
-            }
-        }
-
-        rowAttributes.put(TagConstants.ATTRIBUTE_CLASS, cssAttribute);
-
-        StringBuffer tag = new StringBuffer();
-        tag.append(TagConstants.TAG_OPEN);
-        tag.append(TagConstants.TAGNAME_ROW);
-
-        tag.append(rowAttributes.toString());
-
-        tag.append(TagConstants.TAG_CLOSE);
-
-        return tag.toString();
+        return TagConstants.TAG_OPEN
+            + TagConstants.TAGNAME_ROW
+            + (isOddRow()
+                ? " " + TagConstants.ATTRIBUTE_CLASS + "=\"" + TableTagParameters.CSS_ODDROW + "\""
+                : " " + TagConstants.ATTRIBUTE_CLASS + "=\"" + TableTagParameters.CSS_EVENROW + "\"")
+            + TagConstants.TAG_CLOSE;
     }
 
     /**
-     * writes the &lt;/tr> tag.
-     * @return String &lt;/tr> tag
+     * writes the &lt;/tr&gt; tag
+     * @return String &lt;/tr&gt; tag
      */
     public String getCloseTag()
     {
         return TagConstants.TAG_TR_CLOSE;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("rowNumber", this.rowNumber) //$NON-NLS-1$
-            .append("rowObject", this.rowObject) //$NON-NLS-1$
-            .toString();
-    }
 }

@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.model;
 
 import java.util.Iterator;
@@ -18,109 +7,87 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 
-
 /**
- * Iterator on table rows.
- * @author Fabrizio Giustina
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class RowIterator
 {
 
     /**
-     * logger.
+     * logger
      */
-    private static Log log = LogFactory.getLog(RowIterator.class);
+    private static Log mLog = LogFactory.getLog(RowIterator.class);
 
     /**
-     * internal iterator for Rows.
+     * List contaning CellHeader objects
      */
-    private Iterator iterator;
+    private List mColumns;
 
     /**
-     * row number counter.
+     * internal iterator for Rows
      */
-    private int rowNumber;
+    private Iterator mIterator;
 
     /**
-     * reference to the table TableDecorator.
+     * row number counter
      */
-    private TableDecorator decorator;
+    private int mCount;
 
     /**
-     * id inherited from the TableTag (needed only for logging).
+     * reference to the table TableDecorator
      */
-    private String id;
+    private TableDecorator mTableDecorator;
 
     /**
-     * Starting offset for items n the current page. Needed to calculare the index in the original list
+     * Constructor for RowIterator
+     * @param pRowList List containing Row objects
+     * @param pColumns List containing CellHeader objects
+     * @param pTableDecorator TableDecorator
      */
-    private int pageOffset;
-
-    /**
-     * Constructor for RowIterator.
-     * @param rowList List containing Row objects
-     * @param columnList List containing CellHeader objects
-     * @param tableDecorator TableDecorator
-     * @param offset Starting offset for items n the current page
-     */
-    protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator, int offset)
+    protected RowIterator(List pRowList, List pColumns, TableDecorator pTableDecorator)
     {
-        this.iterator = rowList.iterator();
-        this.rowNumber = 0;
-        this.decorator = tableDecorator;
-        this.pageOffset = offset;
+        mIterator = pRowList.iterator();
+        mColumns = pColumns;
+        mCount = 0;
+        mTableDecorator = pTableDecorator;
     }
 
     /**
-     * Setter for the tablemodel id.
-     * @param tableId same id of table tag, needed for logging
-     */
-    public void setId(String tableId)
-    {
-        this.id = tableId;
-    }
-
-    /**
-     * Check if a next row exist.
+     * Method hasNext
      * @return boolean true if a new row
      */
     public boolean hasNext()
     {
-        return this.iterator.hasNext();
-    }
-
-    public int getPageOffset()
-    {
-        return this.pageOffset;
+        return mIterator.hasNext();
     }
 
     /**
-     * Returns the next row object.
+     * return the next row object
      * @return Row
      */
     public Row next()
     {
 
-        int currentRowNumber = this.rowNumber++;
+        int lRowNumber = mCount++;
 
-        if (log.isDebugEnabled())
+        if (mLog.isDebugEnabled())
         {
-            log.debug("[" + this.id + "] rowIterator.next() row number=" + currentRowNumber);
+            mLog.debug("RowIterator.next() row number=" + lRowNumber);
         }
 
-        Object object = this.iterator.next();
+        Object lObject = mIterator.next();
 
-        Row row = (Row) object;
+        Row lRow = (Row) lObject;
 
-        row.setRowNumber(currentRowNumber);
+        lRow.setRowNumber(lRowNumber);
 
-        if (this.decorator != null)
+        if (mTableDecorator != null)
         {
-            this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber + getPageOffset());
+            mTableDecorator.initRow(lRow.getObject(), lRowNumber, lRowNumber);
         }
 
-        return row;
+        return lRow;
 
     }
 

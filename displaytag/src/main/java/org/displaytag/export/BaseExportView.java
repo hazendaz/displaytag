@@ -1,18 +1,4 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.export;
-
-import java.io.IOException;
-import java.io.Writer;
 import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
@@ -27,107 +13,86 @@ import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 
-
 /**
- * <p>
- * Base abstract class for simple export views.
- * </p>
- * <p>
- * A class that extends BaseExportView simply need to provide delimiters for rows and columns.
- * </p>
- * @author Fabrizio Giustina
+ * <p>Base abstract class for simple export views</p>
+ * <p>A class wich extends BaseExportView simple need to provide delimiters for rows
+ * and columns</p>
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
-public abstract class BaseExportView implements TextExportView
+public abstract class BaseExportView
 {
 
     /**
-     * logger.
+     * logger
      */
-    private static Log log = LogFactory.getLog(BaseExportView.class);
+    private static Log mLog = LogFactory.getLog(BaseExportView.class);
 
     /**
-     * TableModel to render.
+     * TableModel to render
      */
-    private TableModel model;
+    private TableModel mTableModel;
 
     /**
      * export full list?
      */
-    private boolean exportFull;
+    private boolean mExportFullList;
 
     /**
-     * include header in export?
+     * Constructor for BaseExportView
+     * @param pTableModel TableModel to render
+     * @param pExportFullList boolean export full list?
      */
-    private boolean header;
-
-    /**
-     * decorate export?
-     */
-    private boolean decorated;
-
-    /**
-     * @see org.displaytag.export.ExportView#setParameters(org.displaytag.model.TableModel, boolean, boolean, boolean)
-     */
-    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
-        boolean decorateValues)
+    public BaseExportView(TableModel pTableModel, boolean pExportFullList)
     {
-        this.model = tableModel;
-        this.exportFull = exportFullList;
-        this.header = includeHeader;
-        this.decorated = decorateValues;
+        mTableModel = pTableModel;
+        mExportFullList = pExportFullList;
     }
 
     /**
-     * String to add before a row.
+     * Returns the TableModel.
+     * @return TableModel
+     */
+    public TableModel getTableModel()
+    {
+        return mTableModel;
+    }
+
+    /**
+     * String to add before a row
      * @return String
      */
-    protected String getRowStart()
-    {
-        return null;
-    }
+    protected abstract String getRowStart();
 
     /**
-     * String to add after a row.
+     * String to add after a row
      * @return String
      */
-    protected String getRowEnd()
-    {
-        return null;
-    }
+    protected abstract String getRowEnd();
 
     /**
-     * String to add before a cell.
+     * String to add before a cell
      * @return String
      */
-    protected String getCellStart()
-    {
-        return null;
-    }
+    protected abstract String getCellStart();
 
     /**
-     * String to add after a cell.
+     * String to add after a cell
      * @return String
      */
     protected abstract String getCellEnd();
 
     /**
-     * String to add to the top of document.
+     * String to add to the top of document
      * @return String
      */
-    protected String getDocumentStart()
-    {
-        return null;
-    }
+    protected abstract String getDocumentStart();
 
     /**
-     * String to add to the end of document.
+     * String to add to the end of document
      * @return String
      */
-    protected String getDocumentEnd()
-    {
-        return null;
-    }
+    protected abstract String getDocumentEnd();
 
     /**
      * always append cell end string?
@@ -142,14 +107,13 @@ public abstract class BaseExportView implements TextExportView
     protected abstract boolean getAlwaysAppendRowEnd();
 
     /**
-     * can be implemented to escape values for different output.
-     * @param value original column value
-     * @return escaped column value
+     * MimeType to return
+     * @return String myme type
      */
-    protected abstract String escapeColumnValue(Object value);
+    public abstract String getMimeType();
 
     /**
-     * Write table header.
+     * Write table header
      * @return String rendered header
      */
     protected String doHeaders()
@@ -161,64 +125,54 @@ public abstract class BaseExportView implements TextExportView
         final String CELL_END = getCellEnd();
         final boolean ALWAYS_APPEND_CELL_END = getAlwaysAppendCellEnd();
 
-        StringBuffer buffer = new StringBuffer(1000);
+        StringBuffer lBuffer = new StringBuffer(1000);
+        TableModel lTableModel = getTableModel();
 
-        Iterator iterator = this.model.getHeaderCellList().iterator();
+        Iterator lIterator = lTableModel.getHeaderCellList().iterator();
 
         // start row
-        if (ROW_START != null)
+        lBuffer.append(ROW_START);
+
+        while (lIterator.hasNext())
         {
-            buffer.append(ROW_START);
-        }
+            mLog.debug("lIterator.hasNext()");
+            HeaderCell lHeaderCell = (HeaderCell) lIterator.next();
 
-        while (iterator.hasNext())
-        {
-            HeaderCell headerCell = (HeaderCell) iterator.next();
+            String lHeader = lHeaderCell.getTitle();
 
-            String columnHeader = headerCell.getTitle();
-
-            if (columnHeader == null)
+            if (lHeader == null)
             {
-                columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());
+                lHeader = StringUtils.capitalize(lHeaderCell.getBeanPropertyName());
             }
 
-            columnHeader = escapeColumnValue(columnHeader);
+            lBuffer.append(CELL_START);
 
-            if (CELL_START != null)
-            {
-                buffer.append(CELL_START);
-            }
+            lBuffer.append(lHeader);
 
-            if (columnHeader != null)
+            if (ALWAYS_APPEND_CELL_END || lIterator.hasNext())
             {
-                buffer.append(columnHeader);
-            }
-
-            if (CELL_END != null && (ALWAYS_APPEND_CELL_END || iterator.hasNext()))
-            {
-                buffer.append(CELL_END);
+                lBuffer.append(CELL_END);
             }
         }
 
         // end row
-        if (ROW_END != null)
-        {
-            buffer.append(ROW_END);
-        }
+        lBuffer.append(ROW_END);
 
-        return buffer.toString();
+        return lBuffer.toString();
 
     }
 
     /**
-     * @see org.displaytag.export.TextExportView#doExport(java.io.Writer)
+     * Write the rendered table
+     * @return String rendered table body
+     * @throws JspException for errors during cell value lookup
      */
-    public void doExport(Writer out) throws IOException, JspException
+    public String doExport() throws JspException
     {
-        if (log.isDebugEnabled())
-        {
-            log.debug(getClass().getName());
-        }
+
+        StringBuffer lBuffer = new StringBuffer(8000);
+
+        TableModel lTableModel = getTableModel();
 
         final String DOCUMENT_START = getDocumentStart();
         final String DOCUMENT_END = getDocumentEnd();
@@ -230,80 +184,72 @@ public abstract class BaseExportView implements TextExportView
         final boolean ALWAYS_APPEND_ROW_END = getAlwaysAppendRowEnd();
 
         // document start
-        write(out, DOCUMENT_START);
+        lBuffer.append(DOCUMENT_START);
 
-        if (this.header)
-        {
-            write(out, doHeaders());
-        }
-
-        // get the correct iterator (full or partial list according to the exportFull field)
-        RowIterator rowIterator = this.model.getRowIterator(this.exportFull);
+        //get the correct iterator (full or partial list according to the mExportFullList field)
+        RowIterator lRowIterator =
+            mExportFullList ? lTableModel.getFullListRowIterator() : lTableModel.getRowIterator();
 
         // iterator on rows
-        while (rowIterator.hasNext())
+        while (lRowIterator.hasNext())
         {
-            Row row = rowIterator.next();
+            mLog.debug("lRowIterator.hasNext()");
+            Row lRow = lRowIterator.next();
+            mLog.debug("lRow=" + lRow);
 
-            if (this.model.getTableDecorator() != null)
+            if (lTableModel.getTableDecorator() != null)
             {
 
-                String stringStartRow = this.model.getTableDecorator().startRow();
-                write(out, stringStartRow);
-            }
-
-            // iterator on columns
-            ColumnIterator columnIterator = row.getColumnIterator(this.model.getHeaderCellList());
-
-            write(out, ROW_START);
-
-            while (columnIterator.hasNext())
-            {
-                Column column = columnIterator.nextColumn();
-
-                // Get the value to be displayed for the column
-                String value = escapeColumnValue(column.getValue(this.decorated));
-
-                write(out, CELL_START);
-
-                write(out, value);
-
-                if (ALWAYS_APPEND_CELL_END || columnIterator.hasNext())
+                String lStringStartRow = lTableModel.getTableDecorator().startRow();
+                if (lStringStartRow != null)
                 {
-                    write(out, CELL_END);
+                    lBuffer.append(lStringStartRow);
                 }
 
             }
-            if (ALWAYS_APPEND_ROW_END || rowIterator.hasNext())
+
+            // iterator on columns
+            ColumnIterator lColumnIterator = lRow.getColumnIterator(lTableModel.getHeaderCellList());
+
+            lBuffer.append(ROW_START);
+
+            while (lColumnIterator.hasNext())
             {
-                write(out, ROW_END);
+                Column lColumn = lColumnIterator.nextColumn();
+
+                Object lValue;
+
+                // Get the value to be displayed for the column
+                try
+                {
+                    lValue = lColumn.getValue(true);
+                }
+                catch (Exception ex)
+                {
+                    mLog.error(ex.getMessage(), ex);
+                    throw new JspException(ex.getMessage());
+                }
+
+                lBuffer.append(CELL_START);
+                lBuffer.append(lValue);
+
+                if (ALWAYS_APPEND_CELL_END || lColumnIterator.hasNext())
+                {
+                    lBuffer.append(CELL_END);
+                }
+
+            }
+            if (ALWAYS_APPEND_ROW_END || lRowIterator.hasNext())
+            {
+                lBuffer.append(ROW_END);
             }
         }
 
-        // document end
-        write(out, DOCUMENT_END);
+        // document start
+        lBuffer.append(DOCUMENT_END);
+
+        return lBuffer.toString();
 
     }
 
-    /**
-     * Write a String, checking for nulls value.
-     * @param out output writer
-     * @param string String to be written
-     * @throws IOException thrown by out.write
-     */
-    private void write(Writer out, String string) throws IOException
-    {
-        if (string != null)
-        {
-            out.write(string);
-        }
-    }
-
-    /**
-     * @see org.displaytag.export.TextExportView#outputPage()
-     */
-    public boolean outputPage()
-    {
-        return false;
-    }
 }

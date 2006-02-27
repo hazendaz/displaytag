@@ -1,141 +1,135 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.exception;
 
 import javax.servlet.jsp.JspTagException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.Messages;
-
 
 /**
- * Base exception: extendes JspTagException providing logging and exception nesting functionalities.
- * @author Fabrizio Giustina
+ * <p>Base exception: extendes JspTagException providing loggin and exception nesting functionalities</p>
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public abstract class BaseNestableJspTagException extends JspTagException
 {
 
     /**
-     * Class where the exception has been generated.
+     * Class where the exception has been generated
      */
-    private final Class sourceClass;
+    private Class mSourceClass;
 
     /**
-     * previous exception.
+     * previous exception
      */
-    private Throwable nestedException;
+    private Throwable mCause;
 
     /**
-     * Instantiate a new BaseNestableJspTagException.
-     * @param source Class where the exception is generated
-     * @param message message
+     * Instantiate a new BaseNestableJspTagException
+     * @param pSourceClass Class where the exception is generated
+     * @param pMessage message
      */
-    public BaseNestableJspTagException(Class source, String message)
+    public BaseNestableJspTagException(Class pSourceClass, String pMessage)
     {
-        super(message);
-        this.sourceClass = source;
+        super(pMessage);
+        mSourceClass = pSourceClass;
 
         // log exception
-        Log log = LogFactory.getLog(source);
+        Log lLog = LogFactory.getLog(pSourceClass);
+        lLog.error(toString());
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)
         {
-            log.debug(toString());
+            lLog.debug(toString());
         }
         else if (getSeverity() == SeverityEnum.INFO)
         {
-            log.info(toString());
+            lLog.info(toString());
         }
         else if (getSeverity() == SeverityEnum.WARN)
         {
-            log.warn(toString());
+            lLog.warn(toString());
         }
         else
         {
             // error - default
-            log.error(toString());
+            lLog.error(toString());
         }
 
     }
 
     /**
-     * Instantiate a new BaseNestableJspTagException.
-     * @param source Class where the exception is generated
-     * @param message message
-     * @param cause previous Exception
+     * Instantiate a new BaseNestableJspTagException
+     * @param pSourceClass Class where the exception is generated
+     * @param pMessage message
+     * @param pCause previous Exception
      */
-    public BaseNestableJspTagException(Class source, String message, Throwable cause)
+    public BaseNestableJspTagException(Class pSourceClass, String pMessage, Throwable pCause)
     {
-        super(message);
-        this.sourceClass = source;
-        this.nestedException = cause;
+        super(pMessage);
+        mSourceClass = pSourceClass;
+        mCause = pCause;
 
         // log exception
-        Log log = LogFactory.getLog(source);
+        Log lLog = LogFactory.getLog(pSourceClass);
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)
         {
-            log.debug(toString(), cause);
+            lLog.debug(toString(), pCause);
         }
         else if (getSeverity() == SeverityEnum.INFO)
         {
-            log.info(toString(), cause);
+            lLog.info(toString(), pCause);
         }
         else if (getSeverity() == SeverityEnum.WARN)
         {
-            log.warn(toString(), cause);
+            lLog.warn(toString(), pCause);
         }
         else
         {
             // error - default
-            log.error(toString(), cause);
+            lLog.error(toString(), pCause);
         }
 
     }
 
     /**
-     * returns the previous exception.
+     * returns the previous exception
      * @return Throwable previous exception
      */
     public Throwable getCause()
     {
-        return this.nestedException;
+        return mCause;
     }
 
     /**
-     * basic toString. Returns the message plus the previous exception (if a previous exception exists).
+     * basic toString. Returns the message plus the previous exception (if a previous exception exists)
      * @return String
      */
     public String toString()
     {
-        String className = this.sourceClass.getName();
-        className = className.substring(className.lastIndexOf(".")); //$NON-NLS-1$
+        StringBuffer lBuffer = new StringBuffer();
 
-        if (this.nestedException == null)
+        String lClassName = mSourceClass.getName();
+        lClassName = lClassName.substring(lClassName.lastIndexOf("."));
+
+        lBuffer.append("Exception: ");
+        lBuffer.append("[").append(lClassName).append("] ");
+        lBuffer.append(getMessage());
+
+        if (mCause != null)
         {
-            return Messages.getString("NestableException.msg", //$NON-NLS-1$
-                new Object[]{className, getMessage()});
+            lBuffer.append("\nCause:     ");
+            lBuffer.append(mCause.getMessage());
         }
 
-        return Messages.getString("NestableException.msgcause", //$NON-NLS-1$
-            new Object[]{className, getMessage(), this.nestedException.getMessage()});
+        return lBuffer.toString();
+
     }
 
     /**
-     * subclasses need to define the getSeverity method to provide correct severity for logging.
+     * subclasses need to define the getSeverity method to provide correct severity for logging
      * @return SeverityEnum exception severity
      * @see org.displaytag.exception.SeverityEnum
      */

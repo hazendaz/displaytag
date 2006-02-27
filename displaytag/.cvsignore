@@ -11,7 +11,3 @@ cache
 build.properties
 work
 lib
-*.log
-log
-HEAD.xml
-displaytag*.xml

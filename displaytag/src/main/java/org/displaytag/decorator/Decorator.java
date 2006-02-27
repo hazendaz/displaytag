@@ -1,195 +1,129 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.decorator;
 
-import java.lang.reflect.InvocationTargetException;
+import java.beans.PropertyDescriptor;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.BooleanUtils;
-import org.displaytag.model.TableModel;
-
 
 /**
- * <p>
- * This class provides some basic functionality for all objects which serve as decorators for the objects in the List
- * being displayed.
- * <p>
- * <p>
- * Decorator should never be subclassed directly. Use TableDecorator instead
- * </p>
+ * <p>This class provides some basic functionality for all objects which serve
+ * as decorators for the objects in the List being displayed.<p>
+ * <p>Decorator should never be subclassed directly. Use TableDecorator instead</p>
  * @author mraible
- * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
- */
-abstract class Decorator
+ **/
+public abstract class Decorator
 {
 
-    /**
-     * Char used to separate class name and property in the cache key.
-     */
-    private static final char CLASS_PROPERTY_SEPARATOR = '#';
+	/**
+	 * page context
+	 */
+	private PageContext mPageContext;
 
-    /**
-     * property info cache contains classname#propertyname Strings as keys and Booleans as values.
-     */
-    private static Map propertyMap = new HashMap();
+	/**
+	 * property info cache
+	 */
+	private static HashMap lPropertyMap = new HashMap();
 
-    /**
-     * page context.
-     */
-    private PageContext pageContext;
+	/**
+	 * decorated object. Usually a List
+	 */
+	private Object mDecoratedObject;
 
-    /**
-     * decorated object. Usually a List
-     */
-    private Object decoratedObject;
+	/**
+	 * Method init
+	 * @param pPageContext PageContext
+	 * @param pDecoratedObject decorated object (usually a list)
+	 */
+	public void init(PageContext pPageContext, Object pDecoratedObject)
+	{
+		mPageContext = pPageContext;
+		mDecoratedObject = pDecoratedObject;
+	}
 
-    /**
-     * The table model.
-     * @since 1.1
-     */
-    protected TableModel tableModel;
+	/**
+	 * returns the page context
+	 * @return PageContext
+	 */
+	public PageContext getPageContext()
+	{
+		return mPageContext;
+	}
 
-    /**
-     * Initialize the TableTecorator instance.
-     * @param context PageContext
-     * @param decorated decorated object (usually a list)
-     * @deprecated use #init(PageContext, Object, TableModel)
-     * @see #init(PageContext, Object, TableModel)
-     */
-    public void init(PageContext context, Object decorated)
-    {
-        this.pageContext = context;
-        this.decoratedObject = decorated;
-    }
+	/**
+	 * returns the decorated object
+	 * @return Object
+	 */
+	public Object getDecoratedObject()
+	{
+		return mDecoratedObject;
+	}
 
-    /**
-     * Initialize the TableTecorator instance.
-     * @param context PageContext
-     * @param decorated decorated object (usually a list)
-     * @param tableModel table model
-     */
-    public void init(PageContext context, Object decorated, TableModel tableModel)
-    {
-        // temporary used for backward (source) compatibility
-        init(pageContext, decorated);
-        // this.pageContext = context;
-        // this.decoratedObject = decorated;
-        this.tableModel = tableModel;
-    }
+	/**
+	 * Method called at the end of evaluation
+	 */
+	public void finish()
+	{
+		mPageContext = null;
+		mDecoratedObject = null;
+	}
 
-    /**
-     * returns the page context.
-     * @return PageContext
-     */
-    public PageContext getPageContext()
-    {
-        return this.pageContext;
-    }
+	/**
+	 * look for a getter for the given property using introspection
+	 * @param pPropertyName name of the property to check
+	 * @return boolean true if the decorator has a getter for the given property
+	 */
+	public boolean searchGetterFor(String pPropertyName)
+	{
+		PropertyDescriptor[] lDescriptors = PropertyUtils.getPropertyDescriptors(getClass());
 
-    /**
-     * returns the decorated object.
-     * @return Object
-     */
-    public Object getDecoratedObject()
-    {
-        return this.decoratedObject;
-    }
+		// iterate on property descriptors
+		for (int lCount = 0; lCount < lDescriptors.length; lCount++)
+		{
+			if (pPropertyName.equals(lDescriptors[lCount].getName()))
+			{
+				return true;
+			}
+		}
 
-    /**
-     * Called at the end of evaluation to clean up instance variable. A subclass of Decorator can override this method
-     * but should always call super.finish() before return
-     */
-    public void finish()
-    {
-        this.pageContext = null;
-        this.decoratedObject = null;
-    }
+		return false;
+	}
 
-    /**
-     * Check if a getter exists for a given property. Uses cached info if property has already been requested. This
-     * method only check for a simple property, if pPropertyName contains multiple tokens only the first part is
-     * evaluated
-     * @param propertyName name of the property to check
-     * @return boolean true if the decorator has a getter for the given property
-     */
-    public boolean hasGetterFor(String propertyName)
-    {
-        String simpleProperty = propertyName;
+	/**
+	 * Check if a getter exists for a given property. Uses cached info if property has already been requested.
+	 * This method only check for a simple property, if pPropertyName contains multiple tokens only the first part is
+	 * evaluated
+	 * @param pPropertyName name of the property to check
+	 * @return boolean true if the decorator has a getter for the given property
+	 */
+	public boolean hasGetterFor(String pPropertyName)
+	{
+		String lSimpleProperty = pPropertyName;
 
-        // get the simple (not nested) bean property
-        int indexOfDot = simpleProperty.indexOf('.');
-        if (indexOfDot > 0)
-        {
-            simpleProperty = simpleProperty.substring(0, indexOfDot);
-        }
+		// get the simple (not nested) bean property
+		if ((lSimpleProperty != null) && (lSimpleProperty.indexOf(".") > 0))
+		{
+			lSimpleProperty = lSimpleProperty.substring(0, lSimpleProperty.indexOf("."));
+		}
 
-        Boolean cachedResult = (Boolean) propertyMap.get(getClass().getName()
-            + CLASS_PROPERTY_SEPARATOR
-            + simpleProperty);
+		Boolean lCachedResult;
 
-        if (cachedResult != null)
-        {
-            return cachedResult.booleanValue();
-        }
+		if ((lCachedResult = (Boolean) lPropertyMap.get(lSimpleProperty)) != null)
+		{
+			return lCachedResult.booleanValue();
+		}
 
-        // not already cached... check
-        boolean hasGetter = searchGetterFor(propertyName);
+		// not already cached... check
+		boolean lHasGetter = searchGetterFor(lSimpleProperty);
 
-        // save in cache
-        propertyMap.put(getClass().getName() + CLASS_PROPERTY_SEPARATOR + simpleProperty, BooleanUtils
-            .toBooleanObject(hasGetter));
+		// save in cache
+		lPropertyMap.put(lSimpleProperty, new Boolean(lHasGetter));
 
-        // and return
-        return hasGetter;
+		// and return
+		return lHasGetter;
 
-    }
-
-    /**
-     * Looks for a getter for the given property using introspection.
-     * @param propertyName name of the property to check
-     * @return boolean true if the decorator has a getter for the given property
-     */
-    public boolean searchGetterFor(String propertyName)
-    {
-
-        Class type = null;
-
-        try
-        {
-            // using getPropertyType instead of isReadable since isReadable doesn't support mapped properties.
-            // Note that this method usually returns null if a property is not found and doesn't throw any exception
-            // also for non existent properties
-            type = PropertyUtils.getPropertyType(this, propertyName);
-        }
-        catch (IllegalAccessException e)
-        {
-            // ignore
-        }
-        catch (InvocationTargetException e)
-        {
-            // ignore
-        }
-        catch (NoSuchMethodException e)
-        {
-            // ignore
-        }
-
-        return type != null;
-
-    }
+	}
 
 }

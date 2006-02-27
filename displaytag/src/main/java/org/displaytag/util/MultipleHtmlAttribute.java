@@ -1,135 +1,118 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.util;
 
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
-
 
 /**
- * Object used to contain html multiple attribute value (for the "class" attribute).
- * @author Fabrizio Giustina
+ * <p>Object used to contain html multiple attribute value (for the "class" attribute)</p>
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class MultipleHtmlAttribute implements Cloneable
 {
 
     /**
-     * Sets containing splitted attribute values.
+     * HashSet containing splitted attribute values
      */
-    private Set attributeSet;
+    private HashSet mAttributeSet;
 
     /**
-     * Constructor for MultipleHtmlAttribute.
-     * @param attributeValue String
+     * Constructor for MultipleHtmlAttribute
+     * @param pAttributeValue String
      */
-    public MultipleHtmlAttribute(String attributeValue)
+    public MultipleHtmlAttribute(String pAttributeValue)
     {
 
         // split initial attribute
-        String[] attributes = StringUtils.split(attributeValue);
+        String[] lAttributes = StringUtils.split(pAttributeValue);
 
-        addAllAttributesFromArray(attributes);
+        addAllAttributesFromArray(lAttributes);
     }
 
     /**
-     * Adds attributes from an array.
-     * @param attributes Object[] Array containing attributes
+     * Constructor for MultipleHtmlAttribute
+     * @param pAttributes Object[]
      */
-    private void addAllAttributesFromArray(String[] attributes)
+    private MultipleHtmlAttribute(Object[] pAttributes)
+    {
+
+        addAllAttributesFromArray(pAttributes);
+    }
+
+    /**
+     * add attributes from an array
+     * @param pAttributes Object[] Array containing attributes
+     */
+    private void addAllAttributesFromArray(Object[] pAttributes)
     {
 
         // number of attributes to add
-        int length = attributes.length;
+        int lLength = pAttributes.length;
 
         // create new HashSet with correct size
-        this.attributeSet = new LinkedHashSet(length);
+        mAttributeSet = new HashSet(lLength);
 
         // add all the splitted attributes
-        for (int j = 0; j < length; j++)
+        for (int lCounter = 0; lCounter < lLength; lCounter++)
         {
 
             // don't add if empty
-            if (!StringUtils.isEmpty(attributes[j]))
+            if (!"".equals(pAttributes[lCounter]))
             {
-                this.attributeSet.add(attributes[j]);
+                mAttributeSet.add(pAttributes[lCounter]);
             }
 
         }
     }
 
     /**
-     * Returns the list of attributes separated by a space.
+     * return the list of attributes separated by a space
      * @return String
      */
     public String toString()
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuffer lBuffer = new StringBuffer();
 
-        Iterator iterator = this.attributeSet.iterator();
+        Iterator lIterator = mAttributeSet.iterator();
 
-        while (iterator.hasNext())
+        while (lIterator.hasNext())
         {
             // apend next value
-            buffer.append(iterator.next());
-            if (iterator.hasNext())
+            lBuffer.append(lIterator.next());
+            if (lIterator.hasNext())
             {
                 // append a space if there are more
-                buffer.append(' ');
+                lBuffer.append(' ');
             }
         }
 
-        return buffer.toString();
+        return lBuffer.toString();
     }
 
     /**
-     * Adds a value to the attribute.
-     * @param attributeValue value to add to the attribute
+     * Method addAttributeValue
+     * @param pAttributeValue String
      */
-    public void addAttributeValue(String attributeValue)
+    public void addAttributeValue(String pAttributeValue)
     {
         // don't add if empty
-        if (!StringUtils.isEmpty(attributeValue))
+        if (!"".equals(pAttributeValue))
         {
-            this.attributeSet.add(attributeValue);
+            mAttributeSet.add(pAttributeValue);
         }
 
     }
 
     /**
-     * @see java.lang.Object#clone()
+     * Method clone
+     * @return Object
      */
     protected Object clone()
     {
-        MultipleHtmlAttribute clone;
-
-        try
-        {
-            clone = (MultipleHtmlAttribute) super.clone();
-        }
-        catch (CloneNotSupportedException e)
-        {
-            // should never happen
-            throw new UnhandledException(e);
-        }
-
-        // copy attributes
-        clone.addAllAttributesFromArray((String[]) this.attributeSet.toArray(new String[this.attributeSet.size()]));
-
-        return clone;
+        // creates a totally new object
+        return new MultipleHtmlAttribute(mAttributeSet.toArray());
     }
 
 }

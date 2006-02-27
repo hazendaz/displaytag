@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+
+  <pomVersion>3</pomVersion>
+  <id>displaytag</id>
+  <groupId>displaytag</groupId>
+  <artifactId>displaytag</artifactId>
+  <name>Display tag library</name>
+  <currentVersion>1.0-b1</currentVersion>
+
+  <organization>
+    <name>sourceforge</name>
+    <identifier>sourceforge</identifier>
+    <url>http://sourceforge.net</url>
+    <logo>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=2</logo>
+  </organization>
+
+  <inceptionYear>2002</inceptionYear>
+  <package>org.displaytag</package>
+  <logo>/images/displaytag.png</logo>
+  <description>
+    The display tag library is an open source suite of custom tags that provide high level web presentation patterns
+    (like tables, tabs, templates, inspectors, trees, etc...) which will work in a MVC model, and provide a significant
+    amount of functionality while still being simple and straight-forward to use.
+  </description>
+  <shortDescription>
+    Display tag library - open source suite of custom tags that provide high level web presentation patterns
+  </shortDescription>
+
+  <url>http://displaytag.sourceforge.net</url>
+  <issueTrackingUrl>http://sourceforge.net/tracker/?group_id=73068</issueTrackingUrl>
+  <siteAddress>displaytag.sourceforge.net</siteAddress>
+
+  <distributionDirectory>http://sourceforge.net/project/showfiles.php?group_id=73068</distributionDirectory>
+
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:display2</connection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/</url>
+  </repository>
+
+  <!-- any mailing lists for the project -->
+  <mailingLists>
+    <mailingList>
+      <name>Displaytag User Mailing list</name>
+
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</unsubscribe>
+
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-user</archive>
+    </mailingList>
+    <mailingList>
+      <name>Displaytag Developer Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-devel</archive>
+    </mailingList>
+    <mailingList>
+      <name>Displaytag Cvs Mailing list</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-cvs</archive>
+    </mailingList>
+  </mailingLists>
+
+  <!-- who the developers are for the project -->
+  <developers>
+    <developer>
+      <name>Matt Raible</name>
+      <id>matt</id>
+      <email>mraible AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <roles>
+        <role>Project admin</role>
+      </roles>
+      <timezone />
+    </developer>
+    <developer>
+      <name>Ed Hill</name>
+      <id>ed-hill</id>
+      <email>ed-hill AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <roles>
+        <role>Project admin</role>
+      </roles>
+      <timezone />
+    </developer>
+    <developer>
+      <name>Fabrizio Giustina</name>
+      <id>fgiust</id>
+      <email>fgiust AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>+18</timezone>
+    </developer>
+    <developer>
+      <name>Mathias Bogaert</name>
+      <id>pathoss</id>
+      <email>pathoss AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone />
+    </developer>
+    <developer>
+      <name>Benjamin Simpson</name>
+      <id>javabencom</id>
+      <email>javabencom AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone />
+    </developer>
+    <developer>
+      <name>John York</name>
+      <id>johnryork</id>
+      <email>johnryork AT users.sourceforge.net</email>
+      <organization>Sourceforge</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone />
+    </developer>
+  </developers>
+
+  <contributors>
+    <contributor>
+      <name>Didier Dubois</name>
+      <id>Didier</id>
+      <email>didier@ddubois.info</email>
+      <organization />
+      <timezone />
+    </contributor>
+  </contributors>
+
+  <!-- jar files the project is dependent on -->
+  <dependencies>
+    <dependency>
+      <id>commons-beanutils</id>
+      <version>1.6.1</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+    <dependency>
+      <id>commons-collections</id>
+      <version>2.1</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+    <dependency>
+      <id>commons-lang</id>
+      <version>2.0</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+    <dependency>
+      <id>commons-logging</id>
+      <version>1.0.3</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+    <dependency>
+      <id>log4j</id>
+      <version>1.2.8</version>
+      <properties>
+        <war.bundle>true</war.bundle>
+      </properties>
+    </dependency>
+    <dependency>
+      <id>servletapi</id>
+      <version>2.2</version>
+    </dependency>
+  </dependencies>
+
+  <!-- build information for the project -->
+  <build>
+    <sourceDirectory>${basedir}/src/java</sourceDirectory>
+    <!--
+      
+      <unitTestSourceDirectory>/src/test</unitTestSourceDirectory>
+      
+      <unitTest>
+      <resources>
+      <resource>
+      <directory>${basedir}/src/test</directory>
+      <includes> <include>**/*</include> </includes>
+      <excludes> <exclude>**/*.java</exclude> </excludes>
+      </resource>
+      </resources>
+      <includes>
+      <include>**/*Test.java</include>
+      </includes>
+      </unitTest>
+    -->
+    <resources>
+      <resource>
+        <directory>${basedir}/src/java</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
+  <!-- List of activated reports -->
+  <reports>
+    <report>maven-license-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-jxr-plugin</report>
+    <report>maven-junit-report-plugin</report>
+    <report>maven-tasklist-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <!-- <report>maven-statcvs-plugin</report> -->
+    <report>maven-linkcheck-plugin</report>
+    <!--<report>maven-sitevalidator-plugin</report> -->
+  </reports>
+
+</project>

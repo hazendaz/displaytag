@@ -1,53 +1,102 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.decorator;
-
-import javax.servlet.jsp.PageContext;
 
 import org.displaytag.exception.DecoratorInstantiationException;
 
-
 /**
- * Factory for TableDecorator or ColumnDecorator object.
- * @author Fabrizio Giustina
- * @version $Id$
+ * <p>Factory for TableDecorator or ColumnDecorator object</p>
+ * @author fgiust
+ * @version $Revision$ ($Author$)
  */
-public interface DecoratorFactory
+public final class DecoratorFactory
 {
 
     /**
-     * <p>
-     * Given a table decorator name, returns a <code>org.displaytag.decorator.TableDecorator</code> instance. The
-     * method used to lookup decorator (direct instantiation, load from a pre-istantiated list or from the page context)
-     * may vary between different implementations.
-     * </p>
-     * @param decoratorName String full decorator class name
+     * Constructor for DecoratorFactory
+     */
+    private DecoratorFactory()
+    {
+    }
+
+    /**
+     * If the user has specified a decorator, then this method takes care of
+     * creating the decorator (and checking to make sure it is a subclass of
+     * the TableDecorator object).  If there are any problems loading the
+     * decorator then this will throw a DecoratorInstantiationException which
+     * will get propagated up to the page.
+     * @param pDecoratorName String full decorator class name
      * @return instance of TableDecorator
      * @throws DecoratorInstantiationException if unable to load specified TableDecorator
      */
-    TableDecorator loadTableDecorator(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException;
+    public static TableDecorator loadTableDecorator(String pDecoratorName) throws DecoratorInstantiationException
+    {
+        if (pDecoratorName == null || pDecoratorName.length() == 0)
+        {
+            return null;
+        }
+
+        try
+        {
+            Class lClass = Class.forName(pDecoratorName);
+            return (TableDecorator) lClass.newInstance();
+        }
+        catch (ClassNotFoundException e)
+        {
+            throw new DecoratorInstantiationException(DecoratorFactory.class, pDecoratorName, e);
+        }
+        catch (InstantiationException e)
+        {
+            throw new DecoratorInstantiationException(DecoratorFactory.class, pDecoratorName, e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new DecoratorInstantiationException(DecoratorFactory.class, pDecoratorName, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new DecoratorInstantiationException(DecoratorFactory.class, pDecoratorName, e);
+        }
+    }
 
     /**
-     * <p>
-     * Given a column decorator name, returns a <code>org.displaytag.decorator.DisplaytagColumnDecorator</code>
-     * instance. The method used to lookup decorator (direct instantiation, load from a pre-istantiated list or from the
-     * page context) may vary between different implementations.
-     * </p>
-     * @param decoratorName String full decorator class name
-     * @return instance of DisplaytagColumnDecorator
+     * If the user has specified a column decorator, then this method takes care of
+     * creating the decorator (and checking to make sure it is a subclass of
+     * the ColumnDecorator object).  If there are any problems loading the
+     * decorator then this will throw a DecoratorInstantiationException which will
+     * get propagated up to the page.
+     * @param pColumnDecoratorName String full decorator class name
+     * @return instance of ColumnDecorator
      * @throws DecoratorInstantiationException if unable to load ColumnDecorator
      */
-    DisplaytagColumnDecorator loadColumnDecorator(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException;
+    public static ColumnDecorator loadColumnDecorator(String pColumnDecoratorName)
+        throws DecoratorInstantiationException
+    {
+        if (pColumnDecoratorName == null || pColumnDecoratorName.length() == 0)
+        {
+            return null;
+        }
+
+        try
+        {
+            Class lClass = Class.forName(pColumnDecoratorName);
+            return (ColumnDecorator) lClass.newInstance();
+        }
+
+        catch (ClassNotFoundException e)
+        {
+            throw new DecoratorInstantiationException(DecoratorFactory.class, pColumnDecoratorName, e);
+        }
+        catch (InstantiationException e)
+        {
+            throw new DecoratorInstantiationException(DecoratorFactory.class, pColumnDecoratorName, e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw new DecoratorInstantiationException(DecoratorFactory.class, pColumnDecoratorName, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new DecoratorInstantiationException(DecoratorFactory.class, pColumnDecoratorName, e);
+        }
+    }
 
 }

@@ -1,87 +1,100 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags;
 
+import java.io.IOException;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.LookupUtil;
 
-
 /**
- * Base template class.
+ * <p>Base template class</p>
  * @author bgsmith
- * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public abstract class TemplateTag extends BodyTagSupport
 {
 
     /**
-     * <p>
-     * evaluate an expression in a way similar to LE in jstl.
-     * </p>
-     * <p>
-     * the first token is supposed to be an object in the page scope (default scope) or one of the following:
-     * </p>
-     * <ul>
-     * <li>pageScope</li>
-     * <li>requestScope</li>
-     * <li>sessionScope</li>
-     * <li>applicationScope</li>
-     * </ul>
-     * <p>
-     * Tokens after the object name are interpreted as javabean properties (accessed through getters), mapped or indexed
-     * properties, using the jakarta common-beans library
-     * </p>
-     * @param expression expression to evaluate
-     * @return Object result
-     * @throws ObjectLookupException if unable to get a bean using the given expression
+     * Utility method. Write a string to the default out
+     * @param pString String
+     * @throws JspTagException if an IOException occurs
      */
-    protected Object evaluateExpression(String expression) throws ObjectLookupException
+    public void write(String pString) throws JspTagException
+    {
+        try
+        {
+            JspWriter lOut = pageContext.getOut();
+            lOut.write(pString);
+        }
+        catch (IOException e)
+        {
+            throw new JspTagException("Writer Exception: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Utility method. Write a string to the default out
+     * @param pString StringBuffer
+     * @throws JspTagException if an IOException occurs
+     */
+    public void write(StringBuffer pString) throws JspTagException
+    {
+        this.write(pString.toString());
+    }
+
+    /**
+     * <p>evaluate an expression in a way similar to LE in jstl.</p>
+     * <p>the first token is supposed to be an object in the page scope (default scope) or one of the following:</p>
+     * <ul>
+     * 	<li>pageScope</li>
+     * 	<li>requestScope</li>
+     * 	<li>sessionScope</li>
+     * 	<li>applicationScope</li>
+     * </ul>
+     * <p>Tokens after the object name are interpreted as javabean properties (accessed through getters), mapped or
+     * indexed properties, using the jakarta common-beans library</p>
+     * @param pExpression expression to evaluate
+     * @return Object result
+     * @throws JspException generic exception
+     */
+    protected Object evaluateExpression(String pExpression) throws JspException
     {
 
-        String expressionWithoutScope = expression;
+        String lExpression = pExpression;
 
         // default scope = request
         // this is for compatibility with the previous version, probably default should be PAGE
-        int scope = PageContext.REQUEST_SCOPE;
+        int lScope = PageContext.REQUEST_SCOPE;
 
-        if (expression.startsWith("pageScope.")) //$NON-NLS-1$
+        if (pExpression.startsWith("pageScope."))
         {
-            scope = PageContext.PAGE_SCOPE;
-            expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
+            lScope = PageContext.PAGE_SCOPE;
+            lExpression = lExpression.substring(lExpression.indexOf('.') + 1);
         }
-        else if (expression.startsWith("requestScope.")) //$NON-NLS-1$
+        else if (pExpression.startsWith("requestScope."))
         {
-            scope = PageContext.REQUEST_SCOPE;
-            expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
-
-        }
-        else if (expression.startsWith("sessionScope.")) //$NON-NLS-1$
-        {
-            scope = PageContext.SESSION_SCOPE;
-            expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
+            lScope = PageContext.REQUEST_SCOPE;
+            lExpression = lExpression.substring(lExpression.indexOf('.') + 1);
 
         }
-        else if (expression.startsWith("applicationScope.")) //$NON-NLS-1$
+        else if (pExpression.startsWith("sessionScope."))
         {
-            scope = PageContext.APPLICATION_SCOPE;
-            expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
+            lScope = PageContext.SESSION_SCOPE;
+            lExpression = lExpression.substring(lExpression.indexOf('.') + 1);
+
+        }
+        else if (pExpression.startsWith("applicationScope."))
+        {
+            lScope = PageContext.APPLICATION_SCOPE;
+            lExpression = lExpression.substring(lExpression.indexOf('.') + 1);
 
         }
 
-        return LookupUtil.getBeanValue(this.pageContext, expressionWithoutScope, scope);
+        return LookupUtil.getBeanValue(pageContext, lExpression, lScope);
 
     }
 

@@ -1,128 +1,87 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import org.displaytag.exception.MissingAttributeException;
 import org.displaytag.exception.TagStructureException;
-
 
 /**
  * @author epesh
- * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class SetPropertyTag extends BodyTagSupport
+public class SetPropertyTag extends BodyTagSupport implements Cloneable
 {
 
     /**
-     * D1597A17A6.
+     * Field mName
      */
-    private static final long serialVersionUID = 899149338534L;
+    private String mName;
 
     /**
-     * property name.
+     * Field mValue
      */
-    private String name;
+    private String mValue;
 
     /**
-     * property value.
+     * Method setName
+     * @param pName String
      */
-    private String value;
-
-    /**
-     * is this the first iteration?
-     */
-    private boolean firstIteration;
-
-    /**
-     * Sets the name of the property.
-     * @param propertyName String
-     */
-    public void setName(String propertyName)
+    public void setName(String pName)
     {
-        this.name = propertyName;
+        mName = pName;
     }
 
     /**
-     * Sets the value of the property.
-     * @param propertyValue String
+     * Method setValue
+     * @param pValue String
      */
-    public void setValue(String propertyValue)
+    public void setValue(String pValue)
     {
-        this.value = propertyValue;
+        mValue = pValue;
     }
 
     /**
-     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
+     * Method getName
+     * @return String
      */
-    public int doStartTag() throws JspException
+    public String getName()
     {
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
-
-        if (tableTag == null)
-        {
-            throw new TagStructureException(getClass(), "setProperty", "table"); //$NON-NLS-1$ //$NON-NLS-2$
-        }
-
-        // read body only once
-        if (tableTag.isFirstIteration())
-        {
-            this.firstIteration = true;
-            // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
-            return 2;
-        }
-
-        this.firstIteration = false;
-        return SKIP_BODY;
-
+        return mName;
     }
 
     /**
-     * Passes attribute information up to the parent TableTag.
-     * <p>
-     * When we hit the end of the tag, we simply let our parent (which better be a TableTag) know what the user wants to
-     * change a property value, and we pass the name/value pair that the user gave us, up to the parent
-     * </p>
-     * @return <code>TagSupport.EVAL_PAGE</code>
-     * @throws MissingAttributeException if no value or body content has been set
+     * Method getValue
+     * @return String
+     */
+    public String getValue()
+    {
+        return mValue;
+    }
+
+    /**
+     * Passes attribute information up to the parent TableTag.<p>
+     *
+     * When we hit the end of the tag, we simply let our parent (which better
+     * be a TableTag) know what the user wants to change a property value, and
+     * we pass the name/value pair that the user gave us, up to the parent
+     *
+     * @return int
+     * @throws JspException if no parent table tag is found
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
-     */
-    public int doEndTag() throws MissingAttributeException
+     **/
+    public int doEndTag() throws JspException
     {
 
-        if (this.firstIteration)
+        TableTag lTableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+
+        if (lTableTag == null)
         {
-            TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
-
-            // tableTag can't be null, it has been checked in doStartTag
-            if (this.value == null)
-            {
-                if (getBodyContent() == null)
-                {
-                    throw new MissingAttributeException(getClass(), //
-                        new String[]{"value", "body content"}); //$NON-NLS-1$ //$NON-NLS-2$
-                }
-                this.value = getBodyContent().getString();
-            }
-
-            tableTag.setProperty(this.name, this.value);
-
-            this.name = null;
-            this.value = null;
+            throw new TagStructureException(getClass(), "property", "table");
         }
-        return EVAL_PAGE;
+
+        lTableTag.setProperty(mName, mValue);
+
+        return super.doEndTag();
     }
 
 }

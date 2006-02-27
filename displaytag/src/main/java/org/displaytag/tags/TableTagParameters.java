@@ -1,101 +1,113 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags;
 
 /**
- * Constants for parameter names.
- * @author Fabrizio Giustina
+ * <p>Constants for parameter names</p>
+ * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public final class TableTagParameters
 {
 
     /**
-     * name of the parameter specifying the current sorted column index.
+     * utility class - don't instantiate
      */
-    public static final String PARAMETER_SORT = "s"; //$NON-NLS-1$
+    private TableTagParameters()
+    {
+    }
 
     /**
-     * name of the parameter specifying that the sorted column will be specified using name and not index.
+     * name of the parameter specifying the current sorted column index
      */
-    public static final String PARAMETER_SORTUSINGNAME = "n"; //$NON-NLS-1$
+    public static final String PARAMETER_SORT = "s";
 
     /**
-     * name of the parameter specifying the current page number.
+     * name of the parameter specifying the previous sorted column index
      */
-    public static final String PARAMETER_PAGE = "p"; //$NON-NLS-1$
+    public static final String PARAMETER_PREVIOUSSORT = "xs";
 
     /**
-     * name of the parameter specifying the current sorting order.
+     * name of the parameter specifying the current page number
      */
-    public static final String PARAMETER_ORDER = "o"; //$NON-NLS-1$
+    public static final String PARAMETER_PAGE = "p";
 
     /**
-     * name of the parameter specifying the export type.
+     * name of the parameter specifying the current sorting order
      */
-    public static final String PARAMETER_EXPORTTYPE = "e"; //$NON-NLS-1$
+    public static final String PARAMETER_ORDER = "o";
 
     /**
-     * name of the <strong>fixed </strong> parameter that will be added to the url if exporting is requested for any of
-     * the display table in the page. Used by the export filter to understand when output should not be flushed.
+     * name of the parameter specifying the previous sorting order
      */
-    public static final String PARAMETER_EXPORTING = "6578706f7274"; //$NON-NLS-1$
+    public static final String PARAMETER_PREVIOUSORDER = "xo";
 
     /**
-     * sort only the displayed page.
+     * name of the parameter specifying the export type
      */
-    public static final String SORT_AMOUNT_PAGE = "page"; //$NON-NLS-1$
+    public static final String PARAMETER_EXPORTTYPE = "e";
 
     /**
-     * sort the full list.
+     * export type parameter value = no export
      */
-    public static final String SORT_AMOUNT_LIST = "list"; //$NON-NLS-1$
+    public static final int EXPORT_TYPE_NONE = -1;
 
     /**
-     * let the server handle the sorting
+     * export type parameter value = cvs export
      */
-    public static final String SORT_AMOUNT_EXTERNAL = "external"; //$NON-NLS-1$
+    public static final int EXPORT_TYPE_CSV = 1;
 
     /**
-     * css class added to empty tables.
+     * export type parameter value = excel export
+     */
+    public static final int EXPORT_TYPE_EXCEL = 2;
+
+    /**
+     * export type parameter value = xml export
+     */
+    public static final int EXPORT_TYPE_XML = 3;
+
+    /**
+     * sort only the displayed page
+     */
+    public static final String SORT_AMOUNT_PAGE = "page";
+
+    /**
+     * sort the full list
+     */
+    public static final String SORT_AMOUNT_LIST = "list";
+
+    /**
+     * order parameter value = descending
+     */
+    public static final int VALUE_SORT_DESCENDING = 1;
+
+    /**
+     * order parameter value = ascending
+     */
+    public static final int VALUE_SORT_ASCENDING = 2;
+
+    /**
+     * css class added to odd rows
+     */
+    public static final String CSS_ODDROW = "odd";
+
+    /**
+     * css class added to even rows
+     */
+    public static final String CSS_EVENROW = "even";
+
+    /**
+     * css class added to empty tables
      */
     public static final String CSS_EMPTYLIST = "empty";
 
     /**
-     * Key on the map passed to the filter containg the "buffer" flag.
+     * css class added to sorted columns
      */
-    public static final String BEAN_BUFFER = "buffer";
+    public static final String CSS_SORTEDCOLUMN = "sorted";
 
     /**
-     * Key on the map passed to the filter containg the content type.
+     * prefix for the css class added to sorted column to specify order (0 and 1 is added)
      */
-    public static final String BEAN_CONTENTTYPE = "contenttype";
-
-    /**
-     * Key on the map passed to the filter containg the file name.
-     */
-    public static final String BEAN_FILENAME = "filename";
-
-    /**
-     * Key on the map passed to the filter containg the exported data.
-     */
-    public static final String BEAN_BODY = "body";
-
-    /**
-     * utility class - don't instantiate.
-     */
-    private TableTagParameters()
-    {
-        // unused
-    }
+    public static final String CSS_SORTORDERPREFIX = "order";
 
 }
