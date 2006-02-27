@@ -1,21 +1,29 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags.el;
 
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.jstl.fmt.LocalizationContext;
+import javax.servlet.jsp.tagext.Tag;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
 
 
 /**
- * Adds EL support to ColumnTag.
+ * Adds EL support to displaytag's ColumnTag. Also supports a new "titleKey" property that works the same as
+ * fmt:message's key property. This tag must be the descendant of a fmt:bundle tag in order to use the titleKey. This is
+ * just a shortcut, which makes <code>
+ * &lt;display:column titleKey="bar"/&gt;
+ * </code> behave the same as <code>
+ * &lt;c:set var="foo"&gt;&lt;fmt:message key="bar"/&gt;&lt;/c:set&gt;<br/>
+ * &lt;display:column title="${foo}"/&gt;
+ * </code>.
+ * If you don't define a title or a titleKey property on your column, first the tag will attempt to look up the property
+ * property in your ResourceBundle. Failing that, it will fall back to the parent class's behavior of just using the
+ * property name.
  * @author Tim McCune
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
@@ -24,24 +32,14 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 {
 
     /**
-     * D1597A17A6.
+     * logger.
      */
-    private static final long serialVersionUID = 899149338534L;
+    private static Log log = LogFactory.getLog(ELColumnTag.class);
 
     /**
      * Expression for the "autoLink" tag attribute.
      */
     private String autoLinkExpr;
-
-    /**
-     * Expression for the "escapeXml" tag attribute.
-     */
-    private String escapeXmlExpr;
-
-    /**
-     * Expression for the "format" tag attribute.
-     */
-    private String formatExpr;
 
     /**
      * Expression for the "class" tag attribute.
@@ -139,52 +137,17 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String sortableExpr;
 
     /**
-     * Expression for the "sortName" tag attribute.
+     * Expression for the "parentProperty" tag attribute.
      */
-    private String sortNameExpr;
+    private String parentPropertyExpr; //Parent class has no getter
 
     /**
-     * Expression for the "sortProperty" tag attribute.
+     * Expression for the "parentTitle" tag attribute.
      */
-    private String sortPropertyExpr;
-
-    /**
-     * Expression for the "defaultorder" tag attribute.
-     */
-    private String defaultorderExpr;
-
-    /**
-     * Expression for the "scope" tag attribute.
-     */
-    private String scopeExpr;
-
-    /**
-     * Expression for the "headerScope" tag attribute.
-     */
-    private String headerScopeExpr;
-
-    /**
-     * Expression for the "value" tag attribute.
-     */
-    private String valueExpr;
-
-    /**
-     * Expression for the "comparator" tag attribute.
-     */
-    private String comparatorExpr;
-
-    /**
-     * @see org.displaytag.tags.ColumnTag#setComparator(Object)
-     * @param value EL expression for attribute value
-     */
-    public void setComparator(String value)
-    {
-        comparatorExpr = value;
-    }
+    private String parentTitleExpr; //Parent class has no getter
 
     /**
      * @see org.displaytag.tags.ColumnTag#setAutolink(boolean)
-     * @param value EL expression for attribute value
      */
     public void setAutolink(String value)
     {
@@ -192,17 +155,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
-     * @see org.displaytag.tags.ColumnTag#setSortProperty(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setSortProperty(String value)
-    {
-        this.sortPropertyExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.ColumnTag#setClass(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setClass(String value)
     {
@@ -210,17 +163,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
-     * @see org.displaytag.tags.ColumnTag#setFormat(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setFormat(String value)
-    {
-        formatExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.ColumnTag#setDecorator(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setDecorator(String value)
     {
@@ -229,7 +172,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setGroup(int)
-     * @param value EL expression for attribute value
      */
     public void setGroup(String value)
     {
@@ -238,7 +180,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setHeaderClass(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setHeaderClass(String value)
     {
@@ -247,7 +188,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setHref(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setHref(String value)
     {
@@ -256,7 +196,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setMaxLength(int)
-     * @param value EL expression for attribute value
      */
     public void setMaxLength(String value)
     {
@@ -265,7 +204,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setMaxWords(int)
-     * @param value EL expression for attribute value
      */
     public void setMaxWords(String value)
     {
@@ -274,7 +212,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setMedia(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setMedia(String value)
     {
@@ -283,7 +220,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setNulls(boolean)
-     * @param value EL expression for attribute value
      */
     public void setNulls(String value)
     {
@@ -292,7 +228,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setParamId(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setParamId(String value)
     {
@@ -301,7 +236,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setParamName(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setParamName(String value)
     {
@@ -310,7 +244,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setParamProperty(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setParamProperty(String value)
     {
@@ -319,7 +252,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setParamScope(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setParamScope(String value)
     {
@@ -328,7 +260,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setProperty(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setProperty(String value)
     {
@@ -337,7 +268,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setSortable(boolean)
-     * @param value EL expression for attribute value
      */
     public void setSortable(String value)
     {
@@ -345,17 +275,7 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
-     * @param value EL expression for attribute value
-     * @see org.displaytag.tags.ColumnTag#setSortName(java.lang.String)
-     */
-    public void setSortName(String value)
-    {
-        sortNameExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.ColumnTag#setTitle(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setTitle(String value)
     {
@@ -364,7 +284,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setStyle(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setStyle(String value)
     {
@@ -372,8 +291,9 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
-     * @see org.displaytag.tags.ColumnTag#setTitleKey(java.lang.String)
-     * @param value EL expression for attribute value
+     * Sets the name of a property in a resource bundle to be used as the title for the column.
+     * @param value property name
+     * @todo shoud not be here. No difference between the el and standard version, please
      */
     public void setTitleKey(String value)
     {
@@ -382,47 +302,10 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
     /**
      * @see org.displaytag.tags.ColumnTag#setUrl(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setUrl(String value)
     {
         urlExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.TableTag#setDefaultorder(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setDefaultorder(String value)
-    {
-        defaultorderExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.ColumnTag#setScope(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setScope(String value)
-    {
-        scopeExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.ColumnTag#setHeaderScope(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setHeaderScope(String value)
-    {
-        headerScopeExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.ColumnTag#setValue(java.lang.Object)
-     * @param value EL expression for attribute value
-     */
-    public void setValue(String value)
-    {
-        this.valueExpr = value;
     }
 
     /**
@@ -432,8 +315,58 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     {
         evaluateExpressions();
 
+        if (titleKeyExpr != null || parentTitleExpr == null)
+        {
+            String key = (titleKeyExpr != null) ? titleKeyExpr : parentPropertyExpr;
+            Tag tag = findAncestorWithClass(this, BundleSupport.class);
+            ResourceBundle bundle = null;
+            if (tag != null)
+            {
+                BundleSupport parent = (BundleSupport) tag;
+                if (key != null)
+                {
+                    String prefix = parent.getPrefix();
+                    if (prefix != null)
+                    {
+                        key = prefix + key;
+                    }
+                }
+                bundle = parent.getLocalizationContext().getResourceBundle();
+            }
+            else
+            {
+                // check for the localizationContext in applicationScope, set in web.xml
+                LocalizationContext localization = BundleSupport.getLocalizationContext(pageContext);
+
+                if (localization != null)
+                {
+                    bundle = localization.getResourceBundle();
+                }
+            }
+
+            if (bundle != null)
+            {
+                try
+                {
+                    if (key != null)
+                    {
+                        super.setTitle(bundle.getString(key));
+                    }
+                }
+                catch (MissingResourceException e)
+                {
+                    log.info("Missing resource for title key [" + titleKeyExpr + "]");
+                    if (titleKeyExpr != null)
+                    {
+                        super.setTitle(titleKeyExpr);
+                    }
+                }
+            }
+
+        }
         return super.doStartTag();
     }
+
 
     /**
      * Evaluates the expressions for all the given attributes and pass results up to the parent tag.
@@ -445,124 +378,85 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
 
         if (autoLinkExpr != null)
         {
-            super.setAutolink(eval.evalBoolean("autolink", autoLinkExpr)); //$NON-NLS-1$
-        }
-        if (escapeXmlExpr != null)
-        {
-            super.setEscapeXml(eval.evalBoolean("escapeXml", escapeXmlExpr)); //$NON-NLS-1$
-        }
-        if (formatExpr != null)
-        {
-            super.setFormat(eval.evalString("format", formatExpr)); //$NON-NLS-1$
+            super.setAutolink(eval.evalBoolean("autolink", autoLinkExpr));
         }
         if (classExpr != null)
         {
-            super.setClass(eval.evalString("class", classExpr)); //$NON-NLS-1$
+            super.setClass(eval.evalString("class", classExpr));
         }
         if (decoratorExpr != null)
         {
-            super.setDecorator(eval.evalString("decorator", decoratorExpr)); //$NON-NLS-1$
+            super.setDecorator(eval.evalString("decorator", decoratorExpr));
         }
         if (groupExpr != null)
         {
-            super.setGroup(eval.evalInt("group", groupExpr)); //$NON-NLS-1$
+            super.setGroup(eval.evalInt("group", groupExpr));
         }
         if (headerClassExpr != null)
         {
-            super.setHeaderClass(eval.evalString("headerClass", headerClassExpr)); //$NON-NLS-1$
+            super.setHeaderClass(eval.evalString("headerClass", headerClassExpr));
         }
         if (hrefExpr != null)
         {
-            super.setHref(eval.evalString("href", hrefExpr)); //$NON-NLS-1$
+            super.setHref(eval.evalString("href", hrefExpr));
         }
         if (maxLengthExpr != null)
         {
-            super.setMaxLength(eval.evalInt("maxLength", maxLengthExpr)); //$NON-NLS-1$
+            super.setMaxLength(eval.evalInt("maxLength", maxLengthExpr));
         }
         if (maxWordsExpr != null)
         {
-            super.setMaxWords(eval.evalInt("maxWords", maxWordsExpr)); //$NON-NLS-1$
+            super.setMaxWords(eval.evalInt("maxWords", maxWordsExpr));
         }
         if (mediaExpr != null)
         {
-            super.setMedia(eval.evalString("media", mediaExpr)); //$NON-NLS-1$
+            super.setMedia(eval.evalString("media", mediaExpr));
         }
         if (nullsExpr != null)
         {
-            super.setNulls(eval.evalBoolean("nulls", nullsExpr)); //$NON-NLS-1$
+            super.setNulls(eval.evalBoolean("nulls", nullsExpr));
         }
         if (paramIdExpr != null)
         {
-            super.setParamId(eval.evalString("paramId", paramIdExpr)); //$NON-NLS-1$
+            super.setParamId(eval.evalString("paramId", paramIdExpr));
         }
         if (paramNameExpr != null)
         {
             // todo should be handled the same way the "name" table attribute is handled, no double evaluation
-            super.setParamName(eval.evalString("paramName", paramNameExpr)); //$NON-NLS-1$
+            super.setParamName(eval.evalString("paramName", paramNameExpr));
         }
         if (paramPropertyExpr != null)
         {
-            super.setParamProperty(eval.evalString("paramProperty", paramPropertyExpr)); //$NON-NLS-1$
+            super.setParamProperty(eval.evalString("paramProperty", paramPropertyExpr));
         }
         if (paramScopeExpr != null)
         {
-            super.setParamScope(eval.evalString("paramScope", paramScopeExpr)); //$NON-NLS-1$
+            super.setParamScope(eval.evalString("paramScope", paramScopeExpr));
         }
         if (sortableExpr != null)
         {
-            super.setSortable(eval.evalBoolean("sortable", sortableExpr)); //$NON-NLS-1$
-        }
-        if (sortNameExpr != null)
-        {
-            super.setSortName(eval.evalString("sortName", sortNameExpr)); //$NON-NLS-1$
+            super.setSortable(eval.evalBoolean("sortable", sortableExpr));
         }
         if (styleExpr != null)
         {
-            super.setStyle(eval.evalString("style", styleExpr)); //$NON-NLS-1$
+            super.setStyle(eval.evalString("style", styleExpr));
         }
         if (urlExpr != null)
         {
-            super.setUrl(eval.evalString("url", urlExpr)); //$NON-NLS-1$
+            super.setUrl(eval.evalString("url", urlExpr));
         }
         if (propertyExpr != null)
         {
-            String property = eval.evalString("property", propertyExpr); //$NON-NLS-1$
+            String property = eval.evalString("property", propertyExpr);
             super.setProperty(property);
+            this.parentPropertyExpr = property;
         }
         if (titleExpr != null)
         {
-            String title = eval.evalString("title", titleExpr); //$NON-NLS-1$
+            String title = eval.evalString("title", titleExpr);
             super.setTitle(title);
+            this.parentTitleExpr = title;
         }
-        if (titleKeyExpr != null)
-        {
-            super.setTitleKey(eval.evalString("titleKey", titleKeyExpr)); //$NON-NLS-1$
-        }
-        if (sortPropertyExpr != null)
-        {
-            super.setSortProperty(eval.evalString("sortProperty", sortPropertyExpr)); //$NON-NLS-1$
-        }
-        if (defaultorderExpr != null)
-        {
-            super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr)); //$NON-NLS-1$
-        }
-        if (scopeExpr != null)
-        {
-            super.setScope(eval.evalString("scope", scopeExpr)); //$NON-NLS-1$
-        }
-        if (headerScopeExpr != null)
-        {
-            super.setHeaderScope(eval.evalString("headerScope", headerScopeExpr)); //$NON-NLS-1$
-        }
-        if (valueExpr != null)
-        {
-            super.setValue(eval.eval("value", valueExpr, Object.class)); //$NON-NLS-1$
-        }
-        if (comparatorExpr != null)
-        {
-            super.setValue(eval.eval("comparator", comparatorExpr, Object.class)); //$NON-NLS-1$
-        }
-
     }
 
     /**
@@ -585,19 +479,14 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         this.paramNameExpr = null;
         this.paramPropertyExpr = null;
         this.paramScopeExpr = null;
+        this.parentPropertyExpr = null;
+        this.parentTitleExpr = null;
         this.propertyExpr = null;
         this.sortableExpr = null;
         this.styleExpr = null;
         this.titleExpr = null;
         this.titleKeyExpr = null;
         this.urlExpr = null;
-        this.sortPropertyExpr = null;
-        this.defaultorderExpr = null;
-        this.scopeExpr = null;
-        this.headerScopeExpr = null;
-        this.formatExpr = null;
-        this.escapeXmlExpr = null;
-        this.valueExpr = null;
     }
 
 }

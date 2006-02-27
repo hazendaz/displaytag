@@ -26,8 +26,9 @@ import org.xml.sax.InputSource;
 
 
 /**
- * Reads tlds and check tag classes for declared attributes. This simple reports missing/invalid setters in tag classes.
- * Basic tests only, other tests are performed by the maven-taglib plugin.
+ * Reads tlds and check tag classes for declared attributes.
+ * This simple reports missing/invalid setters in tag classes.
+ * @todo will be moved in the maven-taglib plugin. This is a snippet from uncommited code for the plugin.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
@@ -40,20 +41,21 @@ public class TldTest extends TestCase
     private static Log log = LogFactory.getLog(TldTest.class);
 
     /**
-     * @see junit.framework.TestCase#getName()
+     * Constructor for the test case.
+     * @param name test name
      */
-    public String getName()
+    public TldTest(String name)
     {
-        return getClass().getName() + "." + super.getName();
+        super(name);
     }
 
     /**
      * Check displaytag 1.2 dtd.
      * @throws Exception any Exception generated during test.
      */
-    public void testStandardTld() throws Exception
+    public void test12Tld() throws Exception
     {
-        checkTld("/src/main/resources/META-INF/displaytag.tld");
+        checkTld("/src/tld/displaytag-12.tld");
     }
 
     /**
@@ -62,7 +64,7 @@ public class TldTest extends TestCase
      */
     public void testELTld() throws Exception
     {
-        checkTld("/src/main/resources/META-INF/displaytag-el.tld");
+        checkTld("/src/tld/displaytag-el-12.tld");
     }
 
     /**
@@ -120,6 +122,7 @@ public class TldTest extends TestCase
                 continue;
             }
 
+
             if (!PropertyUtils.isWriteable(tagObject, attribute.getAttributeName()))
             {
                 errors.add("Setter for attribute [" + attribute.getAttributeName() + "] not found in " + className);
@@ -132,6 +135,7 @@ public class TldTest extends TestCase
             if (tldType != null)
             {
                 Class tldTypeClass = getClassFromName(tldType);
+
 
                 if (!propertyType.isAssignableFrom(tldTypeClass))
                 {
@@ -246,14 +250,16 @@ public class TldTest extends TestCase
             {
                 Node tagAttribute = tagAttributes.item(k);
 
-                // only handle 1.0 tlds
+                //@todo handle 1.1 tlds
                 if ("tag-class".equals(tagAttribute.getNodeName()))
                 {
-                    tagclass = tagAttribute.getChildNodes().item(0).getNodeValue();
+                    tagclass = tagAttribute.getChildNodes().item(0).getNodeValue(); //@todo NPE
                     break;
                 }
 
+
             }
+
 
             tagAttributes = tag.getChildNodes();
             for (int k = 0; k < tagAttributes.getLength(); k++)
@@ -300,7 +306,7 @@ public class TldTest extends TestCase
      * @author Fabrizio Giustina
      * @version $Revision$ ($Author$)
      */
-    public static class ClasspathEntityResolver implements EntityResolver
+    public class ClasspathEntityResolver implements EntityResolver
     {
 
         /**
@@ -348,7 +354,7 @@ public class TldTest extends TestCase
      * @author Fabrizio Giustina
      * @version $Revision$ ($Author$)
      */
-    public static class TagAttribute
+    public class TagAttribute
     {
 
         /**

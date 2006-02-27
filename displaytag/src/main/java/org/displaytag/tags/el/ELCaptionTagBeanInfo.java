@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags.el;
 
 import java.beans.IntrospectionException;
@@ -37,20 +26,12 @@ public class ELCaptionTagBeanInfo extends SimpleBeanInfo
 
         try
         {
-            proplist.add(new PropertyDescriptor("class", //$NON-NLS-1$
-                ELCaptionTag.class, null, "setClass")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("dir", //$NON-NLS-1$
-                ELCaptionTag.class, null, "setDir")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("id", //$NON-NLS-1$
-                ELCaptionTag.class, null, "setId")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("lang", //$NON-NLS-1$
-                ELCaptionTag.class, null, "setLang")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("media", //$NON-NLS-1$
-                ELColumnTag.class, null, "setMedia")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("style", //$NON-NLS-1$
-                ELCaptionTag.class, null, "setStyle")); //$NON-NLS-1$ 
-            proplist.add(new PropertyDescriptor("title", //$NON-NLS-1$
-                ELCaptionTag.class, null, "setTitle")); //$NON-NLS-1$ 
+            proplist.add(new PropertyDescriptor("class", ELCaptionTag.class, null, "setClass"));
+            proplist.add(new PropertyDescriptor("dir", ELCaptionTag.class, null, "setDir"));
+            proplist.add(new PropertyDescriptor("id", ELCaptionTag.class, null, "setId"));
+            proplist.add(new PropertyDescriptor("lang", ELCaptionTag.class, null, "setLang"));
+            proplist.add(new PropertyDescriptor("style", ELCaptionTag.class, null, "setStyle"));
+            proplist.add(new PropertyDescriptor("title", ELCaptionTag.class, null, "setTitle"));
         }
         catch (IntrospectionException ex)
         {

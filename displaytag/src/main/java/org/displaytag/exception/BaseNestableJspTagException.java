@@ -1,22 +1,9 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.exception;
 
 import javax.servlet.jsp.JspTagException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.Messages;
-
 
 /**
  * Base exception: extendes JspTagException providing logging and exception nesting functionalities.
@@ -48,6 +35,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
 
         // log exception
         Log log = LogFactory.getLog(source);
+        log.error(toString());
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)
@@ -121,17 +109,23 @@ public abstract class BaseNestableJspTagException extends JspTagException
      */
     public String toString()
     {
-        String className = this.sourceClass.getName();
-        className = className.substring(className.lastIndexOf(".")); //$NON-NLS-1$
+        StringBuffer buffer = new StringBuffer();
 
-        if (this.nestedException == null)
+        String className = this.sourceClass.getName();
+        className = className.substring(className.lastIndexOf("."));
+
+        buffer.append("Exception: ");
+        buffer.append("[").append(className).append("] ");
+        buffer.append(getMessage());
+
+        if (this.nestedException != null)
         {
-            return Messages.getString("NestableException.msg", //$NON-NLS-1$
-                new Object[]{className, getMessage()});
+            buffer.append("\nCause:     ");
+            buffer.append(this.nestedException.getMessage());
         }
 
-        return Messages.getString("NestableException.msgcause", //$NON-NLS-1$
-            new Object[]{className, getMessage(), this.nestedException.getMessage()});
+        return buffer.toString();
+
     }
 
     /**

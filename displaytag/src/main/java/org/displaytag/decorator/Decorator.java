@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.decorator;
 
 import java.lang.reflect.InvocationTargetException;
@@ -18,8 +7,6 @@ import java.util.Map;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.BooleanUtils;
-import org.displaytag.model.TableModel;
 
 
 /**
@@ -32,15 +19,10 @@ import org.displaytag.model.TableModel;
  * </p>
  * @author mraible
  * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 abstract class Decorator
 {
-
-    /**
-     * Char used to separate class name and property in the cache key.
-     */
-    private static final char CLASS_PROPERTY_SEPARATOR = '#';
 
     /**
      * property info cache contains classname#propertyname Strings as keys and Booleans as values.
@@ -58,37 +40,14 @@ abstract class Decorator
     private Object decoratedObject;
 
     /**
-     * The table model.
-     * @since 1.1
-     */
-    protected TableModel tableModel;
-
-    /**
      * Initialize the TableTecorator instance.
      * @param context PageContext
      * @param decorated decorated object (usually a list)
-     * @deprecated use #init(PageContext, Object, TableModel)
-     * @see #init(PageContext, Object, TableModel)
      */
     public void init(PageContext context, Object decorated)
     {
         this.pageContext = context;
         this.decoratedObject = decorated;
-    }
-
-    /**
-     * Initialize the TableTecorator instance.
-     * @param context PageContext
-     * @param decorated decorated object (usually a list)
-     * @param tableModel table model
-     */
-    public void init(PageContext context, Object decorated, TableModel tableModel)
-    {
-        // temporary used for backward (source) compatibility
-        init(pageContext, decorated);
-        // this.pageContext = context;
-        // this.decoratedObject = decorated;
-        this.tableModel = tableModel;
     }
 
     /**
@@ -131,17 +90,14 @@ abstract class Decorator
         String simpleProperty = propertyName;
 
         // get the simple (not nested) bean property
-        int indexOfDot = simpleProperty.indexOf('.');
-        if (indexOfDot > 0)
+        if ((simpleProperty != null) && (simpleProperty.indexOf(".") > 0))
         {
-            simpleProperty = simpleProperty.substring(0, indexOfDot);
+            simpleProperty = simpleProperty.substring(0, simpleProperty.indexOf("."));
         }
 
-        Boolean cachedResult = (Boolean) propertyMap.get(getClass().getName()
-            + CLASS_PROPERTY_SEPARATOR
-            + simpleProperty);
+        Boolean cachedResult;
 
-        if (cachedResult != null)
+        if ((cachedResult = (Boolean) propertyMap.get(getClass().getName() + "#" + simpleProperty)) != null)
         {
             return cachedResult.booleanValue();
         }
@@ -150,14 +106,12 @@ abstract class Decorator
         boolean hasGetter = searchGetterFor(propertyName);
 
         // save in cache
-        propertyMap.put(getClass().getName() + CLASS_PROPERTY_SEPARATOR + simpleProperty, BooleanUtils
-            .toBooleanObject(hasGetter));
+        propertyMap.put(getClass().getName() + "#" + simpleProperty, new Boolean(hasGetter));
 
         // and return
         return hasGetter;
 
     }
-
     /**
      * Looks for a getter for the given property using introspection.
      * @param propertyName name of the property to check
@@ -191,5 +145,6 @@ abstract class Decorator
         return type != null;
 
     }
+
 
 }

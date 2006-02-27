@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags.el;
 
 import javax.servlet.jsp.JspException;
@@ -23,11 +12,6 @@ import org.displaytag.tags.CaptionTag;
  */
 public class ELCaptionTag extends CaptionTag
 {
-
-    /**
-     * D1597A17A6.
-     */
-    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Expression for the "class" tag attribute.
@@ -48,11 +32,6 @@ public class ELCaptionTag extends CaptionTag
      * Expression for the "lang" tag attribute.
      */
     private String langExpr;
-
-    /**
-     * Expression for the "media" tag attribute.
-     */
-    private String mediaExpr;
 
     /**
      * Expression for the "style" tag attribute.
@@ -97,15 +76,6 @@ public class ELCaptionTag extends CaptionTag
     }
 
     /**
-     * @see org.displaytag.tags.CaptionTag#setMedia(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setMedia(String value)
-    {
-        mediaExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.CaptionTag#setStyle(java.lang.String)
      */
     public void setStyle(String value)
@@ -130,6 +100,7 @@ public class ELCaptionTag extends CaptionTag
         return super.doStartTag();
     }
 
+
     /**
      * Evaluates the expressions for all the given attributes and pass results up to the parent tag.
      * @throws JspException for exceptions occurred during evaluation.
@@ -140,31 +111,27 @@ public class ELCaptionTag extends CaptionTag
 
         if (classExpr != null)
         {
-            super.setClass(eval.evalString("class", classExpr)); //$NON-NLS-1$
+            super.setClass(eval.evalString("class", classExpr));
         }
         if (dirExpr != null)
         {
-            super.setDir(eval.evalString("dir", dirExpr)); //$NON-NLS-1$
+            super.setDir(eval.evalString("dir", dirExpr));
         }
         if (idExpr != null)
         {
-            super.setId(eval.evalString("id", idExpr)); //$NON-NLS-1$
+            super.setId(eval.evalString("id", idExpr));
         }
         if (langExpr != null)
         {
-            super.setLang(eval.evalString("lang", langExpr)); //$NON-NLS-1$
-        }
-        if (mediaExpr != null)
-        {
-            super.setMedia(eval.evalString("media", mediaExpr)); //$NON-NLS-1$
+            super.setLang(eval.evalString("lang", langExpr));
         }
         if (styleExpr != null)
         {
-            super.setStyle(eval.evalString("style", styleExpr)); //$NON-NLS-1$
+            super.setStyle(eval.evalString("style", styleExpr));
         }
         if (titleExpr != null)
         {
-            super.setTitle(eval.evalString("title", titleExpr)); //$NON-NLS-1$
+            super.setTitle(eval.evalString("title", titleExpr));
         }
     }
 
@@ -178,7 +145,6 @@ public class ELCaptionTag extends CaptionTag
         this.dirExpr = null;
         this.idExpr = null;
         this.langExpr = null;
-        this.mediaExpr = null;
         this.styleExpr = null;
         this.titleExpr = null;
     }

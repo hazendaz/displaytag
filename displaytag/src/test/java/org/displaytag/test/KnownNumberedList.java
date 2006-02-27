@@ -13,9 +13,10 @@ import java.util.List;
 public class KnownNumberedList
 {
 
+
     /**
-     * Returns an iterator on a list made of 5 NumberedItems objects.
-     * @return iterator on a list made of 5 NumberedItems objects
+     * Returns an iterator on a list mede of 5 NumberedItems objects.
+     * @return iterator on a list mede of 5 NumberedItems objects
      */
     public Iterator iterator()
     {

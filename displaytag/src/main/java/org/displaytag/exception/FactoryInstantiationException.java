@@ -1,17 +1,4 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.exception;
-
-import org.displaytag.Messages;
 
 
 /**
@@ -19,13 +6,8 @@ import org.displaytag.Messages;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class FactoryInstantiationException extends BaseNestableRuntimeException
+public class FactoryInstantiationException extends BaseNestableJspTagException
 {
-
-    /**
-     * D1597A17A6.
-     */
-    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Instantiate a new FactoryInstantiationException.
@@ -36,8 +18,11 @@ public class FactoryInstantiationException extends BaseNestableRuntimeException
      */
     public FactoryInstantiationException(Class source, String propertyName, String propertyValue, Throwable cause)
     {
-        super(source, Messages.getString("FactoryInstantiationException.msg", //$NON-NLS-1$
-            new Object[]{propertyValue, propertyName}), cause);
+        super(source, "Cannot instantiate the class \""
+            + propertyValue
+            + "\", specified by the property \""
+            + propertyName
+            + "\".", cause);
     }
 
     /**

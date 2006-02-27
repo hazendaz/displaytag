@@ -1,16 +1,9 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags;
 
+import java.io.IOException;
+
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -26,6 +19,34 @@ import org.displaytag.util.LookupUtil;
  */
 public abstract class TemplateTag extends BodyTagSupport
 {
+
+    /**
+     * Utility method. Write a string to the default out
+     * @param string String
+     * @throws JspTagException if an IOException occurs
+     */
+    public void write(String string) throws JspTagException
+    {
+        try
+        {
+            JspWriter out = this.pageContext.getOut();
+            out.write(string);
+        }
+        catch (IOException e)
+        {
+            throw new JspTagException("Writer Exception: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Utility method. Write a string to the default out
+     * @param buffer StringBuffer
+     * @throws JspTagException if an IOException occurs
+     */
+    public void write(StringBuffer buffer) throws JspTagException
+    {
+        this.write(buffer.toString());
+    }
 
     /**
      * <p>
@@ -57,24 +78,24 @@ public abstract class TemplateTag extends BodyTagSupport
         // this is for compatibility with the previous version, probably default should be PAGE
         int scope = PageContext.REQUEST_SCOPE;
 
-        if (expression.startsWith("pageScope.")) //$NON-NLS-1$
+        if (expression.startsWith("pageScope."))
         {
             scope = PageContext.PAGE_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
         }
-        else if (expression.startsWith("requestScope.")) //$NON-NLS-1$
+        else if (expression.startsWith("requestScope."))
         {
             scope = PageContext.REQUEST_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
 
         }
-        else if (expression.startsWith("sessionScope.")) //$NON-NLS-1$
+        else if (expression.startsWith("sessionScope."))
         {
             scope = PageContext.SESSION_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
 
         }
-        else if (expression.startsWith("applicationScope.")) //$NON-NLS-1$
+        else if (expression.startsWith("applicationScope."))
         {
             scope = PageContext.APPLICATION_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);

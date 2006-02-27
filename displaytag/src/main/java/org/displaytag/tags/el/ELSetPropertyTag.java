@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags.el;
 
 import javax.servlet.jsp.JspException;
@@ -23,11 +12,6 @@ import org.displaytag.tags.SetPropertyTag;
  */
 public class ELSetPropertyTag extends SetPropertyTag
 {
-
-    /**
-     * D1597A17A6.
-     */
-    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Expression for the "name" tag attribute.
@@ -64,6 +48,7 @@ public class ELSetPropertyTag extends SetPropertyTag
         return super.doStartTag();
     }
 
+
     /**
      * Evaluates the expressions for all the given attributes and pass results up to the parent tag.
      * @throws JspException for exceptions occurred during evaluation.
@@ -72,11 +57,13 @@ public class ELSetPropertyTag extends SetPropertyTag
     {
         ExpressionEvaluator eval = new ExpressionEvaluator(this, pageContext);
 
-        super.setName(eval.evalString("name", nameExpr)); //$NON-NLS-1$
-
+        if (nameExpr != null)
+        {
+            super.setName(eval.evalString("name", nameExpr));
+        }
         if (valueExpr != null)
         {
-            super.setValue(eval.evalString("value", valueExpr)); //$NON-NLS-1$
+            super.setValue(eval.evalString("value", valueExpr));
         }
     }
 

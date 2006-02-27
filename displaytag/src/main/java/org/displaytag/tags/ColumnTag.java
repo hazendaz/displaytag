@@ -1,19 +1,6 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags;
 
-import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,23 +13,16 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.decorator.AutolinkColumnDecorator;
-import org.displaytag.decorator.DisplaytagColumnDecorator;
-import org.displaytag.decorator.EscapeXmlColumnDecorator;
-import org.displaytag.decorator.MessageFormatColumnDecorator;
+import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.model.Cell;
-import org.displaytag.model.DefaultComparator;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.properties.MediaTypeEnum;
-import org.displaytag.properties.SortOrderEnum;
-import org.displaytag.util.DefaultHref;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.MediaUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
@@ -60,13 +40,8 @@ import org.displaytag.util.TagConstants;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
+public class ColumnTag extends BodyTagSupport
 {
-
-    /**
-     * D1597A17A6.
-     */
-    private static final long serialVersionUID = 899149338534L;
 
     /**
      * logger.
@@ -108,36 +83,10 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     private boolean sortable;
 
     /**
-     * Name given to the server when sorting this column.
-     */
-    private String sortName;
-
-    /**
-     * Defalt sort order for this column.
-     */
-    private SortOrderEnum defaultorder;
-
-    /**
-     * The comparator to use when sorting this column.
-     */
-    private Comparator comparator;
-
-    /**
      * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
      * into a hypertext link.
      */
     private boolean autolink;
-
-    /**
-     * Automatically escape column content for html and xml media.
-     */
-    private boolean escapeXml;
-
-    /**
-     * A MessageFormat patter that will be used to decorate objects in the column. Can be used as a "shortcut" for
-     * simple column decorations.
-     */
-    private String format;
 
     /**
      * the grouping level (starting at 1 and incrementing) of this column (indicates if successive contain the same
@@ -218,36 +167,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     private List supportedMedia;
 
     /**
-     * Property in a resource bundle to be used as the title for the column.
-     */
-    private String titleKey;
-
-    /**
-     * The name of the bean property if a decorator is used and sorting need to be still on on the property itself.
-     * Useful for displaying data with links but sorting on original value.
-     */
-    private String sortProperty;
-
-    /**
-     * Should the value of the column be summed? Requires that the value of the column be convertible to a Number.
-     */
-    private boolean totaled;
-
-    /**
-     * Static value for this cell, equivalent to column body.
-     */
-    private Object value;
-
-    /**
-     * Setter for totals.
-     * @param totals the value
-     */
-    public void setTotal(boolean totals)
-    {
-        this.totaled = totals;
-    }
-
-    /**
      * setter for the "property" tag attribute.
      * @param value attribute value
      */
@@ -257,84 +176,12 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     }
 
     /**
-     * setter for the "value" tag attribute.
-     * @param value attribute value
-     */
-    public void setValue(Object value)
-    {
-        this.value = value;
-    }
-
-    /**
-     * Set the comparator, classname or object.
-     * @param comparatorObj the comparator, classname or object
-     */
-    public void setComparator(Object comparatorObj)
-    {
-        // @todo don't do this! Setters should remains simple setters and any evaluation should be done in doEndTag()!
-        if (comparatorObj instanceof Comparator)
-        {
-            this.comparator = (Comparator) comparatorObj;
-        }
-        else if (comparatorObj instanceof String)
-        {
-            String comparatorClassname = (String) comparatorObj;
-            Class compClass;
-            try
-            {
-                compClass = Thread.currentThread().getContextClassLoader().loadClass(comparatorClassname);
-            }
-            catch (ClassNotFoundException e)
-            {
-                throw new RuntimeException("InstantiationException setting column comparator as "
-                    + comparatorClassname
-                    + ": "
-                    + e.getMessage(), e);
-            }
-            try
-            {
-                this.comparator = (Comparator) compClass.newInstance();
-            }
-            catch (InstantiationException e)
-            {
-                throw new RuntimeException("InstantiationException setting column comparator as "
-                    + comparatorClassname
-                    + ": "
-                    + e.getMessage(), e);
-            }
-            catch (IllegalAccessException e)
-            {
-                throw new RuntimeException("IllegalAccessException setting column comparator as "
-                    + comparatorClassname
-                    + ": "
-                    + e.getMessage(), e);
-            }
-        }
-        else
-        {
-            throw new IllegalArgumentException("Value for comparator: "
-                + comparatorObj
-                + " of type "
-                + comparatorObj.getClass().getName());
-        }
-    }
-
-    /**
      * setter for the "title" tag attribute.
      * @param value attribute value
      */
     public void setTitle(String value)
     {
         this.title = value;
-    }
-
-    /**
-     * setter for the "format" tag attribute.
-     * @param value attribute value
-     */
-    public void setFormat(String value)
-    {
-        this.format = value;
     }
 
     /**
@@ -356,21 +203,21 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     }
 
     /**
+     * @deprecated use setSortable()
+     * @param value String
+     */
+    public void setSort(boolean value)
+    {
+        setSortable(value);
+    }
+
+    /**
      * setter for the "autolink" tag attribute.
      * @param value attribute value
      */
     public void setAutolink(boolean value)
     {
         this.autolink = value;
-    }
-
-    /**
-     * setter for the "escapeXml" tag attribute.
-     * @param value attribute value
-     */
-    public void setEscapeXml(boolean value)
-    {
-        this.escapeXml = value;
     }
 
     /**
@@ -383,15 +230,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     }
 
     /**
-     * setter for the "titleKey" tag attribute.
-     * @param value property name
-     */
-    public void setTitleKey(String value)
-    {
-        this.titleKey = value;
-    }
-
-    /**
      * setter for the "href" tag attribute.
      * @param value attribute value
      */
@@ -400,7 +238,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         // call encodeURL to preserve session id when cookies are disabled
         String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
             .defaultString(value));
-        this.href = new DefaultHref(encodedHref);
+        this.href = new Href(encodedHref);
     }
 
     /**
@@ -414,7 +252,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         // call encodeURL to preserve session id when cookies are disabled
         String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
             .defaultString(req.getContextPath() + value));
-        this.href = new DefaultHref(encodedHref);
+        this.href = new Href(encodedHref);
     }
 
     /**
@@ -454,24 +292,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     }
 
     /**
-     * setter for the "scope" tag attribute.
-     * @param value attribute value
-     */
-    public void setScope(String value)
-    {
-        this.attributeMap.put(TagConstants.ATTRIBUTE_SCOPE, value);
-    }
-
-    /**
-     * setter for the "headerScope" tag attribute.
-     * @param value attribute value
-     */
-    public void setHeaderScope(String value)
-    {
-        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_SCOPE, value);
-    }
-
-    /**
      * setter for the "maxLength" tag attribute.
      * @param value attribute value
      */
@@ -487,6 +307,88 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     public void setMaxWords(int value)
     {
         this.maxWords = value;
+    }
+
+    /**
+     * setter for the "width" tag attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setWidth(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
+        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_WIDTH, value);
+    }
+
+    /**
+     * setter for the "align" tag attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setAlign(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
+        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_ALIGN, value);
+    }
+
+    /**
+     * setter for the "background" tag attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setBackground(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_BACKGROUND, value);
+    }
+
+    /**
+     * setter for the "bgcolor" tag attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setBgcolor(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_BGCOLOR, value);
+    }
+
+    /**
+     * setter for the "height" tag attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setHeight(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_HEIGHT, value);
+    }
+
+    /**
+     * setter for the "nowrap" tag attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setNowrap(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_NOWRAP, "nowrap");
+    }
+
+    /**
+     * setter for the "valign" tag attribute.
+     * @param value attribute value
+     * @deprecated use css in "class" or "style"
+     */
+    public void setValign(String value)
+    {
+        this.attributeMap.put(TagConstants.ATTRIBUTE_VALIGN, value);
+    }
+
+    /**
+     * setter for the "class" tag attribute.
+     * @param value attribute value
+     * @deprecated use the "class" attribute
+     */
+    public void setStyleClass(String value)
+    {
+        setClass(value);
     }
 
     /**
@@ -508,12 +410,40 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     }
 
     /**
+     * Adds a css class to the class attribute (html class suports multiple values).
+     * @param value attribute value
+     */
+    public void addClass(String value)
+    {
+        Object classAttributes = this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
+
+        if (classAttributes == null)
+        {
+            this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+        }
+        else
+        {
+            ((MultipleHtmlAttribute) classAttributes).addAttributeValue(value);
+        }
+    }
+
+    /**
      * setter for the "headerClass" tag attribute.
      * @param value attribute value
      */
     public void setHeaderClass(String value)
     {
         this.headerAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));
+    }
+
+    /**
+     * setter for the "headerStyleClass" tag attribute.
+     * @param value attribute value
+     * @deprecated use setHeaderClass()
+     */
+    public void setHeaderStyleClass(String value)
+    {
+        setHeaderClass(value);
     }
 
     /**
@@ -526,68 +456,48 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     }
 
     /**
-     * setter for the "sortProperty" tag attribute.
-     * @param value attribute value
+     * Is this column configured for the media type?
+     * @param mediaType the currentMedia type
+     * @return true if the column should be displayed for this request
      */
-    public void setSortProperty(String value)
+    public boolean availableForMedia(MediaTypeEnum mediaType)
     {
-        this.sortProperty = value;
-    }
-
-    /**
-     * Looks up the parent table tag.
-     * @return a table tag instance.
-     */
-    private TableTag getTableTag()
-    {
-        return (TableTag) findAncestorWithClass(this, TableTag.class);
+        if (supportedMedia == null)
+        {
+            return true;
+        }
+        else
+        {
+            return this.supportedMedia.contains(mediaType);
+        }
     }
 
     /**
      * Tag setter.
      * @param media the space delimited list of supported types
+     * @throws InvalidTagAttributeValueException if an unknown media name is set
      */
-    public void setMedia(String media)
+    public void setMedia(String media) throws InvalidTagAttributeValueException
     {
-        MediaUtil.setMedia(this, media);
-    }
-
-    /**
-     * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
-     */
-    public void setSupportedMedia(List media)
-    {
-        this.supportedMedia = media;
-    }
-
-    /**
-     * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
-     */
-    public List getSupportedMedia()
-    {
-        return this.supportedMedia;
-    }
-
-    /**
-     * sets the name given to the server when sorting this column
-     * @param sortName name given to the server to sort this column
-     */
-    public void setSortName(String sortName)
-    {
-        this.sortName = sortName;
-    }
-
-    /**
-     * sets the sorting order for the sorted column.
-     * @param value "ascending" or "descending"
-     * @throws InvalidTagAttributeValueException if value is not one of "ascending" or "descending"
-     */
-    public void setDefaultorder(String value) throws InvalidTagAttributeValueException
-    {
-        this.defaultorder = SortOrderEnum.fromName(value);
-        if (this.defaultorder == null)
+        if (StringUtils.isBlank(media) || media.toLowerCase().indexOf("all") > -1)
         {
-            throw new InvalidTagAttributeValueException(getClass(), "defaultorder", value); //$NON-NLS-1$
+            this.supportedMedia = null;
+            return;
+        }
+        this.supportedMedia = new ArrayList();
+        String[] values = StringUtils.split(media);
+        for (int i = 0; i < values.length; i++)
+        {
+            String value = values[i];
+            if (!StringUtils.isBlank(value))
+            {
+                MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
+                if (type == null)
+                {
+                    throw new InvalidTagAttributeValueException(getClass(), "media", value);
+                }
+                this.supportedMedia.add(type);
+            }
         }
     }
 
@@ -604,10 +514,8 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      */
     public int doEndTag() throws JspException
     {
-        TableTag tableTag = getTableTag();
-
         MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-        if (currentMediaType != null && !MediaUtil.availableForMedia(this, currentMediaType))
+        if (currentMediaType != null && !availableForMedia(currentMediaType))
         {
             if (log.isDebugEnabled())
             {
@@ -616,55 +524,51 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             return SKIP_BODY;
         }
 
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
+
         // add column header only once
         if (tableTag.isFirstIteration())
         {
             addHeaderToTable(tableTag);
         }
 
-        if (!tableTag.isIncludedRow())
+        Cell cell;
+        if (this.property == null)
         {
-            return super.doEndTag();
+
+            Object cellValue;
+
+            if (this.bodyContent != null)
+            {
+                String value = this.bodyContent.getString();
+
+                if (value == null && this.nulls)
+                {
+                    value = "";
+                }
+
+                cellValue = value;
+            }
+            // BodyContent will be null if the body was not eval'd, eg an empty list.
+            else
+            {
+                cellValue = Cell.EMPTY_CELL;
+            }
+            cell = new Cell(cellValue);
+
+        }
+        else
+        {
+            cell = Cell.EMPTY_CELL;
         }
 
-        Cell cell = null;
-        if (this.property == null && this.value != null)
-        {
-            cell = new Cell(value);
-        }
-        else if (this.property == null && this.bodyContent != null)
-        {
-            cell = new Cell(this.bodyContent.getString());
-        }
-
-        Object rowStyle = this.attributeMap.get(TagConstants.ATTRIBUTE_STYLE);
-        Object rowClass = this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS);
-        if (rowStyle != null || rowClass != null)
-        {
-            HtmlAttributeMap perRowValues = new HtmlAttributeMap();
-            if (rowStyle != null)
-            {
-                perRowValues.put(TagConstants.ATTRIBUTE_STYLE, rowStyle);
-            }
-            if (rowClass != null)
-            {
-                perRowValues.put(TagConstants.ATTRIBUTE_CLASS, rowClass);
-            }
-            if (cell == null)
-            {
-                cell = new Cell(null);
-            }
-            cell.setPerRowAttributes(perRowValues);
-        }
-
-        tableTag.addCell(cell != null ? cell : Cell.EMPTY_CELL);
+        tableTag.addCell(cell);
 
         // cleanup non-attribute variables
         this.alreadySorted = false;
 
         return super.doEndTag();
     }
-
     /**
      * Adds the current header to the table model calling addColumn in the parent table tag. This method should be
      * called only at first iteration.
@@ -674,134 +578,68 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      */
     private void addHeaderToTable(TableTag tableTag) throws DecoratorInstantiationException, ObjectLookupException
     {
-        // don't modify "title" directly
-        String evalTitle = this.title;
-
-        // title has precedence over titleKey
-        if (evalTitle == null && (this.titleKey != null || this.property != null))
-        {
-            // handle title i18n
-            evalTitle = tableTag.getProperties().geResourceProvider().getResource(
-                this.titleKey,
-                this.property,
-                tableTag,
-                this.pageContext);
-        }
-
         HeaderCell headerCell = new HeaderCell();
         headerCell.setHeaderAttributes((HtmlAttributeMap) this.headerAttributeMap.clone());
         headerCell.setHtmlAttributes((HtmlAttributeMap) this.attributeMap.clone());
-        headerCell.setTitle(evalTitle);
+        headerCell.setTitle(this.title);
         headerCell.setSortable(this.sortable);
-
-        List decorators = new ArrayList();
-
-        // handle multiple chained decorators, whitespace separated
-        if (StringUtils.isNotEmpty(this.decorator))
-        {
-            String[] decoratorNames = StringUtils.split(this.decorator);
-            for (int j = 0; j < decoratorNames.length; j++)
-            {
-                decorators.add(tableTag.getProperties().getDecoratorFactoryInstance().loadColumnDecorator(
-                    this.pageContext,
-                    decoratorNames[j]));
-            }
-        }
-
-        // "special" decorators
-        if (this.escapeXml)
-        {
-            decorators.add(EscapeXmlColumnDecorator.INSTANCE);
-        }
-        if (this.autolink)
-        {
-            decorators.add(AutolinkColumnDecorator.INSTANCE);
-        }
-        if (StringUtils.isNotBlank(this.format))
-        {
-            decorators.add(new MessageFormatColumnDecorator(this.format, tableTag.getProperties().getLocale()));
-        }
-
-        headerCell.setColumnDecorators((DisplaytagColumnDecorator[]) decorators
-            .toArray(new DisplaytagColumnDecorator[decorators.size()]));
-
+        headerCell.setColumnDecorator(DecoratorFactory.loadColumnDecorator(this.decorator));
         headerCell.setBeanPropertyName(this.property);
         headerCell.setShowNulls(this.nulls);
         headerCell.setMaxLength(this.maxLength);
         headerCell.setMaxWords(this.maxWords);
+        headerCell.setAutoLink(this.autolink);
         headerCell.setGroup(this.group);
-        headerCell.setSortProperty(this.sortProperty);
-        headerCell.setTotaled(this.totaled);
-
-        Comparator headerComparator = (comparator != null) ? comparator : new DefaultComparator(Collator
-            .getInstance(tableTag.getProperties().getLocale()));
-
-        headerCell.setComparator(headerComparator);
-        headerCell.setDefaultSortOrder(this.defaultorder);
-        headerCell.setSortName(this.sortName);
 
         // href and parameter, create link
-        if (this.href != null)
+        if (this.href != null && this.paramId != null)
         {
-            Href colHref;
+            Href colHref = new Href(this.href);
 
-            // empty base url, use href with parameters from parent table
-            if (StringUtils.isEmpty(this.href.getBaseUrl()))
+            // parameter value is in a different object than the iterated one
+            if (this.paramName != null || this.paramScope != null)
             {
-                colHref = (Href) tableTag.getBaseHref().clone();
-            }
-            else
-            {
-                colHref = (Href) this.href.clone();
-            }
+                // create a complete string for compatibility with previous version before expression evaluation.
+                // this approach is optimized for new expressions, not for previous property/scope parameters
+                StringBuffer expression = new StringBuffer();
 
-            if (this.paramId != null)
-            {
-                // parameter value is in a different object than the iterated one
-                if (this.paramName != null || this.paramScope != null)
+                // append scope
+                if (StringUtils.isNotBlank(this.paramScope))
                 {
-                    // create a complete string for compatibility with previous version before expression evaluation.
-                    // this approach is optimized for new expressions, not for previous property/scope parameters
-                    StringBuffer expression = new StringBuffer();
+                    expression.append(this.paramScope).append("Scope.");
+                }
 
-                    // append scope
-                    if (StringUtils.isNotBlank(this.paramScope))
-                    {
-                        expression.append(this.paramScope).append("Scope.");
-                    }
-
-                    // base bean name
-                    if (this.paramId != null)
-                    {
-                        expression.append(this.paramName);
-                    }
-                    else
-                    {
-                        expression.append(tableTag.getName());
-                    }
-
-                    // append property
-                    if (StringUtils.isNotBlank(this.paramProperty))
-                    {
-                        expression.append('.').append(this.paramProperty);
-                    }
-
-                    // evaluate expression.
-                    // note the value is fixed, not based on any object created during iteration
-                    // this is here for compatibility with the old version mainly
-                    Object paramValue = tableTag.evaluateExpression(expression.toString());
-
-                    // add parameter
-                    colHref.addParameter(this.paramId, paramValue);
+                // base bean name
+                if (this.paramId != null)
+                {
+                    expression.append(this.paramName);
                 }
                 else
                 {
-                    // set id
-                    headerCell.setParamName(this.paramId);
-
-                    // set property
-                    headerCell.setParamProperty(this.paramProperty);
+                    expression.append(tableTag.getName());
                 }
+
+                // append property
+                if (StringUtils.isNotBlank(this.paramProperty))
+                {
+                    expression.append('.').append(this.paramProperty);
+                }
+
+                // evaluate expression.
+                // note the value is fixed, not based on any object created during iteration
+                // this is here for compatibility with the old version mainly
+                Object paramValue = tableTag.evaluateExpression(expression.toString());
+
+                // add parameter
+                colHref.addParameter(this.paramId, paramValue);
+            }
+            else
+            {
+                // set id
+                headerCell.setParamName(this.paramId);
+
+                // set property
+                headerCell.setParamProperty(this.paramProperty);
             }
 
             // sets the base href
@@ -838,16 +676,8 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         this.paramScope = null;
         this.property = null;
         this.sortable = false;
-        this.sortName = null;
         this.supportedMedia = null;
         this.title = null;
-        this.titleKey = null;
-        this.sortProperty = null;
-        this.comparator = null;
-        this.defaultorder = null;
-        this.escapeXml = false;
-        this.format = null;
-        this.value = null;
     }
 
     /**
@@ -855,25 +685,27 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      */
     public int doStartTag() throws JspException
     {
-        TableTag tableTag = getTableTag();
+        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
         if (tableTag == null)
         {
             throw new TagStructureException(getClass(), "column", "table");
         }
 
         // If the list is empty, do not execute the body; may result in NPE
-        if (tableTag.isEmpty() || !tableTag.isIncludedRow())
+        if (tableTag.isEmpty())
         {
             return SKIP_BODY;
         }
-
-        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-        if (!MediaUtil.availableForMedia(this, currentMediaType))
+        else
         {
-            return SKIP_BODY;
+            MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext
+                .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
+            if (!availableForMedia(currentMediaType))
+            {
+                return SKIP_BODY;
+            }
+            return super.doStartTag();
         }
-
-        return super.doStartTag();
     }
 
     /**
@@ -881,29 +713,26 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("bodyContent", this.bodyContent) //$NON-NLS-1$
-            .append("group", this.group) //$NON-NLS-1$
-            .append("maxLength", this.maxLength) //$NON-NLS-1$
-            .append("decorator", this.decorator) //$NON-NLS-1$
-            .append("href", this.href) //$NON-NLS-1$
-            .append("title", this.title) //$NON-NLS-1$
-            .append("paramScope", this.paramScope) //$NON-NLS-1$
-            .append("property", this.property) //$NON-NLS-1$
-            .append("paramProperty", this.paramProperty) //$NON-NLS-1$
-            .append("headerAttributeMap", this.headerAttributeMap) //$NON-NLS-1$
-            .append("paramName", this.paramName) //$NON-NLS-1$
-            .append("autolink", this.autolink) //$NON-NLS-1$
-            .append("format", this.format) //$NON-NLS-1$
-            .append("nulls", this.nulls) //$NON-NLS-1$
-            .append("maxWords", this.maxWords) //$NON-NLS-1$
-            .append("attributeMap", this.attributeMap) //$NON-NLS-1$
-            .append("sortable", this.sortable) //$NON-NLS-1$
-            .append("paramId", this.paramId) //$NON-NLS-1$
-            .append("alreadySorted", this.alreadySorted) //$NON-NLS-1$
-            .append("sortProperty", this.sortProperty) //$NON-NLS-1$
-            .append("defaultSortOrder", this.defaultorder) //$NON-NLS-1$
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            //
+            .append("bodyContent", this.bodyContent)
+            .append("group", this.group)
+            .append("maxLength", this.maxLength)
+            .append("decorator", this.decorator)
+            .append("href", this.href)
+            .append("title", this.title)
+            .append("paramScope", this.paramScope)
+            .append("property", this.property)
+            .append("paramProperty", this.paramProperty)
+            .append("headerAttributeMap", this.headerAttributeMap)
+            .append("paramName", this.paramName)
+            .append("autolink", this.autolink)
+            .append("nulls", this.nulls)
+            .append("maxWords", this.maxWords)
+            .append("attributeMap", this.attributeMap)
+            .append("sortable", this.sortable)
+            .append("paramId", this.paramId)
+            .append("alreadySorted", this.alreadySorted)
             .toString();
     }
-
 }

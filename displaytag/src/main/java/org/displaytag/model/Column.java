@@ -1,31 +1,18 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.model;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.util.StringTokenizer;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.displaytag.decorator.DisplaytagColumnDecorator;
+import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.Anchor;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
+import org.displaytag.util.LinkUtil;
 import org.displaytag.util.LookupUtil;
 import org.displaytag.util.TagConstants;
 
@@ -80,15 +67,6 @@ public class Column
     }
 
     /**
-     * Get the header cell for this column.
-     * @return the cell
-     */
-    public HeaderCell getHeaderCell()
-    {
-        return this.header;
-    }
-
-    /**
      * Gets the value, after calling the table / column decorator is requested.
      * @param decorated boolean
      * @return Object
@@ -97,50 +75,37 @@ public class Column
      */
     public Object getValue(boolean decorated) throws ObjectLookupException, DecoratorException
     {
-
-        Object object = null;
-
         // a static value has been set?
         if (this.cell.getStaticValue() != null)
         {
-            object = this.cell.getStaticValue();
+            return this.cell.getStaticValue();
         }
-        else if (this.header.getBeanPropertyName() != null)
+
+        Object object = null;
+        TableDecorator tableDecorator = this.row.getParentTable().getTableDecorator();
+
+        // if a decorator has been set, and if decorator has a getter for the requested property only, check decorator
+        if (decorated && tableDecorator != null && tableDecorator.hasGetterFor(this.header.getBeanPropertyName()))
         {
 
-            // if a decorator has been set, and if decorator has a getter for the requested property only, check
-            // decorator
-            if (decorated
-                && this.row.getParentTable().getTableDecorator() != null
-                && this.row.getParentTable().getTableDecorator().hasGetterFor(this.header.getBeanPropertyName()))
-            {
-
-                object = LookupUtil.getBeanProperty(this.row.getParentTable().getTableDecorator(), this.header
-                    .getBeanPropertyName());
-            }
-            else
-            {
-                // else check underlining object
-                object = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getBeanPropertyName());
-            }
+            object = LookupUtil.getBeanProperty(tableDecorator, this.header.getBeanPropertyName());
         }
-
-        DisplaytagColumnDecorator[] decorators = this.header.getColumnDecorators();
-        if (decorated)
+        else
         {
-            for (int j = 0; j < decorators.length; j++)
-            {
-                object = decorators[j].decorate(object, row.getParentTable().getPageContext(), row
-                    .getParentTable()
-                    .getMedia());
-            }
+            // else check underlining oblject
+            object = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getBeanPropertyName());
         }
 
-        if (object == null || "null".equals(object)) //$NON-NLS-1$
+        if (decorated && (this.header.getColumnDecorator() != null))
+        {
+            object = this.header.getColumnDecorator().decorate(object);
+        }
+
+        if (object == null || object.equals("null"))
         {
             if (!this.header.getShowNulls())
             {
-                object = TagConstants.EMPTY_STRING;
+                object = "";
             }
         }
 
@@ -150,33 +115,14 @@ public class Column
     /**
      * Generates the cell open tag.
      * @return String td open tag
-     */
-    public String getOpenTag()
-    {
-        HtmlAttributeMap rowAttributes = cell.getPerRowAttributes();
-
-        HtmlAttributeMap atts = htmlAttributes;
-        if (rowAttributes != null)
-        {
-            atts = (HtmlAttributeMap) atts.clone();
-            atts.putAll(rowAttributes);
-        }
-        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, atts);
-    }
-
-    /**
-     * Initialize the cell value.
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
-     * @throws DecoratorException
-     * @throws ObjectLookupException
      */
-    public void initialize() throws DecoratorException, ObjectLookupException
+    public String getOpenTag() throws ObjectLookupException, DecoratorException
     {
-        if (this.stringValue == null)
-        {
-            this.stringValue = createChoppedAndLinkedValue();
-        }
+        this.stringValue = createChoppedAndLinkedValue();
+
+        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, this.htmlAttributes);
     }
 
     /**
@@ -198,43 +144,67 @@ public class Column
     public String createChoppedAndLinkedValue() throws ObjectLookupException, DecoratorException
     {
 
-        String fullValue = ObjectUtils.toString(getValue(true));
-        String choppedValue;
+        Object choppedValue = getValue(true);
+
+        boolean isChopped = false;
+        String fullValue = "";
+        if (choppedValue != null)
+        {
+            fullValue = choppedValue.toString();
+        }
 
         // trim the string if a maxLength or maxWords is defined
-        if (this.header.getMaxLength() > 0)
+        if (this.header.getMaxLength() > 0 && fullValue.length() > this.header.getMaxLength())
         {
-            choppedValue = HtmlTagUtil.abbreviateHtmlString(fullValue, this.header.getMaxLength(), false);
+            choppedValue = StringUtils.abbreviate(fullValue, this.header.getMaxLength() + 3);
+            isChopped = true;
         }
         else if (this.header.getMaxWords() > 0)
         {
-            choppedValue = HtmlTagUtil.abbreviateHtmlString(fullValue, this.header.getMaxWords(), true);
-        }
-        else
-        {
-            choppedValue = fullValue;
+            StringBuffer buffer = new StringBuffer();
+            StringTokenizer tokenizer = new StringTokenizer(fullValue);
+            int tokensNum = tokenizer.countTokens();
+            if (tokensNum > this.header.getMaxWords())
+            {
+                int wordsCount = 0;
+                while (tokenizer.hasMoreTokens() && (wordsCount < this.header.getMaxWords()))
+                {
+                    buffer.append(tokenizer.nextToken() + " ");
+                    wordsCount++;
+                }
+                buffer.append("...");
+                choppedValue = buffer;
+                isChopped = true;
+            }
         }
 
         // chopped content? add the full content to the column "title" attribute
-        // note, simply checking that length is less than before can't be enough due to the "..." added if the string is
-        // cropped
-        if (!ObjectUtils.equals(fullValue, choppedValue))
+        if (isChopped)
         {
             // clone the attribute map, don't want to add title to all the columns
             this.htmlAttributes = (HtmlAttributeMap) this.htmlAttributes.clone();
             // add title
-            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, HtmlTagUtil.stripHTMLTags(fullValue));
+            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, StringUtils.replace(fullValue, "\"", "&#34;"));
         }
 
-        if (this.header.getHref() != null)
+        // Are we supposed to set up a link to the data being displayed in this column...
+        if (this.header.getAutoLink())
+        {
+            choppedValue = LinkUtil.autoLink(choppedValue.toString());
+        }
+        else if (this.header.getHref() != null)
         {
             // generates the href for the link
             Href colHref = getColumnHref(fullValue);
-            Anchor anchor = new Anchor(colHref, choppedValue);
+            Anchor anchor = new Anchor(colHref, choppedValue.toString());
             choppedValue = anchor.toString();
         }
 
-        return choppedValue;
+        if (choppedValue != null)
+        {
+            return choppedValue.toString();
+        }
+        return null;
     }
 
     /**
@@ -246,7 +216,7 @@ public class Column
     private Href getColumnHref(String columnContent) throws ObjectLookupException
     {
         // copy href
-        Href colHref = (Href) this.header.getHref().clone();
+        Href colHref = new Href(this.header.getHref());
 
         // do we need to add a param?
         if (this.header.getParamName() != null)
@@ -266,25 +236,14 @@ public class Column
                 paramValue = columnContent;
             }
 
-            if (paramValue != null)
-            {
-                try
-                {
-                    colHref.addParameter(this.header.getParamName(), URLEncoder.encode(
-                        paramValue.toString(),
-                        StringUtils.defaultString(this.row.getParentTable().getEncoding(), "UTF8"))); //$NON-NLS-1$
-                }
-                catch (UnsupportedEncodingException e)
-                {
-                    throw new UnhandledException(e);
-                }
-            }
+            colHref.addParameter(this.header.getParamName(), paramValue);
+
         }
         return colHref;
     }
 
     /**
-     * get the final value to be displayed in the table. This method can only be called after initialize(), where the
+     * get the final value to be displayed in the table. This method can only be called after getOpenTag(), where the
      * content is evaluated
      * @return String final value to be displayed in the table
      */
@@ -294,15 +253,24 @@ public class Column
     }
 
     /**
+     * returns the grouping order of this column or -1 if the column is not grouped.
+     * @return int grouping order of this column or -1 if the column is not grouped
+     */
+    public int getGroup()
+    {
+        return this.header.getGroup();
+    }
+
+    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("cell", this.cell) //$NON-NLS-1$
-            .append("header", this.header) //$NON-NLS-1$
-            .append("htmlAttributes", this.htmlAttributes) //$NON-NLS-1$
-            .append("stringValue", this.stringValue) //$NON-NLS-1$
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("cell", this.cell)
+            .append("header", this.header)
+            .append("htmlAttributes", this.htmlAttributes)
+            .append("stringValue", this.stringValue)
             .toString();
     }
 }

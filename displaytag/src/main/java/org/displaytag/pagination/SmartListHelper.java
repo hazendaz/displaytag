@@ -1,24 +1,14 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.pagination;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.Messages;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
 
@@ -31,7 +21,6 @@ import org.displaytag.util.Href;
  * This class is a stripped down version of the WebListHelper from Tim Dawson (tdawson@is.com)
  * </p>
  * @author epesh
- * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class SmartListHelper
@@ -63,11 +52,6 @@ public class SmartListHelper
     private int pageCount;
 
     /**
-     * the list we hold is only part of the full dataset
-     */
-    private boolean partialList;
-
-    /**
      * index of current page.
      */
     private int currentPage;
@@ -81,38 +65,38 @@ public class SmartListHelper
      * Creates a SmarListHelper instance that will help you chop up a list into bite size pieces that are suitable for
      * display.
      * @param list List
-     * @param fullSize size of the full list
-     * @param itemsInPage number of items in a page (int > 0)
+     * @param size number of items in a page
      * @param tableProperties TableProperties
      */
-    public SmartListHelper(
-        List list,
-        int fullSize,
-        int itemsInPage,
-        TableProperties tableProperties,
-        boolean partialList)
+    public SmartListHelper(List list, int size, TableProperties tableProperties)
     {
+
         if (log.isDebugEnabled())
         {
-            log.debug(Messages.getString("SmartListHelper.debug.instantiated", //$NON-NLS-1$
-                new Object[]{new Integer(list.size()), new Integer(itemsInPage), new Integer(fullSize)}));
+            log.debug("new SmartListHelper: list.size= " + list.size() + " page size=" + size);
+        }
+
+        if (list == null || size < 1)
+        {
+            throw new IllegalArgumentException("Bad arguments passed into " + "SmartListHelper() constructor. List="
+                + list + ", pagesize=" + size);
         }
 
         this.properties = tableProperties;
-        this.pageSize = itemsInPage;
+        this.pageSize = size;
         this.fullList = list;
-        this.fullListSize = fullSize;
+
+        if (this.fullList != null)
+        {
+            this.fullListSize = list.size();
+        }
+        else
+        {
+            this.fullListSize = 0;
+        }
+
         this.pageCount = computedPageCount();
         this.currentPage = 1;
-        this.partialList = partialList;
-    }
-
-    /**
-     * Constructor that can be used by subclasses. Subclasses that use this constructor must also override all the
-     * public methods, since this constructor does nothing.
-     */
-    protected SmartListHelper()
-    {
     }
 
     /**
@@ -122,11 +106,19 @@ public class SmartListHelper
      */
     protected int computedPageCount()
     {
-        int size = this.fullListSize;
-        int div = size / this.pageSize;
-        int result = (size % this.pageSize == 0) ? div : div + 1;
+
+        int result = 0;
+
+        if ((this.fullList != null) && (this.pageSize > 0))
+        {
+            int size = this.fullListSize;
+            int div = size / this.pageSize;
+            int mod = size % this.pageSize;
+            result = (mod == 0) ? div : div + 1;
+        }
 
         return result;
+
     }
 
     /**
@@ -134,7 +126,7 @@ public class SmartListHelper
      * is viewing.
      * @return int index of the first object that should appear on the current page
      */
-    public int getFirstIndexForCurrentPage()
+    protected int getFirstIndexForCurrentPage()
     {
         return getFirstIndexForPage(this.currentPage);
     }
@@ -157,14 +149,7 @@ public class SmartListHelper
      */
     protected int getFirstIndexForPage(int pageNumber)
     {
-        if (this.partialList)
-        {
-            return 0;
-        }
-        else
-        {
-            return (pageNumber - 1) * this.pageSize;
-        }
+        return (pageNumber - 1) * this.pageSize;
     }
 
     /**
@@ -174,19 +159,12 @@ public class SmartListHelper
      */
     protected int getLastIndexForPage(int pageNumber)
     {
-        if (this.partialList)
-        {
-            // return the min of pageSize or list size on the off chance they gave us more data than pageSize allows
-            return Math.min(this.pageSize - 1, this.fullList.size() - 1);
-        }
-        else
-        {
-            int firstIndex = getFirstIndexForPage(pageNumber);
-            int pageIndex = this.pageSize - 1;
-            int lastIndex = this.fullListSize - 1;
 
-            return Math.min(firstIndex + pageIndex, lastIndex);
-        }
+        int firstIndex = getFirstIndexForPage(pageNumber);
+        int pageIndex = this.pageSize - 1;
+        int lastIndex = this.fullListSize - 1;
+
+        return Math.min(firstIndex + pageIndex, lastIndex);
     }
 
     /**
@@ -208,15 +186,35 @@ public class SmartListHelper
      */
     protected List getListForPage(int pageNumber)
     {
-        if (log.isDebugEnabled())
-        {
-            log.debug(Messages.getString("SmartListHelper.debug.sublist", //$NON-NLS-1$
-                new Object[]{new Integer(pageNumber)}));
-        }
+
+        log.debug("getListForPage page=" + pageNumber);
+
+        List list = new ArrayList(this.pageSize + 1);
 
         int firstIndex = getFirstIndexForPage(pageNumber);
         int lastIndex = getLastIndexForPage(pageNumber);
-        return this.fullList.subList(firstIndex, lastIndex + 1);
+
+        Iterator iterator = this.fullList.iterator();
+        int j = 0;
+
+        while (iterator.hasNext())
+        {
+
+            Object object = iterator.next();
+
+            if (j > lastIndex)
+            {
+                break;
+            }
+            else if (j >= firstIndex)
+            {
+                list.add(object);
+            }
+            j++;
+
+        }
+
+        return list;
     }
 
     /**
@@ -225,22 +223,15 @@ public class SmartListHelper
      */
     public void setCurrentPage(int pageNumber)
     {
-        if (log.isDebugEnabled())
-        {
-            log.debug(Messages.getString("SmartListHelper.debug.currentpage", //$NON-NLS-1$
-                new Object[]{new Integer(pageNumber), new Integer(this.pageCount)}));
-        }
 
-        if (pageNumber < 1)
+        log.debug("setCurrentPage: page=" + pageNumber + " of " + this.pageCount);
+
+        if (pageNumber < 1 || ((pageNumber != 1) && (pageNumber > this.pageCount)))
         {
-            // invalid page: better don't throw an exception, since this could easily happen
+            // invalid page: better don't throw an exception, since this could
+            // easily happen
             // (list changed, user bookmarked the page)
             this.currentPage = 1;
-        }
-        else if (pageNumber != 1 && pageNumber > this.pageCount)
-        {
-            // invalid page: set to last page
-            this.currentPage = this.pageCount;
         }
         else
         {
@@ -262,17 +253,24 @@ public class SmartListHelper
 
         if (this.fullListSize == 0)
         {
+            log.debug("returning paging.banner.no_items_found");
+
             objs = new Object[]{this.properties.getPagingItemsName()};
             message = this.properties.getPagingFoundNoItems();
 
         }
         else if (this.fullListSize == 1)
         {
+
+            log.debug("returning paging.banner.one_item_found");
+
             objs = new Object[]{this.properties.getPagingItemName()};
             message = this.properties.getPagingFoundOneItem();
         }
         else if (computedPageCount() == 1)
         {
+            log.debug("returning paging.banner.all_items_found");
+
             objs = new Object[]{
                 new Integer(this.fullListSize),
                 this.properties.getPagingItemsName(),
@@ -281,13 +279,13 @@ public class SmartListHelper
         }
         else
         {
+            log.debug("returning paging.banner.some_items_found");
+
             objs = new Object[]{
                 new Integer(this.fullListSize),
                 this.properties.getPagingItemsName(),
                 new Integer(getFirstIndexForCurrentPage() + 1),
-                new Integer(getLastIndexForCurrentPage() + 1),
-                new Integer(this.currentPage),
-                new Integer(this.pageCount)};
+                new Integer(getLastIndexForCurrentPage() + 1)};
             message = this.properties.getPagingFoundSomeItems();
         }
 
@@ -304,52 +302,71 @@ public class SmartListHelper
     public String getPageNavigationBar(Href baseHref, String pageParameter)
     {
 
-        int groupSize = this.properties.getPagingGroupSize();
-        int startPage;
-        int endPage;
+        log.debug("getPageNavigationBar");
+        int maxPages = 8;
+
+        maxPages = this.properties.getPagingGroupSize(maxPages);
+
+        int currentIndex = this.currentPage;
+        int count = this.pageCount;
+        int startPage = 1;
+        int endPage = maxPages;
 
         Pagination pagination = new Pagination(baseHref, pageParameter);
-        pagination.setCurrent(new Integer(this.currentPage));
+
+        if (log.isDebugEnabled())
+        {
+            log.debug("this.pageCount=" + this.pageCount);
+        }
 
         // if no items are found still add pagination?
-        if (this.pageCount == 0)
+        if (count == 0)
         {
             pagination.addPage(1, true);
         }
 
-        // center the selected page, but only if there are {groupSize} pages available after it, and check that the
-        // result is not < 1
-        startPage = Math.max(Math.min(this.currentPage - groupSize / 2, this.pageCount - (groupSize - 1)), 1);
-        endPage = Math.min(startPage + groupSize - 1, this.pageCount);
-
-        if (log.isDebugEnabled())
+        if (currentIndex < maxPages)
         {
-            log.debug("Displaying pages from " + startPage + " to " + endPage);
+            startPage = 1;
+            endPage = maxPages;
+            if (count < endPage)
+            {
+                endPage = count;
+            }
+        }
+        else
+        {
+            startPage = currentIndex;
+            while (startPage + maxPages > (count + 1))
+            {
+                startPage--;
+            }
+
+            endPage = startPage + (maxPages - 1);
         }
 
-        if (this.currentPage != 1)
+        if (currentIndex != 1)
         {
             pagination.setFirst(new Integer(1));
-            pagination.setPrevious(new Integer(this.currentPage - 1));
+            pagination.setPrevious(new Integer(currentIndex - 1));
         }
 
         for (int j = startPage; j <= endPage; j++)
         {
-            if (log.isDebugEnabled())
-            {
-                log.debug("adding page " + j); //$NON-NLS-1$
-            }
-            pagination.addPage(j, (j == this.currentPage));
+            log.debug("adding page " + j);
+            pagination.addPage(j, (j == currentIndex));
         }
 
-        if (this.currentPage != this.pageCount)
+        if (currentIndex != count)
         {
-            pagination.setNext(new Integer(this.currentPage + 1));
-            pagination.setLast(new Integer(this.pageCount));
+            pagination.setNext(new Integer(currentIndex + 1));
+            pagination.setLast(new Integer(count));
         }
 
         // format for previous/next banner
         String bannerFormat;
+
+        log.debug("lPagination.isOnePage()=" + pagination.isOnePage());
 
         if (pagination.isOnePage())
         {
@@ -368,6 +385,8 @@ public class SmartListHelper
             bannerFormat = this.properties.getPagingBannerFull();
         }
 
+        log.debug("getPageNavigationBar end");
+
         return pagination.getFormattedBanner(this.properties.getPagingPageLink(), this.properties
             .getPagingPageSelected(), this.properties.getPagingPageSeparator(), bannerFormat);
     }
@@ -377,14 +396,13 @@ public class SmartListHelper
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("fullList", this.fullList) //$NON-NLS-1$
-            .append("fullListSize", this.fullListSize) //$NON-NLS-1$
-            .append("pageSize", this.pageSize) //$NON-NLS-1$
-            .append("pageCount", this.pageCount) //$NON-NLS-1$
-            .append("properties", this.properties) //$NON-NLS-1$
-            .append("currentPage", this.currentPage) //$NON-NLS-1$
-            .append("partialList", this.partialList) //$NON-NLS-1$
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+            .append("fullList", this.fullList)
+            .append("fullListSize", this.fullListSize)
+            .append("pageSize", this.pageSize)
+            .append("pageCount", this.pageCount)
+            .append("properties", this.properties)
+            .append("currentPage", this.currentPage)
             .toString();
     }
 }

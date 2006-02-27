@@ -1,21 +1,9 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags.el;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.taglibs.standard.lang.support.ExpressionEvaluatorManager;
 
 
@@ -60,12 +48,12 @@ public class ExpressionEvaluator
      */
     public Object eval(String attrName, String attrValue, Class returnClass) throws JspException
     {
-        return attrValue != null ? ExpressionEvaluatorManager.evaluate(
-            attrName,
-            attrValue,
-            returnClass,
-            this.tag,
-            this.pageContext) : null;
+        Object result = null;
+        if (attrValue != null)
+        {
+            result = ExpressionEvaluatorManager.evaluate(attrName, attrValue, returnClass, this.tag, this.pageContext);
+        }
+        return result;
     }
 
     /**
@@ -89,7 +77,15 @@ public class ExpressionEvaluator
      */
     public boolean evalBoolean(String attrName, String attrValue) throws JspException
     {
-        return BooleanUtils.toBoolean((Boolean) eval(attrName, attrValue, Boolean.class));
+        Boolean rtn = (Boolean) eval(attrName, attrValue, Boolean.class);
+        if (rtn != null)
+        {
+            return rtn.booleanValue();
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
@@ -106,8 +102,10 @@ public class ExpressionEvaluator
         {
             return rtn.longValue();
         }
-
-        return -1L;
+        else
+        {
+            return -1L;
+        }
     }
 
     /**
@@ -124,7 +122,9 @@ public class ExpressionEvaluator
         {
             return rtn.intValue();
         }
-
-        return -1;
+        else
+        {
+            return -1;
+        }
     }
 }

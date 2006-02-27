@@ -4,7 +4,6 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
  * cases in the source tree that extend TestCase. This helps running tests faster with ant/maven since httpunit tests
  * requires forking and starting a new java process for each test is too slow.
  * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public class TestAll extends TestCase
 {
@@ -36,6 +35,7 @@ public class TestAll extends TestCase
      * logger.
      */
     private static Log log = LogFactory.getLog(TestAll.class);
+
 
     /**
      * Basic constructor - called by the test runners.
@@ -94,7 +94,7 @@ public class TestAll extends TestCase
             String className = TestAll.class.getName();
             URL testFile = TestAll.class.getResource("TestAll.class");
             log.debug(testFile.getFile());
-            File classRoot = new File(URLDecoder.decode(testFile.getFile(), "UTF-8")).getParentFile();
+            File classRoot = new File(testFile.getFile()).getParentFile();
             while (className.indexOf(".") > -1)
             {
                 classRoot = classRoot.getParentFile();
@@ -128,8 +128,9 @@ public class TestAll extends TestCase
  * This class is responsible for searching a directory for class files. It builds a list of fully qualified class names
  * from the class files in the directory tree.
  * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
+
 
 class ClassFinder
 {
@@ -210,12 +211,12 @@ class ClassFinder
     }
 }
 
-
 /**
  * Responsible for loading classes representing valid test cases.
  * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
+
 
 class TestCaseLoader
 {

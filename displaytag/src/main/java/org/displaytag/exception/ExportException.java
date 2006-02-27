@@ -1,31 +1,13 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.exception;
-
-import org.displaytag.Messages;
 
 
 /**
  * Exception thrown when displaytag is unable to reset the response during export.
  * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public class ExportException extends BaseNestableJspTagException
 {
-
-    /**
-     * D1597A17A6.
-     */
-    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Instantiate a new Exception with a fixed message.
@@ -33,7 +15,10 @@ public class ExportException extends BaseNestableJspTagException
      */
     public ExportException(Class source)
     {
-        super(source, Messages.getString("ExportException.msg")); //$NON-NLS-1$
+        super(source, "Unable to reset response before returning exported data. "
+            + "You are not using an export filter. "
+            + "Be sure that no other jsp tags are used before display:table or refer to the displaytag "
+            + "documentation on how to configure the export filter (requires j2ee 1.3).");
     }
 
     /**

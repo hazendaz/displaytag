@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.util;
 
 import java.util.ArrayList;
@@ -17,11 +6,10 @@ import java.util.List;
 
 import org.apache.commons.collections.IteratorUtils;
 
-
 /**
  * Utility methods for collection handling.
  * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public final class CollectionUtil
 {
@@ -31,7 +19,6 @@ public final class CollectionUtil
      */
     private CollectionUtil()
     {
-        // unused
     }
 
     /**
@@ -66,6 +53,7 @@ public final class CollectionUtil
             {
                 break;
             }
+
         }
 
         return croppedList;
@@ -83,26 +71,8 @@ public final class CollectionUtil
      */
     public static List getListFromObject(Object iterableObject, int startIndex, int numberOfItems)
     {
-        if (iterableObject instanceof List)
-        {
-            // easier, use sublist
-            List list = ((List) iterableObject);
-
-            // check for partial lists
-            int lastRecordExclusive = numberOfItems <= 0 ? list.size() : startIndex + numberOfItems;
-            if (lastRecordExclusive > list.size())
-            {
-                lastRecordExclusive = list.size();
-            }
-
-            if (startIndex < list.size())
-            {
-                return list.subList(startIndex, lastRecordExclusive);
-            }
-        }
-
-        // use an iterator
         Iterator iterator = IteratorUtils.getIterator(iterableObject);
         return getSubList(iterator, startIndex, numberOfItems);
     }
+
 }

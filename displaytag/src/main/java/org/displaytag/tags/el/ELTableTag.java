@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.tags.el;
 
 import javax.servlet.jsp.JspException;
@@ -22,11 +11,6 @@ import javax.servlet.jsp.JspException;
  */
 public class ELTableTag extends org.displaytag.tags.TableTag
 {
-
-    /**
-     * D1597A17A6.
-     */
-    private static final long serialVersionUID = 899149338534L;
 
     /**
      * Expression for the "class" tag attribute.
@@ -89,29 +73,14 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private String pagesizeExpr;
 
     /**
-     * Expression for the "partialList" tag attribute.
-     */
-    private String partialListExpr;
-
-    /**
      * Expression for the "requestURI" tag attribute.
      */
     private String requestURIExpr;
 
     /**
-     * Expression for the "requestURIcontext" tag attribute.
-     */
-    private String requestURIcontextExpr;
-
-    /**
      * Expression for the "rules" tag attribute.
      */
     private String rulesExpr;
-
-    /**
-     * Expression for the "size" tag attribute
-     */
-    private String sizeExpr;
 
     /**
      * Expression for the "sort" tag attribute.
@@ -129,31 +98,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private String summaryExpr;
 
     /**
-     * Expression for the "excludedParams" tag attribute.
-     */
-    private String excludedParamsExpr;
-
-    /**
-     * Expression for the "id" tag attribute.
-     */
-    private String idExpr;
-
-    /**
-     * Expression for the "htmlId" tag attribute.
-     */
-    private String htmlIdExpr;
-
-    /**
-     * @see org.displaytag.tags.TableTag#setUid(java.lang.String)
-     */
-    public void setUid(String value)
-    {
-        idExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.TableTag#setCellpadding(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setCellpadding(String value)
     {
@@ -161,26 +106,7 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setStyle(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setStyle(String value)
-    {
-        styleExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.TableTag#setSummary(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setSummary(String value)
-    {
-        summaryExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.TableTag#setCellspacing(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setCellspacing(String value)
     {
@@ -189,7 +115,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setClass(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setClass(String value)
     {
@@ -198,7 +123,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setDecorator(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setDecorator(String value)
     {
@@ -207,7 +131,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setDefaultsort(int)
-     * @param value EL expression for attribute value
      */
     public void setDefaultsort(String value)
     {
@@ -216,7 +139,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setDefaultorder(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setDefaultorder(String value)
     {
@@ -225,7 +147,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setExport(boolean)
-     * @param value EL expression for attribute value
      */
     public void setExport(String value)
     {
@@ -234,7 +155,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setFrame(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setFrame(String value)
     {
@@ -243,7 +163,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setLength(int)
-     * @param value EL expression for attribute value
      */
     public void setLength(String value)
     {
@@ -252,7 +171,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setName(java.lang.Object)
-     * @param value EL expression for attribute value
      */
     public void setName(String value)
     {
@@ -261,7 +179,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setOffset(int)
-     * @param value EL expression for attribute value
      */
     public void setOffset(String value)
     {
@@ -270,7 +187,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setPagesize(int)
-     * @param value EL expression for attribute value
      */
     public void setPagesize(String value)
     {
@@ -279,25 +195,13 @@ public class ELTableTag extends org.displaytag.tags.TableTag
 
     /**
      * @see org.displaytag.tags.TableTag#setRequestURI(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setRequestURI(String value)
     {
         requestURIExpr = value;
     }
-
-    /**
-     * @see org.displaytag.tags.TableTag#setRequestURIcontext(boolean)
-     * @param value EL expression for attribute value
-     */
-    public void setRequestURIcontext(String value)
-    {
-        requestURIcontextExpr = value;
-    }
-
     /**
      * @see org.displaytag.tags.TableTag#setRules(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setRules(String value)
     {
@@ -305,40 +209,13 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
-     * @param value EL expression for attribute value
-     * @see org.displaytag.tags.TableTag#setSize(java.lang.String)
-     */
-    public void setSize(String value)
-    {
-        sizeExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.TableTag#setSort(java.lang.String)
-     * @param value EL expression for attribute value
      */
     public void setSort(String value)
     {
         sortExpr = value;
     }
 
-    /**
-     * @see org.displaytag.tags.TableTag#setExcludedParams(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setExcludedParams(String value)
-    {
-        excludedParamsExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.TableTag#setHtmlId(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setHtmlId(String value)
-    {
-        htmlIdExpr = value;
-    }
 
     /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
@@ -357,119 +234,74 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     {
         ExpressionEvaluator eval = new ExpressionEvaluator(this, pageContext);
 
-        if (idExpr != null)
-        {
-            super.setUid(eval.evalString("uid", idExpr)); //$NON-NLS-1$
-        }
-        if (htmlIdExpr != null)
-        {
-            super.setHtmlId(eval.evalString("htmlId", htmlIdExpr)); //$NON-NLS-1$
-        }
         if (cellpaddingExpr != null)
         {
-            super.setCellpadding(eval.evalString("cellpadding", cellpaddingExpr)); //$NON-NLS-1$
+            super.setCellpadding(eval.evalString("cellpadding", cellpaddingExpr));
         }
         if (cellspacingExpr != null)
         {
-            super.setCellspacing(eval.evalString("cellspacing", cellspacingExpr)); //$NON-NLS-1$
+            super.setCellspacing(eval.evalString("cellspacing", cellspacingExpr));
         }
         if (classExpr != null)
         {
-            super.setClass(eval.evalString("class", classExpr)); //$NON-NLS-1$
+            super.setClass(eval.evalString("class", classExpr));
         }
         if (decoratorExpr != null)
         {
-            super.setDecorator(eval.evalString("decorator", decoratorExpr)); //$NON-NLS-1$
+            super.setDecorator(eval.evalString("decorator", decoratorExpr));
         }
         if (defaultorderExpr != null)
         {
-            super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr)); //$NON-NLS-1$
-        }
-        if (excludedParamsExpr != null)
-        {
-            super.setExcludedParams(eval.evalString("excludedParams", excludedParamsExpr)); //$NON-NLS-1$
+            super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr));
         }
         if (defaultsortExpr != null)
         {
-            super.setDefaultsort(eval.evalInt("defaultsort", defaultsortExpr)); //$NON-NLS-1$
+            super.setDefaultsort(eval.evalInt("defaultsort", defaultsortExpr));
         }
         if (exportExpr != null)
         {
-            super.setExport(eval.evalBoolean("export", exportExpr)); //$NON-NLS-1$
+            super.setExport(eval.evalBoolean("export", exportExpr));
         }
         if (frameExpr != null)
         {
-            super.setFrame(eval.evalString("frame", frameExpr)); //$NON-NLS-1$
+            super.setFrame(eval.evalString("frame", frameExpr));
         }
         if (lengthExpr != null)
         {
-            super.setLength(eval.evalInt("length", lengthExpr)); //$NON-NLS-1$
+            super.setLength(eval.evalInt("length", lengthExpr));
         }
         if (nameExpr != null)
         {
-            Object source = eval.eval("name", nameExpr, Object.class); //$NON-NLS-1$
-
-            // be more user-friendly: accept both EL and legacy expressions
-            if (source instanceof String)
-            {
-                super.setNameString((String) source);
-            }
-            else
-            {
-                // evaluate name only once, so assign it to "list"
-                super.list = source;
-            }
+            // evaluate name only once, so assign it to "list"
+            super.list = eval.eval("name", nameExpr, Object.class);
         }
         if (offsetExpr != null)
         {
-            super.setOffset(eval.evalInt("offset", offsetExpr)); //$NON-NLS-1$
+            super.setOffset(eval.evalInt("offset", offsetExpr));
         }
         if (pagesizeExpr != null)
         {
-            super.setPagesize(eval.evalInt("pagesize", pagesizeExpr)); //$NON-NLS-1$
-        }
-        if (partialListExpr != null)
-        {
-            super.setPartialList(eval.evalBoolean("partialList", partialListExpr)); //$NON-NLS-1$
+            super.setPagesize(eval.evalInt("pagesize", pagesizeExpr));
         }
         if (requestURIExpr != null)
         {
-            super.setRequestURI(eval.evalString("requestURI", requestURIExpr)); //$NON-NLS-1$
-        }
-        if (requestURIcontextExpr != null)
-        {
-            super.setRequestURIcontext(eval.evalBoolean("requestURIcontext", requestURIcontextExpr)); //$NON-NLS-1$
+            super.setRequestURI(eval.evalString("requestURI", requestURIExpr));
         }
         if (rulesExpr != null)
         {
-            super.setRules(eval.evalString("rules", rulesExpr)); //$NON-NLS-1$
-        }
-        if (sizeExpr != null)
-        {
-            Object source = eval.eval("size", sizeExpr, Object.class); //$NON-NLS-1$
-
-            // be more user-friendly: accept both EL and legacy expressions
-            if (source instanceof String)
-            {
-                super.setSizeObjectName((String) source);
-            }
-            else
-            {
-                // evaluate size only once, so assign it to the "size" object
-                super.setSize(source);
-            }
+            super.setRules(eval.evalString("rules", rulesExpr));
         }
         if (sortExpr != null)
         {
-            super.setSort(eval.evalString("sort", sortExpr)); //$NON-NLS-1$
+            super.setSort(eval.evalString("sort", sortExpr));
         }
         if (styleExpr != null)
         {
-            super.setStyle(eval.evalString("style", styleExpr)); //$NON-NLS-1$
+            super.setStyle(eval.evalString("style", styleExpr));
         }
         if (summaryExpr != null)
         {
-            super.setSummary(eval.evalString("summary", summaryExpr)); //$NON-NLS-1$
+            super.setSummary(eval.evalString("summary", summaryExpr));
         }
     }
 
@@ -491,17 +323,12 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         this.nameExpr = null;
         this.offsetExpr = null;
         this.pagesizeExpr = null;
-        this.partialListExpr = null;
         this.requestURIExpr = null;
-        this.requestURIcontextExpr = null;
         this.rulesExpr = null;
-        this.sizeExpr = null;
         this.sortExpr = null;
         this.styleExpr = null;
         this.summaryExpr = null;
-        this.excludedParamsExpr = null;
-        this.idExpr = null;
-        this.htmlIdExpr = null;
     }
+
 
 }

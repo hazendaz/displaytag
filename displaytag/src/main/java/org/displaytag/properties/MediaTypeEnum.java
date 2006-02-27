@@ -1,20 +1,8 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.properties;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
+import org.apache.commons.collections.iterators.ArrayIterator;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 
@@ -27,29 +15,29 @@ public final class MediaTypeEnum
 {
 
     /**
-     * Array containing all the export types.
-     */
-    private static final List ALL = new ArrayList();
-
-    /**
-     * media type HTML = 0.
-     */
-    public static final MediaTypeEnum HTML = new MediaTypeEnum(0, "html"); //$NON-NLS-1$
-
-    /**
      * Media type CSV = 1.
      */
-    public static final MediaTypeEnum CSV = new MediaTypeEnum(1, "csv"); //$NON-NLS-1$
+    public static final MediaTypeEnum CSV = new MediaTypeEnum(1, "csv");
 
     /**
      * media type EXCEL = 2.
      */
-    public static final MediaTypeEnum EXCEL = new MediaTypeEnum(2, "excel"); //$NON-NLS-1$
+    public static final MediaTypeEnum EXCEL = new MediaTypeEnum(2, "excel");
 
     /**
      * media type XML = 3.
      */
-    public static final MediaTypeEnum XML = new MediaTypeEnum(3, "xml"); //$NON-NLS-1$
+    public static final MediaTypeEnum XML = new MediaTypeEnum(3, "xml");
+
+    /**
+     * media type HTML = 4.
+     */
+    public static final MediaTypeEnum HTML = new MediaTypeEnum(4, "html");
+
+    /**
+     * array containing all the export types.
+     */
+    public static final MediaTypeEnum[] ALL = {EXCEL, XML, CSV, HTML};
 
     /**
      * Code; this is the primary key for these objects.
@@ -70,7 +58,6 @@ public final class MediaTypeEnum
     {
         this.enumCode = code;
         this.enumName = name;
-        ALL.add(this);
     }
 
     /**
@@ -98,12 +85,11 @@ public final class MediaTypeEnum
      */
     public static MediaTypeEnum fromCode(int key)
     {
-        // @todo optimization needed
-        for (int i = 0; i < ALL.size(); i++)
+        for (int i = 0; i < ALL.length; i++)
         {
-            if (key == ((MediaTypeEnum) ALL.get(i)).getCode())
+            if (key == ALL[i].getCode())
             {
-                return (MediaTypeEnum) ALL.get(i);
+                return ALL[i];
             }
         }
         // lookup failed
@@ -115,25 +101,16 @@ public final class MediaTypeEnum
      * @param key Integer code - null safe: a null key returns a null Enum
      * @return MediaTypeEnum or null if no mediaType is found with the given key
      */
-    public static MediaTypeEnum fromCode(Integer key)
+    public static MediaTypeEnum fromIntegerCode(Integer key)
     {
         if (key == null)
         {
             return null;
         }
-
-        return fromCode(key.intValue());
-    }
-
-    /**
-     * lookup a media type by an Integer key.
-     * @param key Integer code - null safe: a null key returns a null Enum
-     * @return MediaTypeEnum or null if no mediaType is found with the given key
-     * @deprecated use fromCode(Integer)
-     */
-    public static MediaTypeEnum fromIntegerCode(Integer key)
-    {
-        return fromCode(key);
+        else
+        {
+            return fromCode(key.intValue());
+        }
     }
 
     /**
@@ -143,12 +120,11 @@ public final class MediaTypeEnum
      */
     public static MediaTypeEnum fromName(String code)
     {
-        // @todo optimization needed
-        for (int i = 0; i < ALL.size(); i++)
+        for (int i = 0; i < ALL.length; i++)
         {
-            if (((MediaTypeEnum) ALL.get(i)).getName().equals(code))
+            if (ALL[i].getName().equals(code))
             {
-                return ((MediaTypeEnum) ALL.get(i));
+                return ALL[i];
             }
         }
         // lookup failed
@@ -161,32 +137,7 @@ public final class MediaTypeEnum
      */
     public static Iterator iterator()
     {
-        return ALL.iterator();
-    }
-
-    /**
-     * Register a new MediaType. If <code>name</code> is already assigned the existing instance is returned, otherwise
-     * a new instance is created.
-     * @param name media name
-     * @return assigned MediaTypeEnum instance
-     */
-    public static synchronized MediaTypeEnum registerMediaType(String name)
-    {
-        MediaTypeEnum existing = fromName(name);
-        if (existing == null)
-        {
-            existing = new MediaTypeEnum(ALL.size() + 1, name);
-        }
-        return existing;
-    }
-
-    /**
-     * Returns the number of media type currently loaded.
-     * @return number of media types loaded
-     */
-    public static int getSize()
-    {
-        return ALL.size();
+        return new ArrayIterator(ALL);
     }
 
     /**

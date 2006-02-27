@@ -1,14 +1,3 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.properties;
 
 import java.util.Iterator;
@@ -28,17 +17,17 @@ public final class SortOrderEnum
     /**
      * Sorted in descending order (1, "descending").
      */
-    public static final SortOrderEnum DESCENDING = new SortOrderEnum(1, "descending"); //$NON-NLS-1$
+    public static final SortOrderEnum DESCENDING = new SortOrderEnum(1, "descending");
 
     /**
      * Sorted in ascending order (2, "ascending").
      */
-    public static final SortOrderEnum ASCENDING = new SortOrderEnum(2, "ascending"); //$NON-NLS-1$
+    public static final SortOrderEnum ASCENDING = new SortOrderEnum(2, "ascending");
 
     /**
      * array containing all the export types.
      */
-    static final SortOrderEnum[] ALL = {DESCENDING, ASCENDING};
+    public static final SortOrderEnum[] ALL = {DESCENDING, ASCENDING};
 
     /**
      * Code; this is the primary key for these objects.
@@ -102,25 +91,16 @@ public final class SortOrderEnum
      * @param key Integer code - null safe: a null key returns a null Enum
      * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
      */
-    public static SortOrderEnum fromCode(Integer key)
+    public static SortOrderEnum fromIntegerCode(Integer key)
     {
         if (key == null)
         {
             return null;
         }
-
-        return fromCode(key.intValue());
-    }
-
-    /**
-     * lookup a SortOrderEnum by an Integer key.
-     * @param key Integer code - null safe: a null key returns a null Enum
-     * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
-     * @deprecated use fromCode(Integer)
-     */
-    public static SortOrderEnum fromIntegerCode(Integer key)
-    {
-        return fromCode(key);
+        else
+        {
+            return fromCode(key.intValue());
+        }
     }
 
     /**

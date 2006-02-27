@@ -1,28 +1,15 @@
-/**
- * Licensed under the Artistic License; you may not use this file
- * except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://displaytag.sourceforge.net/license.html
- *
- * THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- */
 package org.displaytag.util;
 
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
-
 
 /**
  * Object used to contain html multiple attribute value (for the "class" attribute).
  * @author Fabrizio Giustina
- * @version $Revision$ ($Author$)
+ * @version $Revision $ ($Author $)
  */
 public class MultipleHtmlAttribute implements Cloneable
 {
@@ -49,21 +36,21 @@ public class MultipleHtmlAttribute implements Cloneable
      * Adds attributes from an array.
      * @param attributes Object[] Array containing attributes
      */
-    private void addAllAttributesFromArray(String[] attributes)
+    private void addAllAttributesFromArray(Object[] attributes)
     {
 
         // number of attributes to add
         int length = attributes.length;
 
         // create new HashSet with correct size
-        this.attributeSet = new LinkedHashSet(length);
+        this.attributeSet = new HashSet(length);
 
         // add all the splitted attributes
         for (int j = 0; j < length; j++)
         {
 
             // don't add if empty
-            if (!StringUtils.isEmpty(attributes[j]))
+            if (!"".equals(attributes[j]))
             {
                 this.attributeSet.add(attributes[j]);
             }
@@ -102,7 +89,7 @@ public class MultipleHtmlAttribute implements Cloneable
     public void addAttributeValue(String attributeValue)
     {
         // don't add if empty
-        if (!StringUtils.isEmpty(attributeValue))
+        if (!"".equals(attributeValue))
         {
             this.attributeSet.add(attributeValue);
         }
@@ -114,7 +101,7 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     protected Object clone()
     {
-        MultipleHtmlAttribute clone;
+        MultipleHtmlAttribute clone = this;
 
         try
         {
@@ -123,11 +110,10 @@ public class MultipleHtmlAttribute implements Cloneable
         catch (CloneNotSupportedException e)
         {
             // should never happen
-            throw new UnhandledException(e);
         }
 
         // copy attributes
-        clone.addAllAttributesFromArray((String[]) this.attributeSet.toArray(new String[this.attributeSet.size()]));
+        clone.addAllAttributesFromArray(this.attributeSet.toArray());
 
         return clone;
     }
