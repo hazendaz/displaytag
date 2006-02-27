@@ -12,7 +12,6 @@
 package org.displaytag.properties;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
@@ -418,12 +417,7 @@ public final class TableProperties implements Cloneable
 
         try
         {
-            InputStream is = TableProperties.class.getResourceAsStream(DEFAULT_FILENAME);
-            if (is == null)
-            {
-                throw new TablePropertiesLoadException(TableProperties.class, DEFAULT_FILENAME, null);
-            }
-            defaultProperties.load(is);
+            defaultProperties.load(TableProperties.class.getResourceAsStream(DEFAULT_FILENAME));
         }
         catch (IOException e)
         {
