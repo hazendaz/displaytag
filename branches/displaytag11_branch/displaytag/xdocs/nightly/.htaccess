@@ -1,6 +1,0 @@
-IndexOptions DescriptionWidth=*
-IndexOptions NameWidth=*
-IndexOptions +SuppressHTMLPreamble
-HeaderName .header.html
-ReadmeName .footer.html
-Options Includes Indexes
