@@ -11,20 +11,14 @@
  */
 package org.displaytag.model;
 
-import java.util.Comparator;
-
-import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.displaytag.decorator.DisplaytagColumnDecorator;
-import org.displaytag.exception.DecoratorException;
-import org.displaytag.exception.ObjectLookupException;
-import org.displaytag.properties.SortOrderEnum;
+import org.displaytag.decorator.ColumnDecorator;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
 
 
@@ -73,14 +67,9 @@ public class HeaderCell
     private boolean sortable;
 
     /**
-     * Name given to the server when sorting this column
+     * ColumnDecorator.
      */
-    private String sortName;
-
-    /**
-     * ColumnDecorators.
-     */
-    private DisplaytagColumnDecorator[] columnDecorators;
+    private ColumnDecorator columnDecorator;
 
     /**
      * column number.
@@ -113,6 +102,11 @@ public class HeaderCell
     private int maxWords;
 
     /**
+     * autolink url?
+     */
+    private boolean autoLink;
+
+    /**
      * group the column?
      */
     private int group;
@@ -121,26 +115,6 @@ public class HeaderCell
      * Name of the non-decorated property used during sorting.
      */
     private String sortPropertyName;
-
-    /**
-     * Should we be attempting to tabulate the totals?
-     */
-    private boolean totaled;
-
-    /**
-     * Defalt sort order for this column.
-     */
-    private SortOrderEnum defaultSortOrder;
-
-    /**
-     * The running total for the column.
-     */
-    private double total;
-
-    /**
-     * Use this comparator for sorting.
-     */
-    private Comparator comparator;
 
     /**
      * getter for the grouping index.
@@ -158,6 +132,24 @@ public class HeaderCell
     public void setGroup(int groupingOrder)
     {
         this.group = groupingOrder;
+    }
+
+    /**
+     * is autolink enabled?
+     * @return true if autolink is enabled for the column
+     */
+    public boolean getAutoLink()
+    {
+        return this.autoLink;
+    }
+
+    /**
+     * enable or disable autolink for the column.
+     * @param autoLinkEnabled boolean autolink enabled
+     */
+    public void setAutoLink(boolean autoLinkEnabled)
+    {
+        this.autoLink = autoLinkEnabled;
     }
 
     /**
@@ -269,20 +261,20 @@ public class HeaderCell
 
     /**
      * Returns the columnDecorator object for this column.
-     * @return DisplaytagColumnDecorator
+     * @return ColumnDecorator
      */
-    public DisplaytagColumnDecorator[] getColumnDecorators()
+    public ColumnDecorator getColumnDecorator()
     {
-        return this.columnDecorators != null ? this.columnDecorators : new DisplaytagColumnDecorator[0];
+        return this.columnDecorator;
     }
 
     /**
      * Sets the columnDecorator object for this column.
-     * @param decorator - the DisplaytagColumnDecorator
+     * @param decorator - the ColumnDecorator
      */
-    public void setColumnDecorators(DisplaytagColumnDecorator[] decorator)
+    public void setColumnDecorator(ColumnDecorator decorator)
     {
-        this.columnDecorators = decorator;
+        this.columnDecorator = decorator;
     }
 
     /**
@@ -301,24 +293,6 @@ public class HeaderCell
     public void setSortable(boolean isSortable)
     {
         this.sortable = isSortable;
-    }
-
-    /**
-     * Get name given to server for sorting this column
-     * @return name given to server for sorting this column
-     */
-    public String getSortName()
-    {
-        return sortName;
-    }
-
-    /**
-     * Set name given to server for sorting this column
-     * @param sortName name given to server for sorting this column
-     */
-    public void setSortName(String sortName)
-    {
-        this.sortName = sortName;
     }
 
     /**
@@ -413,6 +387,15 @@ public class HeaderCell
         {
             ((MultipleHtmlAttribute) classAttributes).addAttributeValue(cssClass);
         }
+    }
+
+    /**
+     * return the open tag for a cell (td).
+     * @return String &lt;td> tag with attributes
+     */
+    public String getOpenTag()
+    {
+        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, this.htmlAttributes);
     }
 
     /**
@@ -515,117 +498,14 @@ public class HeaderCell
     }
 
     /**
-     * Sets the default sort order for this column
-     * @return default order
-     */
-    public SortOrderEnum getDefaultSortOrder()
-    {
-        return this.defaultSortOrder;
-    }
-
-    /**
-     * Gets the default sort order for this column
-     * @param order default order
-     */
-    public void setDefaultSortOrder(SortOrderEnum order)
-    {
-        this.defaultSortOrder = order;
-    }
-
-    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("columnNumber", this.columnNumber) //$NON-NLS-1$
             .append("title", this.title) //$NON-NLS-1$
             .append("beanPropertyName", this.beanPropertyName) //$NON-NLS-1$
             .toString();
     }
-
-    /**
-     * Set the column comparator.
-     * @param columnComparator the value
-     */
-    public void setComparator(Comparator columnComparator)
-    {
-        this.comparator = columnComparator;
-    }
-
-    /**
-     * Get the comparator for sorting this column.
-     * @return the comparator
-     */
-    public Comparator getComparator()
-    {
-        return this.comparator;
-    }
-
-    /**
-     * Will we be keeping a total for this column?
-     * @return true if we are totaling
-     */
-    public boolean isTotaled()
-    {
-        return totaled;
-    }
-
-    /**
-     * Setter for totaled.
-     * @param isTotaled the value
-     */
-    public void setTotaled(boolean isTotaled)
-    {
-        this.totaled = isTotaled;
-    }
-
-    /**
-     * Add the value of this parameter to the column total. The param will be converted to a number via a property
-     * Converter.
-     * @param value the value
-     * @see Converter#convert(Class, Object)
-     */
-    private void addToTotal(Object value)
-    {
-        if (value != null)
-        {
-            this.total = this.total + ((Number) value).doubleValue();
-        }
-    }
-
-    /**
-     * Get the current total.
-     * @return the current total.
-     */
-    public double getTotal()
-    {
-        return this.total;
-    }
-
-    /**
-     * Add a new cell to this column.
-     * @param column the value
-     */
-    public void addCell(Column column)
-    {
-        // Not actually going to hold a reference to the added cell - we just need access for the totals
-        if (this.totaled)
-        {
-            try
-            {
-                Object val = column.getValue(false);
-                addToTotal(val);
-            }
-            catch (ObjectLookupException e)
-            {
-                throw new RuntimeException(e);
-            }
-            catch (DecoratorException e)
-            {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
 }

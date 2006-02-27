@@ -54,20 +54,20 @@ public final class DependencyChecker
             Class stringUtils = Class.forName("org.apache.commons.lang.StringUtils"); //$NON-NLS-1$
             try
             {
-                // this method is new in commons-lang 2.1
-                stringUtils.getMethod("splitPreserveAllTokens", new Class[]{String.class}); //$NON-NLS-1$
+                // this method is new in commons-lang 2.0
+                stringUtils.getMethod("capitalize", new Class[]{String.class}); //$NON-NLS-1$
             }
             catch (NoSuchMethodException ee)
             {
                 throw new JspTagException(Messages.getString("DependencyChecker.lib.incompatible", //$NON-NLS-1$
-                    new Object[]{"commons-lang", "2.1", "http://jakarta.apache.org/commons/lang"} //$NON-NLS-1$ //$NON-NLS-1$
+                    new Object[]{"commons-lang", new Integer(2), "http://jakarta.apache.org/commons/lang"} //$NON-NLS-1$ //$NON-NLS-1$
                     ));
             }
         }
         catch (ClassNotFoundException e)
         {
             throw new JspTagException(Messages.getString("DependencyChecker.lib.missing", //$NON-NLS-1$
-                new Object[]{"commons-lang", "2.1", "http://jakarta.apache.org/commons/lang"} //$NON-NLS-1$ //$NON-NLS-1$
+                new Object[]{"commons-lang", new Integer(2), "http://jakarta.apache.org/commons/lang"} //$NON-NLS-1$ //$NON-NLS-1$
                 ));
         }
         commonsLangChecked = true;

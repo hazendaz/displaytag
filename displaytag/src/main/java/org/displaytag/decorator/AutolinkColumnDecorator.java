@@ -11,11 +11,8 @@
  */
 package org.displaytag.decorator;
 
-import javax.servlet.jsp.PageContext;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.TagConstants;
 
 
@@ -25,13 +22,13 @@ import org.displaytag.util.TagConstants;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
+public class AutolinkColumnDecorator implements ColumnDecorator
 {
 
     /**
-     * Instance used for the "autolink" tag attribute.
+     * Instance used for the "autolink" tag attribute. Will be removed in future along with the attribute.
      */
-    public static final DisplaytagColumnDecorator INSTANCE = new AutolinkColumnDecorator();
+    public static final ColumnDecorator INSTANCE = new AutolinkColumnDecorator();
 
     /**
      * "://".
@@ -45,11 +42,10 @@ public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
     new String[]{"http", "https", "ftp"}; //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$
 
     /**
-     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
+     * @see org.displaytag.decorator.ColumnDecorator#decorate(java.lang.Object)
      */
-    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
+    public String decorate(Object columnValue)
     {
-
         if (columnValue == null)
         {
             return null;

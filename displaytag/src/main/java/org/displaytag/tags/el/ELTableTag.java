@@ -89,11 +89,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private String pagesizeExpr;
 
     /**
-     * Expression for the "partialList" tag attribute.
-     */
-    private String partialListExpr;
-
-    /**
      * Expression for the "requestURI" tag attribute.
      */
     private String requestURIExpr;
@@ -107,11 +102,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
      * Expression for the "rules" tag attribute.
      */
     private String rulesExpr;
-
-    /**
-     * Expression for the "size" tag attribute
-     */
-    private String sizeExpr;
 
     /**
      * Expression for the "sort" tag attribute.
@@ -158,24 +148,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     public void setCellpadding(String value)
     {
         cellpaddingExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.TableTag#setStyle(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setStyle(String value)
-    {
-        styleExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.TableTag#setSummary(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setSummary(String value)
-    {
-        summaryExpr = value;
     }
 
     /**
@@ -305,15 +277,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     }
 
     /**
-     * @param value EL expression for attribute value
-     * @see org.displaytag.tags.TableTag#setSize(java.lang.String)
-     */
-    public void setSize(String value)
-    {
-        sizeExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.TableTag#setSort(java.lang.String)
      * @param value EL expression for attribute value
      */
@@ -338,6 +301,14 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     public void setHtmlId(String value)
     {
         htmlIdExpr = value;
+    }
+
+    /**
+     * @see org.displaytag.tags.TableTag#getHtmlId()
+     */
+    public String getHtmlId()
+    {
+        return htmlIdExpr;
     }
 
     /**
@@ -428,10 +399,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         {
             super.setPagesize(eval.evalInt("pagesize", pagesizeExpr)); //$NON-NLS-1$
         }
-        if (partialListExpr != null)
-        {
-            super.setPartialList(eval.evalBoolean("partialList", partialListExpr)); //$NON-NLS-1$
-        }
         if (requestURIExpr != null)
         {
             super.setRequestURI(eval.evalString("requestURI", requestURIExpr)); //$NON-NLS-1$
@@ -443,21 +410,6 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         if (rulesExpr != null)
         {
             super.setRules(eval.evalString("rules", rulesExpr)); //$NON-NLS-1$
-        }
-        if (sizeExpr != null)
-        {
-            Object source = eval.eval("size", sizeExpr, Object.class); //$NON-NLS-1$
-
-            // be more user-friendly: accept both EL and legacy expressions
-            if (source instanceof String)
-            {
-                super.setSizeObjectName((String) source);
-            }
-            else
-            {
-                // evaluate size only once, so assign it to the "size" object
-                super.setSize(source);
-            }
         }
         if (sortExpr != null)
         {
@@ -491,11 +443,9 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         this.nameExpr = null;
         this.offsetExpr = null;
         this.pagesizeExpr = null;
-        this.partialListExpr = null;
         this.requestURIExpr = null;
         this.requestURIcontextExpr = null;
         this.rulesExpr = null;
-        this.sizeExpr = null;
         this.sortExpr = null;
         this.styleExpr = null;
         this.summaryExpr = null;

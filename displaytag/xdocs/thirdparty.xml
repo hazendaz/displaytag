@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<document>
+    <properties>
+        <title>Third Party Extensions</title>
+        <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+    </properties>
+    <body>
+        <section name="Third Party Extensions and related libraries">
+            <p>This page lists third party extensions and projects similar to or derived from ours.</p>
+
+            <subsection name="nav:alphanavbar tag library">
+                <p>
+                    The Alphabetical Navigation Bar Java Display Tag Library, &lt;nav:alphanavbar: *&gt; , creates an
+                    alphabetic navigation bar by slicing and dicing string data stored in a java.util.List object into
+                    36 alphabetically sorted sub list.
+                </p>
+                <p>
+                    <a href="http://www.aikiinc.com/alphanavbar/">Alphabetical Navigation Bar</a>
+                </p>
+            </subsection>
+
+
+            <subsection name="Valuelist">
+                <p>Implementation of the Core J2EE Patterns - Value List Handler.</p>
+                <p>Not based on displaytag, although it seems to inherit something in examples and documentation.</p>
+                <p>
+                    <a href="http://valuelist.sourceforge.net">Value List Handler</a>
+                </p>
+            </subsection>
+
+
+        </section>
+    </body>
+</document>

@@ -11,15 +11,11 @@
  */
 package org.displaytag.tags;
 
-import java.util.List;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.displaytag.exception.TagStructureException;
-import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.MediaUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
@@ -29,7 +25,7 @@ import org.displaytag.util.TagConstants;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedia
+public class CaptionTag extends BodyTagSupport
 {
 
     /**
@@ -46,11 +42,6 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
      * is this the first iteration?
      */
     private boolean firstIteration = true;
-
-    /**
-     * The media supported attribute.
-     */
-    private List supportedMedia;
 
     /**
      * setter for the "style" html attribute.
@@ -150,12 +141,6 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
             throw new TagStructureException(getClass(), "caption", "table"); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-        if (!MediaUtil.availableForMedia(this, currentMediaType))
-        {
-            return SKIP_BODY;
-        }
-
         // add caption only once
         if (tableTag.isFirstIteration())
         {
@@ -166,31 +151,6 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
 
         this.firstIteration = false;
         return SKIP_BODY;
-    }
-
-    /**
-     * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
-     */
-    public void setSupportedMedia(List media)
-    {
-        this.supportedMedia = media;
-    }
-
-    /**
-     * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
-     */
-    public List getSupportedMedia()
-    {
-        return this.supportedMedia;
-    }
-
-    /**
-     * Tag setter.
-     * @param media the space delimited list of supported types
-     */
-    public void setMedia(String media)
-    {
-        MediaUtil.setMedia(this, media);
     }
 
     /**
@@ -207,20 +167,17 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
                 throw new TagStructureException(getClass(), "caption", "table"); //$NON-NLS-1$ //$NON-NLS-2$
             }
 
-            MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext
-                .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-            if (currentMediaType != null && !MediaUtil.availableForMedia(this, currentMediaType))
-            {
-                return SKIP_BODY;
-            }
+            StringBuffer buffer = new StringBuffer();
+            buffer.append(getOpenTag());
 
             if (getBodyContent() != null)
             {
-                // set the caption format-agnostic content so it can be written in various formats.
-                tableTag.setCaption(getBodyContent().getString());
-                // set the nested caption tag to write the caption in html format. See HtmlTableWriter.writeCaption
-                tableTag.setCaptionTag(this);
+                buffer.append(getBodyContent().getString());
             }
+
+            buffer.append(getCloseTag());
+
+            tableTag.setCaption(buffer.toString());
 
             this.firstIteration = false;
 
@@ -236,7 +193,6 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     {
         super.release();
         this.attributeMap.clear();
-        this.supportedMedia = null;
     }
 
 }

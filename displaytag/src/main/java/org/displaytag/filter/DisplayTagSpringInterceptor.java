@@ -104,7 +104,7 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
             return true;
         }
 
-        BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl(response);
+        BufferedResponseWrapper wrapper = new BufferedResponseWrapper12Impl(response);
 
         Map contentBean = new HashMap(4);
         if (buffer)

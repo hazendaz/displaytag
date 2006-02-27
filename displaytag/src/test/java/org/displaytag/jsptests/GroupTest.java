@@ -44,7 +44,7 @@ public class GroupTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        assertEquals("Expected one table in result.", 1, tables.length);
         assertEquals("Wrong number of rows in table.", 3, tables[0].getRowCount());
 
         assertEquals("Column not grouped.", "", tables[0].getCellAsText(2, 0));

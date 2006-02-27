@@ -46,7 +46,7 @@ public class Displ109Test extends DisplaytagCase
 
         HTMLElement pagination = response.getElementWithID("pagination");
         assertNotNull("Paging banner not found.", pagination);
-        assertEquals("Pagination links are not as expected.", "7, 8, [9], 10, 11", pagination.getText());
+        assertEquals("Pagination links are not as expected.", pagination.getText(), "7, 8, [9], 10, 11");
 
     }
 }

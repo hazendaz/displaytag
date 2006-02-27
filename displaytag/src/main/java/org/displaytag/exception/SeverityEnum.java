@@ -11,7 +11,7 @@
  */
 package org.displaytag.exception;
 
-import org.apache.commons.lang.enums.Enum;
+import org.apache.commons.lang.enum.Enum;
 
 
 /**

@@ -70,7 +70,7 @@ public class Displ107Test extends DisplaytagCase
         byte[] result = new byte[11];
         stream.read(result);
 
-        byte[] expected = "ant,Γ Γ¨Γ¬\n".getBytes("utf-8");
+        byte[] expected = "ant,ΰθμ\n".getBytes("utf-8");
         if (log.isDebugEnabled())
         {
             log.debug("expected: [" + new String(expected, "utf-8") + "]");

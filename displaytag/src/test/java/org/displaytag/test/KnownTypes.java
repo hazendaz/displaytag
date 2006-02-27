@@ -17,8 +17,7 @@ public class KnownTypes
     public static final String TIME_PROPERTY = "time";
 
     /**
-     * constant for the "time" property value. For the curious, evals to Mon Mar 01 18:00:00 CST 3875 (if you are in
-     * Chicago).
+     * constant for the "time" property value.
      */
     public static final Date TIME_VALUE = new Date(60121180800000L);
 
@@ -48,15 +47,6 @@ public class KnownTypes
     public Long getLong()
     {
         return LONG_VALUE;
-    }
-
-    /**
-     * getter for a null property.
-     * @return <code>null</code>
-     */
-    public Long getNullValue()
-    {
-        return null;
     }
 
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Overview</title>
+        <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
+    </properties>
+    <body>
+        <section name="Overview">
+            <p>
+                The display tag library is an open source suite of custom tags that provide high-level web presentation
+                patterns which will work in an MVC model. The library provides a significant amount of functionality
+                while still being easy to use.
+            </p>
+        </section>
+        <section name="What can I do with it?">
+            <p>
+                Actually the display tag library can just... display tables! Give it a list of objects and it will
+                handle column display, sorting, paging, cropping, grouping, exporting, smart linking and decoration of a
+                table in a customizable XHTML style.
+            </p>
+            <p>The tables in the sample images below were generated from lists using the &lt;display:table&gt; tag:</p>
+            <img src="images/sample_snapshot.png" width="562" height="543"
+                alt="sample tables produced with the display:table tag" />
+        </section>
+    </body>
+</document>

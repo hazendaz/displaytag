@@ -105,7 +105,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
                     log.debug("Adding charset: [" + charset + "]");
                 }
 
-                getResponse().setContentType(StringUtils.substringBefore(theContentType, "charset") + '=' + charset);
+                getResponse().setContentType(StringUtils.substringBefore(theContentType, "charset") + ' ' + charset);
             }
             else
             {

@@ -46,7 +46,7 @@ public class Displ136Test extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
         assertEquals("Wrong number of tables.", 1, tables.length);
-        assertEquals("Wrong number of rows.", 2, tables[0].getRowCount());
+        assertEquals("Wrong number of rows.", 3, tables[0].getRowCount());
         assertEquals("Column content missing?", "ant", tables[0].getCellAsText(1, 0));
 
     }

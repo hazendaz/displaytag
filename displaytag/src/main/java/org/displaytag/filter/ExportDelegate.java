@@ -36,7 +36,7 @@ public final class ExportDelegate
 {
 
     /**
-     * logger.
+     * logger
      */
     private static Log log = LogFactory.getLog(ExportDelegate.class);
 
@@ -87,9 +87,7 @@ public final class ExportDelegate
                 log.debug("Filter is enabled but exported content has not been found. Maybe an error occurred?");
             }
 
-            response.setContentType(wrapper.getContentType());
             PrintWriter out = response.getWriter();
-
             out.write(wrapper.getContentAsString());
             out.flush();
             return;

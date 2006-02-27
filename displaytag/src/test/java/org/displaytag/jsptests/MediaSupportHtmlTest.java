@@ -45,16 +45,14 @@ public class MediaSupportHtmlTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        assertEquals("Expected one table in result.", 1, tables.length);
 
         assertEquals("Bad number of generated columns.", 2, tables[0].getColumnCount());
 
         assertEquals("Bad value in column header.", //
-            StringUtils.capitalize(KnownValue.ANT),
-            tables[0].getCellAsText(0, 0));
+            StringUtils.capitalize(KnownValue.ANT), tables[0].getCellAsText(0, 0));
         assertEquals("Bad value in column header.", //
-            StringUtils.capitalize(KnownValue.CAMEL),
-            tables[0].getCellAsText(0, 1));
+            StringUtils.capitalize(KnownValue.CAMEL), tables[0].getCellAsText(0, 1));
     }
 
 }

@@ -50,7 +50,7 @@ public class ToStringTest extends TestCase
      */
     public void testSmartListHelper()
     {
-        checkToString(new SmartListHelper(new ArrayList(), 100, 10, TableProperties.getInstance(null), false));
+        checkToString(new SmartListHelper(new ArrayList(), 100, 10, TableProperties.getInstance(null)));
     }
 
     /**
@@ -106,7 +106,7 @@ public class ToStringTest extends TestCase
      */
     public void testTableModel()
     {
-        checkToString(new TableModel(null, null, null));
+        checkToString(new TableModel(null, null));
     }
 
     /**

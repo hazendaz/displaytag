@@ -11,22 +11,19 @@
  */
 package org.displaytag.model;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.displaytag.decorator.DisplaytagColumnDecorator;
+import org.displaytag.decorator.AutolinkColumnDecorator;
+import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.Anchor;
+import org.displaytag.util.CompatibleUrlEncoder;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.LookupUtil;
+import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
 
 
@@ -80,15 +77,6 @@ public class Column
     }
 
     /**
-     * Get the header cell for this column.
-     * @return the cell
-     */
-    public HeaderCell getHeaderCell()
-    {
-        return this.header;
-    }
-
-    /**
      * Gets the value, after calling the table / column decorator is requested.
      * @param decorated boolean
      * @return Object
@@ -107,16 +95,14 @@ public class Column
         }
         else if (this.header.getBeanPropertyName() != null)
         {
+            TableDecorator tableDecorator = this.row.getParentTable().getTableDecorator();
 
             // if a decorator has been set, and if decorator has a getter for the requested property only, check
             // decorator
-            if (decorated
-                && this.row.getParentTable().getTableDecorator() != null
-                && this.row.getParentTable().getTableDecorator().hasGetterFor(this.header.getBeanPropertyName()))
+            if (decorated && tableDecorator != null && tableDecorator.hasGetterFor(this.header.getBeanPropertyName()))
             {
 
-                object = LookupUtil.getBeanProperty(this.row.getParentTable().getTableDecorator(), this.header
-                    .getBeanPropertyName());
+                object = LookupUtil.getBeanProperty(tableDecorator, this.header.getBeanPropertyName());
             }
             else
             {
@@ -125,18 +111,12 @@ public class Column
             }
         }
 
-        DisplaytagColumnDecorator[] decorators = this.header.getColumnDecorators();
-        if (decorated)
+        if (decorated && (this.header.getColumnDecorator() != null))
         {
-            for (int j = 0; j < decorators.length; j++)
-            {
-                object = decorators[j].decorate(object, row.getParentTable().getPageContext(), row
-                    .getParentTable()
-                    .getMedia());
-            }
+            object = this.header.getColumnDecorator().decorate(object);
         }
 
-        if (object == null || "null".equals(object)) //$NON-NLS-1$
+        if (object == null || object.equals("null")) //$NON-NLS-1$
         {
             if (!this.header.getShowNulls())
             {
@@ -150,33 +130,14 @@ public class Column
     /**
      * Generates the cell open tag.
      * @return String td open tag
-     */
-    public String getOpenTag()
-    {
-        HtmlAttributeMap rowAttributes = cell.getPerRowAttributes();
-
-        HtmlAttributeMap atts = htmlAttributes;
-        if (rowAttributes != null)
-        {
-            atts = (HtmlAttributeMap) atts.clone();
-            atts.putAll(rowAttributes);
-        }
-        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, atts);
-    }
-
-    /**
-     * Initialize the cell value.
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
-     * @throws DecoratorException
-     * @throws ObjectLookupException
      */
-    public void initialize() throws DecoratorException, ObjectLookupException
+    public String getOpenTag() throws ObjectLookupException, DecoratorException
     {
-        if (this.stringValue == null)
-        {
-            this.stringValue = createChoppedAndLinkedValue();
-        }
+        this.stringValue = createChoppedAndLinkedValue();
+
+        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, this.htmlAttributes);
     }
 
     /**
@@ -201,6 +162,12 @@ public class Column
         String fullValue = ObjectUtils.toString(getValue(true));
         String choppedValue;
 
+        // are we supposed to set up a link to the data being displayed in this column?
+        if (this.header.getAutoLink())
+        {
+            fullValue = AutolinkColumnDecorator.INSTANCE.decorate(fullValue);
+        }
+
         // trim the string if a maxLength or maxWords is defined
         if (this.header.getMaxLength() > 0)
         {
@@ -216,9 +183,7 @@ public class Column
         }
 
         // chopped content? add the full content to the column "title" attribute
-        // note, simply checking that length is less than before can't be enough due to the "..." added if the string is
-        // cropped
-        if (!ObjectUtils.equals(fullValue, choppedValue))
+        if (choppedValue.length() < fullValue.length())
         {
             // clone the attribute map, don't want to add title to all the columns
             this.htmlAttributes = (HtmlAttributeMap) this.htmlAttributes.clone();
@@ -246,7 +211,7 @@ public class Column
     private Href getColumnHref(String columnContent) throws ObjectLookupException
     {
         // copy href
-        Href colHref = (Href) this.header.getHref().clone();
+        Href colHref = new Href(this.header.getHref());
 
         // do we need to add a param?
         if (this.header.getParamName() != null)
@@ -268,23 +233,16 @@ public class Column
 
             if (paramValue != null)
             {
-                try
-                {
-                    colHref.addParameter(this.header.getParamName(), URLEncoder.encode(
-                        paramValue.toString(),
-                        StringUtils.defaultString(this.row.getParentTable().getEncoding(), "UTF8"))); //$NON-NLS-1$
-                }
-                catch (UnsupportedEncodingException e)
-                {
-                    throw new UnhandledException(e);
-                }
+                colHref.addParameter(this.header.getParamName(), CompatibleUrlEncoder.encode(
+                    paramValue.toString(),
+                    this.row.getParentTable().getEncoding()));
             }
         }
         return colHref;
     }
 
     /**
-     * get the final value to be displayed in the table. This method can only be called after initialize(), where the
+     * get the final value to be displayed in the table. This method can only be called after getOpenTag(), where the
      * content is evaluated
      * @return String final value to be displayed in the table
      */
@@ -294,11 +252,20 @@ public class Column
     }
 
     /**
+     * returns the grouping order of this column or -1 if the column is not grouped.
+     * @return int grouping order of this column or -1 if the column is not grouped
+     */
+    public int getGroup()
+    {
+        return this.header.getGroup();
+    }
+
+    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("cell", this.cell) //$NON-NLS-1$
             .append("header", this.header) //$NON-NLS-1$
             .append("htmlAttributes", this.htmlAttributes) //$NON-NLS-1$

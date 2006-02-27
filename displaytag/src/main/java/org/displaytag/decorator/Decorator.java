@@ -19,7 +19,6 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.BooleanUtils;
-import org.displaytag.model.TableModel;
 
 
 /**
@@ -58,37 +57,14 @@ abstract class Decorator
     private Object decoratedObject;
 
     /**
-     * The table model.
-     * @since 1.1
-     */
-    protected TableModel tableModel;
-
-    /**
      * Initialize the TableTecorator instance.
      * @param context PageContext
      * @param decorated decorated object (usually a list)
-     * @deprecated use #init(PageContext, Object, TableModel)
-     * @see #init(PageContext, Object, TableModel)
      */
     public void init(PageContext context, Object decorated)
     {
         this.pageContext = context;
         this.decoratedObject = decorated;
-    }
-
-    /**
-     * Initialize the TableTecorator instance.
-     * @param context PageContext
-     * @param decorated decorated object (usually a list)
-     * @param tableModel table model
-     */
-    public void init(PageContext context, Object decorated, TableModel tableModel)
-    {
-        // temporary used for backward (source) compatibility
-        init(pageContext, decorated);
-        // this.pageContext = context;
-        // this.decoratedObject = decorated;
-        this.tableModel = tableModel;
     }
 
     /**

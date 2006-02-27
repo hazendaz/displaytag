@@ -15,12 +15,12 @@ import java.text.MessageFormat;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
+import org.displaytag.util.ShortToStringStyle;
 
 
 /**
@@ -63,11 +63,6 @@ public class SmartListHelper
     private int pageCount;
 
     /**
-     * the list we hold is only part of the full dataset
-     */
-    private boolean partialList;
-
-    /**
      * index of current page.
      */
     private int currentPage;
@@ -85,12 +80,7 @@ public class SmartListHelper
      * @param itemsInPage number of items in a page (int > 0)
      * @param tableProperties TableProperties
      */
-    public SmartListHelper(
-        List list,
-        int fullSize,
-        int itemsInPage,
-        TableProperties tableProperties,
-        boolean partialList)
+    public SmartListHelper(List list, int fullSize, int itemsInPage, TableProperties tableProperties)
     {
         if (log.isDebugEnabled())
         {
@@ -104,15 +94,6 @@ public class SmartListHelper
         this.fullListSize = fullSize;
         this.pageCount = computedPageCount();
         this.currentPage = 1;
-        this.partialList = partialList;
-    }
-
-    /**
-     * Constructor that can be used by subclasses. Subclasses that use this constructor must also override all the
-     * public methods, since this constructor does nothing.
-     */
-    protected SmartListHelper()
-    {
     }
 
     /**
@@ -124,7 +105,8 @@ public class SmartListHelper
     {
         int size = this.fullListSize;
         int div = size / this.pageSize;
-        int result = (size % this.pageSize == 0) ? div : div + 1;
+        int mod = size % this.pageSize;
+        int result = (mod == 0) ? div : div + 1;
 
         return result;
     }
@@ -157,14 +139,7 @@ public class SmartListHelper
      */
     protected int getFirstIndexForPage(int pageNumber)
     {
-        if (this.partialList)
-        {
-            return 0;
-        }
-        else
-        {
-            return (pageNumber - 1) * this.pageSize;
-        }
+        return (pageNumber - 1) * this.pageSize;
     }
 
     /**
@@ -174,19 +149,12 @@ public class SmartListHelper
      */
     protected int getLastIndexForPage(int pageNumber)
     {
-        if (this.partialList)
-        {
-            // return the min of pageSize or list size on the off chance they gave us more data than pageSize allows
-            return Math.min(this.pageSize - 1, this.fullList.size() - 1);
-        }
-        else
-        {
-            int firstIndex = getFirstIndexForPage(pageNumber);
-            int pageIndex = this.pageSize - 1;
-            int lastIndex = this.fullListSize - 1;
 
-            return Math.min(firstIndex + pageIndex, lastIndex);
-        }
+        int firstIndex = getFirstIndexForPage(pageNumber);
+        int pageIndex = this.pageSize - 1;
+        int lastIndex = this.fullListSize - 1;
+
+        return Math.min(firstIndex + pageIndex, lastIndex);
     }
 
     /**
@@ -231,16 +199,11 @@ public class SmartListHelper
                 new Object[]{new Integer(pageNumber), new Integer(this.pageCount)}));
         }
 
-        if (pageNumber < 1)
+        if (pageNumber < 1 || ((pageNumber != 1) && (pageNumber > this.pageCount)))
         {
             // invalid page: better don't throw an exception, since this could easily happen
             // (list changed, user bookmarked the page)
             this.currentPage = 1;
-        }
-        else if (pageNumber != 1 && pageNumber > this.pageCount)
-        {
-            // invalid page: set to last page
-            this.currentPage = this.pageCount;
         }
         else
         {
@@ -319,7 +282,7 @@ public class SmartListHelper
 
         // center the selected page, but only if there are {groupSize} pages available after it, and check that the
         // result is not < 1
-        startPage = Math.max(Math.min(this.currentPage - groupSize / 2, this.pageCount - (groupSize - 1)), 1);
+        startPage = Math.max(Math.min(this.currentPage - groupSize / 2, this.pageCount - groupSize), 1);
         endPage = Math.min(startPage + groupSize - 1, this.pageCount);
 
         if (log.isDebugEnabled())
@@ -377,14 +340,13 @@ public class SmartListHelper
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("fullList", this.fullList) //$NON-NLS-1$
             .append("fullListSize", this.fullListSize) //$NON-NLS-1$
             .append("pageSize", this.pageSize) //$NON-NLS-1$
             .append("pageCount", this.pageCount) //$NON-NLS-1$
             .append("properties", this.properties) //$NON-NLS-1$
             .append("currentPage", this.currentPage) //$NON-NLS-1$
-            .append("partialList", this.partialList) //$NON-NLS-1$
             .toString();
     }
 }

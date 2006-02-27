@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+
+    <properties>
+        <title>Dependencies</title>
+    </properties>
+
+    <body>
+        <section name="Dependencies">
+            <p>
+                The following is a list of dependencies for this project. These dependencies are required to compile or
+                run the application. Most of the libraries listed here are actually needed only at build time or during
+                tests (mainly for framework integration tests) and you should not worry about them.
+            </p>
+
+            <subsection name="Required at runtime">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Artifact ID</th>
+                            <th>Type</th>
+                            <th>Version</th>
+                            <th colspan="4">URL/comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">commons-beanutils</td>
+                            <td>jar</td>
+                            <td>1.6.1</td>
+                            <td colspan="4">
+                                <a href="http://jakarta.apache.org/commons/beanutils">
+                                    http://jakarta.apache.org/commons/beanutils
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">commons-collections</td>
+                            <td>jar</td>
+                            <td>2.1.1</td>
+                            <td colspan="4">
+                                <a href="http://jakarta.apache.org/commons/collections">
+                                    http://jakarta.apache.org/commons/collections
+                                </a>
+                                also 3.0 is supported.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">commons-lang</td>
+                            <td>jar</td>
+                            <td>2.0</td>
+                            <td colspan="4">
+                                <a href="http://jakarta.apache.org/commons/lang">
+                                    http://jakarta.apache.org/commons/lang
+                                </a>
+                                commons-lang 1.0 will not work
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">commons-logging</td>
+                            <td>jar</td>
+                            <td>1.0.4</td>
+                            <td colspan="4">
+                                <a href="http://jakarta.apache.org/commons/logging">
+                                    http://jakarta.apache.org/commons/logging
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </subsection>
+
+            <subsection name="Required for the EL version">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Artifact ID</th>
+                            <th>Type</th>
+                            <th>Version</th>
+                            <th colspan="4">URL/comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">jstl</td>
+                            <td>jar</td>
+                            <td>1.0.2</td>
+                            <td colspan="4">
+                                <a href="http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/">
+                                    http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">standard</td>
+                            <td>jar</td>
+                            <td>1.0.4</td>
+                            <td colspan="4">
+                                <a href="http://jakarta.apache.org/taglibs/">http://jakarta.apache.org/taglibs/</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </subsection>
+
+            <subsection name="Optional (and needed for compiling)">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Artifact ID</th>
+                            <th>Type</th>
+                            <th>Version</th>
+                            <th colspan="4">URL/comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">itext</td>
+                            <td>jar</td>
+                            <td>0.99</td>
+                            <td colspan="4">
+                                <a href="http://prdownloads.sourceforge.net/itext/">
+                                    http://prdownloads.sourceforge.net/itext/
+                                </a>
+                                Needed at build time to compile classes for the PDF export. Needed at runtime to enable
+                                PDF export.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </subsection>
+
+            <subsection name="Only required to build or to run unit tests">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Artifact ID</th>
+                            <th>Type</th>
+                            <th>Version</th>
+                            <th colspan="4">URL/comments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2">portlet-api</td>
+                            <td>jar</td>
+                            <td>unknown</td>
+                            <td colspan="4">
+                                <a href="http://jakarta.apache.org/jetspeed/site/install.html">
+                                    http://jakarta.apache.org/jetspeed/site/install.html
+                                </a>
+                                Required to build jetspeed/websphere portal server support classes. Not needed at
+                                runtime.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">log4j</td>
+                            <td>jar</td>
+                            <td>1.2.8</td>
+                            <td colspan="4">
+                                <a href="http://logging.apache.org/log4j/docs/index.html">
+                                    http://logging.apache.org/log4j/docs/index.html
+                                </a>
+                                optional: you can use any logging framework supported by commons-logging
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">maven-taglib-plugin</td>
+                            <td>plugin</td>
+                            <td>1.2</td>
+                            <td colspan="4">
+                                <a href="http://maven-taglib.sourceforge.net">http://maven-taglib.sourceforge.net</a>
+                                maven plugin needed to generate tag reference documentation page and to generate the 1.1
+                                version of the tld
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">servletapi</td>
+                            <td>jar</td>
+                            <td>2.3</td>
+                            <td colspan="4">
+                                Servlet 2.3 support is required to build the library. At runtime only servlet 2.2
+                                (tomcat 3, websphere 4) is strictly needed, servlet 2.3 support (tomcat 4, websphere 5)
+                                is needed only for the EL version of the taglib
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">httpunit</td>
+                            <td>jar</td>
+                            <td>1.6</td>
+                            <td colspan="4">
+                                <a href="http://httpunit.sourceforge.net">http://httpunit.sourceforge.net</a>
+                                Needed to compile and run HttpUnit tests.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">jtidy</td>
+                            <td>jar</td>
+                            <td>4aug2000r7-dev</td>
+                            <td colspan="4">
+                                <a href="http://jtidy.sourceforge.net">http://jtidy.sourceforge.net</a>
+                                Needed to run HttpUnit tests.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">nekohtml</td>
+                            <td>jar</td>
+                            <td>0.9.1</td>
+                            <td colspan="4">Needed to run HttpUnit tests.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">js</td>
+                            <td>jar</td>
+                            <td>1.5R4.1</td>
+                            <td colspan="4">Needed to run HttpUnit tests.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">jasper-compiler</td>
+                            <td>jar</td>
+                            <td>4.0.4</td>
+                            <td colspan="4">Needed to run HttpUnit tests.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">jasper-runtime</td>
+                            <td>jar</td>
+                            <td>4.0.4</td>
+                            <td colspan="4">Needed to run HttpUnit tests.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">xerces</td>
+                            <td>jar</td>
+                            <td>2.4.0</td>
+                            <td colspan="4">Needed to run HttpUnit tests.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">xml-apis</td>
+                            <td>jar</td>
+                            <td>1.0.b2</td>
+                            <td colspan="4">Needed to run HttpUnit tests.</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">tools</td>
+                            <td>jar</td>
+                            <td>1.3</td>
+                            <td colspan="4">
+                                <a href="http://java.sun.com/j2se/1.4.2/download.html">
+                                    http://java.sun.com/j2se/1.4.2/download.html
+                                </a>
+                                Needed to run HttpUnit tests. This is the tools.jar from sun jdk. Jar in not in maven
+                                repository but is set to JAVA_HOME/../lib/tools.jar in project.properties
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Struts</td>
+                            <td>jar</td>
+                            <td>1.2.4</td>
+                            <td colspan="4">
+                                <a href="http://struts.apache.org/">http://struts.apache.org/</a>
+                                Required to build Struts i18n adapter. Required at runtime only if you use Struts (if
+                                you wish to use it you should already have Struts in your project)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Spring</td>
+                            <td>jar</td>
+                            <td>1.1.1</td>
+                            <td colspan="4">
+                                <a href="http://www.springframework.org/">http://www.springframework.org/</a>
+                                Required to build Spring i18n adapter. Required at runtime only if you use Spring (if
+                                you wish to use it you should already have Spring in your project)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">commons-digester</td>
+                            <td>jar</td>
+                            <td>1.4.1</td>
+                            <td colspan="4">
+                                <a href="http://jakarta.apache.org/commons/digester">
+                                    http://jakarta.apache.org/commons/digester
+                                </a>
+                                Struts dependency needed to run Struts integration tests.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">webwork</td>
+                            <td>jar</td>
+                            <td>2.1.5</td>
+                            <td colspan="4">
+                                <a href="http://www.opensymphony.org/">http://www.opensymphony.org/</a>
+                                Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if
+                                you wish to use it you should already have Webwork in your project)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">xwork</td>
+                            <td>jar</td>
+                            <td>1.0.3</td>
+                            <td colspan="4">
+                                <a href="http://www.opensymphony.org/">http://www.opensymphony.org/</a>
+                                Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if
+                                you wish to use it you should already have Webwork in your project)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">oscore</td>
+                            <td>jar</td>
+                            <td>2.2.4</td>
+                            <td colspan="4">
+                                <a href="http://www.opensymphony.org/">http://www.opensymphony.org/</a>
+                                Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if
+                                you wish to use it you should already have Webwork in your project)
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">ognl</td>
+                            <td>jar</td>
+                            <td>2.6.5</td>
+                            <td colspan="4">
+                                <a href="http://www.ognl.org/">http://www.ognl.org/</a>
+                                Required to build Webwork i18n adapter. Required at runtime only if you use Webwork (if
+                                you wish to use it you should already have Webwork in your project)
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </subsection>
+        </section>
+    </body>
+</document>

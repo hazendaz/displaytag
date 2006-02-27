@@ -48,7 +48,7 @@ public class ListIndexTableDecoratorTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        assertEquals("Expected one table in result.", 1, tables.length);
         assertEquals("ViewIndex is wrong", "0", tables[0].getCellAsText(1, 0));
         assertEquals("ViewIndex is wrong", "1", tables[0].getCellAsText(2, 0));
 

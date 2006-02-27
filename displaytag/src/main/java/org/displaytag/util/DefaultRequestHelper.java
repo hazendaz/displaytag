@@ -11,8 +11,6 @@
  */
 package org.displaytag.util;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,9 +18,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
@@ -71,7 +67,7 @@ public class DefaultRequestHelper implements RequestHelper
     {
         String requestURI = this.request.getRequestURI();
         // call encodeURL to preserve session id when cookies are disabled
-        Href href = new DefaultHref(this.response.encodeURL(requestURI));
+        Href href = new Href(this.response.encodeURL(requestURI));
         href.setParameterMap(getParameterMap());
         return href;
     }
@@ -126,22 +122,13 @@ public class DefaultRequestHelper implements RequestHelper
             String paramName = (String) parametersName.nextElement();
 
             // put key/value in the map
-            String[] originalValues = (String[]) ObjectUtils.defaultIfNull(
-                this.request.getParameterValues(paramName),
-                new String[0]);
+            String[] originalValues = this.request.getParameterValues(paramName);
             String[] values = new String[originalValues.length];
 
             for (int i = 0; i < values.length; i++)
             {
-                try
-                {
-                    values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]), StringUtils
-                        .defaultString(response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
-                }
-                catch (UnsupportedEncodingException e)
-                {
-                    throw new UnhandledException(e);
-                }
+                values[i] = CompatibleUrlEncoder.encode(StringUtils.defaultString(originalValues[i]), response
+                    .getCharacterEncoding());
             }
             map.put(paramName, values);
 

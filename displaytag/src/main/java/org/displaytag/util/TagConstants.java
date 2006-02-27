@@ -210,11 +210,6 @@ public final class TagConstants
     public static final String ATTRIBUTE_CLASS = "class"; //$NON-NLS-1$
 
     /**
-     * html attribute <code>scope</code>.
-     */
-    public static final String ATTRIBUTE_SCOPE = "scope"; //$NON-NLS-1$
-
-    /**
      * html attribute <code>id</code>.
      */
     public static final String ATTRIBUTE_ID = "id"; //$NON-NLS-1$

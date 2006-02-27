@@ -13,13 +13,10 @@ package org.displaytag.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.ShortToStringStyle;
 import org.displaytag.util.TagConstants;
 
 
@@ -70,6 +67,14 @@ public class Row
     public void setRowNumber(int number)
     {
         this.rowNumber = number;
+    }
+
+    /**
+     * @return true if the current row number is odd
+     */
+    public boolean isOddRow()
+    {
+        return this.rowNumber % 2 == 0;
     }
 
     /**
@@ -142,46 +147,18 @@ public class Row
      */
     public String getOpenTag()
     {
-        Map rowAttributes = new HtmlAttributeMap();
-        MultipleHtmlAttribute cssAttribute = new MultipleHtmlAttribute(this.tableModel.getProperties().getCssRow(
-            this.rowNumber));
+        String css = this.tableModel.getProperties().getCssRow(this.rowNumber);
 
-        if (this.tableModel.getTableDecorator() != null)
+        if (StringUtils.isNotBlank(css))
         {
-            try
-            {
-                String addStyle = this.tableModel.getTableDecorator().addRowClass();
-
-                if (StringUtils.isNotBlank(addStyle))
-                {
-                    cssAttribute.addAttributeValue(addStyle);
-                }
-
-                String id = this.tableModel.getTableDecorator().addRowId();
-                if (StringUtils.isNotBlank(id))
-                {
-                    rowAttributes.put(TagConstants.ATTRIBUTE_ID, id);
-                }
-            }
-            catch (NoSuchMethodError e)
-            {
-                // this catch is here to allow decorators compiled with displaytag 1.0 work with 1.1
-                // since the addRowClass() and addRowId() are new in displaytag 1.1 earlier decorators could throw
-                // a NoSuchMethodError... be nice with them till a next major release
-            }
+            return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + " " //$NON-NLS-1$
+                + TagConstants.ATTRIBUTE_CLASS + "=\"" //$NON-NLS-1$
+                + css + "\"" //$NON-NLS-1$
+                + TagConstants.TAG_CLOSE;
         }
 
-        rowAttributes.put(TagConstants.ATTRIBUTE_CLASS, cssAttribute);
+        return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + TagConstants.TAG_CLOSE;
 
-        StringBuffer tag = new StringBuffer();
-        tag.append(TagConstants.TAG_OPEN);
-        tag.append(TagConstants.TAGNAME_ROW);
-
-        tag.append(rowAttributes.toString());
-
-        tag.append(TagConstants.TAG_CLOSE);
-
-        return tag.toString();
     }
 
     /**
@@ -198,7 +175,7 @@ public class Row
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("rowNumber", this.rowNumber) //$NON-NLS-1$
             .append("rowObject", this.rowObject) //$NON-NLS-1$
             .toString();

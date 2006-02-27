@@ -15,7 +15,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.taglibs.standard.lang.support.ExpressionEvaluatorManager;
 
 
@@ -60,12 +59,12 @@ public class ExpressionEvaluator
      */
     public Object eval(String attrName, String attrValue, Class returnClass) throws JspException
     {
-        return attrValue != null ? ExpressionEvaluatorManager.evaluate(
-            attrName,
-            attrValue,
-            returnClass,
-            this.tag,
-            this.pageContext) : null;
+        Object result = null;
+        if (attrValue != null)
+        {
+            result = ExpressionEvaluatorManager.evaluate(attrName, attrValue, returnClass, this.tag, this.pageContext);
+        }
+        return result;
     }
 
     /**
@@ -89,7 +88,13 @@ public class ExpressionEvaluator
      */
     public boolean evalBoolean(String attrName, String attrValue) throws JspException
     {
-        return BooleanUtils.toBoolean((Boolean) eval(attrName, attrValue, Boolean.class));
+        Boolean rtn = (Boolean) eval(attrName, attrValue, Boolean.class);
+        if (rtn != null)
+        {
+            return rtn.booleanValue();
+        }
+
+        return false;
     }
 
     /**

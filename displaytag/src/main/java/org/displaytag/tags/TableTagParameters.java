@@ -25,11 +25,6 @@ public final class TableTagParameters
     public static final String PARAMETER_SORT = "s"; //$NON-NLS-1$
 
     /**
-     * name of the parameter specifying that the sorted column will be specified using name and not index.
-     */
-    public static final String PARAMETER_SORTUSINGNAME = "n"; //$NON-NLS-1$
-
-    /**
      * name of the parameter specifying the current page number.
      */
     public static final String PARAMETER_PAGE = "p"; //$NON-NLS-1$
@@ -59,11 +54,6 @@ public final class TableTagParameters
      * sort the full list.
      */
     public static final String SORT_AMOUNT_LIST = "list"; //$NON-NLS-1$
-
-    /**
-     * let the server handle the sorting
-     */
-    public static final String SORT_AMOUNT_EXTERNAL = "external"; //$NON-NLS-1$
 
     /**
      * css class added to empty tables.

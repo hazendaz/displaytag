@@ -90,11 +90,6 @@ public class RowIterator
         return this.iterator.hasNext();
     }
 
-    public int getPageOffset()
-    {
-        return this.pageOffset;
-    }
-
     /**
      * Returns the next row object.
      * @return Row
@@ -117,7 +112,7 @@ public class RowIterator
 
         if (this.decorator != null)
         {
-            this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber + getPageOffset());
+            this.decorator.initRow(row.getObject(), currentRowNumber, this.pageOffset + currentRowNumber);
         }
 
         return row;

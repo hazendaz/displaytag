@@ -25,7 +25,6 @@ import org.displaytag.exception.DecoratorException;
  * @author epesh
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
- * @deprecated as of Displaytag 1.1 replaced by org.displaytag.decorator.DisplaytagColumnDecorator
  */
 public interface ColumnDecorator
 {
