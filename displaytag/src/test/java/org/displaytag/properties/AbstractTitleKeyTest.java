@@ -78,16 +78,13 @@ public abstract class AbstractTitleKeyTest extends DisplaytagCase
         assertEquals("Expected one table", 1, tables.length);
 
         assertEquals("Header from resource is not valid.", //
-            "foo title" + getExpectedSuffix(),
-            tables[0].getCellAsText(0, 0));
+            "foo title" + getExpectedSuffix(), tables[0].getCellAsText(0, 0));
 
         assertEquals("Header from resource is not valid.", //
-            "baz title" + getExpectedSuffix(),
-            tables[0].getCellAsText(0, 1));
+            "baz title" + getExpectedSuffix(), tables[0].getCellAsText(0, 1));
 
         assertEquals("Header from resource is not valid.", //
-            "camel title" + getExpectedSuffix(),
-            tables[0].getCellAsText(0, 2));
+            "camel title" + getExpectedSuffix(), tables[0].getCellAsText(0, 2));
 
         assertEquals("Missing resource should generate the ???missing??? header.", "???missing???", tables[0]
             .getCellAsText(0, 3));

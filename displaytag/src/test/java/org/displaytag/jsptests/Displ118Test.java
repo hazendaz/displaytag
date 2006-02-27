@@ -45,9 +45,9 @@ public class Displ118Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        assertEquals("Expected one table in result.", 1, tables.length);
 
-        assertNotNull("Not in page 2 as expected?", response.getElementWithID("PAGETWO"));
+        assertNotNull("Not in page one as expected?", response.getElementWithID("PAGEONE"));
 
     }
 

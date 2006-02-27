@@ -14,13 +14,15 @@ package org.displaytag.localization;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts.Globals;
-import org.apache.struts.config.ModuleConfig;
-import org.apache.struts.util.MessageResources;
+import org.apache.struts.taglib.TagUtils;
+import org.apache.struts.util.RequestUtils;
 
 
 /**
@@ -38,26 +40,16 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
     public static final String UNDEFINED_KEY = "???"; //$NON-NLS-1$
 
     /**
+     * logger.
+     */
+    private static Log log = LogFactory.getLog(I18nStrutsAdapter.class);
+
+    /**
      * @see LocaleResolver#resolveLocale(HttpServletRequest)
      */
     public Locale resolveLocale(HttpServletRequest request)
     {
-        Locale userLocale = null;
-        HttpSession session = request.getSession(false);
-
-        // Only check session if sessions are enabled
-        if (session != null)
-        {
-            userLocale = (Locale) session.getAttribute(Globals.LOCALE_KEY);
-        }
-
-        if (userLocale == null)
-        {
-            // Returns Locale based on Accept-Language header or the server default
-            userLocale = request.getLocale();
-        }
-
-        return userLocale;
+        return RequestUtils.getUserLocale(request, Globals.LOCALE_KEY);
     }
 
     /**
@@ -69,37 +61,14 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
         // if titleKey isn't defined either, use property
         String key = (resourceKey != null) ? resourceKey : defaultValue;
 
-        // retrieve MessageResources. Don't use TagUtils to mantain Struts 1.1 compatibility
-        MessageResources resources = (MessageResources) pageContext.getAttribute(
-            Globals.MESSAGES_KEY,
-            PageContext.REQUEST_SCOPE);
-
-        if (resources == null)
-        {
-            ModuleConfig moduleConfig = (ModuleConfig) pageContext.getRequest().getAttribute(Globals.MODULE_KEY);
-
-            if (moduleConfig == null)
-            {
-                moduleConfig = (ModuleConfig) pageContext.getServletContext().getAttribute(Globals.MODULE_KEY);
-                pageContext.getRequest().setAttribute(Globals.MODULE_KEY, moduleConfig);
-            }
-
-            resources = (MessageResources) pageContext.getAttribute(
-                Globals.MESSAGES_KEY + moduleConfig.getPrefix(),
-                PageContext.APPLICATION_SCOPE);
-        }
-
-        if (resources == null)
-        {
-            resources = (MessageResources) pageContext
-                .getAttribute(Globals.MESSAGES_KEY, PageContext.APPLICATION_SCOPE);
-        }
-
         String title = null;
-        if (resources != null)
+        try
         {
-            Locale userLocale = resolveLocale((HttpServletRequest) pageContext.getRequest());
-            title = resources.getMessage(userLocale, key);
+            title = TagUtils.getInstance().message(pageContext, null, Globals.LOCALE_KEY, key);
+        }
+        catch (JspException e)
+        {
+            log.debug("Error during lookup for title key [" + key + "]");
         }
 
         // if user explicitely added a titleKey we guess this is an error
@@ -110,5 +79,4 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
 
         return title;
     }
-
 }

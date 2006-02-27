@@ -11,12 +11,11 @@
  */
 package org.displaytag.util;
 
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
 
 
 /**
@@ -56,7 +55,7 @@ public class MultipleHtmlAttribute implements Cloneable
         int length = attributes.length;
 
         // create new HashSet with correct size
-        this.attributeSet = new LinkedHashSet(length);
+        this.attributeSet = new HashSet(length);
 
         // add all the splitted attributes
         for (int j = 0; j < length; j++)
@@ -114,7 +113,7 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     protected Object clone()
     {
-        MultipleHtmlAttribute clone;
+        MultipleHtmlAttribute clone = this;
 
         try
         {
@@ -123,7 +122,6 @@ public class MultipleHtmlAttribute implements Cloneable
         catch (CloneNotSupportedException e)
         {
             // should never happen
-            throw new UnhandledException(e);
         }
 
         // copy attributes

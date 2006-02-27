@@ -19,7 +19,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -105,7 +104,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
                     log.debug("Adding charset: [" + charset + "]");
                 }
 
-                getResponse().setContentType(StringUtils.substringBefore(theContentType, "charset") + '=' + charset);
+                getResponse().setContentType(StringUtils.substringBefore(theContentType, "charset") + ' ' + charset);
             }
             else
             {
@@ -180,10 +179,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
         }
         else
         {
-            if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
-            {
-                ((HttpServletResponse) getResponse()).addHeader(name, value);
-            }
+            ((HttpServletResponse) getResponse()).addHeader(name, value);
         }
     }
 
@@ -201,61 +197,6 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     public String getContentAsString()
     {
         return this.outputWriter.toString() + this.servletOutputStream.toString();
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#setDateHeader(java.lang.String, long)
-     */
-    public void setDateHeader(String name, long date)
-    {
-        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
-        {
-            ((HttpServletResponse) getResponse()).setDateHeader(name, date);
-        }
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#addDateHeader(java.lang.String, long)
-     */
-    public void addDateHeader(String name, long date)
-    {
-        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
-        {
-            ((HttpServletResponse) getResponse()).addDateHeader(name, date);
-        }
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
-     */
-    public void setHeader(String name, String value)
-    {
-        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
-        {
-            ((HttpServletResponse) getResponse()).setHeader(name, value);
-        }
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#setIntHeader(java.lang.String, int)
-     */
-    public void setIntHeader(String name, int value)
-    {
-        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
-        {
-            ((HttpServletResponse) getResponse()).setIntHeader(name, value);
-        }
-    }
-
-    /**
-     * @see javax.servlet.http.HttpServletResponse#addIntHeader(java.lang.String, int)
-     */
-    public void addIntHeader(String name, int value)
-    {
-        if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
-        {
-            ((HttpServletResponse) getResponse()).addIntHeader(name, value);
-        }
     }
 
 }

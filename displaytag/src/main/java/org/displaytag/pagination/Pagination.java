@@ -17,10 +17,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.util.Href;
+import org.displaytag.util.ShortToStringStyle;
 
 
 /**
@@ -258,6 +258,7 @@ public class Pagination
 
         // String for numbered pages
         String numberedPageString = buffer.toString();
+
         // Object array
         // {0} full String for numbered pages
         // {1} first page url
@@ -273,7 +274,7 @@ public class Pagination
             ((Href) this.href.clone()).addParameter(this.pageParam, getNext()),
             ((Href) this.href.clone()).addParameter(this.pageParam, getLast()),
             this.currentPage,
-            this.isLast() ? this.currentPage : this.lastPage}; // this.lastPage is null if the last page is displayed
+            new Integer(pages.size())};
 
         // return the full banner
         return MessageFormat.format(fullBanner, pageObjects);
@@ -284,7 +285,7 @@ public class Pagination
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("firstPage", this.firstPage) //$NON-NLS-1$
             .append("lastPage", this.lastPage) //$NON-NLS-1$
             .append("currentPage", this.currentPage) //$NON-NLS-1$

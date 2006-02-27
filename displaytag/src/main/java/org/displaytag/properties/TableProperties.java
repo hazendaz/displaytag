@@ -12,7 +12,6 @@
 package org.displaytag.properties;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
@@ -27,17 +26,14 @@ import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
+import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
-import org.displaytag.decorator.DecoratorFactory;
-import org.displaytag.decorator.DefaultDecoratorFactory;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
-import org.displaytag.util.DefaultRequestHelperFactory;
 import org.displaytag.util.ReflectHelper;
 import org.displaytag.util.RequestHelperFactory;
 
@@ -61,9 +57,9 @@ public final class TableProperties implements Cloneable
 {
 
     /**
-     * name of the default properties file name ("displaytag.properties").
+     * name of the default properties file name ("TableTag.properties").
      */
-    public static final String DEFAULT_FILENAME = "displaytag.properties"; //$NON-NLS-1$
+    public static final String DEFAULT_FILENAME = "TableTag.properties"; //$NON-NLS-1$
 
     /**
      * The name of the local properties file that is searched for on the classpath. Settings in this file will override
@@ -202,11 +198,6 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = "factory.requestHelper"; //$NON-NLS-1$
 
     /**
-     * property <code>factory.decorators</code>.
-     */
-    public static final String PROPERTY_CLASS_DECORATORFACTORY = "factory.decorator"; //$NON-NLS-1$
-
-    /**
      * property <code>locale.provider</code>.
      */
     public static final String PROPERTY_CLASS_LOCALEPROVIDER = "locale.provider"; //$NON-NLS-1$
@@ -264,12 +255,6 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_EXPORT_PREFIX = "export"; //$NON-NLS-1$
 
     /**
-     * suffix used to set the export decorator property name. The full property name is <code>export.</code>
-     * <em>[export type]</em><code>.</code><em>decorator</em>
-     */
-    public static final String PROPERTY_EXPORT_DECORATOR_SUFFIX = "decorator"; //$NON-NLS-1$
-
-    /**
      * property <code>export.types</code>: holds the list of export available export types.
      */
     public static final String PROPERTY_EXPORTTYPES = "export.types"; //$NON-NLS-1$
@@ -293,52 +278,6 @@ public final class TableProperties implements Cloneable
      * export property <code>filename</code>.
      */
     public static final String EXPORTPROPERTY_STRING_FILENAME = "filename"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sort.param</code>. If external pagination and sorting is used, it holds the name of
-     * the parameter used to hold the sort criterion in generated links
-     */
-    public static final String PROPERTY_STRING_PAGINATION_SORT_PARAM = "pagination.sort.param"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sortdirection.param</code>. If external pagination and sorting is used, it holds the
-     * name of the parameter used to hold the sort direction in generated links (asc or desc)
-     */
-    public static final String PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM = "pagination.sortdirection.param"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.pagenumber.param</code>. If external pagination and sorting is used, it holds the
-     * name of the parameter used to hold the page number in generated links
-     */
-    public static final String PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM = "pagination.pagenumber.param"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.searchid.param</code>. If external pagination and sorting is used, it holds the name
-     * of the parameter used to hold the search ID in generated links
-     */
-    public static final String PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM = "pagination.searchid.param"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sort.asc.value</code>. If external pagination and sorting is used, it holds the
-     * value of the parameter of the sort direction parameter for "ascending"
-     */
-    public static final String PROPERTY_STRING_PAGINATION_ASC_VALUE = "pagination.sort.asc.value"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sort.desc.value</code>. If external pagination and sorting is used, it holds the
-     * value of the parameter of the sort direction parameter for "descending"
-     */
-    public static final String PROPERTY_STRING_PAGINATION_DESC_VALUE = "pagination.sort.desc.value"; //$NON-NLS-1$
-
-    /**
-     * Property <code>pagination.sort.skippagenumber</code>. If external pagination and sorting is used, it
-     * determines if the current page number must be added in sort links or not. If this property is true, it means that
-     * each click on a generated sort link will re-sort the list, and go back to the default page number. If it is
-     * false, each click on a generated sort link will re-sort the list, and ask the current page number.
-     */
-    public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = "pagination.sort.skippagenumber"; //$NON-NLS-1$
-
-    // </JBN>
 
     /**
      * Separator char used in property names.
@@ -383,11 +322,6 @@ public final class TableProperties implements Cloneable
     private Locale locale;
 
     /**
-     * Cache for dinamically instantiated object (request factory, decorator factory).
-     */
-    private Map objectCache = new HashMap();
-
-    /**
      * Setter for I18nResourceProvider. A resource provider is usually set using displaytag properties, this accessor is
      * needed for tests.
      * @param provider I18nResourceProvider instance
@@ -418,12 +352,7 @@ public final class TableProperties implements Cloneable
 
         try
         {
-            InputStream is = TableProperties.class.getResourceAsStream(DEFAULT_FILENAME);
-            if (is == null)
-            {
-                throw new TablePropertiesLoadException(TableProperties.class, DEFAULT_FILENAME, null);
-            }
-            defaultProperties.load(is);
+            defaultProperties.load(TableProperties.class.getResourceAsStream(DEFAULT_FILENAME));
         }
         catch (IOException e)
         {
@@ -448,20 +377,10 @@ public final class TableProperties implements Cloneable
         }
         catch (MissingResourceException e)
         {
-            // if no resource bundle is found, try using the context classloader
-            try
+            if (log.isDebugEnabled())
             {
-                bundle = ResourceBundle.getBundle(LOCAL_PROPERTIES, locale, Thread
-                    .currentThread()
-                    .getContextClassLoader());
-            }
-            catch (MissingResourceException mre)
-            {
-                if (log.isDebugEnabled())
-                {
-                    log.debug(Messages.getString("TableProperties.propertiesnotfound", //$NON-NLS-1$
-                        new Object[]{mre.getMessage()}));
-                }
+                log.debug(Messages.getString("TableProperties.propertiesnotfound", //$NON-NLS-1$
+                    new Object[]{e.getMessage()}));
             }
         }
 
@@ -475,35 +394,33 @@ public final class TableProperties implements Cloneable
      */
     public static LocaleResolver getLocaleResolverInstance() throws TablePropertiesLoadException
     {
+        // special handling, table properties is not yet instantiated
+        String className = null;
+
+        ResourceBundle defaultUserProperties = loadUserProperties(Locale.getDefault());
+
+        // if available, user properties have higher precedence
+        if (defaultUserProperties != null)
+        {
+            try
+            {
+                className = defaultUserProperties.getString(PROPERTY_CLASS_LOCALERESOLVER);
+            }
+            catch (MissingResourceException e)
+            {
+                // no problem
+            }
+        }
+
+        // still null? load defaults
+        if (className == null)
+        {
+            Properties defaults = loadBuiltInProperties();
+            className = defaults.getProperty(PROPERTY_CLASS_LOCALERESOLVER);
+        }
 
         if (localeResolver == null)
         {
-
-            // special handling, table properties is not yet instantiated
-            String className = null;
-
-            ResourceBundle defaultUserProperties = loadUserProperties(Locale.getDefault());
-
-            // if available, user properties have higher precedence
-            if (defaultUserProperties != null)
-            {
-                try
-                {
-                    className = defaultUserProperties.getString(PROPERTY_CLASS_LOCALERESOLVER);
-                }
-                catch (MissingResourceException e)
-                {
-                    // no problem
-                }
-            }
-
-            // still null? load defaults
-            if (className == null)
-            {
-                Properties defaults = loadBuiltInProperties();
-                className = defaults.getProperty(PROPERTY_CLASS_LOCALERESOLVER);
-            }
-
             if (className != null)
             {
                 try
@@ -609,7 +526,7 @@ public final class TableProperties implements Cloneable
         catch (CloneNotSupportedException e)
         {
             // should never happen
-            throw new UnhandledException(e);
+            throw new NestableRuntimeException(e);
         }
         twin.properties = (Properties) this.properties.clone();
         return twin;
@@ -748,12 +665,12 @@ public final class TableProperties implements Cloneable
 
     /**
      * Getter for the <code>PROPERTY_INT_PAGING_GROUPSIZE</code> property.
+     * @param defaultValue int
      * @return int
      */
-    public int getPagingGroupSize()
+    public int getPagingGroupSize(int defaultValue)
     {
-        // default size is 8
-        return getIntProperty(PROPERTY_INT_PAGING_GROUPSIZE, 8);
+        return getIntProperty(PROPERTY_INT_PAGING_GROUPSIZE, defaultValue);
     }
 
     /**
@@ -1047,12 +964,6 @@ public final class TableProperties implements Cloneable
     {
         Object loadedObject = getClassPropertyInstance(PROPERTY_CLASS_REQUESTHELPERFACTORY);
 
-        // should not be null, but avoid errors just in case... see DISPL-148
-        if (loadedObject == null)
-        {
-            return new DefaultRequestHelperFactory();
-        }
-
         try
         {
             return (RequestHelperFactory) loadedObject;
@@ -1064,107 +975,6 @@ public final class TableProperties implements Cloneable
                 .getName(), e);
         }
     }
-
-    /**
-     * Returns an instance of configured DecoratorFactory.
-     * @return DecoratorFactory instance.
-     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
-     */
-    public DecoratorFactory getDecoratorFactoryInstance() throws FactoryInstantiationException
-    {
-        Object loadedObject = getClassPropertyInstance(PROPERTY_CLASS_DECORATORFACTORY);
-
-        if (loadedObject == null)
-        {
-            return new DefaultDecoratorFactory();
-        }
-
-        try
-        {
-            return (DecoratorFactory) loadedObject;
-        }
-        catch (ClassCastException e)
-        {
-            throw new FactoryInstantiationException(getClass(), PROPERTY_CLASS_DECORATORFACTORY, loadedObject
-                .getClass()
-                .getName(), e);
-        }
-    }
-
-    public String getPaginationSortParam()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_SORT_PARAM);
-        if (result == null)
-        {
-            result = "sort";
-        }
-        return result;
-    }
-
-    public String getPaginationPageNumberParam()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM);
-        if (result == null)
-        {
-            result = "page";
-        }
-        return result;
-    }
-
-    public String getPaginationSortDirectionParam()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM);
-        if (result == null)
-        {
-            result = "dir";
-        }
-        return result;
-    }
-
-    public String getPaginationSearchIdParam()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM);
-        if (result == null)
-        {
-            result = "searchId";
-        }
-        return result;
-    }
-
-    public String getPaginationAscValue()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_ASC_VALUE);
-        if (result == null)
-        {
-            result = "asc";
-        }
-        return result;
-    }
-
-    public String getPaginationDescValue()
-    {
-        String result = getProperty(PROPERTY_STRING_PAGINATION_DESC_VALUE);
-        if (result == null)
-        {
-            result = "desc";
-        }
-        return result;
-    }
-
-    public boolean getPaginationSkipPageNumberInSort()
-    {
-        String s = getProperty(PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);
-        if (s == null)
-        {
-            return true;
-        }
-        else
-        {
-            return getBooleanProperty(PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);
-        }
-    }
-
-    // </JBN>
 
     /**
      * Returns the configured resource provider instance. If necessary instantiate the resource provider from config and
@@ -1261,26 +1071,12 @@ public final class TableProperties implements Cloneable
      */
     private Object getClassPropertyInstance(String key) throws FactoryInstantiationException
     {
-        Object instance = objectCache.get(key);
-        if (instance != null)
-        {
-            return instance;
-        }
-
         String className = getProperty(key);
-
-        // shouldn't be null, but better check it
-        if (className == null)
-        {
-            return null;
-        }
 
         try
         {
             Class classProperty = ReflectHelper.classForName(className);
-            instance = classProperty.newInstance();
-            objectCache.put(key, instance);
-            return instance;
+            return classProperty.newInstance();
         }
         catch (Exception e)
         {
@@ -1308,15 +1104,5 @@ public final class TableProperties implements Cloneable
         }
 
         return defaultValue;
-    }
-
-    /**
-     * Obtain the name of the decorator configured for a given media type.
-     * @param thatEnum A media type
-     * @return The name of the decorator configured for a given media type.
-     */
-    public String getExportDecoratorName(MediaTypeEnum thatEnum)
-    {
-        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + thatEnum + SEP + PROPERTY_EXPORT_DECORATOR_SUFFIX);
     }
 }

@@ -11,24 +11,20 @@
  */
 package org.displaytag.tags;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.TagStructureException;
-import org.displaytag.properties.MediaTypeEnum;
-import org.displaytag.util.MediaUtil;
 
 
 /**
  * Display a table footer. Html only, not included in export.
  * @author Fabrizio Giustina
- * @author rapruitt
  * @version $Revision$ ($Author$)
  */
-public class TableFooterTag extends BodyTagSupport implements MediaUtil.SupportsMedia
+public class TableFooterTag extends BodyTagSupport
 {
 
     /**
@@ -37,39 +33,41 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     private static final long serialVersionUID = 899149338534L;
 
     /**
-     * The media supported attribute.
+     * logger.
      */
-    private List supportedMedia;
+    private static Log log = LogFactory.getLog(TableFooterTag.class);
 
     /**
-     * Show the footer as a last table row.
+     * is this the first iteration?
      */
-    private boolean showAsLastRow;
+    private boolean firstIteration;
 
     /**
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
      */
     public int doEndTag() throws JspException
     {
-        TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
-
-        if (tableTag == null)
+        if (this.firstIteration)
         {
-            throw new TagStructureException(getClass(), "footer", "table");
-        }
+            TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
 
-        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-        if (currentMediaType != null && !MediaUtil.availableForMedia(this, currentMediaType))
-        {
-            return SKIP_BODY;
-        }
+            if (tableTag == null)
+            {
+                throw new TagStructureException(getClass(), "footer", "table");
+            }
 
-        if (tableTag.isLastIteration())
-        {
+            // add column header only once
+
+            log.debug("first call to doEndTag, setting footer");
+
             if (getBodyContent() != null)
             {
                 tableTag.setFooter(getBodyContent().getString());
+
             }
+
+            this.firstIteration = false;
+
         }
 
         return EVAL_PAGE;
@@ -87,68 +85,16 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
             throw new TagStructureException(getClass(), "footer", "table");
         }
 
-        MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext.findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
-        if (!MediaUtil.availableForMedia(this, currentMediaType))
+        // add column header only once
+        if (tableTag.isFirstIteration())
         {
-            return SKIP_BODY;
-        }
-
-        // Run the footer only when all of the cells have been populated
-        if (tableTag.isLastIteration())
-        {
-            if (tableTag.getVarTotals() != null)
-            {
-                Map totals = tableTag.getTotals();
-                this.pageContext.setAttribute(tableTag.getVarTotals(), totals);
-            }
+            this.firstIteration = true;
             // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
             return 2;
         }
 
+        this.firstIteration = false;
         return SKIP_BODY;
     }
 
-    /**
-     * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
-     */
-    public void setSupportedMedia(List media)
-    {
-        this.supportedMedia = media;
-    }
-
-    /**
-     * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
-     */
-    public List getSupportedMedia()
-    {
-        return this.supportedMedia;
-    }
-
-    /**
-     * Tag setter.
-     * @param media the space delimited list of supported types
-     */
-    public void setMedia(String media)
-    {
-        MediaUtil.setMedia(this, media);
-    }
-
-    /**
-     * @see javax.servlet.jsp.tagext.Tag#release()
-     */
-    public void release()
-    {
-        this.supportedMedia = null;
-        this.showAsLastRow = false;
-        super.release();
-    }
-
-    /**
-     * Tag setter.
-     * @param showAsLastRow the space delimited list of supported types
-     */
-    public void setShowAsLastRow(boolean showAsLastRow)
-    {
-        this.showAsLastRow = showAsLastRow;
-    }
 }

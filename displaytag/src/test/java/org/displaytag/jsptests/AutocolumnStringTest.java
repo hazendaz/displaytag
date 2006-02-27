@@ -43,7 +43,7 @@ public class AutocolumnStringTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        assertEquals("Expected one table in result.", 1, tables.length);
 
         assertEquals("Bad number of generated columns.", 1, tables[0].getColumnCount());
         assertEquals("Bad number of generated rows.", 4, tables[0].getRowCount());

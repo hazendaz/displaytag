@@ -35,7 +35,7 @@ public class EncodedUriTest extends DisplaytagCase
     public void doTest(String jspName) throws Exception
     {
         WebRequest request = new GetMethodWebRequest(jspName);
-        request.setParameter("city", "MÃ¼nchen");
+        request.setParameter("city", "München");
 
         WebResponse response = runner.getResponse(request);
 
@@ -45,7 +45,7 @@ public class EncodedUriTest extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        assertEquals("Expected one table in result.", 1, tables.length);
 
         WebLink[] links = response.getLinks();
         assertEquals("Wrong number of links in result.", MediaTypeEnum.getSize() - 1, links.length);

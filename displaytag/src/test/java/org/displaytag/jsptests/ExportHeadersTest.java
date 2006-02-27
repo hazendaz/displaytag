@@ -11,7 +11,7 @@ import com.meterware.httpunit.WebResponse;
 
 
 /**
- * Tests removal of no-cache headers.
+ * Tests for "media" attribute support.
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */

@@ -12,13 +12,15 @@
 package org.displaytag.tags;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.jsp.tagext.TagAttributeInfo;
 import javax.servlet.jsp.tagext.TagData;
 import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.VariableInfo;
+
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -143,9 +145,8 @@ public class TableTagExtraInfo extends TagExtraInfo
      */
     public static boolean isJavaId(String id)
     {
-        if (id == null
-            || id.length() == 0
-            || Arrays.binarySearch(KEYWORDS, id) >= 0
+        if (StringUtils.isBlank(id)
+            || ArrayUtils.contains(KEYWORDS, id)
             || !Character.isJavaIdentifierStart(id.charAt(0)))
         {
             return false;

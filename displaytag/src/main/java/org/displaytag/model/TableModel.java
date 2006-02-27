@@ -15,15 +15,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.servlet.jsp.PageContext;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
-import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
+import org.displaytag.util.ShortToStringStyle;
 
 
 /**
@@ -53,11 +50,6 @@ public class TableModel
      * list of data to be displayed in page.
      */
     private List rowListPage;
-
-    /**
-     * Name of the column currently sorted (only used when sort=external).
-     */
-    private String sortedColumnName;
 
     /**
      * sort order = ascending?
@@ -100,86 +92,16 @@ public class TableModel
     private String encoding;
 
     /**
-     * Are we sorting locally? (Default True)
-     */
-    private boolean localSort = true;
-
-    /**
-     * Table caption.
-     */
-    private String caption;
-
-    /**
-     * Table footer.
-     */
-    private String footer;
-
-    /**
-     * Jsp page context.
-     */
-    private PageContext pageContext;
-
-    /**
-     * Current media.
-     */
-    private MediaTypeEnum media;
-
-    /**
      * Constructor for TableModel.
      * @param tableProperties table properties
      * @param charEncoding response encoding
      */
-    public TableModel(TableProperties tableProperties, String charEncoding, PageContext pageContext)
+    public TableModel(TableProperties tableProperties, String charEncoding)
     {
         this.rowListFull = new ArrayList(20);
         this.headerCellList = new ArrayList(20);
         this.properties = tableProperties;
         this.encoding = charEncoding;
-        this.pageContext = pageContext;
-    }
-
-    /**
-     * Returns the jsp page context.
-     * @return page context
-     */
-    protected PageContext getPageContext()
-    {
-        return this.pageContext;
-    }
-
-    /**
-     * Gets the current media type.
-     * @return current media (html, pdf ...)
-     */
-    public MediaTypeEnum getMedia()
-    {
-        return this.media;
-    }
-
-    /**
-     * sets the current media type.
-     * @param media current media (html, pdf ...)
-     */
-    public void setMedia(MediaTypeEnum media)
-    {
-        this.media = media;
-    }
-
-    /**
-     * Sets whether the table performs local in memory sorting of the data.
-     * @param localSort
-     */
-    public void setLocalSort(boolean localSort)
-    {
-        this.localSort = localSort;
-    }
-
-    /**
-     * @return sorting in local memory
-     */
-    public boolean isLocalSort()
-    {
-        return localSort;
     }
 
     /**
@@ -198,15 +120,6 @@ public class TableModel
     public void setId(String tableId)
     {
         this.id = tableId;
-    }
-
-    /**
-     * get the table id.
-     * @return table id
-     */
-    public String getId()
-    {
-        return this.id;
     }
 
     /**
@@ -240,15 +153,6 @@ public class TableModel
             log.debug("[" + this.id + "] adding row " + row);
         }
         this.rowListFull.add(row);
-    }
-
-    /**
-     * sets the name of the currently sorted column
-     * @param sortedColumnName
-     */
-    public void setSortedColumnName(String sortedColumnName)
-    {
-        this.sortedColumnName = sortedColumnName;
     }
 
     /**
@@ -379,20 +283,9 @@ public class TableModel
      */
     public void addColumnHeader(HeaderCell headerCell)
     {
-        if (this.sortedColumnName == null)
+        if (this.sortedColumn == this.headerCellList.size())
         {
-            if (this.sortedColumn == this.headerCellList.size())
-            {
-                headerCell.setAlreadySorted();
-            }
-        }
-        else
-        {
-            // the sorted parameter was a string so try and find that column name and set it as sorted
-            if (this.sortedColumnName.equals(headerCell.getSortName()))
-            {
-                headerCell.setAlreadySorted();
-            }
+            headerCell.setAlreadySorted();
         }
         headerCell.setColumnNumber(this.headerCellList.size());
 
@@ -443,17 +336,22 @@ public class TableModel
                 if (sortedHeaderCell.getBeanPropertyName() != null
                     || (this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size()))
                 {
-
-                    String sorted = (sortedHeaderCell.getSortProperty() != null)
-                        ? sortedHeaderCell.getSortProperty()
-                        : sortedHeaderCell.getBeanPropertyName();
-
-                    Collections.sort(list, new RowSorter(
-                        this.sortedColumn,
-                        sorted,
-                        getTableDecorator(),
-                        this.sortOrderAscending,
-                        sortedHeaderCell.getComparator()));
+                    if (sortedHeaderCell.getSortProperty() != null)
+                    {
+                        Collections.sort(list, new RowSorter(
+                            this.sortedColumn,
+                            sortedHeaderCell.getSortProperty(),
+                            getTableDecorator(),
+                            this.sortOrderAscending));
+                    }
+                    else
+                    {
+                        Collections.sort(list, new RowSorter(
+                            this.sortedColumn,
+                            sortedHeaderCell.getBeanPropertyName(),
+                            getTableDecorator(),
+                            this.sortOrderAscending));
+                    }
                 }
             }
 
@@ -505,47 +403,11 @@ public class TableModel
     }
 
     /**
-     * Obtain this table's caption.
-     * @return This table's caption.
-     */
-    public String getCaption()
-    {
-        return this.caption;
-    }
-
-    /**
-     * Set this table's caption.
-     * @param caption This table's caption.
-     */
-    public void setCaption(String caption)
-    {
-        this.caption = caption;
-    }
-
-    /**
-     * Obtain this table's footer.
-     * @return This table's footer.
-     */
-    public String getFooter()
-    {
-        return this.footer;
-    }
-
-    /**
-     * Set this table's footer.
-     * @param footer This table's footer.
-     */
-    public void setFooter(String footer)
-    {
-        this.footer = footer;
-    }
-
-    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
+        return new ToStringBuilder(this, ShortToStringStyle.SHORT_STYLE) //
             .append("rowListFull", this.rowListFull) //$NON-NLS-1$
             .append("rowListPage", this.rowListPage) //$NON-NLS-1$
             .append("properties", this.properties) //$NON-NLS-1$
@@ -559,10 +421,6 @@ public class TableModel
             .append("sortedColumnHeader", this.getSortedColumnHeader()) //$NON-NLS-1$
             .append("sorted", this.isSorted()) //$NON-NLS-1$
             .append("tableDecorator", this.tableDecorator) //$NON-NLS-1$
-            .append("caption", this.caption) //$NON-NLS-1
-            .append("footer", this.footer) //$NON-NLS-1
-            .append("media", this.media) //$NON-NLS-1
             .toString();
     }
-
 }

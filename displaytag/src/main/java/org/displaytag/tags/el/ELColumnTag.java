@@ -34,16 +34,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String autoLinkExpr;
 
     /**
-     * Expression for the "escapeXml" tag attribute.
-     */
-    private String escapeXmlExpr;
-
-    /**
-     * Expression for the "format" tag attribute.
-     */
-    private String formatExpr;
-
-    /**
      * Expression for the "class" tag attribute.
      */
     private String classExpr;
@@ -139,48 +129,9 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     private String sortableExpr;
 
     /**
-     * Expression for the "sortName" tag attribute.
-     */
-    private String sortNameExpr;
-
-    /**
      * Expression for the "sortProperty" tag attribute.
      */
     private String sortPropertyExpr;
-
-    /**
-     * Expression for the "defaultorder" tag attribute.
-     */
-    private String defaultorderExpr;
-
-    /**
-     * Expression for the "scope" tag attribute.
-     */
-    private String scopeExpr;
-
-    /**
-     * Expression for the "headerScope" tag attribute.
-     */
-    private String headerScopeExpr;
-
-    /**
-     * Expression for the "value" tag attribute.
-     */
-    private String valueExpr;
-
-    /**
-     * Expression for the "comparator" tag attribute.
-     */
-    private String comparatorExpr;
-
-    /**
-     * @see org.displaytag.tags.ColumnTag#setComparator(Object)
-     * @param value EL expression for attribute value
-     */
-    public void setComparator(String value)
-    {
-        comparatorExpr = value;
-    }
 
     /**
      * @see org.displaytag.tags.ColumnTag#setAutolink(boolean)
@@ -192,30 +143,12 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
-     * @see org.displaytag.tags.ColumnTag#setSortProperty(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setSortProperty(String value)
-    {
-        this.sortPropertyExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.ColumnTag#setClass(java.lang.String)
      * @param value EL expression for attribute value
      */
     public void setClass(String value)
     {
         classExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.ColumnTag#setFormat(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setFormat(String value)
-    {
-        formatExpr = value;
     }
 
     /**
@@ -345,15 +278,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
-     * @param value EL expression for attribute value
-     * @see org.displaytag.tags.ColumnTag#setSortName(java.lang.String)
-     */
-    public void setSortName(String value)
-    {
-        sortNameExpr = value;
-    }
-
-    /**
      * @see org.displaytag.tags.ColumnTag#setTitle(java.lang.String)
      * @param value EL expression for attribute value
      */
@@ -390,42 +314,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
     }
 
     /**
-     * @see org.displaytag.tags.TableTag#setDefaultorder(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setDefaultorder(String value)
-    {
-        defaultorderExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.ColumnTag#setScope(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setScope(String value)
-    {
-        scopeExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.ColumnTag#setHeaderScope(java.lang.String)
-     * @param value EL expression for attribute value
-     */
-    public void setHeaderScope(String value)
-    {
-        headerScopeExpr = value;
-    }
-
-    /**
-     * @see org.displaytag.tags.ColumnTag#setValue(java.lang.Object)
-     * @param value EL expression for attribute value
-     */
-    public void setValue(String value)
-    {
-        this.valueExpr = value;
-    }
-
-    /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
     public int doStartTag() throws JspException
@@ -446,14 +334,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         if (autoLinkExpr != null)
         {
             super.setAutolink(eval.evalBoolean("autolink", autoLinkExpr)); //$NON-NLS-1$
-        }
-        if (escapeXmlExpr != null)
-        {
-            super.setEscapeXml(eval.evalBoolean("escapeXml", escapeXmlExpr)); //$NON-NLS-1$
-        }
-        if (formatExpr != null)
-        {
-            super.setFormat(eval.evalString("format", formatExpr)); //$NON-NLS-1$
         }
         if (classExpr != null)
         {
@@ -512,10 +392,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         {
             super.setSortable(eval.evalBoolean("sortable", sortableExpr)); //$NON-NLS-1$
         }
-        if (sortNameExpr != null)
-        {
-            super.setSortName(eval.evalString("sortName", sortNameExpr)); //$NON-NLS-1$
-        }
         if (styleExpr != null)
         {
             super.setStyle(eval.evalString("style", styleExpr)); //$NON-NLS-1$
@@ -542,27 +418,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         {
             super.setSortProperty(eval.evalString("sortProperty", sortPropertyExpr)); //$NON-NLS-1$
         }
-        if (defaultorderExpr != null)
-        {
-            super.setDefaultorder(eval.evalString("defaultorder", defaultorderExpr)); //$NON-NLS-1$
-        }
-        if (scopeExpr != null)
-        {
-            super.setScope(eval.evalString("scope", scopeExpr)); //$NON-NLS-1$
-        }
-        if (headerScopeExpr != null)
-        {
-            super.setHeaderScope(eval.evalString("headerScope", headerScopeExpr)); //$NON-NLS-1$
-        }
-        if (valueExpr != null)
-        {
-            super.setValue(eval.eval("value", valueExpr, Object.class)); //$NON-NLS-1$
-        }
-        if (comparatorExpr != null)
-        {
-            super.setValue(eval.eval("comparator", comparatorExpr, Object.class)); //$NON-NLS-1$
-        }
-
     }
 
     /**
@@ -592,12 +447,6 @@ public class ELColumnTag extends org.displaytag.tags.ColumnTag
         this.titleKeyExpr = null;
         this.urlExpr = null;
         this.sortPropertyExpr = null;
-        this.defaultorderExpr = null;
-        this.scopeExpr = null;
-        this.headerScopeExpr = null;
-        this.formatExpr = null;
-        this.escapeXmlExpr = null;
-        this.valueExpr = null;
     }
 
 }

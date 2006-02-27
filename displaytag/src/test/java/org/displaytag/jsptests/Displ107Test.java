@@ -70,18 +70,18 @@ public class Displ107Test extends DisplaytagCase
         byte[] result = new byte[11];
         stream.read(result);
 
-        byte[] expected = "ant,Γ Γ¨Γ¬\n".getBytes("utf-8");
+        byte[] expected = "ant,ΰθμ\n".getBytes("utf8");
         if (log.isDebugEnabled())
         {
-            log.debug("expected: [" + new String(expected, "utf-8") + "]");
-            log.debug("result:   [" + new String(result, "utf-8") + "]");
+            log.debug("expected: [" + new String(expected, "utf8") + "]");
+            log.debug("result:   [" + new String(result, "utf8") + "]");
         }
         assertEquals("Wrong length", expected.length, result.length);
 
         for (int j = 0; j < result.length; j++)
         {
             assertEquals(
-                "Wrong byte at position " + j + ", output=" + new String(result, "utf-8"),
+                "Wrong byte at position " + j + ", output=" + new String(result, "utf8"),
                 expected[j],
                 result[j]);
 

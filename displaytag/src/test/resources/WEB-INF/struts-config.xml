@@ -2,10 +2,10 @@
 <!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
 <struts-config>
     <action-mappings>
-        <action parameter="/standard/titlekey.jsp" path="/standard/titlekey.jsp"
+        <action parameter="/tld11/titlekey.jsp" path="/tld11/titlekey.jsp"
             type="org.apache.struts.actions.ForwardAction" />
         <action parameter="/el/titlekey.jsp" path="/el/titlekey.jsp" type="org.apache.struts.actions.ForwardAction" />
-        <action parameter="/standard/titlekeyautocolumn.jsp" path="/standard/titlekeyautocolumn.jsp"
+        <action parameter="/tld11/titlekeyautocolumn.jsp" path="/tld11/titlekeyautocolumn.jsp"
             type="org.apache.struts.actions.ForwardAction" />
         <action parameter="/el/titlekeyautocolumn.jsp" path="/el/titlekeyautocolumn.jsp"
             type="org.apache.struts.actions.ForwardAction" />

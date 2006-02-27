@@ -11,6 +11,10 @@
  */
 package org.displaytag.tags;
 
+import java.io.IOException;
+
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -26,6 +30,34 @@ import org.displaytag.util.LookupUtil;
  */
 public abstract class TemplateTag extends BodyTagSupport
 {
+
+    /**
+     * Utility method. Write a string to the default out
+     * @param string String
+     * @throws JspTagException if an IOException occurs
+     */
+    public void write(String string) throws JspTagException
+    {
+        try
+        {
+            JspWriter out = this.pageContext.getOut();
+            out.write(string);
+        }
+        catch (IOException e)
+        {
+            throw new JspTagException("Writer Exception: " + e.getMessage()); //$NON-NLS-1$
+        }
+    }
+
+    /**
+     * Utility method. Write a string to the default out
+     * @param buffer StringBuffer
+     * @throws JspTagException if an IOException occurs
+     */
+    public void write(StringBuffer buffer) throws JspTagException
+    {
+        this.write(buffer.toString());
+    }
 
     /**
      * <p>

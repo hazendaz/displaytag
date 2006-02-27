@@ -19,7 +19,7 @@ import org.displaytag.Messages;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class FactoryInstantiationException extends BaseNestableRuntimeException
+public class FactoryInstantiationException extends BaseNestableJspTagException
 {
 
     /**

@@ -35,8 +35,8 @@ public class TableDecoratorTest extends TestCase
     protected void setUp() throws Exception
     {
         super.setUp();
-        this.one = new TableDecoratorOne();
-        this.two = new TableDecoratorTwo();
+        this.one = DecoratorFactory.loadTableDecorator(TableDecoratorOne.class.getName());
+        this.two = DecoratorFactory.loadTableDecorator(TableDecoratorTwo.class.getName());
     }
 
     /**
@@ -45,7 +45,6 @@ public class TableDecoratorTest extends TestCase
     public void testDecoratorPropertyCache()
     {
         assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one"));
-        assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one.something"));
         assertTrue("decorator two - property two, expected true", this.two.hasGetterFor("two"));
 
         assertFalse("decorator one - property two, expected false", this.one.hasGetterFor("two"));

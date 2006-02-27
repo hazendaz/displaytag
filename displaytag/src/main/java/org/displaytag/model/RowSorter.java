@@ -50,31 +50,19 @@ public class RowSorter implements Comparator
     private int columnIndex;
 
     /**
-     * Comparator used for comparisons.
-     */
-    private Comparator comparator;
-
-    /**
      * Initialize a new RowSorter.
      * @param sortedColumnIndex index of the sorted column
      * @param beanProperty name of the property. If pProperty is null column index is used to get a static cell value
      * from the row object
      * @param tableDecorator TableDecorator instance
      * @param ascendingOrder boolean ascending order?
-     * @param compar the comparator to use
      */
-    public RowSorter(
-        int sortedColumnIndex,
-        String beanProperty,
-        TableDecorator tableDecorator,
-        boolean ascendingOrder,
-        Comparator compar)
+    public RowSorter(int sortedColumnIndex, String beanProperty, TableDecorator tableDecorator, boolean ascendingOrder)
     {
         this.columnIndex = sortedColumnIndex;
         this.property = beanProperty;
         this.decorator = tableDecorator;
         this.ascending = ascendingOrder;
-        this.comparator = compar;
     }
 
     /**
@@ -119,8 +107,8 @@ public class RowSorter implements Comparator
 
         try
         {
-            Object result1;
-            Object result2;
+            Object result1 = null;
+            Object result2 = null;
 
             // If they have supplied a decorator, then make sure and use it for the sorting as well
             if (this.decorator != null && this.decorator.hasGetterFor(this.property))
@@ -150,31 +138,39 @@ public class RowSorter implements Comparator
     }
 
     /**
-     * Compares two given objects, and handles the case where nulls are present.
+     * Compares two given objects handlig nulls and not comparable objects are handled. Not comparable objects are
+     * compared using their string representation.
      * @param object1 first object to compare
      * @param object2 second object to compare
      * @return int result
      */
     private int checkNullsAndCompare(Object object1, Object object2)
     {
-        int returnValue;
-        if (object1 == null && object2 != null)
+        int returnValue = 0;
+
+        if (object1 instanceof Comparable && object2 instanceof Comparable)
         {
-            returnValue = -1;
+            returnValue = ((Comparable) object1).compareTo(object2);
         }
-        else if (object1 != null && object2 == null)
+        else if (object1 != null && object2 != null)
+        {
+            // if object are not null and don't implement comparable, compare using string values
+            returnValue = object1.toString().compareTo(object2.toString());
+        }
+        else if (object1 == null && object2 != null)
         {
             returnValue = 1;
         }
-        else if (object1 == null && object2 == null)
+        else if (object1 != null && object2 == null)
+        {
+            returnValue = -1;
+        }
+        else
         {
             // both null
             returnValue = 0;
         }
-        else
-        {
-            returnValue = comparator.compare(object1, object2);
-        }
+
         int ascendingInt = this.ascending ? 1 : -1;
         return ascendingInt * returnValue;
     }

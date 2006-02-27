@@ -43,8 +43,8 @@ public class BasicTableTagTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        assertEquals("Expected one table in result.", 1, tables.length);
 
-        assertEquals("Wrong number of generated columns.", 3, tables[0].getColumnCount());
+        assertEquals("Bad number of generated columns.", 4, tables[0].getColumnCount());
     }
 }

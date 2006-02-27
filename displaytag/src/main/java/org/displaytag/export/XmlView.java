@@ -109,7 +109,11 @@ public class XmlView extends BaseExportView
      */
     protected String escapeColumnValue(Object value)
     {
-        return StringEscapeUtils.escapeXml(value.toString());
+        if (value != null)
+        {
+            return StringEscapeUtils.escapeXml(value.toString());
+        }
+        return null;
     }
 
 }

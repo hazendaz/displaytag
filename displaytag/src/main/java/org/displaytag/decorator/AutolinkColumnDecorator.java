@@ -11,11 +11,6 @@
  */
 package org.displaytag.decorator;
 
-import javax.servlet.jsp.PageContext;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.TagConstants;
 
 
@@ -25,48 +20,41 @@ import org.displaytag.util.TagConstants;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
+public class AutolinkColumnDecorator implements ColumnDecorator
 {
 
     /**
-     * Instance used for the "autolink" tag attribute.
+     * Instance used for the "autolink" tag attribute. Will be removed in future along with the attribute.
      */
-    public static final DisplaytagColumnDecorator INSTANCE = new AutolinkColumnDecorator();
+    public static final ColumnDecorator INSTANCE = new AutolinkColumnDecorator();
 
     /**
-     * "://".
+     * http urls.
      */
-    private static final String URL_DELIM = "://"; //$NON-NLS-1$
+    private static final String URL_HTTP = "http://"; //$NON-NLS-1$
 
     /**
-     * Urls.
+     * @see org.displaytag.decorator.ColumnDecorator#decorate(java.lang.Object)
      */
-    private static final String[] URLS_PREFIXES = //
-    new String[]{"http", "https", "ftp"}; //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$
-
-    /**
-     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
-     */
-    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
+    public String decorate(Object columnValue)
     {
-
         if (columnValue == null)
         {
             return null;
         }
         String work = columnValue.toString();
 
-        int urlBegin;
+        int index;
         StringBuffer buffer = new StringBuffer();
 
         // First check for email addresses.
-        while ((urlBegin = work.indexOf('@')) != -1)
+        while ((index = work.indexOf('@')) != -1)
         {
             int start = 0;
             int end = work.length() - 1;
 
             // scan backwards...
-            for (int j = urlBegin; j >= 0; j--)
+            for (int j = index; j >= 0; j--)
             {
                 if (Character.isWhitespace(work.charAt(j)))
                 {
@@ -76,7 +64,7 @@ public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
             }
 
             // scan forwards...
-            for (int j = urlBegin; j <= end; j++)
+            for (int j = index; j <= end; j++)
             {
                 if (Character.isWhitespace(work.charAt(j)))
                 {
@@ -105,56 +93,33 @@ public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
         buffer = new StringBuffer();
 
         // Now check for urls...
-        while ((urlBegin = work.indexOf(URL_DELIM)) != -1)
+        while ((index = work.indexOf(URL_HTTP)) != -1)
         {
-
-            // scan backwards...
-            int fullUrlBegin = urlBegin;
-            StringBuffer prefixBuffer = new StringBuffer(10);
-            for (int j = fullUrlBegin - 1; j >= 0; j--)
-            {
-                if (Character.isWhitespace(work.charAt(j)))
-                {
-                    fullUrlBegin = j + 1;
-                    break;
-                }
-                fullUrlBegin = j;
-                prefixBuffer.append(work.charAt(j));
-            }
-
-            if (!ArrayUtils.contains(URLS_PREFIXES, StringUtils.reverse(prefixBuffer.toString())))
-            {
-
-                buffer.append(work.substring(0, urlBegin + 3));
-                work = work.substring(urlBegin + 3);
-                continue;
-            }
-
-            int urlEnd = work.length();
+            int end = work.length() - 1;
 
             // scan forwards...
-            for (int j = urlBegin; j < urlEnd; j++)
+            for (int j = index; j <= end; j++)
             {
                 if (Character.isWhitespace(work.charAt(j)))
                 {
-                    urlEnd = j;
+                    end = j - 1;
                     break;
                 }
             }
 
-            String url = work.substring(fullUrlBegin, urlEnd);
+            String url = work.substring(index, end + 1);
 
-            buffer.append(work.substring(0, fullUrlBegin)).append("<a href=\"")//$NON-NLS-1$
+            buffer.append(work.substring(0, index)).append("<a href=\"")//$NON-NLS-1$
                 .append(url).append("\">")//$NON-NLS-1$
                 .append(url).append("</a>"); //$NON-NLS-1$
 
-            if (urlEnd >= work.length())
+            if (end == work.length())
             {
                 work = TagConstants.EMPTY_STRING;
             }
             else
             {
-                work = work.substring(urlEnd);
+                work = work.substring(end + 1);
             }
         }
 

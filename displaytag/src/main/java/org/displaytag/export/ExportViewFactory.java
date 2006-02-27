@@ -15,10 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
-import org.displaytag.exception.WrappedRuntimeException;
 import org.displaytag.model.TableModel;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
@@ -163,12 +163,12 @@ public final class ExportViewFactory
         catch (InstantiationException e)
         {
             // should not happen (class has already been instantiated before)
-            throw new WrappedRuntimeException(getClass(), e);
+            throw new NestableRuntimeException(e);
         }
         catch (IllegalAccessException e)
         {
             // should not happen (class has already been instantiated before)
-            throw new WrappedRuntimeException(getClass(), e);
+            throw new NestableRuntimeException(e);
         }
 
         view.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
