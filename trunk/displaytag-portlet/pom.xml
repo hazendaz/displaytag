@@ -1,20 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <artifactId>displaytag-doc</artifactId>
     <groupId>displaytag</groupId>
-    <version>1.1</version>
+    <version>1.1.1-SNAPSHOT</version>
     <relativePath>../displaytag-doc/pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag-portlet</artifactId>
   <name>Display portlet compatability library</name>
-  <version>1.1</version>
-  <description>Display portlet compatability library: allow using of displaytag in a JSR-168 compliant portal server</description>
+  <version>1.1.1-SNAPSHOT</version>
+  <description>
+    Display portlet compatability library: allow using of displaytag in a JSR-168 compliant portal server
+  </description>
   <scm>
-    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-portlet</connection>
-    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag-portlet</developerConnection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag-portlet/</url>
+    <connection>scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-portlet</connection>
+    <developerConnection>
+      scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-portlet
+    </developerConnection>
+    <url>http://svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-portlet</url>
   </scm>
   <dependencies>
     <dependency>
