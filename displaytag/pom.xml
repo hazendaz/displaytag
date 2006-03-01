@@ -1,19 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <artifactId>displaytag-doc</artifactId>
     <groupId>displaytag</groupId>
-    <version>1.1</version>
+    <version>1.1.1-SNAPSHOT</version>
     <relativePath>../displaytag-doc/pom.xml</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
-  <version>1.1</version>
+  <version>1.1.1-SNAPSHOT</version>
   <scm>
-    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</connection>
-    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/displaytag:displaytag</developerConnection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/displaytag/</url>
+    <connection>scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag</connection>
+    <developerConnection>scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag</developerConnection>
+    <url>http://svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag</url>
   </scm>
   <build>
     <plugins>
