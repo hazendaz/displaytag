@@ -24,7 +24,7 @@
   <display:table name="test">
     <display:column property="id" title="ID" />
     <display:column property="nullValue" nulls="false" />
-    <display:column property="longDescription" maxLength="60" style="whitespace: nowrap;" />
+    <display:column property="longDescription" maxLength="60" style="white-space: nowrap;" />
   </display:table>
 
 
