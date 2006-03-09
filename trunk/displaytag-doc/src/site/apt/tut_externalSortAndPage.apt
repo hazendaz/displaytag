@@ -105,13 +105,13 @@ External Paging and Sorting
    do:
 
 +-------------------------------------------------------------------+
-   new ParamEncoder(tableId).encode(TableTagParameters.PARAMETER_SORT))
+   new ParamEncoder(tableId).encodeParameterName(TableTagParameters.PARAMETER_SORT))
 +-------------------------------------------------------------------+
 
    To get the order (ASC/DESC):
 
 +-------------------------------------------------------------------+
-   new ParamEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER))
+   new ParamEncoder(tableId).encodeParameterName(TableTagParameters.PARAMETER_ORDER))
 +-------------------------------------------------------------------+
 
    Descending is 2, Ascending is 1.
@@ -147,7 +147,7 @@ External Paging and Sorting
    request parameters provided via Display Tag you can do:
 
 +-------------------------------------------------------------------+
-   (Integer.parseInt(request.getParameter((new ParamEncoder(tableId).encode(TableTagParameters.PARAMETER_ORDER)))) - 1) * pageSize.
+   (Integer.parseInt(request.getParameter((new ParamEncoder(tableId).encodeParameterName(TableTagParameters.PARAMETER_ORDER)))) - 1) * pageSize.
 +-------------------------------------------------------------------+
 
    To get the ending record just add pageSize to the above value.
