@@ -397,7 +397,7 @@
       <description>
         <![CDATA[
         The base URL used to construct the dynamic link. If this attribute is provided, then the data that is shown for
-        this column is wrapped inside a &lt;a href&gt; tag with the url provided through this attribute. Typically you
+        this column is wrapped inside a <a href=""> tag with the url provided through this attribute. Typically you
         would use this attribute along with one of the struts-like param attributes (param*) to create a dynamic link so
         that each row creates a different URL based on the data that is being viewed. An empty href value will generate
         a link to the current page, preserving parameters just like for paging links.]]>
@@ -633,10 +633,10 @@ or
   <display:column property="itemName"/>
   <display:column property="price" total="true"/>
   <display:footer>
-  	<tr>
-  		<td>Total Bill:</td>
-  		<td><c:out value="${totals.column2}" /></td>
-  	<tr>
+    <tr>
+      <td>Total Bill:</td>
+      <td><c:out value="${totals.column2}" /></td>
+    <tr>
   </display:footer>
 </display:table>
 ]]>
