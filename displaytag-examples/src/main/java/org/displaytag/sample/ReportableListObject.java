@@ -11,6 +11,7 @@
  */
 package org.displaytag.sample;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import org.apache.commons.lang.builder.CompareToBuilder;
@@ -24,7 +25,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ReportableListObject extends Object implements Comparable
+public class ReportableListObject extends Object implements Comparable, Serializable
 {
 
     /**
