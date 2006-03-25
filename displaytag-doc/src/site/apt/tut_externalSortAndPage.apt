@@ -29,31 +29,31 @@ External Paging and Sorting
 
 * Using the Valuelist pattern
 
-	If the object passed to the displaytag as a list is in fact an instance of <<<org.displaytag.pagination.PaginatedList>>>
-	(and not a collection), displaytag will assume that the list is externally sorted and paginated.
-	Implementing this interface is trivial, and an adapter over existing classes can easily be written.
-	See the <<<org.displaytag.pagination.PaginatedList>>> javadocs for more details.
+  If the object passed to the displaytag as a list is in fact an instance of <<<org.displaytag.pagination.PaginatedList>>>
+  (and not a collection), displaytag will assume that the list is externally sorted and paginated.
+  Implementing this interface is trivial, and an adapter over existing classes can easily be written.
+  See the <<<org.displaytag.pagination.PaginatedList>>> javadocs for more details.
 
 
-	In order for the generated pagination and sort links to be "understandable" by the application, they are not generated
-	the same way as for a traditional DisplayTag table. Indeed, since the table is externally sorted and paginated, the
-	application must be able to easily get the sort and pagination parameters, without having to decode the DisplayTag
-	encoded parameters.
+  In order for the generated pagination and sort links to be "understandable" by the application, they are not generated
+  the same way as for a traditional DisplayTag table. Indeed, since the table is externally sorted and paginated, the
+  application must be able to easily get the sort and pagination parameters, without having to decode the DisplayTag
+  encoded parameters.
 
-	These sort and pagination links are generated based on additional properties. These properties can be overridden
-	using \<display:setProperty/\>, in order to be able to have different sort of page parameters in the application,
-	or to have multiple tables in a single HTML page.
+  These sort and pagination links are generated based on additional properties. These properties can be overridden
+  using \<display:setProperty/\>, in order to be able to have different sort of page parameters in the application,
+  or to have multiple tables in a single HTML page.
 
-	If the default values of these properties are used, the href of the sort links will look like this:
-
----------------------------------
-	http://foo.bar.com/context/requestUri?sort=name&dir=asc&originalParameters=originalValues.
----------------------------------
-
-	The href of the pagination links will look like this:
+  If the default values of these properties are used, the href of the sort links will look like this:
 
 ---------------------------------
-	http://foo.bar.com/context/requestUri?sort=name&dir=asc&page=5&originalParameters=originalValues
+  http://foo.bar.com/context/requestUri?sort=name&dir=asc&originalParameters=originalValues.
+---------------------------------
+
+  The href of the pagination links will look like this:
+
+---------------------------------
+  http://foo.bar.com/context/requestUri?sort=name&dir=asc&page=5&originalParameters=originalValues
 ---------------------------------
 
 
@@ -147,7 +147,7 @@ External Paging and Sorting
    request parameters provided via Display Tag you can do:
 
 +-------------------------------------------------------------------+
-   (Integer.parseInt(request.getParameter((new ParamEncoder(tableId).encodeParameterName(TableTagParameters.PARAMETER_ORDER)))) - 1) * pageSize.
+   (Integer.parseInt(request.getParameter((new ParamEncoder(tableId).encodeParameterName(TableTagParameters.PARAMETER_PAGE)))) - 1) * pageSize.
 +-------------------------------------------------------------------+
 
    To get the ending record just add pageSize to the above value.
