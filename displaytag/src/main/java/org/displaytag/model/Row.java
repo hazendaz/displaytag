@@ -143,6 +143,7 @@ public class Row
     public String getOpenTag()
     {
         Map rowAttributes = new HtmlAttributeMap();
+
         MultipleHtmlAttribute cssAttribute = new MultipleHtmlAttribute(this.tableModel.getProperties().getCssRow(
             this.rowNumber));
 
@@ -171,7 +172,10 @@ public class Row
             }
         }
 
-        rowAttributes.put(TagConstants.ATTRIBUTE_CLASS, cssAttribute);
+        if (!cssAttribute.isEmpty())
+        {
+            rowAttributes.put(TagConstants.ATTRIBUTE_CLASS, cssAttribute);
+        }
 
         StringBuffer tag = new StringBuffer();
         tag.append(TagConstants.TAG_OPEN);
