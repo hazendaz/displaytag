@@ -13,6 +13,9 @@
         Displaytag code moved from CVS to a new Subversion repository at https://svn.sourceforge.net/svnroot/displaytag/
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-305">NPE in displaytag 1.1 when row css class is not set.</action>
+      <action type="fix" dev="fgiust" issue="DISPL-307" due-to="Mike Lindenblatt">
+        ExcelHssfView sets Encoding for headerColumn too late.
+      </action>
     </release>
     <release version="1.1" date="12-2-2006" description="the long-awaited 1.1 release">
       <action type="add" dev="fgiust" issue="DISPL-224" due-to="octalpus">
