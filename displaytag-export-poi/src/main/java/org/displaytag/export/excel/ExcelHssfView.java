@@ -124,9 +124,9 @@ public class ExcelHssfView implements BinaryExportView
                     }
 
                     HSSFCell cell = xlsRow.createCell((short) colNum++);
+                    cell.setEncoding(HSSFCell.ENCODING_UTF_16);
                     cell.setCellValue(columnHeader);
                     cell.setCellStyle(headerStyle);
-                    cell.setEncoding(HSSFCell.ENCODING_UTF_16);
                 }
             }
 
