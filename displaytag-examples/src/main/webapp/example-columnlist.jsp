@@ -23,7 +23,7 @@
   java.util.Map money = new java.util.HashMap();
   money.put("property", "money");
   money.put("title", "money");
-  money.put("format", "{0,number,000.00 $}");
+  money.put("format", "{0,number,000.00 €}");
 
   java.util.List set1 = new java.util.ArrayList();
   java.util.List set2 = new java.util.ArrayList();

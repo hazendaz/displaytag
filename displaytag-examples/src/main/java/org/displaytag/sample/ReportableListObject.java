@@ -29,6 +29,11 @@ public class ReportableListObject extends Object implements Comparable, Serializ
 {
 
     /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
      * random number producer.
      */
     private static Random random = new Random();
