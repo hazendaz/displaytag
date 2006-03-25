@@ -38,11 +38,8 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     public MultipleHtmlAttribute(String attributeValue)
     {
-
-        // split initial attribute
-        String[] attributes = StringUtils.split(attributeValue);
-
-        addAllAttributesFromArray(attributes);
+        this.attributeSet = new LinkedHashSet();
+        addAllAttributesFromArray(StringUtils.split(attributeValue));
     }
 
     /**
@@ -51,12 +48,13 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     private void addAllAttributesFromArray(String[] attributes)
     {
+        if (attributes == null)
+        {
+            return;
+        }
 
         // number of attributes to add
         int length = attributes.length;
-
-        // create new HashSet with correct size
-        this.attributeSet = new LinkedHashSet(length);
 
         // add all the splitted attributes
         for (int j = 0; j < length; j++)
@@ -107,6 +105,15 @@ public class MultipleHtmlAttribute implements Cloneable
             this.attributeSet.add(attributeValue);
         }
 
+    }
+
+    /**
+     * Return true if this MultipleHtmlValue doesn't store any value.
+     * @return <code>true</code> if this MultipleHtmlValue doesn't store any value
+     */
+    public boolean isEmpty()
+    {
+        return attributeSet.isEmpty();
     }
 
     /**
