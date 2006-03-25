@@ -8,8 +8,8 @@
 
 Overview
 
- This project uses Concurrent Versions System to manage its source code.
- Instructions on CVS use can be found at http://cvsbook.red-bean.com/.
+ This project uses Subversion to manage its source code.
+ Instructions on Subversion use can be found at http://svnbook.red-bean.com/.
 
 
 * Web Access
@@ -17,29 +17,54 @@ Overview
  The following is a link to the online source repository.
 
 +----------------------------------------------------------------------------+
-http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/displaytag/
+http://svn.sourceforge.net/viewcvs.cgi/displaytag/trunk
 +----------------------------------------------------------------------------+
 
 * Anonymous access
 
- This project's CVS repository can be checked out through anonymous CVS with the following instruction set.
- When prompted for a password for anonymous, simply press the Enter key.
+ The source can be checked out anonymously from SVN with this command:
 
 
 +----------------------------------------------------------------------------+
-$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag login
-$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/displaytag co displaytag-all
+$ svn checkout https://svn.sourceforge.net/svnroot/displaytag/trunk displaytag
 +----------------------------------------------------------------------------+
 
 * Developer access
 
- Only project developers can access the CVS tree via this method. Substitute username with the proper value.
+ Everyone can access the Subversion repository via HTTPS, but Committers must checkout the Subversion repository via HTTPS.
 
 +----------------------------------------------------------------------------+
-$ cvs -d :ext:username@cvs.sourceforge.net:/cvsroot/displaytag login
-$ cvs -z3 -d :ext:username@cvs.sourceforge.net:/cvsroot/displaytag co displaytag-all
+$ svn checkout https://svn.sourceforge.net/svnroot/displaytag/trunk displaytag
++----------------------------------------------------------------------------+
+
+ To commit changes to the repository, execute the following command to commit your changes (svn will prompt you for your password)
+
++----------------------------------------------------------------------------+
+$ svn commit --username your-username -m "A message"
 +----------------------------------------------------------------------------+
 
 * Access from behind a firewall
 
- For those developers who are stuck behind a corporate firewall, CVSGrab can use the viewcvs web interface to checkout the source code.
+ For those users who are stuck behind a corporate firewall which is blocking http access to the Subversion repository, you can try to access it via the developer connection:
+
++----------------------------------------------------------------------------+
+$ svn checkout https://svn.sourceforge.net/svnroot/displaytag/trunk displaytag
++----------------------------------------------------------------------------+
+
+
+* Access through a proxy
+
+ The Subversion client can go through a proxy, if you configure it to do so. First, edit your "servers" configuration file to indicate which proxy to use. The files location depends on your operating system. On Linux or Unix it is located in the directory "~/.subversion". On Windows it is in "%APPDATA%\Subversion". (Try "echo %APPDATA%", note this is a hidden directory.)
+
+ There are comments in the file explaining what to do. If you don't have that file, get the latest Subversion client and run any command; this will cause the configuration directory and template files to be created.
+
+ Example : Edit the 'servers' file and add something like:
+
++----------------------------------------------------------------------------+
+[global]
+http-proxy-host = your.proxy.name
+http-proxy-port = 3128
++----------------------------------------------------------------------------+
+
+
+
