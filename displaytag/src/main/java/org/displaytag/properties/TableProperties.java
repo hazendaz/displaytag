@@ -264,11 +264,17 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_EXPORT_PREFIX = "export"; //$NON-NLS-1$
 
     /**
-     * suffix used to set the export decorator property name. The full property name is <code>export.</code>
-     * <em>[export type]</em><code>.</code><em>decorator</em>
+     * prefix used to set the media decorator property name. The full property name is 
+     * <code>decorator.media.</code><em>[export type]</em>.
      */
-    public static final String PROPERTY_EXPORT_DECORATOR_SUFFIX = "decorator"; //$NON-NLS-1$
+    public static final String PROPERTY_DECORATOR_SUFFIX = "decorator"; //$NON-NLS-1$
 
+    /**
+     * used to set the media decorator property name. The full property name is 
+     * <code>decorator.media.</code><em>[export type]</em>
+     */
+    public static final String PROPERTY_DECORATOR_MEDIA = "media"; //$NON-NLS-1$
+    
     /**
      * property <code>export.types</code>: holds the list of export available export types.
      */
@@ -1314,9 +1320,20 @@ public final class TableProperties implements Cloneable
      * Obtain the name of the decorator configured for a given media type.
      * @param thatEnum A media type
      * @return The name of the decorator configured for a given media type.
+     * @deprecated Use getMediaTypeDecoratorName instead.
      */
     public String getExportDecoratorName(MediaTypeEnum thatEnum)
     {
-        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + thatEnum + SEP + PROPERTY_EXPORT_DECORATOR_SUFFIX);
+        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + thatEnum + SEP + PROPERTY_DECORATOR_SUFFIX);
     }
+
+    /**
+     * Obtain the name of the decorator configured for a given media type.
+     * @param thatEnum A media type
+     * @return The name of the decorator configured for a given media type.
+     */
+	public String getMediaTypeDecoratorName(MediaTypeEnum thatEnum)
+	{
+        return getProperty(PROPERTY_DECORATOR_SUFFIX + SEP + PROPERTY_DECORATOR_MEDIA + SEP + thatEnum);
+	}
 }

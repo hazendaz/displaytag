@@ -40,7 +40,7 @@ public class ExportLinksTest extends DisplaytagCase
 
         WebLink[] links = response.getLinks();
 
-        assertEquals("4 links were expected: csv, excel, xml, pdf.", 4, links.length);
+        assertEquals("Wrong number of export links. ", 6, links.length);
 
         Set linkTexts = new HashSet();
         for (int j = 0; j < links.length; j++)

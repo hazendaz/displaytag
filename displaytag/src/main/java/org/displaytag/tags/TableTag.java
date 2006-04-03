@@ -1173,21 +1173,8 @@ public class TableTag extends HtmlTableTag
             describeEmptyTable();
         }
 
-        // TableDecorator tableDecorator = DecoratorFactory.loadTableDecorator(this.decoratorName);
-        String tableDecoratorName = null;
-        Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
-        if (MediaTypeEnum.HTML.equals(this.currentMediaType)
-            && (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType)))
-        {
-            tableDecoratorName = this.decoratorName;
-        }
-        else if (!MediaTypeEnum.HTML.equals(this.currentMediaType))
-        {
-            tableDecoratorName = this.properties.getExportDecoratorName(this.currentMediaType);
-        }
-        TableDecorator tableDecorator = this.properties.getDecoratorFactoryInstance().loadTableDecorator(
-            this.pageContext,
-            tableDecoratorName);
+        TableDecorator tableDecorator = this.properties.getDecoratorFactoryInstance().
+                                        loadTableDecorator(this.pageContext, getConfiguredDecoratorName());
 
         if (tableDecorator != null)
         {
@@ -1212,6 +1199,7 @@ public class TableTag extends HtmlTableTag
 
         // check for nested tables
         // Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
+        Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
         if (MediaTypeEnum.HTML.equals(this.currentMediaType)
             && (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType)))
         {
@@ -1238,6 +1226,26 @@ public class TableTag extends HtmlTableTag
         cleanUp();
         return returnValue;
     }
+
+    /**
+     * Returns the name of the table decorator that should be applied to this table,
+     * which is either the decorator configured in the property "decorator", or if
+     * none is configured in said property, a decorator configured with the
+     * "decorator.media.[media type]" property, or null if none is configured.  
+     * 
+     * @return Name of the table decorator that should be applied to this table.
+     */
+	private String getConfiguredDecoratorName()
+    {
+        String
+        tableDecoratorName = (this.decoratorName == null) ?
+                                   this.properties.getMediaTypeDecoratorName(this.currentMediaType) :
+                                   this.decoratorName;
+        tableDecoratorName = (tableDecoratorName == null) ?
+                                   this.properties.getExportDecoratorName(this.currentMediaType) :
+                                   tableDecoratorName;
+        return tableDecoratorName;
+	}
 
     /**
      * clean up instance variables, but not the ones representing tag attributes.
