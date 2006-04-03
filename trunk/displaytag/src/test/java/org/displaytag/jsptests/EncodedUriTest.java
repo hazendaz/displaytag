@@ -48,7 +48,7 @@ public class EncodedUriTest extends DisplaytagCase
         assertEquals("Wrong number of tables.", 1, tables.length);
 
         WebLink[] links = response.getLinks();
-        assertEquals("Wrong number of links in result.", MediaTypeEnum.getSize() - 1, links.length);
+        assertEquals("Wrong number of links in result.", 4, links.length);
 
         if (SystemUtils.isJavaVersionAtLeast(1.4f))
         {
