@@ -216,13 +216,18 @@ public class HssfTableWriter extends TableWriterAdapter
     }
 
     /**
+     * Decorators that help render the table to an HSSF table must implement DecoratesHssf.
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
      */
     protected void writeDecoratedRowFinish(TableModel model) throws Exception
     {
-        DecoratesHssf decorator = (DecoratesHssf) model.getTableDecorator();
-        decorator.setSheet(this.sheet);
-        ((TableDecorator) decorator).finishRow();
+        TableDecorator decorator =  model.getTableDecorator();
+        if (decorator instanceof DecoratesHssf)
+        {
+            DecoratesHssf hdecorator = (DecoratesHssf) decorator;
+            hdecorator.setSheet(this.sheet);
+        }
+        decorator.finishRow();
         this.rowNum = this.sheet.getLastRowNum();
         this.rowNum++;
     }

@@ -237,14 +237,19 @@ public class ItextTableWriter extends TableWriterAdapter
     }
 
     /**
+     * Decorators that help render the table to an iText document must implement ItextDecorator.
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
      */
     protected void writeDecoratedRowStart(TableModel model)
     {
-        ItextDecorator decorator = (ItextDecorator) model.getTableDecorator();
-        decorator.setTable(this.table);
-        decorator.setFont(this.defaultFont);
-        ((TableDecorator) decorator).startRow();
+        TableDecorator decorator =  model.getTableDecorator();
+        if (decorator instanceof ItextDecorator)
+        {
+        	ItextDecorator idecorator = (ItextDecorator) decorator;
+            idecorator.setTable(this.table);
+            idecorator.setFont(this.defaultFont);
+        }
+        decorator.startRow();
     }
 
     /**
