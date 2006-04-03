@@ -48,9 +48,7 @@ public class RequestUriTest extends DisplaytagCase
         assertEquals("Wrong number of tables.", 1, tables.length);
 
         WebLink[] links = response.getLinks();
-        assertEquals("Wrong number of links in result.", MediaTypeEnum.getSize() - 1 // MediaTypeEnum also lists html
-            ,
-            links.length);
+        assertEquals("Wrong number of links in result.", 4, links.length);
 
         URLAssert.assertEquals(CONTEXT
             + "/goforit?"
