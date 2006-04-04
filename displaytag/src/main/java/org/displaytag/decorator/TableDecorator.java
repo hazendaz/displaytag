@@ -11,10 +11,7 @@
  */
 package org.displaytag.decorator;
 
-import javax.servlet.jsp.PageContext;
-
 import org.displaytag.exception.ObjectLookupException;
-import org.displaytag.model.TableModel;
 import org.displaytag.render.TableWriterTemplate;
 import org.displaytag.util.LookupUtil;
 import org.displaytag.util.TagConstants;
@@ -44,11 +41,6 @@ public abstract class TableDecorator extends Decorator
     private int listIndex = -1;
 
     /**
-     * The associated table model.
-     */
-    protected TableModel tableModel;
-
-    /**
      * Return the index in the displayed list.
      * @return int index in the displayed list
      */
@@ -74,18 +66,6 @@ public abstract class TableDecorator extends Decorator
     public final Object getCurrentRowObject()
     {
         return this.currentRowObject;
-    }
-
-    /**
-     * Initialize the TableTecorator instance.
-     * @param context PageContext
-     * @param decorated decorated object (usually a list)
-     * @param tableModel the tableModel
-     */
-    public void init(PageContext context, Object decorated, TableModel tableModel)
-    {
-        this.tableModel = tableModel;
-        this.init(context, decorated);
     }
 
     /**
