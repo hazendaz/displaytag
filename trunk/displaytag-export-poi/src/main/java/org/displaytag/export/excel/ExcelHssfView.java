@@ -59,11 +59,6 @@ public class ExcelHssfView implements BinaryExportView
     private boolean decorated;
 
     /**
-     * Generated sheet.
-     */
-    private HSSFSheet sheet;
-
-    /**
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
     public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
@@ -92,7 +87,7 @@ public class ExcelHssfView implements BinaryExportView
         try
         {
             HSSFWorkbook wb = new HSSFWorkbook();
-            sheet = wb.createSheet("-");
+            HSSFSheet sheet = wb.createSheet("-");
 
             int rowNum = 0;
             int colNum = 0;
@@ -153,24 +148,7 @@ public class ExcelHssfView implements BinaryExportView
                     HSSFCell cell = xlsRow.createCell((short) colNum++);
                     cell.setEncoding(HSSFCell.ENCODING_UTF_16);
 
-                    if (value instanceof Number)
-                    {
-                        Number num = (Number) value;
-                        cell.setCellValue(num.doubleValue());
-                    }
-                    else if (value instanceof Date)
-                    {
-                        cell.setCellValue((Date) value);
-                    }
-                    else if (value instanceof Calendar)
-                    {
-                        cell.setCellValue((Calendar) value);
-                    }
-                    else
-                    {
-                        cell.setCellValue(escapeColumnValue(value));
-                    }
-
+                    writeCell(value, cell);
                 }
             }
             wb.write(out);
@@ -178,6 +156,31 @@ public class ExcelHssfView implements BinaryExportView
         catch (Exception e)
         {
             throw new ExcelGenerationException(e);
+        }
+    }
+
+    /**
+     * Write the value to the cell.  Override this method if you have complex data types that may need to be exported.
+     * @param value the value of the cell
+     * @param cell the cell to write it to
+     */
+    protected void writeCell(Object value, HSSFCell cell) {
+        if (value instanceof Number)
+        {
+            Number num = (Number) value;
+            cell.setCellValue(num.doubleValue());
+        }
+        else if (value instanceof Date)
+        {
+            cell.setCellValue((Date) value);
+        }
+        else if (value instanceof Calendar)
+        {
+            cell.setCellValue((Calendar) value);
+        }
+        else
+        {
+            cell.setCellValue(escapeColumnValue(value));
         }
     }
 
