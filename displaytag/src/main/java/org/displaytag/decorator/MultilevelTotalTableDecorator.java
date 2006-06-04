@@ -70,6 +70,11 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     protected String grandTotalSum = "grandtotal-sum";
 
     /**
+     * CSS class applied to grand total cells where the column is not totaled.
+     */
+    protected String grandTotalNoSum = "grandtotal-nosum";
+
+    /**
      * CSS class applied to grand total lablels.
      */
     protected String grandTotalLabel = "grandtotal-label";
@@ -155,6 +160,16 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     public String getGrandTotalSum()
     {
         return grandTotalSum;
+    }
+
+    public String getGrandTotalNoSum()
+    {
+        return grandTotalNoSum;
+    }
+
+    public void setGrandTotalNoSum(String grandTotalNoSum) 
+    {
+        this.grandTotalNoSum = grandTotalNoSum;
     }
 
     public void setGrandTotalSum(String grandTotalSum)
@@ -309,14 +324,14 @@ public class MultilevelTotalTableDecorator extends TableDecorator
             else if (headerCell.isTotaled())
             {
                 // a total if the column should be totaled
-                double total = getTotalForColumn(headerCell.getColumnNumber(), 0, currentRow);
+                Object total = getTotalForColumn(headerCell.getColumnNumber(), 0, currentRow);
                 output.append(getTotalsTdOpen(headerCell, getGrandTotalSum()));
                 output.append(formatTotal(headerCell, total));
             }
             else
             {
                 // blank, if it is not a totals column
-                output.append(getTotalsTdOpen(headerCell, ""));
+                output.append(getTotalsTdOpen(headerCell, getGrandTotalNoSum()));
             }
             output.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
         }
@@ -355,11 +370,11 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         throw new RuntimeException("Unable to find column " + columnNumber + " in the list of columns");
     }
 
-    protected double getTotalForColumn(int columnNumber, int startRow, int stopRow)
+    protected Object getTotalForColumn(int columnNumber, int startRow, int stopRow)
     {
         List fullList = tableModel.getRowListFull();
         List window = fullList.subList(startRow, stopRow + 1);
-        double total = 0;
+        Object total = null;
         for (Iterator iterator = window.iterator(); iterator.hasNext();)
         {
             Row row = (Row) iterator.next();
@@ -369,10 +384,10 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                 Column column = columnIterator.nextColumn();
                 if (column.getHeaderCell().getColumnNumber() == columnNumber)
                 {
-                    Number value = null;
+                    Object value = null;
                     try
                     {
-                        value = (Number) column.getValue(false);
+                        value = column.getValue(false);
                     }
                     catch (ObjectLookupException e)
                     {
@@ -384,12 +399,24 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                     }
                     if (value != null)
                     {
-                        total += value.doubleValue();
+                        total = add(column, total, value);
                     }
                 }
             }
         }
         return total;
+    }
+
+    protected Object add(Column column, Object total, Object value) {
+        if (value instanceof Number){
+            Number oldTotal = new Double(0);
+            if (total != null){
+                oldTotal = (Number)total;
+            }
+            return new Double(oldTotal.doubleValue() + ((Number) value).doubleValue());
+        } else {
+            throw new UnsupportedOperationException("Cannot add a value of " + value + " in column " + column.getHeaderCell().getTitle());
+        }
     }
 
     public String getTotalsTdOpen(HeaderCell header, String totalClass)
@@ -432,9 +459,9 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         return subtotalDesc.format(new Object[]{groupingValue});
     }
 
-    public String formatTotal(HeaderCell header, double total)
+    public String formatTotal(HeaderCell header, Object total)
     {
-        Object displayValue = new Double(total);
+        Object displayValue = total.toString();
         if (header.getColumnDecorators().length > 0)
         {
             for (int i = 0; i < header.getColumnDecorators().length; i++)
@@ -503,7 +530,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                     else if (headerCell.isTotaled())
                     {
                         // a total if the column should be totaled
-                        double total = getTotalForColumn(headerCell.getColumnNumber(),
+                        Object total = getTotalForColumn(headerCell.getColumnNumber(),
                                 firstRowOfCurrentSet, currentRow);
                         out.append(getTotalsTdOpen(headerCell, getTotalValueClass() + " group-" + (columnNumber + 1)));
                         out.append(formatTotal(headerCell, total));
