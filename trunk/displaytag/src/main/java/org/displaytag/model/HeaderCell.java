@@ -588,7 +588,7 @@ public class HeaderCell
      */
     private void addToTotal(Object value)
     {
-        if (value != null)
+        if (value != null && value instanceof Number)
         {
             this.total = this.total + ((Number) value).doubleValue();
         }
