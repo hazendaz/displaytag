@@ -34,8 +34,7 @@ public class DefaultComparator implements Comparator
      */
     public DefaultComparator()
     {
-        this.collator = Collator.getInstance();
-        collator.setStrength(Collator.PRIMARY); // ignore case and accents
+        this(Collator.getInstance());
     }
 
     /**
@@ -45,6 +44,7 @@ public class DefaultComparator implements Comparator
     public DefaultComparator(Collator collatorToUse)
     {
         this.collator = collatorToUse;
+        collator.setStrength(Collator.PRIMARY); // ignore case and accents
     }
 
     /**
