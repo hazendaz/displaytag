@@ -43,7 +43,7 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>itext</groupId>
+      <groupId>com.lowagie</groupId>
       <artifactId>itext</artifactId>
     </dependency>
     <dependency>
