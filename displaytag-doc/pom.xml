@@ -81,6 +81,15 @@
       <timezone>-6</timezone>
     </developer>
     <developer>
+      <id>jluix</id>
+      <name>Jorge Barroso</name>
+      <email>jluix(at)users.sourceforge.net</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+    <developer>
       <id>javabencom</id>
       <name>Benjamin Simpson</name>
       <email>javabencom(at)users.sourceforge.net</email>
