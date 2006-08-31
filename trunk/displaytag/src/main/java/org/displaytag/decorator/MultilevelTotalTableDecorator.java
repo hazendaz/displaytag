@@ -397,7 +397,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                     {
                         logger.error(e);
                     }
-                    if (value != null)
+                    if (value != null && ! TagConstants.EMPTY_STRING.equals(value))
                     {
                         total = add(column, total, value);
                     }

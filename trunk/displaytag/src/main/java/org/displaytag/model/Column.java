@@ -91,7 +91,7 @@ public class Column
     /**
      * Gets the value, after calling the table / column decorator is requested.
      * @param decorated boolean
-     * @return Object
+     * @return Object will never be null if ShowNulls has been set to false
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
      */

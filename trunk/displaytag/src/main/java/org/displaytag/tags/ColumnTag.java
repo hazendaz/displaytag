@@ -538,7 +538,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      * Looks up the parent table tag.
      * @return a table tag instance.
      */
-    private TableTag getTableTag()
+    protected TableTag getTableTag()
     {
         return (TableTag) findAncestorWithClass(this, TableTag.class);
     }
