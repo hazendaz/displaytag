@@ -21,27 +21,27 @@ Export filter? What's that?
  * Something (tags? java snippets?) before the <<<display:table>>> tag has explicitely flushed the response
  (<<<response.flushBuffer()>>>).
 
- * Your page is dinamically included into another page. This happens for example using Struts tiles.
+ * Your page is dynamically included into another page. This happens for example using Struts tiles.
 
  []
 
 
  Another problem is related to exporting binary files. The output of binary data is not supported in
 jsps: it may work on some application server, but it may end up with errors in others. Because of this
-restriction an "external help" may be required. Cvs, xml and excel formats don't require a binary
-output, but if you want to try a pdf export or other custom binary formats you will have to face some
+restriction an "external help" may be required. CSV, XML and text-based Excel formats don't require a binary
+output, but if you want to try PDF, POI-based Excel, or some other custom binary format you may encounter
 problems.
 
 
 * The solution
 
  The first attempt can be using a larger page buffer in your jsp pages, for example:
- <<<&lt;%@ page buffer = "16kb" %&gt;>>>
+ <<<\<%@ page buffer = "16kb" %/>>>>
  However, this can work only if you are in the first situation listed above.
 
- In j2ee 1.3/jsp 1.2 containers you can take advantage of filters to solve the problem. Displaytag ships
- with a filter which works together with the table tag during export, disallowing the response to be
- flushed when an export has been requested.
+ In j2ee 1.3/jsp 1.2 containers, you can take advantage of filters to solve the problem. Displaytag ships
+ with a filter that works together with the table tag during export, disallowing the flushing the response
+ when export has been requested.
 
 
 
@@ -56,7 +56,7 @@ problems.
   </filter>
 +--------------------------------------------------------+
 
- And add mappings for the pages that you will intercept, for example:
+ And add mappings for urls the filter will intercept, for example:
 
 +--------------------------------------------------------+
   <filter-mapping>
