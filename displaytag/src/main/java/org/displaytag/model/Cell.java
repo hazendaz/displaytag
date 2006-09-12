@@ -87,7 +87,12 @@ public class Cell implements Comparable, Cloneable
 
         if (obj instanceof Cell)
         {
-            return ((Comparable) this.staticValue).compareTo(((Cell) obj).getStaticValue());
+            Object otherStatic = ((Cell) obj).getStaticValue();
+            if (otherStatic == null)
+            {
+                return 1;
+            }
+            return ((Comparable) this.staticValue).compareTo(otherStatic);
         }
 
         return ((Comparable) this.staticValue).compareTo(obj);
