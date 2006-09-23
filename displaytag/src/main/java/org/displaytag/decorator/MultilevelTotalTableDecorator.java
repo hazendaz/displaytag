@@ -469,7 +469,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
 
     public String formatTotal(HeaderCell header, Object total)
     {
-        Object displayValue = total.toString();
+        Object displayValue = total;
         if (header.getColumnDecorators().length > 0)
         {
             for (int i = 0; i < header.getColumnDecorators().length; i++)
@@ -477,7 +477,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                 DisplaytagColumnDecorator decorator = header.getColumnDecorators()[i];
                 try
                 {
-                    displayValue = decorator.decorate(displayValue, this.getPageContext(), tableModel.getMedia());
+                    displayValue = decorator.decorate(total, this.getPageContext(), tableModel.getMedia());
                 }
                 catch (DecoratorException e)
                 {
@@ -486,7 +486,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                 }
             }
         }
-        return displayValue.toString();
+        return displayValue != null ? displayValue.toString() : "";
     }
 
     class GroupTotals
