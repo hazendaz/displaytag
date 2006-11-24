@@ -167,6 +167,11 @@ Configuration
 |                                    |                                | <<<DecoratorFactory>>>      | instances from different sources (e.g. you could use Spring    |      |      |
 |                                    |                                | implementation              | managed beans)                                                 |      |      |
 *------------------------------------+--------------------------------+-----------------------------+----------------------------------------------------------------+------+------+
+| comparator.default                 | <<<org.displaytag.model.DefaultComparator>>>                 | Default comparator to be used when sorting columns.            | yes  | yes  |
+|                                    |                                | Class name for a valid      |                                                                |      |      |
+|                                    |                                | <<<Comparator>>>            |                                                                |      |      |
+|                                    |                                | implementation              |                                                                |      |      |
+*------------------------------------+--------------------------------+-----------------------------+----------------------------------------------------------------+------+------+
 
 
 * Exporting

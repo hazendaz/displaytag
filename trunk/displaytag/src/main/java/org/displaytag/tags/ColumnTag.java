@@ -733,8 +733,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         headerCell.setSortProperty(this.sortProperty);
         headerCell.setTotaled(this.totaled);
 
-        Comparator headerComparator = (comparator != null) ? comparator : new DefaultComparator(Collator
-            .getInstance(tableTag.getProperties().getLocale()));
+        Comparator headerComparator = (comparator != null) ? comparator : tableTag.getProperties().getDefaultComparator();
 
         headerCell.setComparator(headerComparator);
         headerCell.setDefaultSortOrder(this.defaultorder);
