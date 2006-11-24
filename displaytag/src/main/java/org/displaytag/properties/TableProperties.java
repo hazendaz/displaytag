@@ -13,13 +13,8 @@ package org.displaytag.properties;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.text.Collator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
@@ -31,6 +26,7 @@ import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
+import org.displaytag.model.DefaultComparator;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.DefaultDecoratorFactory;
 import org.displaytag.exception.FactoryInstantiationException;
@@ -343,6 +339,12 @@ public final class TableProperties implements Cloneable
      * false, each click on a generated sort link will re-sort the list, and ask the current page number.
      */
     public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = "pagination.sort.skippagenumber"; //$NON-NLS-1$
+
+    /**
+     * Property <code>comparator.default</code>.  If present, will use use as the classname of the default comparator.
+     * Will be overriden by column level comparators.
+     */
+    public static final String PROPERTY_DEFAULT_COMPARATOR = "comparator.default"; //$NON-NLS-1$
 
     // </JBN>
 
@@ -1336,4 +1338,26 @@ public final class TableProperties implements Cloneable
 	{
         return getProperty(PROPERTY_DECORATOR_SUFFIX + SEP + PROPERTY_DECORATOR_MEDIA + SEP + thatEnum);
 	}
+
+    public Comparator getDefaultComparator()
+    {
+        String className = getProperty(PROPERTY_DEFAULT_COMPARATOR);  
+        if (className != null)
+        {
+            try
+            {
+                Class classProperty = ReflectHelper.classForName(className);
+                return (Comparator) classProperty.newInstance();
+            }
+            catch (Throwable e)
+            {
+                log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
+                    new Object[]{
+                        ClassUtils.getShortClassName(Comparator.class),
+                        e.getClass().getName(),
+                        e.getMessage()}));
+            }
+        }
+        return new DefaultComparator(Collator.getInstance(getLocale()));
+    }
 }
