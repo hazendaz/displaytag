@@ -40,6 +40,11 @@ public class MultilevelTotalTableDecorator extends TableDecorator
 {
 
     /**
+     * If there are no columns that are totaled, we should not issue a totals row.
+     */
+    private boolean containsTotaledColumns = false;
+
+    /**
      * No current reset group.
      */
     private static final int NO_RESET_GROUP = 4200;
@@ -119,6 +124,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         for (Iterator iterator = headerCells.iterator(); iterator.hasNext();)
         {
             HeaderCell headerCell = (HeaderCell) iterator.next();
+            containsTotaledColumns = containsTotaledColumns || headerCell.isTotaled();
             if (headerCell.getGroup() > 0)
             {
                 groupNumberToGroupTotal.put(new Integer(headerCell.getGroup()), new GroupTotals(headerCell
@@ -214,23 +220,26 @@ public class MultilevelTotalTableDecorator extends TableDecorator
 
     public void startOfGroup(String value, int group)
     {
-        StringBuffer tr = new StringBuffer();
-        tr.append("<tr>");
-        GroupTotals groupTotals = (GroupTotals) groupNumberToGroupTotal.get(new Integer(group));
-        int myColumnNumber = groupTotals.columnNumber;
-        for (int i = 0; i < myColumnNumber; i++)
+        if (containsTotaledColumns)
         {
-            tr.append("<td></td>\n");
+            StringBuffer tr = new StringBuffer();
+            tr.append("<tr>");
+            GroupTotals groupTotals = (GroupTotals) groupNumberToGroupTotal.get(new Integer(group));
+            int myColumnNumber = groupTotals.columnNumber;
+            for (int i = 0; i < myColumnNumber; i++)
+            {
+                tr.append("<td></td>\n");
+            }
+            tr.append("<td class=\"").append(getSubtotalHeaderClass()).append(" group-").append(group).append("\" >");
+            tr.append(value).append("</td>\n");
+            List headerCells = tableModel.getHeaderCellList();
+            for (int i = myColumnNumber; i < headerCells.size() - 1; i++)
+            {
+                tr.append("<td></td>\n");
+            }
+            tr.append("</tr>\n");
+            headerRows.add(tr);
         }
-        tr.append("<td class=\"").append(getSubtotalHeaderClass()).append(" group-").append(group).append("\" >");
-        tr.append(value).append("</td>\n");
-        List headerCells = tableModel.getHeaderCellList();
-        for (int i = myColumnNumber; i < headerCells.size() - 1; i++)
-        {
-            tr.append("<td></td>\n");
-        }
-        tr.append("</tr>\n");
-        headerRows.add(tr);
     }
 
     public String displayGroupedValue(String value, short groupingStatus, int columnNumber)
@@ -266,36 +275,39 @@ public class MultilevelTotalTableDecorator extends TableDecorator
 
     public String finishRow()
     {
-        String returnValue;
-        if (innermostGroup > 0 && deepestResetGroup != NO_RESET_GROUP)
+        String returnValue = "";
+        if (containsTotaledColumns)
         {
-            StringBuffer out = new StringBuffer();
-            // Starting with the deepest group, print the current total and reset. Do not reset unaffected groups.
-            for (int i = innermostGroup; i >= deepestResetGroup; i--)
+            if (innermostGroup > 0 && deepestResetGroup != NO_RESET_GROUP)
             {
-                Integer groupNumber = new Integer(i);
-
-                GroupTotals totals = (GroupTotals) groupNumberToGroupTotal.get(groupNumber);
-                if (totals == null)
+                StringBuffer out = new StringBuffer();
+                // Starting with the deepest group, print the current total and reset. Do not reset unaffected groups.
+                for (int i = innermostGroup; i >= deepestResetGroup; i--)
                 {
-                    logger.warn("There is a gap in the defined groups - no group defined for " + groupNumber);
-                    continue;
+                    Integer groupNumber = new Integer(i);
+
+                    GroupTotals totals = (GroupTotals) groupNumberToGroupTotal.get(groupNumber);
+                    if (totals == null)
+                    {
+                        logger.warn("There is a gap in the defined groups - no group defined for " + groupNumber);
+                        continue;
+                    }
+                    totals.printTotals(getListIndex(), out);
+                    totals.setStartRow(getListIndex() + 1);
                 }
-                totals.printTotals(getListIndex(), out);
-                totals.setStartRow(getListIndex() + 1);
+                returnValue = out.toString();
             }
-            returnValue = out.toString();
-        }
-        else
-        {
-            returnValue = null;
-        }
-        deepestResetGroup = NO_RESET_GROUP;
-        headerRows.clear();
-        if (isLastRow())
-        {
-            returnValue = StringUtils.defaultString(returnValue);
-            returnValue += totalAllRows();
+            else
+            {
+                returnValue = null;
+            }
+            deepestResetGroup = NO_RESET_GROUP;
+            headerRows.clear();
+            if (isLastRow())
+            {
+                returnValue = StringUtils.defaultString(returnValue);
+                returnValue += totalAllRows();
+            }
         }
         return returnValue;
     }
@@ -306,38 +318,45 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      */
     protected String totalAllRows()
     {
-        List headerCells = tableModel.getHeaderCellList();
-        StringBuffer output = new StringBuffer();
-        int currentRow = getListIndex();
-        output.append(TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW
-                + " class=\"grandtotal-row\"" + TagConstants.TAG_CLOSE);
-        boolean first = true;
-        for (Iterator iterator = headerCells.iterator(); iterator.hasNext();)
+        if (containsTotaledColumns)
         {
-            HeaderCell headerCell = (HeaderCell) iterator.next();
-            if (first)
+            List headerCells = tableModel.getHeaderCellList();
+            StringBuffer output = new StringBuffer();
+            int currentRow = getListIndex();
+            output.append(TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW
+                    + " class=\"grandtotal-row\"" + TagConstants.TAG_CLOSE);
+            boolean first = true;
+            for (Iterator iterator = headerCells.iterator(); iterator.hasNext();)
             {
-                output.append(getTotalsTdOpen(headerCell, getGrandTotalLabel()));
-                output.append(getGrandTotalDescription());
-                first = false;
+                HeaderCell headerCell = (HeaderCell) iterator.next();
+                if (first)
+                {
+                    output.append(getTotalsTdOpen(headerCell, getGrandTotalLabel()));
+                    output.append(getGrandTotalDescription());
+                    first = false;
+                }
+                else if (headerCell.isTotaled())
+                {
+                    // a total if the column should be totaled
+                    Object total = getTotalForColumn(headerCell.getColumnNumber(), 0, currentRow);
+                    output.append(getTotalsTdOpen(headerCell, getGrandTotalSum()));
+                    output.append(formatTotal(headerCell, total));
+                }
+                else
+                {
+                    // blank, if it is not a totals column
+                    output.append(getTotalsTdOpen(headerCell, getGrandTotalNoSum()));
+                }
+                output.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
             }
-            else if (headerCell.isTotaled())
-            {
-                // a total if the column should be totaled
-                Object total = getTotalForColumn(headerCell.getColumnNumber(), 0, currentRow);
-                output.append(getTotalsTdOpen(headerCell, getGrandTotalSum()));
-                output.append(formatTotal(headerCell, total));
-            }
-            else
-            {
-                // blank, if it is not a totals column
-                output.append(getTotalsTdOpen(headerCell, getGrandTotalNoSum()));
-            }
-            output.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
-        }
-        output.append("\n</tr>\n");
+            output.append("\n</tr>\n");
 
-        return output.toString();
+            return output.toString();
+        }
+        else
+        {
+            return "";
+        }
     }
 
     protected String getCellValue(int columnNumber, int rowNumber)
