@@ -847,6 +847,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         this.escapeXml = false;
         this.format = null;
         this.value = null;
+        this.totaled = false;
     }
 
     /**
