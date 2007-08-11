@@ -134,11 +134,11 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc</connection>
+    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc</connection>
     <developerConnection>
-      scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc
+      scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc
     </developerConnection>
-    <url>http://svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-doc</url>
+    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-doc</url>
   </scm>
   <organization>
     <name>the Displaytag team</name>
