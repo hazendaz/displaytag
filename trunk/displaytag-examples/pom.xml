@@ -15,11 +15,11 @@
   <version>1.1.1-SNAPSHOT</version>
   <description>Example webapp for the display tag library</description>
   <scm>
-    <connection>scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-examples</connection>
+    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-examples</connection>
     <developerConnection>
-      scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-examples
+      scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-examples
     </developerConnection>
-    <url>http://svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-examples</url>
+    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-examples</url>
   </scm>
   <dependencies>
     <dependency>

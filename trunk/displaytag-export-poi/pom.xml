@@ -17,11 +17,11 @@
     Microsoft Excel binary format through Jakarta POI.
   </description>
   <scm>
-    <connection>scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-export-poi</connection>
+    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-export-poi</connection>
     <developerConnection>
-      scm:svn:https://svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-export-poi
+      scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-export-poi
     </developerConnection>
-    <url>http://svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-export-poi</url>
+    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-export-poi</url>
   </scm>
   <dependencies>
     <dependency>
