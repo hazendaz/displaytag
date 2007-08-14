@@ -1,7 +1,6 @@
 package org.displaytag.jsptests;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.SystemUtils;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -34,10 +33,16 @@ public class EncodedUriTest extends DisplaytagCase
      */
     public void doTest(String jspName) throws Exception
     {
+
         WebRequest request = new GetMethodWebRequest(jspName);
         request.setParameter("city", "MünchenXX");
+        request.setHeaderField("Content-Type", "text/html; charset=utf-8");
 
+        // just check that everything is ok before reaching displaytag
+        assertEquals("MünchenXX", request.getParameter("city"));
         WebResponse response = runner.getResponse(request);
+
+        assertEquals("utf-8", response.getCharacterSet());
 
         if (log.isDebugEnabled())
         {

@@ -5,7 +5,7 @@ import java.net.URLDecoder;
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 
-import com.meterware.httpunit.PostMethodWebRequest;
+import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
@@ -35,9 +35,12 @@ public class Displ249Test extends DisplaytagCase
      */
     public void doTest(String jspName) throws Exception
     {
-        WebRequest request = new PostMethodWebRequest(jspName); // use post
+        WebRequest request = new GetMethodWebRequest(jspName); // use post
         String paramValue = "aàeèiìoòuù";
+
         request.setParameter("testparam", paramValue);
+
+        request.setHeaderField("Content-Type", "text/html; charset=utf-8");
 
         WebResponse response = runner.getResponse(request);
 
@@ -54,8 +57,13 @@ public class Displ249Test extends DisplaytagCase
 
         String url = URLDecoder.decode(links[0].getURLString(), "UTF-8");
 
-        assertTrue("Param value not found in generated links.", StringUtils.contains(url, paramValue));
+        String actual = StringUtils.substringAfter(url, "testparam=");
+        if (StringUtils.contains(actual, "&"))
+        {
+            actual = StringUtils.substringBefore(actual, "&");
+        }
 
+        assertEquals(paramValue, actual);
     }
 
 }

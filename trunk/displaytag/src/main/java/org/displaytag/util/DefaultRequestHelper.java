@@ -125,6 +125,7 @@ public class DefaultRequestHelper implements RequestHelper
             // ... get the value
             String paramName = (String) parametersName.nextElement();
 
+            request.getParameter(paramName);
             // put key/value in the map
             String[] originalValues = (String[]) ObjectUtils.defaultIfNull(
                 this.request.getParameterValues(paramName),
