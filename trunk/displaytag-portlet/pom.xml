@@ -52,11 +52,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-sandbox</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>javax.portlet</groupId>
       <artifactId>portlet-api</artifactId>
       <version>1.0</version>
