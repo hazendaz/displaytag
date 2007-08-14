@@ -1,7 +1,7 @@
 package org.displaytag.jsptests;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
-import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.test.DisplaytagCase;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -35,7 +35,7 @@ public class EncodedUriTest extends DisplaytagCase
     public void doTest(String jspName) throws Exception
     {
         WebRequest request = new GetMethodWebRequest(jspName);
-        request.setParameter("city", "München");
+        request.setParameter("city", "MünchenXX");
 
         WebResponse response = runner.getResponse(request);
 
@@ -50,20 +50,10 @@ public class EncodedUriTest extends DisplaytagCase
         WebLink[] links = response.getLinks();
         assertEquals("Wrong number of links in result.", 4, links.length);
 
-        if (SystemUtils.isJavaVersionAtLeast(1.4f))
-        {
-            assertTrue("Encoded parameter in link is wrong: " + links[0].getURLString(), links[0]
-                .getURLString()
-                .indexOf("M%C3%BCnchen") > -1);
-        }
-        else
-        {
+        String expected = "M%C3%BCnchen";
 
-            log.info("Warning, jse 1.4 not available. Encoding used in link will be wrong");
-            assertTrue("Encoded parameter in link is wrong: " + links[0].getURLString(), links[0]
-                .getURLString()
-                .indexOf("M%FCnchen") > -1);
-        }
+        String actual = StringUtils.substringBetween(links[0].getURLString(), "city=", "XX");
 
+        assertEquals(expected, actual);
     }
 }
