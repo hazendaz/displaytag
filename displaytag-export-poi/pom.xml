@@ -17,7 +17,9 @@
     Microsoft Excel binary format through Jakarta POI.
   </description>
   <scm>
-    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-export-poi</connection>
+    <connection>
+      scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-export-poi
+    </connection>
     <developerConnection>
       scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-export-poi
     </developerConnection>
@@ -43,7 +45,7 @@
       <artifactId>commons-beanutils</artifactId>
     </dependency>
     <dependency>
-      <groupId>poi</groupId>
+      <groupId>org.apache.poi</groupId>
       <artifactId>poi</artifactId>
     </dependency>
     <dependency>

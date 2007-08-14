@@ -440,13 +440,13 @@ public class PortletHrefTest extends TestCase
         href.addParameterMap(paramMap);
         final String urlString11 = href.toString();
         assertEquals(
-            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2",
+            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2;param_SINGLE_PARAM=VAL",
             urlString11);
 
         href.setAnchor("ANCHOR");
         final String urlString12 = href.toString();
         assertEquals(
-            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2#ANCHOR",
+            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2;param_SINGLE_PARAM=VAL#ANCHOR",
             urlString12);
     }
 }

@@ -14,7 +14,9 @@
   <version>1.1.1-SNAPSHOT</version>
   <scm>
     <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag</connection>
-    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag</developerConnection>
+    <developerConnection>
+      scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag
+    </developerConnection>
     <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag</url>
   </scm>
   <build>
@@ -22,7 +24,6 @@
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
-          <testFailureIgnore>true</testFailureIgnore>
           <includes>
             <include>**/TestAll.java</include>
           </includes>
@@ -113,8 +114,12 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl104-over-slf4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
