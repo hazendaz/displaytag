@@ -184,7 +184,16 @@
         <configuration>
           <source>1.4</source>
           <target>1.4</target>
+          <compilerId>eclipse</compilerId>
+          <encoding>utf-8</encoding>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-compiler-eclipse</artifactId>
+            <version>1.5.1</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
