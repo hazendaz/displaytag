@@ -3,6 +3,7 @@ package org.displaytag.test;
 import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.Hashtable;
 
 import junit.framework.TestCase;
 
@@ -13,7 +14,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.servletunit.ServletRunner;
-import com.meterware.servletunit.ServletRunner.JasperJSPServletDescriptor;
 
 
 /**
@@ -85,6 +85,11 @@ public abstract class DisplaytagCase extends TestCase
 
         // start servletRunner
         runner = new ServletRunner(new File(path), CONTEXT);
+
+        Hashtable params = new Hashtable();
+        params.put("javaEncoding", "utf-8");
+        runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
+
         log.debug("ServletRunner setup OK");
 
         super.setUp();
