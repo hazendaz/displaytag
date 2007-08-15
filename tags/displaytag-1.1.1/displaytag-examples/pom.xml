@@ -14,9 +14,9 @@
   <version>1.1.1</version>
   <description>Example webapp for the display tag library</description>
   <scm>
-    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-doc-1.1.1</connection>
-    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-doc-1.1.1</developerConnection>
-    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/tags/displaytag-doc-1.1.1</url>
+    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-1.1.1/displaytag-examples</connection>
+    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-1.1.1/displaytag-examples</developerConnection>
+    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/tags/displaytag-1.1.1/displaytag-examples</url>
   </scm>
   <dependencies>
     <dependency>

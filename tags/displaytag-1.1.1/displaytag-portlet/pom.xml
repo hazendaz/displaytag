@@ -15,9 +15,9 @@
     Display portlet compatability library: allow using of displaytag in a JSR-168 compliant portal server
   </description>
   <scm>
-    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-doc-1.1.1</connection>
-    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-doc-1.1.1</developerConnection>
-    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/tags/displaytag-doc-1.1.1</url>
+    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-1.1.1/displaytag-portlet</connection>
+    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-1.1.1/displaytag-portlet</developerConnection>
+    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/tags/displaytag-1.1.1/displaytag-portlet</url>
   </scm>
   <dependencies>
     <dependency>
