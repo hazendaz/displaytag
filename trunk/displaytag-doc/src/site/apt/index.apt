@@ -6,21 +6,15 @@
                                     26-10-2005
                                     ------------------
 
-Display tag library 1.1
+Display tag library 1.1.1
 
- This documentation is related to the displaytag <<1.1>> release.
+ This documentation is related to the displaytag <<1.1.x>> releases.
+
+ The latest available release is <<1.1.1>>
 
  Displaytag 1.1 offers several enhancements over 1.0: the most notable news are support for partial lists and enhanced
  decorator APIs, but there is also a lot more. Be sure to read the {{{migrating.html}migration guide}} for upgrading an
  existing application from displaytag 1.0. A full {{{changes-report.html}changelog}} is also available.
-
-
-* Thanks to...
-
- {{{http://www.hpa.com.au}HPA}} sponsored the development of new features included in this release.
- Many thanks to HPA for their support
-
-[images/hpa-logo.png] HPA
 
 
 * Overview
