@@ -133,11 +133,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc</connection>
-    <developerConnection>
-      scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc
-    </developerConnection>
-    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-doc</url>
+    <connection>scm:svn:http://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk</connection>
+    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk</developerConnection>
+    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk</url>
   </scm>
   <organization>
     <name>the Displaytag team</name>
@@ -145,14 +143,6 @@
   </organization>
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-scm-plugin</artifactId>
-        <configuration>
-          <tag>displaytag</tag>
-          <basedir>..</basedir>
-        </configuration>
-      </plugin>
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
         <executions>
@@ -163,10 +153,9 @@
             </goals>
             <configuration>
               <tasks>
-                <copy overwrite="true" todir="../${pom.artifactId}/src/site" flatten="true">
+                <copy overwrite="true" todir="src/site" flatten="true">
                   <fileset dir="..">
-                    <include name="displaytag-doc/src/site/site.xml" />
-                    <exclude name="${pom.artifactId}/src/site/site.xml" />
+                    <include name="../src/site/site.xml" />
                   </fileset>
                 </copy>
                 <replace value="href=&quot;../" token="href=&quot;/" dir="..">
@@ -228,10 +217,10 @@
     </plugins>
   </build>
   <modules>
-    <module>../displaytag</module>
-    <module>../displaytag-export-poi</module>
-    <module>../displaytag-portlet</module>
-    <module>../displaytag-examples</module>
+    <module>displaytag</module>
+    <module>displaytag-export-poi</module>
+    <module>displaytag-portlet</module>
+    <module>displaytag-examples</module>
   </modules>
   <repositories>
     <repository>
@@ -248,7 +237,7 @@
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
-          <configLocation>../displaytag-doc/checkstyle.xml</configLocation>
+          <configLocation>../checkstyle.xml</configLocation>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
       </plugin>
