@@ -484,6 +484,12 @@
         <groupId>org.apache.poi</groupId>
         <artifactId>poi</artifactId>
         <version>3.0-FINAL</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
     </dependencies>
   </dependencyManagement>

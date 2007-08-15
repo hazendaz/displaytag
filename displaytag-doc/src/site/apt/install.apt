@@ -94,7 +94,7 @@ See the {{{export_filter.html}export filter}} page for the details about how to 
     <dependency>
       <groupId>displaytag</groupId>
       <artifactId>displaytag</artifactId>
-      <version>1.1</version>
+      <version>1.1.1</version>
     </dependency>
 +--------------------------------------------------------------------------+
 
@@ -106,7 +106,7 @@ See the {{{export_filter.html}export filter}} page for the details about how to 
     <dependency>
       <groupId>displaytag</groupId>
       <artifactId>displaytag-export-poi</artifactId>
-      <version>1.1</version>
+      <version>1.1.1</version>
     </dependency>
 +--------------------------------------------------------------------------+
 
