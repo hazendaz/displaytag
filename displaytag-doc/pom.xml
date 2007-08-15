@@ -1,12 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag-doc</artifactId>
   <packaging>pom</packaging>
   <name>Display tag library documentation</name>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.1</version>
   <description>
     The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
     which will work in an MVC model. The library provides a significant amount of functionality while still being easy
@@ -31,21 +29,21 @@
       <name>Display tag library User Mailing list</name>
       <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</subscribe>
       <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-user</unsubscribe>
-      <post></post>
+      <post />
       <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-user</archive>
     </mailingList>
     <mailingList>
       <name>Display tag library Developer Mailing list</name>
       <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</subscribe>
       <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-devel</unsubscribe>
-      <post></post>
+      <post />
       <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-devel</archive>
     </mailingList>
     <mailingList>
       <name>Display tag library Cvs Mailing list</name>
       <subscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</subscribe>
       <unsubscribe>http://lists.sourceforge.net/lists/listinfo/displaytag-cvs</unsubscribe>
-      <post></post>
+      <post />
       <archive>http://sourceforge.net/mailarchive/forum.php?forum=displaytag-cvs</archive>
     </mailingList>
   </mailingLists>
@@ -134,11 +132,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc</connection>
-    <developerConnection>
-      scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk/displaytag-doc
-    </developerConnection>
-    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk/displaytag-doc</url>
+    <connection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-doc-1.1.1</connection>
+    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-doc-1.1.1</developerConnection>
+    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/tags/displaytag-doc-1.1.1</url>
   </scm>
   <organization>
     <name>the Displaytag team</name>
@@ -158,17 +154,17 @@
               <tasks>
                 <copy overwrite="true" todir="../${pom.artifactId}/src/site" flatten="true">
                   <fileset dir="..">
-                    <include name="displaytag-doc/src/site/site.xml"></include>
-                    <exclude name="${pom.artifactId}/src/site/site.xml"></exclude>
+                    <include name="displaytag-doc/src/site/site.xml" />
+                    <exclude name="${pom.artifactId}/src/site/site.xml" />
                   </fileset>
                 </copy>
                 <replace value="href=&quot;../" token="href=&quot;/" dir="..">
-                  <include name="${pom.artifactId}/src/site/site.xml"></include>
-                  <exclude name="displaytag-doc/src/site/site.xml"></exclude>
+                  <include name="${pom.artifactId}/src/site/site.xml" />
+                  <exclude name="displaytag-doc/src/site/site.xml" />
                 </replace>
                 <replace value="href=&quot;" token="href=&quot;../${pom.artifactId}/" dir="..">
-                  <include name="${pom.artifactId}/src/site/site.xml"></include>
-                  <exclude name="displaytag-doc/src/site/site.xml"></exclude>
+                  <include name="${pom.artifactId}/src/site/site.xml" />
+                  <exclude name="displaytag-doc/src/site/site.xml" />
                 </replace>
               </tasks>
             </configuration>
