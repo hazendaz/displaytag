@@ -184,7 +184,6 @@
         <configuration>
           <source>1.4</source>
           <target>1.4</target>
-          <compilerId>eclipse</compilerId>
           <encoding>utf-8</encoding>
         </configuration>
         <dependencies>
