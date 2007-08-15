@@ -163,7 +163,8 @@ public class SmartListHelper
         }
         else
         {
-            return (pageNumber - 1) * this.pageSize;
+            int retval = (pageNumber - 1) * this.pageSize;
+            return retval >= 0 ? retval : 0;
         }
     }
 
