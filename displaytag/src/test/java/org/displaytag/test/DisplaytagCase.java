@@ -11,7 +11,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.servletunit.ServletRunner;
+import com.meterware.servletunit.ServletRunner.JasperJSPServletDescriptor;
 
 
 /**
@@ -77,6 +79,9 @@ public abstract class DisplaytagCase extends TestCase
         ClassLoader classLoader = getClass().getClassLoader();
         URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
         String path = URLDecoder.decode(webXmlUrl.getFile(), "UTF-8");
+
+        HttpUnitOptions.setDefaultCharacterSet("utf-8");
+        System.setProperty("file.encoding", "utf-8");
 
         // start servletRunner
         runner = new ServletRunner(new File(path), CONTEXT);

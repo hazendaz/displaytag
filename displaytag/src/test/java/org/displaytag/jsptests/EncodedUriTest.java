@@ -34,6 +34,8 @@ public class EncodedUriTest extends DisplaytagCase
     public void doTest(String jspName) throws Exception
     {
 
+        assertEquals("utf-8", System.getProperty("file.encoding"));
+
         WebRequest request = new GetMethodWebRequest(jspName);
         request.setParameter("city", "MünchenXX");
         request.setHeaderField("Content-Type", "text/html; charset=utf-8");
