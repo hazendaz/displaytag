@@ -15,6 +15,11 @@
   <issueManagement>
     <url>http://jira.codehaus.org/browse/DISPL</url>
   </issueManagement>
+  <scm>
+    <connection>scm:svn:http://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk</connection>
+    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk</developerConnection>
+    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk</url>
+  </scm>
   <ciManagement>
     <notifiers>
       <notifier>
@@ -132,15 +137,13 @@
       <url>LICENSE.txt</url>
     </license>
   </licenses>
-  <scm>
-    <connection>scm:svn:http://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk</connection>
-    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk</developerConnection>
-    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk</url>
-  </scm>
   <organization>
     <name>the Displaytag team</name>
     <url>http://sourceforge.net/projects/displaytag</url>
   </organization>
+  <prerequisites>
+    <maven>2.0.6</maven>
+  </prerequisites>
   <build>
     <plugins>
       <plugin>
@@ -184,27 +187,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <artifactId>maven-site-plugin</artifactId>
-        <configuration>
-          <stagingDirectory>../site-staging</stagingDirectory>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-clover-plugin</artifactId>
-        <configuration>
-          <jdk>1.4</jdk>
-          <licenseLocation>clover.license</licenseLocation>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>pre-site</phase>
-            <goals>
-              <goal>instrument</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
@@ -233,20 +215,6 @@
       <plugin>
         <groupId>net.sourceforge.maven-taglib</groupId>
         <artifactId>maven-taglib-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>../checkstyle.xml</configLocation>
-          <enableRulesSummary>false</enableRulesSummary>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-clover-plugin</artifactId>
-        <configuration>
-          <jdk>1.4</jdk>
-          <licenseLocation>clover.license</licenseLocation>
-        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>

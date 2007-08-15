@@ -42,7 +42,7 @@
     </menu>
     <menu name="Developers">
       <item name="Coding Conventions" href="/coding_conventions.html" />
-      <item name="Building from sources" href="/buildit.html" />
+      <item name="Source repository" href="/source-repository.html" />
     </menu>
     <menu name="Project Info">
       <item name="Continuous Integration" href="/integration.html" />
@@ -64,7 +64,8 @@
         <item name="PMD" href="/displaytag/pmd.html" />
         <item name="Clover" href="/displaytag/clover/index.html" external="true" />
         <item name="Maven Surefire Report" href="/displaytag/surefire-report.html" />
-        <item name="Source Xref" href="/displaytag/jxr.html" />
+        <item name="Source Xref" href="/displaytag/xref/index.html" />
+        <item name="Test Xref" href="/displaytag/xref-text/index.html" />
         <item name="JDepend Report" href="/displaytag/jdepend-report.html" />
         <item name="Tag library validation" href="/displaytag/taglibvalidation.html" />
         <item name="Tag reference" href="/displaytag/tagreference.html" />
@@ -75,7 +76,8 @@
         <item name="Javadoc" href="/displaytag-export-poi/apidocs/index.html" />
         <item name="Checkstyle" href="/displaytag-export-poi/checkstyle.html" />
         <item name="PMD" href="/displaytag-export-poi/pmd.html" />
-        <item name="Source Xref" href="/displaytag-export-poi/jxr.html" />
+        <item name="Source Xref" href="/displaytag-export-poi/xref/index.html" />
+        <item name="Test Xref" href="/displaytag-export-poi/xref-text/index.html" />
         <item name="Maven Surefire Report" href="/displaytag-export-poi/surefire-report.html" />
       </item>
       <item name="Portlet support" href="/displaytag-portlet/index.html" collapse="false">
@@ -83,33 +85,36 @@
         <item name="Javadoc" href="/displaytag-portlet/apidocs/index.html" />
         <item name="Checkstyle" href="/displaytag-portlet/checkstyle.html" />
         <item name="PMD" href="/displaytag-portlet/pmd.html" />
-        <item name="Source Xref" href="/displaytag-portlet/jxr.html" />
+        <item name="Source Xref" href="/displaytag-portlet/xref/index.html" />
+        <item name="Test Xref" href="/displaytag-portlet/xref-text/index.html" />
         <item name="Maven Surefire Report" href="/displaytag-portlet/surefire-report.html" />
       </item>
       <item name="Example application" href="/displaytag-examples/index.html" collapse="false">
         <item name="Dependencies" href="/displaytag-examples/dependencies.html" />
-        <item name="Source Xref" href="/displaytag-examples/jxr.html" />
+        <item name="Source Xref" href="/displaytag-examples/xref/index.html" />
       </item>
     </menu>
+    <head>
+      <style type="text/css" media="all">@import url(../css/site.css);</style>
+    </head>
   </body>
-   <!--
+  <!--
     <poweredBy>
     <logo>
-      <img>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</img>
-        <name>Sourceforge</name>
-        <href>http://sourceforge.net/projects/displaytag</href>
+    <img>http://sourceforge.net/sflogo.php?group_id=73068&amp;type=8</img>
+    <name>Sourceforge</name>
+    <href>http://sourceforge.net/projects/displaytag</href>
     </logo>
-      <logo>
-        <img>http://www.cenqua.com/clover/images/clovered1.gif</img>
-        <name>Code Coverage by Clover</name>
-        <href>http://www.cenqua.com/clover</href>
-      </logo>
-      <logo>
-        <img>images/project-support.png</img>
-        <name>Support this project!</name>
-        <href>http://sourceforge.net/donate/index.php?group_id=73068</href>
-      </logo>
+    <logo>
+    <img>http://www.cenqua.com/clover/images/clovered1.gif</img>
+    <name>Code Coverage by Clover</name>
+    <href>http://www.cenqua.com/clover</href>
+    </logo>
+    <logo>
+    <img>images/project-support.png</img>
+    <name>Support this project!</name>
+    <href>http://sourceforge.net/donate/index.php?group_id=73068</href>
+    </logo>
 
-      </poweredBy>-->
-
+    </poweredBy>-->
 </project>
