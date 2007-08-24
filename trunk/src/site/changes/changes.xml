@@ -8,6 +8,11 @@
     <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
   </properties>
   <body>
+    <release version="1.1.2" date="in SVN" description="Bugfix release">
+      <action type="fix" dev="fgiust" issue="DISPL-304" due-to="Kevin Conaway">
+        Wrong paging banner when using external paging.
+      </action>
+    </release>
     <release version="1.1.1" date="2007-08-15" description="Bugfix release">
       <action type="update" dev="fgiust">
         Replaced dependencies from commons-logging in displaytag poms with jcl-over-slf4jF.

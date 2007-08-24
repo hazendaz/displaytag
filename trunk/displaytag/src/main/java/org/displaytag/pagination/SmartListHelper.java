@@ -157,15 +157,8 @@ public class SmartListHelper
      */
     protected int getFirstIndexForPage(int pageNumber)
     {
-        if (this.partialList)
-        {
-            return 0;
-        }
-        else
-        {
-            int retval = (pageNumber - 1) * this.pageSize;
-            return retval >= 0 ? retval : 0;
-        }
+        int retval = (pageNumber - 1) * this.pageSize;
+        return retval >= 0 ? retval : 0;
     }
 
     /**
@@ -175,19 +168,12 @@ public class SmartListHelper
      */
     protected int getLastIndexForPage(int pageNumber)
     {
-        if (this.partialList)
-        {
-            // return the min of pageSize or list size on the off chance they gave us more data than pageSize allows
-            return Math.min(this.pageSize - 1, this.fullList.size() - 1);
-        }
-        else
-        {
-            int firstIndex = getFirstIndexForPage(pageNumber);
-            int pageIndex = this.pageSize - 1;
-            int lastIndex = this.fullListSize - 1;
 
-            return Math.min(firstIndex + pageIndex, lastIndex);
-        }
+        int firstIndex = getFirstIndexForPage(pageNumber);
+        int pageIndex = this.pageSize - 1;
+        int lastIndex = this.fullListSize - 1;
+
+        return Math.min(firstIndex + pageIndex, lastIndex);
     }
 
     /**
@@ -217,6 +203,14 @@ public class SmartListHelper
 
         int firstIndex = getFirstIndexForPage(pageNumber);
         int lastIndex = getLastIndexForPage(pageNumber);
+
+        if (this.partialList)
+        {
+            firstIndex = 0;
+            // use the min of pageSize or list size on the off chance they gave us more data than pageSize allows
+            lastIndex = Math.min(this.pageSize - 1, this.fullList.size() - 1);
+        }
+
         return this.fullList.subList(firstIndex, lastIndex + 1);
     }
 
