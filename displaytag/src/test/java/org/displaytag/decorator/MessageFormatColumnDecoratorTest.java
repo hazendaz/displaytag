@@ -1,5 +1,6 @@
 package org.displaytag.decorator;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -31,7 +32,7 @@ public class MessageFormatColumnDecoratorTest extends TestCase
             new Date(0),
             null,
             null);
-        assertEquals("day is Thursday", result);
+        assertEquals("day is " + new SimpleDateFormat("EEEE").format(new Date(0)), result);
     }
 
     /**
