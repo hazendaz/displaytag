@@ -17,7 +17,7 @@ import com.meterware.httpunit.WebTable;
 /**
  * Test for DISPL-129 - Partial list support with valuelist pattern.
  * @author Fabrizio Giustina
- * @version $Id$
+ * @version $Id: $
  */
 public class Displ129Test extends DisplaytagCase
 {
