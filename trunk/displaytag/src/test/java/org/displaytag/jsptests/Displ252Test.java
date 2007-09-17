@@ -1,6 +1,9 @@
 package org.displaytag.jsptests;
 
+import java.text.SimpleDateFormat;
+
 import org.displaytag.test.DisplaytagCase;
+import org.displaytag.test.KnownTypes;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -43,8 +46,8 @@ public class Displ252Test extends DisplaytagCase
         WebTable[] tables = response.getTables();
         assertEquals("Wrong number of tables.", 1, tables.length);
 
-        assertEquals("Value not decorated as expected", "decorated: Tuesday", tables[0].getCellAsText(1, 0));
+        assertEquals("Value not decorated as expected", "decorated: "
+            + new SimpleDateFormat("EEEE").format(new KnownTypes().getTime()), tables[0].getCellAsText(1, 0));
 
     }
-
 }

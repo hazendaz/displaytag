@@ -1,6 +1,9 @@
 package org.displaytag.jsptests;
 
+import java.text.SimpleDateFormat;
+
 import org.displaytag.test.DisplaytagCase;
+import org.displaytag.test.KnownTypes;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -43,7 +46,8 @@ public class Displ028Test extends DisplaytagCase
         WebTable[] tables = response.getTables();
         assertEquals("Wrong number of tables.", 1, tables.length);
 
-        assertEquals("Value not decorated as expected", "day is 02", tables[0].getCellAsText(1, 0));
+        assertEquals("Value not decorated as expected", "day is "
+            + new SimpleDateFormat("dd").format(new KnownTypes().getTime()), tables[0].getCellAsText(1, 0));
 
     }
 
