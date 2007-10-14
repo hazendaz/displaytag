@@ -11,12 +11,15 @@
  */
 package org.displaytag.decorator;
 
+import java.beans.IndexedPropertyDescriptor;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.jsp.PageContext;
 
+import org.apache.commons.beanutils.MappedPropertyDescriptor;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.displaytag.model.TableModel;
@@ -164,29 +167,46 @@ abstract class Decorator
     public boolean searchGetterFor(String propertyName)
     {
 
-        Class type = null;
+        boolean result = false;
 
         try
         {
             // using getPropertyType instead of isReadable since isReadable doesn't support mapped properties.
             // Note that this method usually returns null if a property is not found and doesn't throw any exception
             // also for non existent properties
-            type = PropertyUtils.getPropertyType(this, propertyName);
+            PropertyDescriptor pd = PropertyUtils.getPropertyDescriptor(this, propertyName);
+
+            if (pd != null)
+            {
+                // double check, see tests in TableDecoratorTest
+                if (pd instanceof MappedPropertyDescriptor)
+                {
+                    result = ((MappedPropertyDescriptor) pd).getMappedReadMethod() != null;
+                }
+                else if (pd instanceof IndexedPropertyDescriptor)
+                {
+                    result = ((IndexedPropertyDescriptor) pd).getIndexedReadMethod() != null;
+                }
+                else
+                {
+                    result = pd.getReadMethod() != null;
+                }
+            }
         }
         catch (IllegalAccessException e)
         {
-            // ignore
+            e.printStackTrace();
         }
         catch (InvocationTargetException e)
         {
-            // ignore
+            e.printStackTrace();
         }
         catch (NoSuchMethodException e)
         {
-            // ignore
+            e.printStackTrace();
         }
 
-        return type != null;
+        return result;
 
     }
 

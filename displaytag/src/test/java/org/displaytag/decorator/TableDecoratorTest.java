@@ -22,6 +22,11 @@ public class TableDecoratorTest extends TestCase
     private TableDecorator two;
 
     /**
+     * test decorator 3.
+     */
+    private TableDecorator three;
+
+    /**
      * @see junit.framework.TestCase#getName()
      */
     public String getName()
@@ -37,6 +42,7 @@ public class TableDecoratorTest extends TestCase
         super.setUp();
         this.one = new TableDecoratorOne();
         this.two = new TableDecoratorTwo();
+        this.three = new TableDecoratorThree();
     }
 
     /**
@@ -82,6 +88,38 @@ public class TableDecoratorTest extends TestCase
     public void testNotExistingIndexedProperty()
     {
         assertFalse("Invalid indexed property recognized", this.one.hasGetterFor("something[0]"));
+    }
+
+    /**
+     * test for read only properties.
+     */
+    public void testWriteOnlyProperty()
+    {
+        assertFalse("Invalid simple property recognized", this.three.hasGetterFor("simple"));
+    }
+
+    /**
+     * test for read only properties.
+     */
+    public void testReadOnlyProperty()
+    {
+        assertTrue("Simple property not recognized", this.two.hasGetterFor("two"));
+    }
+
+    /**
+     * test for indexed property support. (testcase for [926213])
+     */
+    public void testReadOnlyIndexedProperty()
+    {
+        assertFalse("Invalid indexed property recognized", this.three.hasGetterFor("something[0]"));
+    }
+
+    /**
+     * test for mapped property support. (testcase for [926213])
+     */
+    public void testReadOnlyMappedProperty()
+    {
+        assertFalse("Invalid mapped property recognized", this.three.hasGetterFor("something(one)"));
     }
 
 }
