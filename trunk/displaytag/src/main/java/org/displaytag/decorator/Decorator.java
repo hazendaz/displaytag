@@ -195,15 +195,15 @@ abstract class Decorator
         }
         catch (IllegalAccessException e)
         {
-            e.printStackTrace();
+            // ignore
         }
         catch (InvocationTargetException e)
         {
-            e.printStackTrace();
+            // ignore
         }
         catch (NoSuchMethodException e)
         {
-            e.printStackTrace();
+            // ignore
         }
 
         return result;
