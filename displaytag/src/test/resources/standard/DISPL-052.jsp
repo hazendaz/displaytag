@@ -13,20 +13,20 @@
       <jsp:scriptlet>
         <![CDATA[
                 java.util.List testData = new java.util.ArrayList();
-                testData.add(new org.displaytag.test.KnownValueWithId("A"));
-                testData.add(new org.displaytag.test.KnownValueWithId("C"));
-                testData.add(new org.displaytag.test.KnownValueWithId("Z"));
+                testData.add(new org.displaytag.test.KnownValueWithId("10"));
+                testData.add(new org.displaytag.test.KnownValueWithId("20"));
+                testData.add(new org.displaytag.test.KnownValueWithId("30"));
                 request.setAttribute( "test", testData);
-                org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-                decorator.setId("objectId");
-                pageContext.setAttribute("checkboxDecorator", decorator);
             ]]>
       </jsp:scriptlet>
-      <display:table name="requestScope.test" id="table" pagesize="2" decorator="checkboxDecorator">
-        <display:column property="checkbox" />
-        <display:column property="ant" />
-        <display:column property="id" />
-      </display:table>
+      <form name="displ" action="?" method="get">
+        <display:table name="requestScope.test" id="table" pagesize="2"
+          decorator="org.displaytag.decorator.CheckboxTableDecorator" excludedParams="_chk" form="displ">
+          <display:column property="checkbox" />
+          <display:column property="id" />
+          <display:column property="ant" />
+        </display:table>
+      </form>
     </body>
   </html>
 </jsp:root>
