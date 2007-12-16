@@ -33,7 +33,7 @@ import org.displaytag.model.TableModel;
 public class CheckboxTableDecorator extends TableDecorator
 {
 
-    private String id;
+    private String id = "id";
 
     private Map params;
 

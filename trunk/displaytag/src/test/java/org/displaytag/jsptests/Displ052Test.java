@@ -4,8 +4,10 @@ import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 
 /**
@@ -32,7 +34,6 @@ public class Displ052Test extends DisplaytagCase
     public void doTest(String jspName) throws Exception
     {
         WebRequest request = new GetMethodWebRequest(jspName);
-        ParamEncoder encoder = new ParamEncoder("table");
 
         WebResponse response = runner.getResponse(request);
 
@@ -41,20 +42,20 @@ public class Displ052Test extends DisplaytagCase
             log.debug(response.getText());
         }
 
-        // WebTable[] tables = response.getTables();
-        // assertEquals("Wrong number of tables.", 1, tables.length);
-        // assertEquals("Wrong number of rows.", 2, tables[0].getRowCount());
-        // assertEquals("Column content missing?", "ant", tables[0].getCellAsText(1, 0));
-        //
-        // HTMLElement pagination = response.getElementWithID("pagination");
-        // assertNotNull("Paging banner not found.", pagination);
-        // assertEquals("Pagination links are not as expected.", "1, 2, [3]", pagination.getText());
-        //
-        // assertEquals("Column 1 should be marked as sorted.", "sortable sorted order2", tables[0]
-        // .getTableCell(0, 0)
-        // .getClassName());
+        WebTable[] tables = response.getTables();
+        assertEquals("Wrong number of tables.", 1, tables.length);
+        assertEquals("Wrong number of rows.", 3, tables[0].getRowCount());
+        assertEquals("Column content missing?", "ant", tables[0].getCellAsText(1, 2));
+        assertEquals("Checkbox missing?", "input", tables[0].getTableCell(1, 0).getElementsWithName("_chk")[0]
+            .getTagName());
+        assertEquals("Checkbox value missing?", "10", tables[0].getTableCell(1, 0).getElementsWithName("_chk")[0]
+            .getAttribute("value"));
 
-        fail("to be implemented");
+        WebLink[] links = response.getLinks();
+        assertEquals(
+            "Wrong link generated",
+            "javascript:displaytagform(\'displ\',[{f:\'d-148916-p\',v:\'2\'}])",
+            links[0].getAttribute("href"));
 
     }
 
