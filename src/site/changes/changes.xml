@@ -30,6 +30,9 @@
       <action type="add" dev="fgiust" issue="DISPL-497" due-to="Kevin Conaway">
         Add sublist support for Pagination.
       </action>
+      <action type="fix" dev="fgiust" issue="DISPL-499">
+        Decorator.searchGetterFor() method dumps stacktraces into console.
+      </action>
     </release>
     <release version="1.1.1" date="2007-08-15" description="Bugfix release">
       <action type="update" dev="fgiust">
