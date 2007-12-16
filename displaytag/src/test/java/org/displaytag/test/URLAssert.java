@@ -49,7 +49,7 @@ public final class URLAssert
             expectedSplit.length);
 
         // same base url
-        Assert.assertEquals("Wrong base url", generatedSplit[0], expectedSplit[0]);
+        Assert.assertEquals("Wrong base url", expectedSplit[0], generatedSplit[0]);
 
         // same anchor #
         if (generatedSplit.length > 2)

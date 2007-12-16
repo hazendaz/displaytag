@@ -32,7 +32,7 @@
   <category name="org.displaytag">
     <priority value="debug" />
   </category>
-  <category name="org.displaytag.jsptests.Displ999Test">
+  <category name="org.displaytag.jsptests.Displ052Test">
     <priority value="debug" />
     <appender-ref ref="console" />
   </category>

@@ -84,6 +84,12 @@ public class ELTableTagBeanInfo extends SimpleBeanInfo
                 ELTableTag.class, null, "setExcludedParams")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("id", //$NON-NLS-1$
                 ELTableTag.class, null, "setUid")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("keepStatus", //$NON-NLS-1$
+                ELTableTag.class, null, "setKeepStatus")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("clearStatus", //$NON-NLS-1$
+                ELTableTag.class, null, "setClearStatus")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("form", //$NON-NLS-1$
+                ELTableTag.class, null, "setForm")); //$NON-NLS-1$
 
             proplist.add(new PropertyDescriptor("uid", //$NON-NLS-1$
                 ELTableTag.class, null, "setUid")); //$NON-NLS-1$

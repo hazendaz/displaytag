@@ -84,6 +84,12 @@ public class TableTagBeanInfo extends SimpleBeanInfo
                 TableTag.class, null, "setHtmlId")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("varTotals", //$NON-NLS-1$
                 TableTag.class, null, "setVarTotals")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("keepStatus", //$NON-NLS-1$
+                TableTag.class, null, "setKeepStatus")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("clearStatus", //$NON-NLS-1$
+                TableTag.class, null, "setClearStatus")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("form", //$NON-NLS-1$
+                TableTag.class, null, "setForm")); //$NON-NLS-1$
 
             // deprecated attributes
             proplist.add(new PropertyDescriptor("list", //$NON-NLS-1$
