@@ -223,6 +223,13 @@
         for this to work properly you need to assign to each table in your application a different id.
       </description>
     </attribute>
+    <attribute>
+      <name>clearStatus</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>Clears the current paging/sort status saved in session.</description>
+    </attribute>
     <example>
       <![CDATA[
 <display:table name="someList" export="true" id="row" requestURI="MyAction.do">
