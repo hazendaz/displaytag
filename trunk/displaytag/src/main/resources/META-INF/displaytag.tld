@@ -310,7 +310,7 @@
       <description>
         name of the property in the bean specified in the parent table tag (via the "name" attribute) which will be used
         to sort values in the column. This can be used when the column body is filled or a decorator is used and column
-        should sort on undeorated values.
+        should sort on undecorated values.
       </description>
     </attribute>
     <attribute>
