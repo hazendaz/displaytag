@@ -11,6 +11,7 @@
  */
 package org.displaytag.sample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,8 +29,13 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ListObject
+public class ListObject implements Serializable
 {
+
+    /**
+     * Stable serialVersionUID.
+     */
+    private static final long serialVersionUID = 42L;
 
     /**
      * random number generator.
@@ -104,7 +110,8 @@ public class ListObject
         this.date = RandomSampleUtil.getRandomDate();
 
         this.description = RandomSampleUtil.getRandomWord() + ' ' //
-            + RandomSampleUtil.getRandomWord() + "..."; //$NON-NLS-1$
+            + RandomSampleUtil.getRandomWord()
+            + "..."; //$NON-NLS-1$
 
         this.longDescription = RandomSampleUtil.getRandomSentence(10);
 
@@ -243,21 +250,29 @@ public class ListObject
     public String toDetailedString()
     {
         return "ID:          " //$NON-NLS-1$
-            + this.id + "\n" //$NON-NLS-1$
+            + this.id
+            + "\n" //$NON-NLS-1$
             + "Name:        " //$NON-NLS-1$
-            + this.name + "\n" //$NON-NLS-1$
+            + this.name
+            + "\n" //$NON-NLS-1$
             + "Email:       " //$NON-NLS-1$
-            + this.email + "\n" //$NON-NLS-1$
+            + this.email
+            + "\n" //$NON-NLS-1$
             + "Date:        " //$NON-NLS-1$
-            + this.date + "\n" //$NON-NLS-1$
+            + this.date
+            + "\n" //$NON-NLS-1$
             + "Money:       " //$NON-NLS-1$
-            + this.money + "\n" //$NON-NLS-1$
+            + this.money
+            + "\n" //$NON-NLS-1$
             + "Description: " //$NON-NLS-1$
-            + this.description + "\n" //$NON-NLS-1$
+            + this.description
+            + "\n" //$NON-NLS-1$
             + "Status:      " //$NON-NLS-1$
-            + this.status + "\n" //$NON-NLS-1$
+            + this.status
+            + "\n" //$NON-NLS-1$
             + "URL:         " //$NON-NLS-1$
-            + this.url + "\n"; //$NON-NLS-1$
+            + this.url
+            + "\n"; //$NON-NLS-1$
     }
 
     /**
@@ -273,8 +288,13 @@ public class ListObject
      * Inner class used in testing nested tables.
      * @author Fabrizio Giustina
      */
-    public static class SubListItem
+    public static class SubListItem implements Serializable
     {
+
+        /**
+         * Stable serialVersionUID.
+         */
+        private static final long serialVersionUID = 42L;
 
         /**
          * name.
@@ -318,7 +338,7 @@ public class ListObject
          */
         public String toString()
         {
-            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) // 
+            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //
                 .append("name", this.itemName) //$NON-NLS-1$
                 .append("email", this.itemEmail) //$NON-NLS-1$
                 .toString();

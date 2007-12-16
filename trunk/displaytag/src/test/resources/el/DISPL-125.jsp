@@ -22,7 +22,7 @@
           request.setAttribute( "test", testData);
       ]]>
       </jsp:scriptlet>
-      <display:table name="requestScope.test" id="table" pagesize="2">
+      <display:table name="requestScope.test" id="table" pagesize="2" keepStatus="true" clearStatus="false">
         <display:column title="empty" sortable="true">
           <c:out value="${table.ant}" />
         </display:column>

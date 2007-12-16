@@ -246,6 +246,32 @@
         expression which points to the source object.
       </description>
     </attribute>
+    <attribute>
+      <name>keepStatus</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>
+        Preserve the current paging/sort status across session. The default is false (do not use sessions). Note that
+        for this to work properly you need to assign to each table in your application a different id.
+      </description>
+    </attribute>
+    <attribute>
+      <name>clearStatus</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>boolean</type>
+      <description>Clears the current paging/sort status saved in session.</description>
+    </attribute>
+    <attribute>
+      <name>form</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+        Uses post for paging/sorting links, by submitting the for with the given name. Note that this form will not be
+        created by displaytag, and it must exist in page.
+      </description>
+    </attribute>
     <example>
       <![CDATA[
 <display:table name="someList" export="true" id="row" requestURI="MyAction.do">

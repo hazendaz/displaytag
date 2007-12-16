@@ -12,6 +12,21 @@
       <action type="fix" dev="fgiust" issue="DISPL-304" due-to="Kevin Conaway">
         Wrong paging banner when using external paging.
       </action>
+      <action type="fix" dev="fgiust">
+        Write only properties in table decorators were incorrectly recognized as readable.
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-125">
+        Preserve The Current Page And Sort Across Sessions. New "keepStatus" and "clearStatus" table attributes.
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-157">
+        Displaytag in a form. New "form" table attribute that can be used to make displaytag submit a form when paging
+        or sorting.
+      </action>
+      <action type="add" dev="fgiust" issue="DISPL-52">
+        Support for checkboxes. See the example web application for an example, persistent checkboxes can now be
+        implemented by using the new "form" tag attribute and a decorator
+        (org.displaytag.decorator.CheckboxTableDecorator) available in the standard distribution.
+      </action>
     </release>
     <release version="1.1.1" date="2007-08-15" description="Bugfix release">
       <action type="update" dev="fgiust">

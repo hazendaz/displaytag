@@ -214,6 +214,15 @@
         expression which points to the source object.
       </description>
     </attribute>
+    <attribute>
+      <name>keepStatus</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+        Preserve the current paging/sort status across session. The default is false (do not use sessions). Note that
+        for this to work properly you need to assign to each table in your application a different id.
+      </description>
+    </attribute>
     <example>
       <![CDATA[
 <display:table name="someList" export="true" id="row" requestURI="MyAction.do">

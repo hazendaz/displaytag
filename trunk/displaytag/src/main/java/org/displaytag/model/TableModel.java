@@ -125,6 +125,11 @@ public class TableModel
     private MediaTypeEnum media;
 
     /**
+     * Uses post for links.
+     */
+    private String form;
+
+    /**
      * Constructor for TableModel.
      * @param tableProperties table properties
      * @param charEncoding response encoding
@@ -180,6 +185,24 @@ public class TableModel
     public boolean isLocalSort()
     {
         return localSort;
+    }
+
+    /**
+     * Getter for <code>form</code>.
+     * @return Returns the form.
+     */
+    public String getForm()
+    {
+        return this.form;
+    }
+
+    /**
+     * Setter for <code>form</code>.
+     * @param form The form to set.
+     */
+    public void setForm(String form)
+    {
+        this.form = form;
     }
 
     /**

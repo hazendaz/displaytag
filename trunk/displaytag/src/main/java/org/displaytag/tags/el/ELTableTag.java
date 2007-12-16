@@ -144,6 +144,21 @@ public class ELTableTag extends org.displaytag.tags.TableTag
     private String htmlIdExpr;
 
     /**
+     * Expression for the "keepStatus" tag attribute.
+     */
+    private String keepStatusExpr;
+
+    /**
+     * Expression for the "clearStatus" tag attribute.
+     */
+    private String clearStatusExpr;
+
+    /**
+     * Expression for the "form" tag attribute.
+     */
+    private String formExpr;
+
+    /**
      * @see org.displaytag.tags.TableTag#setUid(java.lang.String)
      */
     public void setUid(String value)
@@ -471,6 +486,19 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         {
             super.setSummary(eval.evalString("summary", summaryExpr)); //$NON-NLS-1$
         }
+        if (keepStatusExpr != null)
+        {
+            super.setKeepStatus(eval.evalBoolean("keepStatus", keepStatusExpr)); //$NON-NLS-1$
+        }
+        if (clearStatusExpr != null)
+        {
+            super.setClearStatus(eval.evalBoolean("clearStatus", clearStatusExpr)); //$NON-NLS-1$
+        }
+        if (formExpr != null)
+        {
+            super.setForm(eval.evalString("form", formExpr)); //$NON-NLS-1$
+        }
+
     }
 
     /**
@@ -502,6 +530,9 @@ public class ELTableTag extends org.displaytag.tags.TableTag
         this.excludedParamsExpr = null;
         this.idExpr = null;
         this.htmlIdExpr = null;
+        this.keepStatusExpr = null;
+        this.clearStatusExpr = null;
+        this.formExpr = null;
     }
 
 }

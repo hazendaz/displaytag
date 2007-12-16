@@ -13,20 +13,19 @@
       <jsp:scriptlet>
         <![CDATA[
                 java.util.List testData = new java.util.ArrayList();
-                testData.add(new org.displaytag.test.KnownValue());
-                testData.add(new org.displaytag.test.KnownValue());
-                testData.add(new org.displaytag.test.KnownValue());
+                testData.add(new org.displaytag.test.KnownValueWithId("A"));
+                testData.add(new org.displaytag.test.KnownValueWithId("C"));
+                testData.add(new org.displaytag.test.KnownValueWithId("Z"));
                 request.setAttribute( "test", testData);
-
-                java.util.List testData2 = new java.util.ArrayList();
-                request.setAttribute( "test2", testData2);
-        ]]>
+                org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
+                decorator.setId("objectId");
+                pageContext.setAttribute("checkboxDecorator", decorator);
+            ]]>
       </jsp:scriptlet>
-      <display:table name="test" id="table" pagesize="1">
+      <display:table name="requestScope.test" id="table" pagesize="2" decorator="checkboxDecorator">
+        <display:column property="checkbox" />
         <display:column property="ant" />
-      </display:table>
-      <display:table name="test2" id="table" pagesize="1">
-        <display:column property="ant" />
+        <display:column property="id" />
       </display:table>
     </body>
   </html>

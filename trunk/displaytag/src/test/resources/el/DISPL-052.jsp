@@ -15,22 +15,14 @@
                 java.util.List testData = new java.util.ArrayList();
                 testData.add(new org.displaytag.test.KnownValue());
                 testData.add(new org.displaytag.test.KnownValue());
+                testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
-                request.setAttribute( "resultSize", new Integer(4));
+                org.displaytag.decorator.ModelDecorator decorator = new org.displaytag.decorator.ModelDecorator();
+                pageContext.setAttribute("modelDecorator", decorator);
             ]]>
       </jsp:scriptlet>
-      <display:table name="requestScope.test" id="table" pagesize="2" partialList="true" size="resultSize">
-        <display:column property="ant" sortable="true" />
-        <display:column property="bee" sortable="true" sortName="buzz" />
-        <display:setProperty name="paging.banner.some_items_found">
-          <div id="pagebanner">{0}|{2}|{3}</div>
-        </display:setProperty>
-        <display:setProperty name="paging.banner.full">
-          <div id="pagelinks">{0}</div>
-        </display:setProperty>
-        <display:setProperty name="paging.banner.page.selected" value="[{0}]" />
-        <display:setProperty name="paging.banner.page.link" value="{0}" />
-        <display:setProperty name="paging.banner.page.separator" value="|" />
+      <display:table name="requestScope.test" id="table" pagesize="1" decorator="modelDecorator">
+        <display:column property="decoratedValue" />
       </display:table>
     </body>
   </html>

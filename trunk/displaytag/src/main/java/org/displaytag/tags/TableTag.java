@@ -23,6 +23,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;
@@ -215,6 +216,21 @@ public class TableTag extends HtmlTableTag
      */
     private String varTotals;
 
+    /**
+     * Preserve the current page and sort.
+     */
+    private boolean keepStatus;
+
+    /**
+     * Clear the current page and sort status.
+     */
+    private boolean clearStatus;
+
+    /**
+     * Use form post in paging/sorting links (javascript required).
+     */
+    private String form;
+
     // -- end tag attributes --
 
     /**
@@ -368,6 +384,33 @@ public class TableTag extends HtmlTableTag
     protected boolean isEmpty()
     {
         return this.currentRow == null;
+    }
+
+    /**
+     * Preserve the current page and sort across session?
+     * @param keepStatus <code>true</code> to preserve paging and sorting
+     */
+    public void setKeepStatus(boolean keepStatus)
+    {
+        this.keepStatus = keepStatus;
+    }
+
+    /**
+     * Setter for <code>clearStatus</code>.
+     * @param clearStatus The clearStatus to set.
+     */
+    public void setClearStatus(boolean clearStatus)
+    {
+        this.clearStatus = clearStatus;
+    }
+
+    /**
+     * Setter for <code>form</code>.
+     * @param post The form to set.
+     */
+    public void setForm(String form)
+    {
+        this.form = form;
     }
 
     /**
@@ -718,6 +761,7 @@ public class TableTag extends HtmlTableTag
 
         // copying id to the table model for logging
         this.tableModel.setId(getUid());
+        this.tableModel.setForm(this.form);
 
         initParameters();
 
@@ -827,6 +871,46 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
+     * Get the given parameter from the request or, if not avaible, look for into into the session if keepstatus is set.
+     * Also takes care of storing an existing paramter into session.
+     * @param request servlet request
+     * @param requestHelper request helper instance
+     * @param parameter parameter, will be encoded
+     * @return value value taken from a request parameter or from a session attribute
+     */
+    private Integer getFromRequestOrSession(HttpServletRequest request, RequestHelper requestHelper, String parameter)
+    {
+        String encodedParam = encodeParameter(parameter);
+        Integer result = requestHelper.getIntParameter(encodedParam);
+
+        if (keepStatus)
+        {
+            if (result == null)
+            {
+                // get from session
+                HttpSession session = request.getSession(false);
+                if (session != null)
+                {
+                    if (clearStatus)
+                    {
+                        session.removeAttribute(encodedParam);
+                    }
+                    else
+                    {
+                        result = (Integer) session.getAttribute(encodedParam);
+                    }
+                }
+            }
+            else
+            {
+                // set into session
+                request.getSession(true).setAttribute(encodedParam, result);
+            }
+        }
+        return result;
+    }
+
+    /**
      * Reads parameters from the request and initialize all the needed table model attributes.
      * @throws FactoryInstantiationException for problems in instantiating a RequestHelperFactory
      */
@@ -861,11 +945,12 @@ public class TableTag extends HtmlTableTag
         // set the table model to perform in memory local sorting
         this.tableModel.setLocalSort(this.localSort && (this.paginatedList == null));
 
+        HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
         RequestHelper requestHelper = rhf.getRequestHelperInstance(this.pageContext);
 
         initHref(requestHelper);
 
-        Integer pageNumberParameter = requestHelper.getIntParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE));
+        Integer pageNumberParameter = getFromRequestOrSession(request, requestHelper, TableTagParameters.PARAMETER_PAGE);
         this.pageNumber = (pageNumberParameter == null) ? 1 : pageNumberParameter.intValue();
 
         int sortColumn = -1;
@@ -897,8 +982,10 @@ public class TableTag extends HtmlTableTag
         }
         else if (this.paginatedList == null)
         {
-            Integer sortColumnParameter = requestHelper
-                .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_SORT));
+            Integer sortColumnParameter = getFromRequestOrSession(
+                request,
+                requestHelper,
+                TableTagParameters.PARAMETER_SORT);
             sortColumn = (sortColumnParameter == null) ? this.defaultSortedColumn : sortColumnParameter.intValue();
             this.tableModel.setSortedColumnNumber(sortColumn);
         }
@@ -924,8 +1011,10 @@ public class TableTag extends HtmlTableTag
 
         if (this.paginatedList == null)
         {
-            SortOrderEnum paramOrder = SortOrderEnum.fromCode(requestHelper
-                .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER)));
+            SortOrderEnum paramOrder = SortOrderEnum.fromCode(getFromRequestOrSession(
+                request,
+                requestHelper,
+                TableTagParameters.PARAMETER_ORDER));
 
             // if no order parameter is set use default
             if (paramOrder == null)
@@ -1173,8 +1262,9 @@ public class TableTag extends HtmlTableTag
             describeEmptyTable();
         }
 
-        TableDecorator tableDecorator = this.properties.getDecoratorFactoryInstance().
-                                        loadTableDecorator(this.pageContext, getConfiguredDecoratorName());
+        TableDecorator tableDecorator = this.properties.getDecoratorFactoryInstance().loadTableDecorator(
+            this.pageContext,
+            getConfiguredDecoratorName());
 
         if (tableDecorator != null)
         {
@@ -1228,24 +1318,19 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Returns the name of the table decorator that should be applied to this table,
-     * which is either the decorator configured in the property "decorator", or if
-     * none is configured in said property, a decorator configured with the
-     * "decorator.media.[media type]" property, or null if none is configured.  
-     * 
+     * Returns the name of the table decorator that should be applied to this table, which is either the decorator
+     * configured in the property "decorator", or if none is configured in said property, a decorator configured with
+     * the "decorator.media.[media type]" property, or null if none is configured.
      * @return Name of the table decorator that should be applied to this table.
      */
-	private String getConfiguredDecoratorName()
+    private String getConfiguredDecoratorName()
     {
-        String
-        tableDecoratorName = (this.decoratorName == null) ?
-                                   this.properties.getMediaTypeDecoratorName(this.currentMediaType) :
-                                   this.decoratorName;
-        tableDecoratorName = (tableDecoratorName == null) ?
-                                   this.properties.getExportDecoratorName(this.currentMediaType) :
-                                   tableDecoratorName;
+        String tableDecoratorName = (this.decoratorName == null) ? this.properties
+            .getMediaTypeDecoratorName(this.currentMediaType) : this.decoratorName;
+        tableDecoratorName = (tableDecoratorName == null) ? this.properties
+            .getExportDecoratorName(this.currentMediaType) : tableDecoratorName;
         return tableDecoratorName;
-	}
+    }
 
     /**
      * clean up instance variables, but not the ones representing tag attributes.
@@ -1647,6 +1732,9 @@ public class TableTag extends HtmlTableTag
         this.filteredRows = null;
         this.uid = null;
         this.paginatedList = null;
+        this.keepStatus = false;
+        this.clearStatus = false;
+        this.form = null;
     }
 
     /**

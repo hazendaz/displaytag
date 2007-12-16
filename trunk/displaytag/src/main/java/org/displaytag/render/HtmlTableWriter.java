@@ -15,10 +15,13 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.DecoratorException;
@@ -39,6 +42,7 @@ import org.displaytag.util.Anchor;
 import org.displaytag.util.Href;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.ParamEncoder;
+import org.displaytag.util.PostHref;
 import org.displaytag.util.TagConstants;
 
 
@@ -150,6 +154,19 @@ public class HtmlTableWriter extends TableWriterAdapter
      */
     protected void writeTopBanner(TableModel model)
     {
+        if (this.tableModel.getForm() != null)
+        {
+
+            String js = "<script type=\"text/javascript\">\n"
+                + "function displaytagform(formname, fields){\n"
+                + "    var objfrm = document.forms[formname];\n"
+                + "    for (j=fields.length-1;j>=0;j--){var f= objfrm.elements[fields[j].f];if (f){f.value=fields[j].v};}\n"
+                + "    objfrm.submit();\n"
+                + "}\n"
+                + "</script>";
+            writeFormFields();
+            write(js);
+        }
         writeSearchResultAndNavigation();
     }
 
@@ -160,6 +177,71 @@ public class HtmlTableWriter extends TableWriterAdapter
     protected void writeTableOpener(TableModel model)
     {
         this.write(getOpenTag());
+    }
+
+    private void writeFormFields()
+    {
+        Map parameters = baseHref.getParameterMap();
+
+        ParamEncoder pe = new ParamEncoder(this.tableModel.getId());
+
+        addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+        addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+        addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_SORT));
+
+        for (Iterator it = parameters.keySet().iterator(); it.hasNext();)
+        {
+            String key = (String) it.next();
+            Object value = parameters.get(key);
+
+            if (value != null & value.getClass().isArray())
+            {
+                Object[] arr = (Object[]) value;
+                for (int j = 0; j < arr.length; j++)
+                {
+                    writeField(key, arr[j]);
+                }
+            }
+            else
+            {
+                writeField(key, value);
+            }
+        }
+    }
+
+    /**
+     * @param key
+     * @param value
+     */
+    private void writeField(String key, Object value)
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("<input type=\"hidden\" name=\"");
+        buffer.append(esc(key));
+        buffer.append("\" value=\"");
+        buffer.append(value);
+        buffer.append("\"/>");
+
+        write(buffer.toString());
+    }
+
+    private String esc(Object value)
+    {
+        String valueEscaped = StringUtils.replace(ObjectUtils.toString(value), "\"", "\\\"");
+        return valueEscaped;
+    }
+
+    /**
+     * Adds an element to the given map if empty (use an empty string as value)
+     * @param parameters Map of parameters
+     * @param key param key
+     */
+    private void addIfMissing(Map parameters, String key)
+    {
+        if (!parameters.containsKey(key))
+        {
+            parameters.put(key, StringUtils.EMPTY);
+        }
     }
 
     /**
@@ -410,6 +492,11 @@ public class HtmlTableWriter extends TableWriterAdapter
         // costruct Href from base href, preserving parameters
         Href href = (Href) this.baseHref.clone();
 
+        if (this.tableModel.getForm() != null)
+        {
+            href = new PostHref(href, tableModel.getForm());
+        }
+
         if (this.paginatedList == null)
         {
             // add column number as link parameter
@@ -527,6 +614,11 @@ public class HtmlTableWriter extends TableWriterAdapter
         {
             // create a new href
             Href navigationHref = (Href) this.baseHref.clone();
+
+            if (tableModel.getForm() != null)
+            {
+                navigationHref = new PostHref(navigationHref, tableModel.getForm());
+            }
 
             write(this.listHelper.getSearchResultsSummary());
 
