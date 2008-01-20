@@ -17,7 +17,7 @@ Overview
  The following is a link to the online source repository.
 
 +----------------------------------------------------------------------------+
-http://svn.sourceforge.net/viewcvs.cgi/displaytag/trunk
+http://displaytag.svn.sourceforge.net/viewvc/displaytag/trunk
 +----------------------------------------------------------------------------+
 
 * Anonymous access
@@ -26,7 +26,7 @@ http://svn.sourceforge.net/viewcvs.cgi/displaytag/trunk
 
 
 +----------------------------------------------------------------------------+
-$ svn checkout https://svn.sourceforge.net/svnroot/displaytag/trunk displaytag
+$ svn checkout https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk displaytag
 +----------------------------------------------------------------------------+
 
 * Developer access
@@ -34,7 +34,7 @@ $ svn checkout https://svn.sourceforge.net/svnroot/displaytag/trunk displaytag
  Everyone can access the Subversion repository via HTTPS, but Committers must checkout the Subversion repository via HTTPS.
 
 +----------------------------------------------------------------------------+
-$ svn checkout https://svn.sourceforge.net/svnroot/displaytag/trunk displaytag
+$ svn checkout https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk displaytag
 +----------------------------------------------------------------------------+
 
  To commit changes to the repository, execute the following command to commit your changes (svn will prompt you for your password)
@@ -48,7 +48,7 @@ $ svn commit --username your-username -m "A message"
  For those users who are stuck behind a corporate firewall which is blocking http access to the Subversion repository, you can try to access it via the developer connection:
 
 +----------------------------------------------------------------------------+
-$ svn checkout https://svn.sourceforge.net/svnroot/displaytag/trunk displaytag
+$ svn checkout https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk displaytag
 +----------------------------------------------------------------------------+
 
 
