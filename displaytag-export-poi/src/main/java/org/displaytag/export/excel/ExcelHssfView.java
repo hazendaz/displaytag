@@ -150,6 +150,14 @@ public class ExcelHssfView implements BinaryExportView
                     writeCell(value, cell);
                 }
             }
+
+            // adjust the column widths
+            int colCount = 0;
+            while (colCount <= colNum)
+            {
+                sheet.autoSizeColumn((short) colCount++);
+            }
+
             wb.write(out);
         }
         catch (Exception e)

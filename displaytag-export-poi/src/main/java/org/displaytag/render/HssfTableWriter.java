@@ -340,4 +340,17 @@ public class HssfTableWriter extends TableWriterAdapter
         style.setFont(bold);
         return style;
     }
+
+    /**
+     * @see org.displaytag.render.TableWriterAdapter#writeBottomBanner(org.displaytag.model.TableModel)
+     */
+    protected void writeBottomBanner(TableModel model) throws Exception
+    {
+        // adjust the column widths
+        int colCount = 0;
+        while (colCount <= colNum)
+        {
+            sheet.autoSizeColumn((short) colCount++);
+        }
+    }
 }
