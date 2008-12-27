@@ -13,6 +13,7 @@
 package org.displaytag.sample.decorators;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.displaytag.decorator.hssf.DecoratesHssf;
@@ -50,13 +51,13 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
             prepareCell();
             prepareCell();
             prepareCell();
-            this.currentCell.setCellValue("------------");
+            this.currentCell.setCellValue(new HSSFRichTextString("------------"));
 
             this.currentRow = this.sheet.createRow(++rowNum);
             this.colNum = 0;
             prepareCell();
             prepareCell();
-            this.currentCell.setCellValue(value + " Total:");
+            this.currentCell.setCellValue(new HSSFRichTextString(value + " Total:"));
             prepareCell();
             this.currentCell.setCellValue(total);
         }
@@ -64,8 +65,7 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
 
     private void prepareCell()
     {
-        this.currentCell = this.currentRow.createCell((short) this.colNum++);
-        this.currentCell.setEncoding(HSSFCell.ENCODING_UTF_16);
+        this.currentCell = this.currentRow.createCell(this.colNum++);
     }
 
     protected void writeGrandTotal(double total)

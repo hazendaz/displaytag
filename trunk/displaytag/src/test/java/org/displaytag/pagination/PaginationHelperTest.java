@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 
 /**
  * @author <a href="mailto:kevin.a.conaway@gmail.com">Kevin Conaway</a>
- * @version $Revision: $ ($Author: $)
+ * @version $Revision$ ($Author$)
  */
 public class PaginationHelperTest extends TestCase
 {

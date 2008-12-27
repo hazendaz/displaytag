@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -118,9 +119,8 @@ public class ExcelHssfView implements BinaryExportView
                         columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());
                     }
 
-                    HSSFCell cell = xlsRow.createCell((short) colNum++);
-                    cell.setEncoding(HSSFCell.ENCODING_UTF_16);
-                    cell.setCellValue(columnHeader);
+                    HSSFCell cell = xlsRow.createCell(colNum++);
+                    cell.setCellValue(new HSSFRichTextString(columnHeader));
                     cell.setCellStyle(headerStyle);
                 }
             }
@@ -145,8 +145,7 @@ public class ExcelHssfView implements BinaryExportView
                     // Get the value to be displayed for the column
                     Object value = column.getValue(this.decorated);
 
-                    HSSFCell cell = xlsRow.createCell((short) colNum++);
-                    cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+                    HSSFCell cell = xlsRow.createCell(colNum++);
 
                     writeCell(value, cell);
                 }
@@ -160,11 +159,12 @@ public class ExcelHssfView implements BinaryExportView
     }
 
     /**
-     * Write the value to the cell.  Override this method if you have complex data types that may need to be exported.
+     * Write the value to the cell. Override this method if you have complex data types that may need to be exported.
      * @param value the value of the cell
      * @param cell the cell to write it to
      */
-    protected void writeCell(Object value, HSSFCell cell) {
+    protected void writeCell(Object value, HSSFCell cell)
+    {
         if (value instanceof Number)
         {
             Number num = (Number) value;
@@ -180,7 +180,7 @@ public class ExcelHssfView implements BinaryExportView
         }
         else
         {
-            cell.setCellValue(escapeColumnValue(value));
+            cell.setCellValue(new HSSFRichTextString(escapeColumnValue(value)));
         }
     }
 

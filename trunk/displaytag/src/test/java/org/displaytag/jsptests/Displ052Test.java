@@ -13,7 +13,7 @@ import com.meterware.httpunit.WebTable;
 /**
  * Test for DISPL-052 - Support for checkboxes.
  * @author Fabrizio Giustina
- * @version $Id: $
+ * @version $Id$
  */
 public class Displ052Test extends DisplaytagCase
 {

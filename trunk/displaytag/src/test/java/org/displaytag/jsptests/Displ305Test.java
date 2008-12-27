@@ -1,8 +1,6 @@
 package org.displaytag.jsptests;
 
-import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
-import org.displaytag.util.ParamEncoder;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableRow;
