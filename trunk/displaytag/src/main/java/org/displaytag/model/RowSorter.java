@@ -75,6 +75,11 @@ public class RowSorter implements Comparator
         this.decorator = tableDecorator;
         this.ascending = ascendingOrder;
         this.comparator = compar;
+        if (compar == null)
+        {
+            throw new IllegalArgumentException(
+                "A null comparator has been passed to RowSorter. A comparator instance is required");
+        }
     }
 
     /**
