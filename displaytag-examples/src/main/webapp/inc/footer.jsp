@@ -10,7 +10,7 @@
   <div id="footer">
 
 
-  <div class="xright">&#169; 2002-2006 the Displaytag team</div>
+  <div class="xright">&#169; 2002-2008 the Displaytag team</div>
   <div class="clear">
   <hr />
   </div>

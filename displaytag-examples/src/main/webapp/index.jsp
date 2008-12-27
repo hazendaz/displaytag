@@ -2,7 +2,7 @@
   <jsp:directive.page contentType="text/html; charset=UTF-8" />
   <jsp:include page="inc/header.jsp" flush="true" />
 
-  <h2>displaytag 1.1 examples</h2>
+  <h2>displaytag 1.2 examples</h2>
 
   <p>The examples in this application show some of the features of displaytag.</p>
 

@@ -14,8 +14,8 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-doc</directory>
-      <outputDirectory>displaytag-doc</outputDirectory>
+      <directory>.</directory>
+      <outputDirectory></outputDirectory>
       <includes>
         <include>README*</include>
         <include>*.xml</include>
@@ -24,7 +24,7 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag</directory>
+      <directory>displaytag</directory>
       <outputDirectory>displaytag</outputDirectory>
       <includes>
         <include>README*</include>
@@ -34,7 +34,7 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-export-poi</directory>
+      <directory>displaytag-export-poi</directory>
       <outputDirectory>displaytag-export-poi</outputDirectory>
       <includes>
         <include>README*</include>
@@ -44,7 +44,7 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-portlet</directory>
+      <directory>displaytag-portlet</directory>
       <outputDirectory>displaytag-portlet</outputDirectory>
       <includes>
         <include>README*</include>
@@ -54,7 +54,7 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-examples</directory>
+      <directory>displaytag-examples</directory>
       <outputDirectory>displaytag-examples</outputDirectory>
       <includes>
         <include>README*</include>
