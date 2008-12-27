@@ -10,7 +10,7 @@
   <body>
     <release version="1.2" date="in SVN" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta">
-        Export to excel: auto adjust column width will
+        Export to excel: auto adjust column width.
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-559" due-to="Hurjui Stefan">
         Memory leak when using external sorted and ordered list (paginatedList)
@@ -25,7 +25,7 @@
         SortOrderEnum should be serialiable
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-379" due-to="Michael Osipov">
-        Grouping is performned by default if you don't define any columns
+        Grouping is performed by default if you don't define any columns
       </action>
       <action type="update" dev="fgiust" issue="DISPL-578" due-to="Janick Reynders">
         POI dependency updated to 3.2-FINAL. This should also fix various encoding problems reported by users.
