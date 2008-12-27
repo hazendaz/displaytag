@@ -9,10 +9,13 @@
   </properties>
   <body>
     <release version="1.2" date="in SVN" description="Bugfix release">
+      <action type="fix" dev="fgiust" issue="DISPL-379" due-to="Michael Osipov">
+        Grouping is performned by default if you don't define any columns
+      </action>
       <action type="update" dev="fgiust" issue="DISPL-578" due-to="Janick Reynders">
         POI dependency updated to 3.2-FINAL. This should also fix various encoding problems reported by users.
       </action>
-            <action type="fix" dev="fgiust" issue="DISPL-304" due-to="Kevin Conaway">
+      <action type="fix" dev="fgiust" issue="DISPL-304" due-to="Kevin Conaway">
         Wrong paging banner when using external paging.
       </action>
       <action type="fix" dev="fgiust">
