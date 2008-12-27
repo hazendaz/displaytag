@@ -9,8 +9,8 @@
   </properties>
   <body>
     <release version="1.2" date="in SVN" description="">
-      <action type="fix" dev="fgiust" issue="DISPL-559" due-to="Hurjui Stefan">
-        Memory leak when using external sorted and ordered list (paginatedList)
+      <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta">
+        Export to excel: auto adjust column width will
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-559" due-to="Hurjui Stefan">
         Memory leak when using external sorted and ordered list (paginatedList)
