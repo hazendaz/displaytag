@@ -56,7 +56,7 @@ public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider
      */
     public String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext)
     {
-        MessageSource messageSource = RequestContextUtils.getWebApplicationContext(pageContext.getRequest());
+        MessageSource messageSource = RequestContextUtils.getWebApplicationContext(pageContext.getRequest(), pageContext.getServletContext());
         if (messageSource == null)
         {
             log.warn("messageSource not found");
