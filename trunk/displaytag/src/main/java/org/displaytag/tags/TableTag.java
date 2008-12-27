@@ -1634,7 +1634,7 @@ public class TableTag extends HtmlTableTag
      * Uses HtmlTableWriter to write table called when data have to be displayed in a html page.
      * @throws JspException generic exception
      */
-    private void writeHTMLData() throws JspException
+    protected void writeHTMLData() throws JspException
     {
         JspWriter out = this.pageContext.getOut();
 
