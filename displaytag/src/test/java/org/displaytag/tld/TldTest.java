@@ -1,6 +1,5 @@
 package org.displaytag.tld;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -55,15 +54,6 @@ public class TldTest extends TestCase
     public void testStandardTld() throws Exception
     {
         checkTld("/META-INF/displaytag.tld");
-    }
-
-    /**
-     * Check displaytag EL dtd.
-     * @throws Exception any Exception generated during test.
-     */
-    public void testELTld() throws Exception
-    {
-        checkTld("/META-INF/displaytag-el.tld");
     }
 
     /**

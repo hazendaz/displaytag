@@ -62,15 +62,6 @@ public abstract class DisplaytagCase extends TestCase
     }
 
     /**
-     * run the test with the el tld.
-     * @throws Exception any axception thrown during test.
-     */
-    public void testEL() throws Exception
-    {
-        doTest("http://localhost" + CONTEXT + "/el/" + getJspName());
-    }
-
-    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception

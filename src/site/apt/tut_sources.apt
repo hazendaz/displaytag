@@ -31,12 +31,6 @@ Data sources
    method), and the table tag will call that property to fetch the list
    to display.
 
-   Actually there are two "flavors" of displaytag: an EL version, which
-   requires j2ee 1.3 and a jsp 1.1 (j2ee 1.2 compatible) version
-
-   In the EL version you can obviously use an EL expression, like
-   name="${pageScope.name.property}"
-
    In the non-EL version you can define the "name" attribute using a
    really similar sintax, just without the ${}:
 

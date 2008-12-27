@@ -6,7 +6,7 @@
   </formats>
   <fileSets>
     <fileSet>
-      <directory>../displaytag-doc</directory>
+      <directory>.</directory>
       <outputDirectory></outputDirectory>
       <includes>
         <include>README*</include>
@@ -15,7 +15,7 @@
       </includes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag/target</directory>
+      <directory>displaytag/target</directory>
       <outputDirectory></outputDirectory>
       <includes>
         <include>*.jar</include>
@@ -25,7 +25,7 @@
       </excludes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-export-poi/target</directory>
+      <directory>displaytag-export-poi/target</directory>
       <outputDirectory></outputDirectory>
       <includes>
         <include>*.jar</include>
@@ -35,7 +35,7 @@
       </excludes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-portlet/target</directory>
+      <directory>displaytag-portlet/target</directory>
       <outputDirectory></outputDirectory>
       <includes>
         <include>*.jar</include>
@@ -45,30 +45,30 @@
       </excludes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-examples/target</directory>
+      <directory>displaytag-examples/target</directory>
       <outputDirectory></outputDirectory>
       <includes>
         <include>*.war</include>
       </includes>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-doc/target/site</directory>
+      <directory>displaytag-doc/target/site</directory>
       <outputDirectory>docs</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>../displaytag/target/site</directory>
+      <directory>displaytag/target/site</directory>
       <outputDirectory>docs/displaytag</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-export-poi/target/site</directory>
+      <directory>displaytag-export-poi/target/site</directory>
       <outputDirectory>docs/displaytag-export-poi</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-portlet/target/site</directory>
+      <directory>displaytag-portlet/target/site</directory>
       <outputDirectory>docs/displaytag-portlet</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>../displaytag-examples/target/site</directory>
+      <directory>displaytag-examples/target/site</directory>
       <outputDirectory>docs/displaytag-examples</outputDirectory>
     </fileSet>
   </fileSets>
