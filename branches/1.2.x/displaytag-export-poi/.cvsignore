@@ -1,0 +1,7 @@
+.wtpmodules
+.deployables
+target
+.classpath
+.project
+.settings
+.checkstyle
