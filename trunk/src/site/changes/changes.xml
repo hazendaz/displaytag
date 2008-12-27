@@ -8,7 +8,10 @@
     <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
   </properties>
   <body>
-    <release version="1.2" date="in SVN" description="Bugfix release">
+    <release version="1.2" date="in SVN" description="">
+      <action type="fix" dev="fgiust" issue="DISPL-562" due-to="Stephane Landelle">
+        I18nSpringAdapter fails in portlets
+      </action>
       <action type="fix" dev="fgiust" issue="DISPL-564" due-to="Samppa Saarela">
         Page numbers localized using wrong locale
       </action>
