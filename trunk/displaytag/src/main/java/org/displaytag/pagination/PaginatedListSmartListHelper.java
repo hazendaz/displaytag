@@ -111,7 +111,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         int startPage;
         int endPage;
 
-        Pagination pagination = new Pagination(baseHref, pageParameter);
+        Pagination pagination = new Pagination(baseHref, pageParameter, this.properties);
         pagination.setCurrent(new Integer(paginatedList.getPageNumber()));
 
         // if no items are found still add pagination?

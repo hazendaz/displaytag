@@ -303,7 +303,7 @@ public class SmartListHelper
         int startPage;
         int endPage;
 
-        Pagination pagination = new Pagination(baseHref, pageParameter);
+        Pagination pagination = new Pagination(baseHref, pageParameter, this.properties);
         pagination.setCurrent(new Integer(this.currentPage));
 
         // if no items are found still add pagination?

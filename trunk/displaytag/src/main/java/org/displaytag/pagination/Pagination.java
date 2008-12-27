@@ -20,6 +20,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
 
 
@@ -78,14 +79,20 @@ public class Pagination
     private List pages = new ArrayList();
 
     /**
+     * Table properties, needed fot locale.
+     */
+    private TableProperties properties;
+
+    /**
      * Constructor for Pagination.
      * @param baseHref Href used for links
      * @param pageParameter name for the page parameter
      */
-    public Pagination(Href baseHref, String pageParameter)
+    public Pagination(Href baseHref, String pageParameter, TableProperties properties)
     {
         this.href = baseHref;
         this.pageParam = pageParameter;
+        this.properties = properties;
     }
 
     /**
@@ -242,11 +249,12 @@ public class Pagination
             // selected page need a different formatter
             if (page.getSelected())
             {
-                buffer.append(MessageFormat.format(numberedPageSelectedFormat, pageObjects));
+                buffer
+                    .append(new MessageFormat(numberedPageSelectedFormat, properties.getLocale()).format(pageObjects));
             }
             else
             {
-                buffer.append(MessageFormat.format(numberedPageFormat, pageObjects));
+                buffer.append(new MessageFormat(numberedPageFormat, properties.getLocale()).format(pageObjects));
             }
 
             // next? add page separator

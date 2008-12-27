@@ -66,7 +66,7 @@ public class ToStringTest extends TestCase
      */
     public void testPagination()
     {
-        checkToString(new Pagination(null, null));
+        checkToString(new Pagination(null, null, null));
     }
 
     /**
