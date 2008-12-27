@@ -1,11 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag-doc</artifactId>
   <packaging>pom</packaging>
   <name>Display tag library documentation</name>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <description>
     The display tag library is an open source suite of custom tags that provide high-level web presentation patterns
     which will work in an MVC model. The library provides a significant amount of functionality while still being easy
@@ -17,9 +16,9 @@
     <url>http://jira.codehaus.org/browse/DISPL</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:http://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk</connection>
-    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk</developerConnection>
-    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk</url>
+    <connection>scm:svn:http://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-doc-1.2</connection>
+    <developerConnection>scm:svn:https://displaytag.svn.sourceforge.net/svnroot/displaytag/tags/displaytag-doc-1.2</developerConnection>
+    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/tags/displaytag-doc-1.2</url>
   </scm>
   <ciManagement>
     <notifiers>
