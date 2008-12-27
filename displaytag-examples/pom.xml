@@ -4,7 +4,7 @@
   <parent>
     <artifactId>displaytag-doc</artifactId>
     <groupId>displaytag</groupId>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -12,7 +12,7 @@
   <artifactId>displaytag-examples</artifactId>
   <packaging>war</packaging>
   <name>Display tag library examples</name>
-  <version>1.1.2-SNAPSHOT</version>
+  <version>1.2-SNAPSHOT</version>
   <description>Example webapp for the display tag library</description>
   <dependencies>
     <dependency>
@@ -54,12 +54,12 @@
     <dependency>
       <groupId>displaytag</groupId>
       <artifactId>displaytag-export-poi</artifactId>
-      <version>1.1.2-SNAPSHOT</version>
+      <version>1.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>displaytag</groupId>
       <artifactId>displaytag</artifactId>
-      <version>1.1.2-SNAPSHOT</version>
+      <version>1.2-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </project>
