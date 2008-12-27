@@ -1061,7 +1061,7 @@ public class TableTag extends HtmlTableTag
                     "InvalidTypeException.msg",
                     new Object[]{"size", "Integer"}));
             }
-            
+
             PaginationHelper paginationHelper = new PaginationHelper(pageNumber, pagesize);
             this.tableIterator = paginationHelper.getIterator(this.list);
         } else {
@@ -1114,7 +1114,7 @@ public class TableTag extends HtmlTableTag
         else
         {
             filteredRows = new LongRange(1, Long.MAX_VALUE);
-        }  
+        }
     }
 
     /**
@@ -1357,6 +1357,7 @@ public class TableTag extends HtmlTableTag
         this.tableIterator = null;
         this.tableModel = null;
         this.list = null;
+        this.paginatedList = null;
     }
 
     /**
@@ -1735,7 +1736,6 @@ public class TableTag extends HtmlTableTag
         this.excludedParams = null;
         this.filteredRows = null;
         this.uid = null;
-        this.paginatedList = null;
         this.keepStatus = false;
         this.clearStatus = false;
         this.form = null;
