@@ -2,6 +2,7 @@ package org.displaytag.tld;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -53,7 +54,7 @@ public class TldTest extends TestCase
      */
     public void testStandardTld() throws Exception
     {
-        checkTld("/src/main/resources/META-INF/displaytag.tld");
+        checkTld("/META-INF/displaytag.tld");
     }
 
     /**
@@ -62,7 +63,7 @@ public class TldTest extends TestCase
      */
     public void testELTld() throws Exception
     {
-        checkTld("/src/main/resources/META-INF/displaytag-el.tld");
+        checkTld("/META-INF/displaytag-el.tld");
     }
 
     /**
@@ -218,17 +219,13 @@ public class TldTest extends TestCase
     private List getTagAttributeList(String checkedTld) throws Exception
     {
 
-        URL classDir = TldTest.class.getResource("TldTest.class");
-        String tldPath = classDir.getPath();
+        InputStream is = getClass().getResourceAsStream(checkedTld);
 
-        String baseWebappDir = tldPath.substring(0, tldPath.indexOf("target") - 1);
-        tldPath = baseWebappDir + checkedTld;
-        log.debug("tld found: " + tldPath);
-
-        File tldFile = new File(tldPath);
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         builder.setEntityResolver(new ClasspathEntityResolver());
-        Document webXmlDoc = builder.parse(tldFile);
+        Document webXmlDoc = builder.parse(is);
+
+        is.close();
 
         NodeList tagList = webXmlDoc.getElementsByTagName("tag");
         List tagsAttributes = new ArrayList();
