@@ -11,6 +11,7 @@
  */
 package org.displaytag.properties;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import org.apache.commons.collections.iterators.ArrayIterator;
@@ -22,8 +23,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public final class SortOrderEnum
+public final class SortOrderEnum implements Serializable
 {
+
+    /**
+     * Stable serialVersionUID.
+     */
+    private static final long serialVersionUID = 42L;
 
     /**
      * Sorted in descending order (1, "descending").

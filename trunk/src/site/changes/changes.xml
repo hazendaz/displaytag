@@ -9,6 +9,9 @@
   </properties>
   <body>
     <release version="1.2" date="in SVN" description="Bugfix release">
+      <action type="fix" dev="fgiust" issue="DISPL-533" due-to="Thomas Queste">
+        SortOrderEnum should be serialiable
+      </action>
       <action type="fix" dev="fgiust" issue="DISPL-379" due-to="Michael Osipov">
         Grouping is performned by default if you don't define any columns
       </action>
