@@ -115,7 +115,7 @@ public class HeaderCell
     /**
      * group the column?
      */
-    private int group;
+    private int group = -1;
 
     /**
      * Name of the non-decorated property used during sorting.
