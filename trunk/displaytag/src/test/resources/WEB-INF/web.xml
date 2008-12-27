@@ -25,10 +25,6 @@
     <taglib-location>/../classes/META-INF/displaytag.tld</taglib-location>
   </taglib>
   <taglib>
-    <taglib-uri>http://displaytag.sf.net/el</taglib-uri>
-    <taglib-location>/../classes/META-INF/displaytag-el.tld</taglib-location>
-  </taglib>
-  <taglib>
     <taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
     <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
   </taglib>
