@@ -23,11 +23,12 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.hssf.util.Region;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.decorator.hssf.DecoratesHssf;
 import org.displaytag.model.Column;
@@ -112,10 +113,10 @@ public class HssfTableWriter extends TableWriterAdapter
 
         this.colNum = 0;
         this.currentRow = this.sheet.createRow(this.rowNum++);
-        this.currentCell = this.currentRow.createCell((short) this.colNum);
+        this.currentCell = this.currentRow.createCell(this.colNum);
         this.currentCell.setCellStyle(style);
         String caption = model.getCaption();
-        this.currentCell.setCellValue(caption);
+        this.currentCell.setCellValue(new HSSFRichTextString(caption));
         this.rowSpanTable(model);
     }
 
@@ -125,9 +126,9 @@ public class HssfTableWriter extends TableWriterAdapter
      * @param last Column number of last cell over which to merge.
      * @return The region over which to merge a cell.
      */
-    private Region getMergeCellsRegion(short first, short last)
+    private CellRangeAddress getMergeCellsRegion(int first, int last)
     {
-        return new Region(this.currentRow.getRowNum(), first, this.currentRow.getRowNum(), last);
+        return new CellRangeAddress(this.currentRow.getRowNum(), first, this.currentRow.getRowNum(), last);
     }
 
     /**
@@ -175,8 +176,7 @@ public class HssfTableWriter extends TableWriterAdapter
     protected void writeColumnOpener(Column column) throws Exception
     {
         column.getOpenTag(); // has side effect, setting its stringValue, which affects grouping logic.
-        this.currentCell = this.currentRow.createCell((short) this.colNum++);
-        this.currentCell.setEncoding(HSSFCell.ENCODING_UTF_16);
+        this.currentCell = this.currentRow.createCell(this.colNum++);
     }
 
     /**
@@ -210,7 +210,7 @@ public class HssfTableWriter extends TableWriterAdapter
         }
         else
         {
-            this.currentCell.setCellValue(this.escapeColumnValue(value));
+            this.currentCell.setCellValue(new HSSFRichTextString(this.escapeColumnValue(value)));
         }
 
     }
@@ -221,7 +221,7 @@ public class HssfTableWriter extends TableWriterAdapter
      */
     protected void writeDecoratedRowFinish(TableModel model) throws Exception
     {
-        TableDecorator decorator =  model.getTableDecorator();
+        TableDecorator decorator = model.getTableDecorator();
         if (decorator instanceof DecoratesHssf)
         {
             DecoratesHssf hdecorator = (DecoratesHssf) decorator;
@@ -249,7 +249,7 @@ public class HssfTableWriter extends TableWriterAdapter
      */
     private void rowSpanTable(TableModel model)
     {
-        this.sheet.addMergedRegion(this.getMergeCellsRegion(this.currentCell.getCellNum(), (short) (model
+        this.sheet.addMergedRegion(this.getMergeCellsRegion(this.currentCell.getColumnIndex(), (model
             .getNumberOfColumns() - 1)));
     }
 
@@ -320,10 +320,9 @@ public class HssfTableWriter extends TableWriterAdapter
      */
     private void writeHeaderFooter(String value, HSSFRow row, HSSFCellStyle style)
     {
-        this.currentCell = row.createCell((short) this.colNum++);
-        this.currentCell.setCellValue(value);
+        this.currentCell = row.createCell(this.colNum++);
+        this.currentCell.setCellValue(new HSSFRichTextString(value));
         this.currentCell.setCellStyle(style);
-        this.currentCell.setEncoding(HSSFCell.ENCODING_UTF_16);
     }
 
     /**

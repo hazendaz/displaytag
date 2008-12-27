@@ -14,7 +14,7 @@ import org.apache.commons.lang.UnhandledException;
 
 /**
  * @author fgiust
- * @version $Revision: $ ($Author: $)
+ * @version $Revision$ ($Author$)
  */
 public class PostHref implements Href
 {
