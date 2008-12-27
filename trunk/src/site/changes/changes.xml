@@ -8,7 +8,7 @@
     <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
   </properties>
   <body>
-    <release version="1.2" date="in SVN" description="">
+    <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-559" due-to="Hurjui Stefan"> Memory leak when using external sorted and
@@ -36,7 +36,7 @@
       <action type="fix" dev="fgiust" issue="DISPL-499"> Decorator.searchGetterFor() method dumps stacktraces into console.
       </action>
     </release>
-    <release version="1.1.1" date="2007-08-15" description="Bugfix release">
+    <release version="1.1.1" date="August 15, 2007" description="Bugfix release">
       <action type="update" dev="fgiust"> Replaced dependencies from commons-logging in displaytag poms with
         jcl-over-slf4jF.</action>
       <action type="fix" dev="rapruitt" issue="DISPL-306">Added new property to set the default Comparator.</action>
@@ -48,7 +48,7 @@
       <action type="fix" dev="fgiust" issue="DISPL-298" due-to="Jorge Barroso"> TableDecorator created with 1.0 doesn't work
         properly with 1.1. Properties defined only it decorator.</action>
     </release>
-    <release version="1.1" date="12-2-2006" description="the long-awaited 1.1 release">
+    <release version="1.1" date="December 2, 2006" description="the long-awaited 1.1 release">
       <action type="add" dev="fgiust" issue="DISPL-224" due-to="octalpus"> New "scope" and "headerScope" attributes added to
         the column tag (output an html "scope" attribute for web accessibility).</action>
       <action type="add" dev="fgiust" issue="DISPL-208"> Column level default sort order. A new "sortorder" attribute has

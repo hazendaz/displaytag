@@ -7,12 +7,12 @@
   </bannerLeft>
   <bannerRight>
     <name>Displaytag</name>
-    <src>http://displaytag.sf.net/11/images/displaytag.png</src>
-    <href>http://displaytag.sf.net/11/</href>
+    <src>http://displaytag.sf.net/1.2/images/displaytag.png</src>
+    <href>http://displaytag.sf.net/1.2/</href>
   </bannerRight>
   <body>
     <links>
-      <item name="Live examples" href="http://displaytag.homeip.net/displaytag-examples-1.1" />
+      <item name="Live examples" href="http://displaytag.homeip.net/displaytag-examples-1.2" />
     </links>
     <menu name="Reference">
       <item name="About" href="/index.html" />
