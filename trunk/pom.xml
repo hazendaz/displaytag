@@ -142,7 +142,7 @@
     <url>http://sourceforge.net/projects/displaytag</url>
   </organization>
   <prerequisites>
-    <maven>2.0.6</maven>
+    <maven>2.0.9</maven>
   </prerequisites>
   <build>
     <plugins>
@@ -472,7 +472,7 @@
     <site>
       <id>displaytag</id>
       <name>displaytag</name>
-      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/11/</url>
+      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/12/</url>
     </site>
   </distributionManagement>
 </project>
