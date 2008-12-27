@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!--
+  <!--
   "type" attribute can be: add, remove, update or fix.
 -->
 <document>
@@ -9,358 +9,239 @@
   </properties>
   <body>
     <release version="1.2" date="in SVN" description="">
-      <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta">
-        Export to excel: auto adjust column width.
+      <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.
       </action>
-      <action type="fix" dev="fgiust" issue="DISPL-559" due-to="Hurjui Stefan">
-        Memory leak when using external sorted and ordered list (paginatedList)
+      <action type="fix" dev="fgiust" issue="DISPL-559" due-to="Hurjui Stefan"> Memory leak when using external sorted and
+        ordered list (paginatedList)</action>
+      <action type="fix" dev="fgiust" issue="DISPL-562" due-to="Stephane Landelle"> I18nSpringAdapter fails in portlets</action>
+      <action type="fix" dev="fgiust" issue="DISPL-564" due-to="Samppa Saarela"> Page numbers localized using wrong locale
       </action>
-      <action type="fix" dev="fgiust" issue="DISPL-562" due-to="Stephane Landelle">
-        I18nSpringAdapter fails in portlets
+      <action type="fix" dev="fgiust" issue="DISPL-533" due-to="Thomas Queste"> SortOrderEnum should be serialiable</action>
+      <action type="fix" dev="fgiust" issue="DISPL-379" due-to="Michael Osipov"> Grouping is performed by default if you don't
+        define any columns</action>
+      <action type="update" dev="fgiust" issue="DISPL-578" due-to="Janick Reynders"> POI dependency updated to 3.2-FINAL. This
+        should also fix various encoding problems reported by users.</action>
+      <action type="fix" dev="fgiust" issue="DISPL-304" due-to="Kevin Conaway"> Wrong paging banner when using external paging.
       </action>
-      <action type="fix" dev="fgiust" issue="DISPL-564" due-to="Samppa Saarela">
-        Page numbers localized using wrong locale
+      <action type="fix" dev="fgiust"> Write only properties in table decorators were incorrectly recognized as readable.
       </action>
-      <action type="fix" dev="fgiust" issue="DISPL-533" due-to="Thomas Queste">
-        SortOrderEnum should be serialiable
-      </action>
-      <action type="fix" dev="fgiust" issue="DISPL-379" due-to="Michael Osipov">
-        Grouping is performed by default if you don't define any columns
-      </action>
-      <action type="update" dev="fgiust" issue="DISPL-578" due-to="Janick Reynders">
-        POI dependency updated to 3.2-FINAL. This should also fix various encoding problems reported by users.
-      </action>
-      <action type="fix" dev="fgiust" issue="DISPL-304" due-to="Kevin Conaway">
-        Wrong paging banner when using external paging.
-      </action>
-      <action type="fix" dev="fgiust">
-        Write only properties in table decorators were incorrectly recognized as readable.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-125">
-        Preserve The Current Page And Sort Across Sessions. New "keepStatus" and "clearStatus" table attributes.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-157">
-        Displaytag in a form. New "form" table attribute that can be used to make displaytag submit a form when paging
-        or sorting.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-52">
-        Support for checkboxes. See the example web application for an example, persistent checkboxes can now be
-        implemented by using the new "form" tag attribute and a decorator
-        (org.displaytag.decorator.CheckboxTableDecorator) available in the standard distribution.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-497" due-to="Kevin Conaway">
-        Add sublist support for Pagination.
-      </action>
-      <action type="fix" dev="fgiust" issue="DISPL-499">
-        Decorator.searchGetterFor() method dumps stacktraces into console.
+      <action type="add" dev="fgiust" issue="DISPL-125"> Preserve The Current Page And Sort Across Sessions. New "keepStatus"
+        and "clearStatus" table attributes.</action>
+      <action type="add" dev="fgiust" issue="DISPL-157"> Displaytag in a form. New "form" table attribute that can be used to
+        make displaytag submit a form when paging or sorting.</action>
+      <action type="add" dev="fgiust" issue="DISPL-52"> Support for checkboxes. See the example web application for an
+        example, persistent checkboxes can now be implemented by using the new "form" tag attribute and a decorator
+        (org.displaytag.decorator.CheckboxTableDecorator) available in the standard distribution.</action>
+      <action type="add" dev="fgiust" issue="DISPL-497" due-to="Kevin Conaway"> Add sublist support for Pagination.</action>
+      <action type="fix" dev="fgiust" issue="DISPL-499"> Decorator.searchGetterFor() method dumps stacktraces into console.
       </action>
     </release>
     <release version="1.1.1" date="2007-08-15" description="Bugfix release">
-      <action type="update" dev="fgiust">
-        Replaced dependencies from commons-logging in displaytag poms with jcl-over-slf4jF.
-      </action>
+      <action type="update" dev="fgiust"> Replaced dependencies from commons-logging in displaytag poms with
+        jcl-over-slf4jF.</action>
       <action type="fix" dev="rapruitt" issue="DISPL-306">Added new property to set the default Comparator.</action>
-      <action type="update" dev="fgiust">
-        Displaytag code moved from CVS to a new Subversion repository at https://svn.sourceforge.net/svnroot/displaytag/
-      </action>
+      <action type="update" dev="fgiust"> Displaytag code moved from CVS to a new Subversion repository at
+        https://svn.sourceforge.net/svnroot/displaytag/</action>
       <action type="fix" dev="fgiust" issue="DISPL-305">NPE in displaytag 1.1 when row css class is not set.</action>
-      <action type="fix" dev="fgiust" issue="DISPL-307" due-to="Mike Lindenblatt">
-        ExcelHssfView sets Encoding for headerColumn too late.
-      </action>
-      <action type="fix" dev="fgiust" issue="DISPL-298" due-to="Jorge Barroso">
-        TableDecorator created with 1.0 doesn't work properly with 1.1. Properties defined only it decorator.
-      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-307" due-to="Mike Lindenblatt"> ExcelHssfView sets Encoding for headerColumn too
+        late.</action>
+      <action type="fix" dev="fgiust" issue="DISPL-298" due-to="Jorge Barroso"> TableDecorator created with 1.0 doesn't work
+        properly with 1.1. Properties defined only it decorator.</action>
     </release>
     <release version="1.1" date="12-2-2006" description="the long-awaited 1.1 release">
-      <action type="add" dev="fgiust" issue="DISPL-224" due-to="octalpus">
-        New "scope" and "headerScope" attributes added to the column tag (output an html "scope" attribute for web
-        accessibility).
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-208">
-        Column level default sort order. A new "sortorder" attribute has been added to the column tag.
-      </action>
-      <action type="update" dev="fgiust">
-        Displaytag 1.1 will require java 1.4 and a servlet 2.3 compatible container. Support for java 1.3 and servlet
-        2.2 has been dropped.
-      </action>
+      <action type="add" dev="fgiust" issue="DISPL-224" due-to="octalpus"> New "scope" and "headerScope" attributes added to
+        the column tag (output an html "scope" attribute for web accessibility).</action>
+      <action type="add" dev="fgiust" issue="DISPL-208"> Column level default sort order. A new "sortorder" attribute has
+        been added to the column tag.</action>
+      <action type="update" dev="fgiust"> Displaytag 1.1 will require java 1.4 and a servlet 2.3 compatible container.
+        Support for java 1.3 and servlet 2.2 has been dropped.</action>
       <action type="add" dev="rapruitt" issue="DISPL-49">Support for per-row css attributes.</action>
-      <action type="add" dev="rapruitt" issue="DISPL-162" due-to="fguist,karsten,rapruitt">
-        Added new displaytag-export-poi module, with a new binary excel export view using jakarta POI. To enable, add
-        the displayatg-export-poi and poi jars to your classpath, then configure it into your displaytag.properties
-        using 'export.excel.class=org.displaytag.export.ExcelHssfView'.
+      <action type="add" dev="rapruitt" issue="DISPL-162" due-to="fguist,karsten,rapruitt"> Added new displaytag-export-poi module, with a
+        new binary excel export view using jakarta POI. To enable, add the displayatg-export-poi and poi jars to your
+        classpath, then configure it into your displaytag.properties using
+        'export.excel.class=org.displaytag.export.ExcelHssfView'.</action>
+      <action type="fix" dev="rapruitt" issue="DISPL-171" due-to="sillybears"> setSortProperty function was not overridden in
+        ELColumnTag.</action>
+      <action type="fix" dev="rapruitt" issue="DISPL-77"> The default comparator now uses a Collator instead of #compareTo;
+        if more advanced functionality is needed, you can specify your own Comparator (see in DISPL-18). Code based on
+        several patches and comments in Jira, thanks to all who participated.</action>
+      <action type="add" dev="rapruitt" issue="DISPL-18"> Added support for column level comparators. The comparator
+        attribute may be either a fully qualified classname, or it can be an actual comparator object. Code based on
+        several patches and comments in Jira, thanks to all who participated.</action>
+      <action type="fix" dev="rapruitt" issue="DISPL-164"> Footer tag will now execute its body only on the last iteration of
+        the table, instead of on the first.</action>
+      <action type="add" dev="rapruitt"> Added direct suppport for column totals. Users can access the totals via JSTL in
+        the body of the footer or JSP following the tag.</action>
+      <action type="update" dev="fgiust">Updated dependencies: commons-beanutils 1.7, commons-collection 3.1.
       </action>
-      <action type="fix" dev="rapruitt" issue="DISPL-171" due-to="sillybears">
-        setSortProperty function was not overridden in ELColumnTag.
-      </action>
-      <action type="fix" dev="rapruitt" issue="DISPL-77">
-        The default comparator now uses a Collator instead of #compareTo; if more advanced functionality is needed, you
-        can specify your own Comparator (see in DISPL-18). Code based on several patches and comments in Jira, thanks to
-        all who participated.
-      </action>
-      <action type="add" dev="rapruitt" issue="DISPL-18">
-        Added support for column level comparators. The comparator attribute may be either a fully qualified classname,
-        or it can be an actual comparator object. Code based on several patches and comments in Jira, thanks to all who
-        participated.
-      </action>
-      <action type="fix" dev="rapruitt" issue="DISPL-164">
-        Footer tag will now execute its body only on the last iteration of the table, instead of on the first.
-      </action>
-      <action type="add" dev="rapruitt">
-        Added direct suppport for column totals. Users can access the totals via JSTL in the body of the footer or JSP
-        following the tag.
-      </action>
-      <action type="update" dev="fgiust">Updated dependencies: commons-beanutils 1.7, commons-collection 3.1.</action>
-      <action type="fix" dev="fgiust" issue="DISPL-213">
-        Page Listing Incorrect: the last page doesn't show up in the page list when it only contains one record and the
-        page number is > than group size (it only can be accessed using the "last" link.
-      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-213"> Page Listing Incorrect: the last page doesn't show up in the page
+        list when it only contains one record and the page number is > than group size (it only can be accessed using
+        the "last" link.</action>
       <action type="update" dev="fgiust">Example pages have been converted to jsp/xml syntax.</action>
-      <action type="fix" dev="fgiust" issue="DISPL-232">
-        paging.banner.full: {6} is not the total number of pages.
+      <action type="fix" dev="fgiust" issue="DISPL-232"> paging.banner.full: {6} is not the total number of pages.</action>
+      <action type="fix" dev="fgiust" issue="DISPL-212"> Table displayed incorrectly with fully loaded last page and page
+        number+1 for page parameter.</action>
+      <action type="fix" dev="fgiust" issue="DISPL-234"> HTML title not added with chopped value (using maxlenght with a
+        column containing a String of maxlength + 3 chars)</action>
+      <action type="fix" dev="fgiust" issue="DISPL-243"> Default column sort breaks sorting after a few sorts of the column
       </action>
-      <action type="fix" dev="fgiust" issue="DISPL-212">
-        Table displayed incorrectly with fully loaded last page and page number+1 for page parameter.
-      </action>
-      <action type="fix" dev="fgiust" issue="DISPL-234">
-        HTML title not added with chopped value (using maxlenght with a column containing a String of maxlength + 3
-        chars)
-      </action>
-      <action type="fix" dev="fgiust" issue="DISPL-243">
-        Default column sort breaks sorting after a few sorts of the column
-      </action>
-      <action type="fix" dev="fgiust" issue="DISPL-246">
-        Wrong header set in BufferedResponseWrapper when a charset is already defined (missing '=')
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-139">
-        New [[DisplaytagColumnDecorator]] interface, which replaces the previous [[ColumnDecorator]] and adds
-        pageContext and media type access. The [[ColumnDecorator]] interface is nor deprecated, but compatibility with
-        old column decorators is preserved.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-268" due-to="Eric Dalquist">
-        Support JSR168 based portlets. New displaytag-portlet optional module for JSR-168 support.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-25">
-        Multiple Column Decorators. Now you can specify multiple column decorators in the "decorator" column attribute
-        (whitespace separated).
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-28">
-        New "format" attribute added to display column. You can now specify a MessageFormat pattern for simple
-        formatting instead of implementing a specific column decorator.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-68">
-        Allow row object to be of type Collection. Now you can use a list of lists as a source for a display:table,
-        using column property="[0]", column property="[1]" to access indexed properties.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-245" due-to="Jorge L. Barroso">
-        Export enhancements: new RTF export view, refactoring of export code for easier extension, expose caption and
-        footer to export view.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-110">
-        Ability to highlight selected table row. You can use the addRowClass() and addRowId() callbacks in
-        TableDecorator to specificy a different class or id for each row. Check the sample application for an example on
-        how to do this easily.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-222">
-        Ability to use a custom DecoratorFactory. You can now specify a custom decorator factory by setting the new
-        factory.decorator property in displaytag.properties.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-31">
-        Decorators can now be loaded from objects available in page, request, session or application scope. The default
-        decorator factory will first look for an existing instance then, if not found, it will assume the name it's the
-        fully qualify class name for a decorator and will try to instantiate it using reflection. This allows an easier
-        generation of decorators directly in the jsp page, see the sample webapp for an example.
-      </action>
-      <action type="add" dev="fgiust" issue="DISPL-80">
-        Option to automatically escape xml. New "escapeXml" attribute added to column tag.
-      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-246"> Wrong header set in BufferedResponseWrapper when a charset is
+        already defined (missing '=')</action>
+      <action type="add" dev="fgiust" issue="DISPL-139"> New [[DisplaytagColumnDecorator]] interface, which replaces the
+        previous [[ColumnDecorator]] and adds pageContext and media type access. The [[ColumnDecorator]] interface is
+        nor deprecated, but compatibility with old column decorators is preserved.</action>
+      <action type="add" dev="fgiust" issue="DISPL-268" due-to="Eric Dalquist"> Support JSR168 based portlets. New
+        displaytag-portlet optional module for JSR-168 support.</action>
+      <action type="add" dev="fgiust" issue="DISPL-25"> Multiple Column Decorators. Now you can specify multiple column
+        decorators in the "decorator" column attribute (whitespace separated).</action>
+      <action type="add" dev="fgiust" issue="DISPL-28"> New "format" attribute added to display column. You can now specify
+        a MessageFormat pattern for simple formatting instead of implementing a specific column decorator.</action>
+      <action type="add" dev="fgiust" issue="DISPL-68"> Allow row object to be of type Collection. Now you can use a list of
+        lists as a source for a display:table, using column property="[0]", column property="[1]" to access indexed
+        properties.</action>
+      <action type="add" dev="fgiust" issue="DISPL-245" due-to="Jorge L. Barroso"> Export enhancements: new RTF export view,
+        refactoring of export code for easier extension, expose caption and footer to export view.</action>
+      <action type="add" dev="fgiust" issue="DISPL-110"> Ability to highlight selected table row. You can use the
+        addRowClass() and addRowId() callbacks in TableDecorator to specificy a different class or id for each row.
+        Check the sample application for an example on how to do this easily.</action>
+      <action type="add" dev="fgiust" issue="DISPL-222"> Ability to use a custom DecoratorFactory. You can now specify a
+        custom decorator factory by setting the new factory.decorator property in displaytag.properties.</action>
+      <action type="add" dev="fgiust" issue="DISPL-31"> Decorators can now be loaded from objects available in page,
+        request, session or application scope. The default decorator factory will first look for an existing instance
+        then, if not found, it will assume the name it's the fully qualify class name for a decorator and will try to
+        instantiate it using reflection. This allows an easier generation of decorators directly in the jsp page, see
+        the sample webapp for an example.</action>
+      <action type="add" dev="fgiust" issue="DISPL-80"> Option to automatically escape xml. New "escapeXml" attribute added
+        to column tag.</action>
     </release>
     <release version="1.0" date="January 1, 2005" description="1.0 happynewyear release">
-      <action type="fix" dev="fgiust">
-        Fixed some remaining https issues when saving exported files in Internet Explorer with the export filter
-        enabled.
-      </action>
+      <action type="fix" dev="fgiust"> Fixed some remaining https issues when saving exported files in Internet Explorer
+        with the export filter enabled.</action>
       <action type="fix" dev="fgiust" issue="DISPL-150">autolink working with https://, ftp://, etc.</action>
-      <action type="fix" dev="fgiust" issue="DISPL-136">
-        Column body is not rendered when requesting an invalid page.
+      <action type="fix" dev="fgiust" issue="DISPL-136"> Column body is not rendered when requesting an invalid page.
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-149">I18n Struts Adapter now works with Struts 1.1.</action>
-      <action type="fix" dev="fgiust" issue="DISPL-156">
-        Performance optimization: reduce the use of temporary StringBuffers while building the html table.
-      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-156"> Performance optimization: reduce the use of temporary StringBuffers
+        while building the html table.</action>
       <action type="fix" dev="fgiust" issue="DISPL-148">Sporadic error with factory.requestHelper.</action>
-      <action type="add" dev="fgiust" issue="DISPL-144">
-        DisplayTag is now able to load displaytag.properties from a different classloader (allows displaytag.jar to be
-        placed in appserver shared libs).
-      </action>
+      <action type="add" dev="fgiust" issue="DISPL-144"> DisplayTag is now able to load displaytag.properties from a
+        different classloader (allows displaytag.jar to be placed in appserver shared libs).</action>
       <action type="fix" dev="fgiust" issue="DISPL-109">Center of paging banner number.</action>
       <action type="fix" dev="fgiust" issue="DISPL-145">Tag holding references to resources.</action>
-      <action type="fix" dev="fgiust" issue="DISPL-142">
-        Export of nested tables: now you can export the parent table without errors; nested tables are not included
-        during export.
-      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-142"> Export of nested tables: now you can export the parent table without
+        errors; nested tables are not included during export.</action>
     </release>
     <release version="1.0-rc2" date="November 19, 2004 " description="Final 1.0 release candidate">
-      <action type="fix" dev="fgiust" issue="962448">
-        getListIndex() in tableDecorator now correctly returns the index in the original list.
-      </action>
-      <action type="fix" dev="fgiust" issue="1006229" due-to="Konstantin">
-        Proper encoding of URLs under JDK 1.4.
-      </action>
-      <action type="add" dev="rapruitt">
-        Properties are looked up according to the locale of the request. More specific locales override more general
-        locales on a key by key basis, so that, if a key is not present in the most specific locale file for a request,
-        the tag will search through the more general files until the key is found.
+      <action type="fix" dev="fgiust" issue="962448"> getListIndex() in tableDecorator now correctly returns the index in
+        the original list.</action>
+      <action type="fix" dev="fgiust" issue="1006229" due-to="Konstantin"> Proper encoding of URLs under JDK 1.4.</action>
+      <action type="add" dev="rapruitt"> Properties are looked up according to the locale of the request. More specific
+        locales override more general locales on a key by key basis, so that, if a key is not present in the most
+        specific locale file for a request, the tag will search through the more general files until the key is found.
       </action>
       <action type="fix" dev="fgiust" issue="1020948">NullpointerException in HeaderCell.</action>
       <action type="fix" dev="fgiust" issue="1016089">Param values not URLEncoded.</action>
-      <action type="update" dev="fgiust" issue="DISPL-22">
-        Exported output can now optionally be written directly (both with or without the export filter) and not
-        buffered.
-      </action>
+      <action type="update" dev="fgiust" issue="DISPL-22"> Exported output can now optionally be written directly (both with
+        or without the export filter) and not buffered.</action>
       <action type="fix" dev="fgiust" issue="DISPL-21">Export filter not working in WebLogic.</action>
-      <action type="add" dev="fgiust" issue="DISPL-13" due-to="Ivan Markov">
-        Export system has been reworked, allowing registration of user-defined export views. A PDF export view has been
-        added as an example (note that PDF export is not enabled by default in the distribution: you need to set the
-        [[export.pdf=true]] config parameter and include the required libraries). Public APIs for export views have
-        changed (a new interface has been added).
+      <action type="add" dev="fgiust" issue="DISPL-13" due-to="Ivan Markov"> Export system has been reworked, allowing
+        registration of user-defined export views. A PDF export view has been added as an example (note that PDF export
+        is not enabled by default in the distribution: you need to set the [[export.pdf=true]] config parameter and
+        include the required libraries). Public APIs for export views have changed (a new interface has been added).
       </action>
-      <action type="fix" dev="fgiust" issue="DISPL-12">
-        Algorithm in org.displaytag.util.ParamEncoder produces easily colliding keys.
+      <action type="fix" dev="fgiust" issue="DISPL-12"> Algorithm in org.displaytag.util.ParamEncoder produces easily
+        colliding keys.</action>
+      <action type="add" dev="fgiust" issue="DISPL-35"> Enable / disable param forwarding. A new [[excludedParams]]
+        attribute has been added to the table tag, which allows you to specify the list of parameters which should not
+        be forwarded during paging or sorting. [[*]] matches any parameter.</action>
+      <action type="fix" dev="fgiust" issue="DISPL-53"> The [[titleKey]] column attribute has been added to the standard
+        version of the taglib too. The i18n support for titleKey has been refactored, adding a configurable resource
+        provider which can wrap the localization support of any used frameworks (JSTL, Struts, Spring adapter are
+        included, other can be added be users).</action>
+      <action type="fix" dev="fgiust" issue="DISPL-15">display-el:column titleKey not Resin compatible.
       </action>
-      <action type="add" dev="fgiust" issue="DISPL-35">
-        Enable / disable param forwarding. A new [[excludedParams]] attribute has been added to the table tag, which
-        allows you to specify the list of parameters which should not be forwarded during paging or sorting. [[*]]
-        matches any parameter.
-      </action>
-      <action type="fix" dev="fgiust" issue="DISPL-53">
-        The [[titleKey]] column attribute has been added to the standard version of the taglib too. The i18n support for
-        titleKey has been refactored, adding a configurable resource provider which can wrap the localization support of
-        any used frameworks (JSTL, Struts, Spring adapter are included, other can be added be users).
-      </action>
-      <action type="fix" dev="fgiust" issue="DISPL-15">display-el:column titleKey not Resin compatible.</action>
       <action type="fix" dev="fgiust" issue="DISPL-6">
-        Error: mediaType is already defined. To avoid errors when nested tables are used, the current [[mediaType]]
-        <strong>is no more declared as a compile-time variable</strong>
-        . This means that you can still retrieve the current media type using [[pageContext.getAttribute("mediaType")]]
-        but not using a scriptlet like [[
-        <![CDATA[<%=mediaType%>]]>
+        Error: mediaType is already defined. To avoid errors when nested tables are used, the current [[mediaType]] is
+        no more declared as a compile-time variable . This means that you can still retrieve the current media type
+        using [[pageContext.getAttribute("mediaType")]] but not using a scriptlet like [[ <![CDATA[<%=mediaType%>]]>
         ]] . If you previously used this syntax you will have to fix your jsps when upgrading to 1.0 rc2.
       </action>
-      <action type="update" dev="fgiust">
-        The [[name]] attribute in the EL version of table Tag will now work both with EL expressions and with the
-        "standard" displaytag sintax.
-      </action>
-      <action type="update" dev="fgiust" issue="DISPL-3">
-        Column JSP body should only execute for rows being shown. Now column body is skipped if current row is not
-        needed for display or sorting (be careful, if you sort the full list row need to be evaluated).
-      </action>
+      <action type="update" dev="fgiust"> The [[name]] attribute in the EL version of table Tag will now work both with EL
+        expressions and with the "standard" displaytag sintax.</action>
+      <action type="update" dev="fgiust" issue="DISPL-3"> Column JSP body should only execute for rows being shown. Now
+        column body is skipped if current row is not needed for display or sorting (be careful, if you sort the full
+        list row need to be evaluated).</action>
       <action type="fix" dev="fgiust" issue="DISPL-9">Send user back to Page 1 on Desc/Asc.</action>
       <action type="add" dev="fgiust" issue="DISPL-26">More params for [[paging.banner.*_items_found]] .</action>
       <action type="fix" dev="fgiust" issue="DISPL-4">Html tags in "title" attribute when using maxLength.</action>
       <action type="fix" dev="fgiust" issue="DISPL-1">Autolink and maxlength problem.</action>
-      <action type="fix" dev="fgiust" issue="DISPL-73" due-to="Mikko Wilkman">
-        Unicode export with ResponseOverrideFilter fails because of improper content length setting.
-      </action>
-      <action type="update" dev="fgiust" issue="DISPL-2">
-        Ability to use java var in id attribute in tabletag. A new [[uid]] attribute has been added for jsp 1.0
-        containers (look at the FAQ for more details).
-      </action>
-      <action type="add" dev="fgiust">
-        New [[htmlId]] attribute which let you specify the value for the id attribute in the generated table.
-      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-73" due-to="Mikko Wilkman"> Unicode export with ResponseOverrideFilter fails
+        because of improper content length setting.</action>
+      <action type="update" dev="fgiust" issue="DISPL-2"> Ability to use java var in id attribute in tabletag. A new
+        [[uid]] attribute has been added for jsp 1.0 containers (look at the FAQ for more details).</action>
+      <action type="add" dev="fgiust"> New [[htmlId]] attribute which let you specify the value for the id attribute in
+        the generated table.</action>
       <action type="add" dev="fgiust" issue="DISPL-106" due-to="Richard HALLIER">Webwork i18n support.</action>
-      <action type="add" dev="fgiust" issue="DISPL-104">
-        Need ability to disable prepending of context to the contents of the requestURI attribute. New
-        [[requestURIcontext]] table attribute added.
-      </action>
+      <action type="add" dev="fgiust" issue="DISPL-104"> Need ability to disable prepending of context to the contents of the
+        requestURI attribute. New [[requestURIcontext]] table attribute added.</action>
       <action type="add" dev="fgiust" issue="DISPL-81">Using ColumnDecorator with tag body.</action>
-      <action type="add" dev="fgiust" issue="DISPL-58">
-        New [[sortProperty]] attribute in column tag: specify property used for sorting.
-      </action>
+      <action type="add" dev="fgiust" issue="DISPL-58"> New [[sortProperty]] attribute in column tag: specify property used
+        for sorting.</action>
       <action type="update" dev="fgiust" issue="DISPL-117">Allow ColumnTag to generate links to current page.</action>
-      <action type="update" dev="fgiust" issue="DISPL-112" due-to="Paul McCulloch">
-        Allow requestURI with only parameters.
+      <action type="update" dev="fgiust" issue="DISPL-112" due-to="Paul McCulloch"> Allow requestURI with only parameters.
       </action>
       <action type="update" dev="fgiust" issue="DISPL-130">Allow column href also if paramId is not defined.</action>
     </release>
     <release version="1.0-rc1" date="July 11, 2004" description="1.0 release candidate.">
-      <action type="fix" dev="fgiust">
-        The EL version of the taglib has been refactored and cleaned up. All the attributes, except deprecated ones, now
-        accept EL expressions.
-      </action>
-      <action type="fix" dev="fgiust" issue="927804">
-        Improved attribute value handling following specifications for tag pooling. Should fix issues with Resin.
-      </action>
-      <action type="fix" dev="fgiust">
-        Modified attribute type specification in tld to match setters in tag classes and added unit tests. Fixes
-        validation issues with WebLogic 8.
-      </action>
-      <action type="fix" dev="fgiust" issue="926213">
-        Added support for indexed/mapped properties in table decorators.
+      <action type="fix" dev="fgiust"> The EL version of the taglib has been refactored and cleaned up. All the
+        attributes, except deprecated ones, now accept EL expressions.</action>
+      <action type="fix" dev="fgiust" issue="927804"> Improved attribute value handling following specifications for tag
+        pooling. Should fix issues with Resin.</action>
+      <action type="fix" dev="fgiust"> Modified attribute type specification in tld to match setters in tag classes and
+        added unit tests. Fixes validation issues with WebLogic 8.</action>
+      <action type="fix" dev="fgiust" issue="926213"> Added support for indexed/mapped properties in table decorators.
       </action>
       <action type="fix" dev="fgiust" issue="920115">MaxLength not working with double quotes.</action>
-      <action type="add" dev="fgiust">
-        New property [[basic.msg.empty_list_row]] which let you customize the message for an empty table while using
-        [[basic.empty.showtable = true]] . This also allows you to customize the previously fixed "empty" css class.
-      </action>
+      <action type="add" dev="fgiust"> New property [[basic.msg.empty_list_row]] which let you customize the message for
+        an empty table while using [[basic.empty.showtable = true]] . This also allows you to customize the previously
+        fixed "empty" css class.</action>
       <action type="fix" dev="fgiust" issue="895915">Export links are not shown for empty tables.</action>
-      <action type="fix" dev="fgiust" issue="921811">
-        ResponseOverrideFilter sets a bad contentType when charset is already specified.
-      </action>
-      <action type="fix" dev="fgiust" issue="938653">
-        Reset headers during export. This allows export with https and should fix reported problems with Tomcat 5.0.
-      </action>
+      <action type="fix" dev="fgiust" issue="921811"> ResponseOverrideFilter sets a bad contentType when charset is
+        already specified.</action>
+      <action type="fix" dev="fgiust" issue="938653"> Reset headers during export. This allows export with https and
+        should fix reported problems with Tomcat 5.0.</action>
       <action type="fix" dev="fgiust" issue="944863">Wrong tfoot position.</action>
       <action type="fix" dev="fgiust" issue="842234">Fixed export.decorated property.</action>
-      <action type="fix" dev="fgiust">
-        Context path is automatically added to "requestURI" table attribute (only if link starts with "/").
+      <action type="fix" dev="fgiust"> Context path is automatically added to "requestURI" table attribute (only if link
+        starts with "/").</action>
+      <action type="fix" dev="fgiust" issue="894839"> The "url" column attribute, already available in the EL version form
+        1.0-b3, has been moved to the standard library. The "url" attribute has the same meaning as the "href"
+        attribute, but always prepends the context path to the URI.</action>
+      <action type="fix" dev="fgiust" issue="952129">Column:autolink throwing exception or garbling urls.
       </action>
-      <action type="fix" dev="fgiust" issue="894839">
-        The "url" column attribute, already available in the EL version form 1.0-b3, has been moved to the standard
-        library. The "url" attribute has the same meaning as the "href" attribute, but always prepends the context path
-        to the URI.
-      </action>
-      <action type="fix" dev="fgiust" issue="952129">Column:autolink throwing exception or garbling urls.</action>
-      <action type="fix" dev="fgiust" issue="944056" due-to="Sylvere Abbad">
-        Pagination urls parameters wrong for multiple table on the same page.
-      </action>
-      <action type="fix" dev="fgiust" issue="947752">
-        Unable to set the table "name" attribute in jsp 1.1 containers after release 1.0-b3 ("Unable to convert a String
-        to java.lang.Object for attribute value" error).
-      </action>
-      <action type="fix" dev="fgiust" issue="958053">
-        The export filter now only filters when needed. Response is not buffered when a special parameter inserted by
-        displaytag in export links is not found.
-      </action>
-      <action type="fix" dev="fgiust" issue="968559">
-        Export cancel out UTF8 filter. Now headers are not reset during an export request. Only headers which could
-        prevent caching are overwritten.
-      </action>
-      <action type="fix" dev="fgiust">
-        Automatic column discovery is turned off for Strings. Avoid displaying a single column " [[Bytes]] " when the
-        source collection contains Strings.
-      </action>
+      <action type="fix" dev="fgiust" issue="944056" due-to="Sylvere Abbad"> Pagination urls parameters wrong for multiple table
+        on the same page.</action>
+      <action type="fix" dev="fgiust" issue="947752"> Unable to set the table "name" attribute in jsp 1.1 containers after
+        release 1.0-b3 ("Unable to convert a String to java.lang.Object for attribute value" error).</action>
+      <action type="fix" dev="fgiust" issue="958053"> The export filter now only filters when needed. Response is not
+        buffered when a special parameter inserted by displaytag in export links is not found.</action>
+      <action type="fix" dev="fgiust" issue="968559"> Export cancel out UTF8 filter. Now headers are not reset during an
+        export request. Only headers which could prevent caching are overwritten.</action>
+      <action type="fix" dev="fgiust"> Automatic column discovery is turned off for Strings. Avoid displaying a single
+        column " [[Bytes]] " when the source collection contains Strings.</action>
     </release>
     <release version="1.0-b3" date="April 12, 2004" description="last 1.0 beta">
-      <action type="fix" dev="rapruitt">
-        The export filter introduced in b2 has been modified to avoid errors in Websphere 4 (or in any j2ee 1.2
-        containers, where the filter can't be used).
-      </action>
-      <action type="update" dev="fgiust">
-        MediaTypeEnum has been moved to the org.displaytag.properties package. You will need to fix your imports if you
-        started using with in the b2 release.
-      </action>
-      <action type="add" dev="fgiust" issue="851250">
-        All the css classes in the table tag are now customizable. You can change the original [[even, odd, sorted,
-        order1, order2]] classes and also configure a css class to be added to any table or to any sortable column.
-      </action>
-      <action type="add" dev="fgiust" issue="867217">
-        Added the "defaultsort" attribute to change the sorting order for the default sorted column.
-      </action>
-      <action type="add" dev="fgiust">
-        Added a new configuration property [[basic.empty.showtable]] which let you choose if you want to display the
-        table if the underlining list is empty.
-      </action>
+      <action type="fix" dev="rapruitt"> The export filter introduced in b2 has been modified to avoid errors in Websphere 4
+        (or in any j2ee 1.2 containers, where the filter can't be used).</action>
+      <action type="update" dev="fgiust"> MediaTypeEnum has been moved to the org.displaytag.properties package. You will
+        need to fix your imports if you started using with in the b2 release.</action>
+      <action type="add" dev="fgiust" issue="851250"> All the css classes in the table tag are now customizable. You can
+        change the original [[even, odd, sorted, order1, order2]] classes and also configure a css class to be added to
+        any table or to any sortable column.</action>
+      <action type="add" dev="fgiust" issue="867217"> Added the "defaultsort" attribute to change the sorting order for
+        the default sorted column.</action>
+      <action type="add" dev="fgiust"> Added a new configuration property [[basic.empty.showtable]] which let you choose
+        if you want to display the table if the underlining list is empty.</action>
       <action type="fix" dev="fgiust" issue="840728" due-to="David Kowis">Breaks on '%' in values.</action>
       <action type="fix" dev="fgiust" issue="849207">
         paramProperty is wrong when not fetched from iterated object.
@@ -379,10 +260,9 @@
       <action type="update" dev="fgiust">
         A new [[org.displaytag.util.ParamEncoder]] class has been added, to allow users to generate encoded parameter
         names like tabletag does.
-        <strong>
           Important! From now tables in the same pages which use the sorting, paging or exporting feature MUST have a
           different ID
-        </strong>
+
       </action>
       <action type="add" dev="fgiust">Added the new [[sort.amount]] configuration property.</action>
       <action type="update" dev="fgiust">
@@ -396,16 +276,14 @@
       <action type="add" dev="fgiust">
         Support for arrays of Maps has been added in automatic column discovery. If you pass an array of map objects to
         the table tag the list of columns will be generated from the keys of the first map in the array. This allows to
-        use the result of a jstl sql:query tag in a display:table without columns (use [[ result
-        <strong>.rows</strong>
+        use the result of a jstl sql:query tag in a display:table without columns (use [[ result.rows
         ]] in the name attribute).
       </action>
       <action type="add" dev="mraible" due-to="Tim McCune">
         Added Expression Support ala JSTL. To use it, just specify your taglib URI to be [[http://displaytag.sf.net/el]]
         . The EL sintax is replacing the old proprietary sintax in the table "name" attribute. Note that the old
         [[scope]] and [[property]] attributes are no more supported in the EL version of the tag.
-        <strong>EL support in this release is preliminary and it's due to change in next releases</strong>
-        .
+        EL support in this release is preliminary and it's due to change in next releases.
       </action>
       <action type="add" dev="mraible">
         Added to the EL taglib only a "titleKey" attribute which will lookup it's value as a key in a JSTL bundle
