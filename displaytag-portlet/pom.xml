@@ -3,14 +3,14 @@
   <parent>
     <artifactId>displaytag-doc</artifactId>
     <groupId>displaytag</groupId>
-    <version>1.2</version>
+    <version>1.3-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag-portlet</artifactId>
   <name>Display portlet compatability library</name>
-  <version>1.2</version>
+  <version>1.3-SNAPSHOT</version>
   <description>
     Display portlet compatability library: allow using of displaytag in a JSR-168 compliant portal server
   </description>
@@ -57,7 +57,7 @@
     <dependency>
       <groupId>displaytag</groupId>
       <artifactId>displaytag</artifactId>
-      <version>1.2</version>
+      <version>1.3-SNAPSHOT</version>
     </dependency>
   </dependencies>
   <build>

@@ -3,14 +3,14 @@
   <parent>
     <artifactId>displaytag-doc</artifactId>
     <groupId>displaytag</groupId>
-    <version>1.2</version>
+    <version>1.3-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>displaytag</groupId>
   <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
-  <version>1.2</version>
+  <version>1.3-SNAPSHOT</version>
   <dependencies>
     <dependency>
       <groupId>tomcat</groupId>
