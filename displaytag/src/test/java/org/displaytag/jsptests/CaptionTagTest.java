@@ -2,6 +2,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -30,10 +32,11 @@ public class CaptionTagTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -44,18 +47,18 @@ public class CaptionTagTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
         String output = response.getText();
 
-        assertTrue("Caption tag missing", StringUtils.contains(output, "<caption"));
+        Assert.assertTrue("Caption tag missing", StringUtils.contains(output, "<caption"));
 
-        assertTrue(StringUtils.contains(output, "class=\"theclass\""));
-        assertTrue(StringUtils.contains(output, "dir=\"thedir\""));
-        assertTrue(StringUtils.contains(output, "id=\"theid\""));
-        assertTrue(StringUtils.contains(output, "lang=\"thelang\""));
-        assertTrue(StringUtils.contains(output, "style=\"thestyle\""));
-        assertTrue(StringUtils.contains(output, "title=\"thetitle\""));
+        Assert.assertTrue(StringUtils.contains(output, "class=\"theclass\""));
+        Assert.assertTrue(StringUtils.contains(output, "dir=\"thedir\""));
+        Assert.assertTrue(StringUtils.contains(output, "id=\"theid\""));
+        Assert.assertTrue(StringUtils.contains(output, "lang=\"thelang\""));
+        Assert.assertTrue(StringUtils.contains(output, "style=\"thestyle\""));
+        Assert.assertTrue(StringUtils.contains(output, "title=\"thetitle\""));
 
     }
 }

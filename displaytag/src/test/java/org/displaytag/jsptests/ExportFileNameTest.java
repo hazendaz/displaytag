@@ -4,6 +4,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -31,20 +33,21 @@ public class ExportFileNameTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
         WebResponse response = runner.getResponse(request);
 
         // we are really testing an xml output?
-        assertEquals("Expected a different content type.", "text/xml", response.getContentType());
-        assertEquals("Wrong or missing disposition/filename.", "attachment; filename=\"file.txt\"", response
+        Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
+        Assert.assertEquals("Wrong or missing disposition/filename.", "attachment; filename=\"file.txt\"", response
             .getHeaderField("CONTENT-DISPOSITION"));
 
     }

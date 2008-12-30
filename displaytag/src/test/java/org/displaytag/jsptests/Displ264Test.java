@@ -2,6 +2,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -31,9 +33,10 @@ public class Displ264Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter("test", "value");
         WebResponse response = runner.getResponse(request);
 
@@ -43,7 +46,7 @@ public class Displ264Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
 
         if (log.isDebugEnabled())
         {
@@ -51,9 +54,9 @@ public class Displ264Test extends DisplaytagCase
         }
 
         WebLink[] links = response.getLinks();
-        assertTrue("No links found.", links.length > 0);
+        Assert.assertTrue("No links found.", links.length > 0);
         String url = links[0].getURLString();
-        assertTrue("Expected parameter not found in url " + url, StringUtils.contains(url, "test=value"));
+        Assert.assertTrue("Expected parameter not found in url " + url, StringUtils.contains(url, "test=value"));
     }
 
 }

@@ -2,6 +2,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -30,20 +32,21 @@ public class Displ224Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response = runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
 
-        assertEquals("Wrong number of rows in result.", 2, tables[0].getRowCount());
-        assertEquals("col", tables[0].getTableCell(0, 0).getAttribute("scope"));
-        assertEquals(StringUtils.EMPTY, tables[0].getTableCell(0, 1).getAttribute("scope"));
-        assertEquals(StringUtils.EMPTY, tables[0].getTableCell(1, 0).getAttribute("scope"));
-        assertEquals("row", tables[0].getTableCell(1, 1).getAttribute("scope"));
+        Assert.assertEquals("Wrong number of rows in result.", 2, tables[0].getRowCount());
+        Assert.assertEquals("col", tables[0].getTableCell(0, 0).getAttribute("scope"));
+        Assert.assertEquals(StringUtils.EMPTY, tables[0].getTableCell(0, 1).getAttribute("scope"));
+        Assert.assertEquals(StringUtils.EMPTY, tables[0].getTableCell(1, 0).getAttribute("scope"));
+        Assert.assertEquals("row", tables[0].getTableCell(1, 1).getAttribute("scope"));
 
     }
 

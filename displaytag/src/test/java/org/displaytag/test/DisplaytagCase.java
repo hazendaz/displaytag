@@ -5,12 +5,13 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Hashtable;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 
 import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.servletunit.ServletRunner;
@@ -21,7 +22,7 @@ import com.meterware.servletunit.ServletRunner;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public abstract class DisplaytagCase extends TestCase
+public abstract class DisplaytagCase
 {
 
     /**
@@ -40,31 +41,22 @@ public abstract class DisplaytagCase extends TestCase
     protected ServletRunner runner;
 
     /**
-     * Returns the tested jsp name.
-     * @return jsp name
-     */
-    public abstract String getJspName();
-
-    /**
      * Runs the test.
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public abstract void doTest(String jspName) throws Exception;
+    public abstract void doTest() throws Exception;
 
-    /**
-     * run the test with the non-el tld.
-     * @throws Exception any axception thrown during test.
-     */
-    public void test11() throws Exception
+    protected String getJspUrl(String jsp)
     {
-        doTest("http://localhost" + CONTEXT + "/standard/" + getJspName());
+        return "http://localhost" + CONTEXT + "/jsps/" + jsp;
     }
 
     /**
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() throws Exception
+    @Before
+    public void setUp() throws Exception
     {
         // need to pass a web.xml file to setup servletunit working directory
         ClassLoader classLoader = getClass().getClassLoader();
@@ -83,26 +75,16 @@ public abstract class DisplaytagCase extends TestCase
 
         log.debug("ServletRunner setup OK");
 
-        super.setUp();
     }
 
     /**
      * @see junit.framework.TestCase#tearDown()
      */
-    protected void tearDown() throws Exception
+    @After
+    public void tearDown() throws Exception
     {
         // shutdown servlet engine
         runner.shutDown();
-
-        super.tearDown();
-    }
-
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName() + " (" + getJspName() + ")";
     }
 
     /**
@@ -115,7 +97,7 @@ public abstract class DisplaytagCase extends TestCase
     {
         if (expected.length != actual.length)
         {
-            fail(message
+            Assert.fail(message
                 + " Wrong number of values, expected "
                 + expected.length
                 + " ("
@@ -137,7 +119,11 @@ public abstract class DisplaytagCase extends TestCase
                     continue outer;
                 }
             }
-            fail(message + " Expected value \"" + exp + "\" not found in actual array: " + ArrayUtils.toString(actual));
+            Assert.fail(message
+                + " Expected value \""
+                + exp
+                + "\" not found in actual array: "
+                + ArrayUtils.toString(actual));
         }
     }
 }

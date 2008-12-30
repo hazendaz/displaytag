@@ -3,6 +3,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -31,9 +33,10 @@ public class Displ280Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "1");
@@ -47,21 +50,21 @@ public class Displ280Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables in result.", 1, tables.length);
-        assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
+        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
 
         if (log.isDebugEnabled())
         {
             log.debug(response.getText());
         }
 
-        assertEquals("Wrong value in first row. Table incorrectly sorted?", "2", tables[0].getCellAsText(1, 1));
-        assertEquals("Column 1 should not be marked as sorted.", "sortable", tables[0]
+        Assert.assertEquals("Wrong value in first row. Table incorrectly sorted?", "2", tables[0].getCellAsText(1, 1));
+        Assert.assertEquals("Column 1 should not be marked as sorted.", "sortable", tables[0]
             .getTableCell(0, 1)
             .getClassName());
-        assertEquals("Column 2 should be marked as sorted.", "sortable sorted order1", tables[0]
-            .getTableCell(0, 2)
-            .getClassName());
+        Assert.assertEquals("Column 2 should be marked as sorted.", "sortable sorted order1", tables[0].getTableCell(
+            0,
+            2).getClassName());
 
     }
 

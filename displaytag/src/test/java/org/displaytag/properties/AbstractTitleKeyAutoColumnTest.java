@@ -4,6 +4,8 @@ import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -50,10 +52,11 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
         // test keep
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         TableProperties.setLocaleResolver(getResolver());
         TableProperties.setResourceProvider(getI18nResourceProvider());
@@ -76,7 +79,7 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Expected one table", 1, tables.length);
+        Assert.assertEquals("Expected one table", 1, tables.length);
 
         // find the "camel" column
         int j;
@@ -89,7 +92,7 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
         }
 
         // resource should be used also without the property attribute for the "camel" header
-        assertEquals("Header from resource is not valid.", "camel title" + getExpectedSuffix(), tables[0]
+        Assert.assertEquals("Header from resource is not valid.", "camel title" + getExpectedSuffix(), tables[0]
             .getCellAsText(0, j));
 
     }

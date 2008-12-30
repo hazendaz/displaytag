@@ -4,6 +4,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -33,10 +35,11 @@ public class OptimizedIterationTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         ParamEncoder encoder = new ParamEncoder("table");
 
         // page 1, not sorted
@@ -64,7 +67,7 @@ public class OptimizedIterationTest extends DisplaytagCase
             log.debug(response.getText());
         }
 
-        assertEquals("Wrong csv export", "ant,1\nant,2\nant,3\nant,4\n", csvExport);
+        Assert.assertEquals("Wrong csv export", "ant,1\nant,2\nant,3\nant,4\n", csvExport);
 
     }
 
@@ -81,10 +84,12 @@ public class OptimizedIterationTest extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Expected 1 table in result.", 1, tables.length);
-        assertEquals("Expected 2 rows in table.", 2, tables[0].getRowCount());
+        Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
+        Assert.assertEquals("Expected 2 rows in table.", 2, tables[0].getRowCount());
 
-        assertEquals("Wrong number of iterations. Evaluated column bodies number is different from expected", Integer
-            .toString(iterations), response.getElementWithID("iterations").getText());
+        Assert.assertEquals(
+            "Wrong number of iterations. Evaluated column bodies number is different from expected",
+            Integer.toString(iterations),
+            response.getElementWithID("iterations").getText());
     }
 }

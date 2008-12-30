@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -29,10 +31,11 @@ public class ExcludedParamsTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter("foo", "foovalue");
         request.setParameter("bar", "barvalue");
         request.setParameter("zoo", "zoovalue");
@@ -49,9 +52,9 @@ public class ExcludedParamsTest extends DisplaytagCase
         for (int j = 0; j < links.length; j++)
         {
             String linkUrl = links[j].getURLString();
-            assertTrue("Link contains the excluded parameter foo.", linkUrl.indexOf("foo") == -1);
-            assertTrue("Link contains the excluded parameter bar.", linkUrl.indexOf("bar") == -1);
-            assertTrue("Link doesn't contains the parameter zoo.", linkUrl.indexOf("zoo") > -1);
+            Assert.assertTrue("Link contains the excluded parameter foo.", linkUrl.indexOf("foo") == -1);
+            Assert.assertTrue("Link contains the excluded parameter bar.", linkUrl.indexOf("bar") == -1);
+            Assert.assertTrue("Link doesn't contains the parameter zoo.", linkUrl.indexOf("zoo") > -1);
         }
 
     }

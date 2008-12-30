@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -30,10 +32,11 @@ public class PaginationTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter("{foo}", "/.,;:/||\\bar");
 
         WebResponse response = runner.getResponse(request);
@@ -45,11 +48,11 @@ public class PaginationTest extends DisplaytagCase
 
         WebLink[] links = response.getLinks();
 
-        assertEquals("Wrong number of links in result.", 4, links.length);
+        Assert.assertEquals("Wrong number of links in result.", 4, links.length);
 
         for (int j = 0; j < links.length; j++)
         {
-            assertTrue(links[j].getURLString().indexOf("{foo}=%2F.%2C%3B%3A%2F%7C%7C%5Cbar") > -1);
+            Assert.assertTrue(links[j].getURLString().indexOf("{foo}=%2F.%2C%3B%3A%2F%7C%7C%5Cbar") > -1);
             if (log.isDebugEnabled())
             {
                 log.debug(j + " " + links[j].getURLString());

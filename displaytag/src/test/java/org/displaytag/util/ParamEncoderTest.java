@@ -2,6 +2,8 @@ package org.displaytag.util;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
+
 
 /**
  * Tests for ParamEncoder.
@@ -24,7 +26,7 @@ public class ParamEncoderTest extends TestCase
      */
     public void testOptionAndAnswer()
     {
-        assertFalse("id \"option\" and \"answer\" produce the same parameter", new ParamEncoder("option")
+        Assert.assertFalse("id \"option\" and \"answer\" produce the same parameter", new ParamEncoder("option")
             .encodeParameterName("x")
             .equals(new ParamEncoder("answer").encodeParameterName("x")));
     }
@@ -34,7 +36,7 @@ public class ParamEncoderTest extends TestCase
      */
     public void testEquals()
     {
-        assertEquals("The same parameter should produce equals key.", new ParamEncoder("equals")
+        Assert.assertEquals("The same parameter should produce equals key.", new ParamEncoder("equals")
             .encodeParameterName("x"), (new ParamEncoder("equals").encodeParameterName("x")));
     }
 
@@ -43,10 +45,12 @@ public class ParamEncoderTest extends TestCase
      */
     public void testNotTooLong()
     {
-        assertTrue(new ParamEncoder("averyveryveryveryveryveryverylongidvalue").encodeParameterName("x").length() < 12);
-        assertTrue(new ParamEncoder("test").encodeParameterName("x").length() < 12);
-        assertTrue(new ParamEncoder("a").encodeParameterName("x").length() < 12);
-        assertTrue(new ParamEncoder("xxxxxxxxxxxx").encodeParameterName("x").length() < 12);
-        assertTrue(new ParamEncoder("xxxxxxxxxxxxxxxxxxxxxxxxxxxx").encodeParameterName("x").length() < 12);
+        Assert.assertTrue(new ParamEncoder("averyveryveryveryveryveryverylongidvalue")
+            .encodeParameterName("x")
+            .length() < 12);
+        Assert.assertTrue(new ParamEncoder("test").encodeParameterName("x").length() < 12);
+        Assert.assertTrue(new ParamEncoder("a").encodeParameterName("x").length() < 12);
+        Assert.assertTrue(new ParamEncoder("xxxxxxxxxxxx").encodeParameterName("x").length() < 12);
+        Assert.assertTrue(new ParamEncoder("xxxxxxxxxxxxxxxxxxxxxxxxxxxx").encodeParameterName("x").length() < 12);
     }
 }

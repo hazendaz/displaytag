@@ -2,6 +2,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableCell;
@@ -31,10 +33,11 @@ public class CssPropertyTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -45,9 +48,10 @@ public class CssPropertyTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Expected 1 table in result.", 1, tables.length);
+        Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
         TableCell cell = tables[0].getTableCell(0, 0);
-        assertTrue("Expected css class \"green\" not found", StringUtils.contains(cell.getClassName(), "green"));
-        assertTrue("Expected css class \"purple\" not found", StringUtils.contains(cell.getClassName(), "purple"));
+        Assert.assertTrue("Expected css class \"green\" not found", StringUtils.contains(cell.getClassName(), "green"));
+        Assert.assertTrue("Expected css class \"purple\" not found", StringUtils
+            .contains(cell.getClassName(), "purple"));
     }
 }

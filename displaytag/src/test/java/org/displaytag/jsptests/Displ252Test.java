@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -32,9 +34,10 @@ public class Displ252Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -44,9 +47,9 @@ public class Displ252Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        assertEquals("Value not decorated as expected", "decorated: "
+        Assert.assertEquals("Value not decorated as expected", "decorated: "
             + new SimpleDateFormat("EEEE").format(new KnownTypes().getTime()), tables[0].getCellAsText(1, 0));
 
     }

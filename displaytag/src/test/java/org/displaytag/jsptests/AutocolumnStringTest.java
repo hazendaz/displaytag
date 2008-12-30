@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -29,10 +31,11 @@ public class AutocolumnStringTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -43,13 +46,13 @@ public class AutocolumnStringTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        assertEquals("Bad number of generated columns.", 1, tables[0].getColumnCount());
-        assertEquals("Bad number of generated rows.", 4, tables[0].getRowCount());
+        Assert.assertEquals("Bad number of generated columns.", 1, tables[0].getColumnCount());
+        Assert.assertEquals("Bad number of generated rows.", 4, tables[0].getRowCount());
 
-        assertEquals("string1", tables[0].getCellAsText(1, 0));
-        assertEquals("string2", tables[0].getCellAsText(2, 0));
-        assertEquals("string3", tables[0].getCellAsText(3, 0));
+        Assert.assertEquals("string1", tables[0].getCellAsText(1, 0));
+        Assert.assertEquals("string2", tables[0].getCellAsText(2, 0));
+        Assert.assertEquals("string3", tables[0].getCellAsText(3, 0));
     }
 }

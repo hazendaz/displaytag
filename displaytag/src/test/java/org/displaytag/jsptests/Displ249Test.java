@@ -4,6 +4,8 @@ import java.net.URLDecoder;
 
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -33,9 +35,10 @@ public class Displ249Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName); // use post
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName())); // use post
         String paramValue = "aàeèiìoòuù";
 
         request.setParameter("testparam", paramValue);
@@ -50,10 +53,10 @@ public class Displ249Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables", 1, tables.length);
 
         WebLink[] links = response.getLinks();
-        assertEquals("Wrong number of links", 3, links.length); // sorting + paging
+        Assert.assertEquals("Wrong number of links", 3, links.length); // sorting + paging
 
         String url = URLDecoder.decode(links[0].getURLString(), "UTF-8");
 
@@ -63,7 +66,7 @@ public class Displ249Test extends DisplaytagCase
             actual = StringUtils.substringBefore(actual, "&");
         }
 
-        assertEquals(paramValue, actual);
+        Assert.assertEquals(paramValue, actual);
     }
 
 }

@@ -2,6 +2,8 @@ package org.displaytag.decorator;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
+
 
 /**
  * Test for TableDecorator.
@@ -50,12 +52,12 @@ public class TableDecoratorTest extends TestCase
      */
     public void testDecoratorPropertyCache()
     {
-        assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one"));
-        assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one.something"));
-        assertTrue("decorator two - property two, expected true", this.two.hasGetterFor("two"));
+        Assert.assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one"));
+        Assert.assertTrue("decorator one - property one, expected true", this.one.hasGetterFor("one.something"));
+        Assert.assertTrue("decorator two - property two, expected true", this.two.hasGetterFor("two"));
 
-        assertFalse("decorator one - property two, expected false", this.one.hasGetterFor("two"));
-        assertFalse("decorator two - property one, expected false", this.two.hasGetterFor("one"));
+        Assert.assertFalse("decorator one - property two, expected false", this.one.hasGetterFor("two"));
+        Assert.assertFalse("decorator two - property one, expected false", this.two.hasGetterFor("one"));
     }
 
     /**
@@ -63,7 +65,7 @@ public class TableDecoratorTest extends TestCase
      */
     public void testMappedProperty()
     {
-        assertTrue("mapped property not recognized", this.one.hasGetterFor("mapped(one)"));
+        Assert.assertTrue("mapped property not recognized", this.one.hasGetterFor("mapped(one)"));
     }
 
     /**
@@ -71,7 +73,7 @@ public class TableDecoratorTest extends TestCase
      */
     public void testNotExistingMappedProperty()
     {
-        assertFalse("Invalid mapped property recognized", this.one.hasGetterFor("something(one)"));
+        Assert.assertFalse("Invalid mapped property recognized", this.one.hasGetterFor("something(one)"));
     }
 
     /**
@@ -79,7 +81,7 @@ public class TableDecoratorTest extends TestCase
      */
     public void testIndexedProperty()
     {
-        assertTrue("indexed property not recognized", this.one.hasGetterFor("indexed[0]"));
+        Assert.assertTrue("indexed property not recognized", this.one.hasGetterFor("indexed[0]"));
     }
 
     /**
@@ -87,7 +89,7 @@ public class TableDecoratorTest extends TestCase
      */
     public void testNotExistingIndexedProperty()
     {
-        assertFalse("Invalid indexed property recognized", this.one.hasGetterFor("something[0]"));
+        Assert.assertFalse("Invalid indexed property recognized", this.one.hasGetterFor("something[0]"));
     }
 
     /**
@@ -95,7 +97,7 @@ public class TableDecoratorTest extends TestCase
      */
     public void testWriteOnlyProperty()
     {
-        assertFalse("Invalid simple property recognized", this.three.hasGetterFor("simple"));
+        Assert.assertFalse("Invalid simple property recognized", this.three.hasGetterFor("simple"));
     }
 
     /**
@@ -103,7 +105,7 @@ public class TableDecoratorTest extends TestCase
      */
     public void testReadOnlyProperty()
     {
-        assertTrue("Simple property not recognized", this.two.hasGetterFor("two"));
+        Assert.assertTrue("Simple property not recognized", this.two.hasGetterFor("two"));
     }
 
     /**
@@ -111,7 +113,7 @@ public class TableDecoratorTest extends TestCase
      */
     public void testReadOnlyIndexedProperty()
     {
-        assertFalse("Invalid indexed property recognized", this.three.hasGetterFor("something[0]"));
+        Assert.assertFalse("Invalid indexed property recognized", this.three.hasGetterFor("something[0]"));
     }
 
     /**
@@ -119,7 +121,7 @@ public class TableDecoratorTest extends TestCase
      */
     public void testReadOnlyMappedProperty()
     {
-        assertFalse("Invalid mapped property recognized", this.three.hasGetterFor("something(one)"));
+        Assert.assertFalse("Invalid mapped property recognized", this.three.hasGetterFor("something(one)"));
     }
 
 }

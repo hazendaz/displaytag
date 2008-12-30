@@ -42,7 +42,8 @@ import org.apache.jasper.runtime.JspSourceDependent;
 
 /**
  * <p>
- * fgiust: patched in order to let RuntimeException slip through without being hidden in ServletException's during HttpUnit tests.
+ * fgiust: patched in order to let RuntimeException slip through without being hidden in ServletException's during
+ * HttpUnit tests.
  * </p>
  * The JSP engine (a.k.a Jasper). The servlet container is responsible for providing a URLClassLoader for the web
  * application context Jasper is being used in. Jasper will try get the Tomcat ServletContext attribute for its

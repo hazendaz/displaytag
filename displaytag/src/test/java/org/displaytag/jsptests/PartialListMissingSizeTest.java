@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -29,17 +31,18 @@ public class PartialListMissingSizeTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = null;
 
         try
         {
             response = runner.getResponse(request);
-            fail("Should have thrown an exception, missing size attribute");
+            Assert.fail("Should have thrown an exception, missing size attribute");
         }
         catch (Throwable t)
         {

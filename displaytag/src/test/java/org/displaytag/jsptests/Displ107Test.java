@@ -6,6 +6,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -33,16 +35,17 @@ public class Displ107Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
-        assertEquals("Wrong encoding", "UTF8", response.getCharacterSet());
+        Assert.assertEquals("Wrong encoding", "UTF8", response.getCharacterSet());
 
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
-        request = new GetMethodWebRequest(jspName);
+        request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.CSV.getCode()));
 
         response = runner.getResponse(request);
@@ -63,8 +66,8 @@ public class Displ107Test extends DisplaytagCase
     private void checkContent(WebResponse response) throws Exception
     {
         // we are really testing an xml output?
-        assertEquals("Expected a different content type.", "text/csv", response.getContentType());
-        assertEquals("Wrong encoding", "UTF8", response.getCharacterSet());
+        Assert.assertEquals("Expected a different content type.", "text/csv", response.getContentType());
+        Assert.assertEquals("Wrong encoding", "UTF8", response.getCharacterSet());
 
         InputStream stream = response.getInputStream();
         byte[] result = new byte[11];
@@ -76,11 +79,11 @@ public class Displ107Test extends DisplaytagCase
             log.debug("expected: [" + new String(expected, "utf-8") + "]");
             log.debug("result:   [" + new String(result, "utf-8") + "]");
         }
-        assertEquals("Wrong length", expected.length, result.length);
+        Assert.assertEquals("Wrong length", expected.length, result.length);
 
         for (int j = 0; j < result.length; j++)
         {
-            assertEquals(
+            Assert.assertEquals(
                 "Wrong byte at position " + j + ", output=" + new String(result, "utf-8"),
                 expected[j],
                 result[j]);

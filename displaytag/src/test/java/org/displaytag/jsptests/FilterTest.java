@@ -7,6 +7,8 @@ import org.displaytag.tags.TableTag;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpInternalErrorException;
@@ -33,12 +35,13 @@ public class FilterTest extends DisplaytagCase
     /**
      * @see org.displaytag.test.DisplaytagCase#doTest(java.lang.String)
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
         // save previous level, since we are expeting an excetion I don't want to fill logs
@@ -51,7 +54,7 @@ public class FilterTest extends DisplaytagCase
 
             // check if page need a filter (unfiltered request)
             runner.getResponse(request);
-            fail("Request works also without a filter. Can't test it properly.");
+            Assert.fail("Request works also without a filter. Can't test it properly.");
         }
         catch (HttpInternalErrorException e)
         {
@@ -61,7 +64,7 @@ public class FilterTest extends DisplaytagCase
         // reset log
         Logger.getLogger(TableTag.class).setLevel(previousLevel);
 
-        request = new GetMethodWebRequest(jspName);
+        request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
         // this enable the filter!
@@ -69,7 +72,7 @@ public class FilterTest extends DisplaytagCase
 
         WebResponse response = runner.getResponse(request);
 
-        assertEquals("Expected a different content type.", "text/xml", response.getContentType());
+        Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
     }
 
 }

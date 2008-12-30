@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableRow;
@@ -30,9 +32,10 @@ public class Displ305Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -42,8 +45,8 @@ public class Displ305Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables in result.", 1, tables.length);
-        assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
+        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
 
         if (log.isDebugEnabled())
         {
@@ -51,8 +54,8 @@ public class Displ305Test extends DisplaytagCase
         }
 
         TableRow[] tr = tables[0].getRows();
-        assertEquals("No css class expected on even tr", "", tr[1].getClassName());
-        assertEquals("No css class expected on odd tr", "", tr[2].getClassName());
+        Assert.assertEquals("No css class expected on even tr", "", tr[1].getClassName());
+        Assert.assertEquals("No css class expected on odd tr", "", tr[2].getClassName());
 
     }
 

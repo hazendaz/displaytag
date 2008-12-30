@@ -7,6 +7,8 @@ import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -34,12 +36,13 @@ public class ExportDecoratedTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
 
         WebResponse response = runner.getResponse(request);
@@ -48,11 +51,12 @@ public class ExportDecoratedTest extends DisplaytagCase
             log.debug(response.getText());
         }
 
-        assertEquals("Expected a different content type.", "text/xml", response.getContentType());
-        assertFalse("Export should not be decorated", StringUtils.contains(
+        Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
+        Assert.assertFalse("Export should not be decorated", StringUtils.contains(
             response.getText(),
             (String) new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null)));
-        assertTrue("Export should not be decorated", StringUtils.contains(response.getText(), KnownTypes.TIME_VALUE
-            .toString()));
+        Assert.assertTrue("Export should not be decorated", StringUtils.contains(
+            response.getText(),
+            KnownTypes.TIME_VALUE.toString()));
     }
 }

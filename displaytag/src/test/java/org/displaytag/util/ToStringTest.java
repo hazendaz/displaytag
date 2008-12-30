@@ -15,6 +15,7 @@ import org.displaytag.pagination.Pagination;
 import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.ColumnTag;
+import org.junit.Assert;
 
 
 /**
@@ -42,7 +43,7 @@ public class ToStringTest extends TestCase
     private void checkToString(Object object)
     {
         String toString = object.toString();
-        assertTrue(toString.startsWith(ClassUtils.getShortClassName(object, null)));
+        Assert.assertTrue(toString.startsWith(ClassUtils.getShortClassName(object, null)));
     }
 
     /**

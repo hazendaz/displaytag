@@ -3,6 +3,8 @@ package org.displaytag.jsptests;
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -31,10 +33,11 @@ public class DataSourceMapAutoColumnTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -45,22 +48,22 @@ public class DataSourceMapAutoColumnTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
+        Assert.assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
 
-        assertEquals("Bad value in column header.", //
+        Assert.assertEquals("Bad value in column header.", //
             StringUtils.capitalize(KnownValue.ANT),
             tables[0].getCellAsText(0, 0));
-        assertEquals("Bad value in column header.", //
+        Assert.assertEquals("Bad value in column header.", //
             StringUtils.capitalize(KnownValue.BEE),
             tables[0].getCellAsText(0, 1));
-        assertEquals("Bad value in column header.", //
+        Assert.assertEquals("Bad value in column header.", //
             "camel title",
             tables[0].getCellAsText(0, 2)); // localized text
 
-        assertEquals("Bad value in column content.", KnownValue.ANT, tables[0].getCellAsText(1, 0));
-        assertEquals("Bad value in column content.", KnownValue.BEE, tables[0].getCellAsText(1, 1));
-        assertEquals("Bad value in column content.", KnownValue.CAMEL, tables[0].getCellAsText(1, 2));
+        Assert.assertEquals("Bad value in column content.", KnownValue.ANT, tables[0].getCellAsText(1, 0));
+        Assert.assertEquals("Bad value in column content.", KnownValue.BEE, tables[0].getCellAsText(1, 1));
+        Assert.assertEquals("Bad value in column content.", KnownValue.CAMEL, tables[0].getCellAsText(1, 2));
     }
 }

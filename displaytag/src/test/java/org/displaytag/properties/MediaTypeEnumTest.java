@@ -2,6 +2,8 @@ package org.displaytag.properties;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
+
 
 /**
  * Test case for org.displaytag.properties.MediaTypeEnum.
@@ -33,9 +35,9 @@ public class MediaTypeEnumTest extends TestCase
      */
     public void testCsv()
     {
-        assertEquals(MediaTypeEnum.fromCode(1), MediaTypeEnum.CSV);
-        assertEquals(MediaTypeEnum.fromName("csv"), MediaTypeEnum.CSV);
-        assertEquals(MediaTypeEnum.fromCode(1), MediaTypeEnum.fromName("csv"));
+        Assert.assertEquals(MediaTypeEnum.fromCode(1), MediaTypeEnum.CSV);
+        Assert.assertEquals(MediaTypeEnum.fromName("csv"), MediaTypeEnum.CSV);
+        Assert.assertEquals(MediaTypeEnum.fromCode(1), MediaTypeEnum.fromName("csv"));
     }
 
     /**
@@ -43,9 +45,9 @@ public class MediaTypeEnumTest extends TestCase
      */
     public void testExcel()
     {
-        assertEquals(MediaTypeEnum.fromCode(2), MediaTypeEnum.EXCEL);
-        assertEquals(MediaTypeEnum.fromName("excel"), MediaTypeEnum.EXCEL);
-        assertEquals(MediaTypeEnum.fromCode(2), MediaTypeEnum.fromName("excel"));
+        Assert.assertEquals(MediaTypeEnum.fromCode(2), MediaTypeEnum.EXCEL);
+        Assert.assertEquals(MediaTypeEnum.fromName("excel"), MediaTypeEnum.EXCEL);
+        Assert.assertEquals(MediaTypeEnum.fromCode(2), MediaTypeEnum.fromName("excel"));
     }
 
     /**
@@ -53,9 +55,9 @@ public class MediaTypeEnumTest extends TestCase
      */
     public void testXml()
     {
-        assertEquals(MediaTypeEnum.fromCode(3), MediaTypeEnum.XML);
-        assertEquals(MediaTypeEnum.fromName("xml"), MediaTypeEnum.XML);
-        assertEquals(MediaTypeEnum.fromCode(3), MediaTypeEnum.fromName("xml"));
+        Assert.assertEquals(MediaTypeEnum.fromCode(3), MediaTypeEnum.XML);
+        Assert.assertEquals(MediaTypeEnum.fromName("xml"), MediaTypeEnum.XML);
+        Assert.assertEquals(MediaTypeEnum.fromCode(3), MediaTypeEnum.fromName("xml"));
     }
 
     /**
@@ -63,9 +65,9 @@ public class MediaTypeEnumTest extends TestCase
      */
     public void testHtml()
     {
-        assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.HTML);
-        assertEquals(MediaTypeEnum.fromName("html"), MediaTypeEnum.HTML);
-        assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.fromName("html"));
+        Assert.assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.HTML);
+        Assert.assertEquals(MediaTypeEnum.fromName("html"), MediaTypeEnum.HTML);
+        Assert.assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.fromName("html"));
     }
 
 }

@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableCell;
@@ -30,9 +32,10 @@ public class Displ049Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response = runner.getResponse(request);
 
         if (log.isDebugEnabled())
@@ -41,8 +44,8 @@ public class Displ049Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables in result.", 1, tables.length);
-        assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
+        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
 
         if (log.isDebugEnabled())
         {
@@ -50,11 +53,11 @@ public class Displ049Test extends DisplaytagCase
         }
 
         TableCell row1Cell = tables[0].getTableCell(1, 0);
-        assertEquals("Wrong style attribute.", "style-1", row1Cell.getAttribute("style"));
-        assertEquals("Wrong class attribute.", "class-1", row1Cell.getClassName());
+        Assert.assertEquals("Wrong style attribute.", "style-1", row1Cell.getAttribute("style"));
+        Assert.assertEquals("Wrong class attribute.", "class-1", row1Cell.getClassName());
 
         TableCell row2Cell = tables[0].getTableCell(2, 0);
-        assertEquals("Wrong style attribute.", "style-2", row2Cell.getAttribute("style"));
-        assertEquals("Wrong class attribute.", "class-2", row2Cell.getClassName());
+        Assert.assertEquals("Wrong style attribute.", "style-2", row2Cell.getAttribute("style"));
+        Assert.assertEquals("Wrong class attribute.", "class-2", row2Cell.getClassName());
     }
 }

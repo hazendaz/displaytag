@@ -5,6 +5,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -28,24 +30,25 @@ public class Displ298RtfTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         // this will force media type initialization
         MediaTypeEnum.registerMediaType("rtf");
         ExportViewFactory factory = ExportViewFactory.getInstance();
         factory.registerExportView("rtf", "org.displaytag.export.DefaultRtfExportView");
         MediaTypeEnum rtfMedia = MediaTypeEnum.fromName("rtf");
-        assertNotNull("Pdf export view not correctly registered.", rtfMedia);
+        Assert.assertNotNull("Pdf export view not correctly registered.", rtfMedia);
         request.setParameter(mediaParameter, Integer.toString(rtfMedia.getCode()));
 
         WebResponse response = runner.getResponse(request);
 
-        assertEquals("Expected a different content type.", "application/rtf", response.getContentType());
+        Assert.assertEquals("Expected a different content type.", "application/rtf", response.getContentType());
 
         // TODO: assert expected content. No Rtf reader.
         // InputStream stream = response.getInputStream();
@@ -53,7 +56,7 @@ public class Displ298RtfTest extends DisplaytagCase
         // stream.read(result);
         //
         // PdfReader reader = new PdfReader(result);
-        // assertEquals("Expected a valid pdf file with a single page", 1, reader.getNumberOfPages());
+        // Assert.assertEquals("Expected a valid pdf file with a single page", 1, reader.getNumberOfPages());
 
     }
 
