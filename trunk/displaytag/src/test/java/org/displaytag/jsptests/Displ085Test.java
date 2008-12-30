@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -29,10 +31,11 @@ public class Displ085Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -42,18 +45,18 @@ public class Displ085Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        assertEquals("Wrong number of columns.", 2, tables[0].getColumnCount());
+        Assert.assertEquals("Wrong number of columns.", 2, tables[0].getColumnCount());
 
-        assertEquals("Wrong title.", "ant title", tables[0].getCellAsText(0, 0));
-        assertEquals("Wrong title.", "bee title", tables[0].getCellAsText(0, 1));
+        Assert.assertEquals("Wrong title.", "ant title", tables[0].getCellAsText(0, 0));
+        Assert.assertEquals("Wrong title.", "bee title", tables[0].getCellAsText(0, 1));
 
-        assertEquals("Wrong content.", "ant", tables[0].getCellAsText(1, 0));
-        assertEquals("Wrong content.", "bee", tables[0].getCellAsText(1, 1));
+        Assert.assertEquals("Wrong content.", "ant", tables[0].getCellAsText(1, 0));
+        Assert.assertEquals("Wrong content.", "bee", tables[0].getCellAsText(1, 1));
 
         // only one sortable column
-        assertEquals("Wrong number of links.", 1, response.getLinks().length);
+        Assert.assertEquals("Wrong number of links.", 1, response.getLinks().length);
 
     }
 

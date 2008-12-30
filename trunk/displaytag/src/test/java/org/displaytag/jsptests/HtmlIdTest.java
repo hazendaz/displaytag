@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -29,20 +31,21 @@ public class HtmlIdTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response;
 
         response = runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables in result.", 3, tables.length);
+        Assert.assertEquals("Wrong number of tables in result.", 3, tables.length);
 
         for (int j = 0; j < tables.length; j++)
         {
-            assertEquals("invalid id", "html" + (j + 1), tables[j].getID());
-            assertEquals("Unexpected value in table cell", "bee", tables[j].getCellAsText(1, 0));
+            Assert.assertEquals("invalid id", "html" + (j + 1), tables[j].getID());
+            Assert.assertEquals("Unexpected value in table cell", "bee", tables[j].getCellAsText(1, 0));
         }
 
     }

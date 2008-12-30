@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -29,10 +31,11 @@ public class OffsetTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -43,10 +46,10 @@ public class OffsetTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        assertEquals("Bad number of generated rows.", 3, tables[0].getRowCount());
-        assertEquals("Wrong cell content.", "2", tables[0].getCellAsText(1, 0));
-        assertEquals("Wrong cell content.", "3", tables[0].getCellAsText(2, 0));
+        Assert.assertEquals("Bad number of generated rows.", 3, tables[0].getRowCount());
+        Assert.assertEquals("Wrong cell content.", "2", tables[0].getCellAsText(1, 0));
+        Assert.assertEquals("Wrong cell content.", "3", tables[0].getCellAsText(2, 0));
     }
 }

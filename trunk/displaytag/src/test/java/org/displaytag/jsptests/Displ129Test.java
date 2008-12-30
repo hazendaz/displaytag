@@ -4,6 +4,8 @@ import org.apache.commons.lang.StringUtils;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HTMLElement;
@@ -35,9 +37,10 @@ public class Displ129Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         ParamEncoder encoder = new ParamEncoder("table");
         String pageParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE);
@@ -51,17 +54,17 @@ public class Displ129Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables in result.", 1, tables.length);
-        assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
+        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
 
         if (log.isDebugEnabled())
         {
             log.debug(response.getText());
         }
 
-        assertEquals("Wrong column header.", "Number", tables[0].getCellAsText(0, 0));
-        assertEquals("Wrong column content.", "3", tables[0].getCellAsText(1, 0));
-        assertEquals("Wrong column content.", "4", tables[0].getCellAsText(2, 0));
+        Assert.assertEquals("Wrong column header.", "Number", tables[0].getCellAsText(0, 0));
+        Assert.assertEquals("Wrong column content.", "3", tables[0].getCellAsText(1, 0));
+        Assert.assertEquals("Wrong column content.", "4", tables[0].getCellAsText(2, 0));
 
         TableCell headerCell = tables[0].getTableCell(0, 0);
 
@@ -70,7 +73,7 @@ public class Displ129Test extends DisplaytagCase
             .split(cssClass));
 
         WebLink[] headerLinks = headerCell.getLinks();
-        assertEquals("Sorting link not found.", 1, headerLinks.length);
+        Assert.assertEquals("Sorting link not found.", 1, headerLinks.length);
         WebLink sortingLink = headerLinks[0];
         assertEqualsIgnoreOrder(
             "Wrong parameters.",
@@ -78,9 +81,9 @@ public class Displ129Test extends DisplaytagCase
             sortingLink.getParameterNames());
 
         HTMLElement pagebanner = response.getElementWithID("pagebanner");
-        assertEquals("Wrong page banner", "10|3|4", pagebanner.getText());
+        Assert.assertEquals("Wrong page banner", "10|3|4", pagebanner.getText());
         HTMLElement pagelinks = response.getElementWithID("pagelinks");
-        assertEquals("Wrong page links", "1|[2]|3|4|5", pagelinks.getText());
+        Assert.assertEquals("Wrong page links", "1|[2]|3|4|5", pagelinks.getText());
 
     }
 

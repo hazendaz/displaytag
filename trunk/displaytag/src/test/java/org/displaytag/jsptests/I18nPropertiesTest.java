@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -38,10 +40,11 @@ public class I18nPropertiesTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setHeaderField("Accept-Language", "en-us,en;q=0.5");
 
         WebResponse response = runner.getResponse(request);
@@ -51,15 +54,15 @@ public class I18nPropertiesTest extends DisplaytagCase
             log.debug("RESPONSE: " + response.getText());
         }
 
-        assertTrue("Expected message\"" + MSG_DEFAULT + "\" has not been found in response with locale en", response
-            .getText()
-            .indexOf(MSG_DEFAULT) > -1);
-        assertTrue("Unexpected message\"" + MSG_IT + "\" has been found in response with locale en", response
+        Assert.assertTrue(
+            "Expected message\"" + MSG_DEFAULT + "\" has not been found in response with locale en",
+            response.getText().indexOf(MSG_DEFAULT) > -1);
+        Assert.assertTrue("Unexpected message\"" + MSG_IT + "\" has been found in response with locale en", response
             .getText()
             .indexOf(MSG_IT) == -1);
 
         // Now, with an Italian locale.
-        request = new GetMethodWebRequest(jspName);
+        request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setHeaderField("Accept-Language", "it-it,it;q=0.5");
 
         response = runner.getResponse(request);
@@ -69,11 +72,11 @@ public class I18nPropertiesTest extends DisplaytagCase
             log.debug("RESPONSE: " + response.getText());
         }
 
-        assertTrue("Expected message\"" + MSG_IT + "\" has not been found in response with locale it", response
+        Assert.assertTrue("Expected message\"" + MSG_IT + "\" has not been found in response with locale it", response
             .getText()
             .indexOf(MSG_IT) > -1);
-        assertTrue("Unexpected message\"" + MSG_DEFAULT + "\" has been found in response with locale it", response
-            .getText()
-            .indexOf(MSG_DEFAULT) == -1);
+        Assert.assertTrue(
+            "Unexpected message\"" + MSG_DEFAULT + "\" has been found in response with locale it",
+            response.getText().indexOf(MSG_DEFAULT) == -1);
     }
 }

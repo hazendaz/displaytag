@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableRow;
@@ -30,9 +32,10 @@ public class Displ192Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -42,8 +45,8 @@ public class Displ192Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables in result.", 1, tables.length);
-        assertEquals("Wrong number of rows in result.", 4, tables[0].getRowCount());
+        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assert.assertEquals("Wrong number of rows in result.", 4, tables[0].getRowCount());
 
         if (log.isDebugEnabled())
         {
@@ -51,17 +54,17 @@ public class Displ192Test extends DisplaytagCase
         }
 
         TableRow[] rows = tables[0].getRows();
-        assertEquals("Wrong number of rows in result.", 4, rows.length);
+        Assert.assertEquals("Wrong number of rows in result.", 4, rows.length);
 
-        assertEquals("", rows[0].getClassName());
-        assertEquals("odd", rows[1].getClassName());
-        assertEquals("even", rows[2].getClassName());
-        assertEquals("odd highlighted", rows[3].getClassName());
+        Assert.assertEquals("", rows[0].getClassName());
+        Assert.assertEquals("odd", rows[1].getClassName());
+        Assert.assertEquals("even", rows[2].getClassName());
+        Assert.assertEquals("odd highlighted", rows[3].getClassName());
 
-        assertEquals("", rows[0].getID());
-        assertEquals("rowid0", rows[1].getID());
-        assertEquals("rowid1", rows[2].getID());
-        assertEquals("rowid2", rows[3].getID());
+        Assert.assertEquals("", rows[0].getID());
+        Assert.assertEquals("rowid0", rows[1].getID());
+        Assert.assertEquals("rowid1", rows[2].getID());
+        Assert.assertEquals("rowid2", rows[3].getID());
 
     }
 

@@ -3,6 +3,8 @@ package org.displaytag.jsptests;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -30,10 +32,11 @@ public class ExportUTF8FilterTest extends ExportUTF8Test
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
         // test keep
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         // test remove
         ParamEncoder encoder = new ParamEncoder("table");
@@ -47,7 +50,7 @@ public class ExportUTF8FilterTest extends ExportUTF8Test
 
         String encoding = response.getCharacterSet();
 
-        assertEquals("Encoding is not utf-8 as expected.", "utf-8", encoding);
+        Assert.assertEquals("Encoding is not utf-8 as expected.", "utf-8", encoding);
 
     }
 }

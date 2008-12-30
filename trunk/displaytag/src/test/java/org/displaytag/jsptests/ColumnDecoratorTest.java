@@ -3,6 +3,8 @@ package org.displaytag.jsptests;
 import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -31,9 +33,10 @@ public class ColumnDecoratorTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -44,9 +47,9 @@ public class ColumnDecoratorTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        assertEquals("Expected decorated value not found.", new DateColumnDecorator().decorate(
+        Assert.assertEquals("Expected decorated value not found.", new DateColumnDecorator().decorate(
             KnownTypes.TIME_VALUE,
             null,
             null), tables[0].getCellAsText(1, 0));

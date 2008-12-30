@@ -2,6 +2,8 @@ package org.displaytag.util;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
+
 
 /**
  * Test case for org.displaytag.util.HtmlTagUtil.
@@ -24,7 +26,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testStripHtmlTagsSimple()
     {
-        assertEquals("well done", HtmlTagUtil.stripHTMLTags("<strong>well</strong> done"));
+        Assert.assertEquals("well done", HtmlTagUtil.stripHTMLTags("<strong>well</strong> done"));
     }
 
     /**
@@ -32,7 +34,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testStripHtmlTagsNoHtml()
     {
-        assertEquals("well done", HtmlTagUtil.stripHTMLTags("well done"));
+        Assert.assertEquals("well done", HtmlTagUtil.stripHTMLTags("well done"));
     }
 
     /**
@@ -40,7 +42,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testStripHtmlTagsWithQuote()
     {
-        assertEquals("&quot;well&quot; done", HtmlTagUtil.stripHTMLTags("\"well\" done"));
+        Assert.assertEquals("&quot;well&quot; done", HtmlTagUtil.stripHTMLTags("\"well\" done"));
     }
 
     /**
@@ -48,7 +50,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testStripHtmlTagsMultiple()
     {
-        assertEquals("well done again", HtmlTagUtil
+        Assert.assertEquals("well done again", HtmlTagUtil
             .stripHTMLTags("<a href=\"go\"><strong>well <em>done</em></strong> again</a>"));
     }
 
@@ -57,7 +59,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testStripHtmlUnbalancedOpenStart()
     {
-        assertEquals("", HtmlTagUtil.stripHTMLTags("<well done"));
+        Assert.assertEquals("", HtmlTagUtil.stripHTMLTags("<well done"));
     }
 
     /**
@@ -65,7 +67,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testStripHtmlUnbalancedOpenMiddle()
     {
-        assertEquals("well ", HtmlTagUtil.stripHTMLTags("well <done"));
+        Assert.assertEquals("well ", HtmlTagUtil.stripHTMLTags("well <done"));
     }
 
     /**
@@ -73,7 +75,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testStripHtmlUnbalancedClosed()
     {
-        assertEquals("well> done", HtmlTagUtil.stripHTMLTags("well> done"));
+        Assert.assertEquals("well> done", HtmlTagUtil.stripHTMLTags("well> done"));
     }
 
     /**
@@ -81,7 +83,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthNoHtml()
     {
-        assertEquals("well...", HtmlTagUtil.abbreviateHtmlString("well done", 4, false));
+        Assert.assertEquals("well...", HtmlTagUtil.abbreviateHtmlString("well done", 4, false));
     }
 
     /**
@@ -89,7 +91,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthShorter()
     {
-        assertEquals("well done", HtmlTagUtil.abbreviateHtmlString("well done", 9, false));
+        Assert.assertEquals("well done", HtmlTagUtil.abbreviateHtmlString("well done", 9, false));
     }
 
     /**
@@ -97,7 +99,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthHtmlShorter()
     {
-        assertEquals("<strong>well</strong> done", HtmlTagUtil.abbreviateHtmlString(
+        Assert.assertEquals("<strong>well</strong> done", HtmlTagUtil.abbreviateHtmlString(
             "<strong>well</strong> done",
             10,
             false));
@@ -108,7 +110,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthEntity()
     {
-        assertEquals("&amp; wel...", HtmlTagUtil.abbreviateHtmlString("&amp; well done", 5, false));
+        Assert.assertEquals("&amp; wel...", HtmlTagUtil.abbreviateHtmlString("&amp; well done", 5, false));
     }
 
     /**
@@ -116,7 +118,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthBrokenEntity()
     {
-        assertEquals("&amp;...", HtmlTagUtil.abbreviateHtmlString("&amp; well done", 1, false));
+        Assert.assertEquals("&amp;...", HtmlTagUtil.abbreviateHtmlString("&amp; well done", 1, false));
     }
 
     /**
@@ -124,7 +126,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthUnescapedAmpersand()
     {
-        assertEquals("& well d...", HtmlTagUtil.abbreviateHtmlString("& well done", 8, false));
+        Assert.assertEquals("& well d...", HtmlTagUtil.abbreviateHtmlString("& well done", 8, false));
     }
 
     /**
@@ -132,7 +134,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthHtmlSimple()
     {
-        assertEquals("<strong>well...</strong>", HtmlTagUtil.abbreviateHtmlString(
+        Assert.assertEquals("<strong>well...</strong>", HtmlTagUtil.abbreviateHtmlString(
             "<strong>well done</strong>",
             4,
             false));
@@ -143,7 +145,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthHtmlNoClosingTag()
     {
-        assertEquals("well<br> ...", HtmlTagUtil.abbreviateHtmlString("well<br> done", 5, false));
+        Assert.assertEquals("well<br> ...", HtmlTagUtil.abbreviateHtmlString("well<br> done", 5, false));
     }
 
     /**
@@ -151,7 +153,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthHtmlEndingTag()
     {
-        assertEquals("well<br>", HtmlTagUtil.abbreviateHtmlString("well<br>", 5, false));
+        Assert.assertEquals("well<br>", HtmlTagUtil.abbreviateHtmlString("well<br>", 5, false));
     }
 
     /**
@@ -159,7 +161,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthHtmlEmptyTag()
     {
-        assertEquals("well <br/> ...", HtmlTagUtil.abbreviateHtmlString("well <br/> done", 6, false));
+        Assert.assertEquals("well <br/> ...", HtmlTagUtil.abbreviateHtmlString("well <br/> done", 6, false));
     }
 
     /**
@@ -167,7 +169,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthHtmlComplex()
     {
-        assertEquals("<a href=\"link\">well...</a>", HtmlTagUtil.abbreviateHtmlString(
+        Assert.assertEquals("<a href=\"link\">well...</a>", HtmlTagUtil.abbreviateHtmlString(
             "<a href=\"link\">well <strong>done</strong></a>",
             4,
             false));
@@ -178,7 +180,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByNumberOfWordsNoHtml()
     {
-        assertEquals("well...", HtmlTagUtil.abbreviateHtmlString("well done", 1, true));
+        Assert.assertEquals("well...", HtmlTagUtil.abbreviateHtmlString("well done", 1, true));
     }
 
     /**
@@ -186,7 +188,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByNumberOfWordsShorter()
     {
-        assertEquals("well done", HtmlTagUtil.abbreviateHtmlString("well done", 2, true));
+        Assert.assertEquals("well done", HtmlTagUtil.abbreviateHtmlString("well done", 2, true));
     }
 
     /**
@@ -194,7 +196,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByNumberOfWordsHtmlShorter()
     {
-        assertEquals("<strong>well</strong> done", HtmlTagUtil.abbreviateHtmlString(
+        Assert.assertEquals("<strong>well</strong> done", HtmlTagUtil.abbreviateHtmlString(
             "<strong>well</strong> done",
             3,
             true));
@@ -205,8 +207,10 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByLengthNumberOfWordsHtmlSimple()
     {
-        assertEquals("<strong>well...</strong>", HtmlTagUtil
-            .abbreviateHtmlString("<strong>well done</strong>", 1, true));
+        Assert.assertEquals("<strong>well...</strong>", HtmlTagUtil.abbreviateHtmlString(
+            "<strong>well done</strong>",
+            1,
+            true));
     }
 
     /**
@@ -214,7 +218,7 @@ public class HtmlTagUtilTest extends TestCase
      */
     public void testAbbreviateHtmlStringByNumberOfWordsHtmlComplex()
     {
-        assertEquals("<a href=\"link\">well...</a>", HtmlTagUtil.abbreviateHtmlString(
+        Assert.assertEquals("<a href=\"link\">well...</a>", HtmlTagUtil.abbreviateHtmlString(
             "<a href=\"link\">well <strong>done</strong></a>",
             1,
             true));

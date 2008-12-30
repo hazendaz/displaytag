@@ -2,6 +2,8 @@ package org.displaytag.jsptests;
 
 import org.displaytag.decorator.ModelDecorator;
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -25,15 +27,16 @@ public class Displ298HtmlTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response = runner.getResponse(request);
 
-        assertEquals("Expected a different content type.", "text/html", response.getContentType());
+        Assert.assertEquals("Expected a different content type.", "text/html", response.getContentType());
         String responseText = response.getText();
         boolean expectedTextPresent = responseText != null && responseText.indexOf(ModelDecorator.DECORATED_VALUE) > -1;
-        assertTrue("Missing content.", expectedTextPresent);
+        Assert.assertTrue("Missing content.", expectedTextPresent);
     }
 
 }

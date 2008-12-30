@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -29,9 +31,10 @@ public class Displ018Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response = runner.getResponse(request);
 
         if (log.isDebugEnabled())
@@ -40,17 +43,17 @@ public class Displ018Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables.", 4, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 4, tables.length);
 
         for (int j = 0; j < tables.length; j++)
         {
             WebTable table = tables[j];
-            assertEquals("Wrong number of columns in table." + j, 2, table.getColumnCount());
-            assertEquals("Wrong number of rows in table." + j, 5, table.getRowCount());
+            Assert.assertEquals("Wrong number of columns in table." + j, 2, table.getColumnCount());
+            Assert.assertEquals("Wrong number of rows in table." + j, 5, table.getRowCount());
 
             for (int u = 1; u < 5; u++)
             {
-                assertEquals("Wrong value in table cell.", Integer.toString(u), table.getCellAsText(u, 1));
+                Assert.assertEquals("Wrong value in table cell.", Integer.toString(u), table.getCellAsText(u, 1));
             }
         }
 

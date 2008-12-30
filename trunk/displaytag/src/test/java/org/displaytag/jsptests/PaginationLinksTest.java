@@ -4,6 +4,8 @@ import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.URLAssert;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -32,10 +34,11 @@ public class PaginationLinksTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName())
             + "?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
             + "&initiatedTDate=04/28/2004&approvedFDate=&method=search&approver=");
 
@@ -48,7 +51,7 @@ public class PaginationLinksTest extends DisplaytagCase
 
         WebLink[] links = response.getLinks();
 
-        assertEquals("Wrong number of pagination links", 36, links.length);
+        Assert.assertEquals("Wrong number of pagination links", 36, links.length);
 
         String lastLink = links[links.length - 1].getURLString();
 

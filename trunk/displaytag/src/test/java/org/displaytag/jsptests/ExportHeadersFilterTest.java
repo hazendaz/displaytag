@@ -3,6 +3,8 @@ package org.displaytag.jsptests;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -22,23 +24,24 @@ public class ExportHeadersFilterTest extends ExportHeadersTest
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
         // test keep
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
         // this will enable the filter!
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
         WebResponse response = runner.getResponse(request);
 
-        assertNull("Header Cache-Control not overwritten", response.getHeaderField("Cache-Control"));
-        assertNull("Header Expires not overwritten", response.getHeaderField("Expires"));
-        assertNull("Header Pragma not overwritten", response.getHeaderField("Pragma"));
+        Assert.assertNull("Header Cache-Control not overwritten", response.getHeaderField("Cache-Control"));
+        Assert.assertNull("Header Expires not overwritten", response.getHeaderField("Expires"));
+        Assert.assertNull("Header Pragma not overwritten", response.getHeaderField("Pragma"));
     }
 
 }

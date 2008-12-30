@@ -2,6 +2,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -30,10 +32,11 @@ public class PaginationAllItemsTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -44,10 +47,9 @@ public class PaginationAllItemsTest extends DisplaytagCase
 
         WebLink[] links = response.getLinks();
 
-        assertEquals("Wrong number of links in result.", 0, links.length);
-        assertFalse("Using setProperty you should not see any page number", StringUtils.contains(
-            response.getText(),
-            ">1<"));
+        Assert.assertEquals("Wrong number of links in result.", 0, links.length);
+        Assert.assertFalse("Using setProperty you should not see any page number", StringUtils.contains(response
+            .getText(), ">1<"));
 
     }
 }

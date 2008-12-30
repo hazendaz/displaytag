@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import junit.framework.TestCase;
 
+import org.junit.Assert;
+
 
 /**
  * Test case for MessageFormatColumnDecoratorTest.
@@ -32,7 +34,7 @@ public class MessageFormatColumnDecoratorTest extends TestCase
             new Date(0),
             null,
             null);
-        assertEquals("day is " + new SimpleDateFormat("EEEE").format(new Date(0)), result);
+        Assert.assertEquals("day is " + new SimpleDateFormat("EEEE").format(new Date(0)), result);
     }
 
     /**
@@ -44,7 +46,7 @@ public class MessageFormatColumnDecoratorTest extends TestCase
             "abc",
             null,
             null);
-        assertEquals("abc", result);
+        Assert.assertEquals("abc", result);
     }
 
 }

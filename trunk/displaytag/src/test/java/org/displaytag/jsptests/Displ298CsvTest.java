@@ -5,6 +5,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -38,20 +40,21 @@ public class Displ298CsvTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(this.getCode()));
 
         WebResponse response = runner.getResponse(request);
 
-        assertEquals("Expected a different content type.", this.getMimeType(), response.getContentType());
+        Assert.assertEquals("Expected a different content type.", this.getMimeType(), response.getContentType());
         String responseText = response.getText();
         boolean expectedTextPresent = responseText != null && responseText.indexOf(ModelDecorator.DECORATED_VALUE) > -1;
-        assertTrue("Missing content.", expectedTextPresent);
+        Assert.assertTrue("Missing content.", expectedTextPresent);
     }
 
 }

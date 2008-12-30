@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HTMLElement;
@@ -29,10 +31,11 @@ public class Displ199Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -42,13 +45,13 @@ public class Displ199Test extends DisplaytagCase
         }
 
         HTMLElement divtotal = response.getElementWithID("divtotal");
-        assertEquals("7.0", divtotal.getText());
+        Assert.assertEquals("7.0", divtotal.getText());
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
         WebTable table = tables[0];
-        assertEquals("Wrong number of rows.", 5, table.getRowCount());
-        assertEquals("Total not found in las row.", "7.0", table.getCellAsText(4, 0));
+        Assert.assertEquals("Wrong number of rows.", 5, table.getRowCount());
+        Assert.assertEquals("Total not found in las row.", "7.0", table.getCellAsText(4, 0));
 
     }
 

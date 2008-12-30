@@ -1,6 +1,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -29,9 +31,10 @@ public class Displ147Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
         if (log.isDebugEnabled())
@@ -40,9 +43,9 @@ public class Displ147Test extends DisplaytagCase
         }
 
         WebLink[] links = response.getLinks();
-        assertEquals("Wrong number of links in result.", 1, links.length);
+        Assert.assertEquals("Wrong number of links in result.", 1, links.length);
 
-        assertEquals("Link text is wrong.", "/context/dynlink?param=Raja%26Siva", links[0].getURLString());
+        Assert.assertEquals("Link text is wrong.", "/context/dynlink?param=Raja%26Siva", links[0].getURLString());
     }
 
 }

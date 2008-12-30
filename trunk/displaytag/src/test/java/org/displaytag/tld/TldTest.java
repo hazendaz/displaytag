@@ -18,6 +18,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -146,7 +147,7 @@ public class TldTest extends TestCase
             {
                 log.info(errors.size() + " errors found in tag classes: " + errors);
             }
-            fail(errors.size() + " errors found in tag classes: " + errors);
+            Assert.fail(errors.size() + " errors found in tag classes: " + errors);
         }
     }
 
@@ -194,7 +195,7 @@ public class TldTest extends TestCase
             }
             catch (ClassNotFoundException e)
             {
-                fail("unable to find class [" + className + "] declared in 'type' attribute");
+                Assert.fail("unable to find class [" + className + "] declared in 'type' attribute");
             }
         }
         return tldTypeClass;

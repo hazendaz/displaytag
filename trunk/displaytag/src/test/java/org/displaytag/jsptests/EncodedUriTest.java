@@ -2,6 +2,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -31,20 +33,21 @@ public class EncodedUriTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        assertEquals("utf-8", System.getProperty("file.encoding"));
+        Assert.assertEquals("utf-8", System.getProperty("file.encoding"));
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter("city", "MünchenXX");
         request.setHeaderField("Content-Type", "text/html; charset=utf-8");
 
         // just check that everything is ok before reaching displaytag
-        assertEquals("MünchenXX", request.getParameter("city"));
+        Assert.assertEquals("MünchenXX", request.getParameter("city"));
         WebResponse response = runner.getResponse(request);
 
-        assertEquals("utf-8", response.getCharacterSet());
+        Assert.assertEquals("utf-8", response.getCharacterSet());
 
         if (log.isDebugEnabled())
         {
@@ -52,15 +55,15 @@ public class EncodedUriTest extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
         WebLink[] links = response.getLinks();
-        assertEquals("Wrong number of links in result.", 4, links.length);
+        Assert.assertEquals("Wrong number of links in result.", 4, links.length);
 
         String expected = "M%C3%BCnchen";
 
         String actual = StringUtils.substringBetween(links[0].getURLString(), "city=", "XX");
 
-        assertEquals(expected, actual);
+        Assert.assertEquals(expected, actual);
     }
 }

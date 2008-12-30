@@ -4,6 +4,7 @@ import org.apache.struts.action.ActionServlet;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.I18nStrutsAdapter;
 import org.displaytag.localization.LocaleResolver;
+import org.junit.Test;
 
 
 /**
@@ -49,10 +50,11 @@ public class TitleKeyStrutsTest extends AbstractTitleKeyTest
     /**
      * @see org.displaytag.test.DisplaytagCase#doTest(java.lang.String)
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
         this.runner.registerServlet("*.struts", ActionServlet.class.getName());
-        super.doTest(jspName);
+        super.doTest();
     }
 
 }

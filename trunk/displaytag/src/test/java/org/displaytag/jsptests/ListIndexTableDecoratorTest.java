@@ -3,6 +3,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -31,12 +33,13 @@ public class ListIndexTableDecoratorTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE);
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, "2");
 
         WebResponse response = runner.getResponse(request);
@@ -48,12 +51,12 @@ public class ListIndexTableDecoratorTest extends DisplaytagCase
 
         WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
-        assertEquals("ViewIndex is wrong", "0", tables[0].getCellAsText(1, 0));
-        assertEquals("ViewIndex is wrong", "1", tables[0].getCellAsText(2, 0));
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("ViewIndex is wrong", "0", tables[0].getCellAsText(1, 0));
+        Assert.assertEquals("ViewIndex is wrong", "1", tables[0].getCellAsText(2, 0));
 
-        assertEquals("ListIndex is wrong", "3", tables[0].getCellAsText(1, 1));
-        assertEquals("ListIndex is wrong", "4", tables[0].getCellAsText(2, 1));
+        Assert.assertEquals("ListIndex is wrong", "3", tables[0].getCellAsText(1, 1));
+        Assert.assertEquals("ListIndex is wrong", "4", tables[0].getCellAsText(2, 1));
 
     }
 }

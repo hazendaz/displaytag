@@ -6,6 +6,7 @@ import java.util.Map;
 import junit.framework.TestCase;
 
 import org.displaytag.test.URLAssert;
+import org.junit.Assert;
 
 
 /**
@@ -142,10 +143,10 @@ public class DefaultHrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
         Href href = new DefaultHref(url);
         Href clone = (Href) href.clone();
-        assertEquals(href, clone);
+        Assert.assertEquals(href, clone);
 
         clone.addParameter("onlyinclone", "1");
-        assertFalse(href.equals(clone));
+        Assert.assertFalse(href.equals(clone));
     }
 
     /**
@@ -156,7 +157,7 @@ public class DefaultHrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
         Href href = new DefaultHref(url);
         Href href2 = new DefaultHref(url);
-        assertEquals(href, href2);
+        Assert.assertEquals(href, href2);
     }
 
     /**
@@ -228,7 +229,7 @@ public class DefaultHrefTest extends TestCase
         href.addParameterMap(parameterMap);
 
         String newUrl = href.toString();
-        assertEquals("http://www.displaytag.org/displaytag/index.jsp?param1=&agrave;&amp;param1=&lt;", newUrl);
+        Assert.assertEquals("http://www.displaytag.org/displaytag/index.jsp?param1=&agrave;&amp;param1=&lt;", newUrl);
 
     }
 
@@ -259,7 +260,7 @@ public class DefaultHrefTest extends TestCase
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
         Href href = new DefaultHref(url);
-        assertEquals(href.getBaseUrl(), "http://www.displaytag.org/displaytag/index.jsp");
+        Assert.assertEquals(href.getBaseUrl(), "http://www.displaytag.org/displaytag/index.jsp");
     }
 
     /**
@@ -282,7 +283,7 @@ public class DefaultHrefTest extends TestCase
     {
         String url = "?param1=1&param2=2#thisanchor";
         Href href = new DefaultHref(url);
-        assertEquals(href.getBaseUrl(), "");
+        Assert.assertEquals(href.getBaseUrl(), "");
         URLAssert.assertEquals(url, href.toString());
     }
 

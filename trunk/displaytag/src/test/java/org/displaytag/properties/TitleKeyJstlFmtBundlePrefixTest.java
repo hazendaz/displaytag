@@ -1,6 +1,8 @@
 package org.displaytag.properties;
 
 import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -29,10 +31,11 @@ public class TitleKeyJstlFmtBundlePrefixTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
         // test keep
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         WebResponse response = runner.getResponse(request);
 
@@ -42,12 +45,13 @@ public class TitleKeyJstlFmtBundlePrefixTest extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Expected one table", 1, tables.length);
+        Assert.assertEquals("Expected one table", 1, tables.length);
 
-        assertEquals("Header from resource is not valid.", "foo bundle prefixed", tables[0].getCellAsText(0, 0));
-        assertEquals("Header from resource is not valid.", "baz bundle prefixed", tables[0].getCellAsText(0, 1));
-        assertEquals("Header from resource is not valid.", "camel bundle prefixed", tables[0].getCellAsText(0, 2));
-        assertEquals("Missing resource should generate the ???missing??? header.", "???missing???", tables[0]
+        Assert.assertEquals("Header from resource is not valid.", "foo bundle prefixed", tables[0].getCellAsText(0, 0));
+        Assert.assertEquals("Header from resource is not valid.", "baz bundle prefixed", tables[0].getCellAsText(0, 1));
+        Assert.assertEquals("Header from resource is not valid.", "camel bundle prefixed", tables[0]
+            .getCellAsText(0, 2));
+        Assert.assertEquals("Missing resource should generate the ???missing??? header.", "???missing???", tables[0]
             .getCellAsText(0, 3));
 
     }

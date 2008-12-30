@@ -3,6 +3,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HTMLElement;
@@ -32,10 +34,11 @@ public class Displ304Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         ParamEncoder pe = new ParamEncoder("table");
 
         request.setParameter(pe.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
@@ -49,7 +52,7 @@ public class Displ304Test extends DisplaytagCase
         // <span class="pagebanner">3 items found, displaying 1 to 1.</span>
 
         HTMLElement pagebanner = response.getElementWithID("pagebanner");
-        assertEquals("Wrong page banner", "4|3|4", pagebanner.getText());
+        Assert.assertEquals("Wrong page banner", "4|3|4", pagebanner.getText());
     }
 
 }

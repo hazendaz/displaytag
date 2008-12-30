@@ -3,6 +3,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -32,9 +34,10 @@ public class Displ074Test extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response = runner.getResponse(request);
 
         ParamEncoder encoder = new ParamEncoder("table");
@@ -46,19 +49,19 @@ public class Displ074Test extends DisplaytagCase
         }
 
         WebTable[] tables = response.getTables();
-        assertEquals("Wrong number of tables in result.", 1, tables.length);
-        assertEquals("Wrong number of rows in result.", 2, tables[0].getRowCount());
+        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assert.assertEquals("Wrong number of rows in result.", 2, tables[0].getRowCount());
 
         if (log.isDebugEnabled())
         {
             log.debug(response.getText());
         }
 
-        assertEquals("Wrong column content.", "ant", tables[0].getCellAsText(1, 0));
-        assertEquals("Wrong column content.", "bee", tables[0].getCellAsText(1, 1));
+        Assert.assertEquals("Wrong column content.", "ant", tables[0].getCellAsText(1, 0));
+        Assert.assertEquals("Wrong column content.", "bee", tables[0].getCellAsText(1, 1));
 
         WebLink[] links = response.getLinks();
-        assertEquals("Wrong number of links", 2, links.length);
+        Assert.assertEquals("Wrong number of links", 2, links.length);
     }
 
 }

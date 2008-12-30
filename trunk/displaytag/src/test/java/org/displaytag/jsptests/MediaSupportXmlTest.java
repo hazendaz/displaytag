@@ -6,6 +6,8 @@ import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -33,13 +35,14 @@ public class MediaSupportXmlTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
 
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(jspName);
+        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
 
         WebResponse response = runner.getResponse(request);
@@ -50,13 +53,19 @@ public class MediaSupportXmlTest extends DisplaytagCase
         }
 
         // we are really testing an xml output?
-        assertEquals("Expected a different content type.", "text/xml", response.getContentType());
+        Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
 
         String output = response.getText();
 
-        assertTrue("Expected value [" + KnownValue.BEE + "] missing", StringUtils.contains(output, KnownValue.BEE));
-        assertTrue("Expected value [" + KnownValue.CAMEL + "] missing", StringUtils.contains(output, KnownValue.CAMEL));
-        assertTrue("Unexpected value [" + KnownValue.ANT + "] found", !StringUtils.contains(output, KnownValue.ANT));
+        Assert.assertTrue("Expected value [" + KnownValue.BEE + "] missing", StringUtils.contains(
+            output,
+            KnownValue.BEE));
+        Assert.assertTrue("Expected value [" + KnownValue.CAMEL + "] missing", StringUtils.contains(
+            output,
+            KnownValue.CAMEL));
+        Assert.assertTrue("Unexpected value [" + KnownValue.ANT + "] found", !StringUtils.contains(
+            output,
+            KnownValue.ANT));
 
     }
 

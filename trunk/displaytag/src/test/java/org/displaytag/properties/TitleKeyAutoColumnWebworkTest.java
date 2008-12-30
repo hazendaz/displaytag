@@ -3,6 +3,7 @@ package org.displaytag.properties;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.I18nWebworkAdapter;
 import org.displaytag.localization.LocaleResolver;
+import org.junit.Test;
 
 import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 
@@ -50,10 +51,11 @@ public class TitleKeyAutoColumnWebworkTest extends AbstractTitleKeyAutoColumnTes
     /**
      * @see org.displaytag.test.DisplaytagCase#doTest(java.lang.String)
      */
-    public void doTest(String jspName) throws Exception
+    @Test
+    public void doTest() throws Exception
     {
         this.runner.registerServlet("*.webwork", ServletDispatcher.class.getName());
-        super.doTest(jspName);
+        super.doTest();
     }
 
 }
