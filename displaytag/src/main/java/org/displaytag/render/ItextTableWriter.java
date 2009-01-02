@@ -142,12 +142,12 @@ public class ItextTableWriter extends TableWriterAdapter
      */
     protected void writeTableHeader(TableModel model) throws BadElementException
     {
-        Iterator iterator = model.getHeaderCellList().iterator();
+        Iterator<HeaderCell> iterator = model.getHeaderCellList().iterator();
 
         float[] widths = new float[model.getNumberOfColumns()];
         for (int i = 0; iterator.hasNext(); i++)
         {
-            HeaderCell headerCell = (HeaderCell) iterator.next();
+            HeaderCell headerCell = iterator.next();
             widths[i] = this.getCellWidth(headerCell);
 
             String columnHeader = headerCell.getTitle();

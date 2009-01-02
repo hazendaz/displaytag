@@ -92,10 +92,10 @@ public class Cell implements Comparable, Cloneable
             {
                 return 1;
             }
-            return ((Comparable) this.staticValue).compareTo(otherStatic);
+            return ((Comparable<Object>) this.staticValue).compareTo(otherStatic);
         }
 
-        return ((Comparable) this.staticValue).compareTo(obj);
+        return ((Comparable<Object>) this.staticValue).compareTo(obj);
 
     }
 

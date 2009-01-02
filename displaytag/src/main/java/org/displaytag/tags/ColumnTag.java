@@ -11,7 +11,6 @@
  */
 package org.displaytag.tags;
 
-import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -35,7 +34,6 @@ import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.model.Cell;
-import org.displaytag.model.DefaultComparator;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.SortOrderEnum;
@@ -120,7 +118,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * The comparator to use when sorting this column.
      */
-    private Comparator comparator;
+    private Comparator<Object> comparator;
 
     /**
      * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
@@ -215,7 +213,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * The media supported attribute.
      */
-    private List supportedMedia;
+    private List<MediaTypeEnum> supportedMedia;
 
     /**
      * Property in a resource bundle to be used as the title for the column.
@@ -274,15 +272,16 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         // @todo don't do this! Setters should remains simple setters and any evaluation should be done in doEndTag()!
         if (comparatorObj instanceof Comparator)
         {
-            this.comparator = (Comparator) comparatorObj;
+            this.comparator = (Comparator<Object>) comparatorObj;
         }
         else if (comparatorObj instanceof String)
         {
             String comparatorClassname = (String) comparatorObj;
-            Class compClass;
+            Class<Comparator<Object>> compClass;
             try
             {
-                compClass = Thread.currentThread().getContextClassLoader().loadClass(comparatorClassname);
+                compClass = (Class<Comparator<Object>>) Thread.currentThread().getContextClassLoader().loadClass(
+                    comparatorClassname);
             }
             catch (ClassNotFoundException e)
             {
@@ -293,7 +292,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             }
             try
             {
-                this.comparator = (Comparator) compClass.newInstance();
+                this.comparator = compClass.newInstance();
             }
             catch (InstantiationException e)
             {
@@ -555,7 +554,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
      */
-    public void setSupportedMedia(List media)
+    public void setSupportedMedia(List<MediaTypeEnum> media)
     {
         this.supportedMedia = media;
     }
@@ -563,7 +562,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
      */
-    public List getSupportedMedia()
+    public List<MediaTypeEnum> getSupportedMedia()
     {
         return this.supportedMedia;
     }
@@ -694,7 +693,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         headerCell.setTitle(evalTitle);
         headerCell.setSortable(this.sortable);
 
-        List decorators = new ArrayList();
+        List<DisplaytagColumnDecorator> decorators = new ArrayList<DisplaytagColumnDecorator>();
 
         // handle multiple chained decorators, whitespace separated
         if (StringUtils.isNotEmpty(this.decorator))
@@ -722,8 +721,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             decorators.add(new MessageFormatColumnDecorator(this.format, tableTag.getProperties().getLocale()));
         }
 
-        headerCell.setColumnDecorators((DisplaytagColumnDecorator[]) decorators
-            .toArray(new DisplaytagColumnDecorator[decorators.size()]));
+        headerCell.setColumnDecorators(decorators.toArray(new DisplaytagColumnDecorator[decorators.size()]));
 
         headerCell.setBeanPropertyName(this.property);
         headerCell.setShowNulls(this.nulls);
@@ -733,7 +731,9 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         headerCell.setSortProperty(this.sortProperty);
         headerCell.setTotaled(this.totaled);
 
-        Comparator headerComparator = (comparator != null) ? comparator : tableTag.getProperties().getDefaultComparator();
+        Comparator<Object> headerComparator = (comparator != null) ? comparator : tableTag
+            .getProperties()
+            .getDefaultComparator();
 
         headerCell.setComparator(headerComparator);
         headerCell.setDefaultSortOrder(this.defaultorder);

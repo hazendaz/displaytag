@@ -63,12 +63,12 @@ public class HtmlAttributeMap extends HashMap
         // get the entrySet
         Set entrySet = entrySet();
 
-        Iterator iterator = entrySet.iterator();
+        Iterator<Map.Entry<Object, Object>> iterator = entrySet.iterator();
 
         // iterates on attributes
         while (iterator.hasNext())
         {
-            Map.Entry entry = (Map.Entry) iterator.next();
+            Map.Entry<Object, Object> entry = iterator.next();
 
             // append a new atribute
             buffer

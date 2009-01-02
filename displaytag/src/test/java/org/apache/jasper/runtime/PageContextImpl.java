@@ -99,7 +99,7 @@ public class PageContextImpl extends PageContext implements VariableResolver
     private int bufferSize;
 
     // page-scope attributes
-    private transient Hashtable attributes;
+    private transient Hashtable<String, Object> attributes;
 
     // per-request state
     private transient ServletRequest request;
@@ -125,7 +125,7 @@ public class PageContextImpl extends PageContext implements VariableResolver
         this.factory = factory;
         this.variableResolver = new VariableResolverImpl(this);
         this.outs = new BodyContentImpl[0];
-        this.attributes = new Hashtable(16);
+        this.attributes = new Hashtable<String, Object>(16);
         this.depth = -1;
     }
 
@@ -558,11 +558,11 @@ public class PageContextImpl extends PageContext implements VariableResolver
         return context.getAttribute(name);
     }
 
-    public Enumeration getAttributeNamesInScope(final int scope)
+    public Enumeration<String> getAttributeNamesInScope(final int scope)
     {
         if (SecurityUtil.isPackageProtectionEnabled())
         {
-            return (Enumeration) AccessController.doPrivileged(new PrivilegedAction()
+            return (Enumeration<String>) AccessController.doPrivileged(new PrivilegedAction()
             {
 
                 public Object run()
@@ -577,7 +577,7 @@ public class PageContextImpl extends PageContext implements VariableResolver
         }
     }
 
-    private Enumeration doGetAttributeNamesInScope(int scope)
+    private Enumeration<String> doGetAttributeNamesInScope(int scope)
     {
         switch (scope)
         {
@@ -831,9 +831,6 @@ public class PageContextImpl extends PageContext implements VariableResolver
 
         final String path = getAbsolutePathRelativeToContext(relativeUrlPath);
         String includeUri = (String) request.getAttribute(Constants.INC_SERVLET_PATH);
-
-        final ServletResponse fresponse = response;
-        final ServletRequest frequest = request;
 
         if (includeUri != null)
             request.removeAttribute(Constants.INC_SERVLET_PATH);

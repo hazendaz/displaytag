@@ -34,7 +34,7 @@ public class ObjectLookupException extends BaseNestableJspTagException
      * @param beanProperty name of the property not found in javabean
      * @param cause previous Exception
      */
-    public ObjectLookupException(Class source, Object beanObject, String beanProperty, Throwable cause)
+    public ObjectLookupException(Class<?> source, Object beanObject, String beanProperty, Throwable cause)
     {
         super(source, Messages.getString("ObjectLookupException.msg" //$NON-NLS-1$
             , new Object[]{beanProperty, ((beanObject == null) ? "null" : beanObject.getClass().getName())}//$NON-NLS-1$

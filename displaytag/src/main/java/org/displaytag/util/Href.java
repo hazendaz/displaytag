@@ -50,21 +50,21 @@ public interface Href extends Cloneable, Serializable
      * Getter for the map containing link parameters. The returned map is always a copy and not the original instance.
      * @return parameter Map (copy)
      */
-    Map getParameterMap();
+    Map<String, Object> getParameterMap();
 
     /**
      * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
      * added. Any parameter already present in the href object is removed.
      * @param parametersMap Map containing parameters
      */
-    void setParameterMap(Map parametersMap);
+    void setParameterMap(Map<String, Object> parametersMap);
 
     /**
      * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
      * added. Parameters in the original href are kept and not overridden.
      * @param parametersMap Map containing parameters
      */
-    void addParameterMap(Map parametersMap);
+    void addParameterMap(Map<String, Object> parametersMap);
 
     /**
      * Getter for the base url (without parameters).

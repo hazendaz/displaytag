@@ -45,7 +45,7 @@ public class ExportLinksTest extends DisplaytagCase
 
         Assert.assertEquals("Wrong number of export links. ", 4, links.length);
 
-        Set linkTexts = new HashSet();
+        Set<String> linkTexts = new HashSet<String>();
         for (int j = 0; j < links.length; j++)
         {
             String url = links[j].getURLString();

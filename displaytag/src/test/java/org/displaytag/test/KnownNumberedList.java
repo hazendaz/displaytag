@@ -17,9 +17,9 @@ public class KnownNumberedList
      * Returns an iterator on a list made of 5 NumberedItems objects.
      * @return iterator on a list made of 5 NumberedItems objects
      */
-    public Iterator iterator()
+    public Iterator<NumberedItem> iterator()
     {
-        List list = new ArrayList();
+        List<NumberedItem> list = new ArrayList<NumberedItem>();
         for (int j = 0; j < 5; j++)
         {
             list.add(new NumberedItem(j));

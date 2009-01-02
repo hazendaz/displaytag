@@ -33,7 +33,7 @@ public class TablePropertiesLoadException extends BaseNestableRuntimeException
      * @param propertiesFileName properties file name
      * @param cause previous Exception
      */
-    public TablePropertiesLoadException(Class source, String propertiesFileName, Throwable cause)
+    public TablePropertiesLoadException(Class<?> source, String propertiesFileName, Throwable cause)
     {
         super(source, Messages.getString("TablePropertiesLoadException.msg", //$NON-NLS-1$
             new Object[]{propertiesFileName}), cause);

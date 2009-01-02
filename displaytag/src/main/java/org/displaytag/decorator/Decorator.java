@@ -48,7 +48,7 @@ abstract class Decorator
     /**
      * property info cache contains classname#propertyname Strings as keys and Booleans as values.
      */
-    private static Map propertyMap = new HashMap();
+    private static Map<String, Boolean> propertyMap = new HashMap<String, Boolean>();
 
     /**
      * page context.
@@ -138,9 +138,7 @@ abstract class Decorator
             simpleProperty = simpleProperty.substring(0, indexOfDot);
         }
 
-        Boolean cachedResult = (Boolean) propertyMap.get(getClass().getName()
-            + CLASS_PROPERTY_SEPARATOR
-            + simpleProperty);
+        Boolean cachedResult = propertyMap.get(getClass().getName() + CLASS_PROPERTY_SEPARATOR + simpleProperty);
 
         if (cachedResult != null)
         {

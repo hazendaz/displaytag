@@ -33,7 +33,7 @@ public class InvalidTagAttributeValueException extends BaseNestableJspTagExcepti
      * @param attributeName String attribute name
      * @param attributeValue attribute value (invalid)
      */
-    public InvalidTagAttributeValueException(Class source, String attributeName, Object attributeValue)
+    public InvalidTagAttributeValueException(Class<?> source, String attributeName, Object attributeValue)
     {
         super(source, Messages.getString("InvalidTagAttributeValueException.msg", //$NON-NLS-1$
             new Object[]{attributeName, attributeValue}));

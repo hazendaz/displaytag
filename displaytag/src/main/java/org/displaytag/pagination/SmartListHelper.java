@@ -45,7 +45,7 @@ public class SmartListHelper
     /**
      * full list.
      */
-    private List fullList;
+    private List<Object> fullList;
 
     /**
      * sixe of the full list.
@@ -86,7 +86,7 @@ public class SmartListHelper
      * @param tableProperties TableProperties
      */
     public SmartListHelper(
-        List list,
+        List<Object> list,
         int fullSize,
         int itemsInPage,
         TableProperties tableProperties,
@@ -181,7 +181,7 @@ public class SmartListHelper
      * page the user is viewing.
      * @return List subsection of the list that contains the elements that are supposed to be shown on the current page
      */
-    public List getListForCurrentPage()
+    public List<Object> getListForCurrentPage()
     {
 
         return getListForPage(this.currentPage);
@@ -193,7 +193,7 @@ public class SmartListHelper
      * @return List subsection of the list that contains just the elements that are supposed to be shown on the given
      * page
      */
-    protected List getListForPage(int pageNumber)
+    protected List<Object> getListForPage(int pageNumber)
     {
         if (log.isDebugEnabled())
         {

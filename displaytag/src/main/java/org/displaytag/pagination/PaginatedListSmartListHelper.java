@@ -87,12 +87,12 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         return result;
     }
 
-    public List getListForCurrentPage()
+    public List<Object> getListForCurrentPage()
     {
         return paginatedList.getList();
     }
 
-    protected List getListForPage(int pageNumber)
+    protected List<Object> getListForPage(int pageNumber)
     {
         if ((pageNumber) == paginatedList.getPageNumber())
         {

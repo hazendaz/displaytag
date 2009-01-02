@@ -31,7 +31,7 @@ public class ExportException extends BaseNestableJspTagException
      * Instantiate a new Exception with a fixed message.
      * @param source Class where the exception is generated
      */
-    public ExportException(Class source)
+    public ExportException(Class<?> source)
     {
         super(source, Messages.getString("ExportException.msg")); //$NON-NLS-1$
     }

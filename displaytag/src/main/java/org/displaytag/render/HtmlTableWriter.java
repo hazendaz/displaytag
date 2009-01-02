@@ -180,7 +180,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     private void writeFormFields()
     {
-        Map parameters = baseHref.getParameterMap();
+        Map<String, Object> parameters = baseHref.getParameterMap();
 
         ParamEncoder pe = new ParamEncoder(this.tableModel.getId());
 
@@ -188,9 +188,9 @@ public class HtmlTableWriter extends TableWriterAdapter
         addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_PAGE));
         addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_SORT));
 
-        for (Iterator it = parameters.keySet().iterator(); it.hasNext();)
+        for (Iterator<String> it = parameters.keySet().iterator(); it.hasNext();)
         {
-            String key = (String) it.next();
+            String key = it.next();
             Object value = parameters.get(key);
 
             if (value != null & value.getClass().isArray())
@@ -235,7 +235,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * @param parameters Map of parameters
      * @param key param key
      */
-    private void addIfMissing(Map parameters, String key)
+    private void addIfMissing(Map<String, Object> parameters, String key)
     {
         if (!parameters.containsKey(key))
         {
@@ -426,12 +426,12 @@ public class HtmlTableWriter extends TableWriterAdapter
         }
 
         // iterator on columns for header
-        Iterator iterator = this.tableModel.getHeaderCellList().iterator();
+        Iterator<HeaderCell> iterator = this.tableModel.getHeaderCellList().iterator();
 
         while (iterator.hasNext())
         {
             // get the header cell
-            HeaderCell headerCell = (HeaderCell) iterator.next();
+            HeaderCell headerCell = iterator.next();
 
             if (headerCell.getSortable())
             {
@@ -648,11 +648,11 @@ public class HtmlTableWriter extends TableWriterAdapter
         Href exportHref = (Href) this.baseHref.clone();
 
         StringBuffer buffer = new StringBuffer(200);
-        Iterator iterator = MediaTypeEnum.iterator();
+        Iterator<MediaTypeEnum> iterator = MediaTypeEnum.iterator();
 
         while (iterator.hasNext())
         {
-            MediaTypeEnum currentExportType = (MediaTypeEnum) iterator.next();
+            MediaTypeEnum currentExportType = iterator.next();
 
             if (this.properties.getAddExport(currentExportType))
             {
@@ -687,7 +687,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         if (this.uid != null && attributeMap.get(TagConstants.ATTRIBUTE_ID) == null)
         {
             // we need to clone the attribute map in order to "fix" the html id when using only the "uid" attribute
-            Map localAttributeMap = (Map) attributeMap.clone();
+            Map<String, String> localAttributeMap = (Map<String, String>) attributeMap.clone();
             localAttributeMap.put(TagConstants.ATTRIBUTE_ID, this.uid);
 
             StringBuffer buffer = new StringBuffer();

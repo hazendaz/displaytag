@@ -29,7 +29,7 @@ public final class MediaTypeEnum
     /**
      * Array containing all the export types.
      */
-    private static final List ALL = new ArrayList();
+    private static final List<MediaTypeEnum> ALL = new ArrayList<MediaTypeEnum>();
 
     /**
      * media type HTML = 0.
@@ -101,9 +101,9 @@ public final class MediaTypeEnum
         // @todo optimization needed
         for (int i = 0; i < ALL.size(); i++)
         {
-            if (key == ((MediaTypeEnum) ALL.get(i)).getCode())
+            if (key == ALL.get(i).getCode())
             {
-                return (MediaTypeEnum) ALL.get(i);
+                return ALL.get(i);
             }
         }
         // lookup failed
@@ -146,9 +146,9 @@ public final class MediaTypeEnum
         // @todo optimization needed
         for (int i = 0; i < ALL.size(); i++)
         {
-            if (((MediaTypeEnum) ALL.get(i)).getName().equals(code))
+            if (ALL.get(i).getName().equals(code))
             {
-                return ((MediaTypeEnum) ALL.get(i));
+                return ALL.get(i);
             }
         }
         // lookup failed
@@ -159,7 +159,7 @@ public final class MediaTypeEnum
      * returns an iterator on all the media type.
      * @return iterator
      */
-    public static Iterator iterator()
+    public static Iterator<MediaTypeEnum> iterator()
     {
         return ALL.iterator();
     }

@@ -13,7 +13,6 @@ package org.displaytag.model;
 
 import java.util.Comparator;
 
-import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -140,7 +139,7 @@ public class HeaderCell
     /**
      * Use this comparator for sorting.
      */
-    private Comparator comparator;
+    private Comparator<Object> comparator;
 
     /**
      * getter for the grouping index.
@@ -548,7 +547,7 @@ public class HeaderCell
      * Set the column comparator.
      * @param columnComparator the value
      */
-    public void setComparator(Comparator columnComparator)
+    public void setComparator(Comparator<Object> columnComparator)
     {
         this.comparator = columnComparator;
     }
@@ -557,7 +556,7 @@ public class HeaderCell
      * Get the comparator for sorting this column.
      * @return the comparator
      */
-    public Comparator getComparator()
+    public Comparator<Object> getComparator()
     {
         return this.comparator;
     }

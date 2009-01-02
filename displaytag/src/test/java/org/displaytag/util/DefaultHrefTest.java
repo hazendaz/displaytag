@@ -183,7 +183,7 @@ public class DefaultHrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp#thisanchor";
         Href href = new DefaultHref(url);
 
-        Map parameterMap = new HashMap();
+        Map<String, Object> parameterMap = new HashMap<String, Object>();
         parameterMap.put("new1", "new1value");
         parameterMap.put("new2", "new2value");
         parameterMap.put("new3", null);
@@ -203,7 +203,7 @@ public class DefaultHrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1#thisanchor";
         Href href = new DefaultHref(url);
 
-        Map parameterMap = new HashMap();
+        Map<String, Object> parameterMap = new HashMap<String, Object>();
         parameterMap.put("new1", "new1value");
         parameterMap.put("new2", "new2value");
         parameterMap.put("new3", null);
@@ -224,7 +224,7 @@ public class DefaultHrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp";
         Href href = new DefaultHref(url);
 
-        Map parameterMap = new HashMap();
+        Map<String, Object> parameterMap = new HashMap<String, Object>();
         parameterMap.put("param1", new String[]{"à", "<"});
         href.addParameterMap(parameterMap);
 
@@ -241,7 +241,7 @@ public class DefaultHrefTest extends TestCase
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=original#thisanchor";
         Href href = new DefaultHref(url);
 
-        Map parameterMap = new HashMap();
+        Map<String, Object> parameterMap = new HashMap<String, Object>();
         parameterMap.put("param1", "original");
         parameterMap.put("new1", "new1value");
         href.addParameterMap(parameterMap);

@@ -30,7 +30,7 @@ public class DecoratorException extends BaseNestableJspTagException
      * @param source Class where the exception is generated
      * @param message message
      */
-    public DecoratorException(Class source, String message)
+    public DecoratorException(Class< ? > source, String message)
     {
         super(source, message);
     }
@@ -41,7 +41,7 @@ public class DecoratorException extends BaseNestableJspTagException
      * @param message message
      * @param cause previous exception
      */
-    public DecoratorException(Class source, String message, Throwable cause)
+    public DecoratorException(Class< ? > source, String message, Throwable cause)
     {
         super(source, message, cause);
     }

@@ -70,13 +70,13 @@ public class TldTest extends TestCase
     public void checkTld(String checkedTld) throws Exception
     {
 
-        List tagsAttributes = getTagAttributeList(checkedTld);
+        List<TagAttribute> tagsAttributes = getTagAttributeList(checkedTld);
 
-        List errors = new ArrayList();
-        Iterator iterator = tagsAttributes.iterator();
+        List<String> errors = new ArrayList<String>();
+        Iterator<TagAttribute> iterator = tagsAttributes.iterator();
         while (iterator.hasNext())
         {
-            TagAttribute attribute = (TagAttribute) iterator.next();
+            TagAttribute attribute = iterator.next();
 
             if (log.isDebugEnabled())
             {
@@ -207,7 +207,7 @@ public class TldTest extends TestCase
      * @return List of TagAttribute
      * @throws Exception any Exception thrown during test
      */
-    private List getTagAttributeList(String checkedTld) throws Exception
+    private List<TagAttribute> getTagAttributeList(String checkedTld) throws Exception
     {
 
         InputStream is = getClass().getResourceAsStream(checkedTld);
@@ -219,7 +219,7 @@ public class TldTest extends TestCase
         is.close();
 
         NodeList tagList = webXmlDoc.getElementsByTagName("tag");
-        List tagsAttributes = new ArrayList();
+        List<TagAttribute> tagsAttributes = new ArrayList<TagAttribute>();
 
         for (int i = 0; i < tagList.getLength(); i++)
         {

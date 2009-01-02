@@ -46,7 +46,7 @@ public final class ExportViewFactory
     /**
      * Map containing MediaTypeEnum - View class.
      */
-    private final Map viewClasses = new HashMap();
+    private final Map<MediaTypeEnum, Class> viewClasses = new HashMap<MediaTypeEnum, Class>();
 
     /**
      * Private constructor.
@@ -154,7 +154,7 @@ public final class ExportViewFactory
     {
         ExportView view;
 
-        Class viewClass = (Class) viewClasses.get(exportType);
+        Class viewClass = viewClasses.get(exportType);
 
         try
         {

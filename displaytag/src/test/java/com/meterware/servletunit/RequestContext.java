@@ -43,9 +43,9 @@ import com.meterware.httpunit.HttpUnitUtils;
 class RequestContext
 {
 
-    private Hashtable _parameters = new Hashtable();
+    private Hashtable<Object, String[]> _parameters = new Hashtable<Object, String[]>();
 
-    private Hashtable _visibleParameters;
+    private Hashtable<Object, String[]> _visibleParameters;
 
     private HttpServletRequest _parentRequest;
 
@@ -82,23 +82,23 @@ class RequestContext
 
     String getParameter(String name)
     {
-        String[] parameters = (String[]) getParameters().get(name);
+        String[] parameters = getParameters().get(name);
         return parameters == null ? null : parameters[0];
     }
 
-    Enumeration getParameterNames()
+    Enumeration<Object> getParameterNames()
     {
         return getParameters().keys();
     }
 
-    Map getParameterMap()
+    Map<Object, String[]> getParameterMap()
     {
-        return (Map) getParameters().clone();
+        return (Map<Object, String[]>) getParameters().clone();
     }
 
     String[] getParameterValues(String name)
     {
-        return (String[]) getParameters().get(name);
+        return getParameters().get(name);
     }
 
     final static private int STATE_INITIAL = 0;
@@ -163,7 +163,7 @@ class RequestContext
 
     private void addParameter(String name, String encodedValue)
     {
-        String[] values = (String[]) _parameters.get(name);
+        String[] values = _parameters.get(name);
         _visibleParameters = null;
         if (values == null)
         {
@@ -183,7 +183,7 @@ class RequestContext
         return result;
     }
 
-    private Hashtable getParameters()
+    private Hashtable<Object, String[]> getParameters()
     {
         if (_messageBody != null)
         {
@@ -198,14 +198,14 @@ class RequestContext
             }
             else
             {
-                _visibleParameters = new Hashtable();
-                final Map parameterMap = _parentRequest.getParameterMap();
-                for (Iterator i = parameterMap.keySet().iterator(); i.hasNext();)
+                _visibleParameters = new Hashtable<Object, String[]>();
+                final Map<Object, String[]> parameterMap = _parentRequest.getParameterMap();
+                for (Iterator<Object> i = parameterMap.keySet().iterator(); i.hasNext();)
                 {
                     Object key = i.next();
                     _visibleParameters.put(key, parameterMap.get(key));
                 }
-                for (Enumeration e = _parameters.keys(); e.hasMoreElements();)
+                for (Enumeration<Object> e = _parameters.keys(); e.hasMoreElements();)
                 {
                     Object key = e.nextElement();
                     _visibleParameters.put(key, _parameters.get(key));

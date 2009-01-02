@@ -163,7 +163,7 @@ public abstract class BaseExportView implements TextExportView
 
         StringBuffer buffer = new StringBuffer(1000);
 
-        Iterator iterator = this.model.getHeaderCellList().iterator();
+        Iterator<HeaderCell> iterator = this.model.getHeaderCellList().iterator();
 
         // start row
         if (ROW_START != null)
@@ -173,7 +173,7 @@ public abstract class BaseExportView implements TextExportView
 
         while (iterator.hasNext())
         {
-            HeaderCell headerCell = (HeaderCell) iterator.next();
+            HeaderCell headerCell = iterator.next();
 
             String columnHeader = headerCell.getTitle();
 

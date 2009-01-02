@@ -39,7 +39,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * The media supported attribute.
      */
-    private List supportedMedia;
+    private List<MediaTypeEnum> supportedMedia;
 
     /**
      * Show the footer as a last table row.
@@ -98,7 +98,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
         {
             if (tableTag.getVarTotals() != null)
             {
-                Map totals = tableTag.getTotals();
+                Map<String, Double> totals = tableTag.getTotals();
                 this.pageContext.setAttribute(tableTag.getVarTotals(), totals);
             }
             // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
@@ -111,7 +111,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
      */
-    public void setSupportedMedia(List media)
+    public void setSupportedMedia(List<MediaTypeEnum> media)
     {
         this.supportedMedia = media;
     }
@@ -119,7 +119,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
      */
-    public List getSupportedMedia()
+    public List<MediaTypeEnum> getSupportedMedia()
     {
         return this.supportedMedia;
     }

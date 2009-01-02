@@ -12,6 +12,8 @@
       <action type="remove" dev="fgiust"> Removed support for java 1.4 and removed the EL version of the tag library.
         Displaytag 1.3 will require at least java 1.5. For EL support you should just use a container that support
         direct evaluation of EL expressions (JSP 2.0) with the standard tag library, like tomcat 5.0 or above.</action>
+      <action type="remove" dev="fgiust">The org.displaytag.decorator.ColumnDecorator interface, deprecated in
+        displaytag 1.1, has been removed.</action>
     </release>
     <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.

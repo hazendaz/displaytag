@@ -271,9 +271,9 @@ public abstract class TableWriterTemplate
         Row previousRow = null;
         Row currentRow = null;
         Row nextRow = null;
-        Map previousRowValues = new HashMap(10);
-        Map currentRowValues = new HashMap(10);
-        Map nextRowValues = new HashMap(10);
+        Map<Integer, CellStruct> previousRowValues = new HashMap<Integer, CellStruct>(10);
+        Map<Integer, CellStruct> currentRowValues = new HashMap<Integer, CellStruct>(10);
+        Map<Integer, CellStruct> nextRowValues = new HashMap<Integer, CellStruct>(10);
 
         while (nextRow != null || rowIterator.hasNext())
         {
@@ -343,22 +343,22 @@ public abstract class TableWriterTemplate
                     + rowIterator.getPageOffset());
             }
 
-            Iterator headerCellsIter = model.getHeaderCellList().iterator();
-            ArrayList structsForRow = new ArrayList(model.getHeaderCellList().size());
+            Iterator<HeaderCell> headerCellsIter = model.getHeaderCellList().iterator();
+            ArrayList<CellStruct> structsForRow = new ArrayList<CellStruct>(model.getHeaderCellList().size());
             lowestEndedGroup = NO_RESET_GROUP;
             lowestStartedGroup = NO_RESET_GROUP;
             while (headerCellsIter.hasNext())
             {
-                HeaderCell header = (HeaderCell) headerCellsIter.next();
+                HeaderCell header = headerCellsIter.next();
 
                 // Get the value to be displayed for the column
-                CellStruct struct = (CellStruct) currentRowValues.get(new Integer(header.getColumnNumber()));
+                CellStruct struct = currentRowValues.get(new Integer(header.getColumnNumber()));
                 struct.decoratedValue = struct.bodyValue;
                 // Check and see if there is a grouping transition. If there is, then notify the decorator
                 if (header.getGroup() != -1)
                 {
-                    CellStruct prior = (CellStruct) previousRowValues.get(new Integer(header.getColumnNumber()));
-                    CellStruct next = (CellStruct) nextRowValues.get(new Integer(header.getColumnNumber()));
+                    CellStruct prior = previousRowValues.get(new Integer(header.getColumnNumber()));
+                    CellStruct next = nextRowValues.get(new Integer(header.getColumnNumber()));
                     // Why npe?
                     String priorBodyValue = prior != null ? prior.bodyValue : null;
                     String nextBodyValue = next != null ? next.bodyValue : null;
@@ -403,9 +403,9 @@ public abstract class TableWriterTemplate
             // open row
             writeRowOpener(currentRow);
 
-            for (Iterator iterator = structsForRow.iterator(); iterator.hasNext();)
+            for (Iterator<CellStruct> iterator = structsForRow.iterator(); iterator.hasNext();)
             {
-                CellStruct struct = (CellStruct) iterator.next();
+                CellStruct struct = iterator.next();
                 writeColumnOpener(struct.column);
                 writeColumnValue(struct.decoratedValue, struct.column);
                 writeColumnCloser(struct.column);

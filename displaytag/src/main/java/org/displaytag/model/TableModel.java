@@ -42,17 +42,17 @@ public class TableModel
     /**
      * list of HeaderCell.
      */
-    private List headerCellList;
+    private List<HeaderCell> headerCellList;
 
     /**
      * full list (contains Row objects).
      */
-    private List rowListFull;
+    private List<Row> rowListFull;
 
     /**
      * list of data to be displayed in page.
      */
-    private List rowListPage;
+    private List<Row> rowListPage;
 
     /**
      * Name of the column currently sorted (only used when sort=external).
@@ -136,8 +136,8 @@ public class TableModel
      */
     public TableModel(TableProperties tableProperties, String charEncoding, PageContext pageContext)
     {
-        this.rowListFull = new ArrayList(20);
-        this.headerCellList = new ArrayList(20);
+        this.rowListFull = new ArrayList<Row>(20);
+        this.headerCellList = new ArrayList<HeaderCell>(20);
         this.properties = tableProperties;
         this.encoding = charEncoding;
         this.pageContext = pageContext;
@@ -236,7 +236,7 @@ public class TableModel
      * get the full list.
      * @return the full list containing Row objects
      */
-    public List getRowListFull()
+    public List<Row> getRowListFull()
     {
         return this.rowListFull;
     }
@@ -245,7 +245,7 @@ public class TableModel
      * gets the partial (paginated) list.
      * @return the partial list to display in page (contains Row objects)
      */
-    public List getRowListPage()
+    public List<Row> getRowListPage()
     {
         return this.rowListPage;
     }
@@ -315,7 +315,7 @@ public class TableModel
     /**
      * @param rowList - the new value for this.rowListPage
      */
-    public void setRowListPage(List rowList)
+    public void setRowListPage(List<Row> rowList)
     {
         this.rowListPage = rowList;
     }
@@ -357,7 +357,7 @@ public class TableModel
         {
             return null;
         }
-        return (HeaderCell) this.headerCellList.get(this.sortedColumn);
+        return this.headerCellList.get(this.sortedColumn);
     }
 
     /**
@@ -426,7 +426,7 @@ public class TableModel
      * List containing headerCell objects.
      * @return List containing headerCell objects
      */
-    public List getHeaderCellList()
+    public List<HeaderCell> getHeaderCellList()
     {
         return this.headerCellList;
     }
@@ -434,8 +434,8 @@ public class TableModel
     /**
      * returns a RowIterator on the requested (full|page) list.
      * @return RowIterator
-     * @param full if <code>true</code> returns an iterator on te full list, if <code>false</code> only on the
-     * viewable part.
+     * @param full if <code>true</code> returns an iterator on te full list, if <code>false</code> only on the viewable
+     * part.
      * @see org.displaytag.model.RowIterator
      */
     public RowIterator getRowIterator(boolean full)
@@ -454,7 +454,7 @@ public class TableModel
      * sorts the given list of Rows. The method is called internally by sortFullList() and sortPageList().
      * @param list List
      */
-    private void sortRowList(List list)
+    private void sortRowList(List<Row> list)
     {
         if (isSorted())
         {

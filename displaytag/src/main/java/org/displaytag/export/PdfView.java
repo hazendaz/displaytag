@@ -179,11 +179,11 @@ public class PdfView implements BinaryExportView
      */
     protected void generateHeaders() throws BadElementException
     {
-        Iterator iterator = this.model.getHeaderCellList().iterator();
+        Iterator<HeaderCell> iterator = this.model.getHeaderCellList().iterator();
 
         while (iterator.hasNext())
         {
-            HeaderCell headerCell = (HeaderCell) iterator.next();
+            HeaderCell headerCell = iterator.next();
 
             String columnHeader = headerCell.getTitle();
 

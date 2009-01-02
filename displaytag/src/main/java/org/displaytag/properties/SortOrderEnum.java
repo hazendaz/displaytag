@@ -151,7 +151,7 @@ public final class SortOrderEnum implements Serializable
      * returns an iterator on all the enumerated instaces.
      * @return iterator
      */
-    public static Iterator iterator()
+    public static Iterator<SortOrderEnum> iterator()
     {
         return new ArrayIterator(ALL);
     }

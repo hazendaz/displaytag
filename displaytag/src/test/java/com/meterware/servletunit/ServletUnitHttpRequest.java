@@ -58,7 +58,7 @@ class ServletUnitHttpRequest implements HttpServletRequest
 
     private String _contentType;
 
-    private Vector _locales;
+    private Vector<Locale> _locales;
 
     private boolean _secure;
 
@@ -328,7 +328,7 @@ class ServletUnitHttpRequest implements HttpServletRequest
      * Returns an <code>Enumeration</code> containing the names of the attributes available to this request. This method
      * returns an empty <code>Enumeration</code> if the request has no attributes available to it.
      **/
-    public Enumeration getAttributeNames()
+    public Enumeration<String> getAttributeNames()
     {
         return _attributes.keys();
     }
@@ -364,7 +364,7 @@ class ServletUnitHttpRequest implements HttpServletRequest
      * <code>Enumeration</code>. The input stream is empty when all the data returned by {@link #getInputStream} has
      * been read.
      **/
-    public Enumeration getParameterNames()
+    public Enumeration<Object> getParameterNames()
     {
         return _requestContext.getParameterNames();
     }
@@ -495,7 +495,7 @@ class ServletUnitHttpRequest implements HttpServletRequest
      **/
     public Locale getLocale()
     {
-        return (Locale) getPreferredLocales().firstElement();
+        return getPreferredLocales().firstElement();
     }
 
     /**
@@ -504,7 +504,7 @@ class ServletUnitHttpRequest implements HttpServletRequest
      * provide an Accept-Language header, this method returns an Enumeration containing one Locale, the default locale
      * for the server.
      **/
-    public java.util.Enumeration getLocales()
+    public java.util.Enumeration<Locale> getLocales()
     {
         return getPreferredLocales().elements();
     }
@@ -513,11 +513,11 @@ class ServletUnitHttpRequest implements HttpServletRequest
      * Parses the accept-language header to obtain a vector of preferred locales
      * @return the preferred locales, sorted by qvalue
      */
-    private Vector getPreferredLocales()
+    private Vector<Locale> getPreferredLocales()
     {
         if (_locales == null)
         {
-            _locales = new Vector();
+            _locales = new Vector<Locale>();
             String languages = getHeader("accept-language");
             if (languages == null)
             {
@@ -526,16 +526,16 @@ class ServletUnitHttpRequest implements HttpServletRequest
             else
             {
                 StringTokenizer st = new StringTokenizer(languages, ",");
-                ArrayList al = new ArrayList();
+                ArrayList<PrioritizedLocale> al = new ArrayList<PrioritizedLocale>();
                 while (st.hasMoreTokens())
                 {
                     String token = st.nextToken();
                     al.add(new PrioritizedLocale(token));
                 }
                 Collections.sort(al);
-                for (Iterator iterator = al.iterator(); iterator.hasNext();)
+                for (Iterator<PrioritizedLocale> iterator = al.iterator(); iterator.hasNext();)
                 {
-                    _locales.add(((PrioritizedLocale) iterator.next()).getLocale());
+                    _locales.add(iterator.next().getLocale());
                 }
             }
         }
@@ -613,9 +613,9 @@ class ServletUnitHttpRequest implements HttpServletRequest
     /**
      * Returns all the values of the specified request header as an Enumeration of String objects.
      **/
-    public java.util.Enumeration getHeaders(String name)
+    public java.util.Enumeration<Object> getHeaders(String name)
     {
-        Vector list = new Vector();
+        Vector<Object> list = new Vector<Object>();
         if (_headers.containsKey(name))
             list.add(_headers.get(name));
         return list.elements();
@@ -639,7 +639,7 @@ class ServletUnitHttpRequest implements HttpServletRequest
      * request. For HTTP servlets, parameters are contained in the query string or posted form data.
      * @since 1.3
      **/
-    public Map getParameterMap()
+    public Map<Object, String[]> getParameterMap()
     {
         return _requestContext.getParameterMap();
     }
@@ -772,9 +772,9 @@ class ServletUnitHttpRequest implements HttpServletRequest
 
     private ServletUnitHttpSession _session;
 
-    private Hashtable _attributes = new Hashtable();
+    private Hashtable<String, Object> _attributes = new Hashtable<String, Object>();
 
-    private Vector _cookies = new Vector();
+    private Vector<Cookie> _cookies = new Vector<Cookie>();
 
     private String _sessionID;
 

@@ -33,7 +33,7 @@ public class CaptionTagBeanInfo extends SimpleBeanInfo
      */
     public PropertyDescriptor[] getPropertyDescriptors()
     {
-        List proplist = new ArrayList();
+        List<PropertyDescriptor> proplist = new ArrayList<PropertyDescriptor>();
 
         try
         {
@@ -66,7 +66,7 @@ public class CaptionTagBeanInfo extends SimpleBeanInfo
         }
 
         PropertyDescriptor[] result = new PropertyDescriptor[proplist.size()];
-        return ((PropertyDescriptor[]) proplist.toArray(result));
+        return proplist.toArray(result);
     }
 
 }

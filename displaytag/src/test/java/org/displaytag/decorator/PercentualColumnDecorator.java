@@ -1,7 +1,10 @@
 package org.displaytag.decorator;
 
+import javax.servlet.jsp.PageContext;
+
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.exception.DecoratorException;
+import org.displaytag.properties.MediaTypeEnum;
 
 
 /**
@@ -9,14 +12,16 @@ import org.displaytag.exception.DecoratorException;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class PercentualColumnDecorator implements ColumnDecorator
+public class PercentualColumnDecorator implements DisplaytagColumnDecorator
 {
 
     /**
-     * @see org.displaytag.decorator.ColumnDecorator#decorate(java.lang.Object)
+     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, javax.servlet.jsp.PageContext,
+     * org.displaytag.properties.MediaTypeEnum)
      */
-    public String decorate(Object columnValue) throws DecoratorException
+    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
     {
+
         int intValue = ((Number) columnValue).intValue();
         if (intValue == 0)
         {

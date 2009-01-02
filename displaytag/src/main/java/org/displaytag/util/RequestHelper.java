@@ -47,6 +47,6 @@ public interface RequestHelper
      * Returns a Map containing all the parameters in the request.
      * @return Map
      */
-    Map getParameterMap();
+    Map<String, Object> getParameterMap();
 
 }

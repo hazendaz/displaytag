@@ -39,7 +39,7 @@ public class Row
     /**
      * List of cell objects.
      */
-    private List staticCells;
+    private List<Cell> staticCells;
 
     /**
      * Row number.
@@ -60,7 +60,7 @@ public class Row
     {
         this.rowObject = object;
         this.rowNumber = number;
-        this.staticCells = new ArrayList();
+        this.staticCells = new ArrayList<Cell>();
     }
 
     /**
@@ -94,7 +94,7 @@ public class Row
      * getter for the list of Cell object.
      * @return List containing Cell objects
      */
-    public List getCellList()
+    public List<Cell> getCellList()
     {
         return this.staticCells;
     }
@@ -113,7 +113,7 @@ public class Row
      * @param columns List
      * @return ColumnIterator
      */
-    public ColumnIterator getColumnIterator(List columns)
+    public ColumnIterator getColumnIterator(List<HeaderCell> columns)
     {
         return new ColumnIterator(columns, this);
     }
@@ -142,7 +142,7 @@ public class Row
      */
     public String getOpenTag()
     {
-        Map rowAttributes = new HtmlAttributeMap();
+        Map<String, Object> rowAttributes = new HtmlAttributeMap();
 
         MultipleHtmlAttribute cssAttribute = new MultipleHtmlAttribute(this.tableModel.getProperties().getCssRow(
             this.rowNumber));

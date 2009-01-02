@@ -104,7 +104,7 @@ public class TableTagExtraInfo extends TagExtraInfo
      */
     public VariableInfo[] getVariableInfo(TagData data)
     {
-        List variables = new ArrayList(2);
+        List<VariableInfo> variables = new ArrayList<VariableInfo>(2);
 
         Object idObj = data.getAttribute(TagAttributeInfo.ID);
 
@@ -133,7 +133,7 @@ public class TableTagExtraInfo extends TagExtraInfo
             }
         }
 
-        return (VariableInfo[]) variables.toArray(new VariableInfo[]{});
+        return variables.toArray(new VariableInfo[]{});
     }
 
     /**

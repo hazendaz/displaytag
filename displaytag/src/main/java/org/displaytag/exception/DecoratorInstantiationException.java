@@ -12,6 +12,7 @@
 package org.displaytag.exception;
 
 import org.displaytag.Messages;
+import org.displaytag.decorator.DefaultDecoratorFactory;
 import org.displaytag.util.TagConstants;
 
 
@@ -34,7 +35,7 @@ public class DecoratorInstantiationException extends BaseNestableJspTagException
      * @param decorator decorator name
      * @param cause previous Exception
      */
-    public DecoratorInstantiationException(Class source, String decorator, Throwable cause)
+    public DecoratorInstantiationException(Class<DefaultDecoratorFactory> source, String decorator, Throwable cause)
     {
         super(source, Messages.getString("DecoratorInstantiationException.msg" //$NON-NLS-1$
             , new Object[]{decorator, (cause != null ? cause.getClass().getName() : TagConstants.EMPTY_STRING)}), //

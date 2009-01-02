@@ -28,6 +28,11 @@ public abstract class TemplateTag extends BodyTagSupport
 {
 
     /**
+     * Stable serialVersionUID.
+     */
+    private static final long serialVersionUID = 42L;
+
+    /**
      * <p>
      * evaluate an expression in a way similar to LE in jstl.
      * </p>

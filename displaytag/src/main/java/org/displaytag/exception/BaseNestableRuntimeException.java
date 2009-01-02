@@ -25,9 +25,14 @@ public abstract class BaseNestableRuntimeException extends RuntimeException
 {
 
     /**
+     * Stable serialVersionUID.
+     */
+    private static final long serialVersionUID = 42L;
+
+    /**
      * Class where the exception has been generated.
      */
-    private final Class sourceClass;
+    private final Class< ? > sourceClass;
 
     /**
      * previous exception.
@@ -39,7 +44,7 @@ public abstract class BaseNestableRuntimeException extends RuntimeException
      * @param source Class where the exception is generated
      * @param message message
      */
-    public BaseNestableRuntimeException(Class source, String message)
+    public BaseNestableRuntimeException(Class< ? > source, String message)
     {
         super(message);
         this.sourceClass = source;
@@ -74,7 +79,7 @@ public abstract class BaseNestableRuntimeException extends RuntimeException
      * @param message message
      * @param cause previous Exception
      */
-    public BaseNestableRuntimeException(Class source, String message, Throwable cause)
+    public BaseNestableRuntimeException(Class< ? > source, String message, Throwable cause)
     {
         super(message);
         this.sourceClass = source;

@@ -17,9 +17,9 @@ public class ShuffledNumberedList
      * Returns an iterator on a list made of 4 unordered NumberedItems objects.
      * @return iterator on a list made of 4 unordered NumberedItems objects
      */
-    public Iterator iterator()
+    public Iterator<NumberedItem> iterator()
     {
-        List list = new ArrayList();
+        List<NumberedItem> list = new ArrayList<NumberedItem>();
         list.add(new NumberedItem(1));
         list.add(new NumberedItem(4));
         list.add(new NumberedItem(2));

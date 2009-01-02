@@ -39,7 +39,7 @@ public class MissingAttributeException extends BaseNestableJspTagException
      * @param source Class where the exception is generated
      * @param attributeNames String attribute name
      */
-    public MissingAttributeException(Class source, String[] attributeNames)
+    public MissingAttributeException(Class<?> source, String[] attributeNames)
     {
         super(source, Messages.getString("MissingAttributeException.msg", //$NON-NLS-1$
             new Object[]{ArrayUtils.toString(attributeNames)}));

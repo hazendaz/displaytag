@@ -50,7 +50,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * The media supported attribute.
      */
-    private List supportedMedia;
+    private List<MediaTypeEnum> supportedMedia;
 
     /**
      * setter for the "style" html attribute.
@@ -171,7 +171,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
      */
-    public void setSupportedMedia(List media)
+    public void setSupportedMedia(List<MediaTypeEnum> media)
     {
         this.supportedMedia = media;
     }
@@ -179,7 +179,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
      */
-    public List getSupportedMedia()
+    public List<MediaTypeEnum> getSupportedMedia()
     {
         return this.supportedMedia;
     }
