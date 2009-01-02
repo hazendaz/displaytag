@@ -711,7 +711,7 @@ public class TableTag extends HtmlTableTag
             // different rows. This is not supported, but better avoid IndexOutOfBounds...
             if (columnNumber < tableModel.getHeaderCellList().size())
             {
-                HeaderCell header = (HeaderCell) tableModel.getHeaderCellList().get(columnNumber);
+                HeaderCell header = tableModel.getHeaderCellList().get(columnNumber);
                 header.addCell(new Column(header, cell, currentRow));
             }
         }
@@ -1064,7 +1064,9 @@ public class TableTag extends HtmlTableTag
 
             PaginationHelper paginationHelper = new PaginationHelper(pageNumber, pagesize);
             this.tableIterator = paginationHelper.getIterator(this.list);
-        } else {
+        }
+        else
+        {
             this.tableIterator = IteratorUtils.getIterator(this.list);
         }
 
@@ -1095,7 +1097,7 @@ public class TableTag extends HtmlTableTag
 
             if (this.pagesize > 0)
             {
-                int fullSize = ((Collection) this.list).size();
+                int fullSize = ((Collection< ? >) this.list).size();
                 start = (this.pageNumber - 1) * this.pagesize;
 
                 // invalid page requested, go back to last page
@@ -1166,10 +1168,10 @@ public class TableTag extends HtmlTableTag
                     this.paramEncoder = new ParamEncoder(getUid());
                 }
 
-                Iterator paramsIterator = baseHref.getParameterMap().keySet().iterator();
+                Iterator<String> paramsIterator = baseHref.getParameterMap().keySet().iterator();
                 while (paramsIterator.hasNext())
                 {
-                    String key = (String) paramsIterator.next();
+                    String key = paramsIterator.next();
 
                     // don't remove parameters added by the table tag
                     if (!this.paramEncoder.isParameterEncoded(key))
@@ -1331,8 +1333,6 @@ public class TableTag extends HtmlTableTag
     {
         String tableDecoratorName = (this.decoratorName == null) ? this.properties
             .getMediaTypeDecoratorName(this.currentMediaType) : this.decoratorName;
-        tableDecoratorName = (tableDecoratorName == null) ? this.properties
-            .getExportDecoratorName(this.currentMediaType) : tableDecoratorName;
         return tableDecoratorName;
     }
 
@@ -1372,7 +1372,7 @@ public class TableTag extends HtmlTableTag
         if (this.tableIterator.hasNext())
         {
             Object iteratedObject = this.tableIterator.next();
-            Map objectProperties = new HashMap();
+            Map<String, ? > objectProperties = new HashMap();
 
             // if it's a String don't add the "Bytes" column
             if (iteratedObject instanceof String)
@@ -1382,7 +1382,7 @@ public class TableTag extends HtmlTableTag
             // if it's a map already use key names for column headers
             if (iteratedObject instanceof Map)
             {
-                objectProperties = (Map) iteratedObject;
+                objectProperties = (Map<String, ? >) iteratedObject;
             }
             else
             {
@@ -1397,12 +1397,12 @@ public class TableTag extends HtmlTableTag
             }
 
             // iterator on properties names
-            Iterator propertiesIterator = objectProperties.keySet().iterator();
+            Iterator<String> propertiesIterator = objectProperties.keySet().iterator();
 
             while (propertiesIterator.hasNext())
             {
                 // get the property name
-                String propertyName = (String) propertiesIterator.next();
+                String propertyName = propertiesIterator.next();
 
                 // dont't want to add the standard "class" property
                 if (!"class".equals(propertyName)) //$NON-NLS-1$
@@ -1475,7 +1475,7 @@ public class TableTag extends HtmlTableTag
         HttpServletResponse response = (HttpServletResponse) this.pageContext.getResponse();
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
 
-        Map bean = (Map) request.getAttribute(FILTER_CONTENT_OVERRIDE_BODY);
+        Map bean = (Map<String, ? >) request.getAttribute(FILTER_CONTENT_OVERRIDE_BODY);
         boolean usingFilter = bean != null;
 
         String mimeType = exportView.getMimeType();
@@ -1667,15 +1667,15 @@ public class TableTag extends HtmlTableTag
      * Get the column totals Map. If there is no varTotals defined, there are no totals.
      * @return a Map of totals where the key is the column number and the value is the total for that column
      */
-    public Map getTotals()
+    public Map<String, Double> getTotals()
     {
-        Map totalsMap = new HashMap();
+        Map<String, Double> totalsMap = new HashMap<String, Double>();
         if (this.varTotals != null)
         {
-            List headers = this.tableModel.getHeaderCellList();
-            for (Iterator iterator = headers.iterator(); iterator.hasNext();)
+            List<HeaderCell> headers = this.tableModel.getHeaderCellList();
+            for (Iterator<HeaderCell> iterator = headers.iterator(); iterator.hasNext();)
             {
-                HeaderCell headerCell = (HeaderCell) iterator.next();
+                HeaderCell headerCell = iterator.next();
                 if (headerCell.isTotaled())
                 {
                     totalsMap.put("column" + (headerCell.getColumnNumber() + 1), new Double(headerCell.getTotal()));

@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.UnhandledException;
 
@@ -62,7 +61,7 @@ public class PostHref implements Href
      * @param parametersMap
      * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
      */
-    public void addParameterMap(Map parametersMap)
+    public void addParameterMap(Map<String, Object> parametersMap)
     {
         this.parent.addParameterMap(parametersMap);
     }
@@ -99,7 +98,7 @@ public class PostHref implements Href
      * @return
      * @see org.displaytag.util.Href#getParameterMap()
      */
-    public Map getParameterMap()
+    public Map<String, Object> getParameterMap()
     {
         return this.parent.getParameterMap();
     }
@@ -135,7 +134,7 @@ public class PostHref implements Href
      * @param parametersMap
      * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
      */
-    public void setParameterMap(Map parametersMap)
+    public void setParameterMap(Map<String, Object> parametersMap)
     {
         this.parent.setParameterMap(parametersMap);
     }
@@ -153,16 +152,16 @@ public class PostHref implements Href
         buffer.append(this.form);
         buffer.append("',[");
 
-        Map parameters = getParameterMap();
+        Map<String, Object> parameters = getParameterMap();
 
         Set parameterSet = parameters.entrySet();
 
-        Iterator iterator = parameterSet.iterator();
+        Iterator<Map.Entry<Object, Object>> iterator = parameterSet.iterator();
 
         while (iterator.hasNext())
         {
             // {f:'param1',v:'1'},
-            Map.Entry entry = (Map.Entry) iterator.next();
+            Map.Entry<Object, Object> entry = iterator.next();
 
             Object key = entry.getKey();
             Object value = entry.getValue();

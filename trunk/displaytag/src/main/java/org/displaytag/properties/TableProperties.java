@@ -13,8 +13,15 @@ package org.displaytag.properties;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
 import java.text.Collator;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
@@ -26,13 +33,13 @@ import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
-import org.displaytag.model.DefaultComparator;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.DefaultDecoratorFactory;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
+import org.displaytag.model.DefaultComparator;
 import org.displaytag.util.DefaultRequestHelperFactory;
 import org.displaytag.util.ReflectHelper;
 import org.displaytag.util.RequestHelperFactory;
@@ -46,8 +53,8 @@ import org.displaytag.util.RequestHelperFactory;
  * <li>First, from the TableTag.properties included with the DisplayTag distribution.</li>
  * <li>Then, from the file displaytag.properties, if it is present; these properties are intended to be set by the user
  * for sitewide application. Messages are gathered according to the Locale of the property file.</li>
- * <li>Finally, if this class has a userProperties defined, all of the properties from that Properties object are
- * copied in as well.</li>
+ * <li>Finally, if this class has a userProperties defined, all of the properties from that Properties object are copied
+ * in as well.</li>
  * </ol>
  * @author Fabrizio Giustina
  * @author rapruitt
@@ -213,8 +220,7 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_CLASS_LOCALERESOLVER = "locale.resolver"; //$NON-NLS-1$
 
     /**
-     * property <code>css.tr.even</code>: holds the name of the css class for even rows. Defaults to
-     * <code>even</code>.
+     * property <code>css.tr.even</code>: holds the name of the css class for even rows. Defaults to <code>even</code>.
      */
     public static final String PROPERTY_CSS_TR_EVEN = "css.tr.even"; //$NON-NLS-1$
 
@@ -224,8 +230,8 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_CSS_TR_ODD = "css.tr.odd"; //$NON-NLS-1$
 
     /**
-     * property <code>css.table</code>: holds the name of the css class added to the main table tag. By default no
-     * css class is added.
+     * property <code>css.table</code>: holds the name of the css class added to the main table tag. By default no css
+     * class is added.
      */
     public static final String PROPERTY_CSS_TABLE = "css.table"; //$NON-NLS-1$
 
@@ -236,8 +242,8 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_CSS_TH_SORTABLE = "css.th.sortable"; //$NON-NLS-1$
 
     /**
-     * property <code>css.th.sorted</code>: holds the name of the css class added to the the header of a sorted
-     * column. Defaults to <code>sorted</code>.
+     * property <code>css.th.sorted</code>: holds the name of the css class added to the the header of a sorted column.
+     * Defaults to <code>sorted</code>.
      */
     public static final String PROPERTY_CSS_TH_SORTED = "css.th.sorted"; //$NON-NLS-1$
 
@@ -260,17 +266,17 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_EXPORT_PREFIX = "export"; //$NON-NLS-1$
 
     /**
-     * prefix used to set the media decorator property name. The full property name is 
-     * <code>decorator.media.</code><em>[export type]</em>.
+     * prefix used to set the media decorator property name. The full property name is <code>decorator.media.</code>
+     * <em>[export type]</em>.
      */
     public static final String PROPERTY_DECORATOR_SUFFIX = "decorator"; //$NON-NLS-1$
 
     /**
-     * used to set the media decorator property name. The full property name is 
-     * <code>decorator.media.</code><em>[export type]</em>
+     * used to set the media decorator property name. The full property name is <code>decorator.media.</code>
+     * <em>[export type]</em>
      */
     public static final String PROPERTY_DECORATOR_MEDIA = "media"; //$NON-NLS-1$
-    
+
     /**
      * property <code>export.types</code>: holds the list of export available export types.
      */
@@ -297,8 +303,8 @@ public final class TableProperties implements Cloneable
     public static final String EXPORTPROPERTY_STRING_FILENAME = "filename"; //$NON-NLS-1$
 
     /**
-     * Property <code>pagination.sort.param</code>. If external pagination and sorting is used, it holds the name of
-     * the parameter used to hold the sort criterion in generated links
+     * Property <code>pagination.sort.param</code>. If external pagination and sorting is used, it holds the name of the
+     * parameter used to hold the sort criterion in generated links
      */
     public static final String PROPERTY_STRING_PAGINATION_SORT_PARAM = "pagination.sort.param"; //$NON-NLS-1$
 
@@ -309,39 +315,39 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM = "pagination.sortdirection.param"; //$NON-NLS-1$
 
     /**
-     * Property <code>pagination.pagenumber.param</code>. If external pagination and sorting is used, it holds the
-     * name of the parameter used to hold the page number in generated links
+     * Property <code>pagination.pagenumber.param</code>. If external pagination and sorting is used, it holds the name
+     * of the parameter used to hold the page number in generated links
      */
     public static final String PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM = "pagination.pagenumber.param"; //$NON-NLS-1$
 
     /**
-     * Property <code>pagination.searchid.param</code>. If external pagination and sorting is used, it holds the name
-     * of the parameter used to hold the search ID in generated links
+     * Property <code>pagination.searchid.param</code>. If external pagination and sorting is used, it holds the name of
+     * the parameter used to hold the search ID in generated links
      */
     public static final String PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM = "pagination.searchid.param"; //$NON-NLS-1$
 
     /**
-     * Property <code>pagination.sort.asc.value</code>. If external pagination and sorting is used, it holds the
-     * value of the parameter of the sort direction parameter for "ascending"
+     * Property <code>pagination.sort.asc.value</code>. If external pagination and sorting is used, it holds the value
+     * of the parameter of the sort direction parameter for "ascending"
      */
     public static final String PROPERTY_STRING_PAGINATION_ASC_VALUE = "pagination.sort.asc.value"; //$NON-NLS-1$
 
     /**
-     * Property <code>pagination.sort.desc.value</code>. If external pagination and sorting is used, it holds the
-     * value of the parameter of the sort direction parameter for "descending"
+     * Property <code>pagination.sort.desc.value</code>. If external pagination and sorting is used, it holds the value
+     * of the parameter of the sort direction parameter for "descending"
      */
     public static final String PROPERTY_STRING_PAGINATION_DESC_VALUE = "pagination.sort.desc.value"; //$NON-NLS-1$
 
     /**
-     * Property <code>pagination.sort.skippagenumber</code>. If external pagination and sorting is used, it
-     * determines if the current page number must be added in sort links or not. If this property is true, it means that
-     * each click on a generated sort link will re-sort the list, and go back to the default page number. If it is
-     * false, each click on a generated sort link will re-sort the list, and ask the current page number.
+     * Property <code>pagination.sort.skippagenumber</code>. If external pagination and sorting is used, it determines
+     * if the current page number must be added in sort links or not. If this property is true, it means that each click
+     * on a generated sort link will re-sort the list, and go back to the default page number. If it is false, each
+     * click on a generated sort link will re-sort the list, and ask the current page number.
      */
     public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = "pagination.sort.skippagenumber"; //$NON-NLS-1$
 
     /**
-     * Property <code>comparator.default</code>.  If present, will use use as the classname of the default comparator.
+     * Property <code>comparator.default</code>. If present, will use use as the classname of the default comparator.
      * Will be overriden by column level comparators.
      */
     public static final String PROPERTY_DEFAULT_COMPARATOR = "comparator.default"; //$NON-NLS-1$
@@ -378,7 +384,7 @@ public final class TableProperties implements Cloneable
     /**
      * TableProperties for each locale are loaded as needed, and cloned for public usage.
      */
-    private static Map prototypes = new HashMap();
+    private static Map<Locale, TableProperties> prototypes = new HashMap<Locale, TableProperties>();
 
     /**
      * Loaded properties (defaults from defaultProperties + custom from bundle).
@@ -393,7 +399,7 @@ public final class TableProperties implements Cloneable
     /**
      * Cache for dinamically instantiated object (request factory, decorator factory).
      */
-    private Map objectCache = new HashMap();
+    private Map<String, Object> objectCache = new HashMap<String, Object>();
 
     /**
      * Setter for I18nResourceProvider. A resource provider is usually set using displaytag properties, this accessor is
@@ -516,8 +522,8 @@ public final class TableProperties implements Cloneable
             {
                 try
                 {
-                    Class classProperty = ReflectHelper.classForName(className);
-                    localeResolver = (LocaleResolver) classProperty.newInstance();
+                    Class<LocaleResolver> classProperty = (Class<LocaleResolver>) ReflectHelper.classForName(className);
+                    localeResolver = classProperty.newInstance();
 
                     log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
                         new Object[]{ClassUtils.getShortClassName(LocaleResolver.class), className}));
@@ -572,7 +578,7 @@ public final class TableProperties implements Cloneable
 
         // Now copy in the user properties (properties file set by calling setUserProperties()).
         // note setUserProperties() MUST BE CALLED before the first TableProperties instantation
-        Enumeration keys = userProperties.keys();
+        Enumeration<Object> keys = userProperties.keys();
         while (keys.hasMoreElements())
         {
             String key = (String) keys.nextElement();
@@ -594,10 +600,10 @@ public final class TableProperties implements Cloneable
 
         if (bundle != null)
         {
-            Enumeration keys = bundle.getKeys();
+            Enumeration<String> keys = bundle.getKeys();
             while (keys.hasMoreElements())
             {
-                String key = (String) keys.nextElement();
+                String key = keys.nextElement();
                 properties.setProperty(key, bundle.getString(key));
             }
         }
@@ -641,7 +647,7 @@ public final class TableProperties implements Cloneable
             locale = Locale.getDefault();
         }
 
-        TableProperties props = (TableProperties) prototypes.get(locale);
+        TableProperties props = prototypes.get(locale);
         if (props == null)
         {
             TableProperties lprops = new TableProperties(locale);
@@ -671,7 +677,7 @@ public final class TableProperties implements Cloneable
     {
         // copy keys here, so that this can be invoked more than once from different sources.
         // if default properties are not yet loaded they will be copied in constructor
-        Enumeration keys = overrideProperties.keys();
+        Enumeration<Object> keys = overrideProperties.keys();
         while (keys.hasMoreElements())
         {
             String key = (String) keys.nextElement();
@@ -1190,8 +1196,9 @@ public final class TableProperties implements Cloneable
             {
                 try
                 {
-                    Class classProperty = ReflectHelper.classForName(className);
-                    resourceProvider = (I18nResourceProvider) classProperty.newInstance();
+                    Class<I18nResourceProvider> classProperty = (Class<I18nResourceProvider>) ReflectHelper
+                        .classForName(className);
+                    resourceProvider = classProperty.newInstance();
 
                     log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
                         new Object[]{ClassUtils.getShortClassName(I18nResourceProvider.class), className}));
@@ -1285,7 +1292,7 @@ public final class TableProperties implements Cloneable
 
         try
         {
-            Class classProperty = ReflectHelper.classForName(className);
+            Class< ? > classProperty = ReflectHelper.classForName(className);
             instance = classProperty.newInstance();
             objectCache.put(key, instance);
             return instance;
@@ -1322,40 +1329,31 @@ public final class TableProperties implements Cloneable
      * Obtain the name of the decorator configured for a given media type.
      * @param thatEnum A media type
      * @return The name of the decorator configured for a given media type.
-     * @deprecated Use getMediaTypeDecoratorName instead.
      */
-    public String getExportDecoratorName(MediaTypeEnum thatEnum)
+    public String getMediaTypeDecoratorName(MediaTypeEnum thatEnum)
     {
-        return getProperty(PROPERTY_EXPORT_PREFIX + SEP + thatEnum + SEP + PROPERTY_DECORATOR_SUFFIX);
+        return getProperty(PROPERTY_DECORATOR_SUFFIX + SEP + PROPERTY_DECORATOR_MEDIA + SEP + thatEnum);
     }
 
-    /**
-     * Obtain the name of the decorator configured for a given media type.
-     * @param thatEnum A media type
-     * @return The name of the decorator configured for a given media type.
-     */
-	public String getMediaTypeDecoratorName(MediaTypeEnum thatEnum)
-	{
-        return getProperty(PROPERTY_DECORATOR_SUFFIX + SEP + PROPERTY_DECORATOR_MEDIA + SEP + thatEnum);
-	}
-
-    public Comparator getDefaultComparator()
+    public Comparator<Object> getDefaultComparator()
     {
-        String className = getProperty(PROPERTY_DEFAULT_COMPARATOR);  
+        String className = getProperty(PROPERTY_DEFAULT_COMPARATOR);
         if (className != null)
         {
             try
             {
-                Class classProperty = ReflectHelper.classForName(className);
-                return (Comparator) classProperty.newInstance();
+                Class<Comparator<Object>> classProperty = (Class<Comparator<Object>>) ReflectHelper
+                    .classForName(className);
+                return classProperty.newInstance();
             }
             catch (Throwable e)
             {
-                log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
-                    new Object[]{
-                        ClassUtils.getShortClassName(Comparator.class),
-                        e.getClass().getName(),
-                        e.getMessage()}));
+                log.warn(Messages
+                    .getString("TableProperties.errorloading", //$NON-NLS-1$
+                        new Object[]{
+                            ClassUtils.getShortClassName(Comparator.class),
+                            e.getClass().getName(),
+                            e.getMessage()}));
             }
         }
         return new DefaultComparator(Collator.getInstance(getLocale()));

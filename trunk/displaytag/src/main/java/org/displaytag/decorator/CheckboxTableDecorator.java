@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -35,9 +34,7 @@ public class CheckboxTableDecorator extends TableDecorator
 
     private String id = "id";
 
-    private Map params;
-
-    private List checkedIds;
+    private List<String> checkedIds;
 
     private String fieldName = "_chk";
 
@@ -67,7 +64,7 @@ public class CheckboxTableDecorator extends TableDecorator
     {
         super.init(pageContext, decorated, tableModel);
         String[] params = pageContext.getRequest().getParameterValues(fieldName);
-        checkedIds = params != null ? new ArrayList(Arrays.asList(params)) : new ArrayList(0);
+        checkedIds = params != null ? new ArrayList<String>(Arrays.asList(params)) : new ArrayList<String>(0);
     }
 
     /**
@@ -79,9 +76,9 @@ public class CheckboxTableDecorator extends TableDecorator
         if (!checkedIds.isEmpty())
         {
             JspWriter writer = getPageContext().getOut();
-            for (Iterator it = checkedIds.iterator(); it.hasNext();)
+            for (Iterator<String> it = checkedIds.iterator(); it.hasNext();)
             {
-                String name = (String) it.next();
+                String name = it.next();
                 StringBuffer buffer = new StringBuffer();
                 buffer.append("<input type=\"hidden\" name=\"");
                 buffer.append(fieldName);

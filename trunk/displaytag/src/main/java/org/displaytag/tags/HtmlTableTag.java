@@ -25,6 +25,11 @@ public abstract class HtmlTableTag extends TemplateTag
 {
 
     /**
+     * Stable serialVersionUID.
+     */
+    private static final long serialVersionUID = 42L;
+
+    /**
      * Map containing all the standard html attributes.
      */
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();

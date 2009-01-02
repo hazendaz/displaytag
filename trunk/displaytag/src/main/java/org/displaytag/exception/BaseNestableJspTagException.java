@@ -27,9 +27,14 @@ public abstract class BaseNestableJspTagException extends JspTagException
 {
 
     /**
+     * Stable serialVersionUID.
+     */
+    private static final long serialVersionUID = 42L;
+
+    /**
      * Class where the exception has been generated.
      */
-    private final Class sourceClass;
+    private final Class< ? > sourceClass;
 
     /**
      * previous exception.
@@ -41,7 +46,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
      * @param source Class where the exception is generated
      * @param message message
      */
-    public BaseNestableJspTagException(Class source, String message)
+    public BaseNestableJspTagException(Class< ? > source, String message)
     {
         super(message);
         this.sourceClass = source;
@@ -76,7 +81,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
      * @param message message
      * @param cause previous Exception
      */
-    public BaseNestableJspTagException(Class source, String message, Throwable cause)
+    public BaseNestableJspTagException(Class< ? > source, String message, Throwable cause)
     {
         super(message);
         this.sourceClass = source;

@@ -45,7 +45,7 @@ public class DefaultHref implements Href
     /**
      * Url parameters.
      */
-    private Map parameters;
+    private Map<String, Object> parameters;
 
     /**
      * Anchor (to be added at the end of URL).
@@ -58,7 +58,7 @@ public class DefaultHref implements Href
      */
     public DefaultHref(String baseUrl)
     {
-        this.parameters = new HashMap();
+        this.parameters = new HashMap<String, Object>();
         setFullUrl(baseUrl);
     }
 
@@ -194,9 +194,9 @@ public class DefaultHref implements Href
      * Getter for the map containing link parameters. The returned map is always a copy and not the original instance.
      * @return parameter Map (copy)
      */
-    public Map getParameterMap()
+    public Map<String, Object> getParameterMap()
     {
-        Map copyMap = new HashMap(this.parameters.size());
+        Map<String, Object> copyMap = new HashMap<String, Object>(this.parameters.size());
         copyMap.putAll(this.parameters);
         return copyMap;
     }
@@ -206,10 +206,10 @@ public class DefaultHref implements Href
      * added. Any parameter already present in the href object is removed.
      * @param parametersMap Map containing parameters
      */
-    public void setParameterMap(Map parametersMap)
+    public void setParameterMap(Map<String, Object> parametersMap)
     {
         // create a new HashMap
-        this.parameters = new HashMap(parametersMap.size());
+        this.parameters = new HashMap<String, Object>(parametersMap.size());
 
         // copy the parameters
         addParameterMap(parametersMap);
@@ -220,7 +220,7 @@ public class DefaultHref implements Href
      * added. Parameters in the original href are kept and not overridden.
      * @param parametersMap Map containing parameters
      */
-    public void addParameterMap(Map parametersMap)
+    public void addParameterMap(Map<String, Object> parametersMap)
     {
         // handle nulls
         if (parametersMap == null)
@@ -365,7 +365,7 @@ public class DefaultHref implements Href
             throw new UnhandledException(e);
         }
 
-        href.parameters = new HashMap(this.parameters);
+        href.parameters = new HashMap<String, Object>(this.parameters);
         return href;
     }
 

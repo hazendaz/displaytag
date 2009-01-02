@@ -28,7 +28,7 @@ public class SimplePaginatedList implements PaginatedList
     /**
      * wrapped list
      */
-    private List fullList = new ArrayList();
+    private List<Object> fullList = new ArrayList<Object>();
 
     /**
      * Number of objects per page.
@@ -56,10 +56,10 @@ public class SimplePaginatedList implements PaginatedList
     /**
      * @see org.displaytag.pagination.PaginatedList#getList()
      */
-    public List getList()
+    public List<Object> getList()
     {
         int startOffset = objectsPerPage * (currentPage - 1);
-        List sublist = fullList.subList(startOffset, Math.min(fullList.size(), startOffset + objectsPerPage));
+        List<Object> sublist = fullList.subList(startOffset, Math.min(fullList.size(), startOffset + objectsPerPage));
         return sublist;
     }
 

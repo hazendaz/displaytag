@@ -35,7 +35,7 @@ public class RowIterator
     /**
      * internal iterator for Rows.
      */
-    private Iterator iterator;
+    private Iterator<Row> iterator;
 
     /**
      * row number counter.
@@ -64,7 +64,7 @@ public class RowIterator
      * @param tableDecorator TableDecorator
      * @param offset Starting offset for items n the current page
      */
-    protected RowIterator(List rowList, List columnList, TableDecorator tableDecorator, int offset)
+    protected RowIterator(List<Row> rowList, List<HeaderCell> columnList, TableDecorator tableDecorator, int offset)
     {
         this.iterator = rowList.iterator();
         this.rowNumber = 0;
@@ -109,9 +109,7 @@ public class RowIterator
             log.debug("[" + this.id + "] rowIterator.next() row number=" + currentRowNumber);
         }
 
-        Object object = this.iterator.next();
-
-        Row row = (Row) object;
+        Row row = this.iterator.next();
 
         row.setRowNumber(currentRowNumber);
 

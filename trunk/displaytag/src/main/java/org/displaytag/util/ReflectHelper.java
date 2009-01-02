@@ -35,7 +35,7 @@ public final class ReflectHelper
      * @return Class loaded class
      * @throws ClassNotFoundException if none of the ClassLoaders is able to found the reuested class
      */
-    public static Class classForName(String className) throws ClassNotFoundException
+    public static Class< ? > classForName(String className) throws ClassNotFoundException
     {
         try
         {

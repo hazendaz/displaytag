@@ -43,10 +43,10 @@ public final class CollectionUtil
      * @return List with values taken from the given object, cropped according to startIndex and numberOfItems
      * parameters
      */
-    private static List getSubList(Iterator iterator, int startIndex, int numberOfItems)
+    private static List<Object> getSubList(Iterator< ? > iterator, int startIndex, int numberOfItems)
     {
 
-        List croppedList = new ArrayList(numberOfItems);
+        List<Object> croppedList = new ArrayList<Object>(numberOfItems);
 
         int skippedRecordCount = 0;
         int copiedRecordCount = 0;
@@ -81,12 +81,12 @@ public final class CollectionUtil
      * @return List with values taken from the given object, cropped according the startIndex and numberOfItems
      * parameters
      */
-    public static List getListFromObject(Object iterableObject, int startIndex, int numberOfItems)
+    public static List<Object> getListFromObject(Object iterableObject, int startIndex, int numberOfItems)
     {
         if (iterableObject instanceof List)
         {
             // easier, use sublist
-            List list = ((List) iterableObject);
+            List<Object> list = ((List<Object>) iterableObject);
 
             // check for partial lists
             int lastRecordExclusive = numberOfItems <= 0 ? list.size() : startIndex + numberOfItems;
@@ -102,7 +102,7 @@ public final class CollectionUtil
         }
 
         // use an iterator
-        Iterator iterator = IteratorUtils.getIterator(iterableObject);
+        Iterator< ? > iterator = IteratorUtils.getIterator(iterableObject);
         return getSubList(iterator, startIndex, numberOfItems);
     }
 }

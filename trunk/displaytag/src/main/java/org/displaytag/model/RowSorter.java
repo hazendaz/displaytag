@@ -52,7 +52,7 @@ public class RowSorter implements Comparator
     /**
      * Comparator used for comparisons.
      */
-    private Comparator comparator;
+    private Comparator<Object> comparator;
 
     /**
      * Initialize a new RowSorter.
@@ -68,7 +68,7 @@ public class RowSorter implements Comparator
         String beanProperty,
         TableDecorator tableDecorator,
         boolean ascendingOrder,
-        Comparator compar)
+        Comparator<Object> compar)
     {
         this.columnIndex = sortedColumnIndex;
         this.property = beanProperty;

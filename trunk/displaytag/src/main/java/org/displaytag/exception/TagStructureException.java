@@ -33,7 +33,7 @@ public class TagStructureException extends BaseNestableJspTagException
      * @param currentTag name of the current tag
      * @param shoudBeNestedIn missing parent tag
      */
-    public TagStructureException(Class source, String currentTag, String shoudBeNestedIn)
+    public TagStructureException(Class<?> source, String currentTag, String shoudBeNestedIn)
     {
         super(source, Messages.getString("TagStructureException.msg", //$NON-NLS-1$
             new Object[]{currentTag, shoudBeNestedIn}));

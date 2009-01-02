@@ -31,19 +31,19 @@ public class ColumnIterator
     /**
      * Internal iterator on header cells.
      */
-    private Iterator headerIterator;
+    private Iterator<HeaderCell> headerIterator;
 
     /**
      * Internal iterator on cells.
      */
-    private Iterator cellIterator;
+    private Iterator<Cell> cellIterator;
 
     /**
      * Creates a new ColumnIterator given a list of column and a row.
      * @param columns List containing column objects
      * @param row current Row
      */
-    public ColumnIterator(List columns, Row row)
+    public ColumnIterator(List<HeaderCell> columns, Row row)
     {
         this.headerIterator = columns.iterator();
         this.cellIterator = row.getCellList().iterator();
@@ -65,7 +65,7 @@ public class ColumnIterator
      */
     public Column nextColumn()
     {
-        HeaderCell header = (HeaderCell) this.headerIterator.next();
+        HeaderCell header = this.headerIterator.next();
 
         Cell cell = Cell.EMPTY_CELL;
 
@@ -73,7 +73,7 @@ public class ColumnIterator
         // this is needed for automatic properties discovery
         if (this.cellIterator.hasNext())
         {
-            cell = (Cell) this.cellIterator.next();
+            cell = this.cellIterator.next();
         }
 
         // create a new column using the next value in the header and cell iterators and returns it

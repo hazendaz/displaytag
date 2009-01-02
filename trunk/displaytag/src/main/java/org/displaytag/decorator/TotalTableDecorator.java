@@ -45,17 +45,17 @@ public class TotalTableDecorator extends TableDecorator
     /**
      * total amount.
      */
-    private Map grandTotals = new HashMap();
+    private Map<String, Double> grandTotals = new HashMap<String, Double>();
 
     /**
      * total amount for current group.
      */
-    private Map subTotals = new HashMap();
+    private Map<String, Double> subTotals = new HashMap<String, Double>();
 
     /**
      * Previous values needed for grouping.
      */
-    private Map previousValues = new HashMap();
+    private Map<String, Object> previousValues = new HashMap<String, Object>();
 
     /**
      * Name of the property used for grouping.
@@ -103,9 +103,9 @@ public class TotalTableDecorator extends TableDecorator
         subTotals.clear();
         previousValues.clear();
 
-        for (Iterator it = tableModel.getHeaderCellList().iterator(); it.hasNext();)
+        for (Iterator<HeaderCell> it = tableModel.getHeaderCellList().iterator(); it.hasNext();)
         {
-            HeaderCell cell = (HeaderCell) it.next();
+            HeaderCell cell = it.next();
             if (cell.getGroup() == 1)
             {
                 groupPropertyName = cell.getBeanPropertyName();
@@ -130,16 +130,16 @@ public class TotalTableDecorator extends TableDecorator
             previousValues.put(groupPropertyName, groupedPropertyValue);
         }
 
-        for (Iterator it = tableModel.getHeaderCellList().iterator(); it.hasNext();)
+        for (Iterator<HeaderCell> it = tableModel.getHeaderCellList().iterator(); it.hasNext();)
         {
-            HeaderCell cell = (HeaderCell) it.next();
+            HeaderCell cell = it.next();
             if (cell.isTotaled())
             {
                 String totalPropertyName = cell.getBeanPropertyName();
                 Number amount = (Number) evaluate(totalPropertyName);
 
-                Number previousSubTotal = (Number) subTotals.get(totalPropertyName);
-                Number previousGrandTotals = (Number) grandTotals.get(totalPropertyName);
+                Number previousSubTotal = subTotals.get(totalPropertyName);
+                Number previousGrandTotals = grandTotals.get(totalPropertyName);
 
                 subTotals.put(totalPropertyName, new Double((previousSubTotal != null
                     ? previousSubTotal.doubleValue()
@@ -182,11 +182,11 @@ public class TotalTableDecorator extends TableDecorator
         StringBuffer buffer = new StringBuffer(1000);
         buffer.append("\n<tr class=\"total\">"); //$NON-NLS-1$
 
-        List headerCells = tableModel.getHeaderCellList();
+        List<HeaderCell> headerCells = tableModel.getHeaderCellList();
 
-        for (Iterator it = headerCells.iterator(); it.hasNext();)
+        for (Iterator<HeaderCell> it = headerCells.iterator(); it.hasNext();)
         {
-            HeaderCell cell = (HeaderCell) it.next();
+            HeaderCell cell = it.next();
             String cssClass = ObjectUtils.toString(cell.getHtmlAttributes().get("class"));
 
             buffer.append("<td"); //$NON-NLS-1$

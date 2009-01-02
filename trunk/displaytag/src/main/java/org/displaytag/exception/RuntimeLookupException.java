@@ -12,6 +12,7 @@
 package org.displaytag.exception;
 
 import org.displaytag.Messages;
+import org.displaytag.model.RowSorter;
 
 
 /**
@@ -32,7 +33,7 @@ public class RuntimeLookupException extends RuntimeException
      * @param property object property who caused the exception
      * @param cause previous (checked) exception
      */
-    public RuntimeLookupException(Class sourceClass, String property, BaseNestableJspTagException cause)
+    public RuntimeLookupException(Class< ? extends RowSorter> sourceClass, String property, BaseNestableJspTagException cause)
     {
         super(Messages.getString("RuntimeLookupException.msg", //$NON-NLS-1$
             new Object[]{property, cause.getMessage()}));

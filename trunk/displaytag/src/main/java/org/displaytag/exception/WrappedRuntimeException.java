@@ -29,7 +29,7 @@ public class WrappedRuntimeException extends BaseNestableRuntimeException
      * @param source Class where the exception is generated
      * @param cause Original exception
      */
-    public WrappedRuntimeException(Class source, Throwable cause)
+    public WrappedRuntimeException(Class<?> source, Throwable cause)
     {
         super(source, cause.getMessage(), cause);
     }

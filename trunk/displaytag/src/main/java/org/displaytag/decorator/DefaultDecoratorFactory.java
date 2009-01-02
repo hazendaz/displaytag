@@ -14,9 +14,7 @@ package org.displaytag.decorator;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.lang.StringUtils;
-import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.DecoratorInstantiationException;
-import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.ReflectHelper;
 
 
@@ -148,10 +146,6 @@ public class DefaultDecoratorFactory implements DecoratorFactory
         {
             return (DisplaytagColumnDecorator) decorator;
         }
-        else if (decorator instanceof ColumnDecorator)
-        {
-            return new DeprecatedDecoratorWrapper((ColumnDecorator) decorator);
-        }
         else
         {
             throw new DecoratorInstantiationException(
@@ -161,36 +155,4 @@ public class DefaultDecoratorFactory implements DecoratorFactory
         }
     }
 
-    /**
-     * Wrapper class for handling decorators implementing the deprecated ColumnDecorator interface as 1.1
-     * <code>DisplaytagColumnDecorator</code>s.
-     */
-    private static class DeprecatedDecoratorWrapper implements DisplaytagColumnDecorator
-    {
-
-        /**
-         * Wrapped 1.0 decorator.
-         */
-        private ColumnDecorator decorator;
-
-        /**
-         * Instantiates a new wrapper for old decorators.
-         * @param decorator ColumnDecorator instance
-         */
-        public DeprecatedDecoratorWrapper(ColumnDecorator decorator)
-        {
-            this.decorator = decorator;
-        }
-
-        /**
-         * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
-         * @deprecated
-         */
-        public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
-            throws DecoratorException
-        {
-            return decorator.decorate(columnValue);
-        }
-
-    }
 }

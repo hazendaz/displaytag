@@ -69,7 +69,7 @@ public abstract class DisplaytagCase
         // start servletRunner
         runner = new ServletRunner(new File(path), CONTEXT);
 
-        Hashtable params = new Hashtable();
+        Hashtable<String, String> params = new Hashtable<String, String>();
         params.put("javaEncoding", "utf-8");
         runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
 

@@ -76,7 +76,7 @@ public class Pagination
      * List containg NumberedPage objects.
      * @see org.displaytag.pagination.NumberedPage
      */
-    private List pages = new ArrayList();
+    private List<NumberedPage> pages = new ArrayList<NumberedPage>();
 
     /**
      * Table properties, needed fot locale.
@@ -231,13 +231,13 @@ public class Pagination
         StringBuffer buffer = new StringBuffer(100);
 
         // numbered page list
-        Iterator pageIterator = this.pages.iterator();
+        Iterator<NumberedPage> pageIterator = this.pages.iterator();
 
         while (pageIterator.hasNext())
         {
 
             // get NumberedPage from iterator
-            NumberedPage page = (NumberedPage) pageIterator.next();
+            NumberedPage page = pageIterator.next();
 
             Integer pageNumber = new Integer(page.getNumber());
 

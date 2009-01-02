@@ -33,7 +33,7 @@ public class PaginationHelperTest extends TestCase
 
     public void testEnsureOnlyListsAreHandled()
     {
-        Set data = new HashSet();
+        Set<Integer> data = new HashSet<Integer>();
         add(data, 2);
 
         Assert.assertEquals(data.iterator(), getIterator(data, 1, 25));
@@ -41,8 +41,8 @@ public class PaginationHelperTest extends TestCase
 
     public void testGetSublistOtherPage()
     {
-        List expected = Arrays.asList(new Integer[]{new Integer(4), new Integer(5), new Integer(6)});
-        List data = new ArrayList();
+        List<Integer> expected = Arrays.asList(new Integer[]{new Integer(4), new Integer(5), new Integer(6)});
+        List<Integer> data = new ArrayList<Integer>();
         add(data, 7);
 
         Assert.assertEquals(expected.iterator(), getIterator(data, 2, 3));
@@ -50,8 +50,8 @@ public class PaginationHelperTest extends TestCase
 
     public void testGetSublistFirstPage()
     {
-        List expected = Arrays.asList(new Integer[]{new Integer(1), new Integer(2), new Integer(3)});
-        List data = new ArrayList();
+        List<Integer> expected = Arrays.asList(new Integer[]{new Integer(1), new Integer(2), new Integer(3)});
+        List<Integer> data = new ArrayList<Integer>();
         add(data, 7);
 
         Assert.assertEquals(expected.iterator(), getIterator(data, 1, 3));
@@ -59,8 +59,8 @@ public class PaginationHelperTest extends TestCase
 
     public void testGetSublistLastPage()
     {
-        List expected = Arrays.asList(new Integer[]{new Integer(9)});
-        List data = new ArrayList();
+        List<Integer> expected = Arrays.asList(new Integer[]{new Integer(9)});
+        List<Integer> data = new ArrayList<Integer>();
         add(data, 9);
 
         Assert.assertEquals(expected.iterator(), getIterator(data, 3, 4));
@@ -68,13 +68,13 @@ public class PaginationHelperTest extends TestCase
 
     public void testGetSublistOutOfBounds()
     {
-        List expected = Arrays.asList(new Integer[]{
+        List<Integer> expected = Arrays.asList(new Integer[]{
             new Integer(1),
             new Integer(2),
             new Integer(3),
             new Integer(4),
             new Integer(5)});
-        List data = new ArrayList();
+        List<Integer> data = new ArrayList<Integer>();
         add(data, 7);
 
         // This is out of bounds, it should just take the first page, 1-5
@@ -83,13 +83,13 @@ public class PaginationHelperTest extends TestCase
 
     public void testGetSublistPageSizeBiggerThanList()
     {
-        List expected = Arrays.asList(new Integer[]{
+        List<Integer> expected = Arrays.asList(new Integer[]{
             new Integer(1),
             new Integer(2),
             new Integer(3),
             new Integer(4),
             new Integer(5)});
-        List data = new ArrayList();
+        List<Integer> data = new ArrayList<Integer>();
         add(data, 5);
 
         Assert.assertEquals(expected.iterator(), getIterator(data, 1, 25));
@@ -98,7 +98,7 @@ public class PaginationHelperTest extends TestCase
 
     public void testGetSublistForEntirePage()
     {
-        List data = new ArrayList();
+        List<Integer> data = new ArrayList<Integer>();
         add(data, 5);
 
         Assert.assertEquals(data.iterator(), getIterator(data, 1, 5));
@@ -121,7 +121,7 @@ public class PaginationHelperTest extends TestCase
         }
     }
 
-    protected void add(Collection collection, int number)
+    protected void add(Collection<Integer> collection, int number)
     {
         for (int i = 0; i < number; i++)
         {

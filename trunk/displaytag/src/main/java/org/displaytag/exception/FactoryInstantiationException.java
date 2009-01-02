@@ -12,6 +12,7 @@
 package org.displaytag.exception;
 
 import org.displaytag.Messages;
+import org.displaytag.properties.TableProperties;
 
 
 /**
@@ -34,7 +35,7 @@ public class FactoryInstantiationException extends BaseNestableRuntimeException
      * @param propertyValue value for the property (class name)
      * @param cause previous exception
      */
-    public FactoryInstantiationException(Class source, String propertyName, String propertyValue, Throwable cause)
+    public FactoryInstantiationException(Class< ? extends TableProperties> source, String propertyName, String propertyValue, Throwable cause)
     {
         super(source, Messages.getString("FactoryInstantiationException.msg", //$NON-NLS-1$
             new Object[]{propertyValue, propertyName}), cause);

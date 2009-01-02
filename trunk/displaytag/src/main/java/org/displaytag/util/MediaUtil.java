@@ -55,13 +55,13 @@ public final class MediaUtil
          * Configure the list of media types this object will support.
          * @param media The list of media types this object will support.
          */
-        void setSupportedMedia(List media);
+        void setSupportedMedia(List<MediaTypeEnum> media);
 
         /**
          * Obtain the list of media types this object supports.
          * @return The list of media types this object supports.
          */
-        List getSupportedMedia();
+        List<MediaTypeEnum> getSupportedMedia();
     }
 
     /**
@@ -82,7 +82,7 @@ public final class MediaUtil
             mediaSupporter.setSupportedMedia(null);
             return;
         }
-        List supportedMedia = new ArrayList();
+        List<MediaTypeEnum> supportedMedia = new ArrayList<MediaTypeEnum>();
         String[] values = StringUtils.split(media);
         for (int i = 0; i < values.length; i++)
         {
@@ -116,7 +116,7 @@ public final class MediaUtil
             return false;
         }
 
-        List supportedMedia = mediaSupporter.getSupportedMedia();
+        List<MediaTypeEnum> supportedMedia = mediaSupporter.getSupportedMedia();
 
         if (supportedMedia == null)
         {

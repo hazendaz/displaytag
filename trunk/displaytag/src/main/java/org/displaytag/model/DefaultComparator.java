@@ -63,7 +63,7 @@ public class DefaultComparator implements Comparator
         }
         else if (object1 instanceof Comparable && object2 instanceof Comparable)
         {
-            returnValue = ((Comparable) object1).compareTo(object2);
+            returnValue = ((Comparable<Object>) object1).compareTo(object2);
         }
         else
         {

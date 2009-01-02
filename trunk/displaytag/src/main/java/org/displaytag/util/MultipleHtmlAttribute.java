@@ -30,7 +30,7 @@ public class MultipleHtmlAttribute implements Cloneable
     /**
      * Sets containing splitted attribute values.
      */
-    private Set attributeSet;
+    private Set<String> attributeSet;
 
     /**
      * Constructor for MultipleHtmlAttribute.
@@ -38,7 +38,7 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     public MultipleHtmlAttribute(String attributeValue)
     {
-        this.attributeSet = new LinkedHashSet();
+        this.attributeSet = new LinkedHashSet<String>();
         addAllAttributesFromArray(StringUtils.split(attributeValue));
     }
 
@@ -77,7 +77,7 @@ public class MultipleHtmlAttribute implements Cloneable
     {
         StringBuffer buffer = new StringBuffer();
 
-        Iterator iterator = this.attributeSet.iterator();
+        Iterator<String> iterator = this.attributeSet.iterator();
 
         while (iterator.hasNext())
         {
@@ -134,7 +134,7 @@ public class MultipleHtmlAttribute implements Cloneable
         }
 
         // copy attributes
-        clone.addAllAttributesFromArray((String[]) this.attributeSet.toArray(new String[this.attributeSet.size()]));
+        clone.addAllAttributesFromArray(this.attributeSet.toArray(new String[this.attributeSet.size()]));
 
         return clone;
     }
