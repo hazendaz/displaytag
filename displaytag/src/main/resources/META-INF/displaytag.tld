@@ -411,7 +411,7 @@
       <description>
         Use this attribute to keep a column from being output during an export. The column will only render for the
         named media type(s) - it won't be added to the table if the current request media is not supported. Can be any
-        space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'. See the export page
+        space separated combination of 'html', 'csv', 'xml', 'all', 'pdf', or 'excel'. Defaults to 'all'. See the export page
         in the example webapp for more details.
       </description>
     </attribute>
@@ -649,7 +649,7 @@ or
       <description>
         Use this attribute to keep a footer from being output during an export. The caption will only render for the
         named media type(s) - it won't be added to the table if the current request media is not supported. Can be any
-        space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'. See the export page
+        space separated combination of 'html', 'csv', 'xml', 'pdf', 'all', or 'excel'. Defaults to 'all'. See the export page
         in the example webapp for more details.
       </description>
     </attribute>
@@ -726,7 +726,7 @@ or
       <description>
         Use this attribute to keep a caption from being output during an export. The caption will only render for the
         named media type(s) - it won't be added to the table if the current request media is not supported. Can be any
-        space separated combination of 'html', 'csv', 'xml', 'all', or 'excel'. Defaults to 'all'. See the export page
+        space separated combination of 'html', 'csv', 'xml', 'all', 'pdf', or 'excel'. Defaults to 'all'. See the export page
         in the example webapp for more details.
       </description>
     </attribute>

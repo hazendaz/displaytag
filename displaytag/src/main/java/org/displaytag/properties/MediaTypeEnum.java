@@ -52,6 +52,11 @@ public final class MediaTypeEnum
     public static final MediaTypeEnum XML = new MediaTypeEnum(3, "xml"); //$NON-NLS-1$
 
     /**
+     * media type XML = 3.
+     */
+    public static final MediaTypeEnum PDF = new MediaTypeEnum(4, "pdf"); //$NON-NLS-1$
+
+    /**
      * Code; this is the primary key for these objects.
      */
     private final int enumCode;
@@ -84,7 +89,7 @@ public final class MediaTypeEnum
 
     /**
      * returns the description.
-     * @return String description of the media type ("excel", "xml", "csv", "html")
+     * @return String description of the media type ("excel", "xml", "csv", "html", "pdf")
      */
     public String getName()
     {
