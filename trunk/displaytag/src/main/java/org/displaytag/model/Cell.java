@@ -15,6 +15,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.displaytag.util.HtmlAttributeMap;
 
+import java.text.Collator;
+
 
 /**
  * <p>
@@ -74,17 +76,16 @@ public class Cell implements Comparable, Cloneable
     /**
      * Compare the Cell value to another Cell.
      * @param obj Object to compare this cell to
+     * @param collator Collator to use for the comparison of the other object is a Cell holding a String
      * @return int
      * @see java.lang.Comparable#compareTo(Object)
      */
-    public int compareTo(Object obj)
+    public int compareTo(Object obj, Collator collator)
     {
-
         if (this.staticValue == null)
         {
             return -1;
         }
-
         if (obj instanceof Cell)
         {
             Object otherStatic = ((Cell) obj).getStaticValue();
@@ -92,11 +93,29 @@ public class Cell implements Comparable, Cloneable
             {
                 return 1;
             }
-            return ((Comparable<Object>) this.staticValue).compareTo(otherStatic);
+            if (collator != null && this.staticValue instanceof String && otherStatic instanceof String)
+            {
+                String a = (String) this.staticValue;
+                String b = (String) otherStatic;
+                return collator.compare(a,b);
+            }
+            else
+            {
+                return ((Comparable<Object>) this.staticValue).compareTo(otherStatic);
+            }
         }
-
         return ((Comparable<Object>) this.staticValue).compareTo(obj);
+    }
 
+    /**
+     * Compare the Cell value to another Cell.
+     * @param obj Object to compare this cell to
+     * @return int
+     * @see java.lang.Comparable#compareTo(Object)
+     */
+    public int compareTo(Object obj)
+    {
+        return compareTo(obj, null);
     }
 
     /**

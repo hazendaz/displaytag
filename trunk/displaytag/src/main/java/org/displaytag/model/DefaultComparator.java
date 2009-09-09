@@ -61,6 +61,10 @@ public class DefaultComparator implements Comparator
         {
             returnValue = collator.compare(object1, object2);
         }
+        else if (object1 instanceof Cell)
+        {
+            return ((Cell)object1).compareTo(object2, collator);
+        }
         else if (object1 instanceof Comparable && object2 instanceof Comparable)
         {
             returnValue = ((Comparable<Object>) object1).compareTo(object2);
