@@ -13,15 +13,8 @@ package org.displaytag.properties;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.*;
 import java.text.Collator;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.Properties;
-import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
@@ -33,13 +26,13 @@ import org.apache.commons.lang.UnhandledException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
+import org.displaytag.model.DefaultComparator;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.DefaultDecoratorFactory;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
-import org.displaytag.model.DefaultComparator;
 import org.displaytag.util.DefaultRequestHelperFactory;
 import org.displaytag.util.ReflectHelper;
 import org.displaytag.util.RequestHelperFactory;
@@ -347,7 +340,7 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = "pagination.sort.skippagenumber"; //$NON-NLS-1$
 
     /**
-     * Property <code>comparator.default</code>. If present, will use use as the classname of the default comparator.
+     * Property <code>comparator.default</code>.  If present, will use use as the classname of the default comparator.
      * Will be overriden by column level comparators.
      */
     public static final String PROPERTY_DEFAULT_COMPARATOR = "comparator.default"; //$NON-NLS-1$
@@ -1242,7 +1235,7 @@ public final class TableProperties implements Cloneable
      * @param key property name
      * @return property value or <code>null</code> if property is not found
      */
-    private String getProperty(String key)
+    public String getProperty(String key)
     {
         return this.properties.getProperty(key);
     }
@@ -1330,10 +1323,10 @@ public final class TableProperties implements Cloneable
      * @param thatEnum A media type
      * @return The name of the decorator configured for a given media type.
      */
-    public String getMediaTypeDecoratorName(MediaTypeEnum thatEnum)
-    {
+	public String getMediaTypeDecoratorName(MediaTypeEnum thatEnum)
+	{
         return getProperty(PROPERTY_DECORATOR_SUFFIX + SEP + PROPERTY_DECORATOR_MEDIA + SEP + thatEnum);
-    }
+	}
 
     public Comparator<Object> getDefaultComparator()
     {
@@ -1348,12 +1341,11 @@ public final class TableProperties implements Cloneable
             }
             catch (Throwable e)
             {
-                log.warn(Messages
-                    .getString("TableProperties.errorloading", //$NON-NLS-1$
-                        new Object[]{
-                            ClassUtils.getShortClassName(Comparator.class),
-                            e.getClass().getName(),
-                            e.getMessage()}));
+                log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
+                    new Object[]{
+                        ClassUtils.getShortClassName(Comparator.class),
+                        e.getClass().getName(),
+                        e.getMessage()}));
             }
         }
         return new DefaultComparator(Collator.getInstance(getLocale()));

@@ -70,4 +70,11 @@ public class MediaTypeEnumTest extends TestCase
         Assert.assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.fromName("html"));
     }
 
+    public void testPdf()
+    {
+        Assert.assertEquals(MediaTypeEnum.fromCode(4), MediaTypeEnum.PDF);
+        Assert.assertEquals(MediaTypeEnum.fromName("pdf"), MediaTypeEnum.PDF);
+        Assert.assertEquals(MediaTypeEnum.fromCode(4), MediaTypeEnum.fromName("pdf"));
+    }
+
 }
