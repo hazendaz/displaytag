@@ -47,7 +47,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * If there are no columns that are totaled, we should not issue a totals row.
      */
-    private boolean containsTotaledColumns = false;
+    private boolean containsTotaledColumns = true;
 
     /**
      * No current reset group.
@@ -127,7 +127,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         for (Iterator<HeaderCell> iterator = headerCells.iterator(); iterator.hasNext();)
         {
             HeaderCell headerCell = iterator.next();
-            containsTotaledColumns = containsTotaledColumns || headerCell.isTotaled();
+//            containsTotaledColumns = containsTotaledColumns || headerCell.isTotaled();
             if (headerCell.getGroup() > 0)
             {
                 groupNumberToGroupTotal.put(new Integer(headerCell.getGroup()), new GroupTotals(headerCell
