@@ -14,8 +14,8 @@ package org.displaytag.decorator;
 import java.beans.IndexedPropertyDescriptor;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.jsp.PageContext;
 
@@ -48,7 +48,7 @@ abstract class Decorator
     /**
      * property info cache contains classname#propertyname Strings as keys and Booleans as values.
      */
-    private static Map<String, Boolean> propertyMap = new HashMap<String, Boolean>();
+    private static Map<String, Boolean> propertyMap = new ConcurrentHashMap<String, Boolean>();
 
     /**
      * page context.
