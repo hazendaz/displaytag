@@ -271,6 +271,11 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_DECORATOR_MEDIA = "media"; //$NON-NLS-1$
 
     /**
+     * used to set the totaler property name. The property name is <code>totaler</code>
+     */
+    public static final String TOTALER_NAME = "totaler"; //$NON-NLS-1$
+
+    /**
      * property <code>export.types</code>: holds the list of export available export types.
      */
     public static final String PROPERTY_EXPORTTYPES = "export.types"; //$NON-NLS-1$
@@ -1327,6 +1332,15 @@ public final class TableProperties implements Cloneable
 	{
         return getProperty(PROPERTY_DECORATOR_SUFFIX + SEP + PROPERTY_DECORATOR_MEDIA + SEP + thatEnum);
 	}
+
+    /**
+     * the classname of the totaler
+     * @return                     the classname of the totaler
+     */
+    public String getTotalerName()
+    {
+        return getProperty(TOTALER_NAME);
+    }
 
     public Comparator<Object> getDefaultComparator()
     {

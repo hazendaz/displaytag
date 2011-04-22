@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
+import org.displaytag.render.TableTotaler;
 
 
 /**
@@ -128,6 +129,8 @@ public class TableModel
      * Uses post for links.
      */
     private String form;
+
+    private TableTotaler totaler;
 
     /**
      * Constructor for TableModel.
@@ -588,4 +591,19 @@ public class TableModel
             .toString();
     }
 
+    public TableTotaler getTotaler()
+    {
+        return totaler;
+    }
+
+    public void setTotaler(TableTotaler totaler)
+    {
+        this.totaler = totaler;
+    }
+
+    public void reset()
+    {
+        totaler.reset();
+        totaler.init(this);
+    }
 }

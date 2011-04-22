@@ -14,6 +14,7 @@ package org.displaytag.decorator;
 import javax.servlet.jsp.PageContext;
 
 import org.displaytag.exception.DecoratorInstantiationException;
+import org.displaytag.render.TableTotaler;
 
 
 /**
@@ -48,6 +49,16 @@ public interface DecoratorFactory
      * @throws DecoratorInstantiationException if unable to load ColumnDecorator
      */
     DisplaytagColumnDecorator loadColumnDecorator(PageContext pageContext, String decoratorName)
+        throws DecoratorInstantiationException;
+
+    /**
+     * 
+     * @param pageContext ctxt
+     * @param decoratorName  full class name
+     * @return
+     * @throws DecoratorInstantiationException
+     */
+     TableTotaler loadTableTotaler(PageContext pageContext, String decoratorName)
         throws DecoratorInstantiationException;
 
 }

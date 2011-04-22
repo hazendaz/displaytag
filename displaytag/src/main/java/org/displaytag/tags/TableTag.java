@@ -60,6 +60,7 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.render.HtmlTableWriter;
+import org.displaytag.render.TableTotaler;
 import org.displaytag.util.CollectionUtil;
 import org.displaytag.util.DependencyChecker;
 import org.displaytag.util.Href;
@@ -323,6 +324,11 @@ public class TableTag extends HtmlTableTag
     private PaginatedList paginatedList;
 
     /**
+     * The classname of the totaler.
+     */
+    private String totalerName;
+
+    /**
      * Is this the last iteration?
      * @return boolean <code>true</code> if this is the last iteration
      */
@@ -407,7 +413,7 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Setter for <code>form</code>.
-     * @param post The form to set.
+     * @param form The form to set.
      */
     public void setForm(String form)
     {
@@ -1278,6 +1284,13 @@ public class TableTag extends HtmlTableTag
             this.tableModel.setTableDecorator(tableDecorator);
         }
 
+        TableTotaler totaler = this.properties.getDecoratorFactoryInstance().loadTableTotaler(pageContext, getTotalerName());
+        if (totaler != null)
+        {
+            totaler.init(this.tableModel);
+            this.tableModel.setTotaler(totaler);
+
+        }
         setupViewableData();
 
         // Figure out how we should sort this data, typically we just sort
@@ -1334,6 +1347,11 @@ public class TableTag extends HtmlTableTag
         String tableDecoratorName = (this.decoratorName == null) ? this.properties
             .getMediaTypeDecoratorName(this.currentMediaType) : this.decoratorName;
         return tableDecoratorName;
+    }
+
+    private String getTotalerName()
+    {
+        return (this.totalerName == null) ? this.properties.getTotalerName() : this.totalerName;
     }
 
     /**

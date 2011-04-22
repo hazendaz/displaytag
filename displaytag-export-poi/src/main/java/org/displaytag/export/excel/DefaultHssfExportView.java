@@ -36,7 +36,7 @@ public class DefaultHssfExportView implements BinaryExportView
     /**
      * TableModel to render.
      */
-    private TableModel model;
+    protected TableModel model;
     
     /**
      * @see org.displaytag.export.BinaryExportView#doExport(java.io.OutputStream)
@@ -46,13 +46,23 @@ public class DefaultHssfExportView implements BinaryExportView
         try
         {
             HSSFWorkbook wb = new HSSFWorkbook();
-            new HssfTableWriter(wb).writeTable(this.model, "-1");
+            getHssfTableWriter(wb).writeTable(this.model, "-1");
             wb.write(out);
         }
         catch (Exception e)
         {
             throw new HssfGenerationException(e);
         }
+    }
+
+    /**
+     * Convenience method.
+     * @param wb
+     * @return
+     */
+    protected HssfTableWriter getHssfTableWriter(HSSFWorkbook wb)
+    {
+        return new HssfTableWriter(wb);
     }
 
     /** 
