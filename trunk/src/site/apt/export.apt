@@ -25,12 +25,19 @@ Exporting data
 *-----------------+----------------------------------------+-----------------------------------------------------------+
 |  Excel          | org.displaytag.export.ExcelView        | Export to excel - ascii format, tab separated             |
 *-----------------+----------------------------------------+-----------------------------------------------------------+
+|  Excel          | org.displaytag.export.excel.DefaultHssfExportView        | Export to excel - uses POI, will include totals and subtotals            |
+*-----------------+----------------------------------------+-----------------------------------------------------------+
+|  Excel          | org.displaytag.export.excel.HssfDoubleExportView        | Export to excel - uses POI, will include totals and subtotals on the first tab of the workbook, untotaled on the second            |
+*-----------------+----------------------------------------+-----------------------------------------------------------+
 |  XML            | org.displaytag.export.XmlView          | Simple xml output                                         |
 *-----------------+----------------------------------------+-----------------------------------------------------------+
-|  PDF            | org.displaytag.export.PdfView          | Sample PDF export view                                    |
+|  PDF            | org.displaytag.export.PdfView          | Sample PDF export view using IText                        |
 |                 |                                        | Not enabled by default, set export.pdf=true in            |
 |                 |                                        | displaytag.properties and including the required          |
 |                 |                                        | IText jar in WEB-INF/lib                                  |
+*-----------------+----------------------------------------+-----------------------------------------------------------+
+|  PDF            | org.displaytag.export.FopExportView    | Sample PDF export view using FOP, provides subtotal information as well and can easily be customized on a per table basis                          |
+|                 |                                        | See FopExportView for more details; requires FOP jar      |
 *-----------------+----------------------------------------+-----------------------------------------------------------+
 
 

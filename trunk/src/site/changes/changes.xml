@@ -9,7 +9,12 @@
   </properties>
   <body>
     <release version="1.3" date="In SVN" description="">
-      <action type="remove" dev="fgiust"> Removed support for java 1.4 and removed the EL version of the tag library.
+        <action type="add" dev="rapruitt" issue="DISPL-451">Added a new PDF export that transforms the XML export with XSL-FO. Templates are customizable.
+            Added support for TableTotaler, which is notified on subgroup starts and stops, and pulls the totaling logic
+            out of the individual exporters or decorators. Added a special Excel export that writes 2 versions of the export,
+            subtotaled and not subtotaled, to 2 different sheets in the workbook. Refactoring to related classes to support these changes.
+        </action>
+    <action type="remove" dev="fgiust"> Removed support for java 1.4 and removed the EL version of the tag library.
         Displaytag 1.3 will require at least java 1.5. For EL support you should just use a container that support
         direct evaluation of EL expressions (JSP 2.0) with the standard tag library, like tomcat 5.0 or above.</action>
       <action type="remove" dev="fgiust">The org.displaytag.decorator.ColumnDecorator interface, deprecated in
