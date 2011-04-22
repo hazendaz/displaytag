@@ -1,0 +1,85 @@
+<table>
+    <header>
+        <header-cell >AntColumn</header-cell>
+        <header-cell >BeeColumn</header-cell>
+        <header-cell >Column3</header-cell>
+        <header-cell >BeeColumn</header-cell>
+    </header>
+    <data>
+<subgroup grouped-by="0">
+    <subgroup grouped-by="1">
+        <subgroup grouped-by="2">
+            <row>
+                <cell grouped="true">Ant</cell>
+                <cell grouped="true">Bee</cell>
+                <cell>2</cell>
+                <cell>Bee</cell>
+            </row>
+            <row>
+                <cell grouped="true">Ant</cell>
+                <cell grouped="true">Bee</cell>
+                <cell>3</cell>
+                <cell>Bee</cell>
+            </row>
+            <subtotal>
+                <subtotal-cell></subtotal-cell>
+                <subtotal-cell></subtotal-cell>
+                <subtotal-cell>5</subtotal-cell>
+                <subtotal-cell></subtotal-cell>
+            </subtotal>
+        </subgroup>
+        <subgroup grouped-by="2">
+            <row>
+                <cell grouped="true">Ant</cell>
+                <cell grouped="true">Beetle</cell>
+                <cell>7</cell>
+                <cell>Beetle</cell>
+            </row>
+            <subtotal>
+                <subtotal-cell></subtotal-cell>
+                <subtotal-cell></subtotal-cell>
+                <subtotal-cell>7</subtotal-cell>
+                <subtotal-cell></subtotal-cell>
+            </subtotal>
+        </subgroup>
+        <subtotal>
+            <subtotal-cell></subtotal-cell>
+            <subtotal-cell></subtotal-cell>
+            <subtotal-cell>12</subtotal-cell>
+            <subtotal-cell></subtotal-cell>
+        </subtotal>
+    </subgroup>
+        <subgroup grouped-by="1">
+            <subgroup grouped-by="2">
+                 <row>
+                    <cell grouped="true">Asp</cell>
+                    <cell grouped="true">Beetle</cell>
+                    <cell>11</cell>
+                    <cell>Beetle</cell>
+                </row>
+                <subtotal>
+                    <subtotal-cell></subtotal-cell>
+                    <subtotal-cell></subtotal-cell>
+                    <subtotal-cell>11</subtotal-cell>
+                    <subtotal-cell></subtotal-cell>
+                </subtotal>
+            </subgroup>
+            <subtotal>
+                <subtotal-cell></subtotal-cell>
+                <subtotal-cell></subtotal-cell>
+                <subtotal-cell>11</subtotal-cell>
+                <subtotal-cell></subtotal-cell>
+            </subtotal>
+        </subgroup>
+
+        <subtotal>
+            <subtotal-cell></subtotal-cell>
+            <subtotal-cell></subtotal-cell>
+            <subtotal-cell>23</subtotal-cell>
+            <subtotal-cell></subtotal-cell>
+        </subtotal>
+
+        </subgroup>
+
+    </data>
+</table>

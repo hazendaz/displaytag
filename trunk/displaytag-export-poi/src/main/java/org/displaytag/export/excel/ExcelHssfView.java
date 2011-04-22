@@ -5,15 +5,9 @@ import java.util.*;
 
 import javax.servlet.jsp.JspException;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.displaytag.Messages;
-import org.displaytag.properties.TableProperties;
-import org.displaytag.exception.BaseNestableJspTagException;
-import org.displaytag.exception.SeverityEnum;
 import org.displaytag.export.BinaryExportView;
 import org.displaytag.model.Column;
 import org.displaytag.model.ColumnIterator;
@@ -31,10 +25,6 @@ import org.displaytag.model.TableModel;
  */
 public class ExcelHssfView implements BinaryExportView
 {
-    public final static String EXCEL_SHEET_NAME = "export.excel.sheetname";    //$NON-NLS-1$
-    public final static String EXCEL_FORMAT_INTEGER = "export.excel.format.integer";    //$NON-NLS-1$
-    public final static String EXCEL_FORMAT_DATE = "export.excel.format.date";    //$NON-NLS-1$
-    public final static String EXCEL_FORMAT_NUMBER = "export.excel.format.number";    //$NON-NLS-1$
 
     /**
      * TableModel to render.
@@ -71,40 +61,15 @@ public class ExcelHssfView implements BinaryExportView
      */
     private HSSFSheet sheet;
 
-    /*
-     * Available already configured cell styles, as HSSF JavaDoc claims there are limits to cell styles.
+    /**
+     * utils
      */
-    private Map<CellFormatTypes, HSSFCellStyle> cellStyles = new HashMap<CellFormatTypes, HSSFCellStyle>();
+    ExcelUtils utils;
 
     public ExcelHssfView()
     {
     }
 
-    void initCellStyles()
-    {
-        setWb(new HSSFWorkbook());
-
-        TableProperties properties = getTableModel().getProperties();
-        
-        // Integer
-        HSSFCellStyle style = getNewCellStyle();
-        style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-        style.setDataFormat(HSSFDataFormat.getBuiltinFormat( properties.getProperty(EXCEL_FORMAT_INTEGER) ));
-        cellStyles.put(CellFormatTypes.INTEGER, style);
-
-        // NUMBER
-        style = getNewCellStyle();
-        style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-        style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(EXCEL_FORMAT_NUMBER)));
-        cellStyles.put(CellFormatTypes.NUMBER, style);
-
-        // Date
-        style = getNewCellStyle();
-        style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-        style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(EXCEL_FORMAT_DATE)));
-        style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-        cellStyles.put(CellFormatTypes.DATE, style);
-    }
 
     /**
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
@@ -116,7 +81,8 @@ public class ExcelHssfView implements BinaryExportView
         this.exportFull = exportFullList;
         this.header = includeHeader;
         this.decorated = decorateValues;
-        initCellStyles();
+        utils = new ExcelUtils(new HSSFWorkbook());
+        utils.initCellStyles(tableModel.getProperties());
     }
 
     /**
@@ -135,7 +101,7 @@ public class ExcelHssfView implements BinaryExportView
     {
         try
         {
-            String inputSheetName = this.model.getProperties().getProperty(EXCEL_SHEET_NAME);
+            String inputSheetName = this.model.getProperties().getProperty(ExcelUtils.EXCEL_SHEET_NAME);
             setSheetName(inputSheetName);
             setSheet(getWb().createSheet(getSheetName()));
 
@@ -192,7 +158,7 @@ public class ExcelHssfView implements BinaryExportView
         }
         catch (Exception e)
         {
-            throw new ExcelGenerationException(e);
+            throw new ExcelUtils.ExcelGenerationException(e);
         }
     }
 
@@ -232,7 +198,7 @@ public class ExcelHssfView implements BinaryExportView
             Integer integer = (Integer) value;
             // due to a weird bug in HSSF where it uses shorts, we need to input this as a double value :(
             cell.setCellValue(integer.doubleValue());
-            cell.setCellStyle(cellStyles.get(CellFormatTypes.INTEGER));
+            cell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_INTEGER));
         }
         else if (value instanceof Number)
         {
@@ -245,47 +211,24 @@ public class ExcelHssfView implements BinaryExportView
             {
                 cell.setCellValue(num.doubleValue());
             }
-            cell.setCellStyle(cellStyles.get(CellFormatTypes.NUMBER));
+            cell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_NUMBER));
         }
         else if (value instanceof Date)
         {
             cell.setCellValue((Date) value);
-            cell.setCellStyle(cellStyles.get(CellFormatTypes.DATE));
+            cell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_DATE));
         }
         else if (value instanceof Calendar)
         {
             cell.setCellValue((Calendar) value);
-            cell.setCellStyle(cellStyles.get(CellFormatTypes.DATE));
+            cell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_DATE));
         }
         else
         {
-            cell.setCellValue(new HSSFRichTextString(escapeColumnValue(value)));
+            cell.setCellValue(new HSSFRichTextString(ExcelUtils.escapeColumnValue(value)));
         }
     }
 
-    // patch from Karsten Voges
-    /**
-     * Escape certain values that are not permitted in excel cells.
-     * @param rawValue the object value
-     * @return the escaped value
-     */
-    protected String escapeColumnValue(Object rawValue)
-    {
-        if (rawValue == null)
-        {
-            return null;
-        }
-        String returnString = ObjectUtils.toString(rawValue);
-        // escape the String to get the tabs, returns, newline explicit as \t \r \n
-        returnString = StringEscapeUtils.escapeJava(StringUtils.trimToEmpty(returnString));
-        // remove tabs, insert four whitespaces instead
-        returnString = StringUtils.replace(StringUtils.trim(returnString), "\\t", "    ");
-        // remove the return, only newline valid in excel
-        returnString = StringUtils.replace(StringUtils.trim(returnString), "\\r", " ");
-        // unescape so that \n gets back to newline
-        returnString = StringEscapeUtils.unescapeJava(returnString);
-        return returnString;
-    }
 
     /**
      * Templated method that is called for all non-header & non-total cells.
@@ -372,7 +315,7 @@ public class ExcelHssfView implements BinaryExportView
         // Exception: [.ExcelHssfView] !ExcelView.errorexporting! Cause: Sheet name cannot be blank, greater than 31 chars, or contain any of /\*?[]
         if (StringUtils.isBlank(sheetName))
         {
-            throw new JspException("The sheet name property " + EXCEL_SHEET_NAME + " must not be blank.");
+            throw new JspException("The sheet name property " + ExcelUtils.EXCEL_SHEET_NAME + " must not be blank.");
         }
         sheetName =  sheetName.replaceAll("/|\\\\|\\*|\\?|\\[|\\]","");
         this.sheetName = sheetName.length() <= 31 ? sheetName : sheetName.substring(0,31-3) + "...";
@@ -411,44 +354,6 @@ public class ExcelHssfView implements BinaryExportView
     public void setModel(TableModel model)
     {
         this.model = model;
-    }
-
-    public enum CellFormatTypes
-    {
-        INTEGER,
-        NUMBER,
-        DATE
-    }
-
-    /**
-     * Wraps IText-generated exceptions.
-     * @author Fabrizio Giustina
-     * @version $Revision$ ($Author$)
-     */
-    static class ExcelGenerationException extends BaseNestableJspTagException
-    {
-
-        /**
-         * D1597A17A6.
-         */
-        private static final long serialVersionUID = 899149338534L;
-
-        /**
-         * Instantiate a new PdfGenerationException with a fixed message and the given cause.
-         * @param cause Previous exception
-         */
-        public ExcelGenerationException(Throwable cause)
-        {
-            super(ExcelHssfView.class, Messages.getString("ExcelView.errorexporting"), cause); //$NON-NLS-1$
-        }
-
-        /**
-         * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
-         */
-        public SeverityEnum getSeverity()
-        {
-            return SeverityEnum.ERROR;
-        }
     }
 
 }

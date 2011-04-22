@@ -16,6 +16,7 @@ import javax.servlet.jsp.PageContext;
 import org.apache.commons.lang.StringUtils;
 import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.util.ReflectHelper;
+import org.displaytag.render.TableTotaler;
 
 
 /**
@@ -47,6 +48,12 @@ public class DefaultDecoratorFactory implements DecoratorFactory
     public TableDecorator loadTableDecorator(PageContext pageContext, String decoratorName)
         throws DecoratorInstantiationException
     {
+        return (TableDecorator) lookup( pageContext,  decoratorName);
+    }
+
+    private Object lookup(PageContext pageContext, String decoratorName)
+            throws DecoratorInstantiationException
+    {
         if (StringUtils.isBlank(decoratorName))
         {
             return null;
@@ -76,19 +83,32 @@ public class DefaultDecoratorFactory implements DecoratorFactory
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
         }
+        return decorator;
+    }
 
-        if (decorator instanceof TableDecorator)
-        {
-            return (TableDecorator) decorator;
-        }
-        else
-        {
-            throw new DecoratorInstantiationException(
-                DefaultDecoratorFactory.class,
-                decoratorName,
-                new ClassCastException(decorator.getClass().getName()));
-        }
 
+    /**
+     * <p>
+     * If the user has specified a table totaler, then this method takes care of creating the totaler. If there are
+     * any problems loading the
+     * decorator then this will throw a DecoratorInstantiationException which will get propagated up to the page.
+     * </p>
+     * <p>
+     * Two different methods for loading a decorator are handled by this factory:
+     * </p>
+     * <ul>
+     * <li>First of all, an object with key <code>decoratorName</code> is searched in the page/request/session/scope</li>
+     * <li>If not found, assume <code>decoratorName</code> is the class name of the decorator and load it using
+     * reflection</li>
+     * </ul>
+     * @param decoratorName String full decorator class name
+     * @return instance of DisplaytagColumnDecorator
+     * @throws DecoratorInstantiationException if unable to load ColumnDecorator
+     */
+    public TableTotaler loadTableTotaler(PageContext pageContext, String decoratorName)
+        throws DecoratorInstantiationException
+    {
+        return (TableTotaler) lookup(pageContext, decoratorName);
     }
 
     /**

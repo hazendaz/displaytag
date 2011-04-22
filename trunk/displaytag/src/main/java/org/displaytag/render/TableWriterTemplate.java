@@ -30,6 +30,7 @@ import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 import org.displaytag.properties.TableProperties;
+import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.util.TagConstants;
 
 
@@ -261,10 +262,20 @@ public abstract class TableWriterTemplate
      * @param model The table model used to build the table body.
      * @throws Exception if an error is encountered while writing the table body.
      */
-    private void writeTableBody(TableModel model) throws Exception
+    protected void writeTableBody(TableModel model) throws Exception
     {
         // Ok, start bouncing through our list (only the visible part)
-        RowIterator rowIterator = model.getRowIterator(false);
+        boolean fullList = false;
+        if ( ! MediaTypeEnum.HTML.equals(model.getMedia()) && model.getProperties().getExportFullList())
+        {
+            fullList = true;
+        }
+        RowIterator rowIterator = model.getRowIterator(fullList);
+        TableTotaler totalsTableDecorator = model.getTotaler();
+        if (totalsTableDecorator == null)
+        {
+            totalsTableDecorator = TableTotaler.NULL;
+        }
 
         // iterator on rows
         TableDecorator tableDecorator = model.getTableDecorator();
@@ -342,6 +353,11 @@ public abstract class TableWriterTemplate
                 tableDecorator.initRow(currentRow.getObject(), currentRow.getRowNumber(), currentRow.getRowNumber()
                     + rowIterator.getPageOffset());
             }
+            if (totalsTableDecorator != null)
+            {
+                totalsTableDecorator.initRow( currentRow.getRowNumber(), currentRow.getRowNumber()
+                    + rowIterator.getPageOffset());
+            }
 
             Iterator<HeaderCell> headerCellsIter = model.getHeaderCellList().iterator();
             ArrayList<CellStruct> structsForRow = new ArrayList<CellStruct>(model.getHeaderCellList().size());
@@ -365,19 +381,36 @@ public abstract class TableWriterTemplate
                     short groupingValue = groupColumns(struct.bodyValue,
                             priorBodyValue, nextBodyValue, header.getGroup());
 
-                    if (tableDecorator != null)
+                    if (tableDecorator != null || totalsTableDecorator != null)
                     {
                         switch (groupingValue)
                         {
                             case GROUP_START :
-                                tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
+                                totalsTableDecorator.startGroup(struct.bodyValue, header.getGroup());
+                                if (tableDecorator != null)
+                                {
+                                    tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
+                                }
                                 break;
                             case GROUP_END :
-                                tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
+                                totalsTableDecorator.stopGroup(struct.bodyValue, header.getGroup());
+                                if (tableDecorator != null)
+                                {
+                                    tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
+                                }
                                 break;
                             case GROUP_START_AND_END :
-                                tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
-                                tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
+                                totalsTableDecorator.startGroup(struct.bodyValue, header.getGroup());
+                                if (tableDecorator != null)
+                                {
+                                    tableDecorator.startOfGroup(struct.bodyValue, header.getGroup());
+                                }
+                                totalsTableDecorator.stopGroup(struct.bodyValue, header.getGroup());
+                                if (tableDecorator != null)
+                                {
+                                    tableDecorator.endOfGroup(struct.bodyValue, header.getGroup());
+                                }
+
                                 break;
                             default :
                                 break;
@@ -396,6 +429,10 @@ public abstract class TableWriterTemplate
                 structsForRow.add(struct);
             }
 
+            if (totalsTableDecorator != null)
+            {
+                writeSubgroupStart(model);
+            }
             if (tableDecorator != null)
             {
                 writeDecoratedRowStart(model);
@@ -428,7 +465,16 @@ public abstract class TableWriterTemplate
             {
                 writeDecoratedRowFinish(model);
             }
+            if (model.getTotaler() != null)
+            {
+                writeSubgroupStop(model);
+            }
         }
+        // how is this really going to work?
+        //    the totaler is notified whenever we start or stop a group, and the totaler tracks the current state of the
+        //      the totals; the totaler writes nothing
+        //    when the row is finished, it is the responsibility of the decorator or exporter to ask for the totaler total and write it
+        // when the row is finished,
 
         // render empty list message
         if (model.getRowListPage().size() == 0)
@@ -449,6 +495,15 @@ public abstract class TableWriterTemplate
      * @throws Exception if it encounters an error while writing.
      */
     protected abstract void writeDecoratedRowStart(TableModel model) throws Exception;
+
+    protected void writeSubgroupStart(TableModel model) throws Exception
+    {
+    }
+    protected void writeSubgroupStop(TableModel model) throws Exception
+    {
+    }
+
+
 
     /**
      * Called by writeTableBody to write the start of the row structure.

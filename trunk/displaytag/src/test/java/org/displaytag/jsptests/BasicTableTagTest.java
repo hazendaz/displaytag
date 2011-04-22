@@ -48,6 +48,6 @@ public class BasicTableTagTest extends DisplaytagCase
 
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        Assert.assertEquals("Wrong number of generated columns.", 3, tables[0].getColumnCount());
+        Assert.assertEquals("Wrong number of generated columns.", 4, tables[0].getColumnCount());
     }
 }

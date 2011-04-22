@@ -41,6 +41,11 @@ public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
      */
     private MessageFormat format;
 
+
+    /**
+     * Pattern is held for alternative (eg excel) formatters.
+     */
+    private String pattern;
     /**
      * Instantiates a new MessageFormatColumnDecorator with a given pattern and locale.
      * @param pattern see <code>java.text.messageFormat</code>
@@ -49,6 +54,7 @@ public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
      */
     public MessageFormatColumnDecorator(String pattern, Locale locale)
     {
+        this.pattern = pattern;
         this.format = new MessageFormat(pattern, locale);
     }
 
@@ -69,4 +75,14 @@ public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
             return columnValue;
         }
     }
+
+    /**
+     * get the format.
+     * @return        the format
+     */
+    public String getPattern()
+    {
+        return pattern;
+    }
+
 }
