@@ -76,6 +76,10 @@ public class KnownValue
         return twoValue;
     }
 
+    /**
+     * getter for the "date" property.
+     * @return date
+     */
     public Date getDate()
     {
         return date;
