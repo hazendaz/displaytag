@@ -47,7 +47,7 @@ public class ExportFullTest extends DisplaytagCase
 
         // we are really testing an xml output?
         Assert.assertEquals("Expected a different content type.", "text/csv", response.getContentType());
-        Assert.assertEquals("Wrong content.", "1\n2\n3\n", response.getText());
+        Assert.assertEquals("Wrong content.", "bee,1\nbee,2\nbee,3\n", response.getText());
     }
 
 }
