@@ -296,6 +296,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                         continue;
                     }
                     totals.printTotals(getListIndex(), out);
+                    finishGroup(totals.getColumnNumber(), out);
                     totals.setStartRow(getListIndex() + 1);
                 }
                 returnValue = out.toString();
@@ -314,6 +315,10 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         }
         return returnValue;
     }
+
+        protected void finishGroup(int columnNumber, StringBuffer out)
+        {
+        }
 
     /**
      * Issue a grand total row at the bottom.
@@ -586,6 +591,12 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                 out.append("\n</tr>\n");
             }
         }
+
+        public int getColumnNumber()
+        {
+            return columnNumber;
+        }
+
 
         public void setStartRow(int i)
         {
