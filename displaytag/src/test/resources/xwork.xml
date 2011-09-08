@@ -5,13 +5,23 @@
     <include file="webwork-default.xml" />
 
     <!-- Configuration for the default package. -->
+    <package name="jsps" extends="webwork-default" namespace="/jsps">
+        <default-interceptor-ref name="defaultStack" />
+        <action name="titlekey.jsp" class="com.opensymphony.xwork.ActionSupport">
+            <result name="success" type="dispatcher">/jsps/titlekey.jsp</result>
+        </action>
+        <action name="titlekeyautocolumn.jsp" class="com.opensymphony.xwork.ActionSupport">
+            <result name="success" type="dispatcher">/jsps/titlekeyautocolumn.jsp</result>
+        </action>
+    </package>
+    <!-- Configuration for the default package. -->
     <package name="standard" extends="webwork-default" namespace="/standard">
         <default-interceptor-ref name="defaultStack" />
         <action name="titlekey.jsp" class="com.opensymphony.xwork.ActionSupport">
             <result name="success" type="dispatcher">/standard/titlekey.jsp</result>
         </action>
         <action name="titlekeyautocolumn.jsp" class="com.opensymphony.xwork.ActionSupport">
-            <result name="success" type="dispatcher">/standard/titlekey.jsp</result>
+            <result name="success" type="dispatcher">/standard/titlekeyautocolumn.jsp</result>
         </action>
     </package>
     <package name="el" extends="webwork-default" namespace="/el">
