@@ -27,7 +27,7 @@ public class Displ105Test extends DisplaytagCase
     @Test
     public void doTest() throws Exception
     {
-        String httpsUrl = StringUtils.replace("DISPL-105.jsp", "http://", "https://");
+        String httpsUrl = StringUtils.replace(getJspUrl("DISPL-105.jsp"), "http://", "https://");
         WebRequest request = new GetMethodWebRequest(httpsUrl);
 
         WebResponse response = runner.getResponse(request);

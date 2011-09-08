@@ -36,7 +36,7 @@ public class PaginationHelperTest extends TestCase
         Set<Integer> data = new HashSet<Integer>();
         add(data, 2);
 
-        Assert.assertEquals(data.iterator(), getIterator(data, 1, 25));
+        this.assertEquals(data.iterator(), getIterator(data, 1, 25));
     }
 
     public void testGetSublistOtherPage()
@@ -45,7 +45,7 @@ public class PaginationHelperTest extends TestCase
         List<Integer> data = new ArrayList<Integer>();
         add(data, 7);
 
-        Assert.assertEquals(expected.iterator(), getIterator(data, 2, 3));
+        this.assertEquals(expected.iterator(), getIterator(data, 2, 3));
     }
 
     public void testGetSublistFirstPage()
@@ -54,7 +54,7 @@ public class PaginationHelperTest extends TestCase
         List<Integer> data = new ArrayList<Integer>();
         add(data, 7);
 
-        Assert.assertEquals(expected.iterator(), getIterator(data, 1, 3));
+        this.assertEquals(expected.iterator(), getIterator(data, 1, 3));
     }
 
     public void testGetSublistLastPage()
@@ -63,7 +63,7 @@ public class PaginationHelperTest extends TestCase
         List<Integer> data = new ArrayList<Integer>();
         add(data, 9);
 
-        Assert.assertEquals(expected.iterator(), getIterator(data, 3, 4));
+        this.assertEquals(expected.iterator(), getIterator(data, 3, 4));
     }
 
     public void testGetSublistOutOfBounds()
@@ -78,7 +78,7 @@ public class PaginationHelperTest extends TestCase
         add(data, 7);
 
         // This is out of bounds, it should just take the first page, 1-5
-        Assert.assertEquals(expected.iterator(), getIterator(data, 3, 5));
+        this.assertEquals(expected.iterator(), getIterator(data, 3, 5));
     }
 
     public void testGetSublistPageSizeBiggerThanList()
@@ -92,8 +92,8 @@ public class PaginationHelperTest extends TestCase
         List<Integer> data = new ArrayList<Integer>();
         add(data, 5);
 
-        Assert.assertEquals(expected.iterator(), getIterator(data, 1, 25));
-        Assert.assertEquals(expected.iterator(), getIterator(data, 2, 25));
+        this.assertEquals(expected.iterator(), getIterator(data, 1, 25));
+        this.assertEquals(expected.iterator(), getIterator(data, 2, 25));
     }
 
     public void testGetSublistForEntirePage()
@@ -101,7 +101,7 @@ public class PaginationHelperTest extends TestCase
         List<Integer> data = new ArrayList<Integer>();
         add(data, 5);
 
-        Assert.assertEquals(data.iterator(), getIterator(data, 1, 5));
+        this.assertEquals(data.iterator(), getIterator(data, 1, 5));
     }
 
     /**
