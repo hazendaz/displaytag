@@ -62,7 +62,7 @@ public class FopExportView implements BinaryExportView {
     /**
      * TableModel to render.
      */
-    private TableModel model;
+    protected TableModel model;
 
     /**
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
@@ -118,9 +118,7 @@ public class FopExportView implements BinaryExportView {
      */
     public void doExport(OutputStream out) throws IOException, JspException
     {
-        XmlTotalsWriter totals = new XmlTotalsWriter(model);
-        totals.writeTable(model, "-1");
-        String xmlResults = totals.getXml();
+        String xmlResults = getXml();
 
         FopFactory fopFactory = FopFactory.newInstance();
         Source xslt = new StreamSource(getStyleSheet());
@@ -179,6 +177,12 @@ public class FopExportView implements BinaryExportView {
             }
 
         }
+    }
+
+    protected String getXml() throws JspException {
+        XmlTotalsWriter totals = new XmlTotalsWriter(model);
+        totals.writeTable(model, "-1");
+        return totals.getXml();
     }
 
     /**

@@ -491,6 +491,7 @@ public class HssfTableWriter extends TableWriterAdapter
             }
 
             writeRowCloser(null);
+            writeGroupExtraInfo(model);
             currentGrouping--;
         }
 
@@ -553,5 +554,9 @@ public class HssfTableWriter extends TableWriterAdapter
             writeColumnCloser(null);
         }
         writeRowCloser(null);
+    }
+
+    protected void writeGroupExtraInfo(TableModel model) throws Exception
+    {
     }
  }

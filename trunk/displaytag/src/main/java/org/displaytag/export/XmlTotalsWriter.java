@@ -39,7 +39,7 @@ Sample fragment
 public class XmlTotalsWriter extends TableWriterAdapter
 {
     Pattern stylePat = Pattern.compile("\\s*?([\\w\\-]+?)\\s*?:\\s*?([\\w\\-]+?)(?:;|$)");
-    StringBuffer xml = new StringBuffer();
+    protected StringBuffer xml = new StringBuffer();
     Map<Integer,String> currentGroupingValueByGroup = new HashMap<Integer,String>();
     Integer groupId;
     int currentGroupingLevel = 0;
@@ -131,10 +131,14 @@ public class XmlTotalsWriter extends TableWriterAdapter
                 }
             }
             xml.append("\n</subtotal>\n");
+            writeExtraGroupInfo(model, i);
             xml.append("</subgroup>\n");
         }
     }
 
+    protected void writeExtraGroupInfo(TableModel model, int groupColumn){
+
+    }
 
     protected void writeAttributes(HtmlAttributeMap atts)
     {
@@ -209,7 +213,7 @@ public class XmlTotalsWriter extends TableWriterAdapter
 
     // just use the hyphenate support from fop -- http://xmlgraphics.apache.org/fop/1.0/hyphenation.html
 
-    private void cdata(Object str)
+    protected void cdata(Object str)
     {
         xml.append("<![CDATA[");
         String defStr = StringUtils.defaultString(""+str);
