@@ -51,16 +51,16 @@
   <xsl:template match="subgroup">
       <xsl:variable name="grouping-column" select="@grouped-by"/>
       <xsl:comment>This is $grouping-column @grouped-by</xsl:comment>
-      <xsl:variable name="grouping-value" select="(row[1]|subgroup[1]/row[1])/cell[position() = $grouping-column]"/>
+      <xsl:variable name="grouping-value" select="(row[1]|subgroup[1]//row[1])/cell[position() = $grouping-column]"/>
       <fo:table-row >
-          <xsl:for-each select="(row[1]|subgroup[1]/row[1])/cell[position() &lt; $grouping-column]">
+          <xsl:for-each select="(row[1]|subgroup[1]//row[1])/cell[position() &lt; $grouping-column]">
               <fo:table-cell padding="6pt"> <fo:block/> </fo:table-cell>
           </xsl:for-each>
           <fo:table-cell padding="6pt"><fo:block font-weight="bold" >
               <!-- if the subgroup is not the outermost, italicize the label -->
               <xsl:if test="parent::subgroup[@grouped-by &gt; 0]"><xsl:attribute name="font-style">italic</xsl:attribute></xsl:if>
               <xsl:value-of select="$grouping-value"/></fo:block></fo:table-cell>
-           <xsl:for-each select="(row[1]|subgroup[1]/row[1])/cell[position() &gt; $grouping-column]">
+           <xsl:for-each select="(row[1]|subgroup[1]//row[1])/cell[position() &gt; $grouping-column]">
               <fo:table-cell padding="6pt"><fo:block/></fo:table-cell>
           </xsl:for-each>
       </fo:table-row>
