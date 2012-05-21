@@ -209,6 +209,15 @@ public class TableModel
     }
 
     /**
+     * Getter for <code>pageOffset</code>
+     * @return Returns the page offset.
+     */
+    public int getPageOffset()
+    {
+        return this.pageOffset;
+    }
+
+    /**
      * Sets the starting offset for elements in the viewable list.
      * @param offset The page offset to set.
      */

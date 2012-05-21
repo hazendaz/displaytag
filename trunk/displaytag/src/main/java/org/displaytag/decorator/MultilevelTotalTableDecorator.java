@@ -130,8 +130,9 @@ public class MultilevelTotalTableDecorator extends TableDecorator
 //            containsTotaledColumns = containsTotaledColumns || headerCell.isTotaled();
             if (headerCell.getGroup() > 0)
             {
-                groupNumberToGroupTotal.put(new Integer(headerCell.getGroup()), new GroupTotals(headerCell
-                    .getColumnNumber()));
+                GroupTotals groupTotals = new GroupTotals(headerCell.getColumnNumber());
+                groupTotals.setStartRow(this.tableModel.getPageOffset());
+                groupNumberToGroupTotal.put(new Integer(headerCell.getGroup()), groupTotals);
                 if (headerCell.getGroup() > innermostGroup)
                 {
                     innermostGroup = headerCell.getGroup();
@@ -348,7 +349,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                 else if (headerCell.isTotaled())
                 {
                     // a total if the column should be totaled
-                    Object total = getTotalForColumn(headerCell.getColumnNumber(), 0, currentRow);
+                    Object total = getTotalForColumn(headerCell.getColumnNumber(), this.tableModel.getPageOffset(), currentRow);
                     output.append(getTotalsTdOpen(headerCell, getGrandTotalSum()));
                     output.append(formatTotal(headerCell, total));
                 }
