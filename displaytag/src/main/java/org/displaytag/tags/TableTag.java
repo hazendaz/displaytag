@@ -1278,6 +1278,8 @@ public class TableTag extends HtmlTableTag
             this.pageContext,
             getConfiguredDecoratorName());
 
+        setupViewableData();
+
         if (tableDecorator != null)
         {
             tableDecorator.init(this.pageContext, this.list, this.tableModel);
@@ -1291,7 +1293,6 @@ public class TableTag extends HtmlTableTag
             this.tableModel.setTotaler(totaler);
 
         }
-        setupViewableData();
 
         // Figure out how we should sort this data, typically we just sort
         // the data being shown, but the programmer can override this behavior

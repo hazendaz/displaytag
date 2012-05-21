@@ -170,7 +170,7 @@ public abstract class TableDecorator extends Decorator
 
     public boolean isLastRow()
     {
-        return getListIndex() == this.tableModel.getRowListPage().size() - 1;
+        return getViewIndex() == this.tableModel.getRowListPage().size() - 1;
     }
 
     /**
