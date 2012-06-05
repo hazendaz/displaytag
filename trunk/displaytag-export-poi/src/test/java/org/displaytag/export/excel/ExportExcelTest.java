@@ -1,30 +1,29 @@
 package org.displaytag.export.excel;
 
-import org.displaytag.properties.TableProperties;
-import org.displaytag.properties.MediaTypeEnum;
-import org.displaytag.util.ParamEncoder;
-import org.displaytag.tags.TableTagParameters;
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpUnitOptions;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.servletunit.ServletRunner;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.displaytag.export.ExportViewFactory;
+import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.properties.TableProperties;
+import org.displaytag.tags.TableTagParameters;
+import org.displaytag.util.ParamEncoder;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-import java.util.Properties;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.Hashtable;
 import java.net.URL;
 import java.net.URLDecoder;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before;
-import org.junit.After;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.servletunit.ServletRunner;
+import java.util.Hashtable;
+import java.util.Properties;
 
 
 
@@ -108,7 +107,7 @@ public class ExportExcelTest  {
     public void doDefaultTest() throws Exception
     {
         byte[] res = runPage("exportExcel.jsp");
-        File f = new File("/Users/andy/test.xls");
+        File f = File.createTempFile("exporttest", "xls");
         FileOutputStream fw = new FileOutputStream(f);
         fw.write(res);
         fw.flush();

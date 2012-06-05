@@ -1,18 +1,16 @@
 package org.displaytag.render;
 
-import junit.framework.TestCase;
-import org.displaytag.model.TableModel;
+import org.custommonkey.xmlunit.XMLTestCase;
+import org.displaytag.export.FopExportView;
+import org.displaytag.export.XmlTotalsWriter;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
 import org.displaytag.properties.TableProperties;
-import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.TagConstants;
-import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.test.KnownValue;
-import org.displaytag.export.XmlTotalsWriter;
-import org.displaytag.export.XslTransformerTest;
-import org.displaytag.export.FopExportView;
-import org.custommonkey.xmlunit.XMLTestCase;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.TagConstants;
 
 import java.io.File;
 
@@ -92,7 +90,6 @@ public class TableTotalerTest  extends XMLTestCase
         tt.init(m);
         XmlTotalsWriter tw = new XmlTotalsWriter(m);
         tw.writeTable(m, "safd");
-        System.out.println(""+tw.getXml());
         String xml = tw.getXml();
         assertXpathEvaluatesTo("11.0", "//subgroup[@grouped-by=0]/subtotal/subtotal-cell[4]", xml);
         assertXpathEvaluatesTo("7.0", "//subgroup[@grouped-by=1]/subtotal/subtotal-cell[4]", xml);
