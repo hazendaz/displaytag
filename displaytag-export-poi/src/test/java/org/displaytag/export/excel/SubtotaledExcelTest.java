@@ -106,7 +106,7 @@ public class SubtotaledExcelTest
 
 
 
-        File f = File.createTempFile("", "");
+        File f = File.createTempFile("nogroups", null);
         FileOutputStream str = new FileOutputStream(f);
         view.doExport(str);
         str.flush();

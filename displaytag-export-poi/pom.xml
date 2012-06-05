@@ -50,6 +50,13 @@
       <artifactId>displaytag</artifactId>
       <version>1.3-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>displaytag</groupId>
+      <artifactId>displaytag</artifactId>
+      <version>1.3-SNAPSHOT</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
@@ -58,6 +65,21 @@
       <dependency>
         <groupId>httpunit</groupId>
         <artifactId>httpunit</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>tomcat</groupId>
+        <artifactId>jasper-runtime</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>tomcat</groupId>
+        <artifactId>jasper-compiler-jdt</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>tomcat</groupId>
+        <artifactId>jasper-compiler</artifactId>
         <scope>test</scope>
       </dependency>
       <dependency>
