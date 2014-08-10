@@ -139,13 +139,22 @@
     <dependency>
       <groupId>javax.portlet</groupId>
       <artifactId>portlet-api</artifactId>
-      <version>1.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
-      <version>3.6</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
