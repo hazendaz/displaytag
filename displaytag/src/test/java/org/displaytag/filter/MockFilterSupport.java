@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -46,6 +46,7 @@ public class MockFilterSupport extends HttpServlet
     /**
      * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         log.debug("Mock servlet called, simulating filter");
@@ -63,6 +64,7 @@ public class MockFilterSupport extends HttpServlet
         /**
          * @see javax.servlet.FilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
          */
+        @Override
         public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException
         {
             String uri = ((HttpServletRequest) request).getRequestURI();

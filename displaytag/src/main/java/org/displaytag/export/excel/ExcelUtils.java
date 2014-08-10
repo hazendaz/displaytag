@@ -1,32 +1,37 @@
 package org.displaytag.export.excel;
 
-import org.displaytag.exception.BaseNestableJspTagException;
-import org.displaytag.exception.SeverityEnum;
-import org.displaytag.Messages;
-import org.displaytag.properties.TableProperties;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.displaytag.Messages;
+import org.displaytag.exception.BaseNestableJspTagException;
+import org.displaytag.exception.SeverityEnum;
+import org.displaytag.properties.TableProperties;
 
-import java.util.Map;
-import java.util.HashMap;
 
 /**
- * Convenience methods for the excel export.    Contains code extracted from several existing classes.
- * @author andy
- * Date: Nov 13, 2010
- * Time: 10:16:33 AM
+ * Convenience methods for the excel export. Contains code extracted from several existing classes.
+ * @author andy Date: Nov 13, 2010 Time: 10:16:33 AM
  */
 public class ExcelUtils
 {
-    public final static String EXCEL_SHEET_NAME = "export.excel.sheetname";    //$NON-NLS-1$
-    public final static String EXCEL_FORMAT_INTEGER = "export.excel.format.integer";    //$NON-NLS-1$
-    public final static String EXCEL_FORMAT_DATE = "export.excel.format.date";    //$NON-NLS-1$
-    public final static String EXCEL_FORMAT_NUMBER = "export.excel.format.number";    //$NON-NLS-1$
-    public final static String EXCEL_WRAPAT = "export.excel.wraptextlength";    //$NON-NLS-1$
+
+    public final static String EXCEL_SHEET_NAME = "export.excel.sheetname"; //$NON-NLS-1$
+
+    public final static String EXCEL_FORMAT_INTEGER = "export.excel.format.integer"; //$NON-NLS-1$
+
+    public final static String EXCEL_FORMAT_DATE = "export.excel.format.date"; //$NON-NLS-1$
+
+    public final static String EXCEL_FORMAT_NUMBER = "export.excel.format.number"; //$NON-NLS-1$
+
+    public final static String EXCEL_WRAPAT = "export.excel.wraptextlength"; //$NON-NLS-1$
 
     /*
      * Available already configured cell styles, as HSSF JavaDoc claims there are limits to cell styles.
@@ -38,28 +43,33 @@ public class ExcelUtils
      */
     private int wrapAt;
 
-//    public static final Integer
+    // public static final Integer
 
     /**
      * Style constant for looking up cell styles.
      */
     public static final String STYLE_INTEGER = "integer";
+
     /**
      * Style constant for looking up cell styles.
      */
     public static final String STYLE_NUMBER = "number";
+
     /**
      * Style constant for looking up cell styles.
      */
     public static final String STYLE_DATE = "date";
+
     /**
      * Style constant for looking up cell styles.
      */
     public static final String STYLE_STRING = "string";
+
     /**
      * Style constant for looking up cell styles.
      */
     public static final String STYLE_LONGSTRING = "longstring";
+
     /**
      * Style constant for looking up cell styles.
      */
@@ -93,28 +103,27 @@ public class ExcelUtils
     {
         // Integer
         HSSFCellStyle style = getNewCellStyle();
-        style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
-        style.setDataFormat(HSSFDataFormat.getBuiltinFormat( properties.getProperty(ExcelUtils.EXCEL_FORMAT_INTEGER) ));
+        style.setAlignment(CellStyle.ALIGN_RIGHT);
+        style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_INTEGER)));
         cellStyles.put(STYLE_INTEGER, style);
 
         // NUMBER
         style = getNewCellStyle();
-        style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+        style.setAlignment(CellStyle.ALIGN_RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_NUMBER)));
         cellStyles.put(STYLE_NUMBER, style);
 
-
-//        style = HSSFDataFormat.getBuiltinFormat("0.00%");
+        // style = HSSFDataFormat.getBuiltinFormat("0.00%");
 
         // Date
         style = getNewCellStyle();
-        style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+        style.setAlignment(CellStyle.ALIGN_RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_DATE)));
-        style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);
+        style.setAlignment(CellStyle.ALIGN_RIGHT);
         cellStyles.put(STYLE_DATE, style);
 
         // Long text
-        style = getNewCellStyle();        // http://jakarta.apache.org/poi/hssf/quick-guide.html#NewLinesInCells
+        style = getNewCellStyle(); // http://jakarta.apache.org/poi/hssf/quick-guide.html#NewLinesInCells
         style.setWrapText(true);
         cellStyles.put(STYLE_LONGSTRING, style);
 
@@ -131,7 +140,7 @@ public class ExcelUtils
      */
     public void addCellStyle(String key, HSSFCellStyle st)
     {
-        cellStyles.put(key,st);
+        cellStyles.put(key, st);
     }
 
     public HSSFCellStyle getNewCellStyle()
@@ -139,18 +148,13 @@ public class ExcelUtils
         return getWb() == null ? null : getWb().createCellStyle();
     }
 
-
     public HSSFCellStyle getStyle(String clz)
     {
         return cellStyles.get(clz);
     }
 
-
-    public enum CellFormatTypes
-    {
-        INTEGER,
-        NUMBER,
-        DATE
+    public enum CellFormatTypes {
+        INTEGER, NUMBER, DATE
     }
 
     /**
@@ -178,6 +182,7 @@ public class ExcelUtils
         /**
          * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
          */
+        @Override
         public SeverityEnum getSeverity()
         {
             return SeverityEnum.ERROR;
@@ -206,8 +211,8 @@ public class ExcelUtils
         {
             return null;
         }
-//        str = Patterns.replaceAll(str, "(\\r\\n|\\r|\\n|\\n\\r)\\s*", "");
-        String returnString = ObjectUtils.toString(rawValue);
+        // str = Patterns.replaceAll(str, "(\\r\\n|\\r|\\n|\\n\\r)\\s*", "");
+        String returnString = rawValue != null ? rawValue.toString() : StringUtils.EMPTY;
         // escape the String to get the tabs, returns, newline explicit as \t \r \n
         returnString = StringEscapeUtils.escapeJava(StringUtils.trimToEmpty(returnString));
         // remove tabs, insert four whitespaces instead
@@ -218,6 +223,5 @@ public class ExcelUtils
         returnString = StringEscapeUtils.unescapeJava(returnString);
         return returnString;
     }
-
 
 }

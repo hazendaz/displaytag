@@ -28,6 +28,7 @@ public class PortletRequestHelperFactory implements RequestHelperFactory
     /**
      * @see org.displaytag.util.RequestHelperFactory#getRequestHelperInstance(javax.servlet.jsp.PageContext)
      */
+    @Override
     public RequestHelper getRequestHelperInstance(PageContext context)
     {
         return new PortletRequestHelper(context);

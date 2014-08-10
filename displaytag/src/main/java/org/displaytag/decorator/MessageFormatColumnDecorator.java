@@ -61,6 +61,7 @@ public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
     /**
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
+    @Override
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
     {
         try

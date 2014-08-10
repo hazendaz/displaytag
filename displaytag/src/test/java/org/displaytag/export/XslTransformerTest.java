@@ -1,16 +1,25 @@
 package org.displaytag.export;
 
- import org.junit.Assert;
+ import java.io.File;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import javax.servlet.jsp.JspException;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import junit.framework.TestCase;
+
+import org.junit.Assert;
 import org.junit.Test;
 
-import javax.xml.transform.*;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.servlet.jsp.JspException;
-import java.io.*;
-
 import com.lowagie.text.pdf.PdfReader;
-import junit.framework.TestCase;
 
 /**
  * Created by IntelliJ IDEA.

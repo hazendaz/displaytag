@@ -30,6 +30,7 @@ public class DefaultRtfExportView extends DefaultItextExportView
      * @see org.displaytag.export.BaseExportView#getMimeType()
      * @return "application/rtf"
      */
+    @Override
     public String getMimeType()
     {
         return "application/rtf"; //$NON-NLS-1$
@@ -40,6 +41,7 @@ public class DefaultRtfExportView extends DefaultItextExportView
      * @param document The iText document to be written.
      * @param out The output stream to which the document is written.
      */
+    @Override
     protected void initItextWriter(Document document, OutputStream out)
     {
         RtfWriter2.getInstance(document, out);

@@ -78,6 +78,7 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
     /**
      * @see LocaleResolver#resolveLocale(HttpServletRequest)
      */
+    @Override
     public Locale resolveLocale(HttpServletRequest request)
     {
         Locale locale = (Locale) Config.get(request.getSession(), Config.FMT_LOCALE);
@@ -91,6 +92,7 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
     /**
      * @see I18nResourceProvider#getResource(String, String, Tag, PageContext)
      */
+    @Override
     public String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext)
     {
 

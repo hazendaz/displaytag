@@ -14,11 +14,10 @@ package org.displaytag.model;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
@@ -115,8 +114,9 @@ public class Column
                 && this.row.getParentTable().getTableDecorator().hasGetterFor(this.header.getBeanPropertyName()))
             {
 
-                object = LookupUtil.getBeanProperty(this.row.getParentTable().getTableDecorator(), this.header
-                    .getBeanPropertyName());
+                object = LookupUtil.getBeanProperty(
+                    this.row.getParentTable().getTableDecorator(),
+                    this.header.getBeanPropertyName());
             }
             else
             {
@@ -195,6 +195,7 @@ public class Column
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
      */
+    @SuppressWarnings("deprecation")
     public String createChoppedAndLinkedValue() throws ObjectLookupException, DecoratorException
     {
 
@@ -270,13 +271,15 @@ public class Column
             {
                 try
                 {
-                    colHref.addParameter(this.header.getParamName(), URLEncoder.encode(
-                        paramValue.toString(),
-                        StringUtils.defaultString(this.row.getParentTable().getEncoding(), "UTF8"))); //$NON-NLS-1$
+                    colHref.addParameter(
+                        this.header.getParamName(),
+                        URLEncoder.encode(
+                            paramValue.toString(),
+                            StringUtils.defaultString(this.row.getParentTable().getEncoding(), "UTF8"))); //$NON-NLS-1$
                 }
                 catch (UnsupportedEncodingException e)
                 {
-                    throw new UnhandledException(e);
+                    throw new RuntimeException(e);
                 }
             }
         }
@@ -296,6 +299,7 @@ public class Column
     /**
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString()
     {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //

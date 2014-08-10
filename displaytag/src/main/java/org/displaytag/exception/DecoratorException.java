@@ -49,6 +49,7 @@ public class DecoratorException extends BaseNestableJspTagException
     /**
      * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
      */
+    @Override
     public SeverityEnum getSeverity()
     {
         return SeverityEnum.ERROR;

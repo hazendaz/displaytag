@@ -1,13 +1,23 @@
 package org.displaytag.export.excel;
 
 import java.io.OutputStream;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
 import org.displaytag.export.BinaryExportView;
 import org.displaytag.model.Column;
 import org.displaytag.model.ColumnIterator;
@@ -74,6 +84,7 @@ public class ExcelHssfView implements BinaryExportView
     /**
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
+    @Override
     public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
         boolean decorateValues)
     {
@@ -89,6 +100,7 @@ public class ExcelHssfView implements BinaryExportView
      * @return "application/vnd.ms-excel"
      * @see org.displaytag.export.BaseExportView#getMimeType()
      */
+    @Override
     public String getMimeType()
     {
         return "application/vnd.ms-excel"; //$NON-NLS-1$
@@ -97,6 +109,7 @@ public class ExcelHssfView implements BinaryExportView
     /**
      * @see org.displaytag.export.BinaryExportView#doExport(OutputStream)
      */
+    @Override
     public void doExport(OutputStream out) throws JspException
     {
         try
@@ -264,10 +277,10 @@ public class ExcelHssfView implements BinaryExportView
     {
         HSSFCellStyle headerStyle = getNewCellStyle();
 
-        headerStyle.setFillPattern(HSSFCellStyle.FINE_DOTS);
+        headerStyle.setFillPattern(CellStyle.FINE_DOTS);
         headerStyle.setFillBackgroundColor(HSSFColor.BLUE_GREY.index);
         HSSFFont bold = wb.createFont();
-        bold.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        bold.setBoldweight(Font.BOLDWEIGHT_BOLD);
         bold.setColor(HSSFColor.WHITE.index);
         headerStyle.setFont(bold);
 

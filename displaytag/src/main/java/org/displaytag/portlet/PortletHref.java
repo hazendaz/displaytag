@@ -29,9 +29,9 @@ import org.apache.commons.collections.functors.AnyPredicate;
 import org.apache.commons.collections.functors.InstanceofPredicate;
 import org.apache.commons.collections.functors.NullPredicate;
 import org.apache.commons.collections.map.PredicatedMap;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.displaytag.util.Href;
 
 
@@ -143,6 +143,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
      */
+    @Override
     public void setFullUrl(String baseUrl)
     {
         // do nothing
@@ -215,6 +216,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#addParameter(java.lang.String, int)
      */
+    @Override
     public Href addParameter(String name, int value)
     {
         return this.addParameter(name, Integer.toString(value));
@@ -223,8 +225,10 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#addParameter(String, Object)
      */
+    @Override
     public Href addParameter(String name, Object objValue)
     {
+        @SuppressWarnings("deprecation")
         String value = ObjectUtils.toString(objValue, null);
 
         if (name != null && name.startsWith(PARAM_PREFIX))
@@ -323,6 +327,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
      */
+    @Override
     public void addParameterMap(Map parametersMap)
     {
         for (final Iterator paramItr = parametersMap.entrySet().iterator(); paramItr.hasNext();)
@@ -353,6 +358,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
      */
+    @Override
     public void setParameterMap(Map parametersMap)
     {
         this.parameters.clear();
@@ -364,6 +370,7 @@ public class PortletHref implements Href
      * this class.
      * @see org.displaytag.util.Href#getParameterMap()
      */
+    @Override
     public Map getParameterMap()
     {
         return this.parameters;
@@ -372,6 +379,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#removeParameter(java.lang.String)
      */
+    @Override
     public void removeParameter(String name)
     {
         this.parameters.remove(name);
@@ -380,6 +388,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#setAnchor(java.lang.String)
      */
+    @Override
     public void setAnchor(String name)
     {
         this.anchor = name;
@@ -388,6 +397,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#getAnchor()
      */
+    @Override
     public String getAnchor()
     {
         return this.anchor;
@@ -397,6 +407,7 @@ public class PortletHref implements Href
      * Generates a render or action URL depending on the use of the PortletUrl specific features of this class.
      * @see org.displaytag.util.Href#getBaseUrl()
      */
+    @Override
     public String getBaseUrl()
     {
         if (this.isAction())
@@ -412,6 +423,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#clone()
      */
+    @Override
     public Object clone()
     {
         PortletHref href;
@@ -439,6 +451,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#equals(java.lang.Object)
      */
+    @Override
     public boolean equals(Object object)
     {
         if (this == object)
@@ -460,6 +473,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#hashCode()
      */
+    @Override
     public int hashCode()
     {
         return new HashCodeBuilder(1313733113, -431360889)
@@ -475,6 +489,7 @@ public class PortletHref implements Href
     /**
      * @see org.displaytag.util.Href#toString()
      */
+    @Override
     public String toString()
     {
         final PortletURL url;

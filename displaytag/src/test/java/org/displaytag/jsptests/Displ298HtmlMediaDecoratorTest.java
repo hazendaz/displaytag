@@ -10,6 +10,7 @@ public class Displ298HtmlMediaDecoratorTest extends Displ298HtmlTest
     /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return "DISPL-298-media-decorator.jsp";

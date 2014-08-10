@@ -1,13 +1,14 @@
 package org.displaytag.jsptests;
 
+import static org.junit.Assert.*;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Test;
-
-import static junit.framework.Assert.assertEquals;
 
 /**
  * @author rwest

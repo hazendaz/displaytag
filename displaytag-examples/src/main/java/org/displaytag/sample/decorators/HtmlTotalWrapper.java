@@ -27,6 +27,7 @@ public class HtmlTotalWrapper extends TotalWrapperTemplate
      * @param city City name.
      * @param total City total.
      */
+    @Override
     protected void writeCityTotal(String city, double total)
     {
         StringBuffer buffer = this.getStringBuffer();
@@ -44,6 +45,7 @@ public class HtmlTotalWrapper extends TotalWrapperTemplate
      * Write the table grand total in HTML.
      * @param total The table grand total.
      */
+    @Override
     protected void writeGrandTotal(double total)
     {
         StringBuffer buffer = this.getStringBuffer();

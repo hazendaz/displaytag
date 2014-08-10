@@ -17,8 +17,8 @@ import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.Messages;
 import org.displaytag.exception.BaseNestableJspTagException;
 import org.displaytag.exception.SeverityEnum;
@@ -89,6 +89,7 @@ public class PdfView implements BinaryExportView
     /**
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
+    @Override
     public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
         boolean decorateValues)
     {
@@ -105,7 +106,7 @@ public class PdfView implements BinaryExportView
     protected void initTable() throws BadElementException
     {
         tablePDF = new Table(this.model.getNumberOfColumns());
-        tablePDF.setDefaultVerticalAlignment(Element.ALIGN_TOP);
+        tablePDF.getDefaultCell().setVerticalAlignment(Element.ALIGN_TOP);
         tablePDF.setCellsFitPage(true);
         tablePDF.setWidth(100);
 
@@ -120,6 +121,7 @@ public class PdfView implements BinaryExportView
      * @see org.displaytag.export.BaseExportView#getMimeType()
      * @return "application/pdf"
      */
+    @Override
     public String getMimeType()
     {
         return "application/pdf"; //$NON-NLS-1$
@@ -143,6 +145,7 @@ public class PdfView implements BinaryExportView
     /**
      * @see org.displaytag.export.BinaryExportView#doExport(OutputStream)
      */
+    @Override
     public void doExport(OutputStream out) throws JspException
     {
         try
@@ -224,7 +227,7 @@ public class PdfView implements BinaryExportView
                 // Get the value to be displayed for the column
                 Object value = column.getValue(this.decorated);
 
-                Cell cell = getCell(ObjectUtils.toString(value));
+                Cell cell = getCell(value != null ? value.toString() : StringUtils.EMPTY);
                 tablePDF.addCell(cell);
             }
         }
@@ -269,6 +272,7 @@ public class PdfView implements BinaryExportView
         /**
          * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
          */
+        @Override
         public SeverityEnum getSeverity()
         {
             return SeverityEnum.ERROR;

@@ -15,7 +15,7 @@ import java.util.Date;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
@@ -39,6 +39,7 @@ public class LongDateWrapper implements DisplaytagColumnDecorator
      * transform the given object into a String representation. The object is supposed to be a date.
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
+    @Override
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
     {
         Date date = (Date) columnValue;

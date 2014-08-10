@@ -52,6 +52,7 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
+    @Override
     @Test
     public void doTest() throws Exception
     {

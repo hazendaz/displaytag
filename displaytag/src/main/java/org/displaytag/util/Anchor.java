@@ -141,6 +141,7 @@ public class Anchor
      * returns the full &lt;a href="">body&lt;/a>.
      * @return String html link
      */
+    @Override
     public String toString()
     {
         return getOpenTag() + this.linkText + getCloseTag();

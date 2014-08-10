@@ -11,7 +11,7 @@
  */
 package org.displaytag.export;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.model.TableModel;
 
 
@@ -26,6 +26,7 @@ public class ExcelView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
+    @Override
     public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
         boolean decorateValues)
     {
@@ -36,6 +37,7 @@ public class ExcelView extends BaseExportView
      * @see org.displaytag.export.ExportView#getMimeType()
      * @return "application/vnd.ms-excel"
      */
+    @Override
     public String getMimeType()
     {
         return "application/vnd.ms-excel"; //$NON-NLS-1$
@@ -44,6 +46,7 @@ public class ExcelView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getRowEnd()
      */
+    @Override
     protected String getRowEnd()
     {
         return "\n"; //$NON-NLS-1$
@@ -52,6 +55,7 @@ public class ExcelView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getCellEnd()
      */
+    @Override
     protected String getCellEnd()
     {
         return "\t"; //$NON-NLS-1$
@@ -61,6 +65,7 @@ public class ExcelView extends BaseExportView
      * @see org.displaytag.export.BaseExportView#getAlwaysAppendCellEnd()
      * @return false
      */
+    @Override
     protected boolean getAlwaysAppendCellEnd()
     {
         return false;
@@ -70,6 +75,7 @@ public class ExcelView extends BaseExportView
      * @see org.displaytag.export.BaseExportView#getAlwaysAppendRowEnd()
      * @return false
      */
+    @Override
     protected boolean getAlwaysAppendRowEnd()
     {
         return false;
@@ -83,6 +89,7 @@ public class ExcelView extends BaseExportView
      * </ul>
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
      */
+    @Override
     protected String escapeColumnValue(Object value)
     {
         if (value != null)

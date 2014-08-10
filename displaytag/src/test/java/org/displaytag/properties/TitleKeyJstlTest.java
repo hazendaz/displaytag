@@ -16,6 +16,7 @@ public class TitleKeyJstlTest extends AbstractTitleKeyTest
     /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
      */
+    @Override
     protected String getExpectedSuffix()
     {
         return "";
@@ -24,6 +25,7 @@ public class TitleKeyJstlTest extends AbstractTitleKeyTest
     /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getI18nResourceProvider()
      */
+    @Override
     protected I18nResourceProvider getI18nResourceProvider()
     {
         return new I18nJstlAdapter();
@@ -32,6 +34,7 @@ public class TitleKeyJstlTest extends AbstractTitleKeyTest
     /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getResolver()
      */
+    @Override
     protected LocaleResolver getResolver()
     {
         return new I18nJstlAdapter();

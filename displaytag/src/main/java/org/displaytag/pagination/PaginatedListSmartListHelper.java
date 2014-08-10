@@ -14,8 +14,8 @@ package org.displaytag.pagination;
 import java.text.MessageFormat;
 import java.util.List;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
 
@@ -52,11 +52,13 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         return pageCount;
     }
 
+    @Override
     public int getFirstIndexForCurrentPage()
     {
         return getFirstIndexForPage(paginatedList.getPageNumber());
     }
 
+    @Override
     protected int getFirstIndexForPage(int pageNumber)
     {
         if (pageNumber > pageCount)
@@ -67,11 +69,13 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         return ((pageNumber - 1) * paginatedList.getObjectsPerPage());
     }
 
+    @Override
     protected int getLastIndexForCurrentPage()
     {
         return getLastIndexForPage(paginatedList.getPageNumber());
     }
 
+    @Override
     protected int getLastIndexForPage(int pageNumber)
     {
         if (pageNumber > pageCount)
@@ -87,11 +91,13 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         return result;
     }
 
+    @Override
     public List<Object> getListForCurrentPage()
     {
         return paginatedList.getList();
     }
 
+    @Override
     protected List<Object> getListForPage(int pageNumber)
     {
         if ((pageNumber) == paginatedList.getPageNumber())
@@ -104,6 +110,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         }
     }
 
+    @Override
     public String getPageNavigationBar(Href baseHref, String pageParameter)
     {
 
@@ -167,6 +174,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
             .getPagingPageSelected(), this.properties.getPagingPageSeparator(), bannerFormat);
     }
 
+    @Override
     public String getSearchResultsSummary()
     {
 
@@ -209,6 +217,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
     /**
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString()
     {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //

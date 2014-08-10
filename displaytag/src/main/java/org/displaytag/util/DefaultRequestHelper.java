@@ -20,9 +20,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
@@ -67,6 +66,7 @@ public class DefaultRequestHelper implements RequestHelper
     /**
      * @see org.displaytag.util.RequestHelper#getHref()
      */
+    @Override
     public Href getHref()
     {
         String requestURI = this.request.getRequestURI();
@@ -79,6 +79,7 @@ public class DefaultRequestHelper implements RequestHelper
     /**
      * @see org.displaytag.util.RequestHelper#getParameter(java.lang.String)
      */
+    @Override
     public String getParameter(String key)
     {
         // actually simply return the parameter, this behaviour could be changed
@@ -88,6 +89,7 @@ public class DefaultRequestHelper implements RequestHelper
     /**
      * @see org.displaytag.util.RequestHelper#getIntParameter(java.lang.String)
      */
+    @Override
     public Integer getIntParameter(String key)
     {
         String value = this.request.getParameter(key);
@@ -112,6 +114,7 @@ public class DefaultRequestHelper implements RequestHelper
     /**
      * @see org.displaytag.util.RequestHelper#getParameterMap()
      */
+    @Override
     public Map<String, Object> getParameterMap()
     {
 
@@ -127,7 +130,7 @@ public class DefaultRequestHelper implements RequestHelper
 
             request.getParameter(paramName);
             // put key/value in the map
-            String[] originalValues = (String[]) ObjectUtils.defaultIfNull(
+            String[] originalValues = ObjectUtils.defaultIfNull(
                 this.request.getParameterValues(paramName),
                 new String[0]);
             String[] values = new String[originalValues.length];
@@ -136,12 +139,13 @@ public class DefaultRequestHelper implements RequestHelper
             {
                 try
                 {
-                    values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]), StringUtils
-                        .defaultString(response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
+                    values[i] = URLEncoder.encode(
+                        StringUtils.defaultString(originalValues[i]),
+                        StringUtils.defaultString(response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
                 }
                 catch (UnsupportedEncodingException e)
                 {
-                    throw new UnhandledException(e);
+                    throw new RuntimeException(e);
                 }
             }
             map.put(paramName, values);

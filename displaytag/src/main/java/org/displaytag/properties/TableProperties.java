@@ -13,26 +13,32 @@ package org.displaytag.properties;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
 import java.text.Collator;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
-import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
-import org.displaytag.model.DefaultComparator;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.DefaultDecoratorFactory;
 import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.TablePropertiesLoadException;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
+import org.displaytag.model.DefaultComparator;
 import org.displaytag.util.DefaultRequestHelperFactory;
 import org.displaytag.util.ReflectHelper;
 import org.displaytag.util.RequestHelperFactory;
@@ -548,6 +554,7 @@ public final class TableProperties implements Cloneable
                 localeResolver = new LocaleResolver()
                 {
 
+                    @Override
                     public Locale resolveLocale(HttpServletRequest request)
                     {
                         return request.getLocale();
@@ -611,6 +618,7 @@ public final class TableProperties implements Cloneable
      * Clones the properties as well.
      * @return a new clone of oneself
      */
+    @Override
     protected Object clone()
     {
         TableProperties twin;
@@ -621,7 +629,7 @@ public final class TableProperties implements Cloneable
         catch (CloneNotSupportedException e)
         {
             // should never happen
-            throw new UnhandledException(e);
+            throw new RuntimeException(e);
         }
         twin.properties = (Properties) this.properties.clone();
         return twin;
@@ -1224,6 +1232,7 @@ public final class TableProperties implements Cloneable
                 {
 
                     // Always returns null
+                    @Override
                     public String getResource(String titleKey, String property, Tag tag, PageContext context)
                     {
                         return null;

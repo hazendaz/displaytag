@@ -20,7 +20,7 @@ import java.util.List;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.displaytag.model.TableModel;
 
 
@@ -60,6 +60,7 @@ public class CheckboxTableDecorator extends TableDecorator
      * @see org.displaytag.decorator.Decorator#init(javax.servlet.jsp.PageContext, java.lang.Object,
      * org.displaytag.model.TableModel)
      */
+    @Override
     public void init(PageContext pageContext, Object decorated, TableModel tableModel)
     {
         super.init(pageContext, decorated, tableModel);
@@ -70,6 +71,7 @@ public class CheckboxTableDecorator extends TableDecorator
     /**
      * @see org.displaytag.decorator.TableDecorator#finish()
      */
+    @Override
     public void finish()
     {
 
@@ -103,6 +105,7 @@ public class CheckboxTableDecorator extends TableDecorator
     public String getCheckbox()
     {
 
+        @SuppressWarnings("deprecation")
         String evaluatedId = ObjectUtils.toString(evaluate(id));
 
         boolean checked = checkedIds.contains(evaluatedId);

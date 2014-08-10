@@ -1,13 +1,14 @@
 package org.displaytag.jsptests;
 
+import static org.junit.Assert.*;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Test;
-
-import static junit.framework.Assert.assertEquals;
 
 /**
  * @author rwest
@@ -18,6 +19,7 @@ public class PaginationGroupingTest extends DisplaytagCase {
         return "pagination-grouping.jsp";
     }
 
+    @Override
     @Test
     public void doTest() throws Exception {
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));

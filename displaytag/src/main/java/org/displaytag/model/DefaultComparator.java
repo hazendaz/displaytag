@@ -54,6 +54,7 @@ public class DefaultComparator implements Comparator
      * @param object2 second parameter
      * @return the value
      */
+    @Override
     public int compare(Object object1, Object object2)
     {
         int returnValue;

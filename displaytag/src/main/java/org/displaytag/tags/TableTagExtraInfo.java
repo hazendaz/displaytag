@@ -102,6 +102,7 @@ public class TableTagExtraInfo extends TagExtraInfo
      * @see javax.servlet.jsp.tagext.TagData
      * @see javax.servlet.jsp.tagext.VariableInfo
      */
+    @Override
     public VariableInfo[] getVariableInfo(TagData data)
     {
         List<VariableInfo> variables = new ArrayList<VariableInfo>(2);

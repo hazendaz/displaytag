@@ -74,6 +74,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
      * setter for the "id" html attribute.
      * @param value attribute value
      */
+    @Override
     public void setId(String value)
     {
         this.attributeMap.put(TagConstants.ATTRIBUTE_ID, value);
@@ -141,6 +142,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
+    @Override
     public int doStartTag() throws JspException
     {
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
@@ -171,6 +173,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
      */
+    @Override
     public void setSupportedMedia(List<MediaTypeEnum> media)
     {
         this.supportedMedia = media;
@@ -179,6 +182,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
      */
+    @Override
     public List<MediaTypeEnum> getSupportedMedia()
     {
         return this.supportedMedia;
@@ -196,6 +200,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
      */
+    @Override
     public int doEndTag() throws JspException
     {
         if (this.firstIteration)
@@ -232,6 +237,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * @see javax.servlet.jsp.tagext.Tag#release()
      */
+    @Override
     public void release()
     {
         super.release();

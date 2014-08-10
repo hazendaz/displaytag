@@ -17,6 +17,7 @@ public class NumberComparator implements Comparator
     /**
      * @see Comparator#compare(Object, Object)
      */
+    @Override
     public int compare(Object obj1, Object obj2)
     {
         double dbl1 = 0;

@@ -105,6 +105,7 @@ public abstract class TableDecorator extends Decorator
      * Called at the end of evaluation. Can be subclassed to eventully clean up data. Always remember to also call
      * super.finish()!
      */
+    @Override
     public void finish()
     {
         this.currentRowObject = null;

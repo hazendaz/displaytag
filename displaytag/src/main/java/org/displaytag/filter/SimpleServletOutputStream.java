@@ -32,6 +32,7 @@ public class SimpleServletOutputStream extends ServletOutputStream
     /**
      * {@inheritDoc}
      */
+    @Override
     public void write(int b)
     {
         this.outputStream.write(b);
@@ -41,6 +42,7 @@ public class SimpleServletOutputStream extends ServletOutputStream
      * Get the contents of the outputStream.
      * @return contents of the outputStream
      */
+    @Override
     public String toString()
     {
         return this.outputStream.toString();

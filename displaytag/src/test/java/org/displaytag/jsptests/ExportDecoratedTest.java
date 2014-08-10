@@ -1,6 +1,6 @@
 package org.displaytag.jsptests;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
@@ -36,6 +36,7 @@ public class ExportDecoratedTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
+    @Override
     @Test
     public void doTest() throws Exception
     {

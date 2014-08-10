@@ -17,7 +17,7 @@ import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.model.Column;
@@ -69,6 +69,7 @@ public abstract class BaseExportView implements TextExportView
     /**
      * @see org.displaytag.export.ExportView#setParameters(org.displaytag.model.TableModel, boolean, boolean, boolean)
      */
+    @Override
     public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
         boolean decorateValues)
     {
@@ -213,6 +214,7 @@ public abstract class BaseExportView implements TextExportView
     /**
      * @see org.displaytag.export.TextExportView#doExport(java.io.Writer)
      */
+    @Override
     public void doExport(Writer out) throws IOException, JspException
     {
         if (log.isDebugEnabled())
@@ -302,6 +304,7 @@ public abstract class BaseExportView implements TextExportView
     /**
      * @see org.displaytag.export.TextExportView#outputPage()
      */
+    @Override
     public boolean outputPage()
     {
         return false;

@@ -17,8 +17,6 @@ import java.beans.SimpleBeanInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.UnhandledException;
-
 
 /**
  * BeanInfo descriptor for the <code>ColumnTag</code> class..
@@ -31,6 +29,7 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
     /**
      * @see java.beans.BeanInfo#getPropertyDescriptors()
      */
+    @Override
     public PropertyDescriptor[] getPropertyDescriptors()
     {
         List<PropertyDescriptor> proplist = new ArrayList<PropertyDescriptor>();
@@ -167,7 +166,7 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
         }
         catch (IntrospectionException ex)
         {
-            throw new UnhandledException("You got an introspection exception - maybe defining a property that is not"
+            throw new RuntimeException("You got an introspection exception - maybe defining a property that is not"
                 + " defined in the ColumnTag?: "
                 + ex.getMessage(), ex);
         }

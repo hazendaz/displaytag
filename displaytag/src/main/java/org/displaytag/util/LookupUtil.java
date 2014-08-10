@@ -19,8 +19,9 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.beanutils.expression.DefaultResolver;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.ObjectLookupException;
@@ -38,6 +39,16 @@ public final class LookupUtil
      * logger.
      */
     private static Log log = LogFactory.getLog(LookupUtil.class);
+
+    private static final char INDEXED_DELIM = '[';
+
+    private static final char INDEXED_DELIM2 = ']';
+
+    private static final char MAPPED_DELIM = '(';
+
+    private static final char MAPPED_DELIM2 = ')';
+
+    private static final char NESTED_DELIM = '.';
 
     /**
      * don't instantiate a LookupUtil.
@@ -182,15 +193,6 @@ public final class LookupUtil
         Object evalBean = bean;
         String evalName = name;
 
-        if (evalBean == null)
-        {
-            throw new IllegalArgumentException("No bean specified");
-        }
-        if (evalName == null)
-        {
-            throw new IllegalArgumentException("No name specified");
-        }
-
         int indexOfINDEXEDDELIM = -1;
         int indexOfMAPPEDDELIM = -1;
         int indexOfMAPPEDDELIM2 = -1;
@@ -198,26 +200,26 @@ public final class LookupUtil
         while (true)
         {
 
-            indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM);
-            indexOfMAPPEDDELIM = evalName.indexOf(PropertyUtils.MAPPED_DELIM);
-            indexOfMAPPEDDELIM2 = evalName.indexOf(PropertyUtils.MAPPED_DELIM2);
+            indexOfNESTEDDELIM = evalName.indexOf(NESTED_DELIM);
+            indexOfMAPPEDDELIM = evalName.indexOf(MAPPED_DELIM);
+            indexOfMAPPEDDELIM2 = evalName.indexOf(MAPPED_DELIM2);
             if (indexOfMAPPEDDELIM2 >= 0
                 && indexOfMAPPEDDELIM >= 0
                 && (indexOfNESTEDDELIM < 0 || indexOfNESTEDDELIM > indexOfMAPPEDDELIM))
             {
-                indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM, indexOfMAPPEDDELIM2);
+                indexOfNESTEDDELIM = evalName.indexOf(NESTED_DELIM, indexOfMAPPEDDELIM2);
             }
             else
             {
-                indexOfNESTEDDELIM = evalName.indexOf(PropertyUtils.NESTED_DELIM);
+                indexOfNESTEDDELIM = evalName.indexOf(NESTED_DELIM);
             }
             if (indexOfNESTEDDELIM < 0)
             {
                 break;
             }
             String next = evalName.substring(0, indexOfNESTEDDELIM);
-            indexOfINDEXEDDELIM = next.indexOf(PropertyUtils.INDEXED_DELIM);
-            indexOfMAPPEDDELIM = next.indexOf(PropertyUtils.MAPPED_DELIM);
+            indexOfINDEXEDDELIM = next.indexOf(INDEXED_DELIM);
+            indexOfMAPPEDDELIM = next.indexOf(MAPPED_DELIM);
             if (evalBean instanceof Map)
             {
                 evalBean = ((Map) evalBean).get(next);
@@ -246,15 +248,10 @@ public final class LookupUtil
 
         }
 
-        indexOfINDEXEDDELIM = evalName.indexOf(PropertyUtils.INDEXED_DELIM);
-        indexOfMAPPEDDELIM = evalName.indexOf(PropertyUtils.MAPPED_DELIM);
+        indexOfINDEXEDDELIM = evalName.indexOf(INDEXED_DELIM);
+        indexOfMAPPEDDELIM = evalName.indexOf(MAPPED_DELIM);
 
-        if (evalBean == null)
-        {
-            log.debug("Null property value for '" + evalName.substring(0, indexOfNESTEDDELIM) + "'");
-            return null;
-        }
-        else if (evalBean instanceof Map)
+        if (evalBean instanceof Map)
         {
             evalBean = ((Map) evalBean).get(evalName);
         }
@@ -297,8 +294,8 @@ public final class LookupUtil
         String evalName = name;
 
         // Identify the index of the requested individual property
-        int delim = evalName.indexOf(PropertyUtils.INDEXED_DELIM);
-        int delim2 = evalName.indexOf(PropertyUtils.INDEXED_DELIM2);
+        int delim = evalName.indexOf(INDEXED_DELIM);
+        int delim2 = evalName.indexOf(INDEXED_DELIM2);
         if ((delim < 0) || (delim2 <= delim))
         {
             throw new IllegalArgumentException("Invalid indexed property '" + evalName + "'");

@@ -39,6 +39,7 @@ public class ExportException extends BaseNestableJspTagException
     /**
      * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
      */
+    @Override
     public SeverityEnum getSeverity()
     {
         return SeverityEnum.WARN;

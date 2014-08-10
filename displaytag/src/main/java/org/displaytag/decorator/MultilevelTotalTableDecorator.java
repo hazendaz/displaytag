@@ -21,8 +21,8 @@ import java.util.Map;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.DecoratorException;
@@ -119,6 +119,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      */
     private List<StringBuffer> headerRows = new ArrayList<StringBuffer>(5);
 
+    @Override
     public void init(PageContext context, Object decorated, TableModel model)
     {
         super.init(context, decorated, model);
@@ -127,7 +128,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         for (Iterator<HeaderCell> iterator = headerCells.iterator(); iterator.hasNext();)
         {
             HeaderCell headerCell = iterator.next();
-//            containsTotaledColumns = containsTotaledColumns || headerCell.isTotaled();
+            // containsTotaledColumns = containsTotaledColumns || headerCell.isTotaled();
             if (headerCell.getGroup() > 0)
             {
                 GroupTotals groupTotals = new GroupTotals(headerCell.getColumnNumber());
@@ -222,6 +223,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         this.subtotalHeaderClass = subtotalHeaderClass;
     }
 
+    @Override
     public void startOfGroup(String value, int group)
     {
         if (containsTotaledColumns)
@@ -246,6 +248,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         }
     }
 
+    @Override
     public String displayGroupedValue(String value, short groupingStatus, int columnNumber)
     {
         // if (groupingStatus == TableWriterTemplate.GROUP_START_AND_END && columnNumber > 1)
@@ -258,6 +261,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         // }
     }
 
+    @Override
     public String startRow()
     {
         StringBuffer sb = new StringBuffer();
@@ -269,6 +273,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         return sb.toString();
     }
 
+    @Override
     public void endOfGroup(String value, int groupNumber)
     {
         if (deepestResetGroup > groupNumber)
@@ -277,6 +282,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         }
     }
 
+    @Override
     public String finishRow()
     {
         String returnValue = "";
@@ -317,9 +323,9 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         return returnValue;
     }
 
-        protected void finishGroup(int columnNumber, StringBuffer out)
-        {
-        }
+    protected void finishGroup(int columnNumber, StringBuffer out)
+    {
+    }
 
     /**
      * Issue a grand total row at the bottom.
@@ -349,7 +355,10 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                 else if (headerCell.isTotaled())
                 {
                     // a total if the column should be totaled
-                    Object total = getTotalForColumn(headerCell.getColumnNumber(), this.tableModel.getPageOffset(), currentRow);
+                    Object total = getTotalForColumn(
+                        headerCell.getColumnNumber(),
+                        this.tableModel.getPageOffset(),
+                        currentRow);
                     output.append(getTotalsTdOpen(headerCell, getGrandTotalSum()));
                     output.append(formatTotal(headerCell, total));
                 }
@@ -464,7 +473,8 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     public String getTotalsTdOpen(HeaderCell header, String totalClass)
     {
 
-        String cssClass = ObjectUtils.toString(header.getHtmlAttributes().get("class"));
+        Object cssClassObj = header.getHtmlAttributes().get("class");
+        String cssClass = cssClassObj != null ? cssClassObj.toString() : StringUtils.EMPTY;
 
         StringBuffer buffer = new StringBuffer();
         buffer.append(TagConstants.TAG_OPEN);
@@ -597,7 +607,6 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         {
             return columnNumber;
         }
-
 
         public void setStartRow(int i)
         {

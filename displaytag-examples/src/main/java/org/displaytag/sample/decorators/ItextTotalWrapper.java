@@ -48,6 +48,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * @param table The table required to render the totals line.
      * @see org.displaytag.decorator.itext.DecoratesItext#setTable(com.lowagie.text.Table)
      */
+    @Override
     public void setTable(Table table)
     {
         this.table = table;
@@ -58,6 +59,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * @param font The font required to render the totals line.
      * @see org.displaytag.decorator.itext.DecoratesItext#setFont(com.lowagie.text.Font)
      */
+    @Override
     public void setFont(Font font)
     {
         this.font = font;
@@ -66,9 +68,10 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
     /**
      * Writes cell border at bottom of cell.
      */
+    @Override
     public String startRow()
     {
-        this.table.setDefaultCellBorder(Rectangle.BOTTOM);
+        this.table.getDefaultCell().setBorder(Rectangle.BOTTOM);
         return null;
     }
 
@@ -77,6 +80,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * @param city City name.
      * @param total City total.
      */
+    @Override
     protected void writeCityTotal(String city, double total)
     {
         this.writeTotal(city, total);
@@ -86,6 +90,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * Writes the table grand total
      * @param total Table grand total
      */
+    @Override
     protected void writeGrandTotal(double total)
     {
         this.writeTotal("Grand", total);
@@ -102,8 +107,11 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
         {
             try
             {
-                this.font = FontFactory.getFont(this.font.getFamilyname(), this.font.size(), Font.BOLD, this.font
-                    .color());
+                this.font = FontFactory.getFont(
+                    this.font.getFamilyname(),
+                    this.font.getSize(),
+                    Font.BOLD,
+                    this.font.getColor());
                 table.addCell(this.getCell(""));
                 table.addCell(this.getCell(""));
                 table.addCell(this.getCell("-------------"));

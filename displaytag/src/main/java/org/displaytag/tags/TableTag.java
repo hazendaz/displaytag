@@ -30,11 +30,10 @@ import javax.servlet.jsp.JspWriter;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.LongRange;
-import org.apache.commons.lang.math.NumberUtils;
-import org.apache.commons.lang.math.Range;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
@@ -310,12 +309,9 @@ public class TableTag extends HtmlTableTag
     private CaptionTag captionTag;
 
     /**
-     * Included row range. If no rows can be skipped the range is from 0 to Long.MAX_VALUE. Range check should be always
-     * done using containsLong(). This is an instance of org.apache.commons.lang.math.Range, but it's declared as Object
-     * to avoid runtime errors while Jasper tries to compile the page and commons lang 2.0 is not available. Commons
-     * lang version will be checked in the doStartTag() method in order to provide a more user friendly message.
+     * Included row range. If no rows can be skipped the range is from 0 to Integer.MAX_VALUE.
      */
-    private Object filteredRows;
+    private Range<Integer> filteredRows;
 
     /**
      * The paginated list containing the external pagination and sort parameters The presence of this paginated list is
@@ -493,6 +489,7 @@ public class TableTag extends HtmlTableTag
      * @param value Object
      * @deprecated use setName() to get the object from the page or request scope instead of setting it directly here
      */
+    @Deprecated
     public void setList(Object value)
     {
         this.listAttribute = value;
@@ -751,6 +748,7 @@ public class TableTag extends HtmlTableTag
      * @throws JspException generic exception
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
+    @Override
     public int doStartTag() throws JspException
     {
         DependencyChecker.check();
@@ -795,6 +793,7 @@ public class TableTag extends HtmlTableTag
     /**
      * @see javax.servlet.jsp.tagext.BodyTag#doAfterBody()
      */
+    @Override
     public int doAfterBody()
     {
         // doAfterBody() has been called, body is not empty
@@ -1041,7 +1040,7 @@ public class TableTag extends HtmlTableTag
         Integer exportTypeParameter = requestHelper
             .getIntParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
 
-        this.currentMediaType = (MediaTypeEnum) ObjectUtils.defaultIfNull(
+        this.currentMediaType = ObjectUtils.defaultIfNull(
             MediaTypeEnum.fromCode(exportTypeParameter),
             MediaTypeEnum.HTML);
 
@@ -1117,11 +1116,11 @@ public class TableTag extends HtmlTableTag
             }
 
             // rowNumber starts from 1
-            filteredRows = new LongRange(start + 1, end);
+            filteredRows = Range.between(start + 1, end);
         }
         else
         {
-            filteredRows = new LongRange(1, Long.MAX_VALUE);
+            filteredRows = Range.between(1, Integer.MAX_VALUE);
         }
     }
 
@@ -1133,7 +1132,7 @@ public class TableTag extends HtmlTableTag
      */
     protected boolean isIncludedRow()
     {
-        return ((Range) filteredRows).containsLong(this.rowNumber);
+        return ((Range) filteredRows).contains(this.rowNumber);
     }
 
     /**
@@ -1233,6 +1232,7 @@ public class TableTag extends HtmlTableTag
      * @throws JspException generic exception
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
      */
+    @Override
     public int doEndTag() throws JspException
     {
 
@@ -1286,7 +1286,9 @@ public class TableTag extends HtmlTableTag
             this.tableModel.setTableDecorator(tableDecorator);
         }
 
-        TableTotaler totaler = this.properties.getDecoratorFactoryInstance().loadTableTotaler(pageContext, getTotalerName());
+        TableTotaler totaler = this.properties.getDecoratorFactoryInstance().loadTableTotaler(
+            pageContext,
+            getTotalerName());
         if (totaler != null)
         {
             totaler.init(this.tableModel);
@@ -1635,8 +1637,9 @@ public class TableTag extends HtmlTableTag
         // SmartListHelper to figure out what page they are after, etc...
         if (this.paginatedList == null && this.pagesize > 0)
         {
-            this.listHelper = new SmartListHelper(fullList, (this.partialList) ? ((Integer) size).intValue() : fullList
-                .size(), this.pagesize, this.properties, this.partialList);
+            this.listHelper = new SmartListHelper(fullList, (this.partialList)
+                ? ((Integer) size).intValue()
+                : fullList.size(), this.pagesize, this.properties, this.partialList);
             this.listHelper.setCurrentPage(this.pageNumber);
             pageOffset = this.listHelper.getFirstIndexForCurrentPage();
             fullList = this.listHelper.getListForCurrentPage();
@@ -1728,6 +1731,7 @@ public class TableTag extends HtmlTableTag
     /**
      * @see javax.servlet.jsp.tagext.Tag#release()
      */
+    @Override
     public void release()
     {
         if (log.isDebugEnabled())

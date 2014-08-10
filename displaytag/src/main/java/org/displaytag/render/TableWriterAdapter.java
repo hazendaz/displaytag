@@ -30,6 +30,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeEmptyListMessage(java.lang.String)
      */
+    @Override
     protected void writeEmptyListMessage(String emptyListMessage) throws Exception
     {
     }
@@ -37,6 +38,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeTopBanner(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTopBanner(TableModel model) throws Exception
     {
     }
@@ -44,6 +46,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableOpener(TableModel model) throws Exception
     {
     }
@@ -51,6 +54,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeCaption(TableModel model) throws Exception
     {
     }
@@ -58,6 +62,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableHeader(TableModel model) throws Exception
     {
     }
@@ -65,6 +70,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writePreBodyFooter(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writePreBodyFooter(TableModel model) throws Exception
     {
     }
@@ -72,6 +78,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeTableBodyOpener(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableBodyOpener(TableModel model) throws Exception
     {
     }
@@ -79,6 +86,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeTableBodyCloser(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableBodyCloser(TableModel model) throws Exception
     {
     }
@@ -86,6 +94,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writePostBodyFooter(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writePostBodyFooter(TableModel model) throws Exception
     {
     }
@@ -93,6 +102,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeTableCloser(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableCloser(TableModel model) throws Exception
     {
     }
@@ -100,6 +110,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeBottomBanner(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeBottomBanner(TableModel model) throws Exception
     {
     }
@@ -107,6 +118,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeDecoratedTableFinish(TableModel model) throws Exception
     {
     }
@@ -114,6 +126,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeDecoratedRowStart(TableModel model) throws Exception
     {
     }
@@ -121,6 +134,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeRowOpener(org.displaytag.model.Row)
      */
+    @Override
     protected void writeRowOpener(Row row) throws Exception
     {
     }
@@ -128,6 +142,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)
      */
+    @Override
     protected void writeColumnOpener(Column column) throws Exception
     {
     }
@@ -135,6 +150,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)
      */
+    @Override
     protected void writeColumnValue(Object value, Column column) throws Exception
     {
     }
@@ -142,6 +158,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeColumnCloser(org.displaytag.model.Column)
      */
+    @Override
     protected void writeColumnCloser(Column column) throws Exception
     {
     }
@@ -149,6 +166,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeRowWithNoColumns(java.lang.String)
      */
+    @Override
     protected void writeRowWithNoColumns(String string) throws Exception
     {
     }
@@ -156,6 +174,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeRowCloser(org.displaytag.model.Row)
      */
+    @Override
     protected void writeRowCloser(Row row) throws Exception
     {
     }
@@ -163,6 +182,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeDecoratedRowFinish(TableModel model) throws Exception
     {
     }
@@ -170,6 +190,7 @@ public abstract class TableWriterAdapter extends TableWriterTemplate
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeEmptyListRowMessage(java.lang.String)
      */
+    @Override
     protected void writeEmptyListRowMessage(String message) throws Exception
     {
     }

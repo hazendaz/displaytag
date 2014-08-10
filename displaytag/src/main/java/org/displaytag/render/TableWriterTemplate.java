@@ -19,7 +19,7 @@ import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
@@ -29,8 +29,8 @@ import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
-import org.displaytag.properties.TableProperties;
 import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.properties.TableProperties;
 import org.displaytag.util.TagConstants;
 
 
@@ -568,6 +568,7 @@ public abstract class TableWriterTemplate
      * @param value String current cell value
      * @return String
      */
+    @SuppressWarnings("deprecation")
     protected short groupColumns(String value, String previous, String next, int currentGroup)
     {
 

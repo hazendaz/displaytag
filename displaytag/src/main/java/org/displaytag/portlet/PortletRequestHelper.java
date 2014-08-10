@@ -75,6 +75,7 @@ public class PortletRequestHelper implements RequestHelper
     /**
      * @see org.displaytag.util.RequestHelper#getHref()
      */
+    @Override
     public Href getHref()
     {
         final PortletHref href = new PortletHref(this.portletRequest, this.renderResponse);
@@ -91,6 +92,7 @@ public class PortletRequestHelper implements RequestHelper
     /**
      * @see org.displaytag.util.RequestHelper#getParameter(java.lang.String)
      */
+    @Override
     public String getParameter(String key)
     {
         return this.portletRequest.getParameter(key);
@@ -99,6 +101,7 @@ public class PortletRequestHelper implements RequestHelper
     /**
      * @see org.displaytag.util.RequestHelper#getIntParameter(java.lang.String)
      */
+    @Override
     public Integer getIntParameter(String key)
     {
         try
@@ -114,6 +117,7 @@ public class PortletRequestHelper implements RequestHelper
     /**
      * @see org.displaytag.util.RequestHelper#getParameterMap()
      */
+    @Override
     public Map getParameterMap()
     {
         return this.portletRequest.getParameterMap();

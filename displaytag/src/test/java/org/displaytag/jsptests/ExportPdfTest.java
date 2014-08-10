@@ -1,6 +1,9 @@
 package org.displaytag.jsptests;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import org.displaytag.export.ExportViewFactory;
@@ -9,10 +12,10 @@ import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.lowagie.text.pdf.PdfReader;
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -28,6 +31,7 @@ import com.meterware.httpunit.WebResponse;
 public class ExportPdfTest extends DisplaytagCase
 {
 
+    @Override
     public void doTest() throws Exception
     {
     }

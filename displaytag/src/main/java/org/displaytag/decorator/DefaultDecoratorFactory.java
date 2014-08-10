@@ -13,10 +13,10 @@ package org.displaytag.decorator;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.exception.DecoratorInstantiationException;
-import org.displaytag.util.ReflectHelper;
 import org.displaytag.render.TableTotaler;
+import org.displaytag.util.ReflectHelper;
 
 
 /**
@@ -45,6 +45,7 @@ public class DefaultDecoratorFactory implements DecoratorFactory
      * @return instance of TableDecorator
      * @throws DecoratorInstantiationException if unable to load specified TableDecorator
      */
+    @Override
     public TableDecorator loadTableDecorator(PageContext pageContext, String decoratorName)
         throws DecoratorInstantiationException
     {
@@ -105,6 +106,7 @@ public class DefaultDecoratorFactory implements DecoratorFactory
      * @return instance of DisplaytagColumnDecorator
      * @throws DecoratorInstantiationException if unable to load ColumnDecorator
      */
+    @Override
     public TableTotaler loadTableTotaler(PageContext pageContext, String decoratorName)
         throws DecoratorInstantiationException
     {
@@ -129,6 +131,7 @@ public class DefaultDecoratorFactory implements DecoratorFactory
      * @return instance of DisplaytagColumnDecorator
      * @throws DecoratorInstantiationException if unable to load ColumnDecorator
      */
+    @Override
     public DisplaytagColumnDecorator loadColumnDecorator(PageContext pageContext, String decoratorName)
         throws DecoratorInstantiationException
     {

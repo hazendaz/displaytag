@@ -14,9 +14,9 @@ package org.displaytag.sample;
 import java.io.Serializable;
 import java.util.Random;
 
-import org.apache.commons.lang.builder.CompareToBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 /**
@@ -135,6 +135,7 @@ public class ReportableListObject extends Object implements Comparable, Serializ
     /**
      * @see java.lang.Comparable#compareTo(Object)
      */
+    @Override
     public int compareTo(Object object)
     {
         ReportableListObject myClass = (ReportableListObject) object;
@@ -146,6 +147,7 @@ public class ReportableListObject extends Object implements Comparable, Serializ
     /**
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString()
     {
         return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //

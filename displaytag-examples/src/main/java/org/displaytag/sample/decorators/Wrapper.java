@@ -13,7 +13,7 @@ package org.displaytag.sample.decorators;
 
 import java.text.DecimalFormat;
 
-import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.sample.ListObject;
 
