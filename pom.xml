@@ -229,10 +229,12 @@
       </plugin>
     </plugins>
   </build>
+  <properties>
+    <sourceEncoding>UTF-8</sourceEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <modules>
     <module>displaytag</module>
-    <module>displaytag-export-poi</module>
-    <module>displaytag-portlet</module>
     <module>displaytag-examples</module>
   </modules>
   <repositories>
