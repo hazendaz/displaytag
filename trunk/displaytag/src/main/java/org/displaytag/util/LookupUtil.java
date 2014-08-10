@@ -166,7 +166,7 @@ public final class LookupUtil
      * @throws NoSuchMethodException
      * @throws InvocationTargetException
      * @throws IllegalAccessException
-     * @throws BeanPropertyLookupException in caso di errori nella lettura di proprietà del bean
+     * @throws BeanPropertyLookupException for errors reading bean properties
      */
     public static Object getProperty(Object bean, String name) throws IllegalAccessException,
         InvocationTargetException, NoSuchMethodException

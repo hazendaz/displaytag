@@ -41,7 +41,7 @@ public final class ExportDelegate
     private static Log log = LogFactory.getLog(ExportDelegate.class);
 
     /**
-     * Donìt instantiate.
+     * Don't instantiate.
      */
     private ExportDelegate()
     {
