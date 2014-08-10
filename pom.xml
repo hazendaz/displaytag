@@ -146,6 +146,10 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+      <plugin>
         <artifactId>maven-release-plugin</artifactId>
         <version>2.5</version>
         <configuration>
@@ -173,11 +177,11 @@
                   </fileset>
                 </copy>
                 <replace value="href=&quot;../" token="href=&quot;/" dir="..">
-                  <include name="${pom.artifactId}/src/site/site.xml"/>
+                  <include name="${project.artifactId}/src/site/site.xml"/>
                   <exclude name="displaytag-doc/src/site/site.xml"/>
                 </replace>
-                <replace value="href=&quot;" token="href=&quot;../${pom.artifactId}/" dir="..">
-                  <include name="${pom.artifactId}/src/site/site.xml"/>
+                <replace value="href=&quot;" token="href=&quot;../${project.artifactId}/" dir="..">
+                  <include name="${project.artifactId}/src/site/site.xml"/>
                   <exclude name="displaytag-doc/src/site/site.xml"/>
                 </replace>
               </tasks>
@@ -214,7 +218,7 @@
             <descriptor>src/main/assembly/bin.xml</descriptor>
             <descriptor>src/main/assembly/src.xml</descriptor>
           </descriptors>
-          <finalName>displaytag-${pom.version}</finalName>
+          <finalName>displaytag-${project.version}</finalName>
         </configuration>
         <version>2.4.1</version>
       </plugin>
@@ -521,7 +525,7 @@
     <site>
       <id>displaytag</id>
       <name>displaytag</name>
-      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/${pom.version}/</url>
+      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/${project.version}/</url>
     </site>
   </distributionManagement>
 </project>
