@@ -67,6 +67,7 @@ public class SetPropertyTag extends BodyTagSupport
     /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
+    @Override
     public int doStartTag() throws JspException
     {
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
@@ -99,6 +100,7 @@ public class SetPropertyTag extends BodyTagSupport
      * @throws MissingAttributeException if no value or body content has been set
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
      */
+    @Override
     public int doEndTag() throws MissingAttributeException
     {
 

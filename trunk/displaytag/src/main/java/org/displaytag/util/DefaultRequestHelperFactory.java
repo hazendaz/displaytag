@@ -27,6 +27,7 @@ public class DefaultRequestHelperFactory implements RequestHelperFactory
     /**
      * @see org.displaytag.util.RequestHelperFactory#getRequestHelperInstance(javax.servlet.jsp.PageContext)
      */
+    @Override
     public RequestHelper getRequestHelperInstance(PageContext pageContext)
     {
         return new DefaultRequestHelper(

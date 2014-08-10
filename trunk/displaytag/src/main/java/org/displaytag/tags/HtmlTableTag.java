@@ -127,6 +127,7 @@ public abstract class HtmlTableTag extends TemplateTag
     /**
      * @see javax.servlet.jsp.tagext.Tag#release()
      */
+    @Override
     public void release()
     {
         this.attributeMap.clear();

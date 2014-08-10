@@ -33,6 +33,7 @@ public class PortletHrefTest extends TestCase
     /**
      * @see junit.framework.TestCase#getName()
      */
+    @Override
     public String getName()
     {
         return "PortletHref Test";

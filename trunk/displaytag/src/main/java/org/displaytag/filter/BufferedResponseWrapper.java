@@ -34,6 +34,7 @@ public interface BufferedResponseWrapper extends HttpServletResponse
      */
     boolean isOutRequested();
 
+    @Override
     /**
      * If the app server sets the content-type of the response, it is sticky and you will not be able to change it.
      * Therefore it is intercepted here.

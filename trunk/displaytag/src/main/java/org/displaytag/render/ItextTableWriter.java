@@ -14,8 +14,8 @@ package org.displaytag.render;
 import java.awt.Color;
 import java.util.Iterator;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
@@ -76,9 +76,10 @@ public class ItextTableWriter extends TableWriterAdapter
      * @param model The table being represented as iText.
      * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableOpener(TableModel model)
     {
-        this.table.setDefaultVerticalAlignment(Element.ALIGN_TOP);
+        this.table.getDefaultCell().setVerticalAlignment(Element.ALIGN_TOP);
         this.table.setCellsFitPage(true);
         this.table.setWidth(100);
         this.table.setPadding(2);
@@ -100,6 +101,7 @@ public class ItextTableWriter extends TableWriterAdapter
      * Write the table's caption to a iText document.
      * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeCaption(TableModel model) throws Exception
     {
         this.decorateCaption(model);
@@ -140,6 +142,7 @@ public class ItextTableWriter extends TableWriterAdapter
      * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)
      * @throws BadElementException if an error occurs while writing header.
      */
+    @Override
     protected void writeTableHeader(TableModel model) throws BadElementException
     {
         Iterator<HeaderCell> iterator = model.getHeaderCellList().iterator();
@@ -179,6 +182,7 @@ public class ItextTableWriter extends TableWriterAdapter
      * @see org.displaytag.render.TableWriterTemplate#writePostBodyFooter(org.displaytag.model.TableModel)
      * @throws DocumentException if an error occurs while writing post-body footer.
      */
+    @Override
     protected void writePostBodyFooter(TableModel model) throws DocumentException
     {
         Chunk cellContent = new Chunk(model.getFooter(), this.getFooterFont());
@@ -240,12 +244,13 @@ public class ItextTableWriter extends TableWriterAdapter
      * Decorators that help render the table to an iText document must implement ItextDecorator.
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeDecoratedRowStart(TableModel model)
     {
-        TableDecorator decorator =  model.getTableDecorator();
+        TableDecorator decorator = model.getTableDecorator();
         if (decorator instanceof ItextDecorator)
         {
-        	ItextDecorator idecorator = (ItextDecorator) decorator;
+            ItextDecorator idecorator = (ItextDecorator) decorator;
             idecorator.setTable(this.table);
             idecorator.setFont(this.defaultFont);
         }
@@ -255,6 +260,7 @@ public class ItextTableWriter extends TableWriterAdapter
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeDecoratedRowFinish(TableModel model) throws Exception
     {
         model.getTableDecorator().finishRow();
@@ -264,6 +270,7 @@ public class ItextTableWriter extends TableWriterAdapter
      * Write a column's opening structure to an iText document.
      * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)
      */
+    @Override
     protected void writeColumnOpener(Column column) throws ObjectLookupException, DecoratorException
     {
         column.initialize(); // has side effect, setting its stringValue, which affects grouping logic.
@@ -273,6 +280,7 @@ public class ItextTableWriter extends TableWriterAdapter
      * Write a column's value to a iText document.
      * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)
      */
+    @Override
     protected void writeColumnValue(Object value, Column column) throws BadElementException
     {
         this.table.addCell(getCell(value));
@@ -281,6 +289,7 @@ public class ItextTableWriter extends TableWriterAdapter
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeDecoratedTableFinish(TableModel model)
     {
         model.getTableDecorator().finish();
@@ -294,7 +303,9 @@ public class ItextTableWriter extends TableWriterAdapter
      */
     private Cell getCell(Object value) throws BadElementException
     {
-        Cell cell = new Cell(new Chunk(StringUtils.trimToEmpty(ObjectUtils.toString(value)), this.defaultFont));
+        Cell cell = new Cell(new Chunk(
+            StringUtils.trimToEmpty(value != null ? value.toString() : StringUtils.EMPTY),
+            this.defaultFont));
         cell.setVerticalAlignment(Element.ALIGN_TOP);
         cell.setLeading(8);
         return cell;
@@ -372,8 +383,8 @@ public class ItextTableWriter extends TableWriterAdapter
      */
     private void setBoldStyle(Chunk chunk, Color color)
     {
-        Font font = chunk.font();
-        chunk.setFont(FontFactory.getFont(font.getFamilyname(), font.size(), Font.BOLD, color));
+        Font font = chunk.getFont();
+        chunk.setFont(FontFactory.getFont(font.getFamilyname(), font.getSize(), Font.BOLD, color));
     }
 
     /**

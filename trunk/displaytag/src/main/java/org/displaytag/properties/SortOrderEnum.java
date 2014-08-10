@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import org.apache.commons.collections.iterators.ArrayIterator;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 /**
@@ -124,6 +124,7 @@ public final class SortOrderEnum implements Serializable
      * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
      * @deprecated use fromCode(Integer)
      */
+    @Deprecated
     public static SortOrderEnum fromIntegerCode(Integer key)
     {
         return fromCode(key);
@@ -160,6 +161,7 @@ public final class SortOrderEnum implements Serializable
      * returns the enumeration description.
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString()
     {
         return getName();
@@ -170,6 +172,7 @@ public final class SortOrderEnum implements Serializable
      * @param o the object to compare to
      * @return hashCode
      */
+    @Override
     public boolean equals(Object o)
     {
         if (this == o)
@@ -183,6 +186,7 @@ public final class SortOrderEnum implements Serializable
     /**
      * @see java.lang.Object#hashCode()
      */
+    @Override
     public int hashCode()
     {
         return new HashCodeBuilder(1123997057, -1289836553).append(this.enumCode).toHashCode();

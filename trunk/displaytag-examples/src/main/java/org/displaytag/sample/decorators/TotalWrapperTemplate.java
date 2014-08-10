@@ -13,7 +13,7 @@ package org.displaytag.sample.decorators;
 
 import java.util.List;
 
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.sample.ReportableListObject;
 
@@ -47,6 +47,8 @@ public abstract class TotalWrapperTemplate extends TableDecorator
      * from the previous group.
      * @return String
      */
+    @SuppressWarnings("deprecation")
+    @Override
     public final String finishRow()
     {
         int listindex = ((List) getDecoratedObject()).indexOf(this.getCurrentRowObject());

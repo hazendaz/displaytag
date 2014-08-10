@@ -11,7 +11,7 @@
  */
 package org.displaytag.export;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.model.TableModel;
 
 
@@ -26,6 +26,7 @@ public class CsvView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
+    @Override
     public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
         boolean decorateValues)
     {
@@ -35,6 +36,7 @@ public class CsvView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getRowEnd()
      */
+    @Override
     protected String getRowEnd()
     {
         return "\n"; //$NON-NLS-1$
@@ -43,6 +45,7 @@ public class CsvView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getCellEnd()
      */
+    @Override
     protected String getCellEnd()
     {
         return ","; //$NON-NLS-1$
@@ -51,6 +54,7 @@ public class CsvView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getAlwaysAppendCellEnd()
      */
+    @Override
     protected boolean getAlwaysAppendCellEnd()
     {
         return false;
@@ -59,6 +63,7 @@ public class CsvView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getAlwaysAppendRowEnd()
      */
+    @Override
     protected boolean getAlwaysAppendRowEnd()
     {
         return true;
@@ -67,6 +72,7 @@ public class CsvView extends BaseExportView
     /**
      * @see org.displaytag.export.ExportView#getMimeType()
      */
+    @Override
     public String getMimeType()
     {
         return "text/csv"; //$NON-NLS-1$
@@ -81,6 +87,7 @@ public class CsvView extends BaseExportView
      * Note this is the standard CVS format and it's not handled well by excel.
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
      */
+    @Override
     protected String escapeColumnValue(Object value)
     {
         String stringValue = StringUtils.trim(value.toString());

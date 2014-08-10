@@ -11,7 +11,7 @@
  */
 package org.displaytag.export;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.displaytag.model.TableModel;
 
 
@@ -26,6 +26,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
+    @Override
     public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
         boolean decorateValues)
     {
@@ -35,6 +36,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getRowStart()
      */
+    @Override
     protected String getRowStart()
     {
         return "<row>\n"; //$NON-NLS-1$
@@ -43,6 +45,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getRowEnd()
      */
+    @Override
     protected String getRowEnd()
     {
         return "</row>\n"; //$NON-NLS-1$
@@ -51,6 +54,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getCellStart()
      */
+    @Override
     protected String getCellStart()
     {
         return "<column>"; //$NON-NLS-1$
@@ -59,6 +63,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getCellEnd()
      */
+    @Override
     protected String getCellEnd()
     {
         return "</column>\n"; //$NON-NLS-1$
@@ -67,6 +72,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getDocumentStart()
      */
+    @Override
     protected String getDocumentStart()
     {
         return "<?xml version=\"1.0\"?>\n<table>\n"; //$NON-NLS-1$
@@ -75,6 +81,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getDocumentEnd()
      */
+    @Override
     protected String getDocumentEnd()
     {
         return "</table>\n"; //$NON-NLS-1$
@@ -83,6 +90,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getAlwaysAppendCellEnd()
      */
+    @Override
     protected boolean getAlwaysAppendCellEnd()
     {
         return true;
@@ -91,6 +99,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#getAlwaysAppendRowEnd()
      */
+    @Override
     protected boolean getAlwaysAppendRowEnd()
     {
         return true;
@@ -99,6 +108,7 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.ExportView#getMimeType()
      */
+    @Override
     public String getMimeType()
     {
         return "text/xml"; //$NON-NLS-1$
@@ -107,9 +117,10 @@ public class XmlView extends BaseExportView
     /**
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
      */
+    @Override
     protected String escapeColumnValue(Object value)
     {
-        return StringEscapeUtils.escapeXml(value.toString());
+        return StringEscapeUtils.escapeXml10(value.toString());
     }
 
 }

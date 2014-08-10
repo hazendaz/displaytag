@@ -19,8 +19,8 @@ import java.util.Map;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.DecoratorException;
@@ -93,6 +93,7 @@ public class TotalTableDecorator extends TableDecorator
     /**
      * @see org.displaytag.decorator.Decorator#init(PageContext, Object, TableModel)
      */
+    @Override
     public void init(PageContext context, Object decorated, TableModel tableModel)
     {
         super.init(context, decorated, tableModel);
@@ -113,6 +114,8 @@ public class TotalTableDecorator extends TableDecorator
         }
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
     public String startRow()
     {
         String subtotalRow = null;
@@ -143,12 +146,12 @@ public class TotalTableDecorator extends TableDecorator
 
                 subTotals.put(totalPropertyName, new Double((previousSubTotal != null
                     ? previousSubTotal.doubleValue()
-                    : 0)
-                    + (amount != null ? amount.doubleValue() : 0)));
+                    : 0) + (amount != null ? amount.doubleValue() : 0)));
 
-                grandTotals.put(totalPropertyName, new Double((previousGrandTotals != null ? previousGrandTotals
-                    .doubleValue() : 0)
-                    + (amount != null ? amount.doubleValue() : 0)));
+                grandTotals.put(
+                    totalPropertyName,
+                    new Double((previousGrandTotals != null ? previousGrandTotals.doubleValue() : 0)
+                        + (amount != null ? amount.doubleValue() : 0)));
             }
         }
 
@@ -160,6 +163,7 @@ public class TotalTableDecorator extends TableDecorator
      * from the previous group.
      * @return String
      */
+    @Override
     public final String finishRow()
     {
         StringBuffer buffer = new StringBuffer(1000);
@@ -187,7 +191,8 @@ public class TotalTableDecorator extends TableDecorator
         for (Iterator<HeaderCell> it = headerCells.iterator(); it.hasNext();)
         {
             HeaderCell cell = it.next();
-            String cssClass = ObjectUtils.toString(cell.getHtmlAttributes().get("class"));
+            Object cssClassObj = cell.getHtmlAttributes().get("class");
+            String cssClass = cssClassObj != null ? cssClassObj.toString() : StringUtils.EMPTY;
 
             buffer.append("<td"); //$NON-NLS-1$
             if (StringUtils.isNotEmpty(cssClass))
@@ -220,8 +225,9 @@ public class TotalTableDecorator extends TableDecorator
             }
             else if (groupPropertyName != null && groupPropertyName.equals(cell.getBeanPropertyName()))
             {
-                buffer.append(grandTotal ? totalLabel : MessageFormat.format(subtotalLabel, new Object[]{previousValues
-                    .get(groupPropertyName)}));
+                buffer.append(grandTotal ? totalLabel : MessageFormat.format(
+                    subtotalLabel,
+                    new Object[]{previousValues.get(groupPropertyName)}));
             }
 
             buffer.append("</td>"); //$NON-NLS-1$

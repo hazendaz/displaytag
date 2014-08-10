@@ -19,6 +19,7 @@ public class TitleKeyAutoColumnWebworkTest extends AbstractTitleKeyAutoColumnTes
     /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return super.getJspName() + ".webwork";
@@ -27,6 +28,7 @@ public class TitleKeyAutoColumnWebworkTest extends AbstractTitleKeyAutoColumnTes
     /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
      */
+    @Override
     protected String getExpectedSuffix()
     {
         return " webwork";
@@ -35,6 +37,7 @@ public class TitleKeyAutoColumnWebworkTest extends AbstractTitleKeyAutoColumnTes
     /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getI18nResourceProvider()
      */
+    @Override
     protected I18nResourceProvider getI18nResourceProvider()
     {
         return new I18nWebworkAdapter();
@@ -43,6 +46,7 @@ public class TitleKeyAutoColumnWebworkTest extends AbstractTitleKeyAutoColumnTes
     /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getResolver()
      */
+    @Override
     protected LocaleResolver getResolver()
     {
         return new I18nWebworkAdapter();
@@ -51,6 +55,7 @@ public class TitleKeyAutoColumnWebworkTest extends AbstractTitleKeyAutoColumnTes
     /**
      * @see org.displaytag.test.DisplaytagCase#doTest(java.lang.String)
      */
+    @Override
     @Test
     public void doTest() throws Exception
     {

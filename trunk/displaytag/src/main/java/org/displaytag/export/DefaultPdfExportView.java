@@ -36,6 +36,7 @@ public class DefaultPdfExportView extends DefaultItextExportView
      * @see org.displaytag.export.BaseExportView#getMimeType()
      * @return "application/pdf"
      */
+    @Override
     public String getMimeType()
     {
         return "application/pdf"; //$NON-NLS-1$
@@ -47,6 +48,7 @@ public class DefaultPdfExportView extends DefaultItextExportView
      * @param out The output stream to which the document is written.
      * @throws DocumentException If something goes wrong during initialization.
      */
+    @Override
     protected void initItextWriter(Document document, OutputStream out) throws DocumentException
     {
         PdfWriter.getInstance(document, out).setPageEvent(new PageNumber());
@@ -65,6 +67,7 @@ public class DefaultPdfExportView extends DefaultItextExportView
          * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter,
          * com.lowagie.text.Document)
          */
+        @Override
         public void onEndPage(PdfWriter writer, Document document)
         {
             /** The headertable. */
@@ -87,7 +90,7 @@ public class DefaultPdfExportView extends DefaultItextExportView
             cb.saveState();
             // write the headertable
             table.setTotalWidth(document.right() - document.left());
-            table.writeSelectedRows(0, -1, document.left(), document.getPageSize().height() - 50, cb);
+            table.writeSelectedRows(0, -1, document.left(), document.getPageSize().getHeight() - 50, cb);
             // compose the footer
             String text = "Page " + writer.getPageNumber();
             float textSize = helv.getWidthPoint(text, 12);

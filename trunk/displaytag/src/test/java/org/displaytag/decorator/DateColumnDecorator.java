@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
 
@@ -26,6 +26,7 @@ public class DateColumnDecorator implements DisplaytagColumnDecorator
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, javax.servlet.jsp.PageContext,
      * org.displaytag.properties.MediaTypeEnum)
      */
+    @Override
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
     {
         return dateFormat.format(columnValue);

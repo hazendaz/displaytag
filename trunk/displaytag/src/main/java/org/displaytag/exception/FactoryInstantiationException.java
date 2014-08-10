@@ -44,6 +44,7 @@ public class FactoryInstantiationException extends BaseNestableRuntimeException
     /**
      * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
      */
+    @Override
     public SeverityEnum getSeverity()
     {
         return SeverityEnum.FATAL;

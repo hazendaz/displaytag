@@ -1,6 +1,6 @@
 package org.displaytag.jsptests;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 import org.junit.Assert;
@@ -33,6 +33,7 @@ public class MediaSupportHtmlTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
+    @Override
     @Test
     public void doTest() throws Exception
     {

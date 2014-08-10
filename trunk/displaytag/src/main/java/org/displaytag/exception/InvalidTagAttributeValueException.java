@@ -44,6 +44,7 @@ public class InvalidTagAttributeValueException extends BaseNestableJspTagExcepti
      * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
      * @see org.displaytag.exception.SeverityEnum
      */
+    @Override
     public SeverityEnum getSeverity()
     {
         return SeverityEnum.ERROR;

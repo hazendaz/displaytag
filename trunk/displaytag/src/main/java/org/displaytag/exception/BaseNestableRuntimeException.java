@@ -113,6 +113,7 @@ public abstract class BaseNestableRuntimeException extends RuntimeException
      * returns the previous exception.
      * @return Throwable previous exception
      */
+    @Override
     public Throwable getCause()
     {
         return this.nestedException;
@@ -122,6 +123,7 @@ public abstract class BaseNestableRuntimeException extends RuntimeException
      * basic toString. Returns the message plus the previous exception (if a previous exception exists).
      * @return String
      */
+    @Override
     public String toString()
     {
         String className = this.sourceClass.getName();

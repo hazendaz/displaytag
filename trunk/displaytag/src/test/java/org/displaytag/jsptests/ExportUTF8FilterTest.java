@@ -22,6 +22,7 @@ public class ExportUTF8FilterTest extends ExportUTF8Test
     /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return "utf8.jsp";
@@ -32,6 +33,7 @@ public class ExportUTF8FilterTest extends ExportUTF8Test
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
+    @Override
     @Test
     public void doTest() throws Exception
     {

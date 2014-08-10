@@ -15,8 +15,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**
@@ -73,6 +72,7 @@ public class MultipleHtmlAttribute implements Cloneable
      * Returns the list of attributes separated by a space.
      * @return String
      */
+    @Override
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
@@ -119,6 +119,7 @@ public class MultipleHtmlAttribute implements Cloneable
     /**
      * @see java.lang.Object#clone()
      */
+    @Override
     protected Object clone()
     {
         MultipleHtmlAttribute clone;
@@ -130,7 +131,7 @@ public class MultipleHtmlAttribute implements Cloneable
         catch (CloneNotSupportedException e)
         {
             // should never happen
-            throw new UnhandledException(e);
+            throw new RuntimeException(e);
         }
 
         // copy attributes

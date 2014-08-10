@@ -1,12 +1,13 @@
 package org.displaytag.export.excel;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.displaytag.render.HssfTableWriter;
-import org.displaytag.model.HeaderCell;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.jsp.JspException;
-import java.io.OutputStream;
-import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.render.HssfTableWriter;
 
 /**
  * If you are doing an export, and do not know if the user would like a view that is grouped or a view that is raw,

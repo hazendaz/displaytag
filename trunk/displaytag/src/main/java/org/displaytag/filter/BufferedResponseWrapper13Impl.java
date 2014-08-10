@@ -19,8 +19,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.tags.TableTagParameters;
@@ -79,6 +79,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see org.displaytag.filter.BufferedResponseWrapper#getContentType()
      */
+    @Override
     public String getContentType()
     {
         return this.contentType;
@@ -89,6 +90,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * value.
      * @param theContentType the content type.
      */
+    @Override
     public void setContentType(String theContentType)
     {
         if (state)
@@ -119,6 +121,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see javax.servlet.ServletResponse#getWriter()
      */
+    @Override
     public PrintWriter getWriter() throws IOException
     {
 
@@ -140,6 +143,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * Flush the buffer, not the response.
      * @throws IOException if encountered when flushing
      */
+    @Override
     public void flushBuffer() throws IOException
     {
         if (outputWriter != null)
@@ -152,6 +156,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see javax.servlet.ServletResponse#getOutputStream()
      */
+    @Override
     public ServletOutputStream getOutputStream() throws IOException
     {
         if (state && !outRequested)
@@ -170,6 +175,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
      */
+    @Override
     public void addHeader(String name, String value)
     {
         // if the "magic parameter" is set, a table tag is going to call getOutputStream()
@@ -190,6 +196,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see org.displaytag.filter.BufferedResponseWrapper#isOutRequested()
      */
+    @Override
     public boolean isOutRequested()
     {
         return this.outRequested;
@@ -198,6 +205,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see org.displaytag.filter.BufferedResponseWrapper#getContentAsString()
      */
+    @Override
     public String getContentAsString()
     {
         return this.outputWriter.toString() + this.servletOutputStream.toString();
@@ -206,6 +214,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see javax.servlet.http.HttpServletResponse#setDateHeader(java.lang.String, long)
      */
+    @Override
     public void setDateHeader(String name, long date)
     {
         if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
@@ -217,6 +226,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see javax.servlet.http.HttpServletResponse#addDateHeader(java.lang.String, long)
      */
+    @Override
     public void addDateHeader(String name, long date)
     {
         if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
@@ -228,6 +238,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
      */
+    @Override
     public void setHeader(String name, String value)
     {
         if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
@@ -239,6 +250,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see javax.servlet.http.HttpServletResponse#setIntHeader(java.lang.String, int)
      */
+    @Override
     public void setIntHeader(String name, int value)
     {
         if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))
@@ -250,6 +262,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * @see javax.servlet.http.HttpServletResponse#addIntHeader(java.lang.String, int)
      */
+    @Override
     public void addIntHeader(String name, int value)
     {
         if (!ArrayUtils.contains(FILTERED_HEADERS, StringUtils.lowerCase(name)))

@@ -36,6 +36,7 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
 
     private int colNum;
 
+    @Override
     protected void writeCityTotal(String city, double total)
     {
         this.writeTotal(city, total);
@@ -68,11 +69,13 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
         this.currentCell = this.currentRow.createCell(this.colNum++);
     }
 
+    @Override
     protected void writeGrandTotal(double total)
     {
         this.writeTotal("Grand", total);
     }
 
+    @Override
     public void setSheet(HSSFSheet sheet)
     {
         this.sheet = sheet;

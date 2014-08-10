@@ -90,6 +90,7 @@ public interface Href extends Cloneable, Serializable
      */
     void setAnchor(String name);
 
+    @Override
     /**
      * toString: output the full url with parameters.
      * @return String
@@ -101,6 +102,7 @@ public interface Href extends Cloneable, Serializable
      */
     Object clone();
 
+    @Override
     /**
      * @see java.lang.Object#equals(Object)
      */

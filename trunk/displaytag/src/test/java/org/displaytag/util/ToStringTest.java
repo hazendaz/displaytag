@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.lang.ClassUtils;
+import org.apache.commons.lang3.ClassUtils;
 import org.displaytag.model.Cell;
 import org.displaytag.model.Column;
 import org.displaytag.model.HeaderCell;
@@ -30,6 +30,7 @@ public class ToStringTest extends TestCase
     /**
      * @see junit.framework.TestCase#getName()
      */
+    @Override
     public String getName()
     {
         return getClass().getName() + "." + super.getName();

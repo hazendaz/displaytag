@@ -17,12 +17,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 /**
@@ -65,6 +64,7 @@ public class DefaultHref implements Href
     /**
      * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
      */
+    @Override
     public void setFullUrl(String baseUrl)
     {
         this.url = null;
@@ -119,9 +119,9 @@ public class DefaultHref implements Href
             String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), '=');
 
             // encode name/value to prevent css
-            String escapedKey = StringEscapeUtils.escapeHtml(keyValue[0]);
+            String escapedKey = StringEscapeUtils.escapeXml10(keyValue[0]);
             String escapedValue = keyValue.length > 1
-                ? StringEscapeUtils.escapeHtml(keyValue[1])
+                ? StringEscapeUtils.escapeXml10(keyValue[1])
                 : TagConstants.EMPTY_STRING;
 
             if (!this.parameters.containsKey(escapedKey))
@@ -162,6 +162,8 @@ public class DefaultHref implements Href
      * @param value Object
      * @return this Href instance, useful for concatenation.
      */
+    @SuppressWarnings("deprecation")
+    @Override
     public Href addParameter(String name, Object value)
     {
         this.parameters.put(name, ObjectUtils.toString(value, null));
@@ -172,10 +174,11 @@ public class DefaultHref implements Href
      * Removes a parameter from the href.
      * @param name String
      */
+    @Override
     public void removeParameter(String name)
     {
         // warning, param names are escaped
-        this.parameters.remove(StringEscapeUtils.escapeHtml(name));
+        this.parameters.remove(StringEscapeUtils.escapeXml10(name));
     }
 
     /**
@@ -184,6 +187,7 @@ public class DefaultHref implements Href
      * @param value int
      * @return this Href instance, useful for concatenation.
      */
+    @Override
     public Href addParameter(String name, int value)
     {
         this.parameters.put(name, new Integer(value));
@@ -194,6 +198,7 @@ public class DefaultHref implements Href
      * Getter for the map containing link parameters. The returned map is always a copy and not the original instance.
      * @return parameter Map (copy)
      */
+    @Override
     public Map<String, Object> getParameterMap()
     {
         Map<String, Object> copyMap = new HashMap<String, Object>(this.parameters.size());
@@ -206,6 +211,7 @@ public class DefaultHref implements Href
      * added. Any parameter already present in the href object is removed.
      * @param parametersMap Map containing parameters
      */
+    @Override
     public void setParameterMap(Map<String, Object> parametersMap)
     {
         // create a new HashMap
@@ -220,6 +226,7 @@ public class DefaultHref implements Href
      * added. Parameters in the original href are kept and not overridden.
      * @param parametersMap Map containing parameters
      */
+    @Override
     public void addParameterMap(Map<String, Object> parametersMap)
     {
         // handle nulls
@@ -233,7 +240,7 @@ public class DefaultHref implements Href
         while (mapIterator.hasNext())
         {
             Map.Entry entry = (Map.Entry) mapIterator.next();
-            String key = StringEscapeUtils.escapeHtml((String) entry.getKey());
+            String key = StringEscapeUtils.escapeXml10((String) entry.getKey());
 
             // don't overwrite parameters
             if (!this.parameters.containsKey(key))
@@ -247,12 +254,12 @@ public class DefaultHref implements Href
                         String[] values = (String[]) value;
                         for (int i = 0; i < values.length; i++)
                         {
-                            values[i] = StringEscapeUtils.escapeHtml(values[i]);
+                            values[i] = StringEscapeUtils.escapeXml10(values[i]);
                         }
                     }
                     else
                     {
-                        value = StringEscapeUtils.escapeHtml(value.toString());
+                        value = StringEscapeUtils.escapeXml10(value.toString());
                     }
                 }
 
@@ -265,6 +272,7 @@ public class DefaultHref implements Href
      * Getter for the base url (without parameters).
      * @return String
      */
+    @Override
     public String getBaseUrl()
     {
         return this.url;
@@ -274,6 +282,7 @@ public class DefaultHref implements Href
      * Returns the URI anchor.
      * @return anchor or <code>null</code> if no anchor has been set.
      */
+    @Override
     public String getAnchor()
     {
         return this.anchor;
@@ -283,6 +292,7 @@ public class DefaultHref implements Href
      * Setter for the URI anchor.
      * @param name string to be used as anchor name (without #).
      */
+    @Override
     public void setAnchor(String name)
     {
         this.anchor = name;
@@ -292,6 +302,7 @@ public class DefaultHref implements Href
      * toString: output the full url with parameters.
      * @return String
      */
+    @Override
     public String toString()
     {
         StringBuffer buffer = new StringBuffer(30);
@@ -353,6 +364,7 @@ public class DefaultHref implements Href
     /**
      * @see java.lang.Object#clone()
      */
+    @Override
     public Object clone()
     {
         final DefaultHref href;
@@ -362,7 +374,7 @@ public class DefaultHref implements Href
         }
         catch (CloneNotSupportedException e)
         {
-            throw new UnhandledException(e);
+            throw new RuntimeException(e); // should never happen
         }
 
         href.parameters = new HashMap<String, Object>(this.parameters);
@@ -372,6 +384,7 @@ public class DefaultHref implements Href
     /**
      * @see java.lang.Object#equals(Object)
      */
+    @Override
     public boolean equals(Object object)
     {
         if (!(object instanceof DefaultHref))
@@ -379,14 +392,17 @@ public class DefaultHref implements Href
             return false;
         }
         DefaultHref rhs = (DefaultHref) object;
-        return new EqualsBuilder().append(this.parameters, rhs.parameters).append(this.url, rhs.url).append(
-            this.anchor,
-            rhs.anchor).isEquals();
+        return new EqualsBuilder()
+            .append(this.parameters, rhs.parameters)
+            .append(this.url, rhs.url)
+            .append(this.anchor, rhs.anchor)
+            .isEquals();
     }
 
     /**
      * @see java.lang.Object#hashCode()
      */
+    @Override
     public int hashCode()
     {
         return new HashCodeBuilder(1313733113, -431360889)

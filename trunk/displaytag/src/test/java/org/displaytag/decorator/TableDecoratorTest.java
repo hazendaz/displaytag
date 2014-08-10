@@ -31,6 +31,7 @@ public class TableDecoratorTest extends TestCase
     /**
      * @see junit.framework.TestCase#getName()
      */
+    @Override
     public String getName()
     {
         return getClass().getName() + "." + super.getName();
@@ -39,6 +40,7 @@ public class TableDecoratorTest extends TestCase
     /**
      * @see TestCase#setUp()
      */
+    @Override
     protected void setUp() throws Exception
     {
         super.setUp();

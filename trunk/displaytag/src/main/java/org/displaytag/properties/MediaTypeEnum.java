@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 /**
@@ -136,6 +136,7 @@ public final class MediaTypeEnum
      * @return MediaTypeEnum or null if no mediaType is found with the given key
      * @deprecated use fromCode(Integer)
      */
+    @Deprecated
     public static MediaTypeEnum fromIntegerCode(Integer key)
     {
         return fromCode(key);
@@ -198,6 +199,7 @@ public final class MediaTypeEnum
      * returns the media type description.
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString()
     {
         return getName();
@@ -208,6 +210,7 @@ public final class MediaTypeEnum
      * @param o the object to compare to
      * @return hashCode
      */
+    @Override
     public boolean equals(Object o)
     {
         if (this == o)
@@ -221,6 +224,7 @@ public final class MediaTypeEnum
     /**
      * @see java.lang.Object#hashCode()
      */
+    @Override
     public int hashCode()
     {
         return new HashCodeBuilder(1188997057, -1289297553).append(this.enumCode).toHashCode();

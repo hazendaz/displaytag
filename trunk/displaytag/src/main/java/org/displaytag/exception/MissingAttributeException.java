@@ -11,7 +11,7 @@
  */
 package org.displaytag.exception;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.displaytag.Messages;
 
 
@@ -39,13 +39,13 @@ public class MissingAttributeException extends BaseNestableJspTagException
      * @param source Class where the exception is generated
      * @param attributeNames String attribute name
      */
-    public MissingAttributeException(Class<?> source, String[] attributeNames)
+    public MissingAttributeException(Class< ? > source, String[] attributeNames)
     {
         super(source, Messages.getString("MissingAttributeException.msg", //$NON-NLS-1$
             new Object[]{ArrayUtils.toString(attributeNames)}));
 
         // copy attributes to allow them to be retrieved using getAttributeNames()
-        this.attributes = (String[]) ArrayUtils.clone(attributeNames);
+        this.attributes = ArrayUtils.clone(attributeNames);
     }
 
     /**
@@ -53,6 +53,7 @@ public class MissingAttributeException extends BaseNestableJspTagException
      * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
      * @see org.displaytag.exception.SeverityEnum
      */
+    @Override
     public SeverityEnum getSeverity()
     {
         return SeverityEnum.ERROR;
@@ -64,7 +65,7 @@ public class MissingAttributeException extends BaseNestableJspTagException
      */
     public String[] getAttributeNames()
     {
-        return (String[]) ArrayUtils.clone(this.attributes);
+        return ArrayUtils.clone(this.attributes);
     }
 
 }

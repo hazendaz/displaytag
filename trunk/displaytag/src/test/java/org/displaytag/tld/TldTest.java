@@ -14,8 +14,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import junit.framework.TestCase;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
@@ -43,6 +43,7 @@ public class TldTest extends TestCase
     /**
      * @see junit.framework.TestCase#getName()
      */
+    @Override
     public String getName()
     {
         return getClass().getName() + "." + super.getName();
@@ -294,6 +295,7 @@ public class TldTest extends TestCase
         /**
          * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
          */
+        @Override
         public InputSource resolveEntity(String publicID, String systemID)
         {
             if (systemID != null)
@@ -405,6 +407,7 @@ public class TldTest extends TestCase
         /**
          * @see java.lang.Object#toString()
          */
+        @Override
         public String toString()
         {
             return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("tagClass", this.tagClass).append(

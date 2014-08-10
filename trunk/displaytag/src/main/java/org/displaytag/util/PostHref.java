@@ -6,9 +6,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.UnhandledException;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**
@@ -39,6 +38,7 @@ public class PostHref implements Href
      * @return
      * @see org.displaytag.util.Href#addParameter(java.lang.String, java.lang.Object)
      */
+    @Override
     public Href addParameter(String name, Object value)
     {
         this.parent.addParameter(name, value);
@@ -51,6 +51,7 @@ public class PostHref implements Href
      * @return
      * @see org.displaytag.util.Href#addParameter(java.lang.String, int)
      */
+    @Override
     public Href addParameter(String name, int value)
     {
         this.parent.addParameter(name, value);
@@ -61,6 +62,7 @@ public class PostHref implements Href
      * @param parametersMap
      * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
      */
+    @Override
     public void addParameterMap(Map<String, Object> parametersMap)
     {
         this.parent.addParameterMap(parametersMap);
@@ -71,6 +73,7 @@ public class PostHref implements Href
      * @return
      * @see org.displaytag.util.Href#equals(java.lang.Object)
      */
+    @Override
     public boolean equals(Object object)
     {
         return this.parent.equals(object);
@@ -80,6 +83,7 @@ public class PostHref implements Href
      * @return
      * @see org.displaytag.util.Href#getAnchor()
      */
+    @Override
     public String getAnchor()
     {
         return this.parent.getAnchor();
@@ -89,6 +93,7 @@ public class PostHref implements Href
      * @return
      * @see org.displaytag.util.Href#getBaseUrl()
      */
+    @Override
     public String getBaseUrl()
     {
         return this.parent.getBaseUrl();
@@ -98,6 +103,7 @@ public class PostHref implements Href
      * @return
      * @see org.displaytag.util.Href#getParameterMap()
      */
+    @Override
     public Map<String, Object> getParameterMap()
     {
         return this.parent.getParameterMap();
@@ -107,6 +113,7 @@ public class PostHref implements Href
      * @param name
      * @see org.displaytag.util.Href#removeParameter(java.lang.String)
      */
+    @Override
     public void removeParameter(String name)
     {
         this.parent.removeParameter(name);
@@ -116,6 +123,7 @@ public class PostHref implements Href
      * @param name
      * @see org.displaytag.util.Href#setAnchor(java.lang.String)
      */
+    @Override
     public void setAnchor(String name)
     {
         this.parent.setAnchor(name);
@@ -125,6 +133,7 @@ public class PostHref implements Href
      * @param url
      * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
      */
+    @Override
     public void setFullUrl(String url)
     {
         this.parent.setFullUrl(url);
@@ -134,6 +143,7 @@ public class PostHref implements Href
      * @param parametersMap
      * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
      */
+    @Override
     public void setParameterMap(Map<String, Object> parametersMap)
     {
         this.parent.setParameterMap(parametersMap);
@@ -143,6 +153,7 @@ public class PostHref implements Href
      * @return
      * @see org.displaytag.util.Href#toString()
      */
+    @Override
     public String toString()
     {
 
@@ -212,20 +223,21 @@ public class PostHref implements Href
 
         try
         {
-            String param = URLDecoder.decode(ObjectUtils.toString(value), "utf-8");
+            String param = URLDecoder.decode(value != null ? value.toString() : StringUtils.EMPTY, "utf-8");
             param = StringUtils.replace(param, "'", "\\'");
             param = StringUtils.replace(param, "\"", "%22");
             return param;
         }
         catch (UnsupportedEncodingException e)
         {
-            throw new UnhandledException(e);
+            throw new RuntimeException(e);
         }
     }
 
     /**
      * @see java.lang.Object#clone()
      */
+    @Override
     public Object clone()
     {
         final PostHref href;
@@ -235,7 +247,7 @@ public class PostHref implements Href
         }
         catch (CloneNotSupportedException e)
         {
-            throw new UnhandledException(e);
+            throw new RuntimeException(e);
         }
         href.parent = (Href) parent.clone();
 

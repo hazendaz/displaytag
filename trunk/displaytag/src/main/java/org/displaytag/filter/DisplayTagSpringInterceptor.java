@@ -91,6 +91,7 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
     /**
      * @see HandlerInterceptor#preHandle(HttpServletRequest,HttpServletResponse, Object)
      */
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
 
@@ -129,6 +130,7 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
     /**
      * @see HandlerInterceptor#postHandle(HttpServletRequest,HttpServletResponse, Object, ModelAndView)
      */
+    @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object obj,
         ModelAndView modelAndView) throws Exception
     {
@@ -138,6 +140,7 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
     /**
      * @see HandlerInterceptor#afterCompletion(HttpServletRequest,HttpServletResponse, Object, Exception)
      */
+    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object obj,
         Exception exception) throws Exception
     {

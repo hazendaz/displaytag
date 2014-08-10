@@ -1,12 +1,20 @@
 package org.displaytag.render;
 
-import org.displaytag.model.*;
-import org.displaytag.exception.ObjectLookupException;
-import org.displaytag.exception.DecoratorException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.util.*;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.model.Column;
+import org.displaytag.model.ColumnIterator;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
 
 /**
  * This class just keeps a running grouped total. It does not output anything; it is the responsibility of the exporter

@@ -25,6 +25,7 @@ public class MediaTypeEnumTest extends TestCase
     /**
      * @see junit.framework.TestCase#getName()
      */
+    @Override
     public String getName()
     {
         return getClass().getName() + "." + super.getName();

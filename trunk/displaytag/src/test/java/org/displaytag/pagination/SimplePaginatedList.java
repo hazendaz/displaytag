@@ -56,6 +56,7 @@ public class SimplePaginatedList implements PaginatedList
     /**
      * @see org.displaytag.pagination.PaginatedList#getList()
      */
+    @Override
     public List<Object> getList()
     {
         int startOffset = objectsPerPage * (currentPage - 1);
@@ -66,6 +67,7 @@ public class SimplePaginatedList implements PaginatedList
     /**
      * @see org.displaytag.pagination.PaginatedList#getPageNumber()
      */
+    @Override
     public int getPageNumber()
     {
         return currentPage;
@@ -74,6 +76,7 @@ public class SimplePaginatedList implements PaginatedList
     /**
      * @see org.displaytag.pagination.PaginatedList#getObjectsPerPage()
      */
+    @Override
     public int getObjectsPerPage()
     {
         return objectsPerPage;
@@ -82,6 +85,7 @@ public class SimplePaginatedList implements PaginatedList
     /**
      * @see org.displaytag.pagination.PaginatedList#getFullListSize()
      */
+    @Override
     public int getFullListSize()
     {
         return fullList.size();
@@ -90,6 +94,7 @@ public class SimplePaginatedList implements PaginatedList
     /**
      * @see org.displaytag.pagination.PaginatedList#getSortCriterion()
      */
+    @Override
     public String getSortCriterion()
     {
         return "number";
@@ -98,6 +103,7 @@ public class SimplePaginatedList implements PaginatedList
     /**
      * @see org.displaytag.pagination.PaginatedList#getSortDirection()
      */
+    @Override
     public SortOrderEnum getSortDirection()
     {
         return SortOrderEnum.DESCENDING;
@@ -106,6 +112,7 @@ public class SimplePaginatedList implements PaginatedList
     /**
      * @see org.displaytag.pagination.PaginatedList#getSearchId()
      */
+    @Override
     public String getSearchId()
     {
         return Integer.toHexString(objectsPerPage * 10000 + currentPage);

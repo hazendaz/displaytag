@@ -17,6 +17,7 @@ public class PageContextPrefixColumnDecorator implements DisplaytagColumnDecorat
     /**
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
+    @Override
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
     {
         return pageContext.getAttribute("prefix").toString() + media.getName() + " " + columnValue;

@@ -11,6 +11,7 @@ public class TableDecoratorCssRow extends TableDecorator
     /**
      * @see org.displaytag.decorator.TableDecorator#addRowId()
      */
+    @Override
     public String addRowId()
     {
         return "rowid" + getViewIndex();
@@ -19,6 +20,7 @@ public class TableDecoratorCssRow extends TableDecorator
     /**
      * @see org.displaytag.decorator.TableDecorator#addRowClass()
      */
+    @Override
     public String addRowClass()
     {
         if (getViewIndex() == 2)

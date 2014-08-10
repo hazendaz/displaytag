@@ -1,5 +1,7 @@
 package org.displaytag.render;
 
+import java.io.File;
+
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.displaytag.export.FopExportView;
 import org.displaytag.export.XmlTotalsWriter;
@@ -11,8 +13,6 @@ import org.displaytag.test.KnownValue;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
-
-import java.io.File;
 
 
 /**

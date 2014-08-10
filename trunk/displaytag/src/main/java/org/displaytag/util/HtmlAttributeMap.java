@@ -49,6 +49,7 @@ public class HtmlAttributeMap extends HashMap
      * toString method: returns attributes in the format: attributename="attributevalue" attr2="attrValue2" ...
      * @return String representation of the HtmlAttributeMap
      */
+    @Override
     public String toString()
     {
         // fast exit when no attribute are present

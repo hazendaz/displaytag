@@ -1,25 +1,25 @@
 package org.displaytag.export.excel;
 
-import org.displaytag.model.TableModel;
-import org.displaytag.model.HeaderCell;
-import org.displaytag.model.Row;
-import org.displaytag.properties.TableProperties;
-import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.TagConstants;
-import org.displaytag.util.MultipleHtmlAttribute;
-import org.displaytag.test.KnownValue;
-import org.displaytag.render.TableTotaler;
-import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Cell;
-
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
+import org.displaytag.properties.TableProperties;
+import org.displaytag.render.TableTotaler;
+import org.displaytag.test.KnownValue;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.TagConstants;
+import org.junit.Test;
 
 /**
  * @author andy

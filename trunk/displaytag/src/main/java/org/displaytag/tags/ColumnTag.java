@@ -20,9 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.AutolinkColumnDecorator;
@@ -175,6 +175,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      * (named by the paramId attribute) that will be dynamically added to this href URL. (optional)
      * @deprecated use Expressions in paramName
      */
+    @Deprecated
     private String paramProperty;
 
     /**
@@ -183,6 +184,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      * bean. (optional)
      * @deprecated use Expressions in paramName
      */
+    @SuppressWarnings("dep-ann")
     private String paramScope;
 
     /**
@@ -280,8 +282,10 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             Class<Comparator<Object>> compClass;
             try
             {
-                compClass = (Class<Comparator<Object>>) Thread.currentThread().getContextClassLoader().loadClass(
-                    comparatorClassname);
+                compClass = (Class<Comparator<Object>>) Thread
+                    .currentThread()
+                    .getContextClassLoader()
+                    .loadClass(comparatorClassname);
             }
             catch (ClassNotFoundException e)
             {
@@ -554,6 +558,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
      */
+    @Override
     public void setSupportedMedia(List<MediaTypeEnum> media)
     {
         this.supportedMedia = media;
@@ -562,6 +567,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
      */
+    @Override
     public List<MediaTypeEnum> getSupportedMedia()
     {
         return this.supportedMedia;
@@ -601,6 +607,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      * @throws JspException if this tag is being used outside of a &lt;display:list...&gt; tag.
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
      */
+    @Override
     public int doEndTag() throws JspException
     {
         TableTag tableTag = getTableTag();
@@ -680,11 +687,10 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         if (evalTitle == null && (this.titleKey != null || this.property != null))
         {
             // handle title i18n
-            evalTitle = tableTag.getProperties().geResourceProvider().getResource(
-                this.titleKey,
-                this.property,
-                tableTag,
-                this.pageContext);
+            evalTitle = tableTag
+                .getProperties()
+                .geResourceProvider()
+                .getResource(this.titleKey, this.property, tableTag, this.pageContext);
         }
 
         HeaderCell headerCell = new HeaderCell();
@@ -701,9 +707,10 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             String[] decoratorNames = StringUtils.split(this.decorator);
             for (int j = 0; j < decoratorNames.length; j++)
             {
-                decorators.add(tableTag.getProperties().getDecoratorFactoryInstance().loadColumnDecorator(
-                    this.pageContext,
-                    decoratorNames[j]));
+                decorators.add(tableTag
+                    .getProperties()
+                    .getDecoratorFactoryInstance()
+                    .loadColumnDecorator(this.pageContext, decoratorNames[j]));
             }
         }
 
@@ -819,6 +826,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * @see javax.servlet.jsp.tagext.Tag#release()
      */
+    @Override
     public void release()
     {
         super.release();
@@ -853,6 +861,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
+    @Override
     public int doStartTag() throws JspException
     {
         TableTag tableTag = getTableTag();
@@ -879,6 +888,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString()
     {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //

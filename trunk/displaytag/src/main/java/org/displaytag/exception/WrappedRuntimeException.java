@@ -37,6 +37,7 @@ public class WrappedRuntimeException extends BaseNestableRuntimeException
     /**
      * @see org.displaytag.exception.BaseNestableRuntimeException#getSeverity()
      */
+    @Override
     public SeverityEnum getSeverity()
     {
         return SeverityEnum.WARN;

@@ -33,6 +33,7 @@ public class NestedTest extends DisplaytagCase
      * @param jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
+    @Override
     @Test
     public void doTest() throws Exception
     {
@@ -59,6 +60,7 @@ public class NestedTest extends DisplaytagCase
             WebTable nested = tables[0].getTableCell(j, 3).getFirstMatchingTable(new HTMLElementPredicate()
             {
 
+                @Override
                 public boolean matchesCriteria(Object htmlElement, Object criteria)
                 {
                     return true;

@@ -18,6 +18,7 @@ public class PrefixColumnDecorator implements DisplaytagColumnDecorator
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, javax.servlet.jsp.PageContext,
      * org.displaytag.properties.MediaTypeEnum)
      */
+    @Override
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
     {
         return "decorated: " + columnValue;

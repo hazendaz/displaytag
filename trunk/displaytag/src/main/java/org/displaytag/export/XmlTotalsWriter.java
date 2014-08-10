@@ -1,17 +1,25 @@
 package org.displaytag.export;
 
-import org.displaytag.model.*;
-import org.displaytag.render.TableWriterAdapter;
-import org.displaytag.render.TableTotaler;
-import org.displaytag.decorator.TableDecorator;
-import org.displaytag.util.HtmlAttributeMap;
-import org.displaytag.util.TagConstants;
-import org.displaytag.util.MultipleHtmlAttribute;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.*;
-import java.util.regex.Pattern;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.decorator.TableDecorator;
+import org.displaytag.model.Column;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
+import org.displaytag.render.TableTotaler;
+import org.displaytag.render.TableWriterAdapter;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.TagConstants;
 
 /**
  * Writes the table as an XML file, including any totals and grouping information. Used by the FOP export.
@@ -242,32 +250,38 @@ public class XmlTotalsWriter extends TableWriterAdapter
         xml.append("</table>");                            //$NON-NLS-1$
     }
 
+    @Override
     protected void writeDecoratedRowFinish(TableModel model)
     {
         xml.append(StringUtils.defaultString(model.getTableDecorator().finishRow()));
     }
 
+    @Override
     protected void writeRowOpener(Row row) throws Exception
     {
         xml.append("\n<row>\n");                                          //$NON-NLS-1$
     }
 
+    @Override
     protected void writeColumnValue(Object value, Column column) throws Exception
     {
         Object rawValue = column.getValue(true);
         cdata(rawValue);
     }
 
+    @Override
     protected void writeRowWithNoColumns(String value) throws Exception
     {
         xml.append("<row/>\n");  //$NON-NLS-1$
     }
 
+    @Override
     protected void writeRowCloser(Row row) throws Exception
     {
         xml.append("</row>\n");               //$NON-NLS-1$
     }
 
+    @Override
     protected void writeTableBodyCloser(TableModel model)
     {
         xml.append("\n<!-- grand totals -->\n");

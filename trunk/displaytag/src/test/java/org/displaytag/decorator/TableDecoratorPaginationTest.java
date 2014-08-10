@@ -1,16 +1,16 @@
 package org.displaytag.decorator;
 
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.TableProperties;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Test for TableDecorator with pagination.

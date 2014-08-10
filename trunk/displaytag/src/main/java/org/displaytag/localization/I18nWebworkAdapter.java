@@ -51,6 +51,7 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
     /**
      * @see LocaleResolver#resolveLocale(HttpServletRequest)
      */
+    @Override
     public Locale resolveLocale(HttpServletRequest request)
     {
 
@@ -83,6 +84,7 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
     /**
      * @see I18nResourceProvider#getResource(String, String, Tag, PageContext)
      */
+    @Override
     public String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext)
     {
 

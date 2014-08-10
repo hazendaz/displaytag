@@ -41,6 +41,7 @@ public class DefaultHssfExportView implements BinaryExportView
     /**
      * @see org.displaytag.export.BinaryExportView#doExport(java.io.OutputStream)
      */
+    @Override
     public void doExport(OutputStream out) throws IOException, JspException
     {
         try
@@ -68,6 +69,7 @@ public class DefaultHssfExportView implements BinaryExportView
     /** 
      * @see org.displaytag.export.ExportView#setParameters(org.displaytag.model.TableModel, boolean, boolean, boolean)
      */
+    @Override
     public void setParameters(TableModel model, boolean exportFullList,
             boolean includeHeader, boolean decorateValues)
     {
@@ -78,6 +80,7 @@ public class DefaultHssfExportView implements BinaryExportView
      * @see org.displaytag.export.BaseExportView#getMimeType()
      * @return "application/vnd.ms-excel"
      */
+    @Override
     public String getMimeType()
     {
         return "application/vnd.ms-excel"; //$NON-NLS-1$
@@ -107,6 +110,7 @@ public class DefaultHssfExportView implements BinaryExportView
         /**
          * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
          */
+        @Override
         public SeverityEnum getSeverity()
         {
             return SeverityEnum.ERROR;

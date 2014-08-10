@@ -44,6 +44,7 @@ public class TablePropertiesLoadException extends BaseNestableRuntimeException
      * @see org.displaytag.exception.BaseNestableRuntimeException#getSeverity()
      * @see org.displaytag.exception.SeverityEnum
      */
+    @Override
     public SeverityEnum getSeverity()
     {
         return SeverityEnum.ERROR;

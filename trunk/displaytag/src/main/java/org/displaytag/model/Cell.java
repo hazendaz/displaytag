@@ -11,11 +11,11 @@
  */
 package org.displaytag.model;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import org.displaytag.util.HtmlAttributeMap;
-
 import java.text.Collator;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.util.HtmlAttributeMap;
 
 
 /**
@@ -113,6 +113,7 @@ public class Cell implements Comparable, Cloneable
      * @return int
      * @see java.lang.Comparable#compareTo(Object)
      */
+    @Override
     public int compareTo(Object obj)
     {
         return compareTo(obj, null);
@@ -122,6 +123,7 @@ public class Cell implements Comparable, Cloneable
      * Simple toString wich output the static value.
      * @return String represantation of the cell
      */
+    @Override
     public String toString()
     {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //

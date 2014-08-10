@@ -18,6 +18,7 @@ public class TitleKeyStrutsTest extends AbstractTitleKeyTest
     /**
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return super.getJspName() + ".struts";
@@ -26,6 +27,7 @@ public class TitleKeyStrutsTest extends AbstractTitleKeyTest
     /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
      */
+    @Override
     protected String getExpectedSuffix()
     {
         return " struts";
@@ -34,6 +36,7 @@ public class TitleKeyStrutsTest extends AbstractTitleKeyTest
     /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getI18nResourceProvider()
      */
+    @Override
     protected I18nResourceProvider getI18nResourceProvider()
     {
         return new I18nStrutsAdapter();
@@ -42,6 +45,7 @@ public class TitleKeyStrutsTest extends AbstractTitleKeyTest
     /**
      * @see org.displaytag.properties.AbstractTitleKeyTest#getResolver()
      */
+    @Override
     protected LocaleResolver getResolver()
     {
         return new I18nStrutsAdapter();
@@ -50,6 +54,7 @@ public class TitleKeyStrutsTest extends AbstractTitleKeyTest
     /**
      * @see org.displaytag.test.DisplaytagCase#doTest(java.lang.String)
      */
+    @Override
     @Test
     public void doTest() throws Exception
     {

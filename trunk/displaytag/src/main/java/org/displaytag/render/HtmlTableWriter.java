@@ -19,8 +19,8 @@ import java.util.Map;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.DecoratorException;
@@ -151,6 +151,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes a banner containing search result and paging navigation above an HTML table to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeTopBanner(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTopBanner(TableModel model)
     {
         if (this.tableModel.getForm() != null)
@@ -173,6 +174,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML table's opening tags to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableOpener(TableModel model)
     {
         this.write(getOpenTag());
@@ -226,7 +228,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     private String esc(Object value)
     {
-        String valueEscaped = StringUtils.replace(ObjectUtils.toString(value), "\"", "\\\"");
+        String valueEscaped = StringUtils.replace(value != null ? value.toString() : StringUtils.EMPTY, "\"", "\\\"");
         return valueEscaped;
     }
 
@@ -247,6 +249,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML table's caption to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeCaption(TableModel model)
     {
         this.write(captionTag.getOpenTag() + model.getCaption() + captionTag.getCloseTag());
@@ -256,6 +259,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML table's footer to a JSP page; HTML requires tfoot to appear before tbody.
      * @see org.displaytag.render.TableWriterTemplate#writeFooter(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writePreBodyFooter(TableModel model)
     {
         this.write(TagConstants.TAG_TFOOTER_OPEN);
@@ -267,6 +271,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes the start of an HTML table's body to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeTableBodyOpener(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableBodyOpener(TableModel model)
     {
         this.write(TagConstants.TAG_TBODY_OPEN);
@@ -277,6 +282,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes the end of an HTML table's body to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeTableBodyCloser(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableBodyCloser(TableModel model)
     {
         this.write(TagConstants.TAG_TBODY_CLOSE);
@@ -286,6 +292,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes the closing structure of an HTML table to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeTableCloser(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableCloser(TableModel model)
     {
         this.write(TagConstants.TAG_OPENCLOSING);
@@ -297,6 +304,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes a banner containing search result, paging navigation, and export links below an HTML table to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeBottomBanner(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeBottomBanner(TableModel model)
     {
         writeNavigationAndExportLinks();
@@ -305,6 +313,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeDecoratedTableFinish(TableModel model)
     {
         model.getTableDecorator().finish();
@@ -313,6 +322,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeDecoratedRowStart(TableModel model)
     {
         this.write(model.getTableDecorator().startRow());
@@ -322,6 +332,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML table's row-opening tag to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeRowOpener(org.displaytag.model.Row)
      */
+    @Override
     protected void writeRowOpener(Row row)
     {
         this.write(row.getOpenTag());
@@ -331,6 +342,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML table's column-opening tag to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)
      */
+    @Override
     protected void writeColumnOpener(Column column) throws ObjectLookupException, DecoratorException
     {
         this.write(column.getOpenTag());
@@ -340,6 +352,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML table's column-closing tag to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeColumnCloser(org.displaytag.model.Column)
      */
+    @Override
     protected void writeColumnCloser(Column column)
     {
         this.write(column.getCloseTag());
@@ -349,6 +362,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes to a JSP page an HTML table row that has no columns.
      * @see org.displaytag.render.TableWriterTemplate#writeRowWithNoColumns(java.lang.String)
      */
+    @Override
     protected void writeRowWithNoColumns(String rowValue)
     {
         this.write(TagConstants.TAG_TD_OPEN);
@@ -360,6 +374,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML table's row-closing tag to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeRowCloser(org.displaytag.model.Row)
      */
+    @Override
     protected void writeRowCloser(Row row)
     {
         this.write(row.getCloseTag());
@@ -368,6 +383,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     /**
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeDecoratedRowFinish(TableModel model)
     {
         this.write(model.getTableDecorator().finishRow());
@@ -377,6 +393,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML message to a JSP page explaining that the table model contains no data.
      * @see org.displaytag.render.TableWriterTemplate#writeEmptyListMessage(java.lang.String)
      */
+    @Override
     protected void writeEmptyListMessage(String emptyListMessage)
     {
         this.write(emptyListMessage);
@@ -386,6 +403,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes a HTML table column value to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(java.lang.String,org.displaytag.model.Column)
      */
+    @Override
     protected void writeColumnValue(Object value, Column column)
     {
         this.write(value);
@@ -395,6 +413,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML message to a JSP page explaining that the row contains no data.
      * @see org.displaytag.render.TableWriterTemplate#writeEmptyListRowMessage(java.lang.String)
      */
+    @Override
     protected void writeEmptyListRowMessage(String message)
     {
         this.write(message);
@@ -404,6 +423,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      * Writes an HTML table's column header to a JSP page.
      * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)
      */
+    @Override
     protected void writeTableHeader(TableModel model)
     {
 
@@ -662,8 +682,9 @@ public class HtmlTableWriter extends TableWriterAdapter
                     buffer.append(this.properties.getExportBannerSeparator());
                 }
 
-                exportHref.addParameter(encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE), currentExportType
-                    .getCode());
+                exportHref.addParameter(
+                    encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE),
+                    currentExportType.getCode());
 
                 // export marker
                 exportHref.addParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
@@ -673,7 +694,7 @@ public class HtmlTableWriter extends TableWriterAdapter
             }
         }
 
-        String[] exportOptions = {buffer.toString()};
+        Object[] exportOptions = {buffer.toString()};
         write(MessageFormat.format(this.properties.getExportBanner(), exportOptions));
     }
 
@@ -729,6 +750,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     }
 
+    @Override
     public void writeTable(TableModel model, String id) throws JspException
     {
         super.writeTable(model, id);

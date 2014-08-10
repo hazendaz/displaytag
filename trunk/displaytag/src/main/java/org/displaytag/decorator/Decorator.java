@@ -21,7 +21,7 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.MappedPropertyDescriptor;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.displaytag.model.TableModel;
 
 
@@ -73,6 +73,7 @@ abstract class Decorator
      * @deprecated use #init(PageContext, Object, TableModel)
      * @see #init(PageContext, Object, TableModel)
      */
+    @Deprecated
     public void init(PageContext pageContext, Object decorated)
     {
         this.pageContext = pageContext;
@@ -149,8 +150,7 @@ abstract class Decorator
         boolean hasGetter = searchGetterFor(propertyName);
 
         // save in cache
-        propertyMap.put(getClass().getName() + CLASS_PROPERTY_SEPARATOR + simpleProperty, BooleanUtils
-            .toBooleanObject(hasGetter));
+        propertyMap.put(getClass().getName() + CLASS_PROPERTY_SEPARATOR + simpleProperty, hasGetter);
 
         // and return
         return hasGetter;

@@ -14,8 +14,8 @@ package org.displaytag.pagination;
 import java.text.MessageFormat;
 import java.util.List;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
@@ -370,6 +370,7 @@ public class SmartListHelper
     /**
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString()
     {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //

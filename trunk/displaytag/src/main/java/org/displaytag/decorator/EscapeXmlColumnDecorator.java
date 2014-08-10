@@ -13,7 +13,7 @@ package org.displaytag.decorator;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.displaytag.properties.MediaTypeEnum;
 
 
@@ -33,6 +33,7 @@ public class EscapeXmlColumnDecorator implements DisplaytagColumnDecorator
     /**
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
+    @Override
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
     {
 
@@ -41,7 +42,7 @@ public class EscapeXmlColumnDecorator implements DisplaytagColumnDecorator
             return columnValue;
         }
 
-        return StringEscapeUtils.escapeXml(columnValue.toString());
+        return StringEscapeUtils.escapeXml10(columnValue.toString());
     }
 
 }

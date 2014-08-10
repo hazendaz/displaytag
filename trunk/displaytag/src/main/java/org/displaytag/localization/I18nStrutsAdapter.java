@@ -40,6 +40,7 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
     /**
      * @see LocaleResolver#resolveLocale(HttpServletRequest)
      */
+    @Override
     public Locale resolveLocale(HttpServletRequest request)
     {
         Locale userLocale = null;
@@ -63,6 +64,7 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
     /**
      * @see I18nResourceProvider#getResource(String, String, Tag, PageContext)
      */
+    @Override
     public String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext)
     {
 

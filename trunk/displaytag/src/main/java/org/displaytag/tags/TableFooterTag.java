@@ -49,6 +49,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * @see javax.servlet.jsp.tagext.Tag#doEndTag()
      */
+    @Override
     public int doEndTag() throws JspException
     {
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
@@ -78,6 +79,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
+    @Override
     public int doStartTag() throws JspException
     {
         TableTag tableTag = (TableTag) findAncestorWithClass(this, TableTag.class);
@@ -111,6 +113,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
      */
+    @Override
     public void setSupportedMedia(List<MediaTypeEnum> media)
     {
         this.supportedMedia = media;
@@ -119,6 +122,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
      */
+    @Override
     public List<MediaTypeEnum> getSupportedMedia()
     {
         return this.supportedMedia;
@@ -136,6 +140,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * @see javax.servlet.jsp.tagext.Tag#release()
      */
+    @Override
     public void release()
     {
         this.supportedMedia = null;
