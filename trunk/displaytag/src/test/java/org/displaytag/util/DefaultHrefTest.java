@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 
 import org.displaytag.test.URLAssert;
 import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -14,21 +15,22 @@ import org.junit.Assert;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class DefaultHrefTest extends TestCase
+public class DefaultHrefTest
 {
 
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName();
-    }
+    // /**
+    // * @see junit.framework.TestCase#getName()
+    // */
+    // @Override
+    // public String getName()
+    // {
+    // return getClass().getName() + "." + super.getName();
+    // }
 
     /**
      * Test a simple URL without parameters.
      */
+    @Test
     public final void testSimpleHref()
     {
         String url = "http://www.displaytag.org/displaytag";
@@ -40,6 +42,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test for URLs containing parameters.
      */
+    @Test
     public final void testHrefWithParameters()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2";
@@ -51,6 +54,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test for URLs containing parameters without values.
      */
+    @Test
     public final void testHrefParamWithoutValue()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1";
@@ -62,6 +66,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test for URLs containing multiple parameters (some of them without values).
      */
+    @Test
     public final void testHrefMultipleParamWithoutValue()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1&param2=2";
@@ -73,6 +78,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test for URLs containing parameters with multiple values.
      */
+    @Test
     public final void testHrefWithMultipleParameters()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2&param2=3&param2=4&param2=";
@@ -84,6 +90,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test for urls containing anchors.
      */
+    @Test
     public final void testHrefWithAnchor()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp#thisanchor";
@@ -95,6 +102,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test href with empty anchor.
      */
+    @Test
     public final void testHrefWithEmptyAnchor()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#";
@@ -106,6 +114,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test for urls containin anchors and parameters.
      */
+    @Test
     public final void testHrefWithAnchorAndParameters()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
@@ -117,6 +126,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test for urls containing quotes.
      */
+    @Test
     public final void testHrefWithQuotes()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=aquote'test";
@@ -128,6 +138,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test the generation of an Href object from another Href.
      */
+    @Test
     public final void testHrefCopy()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
@@ -139,6 +150,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test the clone() implementation.
      */
+    @Test
     public final void testClone()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
@@ -153,6 +165,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Tests the equals() implementation.
      */
+    @Test
     public final void testEquals()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
@@ -164,6 +177,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Test for added parameters.
      */
+    @Test
     public final void testAddParameter()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
@@ -179,14 +193,15 @@ public class DefaultHrefTest extends TestCase
     /**
      * test for setParameterMap().
      */
+    @Test
     public final void testSetParameterMap()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp#thisanchor";
         Href href = new DefaultHref(url);
 
-        Map<String, Object> parameterMap = new HashMap<String, Object>();
-        parameterMap.put("new1", "new1value");
-        parameterMap.put("new2", "new2value");
+        Map<String, String[]> parameterMap = new HashMap<String, String[]>();
+        parameterMap.put("new1", new String[]{"new1value"});
+        parameterMap.put("new2", new String[]{"new2value"});
         parameterMap.put("new3", null);
         href.setParameterMap(parameterMap);
 
@@ -199,14 +214,15 @@ public class DefaultHrefTest extends TestCase
     /**
      * test for addParameterMap().
      */
+    @Test
     public final void testAddParameterMap()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1#thisanchor";
         Href href = new DefaultHref(url);
 
-        Map<String, Object> parameterMap = new HashMap<String, Object>();
-        parameterMap.put("new1", "new1value");
-        parameterMap.put("new2", "new2value");
+        Map<String, String[]> parameterMap = new HashMap<String, String[]>();
+        parameterMap.put("new1", new String[]{"new1value"});
+        parameterMap.put("new2", new String[]{"new2value"});
         parameterMap.put("new3", null);
         href.addParameterMap(parameterMap);
 
@@ -220,31 +236,33 @@ public class DefaultHrefTest extends TestCase
     /**
      * test for addParameterMap().
      */
+    @Test
     public final void testAddParameterMapMultiValue()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp";
         Href href = new DefaultHref(url);
 
-        Map<String, Object> parameterMap = new HashMap<String, Object>();
+        Map<String, String[]> parameterMap = new HashMap<String, String[]>();
         parameterMap.put("param1", new String[]{"à", "<"});
         href.addParameterMap(parameterMap);
 
         String newUrl = href.toString();
-        Assert.assertEquals("http://www.displaytag.org/displaytag/index.jsp?param1=&agrave;&amp;param1=&lt;", newUrl);
+        Assert.assertEquals("http://www.displaytag.org/displaytag/index.jsp?param1=%C3%A0&amp;param1=%3C", newUrl);
 
     }
 
     /**
      * test for addParameterMap() with overriding parameters.
      */
+    @Test
     public final void testAddParameterMapOverridingParameters()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=original#thisanchor";
         Href href = new DefaultHref(url);
 
-        Map<String, Object> parameterMap = new HashMap<String, Object>();
-        parameterMap.put("param1", "original");
-        parameterMap.put("new1", "new1value");
+        Map<String, String[]> parameterMap = new HashMap<String, String[]>();
+        parameterMap.put("param1", new String[]{"original"});
+        parameterMap.put("new1", new String[]{"new1value"});
         href.addParameterMap(parameterMap);
 
         String newUrl = href.toString();
@@ -257,6 +275,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * test for base url extraction.
      */
+    @Test
     public final void testGetBaseUrl()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2#thisanchor";
@@ -267,6 +286,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * Complex test.
      */
+    @Test
     public final void testComplex()
     {
         String url = "http://www.displaytag.org/EProcurement/do/searchWorkflowAction?initiator=AVINASH&wfid="
@@ -280,6 +300,7 @@ public class DefaultHrefTest extends TestCase
     /**
      * test for url without base.
      */
+    @Test
     public final void testNoBaseUrl()
     {
         String url = "?param1=1&param2=2#thisanchor";

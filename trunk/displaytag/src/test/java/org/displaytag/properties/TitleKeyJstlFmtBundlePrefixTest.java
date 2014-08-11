@@ -50,10 +50,14 @@ public class TitleKeyJstlFmtBundlePrefixTest extends DisplaytagCase
 
         Assert.assertEquals("Header from resource is not valid.", "foo bundle prefixed", tables[0].getCellAsText(0, 0));
         Assert.assertEquals("Header from resource is not valid.", "baz bundle prefixed", tables[0].getCellAsText(0, 1));
-        Assert.assertEquals("Header from resource is not valid.", "camel bundle prefixed", tables[0]
-            .getCellAsText(0, 2));
-        Assert.assertEquals("Missing resource should generate the ???missing??? header.", "???missing???", tables[0]
-            .getCellAsText(0, 3));
+        Assert.assertEquals(
+            "Header from resource is not valid.",
+            "camel bundle prefixed",
+            tables[0].getCellAsText(0, 2));
+        Assert.assertEquals(
+            "Missing resource should generate the ???missing??? header.",
+            "???missing???",
+            tables[0].getCellAsText(0, 3));
 
     }
 }

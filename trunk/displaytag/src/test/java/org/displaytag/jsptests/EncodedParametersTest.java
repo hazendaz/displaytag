@@ -50,8 +50,10 @@ public class EncodedParametersTest extends DisplaytagCase
         WebLink[] links = response.getLinks();
         Assert.assertEquals("Wrong number of links in result.", 1, links.length);
 
-        Assert.assertEquals("Parameter in link should be encoded.", "/context/dynlink?param=1%2B1", links[0]
-            .getURLString());
+        Assert.assertEquals(
+            "Parameter in link should be encoded.",
+            "/context/dynlink?param=1%2B1",
+            links[0].getURLString());
     }
 
 }

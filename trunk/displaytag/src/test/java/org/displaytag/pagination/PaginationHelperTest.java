@@ -22,15 +22,17 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
  * @author <a href="mailto:kevin.a.conaway@gmail.com">Kevin Conaway</a>
  * @version $Revision$ ($Author$)
  */
-public class PaginationHelperTest extends TestCase
+public class PaginationHelperTest 
 {
 
+    @Test
     public void testEnsureOnlyListsAreHandled()
     {
         Set<Integer> data = new HashSet<Integer>();
@@ -39,6 +41,7 @@ public class PaginationHelperTest extends TestCase
         this.assertEquals(data.iterator(), getIterator(data, 1, 25));
     }
 
+    @Test
     public void testGetSublistOtherPage()
     {
         List<Integer> expected = Arrays.asList(new Integer[]{new Integer(4), new Integer(5), new Integer(6)});
@@ -48,6 +51,7 @@ public class PaginationHelperTest extends TestCase
         this.assertEquals(expected.iterator(), getIterator(data, 2, 3));
     }
 
+    @Test
     public void testGetSublistFirstPage()
     {
         List<Integer> expected = Arrays.asList(new Integer[]{new Integer(1), new Integer(2), new Integer(3)});
@@ -57,6 +61,7 @@ public class PaginationHelperTest extends TestCase
         this.assertEquals(expected.iterator(), getIterator(data, 1, 3));
     }
 
+    @Test
     public void testGetSublistLastPage()
     {
         List<Integer> expected = Arrays.asList(new Integer[]{new Integer(9)});
@@ -66,6 +71,7 @@ public class PaginationHelperTest extends TestCase
         this.assertEquals(expected.iterator(), getIterator(data, 3, 4));
     }
 
+    @Test
     public void testGetSublistOutOfBounds()
     {
         List<Integer> expected = Arrays.asList(new Integer[]{
@@ -81,6 +87,7 @@ public class PaginationHelperTest extends TestCase
         this.assertEquals(expected.iterator(), getIterator(data, 3, 5));
     }
 
+    @Test
     public void testGetSublistPageSizeBiggerThanList()
     {
         List<Integer> expected = Arrays.asList(new Integer[]{
@@ -96,6 +103,7 @@ public class PaginationHelperTest extends TestCase
         this.assertEquals(expected.iterator(), getIterator(data, 2, 25));
     }
 
+    @Test
     public void testGetSublistForEntirePage()
     {
         List<Integer> data = new ArrayList<Integer>();

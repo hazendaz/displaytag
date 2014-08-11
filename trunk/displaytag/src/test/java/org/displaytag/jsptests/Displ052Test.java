@@ -49,8 +49,10 @@ public class Displ052Test extends DisplaytagCase
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
         Assert.assertEquals("Wrong number of rows.", 3, tables[0].getRowCount());
         Assert.assertEquals("Column content missing?", "ant", tables[0].getCellAsText(1, 2));
-        Assert.assertEquals("Checkbox missing?", "input", tables[0].getTableCell(1, 0).getElementsWithName("_chk")[0]
-            .getTagName());
+        Assert.assertEquals(
+            "Checkbox missing?",
+            "INPUT",
+            tables[0].getTableCell(1, 0).getElementsWithName("_chk")[0].getTagName());
         Assert.assertEquals(
             "Checkbox value missing?",
             "10",

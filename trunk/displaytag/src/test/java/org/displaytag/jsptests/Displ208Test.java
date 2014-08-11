@@ -57,12 +57,18 @@ public class Displ208Test extends DisplaytagCase
         ParamEncoder encoder = new ParamEncoder("table");
         String orderParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_ORDER);
 
-        Assert.assertEquals("wrong sorting order", Integer.toString(SortOrderEnum.DESCENDING.getCode()), links[0]
-            .getParameterValues(orderParameter)[0]);
-        Assert.assertEquals("wrong sorting order", Integer.toString(SortOrderEnum.ASCENDING.getCode()), links[1]
-            .getParameterValues(orderParameter)[0]);
-        Assert.assertEquals("wrong sorting order", Integer.toString(SortOrderEnum.ASCENDING.getCode()), links[2]
-            .getParameterValues(orderParameter)[0]);
+        Assert.assertEquals(
+            "wrong sorting order",
+            Integer.toString(SortOrderEnum.DESCENDING.getCode()),
+            links[0].getParameterValues(orderParameter)[0]);
+        Assert.assertEquals(
+            "wrong sorting order",
+            Integer.toString(SortOrderEnum.ASCENDING.getCode()),
+            links[1].getParameterValues(orderParameter)[0]);
+        Assert.assertEquals(
+            "wrong sorting order",
+            Integer.toString(SortOrderEnum.ASCENDING.getCode()),
+            links[2].getParameterValues(orderParameter)[0]);
 
     }
 

@@ -48,8 +48,10 @@ public class ExportFileNameTest extends DisplaytagCase
 
         // we are really testing an xml output?
         Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
-        Assert.assertEquals("Wrong or missing disposition/filename.", "attachment; filename=\"file.txt\"", response
-            .getHeaderField("CONTENT-DISPOSITION"));
+        Assert.assertEquals(
+            "Wrong or missing disposition/filename.",
+            "attachment; filename=\"file.txt\"",
+            response.getHeaderField("CONTENT-DISPOSITION"));
 
     }
 

@@ -50,8 +50,10 @@ public class Displ028Test extends DisplaytagCase
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        Assert.assertEquals("Value not decorated as expected", "day is "
-            + new SimpleDateFormat("dd").format(new KnownTypes().getTime()), tables[0].getCellAsText(1, 0));
+        Assert.assertEquals(
+            "Value not decorated as expected",
+            "day is " + new SimpleDateFormat("dd").format(new KnownTypes().getTime()),
+            tables[0].getCellAsText(1, 0));
 
     }
 

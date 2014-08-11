@@ -21,10 +21,10 @@ import org.displaytag.exception.SeverityEnum;
 import org.displaytag.model.TableModel;
 import org.displaytag.render.ItextTableWriter;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.Table;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfPTable;
 
 
 /**
@@ -71,7 +71,7 @@ public abstract class DefaultItextExportView implements BinaryExportView
             Document document = new Document(PageSize.A4.rotate(), 60, 60, 40, 40);
             this.initItextWriter(document, out);
             document.open();
-            Table table = new Table(this.model.getNumberOfColumns());
+            PdfPTable table = new PdfPTable(this.model.getNumberOfColumns());
             ItextTableWriter writer = new ItextTableWriter(table, document);
             writer.writeTable(this.model, "-1");
             document.add(table);

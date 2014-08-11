@@ -11,10 +11,8 @@
  */
 package org.displaytag.render;
 
-import java.awt.Color;
 import java.util.Iterator;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.DecoratorException;
@@ -23,17 +21,19 @@ import org.displaytag.model.Column;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.TableModel;
 
-import com.lowagie.text.BadElementException;
-import com.lowagie.text.Cell;
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.Table;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 
 /**
@@ -48,7 +48,7 @@ public class ItextTableWriter extends TableWriterAdapter
     /**
      * iText representation of the table.
      */
-    private Table table;
+    private PdfPTable table;
 
     /**
      * iText document to which the table is written.
@@ -65,7 +65,7 @@ public class ItextTableWriter extends TableWriterAdapter
      * @param table iText representation of the table.
      * @param document iText document to which the table is written.
      */
-    public ItextTableWriter(Table table, Document document)
+    public ItextTableWriter(PdfPTable table, Document document)
     {
         this.table = table;
         this.document = document;
@@ -80,11 +80,7 @@ public class ItextTableWriter extends TableWriterAdapter
     protected void writeTableOpener(TableModel model)
     {
         this.table.getDefaultCell().setVerticalAlignment(Element.ALIGN_TOP);
-        this.table.setCellsFitPage(true);
-        this.table.setWidth(100);
-        this.table.setPadding(2);
-        this.table.setSpacing(0);
-        this.table.setBorder(Rectangle.NO_BORDER);
+        this.table.setWidthPercentage(100);
         this.defaultFont = this.getTableFont();
     }
 
@@ -94,7 +90,7 @@ public class ItextTableWriter extends TableWriterAdapter
      */
     protected Font getTableFont()
     {
-        return FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, new Color(0x00, 0x00, 0x00));
+        return FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, new BaseColor(0x00, 0x00, 0x00));
     }
 
     /**
@@ -125,7 +121,7 @@ public class ItextTableWriter extends TableWriterAdapter
      */
     protected Font getCaptionFont()
     {
-        return FontFactory.getFont(FontFactory.HELVETICA, 17, Font.BOLD, new Color(0x00, 0x00, 0x00));
+        return FontFactory.getFont(FontFactory.HELVETICA, 17, Font.BOLD, new BaseColor(0x00, 0x00, 0x00));
     }
 
     /**
@@ -140,10 +136,10 @@ public class ItextTableWriter extends TableWriterAdapter
     /**
      * Write the table's header columns to an iText document.
      * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)
-     * @throws BadElementException if an error occurs while writing header.
+     * @throws DocumentException if an error occurs while writing header.
      */
     @Override
-    protected void writeTableHeader(TableModel model) throws BadElementException
+    protected void writeTableHeader(TableModel model) throws DocumentException
     {
         Iterator<HeaderCell> iterator = model.getHeaderCellList().iterator();
 
@@ -160,11 +156,11 @@ public class ItextTableWriter extends TableWriterAdapter
                 columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());
             }
 
-            Cell hdrCell = this.getHeaderCell(columnHeader);
+            PdfPCell hdrCell = this.getHeaderCell(columnHeader);
             this.table.addCell(hdrCell);
         }
+        table.setHeaderRows(1);
         this.table.setWidths(widths);
-        this.table.endHeaders();
     }
 
     /**
@@ -187,8 +183,8 @@ public class ItextTableWriter extends TableWriterAdapter
     {
         Chunk cellContent = new Chunk(model.getFooter(), this.getFooterFont());
         this.setFooterFontStyle(cellContent);
-        Cell cell = new Cell(cellContent);
-        cell.setLeading(8);
+        PdfPCell cell = new PdfPCell(new Phrase(cellContent));
+        cell.setLeading(8, 0);
         cell.setBackgroundColor(this.getFooterBackgroundColor());
         cell.setHorizontalAlignment(this.getFooterHorizontalAlignment());
         cell.setColspan(model.getNumberOfColumns());
@@ -199,9 +195,9 @@ public class ItextTableWriter extends TableWriterAdapter
      * Obtain the footer background color; Meant to be overriden if a different style is desired.
      * @return The footer background color.
      */
-    protected Color getFooterBackgroundColor()
+    protected BaseColor getFooterBackgroundColor()
     {
-        return new Color(0xce, 0xcf, 0xce);
+        return new BaseColor(0xce, 0xcf, 0xce);
     }
 
     /**
@@ -226,9 +222,9 @@ public class ItextTableWriter extends TableWriterAdapter
      * Obtain the footer font color; Meant to be overriden if a different style is desired.
      * @return The footer font color.
      */
-    protected Color getFooterFontColor()
+    protected BaseColor getFooterFontColor()
     {
-        return new Color(0x00, 0x00, 0x00);
+        return new BaseColor(0x00, 0x00, 0x00);
     }
 
     /**
@@ -301,13 +297,13 @@ public class ItextTableWriter extends TableWriterAdapter
      * @return Cell
      * @throws BadElementException if errors occurs while generating content.
      */
-    private Cell getCell(Object value) throws BadElementException
+    private PdfPCell getCell(Object value)
     {
-        Cell cell = new Cell(new Chunk(
-            StringUtils.trimToEmpty(value != null ? value.toString() : StringUtils.EMPTY),
-            this.defaultFont));
+        PdfPCell cell = new PdfPCell(new Phrase(new Chunk(StringUtils.trimToEmpty(value != null
+            ? value.toString()
+            : StringUtils.EMPTY), this.defaultFont)));
         cell.setVerticalAlignment(Element.ALIGN_TOP);
-        cell.setLeading(8);
+        cell.setLeading(8, 0);
         return cell;
     }
 
@@ -315,15 +311,13 @@ public class ItextTableWriter extends TableWriterAdapter
      * Obtain a header cell.
      * @param value Cell content.
      * @return A header cell with the given content.
-     * @throws BadElementException if errors occurs while generating content.
      */
-    private Cell getHeaderCell(String value) throws BadElementException
+    private PdfPCell getHeaderCell(String value)
     {
         Chunk cellContent = new Chunk(value, this.getHeaderFont());
         setHeaderFontStyle(cellContent);
-        Cell cell = new Cell(cellContent);
-        cell.setLeading(8);
-        cell.setHeader(true);
+        PdfPCell cell = new PdfPCell(new Phrase(cellContent));
+        cell.setLeading(8, 0);
         cell.setHorizontalAlignment(this.getHeaderHorizontalAlignment());
         cell.setBackgroundColor(this.getHeaderBackgroundColor());
         return cell;
@@ -343,9 +337,9 @@ public class ItextTableWriter extends TableWriterAdapter
      * color is desired.
      * @return The backgrounc color used to render the header.
      */
-    protected Color getHeaderBackgroundColor()
+    protected BaseColor getHeaderBackgroundColor()
     {
-        return new Color(0xee, 0xee, 0xee);
+        return new BaseColor(0xee, 0xee, 0xee);
     }
 
     /**
@@ -361,9 +355,9 @@ public class ItextTableWriter extends TableWriterAdapter
      * Set the font color used to render the header text; Meant to be overridden if a different header style is desired.
      * @return The font color used to render the header text.
      */
-    protected Color getHeaderFontColor()
+    protected BaseColor getHeaderFontColor()
     {
-        return new Color(0x00, 0x00, 0x00);
+        return new BaseColor(0x00, 0x00, 0x00);
     }
 
     /**
@@ -381,7 +375,7 @@ public class ItextTableWriter extends TableWriterAdapter
      * @param chunk The chunk whose content is to be rendered bold.
      * @param color The font color desired.
      */
-    private void setBoldStyle(Chunk chunk, Color color)
+    private void setBoldStyle(Chunk chunk, BaseColor color)
     {
         Font font = chunk.getFont();
         chunk.setFont(FontFactory.getFont(font.getFamilyname(), font.getSize(), Font.BOLD, color));
@@ -399,7 +393,7 @@ public class ItextTableWriter extends TableWriterAdapter
          * Set the iText table used to render a table model.
          * @param table The iText table used to render a table model.
          */
-        void setTable(Table table);
+        void setTable(PdfPTable table);
 
         /**
          * Set the font used to render a table's content.

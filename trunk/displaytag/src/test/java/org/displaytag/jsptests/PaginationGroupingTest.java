@@ -10,18 +10,23 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
+
 /**
  * @author rwest
  * @version $Revision: 1159 $ ($Author: rwest $)
  */
-public class PaginationGroupingTest extends DisplaytagCase {
-    protected String getJspName() {
+public class PaginationGroupingTest extends DisplaytagCase
+{
+
+    protected String getJspName()
+    {
         return "pagination-grouping.jsp";
     }
 
     @Override
     @Test
-    public void doTest() throws Exception {
+    public void doTest() throws Exception
+    {
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response = runner.getResponse(request);
 

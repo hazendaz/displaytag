@@ -3,6 +3,7 @@ package org.displaytag.properties;
 import junit.framework.TestCase;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -10,30 +11,13 @@ import org.junit.Assert;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class MediaTypeEnumTest extends TestCase
+public class MediaTypeEnumTest
 {
-
-    /**
-     * Instantiate a new test.
-     * @param name test name
-     */
-    public MediaTypeEnumTest(String name)
-    {
-        super(name);
-    }
-
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName();
-    }
 
     /**
      * Test for the "fixed" enum instances.
      */
+    @Test
     public void testCsv()
     {
         Assert.assertEquals(MediaTypeEnum.fromCode(1), MediaTypeEnum.CSV);
@@ -44,6 +28,7 @@ public class MediaTypeEnumTest extends TestCase
     /**
      * Test for the "fixed" enum instances.
      */
+    @Test
     public void testExcel()
     {
         Assert.assertEquals(MediaTypeEnum.fromCode(2), MediaTypeEnum.EXCEL);
@@ -54,6 +39,7 @@ public class MediaTypeEnumTest extends TestCase
     /**
      * Test for the "fixed" enum instances.
      */
+    @Test
     public void testXml()
     {
         Assert.assertEquals(MediaTypeEnum.fromCode(3), MediaTypeEnum.XML);
@@ -64,6 +50,7 @@ public class MediaTypeEnumTest extends TestCase
     /**
      * Test for the "fixed" enum instances.
      */
+    @Test
     public void testHtml()
     {
         Assert.assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.HTML);
@@ -71,6 +58,7 @@ public class MediaTypeEnumTest extends TestCase
         Assert.assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.fromName("html"));
     }
 
+    @Test
     public void testPdf()
     {
         Assert.assertEquals(MediaTypeEnum.fromCode(4), MediaTypeEnum.PDF);

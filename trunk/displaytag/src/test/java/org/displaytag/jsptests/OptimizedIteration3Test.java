@@ -54,8 +54,9 @@ public class OptimizedIteration3Test extends DisplaytagCase
 
         // export full
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
-        request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE), Integer
-            .toString(MediaTypeEnum.CSV.getCode()));
+        request.setParameter(
+            encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE),
+            Integer.toString(MediaTypeEnum.CSV.getCode()));
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
 
         WebResponse response = runner.getResponse(request);

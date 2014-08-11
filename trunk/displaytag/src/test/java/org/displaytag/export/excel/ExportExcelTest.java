@@ -27,19 +27,16 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
 
 
-
 /**
- * @author andy
- * Date: Oct 30, 2010
- * Time: 12:04:04 PM
+ * @author andy Date: Oct 30, 2010 Time: 12:04:04 PM
  */
-public class ExportExcelTest  {
+public class ExportExcelTest
+{
 
     /**
      * logger.
      */
     protected final Log log = LogFactory.getLog(getClass());
-
 
     /**
      * HttpUnit ServletRunner.
@@ -50,7 +47,6 @@ public class ExportExcelTest  {
      * Context mapped to the test application.
      */
     public static final String CONTEXT = "/context";
-
 
     protected String getJspUrl(String jsp)
     {
@@ -66,7 +62,7 @@ public class ExportExcelTest  {
     {
         // need to pass a web.xml file to setup servletunit working directory
         Properties p = new Properties();
-        p.setProperty("export.pdf.class","org.displaytag.export.FopExportView");
+        p.setProperty("export.pdf.class", "org.displaytag.export.FopExportView");
         TableProperties.setUserProperties(p);
 
         ClassLoader classLoader = getClass().getClassLoader();
@@ -99,9 +95,8 @@ public class ExportExcelTest  {
         runner.shutDown();
     }
 
-     /**
-     * Test for content disposition and filename.
-     *  jspName jsp name, with full path
+    /**
+     * Test for content disposition and filename. jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
     @Test
@@ -131,7 +126,8 @@ public class ExportExcelTest  {
         WebResponse response = runner.getResponse(request);
 
         // we are really testing an xml output?
-        Assert.assertEquals("Expected a different content type.", "application/vnd.ms-excel", response.getContentType());
+        Assert
+            .assertEquals("Expected a different content type.", "application/vnd.ms-excel", response.getContentType());
 
         InputStream stream = response.getInputStream();
         byte[] result = new byte[9000];

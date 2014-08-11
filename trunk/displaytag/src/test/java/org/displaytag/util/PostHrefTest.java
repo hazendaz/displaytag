@@ -3,27 +3,20 @@ package org.displaytag.util;
 import junit.framework.TestCase;
 
 import org.displaytag.test.URLAssert;
+import org.junit.Test;
 
 
 /**
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
-public class PostHrefTest extends TestCase
+public class PostHrefTest
 {
-
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName();
-    }
 
     /**
      * Test for URLs containing parameters.
      */
+    @Test
     public final void testHrefWithParameters()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2";
@@ -35,6 +28,7 @@ public class PostHrefTest extends TestCase
     /**
      * Test for URLs containing parameters.
      */
+    @Test
     public final void testHrefWithParametersToBeEscaped()
     {
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=a'a&param2=2";

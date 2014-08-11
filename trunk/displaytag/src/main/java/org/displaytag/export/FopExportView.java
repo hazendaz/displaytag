@@ -26,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
-import org.apache.fop.apps.MimeConstants;
 import org.apache.fop.fo.ValidationException;
 import org.displaytag.model.TableModel;
 

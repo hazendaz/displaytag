@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
-<web-app>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <description>Tests for the Display Tag Library.</description>
   <!-- Define the basename for a resource bundle for I18N -->
   <context-param>
@@ -20,12 +19,14 @@
     <extension>jsp</extension>
     <mime-type>text/html</mime-type>
   </mime-mapping>
-  <taglib>
-    <taglib-uri>http://displaytag.sf.net</taglib-uri>
-    <taglib-location>/../classes/META-INF/displaytag.tld</taglib-location>
-  </taglib>
-  <taglib>
-    <taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
-    <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
-  </taglib>
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://displaytag.sf.net</taglib-uri>
+      <taglib-location>/../classes/META-INF/displaytag.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://java.sun.com/jstl/core</taglib-uri>
+      <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+    </taglib>
+  </jsp-config>
 </web-app>

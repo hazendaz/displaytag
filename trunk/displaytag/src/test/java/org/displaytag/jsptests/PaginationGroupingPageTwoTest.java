@@ -10,19 +10,23 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
+
 /**
  * @author rwest
  * @version $Revision: 1159 $ ($Author: rwest $)
  */
-public class PaginationGroupingPageTwoTest extends DisplaytagCase {
+public class PaginationGroupingPageTwoTest extends DisplaytagCase
+{
 
     @Override
-    public void doTest() throws Exception {
+    public void doTest() throws Exception
+    {
         // This is not a test.
     }
 
     @Test
-    public void useOffsetToGetPageTwo() throws Exception {
+    public void useOffsetToGetPageTwo() throws Exception
+    {
         WebRequest request = new GetMethodWebRequest(getJspUrl("pagination-grouping-page2.jsp"));
         WebResponse response = runner.getResponse(request);
 
@@ -40,7 +44,8 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase {
     }
 
     @Test
-    public void navigateToPageTwo() throws Exception {
+    public void navigateToPageTwo() throws Exception
+    {
         WebRequest request = new GetMethodWebRequest(getJspUrl("pagination-grouping.jsp"));
         request.setParameter("d-148916-p", "2");
         WebResponse response = runner.getResponse(request);

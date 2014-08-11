@@ -58,15 +58,15 @@ public class MediaSupportXmlTest extends DisplaytagCase
 
         String output = response.getText();
 
-        Assert.assertTrue("Expected value [" + KnownValue.BEE + "] missing", StringUtils.contains(
-            output,
-            KnownValue.BEE));
-        Assert.assertTrue("Expected value [" + KnownValue.CAMEL + "] missing", StringUtils.contains(
-            output,
-            KnownValue.CAMEL));
-        Assert.assertTrue("Unexpected value [" + KnownValue.ANT + "] found", !StringUtils.contains(
-            output,
-            KnownValue.ANT));
+        Assert.assertTrue(
+            "Expected value [" + KnownValue.BEE + "] missing",
+            StringUtils.contains(output, KnownValue.BEE));
+        Assert.assertTrue(
+            "Expected value [" + KnownValue.CAMEL + "] missing",
+            StringUtils.contains(output, KnownValue.CAMEL));
+        Assert.assertTrue(
+            "Unexpected value [" + KnownValue.ANT + "] found",
+            !StringUtils.contains(output, KnownValue.ANT));
 
     }
 

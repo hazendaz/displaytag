@@ -3,6 +3,7 @@ package org.displaytag.util;
 import junit.framework.TestCase;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -10,21 +11,13 @@ import org.junit.Assert;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ParamEncoderTest extends TestCase
+public class ParamEncoderTest
 {
-
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName();
-    }
 
     /**
      * Test for reported DISPL-12.
      */
+    @Test
     public void testOptionAndAnswer()
     {
         Assert.assertFalse("id \"option\" and \"answer\" produce the same parameter", new ParamEncoder("option")
@@ -35,15 +28,19 @@ public class ParamEncoderTest extends TestCase
     /**
      * Same parameter produce the same result.
      */
+    @Test
     public void testEquals()
     {
-        Assert.assertEquals("The same parameter should produce equals key.", new ParamEncoder("equals")
-            .encodeParameterName("x"), (new ParamEncoder("equals").encodeParameterName("x")));
+        Assert.assertEquals(
+            "The same parameter should produce equals key.",
+            new ParamEncoder("equals").encodeParameterName("x"),
+            (new ParamEncoder("equals").encodeParameterName("x")));
     }
 
     /**
      * We don't wont param names to be too long.
      */
+    @Test
     public void testNotTooLong()
     {
         Assert.assertTrue(new ParamEncoder("averyveryveryveryveryveryverylongidvalue")

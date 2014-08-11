@@ -43,8 +43,10 @@ public class Displ010Test extends DisplaytagCase
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
 
-        Assert.assertEquals("Class attribute not overridden by setProperties as expected.", "new", tables[0]
-            .getClassName());
+        Assert.assertEquals(
+            "Class attribute not overridden by setProperties as expected.",
+            "new",
+            tables[0].getClassName());
 
     }
 
