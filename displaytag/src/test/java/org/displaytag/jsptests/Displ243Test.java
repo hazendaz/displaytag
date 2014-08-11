@@ -56,8 +56,10 @@ public class Displ243Test extends DisplaytagCase
         WebLink[] links = response.getLinks();
         Assert.assertEquals("Wrong number of links.", 1, links.length);
 
-        Assert.assertEquals("wrong sorting order", Integer.toString(SortOrderEnum.DESCENDING.getCode()), links[0]
-            .getParameterValues(orderParameter)[0]);
+        Assert.assertEquals(
+            "wrong sorting order",
+            Integer.toString(SortOrderEnum.DESCENDING.getCode()),
+            links[0].getParameterValues(orderParameter)[0]);
 
         // a few clicks...
         for (int j = 0; j < 10; j++)
@@ -78,8 +80,10 @@ public class Displ243Test extends DisplaytagCase
             links = response.getLinks();
             Assert.assertEquals("Wrong number of links.", 1, links.length);
 
-            Assert.assertEquals("Wrong sorting order for iteration " + j, expectedSortOrder, SortOrderEnum.fromCode(
-                Integer.parseInt(links[0].getParameterValues(orderParameter)[0])).getName());
+            Assert.assertEquals(
+                "Wrong sorting order for iteration " + j,
+                expectedSortOrder,
+                SortOrderEnum.fromCode(Integer.parseInt(links[0].getParameterValues(orderParameter)[0])).getName());
         }
 
     }

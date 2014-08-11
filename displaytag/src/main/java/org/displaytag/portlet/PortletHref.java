@@ -13,7 +13,9 @@ package org.displaytag.portlet;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
@@ -40,7 +42,8 @@ import org.displaytag.util.Href;
  * the concept of WindowStates, PorletModes, secure URLs and actions versus render the implementation supports these
  * concepts as well through the standard {@link Href} APIs. <br>
  * <br>
- * The features are manipulated using special parameter names and values: <table>
+ * The features are manipulated using special parameter names and values:
+ * <table>
  * <tr>
  * <th>Feature</th>
  * <th>Parameter Name</th>
@@ -93,22 +96,12 @@ public class PortletHref implements Href
      */
     private static final long serialVersionUID = 899149338534L;
 
-    // Predicated for type checking the parameter map
-    private static final Predicate PRED_TYPE_OF_STRING = new InstanceofPredicate(String.class);
-
-    private static final Predicate PRED_TYPE_OF_STRING_ARRY = new InstanceofPredicate(String[].class);
-
-    private static final Predicate PRED_OR_STR_STRARR = new AnyPredicate(new Predicate[]{
-        PRED_TYPE_OF_STRING,
-        PRED_TYPE_OF_STRING_ARRY,
-        NullPredicate.INSTANCE});
-
     // Portlet request and response are needed for feature checking and generating the URLs
     private final PortletRequest portletRequest;
 
     private final RenderResponse renderResponse;
 
-    private Map parameters = this.createParameterMap();
+    private Map<String, String[]> parameters = new LinkedHashMap<String, String[]>();
 
     private boolean isAction;
 
@@ -318,7 +311,7 @@ public class PortletHref implements Href
         }
         else
         {
-            this.parameters.put(name, value);
+            this.parameters.put(name, new String[]{value});
         }
 
         return this;
@@ -328,29 +321,30 @@ public class PortletHref implements Href
      * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
      */
     @Override
-    public void addParameterMap(Map parametersMap)
+    public void addParameterMap(Map<String, String[]> parametersMap)
     {
-        for (final Iterator paramItr = parametersMap.entrySet().iterator(); paramItr.hasNext();)
+        for (final Iterator<Entry<String, String[]>> paramItr = parametersMap.entrySet().iterator(); paramItr.hasNext();)
         {
-            final Map.Entry entry = (Map.Entry) paramItr.next();
+            final Entry<String, String[]> entry = paramItr.next();
 
-            final String name = (String) entry.getKey();
-            final Object value = entry.getValue();
+            final String name = entry.getKey();
 
             // Allow multivalued parameters since code elsewhere calls this method to copy
             // parameters from the request to the response. Ensures that developer specified
             // multivalued parameters are retained correctly.
-            if (value instanceof String[])
+
+            if (entry.getValue() == null)
             {
-                this.parameters.put(name, value);
+                this.addParameter(name, entry.getValue());
             }
-            else if (value == null || value instanceof String)
+            else if (entry.getValue().length == 1)
             {
-                this.addParameter(name, value);
+                // addParameter does some special processing of portlet paramters
+                this.addParameter(name, entry.getValue()[0]);
             }
-            else
+            else if (entry.getValue().getClass().isArray())
             {
-                this.addParameter(name, value.toString());
+                this.parameters.put(name, entry.getValue());
             }
         }
     }
@@ -359,7 +353,7 @@ public class PortletHref implements Href
      * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
      */
     @Override
-    public void setParameterMap(Map parametersMap)
+    public void setParameterMap(Map<String, String[]> parametersMap)
     {
         this.parameters.clear();
         this.addParameterMap(parametersMap);
@@ -371,7 +365,7 @@ public class PortletHref implements Href
      * @see org.displaytag.util.Href#getParameterMap()
      */
     @Override
-    public Map getParameterMap()
+    public Map<String, String[]> getParameterMap()
     {
         return this.parameters;
     }
@@ -438,7 +432,7 @@ public class PortletHref implements Href
         }
 
         href.isAction = this.isAction;
-        href.parameters = this.createParameterMap();
+        href.parameters = new LinkedHashMap<String, String[]>();
         href.parameters.putAll(this.parameters);
         href.requestedMode = this.requestedMode;
         href.requestedState = this.requestedState;
@@ -463,11 +457,14 @@ public class PortletHref implements Href
             return false;
         }
         PortletHref rhs = (PortletHref) object;
-        return new EqualsBuilder().append(this.isAction, rhs.isAction).append(this.parameters, rhs.parameters).append(
-            this.requestedMode,
-            rhs.requestedMode).append(this.requestedState, rhs.requestedState).append(
-            this.requestedSecure,
-            rhs.requestedSecure).append(this.anchor, rhs.anchor).isEquals();
+        return new EqualsBuilder()
+            .append(this.isAction, rhs.isAction)
+            .append(this.parameters, rhs.parameters)
+            .append(this.requestedMode, rhs.requestedMode)
+            .append(this.requestedState, rhs.requestedState)
+            .append(this.requestedSecure, rhs.requestedSecure)
+            .append(this.anchor, rhs.anchor)
+            .isEquals();
     }
 
     /**
@@ -573,8 +570,4 @@ public class PortletHref implements Href
         }
     }
 
-    private Map createParameterMap()
-    {
-        return PredicatedMap.decorate(new HashMap(), PRED_TYPE_OF_STRING, PRED_OR_STR_STRARR);
-    }
 }

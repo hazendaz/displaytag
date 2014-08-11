@@ -78,9 +78,10 @@ public class Displ125Test extends DisplaytagCase
         Assert.assertNotNull("Paging banner not found.", pagination);
         Assert.assertEquals("Pagination links are not as expected.", "1, 2, [3]", pagination.getText());
 
-        Assert.assertEquals("Column 1 should be marked as sorted.", "sortable sorted order2", tables[0].getTableCell(
-            0,
-            0).getClassName());
+        Assert.assertEquals(
+            "Column 1 should be marked as sorted.",
+            "sortable sorted order2",
+            tables[0].getTableCell(0, 0).getClassName());
     }
 
 }

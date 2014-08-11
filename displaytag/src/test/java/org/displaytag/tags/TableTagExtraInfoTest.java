@@ -3,6 +3,7 @@ package org.displaytag.tags;
 import junit.framework.TestCase;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -10,21 +11,13 @@ import org.junit.Assert;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class TableTagExtraInfoTest extends TestCase
+public class TableTagExtraInfoTest
 {
-
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName();
-    }
 
     /**
      * Test for isJavaId().
      */
+    @Test
     public final void testIsJavaIdValid()
     {
         Assert.assertTrue(TableTagExtraInfo.isJavaId("table"));
@@ -33,6 +26,7 @@ public class TableTagExtraInfoTest extends TestCase
     /**
      * Test for isJavaId().
      */
+    @Test
     public final void testIsJavaIdEnum()
     {
         Assert.assertFalse(TableTagExtraInfo.isJavaId("enum"));
@@ -41,6 +35,7 @@ public class TableTagExtraInfoTest extends TestCase
     /**
      * Test for isJavaId().
      */
+    @Test
     public final void testIsJavaIdSpace()
     {
         Assert.assertFalse(TableTagExtraInfo.isJavaId("invalid x"));
@@ -49,6 +44,7 @@ public class TableTagExtraInfoTest extends TestCase
     /**
      * Test for isJavaId().
      */
+    @Test
     public final void testIsJavaIdEsclamationMark()
     {
         Assert.assertFalse(TableTagExtraInfo.isJavaId("invalid!"));

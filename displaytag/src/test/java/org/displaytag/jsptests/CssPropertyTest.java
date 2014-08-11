@@ -52,7 +52,8 @@ public class CssPropertyTest extends DisplaytagCase
         Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
         TableCell cell = tables[0].getTableCell(0, 0);
         Assert.assertTrue("Expected css class \"green\" not found", StringUtils.contains(cell.getClassName(), "green"));
-        Assert.assertTrue("Expected css class \"purple\" not found", StringUtils
-            .contains(cell.getClassName(), "purple"));
+        Assert.assertTrue(
+            "Expected css class \"purple\" not found",
+            StringUtils.contains(cell.getClassName(), "purple"));
     }
 }

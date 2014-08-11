@@ -59,19 +59,24 @@ public class ExternalSortTest extends DisplaytagCase
         Assert.assertEquals(
             "0",
             links[0].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
-        Assert.assertEquals("2", links[0]
-            .getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
+        Assert.assertEquals(
+            "2",
+            links[0].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
 
-        Assert.assertEquals("buzz", links[1].getParameterValues(p1
-            .encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
-        Assert.assertEquals("2", links[1]
-            .getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
+        Assert.assertEquals(
+            "buzz",
+            links[1].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
+        Assert.assertEquals(
+            "2",
+            links[1].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
 
         // test that the column with sortName buzz was set as sorted and now has a link to sort desc
-        Assert.assertEquals("number", links[2].getParameterValues(p2
-            .encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
-        Assert.assertEquals("1", links[2]
-            .getParameterValues(p2.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
+        Assert.assertEquals(
+            "number",
+            links[2].getParameterValues(p2.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
+        Assert.assertEquals(
+            "1",
+            links[2].getParameterValues(p2.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
 
         // now ensure that our data has not been sorted at all since we are doing it 'externally'
         WebTable[] tables = response.getTables();

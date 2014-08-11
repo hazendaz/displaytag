@@ -50,9 +50,9 @@ public class ColumnDecoratorTest extends DisplaytagCase
 
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        Assert.assertEquals("Expected decorated value not found.", new DateColumnDecorator().decorate(
-            KnownTypes.TIME_VALUE,
-            null,
-            null), tables[0].getCellAsText(1, 0));
+        Assert.assertEquals(
+            "Expected decorated value not found.",
+            new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null),
+            tables[0].getCellAsText(1, 0));
     }
 }

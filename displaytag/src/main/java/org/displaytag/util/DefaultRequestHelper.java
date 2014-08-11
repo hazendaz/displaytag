@@ -115,10 +115,10 @@ public class DefaultRequestHelper implements RequestHelper
      * @see org.displaytag.util.RequestHelper#getParameterMap()
      */
     @Override
-    public Map<String, Object> getParameterMap()
+    public Map<String, String[]> getParameterMap()
     {
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, String[]> map = new HashMap<String, String[]>();
 
         // get the parameters names
         Enumeration<Object> parametersName = this.request.getParameterNames();

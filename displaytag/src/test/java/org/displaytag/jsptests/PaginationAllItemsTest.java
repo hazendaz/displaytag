@@ -49,8 +49,9 @@ public class PaginationAllItemsTest extends DisplaytagCase
         WebLink[] links = response.getLinks();
 
         Assert.assertEquals("Wrong number of links in result.", 0, links.length);
-        Assert.assertFalse("Using setProperty you should not see any page number", StringUtils.contains(response
-            .getText(), ">1<"));
+        Assert.assertFalse(
+            "Using setProperty you should not see any page number",
+            StringUtils.contains(response.getText(), ">1<"));
 
     }
 }

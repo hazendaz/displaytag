@@ -17,8 +17,8 @@ import java.util.Map;
 import javax.portlet.PortletMode;
 import javax.portlet.WindowState;
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 import org.springframework.mock.web.portlet.MockPortletRequest;
 import org.springframework.mock.web.portlet.MockRenderResponse;
 
@@ -27,24 +27,16 @@ import org.springframework.mock.web.portlet.MockRenderResponse;
  * @author Eric Dalquist <a href="mailto:edalquist@unicon.net">edalquist@unicon.net</a>
  * @version $Id$
  */
-public class PortletHrefTest extends TestCase
+public class PortletHrefTest
 {
 
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return "PortletHref Test";
-    }
-
+    @Test
     public void testConstructor()
     {
         try
         {
             new PortletHref(null, null);
-            fail("IllegalArgumentException should have been thrown");
+            Assert.fail("IllegalArgumentException should have been thrown");
         }
         catch (IllegalArgumentException iae)
         {
@@ -54,7 +46,7 @@ public class PortletHrefTest extends TestCase
         try
         {
             new PortletHref(new MockPortletRequest(), null);
-            fail("IllegalArgumentException should have been thrown");
+            Assert.fail("IllegalArgumentException should have been thrown");
         }
         catch (IllegalArgumentException iae)
         {
@@ -64,7 +56,7 @@ public class PortletHrefTest extends TestCase
         try
         {
             new PortletHref(null, new MockRenderResponse());
-            fail("IllegalArgumentException should have been thrown");
+            Assert.fail("IllegalArgumentException should have been thrown");
         }
         catch (IllegalArgumentException iae)
         {
@@ -74,25 +66,26 @@ public class PortletHrefTest extends TestCase
         new PortletHref(new MockPortletRequest(), new MockRenderResponse());
     }
 
+    @Test
     public void testUrlTypeParameters()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
 
-        assertFalse(href.isAction());
+        Assert.assertFalse(href.isAction());
 
         href.addParameter(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
-        assertTrue(href.isAction());
+        Assert.assertTrue(href.isAction());
 
         href.addParameter(PortletHref.PARAM_TYPE, PortletHref.TYPE_RENDER);
-        assertFalse(href.isAction());
+        Assert.assertFalse(href.isAction());
 
         href.addParameter(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
-        assertTrue(href.isAction());
+        Assert.assertTrue(href.isAction());
 
         try
         {
             href.addParameter(PortletHref.PARAM_TYPE, null);
-            fail("IllegalArgumentException should have been thrown");
+            Assert.fail("IllegalArgumentException should have been thrown");
         }
         catch (IllegalArgumentException iae)
         {
@@ -102,7 +95,7 @@ public class PortletHrefTest extends TestCase
         try
         {
             href.addParameter(PortletHref.PARAM_TYPE, "");
-            fail("IllegalArgumentException should have been thrown");
+            Assert.fail("IllegalArgumentException should have been thrown");
         }
         catch (IllegalArgumentException iae)
         {
@@ -112,7 +105,7 @@ public class PortletHrefTest extends TestCase
         try
         {
             href.addParameter(PortletHref.PARAM_TYPE, "InvalidUrlType");
-            fail("IllegalArgumentException should have been thrown");
+            Assert.fail("IllegalArgumentException should have been thrown");
         }
         catch (IllegalArgumentException iae)
         {
@@ -120,53 +113,55 @@ public class PortletHrefTest extends TestCase
         }
     }
 
+    @Test
     public void testSecureParameters()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
 
-        assertFalse(href.isRequestedSecure());
+        Assert.assertFalse(href.isRequestedSecure());
 
         href.addParameter(PortletHref.PARAM_SECURE, Boolean.TRUE.toString());
-        assertTrue(href.isRequestedSecure());
+        Assert.assertTrue(href.isRequestedSecure());
 
         href.addParameter(PortletHref.PARAM_SECURE, "true");
-        assertTrue(href.isRequestedSecure());
+        Assert.assertTrue(href.isRequestedSecure());
 
         href.addParameter(PortletHref.PARAM_SECURE, "TRUE");
-        assertTrue(href.isRequestedSecure());
+        Assert.assertTrue(href.isRequestedSecure());
 
         href.addParameter(PortletHref.PARAM_SECURE, "yes");
-        assertFalse(href.isRequestedSecure());
+        Assert.assertFalse(href.isRequestedSecure());
 
         href.addParameter(PortletHref.PARAM_SECURE, null);
-        assertFalse(href.isRequestedSecure());
+        Assert.assertFalse(href.isRequestedSecure());
 
         href.addParameter(PortletHref.PARAM_SECURE, "false");
-        assertFalse(href.isRequestedSecure());
+        Assert.assertFalse(href.isRequestedSecure());
     }
 
+    @Test
     public void testPortletModeParameters()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
 
-        assertNull(href.getRequestedMode());
+        Assert.assertNull(href.getRequestedMode());
 
         href.addParameter(PortletHref.PARAM_MODE, "view");
-        assertEquals(new PortletMode("view"), href.getRequestedMode());
+        Assert.assertEquals(new PortletMode("view"), href.getRequestedMode());
 
         href.addParameter(PortletHref.PARAM_MODE, "help");
-        assertEquals(new PortletMode("help"), href.getRequestedMode());
+        Assert.assertEquals(new PortletMode("help"), href.getRequestedMode());
 
         href.addParameter(PortletHref.PARAM_MODE, "edit");
-        assertEquals(new PortletMode("edit"), href.getRequestedMode());
+        Assert.assertEquals(new PortletMode("edit"), href.getRequestedMode());
 
         href.addParameter(PortletHref.PARAM_MODE, null);
-        assertNull(href.getRequestedMode());
+        Assert.assertNull(href.getRequestedMode());
 
         try
         {
             href.addParameter(PortletHref.PARAM_MODE, "info");
-            fail("IllegalArgumentException should have been thrown");
+            Assert.fail("IllegalArgumentException should have been thrown");
         }
         catch (IllegalArgumentException iae)
         {
@@ -174,28 +169,29 @@ public class PortletHrefTest extends TestCase
         }
     }
 
+    @Test
     public void testWindowStateParameters()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
 
-        assertNull(href.getRequestedState());
+        Assert.assertNull(href.getRequestedState());
 
         href.addParameter(PortletHref.PARAM_STATE, "normal");
-        assertEquals(new WindowState("normal"), href.getRequestedState());
+        Assert.assertEquals(new WindowState("normal"), href.getRequestedState());
 
         href.addParameter(PortletHref.PARAM_STATE, "minimized");
-        assertEquals(new WindowState("minimized"), href.getRequestedState());
+        Assert.assertEquals(new WindowState("minimized"), href.getRequestedState());
 
         href.addParameter(PortletHref.PARAM_STATE, "maximized");
-        assertEquals(new WindowState("maximized"), href.getRequestedState());
+        Assert.assertEquals(new WindowState("maximized"), href.getRequestedState());
 
         href.addParameter(PortletHref.PARAM_STATE, null);
-        assertNull(href.getRequestedState());
+        Assert.assertNull(href.getRequestedState());
 
         try
         {
             href.addParameter(PortletHref.PARAM_STATE, "exclusive");
-            fail("IllegalArgumentException should have been thrown");
+            Assert.fail("IllegalArgumentException should have been thrown");
         }
         catch (IllegalArgumentException iae)
         {
@@ -203,6 +199,7 @@ public class PortletHrefTest extends TestCase
         }
     }
 
+    @Test
     public void testInvalidPrefixUseParameters()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
@@ -210,7 +207,7 @@ public class PortletHrefTest extends TestCase
         try
         {
             href.addParameter("portlet:WindowState", "exclusive");
-            fail("IllegalArgumentException should have been thrown");
+            Assert.fail("IllegalArgumentException should have been thrown");
         }
         catch (IllegalArgumentException iae)
         {
@@ -218,6 +215,7 @@ public class PortletHrefTest extends TestCase
         }
     }
 
+    @Test
     public void testAddParameters()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
@@ -229,101 +227,105 @@ public class PortletHrefTest extends TestCase
         href.addParameter("SINGLE_PARAM", "VAL1");
         href.addParameter("INT_PARAM", 31337);
 
-        assertTrue(href.isRequestedSecure());
-        assertEquals(new PortletMode("help"), href.getRequestedMode());
-        assertEquals(new WindowState("maximized"), href.getRequestedState());
-        assertTrue(href.isAction());
+        Assert.assertTrue(href.isRequestedSecure());
+        Assert.assertEquals(new PortletMode("help"), href.getRequestedMode());
+        Assert.assertEquals(new WindowState("maximized"), href.getRequestedState());
+        Assert.assertTrue(href.isAction());
 
-        final Map actualParams = href.getParameterMap();
-        assertEquals(2, actualParams.size());
-        assertEquals(actualParams.get("SINGLE_PARAM"), "VAL1");
-        assertEquals(actualParams.get("INT_PARAM"), "31337");
+        final Map<String, String[]> actualParams = href.getParameterMap();
+        Assert.assertEquals(2, actualParams.size());
+        Assert.assertArrayEquals(new String[]{"VAL1"}, actualParams.get("SINGLE_PARAM"));
+        Assert.assertArrayEquals(new String[]{"31337"}, actualParams.get("INT_PARAM"));
     }
 
+    @Test
     public void testAddParameterMap()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
 
-        final Map params = new HashMap();
-        params.put(PortletHref.PARAM_MODE, "help");
-        params.put(PortletHref.PARAM_STATE, "maximized");
-        params.put(PortletHref.PARAM_SECURE, "true");
-        params.put(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
-        params.put("SINGLE_PARAM", "VAL1");
+        final Map<String, String[]> params = new HashMap<String, String[]>();
+        params.put(PortletHref.PARAM_MODE, new String[]{"help"});
+        params.put(PortletHref.PARAM_STATE, new String[]{"maximized"});
+        params.put(PortletHref.PARAM_SECURE, new String[]{"true"});
+        params.put(PortletHref.PARAM_TYPE, new String[]{PortletHref.TYPE_ACTION});
+        params.put("SINGLE_PARAM", new String[]{"VAL1"});
         final String[] multiParam = new String[]{"VAL2", "VAL3"};
         params.put("MULTI_PARAM", multiParam);
-        params.put("INT_PARAM", new Integer("31337"));
+        params.put("INT_PARAM", new String[]{"31337"});
 
         href.addParameterMap(params);
 
-        assertTrue(href.isRequestedSecure());
-        assertEquals(new PortletMode("help"), href.getRequestedMode());
-        assertEquals(new WindowState("maximized"), href.getRequestedState());
-        assertTrue(href.isAction());
+        Assert.assertTrue(href.isRequestedSecure());
+        Assert.assertEquals(new PortletMode("help"), href.getRequestedMode());
+        Assert.assertEquals(new WindowState("maximized"), href.getRequestedState());
+        Assert.assertTrue(href.isAction());
 
-        final Map actualParams = href.getParameterMap();
-        assertEquals(3, actualParams.size());
-        assertEquals(actualParams.get("SINGLE_PARAM"), "VAL1");
-        assertEquals(actualParams.get("INT_PARAM"), "31337");
+        final Map<String, String[]> actualParams = href.getParameterMap();
+        Assert.assertEquals(3, actualParams.size());
+        Assert.assertArrayEquals(new String[]{"VAL1"}, actualParams.get("SINGLE_PARAM"));
+        Assert.assertArrayEquals(new String[]{"31337"}, actualParams.get("INT_PARAM"));
 
-        final String[] actualMultiParam = (String[]) actualParams.get("MULTI_PARAM");
-        assertEquals(multiParam.length, actualMultiParam.length);
-        assertEquals(multiParam[0], actualMultiParam[0]);
-        assertEquals(multiParam[1], actualMultiParam[1]);
+        final String[] actualMultiParam = actualParams.get("MULTI_PARAM");
+        Assert.assertEquals(multiParam.length, actualMultiParam.length);
+        Assert.assertEquals(multiParam[0], actualMultiParam[0]);
+        Assert.assertEquals(multiParam[1], actualMultiParam[1]);
     }
 
+    @Test
     public void testSetParameterMap()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
 
         href.addParameter("ORIGINAL_PARAM", "ORIGNAL_VALUE");
 
-        final Map params = new HashMap();
-        params.put(PortletHref.PARAM_MODE, "help");
-        params.put(PortletHref.PARAM_STATE, "maximized");
-        params.put(PortletHref.PARAM_SECURE, "true");
-        params.put(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
-        params.put("SINGLE_PARAM", "VAL1");
+        final Map<String, String[]> params = new HashMap<String, String[]>();
+        params.put(PortletHref.PARAM_MODE, new String[]{"help"});
+        params.put(PortletHref.PARAM_STATE, new String[]{"maximized"});
+        params.put(PortletHref.PARAM_SECURE, new String[]{"true"});
+        params.put(PortletHref.PARAM_TYPE, new String[]{PortletHref.TYPE_ACTION});
+        params.put("SINGLE_PARAM", new String[]{"VAL1"});
         final String[] multiParam = new String[]{"VAL2", "VAL3"};
         params.put("MULTI_PARAM", multiParam);
-        params.put("INT_PARAM", new Integer("31337"));
+        params.put("INT_PARAM", new String[]{"31337"});
 
         href.setParameterMap(params);
 
-        assertTrue(href.isRequestedSecure());
-        assertEquals(new PortletMode("help"), href.getRequestedMode());
-        assertEquals(new WindowState("maximized"), href.getRequestedState());
-        assertTrue(href.isAction());
+        Assert.assertTrue(href.isRequestedSecure());
+        Assert.assertEquals(new PortletMode("help"), href.getRequestedMode());
+        Assert.assertEquals(new WindowState("maximized"), href.getRequestedState());
+        Assert.assertTrue(href.isAction());
 
-        final Map actualParams = href.getParameterMap();
-        assertEquals(3, actualParams.size());
-        assertEquals(actualParams.get("SINGLE_PARAM"), "VAL1");
-        assertEquals(actualParams.get("INT_PARAM"), "31337");
-        assertNull(actualParams.get("ORIGINAL_PARAM"));
+        final Map<String, String[]> actualParams = href.getParameterMap();
+        Assert.assertEquals(3, actualParams.size());
+        Assert.assertArrayEquals(new String[]{"VAL1"}, actualParams.get("SINGLE_PARAM"));
+        Assert.assertArrayEquals(new String[]{"31337"}, actualParams.get("INT_PARAM"));
+        Assert.assertNull(actualParams.get("ORIGINAL_PARAM"));
 
-        final String[] actualMultiParam = (String[]) actualParams.get("MULTI_PARAM");
-        assertEquals(multiParam.length, actualMultiParam.length);
-        assertEquals(multiParam[0], actualMultiParam[0]);
-        assertEquals(multiParam[1], actualMultiParam[1]);
+        final String[] actualMultiParam = actualParams.get("MULTI_PARAM");
+        Assert.assertEquals(multiParam.length, actualMultiParam.length);
+        Assert.assertEquals(multiParam[0], actualMultiParam[0]);
+        Assert.assertEquals(multiParam[1], actualMultiParam[1]);
     }
 
+    @Test
     public void testRemoveParameter()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
 
         href.addParameter("SINGLE_PARAM", "VAL1");
 
-        final Map actualParams = href.getParameterMap();
-        assertEquals(1, actualParams.size());
-        assertEquals(actualParams.get("SINGLE_PARAM"), "VAL1");
+        final Map<String, String[]> actualParams = href.getParameterMap();
+        Assert.assertEquals(1, actualParams.size());
+        Assert.assertArrayEquals(new String[]{"VAL1"}, actualParams.get("SINGLE_PARAM"));
 
         href.removeParameter("SINGLE_PARAM");
 
         final Map actualParams2 = href.getParameterMap();
-        assertEquals(0, actualParams2.size());
-        assertNull(actualParams2.get("SINGLE_PARAM"));
+        Assert.assertEquals(0, actualParams2.size());
+        Assert.assertNull(actualParams2.get("SINGLE_PARAM"));
     }
 
+    @Test
     public void testClone()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
@@ -335,22 +337,23 @@ public class PortletHrefTest extends TestCase
         href.addParameter("SINGLE_PARAM", "VAL1");
         href.addParameter("INT_PARAM", 31337);
 
-        assertTrue(href.isRequestedSecure());
-        assertEquals(new PortletMode("help"), href.getRequestedMode());
-        assertEquals(new WindowState("maximized"), href.getRequestedState());
-        assertTrue(href.isAction());
+        Assert.assertTrue(href.isRequestedSecure());
+        Assert.assertEquals(new PortletMode("help"), href.getRequestedMode());
+        Assert.assertEquals(new WindowState("maximized"), href.getRequestedState());
+        Assert.assertTrue(href.isAction());
 
-        final Map actualParams = href.getParameterMap();
-        assertEquals(2, actualParams.size());
-        assertEquals(actualParams.get("SINGLE_PARAM"), "VAL1");
-        assertEquals(actualParams.get("INT_PARAM"), "31337");
+        final Map<String, String[]> actualParams = href.getParameterMap();
+        Assert.assertEquals(2, actualParams.size());
+        Assert.assertArrayEquals(new String[]{"VAL1"}, actualParams.get("SINGLE_PARAM"));
+        Assert.assertArrayEquals(new String[]{"31337"}, actualParams.get("INT_PARAM"));
 
         final PortletHref href2 = (PortletHref) href.clone();
-        assertTrue(href != href2);
-        assertEquals(href, href2);
-        assertEquals(href.hashCode(), href2.hashCode());
+        Assert.assertTrue(href != href2);
+        Assert.assertEquals(href, href2);
+        Assert.assertEquals(href.hashCode(), href2.hashCode());
     }
 
+    @Test
     public void testBaseUrl()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
@@ -361,28 +364,29 @@ public class PortletHrefTest extends TestCase
         href.addParameter("SINGLE_PARAM", "VAL1");
 
         final String baseRenderUrl = href.getBaseUrl();
-        assertEquals("http://localhost/mockportlet?urlType=render", baseRenderUrl);
+        Assert.assertEquals("http://localhost/mockportlet?urlType=render", baseRenderUrl);
 
         href.addParameter(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
 
         final String baseActionUrl = href.getBaseUrl();
-        assertEquals("http://localhost/mockportlet?urlType=action", baseActionUrl);
+        Assert.assertEquals("http://localhost/mockportlet?urlType=action", baseActionUrl);
     }
 
+    @Test
     public void testFullUrl()
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
 
         final String urlString1 = href.toString();
-        assertEquals("http://localhost/mockportlet?urlType=render", urlString1);
+        Assert.assertEquals("http://localhost/mockportlet?urlType=render", urlString1);
 
         href.addParameter(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
         final String urlString2 = href.toString();
-        assertEquals("http://localhost/mockportlet?urlType=action", urlString2);
+        Assert.assertEquals("http://localhost/mockportlet?urlType=action", urlString2);
 
         href.addParameter(PortletHref.PARAM_SECURE, Boolean.TRUE.toString());
         final String urlString3 = href.toString();
-        assertEquals("https://localhost/mockportlet?urlType=action", urlString3);
+        Assert.assertEquals("https://localhost/mockportlet?urlType=action", urlString3);
 
         // This code should work but the MockPortletURL provided by spring doesn't follow the
         // interface docs on invalid modes/states
@@ -397,15 +401,15 @@ public class PortletHrefTest extends TestCase
 
         href.addParameter(PortletHref.PARAM_STATE, "normal");
         final String urlString7 = href.toString();
-        assertEquals("https://localhost/mockportlet?urlType=action;windowState=normal", urlString7);
+        Assert.assertEquals("https://localhost/mockportlet?urlType=action;windowState=normal", urlString7);
 
         href.addParameter(PortletHref.PARAM_STATE, "minimized");
         final String urlString8 = href.toString();
-        assertEquals("https://localhost/mockportlet?urlType=action;windowState=minimized", urlString8);
+        Assert.assertEquals("https://localhost/mockportlet?urlType=action;windowState=minimized", urlString8);
 
         href.addParameter(PortletHref.PARAM_STATE, "maximized");
         final String urlString9 = href.toString();
-        assertEquals("https://localhost/mockportlet?urlType=action;windowState=maximized", urlString9);
+        Assert.assertEquals("https://localhost/mockportlet?urlType=action;windowState=maximized", urlString9);
 
         // This code should work but the MockPortletURL provided by spring doesn't follow the
         // interface docs on invalid modes/states
@@ -420,34 +424,43 @@ public class PortletHrefTest extends TestCase
 
         href.addParameter(PortletHref.PARAM_MODE, "view");
         final String urlString4 = href.toString();
-        assertEquals("https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=view", urlString4);
+        Assert.assertEquals(
+            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=view",
+            urlString4);
 
         href.addParameter(PortletHref.PARAM_MODE, "help");
         final String urlString5 = href.toString();
-        assertEquals("https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=help", urlString5);
+        Assert.assertEquals(
+            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=help",
+            urlString5);
 
         href.addParameter(PortletHref.PARAM_MODE, "edit");
         final String urlString6 = href.toString();
-        assertEquals("https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit", urlString6);
+        Assert.assertEquals(
+            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit",
+            urlString6);
 
         href.addParameter("SINGLE_PARAM", "VAL");
         final String urlString10 = href.toString();
-        assertEquals(
-            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL",
-            urlString10);
+        Assert
+            .assertEquals(
+                "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL",
+                urlString10);
 
-        final Map paramMap = new HashMap();
+        final Map<String, String[]> paramMap = new HashMap();
         paramMap.put("MULTI_PARAM", new String[]{"VAL1", "VAL2"});
         href.addParameterMap(paramMap);
         final String urlString11 = href.toString();
-        assertEquals(
-            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2;param_SINGLE_PARAM=VAL",
-            urlString11);
+        Assert
+            .assertEquals(
+                "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2",
+                urlString11);
 
         href.setAnchor("ANCHOR");
         final String urlString12 = href.toString();
-        assertEquals(
-            "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2;param_SINGLE_PARAM=VAL#ANCHOR",
-            urlString12);
+        Assert
+            .assertEquals(
+                "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2#ANCHOR",
+                urlString12);
     }
 }

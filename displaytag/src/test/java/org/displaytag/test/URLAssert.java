@@ -1,9 +1,11 @@
 package org.displaytag.test;
 
-import org.junit.Assert;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 
 
 /**
@@ -29,6 +31,16 @@ public final class URLAssert
      */
     public static void assertEquals(String expectedUrl, String generatedUrl)
     {
+        try
+        {
+            expectedUrl = URLDecoder.decode(expectedUrl, "UTF-8");
+            generatedUrl = URLDecoder.decode(generatedUrl, "UTF-8");
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            throw new RuntimeException(e);
+        }
+
         // hack for missing base url
         if (expectedUrl.startsWith("?"))
         {
@@ -70,10 +82,10 @@ public final class URLAssert
             String[] generatedParameters = StringUtils.split(StringUtils.replace(generatedSplit[1], "&amp;", "&"), '&');
             String[] expectedParameters = StringUtils.split(StringUtils.replace(expectedSplit[1], "&amp;", "&"), '&');
 
-            Assert.assertEquals(
-                "Compared urls have different number of parameters",
-                expectedParameters.length,
-                generatedParameters.length);
+            Assert.assertEquals("Compared urls have different number of parameters. Expected "
+                + expectedUrl
+                + " - generated "
+                + generatedUrl, expectedParameters.length, generatedParameters.length);
 
             for (int j = 0; j < expectedParameters.length; j++)
             {
@@ -83,9 +95,12 @@ public final class URLAssert
                 {
                     singleParam += "=";
                 }
-                Assert.assertTrue(
-                    "Expected parameter " + singleParam + " could not be found in generated URL",
-                    ArrayUtils.contains(generatedParameters, singleParam));
+                Assert.assertTrue("Expected parameter "
+                    + singleParam
+                    + " could not be found in generated URL. Expected url "
+                    + expectedUrl
+                    + " - generated "
+                    + generatedUrl, ArrayUtils.contains(generatedParameters, singleParam));
             }
         }
     }

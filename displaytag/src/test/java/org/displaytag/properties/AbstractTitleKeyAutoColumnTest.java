@@ -93,8 +93,10 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
         }
 
         // resource should be used also without the property attribute for the "camel" header
-        Assert.assertEquals("Header from resource is not valid.", "camel title" + getExpectedSuffix(), tables[0]
-            .getCellAsText(0, j));
+        Assert.assertEquals(
+            "Header from resource is not valid.",
+            "camel title" + getExpectedSuffix(),
+            tables[0].getCellAsText(0, j));
 
     }
 }

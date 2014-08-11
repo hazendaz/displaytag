@@ -53,8 +53,10 @@ public class ColumnLinksTest extends DisplaytagCase
         Assert.assertEquals("Text in first link is wrong.", "/context/dynlink?param=ant", links[0].getURLString());
         Assert.assertEquals("Text in second link is wrong.", "/context/dynlink?param=ant", links[1].getURLString());
         Assert.assertEquals("Text in third link is wrong.", "dynlink?param=ant", links[2].getURLString());
-        Assert.assertEquals("Text in fourth link is wrong.", "http://something/dynlink?param=ant", links[3]
-            .getURLString());
+        Assert.assertEquals(
+            "Text in fourth link is wrong.",
+            "http://something/dynlink?param=ant",
+            links[3].getURLString());
         Assert.assertEquals("Text in fifth link is wrong.", "http://something/dynlink", links[4].getURLString());
         Assert.assertEquals("Text in sixth link is wrong.", "/context/dynlink", links[5].getURLString());
     }

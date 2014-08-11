@@ -16,6 +16,7 @@ import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.ColumnTag;
 import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -24,17 +25,8 @@ import org.junit.Assert;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ToStringTest extends TestCase
+public class ToStringTest
 {
-
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName();
-    }
 
     /**
      * ToString methods should be costructed using toStringBuilder and the <code>ShortToStringStyle.SHORT_STYLE</code>
@@ -50,6 +42,7 @@ public class ToStringTest extends TestCase
     /**
      * ToString() test.
      */
+    @Test
     public void testSmartListHelper()
     {
         checkToString(new SmartListHelper(new ArrayList<Object>(), 100, 10, TableProperties.getInstance(null), false));
@@ -58,6 +51,7 @@ public class ToStringTest extends TestCase
     /**
      * ToString() test.
      */
+    @Test
     public void testNumberedPage()
     {
         checkToString(new NumberedPage(1, false));
@@ -66,6 +60,7 @@ public class ToStringTest extends TestCase
     /**
      * ToString() test.
      */
+    @Test
     public void testPagination()
     {
         checkToString(new Pagination(null, null, null));
@@ -74,6 +69,7 @@ public class ToStringTest extends TestCase
     /**
      * ToString() test.
      */
+    @Test
     public void testCell()
     {
         checkToString(new Cell(null));
@@ -82,6 +78,7 @@ public class ToStringTest extends TestCase
     /**
      * ToString() test.
      */
+    @Test
     public void testHeaderCell()
     {
         checkToString(new HeaderCell());
@@ -90,6 +87,7 @@ public class ToStringTest extends TestCase
     /**
      * ToString() test.
      */
+    @Test
     public void testColumn()
     {
         checkToString(new Column(new HeaderCell(), null, null));
@@ -98,6 +96,7 @@ public class ToStringTest extends TestCase
     /**
      * ToString() test.
      */
+    @Test
     public void testRow()
     {
         checkToString(new Row(null, 0));
@@ -106,6 +105,7 @@ public class ToStringTest extends TestCase
     /**
      * ToString() test.
      */
+    @Test
     public void testTableModel()
     {
         checkToString(new TableModel(null, null, null));
@@ -114,6 +114,7 @@ public class ToStringTest extends TestCase
     /**
      * ToString() test.
      */
+    @Test
     public void testColumnTag()
     {
         checkToString(new ColumnTag());

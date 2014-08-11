@@ -12,22 +12,24 @@ import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.TableProperties;
 import org.junit.Test;
 
+
 /**
- * Test for TableDecorator with pagination.
- *
- * If you set up pagination and iterate through the entire page, you should
- * always be on the last row at the end.  If you have grouped totals, the first
- * group on a page other than the first should start at the page offset, not at 0.
- *
+ * Test for TableDecorator with pagination. If you set up pagination and iterate through the entire page, you should
+ * always be on the last row at the end. If you have grouped totals, the first group on a page other than the first
+ * should start at the page offset, not at 0.
  * @author Robert West
  * @version $Revision: 1 $ ($Author: rwest $)
  */
-public class TableDecoratorPaginationTest {
+public class TableDecoratorPaginationTest
+{
+
     @Test
-    public void testSinglePage() {
+    public void testSinglePage()
+    {
         List<Integer> rawData = new ArrayList<Integer>(10);
         List<Object> data = new ArrayList<Object>(10);
-        for(int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 10; i++)
+        {
             rawData.add(i);
             data.add(new Row(i, i));
         }
@@ -46,7 +48,8 @@ public class TableDecoratorPaginationTest {
         model.setTableDecorator(decorator);
 
         RowIterator iterator = model.getRowIterator(false);
-        while(iterator.hasNext()) {
+        while (iterator.hasNext())
+        {
             iterator.next();
         }
 
@@ -54,10 +57,12 @@ public class TableDecoratorPaginationTest {
     }
 
     @Test
-    public void testFirstPage() {
+    public void testFirstPage()
+    {
         List<Integer> rawData = new ArrayList<Integer>(10);
         List<Object> data = new ArrayList<Object>(10);
-        for(int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 10; i++)
+        {
             rawData.add(i);
             data.add(new Row(i, i));
         }
@@ -76,7 +81,8 @@ public class TableDecoratorPaginationTest {
         model.setTableDecorator(decorator);
 
         RowIterator iterator = model.getRowIterator(false);
-        while(iterator.hasNext()) {
+        while (iterator.hasNext())
+        {
             iterator.next();
         }
 
@@ -84,10 +90,12 @@ public class TableDecoratorPaginationTest {
     }
 
     @Test
-    public void testSecondPage() {
+    public void testSecondPage()
+    {
         List<Integer> rawData = new ArrayList<Integer>(10);
         List<Object> data = new ArrayList<Object>(10);
-        for(int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 10; i++)
+        {
             rawData.add(i);
             data.add(new Row(i, i));
         }
@@ -106,7 +114,8 @@ public class TableDecoratorPaginationTest {
         model.setTableDecorator(decorator);
 
         RowIterator iterator = model.getRowIterator(false);
-        while(iterator.hasNext()) {
+        while (iterator.hasNext())
+        {
             iterator.next();
         }
 

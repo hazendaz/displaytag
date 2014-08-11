@@ -53,12 +53,14 @@ public class RequestUriTest extends DisplaytagCase
         WebLink[] links = response.getLinks();
         Assert.assertEquals("Wrong number of links in result.", 4, links.length);
 
-        URLAssert.assertEquals(CONTEXT
-            + "/goforit?"
-            + new ParamEncoder("table").encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE)
-            + "=1&"
-            + TableTagParameters.PARAMETER_EXPORTING
-            + "=1", links[0].getURLString());
+        URLAssert.assertEquals(
+            CONTEXT
+                + "/goforit?"
+                + new ParamEncoder("table").encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE)
+                + "=1&"
+                + TableTagParameters.PARAMETER_EXPORTING
+                + "=1",
+            links[0].getURLString());
     }
 
 }

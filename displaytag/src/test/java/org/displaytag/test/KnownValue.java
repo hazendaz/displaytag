@@ -2,6 +2,7 @@ package org.displaytag.test;
 
 import java.util.Date;
 
+
 /**
  * Simple test data provider.
  * @author rapruitt
@@ -24,15 +25,20 @@ public class KnownValue
      * constant for the "camel" property (this is both the property name and value).
      */
     public static final String CAMEL = "camel";
+
     /**
      * constant for the "date" property (this is both the property name and value).
      */
     public static final Date MAY = new Date(12934123434l);
 
     public String antValue = ANT;
+
     public String beeValue = BEE;
+
     public int twoValue = TWO;
+
     public String camelValue = CAMEL;
+
     public Date date = MAY;
 
     /**

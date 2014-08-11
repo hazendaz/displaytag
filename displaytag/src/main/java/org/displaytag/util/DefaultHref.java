@@ -11,14 +11,18 @@
  */
 package org.displaytag.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -44,7 +48,7 @@ public class DefaultHref implements Href
     /**
      * Url parameters.
      */
-    private Map<String, Object> parameters;
+    private Map<String, String[]> parameters;
 
     /**
      * Anchor (to be added at the end of URL).
@@ -57,7 +61,7 @@ public class DefaultHref implements Href
      */
     public DefaultHref(String baseUrl)
     {
-        this.parameters = new HashMap<String, Object>();
+        this.parameters = new LinkedHashMap<String, String[]>();
         setFullUrl(baseUrl);
     }
 
@@ -70,6 +74,7 @@ public class DefaultHref implements Href
         this.url = null;
         this.anchor = null;
         String noAnchorUrl;
+
         int anchorposition = baseUrl.indexOf('#');
 
         // extract anchor from url
@@ -119,54 +124,45 @@ public class DefaultHref implements Href
             String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), '=');
 
             // encode name/value to prevent css
-            String escapedKey = StringEscapeUtils.escapeXml10(keyValue[0]);
-            String escapedValue = keyValue.length > 1
-                ? StringEscapeUtils.escapeXml10(keyValue[1])
-                : TagConstants.EMPTY_STRING;
+            String decodedkey = decodeParam(keyValue[0]);
+            String decodedvalue = decodeParam(keyValue.length > 1 ? keyValue[1] : StringUtils.EMPTY);
 
-            if (!this.parameters.containsKey(escapedKey))
+            if (!this.parameters.containsKey(decodedkey))
             {
                 // ... and add it to the map
-                this.parameters.put(escapedKey, escapedValue);
+                this.parameters.put(decodedkey, new String[]{decodedvalue});
             }
             else
             {
                 // additional value for an existing parameter
-                Object previousValue = this.parameters.get(escapedKey);
-                if (previousValue != null && previousValue.getClass().isArray())
+                String[] previousValue = this.parameters.get(decodedkey);
+
+                String[] newArray = new String[previousValue.length + 1];
+
+                int j;
+
+                for (j = 0; j < previousValue.length; j++)
                 {
-                    Object[] previousArray = (Object[]) previousValue;
-                    Object[] newArray = new Object[previousArray.length + 1];
-
-                    int j;
-
-                    for (j = 0; j < previousArray.length; j++)
-                    {
-                        newArray[j] = previousArray[j];
-                    }
-
-                    newArray[j] = escapedValue;
-                    this.parameters.put(escapedKey, newArray);
+                    newArray[j] = previousValue[j];
                 }
-                else
-                {
-                    this.parameters.put(escapedKey, new Object[]{previousValue, escapedValue});
-                }
+
+                newArray[j] = decodedvalue;
+                this.parameters.put(decodedkey, newArray);
+
             }
         }
     }
 
     /**
      * Adds a parameter to the href.
-     * @param name String
+     * @param key String
      * @param value Object
      * @return this Href instance, useful for concatenation.
      */
-    @SuppressWarnings("deprecation")
     @Override
-    public Href addParameter(String name, Object value)
+    public Href addParameter(String key, Object value)
     {
-        this.parameters.put(name, ObjectUtils.toString(value, null));
+        this.parameters.put(decodeParam(key), new String[]{decodeParam(value)});
         return this;
     }
 
@@ -175,22 +171,21 @@ public class DefaultHref implements Href
      * @param name String
      */
     @Override
-    public void removeParameter(String name)
+    public void removeParameter(String key)
     {
-        // warning, param names are escaped
-        this.parameters.remove(StringEscapeUtils.escapeXml10(name));
+        this.parameters.remove(decodeParam(key));
     }
 
     /**
      * Adds an int parameter to the href.
-     * @param name String
+     * @param key String
      * @param value int
      * @return this Href instance, useful for concatenation.
      */
     @Override
-    public Href addParameter(String name, int value)
+    public Href addParameter(String key, int value)
     {
-        this.parameters.put(name, new Integer(value));
+        this.parameters.put(decodeParam(key), new String[]{Integer.toString(value)});
         return this;
     }
 
@@ -199,9 +194,9 @@ public class DefaultHref implements Href
      * @return parameter Map (copy)
      */
     @Override
-    public Map<String, Object> getParameterMap()
+    public Map<String, String[]> getParameterMap()
     {
-        Map<String, Object> copyMap = new HashMap<String, Object>(this.parameters.size());
+        Map<String, String[]> copyMap = new LinkedHashMap<String, String[]>(this.parameters.size());
         copyMap.putAll(this.parameters);
         return copyMap;
     }
@@ -212,10 +207,10 @@ public class DefaultHref implements Href
      * @param parametersMap Map containing parameters
      */
     @Override
-    public void setParameterMap(Map<String, Object> parametersMap)
+    public void setParameterMap(Map<String, String[]> parametersMap)
     {
         // create a new HashMap
-        this.parameters = new HashMap<String, Object>(parametersMap.size());
+        this.parameters = new HashMap<String, String[]>(parametersMap.size());
 
         // copy the parameters
         addParameterMap(parametersMap);
@@ -227,7 +222,7 @@ public class DefaultHref implements Href
      * @param parametersMap Map containing parameters
      */
     @Override
-    public void addParameterMap(Map<String, Object> parametersMap)
+    public void addParameterMap(Map<String, String[]> parametersMap)
     {
         // handle nulls
         if (parametersMap == null)
@@ -236,34 +231,40 @@ public class DefaultHref implements Href
         }
 
         // copy value, escaping html
-        Iterator mapIterator = parametersMap.entrySet().iterator();
+        Iterator<Entry<String, String[]>> mapIterator = parametersMap.entrySet().iterator();
         while (mapIterator.hasNext())
         {
-            Map.Entry entry = (Map.Entry) mapIterator.next();
-            String key = StringEscapeUtils.escapeXml10((String) entry.getKey());
+            Entry<String, String[]> entry = mapIterator.next();
+            String key = decodeParam(entry.getKey());
 
             // don't overwrite parameters
             if (!this.parameters.containsKey(key))
             {
-                Object value = entry.getValue();
+                String[] value = entry.getValue();
 
                 if (value != null)
                 {
+                    String[] values;
+                    // check mantained for binary compatibility with displaytag 1.2
                     if (value.getClass().isArray())
                     {
-                        String[] values = (String[]) value;
+                        values = value;
                         for (int i = 0; i < values.length; i++)
                         {
-                            values[i] = StringEscapeUtils.escapeXml10(values[i]);
+                            values[i] = decodeParam(values[i]);
                         }
                     }
                     else
                     {
-                        value = StringEscapeUtils.escapeXml10(value.toString());
+                        values = new String[]{decodeParam(value)};
                     }
-                }
 
-                this.parameters.put(key, value);
+                    this.parameters.put(key, values);
+                }
+                else
+                {
+                    this.parameters.put(key, new String[0]);
+                }
             }
         }
     }
@@ -325,24 +326,31 @@ public class DefaultHref implements Href
 
                 if (value == null)
                 {
-                    buffer.append(key).append('='); // no value
+                    buffer.append(encodeParam(key)).append('='); // no value
                 }
                 else if (value.getClass().isArray())
                 {
                     Object[] values = (Object[]) value;
-                    for (int i = 0; i < values.length; i++)
+                    if (values.length == 0)
                     {
-                        if (i > 0)
+                        buffer.append(encodeParam(key)).append('='); // no value
+                    }
+                    else
+                    {
+                        for (int i = 0; i < values.length; i++)
                         {
-                            buffer.append(TagConstants.AMPERSAND);
-                        }
+                            if (i > 0)
+                            {
+                                buffer.append(TagConstants.AMPERSAND);
+                            }
 
-                        buffer.append(key).append('=').append(values[i]);
+                            buffer.append(encodeParam(key)).append('=').append(encodeParam(values[i]));
+                        }
                     }
                 }
                 else
                 {
-                    buffer.append(key).append('=').append(value);
+                    buffer.append(encodeParam(key)).append('=').append(encodeParam(value));
                 }
 
                 if (iterator.hasNext())
@@ -361,6 +369,40 @@ public class DefaultHref implements Href
         return buffer.toString();
     }
 
+    private String encodeParam(Object param)
+    {
+        if (param == null)
+        {
+            return StringUtils.EMPTY;
+        }
+        try
+        {
+            return URLEncoder.encode(param.toString(), "UTF-8");
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            // should never happen
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String decodeParam(Object param)
+    {
+        if (param == null)
+        {
+            return StringUtils.EMPTY;
+        }
+        try
+        {
+            return URLDecoder.decode(param.toString(), "UTF-8");
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            // should never happen
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
      * @see java.lang.Object#clone()
      */
@@ -377,7 +419,7 @@ public class DefaultHref implements Href
             throw new RuntimeException(e); // should never happen
         }
 
-        href.parameters = new HashMap<String, Object>(this.parameters);
+        href.parameters = new LinkedHashMap<String, String[]>(this.parameters);
         return href;
     }
 
@@ -392,8 +434,11 @@ public class DefaultHref implements Href
             return false;
         }
         DefaultHref rhs = (DefaultHref) object;
+
+        // "parameters" can't be added directly, since equals on HashMap doesn't return true with equal key/values
         return new EqualsBuilder()
-            .append(this.parameters, rhs.parameters)
+            .append(this.parameters.keySet(), rhs.parameters.keySet())
+            .append(this.parameters.values().toArray(), rhs.parameters.values().toArray())
             .append(this.url, rhs.url)
             .append(this.anchor, rhs.anchor)
             .isEquals();
@@ -406,7 +451,8 @@ public class DefaultHref implements Href
     public int hashCode()
     {
         return new HashCodeBuilder(1313733113, -431360889)
-            .append(this.parameters)
+            .append(this.parameters.keySet())
+            .append(this.parameters.values().toArray())
             .append(this.url)
             .append(this.anchor)
             .toHashCode();

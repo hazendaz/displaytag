@@ -70,8 +70,10 @@ public class Displ129Test extends DisplaytagCase
         TableCell headerCell = tables[0].getTableCell(0, 0);
 
         String cssClass = headerCell.getClassName();
-        assertEqualsIgnoreOrder("Wrong css attributes.", new String[]{"sortable", "sorted", "order2"}, StringUtils
-            .split(cssClass));
+        assertEqualsIgnoreOrder(
+            "Wrong css attributes.",
+            new String[]{"sortable", "sorted", "order2"},
+            StringUtils.split(cssClass));
 
         WebLink[] headerLinks = headerCell.getLinks();
         Assert.assertEquals("Sorting link not found.", 1, headerLinks.length);

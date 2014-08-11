@@ -53,11 +53,13 @@ public class ExportDecoratedTest extends DisplaytagCase
         }
 
         Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
-        Assert.assertFalse("Export should not be decorated", StringUtils.contains(
-            response.getText(),
-            (String) new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null)));
-        Assert.assertTrue("Export should not be decorated", StringUtils.contains(
-            response.getText(),
-            KnownTypes.TIME_VALUE.toString()));
+        Assert.assertFalse(
+            "Export should not be decorated",
+            StringUtils.contains(
+                response.getText(),
+                (String) new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null)));
+        Assert.assertTrue(
+            "Export should not be decorated",
+            StringUtils.contains(response.getText(), KnownTypes.TIME_VALUE.toString()));
     }
 }

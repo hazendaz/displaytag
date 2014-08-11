@@ -22,9 +22,9 @@
         <display:column property="long" total="true"/>
 		<display:footer>
 						<tr>
-							<td><c:out value="${totals.column1}"/></td>
-						    <td><c:out value="${totals.column2}"/></td>
-						    <td><c:out value="${totals.column3}"/></td>
+							<td>${totals.column1}</td>
+						    <td>${totals.column2}</td>
+						    <td>${totals.column3}</td>
 						</tr>
 		</display:footer>
       </display:table>

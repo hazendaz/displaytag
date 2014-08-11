@@ -63,9 +63,10 @@ public class Displ280Test extends DisplaytagCase
         Assert.assertEquals("Column 1 should not be marked as sorted.", "sortable", tables[0]
             .getTableCell(0, 1)
             .getClassName());
-        Assert.assertEquals("Column 2 should be marked as sorted.", "sortable sorted order1", tables[0].getTableCell(
-            0,
-            2).getClassName());
+        Assert.assertEquals(
+            "Column 2 should be marked as sorted.",
+            "sortable sorted order1",
+            tables[0].getTableCell(0, 2).getClassName());
 
     }
 

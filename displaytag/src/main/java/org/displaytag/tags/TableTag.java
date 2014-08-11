@@ -61,7 +61,6 @@ import org.displaytag.properties.TableProperties;
 import org.displaytag.render.HtmlTableWriter;
 import org.displaytag.render.TableTotaler;
 import org.displaytag.util.CollectionUtil;
-import org.displaytag.util.DependencyChecker;
 import org.displaytag.util.Href;
 import org.displaytag.util.ParamEncoder;
 import org.displaytag.util.RequestHelper;
@@ -751,7 +750,6 @@ public class TableTag extends HtmlTableTag
     @Override
     public int doStartTag() throws JspException
     {
-        DependencyChecker.check();
 
         // needed before column processing, elsewhere registered views will not be added
         ExportViewFactory.getInstance();

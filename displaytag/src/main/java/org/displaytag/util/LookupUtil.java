@@ -19,7 +19,6 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.beanutils.expression.DefaultResolver;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.logging.Log;

@@ -57,8 +57,9 @@ public class OptimizedIterationTest extends DisplaytagCase
         checkNumberOfIterations(runner.getResponse(request), 4);
 
         // page 1, not sorted but export full list
-        request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE), Integer
-            .toString(MediaTypeEnum.CSV.getCode()));
+        request.setParameter(
+            encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE),
+            Integer.toString(MediaTypeEnum.CSV.getCode()));
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
 
         WebResponse response = runner.getResponse(request);

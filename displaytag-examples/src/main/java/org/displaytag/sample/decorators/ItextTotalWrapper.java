@@ -12,14 +12,14 @@
 
 package org.displaytag.sample.decorators;
 
-import com.lowagie.text.BadElementException;
-import com.lowagie.text.Cell;
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Element;
-import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.Table;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 
 /**
@@ -36,7 +36,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
     /**
      * The iText table in which the totals are rendered.
      */
-    private Table table;
+    private PdfPTable table;
 
     /**
      * The iText font used to render the totals.
@@ -49,7 +49,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * @see org.displaytag.decorator.itext.DecoratesItext#setTable(com.lowagie.text.Table)
      */
     @Override
-    public void setTable(Table table)
+    public void setTable(PdfPTable table)
     {
         this.table = table;
     }
@@ -105,26 +105,20 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
     {
         if (assertRequiredState())
         {
-            try
-            {
-                this.font = FontFactory.getFont(
-                    this.font.getFamilyname(),
-                    this.font.getSize(),
-                    Font.BOLD,
-                    this.font.getColor());
-                table.addCell(this.getCell(""));
-                table.addCell(this.getCell(""));
-                table.addCell(this.getCell("-------------"));
-                table.addCell(this.getCell(""));
-                // new row
-                table.addCell(this.getCell(""));
-                table.addCell(this.getCell(value + " Total:"));
-                table.addCell(this.getCell(total + ""));
-                table.addCell(this.getCell(""));
-            }
-            catch (BadElementException e)
-            {
-            }
+            this.font = FontFactory.getFont(
+                this.font.getFamilyname(),
+                this.font.getSize(),
+                Font.BOLD,
+                this.font.getColor());
+            table.addCell(this.getCell(""));
+            table.addCell(this.getCell(""));
+            table.addCell(this.getCell("-------------"));
+            table.addCell(this.getCell(""));
+            // new row
+            table.addCell(this.getCell(""));
+            table.addCell(this.getCell(value + " Total:"));
+            table.addCell(this.getCell(total + ""));
+            table.addCell(this.getCell(""));
         }
     }
 
@@ -132,12 +126,11 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * Obtain a cell with the given value.
      * @param value Value to display in the cell.
      * @return A cell with the given value.
-     * @throws BadElementException if an error occurs while generating the cell.
      */
-    private Cell getCell(String value) throws BadElementException
+    private PdfPCell getCell(String value)
     {
-        Cell cell = new Cell(new Chunk(value, this.font));
-        cell.setLeading(8);
+        PdfPCell cell = new PdfPCell(new Phrase(new Chunk(value, this.font)));
+        cell.setLeading(8, 0);
         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
         return cell;
     }

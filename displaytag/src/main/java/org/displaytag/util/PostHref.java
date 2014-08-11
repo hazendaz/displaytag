@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 
@@ -63,7 +62,7 @@ public class PostHref implements Href
      * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
      */
     @Override
-    public void addParameterMap(Map<String, Object> parametersMap)
+    public void addParameterMap(Map<String, String[]> parametersMap)
     {
         this.parent.addParameterMap(parametersMap);
     }
@@ -104,7 +103,7 @@ public class PostHref implements Href
      * @see org.displaytag.util.Href#getParameterMap()
      */
     @Override
-    public Map<String, Object> getParameterMap()
+    public Map<String, String[]> getParameterMap()
     {
         return this.parent.getParameterMap();
     }
@@ -144,7 +143,7 @@ public class PostHref implements Href
      * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
      */
     @Override
-    public void setParameterMap(Map<String, Object> parametersMap)
+    public void setParameterMap(Map<String, String[]> parametersMap)
     {
         this.parent.setParameterMap(parametersMap);
     }
@@ -163,7 +162,7 @@ public class PostHref implements Href
         buffer.append(this.form);
         buffer.append("',[");
 
-        Map<String, Object> parameters = getParameterMap();
+        Map<String, String[]> parameters = getParameterMap();
 
         Set parameterSet = parameters.entrySet();
 
@@ -185,7 +184,10 @@ public class PostHref implements Href
             {
                 Object[] values = (Object[]) value;
 
-                buffer.append("[");
+                if (values.length > 1)
+                {
+                    buffer.append("[");
+                }
                 for (int i = 0; i < values.length; i++)
                 {
                     if (i > 0)
@@ -197,7 +199,10 @@ public class PostHref implements Href
                     buffer.append(esc(values[i]));
                     buffer.append("'");
                 }
-                buffer.append("]");
+                if (values.length > 1)
+                {
+                    buffer.append("]");
+                }
             }
             else
             {

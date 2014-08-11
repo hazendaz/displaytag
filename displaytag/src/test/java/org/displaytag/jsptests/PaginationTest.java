@@ -1,5 +1,6 @@
 package org.displaytag.jsptests;
 
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,11 +54,12 @@ public class PaginationTest extends DisplaytagCase
 
         for (int j = 0; j < links.length; j++)
         {
-            Assert.assertTrue(links[j].getURLString().indexOf("{foo}=%2F.%2C%3B%3A%2F%7C%7C%5Cbar") > -1);
             if (log.isDebugEnabled())
             {
                 log.debug(j + " " + links[j].getURLString());
             }
+
+            Assert.assertTrue(StringUtils.contains(links[j].getURLString(), "%7Bfoo%7D=%2F.%2C%3B%3A%2F%7C%7C%5Cbar"));
         }
 
     }

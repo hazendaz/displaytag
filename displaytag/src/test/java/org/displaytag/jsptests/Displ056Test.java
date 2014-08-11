@@ -90,8 +90,10 @@ public class Displ056Test extends DisplaytagCase
         // and just to be sure also check values: sorted table
         for (int j = 1; j < tables[0].getRowCount(); j++)
         {
-            Assert.assertEquals("Unexpected value in table cell", Integer.toString(4 - j), tables[0]
-                .getCellAsText(j, 0));
+            Assert.assertEquals(
+                "Unexpected value in table cell",
+                Integer.toString(4 - j),
+                tables[0].getCellAsText(j, 0));
         }
 
         // unsorted tables:

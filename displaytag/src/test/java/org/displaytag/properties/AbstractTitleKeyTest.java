@@ -93,8 +93,10 @@ public abstract class AbstractTitleKeyTest extends DisplaytagCase
             "camel title" + getExpectedSuffix(),
             tables[0].getCellAsText(0, 2));
 
-        Assert.assertEquals("Missing resource should generate the ???missing??? header.", "???missing???", tables[0]
-            .getCellAsText(0, 3));
+        Assert.assertEquals(
+            "Missing resource should generate the ???missing??? header.",
+            "???missing???",
+            tables[0].getCellAsText(0, 3));
 
     }
 }

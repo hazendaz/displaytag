@@ -19,6 +19,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
+import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -32,7 +33,7 @@ import org.xml.sax.InputSource;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class TldTest extends TestCase
+public class TldTest
 {
 
     /**
@@ -41,18 +42,10 @@ public class TldTest extends TestCase
     private static Log log = LogFactory.getLog(TldTest.class);
 
     /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName();
-    }
-
-    /**
      * Check displaytag 1.2 dtd.
      * @throws Exception any Exception generated during test.
      */
+    @Test
     public void testStandardTld() throws Exception
     {
         checkTld("/META-INF/displaytag.tld");
@@ -304,8 +297,9 @@ public class TldTest extends TestCase
 
                 if (systemFileName.indexOf("/") > 0)
                 {
-                    systemFileName = systemFileName.substring(systemFileName.lastIndexOf("/") + 1, systemFileName
-                        .length());
+                    systemFileName = systemFileName.substring(
+                        systemFileName.lastIndexOf("/") + 1,
+                        systemFileName.length());
                 }
 
                 ClassLoader classLoader = getClass().getClassLoader();
@@ -410,9 +404,11 @@ public class TldTest extends TestCase
         @Override
         public String toString()
         {
-            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("tagClass", this.tagClass).append(
-                "attributeName",
-                this.attributeName).append("attributeType", this.attributeType).toString();
+            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+                .append("tagClass", this.tagClass)
+                .append("attributeName", this.attributeName)
+                .append("attributeType", this.attributeType)
+                .toString();
         }
     }
 }

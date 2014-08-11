@@ -17,7 +17,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.lowagie.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfReader;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
@@ -41,7 +41,7 @@ public class ExportPdfTest extends DisplaytagCase
     public void setUp() throws Exception
     {
         Properties p = new Properties();
-        p.setProperty("export.pdf.class","org.displaytag.export.FopExportView");
+        p.setProperty("export.pdf.class", "org.displaytag.export.FopExportView");
         TableProperties.setUserProperties(p);
         super.setUp();
     }
@@ -56,11 +56,11 @@ public class ExportPdfTest extends DisplaytagCase
 
     public File getTestFile() throws IOException
     {
-        return File.createTempFile("inline","pdf");
+        return File.createTempFile("inline", "pdf");
     }
+
     /**
-     * Test for content disposition and filename.
-     *  jspName jsp name, with full path
+     * Test for content disposition and filename. jspName jsp name, with full path
      * @throws Exception any axception thrown during test.
      */
     @Test
@@ -78,7 +78,7 @@ public class ExportPdfTest extends DisplaytagCase
     public void doInlineTest() throws Exception
     {
         byte[] res = runPage("exportFoInline.jsp");
-        File f =  getTestFile();
+        File f = getTestFile();
         FileOutputStream fw = new FileOutputStream(f);
         fw.write(res);
         fw.flush();
@@ -108,7 +108,7 @@ public class ExportPdfTest extends DisplaytagCase
         stream.read(result);
 
         PdfReader reader = new PdfReader(result);
-//        byte[] page = reader.getPageContent(1);
+        // byte[] page = reader.getPageContent(1);
         Assert.assertEquals("Expected a valid pdf file with a single page", 1, reader.getNumberOfPages());
 
         return result;

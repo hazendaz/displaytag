@@ -7,6 +7,7 @@ import java.util.Locale;
 import junit.framework.TestCase;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -14,21 +15,13 @@ import org.junit.Assert;
  * @author Fabrizio Giustina
  * @version $Id$
  */
-public class MessageFormatColumnDecoratorTest extends TestCase
+public class MessageFormatColumnDecoratorTest
 {
-
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName();
-    }
 
     /**
      * Test with <code>day is {0, date, EEEE}</code>.
      */
+    @Test
     public void testDate()
     {
         Object result = new MessageFormatColumnDecorator("day is {0,date,EEEE}", Locale.ENGLISH).decorate(
@@ -41,6 +34,7 @@ public class MessageFormatColumnDecoratorTest extends TestCase
     /**
      * Test with <code>day is {0, date, EEEE}</code>.
      */
+    @Test
     public void testWrongDate()
     {
         Object result = new MessageFormatColumnDecorator("day is {0,date,EEEE}", Locale.ENGLISH).decorate(

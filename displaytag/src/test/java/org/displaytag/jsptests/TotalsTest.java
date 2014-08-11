@@ -50,8 +50,9 @@ public class TotalsTest extends DisplaytagCase
 
         Assert.assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
         // The footer will PRECEDE the body.
-        Assert.assertTrue("Totals should not be calculated / present if the column is not so marked.", StringUtils
-            .isBlank(tables[0].getCellAsText(1, 0)));
+        Assert.assertTrue(
+            "Totals should not be calculated / present if the column is not so marked.",
+            StringUtils.isBlank(tables[0].getCellAsText(1, 0)));
         Assert.assertEquals(
             "Bad value in footer cell total.",
             "" + (KnownTypes.LONG_VALUE.doubleValue() * 2),

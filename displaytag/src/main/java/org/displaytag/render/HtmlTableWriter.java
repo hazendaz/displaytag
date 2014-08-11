@@ -19,7 +19,6 @@ import java.util.Map;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -182,7 +181,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     private void writeFormFields()
     {
-        Map<String, Object> parameters = baseHref.getParameterMap();
+        Map<String, String[]> parameters = baseHref.getParameterMap();
 
         ParamEncoder pe = new ParamEncoder(this.tableModel.getId());
 
@@ -237,11 +236,11 @@ public class HtmlTableWriter extends TableWriterAdapter
      * @param parameters Map of parameters
      * @param key param key
      */
-    private void addIfMissing(Map<String, Object> parameters, String key)
+    private void addIfMissing(Map<String, String[]> parameters, String key)
     {
         if (!parameters.containsKey(key))
         {
-            parameters.put(key, StringUtils.EMPTY);
+            parameters.put(key, new String[]{StringUtils.EMPTY});
         }
     }
 

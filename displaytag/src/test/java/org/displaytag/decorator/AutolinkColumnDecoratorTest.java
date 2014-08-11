@@ -3,6 +3,7 @@ package org.displaytag.decorator;
 import junit.framework.TestCase;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -10,21 +11,13 @@ import org.junit.Assert;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class AutolinkColumnDecoratorTest extends TestCase
+public class AutolinkColumnDecoratorTest
 {
-
-    /**
-     * @see junit.framework.TestCase#getName()
-     */
-    @Override
-    public String getName()
-    {
-        return getClass().getName() + "." + super.getName();
-    }
 
     /**
      * Test for [952129] column:autolink throwing exception.
      */
+    @Test
     public void testLongTextWithLink()
     {
         Object linked = new AutolinkColumnDecorator().decorate(
@@ -42,6 +35,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
     /**
      * Test for [952129] column:autolink throwing exception.
      */
+    @Test
     public void testLongTextWithEmail()
     {
         Object linked = new AutolinkColumnDecorator().decorate(
@@ -59,6 +53,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
     /**
      * Test for [952132 ] autolink garbling urls.
      */
+    @Test
     public void testGarbledUrl()
     {
         Object linked = new AutolinkColumnDecorator().decorate("http://foo.bar cat http://stoat", null, null);
@@ -71,6 +66,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
     /**
      * Test simple link.
      */
+    @Test
     public void testSimpleLink()
     {
         Object linked = new AutolinkColumnDecorator().decorate("http://foo.bar", null, null);
@@ -81,6 +77,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
     /**
      * Test simple https link.
      */
+    @Test
     public void testSimpleHttpsLink()
     {
         Object linked = new AutolinkColumnDecorator().decorate("https://foo.bar", null, null);
@@ -91,6 +88,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
     /**
      * Test simple ftp link.
      */
+    @Test
     public void testSimpleFtpLink()
     {
         Object linked = new AutolinkColumnDecorator().decorate("ftp://foo.bar", null, null);
@@ -101,6 +99,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
     /**
      * Test simple email.
      */
+    @Test
     public void testSimpleEmail()
     {
         Object linked = new AutolinkColumnDecorator().decorate("foo@bar.com", null, null);
@@ -110,6 +109,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
     /**
      * Test simple link plus dot.
      */
+    @Test
     public void testSimpleLinkPlusDot()
     {
         Object linked = new AutolinkColumnDecorator().decorate("http://foo.bar .", null, null);
@@ -119,6 +119,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
     /**
      * Test no link.
      */
+    @Test
     public void testNoLink()
     {
         Object linked = new AutolinkColumnDecorator().decorate("aa://bb", null, null);
@@ -128,6 +129,7 @@ public class AutolinkColumnDecoratorTest extends TestCase
     /**
      * Test no link beginning.
      */
+    @Test
     public void testNoLinkBeginning()
     {
         Object linked = new AutolinkColumnDecorator().decorate("://bb", null, null);
