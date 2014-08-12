@@ -23,7 +23,7 @@ import java.util.Random;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class TestList extends ArrayList
+public class TestList extends ArrayList<ListObject>
 {
 
     /**
@@ -101,7 +101,7 @@ public class TestList extends ArrayList
      */
     public ListObject getItem(int index)
     {
-        return (ListObject) super.get(index);
+        return super.get(index);
     }
 
 }

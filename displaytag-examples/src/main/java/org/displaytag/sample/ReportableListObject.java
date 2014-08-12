@@ -25,7 +25,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ReportableListObject extends Object implements Comparable, Serializable
+public class ReportableListObject extends Object implements Comparable<Object>, Serializable
 {
 
     /**
@@ -139,9 +139,12 @@ public class ReportableListObject extends Object implements Comparable, Serializ
     public int compareTo(Object object)
     {
         ReportableListObject myClass = (ReportableListObject) object;
-        return new CompareToBuilder().append(this.project, myClass.project).append(this.amount, myClass.amount).append(
-            this.city,
-            myClass.city).append(this.task, myClass.task).toComparison();
+        return new CompareToBuilder()
+            .append(this.project, myClass.project)
+            .append(this.amount, myClass.amount)
+            .append(this.city, myClass.city)
+            .append(this.task, myClass.task)
+            .toComparison();
     }
 
     /**

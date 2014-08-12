@@ -51,16 +51,16 @@ public abstract class TotalWrapperTemplate extends TableDecorator
     @Override
     public final String finishRow()
     {
-        int listindex = ((List) getDecoratedObject()).indexOf(this.getCurrentRowObject());
+        int listindex = ((List<ReportableListObject>) getDecoratedObject()).indexOf(this.getCurrentRowObject());
         ReportableListObject reportableObject = (ReportableListObject) this.getCurrentRowObject();
         String nextCity = null;
 
         this.cityTotal += reportableObject.getAmount();
         this.grandTotal += reportableObject.getAmount();
 
-        if (listindex != ((List) getDecoratedObject()).size() - 1)
+        if (listindex != ((List<ReportableListObject>) getDecoratedObject()).size() - 1)
         {
-            nextCity = ((ReportableListObject) ((List) getDecoratedObject()).get(listindex + 1)).getCity();
+            nextCity = (((List<ReportableListObject>) getDecoratedObject()).get(listindex + 1)).getCity();
         }
 
         this.buffer = new StringBuffer(1000);
@@ -73,7 +73,7 @@ public abstract class TotalWrapperTemplate extends TableDecorator
         }
 
         // Grand totals...
-        if (getViewIndex() == ((List) getDecoratedObject()).size() - 1)
+        if (getViewIndex() == ((List<ReportableListObject>) getDecoratedObject()).size() - 1)
         {
             writeGrandTotal(this.grandTotal);
         }

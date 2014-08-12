@@ -90,7 +90,7 @@ public class ListObject implements Serializable
     /**
      * sub list used to test nested tables.
      */
-    private List subList;
+    private List<Object> subList;
 
     /**
      * Constructor for ListObject.
@@ -118,7 +118,7 @@ public class ListObject implements Serializable
         this.status = RandomSampleUtil.getRandomWord().toUpperCase();
 
         // added sublist for testing of nested tables
-        this.subList = new ArrayList();
+        this.subList = new ArrayList<Object>();
         this.subList.add(new SubListItem());
         this.subList.add(new SubListItem());
         this.subList.add(new SubListItem());
@@ -280,7 +280,7 @@ public class ListObject implements Serializable
      * Returns the subList.
      * @return List
      */
-    public List getSubList()
+    public List<Object> getSubList()
     {
         return this.subList;
     }
