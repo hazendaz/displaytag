@@ -13,6 +13,19 @@
   <name>Display tag library examples</name>
   <version>2.0-SNAPSHOT</version>
   <description>Example webapp for the display tag library</description>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <wtpversion>2.0</wtpversion>
+          <downloadSources>true</downloadSources>
+          <wtpContextName>ROOT</wtpContextName>
+          <testSourcesLast>true</testSourcesLast>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>

@@ -1,5 +1,5 @@
-<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="urn:jsptld:http://java.sun.com/jstl/core">
-  <jsp:directive.page contentType="text/html; charset=UTF-8" />
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project">
+  
   <jsp:text>
     <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">]]>
   </jsp:text>
@@ -136,8 +136,7 @@
   </div>
   <jsp:scriptlet>if (request.getRequestURI().indexOf("example-") != -1) {</jsp:scriptlet>
   <ul id="showsource">
-    <li><![CDATA[<a href="]]><c:out value="${pageContext.request.requestURI}" />
-      <![CDATA[.source">View source</a>]]></li>
+    <li><a href="${pageContext.request.requestURI}.source">View source</a></li>
   </ul>
   <jsp:scriptlet>}</jsp:scriptlet>
   <jsp:text>
@@ -145,4 +144,31 @@
       <div id="contentBox">
       <div class="section">]]>
   </jsp:text>
+  
+  <jsp:doBody />
+  
+    <jsp:text>
+    <![CDATA[</div></div></div>]]>
+  </jsp:text>
+
+
+  <div class="clear">
+  <hr />
+  </div>
+  <div id="footer">
+
+
+  <div class="xright">&#169; 2002-2009 the Displaytag team</div>
+  <div class="clear">
+  <hr />
+  </div>
+  </div>
+
+
+
+  <jsp:text>
+    <![CDATA[</body></html>]]>
+  </jsp:text>
+  
+  
 </jsp:root>

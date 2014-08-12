@@ -1,8 +1,8 @@
-<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8" />
   <jsp:directive.page import="org.displaytag.sample.*" />
   <jsp:directive.page import="java.util.*" />
-  <jsp:include page="inc/header.jsp" flush="true" />
+  <tags:page>
 
   <jsp:scriptlet> List list = (List)session.getAttribute( "details" ); </jsp:scriptlet>
 
@@ -45,6 +45,6 @@
 <jsp:expression>obj.toDetailedString() </jsp:expression>
 </pre></blockquote>
 
-  <jsp:include page="inc/footer.jsp" flush="true" />
+  </tags:page>
 
 </jsp:root>

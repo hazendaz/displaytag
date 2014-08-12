@@ -1,9 +1,20 @@
-<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8" />
   <jsp:directive.page import="org.displaytag.sample.*" />
-  <jsp:include page="inc/header.jsp" flush="true" />
+  <jsp:scriptlet>
+<![CDATA[
+request.setAttribute( "test", new TestList(10, false) ); 
 
-  <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) ); </jsp:scriptlet>
+  Object foo = session.getAttribute( "holder" );
+  if( foo == null ) {
+      ListHolder h = new ListHolder();
+      session.setAttribute( "holder", h );
+  }
+  ]]>
+</jsp:scriptlet>
+  <jsp:scriptlet> request.setAttribute( "test2", null ); </jsp:scriptlet>
+  <tags:page>
+
 
   <h2>Acquiring your List of data</h2>
 
@@ -72,13 +83,6 @@
 ]]>
 </pre>
 
-  <jsp:scriptlet>
-	Object foo = session.getAttribute( "holder" );
-	if( foo == null ) {
-      ListHolder h = new ListHolder();
-      session.setAttribute( "holder", h );
-	}
-</jsp:scriptlet>
 
 
   <display:table name="sessionScope.holder.list">
@@ -95,7 +99,6 @@
   <p>You can override this message using a <code><![CDATA[&lt;setProperty&gt;]]></code> tag or a custom properties file.
   See <a href="example-config.jsp">Config, overriding default behaviors/messages</a> page.</p>
 
-  <jsp:scriptlet> request.setAttribute( "test2", null ); </jsp:scriptlet>
 
   <display:table name="test2">
     <display:column property="id" title="ID" />
@@ -107,6 +110,6 @@
 
 
 
-  <jsp:include page="inc/footer.jsp" flush="true" />
+  </tags:page>
 
 </jsp:root>

@@ -26,7 +26,7 @@ public class ListHolder extends Object
     /**
      * contained list.
      */
-    private List list;
+    private List<ListObject> list;
 
     /**
      * Instantiate a new ListHolder and initialize a TestList with 5 elements.
@@ -40,7 +40,7 @@ public class ListHolder extends Object
      * Returns the contained list.
      * @return a TestList with 15 elements
      */
-    public final List getList()
+    public final List<ListObject> getList()
     {
         return this.list;
     }

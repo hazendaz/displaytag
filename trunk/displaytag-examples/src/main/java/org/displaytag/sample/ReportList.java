@@ -23,7 +23,7 @@ import java.util.Collections;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class ReportList extends ArrayList
+public class ReportList extends ArrayList<ReportableListObject>
 {
 
     /**
