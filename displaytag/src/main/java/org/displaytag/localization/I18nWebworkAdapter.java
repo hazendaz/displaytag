@@ -58,7 +58,7 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
         Locale result = null;
         OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
-        Iterator iterator = stack.getRoot().iterator();
+        Iterator<Object> iterator = stack.getRoot().iterator();
         while (iterator.hasNext())
         {
             Object o = iterator.next();
@@ -93,7 +93,7 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
 
         String message = null;
         OgnlValueStack stack = TagUtils.getStack(pageContext);
-        Iterator iterator = stack.getRoot().iterator();
+        Iterator<Object> iterator = stack.getRoot().iterator();
 
         while (iterator.hasNext())
         {

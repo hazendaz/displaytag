@@ -115,16 +115,16 @@ public class PortletRequestHelperTest
         final Integer nullIntVal = helper.getIntParameter("STRING_PARAM");
         Assert.assertNull(nullIntVal);
 
-        final Map params = helper.getParameterMap();
+        final Map<String, String[]> params = helper.getParameterMap();
         Assert.assertEquals(2, params.size());
 
         final String[] expextedStrArryVal = new String[]{"STRING_VALUE"};
-        final String[] strArryVal = (String[]) params.get("STRING_PARAM");
+        final String[] strArryVal = params.get("STRING_PARAM");
         Assert.assertEquals(expextedStrArryVal.length, strArryVal.length);
         Assert.assertEquals(expextedStrArryVal[0], strArryVal[0]);
 
         final String[] expextedIntArryVal = new String[]{"31337"};
-        final String[] intArryVal = (String[]) params.get("INTEGER_PARAM");
+        final String[] intArryVal = params.get("INTEGER_PARAM");
         Assert.assertEquals(expextedIntArryVal.length, intArryVal.length);
         Assert.assertEquals(expextedIntArryVal[0], intArryVal[0]);
     }
@@ -141,7 +141,7 @@ public class PortletRequestHelperTest
 
         final PortletHref ref = (PortletHref) helper.getHref();
 
-        final Map params = ref.getParameterMap();
+        final Map<String, String[]> params = ref.getParameterMap();
         Assert.assertEquals(0, params.size());
 
         Assert.assertNull(ref.getAnchor());
@@ -166,7 +166,7 @@ public class PortletRequestHelperTest
 
         final PortletHref ref = (PortletHref) helper.getHref();
 
-        final Map params = ref.getParameterMap();
+        final Map<String, String[]> params = ref.getParameterMap();
         Assert.assertEquals(0, params.size());
 
         Assert.assertNull(ref.getAnchor());
@@ -192,16 +192,16 @@ public class PortletRequestHelperTest
 
         final PortletHref ref = (PortletHref) helper.getHref();
 
-        final Map params = ref.getParameterMap();
+        final Map<String, String[]> params = ref.getParameterMap();
         Assert.assertEquals(2, params.size());
 
         final String[] expextedStrArryVal = new String[]{"STRING_VALUE"};
-        final String[] strArryVal = (String[]) params.get("STRING_PARAM");
+        final String[] strArryVal = params.get("STRING_PARAM");
         Assert.assertEquals(expextedStrArryVal.length, strArryVal.length);
         Assert.assertEquals(expextedStrArryVal[0], strArryVal[0]);
 
         final String[] expextedIntArryVal = new String[]{"31337"};
-        final String[] intArryVal = (String[]) params.get("INTEGER_PARAM");
+        final String[] intArryVal = params.get("INTEGER_PARAM");
         Assert.assertEquals(expextedIntArryVal.length, intArryVal.length);
         Assert.assertEquals(expextedIntArryVal[0], intArryVal[0]);
 

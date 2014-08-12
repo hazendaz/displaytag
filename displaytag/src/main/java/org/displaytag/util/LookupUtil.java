@@ -221,7 +221,7 @@ public final class LookupUtil
             indexOfMAPPEDDELIM = next.indexOf(MAPPED_DELIM);
             if (evalBean instanceof Map)
             {
-                evalBean = ((Map) evalBean).get(next);
+                evalBean = ((Map< ? , ? >) evalBean).get(next);
             }
             else if (indexOfMAPPEDDELIM >= 0)
             {
@@ -252,7 +252,7 @@ public final class LookupUtil
 
         if (evalBean instanceof Map)
         {
-            evalBean = ((Map) evalBean).get(evalName);
+            evalBean = ((Map< ? , ? >) evalBean).get(evalName);
         }
         else if (indexOfMAPPEDDELIM >= 0)
         {
@@ -322,7 +322,7 @@ public final class LookupUtil
         {
             if (bean instanceof List)
             {
-                return ((List) bean).get(index);
+                return ((List< ? >) bean).get(index);
             }
             else if (bean.getClass().isArray())
             {

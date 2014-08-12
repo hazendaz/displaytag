@@ -71,7 +71,7 @@ public final class ExportDelegate
         // response (this is the signal from table tag that it is going to write exported data)
         log.debug("Filter operating in buffered mode. ");
 
-        Map bean = (Map) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);
+        Map<String, Object> bean = (Map<String, Object>) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);
 
         if (log.isDebugEnabled())
         {

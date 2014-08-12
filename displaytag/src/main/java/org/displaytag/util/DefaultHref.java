@@ -313,13 +313,13 @@ public class DefaultHref implements Href
         if (this.parameters.size() > 0)
         {
             buffer.append('?');
-            Set parameterSet = this.parameters.entrySet();
+            Set<Entry<String, String[]>> parameterSet = this.parameters.entrySet();
 
-            Iterator iterator = parameterSet.iterator();
+            Iterator<Entry<String, String[]>> iterator = parameterSet.iterator();
 
             while (iterator.hasNext())
             {
-                Map.Entry entry = (Map.Entry) iterator.next();
+                Entry<String, String[]> entry = iterator.next();
 
                 Object key = entry.getKey();
                 Object value = entry.getValue();

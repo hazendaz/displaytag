@@ -211,7 +211,7 @@ public class ExcelUtils
             return null;
         }
         // str = Patterns.replaceAll(str, "(\\r\\n|\\r|\\n|\\n\\r)\\s*", "");
-        String returnString = rawValue != null ? rawValue.toString() : StringUtils.EMPTY;
+        String returnString = rawValue.toString();
         // escape the String to get the tabs, returns, newline explicit as \t \r \n
         returnString = StringEscapeUtils.escapeJava(StringUtils.trimToEmpty(returnString));
         // remove tabs, insert four whitespaces instead

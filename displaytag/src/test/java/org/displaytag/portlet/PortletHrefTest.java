@@ -320,7 +320,7 @@ public class PortletHrefTest
 
         href.removeParameter("SINGLE_PARAM");
 
-        final Map actualParams2 = href.getParameterMap();
+        final Map<String, String[]> actualParams2 = href.getParameterMap();
         Assert.assertEquals(0, actualParams2.size());
         Assert.assertNull(actualParams2.get("SINGLE_PARAM"));
     }
@@ -447,7 +447,7 @@ public class PortletHrefTest
                 "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL",
                 urlString10);
 
-        final Map<String, String[]> paramMap = new HashMap();
+        final Map<String, String[]> paramMap = new HashMap<String, String[]>();
         paramMap.put("MULTI_PARAM", new String[]{"VAL1", "VAL2"});
         href.addParameterMap(paramMap);
         final String urlString11 = href.toString();

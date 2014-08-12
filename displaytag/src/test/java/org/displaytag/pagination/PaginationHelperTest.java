@@ -29,7 +29,7 @@ import org.junit.Test;
  * @author <a href="mailto:kevin.a.conaway@gmail.com">Kevin Conaway</a>
  * @version $Revision$ ($Author$)
  */
-public class PaginationHelperTest 
+public class PaginationHelperTest
 {
 
     @Test
@@ -115,13 +115,13 @@ public class PaginationHelperTest
     /**
      * Ensures that the data passed to the helper is cast as an object
      */
-    protected Iterator getIterator(Object data, int pageNumber, int pageSize)
+    protected Iterator<Object> getIterator(Object data, int pageNumber, int pageSize)
     {
         PaginationHelper helper = new PaginationHelper(pageNumber, pageSize);
         return helper.getIterator(data);
     }
 
-    protected void print(Iterator iterator, String message)
+    protected void print(Iterator< ? extends Object> iterator, String message)
     {
         while (iterator.hasNext())
         {
@@ -137,7 +137,7 @@ public class PaginationHelperTest
         }
     }
 
-    protected void assertEquals(Iterator expected, Iterator actual)
+    protected void assertEquals(Iterator< ? extends Object> expected, Iterator< ? extends Object> actual)
     {
         while (expected.hasNext())
         {

@@ -22,8 +22,8 @@ import org.apache.commons.collections.IteratorUtils;
  * Class to help pagination when dealing with lists.
  * </p>
  * <p>
- * The class will attempt to use <code>java.util.List.subList(int,int)</code> to index into the list for the
- * appropriate page.
+ * The class will attempt to use <code>java.util.List.subList(int,int)</code> to index into the list for the appropriate
+ * page.
  * </p>
  * <p>
  * If the list does not contain enough elements to support the sub list, then the first <code>pageSize</code> elements
@@ -44,17 +44,17 @@ public class PaginationHelper
         this.pageSize = pageSize;
     }
 
-    public Iterator getIterator(Object data)
+    public Iterator<Object> getIterator(Object data)
     {
         if (data instanceof List)
         {
-            return getIterator((List) data);
+            return getIterator((List<Object>) data);
         }
 
         return IteratorUtils.getIterator(data);
     }
 
-    public Iterator getIterator(List data)
+    public Iterator<Object> getIterator(List<Object> data)
     {
         int start = getStart(data.size());
         int end = getEnd(data.size(), start);

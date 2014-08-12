@@ -80,7 +80,6 @@ public class ExcelHssfView implements BinaryExportView
     {
     }
 
-
     /**
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
@@ -126,13 +125,13 @@ public class ExcelHssfView implements BinaryExportView
                 // Create an header row
                 HSSFRow xlsRow = sheet.createRow(rowNum++);
 
-                Iterator iterator = this.model.getHeaderCellList().iterator();
+                Iterator<HeaderCell> iterator = this.model.getHeaderCellList().iterator();
 
                 while (iterator.hasNext())
                 {
-                    HeaderCell headerCell = (HeaderCell) iterator.next();
+                    HeaderCell headerCell = iterator.next();
 
-                    HSSFCell cell = xlsRow.createCell( colNum++);
+                    HSSFCell cell = xlsRow.createCell(colNum++);
                     cell.setCellValue(new HSSFRichTextString(getHeaderCellValue(headerCell)));
                     cell.setCellStyle(createHeaderStyle(getWb(), headerCell));
                 }
@@ -176,16 +175,15 @@ public class ExcelHssfView implements BinaryExportView
     }
 
     /**
-     * Uses POI Autosizing.
-     *
-     * WARNING.  This has been known to cause performance problems and various exceptions.  use at your own risk!  Overriding this method is suggested.
-     *
-     * From POI HSSF documentation for autoSizeColumn:
-     *  "To calculate column width HSSFSheet.autoSizeColumn uses Java2D classes that throw exception if graphical environment is not available.
-     *  In case if graphical environment is not available, you must tell Java that you are running in headless mode and set the following system property:  java.awt.headless=true."
+     * Uses POI Autosizing. WARNING. This has been known to cause performance problems and various exceptions. use at
+     * your own risk! Overriding this method is suggested. From POI HSSF documentation for autoSizeColumn: "To calculate
+     * column width HSSFSheet.autoSizeColumn uses Java2D classes that throw exception if graphical environment is not
+     * available. In case if graphical environment is not available, you must tell Java that you are running in headless
+     * mode and set the following system property: java.awt.headless=true."
      */
-    protected void autosizeColumns() {
-        for (int i=0; i < getModel().getNumberOfColumns(); i++)
+    protected void autosizeColumns()
+    {
+        for (int i = 0; i < getModel().getNumberOfColumns(); i++)
         {
             getSheet().autoSizeColumn((short) i);
             // since this usually creates column widths that are just too short, adjust here!
@@ -197,13 +195,14 @@ public class ExcelHssfView implements BinaryExportView
     }
 
     /**
-     * Write the value to the cell.  Override this method if you have complex data types that may need to be exported.
+     * Write the value to the cell. Override this method if you have complex data types that may need to be exported.
      * @param value the value of the cell
      * @param cell the cell to write it to
      */
     protected void writeCell(Object value, HSSFCell cell)
     {
-        if (value == null) {
+        if (value == null)
+        {
             cell.setCellValue(new HSSFRichTextString(""));
         }
         else if (value instanceof Integer)
@@ -241,7 +240,6 @@ public class ExcelHssfView implements BinaryExportView
             cell.setCellValue(new HSSFRichTextString(ExcelUtils.escapeColumnValue(value)));
         }
     }
-
 
     /**
      * Templated method that is called for all non-header & non-total cells.
@@ -324,14 +322,16 @@ public class ExcelHssfView implements BinaryExportView
 
     public void setSheetName(String sheetName) throws JspException
     {
-        // this is due to either the POI limitations or excel (I'm not sure). you get the following error if you don't do this:
-        // Exception: [.ExcelHssfView] !ExcelView.errorexporting! Cause: Sheet name cannot be blank, greater than 31 chars, or contain any of /\*?[]
+        // this is due to either the POI limitations or excel (I'm not sure). you get the following error if you don't
+        // do this:
+        // Exception: [.ExcelHssfView] !ExcelView.errorexporting! Cause: Sheet name cannot be blank, greater than 31
+        // chars, or contain any of /\*?[]
         if (StringUtils.isBlank(sheetName))
         {
             throw new JspException("The sheet name property " + ExcelUtils.EXCEL_SHEET_NAME + " must not be blank.");
         }
-        sheetName =  sheetName.replaceAll("/|\\\\|\\*|\\?|\\[|\\]","");
-        this.sheetName = sheetName.length() <= 31 ? sheetName : sheetName.substring(0,31-3) + "...";
+        sheetName = sheetName.replaceAll("/|\\\\|\\*|\\?|\\[|\\]", "");
+        this.sheetName = sheetName.length() <= 31 ? sheetName : sheetName.substring(0, 31 - 3) + "...";
     }
 
     public HSSFCellStyle getNewCellStyle()
