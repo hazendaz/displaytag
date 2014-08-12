@@ -270,7 +270,7 @@ public class TableTag extends HtmlTableTag
     /**
      * Iterator on collection.
      */
-    private Iterator tableIterator;
+    private Iterator< ? > tableIterator;
 
     /**
      * export type - set in initParameters().
@@ -1130,7 +1130,7 @@ public class TableTag extends HtmlTableTag
      */
     protected boolean isIncludedRow()
     {
-        return ((Range) filteredRows).contains(this.rowNumber);
+        return filteredRows.contains(this.rowNumber);
     }
 
     /**
@@ -1391,7 +1391,7 @@ public class TableTag extends HtmlTableTag
         if (this.tableIterator.hasNext())
         {
             Object iteratedObject = this.tableIterator.next();
-            Map<String, ? > objectProperties = new HashMap();
+            Map<String, String> objectProperties = new HashMap<String, String>();
 
             // if it's a String don't add the "Bytes" column
             if (iteratedObject instanceof String)
@@ -1401,7 +1401,7 @@ public class TableTag extends HtmlTableTag
             // if it's a map already use key names for column headers
             if (iteratedObject instanceof Map)
             {
-                objectProperties = (Map<String, ? >) iteratedObject;
+                objectProperties = (Map<String, String>) iteratedObject;
             }
             else
             {
@@ -1494,7 +1494,7 @@ public class TableTag extends HtmlTableTag
         HttpServletResponse response = (HttpServletResponse) this.pageContext.getResponse();
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
 
-        Map bean = (Map<String, ? >) request.getAttribute(FILTER_CONTENT_OVERRIDE_BODY);
+        Map<String, Object> bean = (Map<String, Object>) request.getAttribute(FILTER_CONTENT_OVERRIDE_BODY);
         boolean usingFilter = bean != null;
 
         String mimeType = exportView.getMimeType();

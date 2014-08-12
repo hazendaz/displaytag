@@ -46,7 +46,7 @@ public final class ExportViewFactory
     /**
      * Map containing MediaTypeEnum - View class.
      */
-    private final Map<MediaTypeEnum, Class> viewClasses = new HashMap<MediaTypeEnum, Class>();
+    private final Map<MediaTypeEnum, Class<ExportView>> viewClasses = new HashMap<MediaTypeEnum, Class<ExportView>>();
 
     /**
      * Private constructor.
@@ -89,10 +89,10 @@ public final class ExportViewFactory
      */
     public void registerExportView(String name, String viewClassName)
     {
-        Class exportClass;
+        Class<ExportView> exportClass;
         try
         {
-            exportClass = ReflectHelper.classForName(viewClassName);
+            exportClass = (Class<ExportView>) ReflectHelper.classForName(viewClassName);
         }
         catch (ClassNotFoundException e)
         {
@@ -103,7 +103,8 @@ public final class ExportViewFactory
         catch (NoClassDefFoundError e)
         {
             log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
-                , new Object[]{name, viewClassName, e.getMessage()}));
+                ,
+                new Object[]{name, viewClassName, e.getMessage()}));
             return;
         }
 
@@ -126,7 +127,8 @@ public final class ExportViewFactory
         catch (NoClassDefFoundError e)
         {
             log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
-                , new Object[]{name, viewClassName, e.getMessage()}));
+                ,
+                new Object[]{name, viewClassName, e.getMessage()}));
             return;
         }
 
@@ -154,11 +156,11 @@ public final class ExportViewFactory
     {
         ExportView view;
 
-        Class viewClass = viewClasses.get(exportType);
+        Class<ExportView> viewClass = viewClasses.get(exportType);
 
         try
         {
-            view = (ExportView) viewClass.newInstance();
+            view = viewClass.newInstance();
         }
         catch (InstantiationException e)
         {

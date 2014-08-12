@@ -22,7 +22,7 @@ import java.util.Set;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class HtmlAttributeMap extends HashMap
+public class HtmlAttributeMap extends HashMap<String, Object>
 {
 
     /**
@@ -62,14 +62,14 @@ public class HtmlAttributeMap extends HashMap
         StringBuffer buffer = new StringBuffer(size() * 30);
 
         // get the entrySet
-        Set entrySet = entrySet();
+        Set<java.util.Map.Entry<String, Object>> entrySet = entrySet();
 
-        Iterator<Map.Entry<Object, Object>> iterator = entrySet.iterator();
+        Iterator<java.util.Map.Entry<String, Object>> iterator = entrySet.iterator();
 
         // iterates on attributes
         while (iterator.hasNext())
         {
-            Map.Entry<Object, Object> entry = iterator.next();
+            Map.Entry<String, Object> entry = iterator.next();
 
             // append a new atribute
             buffer

@@ -77,10 +77,10 @@ public class TldTest
                 log.debug("testing " + attribute);
             }
             String className = attribute.getTagClass();
-            Class tagClass = null;
+            Class<TagSupport> tagClass = null;
             try
             {
-                tagClass = Class.forName(className);
+                tagClass = (Class<TagSupport>) Class.forName(className);
             }
             catch (ClassNotFoundException e)
             {
@@ -112,12 +112,12 @@ public class TldTest
                 continue;
             }
 
-            Class propertyType = PropertyUtils.getPropertyType(tagObject, attribute.getAttributeName());
+            Class< ? > propertyType = PropertyUtils.getPropertyType(tagObject, attribute.getAttributeName());
 
             String tldType = attribute.getAttributeType();
             if (tldType != null)
             {
-                Class tldTypeClass = getClassFromName(tldType);
+                Class< ? > tldTypeClass = getClassFromName(tldType);
 
                 if (!propertyType.isAssignableFrom(tldTypeClass))
                 {
@@ -150,10 +150,10 @@ public class TldTest
      * @param className clss name
      * @return Class istantiated using Class.forName or the matching primitive.
      */
-    private Class getClassFromName(String className)
+    private Class< ? > getClassFromName(String className)
     {
 
-        Class tldTypeClass = null;
+        Class< ? > tldTypeClass = null;
 
         if ("int".equals(className))
         {

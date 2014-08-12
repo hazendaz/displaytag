@@ -19,6 +19,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
+import org.displaytag.model.Row;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
 
@@ -363,8 +364,11 @@ public class SmartListHelper
             bannerFormat = this.properties.getPagingBannerFull();
         }
 
-        return pagination.getFormattedBanner(this.properties.getPagingPageLink(), this.properties
-            .getPagingPageSelected(), this.properties.getPagingPageSeparator(), bannerFormat);
+        return pagination.getFormattedBanner(
+            this.properties.getPagingPageLink(),
+            this.properties.getPagingPageSelected(),
+            this.properties.getPagingPageSeparator(),
+            bannerFormat);
     }
 
     /**

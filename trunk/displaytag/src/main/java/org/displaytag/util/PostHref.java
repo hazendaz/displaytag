@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -164,14 +165,14 @@ public class PostHref implements Href
 
         Map<String, String[]> parameters = getParameterMap();
 
-        Set parameterSet = parameters.entrySet();
+        Set<Entry<String, String[]>> parameterSet = parameters.entrySet();
 
-        Iterator<Map.Entry<Object, Object>> iterator = parameterSet.iterator();
+        Iterator<Entry<String, String[]>> iterator = parameterSet.iterator();
 
         while (iterator.hasNext())
         {
             // {f:'param1',v:'1'},
-            Map.Entry<Object, Object> entry = iterator.next();
+            Entry<String, String[]> entry = iterator.next();
 
             Object key = entry.getKey();
             Object value = entry.getValue();

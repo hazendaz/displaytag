@@ -29,7 +29,7 @@ import org.displaytag.util.HtmlAttributeMap;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class Cell implements Comparable, Cloneable
+public class Cell implements Comparable<Cell>, Cloneable
 {
 
     /**
@@ -97,7 +97,7 @@ public class Cell implements Comparable, Cloneable
             {
                 String a = (String) this.staticValue;
                 String b = (String) otherStatic;
-                return collator.compare(a,b);
+                return collator.compare(a, b);
             }
             else
             {
@@ -114,7 +114,7 @@ public class Cell implements Comparable, Cloneable
      * @see java.lang.Comparable#compareTo(Object)
      */
     @Override
-    public int compareTo(Object obj)
+    public int compareTo(Cell obj)
     {
         return compareTo(obj, null);
     }

@@ -21,7 +21,7 @@ import java.util.Comparator;
  * @author rapruitt
  * @version $Revision$ ($Author$)
  */
-public class DefaultComparator implements Comparator
+public class DefaultComparator implements Comparator<Object>
 {
 
     /**
@@ -64,7 +64,7 @@ public class DefaultComparator implements Comparator
         }
         else if (object1 instanceof Cell)
         {
-            return ((Cell)object1).compareTo(object2, collator);
+            return ((Cell) object1).compareTo(object2, collator);
         }
         else if (object1 instanceof Comparable && object2 instanceof Comparable)
         {

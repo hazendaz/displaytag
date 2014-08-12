@@ -118,7 +118,7 @@ public class PortletRequestHelper implements RequestHelper
      * @see org.displaytag.util.RequestHelper#getParameterMap()
      */
     @Override
-    public Map getParameterMap()
+    public Map<String, String[]> getParameterMap()
     {
         return this.portletRequest.getParameterMap();
     }

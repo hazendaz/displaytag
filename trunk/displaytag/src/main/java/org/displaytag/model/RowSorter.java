@@ -26,7 +26,7 @@ import org.displaytag.util.LookupUtil;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class RowSorter implements Comparator
+public class RowSorter implements Comparator<Object>
 {
 
     /**
@@ -196,9 +196,10 @@ public class RowSorter implements Comparator
     {
         if (object instanceof RowSorter)
         {
-            return new EqualsBuilder().append(this.property, ((RowSorter) object).property).append(
-                this.columnIndex,
-                ((RowSorter) object).columnIndex).isEquals();
+            return new EqualsBuilder()
+                .append(this.property, ((RowSorter) object).property)
+                .append(this.columnIndex, ((RowSorter) object).columnIndex)
+                .isEquals();
         }
 
         return false;

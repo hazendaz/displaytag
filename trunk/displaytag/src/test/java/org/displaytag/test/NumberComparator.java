@@ -11,7 +11,7 @@ import org.apache.commons.beanutils.ConvertUtils;
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
-public class NumberComparator implements Comparator
+public class NumberComparator implements Comparator<Object>
 {
 
     /**

@@ -169,7 +169,7 @@ public class TotalTableDecorator extends TableDecorator
         StringBuffer buffer = new StringBuffer(1000);
 
         // Grand totals...
-        if (getViewIndex() == ((List) getDecoratedObject()).size() - 1)
+        if (getViewIndex() == ((List<Object>) getDecoratedObject()).size() - 1)
         {
             if (groupPropertyName != null)
             {

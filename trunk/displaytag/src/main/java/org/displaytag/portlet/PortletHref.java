@@ -543,21 +543,15 @@ public class PortletHref implements Href
             }
         }
 
-        for (final Iterator paramItr = this.parameters.entrySet().iterator(); paramItr.hasNext();)
+        for (final Iterator<Entry<String, String[]>> paramItr = this.parameters.entrySet().iterator(); paramItr
+            .hasNext();)
         {
-            final Map.Entry entry = (Map.Entry) paramItr.next();
+            final Entry<String, String[]> entry = paramItr.next();
 
-            final String name = (String) entry.getKey();
-            final Object value = entry.getValue();
+            final String name = entry.getKey();
+            final String[] value = entry.getValue();
 
-            if (value instanceof String)
-            {
-                url.setParameter(name, (String) value);
-            }
-            else if (value instanceof String[])
-            {
-                url.setParameter(name, (String[]) value);
-            }
+            url.setParameter(name, value);
         }
 
         if (this.getAnchor() == null)
