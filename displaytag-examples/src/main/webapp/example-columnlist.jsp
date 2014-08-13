@@ -1,4 +1,4 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
   xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="org.displaytag.sample.*"/>
@@ -59,7 +59,7 @@
 ]]>
   </jsp:scriptlet>
   <tags:page>
-    <h2>Using predefined column lists</h2>
+    <h1>Using predefined column lists</h1>
     <p>This example shows how a predefined set of columns can be applied to a table.</p>
     <p>
       All you have to do is feeding the table with a list of beans/Maps which contains the needed column attributes and

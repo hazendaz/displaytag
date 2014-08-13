@@ -1,4 +1,4 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:directive.page import="java.util.*"/>
@@ -13,7 +13,7 @@
    ]]>
   </jsp:scriptlet>
   <tags:page>
-    <h2>Miscellaneous...</h2>
+    <h1>Miscellaneous...</h1>
     <p>This page shows how to use various bells and whistles that are features of the display taglib that you might not be aware of.</p>
     <p>This table shows how you can use the "nulls" attribute to suppress "null" values that might be returned from your business objects. It also shows the "maxLength" attribute being used to restrict the size of the
       LongDescription column, so that it fits within a certain size of table.</p>

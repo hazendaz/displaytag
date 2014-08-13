@@ -1,4 +1,4 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
   xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:scriptlet> request.setAttribute( "test", new org.displaytag.sample.ReportList(10) );</jsp:scriptlet>
@@ -16,7 +16,7 @@
      ]]>
   </jsp:scriptlet>
   <tags:page>
-    <h2>Column summation</h2>
+    <h1>Column summation</h1>
     <display:table name="test" class="simple nocol" defaultsort="1">
       <display:column property="city" group="1"/>
       <display:column property="project"/>

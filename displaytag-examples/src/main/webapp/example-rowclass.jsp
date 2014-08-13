@@ -1,4 +1,4 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
   xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="org.displaytag.sample.*"/>
@@ -19,7 +19,7 @@
         ]]>
   </jsp:scriptlet>
   <tags:page>
-    <h2>Decorating row class and id attributes</h2>
+    <h1>Decorating row class and id attributes</h1>
     <display:table name="test" decorator="dyndecorator">
       <display:column property="id" title="ID"/>
       <display:column property="email"/>

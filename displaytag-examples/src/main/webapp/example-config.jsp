@@ -1,4 +1,4 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:directive.page import="java.util.*"/>
@@ -7,7 +7,7 @@
   <jsp:scriptlet> Object foo = session.getAttribute( "test3" ); if( foo == null ) { session.setAttribute( "test3", new TestList(320, false) ); }
   </jsp:scriptlet>
   <tags:page>
-    <h2>Config, Overriding defaults behaviors/messages</h2>
+    <h1>Config, Overriding defaults behaviors/messages</h1>
     <p>There are a number of "default" values and strings used by the display tags to show messages, decide which options to display, etc... This is useful if you want to change the behavior of the tag a little (for
       example, don't show the header, or only show 1 export option), or if you need to localize some of the default messages and banners.
     </p>
@@ -47,19 +47,19 @@
     <hr/>
     <p>The following sample shows how you can change the behaviour for empty tables (showing the table or a simple message) using the "basic.empty.showtable" property.
     </p>
-    <h3>
+    <h2>
       Using
       <code>basic.empty.showtable=false</code>
-    </h3>
+    </h2>
     <display:table name="requestScope.empty">
       <display:column property="column" title="column1"/>
       <display:column property="column" title="column2"/>
       <display:column property="column" title="column3"/>
     </display:table>
-    <h3>
+    <h2>
       Using
       <code>basic.empty.showtable=true</code>
-    </h3>
+    </h2>
     <display:table name="requestScope.empty">
       <display:column property="column" title="column1"/>
       <display:column property="column" title="column2"/>

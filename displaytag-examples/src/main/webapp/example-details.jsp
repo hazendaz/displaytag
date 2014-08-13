@@ -1,4 +1,4 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8" />
   <jsp:directive.page import="org.displaytag.sample.*" />
   <jsp:directive.page import="java.util.*" />
@@ -8,7 +8,7 @@
 
   <jsp:include page="header.jsp" flush="true" />
 
-  <h2>Test Object Details</h2>
+  <h1>Test Object Details</h1>
 
   <p>This shows the details of the object that you just clicked on, you can image that this page could be an edit panel,
   or another report, or perhaps just like what is shown here - additional detailed information about the object that you
@@ -19,7 +19,7 @@
   based on the primary key passed in...)</p>
 
   <jsp:scriptlet> if( request.getParameter( "action" ) != null ) { </jsp:scriptlet>
-  <h2>Action: <jsp:expression>request.getParameter( "action" ) </jsp:expression></h2>
+  <h1>Action: <jsp:expression>request.getParameter( "action" ) </jsp:expression></h1>
   <jsp:scriptlet> } </jsp:scriptlet>
 
   <jsp:scriptlet>

@@ -1,4 +1,4 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
   xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="org.displaytag.sample.*"/>
@@ -10,7 +10,7 @@
     ]]>
   </jsp:scriptlet>
   <tags:page>
-    <h2>Posting form values and selecting rows with checkboxes</h2>
+    <h1>Posting form values and selecting rows with checkboxes</h1>
     <display:table name="sessionScope.testform" id="table" pagesize="10" keepStatus="true">
       <display:column property="id"/>
       <display:column property="name" sortable="true"/>

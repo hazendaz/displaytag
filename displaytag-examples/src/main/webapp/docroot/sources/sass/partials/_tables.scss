@@ -1,0 +1,116 @@
+.table thead th {
+    background-color: $green;
+    font-weight: normal;
+    a {
+        color: #000;
+        text-decoration: underline;
+        &:hover {
+            color: $blue;
+            text-decoration: underline;
+        }
+    }
+}
+
+.sortable a:after {
+    position: relative;
+    top: 3px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: right;
+    color: #666;
+}
+
+.sortable a:after {
+    content: "\e150";
+}
+
+.sorted.order1 a:after {
+    content: "\e151";
+}
+
+.sorted.order2 a:after {
+    content: "\e152";
+}
+
+table {
+    &.its {
+        thead tr {
+            background-color: #69c;
+        }
+        tr.even {
+            background-color: #def;
+        }
+    }
+    &.mars {
+        thead tr {
+            background-color: #9c9;
+        }
+        tr {
+            &.even {
+                background-color: #ccb;
+            }
+            &.odd {
+                background-color: #eec;
+            }
+        }
+    }
+    &.simple {
+        thead tr th {
+            background-color: #eee;
+        }
+        tr.even {
+            background-color: #fff;
+        }
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        td, th {
+            border: 1px solid #ccc;
+        }
+    }
+    &.nocol tbody {
+        td, th {
+            border-left: none;
+            border-right: none;
+        }
+    }
+    &.report {
+        td {
+            font: menu;
+        }
+        th {
+            font: menu;
+            background: buttonface;
+            border-width: 1px;
+            border-style: solid;
+            border-color: threedhighlight threedshadow threedshadow threedhighlight;
+            cursor: hand;
+        }
+        .idcol {
+            background: buttonface;
+        }
+        tr.even {
+            background-color: #399;
+        }
+        tbody {
+            height: 100px;
+            overflow: auto;
+            tr {
+                height: 10px;
+            }
+        }
+        height: 120px;
+        overflow: auto;
+    }
+    &.mark td.tableCellError {
+        background-color: #d00;
+        color: #fff;
+    }
+    &.simple td.textRed {
+        color: #b11;
+    }
+}
