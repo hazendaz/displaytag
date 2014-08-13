@@ -1,10 +1,10 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
   xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) );</jsp:scriptlet>
   <tags:page>
-    <h2>Using format</h2>
+    <h1>Using format</h1>
     <display:table name="test">
       <display:column property="id" title="ID"/>
       <display:column property="email" format="email is {0}"/>

@@ -1,4 +1,4 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:scriptlet>
@@ -11,8 +11,8 @@
    ]]>
   </jsp:scriptlet>
   <tags:page>
-    <h2>Two tables working together in the same page with independent paging-sorting
-    </h2>
+    <h1>Two tables working together in the same page with independent paging-sorting
+    </h1>
     <display:table name="sessionScope.two-test1" sort="list" pagesize="10" id="table1" export="true">
       <display:column property="city" title="CITY" group="1" sortable="true" headerClass="sortable"/>
       <display:column property="project" title="PROJECT" group="2" sortable="true" headerClass="sortable"/>

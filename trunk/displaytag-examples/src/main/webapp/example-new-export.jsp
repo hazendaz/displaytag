@@ -1,10 +1,10 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
   xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:scriptlet> request.setAttribute( "test", new ReportList(10) );</jsp:scriptlet>
   <tags:page>
-    <h2>"What You See Is What You Get" Exports</h2>
+    <h1>"What You See Is What You Get" Exports</h1>
     <display:table name="test" class="simple nocol" export="true">
       <display:setProperty name="decorator.media.html" value="org.displaytag.sample.decorators.HtmlTotalWrapper"/>
       <display:setProperty name="decorator.media.pdf" value="org.displaytag.sample.decorators.ItextTotalWrapper"/>

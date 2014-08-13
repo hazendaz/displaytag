@@ -1,0 +1,17 @@
+{{#png}}%{{prefix}} {
+	background-repeat: no-repeat;
+    background-image: url(../sprite/{{#png}}{{{sprite}}}{{/png}});
+    background-image: linear-gradient(transparent, transparent), url(../sprite/{{{sprite}}});
+    display:inline-block;
+}
+
+{{#svg}}{{#selector}}.{{expression}}{{^last}},
+{{/last}}{{/selector}} {
+	@extend %{{prefix}};
+    background-position: {{position}};
+    background-repeat: no-repeat;
+}
+
+{{/svg}}
+{{/png}}
+
