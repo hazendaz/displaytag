@@ -1,5 +1,5 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-  xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:scriptlet>
@@ -15,8 +15,6 @@
   </jsp:scriptlet>
   <tags:page>
     <h1>Posting form values and selecting rows with checkboxes</h1>
-    <a href="javascript:displaytagform('displ',[{f:'par',v:['aa%22az']},{f:'d-148916-s',v:'2'},{f:'d-148916-o',v:'2'}])"> test
-    </a>
     <form name="displ" action="?" method="get">
       <display:table name="sessionScope.testform" id="table" pagesize="10" decorator="checkboxDecorator"
         form="displ" excludedParams="_chk">
@@ -84,5 +82,19 @@
       </li>
       <li>Test it!</li>
     </ul>
+    <tags:code>
+    <![CDATA[
+    <form name="displ" action="?" method="get">
+      <display:table name="sessionScope.testform" id="table" pagesize="10" decorator="checkboxDecorator"
+        form="displ" excludedParams="_chk">
+        <display:column property="checkbox"/>
+        <display:column property="id"/>
+        <display:column property="name" sortable="true"/>
+        <display:column property="email"/>
+        <display:column property="description"/>
+      </display:table>
+    </form>
+    ]]>
+    </tags:code>
   </tags:page>
 </jsp:root>
