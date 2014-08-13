@@ -1,15 +1,14 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-  xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-  <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:scriptlet>
   <![CDATA[
-        request.setAttribute( "test", new TestList(10, false) );
+        request.setAttribute( "test", new org.displaytag.sample.TestList(10, false) );
         request.setAttribute("dyndecorator", new org.displaytag.decorator.TableDecorator()
         {
             public String addRowClass()
             {
-                return ((ListObject)getCurrentRowObject()).getMoney() > 4000 ? "good" : "bad";
+                return ((org.displaytag.sample.ListObject)getCurrentRowObject()).getMoney() > 4000 ? "success" : "danger";
             }
             public String addRowId()
             {
@@ -31,13 +30,13 @@
     </display:table>
     <br/>
     <br/>
-    <p>This quick example shows 2 new features in Displaytag 1.1:</p>
+    <p>This quick example shows 2 features:</p>
     <ul>
       <li>
         Changing the
-        <strong>class</strong>
+        <code>class</code>
         and
-        <strong>id</strong>
+        <code>id</code>
         attributes for a table row using a table decorator
       </li>
       <li>Implementing a simple table decorator on the fly</li>
@@ -50,22 +49,22 @@
       methods.
     </p>
     <hr/>
-    <p>For this example row that have a money value less than 4.000 $ have been assigned the "bad" css class, other rows
-      have a "good" css class attribute.
+    <p>For this example row that have a money value less than 4.000 $ have been assigned the "danger" css class, other rows
+      have a "success" css class attribute.
     </p>
     <p>
       The implementation for the
       <code>addRowClass()</code>
       method is:
     </p>
-    <pre> return ((ListObject)getCurrentRowObject()).getMoney() > 4000 ? "good" : "bad";
+    <pre> return ((ListObject)getCurrentRowObject()).getMoney() > 4000 ? "success" : "danger";
     </pre>
     <p>
       or, using the new
       <code>evaluate()</code>
       utility method in the TableDecorator class:
     </p>
-    <pre> return ((Double)evaluate("money")).doubleValue() > 4000 ? "good" : "bad";
+    <pre> return ((Double)evaluate("money")).doubleValue() > 4000 ? "success" : "danger";
     </pre>
     <p>Combining a static css class added to the column class and a dinamic class added using a table decorator to a
       whole row, you can easily add different styles also to single cells, without the need for additional attributes.
@@ -94,5 +93,33 @@
       existing decorator instances, or storing you set of decorators into request or application scope for configuration
       and reuse.
     </p>
+    <tags:code type="java">
+    <![CDATA[
+request.setAttribute("dyndecorator", new org.displaytag.decorator.TableDecorator()
+{
+    public String addRowClass()
+    {
+        return ((org.displaytag.sample.ListObject)getCurrentRowObject()).getMoney() > 4000 ? "success" : "danger";
+    }
+    public String addRowId()
+    {
+        return "myrow" + evaluate("id");
+    }
+});
+    ]]>
+    </tags:code>
+    <tags:code>
+    <![CDATA[
+<display:table name="test" decorator="dyndecorator">
+  <display:column property="id" title="ID"/>
+  <display:column property="email"/>
+  <display:column property="date"/>
+  <display:column property="money" class="money"/>
+  <display:column title="Click on the link to test">
+    <a href="#" onclick="alert('Row id: ' + this.parentNode.parentNode.id)">row id</a>
+  </display:column>
+</display:table>
+    ]]>
+    </tags:code>
   </tags:page>
 </jsp:root>

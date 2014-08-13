@@ -1,13 +1,31 @@
-.table thead th {
-    background-color: $green;
-    font-weight: normal;
-    a {
-        color: #000;
-        text-decoration: underline;
-        &:hover {
-            color: $blue;
+.table {
+    thead th {
+        background-color: $green;
+        font-weight: normal;
+        a {
+            color: #000;
             text-decoration: underline;
+            display: block;
+            &:hover {
+                color: $blue;
+                text-decoration: underline;
+            }
         }
+    }
+    tfoot td {
+        background-color: lighten($grey, 7);
+    }
+    caption {
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+    tr.total td, tr.subtotal td {
+        background-color: lighten($grey, 7);
+        font-weight: bold;
+    }
+    tr.grandtotal-row td {
+        border-top: 2px solid #000;
+        font-weight: bold;
     }
 }
 
@@ -35,6 +53,56 @@
 
 .sorted.order2 a:after {
     content: "\e152";
+}
+
+.exportlinks {
+    margin: 20px 0;
+}
+
+/*
+.export {
+    &:before {
+        content: " ";
+        zoom: 0.15;
+        -moz-transform: scale(0.15);
+        -moz-transform-origin: 0 0;
+    }
+    &.csv:before {
+        @extend .svg-file-csv;
+    }
+    &.excel:before {
+        @extend .svg-file-xls;
+    }
+    &.pdf:before {
+        @extend .svg-file-pdf;
+    }
+    &.xml:before {
+        @extend .svg-file-xml;
+    }
+}
+*/
+
+.export {
+    &:before {
+        content: " ";
+        zoom: 0.12;
+        -moz-transform: scale(0.12);
+        -moz-transform-origin: 0 0;
+        margin-right: 30px;
+        margin-top: 3px;
+    }
+    &.csv:before {
+        @extend .svg-file-csv;
+    }
+    &.excel:before {
+        @extend .svg-file-xls;
+    }
+    &.pdf:before {
+        @extend .svg-file-pdf;
+    }
+    &.xml:before {
+        @extend .svg-file-xml;
+    }
 }
 
 table {

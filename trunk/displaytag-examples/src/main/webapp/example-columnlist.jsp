@@ -1,7 +1,6 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-  xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-  <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:scriptlet>
 <![CDATA[
   // available column sets should be managed in the backend, not in the jsp page.
@@ -55,7 +54,7 @@
   }
 
   // just prepare the usual list
-  request.setAttribute( "test", new TestList(10, false) );
+  request.setAttribute( "test", new org.displaytag.sample.TestList(10, false) );
 ]]>
   </jsp:scriptlet>
   <tags:page>
@@ -73,25 +72,25 @@
       your application, since you can simply use a plain Map or implement a custom bean.
     </p>
     <p>Click on a column set below to see it applied to the table.</p>
-    <br/>
-    <br/>
-    <ul id="stylelist">
-      <li>
-        <a href="example-columnlist.jsp?set=1">column set 1</a>
-      </li>
-      <li>
-        <a href="example-columnlist.jsp?set=2">column set 2</a>
-      </li>
-      <li>
-        <a href="example-columnlist.jsp?set=3">column set 3</a>
-      </li>
-    </ul>
-    <br/>
-    <br/>
+    <div class="btn-group stylelist">
+      <a href="example-columnlist.jsp?set=1" type="button"
+        class="btn btn-default ${param.set eq '1' or empty param.set? 'active' : ''}">column set 1</a>
+      <a href="example-columnlist.jsp?set=2" type="button" class="btn btn-default ${param.set eq '2' ? 'active' : ''}">column set 2</a>
+      <a href="example-columnlist.jsp?set=3" type="button" class="btn btn-default ${param.set eq '3' ? 'active' : ''}">column set 3</a>
+    </div>
     <display:table name="test">
       <c:forEach var="cl" items="${collist}">
         <display:column property="${cl.property}" title="${cl.title}" sortable="${cl.sortable}" format="${cl.format}"/>
       </c:forEach>
     </display:table>
+    <tags:code>
+    <![CDATA[
+<display:table name="test">
+  <c:forEach var="cl" items="\${collist}">
+    <display:column property="\${cl.property}" title="\${cl.title}" sortable="\${cl.sortable}" format="\${cl.format}"/>
+  </c:forEach>
+</display:table>
+    ]]>
+    </tags:code>
   </tags:page>
 </jsp:root>

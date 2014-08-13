@@ -1,8 +1,7 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-  xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-  <jsp:directive.page import="org.displaytag.sample.*"/>
-  <jsp:scriptlet> request.setAttribute( "test", new TestList(10, false) );</jsp:scriptlet>
+  <jsp:scriptlet> request.setAttribute( "test", new org.displaytag.sample.TestList(10, false) );</jsp:scriptlet>
   <tags:page>
     <h1>Using format</h1>
     <display:table name="test">
@@ -28,15 +27,15 @@
       <code>format</code>
       pattern along with column decorators (the pattern will be applied after the decoration).
     </p>
-    <pre>
-<![CDATA[
-  &lt;display:table name="test">
-    &lt;display:column property="id" title="ID" />
-    &lt;display:column property="email" format="email is {0}" />
-    &lt;display:column property="date" format="{0,date,dd-MM-yyyy}" sortable="true"/>
-    &lt;display:column property="money" format="{0,number,0,000.00} $" sortable="true"/>
-  &lt;/display:table>
-]]>
-    </pre>
+    <tags:code>
+    <![CDATA[
+<display:table name="test">
+  <display:column property="id" title="ID"/>
+  <display:column property="email" format="email is {0}"/>
+  <display:column property="date" format="{0,date,dd-MM-yyyy}" sortable="true"/>
+  <display:column property="money" format="{0,number,0,000.00} $" sortable="true"/>
+</display:table>
+    ]]>
+    </tags:code>
   </tags:page>
 </jsp:root>

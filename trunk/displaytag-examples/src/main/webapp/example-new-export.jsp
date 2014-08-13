@@ -1,8 +1,7 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-  xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-  <jsp:directive.page import="org.displaytag.sample.*"/>
-  <jsp:scriptlet> request.setAttribute( "test", new ReportList(10) );</jsp:scriptlet>
+  <jsp:scriptlet> request.setAttribute( "test", new org.displaytag.sample.ReportList(10) );</jsp:scriptlet>
   <tags:page>
     <h1>"What You See Is What You Get" Exports</h1>
     <display:table name="test" class="simple nocol" export="true">
@@ -48,11 +47,8 @@
       exporting to Excel, users tend to expect the same look, feel, and structure of the rendered HTML, instead of raw
       data.
     </p>
-    <p>
-      (
-      <strong>Note</strong>
-      : the model state in this example changes with every view request, such that the data shown will change with every
-      request, but the report's structure remains the same in all formats.)
+    <p> (Note: the model state in this example changes with every view request, such that the data shown will change
+      with every request, but the report's structure remains the same in all formats.)
     </p>
     <p>
       <strong>What this table shows:</strong>
@@ -63,8 +59,39 @@
     <p>
       Grouping is straight-forward, simply make sure that your list that you are providing is sorted appropriately, then
       indicate the grouping order via the
-      <strong>group</strong>
+      <code>group</code>
       attribute of the column tags.
     </p>
+    <tags:code>
+    <![CDATA[
+<display:table name="test" class="simple nocol" export="true">
+  <display:setProperty name="decorator.media.html" value="org.displaytag.sample.decorators.HtmlTotalWrapper"/>
+  <display:setProperty name="decorator.media.pdf" value="org.displaytag.sample.decorators.ItextTotalWrapper"/>
+  <display:setProperty name="export.pdf.filename" value="example.pdf"/>
+  <display:setProperty name="decorator.media.rtf" value="org.displaytag.sample.decorators.ItextTotalWrapper"/>
+  <display:setProperty name="export.rtf.filename" value="example.rtf"/>
+  <display:setProperty name="decorator.media.excel" value="org.displaytag.sample.decorators.HssfTotalWrapper"/>
+  <display:setProperty name="export.excel.filename" value="example.xls"/>
+  <display:setProperty name="export.csv" value="false"/>
+  <display:setProperty name="export.xml" value="false"/>
+  <display:caption media="html">
+    <strong>A Caption</strong>
+  </display:caption>
+  <display:caption media="excel pdf rtf">A Caption</display:caption>
+  <display:footer media="html">
+    <tr>
+      <td colspan="4">
+        <strong>Sample footer</strong>
+      </td>
+    </tr>
+  </display:footer>
+  <display:footer media="excel pdf rtf">Sample footer</display:footer>
+  <display:column property="city" title="CITY" group="1"/>
+  <display:column property="project" title="PROJECT" group="2"/>
+  <display:column property="amount" title="HOURS"/>
+  <display:column property="task" title="TASK"/>
+</display:table>
+    ]]>
+    </tags:code>
   </tags:page>
 </jsp:root>

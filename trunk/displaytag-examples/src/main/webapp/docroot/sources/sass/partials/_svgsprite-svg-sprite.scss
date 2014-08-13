@@ -1,0 +1,56 @@
+%svg {
+	background-repeat: no-repeat;
+    background-image: url(../img/sprite/icons.png);
+    background-image: linear-gradient(transparent, transparent), url(../img/sprite/icons.svg);
+    display:inline-block;
+}
+
+.svg-displaytag-logo-horizontal {
+	@extend %svg;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+	width: 210px;
+	height: 297px;
+}
+
+.svg-displaytag-logo-standard {
+	@extend %svg;
+    background-position: 0 -317px;
+    background-repeat: no-repeat;
+	width: 210px;
+	height: 297px;
+}
+
+.svg-file-csv {
+	@extend %svg;
+    background-position: 0 -634px;
+    background-repeat: no-repeat;
+	width: 126px;
+	height: 126px;
+}
+
+.svg-file-pdf {
+	@extend %svg;
+    background-position: 0 -780px;
+    background-repeat: no-repeat;
+	width: 126px;
+	height: 126px;
+}
+
+.svg-file-xls {
+	@extend %svg;
+    background-position: 0 -926px;
+    background-repeat: no-repeat;
+	width: 126px;
+	height: 126px;
+}
+
+.svg-file-xml {
+	@extend %svg;
+    background-position: 0 -1072px;
+    background-repeat: no-repeat;
+	width: 126px;
+	height: 126px;
+}
+
+
