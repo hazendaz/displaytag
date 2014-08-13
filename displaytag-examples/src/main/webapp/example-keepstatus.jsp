@@ -1,11 +1,10 @@
-<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-  xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
+<jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-  <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:scriptlet>
     <![CDATA[
         if (request.getSession().getAttribute( "testform")==null){
-          request.getSession().setAttribute( "testform", new TestList(30, false) );
+          request.getSession().setAttribute( "testform", new org.displaytag.sample.TestList(30, false) );
         } 
     ]]>
   </jsp:scriptlet>
@@ -35,5 +34,15 @@
       in order to test a link the reload the current page without passing any parameter. You will see that displaytag
       will reload the same page.
     </p>
+    <tags:code>
+    <![CDATA[
+<display:table name="sessionScope.testform" id="table" pagesize="10" keepStatus="true">
+  <display:column property="id"/>
+  <display:column property="name" sortable="true"/>
+  <display:column property="email"/>
+  <display:column property="description"/>
+</display:table>
+    ]]>
+    </tags:code>
   </tags:page>
 </jsp:root>
