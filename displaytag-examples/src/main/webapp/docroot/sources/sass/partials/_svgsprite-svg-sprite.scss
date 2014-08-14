@@ -9,21 +9,29 @@
 	@extend %svg;
     background-position: 0 0;
     background-repeat: no-repeat;
-	width: 210px;
-	height: 297px;
+	width: 285.386px;
+	height: 90.298px;
+}
+
+.svg-displaytag-logo-imageonly {
+	@extend %svg;
+    background-position: 0 -111px;
+    background-repeat: no-repeat;
+	width: 75.627px;
+	height: 80.204px;
 }
 
 .svg-displaytag-logo-standard {
 	@extend %svg;
-    background-position: 0 -317px;
+    background-position: 0 -212px;
     background-repeat: no-repeat;
-	width: 210px;
-	height: 297px;
+	width: 146.619px;
+	height: 92.228px;
 }
 
 .svg-file-csv {
 	@extend %svg;
-    background-position: 0 -634px;
+    background-position: 0 -325px;
     background-repeat: no-repeat;
 	width: 126px;
 	height: 126px;
@@ -31,7 +39,7 @@
 
 .svg-file-pdf {
 	@extend %svg;
-    background-position: 0 -780px;
+    background-position: 0 -471px;
     background-repeat: no-repeat;
 	width: 126px;
 	height: 126px;
@@ -39,7 +47,7 @@
 
 .svg-file-xls {
 	@extend %svg;
-    background-position: 0 -926px;
+    background-position: 0 -617px;
     background-repeat: no-repeat;
 	width: 126px;
 	height: 126px;
@@ -47,7 +55,7 @@
 
 .svg-file-xml {
 	@extend %svg;
-    background-position: 0 -1072px;
+    background-position: 0 -763px;
     background-repeat: no-repeat;
 	width: 126px;
 	height: 126px;

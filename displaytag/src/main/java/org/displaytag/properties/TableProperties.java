@@ -79,6 +79,11 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_STRING_EXPORTBANNER = "export.banner"; //$NON-NLS-1$
 
     /**
+     * property <code>export.banner.item</code>.
+     */
+    public static final String PROPERTY_STRING_EXPORTBANNER_ITEM = "export.banner.item"; //$NON-NLS-1$
+
+    /**
      * property <code>export.banner.sepchar</code>.
      */
     public static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = "export.banner.sepchar"; //$NON-NLS-1$
@@ -351,7 +356,7 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = "pagination.sort.skippagenumber"; //$NON-NLS-1$
 
     /**
-     * Property <code>comparator.default</code>.  If present, will use use as the classname of the default comparator.
+     * Property <code>comparator.default</code>. If present, will use use as the classname of the default comparator.
      * Will be overriden by column level comparators.
      */
     public static final String PROPERTY_DEFAULT_COMPARATOR = "comparator.default"; //$NON-NLS-1$
@@ -902,6 +907,15 @@ public final class TableProperties implements Cloneable
     }
 
     /**
+     * Getter for the <code>PROPERTY_STRING_EXPORTBANNER_ITEM</code> property.
+     * @return String
+     */
+    public String getExportBannerItem()
+    {
+        return getProperty(PROPERTY_STRING_EXPORTBANNER_ITEM);
+    }
+
+    /**
      * Getter for the <code>PROPERTY_STRING_EXPORTBANNER_SEPARATOR</code> property.
      * @return String
      */
@@ -1337,14 +1351,14 @@ public final class TableProperties implements Cloneable
      * @param thatEnum A media type
      * @return The name of the decorator configured for a given media type.
      */
-	public String getMediaTypeDecoratorName(MediaTypeEnum thatEnum)
-	{
+    public String getMediaTypeDecoratorName(MediaTypeEnum thatEnum)
+    {
         return getProperty(PROPERTY_DECORATOR_SUFFIX + SEP + PROPERTY_DECORATOR_MEDIA + SEP + thatEnum);
-	}
+    }
 
     /**
      * the classname of the totaler
-     * @return                     the classname of the totaler
+     * @return the classname of the totaler
      */
     public String getTotalerName()
     {
@@ -1364,11 +1378,12 @@ public final class TableProperties implements Cloneable
             }
             catch (Throwable e)
             {
-                log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
-                    new Object[]{
-                        ClassUtils.getShortClassName(Comparator.class),
-                        e.getClass().getName(),
-                        e.getMessage()}));
+                log.warn(Messages
+                    .getString("TableProperties.errorloading", //$NON-NLS-1$
+                        new Object[]{
+                            ClassUtils.getShortClassName(Comparator.class),
+                            e.getClass().getName(),
+                            e.getMessage()}));
             }
         }
         return new DefaultComparator(Collator.getInstance(getLocale()));

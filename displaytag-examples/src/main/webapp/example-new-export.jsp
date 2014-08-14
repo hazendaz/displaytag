@@ -31,6 +31,7 @@
       <display:column property="amount" title="HOURS"/>
       <display:column property="task" title="TASK"/>
     </display:table>
+    <tags:ad name="middle"/>
     <p>The purpose of this example is two-fold:</p>
     <ol>
       <li>to demonstrate exports that mimic the HTML data presentation. What you see rendered in the Excel, PDF, and RTF

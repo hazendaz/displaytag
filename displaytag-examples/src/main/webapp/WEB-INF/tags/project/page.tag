@@ -34,13 +34,14 @@
         <div class="container">
           <div class="navbar-header">
             <a class="navbar-brand" href="index.jsp">
-              <img src="img/displaytag.png" alt=""/>
+              <span class="svg-displaytag-logo-standard">displaytag</span>
             </a>
           </div>
+          <tags:ad name="header"/>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li>
-                <a href="http://sourceforge.net/projects/displaytag/files/display%20tag%20library/">Download</a>
+                <a href="http://www.displaytag.org/20/download.html">Download</a>
               </li>
               <li>
                 <a href="http://displaytag.sf.net">Documentation</a>
@@ -56,10 +57,13 @@
         <div class="row">
           <div class="col-md-9" role="main">
             <jsp:doBody/>
+            <tags:ad name="footer"/>
           </div>
           <div class="col-md-3">
-            <div class="samples-sidebar hidden-print hidden-xs hidden-sm affix-top" role="complementary">
+            <div class="samples-sidebar hidden-print affix-top" role="complementary">
+              <tags:ad name="menu"/>
               <tags:menu/>
+              <tags:ad name="menu"/>
             </div>
           </div>
         </div>

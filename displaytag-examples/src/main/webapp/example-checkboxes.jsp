@@ -48,6 +48,7 @@
       , you will need to create it as explained above or sorting/paging will not work.
     </p>
     <hr/>
+    <tags:ad name="middle"/>
     <p> The second step of this example show you how this feature can be used with a particular table decorator in order
       to add checkboxes to table rows and preserving the selection of such checkboxes while paging.
     </p>

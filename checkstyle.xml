@@ -15,6 +15,7 @@
       <property name="severity" value="ignore" />
       <property name="tokens" value="METHOD_DEF, CTOR_DEF" />
     </module>
+    <!-- 
     <module name="GenericIllegalRegexp">
       <property name="severity" value="error" />
       <property name="format" value="System\.out\.println\(" />
@@ -25,6 +26,7 @@
       <property name="format" value="\.printStackTrace\(\)" />
       <property name="message" value="Avoid exception.printStackTrace()" />
     </module>
+     -->
     <module name="TodoComment">
       <property name="severity" value="ignore" />
       <property name="format" value="@todo" />
@@ -59,7 +61,9 @@
     <module name="DeclarationOrder">
       <property name="severity" value="info" />
     </module>
+    <!-- 
     <module name="DoubleCheckedLocking"></module>
+     -->
     <module name="EmptyStatement"></module>
     <module name="EqualsHashCode"></module>
     <module name="ExplicitInitialization"></module>
@@ -174,10 +178,12 @@
       <property name="severity" value="info" />
       <property name="tokens" value="INSTANCE_INIT, STATIC_INIT, METHOD_DEF, CTOR_DEF" />
     </module>
+    <!-- 
     <module name="FileLength"></module>
     <module name="LineLength">
       <property name="max" value="120" />
     </module>
+     -->
     <module name="MethodLength"></module>
     <module name="ParameterNumber"></module>
     <module name="EmptyForIteratorPad"></module>

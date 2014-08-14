@@ -40,6 +40,7 @@ String lClass = "isis";
     <p> Click through the above links to see different style examples of the same basic table. Most of the differences
       in appearance between the tables below are achieved via only stylesheet changes.
     </p>
+    <tags:ad name="middle"/>
     <h2>Html attributes</h2>
     <p> You can assign to the &amp;lt;display:table&gt; tag any standard html attribute (es. cellspacing, cellpadding),
       and it will be included in the rendered table. 
