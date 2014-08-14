@@ -5,18 +5,43 @@ body {
 
 .navbar-default {
     background-color: $green;
+    // @include background-image(linear-gradient(darken($green, 5), $green, 20));
     @include background-image(linear-gradient($green, lighten($green, 20)));
     @include box-shadow(inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075));
     border-radius: 0;
+    border-bottom: 1px solid darken($grey, 20);
+    ins.adsbygoogle {
+        margin-left: 20px;
+        margin-top: 10px;
+    }
 }
 
-.navbar-brand img {
-    height: 40px;
+.navbar-collapse {
+    margin-top: -40px;
+}
+
+.navbar-brand {
+    padding: 15px 0;
+    margin-left: -10px;
+    span {
+        text-indent: -1000px;
+        position:relative;
+        left: -10px;
+    }
 }
 
 @media (min-width: 768px) {
     .samples-sidebar {
         padding-left: 20px;
+        ins.adsbygoogle {
+            margin-left: 20px;
+        }
+    }
+}
+
+.container .col-md-9 {
+    ins.adsbygoogle {
+        margin-bottom: 20px;
     }
 }
 
@@ -32,6 +57,7 @@ body {
         padding-bottom: 10px;
         list-style: disc;
         border-radius: 3px;
+        margin-bottom: 20px;
         > {
             li {
                 > a {

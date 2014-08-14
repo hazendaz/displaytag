@@ -63,6 +63,7 @@
       their default values, and details on how to configure them in your system.
     </p>
     <hr/>
+    <tags:ad name="middle"/>
     <h3>
       Using
       <code>basic.empty.showtable=false</code>

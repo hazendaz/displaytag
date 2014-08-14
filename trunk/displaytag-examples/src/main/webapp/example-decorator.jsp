@@ -139,6 +139,7 @@ public class Wrapper extends TableDecorator
 
 ]]>
     </tags:code>
+    <tags:ad name="middle"/>
     <h2>Column Decorators</h2>
     <p>
       You can specify decorators that work on individual columns, this would allow you to come up with data specific

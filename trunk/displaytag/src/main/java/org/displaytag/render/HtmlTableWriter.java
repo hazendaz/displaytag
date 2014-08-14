@@ -688,8 +688,14 @@ public class HtmlTableWriter extends TableWriterAdapter
                 // export marker
                 exportHref.addParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
+                String exportBannerItem = StringUtils.defaultString(
+                    this.properties.getExportBannerItem(),
+                    "<a href=\"{0}\">{1}</a>");
+
                 Anchor anchor = new Anchor(exportHref, this.properties.getExportLabel(currentExportType));
-                buffer.append(anchor.toString());
+                buffer.append(MessageFormat.format(
+                    exportBannerItem,
+                    new Object[]{exportHref, this.properties.getExportLabel(currentExportType)}));
             }
         }
 

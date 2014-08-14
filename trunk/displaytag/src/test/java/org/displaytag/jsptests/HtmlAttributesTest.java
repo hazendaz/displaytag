@@ -53,7 +53,7 @@ public class HtmlAttributesTest extends DisplaytagCase
         Assert.assertEquals("invalid attribute value", "rulesX", table.getAttribute("rules"));
         Assert.assertEquals("invalid attribute value", "styleX", table.getAttribute("style"));
         Assert.assertEquals("invalid attribute value", "summaryX", table.getAttribute("summary"));
-        Assert.assertEquals("invalid attribute value", "classX", table.getAttribute("class"));
+        Assert.assertEquals("invalid attribute value", "classX table", table.getAttribute("class"));
 
         TableCell cell = table.getTableCell(1, 0);
         Assert.assertEquals("invalid attribute value", "styleX", cell.getAttribute("style"));

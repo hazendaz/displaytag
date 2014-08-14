@@ -20,6 +20,7 @@
 </display:table>
 ]]>
     </tags:code>
+    <tags:ad name="middle"/>
     <h2>First 5 Items</h2>
     <display:table name="test" length="5">
       <display:column property="id" title="ID"/>

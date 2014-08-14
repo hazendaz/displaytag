@@ -49,8 +49,8 @@
       methods.
     </p>
     <hr/>
-    <p>For this example row that have a money value less than 4.000 $ have been assigned the "danger" css class, other rows
-      have a "success" css class attribute.
+    <p>For this example row that have a money value less than 4.000 $ have been assigned the "danger" css class, other
+      rows have a "success" css class attribute.
     </p>
     <p>
       The implementation for the
@@ -66,6 +66,7 @@
     </p>
     <pre> return ((Double)evaluate("money")).doubleValue() > 4000 ? "success" : "danger";
     </pre>
+    <tags:ad name="middle"/>
     <p>Combining a static css class added to the column class and a dinamic class added using a table decorator to a
       whole row, you can easily add different styles also to single cells, without the need for additional attributes.
       In this exaple cells in the "money" column have a different style when the value is &lt; 4000</p>

@@ -44,6 +44,7 @@ request.setAttribute( "test", new org.displaytag.sample.TestList(10, false) );
       <display:column property="status"/>
       <display:column property="description" title="Comments"/>
     </display:table>
+    <tags:ad name="middle"/>
     <p>But, like other struts tags, you can acquire a handle to the list you want to display by specifying not only a
       bean name, but also a bean property (a getter method), and the table tag will call that property to fetch the list
       to display.

@@ -37,6 +37,7 @@
       <code>group</code>
       attribute set to 1.
     </p>
+    <tags:ad name="middle"/>
     <hr/>
     <p>Group by city, total for amount and count</p>
     <display:table name="test" class=" nocol" defaultsort="1" decorator="org.displaytag.decorator.TotalTableDecorator">
