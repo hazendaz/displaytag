@@ -10,7 +10,7 @@ of including all the needed libraries for you.
 
 ```xml
         <dependency>
-          <groupId>displaytag</groupId>
+          <groupId>org.displaytag</groupId>
           <artifactId>displaytag</artifactId>
           <version>2.0</version>
         </dependency>

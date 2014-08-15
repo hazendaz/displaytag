@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>displaytag</groupId>
+  <groupId>org.displaytag</groupId>
   <artifactId>displaytag-doc</artifactId>
   <packaging>pom</packaging>
   <name>Display tag library documentation</name>
@@ -16,7 +16,7 @@
     <url>http://jira.codehaus.org/browse/DISPL</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:svn+ssh://svn.code.sf.net/p/displaytag/code/trunk</connection>
+    <connection>scm:svn:https://svn.code.sf.net/p/displaytag/code/trunk</connection>
     <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/displaytag/code/displaytag/trunk</developerConnection>
     <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk</url>
   </scm>
@@ -124,7 +124,7 @@
   </contributors>
   <licenses>
     <license>
-      <name>Artistic License</name>
+      <name>MIT</name>
       <url>LICENSE.txt</url>
     </license>
   </licenses>
@@ -239,6 +239,31 @@
           <downloadSources>true</downloadSources>
           <testSourcesLast>true</testSourcesLast>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+        <version>1.9.0</version>
+        <configuration>
+          <strictCheck>true</strictCheck>
+          <header>src/main/etc/header.txt</header>
+          <includes>
+            <include>src/**/*.java</include>
+          </includes>
+          <properties>
+            <year>${project.inceptionYear}-2014</year>
+            <name>${project.name}</name>
+            <description>${project.description}</description>
+            <url>${project.url}</url>
+          </properties>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -566,14 +591,47 @@
     </dependencies>
   </dependencyManagement>
   <distributionManagement>
-    <repository>
-      <id>displaytag</id>
-      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/m2repo</url>
-    </repository>
     <site>
       <id>displaytag</id>
       <name>displaytag</name>
       <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/${project.version}/</url>
     </site>
+    <repository>
+      <id>sonatype-nexus-staging</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <snapshotRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </snapshotRepository>
   </distributionManagement>
+  <profiles>
+    <profile>
+      <id>release-sign-artifacts</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

@@ -71,7 +71,7 @@ reference to displaytag in the dependencies section of your POM:
 
 ```xml
         <dependency>
-          <groupId>displaytag</groupId>
+          <groupId>org.displaytag</groupId>
           <artifactId>displaytag</artifactId>
           <version>1.1.1</version>
         </dependency>
@@ -85,7 +85,7 @@ to include:
 
 ```xml
         <dependency>
-          <groupId>displaytag</groupId>
+          <groupId>org.displaytag</groupId>
           <artifactId>displaytag-export-poi</artifactId>
           <version>1.1.1</version>
         </dependency>
