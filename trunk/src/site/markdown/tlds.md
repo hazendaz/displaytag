@@ -11,15 +11,9 @@ different tld which added EL support in servlet engines who don't
 support jsp 2.0. The custom EL support has however been dropped in
 displaytag 1.3.
 
-  ------------------------ ------------------------ ------------------------
-  tld                      displaytag.tld
-  URI                      http://displaytag.sf.net
-  description              Jsp 1.2 version of the
-                           tld: requires at least a
-                           jsp 2.0 (j2ee 1.3)
-                           compatible container
-                           (Tomcat 4, WebSphere 5,
-                           WebLogic 7...).
-  ------------------------ ------------------------ ------------------------
+| tld                | URI                         | description                                                       |
+| ------------------ | --------------------------- | ----------------------------------------------------------------- |
+| displaytag.tld     | http://displaytag.sf.net    | Jsp 1.2 version of the tld: requires at least a jsp 2.0 (j2ee 1.3) compatible container (Tomcat 4, WebSphere 5, WebLogic 7...).      |
+
 
 

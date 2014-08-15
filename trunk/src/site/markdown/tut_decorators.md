@@ -6,13 +6,15 @@ functionality by wrapping or "decorating" another object.
 
 ### Table decorators
 
-    <display:table name="test" decorator="org.displaytag.sample.Wrapper" >
-      <display:column property="id" title="ID" />
-      <display:column property="email" />
-      <display:column property="status" />
-      <display:column property="date" />
-      <display:column property="money" />
-    </display:table>
+```html
+<display:table name="test" decorator="org.displaytag.sample.Wrapper" >
+  <display:column property="id" title="ID" />
+  <display:column property="email" />
+  <display:column property="status" />
+  <display:column property="date" />
+  <display:column property="money" />
+</display:table>
+```
 
 Let's assume you have list of business objects that you want to display,
 and the objects contain properties that don't return native Strings, and
@@ -55,12 +57,14 @@ would allow you to come up with data specific formatters, and just reuse
 them rather then coming up with a custom decorator for each table that
 you want to show a formatted date for.
 
-    <display:table name="test">
-      <display:column property="id" title="ID" />
-      <display:column property="email" />
-      <display:column property="status" />
-      <display:column property="date" decorator="org.displaytag.sample.LongDateWrapper" />
-    </display:table>
+```html
+<display:table name="test">
+  <display:column property="id" title="ID" />
+  <display:column property="email" />
+  <display:column property="status" />
+  <display:column property="date" decorator="org.displaytag.sample.LongDateWrapper" />
+</display:table>
+```
 
 ### Table decorators, column decorators or code in the column body?
 
@@ -96,13 +100,15 @@ When a table decorator should be used both to render an HTML table and
 to export to other media, configure the decorator using the table tag's
 decorator attribute. For example:
 
-    <display:table name="test" decorator="org.displaytag.sample.ModelTableDecorator" >
-      <display:column property="id" title="ID" />
-      <display:column property="email" />
-      <display:column property="status" />
-      <display:column property="date" />
-      <display:column property="money" />
-    </display:table>
+```html
+<display:table name="test" decorator="org.displaytag.sample.ModelTableDecorator" >
+  <display:column property="id" title="ID" />
+  <display:column property="email" />
+  <display:column property="status" />
+  <display:column property="date" />
+  <display:column property="money" />
+</display:table>
+```
 
 Since this decorator will also be called when exporting to non-HTML
 media, such as Excel, PDF, or RTF, it should not output HTML. Such a
@@ -116,25 +122,29 @@ Excel. The HTML decorator decorates the table using HTML, the PDF and
 RTF decorators using the iText API, and the Excel decorator using the
 HSSF API.
 
-    <display:table name="test" export="true">
-        <display:setProperty name="decorator.media.html"  value="org.displaytag.sample.decorators.HtmlTotalWrapper" />
-        <display:setProperty name="decorator.media.pdf"   value="org.displaytag.sample.decorators.ItextTotalWrapper" />
-        <display:setProperty name="decorator.media.rtf"   value="org.displaytag.sample.decorators.ItextTotalWrapper" />
-        <display:setProperty name="decorator.media.excel" value="org.displaytag.sample.decorators.HssfTotalWrapper" />
-    </display:table>
+```html
+<display:table name="test" export="true">
+    <display:setProperty name="decorator.media.html"  value="org.displaytag.sample.decorators.HtmlTotalWrapper" />
+    <display:setProperty name="decorator.media.pdf"   value="org.displaytag.sample.decorators.ItextTotalWrapper" />
+    <display:setProperty name="decorator.media.rtf"   value="org.displaytag.sample.decorators.ItextTotalWrapper" />
+    <display:setProperty name="decorator.media.excel" value="org.displaytag.sample.decorators.HssfTotalWrapper" />
+</display:table>
+```
 
-If you use the same decorator.media.*export name* table decorators in
+If you use the same `decorator.media.*export name*` table decorators in
 every page, you can configure them in your displaytag properties file.
 
 Note that if you configure table decorators with both the table tag's
-decorator attribute and the decorator.media.*export name* config
+decorator attribute and the `decorator.media.*export name*` config
 property, the table tag attribute value takes precedence and the
-decorator.media.*export name* values are ignored. In the example below,
+`decorator.media.*export name*` values are ignored. In the example below,
 only `ModelTableDecorator` will be used.
 
-    <display:table name="test" export="true" decorator="org.displaytag.sample.ModelTableDecorator" >
-        <display:setProperty name="decorator.media.html"  value="org.displaytag.sample.decorators.HtmlTotalWrapper" />
-        <display:setProperty name="decorator.media.pdf"   value="org.displaytag.sample.decorators.ItextTotalWrapper" />
-        <display:setProperty name="decorator.media.rtf"   value="org.displaytag.sample.decorators.ItextTotalWrapper" />
-        <display:setProperty name="decorator.media.excel" value="org.displaytag.sample.decorators.HssfTotalWrapper" />
-    </display:table>
+```html
+<display:table name="test" export="true" decorator="org.displaytag.sample.ModelTableDecorator" >
+    <display:setProperty name="decorator.media.html"  value="org.displaytag.sample.decorators.HtmlTotalWrapper" />
+    <display:setProperty name="decorator.media.pdf"   value="org.displaytag.sample.decorators.ItextTotalWrapper" />
+    <display:setProperty name="decorator.media.rtf"   value="org.displaytag.sample.decorators.ItextTotalWrapper" />
+    <display:setProperty name="decorator.media.excel" value="org.displaytag.sample.decorators.HssfTotalWrapper" />
+</display:table>
+```

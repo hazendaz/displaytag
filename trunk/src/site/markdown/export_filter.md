@@ -12,7 +12,7 @@ happen because:
 -   Too many chars have been already written to the response, so that
     the response buffer was full and response has been automatically
     flushed.
--   Something (tags? java snippets?) before the `display:table` tag has
+-   Something (tags? java snippets?) before the `<display:table>` tag has
     explicitely flushed the response (`response.flushBuffer()`).
 -   Your page is dynamically included into another page. This happens
     for example using Struts tiles.
@@ -40,13 +40,16 @@ when export has been requested.
 
 Configure the Filter in your web.xml:
 
+```xml
       <filter>
         <filter-name>ResponseOverrideFilter</filter-name>
         <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
       </filter>
+```
 
 And add mappings for urls the filter will intercept, for example:
 
+```xml
       <filter-mapping>
         <filter-name>ResponseOverrideFilter</filter-name>
         <url-pattern>*.do</url-pattern>
@@ -55,3 +58,4 @@ And add mappings for urls the filter will intercept, for example:
         <filter-name>ResponseOverrideFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
       </filter-mapping>
+```

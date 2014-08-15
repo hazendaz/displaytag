@@ -4,16 +4,19 @@ Data sources
 ### Expressions
 
 Up until this point, we have simply had a List object available to us
-under the name "list" in the request scope that has driven the display
-of the tables shown. We have been setting up that bean with the
+in the request scope that has driven the display of the tables shown. We have been setting up that bean with the
 following scriptlet, but presumably you would be doing something similar
 in your Action class rather then raw on this jsp page.
 
+```html
     <% request.setAttribute( "test", new TestList( 10 ) ); %>
+```
 
 This table is called with the following attributes:
 
+```html
     <display:table name="test">
+```
 
 You can also acquire a handle to the list you want to display by
 specifying not only a bean name, but also a bean property (a getter
@@ -37,11 +40,15 @@ specifying it between () and an indexed property using [].
 
 So the following:
 
+```html
        sessionScope.list.value.attribute(name).item[1]
+```
 
 is equivalent to:
 
+```html
        session.getAttribute("list").getValue().getAttribute("name").getItem(1)
+```
 
 ### Supported data
 
@@ -69,30 +76,30 @@ display them using displaytag:
 just use the sql:query tag and pass the result to the table tag in this
 way
 
-            <sql:query var="results">
-              select * from table
-            </sql:query>
+```html
+<sql:query var="results">
+  select * from table
+</sql:query>
 
-            <display:table name="${results.rows}" />
-
-            (or
-            <display:table name="pageScope.results.rows" />
-            if not using the EL version)
+<display:table name="${results.rows}" />
+```
 
 2\) Using dynabeans
 
 see
 [](http://jakarta.apache.org/commons/beanutils/api/org/apache/commons/beanutils/RowSetDynaClass.html)
 
-    <%
-          Connection con = ...; // just open a connection
+```
+<%
+      Connection con = ...; // just open a connection
 
-          Statement stmt = con.createStatement();
-          ResultSet rs = stmt.executeQuery("SELECT * from table");
-          RowSetDynaClass resultSet = new RowSetDynaClass(rs, false);
-          stmt.close();
-          con.close();
-          request.setAttribute("results", resultSet);
-    %>
+      Statement stmt = con.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * from table");
+      RowSetDynaClass resultSet = new RowSetDynaClass(rs, false);
+      stmt.close();
+      con.close();
+      request.setAttribute("results", resultSet);
+%>
 
-          <display:table name="requestScope.results.rows" />
+      <display:table name="requestScope.results.rows" />
+```

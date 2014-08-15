@@ -1,8 +1,8 @@
 Display tag library 2.0
 -----------------------
 
-This documentation is related to the displaytag **1.2** release
-([changelog](#changes-report.html)).
+This documentation is related to the displaytag **2.0** release
+([changelog](changes-report.html)).
 
 ### Overview
 
@@ -19,7 +19,7 @@ cropping, grouping, exporting, smart linking and decoration of a table
 in a customizable XHTML style.
 
 The tables in the sample images below were generated from lists using
-the \<display:table\> tag:
+the `<display:table>` tag:
 
 ![sample tables produced with the display:table
 tag](images/sample_snapshot.png)
