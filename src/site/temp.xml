@@ -1,4 +1,3 @@
-
 <project xmlns="http://maven.apache.org/DECORATION/1.6.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/DECORATION/1.6.0 http://maven.apache.org/xsd/decoration-1.6.0.xsd" name="Display tag library">
   <skin>
@@ -7,16 +6,15 @@
     <version>1.1.1</version>
   </skin>
   <version position="bottom"/>
-  <publishDate position="bottom" format="MM-dd-yyyy hh:mm"/> 
-  <!-- 
+  <publishDate position="bottom" format="MM-dd-yyyy hh:mm"/>
   <bannerLeft>
     <name><![CDATA[
-      <span class="color-highlight">Reflow</span> Maven Skin
+      <span class="color-highlight">displaytag</span>
       ]]>
     </name>
-    <href>http://andriusvelykis.github.io/reflow-maven-skin</href>
+    <href>http://www.displaytag.org</href>
   </bannerLeft>
-  -->
+  
    <!-- 
   <bannerRight>
     <name>Displaytag</name>
@@ -36,7 +34,7 @@
       <item name="Tag reference" href="/displaytag/tagreference.html"/>
       <item name="Configuration" href="/configuration.html"/>
       <item name="Export filter" href="/export_filter.html"/>
-      <item name="Migrating from previous versions" href="/migrating.html"/>
+      <item name="Migrating from 1.x" href="/migrating.html"/>
       <item name="FAQ" href="/faq.html"/>
       <item name="Jsr-168 Portlet support" href="/portlet.html"/>
     </menu>
@@ -52,7 +50,6 @@
       <item name="External paging/sorting" href="/tut_externalSortAndPage.html"/>
     </menu>
     <menu name="Project Info">
-      <item name="Continuous Integration" href="/integration.html"/>
       <item name="Dependencies" href="/dependencies.html"/>
       <item name="Issue Tracking" href="/issue-tracking.html"/>
       <item name="Mailing Lists" href="/mail-lists.html"/>
@@ -68,8 +65,8 @@
       <item name="Tag reference" href="/displaytag/tagreference.html"/>
       <item name="Taglibdoc documentation" href="/displaytag/tlddoc/index.html"/>
       <item name="Changes Report" href="/changes-report.html"/>
-      <item name="Jira Report" href="/jira-report.html"/>
-      <item name="Dependency Convergence" href="/dependency-convergence.html"/>
+<!--      <item name="Jira Report" href="/jira-report.html"/> -->
+<!--      <item name="Dependency Convergence" href="/dependency-convergence.html"/> -->
 <!--     <item name="Main tag library" href="/displaytag/index.html" collapse="false"> -->
       <item name="Dependencies" href="/displaytag/dependencies.html"/>
       <item name="Javadoc" href="/displaytag/apidocs/index.html"/>
@@ -110,14 +107,12 @@
       <theme>default</theme>
       <highlightJs>true</highlightJs>
       <brand>
-        <name>Display tag library</name>
+        <name>displaytag</name>
         <href>/index.html</href>
       </brand>
       <slogan>Super interesting project doing good things.</slogan>
       <titleTemplate>%2$s | %1$s</titleTemplate>
-      <!--<toc>top</toc>-->
       <toc>sidebar</toc>
-     <!--  <topNav>Download|reports</topNav> -->
       <bottomNav maxSpan="9">
         <column>Reference</column>
         <column>Tutorial</column>
@@ -128,12 +123,10 @@
         presentation patterns which will work in an MVC model. The library provides a significant amount of
         functionality while still being easy to use.
       </bottomDescription>
-     
-      <!-- <pages>
-        <index project="displaytag">
-          <shortTitle>Welcome</shortTitle>
-          <breadcrumbs>false</breadcrumbs>
+      <pages>
+        <index>
           <toc>false</toc>
+          <!-- 
           <sections>
             <carousel/>
             <body/>
@@ -141,12 +134,12 @@
             <thumbs>2</thumbs>
             <columns>3</columns>
           </sections>
+           -->
         </index>
         <developer-info>
           <toc>sidebar</toc>
         </developer-info>
       </pages>
-      -->
       <skinAttribution>false</skinAttribution>
     </reflowSkin>
   </custom>

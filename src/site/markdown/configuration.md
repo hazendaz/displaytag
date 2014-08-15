@@ -31,374 +31,297 @@ displaytag\_IT.properties ).
 
 ### Generic
 
-Property
-
-Default
-
-Valid Values
-
-Description
-
-allowed in properties
-
-allowed in setProperty
-
-basic.show.header
-
-true
-
-true, false
-
-Indicates if you want the header to appear at the top of the table, the
-header contains the column names, and any additional action banners that
-might be required (like paging, export, etc...)
-
-yes
-
-yes
-
-basic.empty.showtable
-
-false
-
-true, false
-
-Indicates if you want the table to show up also if the list is empty
-
-yes
-
-yes
-
-basic.msg.empty\_list
-
-Nothing found to display
-
-any string
-
-The message that is displayed if the list that this table is associated
-with is either null, or empty. Used only if basic.empty.showtable is
-false
-
-yes
-
-yes
-
-basic.msg.empty\_list\_row
-
-\<tr class="empty"\> \<td colspan="0"\>Nothing found to display.\</td\>
-\</tr\> \</tr\>
-
-Any string
-
-The message that is displayed into the first table row if the list that
-this table is associated with is either null, or empty. {0} is replaced
-with the total number of columns to generate a correct colspan. Used
-only if `basic.empty.showtable` is true
-
-yes
-
-yes
-
-sort.amount
-
-page
-
-page, list
-
-Indicates if the full list should be sorted before paging or if the
-sorting only affects items in the current page. Default behaviour is to
-sort only items in the current page (first paging, then sorting)
-
-yes
-
-no
-
-export.banner
-
-\<div class="exportlinks"\> Export options: {0} \</div\>
-
-any string
-
-Contains the string that is displayed in the table footer when the user
-indicates that they want to enable the export function. The placeholder
-is replaced with links to the various supported export formats
-
-yes
-
-yes
-
-export.banner.sepchar
-
- u007C
-
-any string
-
-Used to separate the valid export type (typically would be a bar, a
-comma, or a dash)
-
-yes
-
-yes
-
-paging.banner.placement
-
-top
-
-top, bottom, both
-
-When the table tag has to show the header for paging through a long
-list, this option indicates where that header should be shown in
-relation to the table
-
-yes
-
-yes
-
-paging.banner.item\_name
-
-item
-
-any string
-
-What the various objects in the list being displayed should be referred
-to as (singular)
-
-yes
-
-yes
-
-paging.banner.items\_name
-
-items
-
-any string
-
-What the various objects in the list being displayed should be referred
-to as (plural)
-
-yes
-
-yes
-
-paging.banner.no\_items\_found
-
-\<span class="pagebanner"\> No {0} found. \</span\>
-
-any string
-
-What is shown in the pagination header when no objects are available in
-the list to be displayed. The single placeholder is replaced with the
-name of the items in the list (plural)
-
-yes
-
-yes
-
-paging.banner.one\_item\_found
-
-\<span class="pagebanner"\> One {0} found. \</span\>
-
-any string
-
-What is shown in the pagination header when one object is available in
-the list to be displayed. The single placeholder is replaced with the
-name of the items in the list (singular)
-
-yes
-
-yes
-
-paging.banner.all\_items\_found
-
-\<span class="pagebanner"\> {0} {1} found, displaying all {2}. \</span\>
-
-any string
-
-What is shown in the pagination header when all the objects in the list
-are being shown. {0} and {2} are replaced with the number of objects in
-the list, {1} is replaced with the name of the items plural
-
-yes
-
-yes
-
-paging.banner.some\_items\_found
-
-\<span class="pagebanner"\> {0} {1} found, displaying {2} to {3}.
-\</span\>
-
-any string
-
-What is shown in the pagination header when a partial list of the
-objects in the list are being shown. Parameters: \* {0}: total number of
-objects in the list \* {1}: name of the items (plural) \* {2}: start
-index of the objects being shown \* {3}: end index of the objects being
-shown \* {4}: current page \* {5}: total number of pages
-
-yes
-
-yes
-
-paging.banner.group\_size
-
-8
-
-any number
-
-The number of pages to show in the header that this person can instantly
-jump to
-
-yes
-
-yes
-
-paging.banner.full
-
-\<span class="pagelinks"\> [\<a href="{1}"\>First\</a\> /\<a
-href="{2}"\>Prev\</a\>] {0} [\<a href="{3}"\>Next\</a\> /\<a
-href="{4}"\>Last\</a\>] \</span\>
-
-any string
-
-What is shown in the pagination bar when there are more pages and the
-selected page is not the first or the last one. Parameters: \* {0}:
-numbered pages list \* {1}: link to the first page \* {2}: link to the
-previous page \* {3}: link to the next page \* {4}: link to the last
-page \* {5}: current page \* {6}: total number of pages
-
-yes
-
-yes
-
-paging.banner.first
-
-\<span class="pagelinks"\> [First/Prev] {0} [\<a href="{3}"\>Next\</a\>
-/\<a href="{4}"\>Last\</a\>] \</span\>
-
-any string
-
-What is shown in the pagination bar when the first page is being shown.
-Placeholders are the same as for `paging.banner.full`
-
-yes
-
-yes
-
-paging.banner.last
-
-\<span class="pagelinks"\> [\<a href="{1}"\>First\</a\> /\<a
-href="{2}"\>Prev\</a\>] {0} [Next/Last] \</span\>
-
-any string
-
-What is shown in the pagination bar when the last page is being shown.
-Placeholders are the same as for `paging.banner.full`
-
-yes
-
-yes
-
-paging.banner.onepage
-
-\<span class="pagelinks"\> {0}\</span\> \</span\>
-
-any string
-
-What is shown in the pagination bar when only one page is being shown.
-Placeholders are the same as for `paging.banner.full`
-
-yes
-
-yes
-
-paging.banner.page.selected
-
-\<strong\>{0}\</strong\>
-
-any string
-
-Selected page. {0} is replaced with the page number, {1} with the page
-url.
-
-yes
-
-yes
-
-paging.banner.page.link
-
-\<a href="{1}" title="Go to page {0}"\>{0}\</a\>
-
-any string
-
-Link to a page. {0} is replaced with the page number, {1} with the page
-url.
-
-yes
-
-yes
-
-paging.banner.page.separator
-
-,
-
-any string
-
-separator between pages
-
-yes
-
-yes
-
-decorator.media.html
-
-Class name of `TableDecorator` subclass
-
-Decorator used to render table as html. Required when also decorating
-the table in other media. Refer to the [exports decorators
-tutorial](#tut_decorators.htmlTable_decorators_and_exports) for detailed
-explanation. Ignored if a decorator is configured in table tag's
-decorator attribute.
-
-yes
-
-yes
-
-factory.requestHelper
-
-`org.displaytag.util.DefaultRequestHelperFactory`
-
-Class name for a valid `RequestHelperFactory` implementation
-
-RequestHelperFactory to be used. You can replace the default one if you
-need to generate links with a different format (for example in portal
-applications)
-
-yes
-
-no
-
-factory.decorator
-
-`org.displaytag.decorator.DefaultDecoratorFactory`
-
-DecoratorFactory to be used. Class name for a valid `DecoratorFactory`
-implementation
-
-yes You can replace the default one in order to load decorator instances
-from different sources (e.g. you could use Spring managed beans)
-
-no
-
-comparator.default
-
-`org.displaytag.model.DefaultComparator`
-
-Default comparator to be used when sorting columns. Class name for a
-valid `Comparator` implementation
-
-yes
-
-yes
+<table  class="table table-bordered table-striped table-hover">
+  <tr>
+    <th >Property</th>
+    <th >Default</th>
+    <th >Valid Values</th>
+    <th >Description</th>
+    <th >allowed in properties</th>
+    <th >allowed in setProperty</th>
+  </tr>
+  <tr>
+    <td>basic.show.header</td>
+    <td>true</td>
+    <td>true, false</td>
+    <td>Indicates if you want the header to appear at the top of the table, the header contains the
+      column names, and any additional action banners that might be required (like paging, export, etc...)</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>basic.empty.showtable</td>
+    <td>false</td>
+    <td>true, false</td>
+    <td>Indicates if you want the table to show up also if the list is empty</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>basic.msg.empty_list</td>
+    <td>Nothing found to display</td>
+    <td>any string</td>
+    <td>The message that is displayed if the list that this table is associated with is either null, or
+      empty. Used only if basic.empty.showtable is false</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>basic.msg.empty_list_row</td>
+    <td>
+      &lt;tr class=&quot;empty&quot;&gt; &lt;td colspan=&quot;
+      <a name="a0">0</a>&quot;&gt;Nothing
+      found to display.&lt;/td&gt; &lt;/tr&gt; &lt;/tr&gt;
+    </td>
+    <td>Any string</td>
+    <td>
+      The message that is displayed into the first table row if the list that this table is associated with is
+      either null, or empty. {0} is replaced with the total number of columns to generate a correct colspan.
+      Used only if
+      <tt>basic.empty.showtable</tt>
+      is true
+    </td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>sort.amount</td>
+    <td>page</td>
+    <td>page, list</td>
+    <td>Indicates if the full list should be sorted before paging or if the sorting only affects items
+      in the current page. Default behaviour is to sort only items in the current page (first paging, then
+      sorting)</td>
+    <td>yes</td>
+    <td>no</td>
+  </tr>
+  <tr>
+    <td>export.banner</td>
+    <td>&lt;div class=&quot;exportlinks&quot;&gt; Export options: {0} &lt;/div&gt;</td>
+    <td>any string</td>
+    <td>Contains the string that is displayed in the table footer when the user indicates that they
+      want to enable the export function. The placeholder is replaced with links to the various supported export
+      formats</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>export.banner.sepchar</td>
+    <td>&#xa0;u007C</td>
+    <td>any string</td>
+    <td>Used to separate the valid export type (typically would be a bar, a comma, or a dash)</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.placement</td>
+    <td>top</td>
+    <td>top, bottom, both</td>
+    <td>When the table tag has to show the header for paging through a long list, this option indicates
+      where that header should be shown in relation to the table</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.item_name</td>
+    <td>item</td>
+    <td>any string</td>
+    <td>What the various objects in the list being displayed should be referred to as (singular)</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.items_name</td>
+    <td>items</td>
+    <td>any string</td>
+    <td>What the various objects in the list being displayed should be referred to as (plural)</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.no_items_found</td>
+    <td>&lt;span class=&quot;pagebanner&quot;&gt; No {0} found. &lt;/span&gt;</td>
+    <td>any string</td>
+    <td>What is shown in the pagination header when no objects are available in the list to be
+      displayed. The single placeholder is replaced with the name of the items in the list (plural)</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.one_item_found</td>
+    <td>&lt;span class=&quot;pagebanner&quot;&gt; One {0} found. &lt;/span&gt;</td>
+    <td>any string</td>
+    <td>What is shown in the pagination header when one object is available in the list to be
+      displayed. The single placeholder is replaced with the name of the items in the list (singular)</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.all_items_found</td>
+    <td>&lt;span class=&quot;pagebanner&quot;&gt; {0} {1} found, displaying all {2}. &lt;/span&gt;</td>
+    <td>any string</td>
+    <td>
+      What is shown in the pagination header when all the objects in the list are being shown. {0} and {2} are
+      replaced with the number of objects in the list, {1} is replaced with the name of the items
+      <a name="plural">plural</a>
+    </td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.some_items_found</td>
+    <td>&lt;span class=&quot;pagebanner&quot;&gt; {0} {1} found, displaying {2} to {3}. &lt;/span&gt;
+    </td>
+    <td>any string</td>
+    <td>What is shown in the pagination header when a partial list of the objects in the list are being
+      shown. Parameters: * {0}: total number of objects in the list * {1}: name of the items (plural) * {2}:
+      start index of the objects being shown * {3}: end index of the objects being shown * {4}: current page *
+      {5}: total number of pages</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.group_size</td>
+    <td>8</td>
+    <td>any number</td>
+    <td>The number of pages to show in the header that this person can instantly jump to</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.full</td>
+    <td>&lt;span class=&quot;pagelinks&quot;&gt; [&lt;a href=&quot;{1}&quot;&gt;First&lt;/a&gt; /&lt;a
+      href=&quot;{2}&quot;&gt;Prev&lt;/a&gt;] {0} [&lt;a href=&quot;{3}&quot;&gt;Next&lt;/a&gt; /&lt;a
+      href=&quot;{4}&quot;&gt;Last&lt;/a&gt;] &lt;/span&gt;</td>
+    <td>any string</td>
+    <td>What is shown in the pagination bar when there are more pages and the selected page is not the
+      first or the last one. Parameters: * {0}: numbered pages list * {1}: link to the first page * {2}: link to
+      the previous page * {3}: link to the next page * {4}: link to the last page * {5}: current page * {6}:
+      total number of pages</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.first</td>
+    <td>&lt;span class=&quot;pagelinks&quot;&gt; [First/Prev] {0} [&lt;a
+      href=&quot;{3}&quot;&gt;Next&lt;/a&gt; /&lt;a href=&quot;{4}&quot;&gt;Last&lt;/a&gt;] &lt;/span&gt;</td>
+    <td>any string</td>
+    <td>
+      What is shown in the pagination bar when the first page is being shown. Placeholders are the same as for
+      <tt>paging.banner.full</tt>
+    </td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.last</td>
+    <td>&lt;span class=&quot;pagelinks&quot;&gt; [&lt;a href=&quot;{1}&quot;&gt;First&lt;/a&gt; /&lt;a
+      href=&quot;{2}&quot;&gt;Prev&lt;/a&gt;] {0} [Next/Last] &lt;/span&gt;</td>
+    <td>any string</td>
+    <td>
+      What is shown in the pagination bar when the last page is being shown. Placeholders are the same as for
+      <tt>paging.banner.full</tt>
+    </td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.onepage</td>
+    <td>&lt;span class=&quot;pagelinks&quot;&gt; {0}&lt;/span&gt; &lt;/span&gt;</td>
+    <td>any string</td>
+    <td>
+      What is shown in the pagination bar when only one page is being shown. Placeholders are the same as for
+      <tt>paging.banner.full</tt>
+    </td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.page.selected</td>
+    <td>&lt;strong&gt;{0}&lt;/strong&gt;</td>
+    <td>any string</td>
+    <td>Selected page. {0} is replaced with the page number, {1} with the page url.</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.page.link</td>
+    <td>&lt;a href=&quot;{1}&quot; title=&quot;Go to page {0}&quot;&gt;{0}&lt;/a&gt;</td>
+    <td>any string</td>
+    <td>Link to a page. {0} is replaced with the page number, {1} with the page url.</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>paging.banner.page.separator</td>
+    <td>,</td>
+    <td>any string</td>
+    <td>separator between pages</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>decorator.media.html</td>
+    <td></td>
+    <td>
+      Class name of
+      <tt>TableDecorator</tt>
+      subclass
+    </td>
+    <td>
+      Decorator used to render table as html. Required when also decorating the table in other media. Refer to
+      the
+      <a href="#tut_decorators.htmlTable_decorators_and_exports">exports decorators tutorial</a>
+      for detailed explanation. Ignored if a decorator is configured in table tag's decorator attribute.
+    </td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>factory.requestHelper</td>
+    <td>
+      <tt>org.displaytag.util.DefaultRequestHelperFactory</tt>
+    </td>
+    <td>
+      Class name for a valid
+      <tt>RequestHelperFactory</tt>
+      implementation
+    </td>
+    <td>RequestHelperFactory to be used. You can replace the default one if you need to generate links
+      with a different format (for example in portal applications)</td>
+    <td>yes</td>
+    <td>no</td>
+  </tr>
+  <tr>
+    <td>factory.decorator</td>
+    <td>
+      <tt>org.displaytag.decorator.DefaultDecoratorFactory</tt>
+    </td>
+    <td>
+      DecoratorFactory to be used. Class name for a valid
+      <tt>DecoratorFactory</tt>
+      implementation
+    </td>
+    <td>yes You can replace the default one in order to load decorator instances from different sources
+      (e.g. you could use Spring managed beans)</td>
+    <td>no</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>comparator.default</td>
+    <td>
+      <tt>org.displaytag.model.DefaultComparator</tt>
+    </td>
+    <td>
+      Default comparator to be used when sorting columns. Class name for a valid
+      <tt>Comparator</tt>
+      implementation
+    </td>
+    <td>yes</td>
+    <td>yes</td>
+    <td></td>
+  </tr>
+</table>
+        
 
 ### Exporting
 
@@ -408,165 +331,205 @@ Some configurable properties are specific for one of these format.
 Replace *export name* in the property name with "excel", "csv", "pdf",
 "rtf", or "xml". Some of the properties won't work in any export format.
 
-Property
-
-Default
-
-Valid Values
-
-Description
-
-allowed in properties
-
-allowed in setProperty
-
-export.types
-
-csv excel xml pdf
-
-any string
-
-Whitespace separated list of configured export types
-
-yes
-
-no
-
-export.*export name*
-
-true
-
-true, false
-
-Should the tag present the option to export data in this specific format
-
-yes
-
-yes
-
-export.*export name*.class
-
-Any valid class that implements the
-`org.displaytag.export.ExportView interface`
-
-Fully qualified class name for the class which will be used for
-exporting
-
-yes
-
-no
-
-export.*export name*.label
-
-\<span class="export *export name*"\> *export name* \</span\>
-
-Any string
-
-The label on the link that the user clicks on to export the data in a
-specific format
-
-yes
-
-yes
-
-export.*export name*.include\_header
-
-false
-
-true, false
-
-If set to true, the first line of the export will contain column titles
-as displayed on the HTML page.
-
-yes
-
-yes
-
-export.*export name*.filename
-
-none
-
-any valid file name
-
-When saving exported files the user will be prompted to use this file
-name
-
-yes
-
-yes
-
-export.amount
-
-list
-
-page, list
-
-Indicates how much data should be sent down to the user when they ask
-for a data export. By default, it sends the entire list. You can
-instruct the table tag to only send down the data that is currently
-being shown on the page
-
-yes
-
-yes
-
-export.decorated
-
-true
-
-true, false
-
-Should the data be "decorated" as it is exported. Note that
-`org.displaytag.export.excel.DefaultHssfExportView`,
-`org.displaytag.export.DefaultPdfExportView`, and
-`org.displaytag.export.DefaultRtfExportView` do not observe this value.
-
-yes
-
-yes
-
-decorator.media.*export name*
-
-Class name of `TableDecorator` subclass
-
-Decorator used to render table in given media. Refer to the [exports and
-decorators tutorial](#tut_decorators.htmlTable_decorators_and_exports)
-for detailed explanation. Ignored if a decorator is configured in table
-tag's decorator attribute.
-
-yes
-
-yes
+<table  class="table table-bordered table-striped table-hover">
+  <tr>
+    <th >Property</th>
+    <th >Default</th>
+    <th >Valid Values</th>
+    <th >Description</th>
+    <th >allowed in properties</th>
+    <th >allowed in setProperty</th>
+  </tr>
+  <tr>
+    <td>export.types</td>
+    <td>csv excel xml pdf</td>
+    <td>any string</td>
+    <td>Whitespace separated list of configured export types</td>
+    <td>yes</td>
+    <td>no</td>
+  </tr>
+  <tr>
+    <td>
+      export.
+      <i>export name</i>
+    </td>
+    <td>true</td>
+    <td>true, false</td>
+    <td>Should the tag present the option to export data in this specific format</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>
+      export.
+      <i>export name</i>
+      .class
+    </td>
+    <td></td>
+    <td>
+      Any valid class that implements the
+      <tt>org.displaytag.export.ExportView interface</tt>
+    </td>
+    <td>Fully qualified class name for the class which will be used for exporting</td>
+    <td>yes</td>
+    <td>no</td>
+  </tr>
+  <tr>
+    <td>
+      export.
+      <i>export name</i>
+      .label
+    </td>
+    <td>
+      &lt;span class=&quot;export
+      <i>export name</i>&quot;&gt;
+      <i>export name</i>
+      &lt;/span&gt;
+    </td>
+    <td>Any string</td>
+    <td>The label on the link that the user clicks on to export the data in a specific format</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>
+      export.
+      <i>export name</i>
+      .include_header
+    </td>
+    <td>false</td>
+    <td>true, false</td>
+    <td>If set to true, the first line of the export will contain column titles as displayed on the
+      HTML page.</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>
+      export.
+      <i>export name</i>
+      .filename
+    </td>
+    <td>none</td>
+    <td>any valid file name</td>
+    <td>When saving exported files the user will be prompted to use this file name</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>export.amount</td>
+    <td>list</td>
+    <td>page, list</td>
+    <td>Indicates how much data should be sent down to the user when they ask for a data export. By
+      default, it sends the entire list. You can instruct the table tag to only send down the data that is
+      currently being shown on the page</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>export.decorated</td>
+    <td>true</td>
+    <td>true, false</td>
+    <td>Should
+      the data be &quot;decorated&quot; as it is exported. Note that
+      <tt>org.displaytag.export.excel.DefaultHssfExportView</tt>
+      ,
+      <tt>org.displaytag.export.DefaultPdfExportView</tt>
+      , and
+      <tt>org.displaytag.export.DefaultRtfExportView</tt>
+      do not observe this value.
+    </td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>
+      decorator.media.
+      <i>export name</i>
+    </td>
+    <td></td>
+    <td>
+      Class name of
+      <tt>TableDecorator</tt>
+      subclass
+    </td>
+    <td>
+      Decorator used to render table in given media. Refer to the
+      <a href="#tut_decorators.htmlTable_decorators_and_exports">exports and decorators tutorial</a>
+      for detailed explanation. Ignored if a decorator is configured in table tag's decorator attribute.
+    </td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+</table>
 
 ### CSS
 
-  -----------------------------------------------------------------------------
-  Property
-  Default
-  Valid Values
-  Description
-  allowed in
-  properties
-  allowed in
-  setProperty
-  ------------ ------------ ------------ ------------ ------------ ------------
-  css.tr.even  css.tr.odd   css.th.sorte css.th.ascen css.th.desce css.table
-  even         odd          d            ding         nding        none
-  any valid    any valid    sorted       order1       order2       any valid
-  css class    css class    any valid    any valid    any valid    css class
-  name         name         css class    css class    css class    name
-  css class    css class    name         name         name         css class
-  automaticall automaticall css class    css class    css class    automaticall
-  y            y            automaticall automaticall automaticall y
-  added to     added to odd y            y            y            added to the
-  even rows    rows         added to the added to the added to the main table
-  yes          yes          header of    header of a  header of a  tag
-  yes          yes          sorted       column       column       yes
-                            columns      sorted in    sorted in    yes
-                            yes          ascending    descending   
-                            yes          order        order        
-                                         yes          yes          
-                                         yes          yes          
-  -----------------------------------------------------------------------------
+<table  class="table table-bordered table-striped table-hover">
+  <tr>
+    <th >Property</th>
+    <th >Default</th>
+    <th >Valid Values</th>
+    <th >Description</th>
+    <th >allowed in properties</th>
+    <th >allowed in setProperty</th>
+  </tr>
+  <tr>
+    <td>css.tr.even</td>
+    <td>even</td>
+    <td>any valid css class name</td>
+    <td>css class automatically added to even rows</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>css.tr.odd</td>
+    <td>odd</td>
+    <td>any valid css class name</td>
+    <td>css class automatically added to odd rows</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>css.th.sorted</td>
+    <td>sorted</td>
+    <td>any valid css class name</td>
+    <td>css class automatically added to the header of sorted columns</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>css.th.ascending</td>
+    <td>order1</td>
+    <td>any valid css class name</td>
+    <td>css class automatically added to the header of a column sorted in ascending order</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>css.th.descending</td>
+    <td>order2</td>
+    <td>any valid css class name</td>
+    <td>css class automatically added to the header of a column sorted in descending order</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>css.table</td>
+    <td>none</td>
+    <td>any valid css class name</td>
+    <td>css class automatically added to the main table tag</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
+    <td>css.th.sortable</td>
+    <td>none</td>
+    <td>any valid css class name</td>
+    <td>css class automatically added to any sortable column</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+</table>
 
 

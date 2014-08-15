@@ -15,10 +15,10 @@ repository](http://displaytag.sourceforge.net/m2repo/displaytag/).
 
 Get this one only if you are a developer or you absolutely need a
 feature/fix added before the latest release (see
-[changes](#changes-report.html) for the full change log).
+[changes](changes-report.html) for the full change log).
 
 ### Source code from CVS
 
 You can also obtain the source from the SourceForge CVS Server, see
-[Source Repository](#source-repository.html).
+[Source Repository](source-repository.html).
 

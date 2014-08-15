@@ -45,26 +45,32 @@ documentation for a complete description of their usage, but basically:
 
 href
 :   the base URL used to construct the dynamic link
+
 paramId
 :   the name of the parameter that gets added to the URL specified above
+
 paramName
 :   name of the bean that contains the data we want to tack on the the
     URL (typically null, indicating the current object in the List)
+
 paramProperty
 :   property to call on the object specified above to return the value
     that gets tacked onto the URL.
+
 paramScope
 :   specific scope where the databean lives, typically null
 
-    Of these params, you typically would not use paramName and
-    paramScope. Leaving each as null indicates that you want to use the
-    object corresponding to the current row being processed.
+Of these params, you typically would not use paramName and
+paramScope. Leaving each as null indicates that you want to use the
+object corresponding to the current row being processed.
 
-        <display:table name="sessionScope.details">
-          <display:column property="id" title="ID" href="details.jsp" paramId="id" />
-          <display:column property="email" href="details.jsp" paramId="action" paramName="testparam" paramScope="request" />
-          <display:column property="status" href="details.jsp" paramId="id" paramProperty="id" />
-        </display:table>
+```html
+<display:table name="sessionScope.details">
+  <display:column property="id" title="ID" href="details.jsp" paramId="id" />
+  <display:column property="email" href="details.jsp" paramId="action" paramName="testparam" paramScope="request" />
+  <display:column property="status" href="details.jsp" paramId="id" paramProperty="id" />
+</display:table>
+```
 
 ### Using a decorator
 
@@ -85,26 +91,30 @@ object's row index value to do basically the same thing.
 Here you can see the details of the getLink1() and getLink2() methods in
 the sample TableDecorator
 
-    public String getLink1()
-    {
-            ListObject lObject= (ListObject)getCurrentRowObject();
-            int lIndex= getListIndex();
-            return "\<a href=\"details.jsp?index=" + lIndex + "\"\>" + lObject.getId() + "\</a\>";
-    }
+```java
+public String getLink1()
+{
+        ListObject lObject= (ListObject)getCurrentRowObject();
+        int lIndex= getListIndex();
+        return "\<a href=\"details.jsp?index=" + lIndex + "\"\>" + lObject.getId() + "\</a\>";
+}
 
 
-    public String getLink2()
-    {
-            ListObject lObject= (ListObject)getCurrentRowObject();
-            int lId= lObject.getId();
+public String getLink2()
+{
+        ListObject lObject= (ListObject)getCurrentRowObject();
+        int lId= lObject.getId();
 
-            return "\<a href=\"details.jsp?id=" + lId + "&amp;action=view\">View&lt;/a> | "
-                    + "&lt;a href=\"details.jsp?id=" + lId + "&amp;action=edit\">Edit\</a> | "
-                    + "\<a href=\"details.jsp?id=" + lId + "&amp;action=delete\">Delete\</a>";
-    }
+        return "\<a href=\"details.jsp?id=" + lId + "&amp;action=view\">View&lt;/a> | "
+                + "&lt;a href=\"details.jsp?id=" + lId + "&amp;action=edit\">Edit\</a> | "
+                + "\<a href=\"details.jsp?id=" + lId + "&amp;action=delete\">Delete\</a>";
+}
+```
 
-    <display:table name="sessionScope.details" decorator="org.displaytag.sample.Wrapper" >
-      <display:column property="link1" title="ID" />
-      <display:column property="email" />
-      <display:column property="link2" title="Actions" />
-    </display:table>
+```html
+<display:table name="sessionScope.details" decorator="org.displaytag.sample.Wrapper" >
+  <display:column property="link1" title="ID" />
+  <display:column property="email" />
+  <display:column property="link2" title="Actions" />
+</display:table>
+```

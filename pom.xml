@@ -20,15 +20,6 @@
     <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/displaytag/code/displaytag/trunk</developerConnection>
     <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk</url>
   </scm>
-  <ciManagement>
-    <notifiers>
-      <notifier>
-        <configuration>
-          <address>displaytag-continuum@lists.sourceforge.net</address>
-        </configuration>
-      </notifier>
-    </notifiers>
-  </ciManagement>
   <inceptionYear>2002</inceptionYear>
   <mailingLists>
     <mailingList>

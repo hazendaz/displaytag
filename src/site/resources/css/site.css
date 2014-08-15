@@ -5,3 +5,24 @@ tt {
   background-color: #f9f2f4;
   border-radius: 4px;
 }
+
+.source pre {
+  margin: 20px 0;
+}
+
+.source pre .attribute {
+  color: #4f9fcf;
+}
+
+.source pre .value {
+  color: #d44950;
+}
+
+.source pre .tag, .source pre .title {
+  color: #2f6f9f;
+  font-weight: normal;
+}
+
+.source pre .javadoc {
+  color: #d44950;
+}
