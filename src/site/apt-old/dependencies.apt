@@ -16,7 +16,7 @@ Dependencies
 
 +--------------------------------------------------------------------------+
     <dependency>
-      <groupId>displaytag</groupId>
+      <groupId>org.displaytag</groupId>
       <artifactId>displaytag</artifactId>
       <version>1.2</version>
     </dependency>
