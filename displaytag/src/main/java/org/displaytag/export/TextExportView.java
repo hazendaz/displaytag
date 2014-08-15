@@ -38,10 +38,11 @@ public interface TextExportView extends ExportView
     /**
      * Returns the exported content as a String.
      * @param out output writer
+     * @param characterEncoding character encoding
      * @throws IOException for exceptions in accessing the output stream
      * @throws JspException for other exceptions during export
      */
-    void doExport(Writer out) throws IOException, JspException;
+    void doExport(Writer out, String characterEncoding) throws IOException, JspException;
 
     /**
      * If <code>true</code> exported data will be included in the html page. <strong>actually not evaluated. Included
