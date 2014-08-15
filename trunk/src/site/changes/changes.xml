@@ -29,6 +29,10 @@
       <action type="update" dev="fgiust">Changed licensing from "artistic license" to a more standard, OSI-approved MIT
         license.
       </action>
+      <action type="update" dev="fgiust">Update itext to version 5.5.2. As a side effect, the RTF export format had tto be
+        removed, since it's not supported anymore in recent itext versions. Fixes DISPL-450 DISPL-650
+      </action>
+      <action type="fix" dev="fgiust" due-to="Johno Crawford">CSV export fixes - DISPL-688</action>
     </release>
     <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.

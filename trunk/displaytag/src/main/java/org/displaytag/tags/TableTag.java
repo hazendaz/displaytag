@@ -1528,7 +1528,7 @@ public class TableTag extends HtmlTableTag
                 if (exportView instanceof TextExportView)
                 {
                     StringWriter writer = new StringWriter();
-                    ((TextExportView) exportView).doExport(writer);
+                    ((TextExportView) exportView).doExport(writer, characterEncoding);
                     bean.put(TableTagParameters.BEAN_BODY, writer.toString());
                 }
                 else if (exportView instanceof BinaryExportView)
@@ -1593,7 +1593,7 @@ public class TableTag extends HtmlTableTag
                 writer = pageContext.getOut();
             }
 
-            ((TextExportView) exportView).doExport(writer);
+            ((TextExportView) exportView).doExport(writer, characterEncoding);
         }
         else if (exportView instanceof BinaryExportView)
         {

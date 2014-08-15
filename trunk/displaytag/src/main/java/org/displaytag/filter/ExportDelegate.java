@@ -105,6 +105,9 @@ public final class ExportDelegate
             return;
         }
 
+        String characterEncoding = wrapper.getCharacterEncoding();
+        String wrappedContentType = wrapper.getContentType();
+
         // clear headers
         if (!response.isCommitted())
         {
@@ -118,9 +121,6 @@ public final class ExportDelegate
         {
             response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
         }
-
-        String characterEncoding = wrapper.getCharacterEncoding();
-        String wrappedContentType = wrapper.getContentType();
 
         if (wrappedContentType != null && wrappedContentType.indexOf("charset") > -1)
         {

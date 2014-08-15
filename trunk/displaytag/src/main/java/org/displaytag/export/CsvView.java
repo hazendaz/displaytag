@@ -21,6 +21,11 @@
  */
 package org.displaytag.export;
 
+import java.io.IOException;
+import java.io.Writer;
+
+import javax.servlet.jsp.JspException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.model.TableModel;
 
@@ -32,6 +37,18 @@ import org.displaytag.model.TableModel;
  */
 public class CsvView extends BaseExportView
 {
+
+    private static final String UTF8_BOM = "\uFEFF";
+
+    @Override
+    public void doExport(Writer out, String characterEncoding) throws IOException, JspException
+    {
+        if (StringUtils.equalsIgnoreCase(characterEncoding, "UTF-8"))
+        {
+            out.write(UTF8_BOM);
+        }
+        super.doExport(out, characterEncoding);
+    }
 
     /**
      * @see org.displaytag.export.BaseExportView#setParameters(TableModel, boolean, boolean, boolean)
@@ -101,7 +118,8 @@ public class CsvView extends BaseExportView
     protected String escapeColumnValue(Object value)
     {
         String stringValue = StringUtils.trim(value.toString());
-        if (!StringUtils.containsNone(stringValue, new char[]{'\n', ','}))
+
+        if (!StringUtils.containsNone(stringValue, new char[]{'\r', '\n', ','}))
         {
             return "\"" + //$NON-NLS-1$
                 StringUtils.replace(stringValue, "\"", "\\\"") + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
