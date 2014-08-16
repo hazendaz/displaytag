@@ -33,6 +33,13 @@
         removed, since it's not supported anymore in recent itext versions. Fixes DISPL-450 DISPL-650
       </action>
       <action type="fix" dev="fgiust" due-to="Johno Crawford">CSV export fixes - DISPL-688</action>
+      <action type="fix" dev="fgiust" due-to="Michael Osipov">
+        I18nJstlAdapter should find a locale set in pageContext/request scope. Changed the
+        <tt>org.displaytag.localization.LocaleResolver.resolveLocale(HttpServletRequest)</tt>
+        to
+        <tt>org.displaytag.localization.LocaleResolver.resolveLocale(PageContext)</tt>
+        , so custom locale resolvers needs to be adapted in order to compile/work with displaytag 2.0 - fixes DISPL-687
+      </action>
     </release>
     <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.

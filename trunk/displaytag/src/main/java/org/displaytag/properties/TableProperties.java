@@ -33,7 +33,6 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
@@ -570,9 +569,9 @@ public final class TableProperties implements Cloneable
                 {
 
                     @Override
-                    public Locale resolveLocale(HttpServletRequest request)
+                    public Locale resolveLocale(PageContext pageContext)
                     {
-                        return request.getLocale();
+                        return pageContext.getRequest().getLocale();
                     }
                 };
             }
@@ -652,15 +651,15 @@ public final class TableProperties implements Cloneable
 
     /**
      * Returns a new TableProperties instance for the given locale.
-     * @param request HttpServletRequest needed to extract the locale to use. If null the default locale will be used.
+     * @param pageContext PageContext needed to extract the locale to use. If null the default locale will be used.
      * @return TableProperties instance
      */
-    public static TableProperties getInstance(HttpServletRequest request)
+    public static TableProperties getInstance(PageContext pageContext)
     {
         Locale locale;
-        if (request != null)
+        if (pageContext != null)
         {
-            locale = getLocaleResolverInstance().resolveLocale(request);
+            locale = getLocaleResolverInstance().resolveLocale(pageContext);
         }
         else
         {

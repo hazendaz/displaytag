@@ -769,7 +769,7 @@ public class TableTag extends HtmlTableTag
             log.debug("[" + getUid() + "] doStartTag called");
         }
 
-        this.properties = TableProperties.getInstance((HttpServletRequest) pageContext.getRequest());
+        this.properties = TableProperties.getInstance(pageContext);
         this.tableModel = new TableModel(this.properties, pageContext.getResponse().getCharacterEncoding(), pageContext);
 
         // copying id to the table model for logging

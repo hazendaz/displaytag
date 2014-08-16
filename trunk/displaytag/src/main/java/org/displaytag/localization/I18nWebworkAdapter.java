@@ -24,7 +24,6 @@ package org.displaytag.localization;
 import java.util.Iterator;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
@@ -59,10 +58,10 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
     private static Log log = LogFactory.getLog(I18nWebworkAdapter.class);
 
     /**
-     * @see LocaleResolver#resolveLocale(HttpServletRequest)
+     * @see LocaleResolver#resolveLocale(PageContext)
      */
     @Override
-    public Locale resolveLocale(HttpServletRequest request)
+    public Locale resolveLocale(PageContext pageContext)
     {
 
         Locale result = null;

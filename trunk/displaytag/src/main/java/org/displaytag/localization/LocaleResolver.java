@@ -23,7 +23,7 @@ package org.displaytag.localization;
 
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.PageContext;
 
 
 /**
@@ -37,8 +37,8 @@ public interface LocaleResolver
 
     /**
      * Returns the Locale choosen for the given request.
-     * @param request HttpServletRequest
+     * @param pageContext PageContext
      * @return a valid Locale (<code>null</code> should never be returned)
      */
-    Locale resolveLocale(HttpServletRequest request);
+    Locale resolveLocale(PageContext pageContext);
 }
