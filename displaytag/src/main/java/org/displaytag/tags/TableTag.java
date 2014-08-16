@@ -1578,7 +1578,8 @@ public class TableTag extends HtmlTableTag
             }
         }
 
-        if (!usingFilter && characterEncoding != null && mimeType.indexOf("charset") == -1) //$NON-NLS-1$
+        if (!usingFilter && characterEncoding != null && !StringUtils.contains(mimeType, "charset") //$NON-NLS-1$
+            && exportView instanceof TextExportView)
         {
             mimeType += "; charset=" + characterEncoding; //$NON-NLS-1$
         }

@@ -128,7 +128,7 @@ public final class ExportDelegate
             characterEncoding = StringUtils.substringAfter(wrappedContentType, "charset=");
         }
 
-        if (characterEncoding != null && contentType.indexOf("charset") == -1) //$NON-NLS-1$
+        if (characterEncoding != null && !StringUtils.contains(contentType, "charset") && pageContent instanceof String) //$NON-NLS-1$
         {
             contentType += "; charset=" + characterEncoding; //$NON-NLS-1$
         }
