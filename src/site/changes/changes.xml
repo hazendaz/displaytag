@@ -69,8 +69,19 @@
         adhere to servlet specs regarding content type setting
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-675" due-to="Michael Osipov">Response character encoding is set on export even
-        if the export type is a binary file</action>
-      <action type="fix" dev="fgiust" issue="DISPL-430">Columns with body data between <display:column> and </display:column> are not render properly (empty) when last displayed element was removed</action>
+        if the export type is a binary file
+      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-430">
+        Columns with body data between
+        <display:column> and </display:column>
+        are not render properly (empty) when last displayed element was removed
+      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-530">
+        Reworked
+        <tt>DefaultHref</tt>
+        in order to escape parameters only when composing the final URL, avoid double encoding that could happen in some
+        situations
+      </action>
     </release>
     <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.
