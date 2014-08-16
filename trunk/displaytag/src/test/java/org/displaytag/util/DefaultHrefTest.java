@@ -328,4 +328,17 @@ public class DefaultHrefTest
         URLAssert.assertEquals(url, href.toString());
     }
 
+    public void testaddParameterMap()
+    {
+        Map<String, String[]> parametersMap = new HashMap<String, String[]>();
+
+        parametersMap.put("modifiedArray", new String[]{"a&nbspb", "c&nbspd"});
+
+        DefaultHref defaultHref = new DefaultHref("");
+        defaultHref.addParameterMap(parametersMap);
+        String[] modifiedArray = parametersMap.get("modifiedArray");
+        Assert.assertEquals(modifiedArray[0], "a&nbspb");
+        Assert.assertEquals(modifiedArray[1], "c&nbspd");
+    }
+
 }
