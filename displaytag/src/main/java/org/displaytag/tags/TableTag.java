@@ -496,7 +496,7 @@ public class TableTag extends HtmlTableTag
     /**
      * Used to directly set a list (or any object you can iterate on).
      * @param value Object
-     * @deprecated use setName() to get the object from the page or request scope instead of setting it directly here
+     * @deprecated use setItems()
      */
     @Deprecated
     public void setList(Object value)
@@ -508,6 +508,7 @@ public class TableTag extends HtmlTableTag
      * Sets the name of the object to use for iteration.
      * @param value name of the object to use for iteration (can contain expression). It also supports direct setting of
      * a list, for jsp 2.0 containers where users can set up a data source here using EL expressions.
+     * @deprecated please use setItems()
      */
     public void setName(Object value)
     {
@@ -521,6 +522,15 @@ public class TableTag extends HtmlTableTag
             // is this the list?
             this.list = value;
         }
+    }
+
+    /**
+     * Sets the name of the object to use for iteration.
+     * @param value the object to use for iteration (can contain expression).
+     */
+    public void setItems(Object value)
+    {
+        this.list = value;
     }
 
     /**
