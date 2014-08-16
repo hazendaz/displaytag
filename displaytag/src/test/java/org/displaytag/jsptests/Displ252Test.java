@@ -22,6 +22,7 @@
 package org.displaytag.jsptests;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
@@ -73,7 +74,7 @@ public class Displ252Test extends DisplaytagCase
 
         Assert.assertEquals(
             "Value not decorated as expected",
-            "decorated: " + new SimpleDateFormat("EEEE").format(new KnownTypes().getTime()),
+            "decorated: " + new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new KnownTypes().getTime()),
             tables[0].getCellAsText(1, 0));
 
     }

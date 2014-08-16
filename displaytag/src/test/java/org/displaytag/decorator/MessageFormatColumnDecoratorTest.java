@@ -47,7 +47,7 @@ public class MessageFormatColumnDecoratorTest
             new Date(0),
             null,
             null);
-        Assert.assertEquals("day is " + new SimpleDateFormat("EEEE").format(new Date(0)), result);
+        Assert.assertEquals("day is " + new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date(0)), result);
     }
 
     /**
