@@ -33,8 +33,6 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.AutolinkColumnDecorator;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.decorator.EscapeXmlColumnDecorator;
@@ -53,6 +51,8 @@ import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MediaUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -79,7 +79,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(ColumnTag.class);
+    private static Logger log = LoggerFactory.getLogger(ColumnTag.class);
 
     /**
      * html pass-through attributes for cells.

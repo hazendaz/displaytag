@@ -44,8 +44,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.ExportException;
@@ -76,6 +74,8 @@ import org.displaytag.util.ParamEncoder;
 import org.displaytag.util.RequestHelper;
 import org.displaytag.util.RequestHelperFactory;
 import org.displaytag.util.TagConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -110,7 +110,7 @@ public class TableTag extends HtmlTableTag
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(TableTag.class);
+    private static Logger log = LoggerFactory.getLogger(TableTag.class);
 
     /**
      * RequestHelperFactory instance used for link generation.

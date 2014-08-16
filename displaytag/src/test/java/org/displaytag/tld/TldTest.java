@@ -32,15 +32,13 @@ import javax.servlet.jsp.tagext.TagSupport;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -60,7 +58,7 @@ public class TldTest
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(TldTest.class);
+    private static Logger log = LoggerFactory.getLogger(TldTest.class);
 
     /**
      * Check displaytag 1.2 dtd.
@@ -289,7 +287,7 @@ public class TldTest
                     tagsAttributes.add(attribute);
                     if (log.isDebugEnabled())
                     {
-                        log.debug(attribute);
+                        log.debug("{}", attribute);
                     }
                 }
             }

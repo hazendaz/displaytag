@@ -42,13 +42,13 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.fo.ValidationException;
 import org.displaytag.model.TableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -70,7 +70,7 @@ import org.displaytag.model.TableModel;
 public class FopExportView implements BinaryExportView
 {
 
-    private static Log log = LogFactory.getLog(FopExportView.class);
+    private static Logger log = LoggerFactory.getLogger(FopExportView.class);
 
     /**
      * Default stylesheet.

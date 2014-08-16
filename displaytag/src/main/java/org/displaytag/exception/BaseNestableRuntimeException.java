@@ -21,9 +21,9 @@
  */
 package org.displaytag.exception;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -60,7 +60,7 @@ public abstract class BaseNestableRuntimeException extends RuntimeException
         this.sourceClass = source;
 
         // log exception
-        Log log = LogFactory.getLog(source);
+        Logger log = LoggerFactory.getLogger(source);
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)
@@ -96,7 +96,7 @@ public abstract class BaseNestableRuntimeException extends RuntimeException
         this.nestedException = cause;
 
         // log exception
-        Log log = LogFactory.getLog(source);
+        Logger log = LoggerFactory.getLogger(source);
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)

@@ -31,9 +31,9 @@ import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.ObjectLookupException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -47,7 +47,7 @@ public final class LookupUtil
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(LookupUtil.class);
+    private static Logger log = LoggerFactory.getLogger(LookupUtil.class);
 
     private static final char INDEXED_DELIM = '[';
 

@@ -38,8 +38,6 @@ import javax.servlet.jsp.tagext.Tag;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.DefaultDecoratorFactory;
@@ -51,6 +49,8 @@ import org.displaytag.model.DefaultComparator;
 import org.displaytag.util.DefaultRequestHelperFactory;
 import org.displaytag.util.ReflectHelper;
 import org.displaytag.util.RequestHelperFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -380,7 +380,7 @@ public final class TableProperties implements Cloneable
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(TableProperties.class);
+    private static Logger log = LoggerFactory.getLogger(TableProperties.class);
 
     /**
      * The userProperties are local, non-default properties; these settings override the defaults from

@@ -32,9 +32,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -50,7 +50,7 @@ public class DefaultRequestHelper implements RequestHelper
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(DefaultRequestHelper.class);
+    private static Logger log = LoggerFactory.getLogger(DefaultRequestHelper.class);
 
     /**
      * original HttpServletRequest.

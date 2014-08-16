@@ -21,8 +21,6 @@
  */
 package org.displaytag.util;
 
-import junit.framework.TestCase;
-
 import org.displaytag.test.URLAssert;
 import org.junit.Test;
 

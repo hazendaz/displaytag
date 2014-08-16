@@ -21,7 +21,6 @@
  */
 package org.displaytag.portlet;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,11 +35,6 @@ import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.functors.AnyPredicate;
-import org.apache.commons.collections.functors.InstanceofPredicate;
-import org.apache.commons.collections.functors.NullPredicate;
-import org.apache.commons.collections.map.PredicatedMap;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
