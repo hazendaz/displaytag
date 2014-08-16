@@ -260,6 +260,14 @@ displaytag\_IT.properties ).
     <td>yes</td>
   </tr>
   <tr>
+    <td><tt>export.banner.item</td></td>
+    <td>&lt;a class="btn btn-default" href=\"{0}\">{1}&lt;/a></td>
+    <td>any string</td>
+    <td>Export link. {0} is replaced with the url, {1} with the export format name. Since displaytag 2.0</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
     <td>decorator.media.html</td>
     <td></td>
     <td>
