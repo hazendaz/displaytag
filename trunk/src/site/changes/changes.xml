@@ -29,8 +29,8 @@
       <action type="update" dev="fgiust">Changed licensing from "artistic license" to a more standard, OSI-approved MIT
         license.
       </action>
-      <action type="update" dev="fgiust" issue="DISPL-450 DISPL-650">Update itext to version 5.5.2. As a side effect, the RTF export format had tto be
-        removed, since it's not supported anymore in recent itext versions.
+      <action type="update" dev="fgiust" issue="DISPL-450 DISPL-650">Update itext to version 5.5.2. As a side effect, the RTF export
+        format had tto be removed, since it's not supported anymore in recent itext versions.
       </action>
       <action type="fix" dev="fgiust" due-to="Johno Crawford" issue="DISPL-688">CSV export fixes.</action>
       <action type="fix" dev="fgiust" due-to="Michael Osipov" issue="DISPL-687">
@@ -38,11 +38,12 @@
         <tt>org.displaytag.localization.LocaleResolver.resolveLocale(HttpServletRequest)</tt>
         to
         <tt>org.displaytag.localization.LocaleResolver.resolveLocale(PageContext)</tt>
-        , so custom locale resolvers needs to be adapted in order to compile/work with displaytag 2.0. 
+        , so custom locale resolvers needs to be adapted in order to compile/work with displaytag 2.0.
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-292">
         Export in pdf/excel format was not exporting the full list with
-        <tt>export.amount=list</tt>.
+        <tt>export.amount=list</tt>
+        .
       </action>
       <action type="update" dev="fgiust">
         Renamed the display:table
@@ -53,15 +54,22 @@
         deprecated, now that support for the non EL-version has been dropped. Use
         <tt>items</tt>
         to mimic standard jstl tags like
-        <tt>c:forEach</tt>. The old attribute still remains as deprecated.
+        <tt>c:forEach</tt>
+        . The old attribute still remains as deprecated.
       </action>
-        <action type="add" dev="fgiust">Added new <tt>export.banner.item</tt> property for customizing the links generated in the export banner.</action>
-        <action type="fix" dev="fgiust" issue="DISPL-676" due-to="Michael Osipov">Some JUnit tests fail if VM locale language is not English</action>
-      
-      
-      
-      
-      
+      <action type="add" dev="fgiust">
+        Added new
+        <tt>export.banner.item</tt>
+        property for customizing the links generated in the export banner.
+      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-676" due-to="Michael Osipov">Some JUnit tests fail if VM locale language is not
+        English
+      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-674" due-to="Michael Osipov">BufferedResponseWrapper implementation does not
+        adhere to servlet specs regarding content type setting
+      </action>
+      <action type="fix" dev="fgiust" issue="DISPL-675" due-to="Michael Osipov">Response character encoding is set on export even
+        if the export type is a binary file</action>
     </release>
     <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.
