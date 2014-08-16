@@ -1124,12 +1124,12 @@ public class TableTag extends HtmlTableTag
                 start = (this.pageNumber - 1) * this.pagesize;
 
                 // invalid page requested, go back to last page
-                if (start > fullSize)
+                if (start >= fullSize)
                 {
-                    int div = fullSize / this.pagesize;
-                    start = (fullSize % this.pagesize == 0) ? div : div + 1;
-                }
 
+                    int div = fullSize / this.pagesize;
+                    start = ((fullSize % this.pagesize == 0) ? div - 1 : div) * pagesize;
+                }
                 end = start + this.pagesize;
             }
 

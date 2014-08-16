@@ -21,11 +21,15 @@
  */
 package org.displaytag.jsptests;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -49,11 +53,6 @@ public class Displ629Test extends DisplaytagCase
         return "DISPL-629.jsp";
     }
 
-    /**
-     * Check addictional parameters in paging.banner.*.
-     * @param jspName jsp name, with full path
-     * @throws Exception any axception thrown during test.
-     */
     @Override
     @Test
     public void doTest() throws Exception
@@ -61,22 +60,29 @@ public class Displ629Test extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
         ParamEncoder encoder = new ParamEncoder("table");
-        request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
+        request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "5");
+        request.setParameter("pagesize", "1");
 
-        WebResponse response;
+        checkLastColumn(request);
 
-        response = runner.getResponse(request);
+        request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
-        if (log.isDebugEnabled())
-        {
-            log.debug(response.getText());
-        }
+        request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "10");
+        request.setParameter("pagesize", "2");
+
+        checkLastColumn(request);
+
+    }
+
+    private void checkLastColumn(WebRequest request) throws MalformedURLException, IOException, SAXException
+    {
+        WebResponse response = runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals(1, tables.length);
 
-        Assert.assertEquals("Wrong column content", "foo", tables[0].getCellAsText(1, 2));
-
+        Assert.assertEquals("Wrong column content", "D", tables[0].getCellAsText(tables[0].getRowCount() - 1, 0));
+        Assert.assertEquals("Wrong column content", "foo", tables[0].getCellAsText(tables[0].getRowCount() - 1, 1));
     }
 
 }

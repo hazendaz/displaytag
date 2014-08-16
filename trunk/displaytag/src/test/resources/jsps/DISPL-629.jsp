@@ -11,15 +11,15 @@
     <body>
       <jsp:scriptlet> <![CDATA[
                 java.util.List testData = new java.util.ArrayList();
-                testData.add(new org.displaytag.test.KnownValue());
-                testData.add(new org.displaytag.test.KnownValue());
-                testData.add(new org.displaytag.test.KnownValue());
+                testData.add(new org.displaytag.test.KnownValueWithId("A"));
+                testData.add(new org.displaytag.test.KnownValueWithId("B"));
+                testData.add(new org.displaytag.test.KnownValueWithId("C"));
+                testData.add(new org.displaytag.test.KnownValueWithId("D"));
                 request.setAttribute( "test", testData);
             ]]>
       </jsp:scriptlet>
-      <display:table items="${test}" id="table" pagesize="1">
-        <display:column property="ant"/>
-        <display:column property="bee"/>
+      <display:table items="${test}" id="table" pagesize="${param.pagesize}">
+        <display:column property="id"/>
         <display:column>foo</display:column>
       </display:table>
     </body>
