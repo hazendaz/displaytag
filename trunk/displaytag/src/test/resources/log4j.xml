@@ -30,7 +30,8 @@
     <priority value="warn"/>
   </category>
   <category name="org.displaytag">
-    <priority value="debug"/>
+    <priority value="warn"/>
+    <appender-ref ref="console"/>
   </category>
   <category name="org.displaytag.jsptests.Displ999Test">
     <priority value="debug"/>

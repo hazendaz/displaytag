@@ -21,6 +21,7 @@
  */
 package org.displaytag.jsptests;
 
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
@@ -38,7 +39,7 @@ public class Displ292Test extends DisplaytagCase
 
     protected String getMimeType()
     {
-        return "text/xls";
+        return "application/vnd.ms-excel";
     }
 
     protected int getCode()
@@ -75,10 +76,10 @@ public class Displ292Test extends DisplaytagCase
         Assert.assertEquals("Expected a different content type.", this.getMimeType(), response.getContentType());
         String responseText = response.getText();
 
-        log.warn("Response text: {}", responseText);
-        // boolean expectedTextPresent = responseText != null && responseText.indexOf(ModelDecorator.DECORATED_VALUE) >
-        // -1;
-        // Assert.assertTrue("Missing content.", expectedTextPresent);
+        String[] rows = StringUtils.split(responseText, "\n");
+
+        Assert.assertEquals("Wrong number of rows exported", 4, rows.length);
+
     }
 
 }
