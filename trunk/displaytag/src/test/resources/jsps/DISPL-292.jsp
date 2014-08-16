@@ -17,7 +17,7 @@
                 request.setAttribute( "test", testData);
             ]]>
       </jsp:scriptlet>
-      <display:table name="${test}" id="table" pagesize="1">
+      <display:table items="${test}" id="table" pagesize="1">
         <display:column property="ant"/>
         <display:column property="bee"/>
       </display:table>

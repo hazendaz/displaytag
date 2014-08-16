@@ -99,32 +99,27 @@ public class TableTagBeanInfo extends SimpleBeanInfo
                 TableTag.class, null, "setClearStatus")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("form", //$NON-NLS-1$
                 TableTag.class, null, "setForm")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("items", //$NON-NLS-1$
+                TableTag.class,
+                null,
+                "setItems")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("size", //$NON-NLS-1$
+                TableTag.class,
+                null,
+                "setSize")); //$NON-NLS-1$
 
             // deprecated attributes
             proplist.add(new PropertyDescriptor("list", //$NON-NLS-1$
                 TableTag.class, null, "setList")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("name", //$NON-NLS-1$
+                TableTag.class,
+                null,
+                "setName")); //$NON-NLS-1$
 
             // make ATG Dynamo happy:
             proplist.add(new PropertyDescriptor("className", //$NON-NLS-1$
                 TableTag.class, null, "setClass")); //$NON-NLS-1$
 
-            try
-            {
-                Class.forName("javax.servlet.jsp.tagext.IterationTag"); //$NON-NLS-1$
-                // jsp >= 1.2
-                proplist.add(new PropertyDescriptor("name", //$NON-NLS-1$
-                    TableTag.class, null, "setName")); //$NON-NLS-1$
-                proplist.add(new PropertyDescriptor("size", //$NON-NLS-1$
-                    TableTag.class, null, "setSize")); //$NON-NLS-1$
-            }
-            catch (ClassNotFoundException e)
-            {
-                // jsp 1.1, can't use a setter with an Object parameter
-                proplist.add(new PropertyDescriptor("name", //$NON-NLS-1$
-                    TableTag.class, null, "setNameString")); //$NON-NLS-1$
-                proplist.add(new PropertyDescriptor("size", //$NON-NLS-1$
-                    TableTag.class, null, "setSizeObjectName")); //$NON-NLS-1$
-            }
 
         }
         catch (IntrospectionException ex)

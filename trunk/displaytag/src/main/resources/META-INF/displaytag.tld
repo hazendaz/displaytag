@@ -40,8 +40,17 @@
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>
       <description>
+        @deprecated please use the "items" attribute.
         reference to the object used as source for the table. Can be an expression like requestScope.object.property. In
         the EL version of the taglibrary this must be an EL expression which points to the source object.
+      </description>
+    </attribute>
+    <attribute>
+      <name>items</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <description>
+        Reference to the object used as source for the table.
       </description>
     </attribute>
     <attribute>
