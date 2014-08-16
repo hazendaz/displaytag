@@ -86,15 +86,15 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
     }
 
     /**
-     * @see LocaleResolver#resolveLocale(HttpServletRequest)
+     * @see LocaleResolver#resolveLocale(PageContext)
      */
     @Override
-    public Locale resolveLocale(HttpServletRequest request)
+    public Locale resolveLocale(PageContext pageContext)
     {
-        Locale locale = (Locale) Config.get(request.getSession(), Config.FMT_LOCALE);
+        Locale locale = (Locale) Config.find(pageContext, Config.FMT_LOCALE);
         if (locale == null)
         {
-            locale = request.getLocale();
+            locale = pageContext.getRequest().getLocale();
         }
         return locale;
     }

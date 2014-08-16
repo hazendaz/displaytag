@@ -54,12 +54,12 @@ public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider
     private static Log log = LogFactory.getLog(I18nSpringAdapter.class);
 
     /**
-     * @see LocaleResolver#resolveLocale(HttpServletRequest)
+     * @see LocaleResolver#resolveLocale(PageContext)
      */
     @Override
-    public Locale resolveLocale(HttpServletRequest request)
+    public Locale resolveLocale(PageContext pageContext)
     {
-        return RequestContextUtils.getLocale(request);
+        return RequestContextUtils.getLocale((HttpServletRequest) pageContext.getRequest());
     }
 
     /**

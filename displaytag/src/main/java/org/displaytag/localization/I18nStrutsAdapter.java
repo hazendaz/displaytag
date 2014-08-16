@@ -48,11 +48,12 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
     public static final String UNDEFINED_KEY = "???"; //$NON-NLS-1$
 
     /**
-     * @see LocaleResolver#resolveLocale(HttpServletRequest)
+     * @see LocaleResolver#resolveLocale(PageContext)
      */
     @Override
-    public Locale resolveLocale(HttpServletRequest request)
+    public Locale resolveLocale(PageContext pageContext)
     {
+        HttpServletRequest request = ((HttpServletRequest) pageContext.getRequest());
         Locale userLocale = null;
         HttpSession session = request.getSession(false);
 
@@ -110,7 +111,7 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
         String title = null;
         if (resources != null)
         {
-            Locale userLocale = resolveLocale((HttpServletRequest) pageContext.getRequest());
+            Locale userLocale = resolveLocale(pageContext);
             title = resources.getMessage(userLocale, key);
         }
 
