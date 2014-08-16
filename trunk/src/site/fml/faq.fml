@@ -124,6 +124,23 @@
             </answer>
         </faq>
     </part>
+    <part id="export">
+      <title>Exporting</title>
+      <faq id="disable">
+        <question> How can I disable an export options? I don't need export and I want to avoid any warning in the logs
+          about missing itext classes or similar.
+        </question>
+        <answer>
+          <p>
+            Just change che
+            <tt>export.types</tt>
+            configuration property as approriate (default is
+            <tt>csv excel xml pdf</tt>
+            removing any option you don't need)
+          </p>
+        </answer>
+      </faq>
+    </part>
     <part id="rendering">
         <title>Rendering</title>
         <faq id="headers">
