@@ -29,8 +29,6 @@ import java.net.URLDecoder;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.export.ExportViewFactory;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
@@ -40,6 +38,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpUnitOptions;
@@ -57,7 +57,7 @@ public class ExportExcelTest
     /**
      * logger.
      */
-    protected final Log log = LogFactory.getLog(getClass());
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     /**
      * HttpUnit ServletRunner.

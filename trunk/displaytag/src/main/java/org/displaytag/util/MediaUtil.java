@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.properties.MediaTypeEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -44,7 +44,7 @@ public final class MediaUtil
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(MediaUtil.class);
+    private static Logger log = LoggerFactory.getLogger(MediaUtil.class);
 
     /**
      * Don't instantiate MediaUtil.

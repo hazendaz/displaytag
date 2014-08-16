@@ -26,10 +26,10 @@ import java.util.Locale;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.properties.MediaTypeEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -44,7 +44,7 @@ public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
     /**
      * Logger.
      */
-    private static Log log = LogFactory.getLog(MessageFormatColumnDecorator.class);
+    private static Logger log = LoggerFactory.getLogger(MessageFormatColumnDecorator.class);
 
     /**
      * Pre-compiled messageFormat.

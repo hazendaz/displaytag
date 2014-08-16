@@ -25,17 +25,16 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.jstl.core.Config;
 import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
 import org.displaytag.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -73,7 +72,7 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(I18nJstlAdapter.class);
+    private static Logger log = LoggerFactory.getLogger(I18nJstlAdapter.class);
 
     /**
      * Instantiates a new I18nJstlAdapter. Throw a NoClassDefFound error if BundleSupport is not available.

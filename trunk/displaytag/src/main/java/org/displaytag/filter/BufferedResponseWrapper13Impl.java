@@ -31,9 +31,9 @@ import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.tags.TableTagParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -49,7 +49,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(BufferedResponseWrapper13Impl.class);
+    private static Logger log = LoggerFactory.getLogger(BufferedResponseWrapper13Impl.class);
 
     /**
      * The buffered response.

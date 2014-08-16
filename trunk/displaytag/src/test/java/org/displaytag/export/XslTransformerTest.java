@@ -35,8 +35,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import junit.framework.TestCase;
-
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -27,9 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -51,7 +51,7 @@ public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(I18nSpringAdapter.class);
+    private static Logger log = LoggerFactory.getLogger(I18nSpringAdapter.class);
 
     /**
      * @see LocaleResolver#resolveLocale(PageContext)

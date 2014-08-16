@@ -21,8 +21,6 @@
  */
 package org.displaytag.decorator;
 
-import junit.framework.TestCase;
-
 import org.junit.Assert;
 import org.junit.Test;
 

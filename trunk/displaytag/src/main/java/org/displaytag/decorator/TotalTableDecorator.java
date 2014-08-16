@@ -31,11 +31,11 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.TableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -50,7 +50,7 @@ public class TotalTableDecorator extends TableDecorator
     /**
      * Logger.
      */
-    private static Log log = LogFactory.getLog(TotalTableDecorator.class);
+    private static Logger log = LoggerFactory.getLogger(TotalTableDecorator.class);
 
     /**
      * total amount.

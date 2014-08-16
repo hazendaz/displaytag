@@ -23,9 +23,9 @@ package org.displaytag.exception;
 
 import javax.servlet.jsp.JspTagException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -62,7 +62,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
         this.sourceClass = source;
 
         // log exception
-        Log log = LogFactory.getLog(source);
+        Logger log = LoggerFactory.getLogger(source);
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)
@@ -98,7 +98,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
         this.nestedException = cause;
 
         // log exception
-        Log log = LogFactory.getLog(source);
+        Logger log = LoggerFactory.getLogger(source);
 
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)

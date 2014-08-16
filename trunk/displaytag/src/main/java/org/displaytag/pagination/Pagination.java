@@ -28,10 +28,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -45,7 +45,7 @@ public class Pagination
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(Pagination.class);
+    private static Logger log = LoggerFactory.getLogger(Pagination.class);
 
     /**
      * Base href for urls.

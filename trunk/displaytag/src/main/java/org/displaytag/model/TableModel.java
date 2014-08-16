@@ -29,12 +29,12 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.render.TableTotaler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -48,7 +48,7 @@ public class TableModel
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(TableModel.class);
+    private static Logger log = LoggerFactory.getLogger(TableModel.class);
 
     /**
      * list of HeaderCell.

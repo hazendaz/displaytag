@@ -34,8 +34,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -57,7 +57,7 @@ public class MockFilterSupport extends HttpServlet
     /**
      * logger.
      */
-    protected static Log log = LogFactory.getLog(MockFilterSupport.class);
+    protected static Logger log = LoggerFactory.getLogger(MockFilterSupport.class);
 
     /**
      * D1597A17A6.

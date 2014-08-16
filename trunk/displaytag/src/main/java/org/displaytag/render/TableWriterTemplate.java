@@ -30,8 +30,6 @@ import java.util.Map;
 import javax.servlet.jsp.JspException;
 
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.model.Column;
 import org.displaytag.model.ColumnIterator;
@@ -42,6 +40,8 @@ import org.displaytag.model.TableModel;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.TagConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -72,7 +72,7 @@ public abstract class TableWriterTemplate
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(TableWriterTemplate.class);
+    private static Logger log = LoggerFactory.getLogger(TableWriterTemplate.class);
 
     /**
      * Table unique id.

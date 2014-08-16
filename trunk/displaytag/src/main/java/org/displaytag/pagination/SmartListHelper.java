@@ -26,12 +26,11 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
-import org.displaytag.model.Row;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -51,7 +50,7 @@ public class SmartListHelper
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(SmartListHelper.class);
+    private static Logger log = LoggerFactory.getLogger(SmartListHelper.class);
 
     /**
      * full list.

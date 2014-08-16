@@ -25,14 +25,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.exception.WrappedRuntimeException;
 import org.displaytag.model.TableModel;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.ReflectHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -51,7 +51,7 @@ public final class ExportViewFactory
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(ExportViewFactory.class);
+    private static Logger log = LoggerFactory.getLogger(ExportViewFactory.class);
 
     /**
      * Map containing MediaTypeEnum - View class.

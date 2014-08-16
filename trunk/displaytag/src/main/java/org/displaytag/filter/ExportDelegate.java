@@ -30,10 +30,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.tags.TableTag;
 import org.displaytag.tags.TableTagParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -48,7 +48,7 @@ public final class ExportDelegate
     /**
      * logger.
      */
-    private static Log log = LogFactory.getLog(ExportDelegate.class);
+    private static Logger log = LoggerFactory.getLogger(ExportDelegate.class);
 
     /**
      * Don't instantiate.
@@ -85,7 +85,7 @@ public final class ExportDelegate
 
         if (log.isDebugEnabled())
         {
-            log.debug(bean);
+            log.debug("{}", bean);
         }
 
         Object pageContent = bean.get(TableTagParameters.BEAN_BODY);

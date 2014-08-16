@@ -30,8 +30,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.WrappedRuntimeException;
@@ -52,6 +50,8 @@ import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.ParamEncoder;
 import org.displaytag.util.PostHref;
 import org.displaytag.util.TagConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -68,7 +68,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     /**
      * Logger.
      */
-    private static Log log = LogFactory.getLog(HtmlTableWriter.class);
+    private static Logger log = LoggerFactory.getLogger(HtmlTableWriter.class);
 
     /**
      * <code>TableModel</code>
