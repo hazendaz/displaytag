@@ -67,6 +67,13 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     private String contentType;
 
     /**
+     * The character encoding.
+     */
+    private String characterEncoding;
+
+    private boolean charEncSet;
+
+    /**
      * If state is set, allow getOutputStream() to return the "real" output stream, elsewhere returns a internal buffer.
      */
     private boolean state;
@@ -92,40 +99,86 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     @Override
     public String getContentType()
     {
+        String ret = contentType;
+
+        if (ret != null && characterEncoding != null && charEncSet)
+        {
+            ret += "; charset=" + characterEncoding;
+        }
+
         return this.contentType;
     }
 
     /**
      * The content type is NOT set on the wrapped response. You must set it manually. Overrides any previously set
      * value.
-     * @param theContentType the content type.
+     * @param type the content type.
      */
     @Override
-    public void setContentType(String theContentType)
+    public void setContentType(String type)
     {
         if (state)
         {
             log.debug("Allowing content type");
-
-            if (this.contentType != null && // content type has been set before
-                this.contentType.indexOf("charset") > -1) // and it specified charset
-            {
-                // so copy the charset
-                String charset = this.contentType.substring(this.contentType.indexOf("charset"));
-                if (log.isDebugEnabled())
-                {
-                    log.debug("Adding charset: [" + charset + "]");
-                }
-
-                getResponse().setContentType(StringUtils.substringBefore(theContentType, "charset") + '=' + charset);
-            }
-            else
-            {
-                getResponse().setContentType(theContentType);
-            }
-
+            getResponse().setContentType(type);
         }
-        this.contentType = theContentType;
+
+        if (type == null)
+        {
+            this.contentType = null;
+            return;
+        }
+
+        boolean hasCharEnc = false;
+        String charEnc = StringUtils.trim(StringUtils.substringAfter(type, "charset="));
+        if (StringUtils.isNotEmpty(charEnc))
+        {
+            hasCharEnc = true;
+        }
+
+        if (!hasCharEnc)
+        {
+            this.contentType = type;
+            return;
+        }
+
+        this.contentType = StringUtils.substringBefore(type, ";");
+        if (StringUtils.isNotEmpty(charEnc))
+        {
+            characterEncoding = charEnc;
+            charEncSet = true;
+        }
+
+    }
+
+    /**
+     * If the app server sets the character encoding of the response, it is sticky and you will not be able to change
+     * it. Therefore it is intercepted here.
+     * @return the character encoding that was most recently set
+     */
+    @Override
+    public String getCharacterEncoding()
+    {
+        return characterEncoding;
+    }
+
+    @Override
+    public void setCharacterEncoding(String characterEncoding)
+    {
+
+        if (characterEncoding == null)
+        {
+            return;
+        }
+
+        if (state)
+        {
+            log.debug("Allowing character encoding");
+            getResponse().setCharacterEncoding(characterEncoding);
+        }
+
+        this.characterEncoding = characterEncoding;
+        charEncSet = true;
     }
 
     /**
