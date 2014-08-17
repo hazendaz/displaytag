@@ -27,10 +27,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
@@ -133,7 +133,7 @@ public class SubtotaledExcelTest
         str.close();
 
         FileInputStream istr = new FileInputStream(f);
-        Workbook wb = WorkbookFactory.create(istr);
+        Workbook wb = new HSSFWorkbook(istr);
 
         Sheet sh = wb.getSheetAt(0);
 
@@ -165,7 +165,7 @@ public class SubtotaledExcelTest
         str.close();
 
         FileInputStream istr = new FileInputStream(f);
-        Workbook wb = WorkbookFactory.create(istr);
+        Workbook wb = new HSSFWorkbook(istr);
 
         Sheet sh = wb.getSheetAt(0);
 
