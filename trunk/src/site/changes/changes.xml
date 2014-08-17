@@ -112,6 +112,9 @@
         is set to
         <tt>bottom</tt>
       </action>
+      <action type="add" dev="fgiust" issue="DISPL-511" due-to="T SnowWolf Wagner">
+        Added new i18N adapter for Struts 2, <tt>org.displaytag.localization.I18nStruts2Adapter</tt>
+      </action>
     </release>
     
     <!-- 
