@@ -85,6 +85,7 @@
       <action type="fix" dev="fgiust" issue="DISPL-505" due-to="Mike Calmus">Class cache usage causes make using different
         factory for different tables not work.
       </action>
+      <action type="fix" dev="fgiust" issue="DISPL-457" due-to="Mike Calmus">HtmlTableWriter make inconsistent use of TableModel within methods.</action>
     </release>
     <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.

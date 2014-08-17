@@ -71,11 +71,6 @@ public class HtmlTableWriter extends TableWriterAdapter
     private static Logger log = LoggerFactory.getLogger(HtmlTableWriter.class);
 
     /**
-     * <code>TableModel</code>
-     */
-    private TableModel tableModel;
-
-    /**
      * <code>TableProperties</code>
      */
     private TableProperties properties;
@@ -131,7 +126,6 @@ public class HtmlTableWriter extends TableWriterAdapter
      * @param out The output destination.
      */
     public HtmlTableWriter(
-        TableModel tableModel,
         TableProperties tableProperties,
         Href baseHref,
         boolean export,
@@ -143,7 +137,6 @@ public class HtmlTableWriter extends TableWriterAdapter
         HtmlAttributeMap attributeMap,
         String uid)
     {
-        this.tableModel = tableModel;
         this.properties = tableProperties;
         this.baseHref = baseHref;
         this.export = export;
@@ -163,7 +156,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     @Override
     protected void writeTopBanner(TableModel model)
     {
-        if (this.tableModel.getForm() != null)
+        if (model.getForm() != null)
         {
 
             String js = "<script type=\"text/javascript\">\n"
@@ -173,10 +166,10 @@ public class HtmlTableWriter extends TableWriterAdapter
                 + "    objfrm.submit();\n"
                 + "}\n"
                 + "</script>";
-            writeFormFields();
+            writeFormFields(model);
             write(js);
         }
-        writeSearchResultAndNavigation();
+        writeSearchResultAndNavigation(model);
     }
 
     /**
@@ -189,11 +182,11 @@ public class HtmlTableWriter extends TableWriterAdapter
         this.write(getOpenTag());
     }
 
-    private void writeFormFields()
+    private void writeFormFields(TableModel model)
     {
         Map<String, String[]> parameters = baseHref.getParameterMap();
 
-        ParamEncoder pe = new ParamEncoder(this.tableModel.getId());
+        ParamEncoder pe = new ParamEncoder(model.getId());
 
         addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_ORDER));
         addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_PAGE));
@@ -316,7 +309,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     @Override
     protected void writeBottomBanner(TableModel model)
     {
-        writeNavigationAndExportLinks();
+        writeNavigationAndExportLinks(model);
     }
 
     /**
@@ -438,7 +431,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + tableModel.getId() + "] getTableHeader called");
+            log.debug("[" + model.getId() + "] getTableHeader called");
         }
 
         // open thead
@@ -448,14 +441,14 @@ public class HtmlTableWriter extends TableWriterAdapter
         write(TagConstants.TAG_TR_OPEN);
 
         // no columns?
-        if (this.tableModel.isEmpty())
+        if (model.isEmpty())
         {
             write(TagConstants.TAG_TH_OPEN);
             write(TagConstants.TAG_TH_CLOSE);
         }
 
         // iterator on columns for header
-        Iterator<HeaderCell> iterator = this.tableModel.getHeaderCellList().iterator();
+        Iterator<HeaderCell> iterator = model.getHeaderCellList().iterator();
 
         while (iterator.hasNext())
         {
@@ -475,7 +468,7 @@ public class HtmlTableWriter extends TableWriterAdapter
                 headerCell.addHeaderClass(this.properties.getCssSorted());
 
                 // sort order css class
-                headerCell.addHeaderClass(this.properties.getCssOrder(this.tableModel.isSortOrderAscending()));
+                headerCell.addHeaderClass(this.properties.getCssOrder(model.isSortOrderAscending()));
             }
 
             // append th with html attributes
@@ -488,7 +481,7 @@ public class HtmlTableWriter extends TableWriterAdapter
             if (headerCell.getSortable())
             {
                 // creates the link for sorting
-                Anchor anchor = new Anchor(getSortingHref(headerCell), header);
+                Anchor anchor = new Anchor(getSortingHref(headerCell, model), header);
 
                 // append to buffer
                 header = anchor.toString();
@@ -506,7 +499,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + tableModel.getId() + "] getTableHeader end");
+            log.debug("[" + model.getId() + "] getTableHeader end");
         }
     }
 
@@ -515,27 +508,29 @@ public class HtmlTableWriter extends TableWriterAdapter
      * @param headerCell header cell the link should be added to
      * @return Href for sorting
      */
-    private Href getSortingHref(HeaderCell headerCell)
+    private Href getSortingHref(HeaderCell headerCell, TableModel model)
     {
         // costruct Href from base href, preserving parameters
         Href href = (Href) this.baseHref.clone();
 
-        if (this.tableModel.getForm() != null)
+        if (model.getForm() != null)
         {
-            href = new PostHref(href, tableModel.getForm());
+            href = new PostHref(href, model.getForm());
         }
 
         if (this.paginatedList == null)
         {
             // add column number as link parameter
-            if (!this.tableModel.isLocalSort() && (headerCell.getSortName() != null))
+            if (!model.isLocalSort() && (headerCell.getSortName() != null))
             {
-                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getSortName());
-                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORTUSINGNAME), "1");
+                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT, model), headerCell.getSortName());
+                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORTUSINGNAME, model), "1");
             }
             else
             {
-                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT), headerCell.getColumnNumber());
+                href.addParameter(
+                    encodeParameter(TableTagParameters.PARAMETER_SORT, model),
+                    headerCell.getColumnNumber());
             }
 
             boolean nowOrderAscending = true;
@@ -543,24 +538,22 @@ public class HtmlTableWriter extends TableWriterAdapter
             if (headerCell.getDefaultSortOrder() != null)
             {
                 boolean sortAscending = SortOrderEnum.ASCENDING.equals(headerCell.getDefaultSortOrder());
-                nowOrderAscending = headerCell.isAlreadySorted()
-                    ? !this.tableModel.isSortOrderAscending()
-                    : sortAscending;
+                nowOrderAscending = headerCell.isAlreadySorted() ? !model.isSortOrderAscending() : sortAscending;
             }
             else
             {
-                nowOrderAscending = !(headerCell.isAlreadySorted() && this.tableModel.isSortOrderAscending());
+                nowOrderAscending = !(headerCell.isAlreadySorted() && model.isSortOrderAscending());
             }
 
             int sortOrderParam = nowOrderAscending ? SortOrderEnum.ASCENDING.getCode() : SortOrderEnum.DESCENDING
                 .getCode();
-            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER), sortOrderParam);
+            href.addParameter(encodeParameter(TableTagParameters.PARAMETER_ORDER, model), sortOrderParam);
 
             // If user want to sort the full table I need to reset the page number.
             // or if we aren't sorting locally we need to reset the page as well.
-            if (this.tableModel.isSortFullTable() || !this.tableModel.isLocalSort())
+            if (model.isSortFullTable() || !model.isLocalSort())
             {
-                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE), 1);
+                href.addParameter(encodeParameter(TableTagParameters.PARAMETER_PAGE, model), 1);
             }
         }
         else
@@ -580,7 +573,7 @@ public class HtmlTableWriter extends TableWriterAdapter
             String dirParam;
             if (headerCell.isAlreadySorted())
             {
-                dirParam = tableModel.isSortOrderAscending() ? properties.getPaginationDescValue() : properties
+                dirParam = model.isSortOrderAscending() ? properties.getPaginationDescValue() : properties
                     .getPaginationAscValue();
             }
             else
@@ -602,13 +595,13 @@ public class HtmlTableWriter extends TableWriterAdapter
      * @param parameterName parameter name to encode
      * @return String encoded parameter name
      */
-    private String encodeParameter(String parameterName)
+    private String encodeParameter(String parameterName, TableModel model)
     {
         // paramEncoder has been already instantiated?
         if (this.paramEncoder == null)
         {
             // use the id attribute to get the unique identifier
-            this.paramEncoder = new ParamEncoder(this.tableModel.getId());
+            this.paramEncoder = new ParamEncoder(model.getId());
         }
 
         return this.paramEncoder.encodeParameterName(parameterName);
@@ -617,25 +610,25 @@ public class HtmlTableWriter extends TableWriterAdapter
     /**
      * Generates table footer with links for export commands.
      */
-    public void writeNavigationAndExportLinks()
+    protected void writeNavigationAndExportLinks(TableModel model)
     {
         // Put the page stuff there if it needs to be there...
         if (this.properties.getAddPagingBannerBottom())
         {
-            writeSearchResultAndNavigation();
+            writeSearchResultAndNavigation(model);
         }
 
         // add export links (only if the table is not empty)
-        if (this.export && this.tableModel.getRowListPage().size() != 0)
+        if (this.export && model.getRowListPage().size() != 0)
         {
-            writeExportLinks();
+            writeExportLinks(model);
         }
     }
 
     /**
      * generates the search result and navigation bar.
      */
-    public void writeSearchResultAndNavigation()
+    protected void writeSearchResultAndNavigation(TableModel model)
     {
         if ((this.paginatedList == null && this.pagesize != 0 && this.listHelper != null)
             || (this.paginatedList != null))
@@ -643,9 +636,9 @@ public class HtmlTableWriter extends TableWriterAdapter
             // create a new href
             Href navigationHref = (Href) this.baseHref.clone();
 
-            if (tableModel.getForm() != null)
+            if (model.getForm() != null)
             {
-                navigationHref = new PostHref(navigationHref, tableModel.getForm());
+                navigationHref = new PostHref(navigationHref, model.getForm());
             }
 
             write(this.listHelper.getSearchResultsSummary());
@@ -653,7 +646,7 @@ public class HtmlTableWriter extends TableWriterAdapter
             String pageParameter;
             if (paginatedList == null)
             {
-                pageParameter = encodeParameter(TableTagParameters.PARAMETER_PAGE);
+                pageParameter = encodeParameter(TableTagParameters.PARAMETER_PAGE, model);
             }
             else
             {
@@ -671,7 +664,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     /**
      * Writes the formatted export links section.
      */
-    private void writeExportLinks()
+    private void writeExportLinks(TableModel model)
     {
         // Figure out what formats they want to export, make up a little string
         Href exportHref = (Href) this.baseHref.clone();
@@ -692,7 +685,7 @@ public class HtmlTableWriter extends TableWriterAdapter
                 }
 
                 exportHref.addParameter(
-                    encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE),
+                    encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE, model),
                     currentExportType.getCode());
 
                 // export marker
