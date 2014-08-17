@@ -23,8 +23,8 @@ package org.displaytag.portlet;
 
 import java.util.Map;
 
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletRequest;
-import javax.portlet.RenderResponse;
 import javax.servlet.jsp.PageContext;
 
 import org.displaytag.util.Href;
@@ -50,7 +50,7 @@ public class PortletRequestHelper implements RequestHelper
 
     private final PortletRequest portletRequest;
 
-    private final RenderResponse renderResponse;
+    private final MimeResponse renderResponse;
 
     /**
      * Creates a new request helper for the specified PageContext. Retrieves the PortletRequest and RenderResponse from
@@ -73,7 +73,7 @@ public class PortletRequestHelper implements RequestHelper
                 + "'");
         }
 
-        this.renderResponse = (RenderResponse) pageContext.findAttribute(JAVAX_PORTLET_RESPONSE);
+        this.renderResponse = (MimeResponse) pageContext.findAttribute(JAVAX_PORTLET_RESPONSE);
         if (this.portletRequest == null)
         {
             throw new IllegalStateException("A RenderResponse could not be found in the PageContext for the key='"
