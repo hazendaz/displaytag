@@ -452,8 +452,8 @@ public class TableTag extends HtmlTableTag
 
     /**
      * setter for the "sort" attribute.
-     * @param value "page" (sort a single page) or "list" (sort the full list)
-     * @throws InvalidTagAttributeValueException if value is not "page" or "list"
+     * @param value "page" (sort a single page), "list" (sort the full list), "external" (list already sorted)
+     * @throws InvalidTagAttributeValueException if value is not "page", "list" or "external"
      */
     public void setSort(String value) throws InvalidTagAttributeValueException
     {
