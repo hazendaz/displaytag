@@ -169,7 +169,19 @@ public class HtmlTableWriter extends TableWriterAdapter
             writeFormFields(model);
             write(js);
         }
-        writeSearchResultAndNavigation(model);
+
+        // Put the page stuff there if it needs to be there...
+        if (properties.getAddPagingBannerTop())
+        {
+            writeSearchResultAndNavigation(model);
+        }
+
+        // add export links (only if the table is not empty)
+        if (this.export && this.properties.getAddExportBannerTop() && model.getRowListPage().size() != 0)
+        {
+            // generate export link
+            writeExportLinks(model);
+        }
     }
 
     /**
@@ -619,7 +631,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         }
 
         // add export links (only if the table is not empty)
-        if (this.export && model.getRowListPage().size() != 0)
+        if (this.export && this.properties.getAddExportBannerBottom() && model.getRowListPage().size() != 0)
         {
             writeExportLinks(model);
         }

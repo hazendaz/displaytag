@@ -114,12 +114,8 @@ public abstract class TableWriterTemplate
                 return;
             }
 
-            // Put the page stuff there if it needs to be there...
-            if (properties.getAddPagingBannerTop())
-            {
-                // search result and navigation bar
-                writeTopBanner(model);
-            }
+            // search result, navigation bar and export links.
+            writeTopBanner(model);
 
             // open table
             writeTableOpener(model);

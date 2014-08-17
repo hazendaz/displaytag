@@ -105,6 +105,14 @@ displaytag\_IT.properties ).
     <td>yes</td>
   </tr>
   <tr>
+    <td><tt>export.banner.placement</tt></td>
+    <td>top</td>
+    <td>top, bottom, both</td>
+    <td>Position for the export links (before and/or after the table). Since displaytag 2.0</td>
+    <td>yes</td>
+    <td>yes</td>
+  </tr>
+  <tr>
     <td>export.banner.sepchar</td>
     <td>&#xa0;u007C</td>
     <td>any string</td>
