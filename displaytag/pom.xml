@@ -14,6 +14,11 @@
   <version>2.0-SNAPSHOT</version>
   <dependencies>
     <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.3.2</version>
+    </dependency>
+    <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
       <version>1.9.2</version>
@@ -23,11 +28,6 @@
           <artifactId>commons-logging</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.3.2</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -81,6 +81,14 @@
           <groupId>org.apache.avalon.framework</groupId>
           <artifactId>avalon-framework-api</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis-ext</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -93,8 +101,8 @@
       <groupId>avalon-framework</groupId>
       <artifactId>avalon-framework-api</artifactId>
       <version>4.2.0</version>
-        <!-- required by FOP -->
     </dependency>
+     
     
     
     <!-- optional dependencies for LocaleResolvers -->
@@ -111,6 +119,30 @@
         <exclusion>
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-chain</groupId>
+          <artifactId>commons-chain</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-fileupload</groupId>
+          <artifactId>commons-fileupload</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-validator</groupId>
+          <artifactId>commons-validator</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-beanutils</groupId>
+          <artifactId>commons-beanutils</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>oro</groupId>
+          <artifactId>oro</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>antlr</groupId>
+          <artifactId>antlr</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -135,6 +167,10 @@
         <exclusion>
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-fileupload</groupId>
+          <artifactId>commons-fileupload</artifactId>
         </exclusion>
         <exclusion>
           <groupId>com.servlets</groupId>
