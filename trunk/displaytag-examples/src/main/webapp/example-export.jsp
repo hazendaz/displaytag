@@ -4,10 +4,10 @@
   <jsp:scriptlet> request.setAttribute( "test", new org.displaytag.sample.TestList(10, false) );</jsp:scriptlet>
   <tags:page>
     <h1>Data exporting</h1>
-    <display:table name="test" export="true" id="currentRowObject">
+    <display:table items="${test}" export="true" id="currentRowObject">
       <display:setProperty name="export.rtf.filename" value="example.rtf"/>
       <display:column property="id" title="ID"/>
-      <display:column property="email"/>
+      <display:column property="email" maxLength="10"/>
       <display:column property="status"/>
       <display:column property="longDescription" media="csv excel xml pdf" title="Not On HTML"/>
       <display:column property="date"/>
@@ -16,6 +16,13 @@
       </display:column>
       <display:column media="csv excel" title="URL" property="url"/>
       <display:setProperty name="export.pdf" value="true"/>
+      <display:caption>This is the table caption</display:caption>
+      <display:footer media="html">
+        <tr>
+          <td colspan="4">Total count:</td>
+          <td colspan="1">${fn:length(test)}</td>
+        </tr>
+      </display:footer>
     </display:table>
     <p>
       When you set the Table Tag's
@@ -33,7 +40,7 @@
     <p>
       Please note that the basic export functionality will
       <strong>not</strong>
-      work when the JSP page is included in another page via a jsp:include or the RequestDispatcher. Front end
+      work when the JSP page is included in another page via a <tt>jsp:include</tt> or the RequestDispatcher. Front end
       frameworks such as Struts and Tiles will do this behind the scenes. If you want to use export functionality in any
       of these scenarios, you must configure an export filter (configuration is explained in the displaytag
       documentation). Also, make sure you check the FAQ on displaytag website.

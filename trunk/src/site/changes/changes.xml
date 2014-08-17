@@ -101,6 +101,11 @@
       <action type="update" dev="fgiust" issue="DISPL-677" due-to="Yannik Hampe">Updated portlet support to JSR-286/portlet 2.0
         and added support for JSR-286 resources
       </action>
+      <action type="fix" dev="fgiust" issue="DISPL-611">
+        Column text should not abbreviated in pdf/excel export when
+        <tt>maxLength</tt>
+        is set
+      </action>
     </release>
     
     <!-- 

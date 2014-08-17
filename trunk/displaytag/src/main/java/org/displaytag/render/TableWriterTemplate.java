@@ -329,7 +329,13 @@ public abstract class TableWriterTemplate
 
                     // Get the value to be displayed for the column
                     column.initialize();
-                    CellStruct struct = new CellStruct(column, column.getChoppedAndLinkedValue());
+
+                    @SuppressWarnings("deprecation")
+                    String cellvalue = MediaTypeEnum.HTML.equals(model.getMedia())
+                        ? column.getChoppedAndLinkedValue()
+                        : ObjectUtils.toString(column.getValue(true));
+
+                    CellStruct struct = new CellStruct(column, cellvalue);
                     currentRowValues.put(new Integer(column.getHeaderCell().getColumnNumber()), struct);
                 }
             }
@@ -350,7 +356,13 @@ public abstract class TableWriterTemplate
                     Column column = columnIterator.nextColumn();
                     column.initialize();
                     // Get the value to be displayed for the column
-                    CellStruct struct = new CellStruct(column, column.getChoppedAndLinkedValue());
+
+                    @SuppressWarnings("deprecation")
+                    String cellvalue = MediaTypeEnum.HTML.equals(model.getMedia())
+                        ? column.getChoppedAndLinkedValue()
+                        : ObjectUtils.toString(column.getValue(true));
+
+                    CellStruct struct = new CellStruct(column, cellvalue);
                     nextRowValues.put(new Integer(column.getHeaderCell().getColumnNumber()), struct);
                 }
             }
@@ -367,13 +379,12 @@ public abstract class TableWriterTemplate
                     currentRow.getRowNumber() + rowIterator.getPageOffset());
             }
 
-            Iterator<HeaderCell> headerCellsIter = model.getHeaderCellList().iterator();
             ArrayList<CellStruct> structsForRow = new ArrayList<CellStruct>(model.getHeaderCellList().size());
             lowestEndedGroup = NO_RESET_GROUP;
             lowestStartedGroup = NO_RESET_GROUP;
-            while (headerCellsIter.hasNext())
+
+            for (HeaderCell header : model.getHeaderCellList())
             {
-                HeaderCell header = headerCellsIter.next();
 
                 // Get the value to be displayed for the column
                 CellStruct struct = currentRowValues.get(new Integer(header.getColumnNumber()));
@@ -453,9 +464,8 @@ public abstract class TableWriterTemplate
             // open row
             writeRowOpener(currentRow);
 
-            for (Iterator<CellStruct> iterator = structsForRow.iterator(); iterator.hasNext();)
+            for (CellStruct struct : structsForRow)
             {
-                CellStruct struct = iterator.next();
                 writeColumnOpener(struct.column);
                 writeColumnValue(struct.decoratedValue, struct.column);
                 writeColumnCloser(struct.column);
