@@ -337,7 +337,7 @@ public class TableTag extends HtmlTableTag
      * Is this the last iteration?
      * @return boolean <code>true</code> if this is the last iteration
      */
-    protected boolean isLastIteration()
+    public boolean isLastIteration()
     {
         return this.lastIteration;
     }
@@ -393,7 +393,7 @@ public class TableTag extends HtmlTableTag
      * Is the current row empty?
      * @return true if the current row is empty
      */
-    protected boolean isEmpty()
+    public boolean isEmpty()
     {
         return this.currentRow == null;
     }
@@ -670,7 +670,7 @@ public class TableTag extends HtmlTableTag
      * Returns the properties.
      * @return TableProperties
      */
-    protected TableProperties getProperties()
+    public TableProperties getProperties()
     {
         return this.properties;
     }
@@ -743,7 +743,7 @@ public class TableTag extends HtmlTableTag
      * Is this the first iteration?
      * @return boolean <code>true</code> if this is the first iteration
      */
-    protected boolean isFirstIteration()
+    public boolean isFirstIteration()
     {
         if (log.isDebugEnabled())
         {
@@ -1148,7 +1148,7 @@ public class TableTag extends HtmlTableTag
      * @return <code>true</code> if the current row must be evaluated because is included in output or because is
      * included in sorting.
      */
-    protected boolean isIncludedRow()
+    public boolean isIncludedRow()
     {
         return filteredRows.contains(this.rowNumber);
     }
