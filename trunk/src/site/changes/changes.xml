@@ -106,6 +106,12 @@
         <tt>maxLength</tt>
         is set
       </action>
+      <action type="fix" dev="fgiust" issue="DISPL-601">
+        Javascript function and hidden form fields not rendered when
+        <tt>paging.banner.placement</tt>
+        is set to
+        <tt>bottom</tt>
+      </action>
     </release>
     
     <!-- 

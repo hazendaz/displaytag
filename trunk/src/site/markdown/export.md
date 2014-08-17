@@ -22,7 +22,7 @@ included in displaytag distribution.
 
 The export.types parameter contains the list of registered export views.
 For each export type you can configure other parameters: see the export.
-exportname.\* parameters in [configuration](#configuration.html).
+exportname.\* parameters in [configuration](configuration.html).
 
 You can enable/disable a specific export type using the export.
 exportname.enabled parameter.
