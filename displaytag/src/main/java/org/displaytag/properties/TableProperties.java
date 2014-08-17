@@ -1306,11 +1306,6 @@ public final class TableProperties implements Cloneable
      */
     private Object getClassPropertyInstance(String key) throws FactoryInstantiationException
     {
-        Object instance = objectCache.get(key);
-        if (instance != null)
-        {
-            return instance;
-        }
 
         String className = getProperty(key);
 
@@ -1320,11 +1315,17 @@ public final class TableProperties implements Cloneable
             return null;
         }
 
+        Object instance = objectCache.get(className);
+        if (instance != null)
+        {
+            return instance;
+        }
+
         try
         {
             Class< ? > classProperty = ReflectHelper.classForName(className);
             instance = classProperty.newInstance();
-            objectCache.put(key, instance);
+            objectCache.put(className, instance);
             return instance;
         }
         catch (Exception e)
