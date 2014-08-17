@@ -1686,7 +1686,6 @@ public class TableTag extends HtmlTableTag
         }
         // use HtmlTableWriter to write table
         new HtmlTableWriter(
-            this.tableModel,
             this.properties,
             this.baseHref,
             this.export,
