@@ -235,9 +235,9 @@ public class TotalTableDecorator extends TableDecorator
             }
             else if (groupPropertyName != null && groupPropertyName.equals(cell.getBeanPropertyName()))
             {
-                buffer.append(grandTotal ? totalLabel : MessageFormat.format(
-                    subtotalLabel,
-                    new Object[]{previousValues.get(groupPropertyName)}));
+                buffer.append(grandTotal ? totalLabel : new MessageFormat(subtotalLabel, this.tableModel
+                    .getProperties()
+                    .getLocale()).format(new Object[]{previousValues.get(groupPropertyName)}));
             }
 
             buffer.append("</td>"); //$NON-NLS-1$

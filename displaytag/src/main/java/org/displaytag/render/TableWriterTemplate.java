@@ -80,6 +80,7 @@ public abstract class TableWriterTemplate
     private String id;
 
     int lowestEndedGroup;
+
     int lowestStartedGroup;
 
     /**
@@ -272,7 +273,7 @@ public abstract class TableWriterTemplate
     {
         // Ok, start bouncing through our list (only the visible part)
         boolean fullList = false;
-        if ( ! MediaTypeEnum.HTML.equals(model.getMedia()) && model.getProperties().getExportFullList())
+        if (!MediaTypeEnum.HTML.equals(model.getMedia()) && model.getProperties().getExportFullList())
         {
             fullList = true;
         }
@@ -361,8 +362,9 @@ public abstract class TableWriterTemplate
             }
             if (totalsTableDecorator != null)
             {
-                totalsTableDecorator.initRow( currentRow.getRowNumber(), currentRow.getRowNumber()
-                    + rowIterator.getPageOffset());
+                totalsTableDecorator.initRow(
+                    currentRow.getRowNumber(),
+                    currentRow.getRowNumber() + rowIterator.getPageOffset());
             }
 
             Iterator<HeaderCell> headerCellsIter = model.getHeaderCellList().iterator();
@@ -384,8 +386,11 @@ public abstract class TableWriterTemplate
                     // Why npe?
                     String priorBodyValue = prior != null ? prior.bodyValue : null;
                     String nextBodyValue = next != null ? next.bodyValue : null;
-                    short groupingValue = groupColumns(struct.bodyValue,
-                            priorBodyValue, nextBodyValue, header.getGroup());
+                    short groupingValue = groupColumns(
+                        struct.bodyValue,
+                        priorBodyValue,
+                        nextBodyValue,
+                        header.getGroup());
 
                     if (tableDecorator != null || totalsTableDecorator != null)
                     {
@@ -424,8 +429,10 @@ public abstract class TableWriterTemplate
                     }
                     if (tableDecorator != null)
                     {
-                        struct.decoratedValue = tableDecorator.displayGroupedValue(struct.bodyValue,
-                                groupingValue, header.getColumnNumber());
+                        struct.decoratedValue = tableDecorator.displayGroupedValue(
+                            struct.bodyValue,
+                            groupingValue,
+                            header.getColumnNumber());
                     }
                     else if (groupingValue == GROUP_END || groupingValue == GROUP_NO_CHANGE)
                     {
@@ -477,17 +484,17 @@ public abstract class TableWriterTemplate
             }
         }
         // how is this really going to work?
-        //    the totaler is notified whenever we start or stop a group, and the totaler tracks the current state of the
-        //      the totals; the totaler writes nothing
-        //    when the row is finished, it is the responsibility of the decorator or exporter to ask for the totaler total and write it
-        // when the row is finished,
+        // the totaler is notified whenever we start or stop a group, and the totaler tracks the current state of the
+        // the totals; the totaler writes nothing
+        // when the row is finished, it is the responsibility of the decorator or exporter to ask for the totaler total
+        // and write it when the row is finished,
 
         // render empty list message
         if (model.getRowListPage().size() == 0)
         {
-            writeEmptyListRowMessage(MessageFormat.format(
-                model.getProperties().getEmptyListRowMessage(),
-                new Object[]{new Integer(model.getNumberOfColumns())}));
+            writeEmptyListRowMessage(new MessageFormat(model.getProperties().getEmptyListRowMessage(), model
+                .getProperties()
+                .getLocale()).format(new Object[]{new Integer(model.getNumberOfColumns())}));
         }
     }
 
@@ -505,11 +512,10 @@ public abstract class TableWriterTemplate
     protected void writeSubgroupStart(TableModel model) throws Exception
     {
     }
+
     protected void writeSubgroupStop(TableModel model) throws Exception
     {
     }
-
-
 
     /**
      * Called by writeTableBody to write the start of the row structure.
