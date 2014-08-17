@@ -715,7 +715,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         }
 
         Object[] exportOptions = {buffer.toString()};
-        write(MessageFormat.format(this.properties.getExportBanner(), exportOptions));
+        write(new MessageFormat(this.properties.getExportBanner(), this.properties.getLocale()).format(exportOptions));
     }
 
     /**

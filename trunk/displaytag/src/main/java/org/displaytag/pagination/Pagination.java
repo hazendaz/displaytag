@@ -294,7 +294,7 @@ public class Pagination
             this.isLast() ? this.currentPage : this.lastPage}; // this.lastPage is null if the last page is displayed
 
         // return the full banner
-        return MessageFormat.format(fullBanner, pageObjects);
+        return new MessageFormat(fullBanner, this.properties.getLocale()).format(pageObjects);
     }
 
     /**

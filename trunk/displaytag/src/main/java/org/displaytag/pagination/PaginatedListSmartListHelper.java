@@ -180,8 +180,11 @@ public class PaginatedListSmartListHelper extends SmartListHelper
             bannerFormat = this.properties.getPagingBannerFull();
         }
 
-        return pagination.getFormattedBanner(this.properties.getPagingPageLink(), this.properties
-            .getPagingPageSelected(), this.properties.getPagingPageSeparator(), bannerFormat);
+        return pagination.getFormattedBanner(
+            this.properties.getPagingPageLink(),
+            this.properties.getPagingPageSelected(),
+            this.properties.getPagingPageSeparator(),
+            bannerFormat);
     }
 
     @Override
@@ -221,7 +224,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
             message = this.properties.getPagingFoundSomeItems();
         }
 
-        return MessageFormat.format(message, objs);
+        return new MessageFormat(message, this.properties.getLocale()).format(objs);
     }
 
     /**

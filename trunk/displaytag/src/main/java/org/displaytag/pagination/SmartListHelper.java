@@ -296,7 +296,7 @@ public class SmartListHelper
             message = this.properties.getPagingFoundSomeItems();
         }
 
-        return MessageFormat.format(message, objs);
+        return new MessageFormat(message, this.properties.getLocale()).format(objs);
     }
 
     /**
