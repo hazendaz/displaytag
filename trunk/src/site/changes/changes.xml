@@ -93,7 +93,20 @@
         property
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-606" due-to="Hilde Meuris">Page numbers localized using wrong locale</action>
+      <action type="update" dev="fgiust"  >Removed deprecated column tag attributes: <tt>paramScope</tt></action>
     </release>
+    
+    <!-- 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     -->
     <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.
       </action>

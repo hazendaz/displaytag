@@ -39,8 +39,8 @@ the primary key of the object). Below I show how to use both examples.
 ### Struts-like approach
 
 The column tag provides 5 struts-like attributes that can be set to
-create a dynamic linke ( href, paramID, paramName, paramProperty,
-paramScope ). See the display:column documentation, and the struts
+create a dynamic linke ( href, paramID, paramName, paramProperty). 
+See the display:column documentation, and the struts
 documentation for a complete description of their usage, but basically:
 
 href
@@ -57,17 +57,13 @@ paramProperty
 :   property to call on the object specified above to return the value
     that gets tacked onto the URL.
 
-paramScope
-:   specific scope where the databean lives, typically null
-
-Of these params, you typically would not use paramName and
-paramScope. Leaving each as null indicates that you want to use the
+Of these params, you typically would not use paramName. Leaving each as null indicates that you want to use the
 object corresponding to the current row being processed.
 
 ```html
 <display:table name="sessionScope.details">
   <display:column property="id" title="ID" href="details.jsp" paramId="id" />
-  <display:column property="email" href="details.jsp" paramId="action" paramName="testparam" paramScope="request" />
+  <display:column property="email" href="details.jsp" paramId="action" paramName="testparam" />
   <display:column property="status" href="details.jsp" paramId="id" paramProperty="id" />
 </display:table>
 ```

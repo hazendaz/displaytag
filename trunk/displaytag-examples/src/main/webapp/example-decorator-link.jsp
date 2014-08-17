@@ -21,7 +21,7 @@
     </p>
     <h2>Struts-like approach</h2>
     <p>The column tag provides 5 struts-like attributes that can be set to create a dynamic linke ( href, paramID,
-      paramName, paramProperty, paramScope ). See the display:column documentation, and the struts documentation for a
+      paramName, paramProperty). See the display:column documentation, and the struts documentation for a
       complete description of their usage, but basically:
     </p>
     <dl class="dl-horizontal">
@@ -35,23 +35,20 @@
       </dd>
       <dt>paramProperty</dt>
       <dd>property to call on the object specified above to return the value that gets tacked onto the URL.</dd>
-      <dt>paramScope</dt>
-      <dd>specific scope where the databean lives, typically null</dd>
     </dl>
-    <p>Of these params, you typically would not use paramName and paramScope. Leaving each as null indicates that you
+    <p>Of these params, you typically would not use paramName. Leaving as null indicates that you
       want to use the object corresponding to the current row being processed.
     </p>
     <display:table name="sessionScope.details">
       <display:column property="id" title="ID" href="details.jsp" paramId="id"/>
-      <display:column property="email" href="details.jsp" paramId="action" paramName="testparam"
-        paramScope="request"/>
+      <display:column property="email" href="details.jsp" paramId="action" paramName="testparam" />
       <display:column property="status" href="details.jsp" paramId="id" paramProperty="id"/>
     </display:table>
     <tags:code>
 <![CDATA[
 <display:table name="sessionScope.details">
   <display:column property="id" title="ID" href="details.jsp" paramId="id"/>
-  <display:column property="email" href="details.jsp" paramId="action" paramName="testparam" paramScope="request"/>
+  <display:column property="email" href="details.jsp" paramId="action" paramName="testparam" />
   <display:column property="status" href="details.jsp" paramId="id" paramProperty="id"/>
 </display:table>
 ]]>
