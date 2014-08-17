@@ -14,14 +14,14 @@ The following is a link to the online source repository.
 
 The source can be checked out anonymously from SVN with this command:
 
-    $ svn checkout https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk displaytag
+    $ svn checkout https://svn.code.sf.net/p/displaytag/code/trunk/ displaytag
 
 ### Developer access
 
 Everyone can access the Subversion repository via HTTPS, but Committers
 must checkout the Subversion repository via HTTPS.
 
-    $ svn checkout https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk displaytag
+    $ svn checkout svn+ssh://fgiust@svn.code.sf.net/p/displaytag/code/trunk displaytag
 
 To commit changes to the repository, execute the following command to
 commit your changes (svn will prompt you for your password)
@@ -34,7 +34,7 @@ For those users who are stuck behind a corporate firewall which is
 blocking http access to the Subversion repository, you can try to access
 it via the developer connection:
 
-    $ svn checkout https://displaytag.svn.sourceforge.net/svnroot/displaytag/trunk displaytag
+    $ svn checkout https://svn.code.sf.net/p/displaytag/code/trunk displaytag
 
 ### Access through a proxy
 
