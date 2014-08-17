@@ -82,6 +82,9 @@
         in order to escape parameters only when composing the final URL, avoid double encoding that could happen in some
         situations
       </action>
+      <action type="fix" dev="fgiust" issue="DISPL-505" due-to="Mike Calmus">Class cache usage causes make using different
+        factory for different tables not work.
+      </action>
     </release>
     <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.
