@@ -41,10 +41,10 @@ when export has been requested.
 Configure the Filter in your web.xml:
 
 ```xml
-      <filter>
-        <filter-name>ResponseOverrideFilter</filter-name>
-        <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
-      </filter>
+  <filter>
+    <filter-name>ResponseOverrideFilter</filter-name>
+    <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+  </filter>
 ```
 
 And add mappings for urls the filter will intercept, for example:
