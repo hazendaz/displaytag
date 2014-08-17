@@ -86,6 +86,8 @@
         factory for different tables not work.
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-457" due-to="Mike Calmus">HtmlTableWriter make inconsistent use of TableModel within methods.</action>
+      
+      <action type="add" dev="fgiust" issue="DISPL-230" due-to="Peter Daugavietis, Mike Calmus">New <tt>export.banner.placement</tt> property</action>
     </release>
     <release version="1.2" date="December 27, 2008" description="">
       <action type="add" dev="fgiust" issue="DISPL-552" due-to="Punit Mohatta"> Export to excel: auto adjust column width.

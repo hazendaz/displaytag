@@ -93,6 +93,11 @@ public final class TableProperties implements Cloneable
     public static final String PROPERTY_STRING_EXPORTBANNER_ITEM = "export.banner.item"; //$NON-NLS-1$
 
     /**
+     * property <code>export.banner</code>.
+     */
+    public static final String PROPERTY_STRING_EXPORTBANNER_PLACEMENT = "export.banner.placement"; //$NON-NLS-1$
+
+    /**
      * property <code>export.banner.sepchar</code>.
      */
     public static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = "export.banner.sepchar"; //$NON-NLS-1$
@@ -994,7 +999,7 @@ public final class TableProperties implements Cloneable
     public boolean getAddPagingBannerTop()
     {
         String placement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
-        return "top".equals(placement) || "both".equals(placement); //$NON-NLS-1$ //$NON-NLS-2$
+        return StringUtils.equals("top", placement) || StringUtils.equals("both", placement); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -1004,7 +1009,28 @@ public final class TableProperties implements Cloneable
     public boolean getAddPagingBannerBottom()
     {
         String placement = getProperty(PROPERTY_STRING_BANNER_PLACEMENT);
-        return "bottom".equals(placement) || "both".equals(placement); //$NON-NLS-1$ //$NON-NLS-2$
+        return StringUtils.equals("bottom", placement) || StringUtils.equals("both", placement); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    /**
+     * Should paging banner be added before the table?
+     * @return boolean
+     */
+    public boolean getAddExportBannerTop()
+    {
+        String placement = getProperty(PROPERTY_STRING_EXPORTBANNER_PLACEMENT);
+        return StringUtils.equals("top", placement) || StringUtils.equals("both", placement); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    /**
+     * Should paging banner be added after the table?
+     * @return boolean
+     */
+    public boolean getAddExportBannerBottom()
+    {
+        String placement = getProperty(PROPERTY_STRING_EXPORTBANNER_PLACEMENT);
+        // no value specified puts it on th bottom too to ensure proper backward compatibility
+        return !StringUtils.equals("top", placement); //$NON-NLS-1$
     }
 
     /**
