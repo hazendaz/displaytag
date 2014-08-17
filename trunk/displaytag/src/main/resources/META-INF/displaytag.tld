@@ -657,8 +657,8 @@ or
   <display:footer>
     <tr>
       <td>Total Bill:</td>
-      <td><c:out value="${totals.column2}" /></td>
-    <tr>
+      <td>${totals.column2}</td>
+    </tr>
   </display:footer>
 </display:table>
 ]]>
