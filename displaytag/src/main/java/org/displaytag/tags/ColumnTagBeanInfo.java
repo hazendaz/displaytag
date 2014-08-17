@@ -102,10 +102,6 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
                 ColumnTag.class,
                 null,
                 "setParamProperty")); //$NON-NLS-1$
-            proplist.add(new PropertyDescriptor("paramScope", //$NON-NLS-1$
-                ColumnTag.class,
-                null,
-                "setParamScope")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("property", //$NON-NLS-1$
                 ColumnTag.class,
                 null,

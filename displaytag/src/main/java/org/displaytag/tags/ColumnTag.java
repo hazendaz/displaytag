@@ -189,15 +189,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     private String paramProperty;
 
     /**
-     * The scope within which to search for the bean specified by the paramName attribute. If not specified, all scopes
-     * are searched. If paramName is not provided, then the current object being iterated on is assumed to be the target
-     * bean. (optional)
-     * @deprecated use Expressions in paramName
-     */
-    @SuppressWarnings("dep-ann")
-    private String paramScope;
-
-    /**
      * If this attribute is provided, then the column's displayed is limited to this number of characters. An elipse
      * (...) is appended to the end if this column is linked, and the user can mouseover the elipse to get the full
      * text. (optional)
@@ -455,15 +446,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     public void setParamProperty(String value)
     {
         this.paramProperty = value;
-    }
-
-    /**
-     * setter for the "paramScope" tag attribute.
-     * @param value attribute value
-     */
-    public void setParamScope(String value)
-    {
-        this.paramScope = value;
     }
 
     /**
@@ -774,17 +756,11 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             if (this.paramId != null)
             {
                 // parameter value is in a different object than the iterated one
-                if (this.paramName != null || this.paramScope != null)
+                if (this.paramName != null)
                 {
                     // create a complete string for compatibility with previous version before expression evaluation.
                     // this approach is optimized for new expressions, not for previous property/scope parameters
                     StringBuffer expression = new StringBuffer();
-
-                    // append scope
-                    if (StringUtils.isNotBlank(this.paramScope))
-                    {
-                        expression.append(this.paramScope).append("Scope.");
-                    }
 
                     // base bean name
                     if (this.paramId != null)
@@ -852,7 +828,6 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         this.paramId = null;
         this.paramName = null;
         this.paramProperty = null;
-        this.paramScope = null;
         this.property = null;
         this.sortable = false;
         this.sortName = null;
@@ -907,8 +882,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             .append("maxLength", this.maxLength) //$NON-NLS-1$
             .append("decorator", this.decorator) //$NON-NLS-1$
             .append("href", this.href) //$NON-NLS-1$
-            .append("title", this.title) //$NON-NLS-1$
-            .append("paramScope", this.paramScope) //$NON-NLS-1$
+            .append("title", this.title) //$NON-NLS-1$ 
             .append("property", this.property) //$NON-NLS-1$
             .append("paramProperty", this.paramProperty) //$NON-NLS-1$
             .append("headerAttributeMap", this.headerAttributeMap) //$NON-NLS-1$

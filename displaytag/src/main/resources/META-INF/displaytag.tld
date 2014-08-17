@@ -455,8 +455,7 @@
       <type>java.lang.String</type>
       <description>
         The name of the request parameter that will be dynamically added to the generated href URL. The corresponding
-        value is defined by the paramProperty and (optional) paramName attributes, optionally scoped by the paramScope
-        attribute.
+        value is defined by the paramProperty and (optional) paramName attributes.
       </description>
     </attribute>
     <attribute>
@@ -467,8 +466,7 @@
       <description>
         The name of a JSP bean that is a String containing the value for the request parameter named by paramId (if
         paramProperty is not specified), or a JSP bean whose property getter is called to return a String (if
-        paramProperty is specified). The JSP bean is constrained to the bean scope specified by the paramScope property,
-        if it is specified. If paramName is omitted, then it is assumed that the current object being iterated on is the
+        paramProperty is specified). If paramName is omitted, then it is assumed that the current object being iterated on is the
         target bean.
       </description>
     </attribute>
@@ -484,17 +482,6 @@
         by paramName. The support of paramProperty in conjunction with paramName will be probably removed in future: use
         paramProperty only if you need a property in the iterated object, elsewhere use only paramName (you can select a
         property using an expression name.property).
-      </description>
-    </attribute>
-    <attribute>
-      <name>paramScope</name>
-      <required>false</required>
-      <rtexprvalue>true</rtexprvalue>
-      <type>java.lang.String</type>
-      <description>
-        @deprecated - use Expressions in paramName. The scope within which to search for the bean specified by the
-        paramName attribute. If not specified, all scopes are searched. If paramName is not provided, then the current
-        object being iterated on is assumed to be the target bean.
       </description>
     </attribute>
     <attribute>
