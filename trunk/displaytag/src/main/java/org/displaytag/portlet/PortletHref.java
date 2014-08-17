@@ -26,12 +26,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSecurityException;
 import javax.portlet.PortletURL;
-import javax.portlet.RenderResponse;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
@@ -103,7 +103,7 @@ public class PortletHref implements Href
     // Portlet request and response are needed for feature checking and generating the URLs
     private final PortletRequest portletRequest;
 
-    private final RenderResponse renderResponse;
+    private final MimeResponse renderResponse;
 
     private Map<String, String[]> parameters = new LinkedHashMap<String, String[]>();
 
@@ -122,7 +122,7 @@ public class PortletHref implements Href
      * @param portletRequest request to to feature checking with, may not be null.
      * @param renderResponse response to generate the URLs from, may not be null.
      */
-    public PortletHref(PortletRequest portletRequest, RenderResponse renderResponse)
+    public PortletHref(PortletRequest portletRequest, MimeResponse renderResponse)
     {
         if (portletRequest == null)
         {
