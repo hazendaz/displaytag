@@ -21,6 +21,7 @@
  */
 package org.displaytag.jsptests;
 
+import org.apache.commons.lang3.StringUtils;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
@@ -77,10 +78,12 @@ public class Displ080Test extends DisplaytagCase
         {
             log.debug(response.getText());
         }
+        log.warn(response.getText());
 
-        // note: getCellAsText returns the unescaped value, but we know it's good because an unescaped string would have
-        // been simply "&"
-        Assert.assertEquals("Wrong column content.", "<strong>&</strong>", tables[0].getCellAsText(1, 0));
+        // note: getCellAsText returns the unescaped value
+        String escapedtext = StringUtils.substringBetween(response.getText(), "<td>", "</td>");
+
+        Assert.assertEquals("Wrong column content.", "&lt;strong&gt;&amp;&lt;/strong&gt;", escapedtext);
     }
 
 }
