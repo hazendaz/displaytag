@@ -119,7 +119,7 @@ public class ExportPdfTest extends DisplaytagCase
         Assert.assertNotNull("Pdf export view not correctly registered.", pdfMedia);
         request.setParameter(mediaParameter, Integer.toString(pdfMedia.getCode()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
         Assert.assertEquals("Expected a different content type.", "application/pdf", response.getContentType());

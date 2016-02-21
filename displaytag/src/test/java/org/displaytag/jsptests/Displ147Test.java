@@ -58,10 +58,10 @@ public class Displ147Test extends DisplaytagCase
     {
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
-        WebResponse response = runner.getResponse(request);
-        if (log.isDebugEnabled())
+        WebResponse response = this.runner.getResponse(request);
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebLink[] links = response.getLinks();

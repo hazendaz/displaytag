@@ -73,7 +73,7 @@ public class KnownValue
      */
     public String getAnt()
     {
-        return antValue;
+        return this.antValue;
     }
 
     /**
@@ -82,7 +82,7 @@ public class KnownValue
      */
     public String getBee()
     {
-        return beeValue;
+        return this.beeValue;
     }
 
     /**
@@ -91,7 +91,7 @@ public class KnownValue
      */
     public String getCamel()
     {
-        return camelValue;
+        return this.camelValue;
     }
 
     /**
@@ -100,7 +100,7 @@ public class KnownValue
      */
     public int getTwo()
     {
-        return twoValue;
+        return this.twoValue;
     }
 
     /**
@@ -109,6 +109,6 @@ public class KnownValue
      */
     public Date getDate()
     {
-        return date;
+        return this.date;
     }
 }

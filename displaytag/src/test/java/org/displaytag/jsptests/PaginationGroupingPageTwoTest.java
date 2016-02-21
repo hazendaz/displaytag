@@ -49,11 +49,11 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase
     public void useOffsetToGetPageTwo() throws Exception
     {
         WebRequest request = new GetMethodWebRequest(getJspUrl("pagination-grouping-page2.jsp"));
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();
@@ -69,11 +69,11 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase
     {
         WebRequest request = new GetMethodWebRequest(getJspUrl("pagination-grouping.jsp"));
         request.setParameter("d-148916-p", "2");
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();

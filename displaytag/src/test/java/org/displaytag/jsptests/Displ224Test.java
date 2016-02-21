@@ -59,7 +59,7 @@ public class Displ224Test extends DisplaytagCase
     {
 
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);

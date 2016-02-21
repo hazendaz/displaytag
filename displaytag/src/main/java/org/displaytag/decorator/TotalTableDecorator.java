@@ -109,17 +109,17 @@ public class TotalTableDecorator extends TableDecorator
         super.init(context, decorated, tableModel);
 
         // reset
-        groupPropertyName = null;
-        grandTotals.clear();
-        subTotals.clear();
-        previousValues.clear();
+        this.groupPropertyName = null;
+        this.grandTotals.clear();
+        this.subTotals.clear();
+        this.previousValues.clear();
 
         for (Iterator<HeaderCell> it = tableModel.getHeaderCellList().iterator(); it.hasNext();)
         {
             HeaderCell cell = it.next();
             if (cell.getGroup() == 1)
             {
-                groupPropertyName = cell.getBeanPropertyName();
+                this.groupPropertyName = cell.getBeanPropertyName();
             }
         }
     }
@@ -130,20 +130,20 @@ public class TotalTableDecorator extends TableDecorator
     {
         String subtotalRow = null;
 
-        if (groupPropertyName != null)
+        if (this.groupPropertyName != null)
         {
-            Object groupedPropertyValue = evaluate(groupPropertyName);
-            Object previousGroupedPropertyValue = previousValues.get(groupPropertyName);
+            Object groupedPropertyValue = evaluate(this.groupPropertyName);
+            Object previousGroupedPropertyValue = this.previousValues.get(this.groupPropertyName);
             // subtotals
             if (previousGroupedPropertyValue != null
                 && !ObjectUtils.equals(previousGroupedPropertyValue, groupedPropertyValue))
             {
                 subtotalRow = createTotalRow(false);
             }
-            previousValues.put(groupPropertyName, groupedPropertyValue);
+            this.previousValues.put(this.groupPropertyName, groupedPropertyValue);
         }
 
-        for (Iterator<HeaderCell> it = tableModel.getHeaderCellList().iterator(); it.hasNext();)
+        for (Iterator<HeaderCell> it = this.tableModel.getHeaderCellList().iterator(); it.hasNext();)
         {
             HeaderCell cell = it.next();
             if (cell.isTotaled())
@@ -151,14 +151,14 @@ public class TotalTableDecorator extends TableDecorator
                 String totalPropertyName = cell.getBeanPropertyName();
                 Number amount = (Number) evaluate(totalPropertyName);
 
-                Number previousSubTotal = subTotals.get(totalPropertyName);
-                Number previousGrandTotals = grandTotals.get(totalPropertyName);
+                Number previousSubTotal = this.subTotals.get(totalPropertyName);
+                Number previousGrandTotals = this.grandTotals.get(totalPropertyName);
 
-                subTotals.put(totalPropertyName, new Double((previousSubTotal != null
+                this.subTotals.put(totalPropertyName, new Double((previousSubTotal != null
                     ? previousSubTotal.doubleValue()
                     : 0) + (amount != null ? amount.doubleValue() : 0)));
 
-                grandTotals.put(
+                this.grandTotals.put(
                     totalPropertyName,
                     new Double((previousGrandTotals != null ? previousGrandTotals.doubleValue() : 0)
                         + (amount != null ? amount.doubleValue() : 0)));
@@ -181,7 +181,7 @@ public class TotalTableDecorator extends TableDecorator
         // Grand totals...
         if (getViewIndex() == ((List<Object>) getDecoratedObject()).size() - 1)
         {
-            if (groupPropertyName != null)
+            if (this.groupPropertyName != null)
             {
                 buffer.append(createTotalRow(false));
             }
@@ -196,7 +196,7 @@ public class TotalTableDecorator extends TableDecorator
         StringBuffer buffer = new StringBuffer(1000);
         buffer.append("\n<tr class=\"total\">"); //$NON-NLS-1$
 
-        List<HeaderCell> headerCells = tableModel.getHeaderCellList();
+        List<HeaderCell> headerCells = this.tableModel.getHeaderCellList();
 
         for (Iterator<HeaderCell> it = headerCells.iterator(); it.hasNext();)
         {
@@ -216,14 +216,14 @@ public class TotalTableDecorator extends TableDecorator
             if (cell.isTotaled())
             {
                 String totalPropertyName = cell.getBeanPropertyName();
-                Object total = grandTotal ? grandTotals.get(totalPropertyName) : subTotals.get(totalPropertyName);
+                Object total = grandTotal ? this.grandTotals.get(totalPropertyName) : this.subTotals.get(totalPropertyName);
 
                 DisplaytagColumnDecorator[] decorators = cell.getColumnDecorators();
                 for (int j = 0; j < decorators.length; j++)
                 {
                     try
                     {
-                        total = decorators[j].decorate(total, this.getPageContext(), tableModel.getMedia());
+                        total = decorators[j].decorate(total, this.getPageContext(), this.tableModel.getMedia());
                     }
                     catch (DecoratorException e)
                     {
@@ -233,11 +233,11 @@ public class TotalTableDecorator extends TableDecorator
                 }
                 buffer.append(total);
             }
-            else if (groupPropertyName != null && groupPropertyName.equals(cell.getBeanPropertyName()))
+            else if (this.groupPropertyName != null && this.groupPropertyName.equals(cell.getBeanPropertyName()))
             {
-                buffer.append(grandTotal ? totalLabel : new MessageFormat(subtotalLabel, this.tableModel
+                buffer.append(grandTotal ? this.totalLabel : new MessageFormat(this.subtotalLabel, this.tableModel
                     .getProperties()
-                    .getLocale()).format(new Object[]{previousValues.get(groupPropertyName)}));
+                    .getLocale()).format(new Object[]{this.previousValues.get(this.groupPropertyName)}));
             }
 
             buffer.append("</td>"); //$NON-NLS-1$

@@ -68,13 +68,13 @@ public class Displ125Test extends DisplaytagCase
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "0");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_ORDER), "1");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         checkResponse(response);
 
         // repeating the same request without parameters must return the same result (using session)
         request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
         checkResponse(response);
     }
 
@@ -85,9 +85,9 @@ public class Displ125Test extends DisplaytagCase
     private void checkResponse(WebResponse response) throws SAXException, IOException
     {
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();

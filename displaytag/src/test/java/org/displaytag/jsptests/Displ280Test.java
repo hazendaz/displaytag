@@ -64,20 +64,20 @@ public class Displ280Test extends DisplaytagCase
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "1");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORTUSINGNAME), "1");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
         Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         Assert.assertEquals("Wrong value in first row. Table incorrectly sorted?", "2", tables[0].getCellAsText(1, 1));

@@ -93,7 +93,7 @@ public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
      */
     public String getPattern()
     {
-        return pattern;
+        return this.pattern;
     }
 
 }

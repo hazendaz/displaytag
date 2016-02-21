@@ -59,7 +59,7 @@ public class ExportHeadersFilterTest extends ExportHeadersTest
 
         // this will enable the filter!
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         Assert.assertNull("Header Cache-Control not overwritten", response.getHeaderField("Cache-Control"));
         Assert.assertNull("Header Expires not overwritten", response.getHeaderField("Expires"));

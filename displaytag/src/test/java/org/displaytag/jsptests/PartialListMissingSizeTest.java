@@ -63,16 +63,16 @@ public class PartialListMissingSizeTest extends DisplaytagCase
 
         try
         {
-            response = runner.getResponse(request);
+            response = this.runner.getResponse(request);
             Assert.fail("Should have thrown an exception, missing size attribute");
         }
         catch (Throwable t)
         {
         }
 
-        if (log.isDebugEnabled() && response != null)
+        if (this.log.isDebugEnabled() && response != null)
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
     }
 }

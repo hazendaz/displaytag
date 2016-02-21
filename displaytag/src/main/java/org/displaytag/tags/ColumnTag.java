@@ -414,7 +414,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      */
     public void setUrl(String value)
     {
-        HttpServletRequest req = (HttpServletRequest) pageContext.getRequest();
+        HttpServletRequest req = (HttpServletRequest) this.pageContext.getRequest();
         // call encodeURL to preserve session id when cookies are disabled
         String encodedHref = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(StringUtils
             .defaultString(req.getContextPath() + value));
@@ -628,7 +628,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         Cell cell = null;
         if (this.property == null && this.value != null)
         {
-            cell = new Cell(value);
+            cell = new Cell(this.value);
         }
         else if (this.property == null && this.bodyContent != null)
         {
@@ -730,7 +730,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         headerCell.setSortProperty(this.sortProperty);
         headerCell.setTotaled(this.totaled);
 
-        Comparator<Object> headerComparator = (comparator != null) ? comparator : tableTag
+        Comparator<Object> headerComparator = (this.comparator != null) ? this.comparator : tableTag
             .getProperties()
             .getDefaultComparator();
 

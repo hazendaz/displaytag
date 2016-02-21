@@ -68,20 +68,20 @@ public class Displ129Test extends DisplaytagCase
         String pageParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE);
         request.setParameter(pageParameter, "2");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
         Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         Assert.assertEquals("Wrong column header.", "Number", tables[0].getCellAsText(0, 0));

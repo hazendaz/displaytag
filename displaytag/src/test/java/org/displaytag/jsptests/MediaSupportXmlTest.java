@@ -67,11 +67,11 @@ public class MediaSupportXmlTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
 
         // we are really testing an xml output?

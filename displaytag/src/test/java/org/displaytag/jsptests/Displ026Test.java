@@ -58,7 +58,7 @@ public class Displ026Test extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response;
 
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
         Assert.assertEquals(
             "Parameters {5} and {6} are not correctly evaluated in paging.banner.first.",
             "1|3",

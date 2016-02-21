@@ -86,7 +86,7 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
         WebResponse response;
         try
         {
-            response = runner.getResponse(request);
+            response = this.runner.getResponse(request);
         }
         finally
         {
@@ -95,9 +95,9 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
             TableProperties.setResourceProvider(null);
         }
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();

@@ -59,7 +59,7 @@ public class ColumnPoolingTest extends DisplaytagCase
 
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         WebLink[] links = response.getLinks();
         Assert.assertEquals("links should be generated for all the columns", 3, links.length);

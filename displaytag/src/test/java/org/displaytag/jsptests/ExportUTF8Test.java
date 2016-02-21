@@ -67,7 +67,7 @@ public class ExportUTF8Test extends DisplaytagCase
 
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         String encoding = response.getCharacterSet();
 

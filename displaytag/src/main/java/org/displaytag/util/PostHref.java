@@ -276,7 +276,7 @@ public class PostHref implements Href
         {
             throw new RuntimeException(e);
         }
-        href.parent = (Href) parent.clone();
+        href.parent = (Href) this.parent.clone();
 
         return href;
     }

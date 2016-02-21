@@ -62,7 +62,7 @@ public class Displ107Test extends DisplaytagCase
     {
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
         Assert.assertEquals("Wrong encoding", "UTF8", response.getCharacterSet());
 
         ParamEncoder encoder = new ParamEncoder("table");
@@ -70,12 +70,12 @@ public class Displ107Test extends DisplaytagCase
         request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.CSV.getCode()));
 
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
         checkContent(response);
 
         // enabled filter
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
         checkContent(response);
 
     }
@@ -96,10 +96,10 @@ public class Displ107Test extends DisplaytagCase
         stream.read(result);
 
         byte[] expected = "ant,àèì\n".getBytes("utf-8");
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("expected: [" + new String(expected, "utf-8") + "]");
-            log.debug("result:   [" + new String(result, "utf-8") + "]");
+            this.log.debug("expected: [" + new String(expected, "utf-8") + "]");
+            this.log.debug("result:   [" + new String(result, "utf-8") + "]");
         }
         Assert.assertEquals("Wrong length", expected.length, result.length);
 

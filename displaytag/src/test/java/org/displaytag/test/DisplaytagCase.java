@@ -89,13 +89,13 @@ public abstract class DisplaytagCase
         System.setProperty("file.encoding", "utf-8");
 
         // start servletRunner
-        runner = new ServletRunner(new File(path), CONTEXT);
+        this.runner = new ServletRunner(new File(path), CONTEXT);
 
         Hashtable<String, String> params = new Hashtable<String, String>();
         params.put("javaEncoding", "utf-8");
-        runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
+        this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
 
-        log.debug("ServletRunner setup OK");
+        this.log.debug("ServletRunner setup OK");
 
     }
 
@@ -106,7 +106,7 @@ public abstract class DisplaytagCase
     public void tearDown() throws Exception
     {
         // shutdown servlet engine
-        runner.shutDown();
+        this.runner.shutDown();
     }
 
     /**

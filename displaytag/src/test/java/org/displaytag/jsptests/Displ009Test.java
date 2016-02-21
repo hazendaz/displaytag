@@ -59,7 +59,7 @@ public class Displ009Test extends DisplaytagCase
         WebResponse response;
 
         // step 0
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
 
         // link[0] is a column header
         // link[1] is paging link

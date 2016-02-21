@@ -102,12 +102,12 @@ public class ExcelUtils
 
     public ExcelUtils(HSSFWorkbook book)
     {
-        wb = book;
+        this.wb = book;
     }
 
     public HSSFWorkbook getWb()
     {
-        return wb;
+        return this.wb;
     }
 
     public void setWb(HSSFWorkbook wb)
@@ -125,13 +125,13 @@ public class ExcelUtils
         HSSFCellStyle style = getNewCellStyle();
         style.setAlignment(CellStyle.ALIGN_RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_INTEGER)));
-        cellStyles.put(STYLE_INTEGER, style);
+        this.cellStyles.put(STYLE_INTEGER, style);
 
         // NUMBER
         style = getNewCellStyle();
         style.setAlignment(CellStyle.ALIGN_RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_NUMBER)));
-        cellStyles.put(STYLE_NUMBER, style);
+        this.cellStyles.put(STYLE_NUMBER, style);
 
         // style = HSSFDataFormat.getBuiltinFormat("0.00%");
 
@@ -140,17 +140,17 @@ public class ExcelUtils
         style.setAlignment(CellStyle.ALIGN_RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_DATE)));
         style.setAlignment(CellStyle.ALIGN_RIGHT);
-        cellStyles.put(STYLE_DATE, style);
+        this.cellStyles.put(STYLE_DATE, style);
 
         // Long text
         style = getNewCellStyle(); // http://jakarta.apache.org/poi/hssf/quick-guide.html#NewLinesInCells
         style.setWrapText(true);
-        cellStyles.put(STYLE_LONGSTRING, style);
+        this.cellStyles.put(STYLE_LONGSTRING, style);
 
         // Regular text
-        cellStyles.put(STYLE_STRING, getNewCellStyle());
+        this.cellStyles.put(STYLE_STRING, getNewCellStyle());
 
-        wrapAt = Integer.valueOf(properties.getProperty(ExcelUtils.EXCEL_WRAPAT));
+        this.wrapAt = Integer.valueOf(properties.getProperty(ExcelUtils.EXCEL_WRAPAT));
     }
 
     /**
@@ -160,7 +160,7 @@ public class ExcelUtils
      */
     public void addCellStyle(String key, HSSFCellStyle st)
     {
-        cellStyles.put(key, st);
+        this.cellStyles.put(key, st);
     }
 
     public HSSFCellStyle getNewCellStyle()
@@ -170,7 +170,7 @@ public class ExcelUtils
 
     public HSSFCellStyle getStyle(String clz)
     {
-        return cellStyles.get(clz);
+        return this.cellStyles.get(clz);
     }
 
     public enum CellFormatTypes {
@@ -215,7 +215,7 @@ public class ExcelUtils
      */
     public int getWrapAtLength()
     {
-        return wrapAt;
+        return this.wrapAt;
 
     }
 

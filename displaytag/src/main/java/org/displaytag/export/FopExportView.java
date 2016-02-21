@@ -116,14 +116,14 @@ public class FopExportView implements BinaryExportView
     {
 
         InputStream styleSheetStream;
-        String styleSheetString = model.getProperties().getProperty(SPECIFIC_STYLESHEET);
+        String styleSheetString = this.model.getProperties().getProperty(SPECIFIC_STYLESHEET);
         if (StringUtils.isNotEmpty(styleSheetString))
         {
             styleSheetStream = new ByteArrayInputStream(styleSheetString.getBytes());
         }
         else
         {
-            String styleSheetPath = model.getProperties().getProperty(DEFAULT_STYLESHEET);
+            String styleSheetPath = this.model.getProperties().getProperty(DEFAULT_STYLESHEET);
             styleSheetStream = this.getClass().getResourceAsStream(styleSheetPath);
             if (styleSheetStream == null)
             {
@@ -205,8 +205,8 @@ public class FopExportView implements BinaryExportView
 
     protected String getXml() throws JspException
     {
-        XmlTotalsWriter totals = new XmlTotalsWriter(model);
-        totals.writeTable(model, "-1");
+        XmlTotalsWriter totals = new XmlTotalsWriter(this.model);
+        totals.writeTable(this.model, "-1");
         return totals.getXml();
     }
 

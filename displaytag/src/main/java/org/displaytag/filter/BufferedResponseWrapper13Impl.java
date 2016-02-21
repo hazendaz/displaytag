@@ -99,11 +99,11 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     @Override
     public String getContentType()
     {
-        String ret = contentType;
+        String ret = this.contentType;
 
-        if (ret != null && characterEncoding != null && charEncSet)
+        if (ret != null && this.characterEncoding != null && this.charEncSet)
         {
-            ret += "; charset=" + characterEncoding;
+            ret += "; charset=" + this.characterEncoding;
         }
 
         return this.contentType;
@@ -117,7 +117,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     @Override
     public void setContentType(String type)
     {
-        if (state)
+        if (this.state)
         {
             log.debug("Allowing content type");
             getResponse().setContentType(type);
@@ -145,8 +145,8 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
         this.contentType = StringUtils.substringBefore(type, ";");
         if (StringUtils.isNotEmpty(charEnc))
         {
-            characterEncoding = charEnc;
-            charEncSet = true;
+            this.characterEncoding = charEnc;
+            this.charEncSet = true;
         }
 
     }
@@ -159,7 +159,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     @Override
     public String getCharacterEncoding()
     {
-        return characterEncoding;
+        return this.characterEncoding;
     }
 
     @Override
@@ -171,14 +171,14 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
             return;
         }
 
-        if (state)
+        if (this.state)
         {
             log.debug("Allowing character encoding");
             getResponse().setCharacterEncoding(characterEncoding);
         }
 
         this.characterEncoding = characterEncoding;
-        charEncSet = true;
+        this.charEncSet = true;
     }
 
     /**
@@ -188,7 +188,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     public PrintWriter getWriter() throws IOException
     {
 
-        if (state && !outRequested)
+        if (this.state && !this.outRequested)
         {
             log.debug("getWriter() returned");
 
@@ -209,7 +209,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     @Override
     public void flushBuffer() throws IOException
     {
-        if (outputWriter != null)
+        if (this.outputWriter != null)
         {
             this.outputWriter.flush();
             this.servletOutputStream.outputStream.reset();
@@ -222,7 +222,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     @Override
     public ServletOutputStream getOutputStream() throws IOException
     {
-        if (state && !outRequested)
+        if (this.state && !this.outRequested)
         {
             log.debug("getOutputStream() returned");
 
@@ -245,7 +245,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
         if (TableTagParameters.PARAMETER_EXPORTING.equals(name))
         {
             log.debug("Magic header received, real response is now accessible");
-            state = true;
+            this.state = true;
         }
         else
         {

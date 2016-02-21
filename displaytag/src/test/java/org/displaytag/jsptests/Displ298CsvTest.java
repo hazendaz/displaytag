@@ -71,7 +71,7 @@ public class Displ298CsvTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(this.getCode()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", this.getMimeType(), response.getContentType());
         String responseText = response.getText();

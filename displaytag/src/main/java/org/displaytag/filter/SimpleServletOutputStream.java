@@ -63,6 +63,6 @@ public class SimpleServletOutputStream extends ServletOutputStream
      */
     public void reset()
     {
-        outputStream.reset();
+        this.outputStream.reset();
     }
 }

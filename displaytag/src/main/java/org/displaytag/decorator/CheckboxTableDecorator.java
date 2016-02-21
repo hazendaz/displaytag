@@ -74,8 +74,8 @@ public class CheckboxTableDecorator extends TableDecorator
     public void init(PageContext pageContext, Object decorated, TableModel tableModel)
     {
         super.init(pageContext, decorated, tableModel);
-        String[] params = pageContext.getRequest().getParameterValues(fieldName);
-        checkedIds = params != null ? new ArrayList<String>(Arrays.asList(params)) : new ArrayList<String>(0);
+        String[] params = pageContext.getRequest().getParameterValues(this.fieldName);
+        this.checkedIds = params != null ? new ArrayList<String>(Arrays.asList(params)) : new ArrayList<String>(0);
     }
 
     /**
@@ -85,15 +85,15 @@ public class CheckboxTableDecorator extends TableDecorator
     public void finish()
     {
 
-        if (!checkedIds.isEmpty())
+        if (!this.checkedIds.isEmpty())
         {
             JspWriter writer = getPageContext().getOut();
-            for (Iterator<String> it = checkedIds.iterator(); it.hasNext();)
+            for (Iterator<String> it = this.checkedIds.iterator(); it.hasNext();)
             {
                 String name = it.next();
                 StringBuffer buffer = new StringBuffer();
                 buffer.append("<input type=\"hidden\" name=\"");
-                buffer.append(fieldName);
+                buffer.append(this.fieldName);
                 buffer.append("\" value=\"");
                 buffer.append(name);
                 buffer.append("\">");
@@ -116,9 +116,9 @@ public class CheckboxTableDecorator extends TableDecorator
     {
 
         @SuppressWarnings("deprecation")
-        String evaluatedId = ObjectUtils.toString(evaluate(id));
+        String evaluatedId = ObjectUtils.toString(evaluate(this.id));
 
-        boolean checked = checkedIds.contains(evaluatedId);
+        boolean checked = this.checkedIds.contains(evaluatedId);
 
         StringBuffer buffer = new StringBuffer();
         buffer.append("<input type=\"checkbox\" name=\"_chk\" value=\"");
@@ -126,7 +126,7 @@ public class CheckboxTableDecorator extends TableDecorator
         buffer.append("\"");
         if (checked)
         {
-            checkedIds.remove(evaluatedId);
+            this.checkedIds.remove(evaluatedId);
             buffer.append(" checked=\"checked\"");
         }
         buffer.append("/>");

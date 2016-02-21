@@ -108,15 +108,15 @@ public class ResponseOverrideFilter implements Filter
     @Override
     public void init(FilterConfig filterConfig)
     {
-        log = LogFactory.getLog(ResponseOverrideFilter.class);
+        this.log = LogFactory.getLog(ResponseOverrideFilter.class);
         String bufferParam = filterConfig.getInitParameter("buffer");
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("bufferParam=" + bufferParam);
+            this.log.debug("bufferParam=" + bufferParam);
         }
-        buffer = bufferParam == null || StringUtils.equalsIgnoreCase("true", bufferParam);
+        this.buffer = bufferParam == null || StringUtils.equalsIgnoreCase("true", bufferParam);
 
-        log.info("Filter initialized. Response buffering is " + (buffer ? "enabled" : "disabled"));
+        this.log.info("Filter initialized. Response buffering is " + (this.buffer ? "enabled" : "disabled"));
     }
 
     /**
@@ -129,9 +129,9 @@ public class ResponseOverrideFilter implements Filter
 
         if (servletRequest.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null)
         {
-            if (log.isDebugEnabled())
+            if (this.log.isDebugEnabled())
             {
-                log.debug(Messages.getString("ResponseOverrideFilter.parameternotfound")); //$NON-NLS-1$
+                this.log.debug(Messages.getString("ResponseOverrideFilter.parameternotfound")); //$NON-NLS-1$
             }
             // don't filter!
             filterChain.doFilter(servletRequest, servletResponse);
@@ -143,7 +143,7 @@ public class ResponseOverrideFilter implements Filter
         BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl((HttpServletResponse) servletResponse);
 
         Map<String, Boolean> contentBean = new HashMap<String, Boolean>(4);
-        if (buffer)
+        if (this.buffer)
         {
             contentBean.put(TableTagParameters.BEAN_BUFFER, Boolean.TRUE);
         }

@@ -53,7 +53,7 @@ public class Displ298HtmlTest extends DisplaytagCase
     public void doTest() throws Exception
     {
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", "text/html", response.getContentType());
         String responseText = response.getText();

@@ -65,11 +65,11 @@ public class Displ117Test extends DisplaytagCase
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_ORDER), "2");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "0");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();

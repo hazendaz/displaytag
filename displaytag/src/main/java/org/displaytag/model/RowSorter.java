@@ -189,7 +189,7 @@ public class RowSorter implements Comparator<Object>
         }
         else
         {
-            returnValue = comparator.compare(object1, object2);
+            returnValue = this.comparator.compare(object1, object2);
         }
         int ascendingInt = this.ascending ? 1 : -1;
         return ascendingInt * returnValue;

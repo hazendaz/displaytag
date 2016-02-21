@@ -68,11 +68,11 @@ public class ExternalSortTest extends DisplaytagCase
         request.setParameter(p2.encodeParameterName(TableTagParameters.PARAMETER_SORT), "number");
         request.setParameter(p2.encodeParameterName(TableTagParameters.PARAMETER_SORTUSINGNAME), "1");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
 
         WebLink[] links = response.getLinks();

@@ -73,7 +73,7 @@ public class PaginationHelper
 
     protected int getStart(int listSize)
     {
-        int start = (pageNumber - 1) * pageSize;
+        int start = (this.pageNumber - 1) * this.pageSize;
 
         if (start >= listSize)
         {
@@ -86,14 +86,14 @@ public class PaginationHelper
     protected int getEnd(int listSize, int start)
     {
 
-        int end = pageNumber * pageSize;
+        int end = this.pageNumber * this.pageSize;
 
         if (end > listSize)
         {
             end = listSize;
-            if ((end - start) > pageSize)
+            if ((end - start) > this.pageSize)
             {
-                end = pageSize;
+                end = this.pageSize;
             }
         }
 

@@ -197,7 +197,7 @@ public class TableModel
      */
     public boolean isLocalSort()
     {
-        return localSort;
+        return this.localSort;
     }
 
     /**
@@ -546,7 +546,7 @@ public class TableModel
      */
     public String getEncoding()
     {
-        return encoding;
+        return this.encoding;
     }
 
     /**
@@ -613,7 +613,7 @@ public class TableModel
 
     public TableTotaler getTotaler()
     {
-        return totaler;
+        return this.totaler;
     }
 
     public void setTotaler(TableTotaler totaler)
@@ -623,7 +623,7 @@ public class TableModel
 
     public void reset()
     {
-        totaler.reset();
-        totaler.init(this);
+        this.totaler.reset();
+        this.totaler.init(this);
     }
 }

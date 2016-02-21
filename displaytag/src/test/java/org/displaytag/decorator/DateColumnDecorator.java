@@ -50,7 +50,7 @@ public class DateColumnDecorator implements DisplaytagColumnDecorator
     @Override
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
     {
-        return dateFormat.format(columnValue);
+        return this.dateFormat.format(columnValue);
     }
 
 }

@@ -260,11 +260,11 @@ public class Pagination
             if (page.getSelected())
             {
                 buffer
-                    .append(new MessageFormat(numberedPageSelectedFormat, properties.getLocale()).format(pageObjects));
+                    .append(new MessageFormat(numberedPageSelectedFormat, this.properties.getLocale()).format(pageObjects));
             }
             else
             {
-                buffer.append(new MessageFormat(numberedPageFormat, properties.getLocale()).format(pageObjects));
+                buffer.append(new MessageFormat(numberedPageFormat, this.properties.getLocale()).format(pageObjects));
             }
 
             // next? add page separator

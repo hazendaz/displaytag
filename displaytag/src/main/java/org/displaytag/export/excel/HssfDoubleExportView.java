@@ -63,7 +63,7 @@ public class HssfDoubleExportView extends DefaultHssfExportView
                 if (hasGroups)
                 {
                     writer.setSetSheetName("Data");
-                    model.reset();
+                    this.model.reset();
                     writer.writeTable(this.model, "-1");
                 }
                 wb.write(out);

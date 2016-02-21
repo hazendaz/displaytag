@@ -88,7 +88,7 @@ public abstract class TotalWrapperTemplate extends TableDecorator
             writeGrandTotal(this.grandTotal);
         }
 
-        return buffer.toString();
+        return this.buffer.toString();
     }
 
     /**

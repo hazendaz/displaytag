@@ -113,11 +113,11 @@ public class PdfView implements BinaryExportView
      */
     protected void initTable()
     {
-        tablePDF = new PdfPTable(this.model.getNumberOfColumns());
-        tablePDF.getDefaultCell().setVerticalAlignment(Element.ALIGN_TOP);
-        tablePDF.setWidthPercentage(100);
+        this.tablePDF = new PdfPTable(this.model.getNumberOfColumns());
+        this.tablePDF.getDefaultCell().setVerticalAlignment(Element.ALIGN_TOP);
+        this.tablePDF.setWidthPercentage(100);
 
-        smallFont = FontFactory.getFont(FontFactory.HELVETICA, 7, Font.NORMAL, new BaseColor(0, 0, 0));
+        this.smallFont = FontFactory.getFont(FontFactory.HELVETICA, 7, Font.NORMAL, new BaseColor(0, 0, 0));
 
     }
 
@@ -170,7 +170,7 @@ public class PdfView implements BinaryExportView
                     Rectangle rect = writer.getBoxSize("art");
                     ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER, new Phrase(
                         TagConstants.EMPTY_STRING,
-                        smallFont), (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
+                        PdfView.this.smallFont), (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
 
                 }
 
@@ -210,10 +210,10 @@ public class PdfView implements BinaryExportView
 
             PdfPCell hdrCell = getCell(columnHeader);
             hdrCell.setGrayFill(0.9f);
-            tablePDF.addCell(hdrCell);
+            this.tablePDF.addCell(hdrCell);
 
         }
-        tablePDF.setHeaderRows(1);
+        this.tablePDF.setHeaderRows(1);
     }
 
     /**
@@ -240,7 +240,7 @@ public class PdfView implements BinaryExportView
                 Object value = column.getValue(this.decorated);
 
                 PdfPCell cell = getCell(value != null ? value.toString() : StringUtils.EMPTY);
-                tablePDF.addCell(cell);
+                this.tablePDF.addCell(cell);
             }
         }
     }
@@ -252,7 +252,7 @@ public class PdfView implements BinaryExportView
      */
     private PdfPCell getCell(String value)
     {
-        PdfPCell cell = new PdfPCell(new Phrase(new Chunk(StringUtils.trimToEmpty(value), smallFont)));
+        PdfPCell cell = new PdfPCell(new Phrase(new Chunk(StringUtils.trimToEmpty(value), this.smallFont)));
         cell.setVerticalAlignment(Element.ALIGN_TOP);
         cell.setLeading(8, 0);
         cell.setPadding(2);

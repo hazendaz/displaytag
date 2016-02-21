@@ -62,11 +62,11 @@ public class Displ056Test extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response;
 
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();
@@ -90,9 +90,9 @@ public class Displ056Test extends DisplaytagCase
         // and click again to sort in reversed order
         response = links[0].click();
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         tables = response.getTables();

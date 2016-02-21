@@ -597,7 +597,7 @@ public final class TableProperties implements Cloneable
         // default properties will not change unless this class is reloaded
         Properties defaultProperties = loadBuiltInProperties();
 
-        properties = new Properties(defaultProperties);
+        this.properties = new Properties(defaultProperties);
         addProperties(myLocale);
 
         // Now copy in the user properties (properties file set by calling setUserProperties()).
@@ -608,7 +608,7 @@ public final class TableProperties implements Cloneable
             String key = (String) keys.nextElement();
             if (key != null)
             {
-                properties.setProperty(key, (String) userProperties.get(key));
+                this.properties.setProperty(key, (String) userProperties.get(key));
             }
         }
     }
@@ -628,7 +628,7 @@ public final class TableProperties implements Cloneable
             while (keys.hasMoreElements())
             {
                 String key = keys.nextElement();
-                properties.setProperty(key, bundle.getString(key));
+                this.properties.setProperty(key, bundle.getString(key));
             }
         }
     }
@@ -719,7 +719,7 @@ public final class TableProperties implements Cloneable
      */
     public Locale getLocale()
     {
-        return locale;
+        return this.locale;
     }
 
     /**
@@ -1341,7 +1341,7 @@ public final class TableProperties implements Cloneable
             return null;
         }
 
-        Object instance = objectCache.get(className);
+        Object instance = this.objectCache.get(className);
         if (instance != null)
         {
             return instance;
@@ -1351,7 +1351,7 @@ public final class TableProperties implements Cloneable
         {
             Class< ? > classProperty = ReflectHelper.classForName(className);
             instance = classProperty.newInstance();
-            objectCache.put(className, instance);
+            this.objectCache.put(className, instance);
             return instance;
         }
         catch (Exception e)

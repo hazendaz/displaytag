@@ -62,11 +62,11 @@ public class Displ232Test extends DisplaytagCase
         ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "3");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         HTMLElement pagination = response.getElementWithID("pagination");
@@ -75,11 +75,11 @@ public class Displ232Test extends DisplaytagCase
 
         request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "10");
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         pagination = response.getElementWithID("pagination");

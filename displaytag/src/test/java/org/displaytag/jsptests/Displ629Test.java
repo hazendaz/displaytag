@@ -76,7 +76,7 @@ public class Displ629Test extends DisplaytagCase
 
     private void checkLastColumn(WebRequest request) throws MalformedURLException, IOException, SAXException
     {
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals(1, tables.length);

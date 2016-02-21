@@ -63,7 +63,7 @@ public class ExportFilterErrorTest extends DisplaytagCase
         // this will enable the filter!
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Expected 1 table in result.", 1, tables.length);

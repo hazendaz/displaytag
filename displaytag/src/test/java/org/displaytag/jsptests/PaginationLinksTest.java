@@ -64,11 +64,11 @@ public class PaginationLinksTest extends DisplaytagCase
             + "?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
             + "&initiatedTDate=04/28/2004&approvedFDate=&method=search&approver=");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
 
         WebLink[] links = response.getLinks();

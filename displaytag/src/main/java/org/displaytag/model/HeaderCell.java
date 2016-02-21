@@ -318,7 +318,7 @@ public class HeaderCell
      */
     public String getSortName()
     {
-        return sortName;
+        return this.sortName;
     }
 
     /**
@@ -406,9 +406,9 @@ public class HeaderCell
         }
 
         // if headerAttributes has not been set, instantiates a new map
-        if (headerAttributes == null)
+        if (this.headerAttributes == null)
         {
-            headerAttributes = new HtmlAttributeMap();
+            this.headerAttributes = new HtmlAttributeMap();
         }
 
         Object classAttributes = this.headerAttributes.get(TagConstants.ATTRIBUTE_CLASS);
@@ -578,7 +578,7 @@ public class HeaderCell
      */
     public boolean isTotaled()
     {
-        return totaled;
+        return this.totaled;
     }
 
     /**

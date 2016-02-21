@@ -75,7 +75,7 @@ public class FilterTest extends DisplaytagCase
             Logger.getLogger(TableTag.class).setLevel(Level.OFF);
 
             // check if page need a filter (unfiltered request)
-            runner.getResponse(request);
+            this.runner.getResponse(request);
             Assert.fail("Request works also without a filter. Can't test it properly.");
         }
         catch (HttpInternalErrorException e)
@@ -92,7 +92,7 @@ public class FilterTest extends DisplaytagCase
         // this enable the filter!
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
     }

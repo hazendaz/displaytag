@@ -60,10 +60,10 @@ public class Displ505Test extends DisplaytagCase
     {
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
-            log.debug("RESPONSE: " + response.getText());
+        if (this.log.isDebugEnabled())
+            this.log.debug("RESPONSE: " + response.getText());
 
         WebTable[] tables = response.getTables();
 

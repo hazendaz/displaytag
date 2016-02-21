@@ -67,7 +67,7 @@ public class DisabledMediaTest extends DisplaytagCase
 
         try
         {
-            runner.getResponse(request);
+            this.runner.getResponse(request);
         }
         catch (HttpInternalErrorException e)
         {

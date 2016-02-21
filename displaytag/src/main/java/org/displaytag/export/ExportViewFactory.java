@@ -143,7 +143,7 @@ public final class ExportViewFactory
         }
 
         MediaTypeEnum media = MediaTypeEnum.registerMediaType(name);
-        viewClasses.put(media, exportClass);
+        this.viewClasses.put(media, exportClass);
 
         if (log.isDebugEnabled())
         {
@@ -166,7 +166,7 @@ public final class ExportViewFactory
     {
         ExportView view;
 
-        Class<ExportView> viewClass = viewClasses.get(exportType);
+        Class<ExportView> viewClass = this.viewClasses.get(exportType);
 
         try
         {

@@ -71,7 +71,7 @@ public class Displ298PdfTest extends DisplaytagCase
         Assert.assertNotNull("Pdf export view not correctly registered.", pdfMedia);
         request.setParameter(mediaParameter, Integer.toString(pdfMedia.getCode()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", "application/pdf", response.getContentType());
 

@@ -168,7 +168,7 @@ public class ItextTableWriter extends TableWriterAdapter
             PdfPCell hdrCell = this.getHeaderCell(columnHeader);
             this.table.addCell(hdrCell);
         }
-        table.setHeaderRows(1);
+        this.table.setHeaderRows(1);
         this.table.setWidths(widths);
     }
 
@@ -197,7 +197,7 @@ public class ItextTableWriter extends TableWriterAdapter
         cell.setBackgroundColor(this.getFooterBackgroundColor());
         cell.setHorizontalAlignment(this.getFooterHorizontalAlignment());
         cell.setColspan(model.getNumberOfColumns());
-        table.addCell(cell);
+        this.table.addCell(cell);
     }
 
     /**

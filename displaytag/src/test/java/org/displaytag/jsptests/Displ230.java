@@ -78,7 +78,7 @@ public class Displ230 extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter("placement", placement);
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         HTMLElement[] elements = response.getElementsWithClassName("testitem");
 

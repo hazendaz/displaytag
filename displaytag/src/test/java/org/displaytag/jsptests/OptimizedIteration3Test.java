@@ -66,12 +66,12 @@ public class OptimizedIteration3Test extends DisplaytagCase
 
         // not sorted
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
-        checkNumberOfIterations(runner.getResponse(request), 1);
+        checkNumberOfIterations(this.runner.getResponse(request), 1);
 
         // page 2, sorted
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "1");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
-        checkNumberOfIterations(runner.getResponse(request), 1);
+        checkNumberOfIterations(this.runner.getResponse(request), 1);
 
         // export full
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
@@ -80,11 +80,11 @@ public class OptimizedIteration3Test extends DisplaytagCase
             Integer.toString(MediaTypeEnum.CSV.getCode()));
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
         String csvExport = response.getText();
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         Assert.assertEquals("Wrong csv export", "ant,1\nant,2\nant,3\nant,4\n", csvExport);
@@ -98,9 +98,9 @@ public class OptimizedIteration3Test extends DisplaytagCase
      */
     private void checkNumberOfIterations(WebResponse response, int iterations) throws Exception
     {
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();

@@ -52,7 +52,7 @@ public class Displ105Test extends DisplaytagCase
         String httpsUrl = StringUtils.replace(getJspUrl("DISPL-105.jsp"), "http://", "https://");
         WebRequest request = new GetMethodWebRequest(httpsUrl);
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         WebLink[] links = response.getLinks();
         Assert.assertEquals("Wrong number of generated links.", 1, links.length);

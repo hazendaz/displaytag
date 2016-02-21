@@ -62,11 +62,11 @@ public class ExcludedParamsStarTest extends DisplaytagCase
         request.setParameter("bar", "barvalue");
         request.setParameter("zoo", "zoovalue");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
 
         WebLink[] links = response.getLinks();

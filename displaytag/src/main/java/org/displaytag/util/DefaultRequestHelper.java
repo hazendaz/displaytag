@@ -138,7 +138,7 @@ public class DefaultRequestHelper implements RequestHelper
             // ... get the value
             String paramName = (String) parametersName.nextElement();
 
-            request.getParameter(paramName);
+            this.request.getParameter(paramName);
             // put key/value in the map
             String[] originalValues = ObjectUtils.defaultIfNull(
                 this.request.getParameterValues(paramName),
@@ -151,7 +151,7 @@ public class DefaultRequestHelper implements RequestHelper
                 {
                     values[i] = URLEncoder.encode(
                         StringUtils.defaultString(originalValues[i]),
-                        StringUtils.defaultString(response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
+                        StringUtils.defaultString(this.response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
                 }
                 catch (UnsupportedEncodingException e)
                 {

@@ -62,11 +62,11 @@ public class PaginationTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter("{foo}", "/.,;:/||\\bar");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
 
         WebLink[] links = response.getLinks();
@@ -75,9 +75,9 @@ public class PaginationTest extends DisplaytagCase
 
         for (int j = 0; j < links.length; j++)
         {
-            if (log.isDebugEnabled())
+            if (this.log.isDebugEnabled())
             {
-                log.debug(j + " " + links[j].getURLString());
+                this.log.debug(j + " " + links[j].getURLString());
             }
 
             Assert.assertTrue(StringUtils.contains(links[j].getURLString(), "%7Bfoo%7D=%2F.%2C%3B%3A%2F%7C%7C%5Cbar"));

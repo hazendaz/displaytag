@@ -60,7 +60,7 @@ public class HtmlAttributesTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response;
 
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);

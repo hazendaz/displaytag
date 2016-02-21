@@ -380,8 +380,8 @@ public abstract class TableWriterTemplate
             }
 
             ArrayList<CellStruct> structsForRow = new ArrayList<CellStruct>(model.getHeaderCellList().size());
-            lowestEndedGroup = NO_RESET_GROUP;
-            lowestStartedGroup = NO_RESET_GROUP;
+            this.lowestEndedGroup = NO_RESET_GROUP;
+            this.lowestStartedGroup = NO_RESET_GROUP;
 
             for (HeaderCell header : model.getHeaderCellList())
             {
@@ -595,7 +595,7 @@ public abstract class TableWriterTemplate
     {
 
         short groupingKey = GROUP_NO_CHANGE;
-        if (lowestEndedGroup < currentGroup)
+        if (this.lowestEndedGroup < currentGroup)
         {
             // if a lower group has ended, cascade so that all subgroups end as well
             groupingKey += GROUP_END;
@@ -604,10 +604,10 @@ public abstract class TableWriterTemplate
         {
             // at the end of the list
             groupingKey += GROUP_END;
-            lowestEndedGroup = currentGroup;
+            this.lowestEndedGroup = currentGroup;
         }
 
-        if (lowestStartedGroup < currentGroup)
+        if (this.lowestStartedGroup < currentGroup)
         {
             // if a lower group has started, cascade so that all subgroups restart as well
             groupingKey += GROUP_START;
@@ -616,7 +616,7 @@ public abstract class TableWriterTemplate
         {
             // At the start of the list
             groupingKey += GROUP_START;
-            lowestStartedGroup = currentGroup;
+            this.lowestStartedGroup = currentGroup;
         }
         return groupingKey;
     }

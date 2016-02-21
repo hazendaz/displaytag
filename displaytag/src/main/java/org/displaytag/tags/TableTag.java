@@ -699,7 +699,7 @@ public class TableTag extends HtmlTableTag
 
         if ((this.paginatedList != null) && (column.getSortable()))
         {
-            String sortCriterion = paginatedList.getSortCriterion();
+            String sortCriterion = this.paginatedList.getSortCriterion();
 
             String sortProperty = column.getSortProperty();
             if (sortProperty == null)
@@ -731,10 +731,10 @@ public class TableTag extends HtmlTableTag
 
             // just be sure that the number of columns has not been altered by conditionally including column tags in
             // different rows. This is not supported, but better avoid IndexOutOfBounds...
-            if (columnNumber < tableModel.getHeaderCellList().size())
+            if (columnNumber < this.tableModel.getHeaderCellList().size())
             {
-                HeaderCell header = tableModel.getHeaderCellList().get(columnNumber);
-                header.addCell(new Column(header, cell, currentRow));
+                HeaderCell header = this.tableModel.getHeaderCellList().get(columnNumber);
+                header.addCell(new Column(header, cell, this.currentRow));
             }
         }
     }
@@ -779,8 +779,8 @@ public class TableTag extends HtmlTableTag
             log.debug("[" + getUid() + "] doStartTag called");
         }
 
-        this.properties = TableProperties.getInstance(pageContext);
-        this.tableModel = new TableModel(this.properties, pageContext.getResponse().getCharacterEncoding(), pageContext);
+        this.properties = TableProperties.getInstance(this.pageContext);
+        this.tableModel = new TableModel(this.properties, this.pageContext.getResponse().getCharacterEncoding(), this.pageContext);
 
         // copying id to the table model for logging
         this.tableModel.setId(getUid());
@@ -907,7 +907,7 @@ public class TableTag extends HtmlTableTag
         String encodedParam = encodeParameter(parameter);
         Integer result = requestHelper.getIntParameter(encodedParam);
 
-        if (keepStatus)
+        if (this.keepStatus)
         {
             if (result == null)
             {
@@ -915,7 +915,7 @@ public class TableTag extends HtmlTableTag
                 HttpSession session = request.getSession(false);
                 if (session != null)
                 {
-                    if (clearStatus)
+                    if (this.clearStatus)
                     {
                         session.removeAttribute(encodedParam);
                     }
@@ -1015,7 +1015,7 @@ public class TableTag extends HtmlTableTag
         }
         else
         {
-            sortColumn = defaultSortedColumn;
+            sortColumn = this.defaultSortedColumn;
         }
 
         // default value
@@ -1051,7 +1051,7 @@ public class TableTag extends HtmlTableTag
         }
         else
         {
-            SortOrderEnum direction = paginatedList.getSortDirection();
+            SortOrderEnum direction = this.paginatedList.getSortDirection();
             this.tableModel.setSortOrderAscending(direction == SortOrderEnum.ASCENDING);
         }
 
@@ -1074,18 +1074,18 @@ public class TableTag extends HtmlTableTag
                 // retrieve the object from scope
                 this.size = evaluateExpression(this.sizeObjectName);
             }
-            if (size == null)
+            if (this.size == null)
             {
                 throw new JspTagException(Messages.getString("MissingAttributeException.msg", new Object[]{"size"}));
             }
-            else if (!(size instanceof Integer))
+            else if (!(this.size instanceof Integer))
             {
                 throw new JspTagException(Messages.getString(
                     "InvalidTypeException.msg",
                     new Object[]{"size", "Integer"}));
             }
 
-            PaginationHelper paginationHelper = new PaginationHelper(pageNumber, pagesize);
+            PaginationHelper paginationHelper = new PaginationHelper(this.pageNumber, this.pagesize);
             this.tableIterator = paginationHelper.getIterator(this.list);
         }
         else
@@ -1097,7 +1097,7 @@ public class TableTag extends HtmlTableTag
         boolean wishOptimizedIteration = ((this.pagesize > 0 // we are paging
             || this.offset > 0 // or we are skipping some records using offset
         || this.length > 0 // or we are limiting the records using length
-        ) && !partialList); // only optimize if we have the full list
+        ) && !this.partialList); // only optimize if we have the full list
 
         // can we actually skip any row?
         if (wishOptimizedIteration && (this.list instanceof Collection) // we need to know the size
@@ -1113,7 +1113,7 @@ public class TableTag extends HtmlTableTag
             {
                 start = this.offset;
             }
-            if (length > 0)
+            if (this.length > 0)
             {
                 end = start + this.length;
             }
@@ -1128,17 +1128,17 @@ public class TableTag extends HtmlTableTag
                 {
 
                     int div = fullSize / this.pagesize;
-                    start = ((fullSize % this.pagesize == 0) ? div - 1 : div) * pagesize;
+                    start = ((fullSize % this.pagesize == 0) ? div - 1 : div) * this.pagesize;
                 }
                 end = start + this.pagesize;
             }
 
             // rowNumber starts from 1
-            filteredRows = Range.between(start + 1, end);
+            this.filteredRows = Range.between(start + 1, end);
         }
         else
         {
-            filteredRows = Range.between(1, Integer.MAX_VALUE);
+            this.filteredRows = Range.between(1, Integer.MAX_VALUE);
         }
     }
 
@@ -1150,7 +1150,7 @@ public class TableTag extends HtmlTableTag
      */
     public boolean isIncludedRow()
     {
-        return filteredRows.contains(this.rowNumber);
+        return this.filteredRows.contains(this.rowNumber);
     }
 
     /**
@@ -1191,7 +1191,7 @@ public class TableTag extends HtmlTableTag
                     this.paramEncoder = new ParamEncoder(getUid());
                 }
 
-                Iterator<String> paramsIterator = baseHref.getParameterMap().keySet().iterator();
+                Iterator<String> paramsIterator = this.baseHref.getParameterMap().keySet().iterator();
                 while (paramsIterator.hasNext())
                 {
                     String key = paramsIterator.next();
@@ -1199,7 +1199,7 @@ public class TableTag extends HtmlTableTag
                     // don't remove parameters added by the table tag
                     if (!this.paramEncoder.isParameterEncoded(key))
                     {
-                        baseHref.removeParameter(key);
+                        this.baseHref.removeParameter(key);
                     }
                 }
             }
@@ -1207,7 +1207,7 @@ public class TableTag extends HtmlTableTag
             {
                 for (int j = 0; j < splittedExcludedParams.length; j++)
                 {
-                    baseHref.removeParameter(splittedExcludedParams[j]);
+                    this.baseHref.removeParameter(splittedExcludedParams[j]);
                 }
             }
         }
@@ -1215,7 +1215,7 @@ public class TableTag extends HtmlTableTag
         if (this.requestUri != null)
         {
             // if user has added a requestURI create a new href
-            String fullURI = requestUri;
+            String fullURI = this.requestUri;
             if (!this.dontAppendContext)
             {
                 String contextPath = ((HttpServletRequest) this.pageContext.getRequest()).getContextPath();
@@ -1223,9 +1223,9 @@ public class TableTag extends HtmlTableTag
                 // prepend the context path if any.
                 // actually checks if context path is already there for people which manually add it
                 if (!StringUtils.isEmpty(contextPath)
-                    && requestUri != null
-                    && requestUri.startsWith("/")
-                    && !requestUri.startsWith(contextPath))
+                    && this.requestUri != null
+                    && this.requestUri.startsWith("/")
+                    && !this.requestUri.startsWith(contextPath))
                 {
                     fullURI = contextPath + this.requestUri;
                 }
@@ -1234,7 +1234,7 @@ public class TableTag extends HtmlTableTag
             // call encodeURL to preserve session id when cookies are disabled
             fullURI = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(fullURI);
 
-            baseHref.setFullUrl(fullURI);
+            this.baseHref.setFullUrl(fullURI);
 
             // // ... and copy parameters from the current request
             // Map parameterMap = normalHref.getParameterMap();
@@ -1305,7 +1305,7 @@ public class TableTag extends HtmlTableTag
         }
 
         TableTotaler totaler = this.properties.getDecoratorFactoryInstance().loadTableTotaler(
-            pageContext,
+            this.pageContext,
             getTotalerName());
         if (totaler != null)
         {
@@ -1509,7 +1509,7 @@ public class TableTag extends HtmlTableTag
      */
     protected void writeExport(ExportView exportView) throws IOException, JspException
     {
-        String filename = properties.getExportFileName(this.currentMediaType);
+        String filename = this.properties.getExportFileName(this.currentMediaType);
 
         HttpServletResponse response = (HttpServletResponse) this.pageContext.getResponse();
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
@@ -1570,7 +1570,7 @@ public class TableTag extends HtmlTableTag
             try
             {
                 response.reset();
-                pageContext.getOut().clearBuffer();
+                this.pageContext.getOut().clearBuffer();
             }
             catch (Exception e)
             {
@@ -1601,7 +1601,7 @@ public class TableTag extends HtmlTableTag
             }
             else
             {
-                writer = pageContext.getOut();
+                writer = this.pageContext.getOut();
             }
 
             ((TextExportView) exportView).doExport(writer, characterEncoding);
@@ -1657,7 +1657,7 @@ public class TableTag extends HtmlTableTag
         if (this.paginatedList == null && this.pagesize > 0)
         {
             this.listHelper = new SmartListHelper(fullList, (this.partialList)
-                ? ((Integer) size).intValue()
+                ? ((Integer) this.size).intValue()
                 : fullList.size(), this.pagesize, this.properties, this.partialList);
             this.listHelper.setCurrentPage(this.pageNumber);
             pageOffset = this.listHelper.getFirstIndexForCurrentPage();
@@ -1699,7 +1699,7 @@ public class TableTag extends HtmlTableTag
 
         if (this.varTotals != null)
         {
-            pageContext.setAttribute(this.varTotals, getTotals());
+            this.pageContext.setAttribute(this.varTotals, getTotals());
         }
     }
 

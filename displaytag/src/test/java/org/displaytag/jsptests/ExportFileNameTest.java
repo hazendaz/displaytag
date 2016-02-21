@@ -65,7 +65,7 @@ public class ExportFileNameTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
         Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());

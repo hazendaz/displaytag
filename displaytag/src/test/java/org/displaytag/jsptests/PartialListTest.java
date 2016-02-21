@@ -70,11 +70,11 @@ public class PartialListTest extends DisplaytagCase
         request.setParameter(p3.encodeParameterName(TableTagParameters.PARAMETER_SORT), "0"); // table 3 sort 0
         request.setParameter(p3.encodeParameterName(TableTagParameters.PARAMETER_ORDER), "1"); // table 3 order desc
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
 
         WebLink[] links = response.getLinks();

@@ -57,7 +57,7 @@ public class SimplePaginatedList implements PaginatedList
     {
         for (int j = 1; j < 11; j++)
         {
-            fullList.add(new NumberedItem(j));
+            this.fullList.add(new NumberedItem(j));
         }
         this.objectsPerPage = objectsPerPage;
         this.currentPage = currentPage;
@@ -69,8 +69,8 @@ public class SimplePaginatedList implements PaginatedList
     @Override
     public List<Object> getList()
     {
-        int startOffset = objectsPerPage * (currentPage - 1);
-        List<Object> sublist = fullList.subList(startOffset, Math.min(fullList.size(), startOffset + objectsPerPage));
+        int startOffset = this.objectsPerPage * (this.currentPage - 1);
+        List<Object> sublist = this.fullList.subList(startOffset, Math.min(this.fullList.size(), startOffset + this.objectsPerPage));
         return sublist;
     }
 
@@ -80,7 +80,7 @@ public class SimplePaginatedList implements PaginatedList
     @Override
     public int getPageNumber()
     {
-        return currentPage;
+        return this.currentPage;
     }
 
     /**
@@ -89,7 +89,7 @@ public class SimplePaginatedList implements PaginatedList
     @Override
     public int getObjectsPerPage()
     {
-        return objectsPerPage;
+        return this.objectsPerPage;
     }
 
     /**
@@ -98,7 +98,7 @@ public class SimplePaginatedList implements PaginatedList
     @Override
     public int getFullListSize()
     {
-        return fullList.size();
+        return this.fullList.size();
     }
 
     /**
@@ -125,7 +125,7 @@ public class SimplePaginatedList implements PaginatedList
     @Override
     public String getSearchId()
     {
-        return Integer.toHexString(objectsPerPage * 10000 + currentPage);
+        return Integer.toHexString(this.objectsPerPage * 10000 + this.currentPage);
     }
 
 }

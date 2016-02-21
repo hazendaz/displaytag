@@ -54,7 +54,7 @@ public class DefaultComparator implements Comparator<Object>
     public DefaultComparator(Collator collatorToUse)
     {
         this.collator = collatorToUse;
-        collator.setStrength(Collator.PRIMARY); // ignore case and accents
+        this.collator.setStrength(Collator.PRIMARY); // ignore case and accents
     }
 
     /**
@@ -70,11 +70,11 @@ public class DefaultComparator implements Comparator<Object>
         int returnValue;
         if (object1 instanceof String && object2 instanceof String)
         {
-            returnValue = collator.compare(object1, object2);
+            returnValue = this.collator.compare(object1, object2);
         }
         else if (object1 instanceof Cell)
         {
-            return ((Cell) object1).compareTo(object2, collator);
+            return ((Cell) object1).compareTo(object2, this.collator);
         }
         else if (object1 instanceof Comparable && object2 instanceof Comparable)
         {
@@ -83,7 +83,7 @@ public class DefaultComparator implements Comparator<Object>
         else
         {
             // if object are not null and don't implement comparable, compare using string values
-            returnValue = collator.compare(object1.toString(), object2.toString());
+            returnValue = this.collator.compare(object1.toString(), object2.toString());
         }
         return returnValue;
     }

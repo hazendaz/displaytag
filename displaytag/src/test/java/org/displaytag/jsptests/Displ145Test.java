@@ -52,7 +52,7 @@ public class Displ145Test extends DisplaytagCase
         String httpsUrl = StringUtils.replace(getJspUrl("DISPL-145.jsp"), "http://", "https://");
         WebRequest request = new GetMethodWebRequest(httpsUrl);
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables.", 6, tables.length);

@@ -59,7 +59,7 @@ public class HtmlIdTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         WebResponse response;
 
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables in result.", 3, tables.length);

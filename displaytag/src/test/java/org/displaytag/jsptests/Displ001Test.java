@@ -58,7 +58,7 @@ public class Displ001Test extends DisplaytagCase
     public void doTest() throws Exception
     {
         WebRequest request = new GetMethodWebRequest(getJspUrl("DISPL-001.jsp"));
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Expected 1 table in result.", 1, tables.length);

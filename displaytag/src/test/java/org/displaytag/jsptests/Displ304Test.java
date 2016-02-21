@@ -65,11 +65,11 @@ public class Displ304Test extends DisplaytagCase
 
         request.setParameter(pe.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
         // <span class="pagebanner">3 items found, displaying 1 to 1.</span>
 

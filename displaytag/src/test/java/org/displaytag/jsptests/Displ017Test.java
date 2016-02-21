@@ -62,16 +62,16 @@ public class Displ017Test extends DisplaytagCase
 
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         for (int j = 0; j < 4; j++)
         {
             WebLink[] links = response.getLinks();
             response = links[j].click();
 
-            if (log.isDebugEnabled())
+            if (this.log.isDebugEnabled())
             {
-                log.debug("After clicking on " + j + ":\n" + response.getText());
+                this.log.debug("After clicking on " + j + ":\n" + response.getText());
             }
             checkOnlyOneSorted(response, j);
         }

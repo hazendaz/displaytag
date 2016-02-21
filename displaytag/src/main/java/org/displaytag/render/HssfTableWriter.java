@@ -120,7 +120,7 @@ public class HssfTableWriter extends TableWriterAdapter
     public HssfTableWriter(HSSFWorkbook wb)
     {
         this.wb = wb;
-        utils = new ExcelUtils(wb);
+        this.utils = new ExcelUtils(wb);
     }
 
     /**
@@ -129,7 +129,7 @@ public class HssfTableWriter extends TableWriterAdapter
     @Override
     protected void writeTableOpener(TableModel model) throws Exception
     {
-        this.sheet = wb.createSheet(sheetName);
+        this.sheet = this.wb.createSheet(this.sheetName);
         setModel(model);
         init(model);
         this.sheetRowNum = 0;
@@ -142,7 +142,7 @@ public class HssfTableWriter extends TableWriterAdapter
      */
     protected void init(TableModel model)
     {
-        utils.initCellStyles(model.getProperties());
+        this.utils.initCellStyles(model.getProperties());
     }
 
     /**
@@ -213,7 +213,7 @@ public class HssfTableWriter extends TableWriterAdapter
     @Override
     protected void writeRowOpener(Row row) throws Exception
     {
-        this.currentRow = this.sheet.createRow(sheetRowNum++);
+        this.currentRow = this.sheet.createRow(this.sheetRowNum++);
         this.colNum = 0;
     }
 
@@ -260,11 +260,11 @@ public class HssfTableWriter extends TableWriterAdapter
             if (value.toString().indexOf("%") > -1)
             {
                 this.currentCell.setCellValue(num.doubleValue() / 100);
-                this.currentCell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_PCT));
+                this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_PCT));
             }
             else if (value instanceof Integer)
             {
-                this.currentCell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_INTEGER));
+                this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_INTEGER));
                 this.currentCell.setCellValue(num.intValue());
             }
             else
@@ -276,13 +276,13 @@ public class HssfTableWriter extends TableWriterAdapter
         else if (value instanceof Date)
         {
             this.currentCell.setCellValue((Date) value);
-            this.currentCell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_DATE));
+            this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));
         }
         else if (value instanceof Calendar)
         {
             Calendar c = (Calendar) value;
             this.currentCell.setCellValue(c);
-            this.currentCell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_DATE));
+            this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));
         }
         else if (value == null)
         {
@@ -291,7 +291,7 @@ public class HssfTableWriter extends TableWriterAdapter
         else
         {
             String v = value.toString();
-            if (v.length() > utils.getWrapAtLength())
+            if (v.length() > this.utils.getWrapAtLength())
             {
                 this.currentCell.getCellStyle().setWrapText(true);
             }
@@ -417,9 +417,9 @@ public class HssfTableWriter extends TableWriterAdapter
     {
         // adjust the column widths
         int colCount = 0;
-        while (colCount <= colNum)
+        while (colCount <= this.colNum)
         {
-            sheet.autoSizeColumn((short) colCount++);
+            this.sheet.autoSizeColumn((short) colCount++);
         }
     }
 
@@ -439,7 +439,7 @@ public class HssfTableWriter extends TableWriterAdapter
 
         for (int dtColumnNumber : tt.getOpenedColumns())
         {
-            currentGrouping++;
+            this.currentGrouping++;
             writeRowOpener(null);
             // for each subgroup
 
@@ -503,7 +503,7 @@ public class HssfTableWriter extends TableWriterAdapter
                 int cellColumnNumberAsDt = asDtColNumber(cell.getColumnNumber());
                 if (cellColumnNumberAsDt > columnNumber && cell.isTotaled())
                 {
-                    columnValue = tt.getTotalForColumn(cell.getColumnNumber(), currentGrouping);
+                    columnValue = tt.getTotalForColumn(cell.getColumnNumber(), this.currentGrouping);
                 }
                 else if (cellColumnNumberAsDt == columnNumber)
                 {
@@ -519,10 +519,10 @@ public class HssfTableWriter extends TableWriterAdapter
 
             writeRowCloser(null);
             writeGroupExtraInfo(model);
-            currentGrouping--;
+            this.currentGrouping--;
         }
 
-        assert currentGrouping > -1;
+        assert this.currentGrouping > -1;
         super.writeSubgroupStop(model);
     }
 
@@ -540,7 +540,7 @@ public class HssfTableWriter extends TableWriterAdapter
 
     public String getSheetName()
     {
-        return sheetName;
+        return this.sheetName;
     }
 
     public void setSetSheetName(String name)
@@ -550,7 +550,7 @@ public class HssfTableWriter extends TableWriterAdapter
 
     public HSSFSheet getSheet()
     {
-        return sheet;
+        return this.sheet;
     }
 
     @Override
@@ -573,11 +573,11 @@ public class HssfTableWriter extends TableWriterAdapter
             writeColumnOpener(null);
             Object columnValue = (cell.isTotaled()) ? tt.getTotalForColumn(cell.getColumnNumber(), 0) : null;
             writeCellValue(columnValue);
-            CellStyle st = utils.getNewCellStyle();
-            st.cloneStyleFrom(currentCell.getCellStyle());
+            CellStyle st = this.utils.getNewCellStyle();
+            st.cloneStyleFrom(this.currentCell.getCellStyle());
             st.setBorderTop(CellStyle.BORDER_THIN);
             st.setTopBorderColor(IndexedColors.BLACK.getIndex());
-            currentCell.setCellStyle(st);
+            this.currentCell.setCellStyle(st);
             writeColumnCloser(null);
         }
         writeRowCloser(null);

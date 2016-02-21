@@ -65,13 +65,13 @@ public class  TableTotaler
     public void init(TableModel model)
     {
         this.tableModel = model;
-        firstRowForEachGroup = new HashMap<Integer,Integer>();
+        this.firstRowForEachGroup = new HashMap<Integer,Integer>();
         for (HeaderCell c : model.getHeaderCellList())
         {
             if (c.getGroup() > 0)
             {
-                firstRowForEachGroup.put(c.getGroup(), 0);
-                howManyGroups++;
+                this.firstRowForEachGroup.put(c.getGroup(), 0);
+                this.howManyGroups++;
             }
         }
 
@@ -79,9 +79,9 @@ public class  TableTotaler
 
     public void initRow(int currentViewIndex, int currentListIndex)
     {
-        openedColumns.clear();
-        closedColumns.clear();
-        currentRowNumber = currentListIndex;
+        this.openedColumns.clear();
+        this.closedColumns.clear();
+        this.currentRowNumber = currentListIndex;
     }
 
     /**
@@ -101,24 +101,24 @@ public class  TableTotaler
 
     public void startGroup(String groupingValue,  int groupNumber)
     {
-        openedColumns.add(asColumn(groupNumber));
-        groupingValuesByColumn.put(asColumn(groupNumber), groupingValue);
-        firstRowForEachGroup.put(groupNumber, currentRowNumber);
+        this.openedColumns.add(asColumn(groupNumber));
+        this.groupingValuesByColumn.put(asColumn(groupNumber), groupingValue);
+        this.firstRowForEachGroup.put(groupNumber, this.currentRowNumber);
     }
 
     public List<Integer> getOpenedColumns()
     {
-        return new ArrayList<Integer>(openedColumns);
+        return new ArrayList<Integer>(this.openedColumns);
     }
 
     public List<Integer> getClosedColumns()
     {
-        return closedColumns;
+        return this.closedColumns;
     }
 
     public void stopGroup(String value, int groupNumber)
     {
-        closedColumns.add(asColumn(groupNumber));
+        this.closedColumns.add(asColumn(groupNumber));
     }
 
 
@@ -174,7 +174,7 @@ public class  TableTotaler
         Object total = null;
         for (Row row : window)
         {
-            ColumnIterator columnIterator = row.getColumnIterator(tableModel.getHeaderCellList());
+            ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
             while (columnIterator.hasNext())
             {
                 Column column = columnIterator.nextColumn();
@@ -187,11 +187,11 @@ public class  TableTotaler
                     }
                     catch (ObjectLookupException e)
                     {
-                        logger.error(e);
+                        this.logger.error(e);
                     }
                     catch (DecoratorException e)
                     {
-                        logger.error(e);
+                        this.logger.error(e);
                     }
                     if (value != null && !"".equals(value))
                     {
@@ -205,9 +205,9 @@ public class  TableTotaler
 
     public Object getTotalForColumn(int columnNumber, int groupNumber)
     {
-        List<Row> fullList = tableModel.getRowListFull();
+        List<Row> fullList = this.tableModel.getRowListFull();
         Integer startRow = this.firstRowForEachGroup.get(groupNumber);
-        Integer stopRow = currentRowNumber + 1;
+        Integer stopRow = this.currentRowNumber + 1;
         if (groupNumber == WHOLE_TABLE)
         {   // asking for a total for the entire table
             startRow = 0;
@@ -218,7 +218,7 @@ public class  TableTotaler
 
     public String getGroupingValue(Integer columnNumber)
     {
-        return groupingValuesByColumn.get(columnNumber);
+        return this.groupingValuesByColumn.get(columnNumber);
     }
 
 

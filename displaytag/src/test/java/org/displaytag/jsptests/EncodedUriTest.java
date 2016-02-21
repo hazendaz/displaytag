@@ -67,13 +67,13 @@ public class EncodedUriTest extends DisplaytagCase
 
         // just check that everything is ok before reaching displaytag
         Assert.assertEquals("MünchenXX", request.getParameter("city"));
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("utf-8", response.getCharacterSet());
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();

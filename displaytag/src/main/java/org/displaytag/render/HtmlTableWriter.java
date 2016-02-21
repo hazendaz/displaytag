@@ -171,7 +171,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         }
 
         // Put the page stuff there if it needs to be there...
-        if (properties.getAddPagingBannerTop())
+        if (this.properties.getAddPagingBannerTop())
         {
             writeSearchResultAndNavigation(model);
         }
@@ -196,7 +196,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     private void writeFormFields(TableModel model)
     {
-        Map<String, String[]> parameters = baseHref.getParameterMap();
+        Map<String, String[]> parameters = this.baseHref.getParameterMap();
 
         ParamEncoder pe = new ParamEncoder(model.getId());
 
@@ -266,7 +266,7 @@ public class HtmlTableWriter extends TableWriterAdapter
     @Override
     protected void writeCaption(TableModel model)
     {
-        this.write(captionTag.getOpenTag() + model.getCaption() + captionTag.getCloseTag());
+        this.write(this.captionTag.getOpenTag() + model.getCaption() + this.captionTag.getCloseTag());
     }
 
     /**
@@ -570,9 +570,9 @@ public class HtmlTableWriter extends TableWriterAdapter
         }
         else
         {
-            if (properties.getPaginationSkipPageNumberInSort())
+            if (this.properties.getPaginationSkipPageNumberInSort())
             {
-                href.removeParameter(properties.getPaginationPageNumberParam());
+                href.removeParameter(this.properties.getPaginationPageNumberParam());
             }
 
             String sortProperty = headerCell.getSortProperty();
@@ -581,21 +581,21 @@ public class HtmlTableWriter extends TableWriterAdapter
                 sortProperty = headerCell.getBeanPropertyName();
             }
 
-            href.addParameter(properties.getPaginationSortParam(), sortProperty);
+            href.addParameter(this.properties.getPaginationSortParam(), sortProperty);
             String dirParam;
             if (headerCell.isAlreadySorted())
             {
-                dirParam = model.isSortOrderAscending() ? properties.getPaginationDescValue() : properties
+                dirParam = model.isSortOrderAscending() ? this.properties.getPaginationDescValue() : this.properties
                     .getPaginationAscValue();
             }
             else
             {
-                dirParam = properties.getPaginationAscValue();
+                dirParam = this.properties.getPaginationAscValue();
             }
-            href.addParameter(properties.getPaginationSortDirectionParam(), dirParam);
-            if (paginatedList.getSearchId() != null)
+            href.addParameter(this.properties.getPaginationSortDirectionParam(), dirParam);
+            if (this.paginatedList.getSearchId() != null)
             {
-                href.addParameter(properties.getPaginationSearchIdParam(), paginatedList.getSearchId());
+                href.addParameter(this.properties.getPaginationSearchIdParam(), this.paginatedList.getSearchId());
             }
         }
 
@@ -656,17 +656,17 @@ public class HtmlTableWriter extends TableWriterAdapter
             write(this.listHelper.getSearchResultsSummary());
 
             String pageParameter;
-            if (paginatedList == null)
+            if (this.paginatedList == null)
             {
                 pageParameter = encodeParameter(TableTagParameters.PARAMETER_PAGE, model);
             }
             else
             {
-                pageParameter = properties.getPaginationPageNumberParam();
-                if ((paginatedList.getSearchId() != null)
-                    && (!navigationHref.getParameterMap().containsKey(properties.getPaginationSearchIdParam())))
+                pageParameter = this.properties.getPaginationPageNumberParam();
+                if ((this.paginatedList.getSearchId() != null)
+                    && (!navigationHref.getParameterMap().containsKey(this.properties.getPaginationSearchIdParam())))
                 {
-                    navigationHref.addParameter(properties.getPaginationSearchIdParam(), paginatedList.getSearchId());
+                    navigationHref.addParameter(this.properties.getPaginationSearchIdParam(), this.paginatedList.getSearchId());
                 }
             }
             write(this.listHelper.getPageNavigationBar(navigationHref, pageParameter));
@@ -725,10 +725,10 @@ public class HtmlTableWriter extends TableWriterAdapter
     public String getOpenTag()
     {
 
-        if (this.uid != null && attributeMap.get(TagConstants.ATTRIBUTE_ID) == null)
+        if (this.uid != null && this.attributeMap.get(TagConstants.ATTRIBUTE_ID) == null)
         {
             // we need to clone the attribute map in order to "fix" the html id when using only the "uid" attribute
-            Map<String, String> localAttributeMap = (Map<String, String>) attributeMap.clone();
+            Map<String, String> localAttributeMap = (Map<String, String>) this.attributeMap.clone();
             localAttributeMap.put(TagConstants.ATTRIBUTE_ID, this.uid);
 
             StringBuffer buffer = new StringBuffer();
@@ -744,7 +744,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         StringBuffer buffer = new StringBuffer();
 
         buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
-        buffer.append(attributeMap);
+        buffer.append(this.attributeMap);
         buffer.append(TagConstants.TAG_CLOSE);
 
         return buffer.toString();
@@ -760,7 +760,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         {
             try
             {
-                out.write(string);
+                this.out.write(string);
             }
             catch (IOException e)
             {
@@ -786,7 +786,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         {
             try
             {
-                out.write(string.toString());
+                this.out.write(string.toString());
             }
             catch (IOException e)
             {

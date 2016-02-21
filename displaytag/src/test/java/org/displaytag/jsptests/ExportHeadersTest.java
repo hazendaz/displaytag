@@ -60,7 +60,7 @@ public class ExportHeadersTest extends DisplaytagCase
     {
         // test keep
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         // test remove
         ParamEncoder encoder = new ParamEncoder("table");
@@ -69,7 +69,7 @@ public class ExportHeadersTest extends DisplaytagCase
         request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
 
         Assert.assertNull("Header Cache-Control not overwritten", response.getHeaderField("Cache-Control"));
         Assert.assertNull("Header Expires not overwritten", response.getHeaderField("Expires"));

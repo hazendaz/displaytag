@@ -69,7 +69,7 @@ public class ExportUTF8FilterTest extends ExportUTF8Test
         // this will enable the filter!
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         String encoding = response.getCharacterSet();
 

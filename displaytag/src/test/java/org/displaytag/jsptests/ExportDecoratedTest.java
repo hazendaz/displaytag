@@ -67,10 +67,10 @@ public class ExportDecoratedTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
 
-        WebResponse response = runner.getResponse(request);
-        if (log.isDebugEnabled())
+        WebResponse response = this.runner.getResponse(request);
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());

@@ -66,21 +66,21 @@ public class OptimizedIteration2Test extends DisplaytagCase
 
         // page 1, not sorted
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
-        checkNumberOfIterations(runner.getResponse(request), 1);
+        checkNumberOfIterations(this.runner.getResponse(request), 1);
 
         // page 2, not sorted
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
-        checkNumberOfIterations(runner.getResponse(request), 1);
+        checkNumberOfIterations(this.runner.getResponse(request), 1);
 
         // page 1, sorted (only current page)
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "1");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
-        checkNumberOfIterations(runner.getResponse(request), 1);
+        checkNumberOfIterations(this.runner.getResponse(request), 1);
 
         // page 2, sorted (only current page)
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "1");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
-        checkNumberOfIterations(runner.getResponse(request), 1);
+        checkNumberOfIterations(this.runner.getResponse(request), 1);
 
         // page 1, export single page
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
@@ -89,11 +89,11 @@ public class OptimizedIteration2Test extends DisplaytagCase
             Integer.toString(MediaTypeEnum.CSV.getCode()));
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
         String csvExport = response.getText();
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         Assert.assertEquals("Wrong csv export", "ant,1\n", csvExport);
@@ -107,9 +107,9 @@ public class OptimizedIteration2Test extends DisplaytagCase
      */
     private void checkNumberOfIterations(WebResponse response, int iterations) throws Exception
     {
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();

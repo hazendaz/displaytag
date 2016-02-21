@@ -119,15 +119,15 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
                 this.font.getSize(),
                 Font.BOLD,
                 this.font.getColor());
-            table.addCell(this.getCell(""));
-            table.addCell(this.getCell(""));
-            table.addCell(this.getCell("-------------"));
-            table.addCell(this.getCell(""));
+            this.table.addCell(this.getCell(""));
+            this.table.addCell(this.getCell(""));
+            this.table.addCell(this.getCell("-------------"));
+            this.table.addCell(this.getCell(""));
             // new row
-            table.addCell(this.getCell(""));
-            table.addCell(this.getCell(value + " Total:"));
-            table.addCell(this.getCell(total + ""));
-            table.addCell(this.getCell(""));
+            this.table.addCell(this.getCell(""));
+            this.table.addCell(this.getCell(value + " Total:"));
+            this.table.addCell(this.getCell(total + ""));
+            this.table.addCell(this.getCell(""));
         }
     }
 

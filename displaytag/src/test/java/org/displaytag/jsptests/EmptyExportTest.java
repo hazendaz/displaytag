@@ -58,7 +58,7 @@ public class EmptyExportTest extends DisplaytagCase
 
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Export links should not be shown for an empty table", 0, response.getLinks().length);
 

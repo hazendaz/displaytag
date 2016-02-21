@@ -112,8 +112,8 @@ public class ExcelHssfView implements BinaryExportView
         this.exportFull = exportFullList;
         this.header = includeHeader;
         this.decorated = decorateValues;
-        utils = new ExcelUtils(new HSSFWorkbook());
-        utils.initCellStyles(tableModel.getProperties());
+        this.utils = new ExcelUtils(new HSSFWorkbook());
+        this.utils.initCellStyles(tableModel.getProperties());
     }
 
     /**
@@ -144,7 +144,7 @@ public class ExcelHssfView implements BinaryExportView
             if (this.header)
             {
                 // Create an header row
-                HSSFRow xlsRow = sheet.createRow(rowNum++);
+                HSSFRow xlsRow = this.sheet.createRow(rowNum++);
 
                 Iterator<HeaderCell> iterator = this.model.getHeaderCellList().iterator();
 
@@ -231,7 +231,7 @@ public class ExcelHssfView implements BinaryExportView
             Integer integer = (Integer) value;
             // due to a weird bug in HSSF where it uses shorts, we need to input this as a double value :(
             cell.setCellValue(integer.doubleValue());
-            cell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_INTEGER));
+            cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_INTEGER));
         }
         else if (value instanceof Number)
         {
@@ -244,17 +244,17 @@ public class ExcelHssfView implements BinaryExportView
             {
                 cell.setCellValue(num.doubleValue());
             }
-            cell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_NUMBER));
+            cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_NUMBER));
         }
         else if (value instanceof Date)
         {
             cell.setCellValue((Date) value);
-            cell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_DATE));
+            cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));
         }
         else if (value instanceof Calendar)
         {
             cell.setCellValue((Calendar) value);
-            cell.setCellStyle(utils.getStyle(ExcelUtils.STYLE_DATE));
+            cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));
         }
         else
         {
@@ -318,27 +318,27 @@ public class ExcelHssfView implements BinaryExportView
 
     public TableModel getTableModel()
     {
-        return model;
+        return this.model;
     }
 
     public boolean isExportFull()
     {
-        return exportFull;
+        return this.exportFull;
     }
 
     public boolean isIncludeHeaderInExport()
     {
-        return header;
+        return this.header;
     }
 
     public boolean isDecorateExport()
     {
-        return decorated;
+        return this.decorated;
     }
 
     public String getSheetName()
     {
-        return sheetName;
+        return this.sheetName;
     }
 
     public void setSheetName(String sheetName) throws JspException
@@ -362,7 +362,7 @@ public class ExcelHssfView implements BinaryExportView
 
     public HSSFWorkbook getWb()
     {
-        return wb;
+        return this.wb;
     }
 
     public void setWb(HSSFWorkbook wb)
@@ -372,7 +372,7 @@ public class ExcelHssfView implements BinaryExportView
 
     public HSSFSheet getSheet()
     {
-        return sheet;
+        return this.sheet;
     }
 
     public void setSheet(HSSFSheet sheet)
@@ -382,7 +382,7 @@ public class ExcelHssfView implements BinaryExportView
 
     public TableModel getModel()
     {
-        return model;
+        return this.model;
     }
 
     public void setModel(TableModel model)

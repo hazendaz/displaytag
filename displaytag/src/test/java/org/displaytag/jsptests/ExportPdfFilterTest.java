@@ -76,7 +76,7 @@ public class ExportPdfFilterTest extends DisplaytagCase
         // this will enable the filter!
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
         Assert.assertEquals("Expected a different content type.", "application/pdf", response.getContentType());

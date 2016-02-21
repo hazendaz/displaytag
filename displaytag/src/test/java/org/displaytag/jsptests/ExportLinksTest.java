@@ -61,7 +61,7 @@ public class ExportLinksTest extends DisplaytagCase
     {
         // test keep
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         WebLink[] links = response.getLinks();
 
@@ -71,7 +71,7 @@ public class ExportLinksTest extends DisplaytagCase
         for (int j = 0; j < links.length; j++)
         {
             String url = links[j].getURLString();
-            log.debug(url);
+            this.log.debug(url);
             if (linkTexts.contains(url))
             {
                 Assert.fail("Found duplicated link in export banner: " + url);

@@ -65,7 +65,7 @@ public class Displ142Test extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.CSV.getCode()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", "text/csv", response.getContentType());
 
@@ -79,7 +79,7 @@ public class Displ142Test extends DisplaytagCase
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.CSV.getCode()));
         // this test needs the export filter
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", "text/csv", response.getContentType());
 

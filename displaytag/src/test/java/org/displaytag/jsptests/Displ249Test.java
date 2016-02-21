@@ -67,11 +67,11 @@ public class Displ249Test extends DisplaytagCase
 
         request.setHeaderField("Content-Type", "text/html; charset=utf-8");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug(response.getText());
+            this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();

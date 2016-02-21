@@ -69,11 +69,11 @@ public class I18nPropertiesTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setHeaderField("Accept-Language", "en-us,en;q=0.5");
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
 
         Assert.assertTrue(
@@ -87,11 +87,11 @@ public class I18nPropertiesTest extends DisplaytagCase
         request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setHeaderField("Accept-Language", "it-it,it;q=0.5");
 
-        response = runner.getResponse(request);
+        response = this.runner.getResponse(request);
 
-        if (log.isDebugEnabled())
+        if (this.log.isDebugEnabled())
         {
-            log.debug("RESPONSE: " + response.getText());
+            this.log.debug("RESPONSE: " + response.getText());
         }
 
         Assert.assertTrue("Expected message\"" + MSG_IT + "\" has not been found in response with locale it", response

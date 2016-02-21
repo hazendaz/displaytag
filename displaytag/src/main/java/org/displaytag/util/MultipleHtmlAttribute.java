@@ -123,7 +123,7 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     public boolean isEmpty()
     {
-        return attributeSet.isEmpty();
+        return this.attributeSet.isEmpty();
     }
 
     /**

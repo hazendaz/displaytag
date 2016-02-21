@@ -110,12 +110,12 @@ public class DefaultHref implements Href
         if (baseUrl.startsWith("?")) //$NON-NLS-1$
         {
             // support fake URI's which are just parameters to use with the current uri
-            url = TagConstants.EMPTY_STRING;
+            this.url = TagConstants.EMPTY_STRING;
         }
         else
         {
             // base url (before "?")
-            url = tokenizer.nextToken();
+            this.url = tokenizer.nextToken();
         }
 
         if (!tokenizer.hasMoreTokens())

@@ -107,7 +107,7 @@ public class XmlTotalsWriter extends TableWriterAdapter
     @Override
     protected void writeTableOpener(TableModel model) throws Exception
     {
-        xml.append( "<?xml version=\"1.0\"?>\n<table>\n"); //$NON-NLS-1$
+        this.xml.append( "<?xml version=\"1.0\"?>\n<table>\n"); //$NON-NLS-1$
     }
 
     @Override
@@ -120,7 +120,7 @@ public class XmlTotalsWriter extends TableWriterAdapter
         //    already opened groups, and ask the tt for a list of all known groups?
         for (int i : tt.getOpenedColumns())
         {
-            xml.append("<subgroup grouped-by=\"").append(i).append("\">");
+            this.xml.append("<subgroup grouped-by=\"").append(i).append("\">");
 
         }
     }
@@ -142,26 +142,26 @@ public class XmlTotalsWriter extends TableWriterAdapter
         Collections.reverse(closedColumns);
         for (int i : closedColumns)
         {
-            xml.append("<subtotal>\n");
+            this.xml.append("<subtotal>\n");
             for (HeaderCell cell : model.getHeaderCellList())
             {
                 if (cell.isTotaled())
                 {
-                    xml.append("\t<subtotal-cell ");
+                    this.xml.append("\t<subtotal-cell ");
                     HtmlAttributeMap atts = cell.getHtmlAttributes();
                     writeAttributes(atts);
-                    xml.append('>');
+                    this.xml.append('>');
                     cdata( tt.formatTotal(cell, tt.getTotalForColumn(cell.getColumnNumber(), tt.asGroup(i))));
-                    xml.append("</subtotal-cell>");
+                    this.xml.append("</subtotal-cell>");
                 }
                 else
                 {
-                    xml.append("\t<subtotal-cell/>");
+                    this.xml.append("\t<subtotal-cell/>");
                 }
             }
-            xml.append("\n</subtotal>\n");
+            this.xml.append("\n</subtotal>\n");
             writeExtraGroupInfo(model, i);
-            xml.append("</subgroup>\n");
+            this.xml.append("</subgroup>\n");
         }
     }
 
@@ -176,22 +176,22 @@ public class XmlTotalsWriter extends TableWriterAdapter
             String style = (String)atts.get(TagConstants.ATTRIBUTE_STYLE);
             if (StringUtils.isNotBlank(style))
             {
-                Matcher m  = stylePat.matcher(style);
+                Matcher m  = this.stylePat.matcher(style);
                 while (m.find())
                 {
-                    xml.append(m.group(1));
-                    xml.append("=\"");
-                    xml.append(m.group(2));
-                    xml.append("\" ");
+                    this.xml.append(m.group(1));
+                    this.xml.append("=\"");
+                    this.xml.append(m.group(2));
+                    this.xml.append("\" ");
                 }
             }
             MultipleHtmlAttribute cssClass = (MultipleHtmlAttribute)atts.get(TagConstants.ATTRIBUTE_CLASS);
             if (cssClass != null && !cssClass.isEmpty())
             {
-                xml.append(" class");
-                xml.append("=\"");
-                xml.append(cssClass.toString());
-                xml.append("\"");
+                this.xml.append(" class");
+                this.xml.append("=\"");
+                this.xml.append(cssClass.toString());
+                this.xml.append("\"");
             }
         }
 
@@ -200,23 +200,23 @@ public class XmlTotalsWriter extends TableWriterAdapter
     @Override
     protected void writeColumnOpener(Column column) throws Exception
     {
-        boolean grouped = column.getHeaderCell().getGroup() >= currentGroupingLevel ;
+        boolean grouped = column.getHeaderCell().getGroup() >= this.currentGroupingLevel ;
         String attr = "";
         if (grouped)
         {
             attr = " grouped=\"true\" ";
         }
-        xml.append( "\t<cell " );
-        xml.append( attr );
+        this.xml.append( "\t<cell " );
+        this.xml.append( attr );
         HtmlAttributeMap atts = column.getHeaderCell().getHtmlAttributes();
         writeAttributes(atts);
-        xml.append( ">" );
+        this.xml.append( ">" );
     }
 
     @Override
     protected void writeColumnCloser(Column column) throws Exception
     {
-        xml.append( "</cell>\n" );
+        this.xml.append( "</cell>\n" );
     }
 
     @Override
@@ -224,19 +224,19 @@ public class XmlTotalsWriter extends TableWriterAdapter
     {
         Iterator<HeaderCell> iterator = model.getHeaderCellList().iterator();
 
-        xml.append("<header>\n");
-        xml.append("\n");
+        this.xml.append("<header>\n");
+        this.xml.append("\n");
         while (iterator.hasNext())
         {
             // get the header cell
             HeaderCell headerCell = iterator.next();
-            xml.append("<header-cell>");
+            this.xml.append("<header-cell>");
             cdata(headerCell.getTitle());
-            xml.append("</header-cell>\n");
+            this.xml.append("</header-cell>\n");
         }
-        xml.append("</header>\n");
-        xml.append("<data>");
-        xml.append("<subgroup grouped-by=\""+TableTotaler.WHOLE_TABLE+"\">");
+        this.xml.append("</header>\n");
+        this.xml.append("<data>");
+        this.xml.append("<subgroup grouped-by=\""+TableTotaler.WHOLE_TABLE+"\">");
     }
 
 
@@ -244,10 +244,10 @@ public class XmlTotalsWriter extends TableWriterAdapter
 
     protected void cdata(Object str)
     {
-        xml.append("<![CDATA[");
+        this.xml.append("<![CDATA[");
         String defStr = StringUtils.defaultString(""+str);
-        xml.append(defStr);
-        xml.append("]]>");
+        this.xml.append(defStr);
+        this.xml.append("]]>");
     }
 
     @Override
@@ -262,25 +262,25 @@ public class XmlTotalsWriter extends TableWriterAdapter
     @Override
     protected void writeDecoratedRowStart(TableModel model)
     {
-        xml.append(StringUtils.defaultString(model.getTableDecorator().startRow()));
+        this.xml.append(StringUtils.defaultString(model.getTableDecorator().startRow()));
     }
 
     @Override
     protected void writeTableCloser(TableModel model) throws Exception
     {
-        xml.append("</table>");                            //$NON-NLS-1$
+        this.xml.append("</table>");                            //$NON-NLS-1$
     }
 
     @Override
     protected void writeDecoratedRowFinish(TableModel model)
     {
-        xml.append(StringUtils.defaultString(model.getTableDecorator().finishRow()));
+        this.xml.append(StringUtils.defaultString(model.getTableDecorator().finishRow()));
     }
 
     @Override
     protected void writeRowOpener(Row row) throws Exception
     {
-        xml.append("\n<row>\n");                                          //$NON-NLS-1$
+        this.xml.append("\n<row>\n");                                          //$NON-NLS-1$
     }
 
     @Override
@@ -293,26 +293,26 @@ public class XmlTotalsWriter extends TableWriterAdapter
     @Override
     protected void writeRowWithNoColumns(String value) throws Exception
     {
-        xml.append("<row/>\n");  //$NON-NLS-1$
+        this.xml.append("<row/>\n");  //$NON-NLS-1$
     }
 
     @Override
     protected void writeRowCloser(Row row) throws Exception
     {
-        xml.append("</row>\n");               //$NON-NLS-1$
+        this.xml.append("</row>\n");               //$NON-NLS-1$
     }
 
     @Override
     protected void writeTableBodyCloser(TableModel model)
     {
-        xml.append("\n<!-- grand totals -->\n");
+        this.xml.append("\n<!-- grand totals -->\n");
         writeSubtotals(model, Arrays.asList(TableTotaler.WHOLE_TABLE) );
-        xml.append("</data>");     //$NON-NLS-1$
+        this.xml.append("</data>");     //$NON-NLS-1$
     }
 
     public String getXml()
     {
 
-        return xml.toString();
+        return this.xml.toString();
     }
 }

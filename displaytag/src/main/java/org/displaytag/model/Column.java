@@ -140,7 +140,7 @@ public class Column
         {
             for (int j = 0; j < decorators.length; j++)
             {
-                object = decorators[j].decorate(object, row.getParentTable().getPageContext(), row
+                object = decorators[j].decorate(object, this.row.getParentTable().getPageContext(), this.row
                     .getParentTable()
                     .getMedia());
             }
@@ -163,9 +163,9 @@ public class Column
      */
     public String getOpenTag()
     {
-        HtmlAttributeMap rowAttributes = cell.getPerRowAttributes();
+        HtmlAttributeMap rowAttributes = this.cell.getPerRowAttributes();
 
-        HtmlAttributeMap atts = htmlAttributes;
+        HtmlAttributeMap atts = this.htmlAttributes;
         if (rowAttributes != null)
         {
             atts = (HtmlAttributeMap) atts.clone();

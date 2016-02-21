@@ -94,13 +94,13 @@ public class ExportExcelTest
         System.setProperty("file.encoding", "utf-8");
 
         // start servletRunner
-        runner = new ServletRunner(new File(path), CONTEXT);
+        this.runner = new ServletRunner(new File(path), CONTEXT);
 
         Hashtable<String, String> params = new Hashtable<String, String>();
         params.put("javaEncoding", "utf-8");
-        runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
+        this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
 
-        log.debug("ServletRunner setup OK");
+        this.log.debug("ServletRunner setup OK");
 
     }
 
@@ -113,7 +113,7 @@ public class ExportExcelTest
     {
         // shutdown servlet engine
         TableProperties.clearProperties();
-        runner.shutDown();
+        this.runner.shutDown();
     }
 
     /**
@@ -144,7 +144,7 @@ public class ExportExcelTest
         Assert.assertNotNull("Excel export view not correctly registered.", excelMedia);
         request.setParameter(mediaParameter, Integer.toString(excelMedia.getCode()));
 
-        WebResponse response = runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
         Assert
