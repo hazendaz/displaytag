@@ -282,6 +282,16 @@
       <artifactId>jasper</artifactId>
       <version>6.0.45</version>
       <scope>test</scope>
+      <exclusions>
+          <exclusion>
+              <artifactId>jsp-api</artifactId>
+              <groupId>org.apache.tomcat</groupId>
+          </exclusion>
+          <exclusion>
+              <artifactId>servlet-api</artifactId>
+              <groupId>org.apache.tomcat</groupId>
+          </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
