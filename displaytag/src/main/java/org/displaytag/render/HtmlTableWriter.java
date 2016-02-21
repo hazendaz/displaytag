@@ -209,7 +209,7 @@ public class HtmlTableWriter extends TableWriterAdapter
             String key = it.next();
             Object value = parameters.get(key);
 
-            if (value != null & value.getClass().isArray())
+            if (value != null && value.getClass().isArray())
             {
                 Object[] arr = (Object[]) value;
                 for (int j = 0; j < arr.length; j++)
