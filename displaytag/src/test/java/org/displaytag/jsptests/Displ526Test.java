@@ -21,9 +21,7 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
-import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -50,9 +48,9 @@ public class Displ526Test extends DisplaytagCase
     }
 
     /**
-     * Check addictional parameters in paging.banner.*.
+     * Check additional parameters in paging.banner.*.
      * @param jspName jsp name, with full path
-     * @throws Exception any axception thrown during test.
+     * @throws Exception any exception thrown during test.
      */
     @Override
     @Test
@@ -72,7 +70,7 @@ public class Displ526Test extends DisplaytagCase
         WebTable[] tables = response.getTables();
         Assert.assertEquals(1, tables.length);
 
-        Assert.assertEquals("Wrong column content", "1", tables[0].getCellAsText(2, 1));
+        Assert.assertEquals("Wrong column content", "5", tables[0].getCellAsText(2, 1));
 
     }
 

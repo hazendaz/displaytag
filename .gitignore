@@ -10,3 +10,5 @@ target
 # Intellij
 *.iml
 *.idea/
+
+junit.log
