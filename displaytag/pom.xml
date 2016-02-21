@@ -44,9 +44,7 @@
       <artifactId>jstl</artifactId>
       <version>1.2</version>
     </dependency>
-    
-    
-    
+
     <!-- optional dependencies for exporting -->
     <dependency>
       <groupId>com.itextpdf</groupId>
@@ -102,9 +100,7 @@
       <artifactId>avalon-framework-api</artifactId>
       <version>4.2.0</version>
     </dependency>
-     
-    
-    
+
     <!-- optional dependencies for LocaleResolvers -->
     <dependency>
       <groupId>struts</groupId>
@@ -268,14 +264,14 @@
     <plugins>
       <plugin>
         <artifactId>maven-clover-plugin</artifactId>
-        <version>2.4</version>
+        <version>2.4.2</version>
         <!-- <groupId>com.atlassian.maven.plugins</groupId>
         <artifactId>maven-clover2-plugin</artifactId>
         <version>4.0.0</version>
          -->
         <configuration>
           <jdk>1.5</jdk>
-          <licenseLocation>${basedir}/../clover.license</licenseLocation>
+          <licenseLocation>${project.basedir}/../clover.license</licenseLocation>
         </configuration>
         <executions>
           <execution>
@@ -289,7 +285,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.5</version>
+        <version>2.6</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -310,19 +306,19 @@
     <!-- 
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.12.1</version>
+        <version>2.17</version>
         <configuration>
-          <configLocation>${basedir}/../checkstyle.xml</configLocation>
+          <configLocation>${project.basedir}/../checkstyle.xml</configLocation>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
       </plugin>
       -->
       <plugin>
         <artifactId>maven-clover-plugin</artifactId>
-        <version>2.4</version>
+        <version>2.4.2</version>
         <configuration>
           <jdk>1.5</jdk>
-          <licenseLocation>${basedir}/../clover.license</licenseLocation>
+          <licenseLocation>${project.basedir}/../clover.license</licenseLocation>
         </configuration>
       </plugin>
     </plugins>
