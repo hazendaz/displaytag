@@ -199,7 +199,6 @@
           <preparationGoals>install</preparationGoals>
           <remoteTagging>true</remoteTagging>
           <releaseProfiles>release</releaseProfiles>
-          <arguments>${release.arguments} -P release</arguments>
         </configuration>
       </plugin>
       <plugin>
@@ -394,13 +393,7 @@
 
   <profiles>
     <profile>
-      <id>release-sign-artifacts</id>
-      <activation>
-        <property>
-          <name>performRelease</name>
-          <value>true</value>
-        </property>
-      </activation>
+      <id>release</id>
       <build>
         <plugins>
           <plugin>
