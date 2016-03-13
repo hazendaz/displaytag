@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/DECORATION/1.6.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.6.0 http://maven.apache.org/xsd/decoration-1.6.0.xsd" name="Display tag library"
+<project xmlns="http://maven.apache.org/DECORATION/1.7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.7.0 http://maven.apache.org/xsd/decoration-1.7.0.xsd" name="Display tag library"
   combine.self="override">
   <skin>
     <groupId>lt.velykis.maven.skins</groupId>
@@ -81,7 +81,7 @@
      <!--  </item> -->
     </menu>
     <head>
-      <link href="../css/site.css" rel="stylesheet"/>
+      <![CDATA[<link href="../css/site.css" rel="stylesheet" />]]>
     </head>
   </body>
   <!--
