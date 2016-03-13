@@ -318,22 +318,20 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-clover-plugin</artifactId>
-        <version>2.4.2</version>
-        <!-- <groupId>com.atlassian.maven.plugins</groupId>
-        <artifactId>maven-clover2-plugin</artifactId>
-        <version>4.0.0</version>
-         -->
-        <configuration>
-          <jdk>1.5</jdk>
-          <licenseLocation>${project.basedir}/../clover.license</licenseLocation>
-        </configuration>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.7.6.201602180812</version>
         <executions>
           <execution>
-            <phase>pre-site</phase>
+            <id>prepare-agent</id>
             <goals>
-              <goal>instrument</goal>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <goals>
+              <goal>report</goal>
             </goals>
           </execution>
         </executions>
@@ -358,6 +356,7 @@
     <plugins>
     <!-- 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.17</version>
         <configuration>
@@ -367,12 +366,8 @@
       </plugin>
       -->
       <plugin>
-        <artifactId>maven-clover-plugin</artifactId>
-        <version>2.4.2</version>
-        <configuration>
-          <jdk>1.5</jdk>
-          <licenseLocation>${project.basedir}/../clover.license</licenseLocation>
-        </configuration>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </reporting>
