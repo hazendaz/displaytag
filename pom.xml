@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.displaytag</groupId>
 
+  <groupId>com.github.hazendaz</groupId>
   <artifactId>displaytag-doc</artifactId>
   <packaging>pom</packaging>
   <name>Display tag library documentation</name>
@@ -20,9 +20,9 @@
     <url>http://jira.codehaus.org/browse/DISPL</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:https://svn.code.sf.net/p/displaytag/code/trunk</connection>
-    <developerConnection>scm:svn:svn+ssh://svn.code.sf.net/p/displaytag/code/displaytag/trunk</developerConnection>
-    <url>http://displaytag.svn.sourceforge.net/viewcvs.cgi/displaytag/trunk</url>
+    <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</developerConnection>
+    <url>https://github.com/hazendaz/displaytag/</url>
   </scm>
   <inceptionYear>2002</inceptionYear>
 

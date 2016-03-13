@@ -3,16 +3,22 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
+    <groupId>com.github.hazendaz</groupId>
     <artifactId>displaytag-doc</artifactId>
-    <groupId>org.displaytag</groupId>
     <version>2.0-SNAPSHOT</version>
   </parent>
-  <groupId>org.displaytag</groupId>
 
+  <groupId>com.github.hazendaz</groupId>
   <artifactId>displaytag-examples</artifactId>
   <packaging>war</packaging>
   <name>Display tag library examples</name>
   <version>2.0-SNAPSHOT</version>
+
+  <scm>
+    <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</developerConnection>
+    <url>https://github.com/hazendaz/displaytag/</url>
+  </scm>
 
   <description>Example webapp for the display tag library</description>
 
@@ -97,7 +103,7 @@
       <version>1.1.2</version>
     </dependency>
     <dependency>
-      <groupId>org.displaytag</groupId>
+      <groupId>com.github.hazendaz</groupId>
       <artifactId>displaytag</artifactId>
       <version>2.0-SNAPSHOT</version>
     </dependency>
