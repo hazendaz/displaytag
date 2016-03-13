@@ -169,9 +169,9 @@
   </repositories>
   <distributionManagement>
     <site>
-      <id>displaytag</id>
-      <name>displaytag</name>
-      <url>scp://shell.sourceforge.net/home/groups/d/di/displaytag/htdocs/${project.version}/</url>
+      <id>gh-pages</id>
+      <name>Displaytag GitHub Pages</name>
+      <url>git:ssh://git@github.com/hazendaz/displaytag.git?gh-pages#</url>
     </site>
     <repository>
       <id>sonatype-nexus-staging</id>
