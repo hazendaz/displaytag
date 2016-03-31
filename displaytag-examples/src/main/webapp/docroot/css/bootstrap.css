@@ -3399,7 +3399,7 @@ tbody.collapse.in {
   display: table;
   width: 100%;
   table-layout: fixed;
-  border-collapse: separate;
+  border-collapse:separate;
 }
 .btn-group-justified > .btn,
 .btn-group-justified > .btn-group {
@@ -3423,7 +3423,7 @@ tbody.collapse.in {
 .input-group {
   position: relative;
   display: table;
-  border-collapse: separate;
+  border-collapse:separate;
 }
 .input-group[class*="col-"] {
   float: none;
