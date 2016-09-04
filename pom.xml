@@ -371,7 +371,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
-        <version>2.11</version>
+        <version>2.12</version>
         <configuration>
           <inherited>false</inherited>
           <link_template>%URL%/%ISSUE%</link_template>
