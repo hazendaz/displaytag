@@ -10,7 +10,7 @@
         </head>
         <body>
             <jsp:scriptlet> <![CDATA[
-							java.util.List testData = new java.util.ArrayList();
+							java.util.List<org.displaytag.test.KnownValue> testData = new java.util.ArrayList<org.displaytag.test.KnownValue>();
 							testData.add(new org.displaytag.test.KnownValue());
 							request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>

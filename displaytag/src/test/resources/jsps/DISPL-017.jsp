@@ -12,7 +12,7 @@
 	</head>
 	<body>
 	<jsp:scriptlet> <![CDATA[
-				java.util.List test = new java.util.ArrayList(2);
+				java.util.List<org.displaytag.test.KnownValue> test = new java.util.ArrayList<org.displaytag.test.KnownValue>(2);
 				test.add(new org.displaytag.test.KnownValue());
 				test.add(new org.displaytag.test.KnownValue());
             	session.setAttribute( "stest", test );

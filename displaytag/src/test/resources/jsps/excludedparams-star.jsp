@@ -10,7 +10,7 @@
     </head>
     <body>
       <jsp:scriptlet> <![CDATA[
-          java.util.List testData = new java.util.ArrayList();
+          java.util.List<org.displaytag.test.KnownValue> testData = new java.util.ArrayList<org.displaytag.test.KnownValue>();
           for (int j=0; j<12; j++)
           {
             testData.add(new org.displaytag.test.KnownValue());

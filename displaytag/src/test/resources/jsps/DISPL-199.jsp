@@ -10,7 +10,7 @@
     </head>
     <body>
       <jsp:scriptlet> <![CDATA[
-          java.util.List testData = new java.util.ArrayList();
+          java.util.List<org.displaytag.test.NumberedItem> testData = new java.util.ArrayList<org.displaytag.test.NumberedItem>();
           testData.add(new org.displaytag.test.NumberedItem(1));
           testData.add(new org.displaytag.test.NumberedItem(2));
           testData.add(new org.displaytag.test.NumberedItem(4));

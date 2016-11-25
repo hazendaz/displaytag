@@ -18,13 +18,13 @@
   }
 %>
 <%
-  java.util.List theList = new java.util.ArrayList();
+  java.util.List<ValueBean> theList = new java.util.ArrayList<ValueBean>();
   theList.add(new ValueBean("1"));
   theList.add(new ValueBean("2"));
   theList.add(new ValueBean("3"));
 
   for (int i=0;i<3;i++) {
-    request.setAttribute("row" + String.valueOf(i),new java.util.ArrayList(theList));
+    request.setAttribute("row" + String.valueOf(i), new java.util.ArrayList<ValueBean>(theList));
 %>
 
 <display:table uid='<%="row" + String.valueOf(i)%>' name='<%="row" + String.valueOf(i)%>' sort="list" >

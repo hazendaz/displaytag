@@ -10,9 +10,9 @@
     </head>
     <body>
 	    <jsp:scriptlet> <![CDATA[
-			        java.util.Map map = new java.util.HashMap();
+			        java.util.Map<String, String> map = new java.util.HashMap<String, String>();
 			        map.put("thevalue", "1+1");
-			        java.util.List list = new java.util.ArrayList();
+			        java.util.List<java.util.Map<String, String>> list = new java.util.ArrayList<java.util.Map<String, String>>();
 			        list.add(map);
 	        request.setAttribute( "test", list );
 	    ]]> </jsp:scriptlet>

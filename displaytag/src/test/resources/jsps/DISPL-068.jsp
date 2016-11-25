@@ -10,7 +10,7 @@
     </head>
     <body>
       <jsp:scriptlet> <![CDATA[
-          java.util.List testdata = new java.util.ArrayList();
+          java.util.List<String> testdata = new java.util.ArrayList<String>();
           testdata.add("one");
           testdata.add("two");
           request.setAttribute( "test", new Object[]{testdata, testdata});

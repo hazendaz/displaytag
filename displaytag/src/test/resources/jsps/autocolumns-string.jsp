@@ -11,7 +11,7 @@
 		</head>
 		<body>
 			<jsp:scriptlet> <![CDATA[
-            	java.util.List list = new java.util.ArrayList(3);
+            	java.util.List<String> list = new java.util.ArrayList<String>(3);
             	list.add("string1");
             	list.add("string2");
             	list.add("string3");

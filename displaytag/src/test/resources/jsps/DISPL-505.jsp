@@ -12,7 +12,7 @@
     <body>
       <jsp:scriptlet>
         <![CDATA[
-                java.util.List testData = new java.util.ArrayList();
+                java.util.List<org.displaytag.test.KnownTypes> testData = new java.util.ArrayList<org.displaytag.test.KnownTypes>();
                 testData.add(new org.displaytag.test.KnownTypes());
                 request.setAttribute( "test", testData);
         ]]>

@@ -10,7 +10,7 @@
         </head>
         <body>
             <jsp:scriptlet> <![CDATA[
-                java.util.Map map1 = new java.util.TreeMap();
+                java.util.Map<String, String> map1 = new java.util.TreeMap<String, String>();
                 map1.put(org.displaytag.test.KnownValue.ANT,org.displaytag.test.KnownValue.ANT);
                 map1.put(org.displaytag.test.KnownValue.BEE,org.displaytag.test.KnownValue.BEE);
                 map1.put(org.displaytag.test.KnownValue.CAMEL,org.displaytag.test.KnownValue.CAMEL);

@@ -10,8 +10,8 @@
     </head>
     <body>
       <jsp:scriptlet> <![CDATA[
-          java.util.List testData = new java.util.ArrayList();
-          java.util.Map bean = new java.util.HashMap();
+          java.util.List<java.util.Map<String, String>> testData = new java.util.ArrayList<java.util.Map<String, String>>();
+          java.util.Map<String, String> bean = new java.util.HashMap<String, String>();
           bean.put("ampersand", "Raja&Siva");
           testData.add(bean);
           request.setAttribute( "test", testData);

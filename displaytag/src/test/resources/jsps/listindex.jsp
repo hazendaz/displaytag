@@ -10,8 +10,8 @@
     </head>
     <body>
       <jsp:scriptlet> <![CDATA[
-          java.util.List testData = new java.util.ArrayList();
-          Object testdata = new org.displaytag.test.KnownTypes();
+          java.util.List<org.displaytag.test.KnownTypes> testData = new java.util.ArrayList<org.displaytag.test.KnownTypes>();
+          org.displaytag.test.KnownTypes testdata = new org.displaytag.test.KnownTypes();
           for (int j=0; j<10; j++)
           {
           	testData.add(testdata);

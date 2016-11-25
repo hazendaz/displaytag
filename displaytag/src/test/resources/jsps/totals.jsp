@@ -11,7 +11,7 @@
     </head>
     <body>
       <jsp:scriptlet> <![CDATA[
-                java.util.ArrayList list = new java.util.ArrayList();
+                java.util.List<org.displaytag.test.KnownTypes> list = new java.util.ArrayList<org.displaytag.test.KnownTypes>();
                 list.add(new org.displaytag.test.KnownTypes());
                 list.add(new org.displaytag.test.KnownTypes());
                 request.setAttribute( "test", list);

@@ -11,6 +11,7 @@
     </head>
     <body>
       <jsp:scriptlet>
+        <![CDATA[
           request.setAttribute( "test", new Object[]{new org.displaytag.test.KnownValue()});
 
           // prepare column collection
@@ -30,7 +31,7 @@
           // note that for this test EL is required.
           // we are using the embedded EL support in jsp 2.0 (see the isELIgnored="false" page directive), so this
           // test will only work in jsp 2.0 containers
-
+        ]]>
       </jsp:scriptlet>
       <display:table name="requestScope.test" uid="table">
           <jsp:scriptlet>
