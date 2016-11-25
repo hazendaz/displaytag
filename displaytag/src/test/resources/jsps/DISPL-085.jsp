@@ -15,16 +15,16 @@
           request.setAttribute( "test", new Object[]{new org.displaytag.test.KnownValue()});
 
           // prepare column collection
-          java.util.Map antColumn = new java.util.HashMap();
+          java.util.Map<String, String> antColumn = new java.util.HashMap<String, String>();
           antColumn.put("property", "ant");
           antColumn.put("title", "ant title");
-          antColumn.put("sortable", Boolean.TRUE);
+          antColumn.put("sortable", "true");
 
-          java.util.Map beeColumn = new java.util.HashMap();
+          java.util.Map<String, String> beeColumn = new java.util.HashMap<String, String>();
           beeColumn.put("property", "bee");
           beeColumn.put("title", "bee title");
 
-          java.util.List columnlist = new java.util.ArrayList();
+          java.util.List<java.util.Map<String, String>> columnlist = new java.util.ArrayList<java.util.Map<String, String>>();
           columnlist.add(antColumn);
           columnlist.add(beeColumn);
 

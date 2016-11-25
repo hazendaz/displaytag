@@ -6,25 +6,25 @@
   // available column sets should be managed in the backend, not in the jsp page.
   // you just need to build a list with Maps containing standard column attributes
 
-  java.util.Map email = new java.util.HashMap();
+  java.util.Map<String, String> email = new java.util.HashMap<String, String>();
   email.put("property", "email");
   email.put("title", "email title");
 
 
-  java.util.Map date = new java.util.HashMap();
+  java.util.Map<String, String> date = new java.util.HashMap<String, String>();
   date.put("property", "date");
   date.put("title", "date");
-  date.put("sortable", Boolean.TRUE);
+  date.put("sortable", "true");
 
 
-  java.util.Map money = new java.util.HashMap();
+  java.util.Map<String, String> money = new java.util.HashMap<String, String>();
   money.put("property", "money");
   money.put("title", "money");
   money.put("format", "{0,number,000.00 €}");
 
-  java.util.List set1 = new java.util.ArrayList();
-  java.util.List set2 = new java.util.ArrayList();
-  java.util.List set3 = new java.util.ArrayList();
+  java.util.List<java.util.Map<String, String>> set1 = new java.util.ArrayList<java.util.Map<String, String>>();
+  java.util.List<java.util.Map<String, String>> set2 = new java.util.ArrayList<java.util.Map<String, String>>();
+  java.util.List<java.util.Map<String, String>> set3 = new java.util.ArrayList<java.util.Map<String, String>>();
 
   set1.add(email);
   set1.add(date);
