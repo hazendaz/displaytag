@@ -1,0 +1,1 @@
+C:\eclipse-addons\jdk\jdk64-1.8.0_112\jre\..\bin\javadoc.exe @options @packages

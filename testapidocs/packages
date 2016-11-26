@@ -1,0 +1,13 @@
+org.displaytag.decorator
+org.displaytag.export.excel
+org.displaytag.export
+org.displaytag.filter
+org.displaytag.jsptests
+org.displaytag.pagination
+org.displaytag.portlet
+org.displaytag.properties
+org.displaytag.render
+org.displaytag.tags
+org.displaytag.test
+org.displaytag.tld
+org.displaytag.util
