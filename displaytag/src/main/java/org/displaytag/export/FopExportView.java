@@ -144,7 +144,7 @@ public class FopExportView implements BinaryExportView
     {
         String xmlResults = getXml();
 
-        FopFactory fopFactory = FopFactory.newInstance();
+        FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
         Source xslt = new StreamSource(getStyleSheet());
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer;
@@ -252,7 +252,7 @@ public class FopExportView implements BinaryExportView
     public static void transform(String xmlSrc, String styleSheetPath, File f) throws Exception
     {
 
-        FopFactory fopFactory = FopFactory.newInstance();
+        FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
         InputStream styleSheetStream = FopExportView.class.getResourceAsStream(styleSheetPath);
 
         Source xslt = new StreamSource(styleSheetStream);
