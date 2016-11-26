@@ -22,21 +22,6 @@
 
   <description>Example webapp for the display tag library</description>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <configuration>
-          <wtpversion>2.0</wtpversion>
-          <downloadSources>true</downloadSources>
-          <wtpContextName>ROOT</wtpContextName>
-          <testSourcesLast>true</testSourcesLast>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
   <dependencies>
     <dependency>
       <groupId>commons-codec</groupId>
