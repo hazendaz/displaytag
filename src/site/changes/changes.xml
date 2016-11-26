@@ -1,8 +1,9 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
   <!--
   "type" attribute can be: add, remove, update or fix.
 -->
-<document>
   <properties>
     <title>Changes</title>
     <author email="fgiust(at)users.sourceforge.net">Fabrizio Giustina</author>
@@ -35,31 +36,31 @@
       <action type="fix" dev="fgiust" due-to="Johno Crawford" issue="DISPL-688">CSV export fixes.</action>
       <action type="fix" dev="fgiust" due-to="Michael Osipov" issue="DISPL-687">
         I18nJstlAdapter should find a locale set in pageContext/request scope. Changed the
-        <tt>org.displaytag.localization.LocaleResolver.resolveLocale(HttpServletRequest)</tt>
+        &lt;tt&gt;org.displaytag.localization.LocaleResolver.resolveLocale(HttpServletRequest)&lt;/tt&gt;
         to
-        <tt>org.displaytag.localization.LocaleResolver.resolveLocale(PageContext)</tt>
+        &lt;tt&gt;org.displaytag.localization.LocaleResolver.resolveLocale(PageContext)&lt;/tt&gt;
         , so custom locale resolvers needs to be adapted in order to compile/work with displaytag 2.0.
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-292">
         Export in pdf/excel format was not exporting the full list with
-        <tt>export.amount=list</tt>
+        &lt;tt&gt;export.amount=list&lt;/tt&gt;
         .
       </action>
       <action type="update" dev="fgiust">
         Renamed the display:table
-        <tt>name</tt>
+        &lt;tt&gt;name&lt;/tt&gt;
         attribute to
-        <tt>items</tt>
+        &lt;tt&gt;items&lt;/tt&gt;
         , since "name" was not appropriate anymore since setting the name of the object instead the direct reference was
         deprecated, now that support for the non EL-version has been dropped. Use
-        <tt>items</tt>
+        &lt;tt&gt;items&lt;/tt&gt;
         to mimic standard jstl tags like
-        <tt>c:forEach</tt>
+        &lt;tt&gt;c:forEach&lt;/tt&gt;
         . The old attribute still remains as deprecated.
       </action>
       <action type="add" dev="fgiust">
         Added new
-        <tt>export.banner.item</tt>
+        &lt;tt&gt;export.banner.item&lt;/tt&gt;
         property for customizing the links generated in the export banner.
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-676" due-to="Michael Osipov">Some JUnit tests fail if VM locale language is not
@@ -73,12 +74,12 @@
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-430">
         Columns with body data between
-        <display:column> and </display:column>
+        &lt;display:column&gt; and &lt;/display:column&gt;
         are not render properly (empty) when last displayed element was removed
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-530">
         Reworked
-        <tt>DefaultHref</tt>
+        &lt;tt&gt;DefaultHref&lt;/tt&gt;
         in order to escape parameters only when composing the final URL, avoid double encoding that could happen in some
         situations
       </action>
@@ -90,30 +91,30 @@
       </action>
       <action type="add" dev="fgiust" issue="DISPL-230" due-to="Peter Daugavietis, Mike Calmus">
         New
-        <tt>export.banner.placement</tt>
+        &lt;tt&gt;export.banner.placement&lt;/tt&gt;
         property
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-606" due-to="Hilde Meuris">Page numbers localized using wrong locale</action>
       <action type="update" dev="fgiust">
         Removed deprecated column tag attributes:
-        <tt>paramScope</tt>
+        &lt;tt&gt;paramScope&lt;/tt&gt;
       </action>
       <action type="update" dev="fgiust" issue="DISPL-677" due-to="Yannik Hampe">Updated portlet support to JSR-286/portlet 2.0
         and added support for JSR-286 resources
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-611">
         Column text should not abbreviated in pdf/excel export when
-        <tt>maxLength</tt>
+        &lt;tt&gt;maxLength&lt;/tt&gt;
         is set
       </action>
       <action type="fix" dev="fgiust" issue="DISPL-601">
         Javascript function and hidden form fields not rendered when
-        <tt>paging.banner.placement</tt>
+        &lt;tt&gt;paging.banner.placement&lt;/tt&gt;
         is set to
-        <tt>bottom</tt>
+        &lt;tt&gt;bottom&lt;/tt&gt;
       </action>
       <action type="add" dev="fgiust" issue="DISPL-511" due-to="T SnowWolf Wagner">
-        Added new i18N adapter for Struts 2, <tt>org.displaytag.localization.I18nStruts2Adapter</tt>
+        Added new i18N adapter for Struts 2, &lt;tt&gt;org.displaytag.localization.I18nStruts2Adapter&lt;/tt&gt;
       </action>
     </release>
     
@@ -557,10 +558,10 @@
       </action>
       <action type="add" dev="fgiust">
         Lots of small changes/addiction:
-        <ul>
-          <li>renamed attributes "styleClass" to standard "class" ("styleClass" is retained but deprecated)</li>
-          <li>added "defaultsort" attribute to specify the default sorted column</li>
-        </ul>
+        &lt;ul&gt;
+          &lt;li&gt;renamed attributes "styleClass" to standard "class" ("styleClass" is retained but deprecated)&lt;/li&gt;
+          &lt;li&gt;added "defaultsort" attribute to specify the default sorted column&lt;/li&gt;
+        &lt;/ul&gt;
       </action>
     </release>
     <release version="0.8.6" date="September 21, 2003" description="Bugfix release (fixes jre 1.3 compatibility)">
