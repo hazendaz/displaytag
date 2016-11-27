@@ -43,16 +43,16 @@ import org.slf4j.LoggerFactory;
  * <code>fmt:bundle</code> tag in order to use the titleKey. This is just a shortcut, which makes
  * 
  * <pre>
- * &lt;display:column titleKey="bar"/>
+ * &lt;display:column titleKey="bar"/&gt;
  * </pre>
  * 
  * behave the same as
  * 
  * <pre>
- * &lt;c:set var="foo">
- *   &lt;fmt:message key="bar"/>
- * &lt;/c:set>
- * &lt;display:column title="${foo}"/>
+ * &lt;c:set var="foo"&gt;
+ *   &lt;fmt:message key="bar"/&gt;
+ * &lt;/c:set&gt;
+ * &lt;display:column title="${foo}"/&gt;
  * </pre>
  * 
  * If you don't define either <code>titleKey</code> or <code>titleKey</code> property on your column, first the tag

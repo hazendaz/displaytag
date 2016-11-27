@@ -22,7 +22,7 @@
 package org.displaytag.util;
 
 /**
- * Anchor object used to output an html link (an &lt;a> tag).
+ * Anchor object used to output an html link (an &lt;a&gt; tag).
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
@@ -114,7 +114,7 @@ public class Anchor
     }
 
     /**
-     * Returns the &lt;a> tag, with rendered href and any html attribute.
+     * Returns the &lt;a&gt; tag, with rendered href and any html attribute.
      * @return String
      */
     public String getOpenTag()
@@ -139,7 +139,7 @@ public class Anchor
     }
 
     /**
-     * returns the &lt;/a> tag.
+     * returns the &lt;/a&gt; tag.
      * @return String
      */
     public String getCloseTag()
@@ -148,7 +148,7 @@ public class Anchor
     }
 
     /**
-     * returns the full &lt;a href="">body&lt;/a>.
+     * returns the full &lt;a href=""&gt;body&lt;/a&gt;.
      * @return String html link
      */
     @Override

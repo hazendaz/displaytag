@@ -60,7 +60,7 @@ public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
      * Instantiates a new MessageFormatColumnDecorator with a given pattern and locale.
      * @param pattern see <code>java.text.messageFormat</code>
      * @param locale current locale
-     * @see java.text.messageFormat
+     * @see java.text.MessageFormat
      */
     public MessageFormatColumnDecorator(String pattern, Locale locale)
     {

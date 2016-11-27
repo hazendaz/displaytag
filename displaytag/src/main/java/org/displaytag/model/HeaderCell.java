@@ -150,7 +150,7 @@ public class HeaderCell
 
     /**
      * setter for the grouping index.
-     * @param groupingOrder int grouping order (>0)
+     * @param groupingOrder int grouping order (int &gt; 0)
      */
     public void setGroup(int groupingOrder)
     {

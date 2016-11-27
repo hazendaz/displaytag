@@ -147,8 +147,8 @@ public class Row
     }
 
     /**
-     * Writes the open &lt;tr> tag.
-     * @return String &lt;tr> tag with the appropriate css class attribute
+     * Writes the open &lt;tr&gt; tag.
+     * @return String &lt;tr&gt; tag with the appropriate css class attribute
      */
     public String getOpenTag()
     {
@@ -199,8 +199,8 @@ public class Row
     }
 
     /**
-     * writes the &lt;/tr> tag.
-     * @return String &lt;/tr> tag
+     * writes the &lt;/tr&gt; tag.
+     * @return String &lt;/tr&gt; tag
      */
     public String getCloseTag()
     {

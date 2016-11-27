@@ -64,9 +64,11 @@ public class PostHref implements Href
     }
 
     /**
-     * @param name
-     * @param value
-     * @return
+     * Adds the parameter.
+     *
+     * @param name the name
+     * @param value the value
+     * @return the href
      * @see org.displaytag.util.Href#addParameter(java.lang.String, java.lang.Object)
      */
     @Override
@@ -77,9 +79,11 @@ public class PostHref implements Href
     }
 
     /**
-     * @param name
-     * @param value
-     * @return
+     * Adds the parameter.
+     *
+     * @param name the name
+     * @param value the value
+     * @return the href
      * @see org.displaytag.util.Href#addParameter(java.lang.String, int)
      */
     @Override
@@ -90,7 +94,9 @@ public class PostHref implements Href
     }
 
     /**
-     * @param parametersMap
+     * Adds the parameter map.
+     *
+     * @param parametersMap the parameters map
      * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
      */
     @Override
@@ -100,8 +106,10 @@ public class PostHref implements Href
     }
 
     /**
-     * @param object
-     * @return
+     * Equals.
+     *
+     * @param object the object
+     * @return true, if successful
      * @see org.displaytag.util.Href#equals(java.lang.Object)
      */
     @Override
@@ -111,7 +119,9 @@ public class PostHref implements Href
     }
 
     /**
-     * @return
+     * Gets the anchor.
+     *
+     * @return the anchor
      * @see org.displaytag.util.Href#getAnchor()
      */
     @Override
@@ -121,7 +131,9 @@ public class PostHref implements Href
     }
 
     /**
-     * @return
+     * Gets the base url.
+     *
+     * @return the base url
      * @see org.displaytag.util.Href#getBaseUrl()
      */
     @Override
@@ -131,7 +143,9 @@ public class PostHref implements Href
     }
 
     /**
-     * @return
+     * Gets the parameter map.
+     *
+     * @return the parameter map
      * @see org.displaytag.util.Href#getParameterMap()
      */
     @Override
@@ -141,7 +155,9 @@ public class PostHref implements Href
     }
 
     /**
-     * @param name
+     * Removes the parameter.
+     *
+     * @param name the name
      * @see org.displaytag.util.Href#removeParameter(java.lang.String)
      */
     @Override
@@ -151,7 +167,9 @@ public class PostHref implements Href
     }
 
     /**
-     * @param name
+     * Sets the anchor.
+     *
+     * @param name the new anchor
      * @see org.displaytag.util.Href#setAnchor(java.lang.String)
      */
     @Override
@@ -161,7 +179,9 @@ public class PostHref implements Href
     }
 
     /**
-     * @param url
+     * Sets the full url.
+     *
+     * @param url the new full url
      * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
      */
     @Override
@@ -171,7 +191,9 @@ public class PostHref implements Href
     }
 
     /**
-     * @param parametersMap
+     * Sets the parameter map.
+     *
+     * @param parametersMap the parameters map
      * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
      */
     @Override
@@ -181,7 +203,9 @@ public class PostHref implements Href
     }
 
     /**
-     * @return
+     * To string.
+     *
+     * @return the string
      * @see org.displaytag.util.Href#toString()
      */
     @Override

@@ -50,13 +50,13 @@ import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
  * </p>
  * 
  * <pre>
- * &lt;bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
- *   &lt;property name="interceptors">
- *     &lt;list>
- *       &lt;bean class="org.displaytag.filter.DisplayTagSpringInterceptor"/>
- *     &lt;/list>
- *   &lt;/property
- * &lt;/bean>
+ * &lt;bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping"&gt;
+ *   &lt;property name="interceptors"&gt;
+ *     &lt;list&gt;
+ *       &lt;bean class="org.displaytag.filter.DisplayTagSpringInterceptor"/&gt;
+ *     &lt;/list&gt;
+ *   &lt;/property&gt;
+ * &lt;/bean&gt;
  * </pre>
  * 
  * <p>
@@ -66,9 +66,9 @@ import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
  * </p>
  * 
  * <pre>
- *  &lt;bean class="org.displaytag.filter.DisplayTagSpringInterceptor">
- *      &lt;property name="buffer">&lt;value>false&lt;/value>&lt;/property>
- *  &lt;/bean>
+ *  &lt;bean class="org.displaytag.filter.DisplayTagSpringInterceptor"&gt;
+ *      &lt;property name="buffer"&gt;&lt;value&gt;false&lt;/value&gt;&lt;/property&gt;
+ *  &lt;/bean&gt;
  *  </pre>
  * 
  * @author Keith Garry Boyce

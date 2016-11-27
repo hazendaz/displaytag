@@ -752,7 +752,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     /**
      * create the open tag containing all the attributes.
-     * @return open tag string: <code>%lt;table attribute="value" ... ></code>
+     * @return open tag string: <code>%lt;table attribute="value" ... &gt;</code>
      */
     public String getOpenTag()
     {

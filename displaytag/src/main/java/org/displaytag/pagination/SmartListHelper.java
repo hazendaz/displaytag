@@ -91,7 +91,7 @@ public class SmartListHelper
      *
      * @param list List
      * @param fullSize size of the full list
-     * @param itemsInPage number of items in a page (int > 0)
+     * @param itemsInPage number of items in a page (int &gt; 0)
      * @param tableProperties TableProperties
      * @param partialList the partial list
      */

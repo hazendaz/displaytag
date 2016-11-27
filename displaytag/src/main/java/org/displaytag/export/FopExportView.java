@@ -58,7 +58,7 @@ import org.slf4j.LoggerFactory;
  * your log level to debug, which is very handy if you are getting errors or unexpected pdf output. See asFo_us.xsl for
  * a sample XSL-FO stylesheet. The basic structure of the intermediate XML is
  * <table>
- * <header> <header-cell>AntColumn</hearder-cell> </header> <data> <subgroup grouped-by="0"> <row> <cell
+ * <header> <header-cell>AntColumn</header-cell> </header> <data> <subgroup grouped-by="0"> <row> <cell
  * grouped="true">Ant</cell> </row> <subtotal> <subtotal-cell></subtotal-cell> </subgroup> </data>
  * </table>
  * @author rapruitt Date: Aug 26, 2009 Time: 1:55:29 PM
@@ -136,9 +136,10 @@ public class FopExportView implements BinaryExportView
 
     /**
      * Don't forget to enable debug if you want to see the raw FO.
+     *
      * @param out output writer
-     * @throws IOException
-     * @throws JspException
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws JspException the jsp exception
      */
     @Override
     public void doExport(OutputStream out) throws IOException, JspException
@@ -249,7 +250,7 @@ public class FopExportView implements BinaryExportView
     }
 
     /**
-     * If you are authoring a stylesheet locally, this is highly recommended as a way to test your stylesheet agaisnt
+     * If you are authoring a stylesheet locally, this is highly recommended as a way to test your stylesheet against
      * dummy data.
      *
      * @param xmlSrc xml as string

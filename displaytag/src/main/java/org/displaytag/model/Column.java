@@ -189,7 +189,7 @@ public class Column
     }
 
     /**
-     * Generates the cell close tag (&lt;/td>).
+     * Generates the cell close tag (&lt;/td&gt;).
      * @return String td closing tag
      */
     public String getCloseTag()

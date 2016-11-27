@@ -30,7 +30,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.views.jsp.TagUtils;
 import org.displaytag.Messages;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 import java.util.Iterator;
@@ -40,7 +39,7 @@ import java.util.Locale;
 /**
  * Resolve i18n resources in Struts 2.
  *
- * @author <a:href="mailto:snowwolf@wabunoh-tech.com">mailto:snowwolf@wabunoh-tech.com</>
+ * @author snowwolf@wabunoh-tech.com
  * @version $Revision: 1.1 $
  * @since Jan 4, 2008 2:37:29 PM
  */
@@ -117,7 +116,7 @@ public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider
             }
         }
 
-        // if user explicitely added a titleKey we guess this is an error
+        // if user explicitly added a titleKey we guess this is an error
         if (message == null && resourceKey != null)
         {
             log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$

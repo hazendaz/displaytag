@@ -26,7 +26,7 @@ import java.util.Map;
 
 
 /**
- * Interface representing an URI (the href parameter of an &lt;a> tag). Provides methods to insert new parameters. It
+ * Interface representing an URI (the href parameter of an &lt;a&gt; tag). Provides methods to insert new parameters. It
  * doesn't support multiple parameter values
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)

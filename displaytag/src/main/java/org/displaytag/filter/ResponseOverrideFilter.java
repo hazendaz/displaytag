@@ -54,18 +54,18 @@ import org.displaytag.tags.TableTagParameters;
  * </p>
  * 
  * <pre>
- *  &lt;filter>
- *      &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
- *      &lt;filter-class>org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class>
- *  &lt;/filter>
- *  &lt;filter-mapping>
- *      &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
- *      &lt;url-pattern>*.do&lt;/url-pattern>
- *  &lt;/filter-mapping>
- *  &lt;filter-mapping>
- *      &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
- *      &lt;url-pattern>*.jsp&lt;/url-pattern>
- *  &lt;/filter-mapping>
+ *  &lt;filter&gt;
+ *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+ *      &lt;filter-class&gt;org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class&gt;
+ *  &lt;/filter&gt;
+ *  &lt;filter-mapping&gt;
+ *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+ *      &lt;url-pattern&gt;*.do&lt;/url-pattern&gt;
+ *  &lt;/filter-mapping&gt;
+ *  &lt;filter-mapping&gt;
+ *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+ *      &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
+ *  &lt;/filter-mapping&gt;
  * </pre>
  * 
  * <p>
@@ -75,14 +75,14 @@ import org.displaytag.tags.TableTagParameters;
  * </p>
  * 
  * <pre>
- *  &lt;filter>
- *      &lt;filter-name>ResponseOverrideFilter&lt;/filter-name>
- *      &lt;filter-class>org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class>
- *      &lt;init-param>
- *          &lt;param-name>buffer&lt;/param-name>
- *          &lt;param-value>false&lt;/param-value>
- *      &lt;/init-param>
- *  &lt;/filter>
+ *  &lt;filter&gt;
+ *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
+ *      &lt;filter-class&gt;org.displaytag.filter.ResponseOverrideFilter&lt;/filter-class&gt;
+ *      &lt;init-param&gt;
+ *          &lt;param-name&gt;buffer&lt;/param-name&gt;
+ *          &lt;param-value&gt;false&lt;/param-value&gt;
+ *      &lt;/init-param&gt;
+ *  &lt;/filter&gt;
  *  </pre>
  * 
  * @author rapruitt

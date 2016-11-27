@@ -252,7 +252,7 @@ public class ExcelHssfView implements BinaryExportView
     }
 
     /**
-     * Templated method that is called for all non-header & non-total cells.
+     * Templated method that is called for all non-header and non-total cells.
      *
      * @param wb the wb
      * @param rowCtr the row ctr

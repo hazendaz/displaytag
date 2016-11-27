@@ -179,7 +179,7 @@ public class DefaultHref implements Href
 
     /**
      * Removes a parameter from the href.
-     * @param name String
+     * @param key String
      */
     @Override
     public void removeParameter(String key)
