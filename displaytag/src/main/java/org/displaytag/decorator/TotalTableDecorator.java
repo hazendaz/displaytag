@@ -176,7 +176,7 @@ public class TotalTableDecorator extends TableDecorator
     @Override
     public final String finishRow()
     {
-        StringBuffer buffer = new StringBuffer(1000);
+        StringBuilder buffer = new StringBuilder(1000);
 
         // Grand totals...
         if (getViewIndex() == ((List<Object>) getDecoratedObject()).size() - 1)
@@ -199,7 +199,7 @@ public class TotalTableDecorator extends TableDecorator
      */
     protected String createTotalRow(boolean grandTotal)
     {
-        StringBuffer buffer = new StringBuffer(1000);
+        StringBuilder buffer = new StringBuilder(1000);
         buffer.append("\n<tr class=\"total\">"); //$NON-NLS-1$
 
         List<HeaderCell> headerCells = this.tableModel.getHeaderCellList();

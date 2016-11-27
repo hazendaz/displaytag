@@ -243,7 +243,7 @@ public class Pagination
     public String getFormattedBanner(String numberedPageFormat, String numberedPageSelectedFormat,
         String numberedPageSeparator, String fullBanner)
     {
-        StringBuffer buffer = new StringBuffer(100);
+        StringBuilder buffer = new StringBuilder(100);
 
         // numbered page list
         Iterator<NumberedPage> pageIterator = this.pages.iterator();

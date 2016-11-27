@@ -246,7 +246,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      */
     private void writeField(String key, Object value)
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append("<input type=\"hidden\" name=\"");
         buffer.append(esc(key));
         buffer.append("\" value=\"");
@@ -714,7 +714,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         // Figure out what formats they want to export, make up a little string
         Href exportHref = (Href) this.baseHref.clone();
 
-        StringBuffer buffer = new StringBuffer(200);
+        StringBuilder buffer = new StringBuilder(200);
         Iterator<MediaTypeEnum> iterator = MediaTypeEnum.iterator();
 
         while (iterator.hasNext())
@@ -764,7 +764,7 @@ public class HtmlTableWriter extends TableWriterAdapter
             Map<String, String> localAttributeMap = (Map<String, String>) this.attributeMap.clone();
             localAttributeMap.put(TagConstants.ATTRIBUTE_ID, this.uid);
 
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
             buffer.append(localAttributeMap);
             buffer.append(TagConstants.TAG_CLOSE);
@@ -774,7 +774,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         }
 
         // fast, no clone
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);
         buffer.append(this.attributeMap);

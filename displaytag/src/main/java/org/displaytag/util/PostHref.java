@@ -188,7 +188,7 @@ public class PostHref implements Href
     public String toString()
     {
 
-        StringBuffer buffer = new StringBuffer(30);
+        StringBuilder buffer = new StringBuilder(30);
 
         buffer.append("javascript:displaytagform('");
         buffer.append(this.form);

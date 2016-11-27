@@ -112,7 +112,7 @@ public final class RandomSampleUtil
      */
     public static String getRandomSentence(int wordNumber)
     {
-        StringBuffer buffer = new StringBuffer(wordNumber * 12);
+        StringBuilder buffer = new StringBuilder(wordNumber * 12);
 
         int j = 0;
         while (j < wordNumber)

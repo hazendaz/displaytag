@@ -757,7 +757,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
                 {
                     // create a complete string for compatibility with previous version before expression evaluation.
                     // this approach is optimized for new expressions, not for previous property/scope parameters
-                    StringBuffer expression = new StringBuffer();
+                    StringBuilder expression = new StringBuilder();
 
                     // base bean name
                     if (this.paramId != null)

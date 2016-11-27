@@ -127,7 +127,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
             return TagConstants.TAG_OPEN + TagConstants.TAGNAME_CAPTION + TagConstants.TAG_CLOSE;
         }
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TAGNAME_CAPTION);
 

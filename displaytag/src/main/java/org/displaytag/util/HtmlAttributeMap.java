@@ -69,7 +69,7 @@ public class HtmlAttributeMap extends HashMap<String, Object>
         }
 
         // buffer extimated in number of attributes * 30
-        StringBuffer buffer = new StringBuffer(size() * 30);
+        StringBuilder buffer = new StringBuilder(size() * 30);
 
         // get the entrySet
         Set<java.util.Map.Entry<String, Object>> entrySet = entrySet();

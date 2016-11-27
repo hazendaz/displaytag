@@ -85,7 +85,7 @@ public class MultipleHtmlAttribute implements Cloneable
     @Override
     public String toString()
     {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         Iterator<String> iterator = this.attributeSet.iterator();
 

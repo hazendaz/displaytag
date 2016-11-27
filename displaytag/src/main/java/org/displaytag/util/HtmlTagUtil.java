@@ -50,7 +50,7 @@ public final class HtmlTagUtil
     public static String createOpenTagString(String tagName, HtmlAttributeMap attributes)
     {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append(TagConstants.TAG_OPEN).append(tagName);
 
@@ -74,7 +74,7 @@ public final class HtmlTagUtil
         // operate on chars to avoid heavy string operations on jdk 1.3
         int len = str.length();
         char[] value = str.toCharArray();
-        StringBuffer dest = new StringBuffer(len + 16);
+        StringBuilder dest = new StringBuilder(len + 16);
         boolean intag = false;
 
         for (int j = 0; j < len; j++)
@@ -120,12 +120,12 @@ public final class HtmlTagUtil
     {
         if (str == null || str.length() <= maxLength)
         {
-            // quick exit to avoid useless creation of a Stringbuffer
+            // quick exit to avoid useless creation of a StringBuilder
             return str;
         }
 
         int sz = str.length();
-        StringBuffer buffer = new StringBuffer(sz);
+        StringBuilder buffer = new StringBuilder(sz);
 
         // some spaghetti code for quick & dirty tag handling and entity detection
         boolean inTag = false; // parsing a tag
@@ -135,7 +135,7 @@ public final class HtmlTagUtil
         boolean chopped = false; // result has been chopped?
         int entityChars = 0; // number of chars in parsed entity
 
-        StringBuffer currentTag = new StringBuffer(5); // will contain a tag name
+        StringBuilder currentTag = new StringBuilder(5); // will contain a tag name
 
         List<String> openTags = new ArrayList<String>(5); // lit of unclosed tags found in the string
 
@@ -171,7 +171,7 @@ public final class HtmlTagUtil
                         inTagName = false;
                     }
 
-                    currentTag = new StringBuffer(5);
+                    currentTag = new StringBuilder(5);
                 }
                 else if (inTagName && (c == ' ' || c == '>'))
                 {
@@ -185,7 +185,7 @@ public final class HtmlTagUtil
                     {
                         openTags.remove(currentTag.toString());
                     }
-                    currentTag = new StringBuffer(5);
+                    currentTag = new StringBuilder(5);
                     if (c == '>')
                     {
                         inTag = false;

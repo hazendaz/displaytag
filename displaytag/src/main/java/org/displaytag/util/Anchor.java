@@ -127,7 +127,7 @@ public class Anchor
         }
 
         // append all attributes
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TAGNAME_ANCHOR).append(getHrefString());
 

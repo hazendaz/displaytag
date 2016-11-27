@@ -68,7 +68,7 @@ public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
         String work = columnValue.toString();
 
         int urlBegin;
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         // First check for email addresses.
         while ((urlBegin = work.indexOf('@')) != -1)
@@ -113,7 +113,7 @@ public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
         }
 
         work = buffer.toString() + work;
-        buffer = new StringBuffer();
+        buffer = new StringBuilder();
 
         // Now check for urls...
         while ((urlBegin = work.indexOf(URL_DELIM)) != -1)
@@ -121,7 +121,7 @@ public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
 
             // scan backwards...
             int fullUrlBegin = urlBegin;
-            StringBuffer prefixBuffer = new StringBuffer(10);
+            StringBuilder prefixBuffer = new StringBuilder(10);
             for (int j = fullUrlBegin - 1; j >= 0; j--)
             {
                 if (Character.isWhitespace(work.charAt(j)))

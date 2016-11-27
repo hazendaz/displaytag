@@ -187,7 +187,7 @@ public class Row
             rowAttributes.put(TagConstants.ATTRIBUTE_CLASS, cssAttribute);
         }
 
-        StringBuffer tag = new StringBuffer();
+        StringBuilder tag = new StringBuilder();
         tag.append(TagConstants.TAG_OPEN);
         tag.append(TagConstants.TAGNAME_ROW);
 

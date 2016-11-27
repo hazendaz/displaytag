@@ -317,7 +317,7 @@ public class DefaultHref implements Href
     @Override
     public String toString()
     {
-        StringBuffer buffer = new StringBuffer(30);
+        StringBuilder buffer = new StringBuilder(30);
 
         buffer.append(this.url);
 

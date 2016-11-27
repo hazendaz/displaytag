@@ -168,7 +168,7 @@ public abstract class BaseExportView implements TextExportView
         final String CELL_END = getCellEnd();
         final boolean ALWAYS_APPEND_CELL_END = getAlwaysAppendCellEnd();
 
-        StringBuffer buffer = new StringBuffer(1000);
+        StringBuilder buffer = new StringBuilder(1000);
 
         Iterator<HeaderCell> iterator = this.model.getHeaderCellList().iterator();
 

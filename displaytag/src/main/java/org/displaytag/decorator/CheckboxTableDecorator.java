@@ -94,7 +94,7 @@ public class CheckboxTableDecorator extends TableDecorator
             for (Iterator<String> it = this.checkedIds.iterator(); it.hasNext();)
             {
                 String name = it.next();
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 buffer.append("<input type=\"hidden\" name=\"");
                 buffer.append(this.fieldName);
                 buffer.append("\" value=\"");
@@ -128,7 +128,7 @@ public class CheckboxTableDecorator extends TableDecorator
 
         boolean checked = this.checkedIds.contains(evaluatedId);
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append("<input type=\"checkbox\" name=\"_chk\" value=\"");
         buffer.append(evaluatedId);
         buffer.append("\"");
