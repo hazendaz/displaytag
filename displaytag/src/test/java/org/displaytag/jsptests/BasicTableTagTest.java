@@ -52,7 +52,7 @@ public class BasicTableTagTest extends DisplaytagCase
 
     /**
      * Verifies that the generated page contains a table with the expected number of columns.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

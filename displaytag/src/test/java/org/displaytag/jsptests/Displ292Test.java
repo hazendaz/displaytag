@@ -74,7 +74,7 @@ public class Displ292Test extends DisplaytagCase
     /**
      * Check that model modifications made by table decorator specified with in the decorator property the table tag
      * show up in the csv export.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

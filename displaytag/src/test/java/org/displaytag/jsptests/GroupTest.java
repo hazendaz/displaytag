@@ -53,7 +53,7 @@ public class GroupTest extends DisplaytagCase
 
     /**
      * Tests row grouping. bug #923446
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

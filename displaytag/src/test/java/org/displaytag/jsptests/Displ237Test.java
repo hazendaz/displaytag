@@ -54,7 +54,7 @@ public class Displ237Test extends DisplaytagCase
 
     /**
      * Trying to reproduce an IndexOutOfBoundsException...
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

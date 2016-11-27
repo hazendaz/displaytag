@@ -53,7 +53,7 @@ public class Displ085Test extends DisplaytagCase
 
     /**
      * A simple way for creating columns on the fly using jstl.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

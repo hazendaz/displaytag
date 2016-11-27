@@ -54,7 +54,7 @@ public class Displ142Test extends DisplaytagCase
 
     /**
      * Nested tables should be ignored.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

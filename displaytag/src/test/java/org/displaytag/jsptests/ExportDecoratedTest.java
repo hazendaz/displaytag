@@ -57,7 +57,7 @@ public class ExportDecoratedTest extends DisplaytagCase
 
     /**
      * Export should not be decorated.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

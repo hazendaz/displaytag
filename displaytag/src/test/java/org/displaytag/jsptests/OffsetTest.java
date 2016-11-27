@@ -52,7 +52,7 @@ public class OffsetTest extends DisplaytagCase
 
     /**
      * Only items from 2 to 4 should show up in the response.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

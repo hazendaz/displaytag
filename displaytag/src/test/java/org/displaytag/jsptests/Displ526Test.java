@@ -52,7 +52,7 @@ public class Displ526Test extends DisplaytagCase
 
     /**
      * Check additional parameters in paging.banner.*.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any exception thrown during test.
      */
     @Override

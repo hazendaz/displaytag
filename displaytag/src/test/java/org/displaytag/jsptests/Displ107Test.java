@@ -56,7 +56,7 @@ public class Displ107Test extends DisplaytagCase
 
     /**
      * Encoding should be utf8.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

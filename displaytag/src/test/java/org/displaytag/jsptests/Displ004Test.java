@@ -52,7 +52,7 @@ public class Displ004Test extends DisplaytagCase
 
     /**
      * Check the content of the title attribute.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

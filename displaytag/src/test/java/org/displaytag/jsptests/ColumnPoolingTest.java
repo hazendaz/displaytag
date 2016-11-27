@@ -52,7 +52,7 @@ public class ColumnPoolingTest extends DisplaytagCase
 
     /**
      * All the columns should be sortable.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

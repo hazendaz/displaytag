@@ -52,7 +52,7 @@ public class Displ058Test extends DisplaytagCase
 
     /**
      * Check sorted columns.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

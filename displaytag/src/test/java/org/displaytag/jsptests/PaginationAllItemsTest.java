@@ -53,7 +53,7 @@ public class PaginationAllItemsTest extends DisplaytagCase
 
     /**
      * Just a quick test to assure that you can avoid page numbers when displaying one page.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

@@ -56,7 +56,7 @@ public class Displ249Test extends DisplaytagCase
 
     /**
      * Link generated for results navigation is breaking national character taken from FormBean.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

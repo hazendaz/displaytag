@@ -53,7 +53,7 @@ public class HtmlAttributesTest extends DisplaytagCase
 
     /**
      * Check content and ids in generated tables.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

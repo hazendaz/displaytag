@@ -55,7 +55,7 @@ public class Displ080Test extends DisplaytagCase
 
     /**
      * Test the new escapeXml tag attribute.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

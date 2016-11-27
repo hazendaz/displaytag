@@ -52,7 +52,7 @@ public class EmptyTableTest extends DisplaytagCase
 
     /**
      * Verifies that the generated page doesn't contain any table (but doesn't crash!).
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

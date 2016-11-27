@@ -54,7 +54,7 @@ public class ExportUTF8Test extends DisplaytagCase
 
     /**
      * Test response encoding.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

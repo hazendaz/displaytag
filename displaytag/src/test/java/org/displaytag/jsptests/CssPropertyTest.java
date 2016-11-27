@@ -54,7 +54,7 @@ public class CssPropertyTest extends DisplaytagCase
 
     /**
      * Check that css classes are set correctly according to the ones in setProperty tags.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

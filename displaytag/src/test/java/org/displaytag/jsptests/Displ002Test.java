@@ -52,7 +52,7 @@ public class Displ002Test extends DisplaytagCase
 
     /**
      * Check if tables are generated with variable id and content in column is filled appropriately.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

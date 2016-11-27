@@ -58,7 +58,7 @@ public class Displ125Test extends DisplaytagCase
 
     /**
      * Preserve The Current Page And Sort Across Session.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

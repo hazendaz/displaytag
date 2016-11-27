@@ -52,7 +52,7 @@ public class Displ068Test extends DisplaytagCase
 
     /**
      * Test with a list of lists.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

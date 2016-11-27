@@ -52,7 +52,7 @@ public class Displ334Test extends DisplaytagCase
 
     /**
      * Check addictional parameters in paging.banner.*.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

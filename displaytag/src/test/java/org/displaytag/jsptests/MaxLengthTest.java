@@ -52,7 +52,7 @@ public class MaxLengthTest extends DisplaytagCase
 
     /**
      * Test that title is escaped correctly.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

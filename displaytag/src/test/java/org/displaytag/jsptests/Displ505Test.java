@@ -54,7 +54,7 @@ public class Displ505Test extends DisplaytagCase
 
     /**
      * Check additional parameters in urls.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any Exception thrown during test.
      */
     @Override

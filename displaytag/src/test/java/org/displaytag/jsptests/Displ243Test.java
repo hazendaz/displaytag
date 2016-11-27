@@ -57,7 +57,7 @@ public class Displ243Test extends DisplaytagCase
 
     /**
      * CHeck sort order after some clicks
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

@@ -55,7 +55,7 @@ public class Displ056Test extends DisplaytagCase
 
     /**
      * Try to sort generated tables.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

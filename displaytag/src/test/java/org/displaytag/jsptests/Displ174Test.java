@@ -53,7 +53,7 @@ public class Displ174Test extends DisplaytagCase
 
     /**
      * Decorated object based on a pageContext attribute
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

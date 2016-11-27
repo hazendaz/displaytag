@@ -54,7 +54,7 @@ public class ExportFullTest extends DisplaytagCase
 
     /**
      * Test for content disposition and filename.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

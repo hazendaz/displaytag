@@ -54,7 +54,7 @@ public class Displ049Test extends DisplaytagCase
 
     /**
      * Check variable style and class attributes.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

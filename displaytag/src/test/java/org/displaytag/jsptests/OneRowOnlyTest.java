@@ -52,7 +52,7 @@ public class OneRowOnlyTest extends DisplaytagCase
 
     /**
      * Checks for the expected values in columns.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

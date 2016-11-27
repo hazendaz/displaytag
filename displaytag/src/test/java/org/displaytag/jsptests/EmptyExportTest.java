@@ -51,7 +51,7 @@ public class EmptyExportTest extends DisplaytagCase
 
     /**
      * Test that export links are not shown on generated page.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

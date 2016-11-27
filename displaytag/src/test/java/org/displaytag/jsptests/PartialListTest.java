@@ -56,7 +56,7 @@ public class PartialListTest extends DisplaytagCase
     /**
      * Verifies that the generated page contains the pagination links with the inupt parameter. Tests #917200 ("{}" in
      * parameters).
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

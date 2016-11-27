@@ -54,7 +54,7 @@ public class ListIndexTableDecoratorTest extends DisplaytagCase
 
     /**
      * Checks that the generated page contains decorated values.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

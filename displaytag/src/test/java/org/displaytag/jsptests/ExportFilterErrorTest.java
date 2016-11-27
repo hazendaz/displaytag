@@ -53,7 +53,7 @@ public class ExportFilterErrorTest extends DisplaytagCase
 
     /**
      * Test with filter enabled and no export written.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

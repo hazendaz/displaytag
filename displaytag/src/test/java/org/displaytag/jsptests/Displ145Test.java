@@ -42,7 +42,7 @@ public class Displ145Test extends DisplaytagCase
 
     /**
      * 4 generated tables.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

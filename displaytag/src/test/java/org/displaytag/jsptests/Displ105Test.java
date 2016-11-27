@@ -42,7 +42,7 @@ public class Displ105Test extends DisplaytagCase
 
     /**
      * Generated link should be https.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

@@ -52,7 +52,7 @@ public class ExcludedParamsStarTest extends DisplaytagCase
 
     /**
      * Checks generated pagination links.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

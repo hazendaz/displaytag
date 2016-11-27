@@ -54,7 +54,7 @@ public class Displ232Test extends DisplaytagCase
 
     /**
      * Paging banner should contain [10]
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

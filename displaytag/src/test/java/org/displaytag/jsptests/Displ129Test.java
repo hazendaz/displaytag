@@ -58,7 +58,7 @@ public class Displ129Test extends DisplaytagCase
 
     /**
      * No exception when an invalid page is requested.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

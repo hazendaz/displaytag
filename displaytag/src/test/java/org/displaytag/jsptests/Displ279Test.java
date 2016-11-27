@@ -52,7 +52,7 @@ public class Displ279Test extends DisplaytagCase
 
     /**
      * Check column values.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

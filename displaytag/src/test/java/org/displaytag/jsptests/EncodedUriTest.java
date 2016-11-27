@@ -54,7 +54,7 @@ public class EncodedUriTest extends DisplaytagCase
 
     /**
      * Test link generated using requestUri.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

@@ -61,7 +61,7 @@ public class I18nPropertiesTest extends DisplaytagCase
 
     /**
      * Check that the "no results" property is loaded from the correct locale file.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

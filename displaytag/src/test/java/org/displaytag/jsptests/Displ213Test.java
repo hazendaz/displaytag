@@ -54,7 +54,7 @@ public class Displ213Test extends DisplaytagCase
 
     /**
      * The last page should show up in the list.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

@@ -54,7 +54,7 @@ public class DataSourceMapTest extends DisplaytagCase
 
     /**
      * Test with a Map[].
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

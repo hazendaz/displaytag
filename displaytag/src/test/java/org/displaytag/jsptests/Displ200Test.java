@@ -54,7 +54,7 @@ public class Displ200Test extends DisplaytagCase
 
     /**
      * CHeck value returned by the decorator.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override

@@ -52,7 +52,7 @@ public class ColumnBodyTest extends DisplaytagCase
 
     /**
      * Check content in generated table.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     @Override
