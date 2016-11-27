@@ -78,7 +78,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author rapruitt Date: Aug 26, 2009 Time: 1:55:29 PM
  * @see FopExportView#SPECIFIC_STYLESHEET the property that contains the text of a stylesheet
- * @see FopExportView#DEFAULT_STYLESHEET the defualt stylesheet location
+ * @see FopExportView#DEFAULT_STYLESHEET the default stylesheet location
  * @see XslTransformerTest#XML for a sample of the XML output
  * @see XmlTotalsWriter
  */
