@@ -95,8 +95,10 @@ public class Pagination
 
     /**
      * Constructor for Pagination.
+     *
      * @param baseHref Href used for links
      * @param pageParameter name for the page parameter
+     * @param properties the properties
      */
     public Pagination(Href baseHref, String pageParameter, TableProperties properties)
     {
@@ -120,7 +122,8 @@ public class Pagination
     }
 
     /**
-     * first page selected?
+     * first page selected?.
+     *
      * @return boolean
      */
     public boolean isFirst()
@@ -129,7 +132,8 @@ public class Pagination
     }
 
     /**
-     * last page selected?
+     * last page selected?.
+     *
      * @return boolean
      */
     public boolean isLast()
@@ -138,7 +142,8 @@ public class Pagination
     }
 
     /**
-     * only one page?
+     * only one page?.
+     *
      * @return boolean
      */
     public boolean isOnePage()

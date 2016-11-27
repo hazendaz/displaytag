@@ -72,9 +72,7 @@ public class SmartListHelper
      */
     private int pageCount;
 
-    /**
-     * the list we hold is only part of the full dataset
-     */
+    /** the list we hold is only part of the full dataset. */
     private boolean partialList;
 
     /**
@@ -90,10 +88,12 @@ public class SmartListHelper
     /**
      * Creates a SmarListHelper instance that will help you chop up a list into bite size pieces that are suitable for
      * display.
+     *
      * @param list List
      * @param fullSize size of the full list
      * @param itemsInPage number of items in a page (int > 0)
      * @param tableProperties TableProperties
+     * @param partialList the partial list
      */
     public SmartListHelper(
         List<Object> list,

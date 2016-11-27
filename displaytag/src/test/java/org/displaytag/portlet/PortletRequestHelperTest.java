@@ -31,12 +31,17 @@ import org.springframework.mock.web.portlet.MockRenderResponse;
 
 
 /**
+ * The Class PortletRequestHelperTest.
+ *
  * @author Eric Dalquist <a href="mailto:edalquist@unicon.net">edalquist@unicon.net</a>
  * @version $Id$
  */
 public class PortletRequestHelperTest
 {
 
+    /**
+     * Test null page context.
+     */
     @Test
     public void testNullPageContext()
     {
@@ -51,6 +56,9 @@ public class PortletRequestHelperTest
         }
     }
 
+    /**
+     * Test empty page context.
+     */
     @Test
     public void testEmptyPageContext()
     {
@@ -91,6 +99,9 @@ public class PortletRequestHelperTest
         }
     }
 
+    /**
+     * Test basic page context.
+     */
     @Test
     public void testBasicPageContext()
     {
@@ -102,6 +113,9 @@ public class PortletRequestHelperTest
         new PortletRequestHelper(pageContext);
     }
 
+    /**
+     * Test request parameters.
+     */
     @Test
     public void testRequestParameters()
     {
@@ -139,6 +153,9 @@ public class PortletRequestHelperTest
         Assert.assertEquals(expextedIntArryVal[0], intArryVal[0]);
     }
 
+    /**
+     * Test create empty href.
+     */
     @Test
     public void testCreateEmptyHref()
     {
@@ -161,6 +178,9 @@ public class PortletRequestHelperTest
         Assert.assertFalse(ref.isRequestedSecure());
     }
 
+    /**
+     * Test create secure href.
+     */
     @Test
     public void testCreateSecureHref()
     {
@@ -186,6 +206,9 @@ public class PortletRequestHelperTest
         Assert.assertTrue(ref.isRequestedSecure());
     }
 
+    /**
+     * Test parameterized href.
+     */
     @Test
     public void testParameterizedHref()
     {

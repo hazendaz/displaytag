@@ -75,6 +75,12 @@ public class ExportPdfTest extends DisplaytagCase
         super.tearDown();
     }
 
+    /**
+     * Gets the test file.
+     *
+     * @return the test file
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public File getTestFile() throws IOException
     {
         return File.createTempFile("inline", "pdf");
@@ -95,6 +101,11 @@ public class ExportPdfTest extends DisplaytagCase
         fw.close();
     }
 
+    /**
+     * Do inline test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void doInlineTest() throws Exception
     {
@@ -106,6 +117,13 @@ public class ExportPdfTest extends DisplaytagCase
         fw.close();
     }
 
+    /**
+     * Run page.
+     *
+     * @param jspPage the jsp page
+     * @return the byte[]
+     * @throws Exception the exception
+     */
     public byte[] runPage(String jspPage) throws Exception
     {
 

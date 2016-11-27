@@ -33,7 +33,8 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
- * Test for DISPL-199 - Column Summation
+ * Test for DISPL-199 - Column Summation.
+ *
  * @author Fabrizio Giustina
  * @version $Id$
  */
@@ -41,6 +42,9 @@ public class Displ199Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

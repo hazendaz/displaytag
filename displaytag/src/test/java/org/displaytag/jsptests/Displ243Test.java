@@ -36,7 +36,8 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
- * Test for DISPL-243 - Default column sort breaks sorting after a few sorts of the column
+ * Test for DISPL-243 - Default column sort breaks sorting after a few sorts of the column.
+ *
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
@@ -44,6 +45,9 @@ public class Displ243Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

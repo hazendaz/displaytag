@@ -49,14 +49,19 @@ public final class LookupUtil
      */
     private static Logger log = LoggerFactory.getLogger(LookupUtil.class);
 
+    /** The Constant INDEXED_DELIM. */
     private static final char INDEXED_DELIM = '[';
 
+    /** The Constant INDEXED_DELIM2. */
     private static final char INDEXED_DELIM2 = ']';
 
+    /** The Constant MAPPED_DELIM. */
     private static final char MAPPED_DELIM = '(';
 
+    /** The Constant MAPPED_DELIM2. */
     private static final char MAPPED_DELIM2 = ')';
 
+    /** The Constant NESTED_DELIM. */
     private static final char NESTED_DELIM = '.';
 
     /**
@@ -180,13 +185,13 @@ public final class LookupUtil
     /**
      * Return the value of the (possibly nested) property of the specified name, for the specified bean, with no type
      * conversions.
+     *
      * @param bean Bean whose property is to be extracted
      * @param name Possibly nested name of the property to be extracted
      * @return Object
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
-     * @throws BeanPropertyLookupException for errors reading bean properties
+     * @throws IllegalAccessException the illegal access exception
+     * @throws InvocationTargetException the invocation target exception
+     * @throws NoSuchMethodException the no such method exception
      */
     public static Object getProperty(Object bean, String name) throws IllegalAccessException,
         InvocationTargetException, NoSuchMethodException

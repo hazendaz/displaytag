@@ -59,14 +59,19 @@ import org.slf4j.LoggerFactory;
 public abstract class TableWriterTemplate
 {
 
+    /** The Constant GROUP_START. */
     public static final short GROUP_START = -2;
 
+    /** The Constant GROUP_END. */
     public static final short GROUP_END = 5;
 
+    /** The Constant GROUP_START_AND_END. */
     public static final short GROUP_START_AND_END = 3;
 
+    /** The Constant GROUP_NO_CHANGE. */
     public static final short GROUP_NO_CHANGE = 0;
 
+    /** The Constant NO_RESET_GROUP. */
     protected static final int NO_RESET_GROUP = 42000;
 
     /**
@@ -79,8 +84,10 @@ public abstract class TableWriterTemplate
      */
     private String id;
 
+    /** The lowest ended group. */
     int lowestEndedGroup;
 
+    /** The lowest started group. */
     int lowestStartedGroup;
 
     /**
@@ -519,10 +526,22 @@ public abstract class TableWriterTemplate
      */
     protected abstract void writeDecoratedRowStart(TableModel model) throws Exception;
 
+    /**
+     * Write subgroup start.
+     *
+     * @param model the model
+     * @throws Exception the exception
+     */
     protected void writeSubgroupStart(TableModel model) throws Exception
     {
     }
 
+    /**
+     * Write subgroup stop.
+     *
+     * @param model the model
+     * @throws Exception the exception
+     */
     protected void writeSubgroupStop(TableModel model) throws Exception
     {
     }
@@ -587,7 +606,11 @@ public abstract class TableWriterTemplate
     /**
      * This takes a column value and grouping index as the argument. It then groups the column and returns the
      * appropriate string back to the caller.
+     *
      * @param value String current cell value
+     * @param previous the previous
+     * @param next the next
+     * @param currentGroup the current group
      * @return String
      */
     @SuppressWarnings("deprecation")
@@ -621,15 +644,27 @@ public abstract class TableWriterTemplate
         return groupingKey;
     }
 
+    /**
+     * The Class CellStruct.
+     */
     static class CellStruct
     {
 
+        /** The column. */
         Column column;
 
+        /** The body value. */
         String bodyValue;
 
+        /** The decorated value. */
         String decoratedValue;
 
+        /**
+         * Instantiates a new cell struct.
+         *
+         * @param theColumn the the column
+         * @param bodyValueParam the body value param
+         */
         public CellStruct(Column theColumn, String bodyValueParam)
         {
             this.column = theColumn;

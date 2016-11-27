@@ -38,9 +38,7 @@ public class NumberedPage
      */
     private int number;
 
-    /**
-     * is the page selected?
-     */
+    /** is the page selected?. */
     private boolean selected;
 
     /**
@@ -64,7 +62,8 @@ public class NumberedPage
     }
 
     /**
-     * is the page selected?
+     * is the page selected?.
+     *
      * @return true if the page is slected
      */
     public boolean getSelected()

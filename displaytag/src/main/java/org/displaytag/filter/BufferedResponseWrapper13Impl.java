@@ -71,6 +71,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      */
     private String characterEncoding;
 
+    /** The char enc set. */
     private boolean charEncSet;
 
     /**
@@ -84,6 +85,8 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     private boolean outRequested;
 
     /**
+     * Instantiates a new buffered response wrapper 13 impl.
+     *
      * @param httpServletResponse the response to wrap
      */
     public BufferedResponseWrapper13Impl(HttpServletResponse httpServletResponse)

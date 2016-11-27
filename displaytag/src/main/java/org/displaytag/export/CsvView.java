@@ -38,6 +38,7 @@ import org.displaytag.model.TableModel;
 public class CsvView extends BaseExportView
 {
 
+    /** The Constant UTF8_BOM. */
     private static final String UTF8_BOM = "\uFEFF";
 
     @Override

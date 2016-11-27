@@ -61,7 +61,8 @@ public class ColumnIterator
     }
 
     /**
-     * Are there more columns?
+     * Are there more columns?.
+     *
      * @return boolean <code>true</code> if there are more columns
      */
     public boolean hasNext()

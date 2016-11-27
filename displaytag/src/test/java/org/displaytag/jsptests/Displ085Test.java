@@ -32,7 +32,8 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
- * Test for DISPL-085 - Dynamic Column Creation
+ * Test for DISPL-085 - Dynamic Column Creation.
+ *
  * @author Fabrizio Giustina
  * @version $Id$
  */
@@ -40,6 +41,9 @@ public class Displ085Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

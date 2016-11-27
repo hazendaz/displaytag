@@ -33,9 +33,10 @@ import com.itextpdf.text.pdf.PdfPTable;
 
 /**
  * Same idea implemented in ItextTableWriter applied to decorators.
- * @see org.displaytag.render.ItextTableWriter
+ *
  * @author Jorge L. Barroso
  * @version $Revision$ ($Author$)
+ * @see org.displaytag.render.ItextTableWriter
  */
 public class ItextTotalWrapper extends TotalWrapperTemplate
     implements

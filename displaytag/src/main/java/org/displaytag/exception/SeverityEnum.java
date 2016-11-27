@@ -28,13 +28,27 @@ package org.displaytag.exception;
  */
 public enum SeverityEnum {
 
-    FATAL("fatal"), ERROR("error"), WARN("warn"), INFO("info"), DEBUG("debug");
+    /** The fatal. */
+    FATAL("fatal"),
+
+    /** The error. */
+    ERROR("error"),
+
+    /** The warn. */
+    WARN("warn"),
+
+    /** The info. */
+    INFO("info"),
+
+    /** The debug. */
+    DEBUG("debug");
 
     /**
      * D1597A17A6.
      */
     private static final long serialVersionUID = 899149338534L;
 
+    /** The severity. */
     private String severity;
 
     /**

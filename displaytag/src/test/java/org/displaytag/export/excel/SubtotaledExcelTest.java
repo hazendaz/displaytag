@@ -44,11 +44,18 @@ import org.junit.Test;
 
 
 /**
+ * The Class SubtotaledExcelTest.
+ *
  * @author andy Date: Oct 30, 2010 Time: 1:18:01 PM
  */
 public class SubtotaledExcelTest
 {
 
+    /**
+     * Gets the model.
+     *
+     * @return the model
+     */
     TableModel getModel()
     {
         TableProperties props = TableProperties.getInstance(null);
@@ -112,6 +119,11 @@ public class SubtotaledExcelTest
         return model;
     }
 
+    /**
+     * Test no groups.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testNoGroups() throws Exception
     {
@@ -148,6 +160,11 @@ public class SubtotaledExcelTest
 
     }
 
+    /**
+     * Test simple totals correct.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testSimpleTotalsCorrect() throws Exception
     {

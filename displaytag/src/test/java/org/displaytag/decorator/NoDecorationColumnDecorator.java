@@ -27,6 +27,9 @@ import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
 
 
+/**
+ * The Class NoDecorationColumnDecorator.
+ */
 public class NoDecorationColumnDecorator implements DisplaytagColumnDecorator
 {
 

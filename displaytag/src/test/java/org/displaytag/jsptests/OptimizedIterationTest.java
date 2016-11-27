@@ -43,6 +43,9 @@ public class OptimizedIterationTest extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()
@@ -95,6 +98,8 @@ public class OptimizedIterationTest extends DisplaytagCase
     }
 
     /**
+     * Check number of iterations.
+     *
      * @param response WebResponse
      * @param iterations expected number of iterations
      * @throws Exception any axception thrown during test.

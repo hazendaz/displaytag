@@ -49,9 +49,7 @@ public class RowSorter implements Comparator<Object>
      */
     private TableDecorator decorator;
 
-    /**
-     * sort order ascending?
-     */
+    /** sort order ascending?. */
     private boolean ascending;
 
     /**

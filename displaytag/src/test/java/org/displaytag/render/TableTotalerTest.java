@@ -38,11 +38,16 @@ import org.junit.Test;
 
 
 /**
- * User: rapruitt Date: May 31, 2010 Time: 1:08:02 PM
+ * User: rapruitt Date: May 31, 2010 Time: 1:08:02 PM.
  */
 public class TableTotalerTest extends XMLTestCase
 {
 
+    /**
+     * Gets the model.
+     *
+     * @return the model
+     */
     TableModel getModel()
     {
         TableProperties props = TableProperties.getInstance(null);
@@ -98,6 +103,11 @@ public class TableTotalerTest extends XMLTestCase
         return model;
     }
 
+    /**
+     * Test simple totals correct.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testSimpleTotalsCorrect() throws Exception
     {

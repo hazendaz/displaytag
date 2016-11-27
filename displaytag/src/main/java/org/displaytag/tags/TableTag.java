@@ -171,24 +171,16 @@ public class TableTag extends HtmlTableTag
      */
     private int offset;
 
-    /**
-     * Integer containing total size of the data displaytag is paginating
-     */
+    /** Integer containing total size of the data displaytag is paginating. */
     private Object size;
 
-    /**
-     * Name of the Integer in some scope containing the size of the data displaytag is paginating
-     */
+    /** Name of the Integer in some scope containing the size of the data displaytag is paginating. */
     private String sizeObjectName;
 
-    /**
-     * sort the full list?
-     */
+    /** sort the full list?. */
     private Boolean sortFullTable;
 
-    /**
-     * are we doing any local sorting? (defaults to True)
-     */
+    /** are we doing any local sorting? (defaults to True). */
     private boolean localSort = true;
 
     /**
@@ -287,9 +279,7 @@ public class TableTag extends HtmlTableTag
      */
     private MediaTypeEnum currentMediaType;
 
-    /**
-     * daAfterBody() has been executed at least once?
-     */
+    /** daAfterBody() has been executed at least once?. */
     private boolean doAfterBodyExecuted;
 
     /**
@@ -334,7 +324,8 @@ public class TableTag extends HtmlTableTag
     private String totalerName;
 
     /**
-     * Is this the last iteration?
+     * Is this the last iteration?.
+     *
      * @return boolean <code>true</code> if this is the last iteration
      */
     public boolean isLastIteration()
@@ -390,7 +381,8 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Is the current row empty?
+     * Is the current row empty?.
+     *
      * @return true if the current row is empty
      */
     public boolean isEmpty()
@@ -399,7 +391,8 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Preserve the current page and sort across session?
+     * Preserve the current page and sort across session?.
+     *
      * @param keepStatus <code>true</code> to preserve paging and sorting
      */
     public void setKeepStatus(boolean keepStatus)
@@ -426,7 +419,8 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * set the Integer containing the total size of the data displaytag is paginating
+     * set the Integer containing the total size of the data displaytag is paginating.
+     *
      * @param size Integer containing the total size of the data
      */
     public void setSize(Object size)
@@ -442,7 +436,8 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * set the name of the Integer in some scope containing the total size of the data to be paginated
+     * set the name of the Integer in some scope containing the total size of the data to be paginated.
+     *
      * @param sizeObjectName name of the Integer containing the total size of the data to be paginated
      */
     public void setSizeObjectName(String sizeObjectName)
@@ -567,7 +562,8 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Is export enabled?
+     * Is export enabled?.
+     *
      * @param value <code>true</code> if export should be enabled
      */
     public void setExport(boolean value)
@@ -623,7 +619,8 @@ public class TableTag extends HtmlTableTag
 
     /**
      * tells display tag that the values contained in the list are the viewable data only, there may be more results not
-     * given to displaytag
+     * given to displaytag.
+     *
      * @param partialList boolean value telling us there may be more data not given to displaytag
      */
     public void setPartialList(boolean partialList)
@@ -740,7 +737,8 @@ public class TableTag extends HtmlTableTag
     }
 
     /**
-     * Is this the first iteration?
+     * Is this the first iteration?.
+     *
      * @return boolean <code>true</code> if this is the first iteration
      */
     public boolean isFirstIteration()
@@ -936,6 +934,8 @@ public class TableTag extends HtmlTableTag
 
     /**
      * Reads parameters from the request and initialize all the needed table model attributes.
+     *
+     * @throws JspTagException the jsp tag exception
      * @throws FactoryInstantiationException for problems in instantiating a RequestHelperFactory
      */
     private void initParameters() throws JspTagException, FactoryInstantiationException
@@ -1370,6 +1370,11 @@ public class TableTag extends HtmlTableTag
         return tableDecoratorName;
     }
 
+    /**
+     * Gets the totaler name.
+     *
+     * @return the totaler name
+     */
     private String getTotalerName()
     {
         return (this.totalerName == null) ? this.properties.getTotalerName() : this.totalerName;
@@ -1503,9 +1508,10 @@ public class TableTag extends HtmlTableTag
     /**
      * Will write the export. The default behavior is to write directly to the response. If the ResponseOverrideFilter
      * is configured for this request, will instead write the exported content to a map in the Request object.
+     *
      * @param exportView export view
-     * @throws JspException for problem in clearing the response or for invalid export views
      * @throws IOException exception thrown when writing content to the response
+     * @throws JspException for problem in clearing the response or for invalid export views
      */
     protected void writeExport(ExportView exportView) throws IOException, JspException
     {

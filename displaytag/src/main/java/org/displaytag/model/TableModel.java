@@ -70,9 +70,7 @@ public class TableModel
      */
     private String sortedColumnName;
 
-    /**
-     * sort order = ascending?
-     */
+    /** sort order = ascending?. */
     private boolean sortOrderAscending = true;
 
     /**
@@ -110,9 +108,7 @@ public class TableModel
      */
     private String encoding;
 
-    /**
-     * Are we sorting locally? (Default True)
-     */
+    /** Are we sorting locally? (Default True). */
     private boolean localSort = true;
 
     /**
@@ -140,12 +136,15 @@ public class TableModel
      */
     private String form;
 
+    /** The totaler. */
     private TableTotaler totaler;
 
     /**
      * Constructor for TableModel.
+     *
      * @param tableProperties table properties
      * @param charEncoding response encoding
+     * @param pageContext the page context
      */
     public TableModel(TableProperties tableProperties, String charEncoding, PageContext pageContext)
     {
@@ -185,7 +184,8 @@ public class TableModel
 
     /**
      * Sets whether the table performs local in memory sorting of the data.
-     * @param localSort
+     *
+     * @param localSort the new local sort
      */
     public void setLocalSort(boolean localSort)
     {
@@ -193,6 +193,8 @@ public class TableModel
     }
 
     /**
+     * Checks if is local sort.
+     *
      * @return sorting in local memory
      */
     public boolean isLocalSort()
@@ -219,7 +221,8 @@ public class TableModel
     }
 
     /**
-     * Getter for <code>pageOffset</code>
+     * Getter for <code>pageOffset</code>.
+     *
      * @return Returns the page offset.
      */
     public int getPageOffset()
@@ -288,8 +291,9 @@ public class TableModel
     }
 
     /**
-     * sets the name of the currently sorted column
-     * @param sortedColumnName
+     * sets the name of the currently sorted column.
+     *
+     * @param sortedColumnName the new sorted column name
      */
     public void setSortedColumnName(String sortedColumnName)
     {
@@ -335,6 +339,8 @@ public class TableModel
     }
 
     /**
+     * Sets the row list page.
+     *
      * @param rowList - the new value for this.rowListPage
      */
     public void setRowListPage(List<Row> rowList)
@@ -455,9 +461,10 @@ public class TableModel
 
     /**
      * returns a RowIterator on the requested (full|page) list.
-     * @return RowIterator
+     *
      * @param full if <code>true</code> returns an iterator on te full list, if <code>false</code> only on the viewable
      * part.
+     * @return RowIterator
      * @see org.displaytag.model.RowIterator
      */
     public RowIterator getRowIterator(boolean full)
@@ -611,16 +618,29 @@ public class TableModel
             .toString();
     }
 
+    /**
+     * Gets the totaler.
+     *
+     * @return the totaler
+     */
     public TableTotaler getTotaler()
     {
         return this.totaler;
     }
 
+    /**
+     * Sets the totaler.
+     *
+     * @param totaler the new totaler
+     */
     public void setTotaler(TableTotaler totaler)
     {
         this.totaler = totaler;
     }
 
+    /**
+     * Reset.
+     */
     public void reset()
     {
         this.totaler.reset();

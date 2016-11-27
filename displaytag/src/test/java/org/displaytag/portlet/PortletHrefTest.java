@@ -34,12 +34,17 @@ import org.springframework.mock.web.portlet.MockRenderResponse;
 
 
 /**
+ * The Class PortletHrefTest.
+ *
  * @author Eric Dalquist <a href="mailto:edalquist@unicon.net">edalquist@unicon.net</a>
  * @version $Id$
  */
 public class PortletHrefTest
 {
 
+    /**
+     * Test constructor.
+     */
     @Test
     public void testConstructor()
     {
@@ -76,6 +81,9 @@ public class PortletHrefTest
         new PortletHref(new MockPortletRequest(), new MockRenderResponse());
     }
 
+    /**
+     * Test url type parameters.
+     */
     @Test
     public void testUrlTypeParameters()
     {
@@ -123,6 +131,9 @@ public class PortletHrefTest
         }
     }
 
+    /**
+     * Test secure parameters.
+     */
     @Test
     public void testSecureParameters()
     {
@@ -149,6 +160,9 @@ public class PortletHrefTest
         Assert.assertFalse(href.isRequestedSecure());
     }
 
+    /**
+     * Test portlet mode parameters.
+     */
     @Test
     public void testPortletModeParameters()
     {
@@ -179,6 +193,9 @@ public class PortletHrefTest
         }
     }
 
+    /**
+     * Test window state parameters.
+     */
     @Test
     public void testWindowStateParameters()
     {
@@ -209,6 +226,9 @@ public class PortletHrefTest
         }
     }
 
+    /**
+     * Test invalid prefix use parameters.
+     */
     @Test
     public void testInvalidPrefixUseParameters()
     {
@@ -225,6 +245,9 @@ public class PortletHrefTest
         }
     }
 
+    /**
+     * Test add parameters.
+     */
     @Test
     public void testAddParameters()
     {
@@ -248,6 +271,9 @@ public class PortletHrefTest
         Assert.assertArrayEquals(new String[]{"31337"}, actualParams.get("INT_PARAM"));
     }
 
+    /**
+     * Test add parameter map.
+     */
     @Test
     public void testAddParameterMap()
     {
@@ -281,6 +307,9 @@ public class PortletHrefTest
         Assert.assertEquals(multiParam[1], actualMultiParam[1]);
     }
 
+    /**
+     * Test set parameter map.
+     */
     @Test
     public void testSetParameterMap()
     {
@@ -317,6 +346,9 @@ public class PortletHrefTest
         Assert.assertEquals(multiParam[1], actualMultiParam[1]);
     }
 
+    /**
+     * Test remove parameter.
+     */
     @Test
     public void testRemoveParameter()
     {
@@ -335,6 +367,9 @@ public class PortletHrefTest
         Assert.assertNull(actualParams2.get("SINGLE_PARAM"));
     }
 
+    /**
+     * Test clone.
+     */
     @Test
     public void testClone()
     {
@@ -363,6 +398,9 @@ public class PortletHrefTest
         Assert.assertEquals(href.hashCode(), href2.hashCode());
     }
 
+    /**
+     * Test base url.
+     */
     @Test
     public void testBaseUrl()
     {
@@ -382,6 +420,9 @@ public class PortletHrefTest
         Assert.assertEquals("http://localhost/mockportlet?urlType=action", baseActionUrl);
     }
 
+    /**
+     * Test full url.
+     */
     @Test
     public void testFullUrl()
     {

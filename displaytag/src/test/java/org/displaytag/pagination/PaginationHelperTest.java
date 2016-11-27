@@ -34,12 +34,17 @@ import org.junit.Test;
 
 
 /**
+ * The Class PaginationHelperTest.
+ *
  * @author <a href="mailto:kevin.a.conaway@gmail.com">Kevin Conaway</a>
  * @version $Revision$ ($Author$)
  */
 public class PaginationHelperTest
 {
 
+    /**
+     * Test ensure only lists are handled.
+     */
     @Test
     public void testEnsureOnlyListsAreHandled()
     {
@@ -49,6 +54,9 @@ public class PaginationHelperTest
         this.assertEquals(data.iterator(), getIterator(data, 1, 25));
     }
 
+    /**
+     * Test get sublist other page.
+     */
     @Test
     public void testGetSublistOtherPage()
     {
@@ -59,6 +67,9 @@ public class PaginationHelperTest
         this.assertEquals(expected.iterator(), getIterator(data, 2, 3));
     }
 
+    /**
+     * Test get sublist first page.
+     */
     @Test
     public void testGetSublistFirstPage()
     {
@@ -69,6 +80,9 @@ public class PaginationHelperTest
         this.assertEquals(expected.iterator(), getIterator(data, 1, 3));
     }
 
+    /**
+     * Test get sublist last page.
+     */
     @Test
     public void testGetSublistLastPage()
     {
@@ -79,6 +93,9 @@ public class PaginationHelperTest
         this.assertEquals(expected.iterator(), getIterator(data, 3, 4));
     }
 
+    /**
+     * Test get sublist out of bounds.
+     */
     @Test
     public void testGetSublistOutOfBounds()
     {
@@ -95,6 +112,9 @@ public class PaginationHelperTest
         this.assertEquals(expected.iterator(), getIterator(data, 3, 5));
     }
 
+    /**
+     * Test get sublist page size bigger than list.
+     */
     @Test
     public void testGetSublistPageSizeBiggerThanList()
     {
@@ -111,6 +131,9 @@ public class PaginationHelperTest
         this.assertEquals(expected.iterator(), getIterator(data, 2, 25));
     }
 
+    /**
+     * Test get sublist for entire page.
+     */
     @Test
     public void testGetSublistForEntirePage()
     {
@@ -121,7 +144,12 @@ public class PaginationHelperTest
     }
 
     /**
-     * Ensures that the data passed to the helper is cast as an object
+     * Ensures that the data passed to the helper is cast as an object.
+     *
+     * @param data the data
+     * @param pageNumber the page number
+     * @param pageSize the page size
+     * @return the iterator
      */
     protected Iterator<Object> getIterator(Object data, int pageNumber, int pageSize)
     {
@@ -129,6 +157,12 @@ public class PaginationHelperTest
         return helper.getIterator(data);
     }
 
+    /**
+     * Prints the.
+     *
+     * @param iterator the iterator
+     * @param message the message
+     */
     protected void print(Iterator< ? extends Object> iterator, String message)
     {
         while (iterator.hasNext())
@@ -137,6 +171,12 @@ public class PaginationHelperTest
         }
     }
 
+    /**
+     * Adds the.
+     *
+     * @param collection the collection
+     * @param number the number
+     */
     protected void add(Collection<Integer> collection, int number)
     {
         for (int i = 0; i < number; i++)
@@ -145,6 +185,12 @@ public class PaginationHelperTest
         }
     }
 
+    /**
+     * Assert equals.
+     *
+     * @param expected the expected
+     * @param actual the actual
+     */
     protected void assertEquals(Iterator< ? extends Object> expected, Iterator< ? extends Object> actual)
     {
         while (expected.hasNext())

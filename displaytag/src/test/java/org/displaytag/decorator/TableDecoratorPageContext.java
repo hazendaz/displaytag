@@ -29,6 +29,11 @@ package org.displaytag.decorator;
 public class TableDecoratorPageContext extends TableDecorator
 {
 
+    /**
+     * Gets the use page context.
+     *
+     * @return the use page context
+     */
     public String getUsePageContext()
     {
         return this.getPageContext() != null ? "OK" : "ko";

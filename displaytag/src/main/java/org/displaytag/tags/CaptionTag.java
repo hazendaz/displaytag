@@ -52,9 +52,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
      */
     private HtmlAttributeMap attributeMap = new HtmlAttributeMap();
 
-    /**
-     * is this the first iteration?
-     */
+    /** is this the first iteration?. */
     private boolean firstIteration = true;
 
     /**

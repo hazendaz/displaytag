@@ -44,6 +44,9 @@ public class Displ107Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()
@@ -81,7 +84,8 @@ public class Displ107Test extends DisplaytagCase
     }
 
     /**
-     * Actually check exported bytes
+     * Actually check exported bytes.
+     *
      * @param response WebResponse
      * @throws Exception any axception thrown during test.
      */

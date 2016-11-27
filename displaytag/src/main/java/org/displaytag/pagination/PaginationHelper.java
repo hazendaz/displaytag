@@ -44,16 +44,30 @@ import org.apache.commons.collections.IteratorUtils;
 public class PaginationHelper
 {
 
+    /** The page number. */
     private final int pageNumber;
 
+    /** The page size. */
     private final int pageSize;
 
+    /**
+     * Instantiates a new pagination helper.
+     *
+     * @param pageNumber the page number
+     * @param pageSize the page size
+     */
     public PaginationHelper(int pageNumber, int pageSize)
     {
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
     }
 
+    /**
+     * Gets the iterator.
+     *
+     * @param data the data
+     * @return the iterator
+     */
     public Iterator<Object> getIterator(Object data)
     {
         if (data instanceof List)
@@ -64,6 +78,12 @@ public class PaginationHelper
         return IteratorUtils.getIterator(data);
     }
 
+    /**
+     * Gets the iterator.
+     *
+     * @param data the data
+     * @return the iterator
+     */
     public Iterator<Object> getIterator(List<Object> data)
     {
         int start = getStart(data.size());
@@ -71,6 +91,12 @@ public class PaginationHelper
         return data.subList(start, end).iterator();
     }
 
+    /**
+     * Gets the start.
+     *
+     * @param listSize the list size
+     * @return the start
+     */
     protected int getStart(int listSize)
     {
         int start = (this.pageNumber - 1) * this.pageSize;
@@ -83,6 +109,13 @@ public class PaginationHelper
         return start;
     }
 
+    /**
+     * Gets the end.
+     *
+     * @param listSize the list size
+     * @param start the start
+     * @return the end
+     */
     protected int getEnd(int listSize, int start)
     {
 

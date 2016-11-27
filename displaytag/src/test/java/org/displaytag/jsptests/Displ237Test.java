@@ -33,7 +33,8 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
- * Test for DISPL-237 - Problems using sorting, defaultsort
+ * Test for DISPL-237 - Problems using sorting, defaultsort.
+ *
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
@@ -41,6 +42,9 @@ public class Displ237Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

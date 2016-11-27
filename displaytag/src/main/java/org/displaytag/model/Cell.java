@@ -140,11 +140,21 @@ public class Cell implements Comparable<Cell>, Cloneable
             .append("staticValue", this.staticValue).toString(); //$NON-NLS-1$
     }
 
+    /**
+     * Sets the per row attributes.
+     *
+     * @param perRowValues the new per row attributes
+     */
     public void setPerRowAttributes(HtmlAttributeMap perRowValues)
     {
         this.attributes = perRowValues;
     }
 
+    /**
+     * Gets the per row attributes.
+     *
+     * @return the per row attributes
+     */
     public HtmlAttributeMap getPerRowAttributes()
     {
         return this.attributes;

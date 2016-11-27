@@ -191,6 +191,12 @@ public class TotalTableDecorator extends TableDecorator
 
     }
 
+    /**
+     * Creates the total row.
+     *
+     * @param grandTotal the grand total
+     * @return the string
+     */
     protected String createTotalRow(boolean grandTotal)
     {
         StringBuffer buffer = new StringBuffer(1000);

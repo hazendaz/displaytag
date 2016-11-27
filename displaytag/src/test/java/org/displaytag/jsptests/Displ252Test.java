@@ -36,7 +36,8 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
- * Test for DISPL-252 - Multiple (chained) column decorators
+ * Test for DISPL-252 - Multiple (chained) column decorators.
+ *
  * @author Fabrizio Giustina
  * @version $Id$
  */
@@ -44,6 +45,9 @@ public class Displ252Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

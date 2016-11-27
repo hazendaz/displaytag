@@ -114,7 +114,8 @@ public final class MediaUtil
     }
 
     /**
-     * Is this media supporter configured for the media type? (Background: Factored from ColumnTag)
+     * Is this media supporter configured for the media type? (Background: Factored from ColumnTag).
+     *
      * @param mediaSupporter An object that supports various media.
      * @param mediaType The currentMedia type
      * @return true if the media supporter should be displayed for this request

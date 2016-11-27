@@ -60,10 +60,13 @@ import org.displaytag.model.TableModel;
 public class HssfTableWriter extends TableWriterAdapter
 {
 
+    /** The Constant EMPTY_TEXT. */
     public static final HSSFRichTextString EMPTY_TEXT = new HSSFRichTextString("");
 
+    /** The total label. */
     protected MessageFormat totalLabel = new MessageFormat("{0} Total");
 
+    /** The decorated. */
     protected boolean decorated = false;
 
     /**
@@ -96,6 +99,7 @@ public class HssfTableWriter extends TableWriterAdapter
      */
     protected HSSFCell currentCell;
 
+    /** The current grouping. */
     protected int currentGrouping = 0;
 
     /**
@@ -109,8 +113,10 @@ public class HssfTableWriter extends TableWriterAdapter
      */
     protected TableModel model;
 
+    /** The sheet name. */
     protected String sheetName = "-";
 
+    /** The utils. */
     protected ExcelUtils utils;
 
     /**
@@ -138,7 +144,8 @@ public class HssfTableWriter extends TableWriterAdapter
 
     /**
      * Override this to do local config, but you should call super() first so that this can set up the ExcelUtils.
-     * @param model
+     *
+     * @param model the model
      */
     protected void init(TableModel model)
     {
@@ -461,14 +468,21 @@ public class HssfTableWriter extends TableWriterAdapter
 
     /**
      * DT columns are 1 based, excel columns are 0 based.
-     * @param cellColumnNumber
-     * @return
+     *
+     * @param cellColumnNumber the cell column number
+     * @return the int
      */
     protected int asDtColNumber(int cellColumnNumber)
     {
         return cellColumnNumber + 1;
     }
 
+    /**
+     * Gets the total label.
+     *
+     * @param groupingValue the grouping value
+     * @return the total label
+     */
     public String getTotalLabel(String groupingValue)
     {
         String gv = StringUtils.defaultString(groupingValue);
@@ -526,6 +540,11 @@ public class HssfTableWriter extends TableWriterAdapter
         super.writeSubgroupStop(model);
     }
 
+    /**
+     * Sets the model.
+     *
+     * @param m the new model
+     */
     public void setModel(TableModel m)
     {
         m.setTableDecorator(XmlTotalsWriter.NOOP);
@@ -538,16 +557,31 @@ public class HssfTableWriter extends TableWriterAdapter
         this.model = m;
     }
 
+    /**
+     * Gets the sheet name.
+     *
+     * @return the sheet name
+     */
     public String getSheetName()
     {
         return this.sheetName;
     }
 
+    /**
+     * Sets the sets the sheet name.
+     *
+     * @param name the new sets the sheet name
+     */
     public void setSetSheetName(String name)
     {
         this.sheetName = name;
     }
 
+    /**
+     * Gets the sheet.
+     *
+     * @return the sheet
+     */
     public HSSFSheet getSheet()
     {
         return this.sheet;
@@ -583,6 +617,12 @@ public class HssfTableWriter extends TableWriterAdapter
         writeRowCloser(null);
     }
 
+    /**
+     * Write group extra info.
+     *
+     * @param model the model
+     * @throws Exception the exception
+     */
     protected void writeGroupExtraInfo(TableModel model) throws Exception
     {
     }

@@ -61,9 +61,10 @@ public final class ExportDelegate
     /**
      * Actually writes exported data. Extracts content from the Map stored in request with the
      * <code>TableTag.FILTER_CONTENT_OVERRIDE_BODY</code> key.
-     * @param wrapper BufferedResponseWrapper implementation
+     *
      * @param response HttpServletResponse
      * @param request ServletRequest
+     * @param wrapper BufferedResponseWrapper implementation
      * @throws IOException exception thrown by response writer/outputStream
      */
     protected static void writeExport(HttpServletResponse response, ServletRequest request,

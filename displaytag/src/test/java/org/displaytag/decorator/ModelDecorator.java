@@ -22,14 +22,22 @@
 package org.displaytag.decorator;
 
 /**
+ * The Class ModelDecorator.
+ *
  * @author Jorge Barroso
  * @version $Id$
  */
 public class ModelDecorator extends TableDecorator
 {
 
+    /** The Constant DECORATED_VALUE. */
     public static final String DECORATED_VALUE = "decoratedValue";
 
+    /**
+     * Gets the decorated value.
+     *
+     * @return the decorated value
+     */
     public String getDecoratedValue()
     {
         return DECORATED_VALUE;

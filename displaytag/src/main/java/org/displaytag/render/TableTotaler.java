@@ -46,22 +46,43 @@ import org.displaytag.model.TableModel;
  */
 public class  TableTotaler
 {
+    
+    /** The logger. */
     protected Log logger = LogFactory.getLog(this.getClass());
 
+    /** The Constant NULL. */
     public static final TableTotaler NULL  = new TableTotaler();
 
+    /** The first row for each group. */
     protected Map<Integer,Integer> firstRowForEachGroup = new HashMap<Integer,Integer>();
+    
+    /** The how many groups. */
     protected int howManyGroups = 0;
+    
+    /** The current row number. */
     protected Integer currentRowNumber = 0;
+    
+    /** The table model. */
     protected TableModel tableModel;
+    
+    /** The opened columns. */
     List<Integer> openedColumns = new ArrayList<Integer>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
+    
+    /** The grouping values by column. */
     TreeMap<Integer,String> groupingValuesByColumn = new TreeMap<Integer,String>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
+    
+    /** The closed columns. */
     List<Integer> closedColumns = new ArrayList<Integer>();
     /**
      * Magic constant to indicate that we want the whole list, not just a subgroup.
      */
     public static final Integer WHOLE_TABLE = 0;
 
+    /**
+     * Inits the.
+     *
+     * @param model the model
+     */
     public void init(TableModel model)
     {
         this.tableModel = model;
@@ -77,6 +98,12 @@ public class  TableTotaler
 
     }
 
+    /**
+     * Inits the row.
+     *
+     * @param currentViewIndex the current view index
+     * @param currentListIndex the current list index
+     */
     public void initRow(int currentViewIndex, int currentListIndex)
     {
         this.openedColumns.clear();
@@ -85,20 +112,33 @@ public class  TableTotaler
     }
 
     /**
+     * As column.
      *
-     * @param groupNumber
-     * @return
+     * @param groupNumber the group number
+     * @return the int
      */
     public int asColumn(int groupNumber)
     {
         return groupNumber;
     }
 
+    /**
+     * As group.
+     *
+     * @param columnNumber the column number
+     * @return the int
+     */
     public int asGroup(int columnNumber)
     {
         return columnNumber;
     }
 
+    /**
+     * Start group.
+     *
+     * @param groupingValue the grouping value
+     * @param groupNumber the group number
+     */
     public void startGroup(String groupingValue,  int groupNumber)
     {
         this.openedColumns.add(asColumn(groupNumber));
@@ -106,16 +146,32 @@ public class  TableTotaler
         this.firstRowForEachGroup.put(groupNumber, this.currentRowNumber);
     }
 
+    /**
+     * Gets the opened columns.
+     *
+     * @return the opened columns
+     */
     public List<Integer> getOpenedColumns()
     {
         return new ArrayList<Integer>(this.openedColumns);
     }
 
+    /**
+     * Gets the closed columns.
+     *
+     * @return the closed columns
+     */
     public List<Integer> getClosedColumns()
     {
         return this.closedColumns;
     }
 
+    /**
+     * Stop group.
+     *
+     * @param value the value
+     * @param groupNumber the group number
+     */
     public void stopGroup(String value, int groupNumber)
     {
         this.closedColumns.add(asColumn(groupNumber));
@@ -124,10 +180,11 @@ public class  TableTotaler
 
     /**
      * Override locally to perform your own math.
-     * @param column
-     * @param total
-     * @param value
-     * @return
+     *
+     * @param column the column
+     * @param total the total
+     * @param value the value
+     * @return the object
      */
     public Object add(Column column, Object total, Object value)
     {
@@ -155,9 +212,10 @@ public class  TableTotaler
 
     /**
      * Override locally to format it yourself.
+     *
      * @param cell the current cell
      * @param total the current value
-     * @return
+     * @return the string
      */
     public String formatTotal(HeaderCell cell, Object total)
     {
@@ -169,6 +227,13 @@ public class  TableTotaler
     }
 
 
+    /**
+     * Gets the total for list.
+     *
+     * @param window the window
+     * @param columnNumber the column number
+     * @return the total for list
+     */
     protected Object getTotalForList(List<Row> window, int columnNumber)
     {
         Object total = null;
@@ -203,6 +268,13 @@ public class  TableTotaler
         return total;
     }
 
+    /**
+     * Gets the total for column.
+     *
+     * @param columnNumber the column number
+     * @param groupNumber the group number
+     * @return the total for column
+     */
     public Object getTotalForColumn(int columnNumber, int groupNumber)
     {
         List<Row> fullList = this.tableModel.getRowListFull();
@@ -216,6 +288,12 @@ public class  TableTotaler
         return getTotalForList(window, columnNumber);
     }
 
+    /**
+     * Gets the grouping value.
+     *
+     * @param columnNumber the column number
+     * @return the grouping value
+     */
     public String getGroupingValue(Integer columnNumber)
     {
         return this.groupingValuesByColumn.get(columnNumber);
@@ -223,6 +301,9 @@ public class  TableTotaler
 
 
 
+    /**
+     * Reset.
+     */
     public void reset()
     {
         this.closedColumns.clear();

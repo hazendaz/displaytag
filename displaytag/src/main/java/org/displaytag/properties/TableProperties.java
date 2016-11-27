@@ -859,7 +859,8 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Is the given export option enabled?
+     * Is the given export option enabled?.
+     *
      * @param exportType instance of MediaTypeEnum
      * @return boolean true if export is enabled
      */
@@ -869,7 +870,8 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Should headers be included in given export type?
+     * Should headers be included in given export type?.
+     *
      * @param exportType instance of MediaTypeEnum
      * @return boolean true if export should include headers
      */
@@ -993,7 +995,8 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Should paging banner be added before the table?
+     * Should paging banner be added before the table?.
+     *
      * @return boolean
      */
     public boolean getAddPagingBannerTop()
@@ -1003,7 +1006,8 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Should paging banner be added after the table?
+     * Should paging banner be added after the table?.
+     *
      * @return boolean
      */
     public boolean getAddPagingBannerBottom()
@@ -1013,7 +1017,8 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Should paging banner be added before the table?
+     * Should paging banner be added before the table?.
+     *
      * @return boolean
      */
     public boolean getAddExportBannerTop()
@@ -1023,7 +1028,8 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * Should paging banner be added after the table?
+     * Should paging banner be added after the table?.
+     *
      * @return boolean
      */
     public boolean getAddExportBannerBottom()
@@ -1160,6 +1166,11 @@ public final class TableProperties implements Cloneable
         }
     }
 
+    /**
+     * Gets the pagination sort param.
+     *
+     * @return the pagination sort param
+     */
     public String getPaginationSortParam()
     {
         String result = getProperty(PROPERTY_STRING_PAGINATION_SORT_PARAM);
@@ -1170,6 +1181,11 @@ public final class TableProperties implements Cloneable
         return result;
     }
 
+    /**
+     * Gets the pagination page number param.
+     *
+     * @return the pagination page number param
+     */
     public String getPaginationPageNumberParam()
     {
         String result = getProperty(PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM);
@@ -1180,6 +1196,11 @@ public final class TableProperties implements Cloneable
         return result;
     }
 
+    /**
+     * Gets the pagination sort direction param.
+     *
+     * @return the pagination sort direction param
+     */
     public String getPaginationSortDirectionParam()
     {
         String result = getProperty(PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM);
@@ -1190,6 +1211,11 @@ public final class TableProperties implements Cloneable
         return result;
     }
 
+    /**
+     * Gets the pagination search id param.
+     *
+     * @return the pagination search id param
+     */
     public String getPaginationSearchIdParam()
     {
         String result = getProperty(PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM);
@@ -1200,6 +1226,11 @@ public final class TableProperties implements Cloneable
         return result;
     }
 
+    /**
+     * Gets the pagination asc value.
+     *
+     * @return the pagination asc value
+     */
     public String getPaginationAscValue()
     {
         String result = getProperty(PROPERTY_STRING_PAGINATION_ASC_VALUE);
@@ -1210,6 +1241,11 @@ public final class TableProperties implements Cloneable
         return result;
     }
 
+    /**
+     * Gets the pagination desc value.
+     *
+     * @return the pagination desc value
+     */
     public String getPaginationDescValue()
     {
         String result = getProperty(PROPERTY_STRING_PAGINATION_DESC_VALUE);
@@ -1220,6 +1256,11 @@ public final class TableProperties implements Cloneable
         return result;
     }
 
+    /**
+     * Gets the pagination skip page number in sort.
+     *
+     * @return the pagination skip page number in sort
+     */
     public boolean getPaginationSkipPageNumberInSort()
     {
         String s = getProperty(PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);
@@ -1393,7 +1434,8 @@ public final class TableProperties implements Cloneable
     }
 
     /**
-     * the classname of the totaler
+     * the classname of the totaler.
+     *
      * @return the classname of the totaler
      */
     public String getTotalerName()
@@ -1401,6 +1443,11 @@ public final class TableProperties implements Cloneable
         return getProperty(TOTALER_NAME);
     }
 
+    /**
+     * Gets the default comparator.
+     *
+     * @return the default comparator
+     */
     public Comparator<Object> getDefaultComparator()
     {
         String className = getProperty(PROPERTY_DEFAULT_COMPARATOR);

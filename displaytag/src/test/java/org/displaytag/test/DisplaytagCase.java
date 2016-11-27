@@ -64,17 +64,26 @@ public abstract class DisplaytagCase
 
     /**
      * Runs the test.
-     * @param jspName jsp name, with full path
+     *
      * @throws Exception any axception thrown during test.
      */
     public abstract void doTest() throws Exception;
 
+    /**
+     * Gets the jsp url.
+     *
+     * @param jsp the jsp
+     * @return the jsp url
+     */
     protected String getJspUrl(String jsp)
     {
         return "http://localhost" + CONTEXT + "/jsps/" + jsp;
     }
 
     /**
+     * Sets the up.
+     *
+     * @throws Exception the exception
      * @see junit.framework.TestCase#setUp()
      */
     @Before
@@ -100,6 +109,9 @@ public abstract class DisplaytagCase
     }
 
     /**
+     * Tear down.
+     *
+     * @throws Exception the exception
      * @see junit.framework.TestCase#tearDown()
      */
     @After

@@ -33,6 +33,8 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
+ * The Class PaginationGroupingPageTwoTest.
+ *
  * @author rwest
  * @version $Revision: 1159 $ ($Author: rwest $)
  */
@@ -45,6 +47,11 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase
         // This is not a test.
     }
 
+    /**
+     * Use offset to get page two.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void useOffsetToGetPageTwo() throws Exception
     {
@@ -64,6 +71,11 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase
         assertEquals("Bad grand total", "10.0", tables[0].getCellAsText(9, 1));
     }
 
+    /**
+     * Navigate to page two.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void navigateToPageTwo() throws Exception
     {

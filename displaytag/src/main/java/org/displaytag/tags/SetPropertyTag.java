@@ -29,6 +29,8 @@ import org.displaytag.exception.TagStructureException;
 
 
 /**
+ * The Class SetPropertyTag.
+ *
  * @author epesh
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
@@ -51,9 +53,7 @@ public class SetPropertyTag extends BodyTagSupport
      */
     private String value;
 
-    /**
-     * is this the first iteration?
-     */
+    /** is this the first iteration?. */
     private boolean firstIteration;
 
     /**

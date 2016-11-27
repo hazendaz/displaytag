@@ -38,6 +38,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 /**
+ * The Class DefaultHref.
+ *
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
@@ -378,6 +380,12 @@ public class DefaultHref implements Href
         return buffer.toString();
     }
 
+    /**
+     * Encode param.
+     *
+     * @param param the param
+     * @return the string
+     */
     private String encodeParam(Object param)
     {
         if (param == null)
@@ -395,6 +403,12 @@ public class DefaultHref implements Href
         }
     }
 
+    /**
+     * Decode param.
+     *
+     * @param param the param
+     * @return the string
+     */
     private String decodeParam(Object param)
     {
         if (param == null)

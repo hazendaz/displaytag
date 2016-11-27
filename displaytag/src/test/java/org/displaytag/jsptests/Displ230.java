@@ -38,10 +38,16 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 
+/**
+ * The Class Displ230.
+ */
 public class Displ230 extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()
@@ -65,10 +71,12 @@ public class Displ230 extends DisplaytagCase
     }
 
     /**
-     * @param placement
-     * @throws MalformedURLException
-     * @throws IOException
-     * @throws SAXException
+     * Test with placement.
+     *
+     * @param placement the placement
+     * @throws MalformedURLException the malformed URL exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws SAXException the SAX exception
      */
     private void testWithPlacement(String placement) throws MalformedURLException, IOException, SAXException
     {

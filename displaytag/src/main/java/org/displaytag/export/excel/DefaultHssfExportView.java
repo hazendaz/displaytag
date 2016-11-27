@@ -67,8 +67,9 @@ public class DefaultHssfExportView implements BinaryExportView
 
     /**
      * Convenience method.
-     * @param wb
-     * @return
+     *
+     * @param wb the wb
+     * @return the hssf table writer
      */
     protected HssfTableWriter getHssfTableWriter(HSSFWorkbook wb)
     {

@@ -100,6 +100,11 @@ public class RowIterator
         return this.iterator.hasNext();
     }
 
+    /**
+     * Gets the page offset.
+     *
+     * @return the page offset
+     */
     public int getPageOffset()
     {
         return this.pageOffset;

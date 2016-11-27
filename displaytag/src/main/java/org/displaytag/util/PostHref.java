@@ -32,6 +32,8 @@ import org.apache.commons.lang3.StringUtils;
 
 
 /**
+ * The Class PostHref.
+ *
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
@@ -43,10 +45,18 @@ public class PostHref implements Href
      */
     private static final long serialVersionUID = 899149338534L;
 
+    /** The parent. */
     private Href parent;
 
+    /** The form. */
     private String form;
 
+    /**
+     * Instantiates a new post href.
+     *
+     * @param parent the parent
+     * @param form the form
+     */
     public PostHref(Href parent, String form)
     {
         this.parent = parent;
@@ -245,6 +255,12 @@ public class PostHref implements Href
         return buffer.toString();
     }
 
+    /**
+     * Esc.
+     *
+     * @param value the value
+     * @return the string
+     */
     private String esc(Object value)
     {
 

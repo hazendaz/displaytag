@@ -46,6 +46,9 @@ public class Displ125Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()
@@ -79,8 +82,11 @@ public class Displ125Test extends DisplaytagCase
     }
 
     /**
-     * @param response
-     * @throws SAXException
+     * Check response.
+     *
+     * @param response the response
+     * @throws SAXException the SAX exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     private void checkResponse(WebResponse response) throws SAXException, IOException
     {

@@ -26,6 +26,8 @@ import org.junit.Test;
 
 
 /**
+ * The Class PostHrefTest.
+ *
  * @author fgiust
  * @version $Revision$ ($Author$)
  */

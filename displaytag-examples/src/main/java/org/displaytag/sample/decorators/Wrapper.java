@@ -58,6 +58,8 @@ public class Wrapper extends TableDecorator
 
     /**
      * Test method which always returns a null value.
+     *
+     * @return the null value
      */
     public String getNullValue()
     {
@@ -66,6 +68,8 @@ public class Wrapper extends TableDecorator
 
     /**
      * Returns the date as a String in MM/dd/yy format.
+     *
+     * @return the date
      */
     public String getDate()
     {
@@ -74,6 +78,8 @@ public class Wrapper extends TableDecorator
 
     /**
      * Returns the money as a String in $ #,###,###.00 format.
+     *
+     * @return the money
      */
     public String getMoney()
     {
@@ -82,6 +88,8 @@ public class Wrapper extends TableDecorator
 
     /**
      * Returns the TestObject's ID as a hyperlink that the person can click on and "drill down" for more details.
+     *
+     * @return the link 1
      */
     public String getLink1()
     {
@@ -94,6 +102,8 @@ public class Wrapper extends TableDecorator
     /**
      * Returns an "action bar" of sorts that allow the user to perform various actions on the TestObject based on it's
      * id.
+     *
+     * @return the link 2
      */
     public String getLink2()
     {

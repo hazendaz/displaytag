@@ -49,6 +49,8 @@ import com.meterware.servletunit.ServletRunner;
 
 
 /**
+ * The Class ExportExcelTest.
+ *
  * @author andy Date: Oct 30, 2010 Time: 12:04:04 PM
  */
 public class ExportExcelTest
@@ -69,14 +71,22 @@ public class ExportExcelTest
      */
     public static final String CONTEXT = "/context";
 
+    /**
+     * Gets the jsp url.
+     *
+     * @param jsp the jsp
+     * @return the jsp url
+     */
     protected String getJspUrl(String jsp)
     {
         return "http://localhost" + CONTEXT + "/jsps/" + jsp;
     }
 
     /**
-     * @see junit.framework.TestCase#setUp()
+     * Sets the up.
+     *
      * @throws Exception e
+     * @see junit.framework.TestCase#setUp()
      */
     @Before
     public void setUp() throws Exception
@@ -105,8 +115,10 @@ public class ExportExcelTest
     }
 
     /**
-     * @see junit.framework.TestCase#tearDown()
+     * Tear down.
+     *
      * @throws Exception e
+     * @see junit.framework.TestCase#tearDown()
      */
     @After
     public void tearDown() throws Exception
@@ -131,6 +143,13 @@ public class ExportExcelTest
         fw.close();
     }
 
+    /**
+     * Run page.
+     *
+     * @param jspPage the jsp page
+     * @return the byte[]
+     * @throws Exception the exception
+     */
     public byte[] runPage(String jspPage) throws Exception
     {
 

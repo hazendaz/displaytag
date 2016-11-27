@@ -70,9 +70,7 @@ public final class TableTagParameters
      */
     public static final String SORT_AMOUNT_LIST = "list"; //$NON-NLS-1$
 
-    /**
-     * let the server handle the sorting
-     */
+    /** let the server handle the sorting. */
     public static final String SORT_AMOUNT_EXTERNAL = "external"; //$NON-NLS-1$
 
     /**

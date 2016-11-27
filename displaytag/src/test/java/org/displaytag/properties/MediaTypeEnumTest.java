@@ -77,6 +77,9 @@ public class MediaTypeEnumTest
         Assert.assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.fromName("html"));
     }
 
+    /**
+     * Test pdf.
+     */
     @Test
     public void testPdf()
     {

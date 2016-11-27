@@ -38,12 +38,21 @@ import org.displaytag.util.Href;
 public class PaginatedListSmartListHelper extends SmartListHelper
 {
 
+    /** The paginated list. */
     private PaginatedList paginatedList;
 
+    /** The properties. */
     private TableProperties properties;
 
+    /** The page count. */
     private int pageCount;
 
+    /**
+     * Instantiates a new paginated list smart list helper.
+     *
+     * @param paginatedList the paginated list
+     * @param tableProperties the table properties
+     */
     public PaginatedListSmartListHelper(PaginatedList paginatedList, TableProperties tableProperties)
     {
         super();
@@ -52,6 +61,11 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         this.pageCount = computePageCount();
     }
 
+    /**
+     * Compute page count.
+     *
+     * @return the int
+     */
     private int computePageCount()
     {
         int pageCount = this.paginatedList.getFullListSize() / Math.max(1, this.paginatedList.getObjectsPerPage());

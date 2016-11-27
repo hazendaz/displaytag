@@ -22,14 +22,22 @@
 package org.displaytag.test;
 
 /**
+ * The Class KnownValueWithId.
+ *
  * @author fgiust
  * @version $Revision$ ($Author$)
  */
 public class KnownValueWithId extends KnownValue
 {
 
+    /** The id. */
     private String id;
 
+    /**
+     * Instantiates a new known value with id.
+     *
+     * @param id the id
+     */
     public KnownValueWithId(String id)
     {
         this.id = id;

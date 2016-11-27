@@ -34,6 +34,8 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
+ * The Class TotalsTest.
+ *
  * @author rapruitt
  * @version $Revision$ ($Author$)
  */
@@ -41,6 +43,9 @@ public class TotalsTest extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

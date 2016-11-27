@@ -43,16 +43,22 @@ import org.displaytag.properties.TableProperties;
 public class ExcelUtils
 {
 
+    /** The Constant EXCEL_SHEET_NAME. */
     public final static String EXCEL_SHEET_NAME = "export.excel.sheetname"; //$NON-NLS-1$
 
+    /** The Constant EXCEL_FORMAT_INTEGER. */
     public final static String EXCEL_FORMAT_INTEGER = "export.excel.format.integer"; //$NON-NLS-1$
 
+    /** The Constant EXCEL_FORMAT_DATE. */
     public final static String EXCEL_FORMAT_DATE = "export.excel.format.date"; //$NON-NLS-1$
 
+    /** The Constant EXCEL_FORMAT_NUMBER. */
     public final static String EXCEL_FORMAT_NUMBER = "export.excel.format.number"; //$NON-NLS-1$
 
+    /** The Constant EXCEL_WRAPAT. */
     public final static String EXCEL_WRAPAT = "export.excel.wraptextlength"; //$NON-NLS-1$
 
+    /** The cell styles. */
     /*
      * Available already configured cell styles, as HSSF JavaDoc claims there are limits to cell styles.
      */
@@ -95,21 +101,34 @@ public class ExcelUtils
      */
     public static final String STYLE_PCT = "pct";
 
-    /**
-     * Workbook
-     */
+    /** Workbook. */
     private HSSFWorkbook wb;
 
+    /**
+     * Instantiates a new excel utils.
+     *
+     * @param book the book
+     */
     public ExcelUtils(HSSFWorkbook book)
     {
         this.wb = book;
     }
 
+    /**
+     * Gets the wb.
+     *
+     * @return the wb
+     */
     public HSSFWorkbook getWb()
     {
         return this.wb;
     }
 
+    /**
+     * Sets the wb.
+     *
+     * @param wb the new wb
+     */
     public void setWb(HSSFWorkbook wb)
     {
         this.wb = wb;
@@ -155,26 +174,49 @@ public class ExcelUtils
 
     /**
      * You can add styles too, but they won't be picked up unless you do so in a subclass.
-     * @param key
-     * @param st
+     *
+     * @param key the key
+     * @param st the st
      */
     public void addCellStyle(String key, HSSFCellStyle st)
     {
         this.cellStyles.put(key, st);
     }
 
+    /**
+     * Gets the new cell style.
+     *
+     * @return the new cell style
+     */
     public HSSFCellStyle getNewCellStyle()
     {
         return getWb() == null ? null : getWb().createCellStyle();
     }
 
+    /**
+     * Gets the style.
+     *
+     * @param clz the clz
+     * @return the style
+     */
     public HSSFCellStyle getStyle(String clz)
     {
         return this.cellStyles.get(clz);
     }
 
+    /**
+     * The Enum CellFormatTypes.
+     */
     public enum CellFormatTypes {
-        INTEGER, NUMBER, DATE
+        
+        /** The integer. */
+        INTEGER,
+
+        /** The number. */
+        NUMBER,
+
+        /** The date. */
+        DATE
     }
 
     /**

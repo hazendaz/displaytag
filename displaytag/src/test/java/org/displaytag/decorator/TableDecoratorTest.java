@@ -50,6 +50,9 @@ public class TableDecoratorTest
     private TableDecorator three;
 
     /**
+     * Sets the up.
+     *
+     * @throws Exception the exception
      * @see TestCase#setUp()
      */
     @Before

@@ -328,6 +328,9 @@ public class DefaultHrefTest
         URLAssert.assertEquals(url, href.toString());
     }
 
+    /**
+     * Testadd parameter map.
+     */
     public void testaddParameterMap()
     {
         Map<String, String[]> parametersMap = new HashMap<String, String[]>();

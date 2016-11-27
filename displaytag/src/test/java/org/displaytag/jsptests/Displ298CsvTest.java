@@ -34,20 +34,36 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 
+/**
+ * The Class Displ298CsvTest.
+ */
 public class Displ298CsvTest extends DisplaytagCase
 {
 
+    /**
+     * Gets the mime type.
+     *
+     * @return the mime type
+     */
     protected String getMimeType()
     {
         return "text/csv";
     }
 
+    /**
+     * Gets the code.
+     *
+     * @return the code
+     */
     protected int getCode()
     {
         return MediaTypeEnum.CSV.getCode();
     }
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

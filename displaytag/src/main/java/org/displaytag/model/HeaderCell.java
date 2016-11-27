@@ -76,14 +76,10 @@ public class HeaderCell
      */
     private String title;
 
-    /**
-     * is the column sortable?
-     */
+    /** is the column sortable?. */
     private boolean sortable;
 
-    /**
-     * Name given to the server when sorting this column
-     */
+    /** Name given to the server when sorting this column. */
     private String sortName;
 
     /**
@@ -96,9 +92,7 @@ public class HeaderCell
      */
     private int columnNumber;
 
-    /**
-     * is the column sorted?
-     */
+    /** is the column sorted?. */
     private boolean alreadySorted;
 
     /**
@@ -106,9 +100,7 @@ public class HeaderCell
      */
     private String beanPropertyName;
 
-    /**
-     * show null values?
-     */
+    /** show null values?. */
     private boolean showNulls;
 
     /**
@@ -121,9 +113,7 @@ public class HeaderCell
      */
     private int maxWords;
 
-    /**
-     * group the column?
-     */
+    /** group the column?. */
     private int group = -1;
 
     /**
@@ -131,9 +121,7 @@ public class HeaderCell
      */
     private String sortPropertyName;
 
-    /**
-     * Should we be attempting to tabulate the totals?
-     */
+    /** Should we be attempting to tabulate the totals?. */
     private boolean totaled;
 
     /**
@@ -206,7 +194,8 @@ public class HeaderCell
     }
 
     /**
-     * Should null be displayed?
+     * Should null be displayed?.
+     *
      * @return true null will be displayed in cell content
      */
     public boolean getShowNulls()
@@ -242,7 +231,8 @@ public class HeaderCell
     }
 
     /**
-     * Is the column already sorted?
+     * Is the column already sorted?.
+     *
      * @return true if the column already sorted
      */
     public boolean isAlreadySorted()
@@ -295,7 +285,8 @@ public class HeaderCell
     }
 
     /**
-     * Is the column sortable?
+     * Is the column sortable?.
+     *
      * @return true if the column is sortable
      */
     public boolean getSortable()
@@ -304,7 +295,8 @@ public class HeaderCell
     }
 
     /**
-     * is the column sortable?
+     * is the column sortable?.
+     *
      * @param isSortable - true if the column can be sorted
      */
     public void setSortable(boolean isSortable)
@@ -313,7 +305,8 @@ public class HeaderCell
     }
 
     /**
-     * Get name given to server for sorting this column
+     * Get name given to server for sorting this column.
+     *
      * @return name given to server for sorting this column
      */
     public String getSortName()
@@ -322,7 +315,8 @@ public class HeaderCell
     }
 
     /**
-     * Set name given to server for sorting this column
+     * Set name given to server for sorting this column.
+     *
      * @param sortName name given to server for sorting this column
      */
     public void setSortName(String sortName)
@@ -524,7 +518,8 @@ public class HeaderCell
     }
 
     /**
-     * Sets the default sort order for this column
+     * Sets the default sort order for this column.
+     *
      * @return default order
      */
     public SortOrderEnum getDefaultSortOrder()
@@ -533,7 +528,8 @@ public class HeaderCell
     }
 
     /**
-     * Gets the default sort order for this column
+     * Gets the default sort order for this column.
+     *
      * @param order default order
      */
     public void setDefaultSortOrder(SortOrderEnum order)
@@ -573,7 +569,8 @@ public class HeaderCell
     }
 
     /**
-     * Will we be keeping a total for this column?
+     * Will we be keeping a total for this column?.
+     *
      * @return true if we are totaling
      */
     public boolean isTotaled()

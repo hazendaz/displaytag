@@ -39,6 +39,8 @@ public class RuntimeLookupException extends RuntimeException
     private static final long serialVersionUID = 899149338534L;
 
     /**
+     * Instantiates a new runtime lookup exception.
+     *
      * @param sourceClass class where the exception is thrown
      * @param property object property who caused the exception
      * @param cause previous (checked) exception

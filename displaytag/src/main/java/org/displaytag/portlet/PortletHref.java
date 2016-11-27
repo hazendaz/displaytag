@@ -80,19 +80,26 @@ import org.displaytag.util.Href;
 public class PortletHref implements Href
 {
 
+    /** The Constant PARAM_PREFIX. */
     // Constants for working with the special parameters
     private static final String PARAM_PREFIX = "portlet:";
 
+    /** The Constant PARAM_MODE. */
     public static final String PARAM_MODE = PARAM_PREFIX + "mode";
 
+    /** The Constant PARAM_STATE. */
     public static final String PARAM_STATE = PARAM_PREFIX + "state";
 
+    /** The Constant PARAM_SECURE. */
     public static final String PARAM_SECURE = PARAM_PREFIX + "secure";
 
+    /** The Constant PARAM_TYPE. */
     public static final String PARAM_TYPE = PARAM_PREFIX + "type";
 
+    /** The Constant TYPE_RENDER. */
     public static final String TYPE_RENDER = "render";
 
+    /** The Constant TYPE_ACTION. */
     public static final String TYPE_ACTION = "action";
 
     /**
@@ -100,21 +107,29 @@ public class PortletHref implements Href
      */
     private static final long serialVersionUID = 899149338534L;
 
+    /** The portlet request. */
     // Portlet request and response are needed for feature checking and generating the URLs
     private final PortletRequest portletRequest;
 
+    /** The render response. */
     private final MimeResponse renderResponse;
 
+    /** The parameters. */
     private Map<String, String[]> parameters = new LinkedHashMap<String, String[]>();
 
+    /** The is action. */
     private boolean isAction;
 
+    /** The requested mode. */
     private PortletMode requestedMode;
 
+    /** The requested state. */
     private WindowState requestedState;
 
+    /** The requested secure. */
     private boolean requestedSecure;
 
+    /** The anchor. */
     private String anchor;
 
     /**
@@ -147,6 +162,8 @@ public class PortletHref implements Href
     }
 
     /**
+     * Checks if is action.
+     *
      * @return Returns the isAction.
      */
     public boolean isAction()
@@ -155,6 +172,8 @@ public class PortletHref implements Href
     }
 
     /**
+     * Sets the action.
+     *
      * @param isAction The isAction to set.
      */
     public void setAction(boolean isAction)
@@ -163,6 +182,8 @@ public class PortletHref implements Href
     }
 
     /**
+     * Gets the requested mode.
+     *
      * @return Returns the requestedMode.
      */
     public PortletMode getRequestedMode()
@@ -171,6 +192,8 @@ public class PortletHref implements Href
     }
 
     /**
+     * Sets the requested mode.
+     *
      * @param requestedMode The requestedMode to set.
      */
     public void setRequestedMode(PortletMode requestedMode)
@@ -179,6 +202,8 @@ public class PortletHref implements Href
     }
 
     /**
+     * Checks if is requested secure.
+     *
      * @return Returns the requestedSecure.
      */
     public boolean isRequestedSecure()
@@ -187,6 +212,8 @@ public class PortletHref implements Href
     }
 
     /**
+     * Sets the requested secure.
+     *
      * @param requestedSecure The requestedSecure to set.
      */
     public void setRequestedSecure(boolean requestedSecure)
@@ -195,6 +222,8 @@ public class PortletHref implements Href
     }
 
     /**
+     * Gets the requested state.
+     *
      * @return Returns the requestedState.
      */
     public WindowState getRequestedState()
@@ -203,6 +232,8 @@ public class PortletHref implements Href
     }
 
     /**
+     * Sets the requested state.
+     *
      * @param requestedState The requestedState to set.
      */
     public void setRequestedState(WindowState requestedState)

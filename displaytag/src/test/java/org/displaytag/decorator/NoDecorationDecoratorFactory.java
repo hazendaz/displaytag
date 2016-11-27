@@ -27,6 +27,9 @@ import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.render.TableTotaler;
 
 
+/**
+ * A factory for creating NoDecorationDecorator objects.
+ */
 public class NoDecorationDecoratorFactory implements DecoratorFactory
 {
 

@@ -67,12 +67,26 @@ Sample fragment
 * */
 public class XmlTotalsWriter extends TableWriterAdapter
 {
+    
+    /** The style pat. */
     Pattern stylePat = Pattern.compile("\\s*?([\\w\\-]+?)\\s*?:\\s*?([\\w\\-]+?)(?:;|$)");
+    
+    /** The xml. */
     protected StringBuffer xml = new StringBuffer();
+    
+    /** The current grouping value by group. */
     Map<Integer,String> currentGroupingValueByGroup = new HashMap<Integer,String>();
+    
+    /** The group id. */
     Integer groupId;
+    
+    /** The current grouping level. */
     int currentGroupingLevel = 0;
+    
+    /** The max word length. */
     int maxWordLength = 15;
+    
+    /** The Constant NOOP. */
     public static final TableDecorator NOOP = new TableDecorator()
         {
             @Override
@@ -82,12 +96,22 @@ public class XmlTotalsWriter extends TableWriterAdapter
             }
         };
 
+    /**
+     * Instantiates a new xml totals writer.
+     *
+     * @param m the m
+     */
     public XmlTotalsWriter(TableModel m)
     {
         setModel(m);
     }
 
 
+    /**
+     * Sets the model.
+     *
+     * @param m the new model
+     */
     public void setModel(TableModel m)
     {
         m.setTableDecorator(NOOP);
@@ -136,6 +160,12 @@ public class XmlTotalsWriter extends TableWriterAdapter
          }
     }
 
+    /**
+     * Write subtotals.
+     *
+     * @param model the model
+     * @param closedColumns the closed columns
+     */
     protected void writeSubtotals(TableModel model, List<Integer> closedColumns)
     {
         TableTotaler tt = model.getTotaler();
@@ -165,10 +195,21 @@ public class XmlTotalsWriter extends TableWriterAdapter
         }
     }
 
+    /**
+     * Write extra group info.
+     *
+     * @param model the model
+     * @param groupColumn the group column
+     */
     protected void writeExtraGroupInfo(TableModel model, int groupColumn){
 
     }
 
+    /**
+     * Write attributes.
+     *
+     * @param atts the atts
+     */
     protected void writeAttributes(HtmlAttributeMap atts)
     {
         if (atts != null)
@@ -242,6 +283,11 @@ public class XmlTotalsWriter extends TableWriterAdapter
 
     // just use the hyphenate support from fop -- http://xmlgraphics.apache.org/fop/1.0/hyphenation.html
 
+    /**
+     * Cdata.
+     *
+     * @param str the str
+     */
     protected void cdata(Object str)
     {
         this.xml.append("<![CDATA[");
@@ -310,6 +356,11 @@ public class XmlTotalsWriter extends TableWriterAdapter
         this.xml.append("</data>");     //$NON-NLS-1$
     }
 
+    /**
+     * Gets the xml.
+     *
+     * @return the xml
+     */
     public String getXml()
     {
 

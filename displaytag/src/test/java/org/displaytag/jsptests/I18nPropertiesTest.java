@@ -49,6 +49,9 @@ public class I18nPropertiesTest extends DisplaytagCase
     private static final String MSG_IT = "Non ci sono risultati.";
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

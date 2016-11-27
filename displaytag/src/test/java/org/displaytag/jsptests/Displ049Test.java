@@ -33,7 +33,8 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
- * Tests for DISPL-49 - style of column cannot be dynamically changed
+ * Tests for DISPL-49 - style of column cannot be dynamically changed.
+ *
  * @author Fabrizio Giustina
  * @version $Id$
  */
@@ -41,6 +42,9 @@ public class Displ049Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

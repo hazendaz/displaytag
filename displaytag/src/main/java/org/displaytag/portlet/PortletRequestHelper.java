@@ -44,12 +44,16 @@ import org.displaytag.util.RequestHelper;
 public class PortletRequestHelper implements RequestHelper
 {
 
+    /** The Constant JAVAX_PORTLET_RESPONSE. */
     public static final String JAVAX_PORTLET_RESPONSE = "javax.portlet.response";
 
+    /** The Constant JAVAX_PORTLET_REQUEST. */
     public static final String JAVAX_PORTLET_REQUEST = "javax.portlet.request";
 
+    /** The portlet request. */
     private final PortletRequest portletRequest;
 
+    /** The render response. */
     private final MimeResponse renderResponse;
 
     /**

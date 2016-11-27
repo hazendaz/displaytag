@@ -44,6 +44,9 @@ import org.junit.Test;
 public class TableDecoratorPaginationTest
 {
 
+    /**
+     * Test single page.
+     */
     @Test
     public void testSinglePage()
     {
@@ -77,6 +80,9 @@ public class TableDecoratorPaginationTest
         assertEquals(decorator.isLastRow(), true);
     }
 
+    /**
+     * Test first page.
+     */
     @Test
     public void testFirstPage()
     {
@@ -110,6 +116,9 @@ public class TableDecoratorPaginationTest
         assertEquals(decorator.isLastRow(), true);
     }
 
+    /**
+     * Test second page.
+     */
     @Test
     public void testSecondPage()
     {

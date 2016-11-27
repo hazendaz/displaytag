@@ -70,9 +70,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      */
     private static Logger log = LoggerFactory.getLogger(HtmlTableWriter.class);
 
-    /**
-     * <code>TableProperties</code>
-     */
+    /** <code>TableProperties</code>. */
     private TableProperties properties;
 
     /**
@@ -95,6 +93,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      */
     private boolean export;
 
+    /** The caption tag. */
     private CaptionTag captionTag;
 
     /**
@@ -113,6 +112,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      */
     private int pagesize;
 
+    /** The attribute map. */
     private HtmlAttributeMap attributeMap;
 
     /**
@@ -122,8 +122,17 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     /**
      * This table writer uses a <code>TableTag</code> and a <code>JspWriter</code> to do its work.
-     * @param tableTag <code>TableTag</code> instance called back by this writer.
+     *
+     * @param tableProperties the table properties
+     * @param baseHref the base href
+     * @param export the export
      * @param out The output destination.
+     * @param captionTag the caption tag
+     * @param paginatedList the paginated list
+     * @param listHelper the list helper
+     * @param pagesize the pagesize
+     * @param attributeMap the attribute map
+     * @param uid the uid
      */
     public HtmlTableWriter(
         TableProperties tableProperties,
@@ -194,6 +203,11 @@ public class HtmlTableWriter extends TableWriterAdapter
         this.write(getOpenTag());
     }
 
+    /**
+     * Write form fields.
+     *
+     * @param model the model
+     */
     private void writeFormFields(TableModel model)
     {
         Map<String, String[]> parameters = this.baseHref.getParameterMap();
@@ -225,8 +239,10 @@ public class HtmlTableWriter extends TableWriterAdapter
     }
 
     /**
-     * @param key
-     * @param value
+     * Write field.
+     *
+     * @param key the key
+     * @param value the value
      */
     private void writeField(String key, Object value)
     {
@@ -240,6 +256,12 @@ public class HtmlTableWriter extends TableWriterAdapter
         write(buffer.toString());
     }
 
+    /**
+     * Esc.
+     *
+     * @param value the value
+     * @return the string
+     */
     private String esc(Object value)
     {
         String valueEscaped = StringUtils.replace(value != null ? value.toString() : StringUtils.EMPTY, "\"", "\\\"");
@@ -247,7 +269,8 @@ public class HtmlTableWriter extends TableWriterAdapter
     }
 
     /**
-     * Adds an element to the given map if empty (use an empty string as value)
+     * Adds an element to the given map if empty (use an empty string as value).
+     *
      * @param parameters Map of parameters
      * @param key param key
      */
@@ -517,7 +540,9 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     /**
      * Generates the link to be added to a column header for sorting.
+     *
      * @param headerCell header cell the link should be added to
+     * @param model the model
      * @return Href for sorting
      */
     private Href getSortingHref(HeaderCell headerCell, TableModel model)
@@ -604,7 +629,9 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     /**
      * encode a parameter name to be unique in the page using ParamEncoder.
+     *
      * @param parameterName parameter name to encode
+     * @param model the model
      * @return String encoded parameter name
      */
     private String encodeParameter(String parameterName, TableModel model)
@@ -621,6 +648,8 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     /**
      * Generates table footer with links for export commands.
+     *
+     * @param model the model
      */
     protected void writeNavigationAndExportLinks(TableModel model)
     {
@@ -639,6 +668,8 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     /**
      * generates the search result and navigation bar.
+     *
+     * @param model the model
      */
     protected void writeSearchResultAndNavigation(TableModel model)
     {
@@ -675,6 +706,8 @@ public class HtmlTableWriter extends TableWriterAdapter
 
     /**
      * Writes the formatted export links section.
+     *
+     * @param model the model
      */
     private void writeExportLinks(TableModel model)
     {

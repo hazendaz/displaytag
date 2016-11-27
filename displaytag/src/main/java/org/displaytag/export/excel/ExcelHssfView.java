@@ -62,41 +62,30 @@ public class ExcelHssfView implements BinaryExportView
      */
     private TableModel model;
 
-    /**
-     * export full list?
-     */
+    /** export full list?. */
     private boolean exportFull;
 
-    /**
-     * include header in export?
-     */
+    /** include header in export?. */
     private boolean header;
 
-    /**
-     * decorate export?
-     */
+    /** decorate export?. */
     private boolean decorated;
 
-    /**
-     * Name of Excel Spreadsheet
-     */
+    /** Name of Excel Spreadsheet. */
     private String sheetName;
 
-    /**
-     * Workbook
-     */
+    /** Workbook. */
     private HSSFWorkbook wb;
 
-    /**
-     * Worksheet
-     */
+    /** Worksheet. */
     private HSSFSheet sheet;
 
-    /**
-     * utils
-     */
+    /** utils. */
     ExcelUtils utils;
 
+    /**
+     * Instantiates a new excel hssf view.
+     */
     public ExcelHssfView()
     {
     }
@@ -264,16 +253,23 @@ public class ExcelHssfView implements BinaryExportView
 
     /**
      * Templated method that is called for all non-header & non-total cells.
-     * @param wb
-     * @param rowCtr
-     * @param column
-     * @return
+     *
+     * @param wb the wb
+     * @param rowCtr the row ctr
+     * @param column the column
+     * @return the HSSF cell style
      */
     public HSSFCellStyle createRowStyle(HSSFWorkbook wb, int rowCtr, Column column)
     {
         return wb.createCellStyle();
     }
 
+    /**
+     * Gets the header cell value.
+     *
+     * @param headerCell the header cell
+     * @return the header cell value
+     */
     public String getHeaderCellValue(HeaderCell headerCell)
     {
         String columnHeader = headerCell.getTitle();
@@ -288,9 +284,10 @@ public class ExcelHssfView implements BinaryExportView
 
     /**
      * Templated method that is called for all header cells.
-     * @param wb
-     * @param headerCell
-     * @return
+     *
+     * @param wb the wb
+     * @param headerCell the header cell
+     * @return the HSSF cell style
      */
     public HSSFCellStyle createHeaderStyle(HSSFWorkbook wb, HeaderCell headerCell)
     {
@@ -308,39 +305,71 @@ public class ExcelHssfView implements BinaryExportView
 
     /**
      * Templated method that is used if a totals row is desired.
-     * @param sheet
-     * @param rowNum
-     * @param tableModel
+     *
+     * @param sheet the sheet
+     * @param rowNum the row num
+     * @param tableModel the table model
      */
     public void createTotalsRow(HSSFSheet sheet, int rowNum, TableModel tableModel)
     {
     }
 
+    /**
+     * Gets the table model.
+     *
+     * @return the table model
+     */
     public TableModel getTableModel()
     {
         return this.model;
     }
 
+    /**
+     * Checks if is export full.
+     *
+     * @return true, if is export full
+     */
     public boolean isExportFull()
     {
         return this.exportFull;
     }
 
+    /**
+     * Checks if is include header in export.
+     *
+     * @return true, if is include header in export
+     */
     public boolean isIncludeHeaderInExport()
     {
         return this.header;
     }
 
+    /**
+     * Checks if is decorate export.
+     *
+     * @return true, if is decorate export
+     */
     public boolean isDecorateExport()
     {
         return this.decorated;
     }
 
+    /**
+     * Gets the sheet name.
+     *
+     * @return the sheet name
+     */
     public String getSheetName()
     {
         return this.sheetName;
     }
 
+    /**
+     * Sets the sheet name.
+     *
+     * @param sheetName the new sheet name
+     * @throws JspException the jsp exception
+     */
     public void setSheetName(String sheetName) throws JspException
     {
         // this is due to either the POI limitations or excel (I'm not sure). you get the following error if you don't
@@ -355,36 +384,71 @@ public class ExcelHssfView implements BinaryExportView
         this.sheetName = sheetName.length() <= 31 ? sheetName : sheetName.substring(0, 31 - 3) + "...";
     }
 
+    /**
+     * Gets the new cell style.
+     *
+     * @return the new cell style
+     */
     public HSSFCellStyle getNewCellStyle()
     {
         return getWb() == null ? null : getWb().createCellStyle();
     }
 
+    /**
+     * Gets the wb.
+     *
+     * @return the wb
+     */
     public HSSFWorkbook getWb()
     {
         return this.wb;
     }
 
+    /**
+     * Sets the wb.
+     *
+     * @param wb the new wb
+     */
     public void setWb(HSSFWorkbook wb)
     {
         this.wb = wb;
     }
 
+    /**
+     * Gets the sheet.
+     *
+     * @return the sheet
+     */
     public HSSFSheet getSheet()
     {
         return this.sheet;
     }
 
+    /**
+     * Sets the sheet.
+     *
+     * @param sheet the new sheet
+     */
     public void setSheet(HSSFSheet sheet)
     {
         this.sheet = sheet;
     }
 
+    /**
+     * Gets the model.
+     *
+     * @return the model
+     */
     public TableModel getModel()
     {
         return this.model;
     }
 
+    /**
+     * Sets the model.
+     *
+     * @param model the new model
+     */
     public void setModel(TableModel model)
     {
         this.model = model;

@@ -370,6 +370,8 @@ public class TldTest
         private String attributeType;
 
         /**
+         * Gets the attribute name.
+         *
          * @return Returns the attribute name.
          */
         public String getAttributeName()
@@ -378,6 +380,8 @@ public class TldTest
         }
 
         /**
+         * Sets the attribute name.
+         *
          * @param name attribute name.
          */
         public void setAttributeName(String name)
@@ -386,6 +390,8 @@ public class TldTest
         }
 
         /**
+         * Gets the attribute type.
+         *
          * @return Returns the attributeType.
          */
         public String getAttributeType()
@@ -394,6 +400,8 @@ public class TldTest
         }
 
         /**
+         * Sets the attribute type.
+         *
          * @param type The attributeType to set.
          */
         public void setAttributeType(String type)
@@ -402,6 +410,8 @@ public class TldTest
         }
 
         /**
+         * Gets the tag class.
+         *
          * @return Returns the tagClass.
          */
         public String getTagClass()
@@ -410,6 +420,8 @@ public class TldTest
         }
 
         /**
+         * Sets the tag class.
+         *
          * @param tagClassName name of the tag class
          */
         public void setTagClass(String tagClassName)

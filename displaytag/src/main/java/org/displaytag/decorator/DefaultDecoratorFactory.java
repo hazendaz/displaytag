@@ -62,6 +62,14 @@ public class DefaultDecoratorFactory implements DecoratorFactory
         return (TableDecorator) lookup( pageContext,  decoratorName);
     }
 
+    /**
+     * Lookup.
+     *
+     * @param pageContext the page context
+     * @param decoratorName the decorator name
+     * @return the object
+     * @throws DecoratorInstantiationException the decorator instantiation exception
+     */
     private Object lookup(PageContext pageContext, String decoratorName)
             throws DecoratorInstantiationException
     {

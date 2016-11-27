@@ -33,12 +33,19 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
+ * The Class PaginationGroupingTest.
+ *
  * @author rwest
  * @version $Revision: 1159 $ ($Author: rwest $)
  */
 public class PaginationGroupingTest extends DisplaytagCase
 {
 
+    /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
+     */
     protected String getJspName()
     {
         return "pagination-grouping.jsp";

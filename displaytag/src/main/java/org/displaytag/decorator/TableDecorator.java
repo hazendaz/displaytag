@@ -28,6 +28,8 @@ import org.displaytag.util.TagConstants;
 
 
 /**
+ * The Class TableDecorator.
+ *
  * @author epesh
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
@@ -163,8 +165,10 @@ public abstract class TableDecorator extends Decorator
     /**
      * What value should I display in this cell? The default value for grouped columns is to not display any value if
      * the cellValue has not changed on an interior iteration. Only invoked for columns that are grouped.
-     * @param cellValue
-     * @param groupingStatus
+     *
+     * @param cellValue the cell value
+     * @param groupingStatus the grouping status
+     * @param columnNumber the column number
      * @return the value to display
      */
     public String displayGroupedValue(String cellValue, short groupingStatus, int columnNumber)
@@ -179,6 +183,11 @@ public abstract class TableDecorator extends Decorator
         }
     }
 
+    /**
+     * Checks if is last row.
+     *
+     * @return true, if is last row
+     */
     public boolean isLastRow()
     {
         return getViewIndex() == this.tableModel.getRowListPage().size() - 1;
@@ -187,7 +196,9 @@ public abstract class TableDecorator extends Decorator
     /**
      * Shortcut for evaluating properties in the current row object. Can be useful for implementing anonymous decorators
      * in jsp pages without having to know/import the decorated object Class.
+     *
      * @param propertyName property to lookup in current row object. Can also be a nested or indexed property.
+     * @return the object
      * @since 1.1
      */
     protected Object evaluate(String propertyName)

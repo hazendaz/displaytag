@@ -70,6 +70,7 @@ import org.slf4j.LoggerFactory;
 public class FopExportView implements BinaryExportView
 {
 
+    /** The log. */
     private static Logger log = LoggerFactory.getLogger(FopExportView.class);
 
     /**
@@ -203,6 +204,12 @@ public class FopExportView implements BinaryExportView
         }
     }
 
+    /**
+     * Gets the xml.
+     *
+     * @return the xml
+     * @throws JspException the jsp exception
+     */
     protected String getXml() throws JspException
     {
         XmlTotalsWriter totals = new XmlTotalsWriter(this.model);
@@ -244,10 +251,12 @@ public class FopExportView implements BinaryExportView
     /**
      * If you are authoring a stylesheet locally, this is highly recommended as a way to test your stylesheet agaisnt
      * dummy data.
-     * @see XslTransformerTest#XML as a sample
+     *
      * @param xmlSrc xml as string
      * @param styleSheetPath the path to the stylesheet
+     * @param f the f
      * @throws Exception if trouble
+     * @see XslTransformerTest#XML as a sample
      */
     public static void transform(String xmlSrc, String styleSheetPath, File f) throws Exception
     {

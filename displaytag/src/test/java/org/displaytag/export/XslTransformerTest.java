@@ -48,6 +48,11 @@ import com.itextpdf.text.pdf.PdfReader;
 public class XslTransformerTest
 {
 
+    /**
+     * Test main test.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testMainTest() throws Exception
     {
@@ -60,11 +65,22 @@ public class XslTransformerTest
 
     }
 
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception
     {
         script();
     }
 
+    /**
+     * Script.
+     *
+     * @throws Exception the exception
+     */
     public static void script() throws Exception
     {
         Source src = new StreamSource(new StringReader(XML));
@@ -95,6 +111,7 @@ public class XslTransformerTest
         FopExportView.transform(XML, styleSheetPath, new File("/Users/andy/test.pdf"));
     }
 
+    /** The Constant XML. */
     public static final String XML = "<table>\n"
         + "    <header>\n"
         + "        <header-cell >AntColumn</header-cell>\n"

@@ -52,14 +52,19 @@ public class KnownValue
      */
     public static final Date MAY = new Date(12934123434l);
 
+    /** The ant value. */
     public String antValue = ANT;
 
+    /** The bee value. */
     public String beeValue = BEE;
 
+    /** The two value. */
     public int twoValue = TWO;
 
+    /** The camel value. */
     public String camelValue = CAMEL;
 
+    /** The date. */
     public Date date = MAY;
 
     /**

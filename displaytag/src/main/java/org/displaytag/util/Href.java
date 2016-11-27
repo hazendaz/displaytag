@@ -100,6 +100,11 @@ public interface Href extends Cloneable, Serializable
      */
     void setAnchor(String name);
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     /**
      * toString: output the full url with parameters.
@@ -108,10 +113,19 @@ public interface Href extends Cloneable, Serializable
     String toString();
 
     /**
+     * Clone.
+     *
+     * @return the object
      * @see java.lang.Object#clone()
      */
     Object clone();
 
+    /**
+     * Equals.
+     *
+     * @param object the object
+     * @return true, if successful
+     */
     @Override
     /**
      * @see java.lang.Object#equals(Object)

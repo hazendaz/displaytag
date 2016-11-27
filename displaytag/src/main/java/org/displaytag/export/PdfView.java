@@ -69,19 +69,13 @@ public class PdfView implements BinaryExportView
      */
     private TableModel model;
 
-    /**
-     * export full list?
-     */
+    /** export full list?. */
     private boolean exportFull;
 
-    /**
-     * include header in export?
-     */
+    /** include header in export?. */
     private boolean header;
 
-    /**
-     * decorate export?
-     */
+    /** decorate export?. */
     private boolean decorated;
 
     /**

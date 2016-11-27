@@ -32,7 +32,8 @@ import com.meterware.httpunit.WebTable;
 
 
 /**
- * Test for DISPL-174 - sometimes "title" - sometimes not
+ * Test for DISPL-174 - sometimes "title" - sometimes not.
+ *
  * @author Fabrizio Giustina
  * @version $Id$
  */
@@ -40,6 +41,9 @@ public class Displ174Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()

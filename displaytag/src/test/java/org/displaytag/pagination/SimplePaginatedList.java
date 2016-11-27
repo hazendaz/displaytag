@@ -29,15 +29,15 @@ import org.displaytag.test.NumberedItem;
 
 
 /**
+ * The Class SimplePaginatedList.
+ *
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
  */
 public class SimplePaginatedList implements PaginatedList
 {
 
-    /**
-     * wrapped list
-     */
+    /** wrapped list. */
     private List<Object> fullList = new ArrayList<Object>();
 
     /**
@@ -45,13 +45,14 @@ public class SimplePaginatedList implements PaginatedList
      */
     private int objectsPerPage;
 
-    /**
-     * Current page (starting from 1)
-     */
+    /** Current page (starting from 1). */
     private int currentPage;
 
     /**
      * Instantiates a new paginated list.
+     *
+     * @param objectsPerPage the objects per page
+     * @param currentPage the current page
      */
     public SimplePaginatedList(int objectsPerPage, int currentPage)
     {

@@ -42,10 +42,13 @@ import org.displaytag.model.TableModel;
 public class CheckboxTableDecorator extends TableDecorator
 {
 
+    /** The id. */
     private String id = "id";
 
+    /** The checked ids. */
     private List<String> checkedIds;
 
+    /** The field name. */
     private String fieldName = "_chk";
 
     /**
@@ -112,6 +115,11 @@ public class CheckboxTableDecorator extends TableDecorator
 
     }
 
+    /**
+     * Gets the checkbox.
+     *
+     * @return the checkbox
+     */
     public String getCheckbox()
     {
 

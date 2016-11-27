@@ -34,13 +34,15 @@ public interface PaginatedList
 {
 
     /**
-     * Returns the current partial list
+     * Returns the current partial list.
+     *
      * @return the current partial list
      */
     List<Object> getList();
 
     /**
-     * Returns the page number of the partial list (starts from 1)
+     * Returns the page number of the partial list (starts from 1).
+     *
      * @return the page number of the partial list
      */
     int getPageNumber();
@@ -53,19 +55,22 @@ public interface PaginatedList
     int getObjectsPerPage();
 
     /**
-     * Returns the size of the full list
+     * Returns the size of the full list.
+     *
      * @return the size of the full list
      */
     int getFullListSize();
 
     /**
-     * Returns the sort criterion used to externally sort the full list
+     * Returns the sort criterion used to externally sort the full list.
+     *
      * @return the sort criterion used to externally sort the full list
      */
     String getSortCriterion();
 
     /**
-     * Returns the sort direction used to externally sort the full list
+     * Returns the sort direction used to externally sort the full list.
+     *
      * @return the sort direction used to externally sort the full list
      */
     SortOrderEnum getSortDirection();

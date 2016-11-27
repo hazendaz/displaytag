@@ -38,7 +38,8 @@ import java.util.Locale;
 
 
 /**
- * Resolve i18n resources in Struts 2
+ * Resolve i18n resources in Struts 2.
+ *
  * @author <a:href="mailto:snowwolf@wabunoh-tech.com">mailto:snowwolf@wabunoh-tech.com</>
  * @version $Revision: 1.1 $
  * @since Jan 4, 2008 2:37:29 PM

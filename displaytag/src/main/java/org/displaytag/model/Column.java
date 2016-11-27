@@ -176,10 +176,9 @@ public class Column
 
     /**
      * Initialize the cell value.
-     * @throws ObjectLookupException for errors in bean property lookup
-     * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
-     * @throws DecoratorException
-     * @throws ObjectLookupException
+     *
+     * @throws DecoratorException the decorator exception
+     * @throws ObjectLookupException the object lookup exception
      */
     public void initialize() throws DecoratorException, ObjectLookupException
     {

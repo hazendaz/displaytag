@@ -30,19 +30,24 @@ import org.displaytag.decorator.hssf.DecoratesHssf;
 
 /**
  * Same idea implemented in HssfTableWriter applied to decorators.
- * @see org.displaytag.render.HssfTableWriter
+ *
  * @author Jorge L. Barroso
  * @version $Revision$ ($Author$)
+ * @see org.displaytag.render.HssfTableWriter
  */
 public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesHssf
 {
 
+    /** The sheet. */
     private HSSFSheet sheet;
 
+    /** The current cell. */
     private HSSFCell currentCell;
 
+    /** The current row. */
     private HSSFRow currentRow;
 
+    /** The col num. */
     private int colNum;
 
     @Override
@@ -51,6 +56,12 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
         this.writeTotal(city, total);
     }
 
+    /**
+     * Write total.
+     *
+     * @param value the value
+     * @param total the total
+     */
     private void writeTotal(String value, double total)
     {
         if (this.assertRequiredState())
@@ -73,6 +84,9 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
         }
     }
 
+    /**
+     * Prepare cell.
+     */
     private void prepareCell()
     {
         this.currentCell = this.currentRow.createCell(this.colNum++);

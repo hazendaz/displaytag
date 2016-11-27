@@ -77,10 +77,11 @@ abstract class Decorator
 
     /**
      * Initialize the TableTecorator instance.
+     *
      * @param pageContext PageContext
      * @param decorated decorated object (usually a list)
-     * @deprecated use #init(PageContext, Object, TableModel)
      * @see #init(PageContext, Object, TableModel)
+     * @deprecated use #init(PageContext, Object, TableModel)
      */
     @Deprecated
     public void init(PageContext pageContext, Object decorated)

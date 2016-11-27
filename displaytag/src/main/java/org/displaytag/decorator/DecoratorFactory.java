@@ -41,6 +41,8 @@ public interface DecoratorFactory
      * method used to lookup decorator (direct instantiation, load from a pre-istantiated list or from the page context)
      * may vary between different implementations.
      * </p>
+     *
+     * @param pageContext the page context
      * @param decoratorName String full decorator class name
      * @return instance of TableDecorator
      * @throws DecoratorInstantiationException if unable to load specified TableDecorator
@@ -54,6 +56,8 @@ public interface DecoratorFactory
      * instance. The method used to lookup decorator (direct instantiation, load from a pre-istantiated list or from the
      * page context) may vary between different implementations.
      * </p>
+     *
+     * @param pageContext the page context
      * @param decoratorName String full decorator class name
      * @return instance of DisplaytagColumnDecorator
      * @throws DecoratorInstantiationException if unable to load ColumnDecorator
@@ -62,11 +66,12 @@ public interface DecoratorFactory
         throws DecoratorInstantiationException;
 
     /**
-     * 
+     * Load table totaler.
+     *
      * @param pageContext ctxt
      * @param decoratorName  full class name
-     * @return
-     * @throws DecoratorInstantiationException
+     * @return the table totaler
+     * @throws DecoratorInstantiationException the decorator instantiation exception
      */
      TableTotaler loadTableTotaler(PageContext pageContext, String decoratorName)
         throws DecoratorInstantiationException;

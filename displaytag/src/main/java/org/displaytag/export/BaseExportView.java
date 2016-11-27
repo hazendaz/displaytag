@@ -61,19 +61,13 @@ public abstract class BaseExportView implements TextExportView
      */
     private TableModel model;
 
-    /**
-     * export full list?
-     */
+    /** export full list?. */
     private boolean exportFull;
 
-    /**
-     * include header in export?
-     */
+    /** include header in export?. */
     private boolean header;
 
-    /**
-     * decorate export?
-     */
+    /** decorate export?. */
     private boolean decorated;
 
     /**
@@ -141,13 +135,15 @@ public abstract class BaseExportView implements TextExportView
     }
 
     /**
-     * always append cell end string?
+     * always append cell end string?.
+     *
      * @return boolean
      */
     protected abstract boolean getAlwaysAppendCellEnd();
 
     /**
-     * always append row end string?
+     * always append row end string?.
+     *
      * @return boolean
      */
     protected abstract boolean getAlwaysAppendRowEnd();

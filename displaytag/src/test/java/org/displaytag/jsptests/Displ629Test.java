@@ -46,6 +46,9 @@ public class Displ629Test extends DisplaytagCase
 {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     public String getJspName()
@@ -74,6 +77,14 @@ public class Displ629Test extends DisplaytagCase
 
     }
 
+    /**
+     * Check last column.
+     *
+     * @param request the request
+     * @throws MalformedURLException the malformed URL exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws SAXException the SAX exception
+     */
     private void checkLastColumn(WebRequest request) throws MalformedURLException, IOException, SAXException
     {
         WebResponse response = this.runner.getResponse(request);

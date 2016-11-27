@@ -110,9 +110,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      */
     private boolean nulls;
 
-    /**
-     * is the column sortable?
-     */
+    /** is the column sortable?. */
     private boolean sortable;
 
     /**
@@ -208,9 +206,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
      */
     private String decorator;
 
-    /**
-     * is the column already sorted?
-     */
+    /** is the column already sorted?. */
     private boolean alreadySorted;
 
     /**
@@ -566,7 +562,8 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     }
 
     /**
-     * sets the name given to the server when sorting this column
+     * sets the name given to the server when sorting this column.
+     *
      * @param sortName name given to the server to sort this column
      */
     public void setSortName(String sortName)

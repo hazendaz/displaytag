@@ -302,9 +302,9 @@ public class ItextTableWriter extends TableWriterAdapter
 
     /**
      * Returns a formatted cell for the given value.
+     *
      * @param value cell value
      * @return Cell
-     * @throws BadElementException if errors occurs while generating content.
      */
     private PdfPCell getCell(Object value)
     {
