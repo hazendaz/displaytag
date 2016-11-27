@@ -58,7 +58,7 @@ public class FilterTest extends DisplaytagCase
     }
 
     /**
-     * @see org.displaytag.test.DisplaytagCase#doTest(java.lang.String)
+     * @see org.displaytag.test.DisplaytagCase#doTest()
      */
     @Override
     @Test

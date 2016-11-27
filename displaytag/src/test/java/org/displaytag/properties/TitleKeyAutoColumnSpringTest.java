@@ -73,7 +73,7 @@ public class TitleKeyAutoColumnSpringTest extends AbstractTitleKeyAutoColumnTest
     }
 
     /**
-     * @see org.displaytag.test.DisplaytagCase#doTest(java.lang.String)
+     * @see org.displaytag.test.DisplaytagCase#doTest()
      */
     @Override
     @Test

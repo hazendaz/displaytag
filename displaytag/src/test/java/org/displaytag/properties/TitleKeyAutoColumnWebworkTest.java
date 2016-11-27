@@ -74,7 +74,7 @@ public class TitleKeyAutoColumnWebworkTest extends AbstractTitleKeyAutoColumnTes
     }
 
     /**
-     * @see org.displaytag.test.DisplaytagCase#doTest(java.lang.String)
+     * @see org.displaytag.test.DisplaytagCase#doTest()
      */
     @Override
     @Test

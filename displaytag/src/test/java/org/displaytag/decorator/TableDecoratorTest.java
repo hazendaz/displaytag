@@ -53,7 +53,6 @@ public class TableDecoratorTest
      * Sets the up.
      *
      * @throws Exception the exception
-     * @see TestCase#setUp()
      */
     @Before
     public void setUp() throws Exception
