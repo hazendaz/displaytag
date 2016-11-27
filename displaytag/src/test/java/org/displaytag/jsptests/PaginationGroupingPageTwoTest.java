@@ -44,7 +44,13 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase
     @Override
     public void doTest() throws Exception
     {
-        // This is not a test.
+        // Not used
+    }
+
+    @Override
+    public String getJspName() {
+        // Not used
+        return null;
     }
 
     /**

@@ -55,6 +55,13 @@ public class ExportPdfTest extends DisplaytagCase
     @Override
     public void doTest() throws Exception
     {
+        // Not used
+    }
+
+    @Override
+    public String getJspName() {
+        // Not used
+        return null;
     }
 
     @Override

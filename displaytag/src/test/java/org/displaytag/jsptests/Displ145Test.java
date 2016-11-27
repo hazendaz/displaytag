@@ -59,4 +59,10 @@ public class Displ145Test extends DisplaytagCase
 
     }
 
+    @Override
+    public String getJspName() {
+        // Not used
+        return null;
+    }
+
 }
