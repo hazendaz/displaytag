@@ -79,7 +79,6 @@ import org.slf4j.LoggerFactory;
  * @author rapruitt Date: Aug 26, 2009 Time: 1:55:29 PM
  * @see FopExportView#SPECIFIC_STYLESHEET the property that contains the text of a stylesheet
  * @see FopExportView#DEFAULT_STYLESHEET the default stylesheet location
- * @see XslTransformerTest#XML for a sample of the XML output
  * @see XmlTotalsWriter
  */
 public class FopExportView implements BinaryExportView
@@ -272,7 +271,6 @@ public class FopExportView implements BinaryExportView
      * @param styleSheetPath the path to the stylesheet
      * @param f the f
      * @throws Exception if trouble
-     * @see XslTransformerTest#XML as a sample
      */
     public static void transform(String xmlSrc, String styleSheetPath, File f) throws Exception
     {
