@@ -208,7 +208,7 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <tasks>
+              <target>
                 <copy overwrite="true" todir="src/site" flatten="true">
                   <fileset dir="..">
                     <include name="../src/site/site.xml" />
@@ -222,7 +222,7 @@
                   <include name="${project.artifactId}/src/site/site.xml" />
                   <exclude name="displaytag-doc/src/site/site.xml" />
                 </replace>
-              </tasks>
+              </target>
             </configuration>
           </execution>
         </executions>

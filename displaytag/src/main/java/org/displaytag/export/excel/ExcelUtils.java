@@ -44,19 +44,19 @@ public class ExcelUtils
 {
 
     /** The Constant EXCEL_SHEET_NAME. */
-    public final static String EXCEL_SHEET_NAME = "export.excel.sheetname"; //$NON-NLS-1$
+    public static final String EXCEL_SHEET_NAME = "export.excel.sheetname"; //$NON-NLS-1$
 
     /** The Constant EXCEL_FORMAT_INTEGER. */
-    public final static String EXCEL_FORMAT_INTEGER = "export.excel.format.integer"; //$NON-NLS-1$
+    public static final String EXCEL_FORMAT_INTEGER = "export.excel.format.integer"; //$NON-NLS-1$
 
     /** The Constant EXCEL_FORMAT_DATE. */
-    public final static String EXCEL_FORMAT_DATE = "export.excel.format.date"; //$NON-NLS-1$
+    public static final String EXCEL_FORMAT_DATE = "export.excel.format.date"; //$NON-NLS-1$
 
     /** The Constant EXCEL_FORMAT_NUMBER. */
-    public final static String EXCEL_FORMAT_NUMBER = "export.excel.format.number"; //$NON-NLS-1$
+    public static final String EXCEL_FORMAT_NUMBER = "export.excel.format.number"; //$NON-NLS-1$
 
     /** The Constant EXCEL_WRAPAT. */
-    public final static String EXCEL_WRAPAT = "export.excel.wraptextlength"; //$NON-NLS-1$
+    public static final String EXCEL_WRAPAT = "export.excel.wraptextlength"; //$NON-NLS-1$
 
     /** The cell styles. */
     /*

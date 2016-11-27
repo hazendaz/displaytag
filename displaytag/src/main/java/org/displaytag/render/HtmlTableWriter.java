@@ -264,8 +264,7 @@ public class HtmlTableWriter extends TableWriterAdapter
      */
     private String esc(Object value)
     {
-        String valueEscaped = StringUtils.replace(value != null ? value.toString() : StringUtils.EMPTY, "\"", "\\\"");
-        return valueEscaped;
+        return StringUtils.replace(value != null ? value.toString() : StringUtils.EMPTY, "\"", "\\\"");
     }
 
     /**

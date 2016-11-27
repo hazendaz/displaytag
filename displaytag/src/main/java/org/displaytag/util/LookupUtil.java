@@ -345,7 +345,7 @@ public final class LookupUtil
             }
         }
         // Request the specified indexed property value
-        return (PropertyUtils.getIndexedProperty(bean, evalName, index));
+        return PropertyUtils.getIndexedProperty(bean, evalName, index);
 
     }
 

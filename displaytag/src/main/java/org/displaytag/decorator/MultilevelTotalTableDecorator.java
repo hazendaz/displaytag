@@ -411,6 +411,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      */
     protected void finishGroup(int columnNumber, StringBuffer out)
     {
+        // Not Implemented
     }
 
     /**

@@ -202,7 +202,7 @@ public class XmlTotalsWriter extends TableWriterAdapter
      * @param groupColumn the group column
      */
     protected void writeExtraGroupInfo(TableModel model, int groupColumn){
-
+        // Not Implemented
     }
 
     /**
