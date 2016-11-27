@@ -47,6 +47,7 @@ public class Displ237Test extends DisplaytagCase
      * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return "DISPL-237.jsp";

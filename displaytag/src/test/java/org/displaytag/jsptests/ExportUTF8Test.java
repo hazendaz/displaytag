@@ -47,6 +47,7 @@ public class ExportUTF8Test extends DisplaytagCase
      * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return "utf8.jsp";

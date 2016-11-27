@@ -54,6 +54,7 @@ public class I18nPropertiesTest extends DisplaytagCase
      * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return "i18nProperties.jsp";

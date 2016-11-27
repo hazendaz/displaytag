@@ -41,7 +41,7 @@ import com.meterware.httpunit.WebResponse;
 /**
  * The Class Displ230.
  */
-public class Displ230 extends DisplaytagCase
+public class Displ230Test extends DisplaytagCase
 {
 
     /**
@@ -50,6 +50,7 @@ public class Displ230 extends DisplaytagCase
      * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return "DISPL-230.jsp";

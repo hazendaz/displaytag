@@ -48,6 +48,7 @@ public class OptimizedIteration3Test extends DisplaytagCase
      * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return "optimizediteration3.jsp";

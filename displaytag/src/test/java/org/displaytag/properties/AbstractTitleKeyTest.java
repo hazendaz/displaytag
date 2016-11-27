@@ -47,6 +47,7 @@ public abstract class AbstractTitleKeyTest extends DisplaytagCase
      * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return "titlekey.jsp";

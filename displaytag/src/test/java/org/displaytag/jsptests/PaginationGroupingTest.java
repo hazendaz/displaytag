@@ -46,7 +46,8 @@ public class PaginationGroupingTest extends DisplaytagCase
      *
      * @return the jsp name
      */
-    protected String getJspName()
+    @Override
+    public String getJspName()
     {
         return "pagination-grouping.jsp";
     }

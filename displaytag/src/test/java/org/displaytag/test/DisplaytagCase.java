@@ -70,6 +70,14 @@ public abstract class DisplaytagCase
     public abstract void doTest() throws Exception;
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
+     *
+     */
+    public abstract String getJspName();
+
+    /**
      * Gets the jsp url.
      *
      * @param jsp the jsp

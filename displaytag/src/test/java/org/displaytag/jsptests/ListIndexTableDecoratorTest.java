@@ -47,6 +47,7 @@ public class ListIndexTableDecoratorTest extends DisplaytagCase
      * @return the jsp name
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
+    @Override
     public String getJspName()
     {
         return "listindex.jsp";
