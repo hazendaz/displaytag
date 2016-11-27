@@ -155,8 +155,8 @@
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>     }
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L150" href="#L150">150</a> <em class="jxr_javadoccomment">     * Writes the open &amp;lt;tr&gt; tag.</em>
-<a class="jxr_linenumber" name="L151" href="#L151">151</a> <em class="jxr_javadoccomment">     * @return String &amp;lt;tr&gt; tag with the appropriate css class attribute</em>
+<a class="jxr_linenumber" name="L150" href="#L150">150</a> <em class="jxr_javadoccomment">     * Writes the open &amp;lt;tr&amp;gt; tag.</em>
+<a class="jxr_linenumber" name="L151" href="#L151">151</a> <em class="jxr_javadoccomment">     * @return String &amp;lt;tr&amp;gt; tag with the appropriate css class attribute</em>
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>     <strong class="jxr_keyword">public</strong> String getOpenTag()
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>     {
@@ -195,7 +195,7 @@
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>             rowAttributes.put(TagConstants.ATTRIBUTE_CLASS, cssAttribute);
 <a class="jxr_linenumber" name="L188" href="#L188">188</a>         }
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> 
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>         StringBuffer tag = <strong class="jxr_keyword">new</strong> StringBuffer();
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>         StringBuilder tag = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>         tag.append(TagConstants.TAG_OPEN);
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         tag.append(TagConstants.TAGNAME_ROW);
 <a class="jxr_linenumber" name="L193" href="#L193">193</a> 
@@ -207,8 +207,8 @@
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>     }
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> 
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L202" href="#L202">202</a> <em class="jxr_javadoccomment">     * writes the &amp;lt;/tr&gt; tag.</em>
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> <em class="jxr_javadoccomment">     * @return String &amp;lt;/tr&gt; tag</em>
+<a class="jxr_linenumber" name="L202" href="#L202">202</a> <em class="jxr_javadoccomment">     * writes the &amp;lt;/tr&amp;gt; tag.</em>
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> <em class="jxr_javadoccomment">     * @return String &amp;lt;/tr&amp;gt; tag</em>
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L205" href="#L205">205</a>     <strong class="jxr_keyword">public</strong> String getCloseTag()
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>     {

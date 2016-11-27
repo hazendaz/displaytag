@@ -47,17 +47,19 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 899149338534L;
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     * @param sourceClass class where the exception is thrown</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     * @param property object property who caused the exception</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     * @param cause previous (checked) exception</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/exception/RuntimeLookupException.html">RuntimeLookupException</a>(Class&lt; ? <strong class="jxr_keyword">extends</strong> RowSorter&gt; sourceClass, String property, <a href="../../../org/displaytag/exception/BaseNestableJspTagException.html">BaseNestableJspTagException</a> cause)
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>      {
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">super</strong>(Messages.getString(<span class="jxr_string">"RuntimeLookupException.msg"</span>, <em class="jxr_comment">//$NON-NLS-1$</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>              <strong class="jxr_keyword">new</strong> Object[]{property, cause.getMessage()}));
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>      }
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  }
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     * Instantiates a new runtime lookup exception.</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     * @param sourceClass class where the exception is thrown</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment">     * @param property object property who caused the exception</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment">     * @param cause previous (checked) exception</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/exception/RuntimeLookupException.html">RuntimeLookupException</a>(Class&lt; ? <strong class="jxr_keyword">extends</strong> RowSorter&gt; sourceClass, String property, <a href="../../../org/displaytag/exception/BaseNestableJspTagException.html">BaseNestableJspTagException</a> cause)
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      {
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">super</strong>(Messages.getString(<span class="jxr_string">"RuntimeLookupException.msg"</span>, <em class="jxr_comment">//$NON-NLS-1$</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>              <strong class="jxr_keyword">new</strong> Object[]{property, cause.getMessage()}));
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      }
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2002&#x2013;2016 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
