@@ -38,7 +38,7 @@ import org.displaytag.model.TableModel;
  * <p>
  * This class provides some basic functionality for all objects which serve as decorators for the objects in the List
  * being displayed.
- * <p>
+ * </p>
  * <p>
  * Decorator should never be subclassed directly. Use TableDecorator instead
  * </p>

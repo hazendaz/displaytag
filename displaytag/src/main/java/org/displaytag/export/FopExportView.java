@@ -57,10 +57,25 @@ import org.slf4j.LoggerFactory;
  * property export.pdf.fo.stylesheet. When you are developing a stylesheet, this class will output the raw FO if you set
  * your log level to debug, which is very handy if you are getting errors or unexpected pdf output. See asFo_us.xsl for
  * a sample XSL-FO stylesheet. The basic structure of the intermediate XML is
- * <table>
- * <header> <header-cell>AntColumn</header-cell> </header> <data> <subgroup grouped-by="0"> <row> <cell
- * grouped="true">Ant</cell> </row> <subtotal> <subtotal-cell></subtotal-cell> </subgroup> </data>
- * </table>
+ *
+ * <pre>
+ * &lt;table&gt;
+ *   &lt;header&gt;
+ *     &lt;header-cell&gt;AntColumn&lt;/header-cell&gt;
+ *   &lt;/header&gt;
+ *   &lt;data&gt;
+ *     &lt;subgroup grouped-by="0"&gt;
+ *       &lt;row&gt;
+ *         &lt;cell grouped="true"&gt;Ant&lt;/cell&gt;
+ *       &lt;/row&gt;
+ *       &lt;subtotal&gt;
+ *         &lt;subtotal-cell&gt; &lt;/subtotal-cell&gt;
+ *       &lt;/subtotal&gt;
+ *     &lt;/subgroup&gt;
+ *   &lt;/data&gt;
+ * &lt;/table&gt;
+ * </pre>
+ *
  * @author rapruitt Date: Aug 26, 2009 Time: 1:55:29 PM
  * @see FopExportView#SPECIFIC_STYLESHEET the property that contains the text of a stylesheet
  * @see FopExportView#DEFAULT_STYLESHEET the defualt stylesheet location

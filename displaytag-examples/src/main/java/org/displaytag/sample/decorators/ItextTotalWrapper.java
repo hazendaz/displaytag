@@ -56,7 +56,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
     /**
      * Set the table required to render the totals line.
      * @param table The table required to render the totals line.
-     * @see org.displaytag.decorator.itext.DecoratesItext#setTable(com.lowagie.text.Table)
+     * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setTable(com.itextpdf.text.pdf.PdfPTable)
      */
     @Override
     public void setTable(PdfPTable table)
@@ -67,7 +67,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
     /**
      * Set the font required to render the totals line.
      * @param font The font required to render the totals line.
-     * @see org.displaytag.decorator.itext.DecoratesItext#setFont(com.lowagie.text.Font)
+     * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setFont(com.itextpdf.text.Font)
      */
     @Override
     public void setFont(Font font)

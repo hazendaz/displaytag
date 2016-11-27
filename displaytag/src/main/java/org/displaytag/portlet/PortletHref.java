@@ -503,7 +503,7 @@ public class PortletHref implements Href
     }
 
     /**
-     * @see org.displaytag.util.Href#hashCode()
+     * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode()

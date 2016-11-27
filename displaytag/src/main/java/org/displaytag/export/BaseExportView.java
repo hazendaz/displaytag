@@ -218,7 +218,7 @@ public abstract class BaseExportView implements TextExportView
     }
 
     /**
-     * @see org.displaytag.export.TextExportView#doExport(java.io.Writer)
+     * @see org.displaytag.export.TextExportView#doExport(java.io.Writer,java.lang.String)
      */
     @Override
     public void doExport(Writer out, String characterEncoding) throws IOException, JspException
