@@ -336,20 +336,23 @@
 <a class="jxr_linenumber" name="L328" href="#L328">328</a>         URLAssert.assertEquals(url, href.toString());
 <a class="jxr_linenumber" name="L329" href="#L329">329</a>     }
 <a class="jxr_linenumber" name="L330" href="#L330">330</a> 
-<a class="jxr_linenumber" name="L331" href="#L331">331</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testaddParameterMap()
-<a class="jxr_linenumber" name="L332" href="#L332">332</a>     {
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>         Map&lt;String, String[]&gt; parametersMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
-<a class="jxr_linenumber" name="L334" href="#L334">334</a> 
-<a class="jxr_linenumber" name="L335" href="#L335">335</a>         parametersMap.put(<span class="jxr_string">"modifiedArray"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"a&amp;nbspb"</span>, <span class="jxr_string">"c&amp;nbspd"</span>});
-<a class="jxr_linenumber" name="L336" href="#L336">336</a> 
-<a class="jxr_linenumber" name="L337" href="#L337">337</a>         DefaultHref defaultHref = <strong class="jxr_keyword">new</strong> DefaultHref(<span class="jxr_string">""</span>);
-<a class="jxr_linenumber" name="L338" href="#L338">338</a>         defaultHref.addParameterMap(parametersMap);
-<a class="jxr_linenumber" name="L339" href="#L339">339</a>         String[] modifiedArray = parametersMap.get(<span class="jxr_string">"modifiedArray"</span>);
-<a class="jxr_linenumber" name="L340" href="#L340">340</a>         Assert.assertEquals(modifiedArray[0], <span class="jxr_string">"a&amp;nbspb"</span>);
-<a class="jxr_linenumber" name="L341" href="#L341">341</a>         Assert.assertEquals(modifiedArray[1], <span class="jxr_string">"c&amp;nbspd"</span>);
-<a class="jxr_linenumber" name="L342" href="#L342">342</a>     }
-<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
-<a class="jxr_linenumber" name="L344" href="#L344">344</a> }
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> <em class="jxr_javadoccomment">     * Testadd parameter map.</em>
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L334" href="#L334">334</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testaddParameterMap()
+<a class="jxr_linenumber" name="L335" href="#L335">335</a>     {
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>         Map&lt;String, String[]&gt; parametersMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L337" href="#L337">337</a> 
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>         parametersMap.put(<span class="jxr_string">"modifiedArray"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"a&amp;nbspb"</span>, <span class="jxr_string">"c&amp;nbspd"</span>});
+<a class="jxr_linenumber" name="L339" href="#L339">339</a> 
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>         DefaultHref defaultHref = <strong class="jxr_keyword">new</strong> DefaultHref(<span class="jxr_string">""</span>);
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>         defaultHref.addParameterMap(parametersMap);
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>         String[] modifiedArray = parametersMap.get(<span class="jxr_string">"modifiedArray"</span>);
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>         Assert.assertEquals(modifiedArray[0], <span class="jxr_string">"a&amp;nbspb"</span>);
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>         Assert.assertEquals(modifiedArray[1], <span class="jxr_string">"c&amp;nbspd"</span>);
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>     }
+<a class="jxr_linenumber" name="L346" href="#L346">346</a> 
+<a class="jxr_linenumber" name="L347" href="#L347">347</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2002&#x2013;2016 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>

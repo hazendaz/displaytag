@@ -76,7 +76,7 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          String work = columnValue.toString();
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>          <strong class="jxr_keyword">int</strong> urlBegin;
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          StringBuffer buffer = <strong class="jxr_keyword">new</strong> StringBuffer();
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          StringBuilder buffer = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          <em class="jxr_comment">// First check for email addresses.</em>
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          <strong class="jxr_keyword">while</strong> ((urlBegin = work.indexOf('@')) != -1)
@@ -121,7 +121,7 @@
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         }
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> 
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         work = buffer.toString() + work;
-<a class="jxr_linenumber" name="L116" href="#L116">116</a>         buffer = <strong class="jxr_keyword">new</strong> StringBuffer();
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         buffer = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> 
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>         <em class="jxr_comment">// Now check for urls...</em>
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>         <strong class="jxr_keyword">while</strong> ((urlBegin = work.indexOf(URL_DELIM)) != -1)
@@ -129,7 +129,7 @@
 <a class="jxr_linenumber" name="L121" href="#L121">121</a> 
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>             <em class="jxr_comment">// scan backwards...</em>
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>             <strong class="jxr_keyword">int</strong> fullUrlBegin = urlBegin;
-<a class="jxr_linenumber" name="L124" href="#L124">124</a>             StringBuffer prefixBuffer = <strong class="jxr_keyword">new</strong> StringBuffer(10);
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>             StringBuilder prefixBuffer = <strong class="jxr_keyword">new</strong> StringBuilder(10);
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>             <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = fullUrlBegin - 1; j &gt;= 0; j--)
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>             {
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>                 <strong class="jxr_keyword">if</strong> (Character.isWhitespace(work.charAt(j)))
