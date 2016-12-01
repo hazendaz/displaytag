@@ -53,11 +53,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 
 /**
- * The Class ExportExcelTest.
+ * Test that even if we use partial lists for external sorting and paging 
+ * still all the records get exported.
  *
  * @author andy Date: Oct 30, 2010 Time: 12:04:04 PM
  */
-public class ExportExcelTest
+public class ExportExcelPartialListTest
 {
 
     /**
@@ -135,20 +136,19 @@ public class ExportExcelTest
     @Test
     public void doDefaultTest() throws Exception
     {
-        byte[] res = runPage("exportExcel.jsp");
-        File f = File.createTempFile("exporttest3", ".xls");
+        byte[] res = runPage("exportExcelPartialList.jsp");
+        File f = File.createTempFile("exporttest", "xls");
         FileOutputStream fw = new FileOutputStream(f);
         fw.write(res);
         fw.flush();
         fw.close();
-        
+
         FileInputStream istr = new FileInputStream(f);
         Workbook wb = new HSSFWorkbook(istr);
 
         Sheet sh = wb.getSheetAt(0);
         Assert.assertNotNull("Not all rows have been exported", sh.getRow(4));
         Assert.assertEquals("bee", sh.getRow(4).getCell(0).getStringCellValue());
-        istr.close();
     }
 
     /**

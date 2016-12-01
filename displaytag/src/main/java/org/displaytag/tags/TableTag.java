@@ -1084,14 +1084,14 @@ public class TableTag extends HtmlTableTag
                     "InvalidTypeException.msg",
                     new Object[]{"size", "Integer"}));
             }
-
-            PaginationHelper paginationHelper = new PaginationHelper(this.pageNumber, this.pagesize);
-            this.tableIterator = paginationHelper.getIterator(this.list);
+//
+//            PaginationHelper paginationHelper = new PaginationHelper(this.pageNumber, this.pagesize);
+//            this.tableIterator = paginationHelper.getIterator(this.list);
         }
-        else
-        {
+//        else
+//        {
             this.tableIterator = IteratorUtils.getIterator(this.list);
-        }
+//        }
 
         // do we really need to skip any row?
         boolean wishOptimizedIteration = ((this.pagesize > 0 // we are paging
