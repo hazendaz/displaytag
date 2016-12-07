@@ -26,7 +26,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.Hashtable;
 
 import org.displaytag.export.ExportViewFactory;
 import org.displaytag.properties.MediaTypeEnum;
@@ -45,6 +44,11 @@ import com.meterware.httpunit.HttpUnitOptions;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
+import java.io.FileInputStream;
+import java.util.Hashtable;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 
 /**
@@ -52,7 +56,7 @@ import com.meterware.servletunit.ServletRunner;
  *
  * @author andy Date: Oct 30, 2010 Time: 12:04:04 PM
  */
-public class ExportExcelTest
+public class ExportExcelHssfTest
 {
 
     /**
@@ -136,6 +140,14 @@ public class ExportExcelTest
         fw.write(res);
         fw.flush();
         fw.close();
+        
+        FileInputStream istr = new FileInputStream(f);
+        Workbook wb = new HSSFWorkbook(istr);
+
+        Sheet sh = wb.getSheetAt(0);
+        Assert.assertNotNull("Not all rows have been exported", sh.getRow(4));
+        Assert.assertEquals("bee", sh.getRow(4).getCell(0).getStringCellValue());
+        istr.close();
     }
 
     /**
@@ -154,7 +166,7 @@ public class ExportExcelTest
 
         // this will force media type initialization
         ExportViewFactory evf= ExportViewFactory.getInstance();
-        evf.registerExportView("excel", "org.displaytag.export.ExcelView");
+        evf.registerExportView("excel", "org.displaytag.export.excel.ExcelHssfView");
         MediaTypeEnum excelMedia = MediaTypeEnum.EXCEL;
         Assert.assertNotNull("Excel export view not correctly registered.", excelMedia);
         request.setParameter(mediaParameter, Integer.toString(excelMedia.getCode()));

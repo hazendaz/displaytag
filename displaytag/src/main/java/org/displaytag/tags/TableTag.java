@@ -61,7 +61,6 @@ import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
 import org.displaytag.pagination.PaginatedList;
 import org.displaytag.pagination.PaginatedListSmartListHelper;
-import org.displaytag.pagination.PaginationHelper;
 import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.SortOrderEnum;
@@ -1084,14 +1083,8 @@ public class TableTag extends HtmlTableTag
                     "InvalidTypeException.msg",
                     new Object[]{"size", "Integer"}));
             }
-
-            PaginationHelper paginationHelper = new PaginationHelper(this.pageNumber, this.pagesize);
-            this.tableIterator = paginationHelper.getIterator(this.list);
         }
-        else
-        {
-            this.tableIterator = IteratorUtils.getIterator(this.list);
-        }
+        this.tableIterator = IteratorUtils.getIterator(this.list);
 
         // do we really need to skip any row?
         boolean wishOptimizedIteration = ((this.pagesize > 0 // we are paging

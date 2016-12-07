@@ -401,6 +401,9 @@ public class ExcelHssfView implements BinaryExportView
      */
     public HSSFWorkbook getWb()
     {
+        if (this.wb == null) {
+            this.wb = new HSSFWorkbook();
+        }
         return this.wb;
     }
 
