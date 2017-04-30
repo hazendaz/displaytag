@@ -67,6 +67,7 @@ public class HssfDoubleExportView extends DefaultHssfExportView
                     writer.writeTable(this.model, "-1");
                 }
                 wb.write(out);
+                wb.close();
             }
             catch (Exception e)
             {

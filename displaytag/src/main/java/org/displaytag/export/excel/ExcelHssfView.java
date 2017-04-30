@@ -37,7 +37,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.displaytag.export.BinaryExportView;
 import org.displaytag.model.Column;
@@ -293,10 +293,10 @@ public class ExcelHssfView implements BinaryExportView
     {
         HSSFCellStyle headerStyle = getNewCellStyle();
 
-        headerStyle.setFillPattern(CellStyle.FINE_DOTS);
+        headerStyle.setFillPattern(FillPatternType.FINE_DOTS);
         headerStyle.setFillBackgroundColor(HSSFColor.BLUE_GREY.index);
         HSSFFont bold = wb.createFont();
-        bold.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        bold.setBold(true);
         bold.setColor(HSSFColor.WHITE.index);
         headerStyle.setFont(bold);
 

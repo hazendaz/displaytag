@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.displaytag.Messages;
 import org.displaytag.exception.BaseNestableJspTagException;
 import org.displaytag.exception.SeverityEnum;
@@ -142,13 +142,13 @@ public class ExcelUtils
     {
         // Integer
         HSSFCellStyle style = getNewCellStyle();
-        style.setAlignment(CellStyle.ALIGN_RIGHT);
+        style.setAlignment(HorizontalAlignment.RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_INTEGER)));
         this.cellStyles.put(STYLE_INTEGER, style);
 
         // NUMBER
         style = getNewCellStyle();
-        style.setAlignment(CellStyle.ALIGN_RIGHT);
+        style.setAlignment(HorizontalAlignment.RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_NUMBER)));
         this.cellStyles.put(STYLE_NUMBER, style);
 
@@ -156,9 +156,9 @@ public class ExcelUtils
 
         // Date
         style = getNewCellStyle();
-        style.setAlignment(CellStyle.ALIGN_RIGHT);
+        style.setAlignment(HorizontalAlignment.RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_DATE)));
-        style.setAlignment(CellStyle.ALIGN_RIGHT);
+        style.setAlignment(HorizontalAlignment.RIGHT);
         this.cellStyles.put(STYLE_DATE, style);
 
         // Long text

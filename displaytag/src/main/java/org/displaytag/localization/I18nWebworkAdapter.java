@@ -117,7 +117,7 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
             }
         }
 
-        // if user explicitely added a titleKey we guess this is an error
+        // if user explicitly added a titleKey we guess this is an error
         if (message == null && resourceKey != null)
         {
             log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$
