@@ -59,7 +59,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.21</version>
+      <version>1.7.25</version>
     </dependency>
     <dependency>
       <groupId>log4j</groupId>
@@ -76,7 +76,7 @@
       <artifactId>javax.servlet.jsp.jstl</artifactId>
       <version>1.2.5-b02</version>
       <exclusions>
-        <exclusion>       
+        <exclusion>
           <artifactId>jstl-api</artifactId>
           <groupId>javax.servlet.jsp.jstl</groupId>
         </exclusion>
