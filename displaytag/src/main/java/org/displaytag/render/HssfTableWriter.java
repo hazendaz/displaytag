@@ -37,8 +37,9 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.displaytag.decorator.TableDecorator;
@@ -160,10 +161,10 @@ public class HssfTableWriter extends TableWriterAdapter
     {
         HSSFCellStyle style = this.wb.createCellStyle();
         HSSFFont bold = this.wb.createFont();
-        bold.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        bold.setBold(true);
         bold.setFontHeightInPoints((short) 14);
         style.setFont(bold);
-        style.setAlignment(CellStyle.ALIGN_CENTER);
+        style.setAlignment(HorizontalAlignment.CENTER);
 
         this.colNum = 0;
         this.currentRow = this.sheet.createRow(this.sheetRowNum++);
@@ -264,7 +265,7 @@ public class HssfTableWriter extends TableWriterAdapter
         {
             Number num = (Number) value;
             // Percentage
-            if (value.toString().indexOf("%") > -1)
+            if (value.toString().indexOf('%') > -1)
             {
                 this.currentCell.setCellValue(num.doubleValue() / 100);
                 this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_PCT));
@@ -381,7 +382,7 @@ public class HssfTableWriter extends TableWriterAdapter
         {
             rawV = StringUtils.replace(rawV, ",", "");
         }
-        return NumberUtils.isNumber(rawV.trim());
+        return NumberUtils.isCreatable(rawV.trim());
     }
 
     /**
@@ -407,9 +408,9 @@ public class HssfTableWriter extends TableWriterAdapter
         // style.setFillPattern(HSSFCellStyle.FINE_DOTS);
         // style.setFillBackgroundColor(HSSFColor.BLUE_GREY.index);
         HSSFFont bold = this.wb.createFont();
-        bold.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        bold.setBold(true);
         // bold.setColor(HSSFColor.WHITE.index);
-        style.setBorderBottom(CellStyle.BORDER_THIN);
+        style.setBorderBottom(BorderStyle.THIN);
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
 
         style.setFont(bold);
@@ -609,7 +610,7 @@ public class HssfTableWriter extends TableWriterAdapter
             writeCellValue(columnValue);
             CellStyle st = this.utils.getNewCellStyle();
             st.cloneStyleFrom(this.currentCell.getCellStyle());
-            st.setBorderTop(CellStyle.BORDER_THIN);
+            st.setBorderTop(BorderStyle.THIN);
             st.setTopBorderColor(IndexedColors.BLACK.getIndex());
             this.currentCell.setCellStyle(st);
             writeColumnCloser(null);

@@ -120,7 +120,7 @@ public class TableTag extends HtmlTableTag
      * Object (collection, list) on which the table is based. This is not set directly using a tag attribute and can be
      * cleaned.
      */
-    protected Object list;
+    protected transient Object list;
 
     // -- start tag attributes --
 
@@ -128,7 +128,7 @@ public class TableTag extends HtmlTableTag
      * Object (collection, list) on which the table is based. Set directly using the "list" attribute or evaluated from
      * expression.
      */
-    protected Object listAttribute;
+    protected transient Object listAttribute;
 
     /**
      * actual row number, updated during iteration.
@@ -171,7 +171,7 @@ public class TableTag extends HtmlTableTag
     private int offset;
 
     /** Integer containing total size of the data displaytag is paginating. */
-    private Object size;
+    private transient Object size;
 
     /** Name of the Integer in some scope containing the size of the data displaytag is paginating. */
     private String sizeObjectName;
@@ -237,12 +237,12 @@ public class TableTag extends HtmlTableTag
     /**
      * table model - initialized in doStartTag().
      */
-    private TableModel tableModel;
+    private transient TableModel tableModel;
 
     /**
      * current row.
      */
-    private Row currentRow;
+    private transient Row currentRow;
 
     /**
      * next row.
@@ -251,7 +251,7 @@ public class TableTag extends HtmlTableTag
     /**
      * Used by various functions when the person wants to do paging - cleaned in doEndTag().
      */
-    private SmartListHelper listHelper;
+    private transient SmartListHelper listHelper;
 
     /**
      * base href used for links - set in initParameters().
@@ -261,7 +261,7 @@ public class TableTag extends HtmlTableTag
     /**
      * table properties - set in doStartTag().
      */
-    private TableProperties properties;
+    private transient TableProperties properties;
 
     /**
      * page number - set in initParameters().
@@ -271,12 +271,12 @@ public class TableTag extends HtmlTableTag
     /**
      * Iterator on collection.
      */
-    private Iterator< ? > tableIterator;
+    private transient Iterator< ? > tableIterator;
 
     /**
      * export type - set in initParameters().
      */
-    private MediaTypeEnum currentMediaType;
+    private transient MediaTypeEnum currentMediaType;
 
     /** daAfterBody() has been executed at least once?. */
     private boolean doAfterBodyExecuted;
@@ -315,7 +315,7 @@ public class TableTag extends HtmlTableTag
      * The paginated list containing the external pagination and sort parameters The presence of this paginated list is
      * what determines if external pagination and sorting is used or not.
      */
-    private PaginatedList paginatedList;
+    private transient PaginatedList paginatedList;
 
     /**
      * The classname of the totaler.
@@ -504,6 +504,7 @@ public class TableTag extends HtmlTableTag
      * a list, for jsp 2.0 containers where users can set up a data source here using EL expressions.
      * @deprecated please use setItems()
      */
+    @Deprecated
     public void setName(Object value)
     {
         if (value instanceof String)
@@ -996,7 +997,7 @@ public class TableTag extends HtmlTableTag
 
                     this.tableModel.setSortedColumnName(sortColumnName); // its a string, set as string
                 }
-                else if (NumberUtils.isNumber(sortColumnName))
+                else if (NumberUtils.isCreatable(sortColumnName))
                 {
                     sortColumn = Integer.parseInt(sortColumnName);
                     this.tableModel.setSortedColumnNumber(sortColumn); // its an int set as normal

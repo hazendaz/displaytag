@@ -58,6 +58,7 @@ public class DefaultHssfExportView implements BinaryExportView
             HSSFWorkbook wb = new HSSFWorkbook();
             getHssfTableWriter(wb).writeTable(this.model, "-1");
             wb.write(out);
+            wb.close();
         }
         catch (Exception e)
         {

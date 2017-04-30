@@ -130,8 +130,8 @@ public class Cell implements Comparable<Cell>, Cloneable
     }
 
     /**
-     * Simple toString wich output the static value.
-     * @return String represantation of the cell
+     * Simple toString which output the static value.
+     * @return String representation of the cell
      */
     @Override
     public String toString()

@@ -67,20 +67,20 @@ public abstract class BaseNestableJspTagException extends JspTagException
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)
         {
-            log.debug(toString());
+            log.debug("{}", this);
         }
         else if (getSeverity() == SeverityEnum.INFO)
         {
-            log.info(toString());
+            log.info("{}", this);
         }
         else if (getSeverity() == SeverityEnum.WARN)
         {
-            log.warn(toString());
+            log.warn("{}", this);
         }
         else
         {
             // error - default
-            log.error(toString());
+            log.error("{}", this);
         }
 
     }
@@ -103,20 +103,20 @@ public abstract class BaseNestableJspTagException extends JspTagException
         // choose appropriate logging method
         if (getSeverity() == SeverityEnum.DEBUG)
         {
-            log.debug(toString(), cause);
+            log.debug("{}", this, cause);
         }
         else if (getSeverity() == SeverityEnum.INFO)
         {
-            log.info(toString(), cause);
+            log.info("{}", this, cause);
         }
         else if (getSeverity() == SeverityEnum.WARN)
         {
-            log.warn(toString(), cause);
+            log.warn("{}", this, cause);
         }
         else
         {
             // error - default
-            log.error(toString(), cause);
+            log.error("{}", this, cause);
         }
 
     }
@@ -139,7 +139,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
     public String toString()
     {
         String className = this.sourceClass.getName();
-        className = className.substring(className.lastIndexOf(".")); //$NON-NLS-1$
+        className = className.substring(className.lastIndexOf('.')); //$NON-NLS-1$
 
         if (this.nestedException == null)
         {

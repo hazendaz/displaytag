@@ -22,7 +22,6 @@
 package org.displaytag.export;
 
 import org.apache.commons.lang3.StringUtils;
-import org.displaytag.model.TableModel;
 
 
 /**
@@ -32,16 +31,6 @@ import org.displaytag.model.TableModel;
  */
 public class ExcelView extends BaseExportView
 {
-
-    /**
-     * @see org.displaytag.export.BaseExportView#setParameters(TableModel, boolean, boolean, boolean)
-     */
-    @Override
-    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
-        boolean decorateValues)
-    {
-        super.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
-    }
 
     /**
      * @see org.displaytag.export.ExportView#getMimeType()

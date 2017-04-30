@@ -165,7 +165,7 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
             {
                 log.debug(Messages.getString("Localization.missingkey", key)); //$NON-NLS-1$
 
-                // if user explicitely added a titleKey we guess this is an error
+                // if user explicitly added a titleKey we guess this is an error
                 if (resourceKey != null)
                 {
                     title = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;

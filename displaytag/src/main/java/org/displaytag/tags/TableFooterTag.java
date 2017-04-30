@@ -49,7 +49,7 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
     /**
      * The media supported attribute.
      */
-    private List<MediaTypeEnum> supportedMedia;
+    private transient List<MediaTypeEnum> supportedMedia;
 
     /**
      * Show the footer as a last table row.
@@ -75,12 +75,9 @@ public class TableFooterTag extends BodyTagSupport implements MediaUtil.Supports
             return SKIP_BODY;
         }
 
-        if (tableTag.isLastIteration())
+        if (tableTag.isLastIteration() && getBodyContent() != null)
         {
-            if (getBodyContent() != null)
-            {
-                tableTag.setFooter(getBodyContent().getString());
-            }
+            tableTag.setFooter(getBodyContent().getString());
         }
 
         return EVAL_PAGE;

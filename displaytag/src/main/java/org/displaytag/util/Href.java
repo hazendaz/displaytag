@@ -106,10 +106,6 @@ public interface Href extends Cloneable, Serializable
      * @return the string
      */
     @Override
-    /**
-     * toString: output the full url with parameters.
-     * @return String
-     */
     String toString();
 
     /**
@@ -127,9 +123,6 @@ public interface Href extends Cloneable, Serializable
      * @return true, if successful
      */
     @Override
-    /**
-     * @see java.lang.Object#equals(Object)
-     */
     boolean equals(Object object);
 
 }

@@ -68,7 +68,7 @@ public class HtmlAttributeMap extends HashMap<String, Object>
             return TagConstants.EMPTY_STRING;
         }
 
-        // buffer extimated in number of attributes * 30
+        // buffer estimated in number of attributes * 30
         StringBuilder buffer = new StringBuilder(size() * 30);
 
         // get the entrySet
@@ -81,7 +81,7 @@ public class HtmlAttributeMap extends HashMap<String, Object>
         {
             Map.Entry<String, Object> entry = iterator.next();
 
-            // append a new atribute
+            // append a new attribute
             buffer
                 .append(SPACE)
                 .append(entry.getKey())

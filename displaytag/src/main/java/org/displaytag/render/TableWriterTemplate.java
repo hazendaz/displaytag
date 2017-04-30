@@ -24,7 +24,6 @@ package org.displaytag.render;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
@@ -115,7 +114,7 @@ public abstract class TableWriterTemplate
             }
 
             // Handle empty table
-            boolean noItems = model.getRowListPage().size() == 0;
+            boolean noItems = model.getRowListPage().isEmpty();
             if (noItems && !properties.getEmptyListShowTable())
             {
                 writeEmptyListMessage(properties.getEmptyListMessage());
@@ -507,7 +506,7 @@ public abstract class TableWriterTemplate
         // and write it when the row is finished,
 
         // render empty list message
-        if (model.getRowListPage().size() == 0)
+        if (model.getRowListPage().isEmpty())
         {
             writeEmptyListRowMessage(new MessageFormat(model.getProperties().getEmptyListRowMessage(), model
                 .getProperties()

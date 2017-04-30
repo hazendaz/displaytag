@@ -27,7 +27,6 @@ import java.io.Writer;
 import javax.servlet.jsp.JspException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.displaytag.model.TableModel;
 
 
 /**
@@ -49,16 +48,6 @@ public class CsvView extends BaseExportView
             out.write(UTF8_BOM);
         }
         super.doExport(out, characterEncoding);
-    }
-
-    /**
-     * @see org.displaytag.export.BaseExportView#setParameters(TableModel, boolean, boolean, boolean)
-     */
-    @Override
-    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
-        boolean decorateValues)
-    {
-        super.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
     }
 
     /**

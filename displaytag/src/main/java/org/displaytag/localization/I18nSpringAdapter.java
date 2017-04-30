@@ -83,7 +83,7 @@ public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider
         message = messageSource.getMessage(key, null, null, RequestContextUtils
             .getLocale((HttpServletRequest) pageContext.getRequest()));
 
-        // if user explicitely added a titleKey we guess this is an error
+        // if user explicitly added a titleKey we guess this is an error
         if (message == null && resourceKey != null)
         {
             log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$

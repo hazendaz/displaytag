@@ -58,7 +58,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * The media supported attribute.
      */
-    private List<MediaTypeEnum> supportedMedia;
+    private transient List<MediaTypeEnum> supportedMedia;
 
     /**
      * setter for the "style" html attribute.

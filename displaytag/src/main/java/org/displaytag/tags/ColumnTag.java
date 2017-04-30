@@ -126,7 +126,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * The comparator to use when sorting this column.
      */
-    private Comparator<Object> comparator;
+    private transient Comparator<Object> comparator;
 
     /**
      * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
@@ -212,7 +212,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * The media supported attribute.
      */
-    private List<MediaTypeEnum> supportedMedia;
+    private transient List<MediaTypeEnum> supportedMedia;
 
     /**
      * Property in a resource bundle to be used as the title for the column.
@@ -233,7 +233,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * Static value for this cell, equivalent to column body.
      */
-    private Object value;
+    private transient Object value;
 
     /**
      * Setter for totals.

@@ -26,7 +26,6 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
 import org.apache.commons.lang3.StringUtils;
@@ -186,7 +185,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         }
 
         // add export links (only if the table is not empty)
-        if (this.export && this.properties.getAddExportBannerTop() && model.getRowListPage().size() != 0)
+        if (this.export && this.properties.getAddExportBannerTop() && !model.getRowListPage().isEmpty())
         {
             // generate export link
             writeExportLinks(model);
@@ -659,7 +658,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         }
 
         // add export links (only if the table is not empty)
-        if (this.export && this.properties.getAddExportBannerBottom() && model.getRowListPage().size() != 0)
+        if (this.export && this.properties.getAddExportBannerBottom() && !model.getRowListPage().isEmpty())
         {
             writeExportLinks(model);
         }
@@ -800,12 +799,6 @@ public class HtmlTableWriter extends TableWriterAdapter
             }
         }
 
-    }
-
-    @Override
-    public void writeTable(TableModel model, String id) throws JspException
-    {
-        super.writeTable(model, id);
     }
 
     /**

@@ -115,7 +115,7 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
             title = resources.getMessage(userLocale, key);
         }
 
-        // if user explicitely added a titleKey we guess this is an error
+        // if user explicitly added a titleKey we guess this is an error
         if (title == null && resourceKey != null)
         {
             title = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;

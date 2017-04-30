@@ -403,7 +403,7 @@ public class TableModel
      */
     public boolean isEmpty()
     {
-        return this.headerCellList.size() == 0;
+        return this.headerCellList.isEmpty();
     }
 
     /**
