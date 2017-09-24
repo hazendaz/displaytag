@@ -91,7 +91,7 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          message = messageSource.getMessage(key, <strong class="jxr_keyword">null</strong>, <strong class="jxr_keyword">null</strong>, RequestContextUtils
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>              .getLocale((HttpServletRequest) pageContext.getRequest()));
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>  
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <em class="jxr_comment">// if user explicitely added a titleKey we guess this is an error</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <em class="jxr_comment">// if user explicitly added a titleKey we guess this is an error</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">if</strong> (message == <strong class="jxr_keyword">null</strong> &amp;&amp; resourceKey != <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          {
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>              log.debug(Messages.getString(<span class="jxr_string">"Localization.missingkey"</span>, resourceKey)); <em class="jxr_comment">//$NON-NLS-1$</em>
@@ -104,6 +104,6 @@
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2016 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
