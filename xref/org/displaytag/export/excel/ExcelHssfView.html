@@ -45,8 +45,8 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.hssf.usermodel.HSSFSheet;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.hssf.usermodel.HSSFWorkbook;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.hssf.util.HSSFColor;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.ss.usermodel.CellStyle;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.ss.usermodel.Font;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.ss.usermodel.FillPatternType;
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> org.displaytag.export.BinaryExportView;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> org.displaytag.model.Column;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> org.displaytag.model.ColumnIterator;
@@ -301,11 +301,11 @@
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>     {
 <a class="jxr_linenumber" name="L294" href="#L294">294</a>         HSSFCellStyle headerStyle = getNewCellStyle();
 <a class="jxr_linenumber" name="L295" href="#L295">295</a> 
-<a class="jxr_linenumber" name="L296" href="#L296">296</a>         headerStyle.setFillPattern(CellStyle.FINE_DOTS);
-<a class="jxr_linenumber" name="L297" href="#L297">297</a>         headerStyle.setFillBackgroundColor(HSSFColor.BLUE_GREY.index);
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>         headerStyle.setFillPattern(FillPatternType.FINE_DOTS);
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>         headerStyle.setFillBackgroundColor(HSSFColorPredefined.BLUE_GREY.getIndex());
 <a class="jxr_linenumber" name="L298" href="#L298">298</a>         HSSFFont bold = wb.createFont();
-<a class="jxr_linenumber" name="L299" href="#L299">299</a>         bold.setBoldweight(Font.BOLDWEIGHT_BOLD);
-<a class="jxr_linenumber" name="L300" href="#L300">300</a>         bold.setColor(HSSFColor.WHITE.index);
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>         bold.setBold(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>         bold.setColor(HSSFColorPredefined.WHITE.getIndex());
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>         headerStyle.setFont(bold);
 <a class="jxr_linenumber" name="L302" href="#L302">302</a> 
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>         <strong class="jxr_keyword">return</strong> headerStyle;
@@ -468,6 +468,6 @@
 <a class="jxr_linenumber" name="L460" href="#L460">460</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2016 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

@@ -37,7 +37,7 @@
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.hssf.usermodel.HSSFCellStyle;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.hssf.usermodel.HSSFDataFormat;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.hssf.usermodel.HSSFWorkbook;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.ss.usermodel.CellStyle;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.apache.poi.ss.usermodel.HorizontalAlignment;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.displaytag.Messages;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.displaytag.exception.BaseNestableJspTagException;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> org.displaytag.exception.SeverityEnum;
@@ -150,13 +150,13 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>     {
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         <em class="jxr_comment">// Integer</em>
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>         HSSFCellStyle style = getNewCellStyle();
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>         style.setAlignment(CellStyle.ALIGN_RIGHT);
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         style.setAlignment(HorizontalAlignment.RIGHT);
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_INTEGER)));
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>         <strong class="jxr_keyword">this</strong>.cellStyles.put(STYLE_INTEGER, style);
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>         <em class="jxr_comment">// NUMBER</em>
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>         style = getNewCellStyle();
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>         style.setAlignment(CellStyle.ALIGN_RIGHT);
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>         style.setAlignment(HorizontalAlignment.RIGHT);
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_NUMBER)));
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         <strong class="jxr_keyword">this</strong>.cellStyles.put(STYLE_NUMBER, style);
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 
@@ -164,9 +164,9 @@
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         <em class="jxr_comment">// Date</em>
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>         style = getNewCellStyle();
-<a class="jxr_linenumber" name="L159" href="#L159">159</a>         style.setAlignment(CellStyle.ALIGN_RIGHT);
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>         style.setAlignment(HorizontalAlignment.RIGHT);
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_DATE)));
-<a class="jxr_linenumber" name="L161" href="#L161">161</a>         style.setAlignment(CellStyle.ALIGN_RIGHT);
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>         style.setAlignment(HorizontalAlignment.RIGHT);
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         <strong class="jxr_keyword">this</strong>.cellStyles.put(STYLE_DATE, style);
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> 
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>         <em class="jxr_comment">// Long text</em>
@@ -297,6 +297,6 @@
 <a class="jxr_linenumber" name="L289" href="#L289">289</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2016 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
