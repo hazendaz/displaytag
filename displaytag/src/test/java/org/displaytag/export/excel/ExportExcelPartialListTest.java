@@ -148,6 +148,7 @@ public class ExportExcelPartialListTest
         Sheet sh = wb.getSheetAt(0);
         Assert.assertNotNull("Not all rows have been exported", sh.getRow(4));
         Assert.assertEquals("bee", sh.getRow(4).getCell(0).getStringCellValue());
+        wb.close();
     }
 
     /**

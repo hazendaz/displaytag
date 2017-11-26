@@ -157,7 +157,7 @@ public class SubtotaledExcelTest
         assertEquals("bee", b2.getStringCellValue());
         assertEquals(KnownValue.MAY, e2.getDateCellValue());
         assertEquals(2, (int) d2.getNumericCellValue());
-
+        wb.close();
     }
 
     /**
@@ -230,7 +230,7 @@ public class SubtotaledExcelTest
 
         // so, GroupTotal[] = getGroups(colNumber) for colNumber = 1 gives GroupTotal[a],GroupTotal[b]
         // for colNumber = 2 gives GroupTotal[a:b],GroupTotal[a:ba],GroupTotal[b:b]
-
+        wb.close();
     }
 
 }
