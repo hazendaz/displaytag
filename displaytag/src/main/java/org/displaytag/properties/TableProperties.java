@@ -447,9 +447,8 @@ public final class TableProperties implements Cloneable
     /**
      * Loads default properties (TableTag.properties).
      * @return loaded properties
-     * @throws TablePropertiesLoadException if default properties file can't be found
      */
-    private static Properties loadBuiltInProperties() throws TablePropertiesLoadException
+    private static Properties loadBuiltInProperties()
     {
         Properties defaultProperties = new Properties();
 
@@ -508,9 +507,8 @@ public final class TableProperties implements Cloneable
     /**
      * Returns the configured Locale Resolver. This method is called before the loading of localized properties.
      * @return LocaleResolver instance.
-     * @throws TablePropertiesLoadException if the default <code>TableTag.properties</code> file is not found.
      */
-    public static LocaleResolver getLocaleResolverInstance() throws TablePropertiesLoadException
+    public static LocaleResolver getLocaleResolverInstance()
     {
 
         if (localeResolver == null)
@@ -589,9 +587,8 @@ public final class TableProperties implements Cloneable
      * Initialize a new TableProperties loading the default properties file and the user defined one. There is no
      * caching used here, caching is assumed to occur in the getInstance factory method.
      * @param myLocale the locale we are in
-     * @throws TablePropertiesLoadException for errors during loading of properties files
      */
-    private TableProperties(Locale myLocale) throws TablePropertiesLoadException
+    private TableProperties(Locale myLocale)
     {
         this.locale = myLocale;
         // default properties will not change unless this class is reloaded
@@ -1116,9 +1113,8 @@ public final class TableProperties implements Cloneable
     /**
      * Returns an instance of configured requestHelperFactory.
      * @return RequestHelperFactory instance.
-     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
      */
-    public RequestHelperFactory getRequestHelperFactoryInstance() throws FactoryInstantiationException
+    public RequestHelperFactory getRequestHelperFactoryInstance()
     {
         Object loadedObject = getClassPropertyInstance(PROPERTY_CLASS_REQUESTHELPERFACTORY);
 
@@ -1143,9 +1139,8 @@ public final class TableProperties implements Cloneable
     /**
      * Returns an instance of configured DecoratorFactory.
      * @return DecoratorFactory instance.
-     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
      */
-    public DecoratorFactory getDecoratorFactoryInstance() throws FactoryInstantiationException
+    public DecoratorFactory getDecoratorFactoryInstance()
     {
         Object loadedObject = getClassPropertyInstance(PROPERTY_CLASS_DECORATORFACTORY);
 
@@ -1369,9 +1364,8 @@ public final class TableProperties implements Cloneable
      * callingClass.forName([configuration value]).
      * @param key configuration key
      * @return instance of configured class
-     * @throws FactoryInstantiationException if unable to load or instantiate the configurated class.
      */
-    private Object getClassPropertyInstance(String key) throws FactoryInstantiationException
+    private Object getClassPropertyInstance(String key)
     {
 
         String className = getProperty(key);

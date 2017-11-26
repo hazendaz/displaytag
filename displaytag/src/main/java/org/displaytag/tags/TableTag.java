@@ -936,9 +936,8 @@ public class TableTag extends HtmlTableTag
      * Reads parameters from the request and initialize all the needed table model attributes.
      *
      * @throws JspTagException the jsp tag exception
-     * @throws FactoryInstantiationException for problems in instantiating a RequestHelperFactory
      */
-    private void initParameters() throws JspTagException, FactoryInstantiationException
+    private void initParameters() throws JspTagException
     {
 
         if (rhf == null)
