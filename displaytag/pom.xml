@@ -231,6 +231,8 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+    <!-- Webwork is now the core of struts 2 so we should just drop this support -->
     <dependency>
       <groupId>opensymphony</groupId>
       <artifactId>webwork</artifactId>

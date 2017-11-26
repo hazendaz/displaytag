@@ -22,6 +22,7 @@
 package org.displaytag.localization;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.jsp.PageContext;
@@ -111,7 +112,7 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
             if (o instanceof TextProvider)
             {
                 TextProvider tp = (TextProvider) o;
-                message = tp.getText(key, null, null);
+                message = tp.getText(key, null, (List) null);
 
                 break;
             }
