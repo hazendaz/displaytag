@@ -152,8 +152,6 @@ public class ExcelUtils
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_NUMBER)));
         this.cellStyles.put(STYLE_NUMBER, style);
 
-        // style = HSSFDataFormat.getBuiltinFormat("0.00%");
-
         // Date
         style = getNewCellStyle();
         style.setAlignment(HorizontalAlignment.RIGHT);
@@ -273,7 +271,6 @@ public class ExcelUtils
         {
             return null;
         }
-        // str = Patterns.replaceAll(str, "(\\r\\n|\\r|\\n|\\n\\r)\\s*", "");
         String returnString = rawValue.toString();
         // escape the String to get the tabs, returns, newline explicit as \t \r \n
         returnString = StringEscapeUtils.escapeJava(StringUtils.trimToEmpty(returnString));

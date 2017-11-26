@@ -1230,9 +1230,6 @@ public class TableTag extends HtmlTableTag
 
             this.baseHref.setFullUrl(fullURI);
 
-            // // ... and copy parameters from the current request
-            // Map parameterMap = normalHref.getParameterMap();
-            // this.baseHref.addParameterMap(parameterMap);
         }
 
     }
@@ -1322,7 +1319,6 @@ public class TableTag extends HtmlTableTag
         int returnValue = EVAL_PAGE;
 
         // check for nested tables
-        // Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
         Object previousMediaType = this.pageContext.getAttribute(PAGE_ATTRIBUTE_MEDIA);
         if (MediaTypeEnum.HTML.equals(this.currentMediaType)
             && (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType)))
@@ -1340,7 +1336,6 @@ public class TableTag extends HtmlTableTag
         }
 
         // do not remove media attribute! if the table is nested in other tables this is still needed
-        // this.pageContext.removeAttribute(PAGE_ATTRIBUTE_MEDIA);
 
         if (log.isDebugEnabled())
         {
