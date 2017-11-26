@@ -326,6 +326,10 @@
               <groupId>nekohtml</groupId>
               <artifactId>nekohtml</artifactId>
           </exclusion>
+          <exclusion>
+              <groupId>xerces</groupId>
+              <artifactId>xmlParserAPIs</artifactId>
+          </exclusion>
       </exclusions>
     </dependency>
     <dependency>
