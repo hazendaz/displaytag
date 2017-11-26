@@ -130,8 +130,9 @@ public class DefaultRequestHelper implements RequestHelper
 
         Map<String, String[]> map = new HashMap<String, String[]>();
 
+        // Note: Don't type enumeration so servlet 2.5 is still possible
         // get the parameters names
-        Enumeration<Object> parametersName = this.request.getParameterNames();
+        Enumeration parametersName = this.request.getParameterNames();
 
         while (parametersName.hasMoreElements())
         {
