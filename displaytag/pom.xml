@@ -115,14 +115,6 @@
           <artifactId>commons-logging</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>org.apache.avalon.framework</groupId>
-          <artifactId>avalon-framework-impl</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.avalon.framework</groupId>
-          <artifactId>avalon-framework-api</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>xml-apis</groupId>
           <artifactId>xml-apis</artifactId>
         </exclusion>
@@ -131,19 +123,6 @@
           <artifactId>xml-apis-ext</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-    <!-- required by FOP -->
-    <dependency>
-      <groupId>org.apache.avalon.framework</groupId>
-      <artifactId>avalon-framework-impl</artifactId>
-      <version>4.3.1</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.avalon.framework</groupId>
-      <artifactId>avalon-framework-api</artifactId>
-      <version>4.3.1</version>
-      <optional>true</optional>
     </dependency>
 
     <!-- optional dependencies for LocaleResolvers -->
