@@ -35,12 +35,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.Messages;
 import org.displaytag.tags.TableTag;
 import org.displaytag.tags.TableTagParameters;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -95,7 +94,7 @@ public class ResponseOverrideFilter implements Filter
     /**
      * Logger.
      */
-    private Log log;
+    private Logger log;
 
     /**
      * Force response buffering. Enabled by default.
@@ -108,7 +107,7 @@ public class ResponseOverrideFilter implements Filter
     @Override
     public void init(FilterConfig filterConfig)
     {
-        this.log = LogFactory.getLog(ResponseOverrideFilter.class);
+        this.log = LoggerFactory.getLogger(ResponseOverrideFilter.class);
         String bufferParam = filterConfig.getInitParameter("buffer");
         if (this.log.isDebugEnabled())
         {

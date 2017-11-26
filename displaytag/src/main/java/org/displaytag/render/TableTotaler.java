@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.model.Column;
@@ -36,6 +34,8 @@ import org.displaytag.model.ColumnIterator;
 import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class just keeps a running grouped total. It does not output anything; it is the responsibility of the exporter
@@ -48,7 +48,7 @@ public class  TableTotaler
 {
     
     /** The logger. */
-    protected Log logger = LogFactory.getLog(this.getClass());
+    protected Logger logger = LoggerFactory.getLogger(TableTotaler.class);
 
     /** The Constant NULL. */
     public static final TableTotaler NULL  = new TableTotaler();
@@ -252,11 +252,11 @@ public class  TableTotaler
                     }
                     catch (ObjectLookupException e)
                     {
-                        this.logger.error(e);
+                        this.logger.error("", e);
                     }
                     catch (DecoratorException e)
                     {
-                        this.logger.error(e);
+                        this.logger.error("", e);
                     }
                     if (value != null && !"".equals(value))
                     {

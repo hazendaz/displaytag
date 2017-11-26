@@ -32,8 +32,6 @@ import java.util.Map;
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.model.Column;
@@ -42,6 +40,8 @@ import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
 import org.displaytag.util.TagConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -81,7 +81,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * Logger.
      */
-    private Log logger = LogFactory.getLog(MultilevelTotalTableDecorator.class);
+    private Logger logger = LoggerFactory.getLogger(MultilevelTotalTableDecorator.class);
 
     /**
      * CSS class applied to grand total totals.
@@ -532,11 +532,11 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                     }
                     catch (ObjectLookupException e)
                     {
-                        this.logger.error(e);
+                        this.logger.error("", e);
                     }
                     catch (DecoratorException e)
                     {
-                        this.logger.error(e);
+                        this.logger.error("", e);
                     }
                     if (value != null && !TagConstants.EMPTY_STRING.equals(value))
                     {
