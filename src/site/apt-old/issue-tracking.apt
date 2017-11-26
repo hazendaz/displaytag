@@ -8,7 +8,7 @@
 
 Issue Tracking
 
-   Go to {{{http://jira.codehaus.org/browse/DISPL}Displaytag bug and feature request tracker (JIRA)}} to see
+   Go to {{{https://github.com/hazendaz/displaytag/issues}Displaytag bug and feature request tracker (GITHUB)}} to see
    open bugs or to submit new requests.
 
    Please note that the issue tracker on sourceforge is not used
@@ -16,7 +16,7 @@ Issue Tracking
 
 * Bug reporting
 
-   Before submitting a bug to the {{{http://jira.codehaus.org/browse/DISPL}JIRA}} above, please be sure you
+   Before submitting a bug to the {{{https://github.com/hazendaz/displaytag/issues}GITHUB}} above, please be sure you
    have done your homework. This includes:
 
     [[1]] Reading the FAQ to understand the correct behavior

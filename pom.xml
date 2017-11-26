@@ -15,8 +15,8 @@
 
   <url>http://displaytag.sourceforge.net</url>
   <issueManagement>
-    <system>jira</system>
-    <url>http://jira.codehaus.org/browse/DISPL</url>
+    <system>github</system>
+    <url>https://github.com/hazendaz/displaytag/issues</url>
   </issueManagement>
   <scm>
     <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>

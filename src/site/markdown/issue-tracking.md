@@ -2,7 +2,7 @@ Issue Tracking
 --------------
 
 Go to [Displaytag bug and feature request tracker
-(JIRA)](http://jira.codehaus.org/browse/DISPL) to see open bugs or to
+(GITHUB)](https://github.com/hazendaz/displaytag/issues) to see open bugs or to
 submit new requests.
 
 Please note that the issue tracker on sourceforge is not used anymore
@@ -11,7 +11,7 @@ and any remaining item will be moved to the new tracker.
 ### Bug reporting
 
 Before submitting a bug to the
-[JIRA](http://jira.codehaus.org/browse/DISPL) above, please be sure you
+[GITHUB](https://github.com/hazendaz/displaytag/issues) above, please be sure you
 have done your homework. This includes:
 
 1.  Reading the FAQ to understand the correct behavior
