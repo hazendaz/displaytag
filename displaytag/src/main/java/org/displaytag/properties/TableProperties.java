@@ -1417,7 +1417,7 @@ public final class TableProperties implements Cloneable
         {
             // Don't care, use default
             log.warn(Messages.getString("TableProperties.invalidvalue", //$NON-NLS-1$
-                new Object[]{key, getProperty(key), new Integer(defaultValue)}));
+                new Object[]{key, getProperty(key), Integer.valueOf(defaultValue)}));
         }
 
         return defaultValue;

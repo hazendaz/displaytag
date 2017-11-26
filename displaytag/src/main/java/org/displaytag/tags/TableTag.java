@@ -869,7 +869,7 @@ public class TableTag extends HtmlTableTag
                     this.pageContext.removeAttribute(getUid());
                 }
                 // set the current row number into this.pageContext
-                this.pageContext.setAttribute(getUid() + TableTagExtraInfo.ROWNUM_SUFFIX, new Integer(this.rowNumber));
+                this.pageContext.setAttribute(getUid() + TableTagExtraInfo.ROWNUM_SUFFIX, Integer.valueOf(this.rowNumber));
             }
 
             // Row object for Cell values
@@ -1718,7 +1718,7 @@ public class TableTag extends HtmlTableTag
                 HeaderCell headerCell = iterator.next();
                 if (headerCell.isTotaled())
                 {
-                    totalsMap.put("column" + (headerCell.getColumnNumber() + 1), new Double(headerCell.getTotal()));
+                    totalsMap.put("column" + (headerCell.getColumnNumber() + 1), Double.valueOf(headerCell.getTotal()));
                 }
             }
         }

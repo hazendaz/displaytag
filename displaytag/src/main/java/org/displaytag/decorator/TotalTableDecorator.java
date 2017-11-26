@@ -154,13 +154,13 @@ public class TotalTableDecorator extends TableDecorator
                 Number previousSubTotal = this.subTotals.get(totalPropertyName);
                 Number previousGrandTotals = this.grandTotals.get(totalPropertyName);
 
-                this.subTotals.put(totalPropertyName, new Double((previousSubTotal != null
+                this.subTotals.put(totalPropertyName, Double.valueOf((previousSubTotal != null
                     ? previousSubTotal.doubleValue()
                     : 0) + (amount != null ? amount.doubleValue() : 0)));
 
                 this.grandTotals.put(
                     totalPropertyName,
-                    new Double((previousGrandTotals != null ? previousGrandTotals.doubleValue() : 0)
+                    Double.valueOf((previousGrandTotals != null ? previousGrandTotals.doubleValue() : 0)
                         + (amount != null ? amount.doubleValue() : 0)));
             }
         }
