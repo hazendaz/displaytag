@@ -21,8 +21,7 @@
  */
 package org.displaytag.export;
 
-import org.apache.commons.lang3.StringEscapeUtils;
-
+import org.apache.commons.text.StringEscapeUtils;
 
 /**
  * Export view for xml exporting.
