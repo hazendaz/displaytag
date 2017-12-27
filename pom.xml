@@ -357,7 +357,7 @@
         <configuration>
           <inherited>false</inherited>
           <link_template>%URL%/%ISSUE%</link_template>
-          <xmlPath>${basedir}/src/site/changes/changes.xml</xmlPath>
+          <xmlPath>${project.basedir}/src/site/changes/changes.xml</xmlPath>
         </configuration>
       </plugin>
       <plugin>
