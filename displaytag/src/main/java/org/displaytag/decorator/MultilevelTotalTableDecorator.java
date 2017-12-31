@@ -142,7 +142,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
             {
                 GroupTotals groupTotals = new GroupTotals(headerCell.getColumnNumber());
                 groupTotals.setStartRow(this.tableModel.getPageOffset());
-                this.groupNumberToGroupTotal.put(new Integer(headerCell.getGroup()), groupTotals);
+                this.groupNumberToGroupTotal.put(Integer.valueOf(headerCell.getGroup()), groupTotals);
                 if (headerCell.getGroup() > this.innermostGroup)
                 {
                     this.innermostGroup = headerCell.getGroup();
@@ -310,7 +310,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         {
             StringBuffer tr = new StringBuffer();
             tr.append("<tr>");
-            GroupTotals groupTotals = this.groupNumberToGroupTotal.get(new Integer(group));
+            GroupTotals groupTotals = this.groupNumberToGroupTotal.get(Integer.valueOf(group));
             int myColumnNumber = groupTotals.columnNumber;
             for (int i = 0; i < myColumnNumber; i++)
             {
@@ -374,7 +374,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                 // Starting with the deepest group, print the current total and reset. Do not reset unaffected groups.
                 for (int i = this.innermostGroup; i >= this.deepestResetGroup; i--)
                 {
-                    Integer groupNumber = new Integer(i);
+                    Integer groupNumber = Integer.valueOf(i);
 
                     GroupTotals totals = this.groupNumberToGroupTotal.get(groupNumber);
                     if (totals == null)
@@ -564,12 +564,12 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         }
         else if (value instanceof Number)
         {
-            Number oldTotal = new Double(0);
+            Number oldTotal = Double.valueOf(0);
             if (total != null)
             {
                 oldTotal = (Number) total;
             }
-            return new Double(oldTotal.doubleValue() + ((Number) value).doubleValue());
+            return Double.valueOf(oldTotal.doubleValue() + ((Number) value).doubleValue());
         }
         else
         {
