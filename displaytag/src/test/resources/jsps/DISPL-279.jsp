@@ -9,7 +9,7 @@
       <%
         Object[] testData = new Object[]{new org.displaytag.test.KnownValue()};
         pageContext.setAttribute( "test", testData);
-        Integer intvalue = new Integer(1);
+        Integer intvalue = Integer.valueOf(1);
       %>
 
       <display:table name="pageScope.test">

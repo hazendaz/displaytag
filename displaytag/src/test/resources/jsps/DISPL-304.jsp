@@ -16,7 +16,7 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
-                request.setAttribute( "resultSize", new Integer(4));
+                request.setAttribute( "resultSize", Integer.valueOf(4));
             ]]>
       </jsp:scriptlet>
       <display:table name="requestScope.test" id="table" pagesize="2" partialList="true" size="resultSize">

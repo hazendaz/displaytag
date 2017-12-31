@@ -143,7 +143,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         int endPage;
 
         Pagination pagination = new Pagination(baseHref, pageParameter, this.properties);
-        pagination.setCurrent(new Integer(this.paginatedList.getPageNumber()));
+        pagination.setCurrent(Integer.valueOf(this.paginatedList.getPageNumber()));
 
         // if no items are found still add pagination?
         if (this.pageCount == 0)
@@ -159,8 +159,8 @@ public class PaginatedListSmartListHelper extends SmartListHelper
 
         if (this.paginatedList.getPageNumber() != 1)
         {
-            pagination.setFirst(new Integer(1));
-            pagination.setPrevious(new Integer(this.paginatedList.getPageNumber() - 1));
+            pagination.setFirst(Integer.valueOf(1));
+            pagination.setPrevious(Integer.valueOf(this.paginatedList.getPageNumber() - 1));
         }
 
         for (int j = startPage; j <= endPage; j++)
@@ -170,8 +170,8 @@ public class PaginatedListSmartListHelper extends SmartListHelper
 
         if (this.paginatedList.getPageNumber() != this.pageCount)
         {
-            pagination.setNext(new Integer(this.paginatedList.getPageNumber() + 1));
-            pagination.setLast(new Integer(this.pageCount));
+            pagination.setNext(Integer.valueOf(this.paginatedList.getPageNumber() + 1));
+            pagination.setLast(Integer.valueOf(this.pageCount));
         }
 
         // format for previous/next banner
@@ -221,7 +221,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         else if (this.pageCount == 1)
         {
             objs = new Object[]{
-                new Integer(this.paginatedList.getFullListSize()),
+                Integer.valueOf(this.paginatedList.getFullListSize()),
                 this.properties.getPagingItemsName(),
                 this.properties.getPagingItemsName()};
             message = this.properties.getPagingFoundAllItems();
@@ -229,12 +229,12 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         else
         {
             objs = new Object[]{
-                new Integer(this.paginatedList.getFullListSize()),
+                Integer.valueOf(this.paginatedList.getFullListSize()),
                 this.properties.getPagingItemsName(),
-                new Integer(getFirstIndexForCurrentPage() + 1),
-                new Integer(getLastIndexForCurrentPage() + 1),
-                new Integer(this.paginatedList.getPageNumber()),
-                new Integer(this.pageCount)};
+                Integer.valueOf(getFirstIndexForCurrentPage() + 1),
+                Integer.valueOf(getLastIndexForCurrentPage() + 1),
+                Integer.valueOf(this.paginatedList.getPageNumber()),
+                Integer.valueOf(this.pageCount)};
             message = this.properties.getPagingFoundSomeItems();
         }
 

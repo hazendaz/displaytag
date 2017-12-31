@@ -342,7 +342,7 @@ public abstract class TableWriterTemplate
                         : ObjectUtils.toString(column.getValue(true));
 
                     CellStruct struct = new CellStruct(column, cellvalue);
-                    currentRowValues.put(new Integer(column.getHeaderCell().getColumnNumber()), struct);
+                    currentRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);
                 }
             }
 
@@ -369,7 +369,7 @@ public abstract class TableWriterTemplate
                         : ObjectUtils.toString(column.getValue(true));
 
                     CellStruct struct = new CellStruct(column, cellvalue);
-                    nextRowValues.put(new Integer(column.getHeaderCell().getColumnNumber()), struct);
+                    nextRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);
                 }
             }
             // now we are going to create the current row; reset the decorator to the current row
@@ -393,13 +393,13 @@ public abstract class TableWriterTemplate
             {
 
                 // Get the value to be displayed for the column
-                CellStruct struct = currentRowValues.get(new Integer(header.getColumnNumber()));
+                CellStruct struct = currentRowValues.get(Integer.valueOf(header.getColumnNumber()));
                 struct.decoratedValue = struct.bodyValue;
                 // Check and see if there is a grouping transition. If there is, then notify the decorator
                 if (header.getGroup() != -1)
                 {
-                    CellStruct prior = previousRowValues.get(new Integer(header.getColumnNumber()));
-                    CellStruct next = nextRowValues.get(new Integer(header.getColumnNumber()));
+                    CellStruct prior = previousRowValues.get(Integer.valueOf(header.getColumnNumber()));
+                    CellStruct next = nextRowValues.get(Integer.valueOf(header.getColumnNumber()));
                     // Why npe?
                     String priorBodyValue = prior != null ? prior.bodyValue : null;
                     String nextBodyValue = next != null ? next.bodyValue : null;
@@ -510,7 +510,7 @@ public abstract class TableWriterTemplate
         {
             writeEmptyListRowMessage(new MessageFormat(model.getProperties().getEmptyListRowMessage(), model
                 .getProperties()
-                .getLocale()).format(new Object[]{new Integer(model.getNumberOfColumns())}));
+                .getLocale()).format(new Object[]{Integer.valueOf(model.getNumberOfColumns())}));
         }
     }
 

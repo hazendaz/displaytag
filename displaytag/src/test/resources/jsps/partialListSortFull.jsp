@@ -11,7 +11,7 @@
         <body>
             <jsp:scriptlet> <![CDATA[
                 request.setAttribute( "test", new org.displaytag.test.ShuffledNumberedList());
-                request.setAttribute( "testSize", new Integer(4));
+                request.setAttribute( "testSize", Integer.valueOf(4));
             ]]> </jsp:scriptlet>
             <display:table name="requestScope.test" id="table" partialList="true" size="testSize" pagesize="2" sort="full">
                 <display:column property="number" sortable="true" sortName="number"/>

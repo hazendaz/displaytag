@@ -254,7 +254,7 @@ public class Pagination
             // get NumberedPage from iterator
             NumberedPage page = pageIterator.next();
 
-            Integer pageNumber = new Integer(page.getNumber());
+            Integer pageNumber = Integer.valueOf(page.getNumber());
 
             String urlString = ((Href) this.href.clone()).addParameter(this.pageParam, pageNumber).toString();
 

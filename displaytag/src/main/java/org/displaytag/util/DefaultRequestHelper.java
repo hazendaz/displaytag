@@ -108,7 +108,7 @@ public class DefaultRequestHelper implements RequestHelper
         {
             try
             {
-                return new Integer(value);
+                return Integer.valueOf(value);
             }
             catch (NumberFormatException e)
             {

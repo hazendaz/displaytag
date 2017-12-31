@@ -13,7 +13,7 @@
     request.setAttribute( "test", testData);
     ]]>
       </jsp:scriptlet>
-      <jsp:scriptlet>pageContext.setAttribute("counter", new Integer(0));</jsp:scriptlet>
+      <jsp:scriptlet>pageContext.setAttribute("counter", Integer.valueOf(0));</jsp:scriptlet>
       <display:table uid="table" name="test">
         <jsp:scriptlet>pageContext.setAttribute("counter", ((Integer)pageContext.getAttribute("counter")) + 1);</jsp:scriptlet>
         <!-- using a scriptlet because c:set randomically fails when tests are run by maven -->

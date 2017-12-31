@@ -105,7 +105,7 @@ public class SmartListHelper
         if (log.isDebugEnabled())
         {
             log.debug(Messages.getString("SmartListHelper.debug.instantiated", //$NON-NLS-1$
-                new Object[]{new Integer(list.size()), new Integer(itemsInPage), new Integer(fullSize)}));
+                new Object[]{Integer.valueOf(list.size()), Integer.valueOf(itemsInPage), Integer.valueOf(fullSize)}));
         }
 
         this.properties = tableProperties;
@@ -208,7 +208,7 @@ public class SmartListHelper
         if (log.isDebugEnabled())
         {
             log.debug(Messages.getString("SmartListHelper.debug.sublist", //$NON-NLS-1$
-                new Object[]{new Integer(pageNumber)}));
+                new Object[]{Integer.valueOf(pageNumber)}));
         }
 
         int firstIndex = getFirstIndexForPage(pageNumber);
@@ -233,7 +233,7 @@ public class SmartListHelper
         if (log.isDebugEnabled())
         {
             log.debug(Messages.getString("SmartListHelper.debug.currentpage", //$NON-NLS-1$
-                new Object[]{new Integer(pageNumber), new Integer(this.pageCount)}));
+                new Object[]{Integer.valueOf(pageNumber), Integer.valueOf(this.pageCount)}));
         }
 
         if (pageNumber < 1)
@@ -279,7 +279,7 @@ public class SmartListHelper
         else if (computedPageCount() == 1)
         {
             objs = new Object[]{
-                new Integer(this.fullListSize),
+                Integer.valueOf(this.fullListSize),
                 this.properties.getPagingItemsName(),
                 this.properties.getPagingItemsName()};
             message = this.properties.getPagingFoundAllItems();
@@ -287,12 +287,12 @@ public class SmartListHelper
         else
         {
             objs = new Object[]{
-                new Integer(this.fullListSize),
+                Integer.valueOf(this.fullListSize),
                 this.properties.getPagingItemsName(),
-                new Integer(getFirstIndexForCurrentPage() + 1),
-                new Integer(getLastIndexForCurrentPage() + 1),
-                new Integer(this.currentPage),
-                new Integer(this.pageCount)};
+                Integer.valueOf(getFirstIndexForCurrentPage() + 1),
+                Integer.valueOf(getLastIndexForCurrentPage() + 1),
+                Integer.valueOf(this.currentPage),
+                Integer.valueOf(this.pageCount)};
             message = this.properties.getPagingFoundSomeItems();
         }
 
@@ -314,7 +314,7 @@ public class SmartListHelper
         int endPage;
 
         Pagination pagination = new Pagination(baseHref, pageParameter, this.properties);
-        pagination.setCurrent(new Integer(this.currentPage));
+        pagination.setCurrent(Integer.valueOf(this.currentPage));
 
         // if no items are found still add pagination?
         if (this.pageCount == 0)
@@ -334,8 +334,8 @@ public class SmartListHelper
 
         if (this.currentPage != 1)
         {
-            pagination.setFirst(new Integer(1));
-            pagination.setPrevious(new Integer(this.currentPage - 1));
+            pagination.setFirst(Integer.valueOf(1));
+            pagination.setPrevious(Integer.valueOf(this.currentPage - 1));
         }
 
         for (int j = startPage; j <= endPage; j++)
@@ -349,8 +349,8 @@ public class SmartListHelper
 
         if (this.currentPage != this.pageCount)
         {
-            pagination.setNext(new Integer(this.currentPage + 1));
-            pagination.setLast(new Integer(this.pageCount));
+            pagination.setNext(Integer.valueOf(this.currentPage + 1));
+            pagination.setLast(Integer.valueOf(this.pageCount));
         }
 
         // format for previous/next banner

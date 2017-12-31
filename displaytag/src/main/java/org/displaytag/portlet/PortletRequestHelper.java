@@ -120,7 +120,7 @@ public class PortletRequestHelper implements RequestHelper
     {
         try
         {
-            return new Integer(this.getParameter(key));
+            return Integer.valueOf(this.getParameter(key));
         }
         catch (NumberFormatException nfe)
         {
