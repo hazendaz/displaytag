@@ -134,7 +134,7 @@ public class PortletRequestHelperTest
         Assert.assertEquals("STRING_VALUE", strVal);
 
         final Integer intVal = helper.getIntParameter("INTEGER_PARAM");
-        Assert.assertEquals(new Integer(31337), intVal);
+        Assert.assertEquals(Integer.valueOf(31337), intVal);
 
         final Integer nullIntVal = helper.getIntParameter("STRING_PARAM");
         Assert.assertNull(nullIntVal);

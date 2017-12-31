@@ -51,7 +51,7 @@ public class KnownTypes
     /**
      * constant for the "long" property value.
      */
-    public static final Long LONG_VALUE = new Long(123456);
+    public static final Long LONG_VALUE = Long.valueOf(123456);
 
     /**
      * getter for the <code>TIME_PROPERTY</code> property.

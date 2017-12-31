@@ -61,6 +61,6 @@ public class NumberComparator implements Comparator<Object>
             dbl2 = ((Number) ConvertUtils.convert(obj2.toString(), Number.class)).doubleValue();
         }
 
-        return new Double(dbl1).compareTo(new Double(dbl2));
+        return Double.valueOf(dbl1).compareTo(Double.valueOf(dbl2));
     }
 }
