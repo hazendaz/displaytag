@@ -12,3 +12,4 @@ target
 *.idea/
 
 junit.log
+.mvn/wrapper/maven-wrapper.jar
