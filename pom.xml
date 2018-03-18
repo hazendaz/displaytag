@@ -286,8 +286,8 @@
         <version>3.1.0</version>
         <configuration>
           <descriptors>
-            <descriptor>src/main/assembly/bin.xml</descriptor>
-            <descriptor>src/main/assembly/src.xml</descriptor>
+            <descriptor>${project.basedir}/src/main/assembly/bin.xml</descriptor>
+            <descriptor>${project.basedir}/src/main/assembly/src.xml</descriptor>
           </descriptors>
           <finalName>displaytag-${project.version}</finalName>
         </configuration>
