@@ -142,7 +142,7 @@
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>         Assert.assertEquals(<span class="jxr_string">"STRING_VALUE"</span>, strVal);
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> 
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         <strong class="jxr_keyword">final</strong> Integer intVal = helper.getIntParameter(<span class="jxr_string">"INTEGER_PARAM"</span>);
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>         Assert.assertEquals(<strong class="jxr_keyword">new</strong> Integer(31337), intVal);
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>         Assert.assertEquals(Integer.valueOf(31337), intVal);
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> 
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">final</strong> Integer nullIntVal = helper.getIntParameter(<span class="jxr_string">"STRING_PARAM"</span>);
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         Assert.assertNull(nullIntVal);
@@ -255,6 +255,6 @@
 <a class="jxr_linenumber" name="L247" href="#L247">247</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

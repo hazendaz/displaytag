@@ -110,11 +110,11 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>     @Override
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">public</strong> String getContentType()
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>     {
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         String ret = <strong class="jxr_keyword">this</strong>.contentType;
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         StringBuilder ret = <strong class="jxr_keyword">new</strong> StringBuilder(<strong class="jxr_keyword">this</strong>.contentType);
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> 
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">if</strong> (ret != <strong class="jxr_keyword">null</strong> &amp;&amp; <strong class="jxr_keyword">this</strong>.characterEncoding != <strong class="jxr_keyword">null</strong> &amp;&amp; <strong class="jxr_keyword">this</strong>.charEncSet)
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.characterEncoding != <strong class="jxr_keyword">null</strong> &amp;&amp; <strong class="jxr_keyword">this</strong>.charEncSet)
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         {
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>             ret += <span class="jxr_string">"; charset="</span> + <strong class="jxr_keyword">this</strong>.characterEncoding;
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>             ret.append(<span class="jxr_string">"; charset="</span>).append(<strong class="jxr_keyword">this</strong>.characterEncoding);
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>         }
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> 
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.contentType;
@@ -348,6 +348,6 @@
 <a class="jxr_linenumber" name="L340" href="#L340">340</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

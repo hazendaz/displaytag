@@ -256,13 +256,13 @@
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>             transformer.transform(src, debugRes);
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>             <strong class="jxr_keyword">if</strong> (e != <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>             {
-<a class="jxr_linenumber" name="L251" href="#L251">251</a>                 log.error(<span class="jxr_string">"xslt-fo error "</span> + e.getMessage(), e); <em class="jxr_comment">//$NON-NLS-1$</em>
-<a class="jxr_linenumber" name="L252" href="#L252">252</a>                 log.error(<span class="jxr_string">"xslt-fo result of "</span> + debugRes.getWriter()); <em class="jxr_comment">//$NON-NLS-1$</em>
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>                 log.error(<span class="jxr_string">"xslt-fo error {}"</span>, e.getMessage(), e); <em class="jxr_comment">//$NON-NLS-1$</em>
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>                 log.error(<span class="jxr_string">"xslt-fo result of {}"</span>, debugRes.getWriter()); <em class="jxr_comment">//$NON-NLS-1$</em>
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> JspException(<span class="jxr_string">"Stylesheet produced invalid xsl-fo result"</span>, e); <em class="jxr_comment">//$NON-NLS-1$</em>
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>             }
 <a class="jxr_linenumber" name="L255" href="#L255">255</a>             <strong class="jxr_keyword">else</strong>
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>             {
-<a class="jxr_linenumber" name="L257" href="#L257">257</a>                 log.info(<span class="jxr_string">"xslt-fo result of "</span> + debugRes.getWriter()); <em class="jxr_comment">//$NON-NLS-1$</em>
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>                 log.info(<span class="jxr_string">"xslt-fo result of {}"</span>, debugRes.getWriter()); <em class="jxr_comment">//$NON-NLS-1$</em>
 <a class="jxr_linenumber" name="L258" href="#L258">258</a>             }
 <a class="jxr_linenumber" name="L259" href="#L259">259</a>         }
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>         <strong class="jxr_keyword">catch</strong> (TransformerException ee)
@@ -330,6 +330,6 @@
 <a class="jxr_linenumber" name="L322" href="#L322">322</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

@@ -350,7 +350,7 @@
 <a class="jxr_linenumber" name="L342" href="#L342">342</a>                         : ObjectUtils.toString(column.getValue(<strong class="jxr_keyword">true</strong>));
 <a class="jxr_linenumber" name="L343" href="#L343">343</a> 
 <a class="jxr_linenumber" name="L344" href="#L344">344</a>                     <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a> struct = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a>(column, cellvalue);
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>                     currentRowValues.put(<strong class="jxr_keyword">new</strong> Integer(column.getHeaderCell().getColumnNumber()), struct);
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>                     currentRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);
 <a class="jxr_linenumber" name="L346" href="#L346">346</a>                 }
 <a class="jxr_linenumber" name="L347" href="#L347">347</a>             }
 <a class="jxr_linenumber" name="L348" href="#L348">348</a> 
@@ -377,7 +377,7 @@
 <a class="jxr_linenumber" name="L369" href="#L369">369</a>                         : ObjectUtils.toString(column.getValue(<strong class="jxr_keyword">true</strong>));
 <a class="jxr_linenumber" name="L370" href="#L370">370</a> 
 <a class="jxr_linenumber" name="L371" href="#L371">371</a>                     <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a> struct = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a>(column, cellvalue);
-<a class="jxr_linenumber" name="L372" href="#L372">372</a>                     nextRowValues.put(<strong class="jxr_keyword">new</strong> Integer(column.getHeaderCell().getColumnNumber()), struct);
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>                     nextRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);
 <a class="jxr_linenumber" name="L373" href="#L373">373</a>                 }
 <a class="jxr_linenumber" name="L374" href="#L374">374</a>             }
 <a class="jxr_linenumber" name="L375" href="#L375">375</a>             <em class="jxr_comment">// now we are going to create the current row; reset the decorator to the current row</em>
@@ -401,13 +401,13 @@
 <a class="jxr_linenumber" name="L393" href="#L393">393</a>             {
 <a class="jxr_linenumber" name="L394" href="#L394">394</a> 
 <a class="jxr_linenumber" name="L395" href="#L395">395</a>                 <em class="jxr_comment">// Get the value to be displayed for the column</em>
-<a class="jxr_linenumber" name="L396" href="#L396">396</a>                 <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a> struct = currentRowValues.get(<strong class="jxr_keyword">new</strong> Integer(header.getColumnNumber()));
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>                 <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a> struct = currentRowValues.get(Integer.valueOf(header.getColumnNumber()));
 <a class="jxr_linenumber" name="L397" href="#L397">397</a>                 struct.decoratedValue = struct.bodyValue;
 <a class="jxr_linenumber" name="L398" href="#L398">398</a>                 <em class="jxr_comment">// Check and see if there is a grouping transition. If there is, then notify the decorator</em>
 <a class="jxr_linenumber" name="L399" href="#L399">399</a>                 <strong class="jxr_keyword">if</strong> (header.getGroup() != -1)
 <a class="jxr_linenumber" name="L400" href="#L400">400</a>                 {
-<a class="jxr_linenumber" name="L401" href="#L401">401</a>                     <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a> prior = previousRowValues.get(<strong class="jxr_keyword">new</strong> Integer(header.getColumnNumber()));
-<a class="jxr_linenumber" name="L402" href="#L402">402</a>                     <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a> next = nextRowValues.get(<strong class="jxr_keyword">new</strong> Integer(header.getColumnNumber()));
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>                     <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a> prior = previousRowValues.get(Integer.valueOf(header.getColumnNumber()));
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>                     <a href="../../../org/displaytag/render/TableWriterTemplate.html">CellStruct</a> next = nextRowValues.get(Integer.valueOf(header.getColumnNumber()));
 <a class="jxr_linenumber" name="L403" href="#L403">403</a>                     <em class="jxr_comment">// Why npe?</em>
 <a class="jxr_linenumber" name="L404" href="#L404">404</a>                     String priorBodyValue = prior != <strong class="jxr_keyword">null</strong> ? prior.bodyValue : <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L405" href="#L405">405</a>                     String nextBodyValue = next != <strong class="jxr_keyword">null</strong> ? next.bodyValue : <strong class="jxr_keyword">null</strong>;
@@ -518,7 +518,7 @@
 <a class="jxr_linenumber" name="L510" href="#L510">510</a>         {
 <a class="jxr_linenumber" name="L511" href="#L511">511</a>             writeEmptyListRowMessage(<strong class="jxr_keyword">new</strong> MessageFormat(model.getProperties().getEmptyListRowMessage(), model
 <a class="jxr_linenumber" name="L512" href="#L512">512</a>                 .getProperties()
-<a class="jxr_linenumber" name="L513" href="#L513">513</a>                 .getLocale()).format(<strong class="jxr_keyword">new</strong> Object[]{<strong class="jxr_keyword">new</strong> Integer(model.getNumberOfColumns())}));
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>                 .getLocale()).format(<strong class="jxr_keyword">new</strong> Object[]{Integer.valueOf(model.getNumberOfColumns())}));
 <a class="jxr_linenumber" name="L514" href="#L514">514</a>         }
 <a class="jxr_linenumber" name="L515" href="#L515">515</a>     }
 <a class="jxr_linenumber" name="L516" href="#L516">516</a> 
@@ -681,6 +681,6 @@
 <a class="jxr_linenumber" name="L673" href="#L673">673</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

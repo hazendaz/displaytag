@@ -293,7 +293,7 @@
 <a class="jxr_linenumber" name="L285" href="#L285">285</a> 
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>         <strong class="jxr_keyword">if</strong> (log.isDebugEnabled())
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>         {
-<a class="jxr_linenumber" name="L288" href="#L288">288</a>             log.debug(<span class="jxr_string">"["</span> + <strong class="jxr_keyword">this</strong>.id + <span class="jxr_string">"] adding row "</span> + row);
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>             log.debug(<span class="jxr_string">"[{}] adding row {}"</span>, <strong class="jxr_keyword">this</strong>.id, row);
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>         }
 <a class="jxr_linenumber" name="L290" href="#L290">290</a>         <strong class="jxr_keyword">this</strong>.rowListFull.add(row);
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>     }
@@ -528,7 +528,7 @@
 <a class="jxr_linenumber" name="L520" href="#L520">520</a>     {
 <a class="jxr_linenumber" name="L521" href="#L521">521</a>         <strong class="jxr_keyword">if</strong> (log.isDebugEnabled())
 <a class="jxr_linenumber" name="L522" href="#L522">522</a>         {
-<a class="jxr_linenumber" name="L523" href="#L523">523</a>             log.debug(<span class="jxr_string">"["</span> + <strong class="jxr_keyword">this</strong>.id + <span class="jxr_string">"] sorting page list"</span>);
+<a class="jxr_linenumber" name="L523" href="#L523">523</a>             log.debug(<span class="jxr_string">"[{}] sorting page list"</span>, <strong class="jxr_keyword">this</strong>.id);
 <a class="jxr_linenumber" name="L524" href="#L524">524</a>         }
 <a class="jxr_linenumber" name="L525" href="#L525">525</a>         sortRowList(<strong class="jxr_keyword">this</strong>.rowListPage);
 <a class="jxr_linenumber" name="L526" href="#L526">526</a> 
@@ -541,7 +541,7 @@
 <a class="jxr_linenumber" name="L533" href="#L533">533</a>     {
 <a class="jxr_linenumber" name="L534" href="#L534">534</a>         <strong class="jxr_keyword">if</strong> (log.isDebugEnabled())
 <a class="jxr_linenumber" name="L535" href="#L535">535</a>         {
-<a class="jxr_linenumber" name="L536" href="#L536">536</a>             log.debug(<span class="jxr_string">"["</span> + <strong class="jxr_keyword">this</strong>.id + <span class="jxr_string">"] sorting full data"</span>);
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>             log.debug(<span class="jxr_string">"[{}] sorting full data"</span>, <strong class="jxr_keyword">this</strong>.id);
 <a class="jxr_linenumber" name="L537" href="#L537">537</a>         }
 <a class="jxr_linenumber" name="L538" href="#L538">538</a>         sortRowList(<strong class="jxr_keyword">this</strong>.rowListFull);
 <a class="jxr_linenumber" name="L539" href="#L539">539</a>     }
@@ -657,6 +657,6 @@
 <a class="jxr_linenumber" name="L649" href="#L649">649</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
