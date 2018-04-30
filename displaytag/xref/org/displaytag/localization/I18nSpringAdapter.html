@@ -76,7 +76,7 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>      @Override
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext)
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      {
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          MessageSource messageSource = RequestContextUtils.getWebApplicationContext(pageContext.getRequest(), pageContext.getServletContext());
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          MessageSource messageSource = RequestContextUtils.findWebApplicationContext((HttpServletRequest) pageContext.getRequest());
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">if</strong> (messageSource == <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          {
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>              log.warn(<span class="jxr_string">"messageSource not found"</span>);
@@ -104,6 +104,6 @@
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

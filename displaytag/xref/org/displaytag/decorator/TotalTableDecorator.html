@@ -162,13 +162,13 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>                 Number previousSubTotal = <strong class="jxr_keyword">this</strong>.subTotals.get(totalPropertyName);
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>                 Number previousGrandTotals = <strong class="jxr_keyword">this</strong>.grandTotals.get(totalPropertyName);
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>                 <strong class="jxr_keyword">this</strong>.subTotals.put(totalPropertyName, <strong class="jxr_keyword">new</strong> Double((previousSubTotal != <strong class="jxr_keyword">null</strong>
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>                 <strong class="jxr_keyword">this</strong>.subTotals.put(totalPropertyName, Double.valueOf((previousSubTotal != <strong class="jxr_keyword">null</strong>
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>                     ? previousSubTotal.doubleValue()
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>                     : 0) + (amount != <strong class="jxr_keyword">null</strong> ? amount.doubleValue() : 0)));
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> 
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>                 <strong class="jxr_keyword">this</strong>.grandTotals.put(
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>                     totalPropertyName,
-<a class="jxr_linenumber" name="L163" href="#L163">163</a>                     <strong class="jxr_keyword">new</strong> Double((previousGrandTotals != <strong class="jxr_keyword">null</strong> ? previousGrandTotals.doubleValue() : 0)
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>                     Double.valueOf((previousGrandTotals != <strong class="jxr_keyword">null</strong> ? previousGrandTotals.doubleValue() : 0)
 <a class="jxr_linenumber" name="L164" href="#L164">164</a>                         + (amount != <strong class="jxr_keyword">null</strong> ? amount.doubleValue() : 0)));
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>             }
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>         }
@@ -269,6 +269,6 @@
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

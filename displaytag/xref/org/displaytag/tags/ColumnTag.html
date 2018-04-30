@@ -614,7 +614,7 @@
 <a class="jxr_linenumber" name="L606" href="#L606">606</a>         {
 <a class="jxr_linenumber" name="L607" href="#L607">607</a>             <strong class="jxr_keyword">if</strong> (log.isDebugEnabled())
 <a class="jxr_linenumber" name="L608" href="#L608">608</a>             {
-<a class="jxr_linenumber" name="L609" href="#L609">609</a>                 log.debug(<span class="jxr_string">"skipping column body, currentMediaType="</span> + currentMediaType);
+<a class="jxr_linenumber" name="L609" href="#L609">609</a>                 log.debug(<span class="jxr_string">"skipping column body, currentMediaType={}"</span>, currentMediaType);
 <a class="jxr_linenumber" name="L610" href="#L610">610</a>             }
 <a class="jxr_linenumber" name="L611" href="#L611">611</a>             <strong class="jxr_keyword">return</strong> SKIP_BODY;
 <a class="jxr_linenumber" name="L612" href="#L612">612</a>         }
@@ -810,7 +810,7 @@
 <a class="jxr_linenumber" name="L802" href="#L802">802</a> 
 <a class="jxr_linenumber" name="L803" href="#L803">803</a>         <strong class="jxr_keyword">if</strong> (log.isDebugEnabled())
 <a class="jxr_linenumber" name="L804" href="#L804">804</a>         {
-<a class="jxr_linenumber" name="L805" href="#L805">805</a>             log.debug(<span class="jxr_string">"columnTag.addHeaderToTable() :: first iteration - adding header "</span> + headerCell);
+<a class="jxr_linenumber" name="L805" href="#L805">805</a>             log.debug(<span class="jxr_string">"columnTag.addHeaderToTable() :: first iteration - adding header {}"</span>, headerCell);
 <a class="jxr_linenumber" name="L806" href="#L806">806</a>         }
 <a class="jxr_linenumber" name="L807" href="#L807">807</a>     }
 <a class="jxr_linenumber" name="L808" href="#L808">808</a> 
@@ -908,6 +908,6 @@
 <a class="jxr_linenumber" name="L900" href="#L900">900</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

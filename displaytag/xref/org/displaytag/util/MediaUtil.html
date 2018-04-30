@@ -110,7 +110,7 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>                 <a href="../../../org/displaytag/properties/MediaTypeEnum.html">MediaTypeEnum</a> type = MediaTypeEnum.fromName(value.toLowerCase());
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>                 <strong class="jxr_keyword">if</strong> (type == <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>                 {
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>                     log.warn(<span class="jxr_string">"Unrecognized value for attribute \&quot;media\&quot; value=\&quot;"</span> + value + <span class="jxr_string">"\&quot;"</span>);
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>                     log.warn(<span class="jxr_string">"Unrecognized value for attribute \&quot;media\&quot; value=\&quot;{}\&quot;"</span>, value);
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>                 }
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>                 <strong class="jxr_keyword">else</strong>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>                 {
@@ -147,6 +147,6 @@
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

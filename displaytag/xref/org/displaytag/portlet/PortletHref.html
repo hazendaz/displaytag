@@ -294,7 +294,7 @@
 <a class="jxr_linenumber" name="L286" href="#L286">286</a>             }
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>             <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (PARAM_SECURE.equals(name))
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>             {
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>                 <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">new</strong> Boolean(value).booleanValue())
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>                 <strong class="jxr_keyword">if</strong> (Boolean.parseBoolean(value))
 <a class="jxr_linenumber" name="L290" href="#L290">290</a>                 {
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>                     <strong class="jxr_keyword">this</strong>.setRequestedSecure(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>                 }
@@ -610,6 +610,6 @@
 <a class="jxr_linenumber" name="L602" href="#L602">602</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2017 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
