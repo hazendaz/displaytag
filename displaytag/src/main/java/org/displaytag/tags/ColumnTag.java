@@ -606,7 +606,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         {
             if (log.isDebugEnabled())
             {
-                log.debug("skipping column body, currentMediaType=" + currentMediaType);
+                log.debug("skipping column body, currentMediaType={}", currentMediaType);
             }
             return SKIP_BODY;
         }
@@ -802,7 +802,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
 
         if (log.isDebugEnabled())
         {
-            log.debug("columnTag.addHeaderToTable() :: first iteration - adding header " + headerCell);
+            log.debug("columnTag.addHeaderToTable() :: first iteration - adding header {}", headerCell);
         }
     }
 

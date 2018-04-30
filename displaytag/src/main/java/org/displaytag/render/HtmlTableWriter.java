@@ -464,7 +464,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + model.getId() + "] getTableHeader called");
+            log.debug("[{}] getTableHeader called", model.getId());
         }
 
         // open thead
@@ -532,7 +532,7 @@ public class HtmlTableWriter extends TableWriterAdapter
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + model.getId() + "] getTableHeader end");
+            log.debug("[{}] getTableHeader end", model.getId());
         }
     }
 
@@ -738,10 +738,9 @@ public class HtmlTableWriter extends TableWriterAdapter
                     this.properties.getExportBannerItem(),
                     "<a href=\"{0}\">{1}</a>");
 
-                Anchor anchor = new Anchor(exportHref, this.properties.getExportLabel(currentExportType));
                 buffer.append(MessageFormat.format(
                     exportBannerItem,
-                    new Object[]{exportHref, this.properties.getExportLabel(currentExportType)}));
+                    exportHref, this.properties.getExportLabel(currentExportType)));
             }
         }
 

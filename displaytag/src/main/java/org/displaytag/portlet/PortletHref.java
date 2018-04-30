@@ -286,7 +286,7 @@ public class PortletHref implements Href
             }
             else if (PARAM_SECURE.equals(name))
             {
-                if (new Boolean(value).booleanValue())
+                if (Boolean.parseBoolean(value))
                 {
                     this.setRequestedSecure(true);
                 }

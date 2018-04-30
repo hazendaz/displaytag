@@ -405,11 +405,8 @@ public class HssfTableWriter extends TableWriterAdapter
     private HSSFCellStyle getHeaderFooterStyle()
     {
         HSSFCellStyle style = this.wb.createCellStyle();
-        // style.setFillPattern(HSSFCellStyle.FINE_DOTS);
-        // style.setFillBackgroundColor(HSSFColor.BLUE_GREY.index);
         HSSFFont bold = this.wb.createFont();
         bold.setBold(true);
-        // bold.setColor(HSSFColor.WHITE.index);
         style.setBorderBottom(BorderStyle.THIN);
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
 

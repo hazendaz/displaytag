@@ -102,11 +102,11 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
     @Override
     public String getContentType()
     {
-        String ret = this.contentType;
+        StringBuilder ret = new StringBuilder(this.contentType);
 
-        if (ret != null && this.characterEncoding != null && this.charEncSet)
+        if (this.characterEncoding != null && this.charEncSet)
         {
-            ret += "; charset=" + this.characterEncoding;
+            ret.append("; charset=").append(this.characterEncoding);
         }
 
         return this.contentType;

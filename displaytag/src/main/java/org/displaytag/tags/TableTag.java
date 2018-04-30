@@ -691,7 +691,7 @@ public class TableTag extends HtmlTableTag
     {
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getUid() + "] addColumn " + column);
+            log.debug("[{}] addColumn {}", getUid(), column);
         }
 
         if ((this.paginatedList != null) && (column.getSortable()))
@@ -774,7 +774,7 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getUid() + "] doStartTag called");
+            log.debug("[{}] doStartTag called", getUid());
         }
 
         this.properties = TableProperties.getInstance(this.pageContext);
@@ -794,7 +794,7 @@ public class TableTag extends HtmlTableTag
         {
             if (log.isDebugEnabled())
             {
-                log.debug("[" + getUid() + "] setting media [" + this.currentMediaType + "] in this.pageContext");
+                log.debug("[{}] setting media [{}] in this.pageContext", getUid(), this.currentMediaType);
             }
             this.pageContext.setAttribute(PAGE_ATTRIBUTE_MEDIA, this.currentMediaType);
         }
@@ -817,7 +817,7 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getUid() + "] doAfterBody called - iterating on row " + this.rowNumber);
+            log.debug("[{}] doAfterBody called - iterating on row {}", getUid(), this.rowNumber);
         }
 
         // increment this.rowNumber
@@ -836,7 +836,7 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getUid() + "] doIteration called");
+            log.debug("[{}] doIteration called", getUid());
         }
 
         // Row already filled?
@@ -858,7 +858,7 @@ public class TableTag extends HtmlTableTag
                     // set object into this.pageContext
                     if (log.isDebugEnabled())
                     {
-                        log.debug("[" + getUid() + "] setting attribute \"" + getUid() + "\" in pageContext");
+                        log.debug("[{}] setting attribute \"{}\" in pageContext", getUid(), getUid());
                     }
                     this.pageContext.setAttribute(getUid(), iteratedObject);
 
@@ -885,7 +885,7 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getUid() + "] doIteration() - iterator ended after " + (this.rowNumber - 1) + " rows");
+            log.debug("[{}] doIteration() - iterator ended after {} rows", getUid(), (this.rowNumber - 1));
         }
 
         // end iteration
@@ -1246,14 +1246,14 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getUid() + "] doEndTag called");
+            log.debug("[{}] doEndTag called", getUid());
         }
 
         if (!this.doAfterBodyExecuted)
         {
             if (log.isDebugEnabled())
             {
-                log.debug("[" + getUid() + "] tag body is empty.");
+                log.debug("[{}] tag body is empty.", getUid());
             }
 
             // first row (created in doStartTag)
@@ -1338,7 +1338,7 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getUid() + "] doEndTag - end");
+            log.debug("[{}] doEndTag - end", getUid());
         }
 
         cleanUp();
@@ -1468,7 +1468,7 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getUid() + "] currentMediaType=" + this.currentMediaType);
+            log.debug("[{}] currentMediaType={}", getUid(), this.currentMediaType);
         }
 
         boolean exportHeader = this.properties.getExportHeader(this.currentMediaType);
@@ -1748,7 +1748,7 @@ public class TableTag extends HtmlTableTag
     {
         if (log.isDebugEnabled())
         {
-            log.debug("[" + getUid() + "] release() called");
+            log.debug("[{}] release() called", getUid());
         }
 
         super.release();

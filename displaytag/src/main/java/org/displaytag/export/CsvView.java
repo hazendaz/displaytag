@@ -109,7 +109,7 @@ public class CsvView extends BaseExportView
     {
         String stringValue = StringUtils.trim(value.toString());
 
-        if (!StringUtils.containsNone(stringValue, new char[]{'\r', '\n', ','}))
+        if (!StringUtils.containsNone(stringValue, '\r', '\n', ','))
         {
             return "\"" + //$NON-NLS-1$
                 StringUtils.replace(stringValue, "\"", "\\\"") + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

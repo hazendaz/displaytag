@@ -121,7 +121,7 @@ public class RowIterator
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + this.id + "] rowIterator.next() row number=" + currentRowNumber);
+            log.debug("[{}] rowIterator.next() row number=", this.id, currentRowNumber);
         }
 
         Row row = this.iterator.next();

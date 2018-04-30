@@ -256,7 +256,7 @@ public final class HtmlTagUtil
             buffer.append("...");
         }
 
-        if (openTags.size() > 0)
+        if (!openTags.isEmpty())
         {
             // quickly fixes closed tags
             String remainingToken = str.substring(i);

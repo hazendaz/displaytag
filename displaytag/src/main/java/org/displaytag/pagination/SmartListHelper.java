@@ -134,9 +134,7 @@ public class SmartListHelper
     {
         int size = this.fullListSize;
         int div = size / this.pageSize;
-        int result = (size % this.pageSize == 0) ? div : div + 1;
-
-        return result;
+        return (size % this.pageSize == 0) ? div : div + 1;
     }
 
     /**
@@ -329,7 +327,7 @@ public class SmartListHelper
 
         if (log.isDebugEnabled())
         {
-            log.debug("Displaying pages from " + startPage + " to " + endPage);
+            log.debug("Displaying pages from {} to {}", startPage, endPage);
         }
 
         if (this.currentPage != 1)
@@ -342,7 +340,7 @@ public class SmartListHelper
         {
             if (log.isDebugEnabled())
             {
-                log.debug("adding page " + j); //$NON-NLS-1$
+                log.debug("adding page {}", j); //$NON-NLS-1$
             }
             pagination.addPage(j, (j == this.currentPage));
         }

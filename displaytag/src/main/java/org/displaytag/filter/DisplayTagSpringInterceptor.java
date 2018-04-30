@@ -126,7 +126,7 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
 
         if (log.isDebugEnabled())
         {
-            log.debug("handler is " + handler);
+            log.debug("handler is {}", handler);
         }
 
         HandlerAdapter handlerAdaptor = new SimpleControllerHandlerAdapter();

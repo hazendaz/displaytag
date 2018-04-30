@@ -116,7 +116,7 @@ public class Pagination
     {
         if (log.isDebugEnabled())
         {
-            log.debug("adding page " + number);
+            log.debug("adding page {}", number);
         }
         this.pages.add(new NumberedPage(number, isSelected));
     }

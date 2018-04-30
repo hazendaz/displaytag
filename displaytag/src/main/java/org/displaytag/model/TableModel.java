@@ -285,7 +285,7 @@ public class TableModel
 
         if (log.isDebugEnabled())
         {
-            log.debug("[" + this.id + "] adding row " + row);
+            log.debug("[{}] adding row {}", this.id, row);
         }
         this.rowListFull.add(row);
     }
@@ -520,7 +520,7 @@ public class TableModel
     {
         if (log.isDebugEnabled())
         {
-            log.debug("[" + this.id + "] sorting page list");
+            log.debug("[{}] sorting page list", this.id);
         }
         sortRowList(this.rowListPage);
 
@@ -533,7 +533,7 @@ public class TableModel
     {
         if (log.isDebugEnabled())
         {
-            log.debug("[" + this.id + "] sorting full data");
+            log.debug("[{}] sorting full data", this.id);
         }
         sortRowList(this.rowListFull);
     }

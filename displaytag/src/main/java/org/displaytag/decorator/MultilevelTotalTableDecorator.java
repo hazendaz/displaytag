@@ -137,7 +137,6 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         for (Iterator<HeaderCell> iterator = headerCells.iterator(); iterator.hasNext();)
         {
             HeaderCell headerCell = iterator.next();
-            // containsTotaledColumns = containsTotaledColumns || headerCell.isTotaled();
             if (headerCell.getGroup() > 0)
             {
                 GroupTotals groupTotals = new GroupTotals(headerCell.getColumnNumber());
@@ -331,14 +330,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     @Override
     public String displayGroupedValue(String value, short groupingStatus, int columnNumber)
     {
-        // if (groupingStatus == TableWriterTemplate.GROUP_START_AND_END && columnNumber > 1)
-        // {
-        // return value;
-        // }
-        // else
-        // {
         return "";
-        // }
     }
 
     @Override
@@ -379,7 +371,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                     GroupTotals totals = this.groupNumberToGroupTotal.get(groupNumber);
                     if (totals == null)
                     {
-                        this.logger.warn("There is a gap in the defined groups - no group defined for " + groupNumber);
+                        this.logger.warn("There is a gap in the defined groups - no group defined for {}", groupNumber);
                         continue;
                     }
                     totals.printTotals(getListIndex(), out);
@@ -490,12 +482,12 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                 }
                 catch (ObjectLookupException e)
                 {
-                    this.logger.error("Error: " + e.getMessage(), e);
+                    this.logger.error("Error: {}", e.getMessage(), e);
                     throw new RuntimeException("Error: " + e.getMessage(), e);
                 }
                 catch (DecoratorException e)
                 {
-                    this.logger.error("Error: " + e.getMessage(), e);
+                    this.logger.error("Error: {}", e.getMessage(), e);
                     throw new RuntimeException("Error: " + e.getMessage(), e);
                 }
             }
@@ -739,12 +731,12 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                     else
                     {
                         // blank, if it is not a totals column
-                        String style = "group-" + (this.columnNumber + 1);
+                        StringBuilder style = new StringBuilder("group-" + (this.columnNumber + 1));
                         if (headerCell.getColumnNumber() < MultilevelTotalTableDecorator.this.innermostGroup)
                         {
-                            style += " " + getTotalLabelClass() + " ";
+                            style.append(" ").append(getTotalLabelClass()).append(" ");
                         }
-                        out.append(getTotalsTdOpen(headerCell, style));
+                        out.append(getTotalsTdOpen(headerCell, style.toString()));
                     }
                     out.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
                 }

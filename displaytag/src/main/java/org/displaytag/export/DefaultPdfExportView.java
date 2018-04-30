@@ -97,7 +97,6 @@ public class DefaultPdfExportView extends DefaultItextExportView
             {
             }
             PdfContentByte cb = writer.getDirectContent();
-            // cb.saveState();
             // write the headertable
             table.setTotalWidth(document.right() - document.left());
             table.writeSelectedRows(0, -1, document.left(), document.getPageSize().getHeight() - 50, cb);
@@ -112,7 +111,6 @@ public class DefaultPdfExportView extends DefaultItextExportView
             cb.showText(text);
             cb.endText();
             cb.addTemplate(tpl, document.right() - adjust, textBase);
-            // cb.saveState();
         }
     }
 }

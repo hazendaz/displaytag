@@ -248,13 +248,13 @@ public class FopExportView implements BinaryExportView
             transformer.transform(src, debugRes);
             if (e != null)
             {
-                log.error("xslt-fo error " + e.getMessage(), e); //$NON-NLS-1$
-                log.error("xslt-fo result of " + debugRes.getWriter()); //$NON-NLS-1$
+                log.error("xslt-fo error {}", e.getMessage(), e); //$NON-NLS-1$
+                log.error("xslt-fo result of {}", debugRes.getWriter()); //$NON-NLS-1$
                 throw new JspException("Stylesheet produced invalid xsl-fo result", e); //$NON-NLS-1$
             }
             else
             {
-                log.info("xslt-fo result of " + debugRes.getWriter()); //$NON-NLS-1$
+                log.info("xslt-fo result of {}", debugRes.getWriter()); //$NON-NLS-1$
             }
         }
         catch (TransformerException ee)

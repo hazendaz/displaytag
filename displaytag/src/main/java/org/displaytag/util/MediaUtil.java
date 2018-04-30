@@ -102,7 +102,7 @@ public final class MediaUtil
                 MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
                 if (type == null)
                 {
-                    log.warn("Unrecognized value for attribute \"media\" value=\"" + value + "\"");
+                    log.warn("Unrecognized value for attribute \"media\" value=\"{}\"", value);
                 }
                 else
                 {

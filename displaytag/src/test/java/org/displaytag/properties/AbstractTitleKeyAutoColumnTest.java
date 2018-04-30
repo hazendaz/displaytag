@@ -75,7 +75,7 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
     /**
      * Test that headers are correctly removed.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception any exception thrown during test.
      */
     @Override
     @Test

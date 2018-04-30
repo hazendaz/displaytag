@@ -111,11 +111,11 @@ public class ResponseOverrideFilter implements Filter
         String bufferParam = filterConfig.getInitParameter("buffer");
         if (this.log.isDebugEnabled())
         {
-            this.log.debug("bufferParam=" + bufferParam);
+            this.log.debug("bufferParam={}", bufferParam);
         }
         this.buffer = bufferParam == null || StringUtils.equalsIgnoreCase("true", bufferParam);
 
-        this.log.info("Filter initialized. Response buffering is " + (this.buffer ? "enabled" : "disabled"));
+        this.log.info("Filter initialized. Response buffering is {}", (this.buffer ? "enabled" : "disabled"));
     }
 
     /**

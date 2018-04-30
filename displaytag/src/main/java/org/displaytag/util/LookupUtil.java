@@ -99,7 +99,7 @@ public final class LookupUtil
 
             if (log.isDebugEnabled())
             {
-                log.debug("getBeanValue - bean: {" + objectName + "}, property: {" + beanProperty + "}");
+                log.debug("getBeanValue - bean: {}, property: {}", objectName, beanProperty);
             }
 
             // get the bean
@@ -119,7 +119,7 @@ public final class LookupUtil
         // simple, only the javabean
         if (log.isDebugEnabled())
         {
-            log.debug("getBeanValue - bean: {" + beanAndPropertyName + "}");
+            log.debug("getBeanValue - bean: {}", beanAndPropertyName);
         }
 
         return pageContext.getAttribute(beanAndPropertyName, scope);
@@ -146,7 +146,7 @@ public final class LookupUtil
 
         if (log.isDebugEnabled())
         {
-            log.debug("getProperty [" + name + "] on bean " + bean);
+            log.debug("getProperty [{}] on bean {}", name, bean);
         }
 
         try
@@ -198,7 +198,7 @@ public final class LookupUtil
     {
         if (log.isDebugEnabled())
         {
-            log.debug("getProperty [" + name + "] on bean " + bean);
+            log.debug("getProperty [{}] on bean {}", name, bean);
         }
 
         Validate.notNull(bean, "No bean specified");
@@ -255,7 +255,7 @@ public final class LookupUtil
 
             if (evalBean == null)
             {
-                log.debug("Null property value for '" + evalName.substring(0, indexOfNESTEDDELIM) + "'");
+                log.debug("Null property value for '{}'", evalName.substring(0, indexOfNESTEDDELIM));
                 return null;
             }
             evalName = evalName.substring(indexOfNESTEDDELIM + 1);
@@ -328,7 +328,7 @@ public final class LookupUtil
 
         if (log.isDebugEnabled())
         {
-            log.debug("getIndexedProperty property name={" + evalName + "} with index " + index);
+            log.debug("getIndexedProperty property name={} with index {}", evalName, index);
 
         }
 
