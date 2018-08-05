@@ -161,11 +161,9 @@ public class PdfView implements BinaryExportView
                 public void onEndPage(PdfWriter writer, Document document)
                 {
 
-                    Rectangle rect = writer.getBoxSize("art");
                     ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER, new Phrase(
                         TagConstants.EMPTY_STRING,
-                        PdfView.this.smallFont), (rect.getLeft() + rect.getRight()) / 2, rect.getBottom() - 18, 0);
-
+                        PdfView.this.smallFont), (document.left() + document.right()) / 2, document.bottom() - 18, 0);
                 }
 
             });
