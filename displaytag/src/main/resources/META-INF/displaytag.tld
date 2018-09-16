@@ -534,6 +534,13 @@
       <description>html pass through attribute.</description>
     </attribute>
     <attribute>
+      <name>headerStyle</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.lang.String</type>
+      <description>html pass through attribute added only for header cells.</description>
+    </attribute>
+    <attribute>
       <name>group</name>
       <required>false</required>
       <rtexprvalue>true</rtexprvalue>

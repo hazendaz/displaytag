@@ -70,6 +70,10 @@ public class ColumnTagBeanInfo extends SimpleBeanInfo
                 ColumnTag.class,
                 null,
                 "setHeaderClass")); //$NON-NLS-1$
+            proplist.add(new PropertyDescriptor("headerStyle", //$NON-NLS-1$
+                ColumnTag.class,
+                null,
+                "setHeaderStyle")); //$NON-NLS-1$
             proplist.add(new PropertyDescriptor("href", //$NON-NLS-1$
                 ColumnTag.class,
                 null,
