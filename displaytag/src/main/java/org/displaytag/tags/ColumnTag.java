@@ -490,6 +490,15 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     }
 
     /**
+     * setter for the "headerStyle" tag attribute.
+     * @param value attribute value
+     */
+    public void setHeaderStyle(String value)
+    {
+        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);
+    }
+
+    /**
      * setter for the "class" tag attribute.
      * @param value attribute value
      */

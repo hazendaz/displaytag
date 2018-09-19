@@ -20,7 +20,7 @@
 
   <display:table name="test" htmlId="idX" cellspacing="cellspacingX" cellpadding="cellpaddingX"
     frame="frameX" rules="rulesX" style="styleX" summary="summaryX" class="classX">
-    <display:column property="ant" style="styleX" class="classX"/>
+    <display:column property="ant" style="styleX" class="classX" headerStyle="styleH" headerClass="classH"/>
   </display:table>
   </body>
   </html>
