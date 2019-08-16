@@ -1286,13 +1286,13 @@ public class TableTag extends HtmlTableTag
             this.pageContext,
             getConfiguredDecoratorName());
 
-        setupViewableData();
-
         if (tableDecorator != null)
         {
             tableDecorator.init(this.pageContext, this.list, this.tableModel);
             this.tableModel.setTableDecorator(tableDecorator);
         }
+
+        setupViewableData();
 
         TableTotaler totaler = this.properties.getDecoratorFactoryInstance().loadTableTotaler(
             this.pageContext,
