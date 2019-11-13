@@ -281,7 +281,7 @@
           <dependency>
             <groupId>org.apache.maven.wagon</groupId>
             <artifactId>wagon-ssh</artifactId>
-            <version>3.3.3</version>
+            <version>3.3.4</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -328,7 +328,7 @@
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-ssh</artifactId>
-        <version>3.3.3</version>
+        <version>3.3.4</version>
       </extension>
     </extensions>
   </build>
