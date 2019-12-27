@@ -146,7 +146,6 @@
     <maven.compiler.target>1.6</maven.compiler.target>
     <maven.compiler.testSource>1.6</maven.compiler.testSource>
     <maven.compiler.testTarget>1.6</maven.compiler.testTarget>
-    <maven.min-version>3.2.5</maven.min-version>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
