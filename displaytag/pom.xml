@@ -317,9 +317,9 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>rhino</groupId>
-      <artifactId>js</artifactId>
-      <version>1.7R2</version>
+      <groupId>org.mozilla</groupId>
+      <artifactId>rhino</artifactId>
+      <version>1.7.11</version>
       <scope>test</scope>
     </dependency>
     <dependency>
