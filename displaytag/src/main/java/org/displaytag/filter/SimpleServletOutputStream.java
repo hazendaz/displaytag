@@ -24,6 +24,7 @@ package org.displaytag.filter;
 import java.io.ByteArrayOutputStream;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 
 
 /**
@@ -64,5 +65,17 @@ public class SimpleServletOutputStream extends ServletOutputStream
     public void reset()
     {
         this.outputStream.reset();
+    }
+
+    // TODO Do not add override as this is intended for very old legacy support and otherwise has no value beyond compilation.
+    public boolean isReady()
+    {
+        return false;
+    }
+
+    // TODO Do not add override as this is intended for very old legacy support and otherwise has no value beyond compilation.
+    public void setWriteListener(WriteListener writeListener)
+    {
+        // TODO Not yet supported
     }
 }

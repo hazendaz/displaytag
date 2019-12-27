@@ -69,20 +69,14 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>javax.servlet.jsp.jstl</groupId>
-      <artifactId>javax.servlet.jsp.jstl-api</artifactId>
-      <version>1.2.2</version>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>1.2.7</version>
     </dependency>
     <dependency>
       <groupId>org.glassfish.web</groupId>
-      <artifactId>javax.servlet.jsp.jstl</artifactId>
-      <version>1.2.5</version>
-      <exclusions>
-          <exclusion>
-              <artifactId>jstl-api</artifactId>
-              <groupId>javax.servlet.jsp.jstl</groupId>
-          </exclusion>
-      </exclusions>
+      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+      <version>1.2.6</version>
     </dependency>
 
     <!-- optional dependencies for exporting -->
@@ -121,6 +115,10 @@
         <exclusion>
           <groupId>xml-apis</groupId>
           <artifactId>xml-apis-ext</artifactId>
+        </exclusion>
+        <exclusion>
+             <groupId>javax.servlet</groupId>
+             <artifactId>servlet-api</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -251,9 +249,9 @@
     <!-- END optional dependencies -->
 
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.0.1</version>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>4.0.3</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -311,6 +309,10 @@
           <exclusion>
               <groupId>xerces</groupId>
               <artifactId>xmlParserAPIs</artifactId>
+          </exclusion>
+          <exclusion>
+               <groupId>javax.servlet</groupId>
+               <artifactId>servlet-api</artifactId>
           </exclusion>
       </exclusions>
     </dependency>
@@ -405,7 +407,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
         <configuration>
           <configLocation>${project.basedir}/../checkstyle.xml</configLocation>
           <enableRulesSummary>false</enableRulesSummary>
