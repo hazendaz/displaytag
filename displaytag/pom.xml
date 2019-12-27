@@ -122,6 +122,10 @@
           <groupId>xml-apis</groupId>
           <artifactId>xml-apis-ext</artifactId>
         </exclusion>
+        <exclusion>
+             <groupId>javax.servlet</groupId>
+             <artifactId>servlet-api</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
 
@@ -251,9 +255,9 @@
     <!-- END optional dependencies -->
 
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.0.1</version>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>4.0.3</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -311,6 +315,10 @@
           <exclusion>
               <groupId>xerces</groupId>
               <artifactId>xmlParserAPIs</artifactId>
+          </exclusion>
+          <exclusion>
+               <groupId>javax.servlet</groupId>
+               <artifactId>servlet-api</artifactId>
           </exclusion>
       </exclusions>
     </dependency>
