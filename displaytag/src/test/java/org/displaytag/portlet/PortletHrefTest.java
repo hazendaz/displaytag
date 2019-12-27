@@ -401,6 +401,7 @@ public class PortletHrefTest
     /**
      * Test base url.
      */
+    // TODO This test prevents upgrade to portlet 3.0.1 and spring drops support entirely with spring 5.
     @Test
     public void testBaseUrl()
     {
