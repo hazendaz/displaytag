@@ -32,7 +32,8 @@ import javax.servlet.jsp.tagext.TagSupport;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.SuppressPropertiesBeanIntrospector;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.junit.Assert;
@@ -82,6 +83,9 @@ public class TldTest
      */
     public void checkTld(String checkedTld) throws Exception
     {
+        // Allow access to class as this is only a test case and low risk
+        final BeanUtilsBean bub = new BeanUtilsBean();
+        bub.getPropertyUtils().removeBeanIntrospector(SuppressPropertiesBeanIntrospector.SUPPRESS_CLASS);
 
         List<TagAttribute> tagsAttributes = getTagAttributeList(checkedTld);
 
@@ -125,13 +129,13 @@ public class TldTest
                 continue;
             }
 
-            if (!PropertyUtils.isWriteable(tagObject, attribute.getAttributeName()))
+            if (!bub.getPropertyUtils().isWriteable(tagObject, attribute.getAttributeName()))
             {
                 errors.add("Setter for attribute [" + attribute.getAttributeName() + "] not found in " + className);
                 continue;
             }
 
-            Class< ? > propertyType = PropertyUtils.getPropertyType(tagObject, attribute.getAttributeName());
+            Class< ? > propertyType = bub.getPropertyUtils().getPropertyType(tagObject, attribute.getAttributeName());
 
             String tldType = attribute.getAttributeType();
             if (tldType != null)
