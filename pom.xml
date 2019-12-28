@@ -142,11 +142,10 @@
   </organization>
 
   <properties>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
-    <maven.compiler.testSource>1.6</maven.compiler.testSource>
-    <maven.compiler.testTarget>1.6</maven.compiler.testTarget>
-    <maven.min-version>3.2.5</maven.min-version>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.testSource>1.7</maven.compiler.testSource>
+    <maven.compiler.testTarget>1.7</maven.compiler.testTarget>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -185,7 +184,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.3</version>
+        <version>3.0.0-M1</version>
         <configuration>
           <autoVersionSubmodules>true</autoVersionSubmodules>
           <preparationGoals>install</preparationGoals>
