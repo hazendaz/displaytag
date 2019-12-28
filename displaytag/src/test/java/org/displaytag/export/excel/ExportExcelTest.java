@@ -34,11 +34,13 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.Hashtable;
 
+import org.apache.tomcat.InstanceManager;
 import org.displaytag.export.ExportViewFactory;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
+import org.displaytag.util.SimpleInstanceManager;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -100,6 +102,7 @@ public class ExportExcelTest
 
         // start servletRunner
         this.runner = new ServletRunner(new File(path), CONTEXT);
+        this.runner.getSession(true).getServletContext().setAttribute(InstanceManager.class.getName(), new SimpleInstanceManager());
 
         Hashtable<String, String> params = new Hashtable<>();
         params.put("javaEncoding", "utf-8");
