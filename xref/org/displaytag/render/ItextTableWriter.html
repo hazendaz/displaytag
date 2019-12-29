@@ -59,7 +59,7 @@
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment"> * @version $Id$</em>
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment"> * @see org.displaytag.render.TableWriterTemplate</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/render/ItextTableWriter.html">ItextTableWriter</a> <strong class="jxr_keyword">extends</strong> <a href="../../../org/displaytag/render/TableWriterAdapter.html">TableWriterAdapter</a>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="ItextTableWriter" href="../../../org/displaytag/render/ItextTableWriter.html#ItextTableWriter">ItextTableWriter</a> <strong class="jxr_keyword">extends</strong> <a name="TableWriterAdapter" href="../../../org/displaytag/render/TableWriterAdapter.html#TableWriterAdapter">TableWriterAdapter</a>
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  {
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      <em class="jxr_javadoccomment">/**</em>
@@ -82,7 +82,7 @@
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment">     * @param table iText representation of the table.</em>
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">     * @param document iText document to which the table is written.</em>
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/render/ItextTableWriter.html">ItextTableWriter</a>(PdfPTable table, Document document)
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">public</strong> <a name="ItextTableWriter" href="../../../org/displaytag/render/ItextTableWriter.html#ItextTableWriter">ItextTableWriter</a>(PdfPTable table, Document document)
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>      {
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          <strong class="jxr_keyword">this</strong>.table = table;
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          <strong class="jxr_keyword">this</strong>.document = document;
@@ -94,7 +94,7 @@
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      @Override
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableOpener(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model)
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableOpener(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model)
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      {
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">this</strong>.table.getDefaultCell().setVerticalAlignment(Element.ALIGN_TOP);
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          <strong class="jxr_keyword">this</strong>.table.setWidthPercentage(100);
@@ -115,7 +115,7 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     @Override
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeCaption(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeCaption(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>     {
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>         <strong class="jxr_keyword">this</strong>.decorateCaption(model);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>     }
@@ -125,7 +125,7 @@
 <a class="jxr_linenumber" name="L117" href="#L117">117</a> <em class="jxr_javadoccomment">     * @param model The table model containing the caption.</em>
 <a class="jxr_linenumber" name="L118" href="#L118">118</a> <em class="jxr_javadoccomment">     * @throws DocumentException If an error occurrs while decorating the caption.</em>
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> decorateCaption(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> DocumentException
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> decorateCaption(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> DocumentException
 <a class="jxr_linenumber" name="L121" href="#L121">121</a>     {
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>         Paragraph caption = <strong class="jxr_keyword">new</strong> Paragraph(<strong class="jxr_keyword">new</strong> Chunk(model.getCaption(), <strong class="jxr_keyword">this</strong>.getCaptionFont()));
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>         caption.setAlignment(<strong class="jxr_keyword">this</strong>.getCaptionHorizontalAlignment());
@@ -156,14 +156,14 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> <em class="jxr_javadoccomment">     * @throws DocumentException if an error occurs while writing header.</em>
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>     @Override
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableHeader(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> DocumentException
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableHeader(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> DocumentException
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>     {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         Iterator&lt;HeaderCell&gt; iterator = model.getHeaderCellList().iterator();
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> 
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>         <strong class="jxr_keyword">float</strong>[] widths = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">float</strong>[model.getNumberOfColumns()];
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; iterator.hasNext(); i++)
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         {
-<a class="jxr_linenumber" name="L158" href="#L158">158</a>             <a href="../../../org/displaytag/model/HeaderCell.html">HeaderCell</a> headerCell = iterator.next();
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>             <a name="HeaderCell" href="../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> headerCell = iterator.next();
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>             widths[i] = <strong class="jxr_keyword">this</strong>.getCellWidth(headerCell);
 <a class="jxr_linenumber" name="L160" href="#L160">160</a> 
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>             String columnHeader = headerCell.getTitle();
@@ -185,7 +185,7 @@
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> <em class="jxr_javadoccomment">     * @param headerCell Header cell for this column.</em>
 <a class="jxr_linenumber" name="L178" href="#L178">178</a> <em class="jxr_javadoccomment">     * @return The maximum size of all values in this column.</em>
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L180" href="#L180">180</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">float</strong> getCellWidth(<a href="../../../org/displaytag/model/HeaderCell.html">HeaderCell</a> headerCell)
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">float</strong> getCellWidth(<a name="HeaderCell" href="../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> headerCell)
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>     {
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         <strong class="jxr_keyword">int</strong> maxWidth = headerCell.getMaxLength();
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>         <strong class="jxr_keyword">return</strong> (maxWidth &gt; 0) ? maxWidth : headerCell.getTitle().length();
@@ -196,7 +196,7 @@
 <a class="jxr_linenumber" name="L188" href="#L188">188</a> <em class="jxr_javadoccomment">     * @throws DocumentException if an error occurs while writing post-body footer.</em>
 <a class="jxr_linenumber" name="L189" href="#L189">189</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>     @Override
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writePostBodyFooter(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> DocumentException
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writePostBodyFooter(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> DocumentException
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>     {
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>         Chunk cellContent = <strong class="jxr_keyword">new</strong> Chunk(model.getFooter(), <strong class="jxr_keyword">this</strong>.getFooterFont());
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>         <strong class="jxr_keyword">this</strong>.setFooterFontStyle(cellContent);
@@ -258,12 +258,12 @@
 <a class="jxr_linenumber" name="L250" href="#L250">250</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L251" href="#L251">251</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L252" href="#L252">252</a>     @Override
-<a class="jxr_linenumber" name="L253" href="#L253">253</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedRowStart(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model)
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedRowStart(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model)
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>     {
-<a class="jxr_linenumber" name="L255" href="#L255">255</a>         <a href="../../../org/displaytag/decorator/TableDecorator.html">TableDecorator</a> decorator = model.getTableDecorator();
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>         <a name="TableDecorator" href="../../../org/displaytag/decorator/TableDecorator.html#TableDecorator">TableDecorator</a> decorator = model.getTableDecorator();
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>         <strong class="jxr_keyword">if</strong> (decorator instanceof ItextDecorator)
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>         {
-<a class="jxr_linenumber" name="L258" href="#L258">258</a>             <a href="../../../org/displaytag/render/ItextTableWriter.html">ItextDecorator</a> idecorator = (ItextDecorator) decorator;
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>             ItextDecorator idecorator = (ItextDecorator) decorator;
 <a class="jxr_linenumber" name="L259" href="#L259">259</a>             idecorator.setTable(<strong class="jxr_keyword">this</strong>.table);
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>             idecorator.setFont(<strong class="jxr_keyword">this</strong>.defaultFont);
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>         }
@@ -274,7 +274,7 @@
 <a class="jxr_linenumber" name="L266" href="#L266">266</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L267" href="#L267">267</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>     @Override
-<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedRowFinish(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedRowFinish(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L270" href="#L270">270</a>     {
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>         model.getTableDecorator().finishRow();
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>     }
@@ -284,7 +284,7 @@
 <a class="jxr_linenumber" name="L276" href="#L276">276</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)</em>
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L278" href="#L278">278</a>     @Override
-<a class="jxr_linenumber" name="L279" href="#L279">279</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeColumnOpener(<a href="../../../org/displaytag/model/Column.html">Column</a> column) <strong class="jxr_keyword">throws</strong> ObjectLookupException, DecoratorException
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeColumnOpener(<a name="Column" href="../../../org/displaytag/model/Column.html#Column">Column</a> column) <strong class="jxr_keyword">throws</strong> ObjectLookupException, <a name="DecoratorException" href="../../../org/displaytag/exception/DecoratorException.html#DecoratorException">DecoratorException</a>
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>     {
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>         column.initialize(); <em class="jxr_comment">// has side effect, setting its stringValue, which affects grouping logic.</em>
 <a class="jxr_linenumber" name="L282" href="#L282">282</a>     }
@@ -294,7 +294,7 @@
 <a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)</em>
 <a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>     @Override
-<a class="jxr_linenumber" name="L289" href="#L289">289</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeColumnValue(Object value, <a href="../../../org/displaytag/model/Column.html">Column</a> column) <strong class="jxr_keyword">throws</strong> BadElementException
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeColumnValue(Object value, <a name="Column" href="../../../org/displaytag/model/Column.html#Column">Column</a> column) <strong class="jxr_keyword">throws</strong> BadElementException
 <a class="jxr_linenumber" name="L290" href="#L290">290</a>     {
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>         <strong class="jxr_keyword">this</strong>.table.addCell(getCell(value));
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>     }
@@ -303,7 +303,7 @@
 <a class="jxr_linenumber" name="L295" href="#L295">295</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L296" href="#L296">296</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L297" href="#L297">297</a>     @Override
-<a class="jxr_linenumber" name="L298" href="#L298">298</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedTableFinish(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model)
+<a class="jxr_linenumber" name="L298" href="#L298">298</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedTableFinish(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model)
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>     {
 <a class="jxr_linenumber" name="L300" href="#L300">300</a>         model.getTableDecorator().finish();
 <a class="jxr_linenumber" name="L301" href="#L301">301</a>     }
@@ -403,7 +403,7 @@
 <a class="jxr_linenumber" name="L395" href="#L395">395</a> <em class="jxr_javadoccomment">     * @author Jorge L. Barroso</em>
 <a class="jxr_linenumber" name="L396" href="#L396">396</a> <em class="jxr_javadoccomment">     * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L397" href="#L397">397</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L398" href="#L398">398</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> <a href="../../../org/displaytag/render/ItextTableWriter.html">ItextDecorator</a>
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> ItextDecorator
 <a class="jxr_linenumber" name="L399" href="#L399">399</a>     {
 <a class="jxr_linenumber" name="L400" href="#L400">400</a> 
 <a class="jxr_linenumber" name="L401" href="#L401">401</a>         <em class="jxr_javadoccomment">/**</em>
@@ -422,6 +422,6 @@
 <a class="jxr_linenumber" name="L414" href="#L414">414</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

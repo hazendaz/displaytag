@@ -54,7 +54,7 @@
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * @author Fabrizio Giustina</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/filter/MockFilterSupport.html">MockFilterSupport</a> <strong class="jxr_keyword">extends</strong> HttpServlet
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="MockFilterSupport" href="../../../org/displaytag/filter/MockFilterSupport.html#MockFilterSupport">MockFilterSupport</a> <strong class="jxr_keyword">extends</strong> HttpServlet
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  {
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      <em class="jxr_javadoccomment">/**</em>
@@ -81,13 +81,13 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>          log.debug(<span class="jxr_string">"Mock servlet called, simulating filter"</span>);
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          Filter filter = <strong class="jxr_keyword">new</strong> ResponseOverrideFilter();
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>          filter.init(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          filter.doFilter(request, response, <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/filter/MockFilterSupport.html">MockFilterChain</a>());
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          filter.doFilter(request, response, <strong class="jxr_keyword">new</strong> MockFilterChain());
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">     * Simple FilterChain used to test Filters.</em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/filter/MockFilterSupport.html">MockFilterChain</a> <strong class="jxr_keyword">implements</strong> FilterChain
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> MockFilterChain <strong class="jxr_keyword">implements</strong> FilterChain
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      {
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          <em class="jxr_javadoccomment">/**</em>
@@ -119,6 +119,6 @@
 <a class="jxr_linenumber" name="L111" href="#L111">111</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

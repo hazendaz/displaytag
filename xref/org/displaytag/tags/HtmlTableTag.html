@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * @author Fabrizio Giustina</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/tags/HtmlTableTag.html">HtmlTableTag</a> <strong class="jxr_keyword">extends</strong> <a href="../../../org/displaytag/tags/TemplateTag.html">TemplateTag</a>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a name="HtmlTableTag" href="../../../org/displaytag/tags/HtmlTableTag.html#HtmlTableTag">HtmlTableTag</a> <strong class="jxr_keyword">extends</strong> <a name="TemplateTag" href="../../../org/displaytag/tags/TemplateTag.html#TemplateTag">TemplateTag</a>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <em class="jxr_javadoccomment">/**</em>
@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     * Map containing all the standard html attributes.</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <a href="../../../org/displaytag/util/HtmlAttributeMap.html">HtmlAttributeMap</a> attributeMap = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/util/HtmlAttributeMap.html">HtmlAttributeMap</a>();
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <a name="HtmlAttributeMap" href="../../../org/displaytag/util/HtmlAttribu<a name="HtmlAttributeMap" href="../../../org/displaytag/util/HtmlAttributeMap.html#HtmlAttributeMap">HtmlAttributeMap</a>ttributeMap">HtmlAttributeMap</a> attributeMap = <strong class="jxr_keyword">new</strong> <a name="HtmlAttributeMap" href="../../../org/displaytag/util/HtmlAttributeMap.html#HtmlAttributeMap">HtmlAttributeMap</a>();
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment">     * setter for the "cellspacing" html attribute.</em>
@@ -112,7 +112,7 @@
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setClass(String value)
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>     {
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">this</strong>.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/util/MultipleHtmlAttribute.html">MultipleHtmlAttribute</a>(value));
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">this</strong>.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, <strong class="jxr_keyword">new</strong> <a name="MultipleHtmlAttribute" href="../../../org/displaytag/util/MultipleHtmlAttribute.html#MultipleHtmlAttribute">MultipleHtmlAttribute</a>(value));
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     }
 <a class="jxr_linenumber" name="L109" href="#L109">109</a> 
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>     <em class="jxr_javadoccomment">/**</em>
@@ -134,11 +134,11 @@
 <a class="jxr_linenumber" name="L126" href="#L126">126</a> 
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">if</strong> (classAttributes == <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         {
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>             <strong class="jxr_keyword">this</strong>.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/util/MultipleHtmlAttribute.html">MultipleHtmlAttribute</a>(value));
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>             <strong class="jxr_keyword">this</strong>.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, <strong class="jxr_keyword">new</strong> <a name="MultipleHtmlAttribute" href="../../../org/displaytag/util/MultipleHtmlAttribute.html#MultipleHtmlAttribute">MultipleHtmlAttribute</a>(value));
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         }
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">else</strong>
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>         {
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>             ((<a href="../../../org/displaytag/util/MultipleHtmlAttribute.html">MultipleHtmlAttribute</a>) classAttributes).addAttributeValue(value);
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>             ((<a name="MultipleHtmlAttribute" href="../../../org/displaytag/util/MultipleHtmlAttribute.html#MultipleHtmlAttribute">MultipleHtmlAttribute</a>) classAttributes).addAttributeValue(value);
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>         }
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>     }
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> 
@@ -157,7 +157,7 @@
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> <em class="jxr_javadoccomment">     * the &lt;code&gt;getOpenTag()&lt;/code&gt; method.</em>
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> <em class="jxr_javadoccomment">     * @return map of html attributes</em>
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/util/HtmlAttributeMap.html">HtmlAttributeMap</a> getAttributeMap()
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     <strong class="jxr_keyword">public</strong> <a name="HtmlAttributeMap" href="../../../org/displaytag/util/HtmlAttributeMap.html#HtmlAttributeMap">HtmlAttributeMap</a> getAttributeMap()
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>     {
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.attributeMap;
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     }
@@ -165,6 +165,6 @@
 <a class="jxr_linenumber" name="L157" href="#L157">157</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

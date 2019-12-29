@@ -43,14 +43,14 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * superclass, so these two classes should be refactored</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * @author JBN</em>
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/pagination/PaginatedListSmartListHelper.html">PaginatedListSmartListHelper</a> <strong class="jxr_keyword">extends</strong> <a href="../../../org/displaytag/pagination/SmartListHelper.html">SmartListHelper</a>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="PaginatedListSmartListHelper" href="../../../org/displaytag/pagination/PaginatedListSmartListHelper.html#PaginatedListSmartListHelper">PaginatedListSmartListHelper</a> <strong class="jxr_keyword">extends</strong> <a name="SmartListHelper" href="../../../org/displaytag/pagination/SmartListHelper.html#SmartListHelper">SmartListHelper</a>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_javadoccomment">/** The paginated list. */</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">private</strong> <a href="../../../org/displaytag/pagination/PaginatedList.html">PaginatedList</a> paginatedList;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>      <strong class="jxr_keyword">private</strong> <a name="PaginatedList" href="../../../org/displaytag/pagination/PaginatedList.html#PaginatedList">PaginatedList</a> paginatedList;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      <em class="jxr_javadoccomment">/** The properties. */</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <a href="../../../org/displaytag/properties/TableProperties.html">TableProperties</a> properties;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">private</strong> <a name="TableProperties" href="../../../org/displaytag/properties/TableProperties.html#TableProperties">TableProperties</a> properties;
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <em class="jxr_javadoccomment">/** The page count. */</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> pageCount;
@@ -61,7 +61,7 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">     * @param paginatedList the paginated list</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment">     * @param tableProperties the table properties</em>
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/pagination/PaginatedListSmartListHelper.html">PaginatedListSmartListHelper</a>(<a href="../../../org/displaytag/pagination/PaginatedList.html">PaginatedList</a> paginatedList, <a href="../../../org/displaytag/properties/TableProperties.html">TableProperties</a> tableProperties)
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">public</strong> <a name="PaginatedListSmartListHelper" href="../../../org/displaytag/pagination/PaginatedListSmartListHelper.html#PaginatedListSmartListHelper">PaginatedListSmartListHelper</a>(<a name="PaginatedList" href="../../../org/displaytag/pagination/PaginatedList.html#PaginatedList">PaginatedList</a> paginatedList, <a name="TableProperties" href="../../../org/displaytag/properties/TableProperties.html#TableProperties">TableProperties</a> tableProperties)
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">super</strong>();
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>          <strong class="jxr_keyword">this</strong>.paginatedList = paginatedList;
@@ -143,14 +143,14 @@
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>     }
 <a class="jxr_linenumber" name="L136" href="#L136">136</a> 
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     @Override
-<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">public</strong> String getPageNavigationBar(<a href="../../../org/displaytag/util/Href.html">Href</a> baseHref, String pageParameter)
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     <strong class="jxr_keyword">public</strong> String getPageNavigationBar(<a name="Href" href="../../../org/displaytag/util/Href.html#Href">Href</a> baseHref, String pageParameter)
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>     {
 <a class="jxr_linenumber" name="L140" href="#L140">140</a> 
 <a class="jxr_linenumber" name="L141" href="#L141">141</a>         <strong class="jxr_keyword">int</strong> groupSize = <strong class="jxr_keyword">this</strong>.properties.getPagingGroupSize();
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">int</strong> startPage;
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         <strong class="jxr_keyword">int</strong> endPage;
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>         <a href="../../../org/displaytag/pagination/Pagination.html">Pagination</a> pagination = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/pagination/Pagination.html">Pagination</a>(baseHref, pageParameter, <strong class="jxr_keyword">this</strong>.properties);
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         <a name="Pagination" href="../../../org/displaytag/pagination/Pag<a name="Pagination" href="../../../org/displaytag/pagination/Pagination.html#Pagination">Pagination</a>ml#Pagination">Pagination</a> pagination = <strong class="jxr_keyword">new</strong> <a name="Pagination" href="../../../org/displaytag/pagination/Pagination.html#Pagination">Pagination</a>(baseHref, pageParameter, <strong class="jxr_keyword">this</strong>.properties);
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         pagination.setCurrent(Integer.valueOf(<strong class="jxr_keyword">this</strong>.paginatedList.getPageNumber()));
 <a class="jxr_linenumber" name="L147" href="#L147">147</a> 
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <em class="jxr_comment">// if no items are found still add pagination?</em>
@@ -263,6 +263,6 @@
 <a class="jxr_linenumber" name="L255" href="#L255">255</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

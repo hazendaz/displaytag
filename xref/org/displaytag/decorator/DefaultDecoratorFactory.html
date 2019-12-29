@@ -42,7 +42,7 @@
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> * @author Fabrizio Giustina</em>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * @version $Id$</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/decorator/DefaultDecoratorFactory.html">DefaultDecoratorFactory</a> <strong class="jxr_keyword">implements</strong> <a href="../../../org/displaytag/decorator/DecoratorFactory.html">DecoratorFactory</a>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="DefaultDecoratorFactory" href="../../../org/displaytag/decorator/DefaultDecoratorFactory.html#DefaultDecoratorFactory">DefaultDecoratorFactory</a> <strong class="jxr_keyword">implements</strong> <a name="DecoratorFactory" href="../../../org/displaytag/decorator/DecoratorFactory.html#DecoratorFactory">DecoratorFactory</a>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  {
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>      <em class="jxr_javadoccomment">/**</em>
@@ -64,10 +64,10 @@
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">     * @throws DecoratorInstantiationException if unable to load specified TableDecorator</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>      @Override
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/decorator/TableDecorator.html">TableDecorator</a> loadTableDecorator(PageContext pageContext, String decoratorName)
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <strong class="jxr_keyword">throws</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">public</strong> <a name="TableDecorator" href="../../../org/displaytag/decorator/TableDecorator.html#TableDecorator">TableDecorator</a> loadTableDecorator(PageContext pageContext, String decoratorName)
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <strong class="jxr_keyword">throws</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">return</strong> (TableDecorator) lookup( pageContext,  decoratorName);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">return</strong> (<a name="TableDecorator" href="../../../org/displaytag/decorator/TableDecorator.html#TableDecorator">TableDecorator</a>) lookup( pageContext,  decoratorName);
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      }
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      <em class="jxr_javadoccomment">/**</em>
@@ -79,7 +79,7 @@
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">     * @throws DecoratorInstantiationException the decorator instantiation exception</em>
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">private</strong> Object lookup(PageContext pageContext, String decoratorName)
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>              <strong class="jxr_keyword">throws</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>              <strong class="jxr_keyword">throws</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      {
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">if</strong> (StringUtils.isBlank(decoratorName))
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>          {
@@ -99,15 +99,15 @@
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>              }
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>              <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e)
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>              {
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>                  <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>                  <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>              }
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>              <strong class="jxr_keyword">catch</strong> (InstantiationException e)
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>              {
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>                  <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>                  <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>              }
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>             <strong class="jxr_keyword">catch</strong> (IllegalAccessException e)
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>             {
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>             }
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         }
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>         <strong class="jxr_keyword">return</strong> decorator;
@@ -133,10 +133,10 @@
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">     * @throws DecoratorInstantiationException if unable to load ColumnDecorator</em>
 <a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>     @Override
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/render/TableTotaler.html">TableTotaler</a> loadTableTotaler(PageContext pageContext, String decoratorName)
-<a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>     <strong class="jxr_keyword">public</strong> <a name="TableTotaler" href="../../../org/displaytag/render/TableTotaler.html#TableTotaler">TableTotaler</a> loadTableTotaler(PageContext pageContext, String decoratorName)
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">throws</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>     {
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">return</strong> (TableTotaler) lookup(pageContext, decoratorName);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">return</strong> (<a name="TableTotaler" href="../../../org/displaytag/render/TableTotaler.html#TableTotaler">TableTotaler</a>) lookup(pageContext, decoratorName);
 <a class="jxr_linenumber" name="L132" href="#L132">132</a>     }
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>     <em class="jxr_javadoccomment">/**</em>
@@ -158,8 +158,8 @@
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> <em class="jxr_javadoccomment">     * @throws DecoratorInstantiationException if unable to load ColumnDecorator</em>
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>     @Override
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/decorator/DisplaytagColumnDecorator.html">DisplaytagColumnDecorator</a> loadColumnDecorator(PageContext pageContext, String decoratorName)
-<a class="jxr_linenumber" name="L154" href="#L154">154</a>         <strong class="jxr_keyword">throws</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>     <strong class="jxr_keyword">public</strong> <a name="DisplaytagColumnDecorator" href="../../../org/displaytag/decorator/DisplaytagColumnDecorator.html#DisplaytagColumnDecorator">DisplaytagColumnDecorator</a> loadColumnDecorator(PageContext pageContext, String decoratorName)
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>         <strong class="jxr_keyword">throws</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     {
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>         <strong class="jxr_keyword">if</strong> (StringUtils.isBlank(decoratorName))
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>         {
@@ -179,25 +179,25 @@
 <a class="jxr_linenumber" name="L171" href="#L171">171</a>             }
 <a class="jxr_linenumber" name="L172" href="#L172">172</a>             <strong class="jxr_keyword">catch</strong> (ClassNotFoundException e)
 <a class="jxr_linenumber" name="L173" href="#L173">173</a>             {
-<a class="jxr_linenumber" name="L174" href="#L174">174</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>             }
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>             <strong class="jxr_keyword">catch</strong> (InstantiationException e)
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             {
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>             }
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>             <strong class="jxr_keyword">catch</strong> (IllegalAccessException e)
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>             {
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>(DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>, decoratorName, e);
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>             }
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>         }
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> 
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">if</strong> (decorator instanceof DisplaytagColumnDecorator)
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         <strong class="jxr_keyword">if</strong> (decorator instanceof <a name="DisplaytagColumnDecorator" href="../../../org/displaytag/decorator/DisplaytagColumnDecorator.html#DisplaytagColumnDecorator">DisplaytagColumnDecorator</a>)
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>         {
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>             <strong class="jxr_keyword">return</strong> (DisplaytagColumnDecorator) decorator;
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>             <strong class="jxr_keyword">return</strong> (<a name="DisplaytagColumnDecorator" href="../../../org/displaytag/decorator/DisplaytagColumnDecorator.html#DisplaytagColumnDecorator">DisplaytagColumnDecorator</a>) decorator;
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>         }
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>         <strong class="jxr_keyword">else</strong>
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>         {
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/exception/DecoratorInstantiationException.html">DecoratorInstantiationException</a>(
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>(
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>                 DefaultDecoratorFactory.<strong class="jxr_keyword">class</strong>,
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>                 decoratorName,
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>                 <strong class="jxr_keyword">new</strong> ClassCastException(decorator.getClass().getName()));
@@ -207,6 +207,6 @@
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

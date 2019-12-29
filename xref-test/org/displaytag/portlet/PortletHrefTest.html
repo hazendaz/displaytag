@@ -47,7 +47,7 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * @author Eric Dalquist &lt;a href="<a href="mailto:edalquist@unicon.net" target="alexandria_uri">mailto:edalquist@unicon.net</a>"&gt;edalquist@unicon.net&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * @version $Id$</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/portlet/PortletHrefTest.html">PortletHrefTest</a>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="PortletHrefTest" href="../../../org/displaytag/portlet/PortletHrefTest.html#PortletHrefTest">PortletHrefTest</a>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <em class="jxr_javadoccomment">/**</em>
@@ -409,122 +409,123 @@
 <a class="jxr_linenumber" name="L401" href="#L401">401</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L402" href="#L402">402</a> <em class="jxr_javadoccomment">     * Test base url.</em>
 <a class="jxr_linenumber" name="L403" href="#L403">403</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L404" href="#L404">404</a>     @Test
-<a class="jxr_linenumber" name="L405" href="#L405">405</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBaseUrl()
-<a class="jxr_linenumber" name="L406" href="#L406">406</a>     {
-<a class="jxr_linenumber" name="L407" href="#L407">407</a>         <strong class="jxr_keyword">final</strong> PortletHref href = <strong class="jxr_keyword">new</strong> PortletHref(<strong class="jxr_keyword">new</strong> MockPortletRequest(), <strong class="jxr_keyword">new</strong> MockRenderResponse());
-<a class="jxr_linenumber" name="L408" href="#L408">408</a> 
-<a class="jxr_linenumber" name="L409" href="#L409">409</a>         href.addParameter(PortletHref.PARAM_MODE, <span class="jxr_string">"help"</span>);
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>         href.addParameter(PortletHref.PARAM_STATE, <span class="jxr_string">"maximized"</span>);
-<a class="jxr_linenumber" name="L411" href="#L411">411</a>         href.addParameter(PortletHref.PARAM_SECURE, <span class="jxr_string">"true"</span>);
-<a class="jxr_linenumber" name="L412" href="#L412">412</a>         href.addParameter(<span class="jxr_string">"SINGLE_PARAM"</span>, <span class="jxr_string">"VAL1"</span>);
-<a class="jxr_linenumber" name="L413" href="#L413">413</a> 
-<a class="jxr_linenumber" name="L414" href="#L414">414</a>         <strong class="jxr_keyword">final</strong> String baseRenderUrl = href.getBaseUrl();
-<a class="jxr_linenumber" name="L415" href="#L415">415</a>         Assert.assertEquals(<span class="jxr_string">"http://localhost/mockportlet?urlType=render"</span>, baseRenderUrl);
-<a class="jxr_linenumber" name="L416" href="#L416">416</a> 
-<a class="jxr_linenumber" name="L417" href="#L417">417</a>         href.addParameter(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
-<a class="jxr_linenumber" name="L418" href="#L418">418</a> 
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>         <strong class="jxr_keyword">final</strong> String baseActionUrl = href.getBaseUrl();
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>         Assert.assertEquals(<span class="jxr_string">"http://localhost/mockportlet?urlType=action"</span>, baseActionUrl);
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>     }
-<a class="jxr_linenumber" name="L422" href="#L422">422</a> 
-<a class="jxr_linenumber" name="L423" href="#L423">423</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L424" href="#L424">424</a> <em class="jxr_javadoccomment">     * Test full url.</em>
-<a class="jxr_linenumber" name="L425" href="#L425">425</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L426" href="#L426">426</a>     @Test
-<a class="jxr_linenumber" name="L427" href="#L427">427</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testFullUrl()
-<a class="jxr_linenumber" name="L428" href="#L428">428</a>     {
-<a class="jxr_linenumber" name="L429" href="#L429">429</a>         <strong class="jxr_keyword">final</strong> PortletHref href = <strong class="jxr_keyword">new</strong> PortletHref(<strong class="jxr_keyword">new</strong> MockPortletRequest(), <strong class="jxr_keyword">new</strong> MockRenderResponse());
-<a class="jxr_linenumber" name="L430" href="#L430">430</a> 
-<a class="jxr_linenumber" name="L431" href="#L431">431</a>         <strong class="jxr_keyword">final</strong> String urlString1 = href.toString();
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>         Assert.assertEquals(<span class="jxr_string">"http://localhost/mockportlet?urlType=render"</span>, urlString1);
-<a class="jxr_linenumber" name="L433" href="#L433">433</a> 
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>         href.addParameter(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
-<a class="jxr_linenumber" name="L435" href="#L435">435</a>         <strong class="jxr_keyword">final</strong> String urlString2 = href.toString();
-<a class="jxr_linenumber" name="L436" href="#L436">436</a>         Assert.assertEquals(<span class="jxr_string">"http://localhost/mockportlet?urlType=action"</span>, urlString2);
-<a class="jxr_linenumber" name="L437" href="#L437">437</a> 
-<a class="jxr_linenumber" name="L438" href="#L438">438</a>         href.addParameter(PortletHref.PARAM_SECURE, Boolean.TRUE.toString());
-<a class="jxr_linenumber" name="L439" href="#L439">439</a>         <strong class="jxr_keyword">final</strong> String urlString3 = href.toString();
-<a class="jxr_linenumber" name="L440" href="#L440">440</a>         Assert.assertEquals(<span class="jxr_string">"https://localhost/mockportlet?urlType=action"</span>, urlString3);
-<a class="jxr_linenumber" name="L441" href="#L441">441</a> 
-<a class="jxr_linenumber" name="L442" href="#L442">442</a>         <em class="jxr_comment">// This code should work but the MockPortletURL provided by spring doesn't follow the</em>
-<a class="jxr_linenumber" name="L443" href="#L443">443</a>         <em class="jxr_comment">// interface docs on invalid modes/states</em>
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>         <em class="jxr_comment">// href.setRequestedState(new WindowState("exclusive"));</em>
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>         <em class="jxr_comment">// try {</em>
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>         <em class="jxr_comment">// href.toString();</em>
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>         <em class="jxr_comment">// fail("IllegalStateException should have been thrown.");</em>
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>         <em class="jxr_comment">// }</em>
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>         <em class="jxr_comment">// catch (IllegalStateException ise) {</em>
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>         <em class="jxr_comment">// //expected</em>
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>         <em class="jxr_comment">// }</em>
-<a class="jxr_linenumber" name="L452" href="#L452">452</a> 
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>         href.addParameter(PortletHref.PARAM_STATE, <span class="jxr_string">"normal"</span>);
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>         <strong class="jxr_keyword">final</strong> String urlString7 = href.toString();
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>         Assert.assertEquals(<span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=normal"</span>, urlString7);
-<a class="jxr_linenumber" name="L456" href="#L456">456</a> 
-<a class="jxr_linenumber" name="L457" href="#L457">457</a>         href.addParameter(PortletHref.PARAM_STATE, <span class="jxr_string">"minimized"</span>);
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>         <strong class="jxr_keyword">final</strong> String urlString8 = href.toString();
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>         Assert.assertEquals(<span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=minimized"</span>, urlString8);
-<a class="jxr_linenumber" name="L460" href="#L460">460</a> 
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>         href.addParameter(PortletHref.PARAM_STATE, <span class="jxr_string">"maximized"</span>);
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>         <strong class="jxr_keyword">final</strong> String urlString9 = href.toString();
-<a class="jxr_linenumber" name="L463" href="#L463">463</a>         Assert.assertEquals(<span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized"</span>, urlString9);
-<a class="jxr_linenumber" name="L464" href="#L464">464</a> 
-<a class="jxr_linenumber" name="L465" href="#L465">465</a>         <em class="jxr_comment">// This code should work but the MockPortletURL provided by spring doesn't follow the</em>
-<a class="jxr_linenumber" name="L466" href="#L466">466</a>         <em class="jxr_comment">// interface docs on invalid modes/states</em>
-<a class="jxr_linenumber" name="L467" href="#L467">467</a>         <em class="jxr_comment">// href.setRequestedMode(new PortletMode("info"));</em>
-<a class="jxr_linenumber" name="L468" href="#L468">468</a>         <em class="jxr_comment">// try {</em>
-<a class="jxr_linenumber" name="L469" href="#L469">469</a>         <em class="jxr_comment">// href.toString();</em>
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>         <em class="jxr_comment">// fail("IllegalStateException should have been thrown.");</em>
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>         <em class="jxr_comment">// }</em>
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>         <em class="jxr_comment">// catch (IllegalStateException ise) {</em>
-<a class="jxr_linenumber" name="L473" href="#L473">473</a>         <em class="jxr_comment">// //expected</em>
-<a class="jxr_linenumber" name="L474" href="#L474">474</a>         <em class="jxr_comment">// }</em>
-<a class="jxr_linenumber" name="L475" href="#L475">475</a> 
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>         href.addParameter(PortletHref.PARAM_MODE, <span class="jxr_string">"view"</span>);
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>         <strong class="jxr_keyword">final</strong> String urlString4 = href.toString();
-<a class="jxr_linenumber" name="L478" href="#L478">478</a>         Assert.assertEquals(
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>             <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=view"</span>,
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>             urlString4);
-<a class="jxr_linenumber" name="L481" href="#L481">481</a> 
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>         href.addParameter(PortletHref.PARAM_MODE, <span class="jxr_string">"help"</span>);
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>         <strong class="jxr_keyword">final</strong> String urlString5 = href.toString();
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>         Assert.assertEquals(
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>             <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=help"</span>,
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>             urlString5);
-<a class="jxr_linenumber" name="L487" href="#L487">487</a> 
-<a class="jxr_linenumber" name="L488" href="#L488">488</a>         href.addParameter(PortletHref.PARAM_MODE, <span class="jxr_string">"edit"</span>);
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>         <strong class="jxr_keyword">final</strong> String urlString6 = href.toString();
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>         Assert.assertEquals(
-<a class="jxr_linenumber" name="L491" href="#L491">491</a>             <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit"</span>,
-<a class="jxr_linenumber" name="L492" href="#L492">492</a>             urlString6);
-<a class="jxr_linenumber" name="L493" href="#L493">493</a> 
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>         href.addParameter(<span class="jxr_string">"SINGLE_PARAM"</span>, <span class="jxr_string">"VAL"</span>);
-<a class="jxr_linenumber" name="L495" href="#L495">495</a>         <strong class="jxr_keyword">final</strong> String urlString10 = href.toString();
-<a class="jxr_linenumber" name="L496" href="#L496">496</a>         Assert
-<a class="jxr_linenumber" name="L497" href="#L497">497</a>             .assertEquals(
-<a class="jxr_linenumber" name="L498" href="#L498">498</a>                 <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL"</span>,
-<a class="jxr_linenumber" name="L499" href="#L499">499</a>                 urlString10);
-<a class="jxr_linenumber" name="L500" href="#L500">500</a> 
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>         <strong class="jxr_keyword">final</strong> Map&lt;String, String[]&gt; paramMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
-<a class="jxr_linenumber" name="L502" href="#L502">502</a>         paramMap.put(<span class="jxr_string">"MULTI_PARAM"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"VAL1"</span>, <span class="jxr_string">"VAL2"</span>});
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>         href.addParameterMap(paramMap);
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>         <strong class="jxr_keyword">final</strong> String urlString11 = href.toString();
-<a class="jxr_linenumber" name="L505" href="#L505">505</a>         Assert
-<a class="jxr_linenumber" name="L506" href="#L506">506</a>             .assertEquals(
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>                 <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2"</span>,
-<a class="jxr_linenumber" name="L508" href="#L508">508</a>                 urlString11);
-<a class="jxr_linenumber" name="L509" href="#L509">509</a> 
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>         href.setAnchor(<span class="jxr_string">"ANCHOR"</span>);
-<a class="jxr_linenumber" name="L511" href="#L511">511</a>         <strong class="jxr_keyword">final</strong> String urlString12 = href.toString();
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>         Assert
-<a class="jxr_linenumber" name="L513" href="#L513">513</a>             .assertEquals(
-<a class="jxr_linenumber" name="L514" href="#L514">514</a>                 <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2#ANCHOR"</span>,
-<a class="jxr_linenumber" name="L515" href="#L515">515</a>                 urlString12);
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>     }
-<a class="jxr_linenumber" name="L517" href="#L517">517</a> }
+<a class="jxr_linenumber" name="L404" href="#L404">404</a>     <em class="jxr_comment">// TODO This test prevents upgrade to portlet 3.0.1 and spring drops support entirely with spring 5.</em>
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>     @Test
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testBaseUrl()
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>     {
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>         <strong class="jxr_keyword">final</strong> PortletHref href = <strong class="jxr_keyword">new</strong> PortletHref(<strong class="jxr_keyword">new</strong> MockPortletRequest(), <strong class="jxr_keyword">new</strong> MockRenderResponse());
+<a class="jxr_linenumber" name="L409" href="#L409">409</a> 
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>         href.addParameter(PortletHref.PARAM_MODE, <span class="jxr_string">"help"</span>);
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>         href.addParameter(PortletHref.PARAM_STATE, <span class="jxr_string">"maximized"</span>);
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>         href.addParameter(PortletHref.PARAM_SECURE, <span class="jxr_string">"true"</span>);
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>         href.addParameter(<span class="jxr_string">"SINGLE_PARAM"</span>, <span class="jxr_string">"VAL1"</span>);
+<a class="jxr_linenumber" name="L414" href="#L414">414</a> 
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>         <strong class="jxr_keyword">final</strong> String baseRenderUrl = href.getBaseUrl();
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>         Assert.assertEquals(<span class="jxr_string">"http://localhost/mockportlet?urlType=render"</span>, baseRenderUrl);
+<a class="jxr_linenumber" name="L417" href="#L417">417</a> 
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>         href.addParameter(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
+<a class="jxr_linenumber" name="L419" href="#L419">419</a> 
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>         <strong class="jxr_keyword">final</strong> String baseActionUrl = href.getBaseUrl();
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>         Assert.assertEquals(<span class="jxr_string">"http://localhost/mockportlet?urlType=action"</span>, baseActionUrl);
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>     }
+<a class="jxr_linenumber" name="L423" href="#L423">423</a> 
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L425" href="#L425">425</a> <em class="jxr_javadoccomment">     * Test full url.</em>
+<a class="jxr_linenumber" name="L426" href="#L426">426</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>     @Test
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testFullUrl()
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>     {
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>         <strong class="jxr_keyword">final</strong> PortletHref href = <strong class="jxr_keyword">new</strong> PortletHref(<strong class="jxr_keyword">new</strong> MockPortletRequest(), <strong class="jxr_keyword">new</strong> MockRenderResponse());
+<a class="jxr_linenumber" name="L431" href="#L431">431</a> 
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>         <strong class="jxr_keyword">final</strong> String urlString1 = href.toString();
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>         Assert.assertEquals(<span class="jxr_string">"http://localhost/mockportlet?urlType=render"</span>, urlString1);
+<a class="jxr_linenumber" name="L434" href="#L434">434</a> 
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>         href.addParameter(PortletHref.PARAM_TYPE, PortletHref.TYPE_ACTION);
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>         <strong class="jxr_keyword">final</strong> String urlString2 = href.toString();
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>         Assert.assertEquals(<span class="jxr_string">"http://localhost/mockportlet?urlType=action"</span>, urlString2);
+<a class="jxr_linenumber" name="L438" href="#L438">438</a> 
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>         href.addParameter(PortletHref.PARAM_SECURE, Boolean.TRUE.toString());
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>         <strong class="jxr_keyword">final</strong> String urlString3 = href.toString();
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>         Assert.assertEquals(<span class="jxr_string">"https://localhost/mockportlet?urlType=action"</span>, urlString3);
+<a class="jxr_linenumber" name="L442" href="#L442">442</a> 
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>         <em class="jxr_comment">// This code should work but the MockPortletURL provided by spring doesn't follow the</em>
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>         <em class="jxr_comment">// interface docs on invalid modes/states</em>
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>         <em class="jxr_comment">// href.setRequestedState(new WindowState("exclusive"));</em>
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>         <em class="jxr_comment">// try {</em>
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>         <em class="jxr_comment">// href.toString();</em>
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>         <em class="jxr_comment">// fail("IllegalStateException should have been thrown.");</em>
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>         <em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>         <em class="jxr_comment">// catch (IllegalStateException ise) {</em>
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>         <em class="jxr_comment">// //expected</em>
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>         <em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="L453" href="#L453">453</a> 
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>         href.addParameter(PortletHref.PARAM_STATE, <span class="jxr_string">"normal"</span>);
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>         <strong class="jxr_keyword">final</strong> String urlString7 = href.toString();
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>         Assert.assertEquals(<span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=normal"</span>, urlString7);
+<a class="jxr_linenumber" name="L457" href="#L457">457</a> 
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>         href.addParameter(PortletHref.PARAM_STATE, <span class="jxr_string">"minimized"</span>);
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>         <strong class="jxr_keyword">final</strong> String urlString8 = href.toString();
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>         Assert.assertEquals(<span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=minimized"</span>, urlString8);
+<a class="jxr_linenumber" name="L461" href="#L461">461</a> 
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>         href.addParameter(PortletHref.PARAM_STATE, <span class="jxr_string">"maximized"</span>);
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>         <strong class="jxr_keyword">final</strong> String urlString9 = href.toString();
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>         Assert.assertEquals(<span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized"</span>, urlString9);
+<a class="jxr_linenumber" name="L465" href="#L465">465</a> 
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>         <em class="jxr_comment">// This code should work but the MockPortletURL provided by spring doesn't follow the</em>
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>         <em class="jxr_comment">// interface docs on invalid modes/states</em>
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>         <em class="jxr_comment">// href.setRequestedMode(new PortletMode("info"));</em>
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>         <em class="jxr_comment">// try {</em>
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>         <em class="jxr_comment">// href.toString();</em>
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>         <em class="jxr_comment">// fail("IllegalStateException should have been thrown.");</em>
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>         <em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>         <em class="jxr_comment">// catch (IllegalStateException ise) {</em>
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>         <em class="jxr_comment">// //expected</em>
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>         <em class="jxr_comment">// }</em>
+<a class="jxr_linenumber" name="L476" href="#L476">476</a> 
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>         href.addParameter(PortletHref.PARAM_MODE, <span class="jxr_string">"view"</span>);
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>         <strong class="jxr_keyword">final</strong> String urlString4 = href.toString();
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>         Assert.assertEquals(
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>             <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=view"</span>,
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>             urlString4);
+<a class="jxr_linenumber" name="L482" href="#L482">482</a> 
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>         href.addParameter(PortletHref.PARAM_MODE, <span class="jxr_string">"help"</span>);
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>         <strong class="jxr_keyword">final</strong> String urlString5 = href.toString();
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>         Assert.assertEquals(
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>             <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=help"</span>,
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>             urlString5);
+<a class="jxr_linenumber" name="L488" href="#L488">488</a> 
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>         href.addParameter(PortletHref.PARAM_MODE, <span class="jxr_string">"edit"</span>);
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>         <strong class="jxr_keyword">final</strong> String urlString6 = href.toString();
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>         Assert.assertEquals(
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>             <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit"</span>,
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>             urlString6);
+<a class="jxr_linenumber" name="L494" href="#L494">494</a> 
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>         href.addParameter(<span class="jxr_string">"SINGLE_PARAM"</span>, <span class="jxr_string">"VAL"</span>);
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>         <strong class="jxr_keyword">final</strong> String urlString10 = href.toString();
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>         Assert
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>             .assertEquals(
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>                 <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL"</span>,
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>                 urlString10);
+<a class="jxr_linenumber" name="L501" href="#L501">501</a> 
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>         <strong class="jxr_keyword">final</strong> Map&lt;String, String[]&gt; paramMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>         paramMap.put(<span class="jxr_string">"MULTI_PARAM"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"VAL1"</span>, <span class="jxr_string">"VAL2"</span>});
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>         href.addParameterMap(paramMap);
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>         <strong class="jxr_keyword">final</strong> String urlString11 = href.toString();
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>         Assert
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>             .assertEquals(
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>                 <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2"</span>,
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>                 urlString11);
+<a class="jxr_linenumber" name="L510" href="#L510">510</a> 
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>         href.setAnchor(<span class="jxr_string">"ANCHOR"</span>);
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>         <strong class="jxr_keyword">final</strong> String urlString12 = href.toString();
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>         Assert
+<a class="jxr_linenumber" name="L514" href="#L514">514</a>             .assertEquals(
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>                 <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL;param_MULTI_PARAM=VAL1;param_MULTI_PARAM=VAL2#ANCHOR"</span>,
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>                 urlString12);
+<a class="jxr_linenumber" name="L517" href="#L517">517</a>     }
+<a class="jxr_linenumber" name="L518" href="#L518">518</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

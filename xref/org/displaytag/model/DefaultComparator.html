@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * @author rapruitt</em>
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/model/DefaultComparator.html">DefaultComparator</a> <strong class="jxr_keyword">implements</strong> Comparator&lt;Object&gt;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="DefaultComparator" href="../../../org/displaytag/model/DefaultComparator.html#DefaultComparator">DefaultComparator</a> <strong class="jxr_keyword">implements</strong> Comparator&lt;Object&gt;
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  {
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <em class="jxr_javadoccomment">/**</em>
@@ -50,7 +50,7 @@
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">     * Instantiate a default comparator with no collator specified.</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/model/DefaultComparator.html">DefaultComparator</a>()
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">public</strong> <a name="DefaultComparator" href="../../../org/displaytag/model/DefaultComparator.html#DefaultComparator">DefaultComparator</a>()
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      {
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">this</strong>(Collator.getInstance());
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      }
@@ -59,7 +59,7 @@
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment">     * Instantiate a default comparator with a specified collator.</em>
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">     * @param collatorToUse collator instance</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/model/DefaultComparator.html">DefaultComparator</a>(Collator collatorToUse)
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> <a name="DefaultComparator" href="../../../org/displaytag/model/DefaultComparator.html#DefaultComparator">DefaultComparator</a>(Collator collatorToUse)
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      {
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          <strong class="jxr_keyword">this</strong>.collator = collatorToUse;
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          <strong class="jxr_keyword">this</strong>.collator.setStrength(Collator.PRIMARY); <em class="jxr_comment">// ignore case and accents</em>
@@ -80,9 +80,9 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          {
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>              returnValue = <strong class="jxr_keyword">this</strong>.collator.compare(object1, object2);
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>          }
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (object1 instanceof Cell)
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (object1 instanceof <a name="Cell" href="../../../org/displaytag/model/Cell.html#Cell">Cell</a>)
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          {
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>              <strong class="jxr_keyword">return</strong> ((Cell) object1).compareTo(object2, <strong class="jxr_keyword">this</strong>.collator);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>              <strong class="jxr_keyword">return</strong> ((<a name="Cell" href="../../../org/displaytag/model/Cell.html#Cell">Cell</a>) object1).compareTo(object2, <strong class="jxr_keyword">this</strong>.collator);
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          }
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>          <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (object1 instanceof Comparable &amp;&amp; object2 instanceof Comparable)
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          {
@@ -98,6 +98,6 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

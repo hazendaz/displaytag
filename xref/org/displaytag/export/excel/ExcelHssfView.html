@@ -61,13 +61,13 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> * @author rapruitt</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/displaytag/export/excel/ExcelHssfView.html">ExcelHssfView</a> <strong class="jxr_keyword">implements</strong> <a href="../../../../org/displaytag/export/BinaryExportView.html">BinaryExportView</a>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="ExcelHssfView" href="../../../../org/displaytag/export/excel/ExcelHssfView.html#ExcelHssfView">ExcelHssfView</a> <strong class="jxr_keyword">implements</strong> <a name="BinaryExportView" href="../../../../org/displaytag/export/BinaryExportView.html#BinaryExportView">BinaryExportView</a>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     * TableModel to render.</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../org/displaytag/model/TableModel.html">TableModel</a> model;
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <a name="TableModel" href="../../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <em class="jxr_javadoccomment">/** export full list?. */</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> exportFull;
@@ -88,12 +88,12 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">private</strong> HSSFSheet sheet;
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      <em class="jxr_javadoccomment">/** utils. */</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <a href="../../../../org/displaytag/export/excel/ExcelUtils.html">ExcelUtils</a> utils;
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <a name="ExcelUtils" href="../../../../org/displaytag/export/excel/ExcelUtils.html#ExcelUtils">ExcelUtils</a> utils;
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     * Instantiates a new excel hssf view.</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../org/displaytag/export/excel/ExcelHssfView.html">ExcelHssfView</a>()
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">public</strong> <a name="ExcelHssfView" href="../../../../org/displaytag/export/excel/ExcelHssfView.html#ExcelHssfView">ExcelHssfView</a>()
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      {
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      }
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  
@@ -101,14 +101,14 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_javadoccomment">     * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)</em>
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>      @Override
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setParameters(<a href="../../../../org/displaytag/model/TableModel.html">TableModel</a> tableModel, <strong class="jxr_keyword">boolean</strong> exportFullList, <strong class="jxr_keyword">boolean</strong> includeHeader,
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setParameters(<a name="TableModel" href="../../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> tableModel, <strong class="jxr_keyword">boolean</strong> exportFullList, <strong class="jxr_keyword">boolean</strong> includeHeader,
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">boolean</strong> decorateValues)
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>      {
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          <strong class="jxr_keyword">this</strong>.model = tableModel;
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">this</strong>.exportFull = exportFullList;
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>         <strong class="jxr_keyword">this</strong>.header = includeHeader;
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <strong class="jxr_keyword">this</strong>.decorated = decorateValues;
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>         <strong class="jxr_keyword">this</strong>.utils = <strong class="jxr_keyword">new</strong> <a href="../../../../org/displaytag/export/excel/ExcelUtils.html">ExcelUtils</a>(<strong class="jxr_keyword">new</strong> HSSFWorkbook());
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         <strong class="jxr_keyword">this</strong>.utils = <strong class="jxr_keyword">new</strong> <a name="ExcelUtils" href="../../../../org/displaytag/export/excel/ExcelUtils.html#ExcelUtils">ExcelUtils</a>(<strong class="jxr_keyword">new</strong> HSSFWorkbook());
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         <strong class="jxr_keyword">this</strong>.utils.initCellStyles(tableModel.getProperties());
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     }
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> 
@@ -146,7 +146,7 @@
 <a class="jxr_linenumber" name="L138" href="#L138">138</a> 
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>                 <strong class="jxr_keyword">while</strong> (iterator.hasNext())
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>                 {
-<a class="jxr_linenumber" name="L141" href="#L141">141</a>                     <a href="../../../../org/displaytag/model/HeaderCell.html">HeaderCell</a> headerCell = iterator.next();
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>                     <a name="HeaderCell" href="../../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> headerCell = iterator.next();
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> 
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>                     HSSFCell cell = xlsRow.createCell(colNum++);
 <a class="jxr_linenumber" name="L144" href="#L144">144</a>                     cell.setCellValue(<strong class="jxr_keyword">new</strong> HSSFRichTextString(getHeaderCellValue(headerCell)));
@@ -155,21 +155,21 @@
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>             }
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> 
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>             <em class="jxr_comment">// get the correct iterator (full or partial list according to the exportFull field)</em>
-<a class="jxr_linenumber" name="L150" href="#L150">150</a>             <a href="../../../../org/displaytag/model/RowIterator.html">RowIterator</a> rowIterator = <strong class="jxr_keyword">this</strong>.model.getRowIterator(<strong class="jxr_keyword">this</strong>.exportFull);
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>             <a name="RowIterator" href="../../../../org/displaytag/model/RowIterator.html#RowIterator">RowIterator</a> rowIterator = <strong class="jxr_keyword">this</strong>.model.getRowIterator(<strong class="jxr_keyword">this</strong>.exportFull);
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> 
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>             <em class="jxr_comment">// iterator on rows</em>
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>             <strong class="jxr_keyword">while</strong> (rowIterator.hasNext())
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>             {
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>                 <a href="../../../../org/displaytag/model/Row.html">Row</a> row = rowIterator.next();
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>                 <a name="Row" href="../../../../org/displaytag/model/Row.html#Row">Row</a> row = rowIterator.next();
 <a class="jxr_linenumber" name="L156" href="#L156">156</a>                 HSSFRow xlsRow = getSheet().createRow(rowNum++);
 <a class="jxr_linenumber" name="L157" href="#L157">157</a>                 colNum = 0;
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> 
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>                 <em class="jxr_comment">// iterator on columns</em>
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>                 <a href="../../../../org/displaytag/model/ColumnIterator.html">ColumnIterator</a> columnIterator = row.getColumnIterator(<strong class="jxr_keyword">this</strong>.model.getHeaderCellList());
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>                 <a name="ColumnIterator" href="../../../../org/displaytag/model/ColumnIterator.html#ColumnIterator">ColumnIterator</a> columnIterator = row.getColumnIterator(<strong class="jxr_keyword">this</strong>.model.getHeaderCellList());
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> 
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>                 <strong class="jxr_keyword">while</strong> (columnIterator.hasNext())
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>                 {
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>                     <a href="../../../../org/displaytag/model/Column.html">Column</a> column = columnIterator.nextColumn();
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>                     <a name="Column" href="../../../../org/displaytag/model/Column.html#Column">Column</a> column = columnIterator.nextColumn();
 <a class="jxr_linenumber" name="L165" href="#L165">165</a> 
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>                     <em class="jxr_comment">// Get the value to be displayed for the column</em>
 <a class="jxr_linenumber" name="L167" href="#L167">167</a>                     Object value = column.getValue(<strong class="jxr_keyword">this</strong>.decorated);
@@ -266,7 +266,7 @@
 <a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">     * @param column the column</em>
 <a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">     * @return the HSSF cell style</em>
 <a class="jxr_linenumber" name="L260" href="#L260">260</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L261" href="#L261">261</a>     <strong class="jxr_keyword">public</strong> HSSFCellStyle createRowStyle(HSSFWorkbook wb, <strong class="jxr_keyword">int</strong> rowCtr, <a href="../../../../org/displaytag/model/Column.html">Column</a> column)
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>     <strong class="jxr_keyword">public</strong> HSSFCellStyle createRowStyle(HSSFWorkbook wb, <strong class="jxr_keyword">int</strong> rowCtr, <a name="Column" href="../../../../org/displaytag/model/Column.html#Column">Column</a> column)
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>     {
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>         <strong class="jxr_keyword">return</strong> wb.createCellStyle();
 <a class="jxr_linenumber" name="L264" href="#L264">264</a>     }
@@ -277,7 +277,7 @@
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> <em class="jxr_javadoccomment">     * @param headerCell the header cell</em>
 <a class="jxr_linenumber" name="L270" href="#L270">270</a> <em class="jxr_javadoccomment">     * @return the header cell value</em>
 <a class="jxr_linenumber" name="L271" href="#L271">271</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L272" href="#L272">272</a>     <strong class="jxr_keyword">public</strong> String getHeaderCellValue(<a href="../../../../org/displaytag/model/HeaderCell.html">HeaderCell</a> headerCell)
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>     <strong class="jxr_keyword">public</strong> String getHeaderCellValue(<a name="HeaderCell" href="../../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> headerCell)
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>     {
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>         String columnHeader = headerCell.getTitle();
 <a class="jxr_linenumber" name="L275" href="#L275">275</a> 
@@ -296,7 +296,7 @@
 <a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">     * @param headerCell the header cell</em>
 <a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">     * @return the HSSF cell style</em>
 <a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">public</strong> HSSFCellStyle createHeaderStyle(HSSFWorkbook wb, <a href="../../../../org/displaytag/model/HeaderCell.html">HeaderCell</a> headerCell)
+<a class="jxr_linenumber" name="L291" href="#L291">291</a>     <strong class="jxr_keyword">public</strong> HSSFCellStyle createHeaderStyle(HSSFWorkbook wb, <a name="HeaderCell" href="../../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> headerCell)
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>     {
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>         HSSFCellStyle headerStyle = getNewCellStyle();
 <a class="jxr_linenumber" name="L294" href="#L294">294</a> 
@@ -317,7 +317,7 @@
 <a class="jxr_linenumber" name="L309" href="#L309">309</a> <em class="jxr_javadoccomment">     * @param rowNum the row num</em>
 <a class="jxr_linenumber" name="L310" href="#L310">310</a> <em class="jxr_javadoccomment">     * @param tableModel the table model</em>
 <a class="jxr_linenumber" name="L311" href="#L311">311</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L312" href="#L312">312</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> createTotalsRow(HSSFSheet sheet, <strong class="jxr_keyword">int</strong> rowNum, <a href="../../../../org/displaytag/model/TableModel.html">TableModel</a> tableModel)
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> createTotalsRow(HSSFSheet sheet, <strong class="jxr_keyword">int</strong> rowNum, <a name="TableModel" href="../../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> tableModel)
 <a class="jxr_linenumber" name="L313" href="#L313">313</a>     {
 <a class="jxr_linenumber" name="L314" href="#L314">314</a>     }
 <a class="jxr_linenumber" name="L315" href="#L315">315</a> 
@@ -326,7 +326,7 @@
 <a class="jxr_linenumber" name="L318" href="#L318">318</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L319" href="#L319">319</a> <em class="jxr_javadoccomment">     * @return the table model</em>
 <a class="jxr_linenumber" name="L320" href="#L320">320</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/displaytag/model/TableModel.html">TableModel</a> getTableModel()
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>     <strong class="jxr_keyword">public</strong> <a name="TableModel" href="../../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> getTableModel()
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>     {
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.model;
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>     }
@@ -449,7 +449,7 @@
 <a class="jxr_linenumber" name="L441" href="#L441">441</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L442" href="#L442">442</a> <em class="jxr_javadoccomment">     * @return the model</em>
 <a class="jxr_linenumber" name="L443" href="#L443">443</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L444" href="#L444">444</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../org/displaytag/model/TableModel.html">TableModel</a> getModel()
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>     <strong class="jxr_keyword">public</strong> <a name="TableModel" href="../../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> getModel()
 <a class="jxr_linenumber" name="L445" href="#L445">445</a>     {
 <a class="jxr_linenumber" name="L446" href="#L446">446</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.model;
 <a class="jxr_linenumber" name="L447" href="#L447">447</a>     }
@@ -459,7 +459,7 @@
 <a class="jxr_linenumber" name="L451" href="#L451">451</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L452" href="#L452">452</a> <em class="jxr_javadoccomment">     * @param model the new model</em>
 <a class="jxr_linenumber" name="L453" href="#L453">453</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setModel(<a href="../../../../org/displaytag/model/TableModel.html">TableModel</a> model)
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setModel(<a name="TableModel" href="../../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model)
 <a class="jxr_linenumber" name="L455" href="#L455">455</a>     {
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>         <strong class="jxr_keyword">this</strong>.model = model;
 <a class="jxr_linenumber" name="L457" href="#L457">457</a>     }
@@ -467,6 +467,6 @@
 <a class="jxr_linenumber" name="L459" href="#L459">459</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

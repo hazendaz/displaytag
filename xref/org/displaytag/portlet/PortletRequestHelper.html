@@ -49,7 +49,7 @@
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> * @author Eric Dalquist &lt;a href="<a href="mailto:dalquist@gmail.com" target="alexandria_uri">mailto:dalquist@gmail.com</a>"&gt;dalquist@gmail.com&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * @version $Id$</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/portlet/PortletRequestHelper.html">PortletRequestHelper</a> <strong class="jxr_keyword">implements</strong> <a href="../../../org/displaytag/util/RequestHelper.html">RequestHelper</a>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="PortletRequestHelper" href="../../../org/displaytag/portlet/PortletRequestHelper.html#PortletRequestHelper">PortletRequestHelper</a> <strong class="jxr_keyword">implements</strong> <a name="RequestHelper" href="../../../org/displaytag/util/RequestHelper.html#RequestHelper">RequestHelper</a>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  {
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <em class="jxr_javadoccomment">/** The Constant JAVAX_PORTLET_RESPONSE. */</em>
@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     * @param pageContext Current JSP context.</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     * @throws IllegalStateException If the PortletRequest or RenderResponse are not found in the PageContext.</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/portlet/PortletRequestHelper.html">PortletRequestHelper</a>(PageContext pageContext)
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">public</strong> <a name="PortletRequestHelper" href="../../../org/displaytag/portlet/PortletRequestHelper.html#PortletRequestHelper">PortletRequestHelper</a>(PageContext pageContext)
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      {
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          <strong class="jxr_keyword">if</strong> (pageContext == <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          {
@@ -98,9 +98,9 @@
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_javadoccomment">     * @see org.displaytag.util.RequestHelper#getHref()</em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      @Override
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/util/Href.html">Href</a> getHref()
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">public</strong> <a name="Href" href="../../../org/displaytag/util/Href.html#Href">Href</a> getHref()
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>      {
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">final</strong> <a href="../../../org/displaytag/portlet/PortletHref.html">PortletHref</a> href = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/portlet/PortletHref.html">PortletHref</a>(<strong class="jxr_keyword">this</strong>.portletRequest, <strong class="jxr_keyword">this</strong>.renderResponse);
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          <strong class="jxr_keyword">final</strong> <a name="PortletHref" href="../../../org/displaytag/portlet/<a name="PortletHref" href="../../../org/displaytag/portlet/PortletHref.html#PortletHref">PortletHref</a>.html#PortletHref">PortletHref</a> href = <strong class="jxr_keyword">new</strong> <a name="PortletHref" href="../../../org/displaytag/portlet/PortletHref.html#PortletHref">PortletHref</a>(<strong class="jxr_keyword">this</strong>.portletRequest, <strong class="jxr_keyword">this</strong>.renderResponse);
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>          href.setParameterMap(<strong class="jxr_keyword">this</strong>.portletRequest.getParameterMap());
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.portletRequest.isSecure())
@@ -147,6 +147,6 @@
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

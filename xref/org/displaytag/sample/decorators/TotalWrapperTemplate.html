@@ -43,7 +43,7 @@
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * @see org.displaytag.render.TableWriterTemplate</em>
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/displaytag/sample/decorators/TotalWrapperTemplate.html">TotalWrapperTemplate</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../org/displaytag/decorator/TableDecorator.html">TableDecorator</a>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">abstract</strong> <strong class="jxr_keyword">class</strong> <a name="TotalWrapperTemplate" href="../../../../org/displaytag/sample/decorators/TotalWrapperTemplate.html#TotalWrapperTemplate">TotalWrapperTemplate</a> <strong class="jxr_keyword">extends</strong> <a name="TableDecorator" href="../../../../org/displaytag/decorator/TableDecorator.html#TableDecorator">TableDecorator</a>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_javadoccomment">/**</em>
@@ -71,7 +71,7 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> String finishRow()
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      {
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">int</strong> listindex = ((List&lt;ReportableListObject&gt;) getDecoratedObject()).indexOf(<strong class="jxr_keyword">this</strong>.getCurrentRowObject());
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <a href="../../../../org/displaytag/sample/ReportableListObject.html">ReportableListObject</a> reportableObject = (ReportableListObject) <strong class="jxr_keyword">this</strong>.getCurrentRowObject();
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <a name="ReportableListObject" href="../.<a name="ReportableListObject" href="../../../../org/displaytag/sample/ReportableListObject.html#ReportableListObject">ReportableListObject</a>ag/sample/ReportableListObject.html#ReportableListObject">ReportableListObject</a> reportableObject = (<a name="ReportableListObject" href="../../../../org/displaytag/sample/ReportableListObject.html#ReportableListObject">ReportableListObject</a>) <strong class="jxr_keyword">this</strong>.getCurrentRowObject();
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          String nextCity = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">this</strong>.cityTotal += reportableObject.getAmount();
@@ -124,6 +124,6 @@
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

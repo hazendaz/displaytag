@@ -40,7 +40,7 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * This class is a decorator of the TestObjects that we keep in our List. This class provides a number of methods for</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * formatting data, creating dynamic links, and exercising some aspects of the display:table API functionality.</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../org/displaytag/sample/decorators/Wrapper.html">Wrapper</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../org/displaytag/decorator/TableDecorator.html">TableDecorator</a>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Wrapper" href="../../../../org/displaytag/sample/decorators/Wrapper.html#Wrapper">Wrapper</a> <strong class="jxr_keyword">extends</strong> <a name="TableDecorator" href="../../../../org/displaytag/decorator/TableDecorator.html#TableDecorator">TableDecorator</a>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  {
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>      <em class="jxr_javadoccomment">/**</em>
@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">     * Creates a new Wrapper decorator who's job is to reformat some of the data located in our TestObject's.</em>
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../org/displaytag/sample/decorators/Wrapper.html">Wrapper</a>()
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">public</strong> <a name="Wrapper" href="../../../../org/displaytag/sample/decorators/Wrapper.html#Wrapper">Wrapper</a>()
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      {
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">super</strong>();
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
@@ -81,7 +81,7 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      <strong class="jxr_keyword">public</strong> String getDate()
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      {
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.dateFormat.format(((ListObject) <strong class="jxr_keyword">this</strong>.getCurrentRowObject()).getDate());
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.dateFormat.format(((<a name="ListObject" href="../../../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a>) <strong class="jxr_keyword">this</strong>.getCurrentRowObject()).getDate());
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>      <em class="jxr_javadoccomment">/**</em>
@@ -91,7 +91,7 @@
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">public</strong> String getMoney()
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>      {
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.moneyFormat.format(((ListObject) <strong class="jxr_keyword">this</strong>.getCurrentRowObject()).getMoney());
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.moneyFormat.format(((<a name="ListObject" href="../../../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a>) <strong class="jxr_keyword">this</strong>.getCurrentRowObject()).getMoney());
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      }
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      <em class="jxr_javadoccomment">/**</em>
@@ -101,7 +101,7 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>      <strong class="jxr_keyword">public</strong> String getLink1()
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>      {
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>          <a href="../../../../org/displaytag/sample/ListObject.html">ListObject</a> object = (ListObject) getCurrentRowObject();
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>          <a name="ListObject" <a name="ListObject" href="../../../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a>./../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a> object = (<a name="ListObject" href="../../../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a>) getCurrentRowObject();
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">int</strong> index = getListIndex();
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          <strong class="jxr_keyword">return</strong> <span class="jxr_string">"&lt;a href=\&quot;details.jsp?index="</span> + index + <span class="jxr_string">"\&quot;&gt;"</span> + object.getId() + <span class="jxr_string">"&lt;/a&gt;"</span>;
@@ -115,7 +115,7 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> String getLink2()
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     {
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>         <a href="../../../../org/displaytag/sample/ListObject.html">ListObject</a> object = (ListObject) getCurrentRowObject();
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>         <a name="ListObject" <a name="ListObject" href="../../../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a>./../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a> object = (<a name="ListObject" href="../../../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a>) getCurrentRowObject();
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">int</strong> id = object.getId();
 <a class="jxr_linenumber" name="L112" href="#L112">112</a> 
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">return</strong> <span class="jxr_string">"&lt;a href=\&quot;details.jsp?id="</span>
@@ -131,6 +131,6 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
