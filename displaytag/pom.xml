@@ -354,6 +354,14 @@
           <artifactId>servlet-api</artifactId>
           <groupId>org.apache.tomcat</groupId>
         </exclusion>
+        <exclusion>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>el-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>annotations-api</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -361,6 +369,13 @@
       <artifactId>jasper-el</artifactId>
       <version>6.0.53</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>el-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
     <dependency>
       <groupId>jakarta.annotation</groupId>
       <artifactId>jakarta.annotation-api</artifactId>
