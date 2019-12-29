@@ -388,6 +388,12 @@
       <version>3.0.3</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>jakarta.el</artifactId>
+      <version>3.0.3</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
