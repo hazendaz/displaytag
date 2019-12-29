@@ -47,7 +47,7 @@
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * @author Fabrizio Giustina</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/sample/ListObject.html">ListObject</a> <strong class="jxr_keyword">implements</strong> Serializable
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="ListObject" href="../../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a> <strong class="jxr_keyword">implements</strong> Serializable
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  {
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>      <em class="jxr_javadoccomment">/**</em>
@@ -113,7 +113,7 @@
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_javadoccomment">     * Constructor for ListObject.</em>
 <a class="jxr_linenumber" name="L107" href="#L107">107</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/sample/ListObject.html">ListObject</a>()
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <strong class="jxr_keyword">public</strong> <a name="ListObject" href="../../../org/displaytag/sample/ListObject.html#ListObject">ListObject</a>()
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>     {
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>         <strong class="jxr_keyword">this</strong>.id = random.nextInt(99998) + 1;
 <a class="jxr_linenumber" name="L111" href="#L111">111</a>         <strong class="jxr_keyword">this</strong>.money = (random.nextInt(999998) + 1) / 100;
@@ -137,9 +137,9 @@
 <a class="jxr_linenumber" name="L129" href="#L129">129</a> 
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>         <em class="jxr_comment">// added sublist for testing of nested tables</em>
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>         <strong class="jxr_keyword">this</strong>.subList = <strong class="jxr_keyword">new</strong> ArrayList&lt;Object&gt;();
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">this</strong>.subList.add(<strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/sample/ListObject.html">SubListItem</a>());
-<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">this</strong>.subList.add(<strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/sample/ListObject.html">SubListItem</a>());
-<a class="jxr_linenumber" name="L134" href="#L134">134</a>         <strong class="jxr_keyword">this</strong>.subList.add(<strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/sample/ListObject.html">SubListItem</a>());
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         <strong class="jxr_keyword">this</strong>.subList.add(<strong class="jxr_keyword">new</strong> SubListItem());
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>         <strong class="jxr_keyword">this</strong>.subList.add(<strong class="jxr_keyword">new</strong> SubListItem());
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>         <strong class="jxr_keyword">this</strong>.subList.add(<strong class="jxr_keyword">new</strong> SubListItem());
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> 
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         <strong class="jxr_keyword">this</strong>.url = <span class="jxr_string">"http://www."</span> + lastName + <span class="jxr_string">".org/"</span>; //$NON-NLS-1$ //$NON-NLS-2$
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>     }
@@ -307,7 +307,7 @@
 <a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">     * Inner class used in testing nested tables.</em>
 <a class="jxr_linenumber" name="L300" href="#L300">300</a> <em class="jxr_javadoccomment">     * @author Fabrizio Giustina</em>
 <a class="jxr_linenumber" name="L301" href="#L301">301</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L302" href="#L302">302</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/sample/ListObject.html">SubListItem</a> <strong class="jxr_keyword">implements</strong> Serializable
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> SubListItem <strong class="jxr_keyword">implements</strong> Serializable
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>     {
 <a class="jxr_linenumber" name="L304" href="#L304">304</a> 
 <a class="jxr_linenumber" name="L305" href="#L305">305</a>         <em class="jxr_javadoccomment">/**</em>
@@ -328,7 +328,7 @@
 <a class="jxr_linenumber" name="L320" href="#L320">320</a>         <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L321" href="#L321">321</a> <em class="jxr_javadoccomment">         * Constructor for SubListItem.</em>
 <a class="jxr_linenumber" name="L322" href="#L322">322</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L323" href="#L323">323</a>         <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/sample/ListObject.html">SubListItem</a>()
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>         <strong class="jxr_keyword">public</strong> SubListItem()
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>         {
 <a class="jxr_linenumber" name="L325" href="#L325">325</a>             <strong class="jxr_keyword">this</strong>.itemName = RandomSampleUtil.getRandomWord();
 <a class="jxr_linenumber" name="L326" href="#L326">326</a>             <strong class="jxr_keyword">this</strong>.itemEmail = RandomSampleUtil.getRandomEmail();
@@ -368,6 +368,6 @@
 <a class="jxr_linenumber" name="L360" href="#L360">360</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
