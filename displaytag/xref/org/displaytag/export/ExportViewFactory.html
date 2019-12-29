@@ -48,13 +48,13 @@
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * @author Fabrizio Giustina</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/export/ExportViewFactory.html">ExportViewFactory</a>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ExportViewFactory" href="../../../org/displaytag/export/ExportViewFactory.html#ExportViewFactory">ExportViewFactory</a>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  {
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">     * Singleton.</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a href="../../../org/displaytag/export/ExportViewFactory.html">ExportViewFactory</a> instance;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <a name="ExportViewFactory" href="../../../org/displaytag/export/ExportViewFactory.html#ExportViewFactory">ExportViewFactory</a> instance;
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">     * logger.</em>
@@ -69,9 +69,9 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     * Private constructor.</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">private</strong> <a href="../../../org/displaytag/export/ExportViewFactory.html">ExportViewFactory</a>()
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">private</strong> <a name="ExportViewFactory" href="../../../org/displaytag/export/ExportViewFactory.html#ExportViewFactory">ExportViewFactory</a>()
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      {
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <a href="../../../org/displaytag/properties/TableProperties.html">TableProperties</a> properties = TableProperties.getInstance(<strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          <a name="TableProperties" href="../../../org/displaytag/properties/TableProperties.html#TableProperties">TableProperties</a> properties = TableProperties.getInstance(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          String[] exportTypes = properties.getExportTypes();
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">if</strong> (log.isInfoEnabled())
@@ -90,11 +90,11 @@
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     * Returns the simgleton for this class.</em>
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     * @return ExportViewFactory instance</em>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">synchronized</strong> <a href="../../../org/displaytag/export/ExportViewFactory.html">ExportViewFactory</a> getInstance()
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">synchronized</strong> <a name="ExportViewFactory" href="../../../org/displaytag/export/ExportViewFactory.html#ExportViewFactory">ExportViewFactory</a> getInstance()
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      {
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">if</strong> (instance == <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>          {
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>              instance = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/export/ExportViewFactory.html">ExportViewFactory</a>();
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>              instance = <strong class="jxr_keyword">new</strong> <a name="ExportViewFactory" href="../../../org/displaytag/export/ExportViewFactory.html#ExportViewFactory">ExportViewFactory</a>();
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          }
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">return</strong> instance;
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>      }
@@ -150,7 +150,7 @@
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         }
 <a class="jxr_linenumber" name="L144" href="#L144">144</a> 
-<a class="jxr_linenumber" name="L145" href="#L145">145</a>         <a href="../../../org/displaytag/properties/MediaTypeEnum.html">MediaTypeEnum</a> media = MediaTypeEnum.registerMediaType(name);
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>         <a name="MediaTypeEnum" href="../../../org/displaytag/properties/MediaTypeEnum.html#MediaTypeEnum">MediaTypeEnum</a> media = MediaTypeEnum.registerMediaType(name);
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">this</strong>.viewClasses.put(media, exportClass);
 <a class="jxr_linenumber" name="L147" href="#L147">147</a> 
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>         <strong class="jxr_keyword">if</strong> (log.isDebugEnabled())
@@ -169,10 +169,10 @@
 <a class="jxr_linenumber" name="L161" href="#L161">161</a> <em class="jxr_javadoccomment">     * @param decorateValues should ouput be decorated?</em>
 <a class="jxr_linenumber" name="L162" href="#L162">162</a> <em class="jxr_javadoccomment">     * @return specialized instance of BaseExportView</em>
 <a class="jxr_linenumber" name="L163" href="#L163">163</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L164" href="#L164">164</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/export/ExportView.html">ExportView</a> getView(<a href="../../../org/displaytag/properties/MediaTypeEnum.html">MediaTypeEnum</a> exportType, <a href="../../../org/displaytag/model/TableModel.html">TableModel</a> tableModel, <strong class="jxr_keyword">boolean</strong> exportFullList,
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>     <strong class="jxr_keyword">public</strong> <a name="ExportView" href="../../../org/displaytag/export/ExportView.html#ExportView">ExportView</a> getView(<a name="MediaTypeEnum" href="../../../org/displaytag/properties/MediaTypeEnum.html#MediaTypeEnum">MediaTypeEnum</a> exportType, <a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> tableModel, <strong class="jxr_keyword">boolean</strong> exportFullList,
 <a class="jxr_linenumber" name="L165" href="#L165">165</a>         <strong class="jxr_keyword">boolean</strong> includeHeader, <strong class="jxr_keyword">boolean</strong> decorateValues)
 <a class="jxr_linenumber" name="L166" href="#L166">166</a>     {
-<a class="jxr_linenumber" name="L167" href="#L167">167</a>         <a href="../../../org/displaytag/export/ExportView.html">ExportView</a> view;
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>         <a name="ExportView" href="../../../org/displaytag/export/ExportView.html#ExportView">ExportView</a> view;
 <a class="jxr_linenumber" name="L168" href="#L168">168</a> 
 <a class="jxr_linenumber" name="L169" href="#L169">169</a>         Class&lt;ExportView&gt; viewClass = <strong class="jxr_keyword">this</strong>.viewClasses.get(exportType);
 <a class="jxr_linenumber" name="L170" href="#L170">170</a> 
@@ -183,12 +183,12 @@
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>         <strong class="jxr_keyword">catch</strong> (InstantiationException e)
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         {
 <a class="jxr_linenumber" name="L177" href="#L177">177</a>             <em class="jxr_comment">// should not happen (class has already been instantiated before)</em>
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/exception/WrappedRuntimeException.html">WrappedRuntimeException</a>(getClass(), e);
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="WrappedRuntimeException" href="../../../org/displaytag/exception/WrappedRuntimeException.html#WrappedRuntimeException">WrappedRuntimeException</a>(getClass(), e);
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>         }
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>         <strong class="jxr_keyword">catch</strong> (IllegalAccessException e)
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         {
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>             <em class="jxr_comment">// should not happen (class has already been instantiated before)</em>
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/exception/WrappedRuntimeException.html">WrappedRuntimeException</a>(getClass(), e);
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="WrappedRuntimeException" href="../../../org/displaytag/exception/WrappedRuntimeException.html#WrappedRuntimeException">WrappedRuntimeException</a>(getClass(), e);
 <a class="jxr_linenumber" name="L184" href="#L184">184</a>         }
 <a class="jxr_linenumber" name="L185" href="#L185">185</a> 
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>         view.setParameters(tableModel, exportFullList, includeHeader, decorateValues);
@@ -198,6 +198,6 @@
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

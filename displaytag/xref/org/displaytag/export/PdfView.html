@@ -69,13 +69,13 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment"> * @author Fabrizio Giustina</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/export/PdfView.html">PdfView</a> <strong class="jxr_keyword">implements</strong> <a href="../../../org/displaytag/export/BinaryExportView.html">BinaryExportView</a>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="PdfView" href="../../../org/displaytag/export/PdfView.html#PdfView">PdfView</a> <strong class="jxr_keyword">implements</strong> <a name="BinaryExportView" href="../../../org/displaytag/export/BinaryExportView.html#BinaryExportView">BinaryExportView</a>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  {
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     * TableModel to render.</em>
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">private</strong> <a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model;
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">private</strong> <a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model;
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      <em class="jxr_javadoccomment">/** export full list?. */</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> exportFull;
@@ -101,7 +101,7 @@
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_javadoccomment">     * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)</em>
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>      @Override
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setParameters(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> tableModel, <strong class="jxr_keyword">boolean</strong> exportFullList, <strong class="jxr_keyword">boolean</strong> includeHeader,
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setParameters(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> tableModel, <strong class="jxr_keyword">boolean</strong> exportFullList, <strong class="jxr_keyword">boolean</strong> includeHeader,
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>          <strong class="jxr_keyword">boolean</strong> decorateValues)
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>      {
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>          <strong class="jxr_keyword">this</strong>.model = tableModel;
@@ -186,7 +186,7 @@
 <a class="jxr_linenumber" name="L178" href="#L178">178</a>         }
 <a class="jxr_linenumber" name="L179" href="#L179">179</a>         <strong class="jxr_keyword">catch</strong> (Exception e)
 <a class="jxr_linenumber" name="L180" href="#L180">180</a>         {
-<a class="jxr_linenumber" name="L181" href="#L181">181</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/export/PdfView.html">PdfGenerationException</a>(e);
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> PdfGenerationException(e);
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         }
 <a class="jxr_linenumber" name="L183" href="#L183">183</a>     }
 <a class="jxr_linenumber" name="L184" href="#L184">184</a> 
@@ -199,7 +199,7 @@
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> 
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>         <strong class="jxr_keyword">while</strong> (iterator.hasNext())
 <a class="jxr_linenumber" name="L193" href="#L193">193</a>         {
-<a class="jxr_linenumber" name="L194" href="#L194">194</a>             <a href="../../../org/displaytag/model/HeaderCell.html">HeaderCell</a> headerCell = iterator.next();
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>             <a name="HeaderCell" href="../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> headerCell = iterator.next();
 <a class="jxr_linenumber" name="L195" href="#L195">195</a> 
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>             String columnHeader = headerCell.getTitle();
 <a class="jxr_linenumber" name="L197" href="#L197">197</a> 
@@ -223,18 +223,18 @@
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> generateRows() <strong class="jxr_keyword">throws</strong> JspException
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>     {
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>         <em class="jxr_comment">// get the correct iterator (full or partial list according to the exportFull field)</em>
-<a class="jxr_linenumber" name="L218" href="#L218">218</a>         <a href="../../../org/displaytag/model/RowIterator.html">RowIterator</a> rowIterator = <strong class="jxr_keyword">this</strong>.model.getRowIterator(<strong class="jxr_keyword">this</strong>.exportFull);
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>         <a name="RowIterator" href="../../../org/displaytag/model/RowIterator.html#RowIterator">RowIterator</a> rowIterator = <strong class="jxr_keyword">this</strong>.model.getRowIterator(<strong class="jxr_keyword">this</strong>.exportFull);
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>         <em class="jxr_comment">// iterator on rows</em>
 <a class="jxr_linenumber" name="L220" href="#L220">220</a>         <strong class="jxr_keyword">while</strong> (rowIterator.hasNext())
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>         {
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>             <a href="../../../org/displaytag/model/Row.html">Row</a> row = rowIterator.next();
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>             <a name="Row" href="../../../org/displaytag/model/Row.html#Row">Row</a> row = rowIterator.next();
 <a class="jxr_linenumber" name="L223" href="#L223">223</a> 
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>             <em class="jxr_comment">// iterator on columns</em>
-<a class="jxr_linenumber" name="L225" href="#L225">225</a>             <a href="../../../org/displaytag/model/ColumnIterator.html">ColumnIterator</a> columnIterator = row.getColumnIterator(<strong class="jxr_keyword">this</strong>.model.getHeaderCellList());
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>             <a name="ColumnIterator" href="../../../org/displaytag/model/ColumnIterator.html#ColumnIterator">ColumnIterator</a> columnIterator = row.getColumnIterator(<strong class="jxr_keyword">this</strong>.model.getHeaderCellList());
 <a class="jxr_linenumber" name="L226" href="#L226">226</a> 
 <a class="jxr_linenumber" name="L227" href="#L227">227</a>             <strong class="jxr_keyword">while</strong> (columnIterator.hasNext())
 <a class="jxr_linenumber" name="L228" href="#L228">228</a>             {
-<a class="jxr_linenumber" name="L229" href="#L229">229</a>                 <a href="../../../org/displaytag/model/Column.html">Column</a> column = columnIterator.nextColumn();
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>                 <a name="Column" href="../../../org/displaytag/model/Column.html#Column">Column</a> column = columnIterator.nextColumn();
 <a class="jxr_linenumber" name="L230" href="#L230">230</a> 
 <a class="jxr_linenumber" name="L231" href="#L231">231</a>                 <em class="jxr_comment">// Get the value to be displayed for the column</em>
 <a class="jxr_linenumber" name="L232" href="#L232">232</a>                 Object value = column.getValue(<strong class="jxr_keyword">this</strong>.decorated);
@@ -264,7 +264,7 @@
 <a class="jxr_linenumber" name="L256" href="#L256">256</a> <em class="jxr_javadoccomment">     * @author Fabrizio Giustina</em>
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> <em class="jxr_javadoccomment">     * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/export/PdfView.html">PdfGenerationException</a> <strong class="jxr_keyword">extends</strong> <a href="../../../org/displaytag/exception/BaseNestableJspTagException.html">BaseNestableJspTagException</a>
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>     <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> PdfGenerationException <strong class="jxr_keyword">extends</strong> <a name="BaseNestableJspTagException" href="../../../org/displaytag/exception/BaseNestableJspTagException.html#BaseNestableJspTagException">BaseNestableJspTagException</a>
 <a class="jxr_linenumber" name="L260" href="#L260">260</a>     {
 <a class="jxr_linenumber" name="L261" href="#L261">261</a> 
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>         <em class="jxr_javadoccomment">/**</em>
@@ -276,7 +276,7 @@
 <a class="jxr_linenumber" name="L268" href="#L268">268</a> <em class="jxr_javadoccomment">         * Instantiate a new PdfGenerationException with a fixed message and the given cause.</em>
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> <em class="jxr_javadoccomment">         * @param cause Previous exception</em>
 <a class="jxr_linenumber" name="L270" href="#L270">270</a> <em class="jxr_javadoccomment">         */</em>
-<a class="jxr_linenumber" name="L271" href="#L271">271</a>         <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/export/PdfView.html">PdfGenerationException</a>(Throwable cause)
+<a class="jxr_linenumber" name="L271" href="#L271">271</a>         <strong class="jxr_keyword">public</strong> PdfGenerationException(Throwable cause)
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>         {
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>             <strong class="jxr_keyword">super</strong>(PdfView.<strong class="jxr_keyword">class</strong>, Messages.getString(<span class="jxr_string">"PdfView.errorexporting"</span>), cause); <em class="jxr_comment">//$NON-NLS-1$</em>
 <a class="jxr_linenumber" name="L274" href="#L274">274</a>         }
@@ -285,7 +285,7 @@
 <a class="jxr_linenumber" name="L277" href="#L277">277</a> <em class="jxr_javadoccomment">         * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()</em>
 <a class="jxr_linenumber" name="L278" href="#L278">278</a> <em class="jxr_javadoccomment">         */</em>
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>         @Override
-<a class="jxr_linenumber" name="L280" href="#L280">280</a>         <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/exception/SeverityEnum.html">SeverityEnum</a> getSeverity()
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>         <strong class="jxr_keyword">public</strong> <a name="SeverityEnum" href="../../../org/displaytag/exception/SeverityEnum.html#SeverityEnum">SeverityEnum</a> getSeverity()
 <a class="jxr_linenumber" name="L281" href="#L281">281</a>         {
 <a class="jxr_linenumber" name="L282" href="#L282">282</a>             <strong class="jxr_keyword">return</strong> SeverityEnum.ERROR;
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         }
@@ -293,6 +293,6 @@
 <a class="jxr_linenumber" name="L285" href="#L285">285</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

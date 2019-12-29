@@ -66,7 +66,7 @@
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment"> * @see org.displaytag.render.TableWriterTemplate</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/render/HssfTableWriter.html">HssfTableWriter</a> <strong class="jxr_keyword">extends</strong> <a href="../../../org/displaytag/render/TableWriterAdapter.html">TableWriterAdapter</a>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="HssfTableWriter" href="../../../org/displaytag/render/HssfTableWriter.html#HssfTableWriter">HssfTableWriter</a> <strong class="jxr_keyword">extends</strong> <a name="TableWriterAdapter" href="../../../org/displaytag/render/TableWriterAdapter.html#TableWriterAdapter">TableWriterAdapter</a>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  {
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <em class="jxr_javadoccomment">/** The Constant EMPTY_TEXT. */</em>
@@ -120,29 +120,29 @@
 <a class="jxr_linenumber" name="L112" href="#L112">112</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment">     * Some operations require the model.</em>
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">protected</strong> <a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model;
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>     <strong class="jxr_keyword">protected</strong> <a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model;
 <a class="jxr_linenumber" name="L116" href="#L116">116</a> 
 <a class="jxr_linenumber" name="L117" href="#L117">117</a>     <em class="jxr_javadoccomment">/** The sheet name. */</em>
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>     <strong class="jxr_keyword">protected</strong> String sheetName = <span class="jxr_string">"-"</span>;
 <a class="jxr_linenumber" name="L119" href="#L119">119</a> 
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>     <em class="jxr_javadoccomment">/** The utils. */</em>
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>     <strong class="jxr_keyword">protected</strong> <a href="../../../org/displaytag/export/excel/ExcelUtils.html">ExcelUtils</a> utils;
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>     <strong class="jxr_keyword">protected</strong> <a name="ExcelUtils" href="../../../org/displaytag/export/excel/ExcelUtils.html#ExcelUtils">ExcelUtils</a> utils;
 <a class="jxr_linenumber" name="L122" href="#L122">122</a> 
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">     * This table writer uses an HSSF workbook to write the table.</em>
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">     * @param wb The HSSF workbook to write the table.</em>
 <a class="jxr_linenumber" name="L126" href="#L126">126</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/render/HssfTableWriter.html">HssfTableWriter</a>(HSSFWorkbook wb)
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     <strong class="jxr_keyword">public</strong> <a name="HssfTableWriter" href="../../../org/displaytag/render/HssfTableWriter.html#HssfTableWriter">HssfTableWriter</a>(HSSFWorkbook wb)
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>     {
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">this</strong>.wb = wb;
-<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">this</strong>.utils = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/export/excel/ExcelUtils.html">ExcelUtils</a>(wb);
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">this</strong>.utils = <strong class="jxr_keyword">new</strong> <a name="ExcelUtils" href="../../../org/displaytag/export/excel/ExcelUtils.html#ExcelUtils">ExcelUtils</a>(wb);
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>     }
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> 
 <a class="jxr_linenumber" name="L133" href="#L133">133</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L135" href="#L135">135</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>     @Override
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableOpener(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableOpener(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     {
 <a class="jxr_linenumber" name="L139" href="#L139">139</a>         <strong class="jxr_keyword">this</strong>.sheet = <strong class="jxr_keyword">this</strong>.wb.createSheet(<strong class="jxr_keyword">this</strong>.sheetName);
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>         setModel(model);
@@ -156,7 +156,7 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> <em class="jxr_javadoccomment">     * @param model the model</em>
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> init(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model)
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> init(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model)
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>     {
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         <strong class="jxr_keyword">this</strong>.utils.initCellStyles(model.getProperties());
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>     }
@@ -165,7 +165,7 @@
 <a class="jxr_linenumber" name="L157" href="#L157">157</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L158" href="#L158">158</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L159" href="#L159">159</a>     @Override
-<a class="jxr_linenumber" name="L160" href="#L160">160</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeCaption(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeCaption(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L161" href="#L161">161</a>     {
 <a class="jxr_linenumber" name="L162" href="#L162">162</a>         HSSFCellStyle style = <strong class="jxr_keyword">this</strong>.wb.createCellStyle();
 <a class="jxr_linenumber" name="L163" href="#L163">163</a>         HSSFFont bold = <strong class="jxr_keyword">this</strong>.wb.createFont();
@@ -198,12 +198,12 @@
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L192" href="#L192">192</a>     @Override
-<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableHeader(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableHeader(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L194" href="#L194">194</a>     {
 <a class="jxr_linenumber" name="L195" href="#L195">195</a>         <strong class="jxr_keyword">this</strong>.currentRow = <strong class="jxr_keyword">this</strong>.sheet.createRow(<strong class="jxr_keyword">this</strong>.sheetRowNum++);
 <a class="jxr_linenumber" name="L196" href="#L196">196</a>         <strong class="jxr_keyword">this</strong>.colNum = 0;
 <a class="jxr_linenumber" name="L197" href="#L197">197</a>         HSSFCellStyle headerStyle = <strong class="jxr_keyword">this</strong>.getHeaderFooterStyle();
-<a class="jxr_linenumber" name="L198" href="#L198">198</a>         <strong class="jxr_keyword">for</strong> (HeaderCell headerCell : model.getHeaderCellList())
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>         <strong class="jxr_keyword">for</strong> (<a name="HeaderCell" href="../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> headerCell : model.getHeaderCellList())
 <a class="jxr_linenumber" name="L199" href="#L199">199</a>         {
 <a class="jxr_linenumber" name="L200" href="#L200">200</a>             String columnHeader = headerCell.getTitle();
 <a class="jxr_linenumber" name="L201" href="#L201">201</a>             <strong class="jxr_keyword">if</strong> (columnHeader == <strong class="jxr_keyword">null</strong>)
@@ -219,7 +219,7 @@
 <a class="jxr_linenumber" name="L211" href="#L211">211</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L212" href="#L212">212</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>     @Override
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedRowStart(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model)
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedRowStart(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model)
 <a class="jxr_linenumber" name="L215" href="#L215">215</a>     {
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>         model.getTableDecorator().startRow();
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>     }
@@ -227,7 +227,7 @@
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L220" href="#L220">220</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>     @Override
-<a class="jxr_linenumber" name="L222" href="#L222">222</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeRowOpener(<a href="../../../org/displaytag/model/Row.html">Row</a> row) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeRowOpener(<a name="Row" href="../../../org/displaytag/model/Row.html#Row">Row</a> row) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>     {
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>         <strong class="jxr_keyword">this</strong>.currentRow = <strong class="jxr_keyword">this</strong>.sheet.createRow(<strong class="jxr_keyword">this</strong>.sheetRowNum++);
 <a class="jxr_linenumber" name="L225" href="#L225">225</a>         <strong class="jxr_keyword">this</strong>.colNum = 0;
@@ -238,7 +238,7 @@
 <a class="jxr_linenumber" name="L230" href="#L230">230</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)</em>
 <a class="jxr_linenumber" name="L231" href="#L231">231</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L232" href="#L232">232</a>     @Override
-<a class="jxr_linenumber" name="L233" href="#L233">233</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeColumnOpener(<a href="../../../org/displaytag/model/Column.html">Column</a> column) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeColumnOpener(<a name="Column" href="../../../org/displaytag/model/Column.html#Column">Column</a> column) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L234" href="#L234">234</a>     {
 <a class="jxr_linenumber" name="L235" href="#L235">235</a>         <strong class="jxr_keyword">if</strong> (column != <strong class="jxr_keyword">null</strong>)
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>         {
@@ -251,7 +251,7 @@
 <a class="jxr_linenumber" name="L243" href="#L243">243</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)</em>
 <a class="jxr_linenumber" name="L244" href="#L244">244</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>     @Override
-<a class="jxr_linenumber" name="L246" href="#L246">246</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeColumnValue(Object value, <a href="../../../org/displaytag/model/Column.html">Column</a> column) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeColumnValue(Object value, <a name="Column" href="../../../org/displaytag/model/Column.html#Column">Column</a> column) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L247" href="#L247">247</a>     {
 <a class="jxr_linenumber" name="L248" href="#L248">248</a>         <em class="jxr_comment">// is this a detail row for a column that is currently grouped?</em>
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>         <strong class="jxr_keyword">int</strong> myGroup = column.getHeaderCell().getGroup();
@@ -321,12 +321,12 @@
 <a class="jxr_linenumber" name="L313" href="#L313">313</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L315" href="#L315">315</a>     @Override
-<a class="jxr_linenumber" name="L316" href="#L316">316</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedRowFinish(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedRowFinish(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L317" href="#L317">317</a>     {
-<a class="jxr_linenumber" name="L318" href="#L318">318</a>         <a href="../../../org/displaytag/decorator/TableDecorator.html">TableDecorator</a> decorator = model.getTableDecorator();
-<a class="jxr_linenumber" name="L319" href="#L319">319</a>         <strong class="jxr_keyword">if</strong> (decorator instanceof DecoratesHssf)
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>         <a name="TableDecorator" href="../../../org/displaytag/decorator/TableDecorator.html#TableDecorator">TableDecorator</a> decorator = model.getTableDecorator();
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>         <strong class="jxr_keyword">if</strong> (decorator instanceof <a name="DecoratesHssf" href="../../../org/displaytag/decorator/hssf/DecoratesHssf.html#DecoratesHssf">DecoratesHssf</a>)
 <a class="jxr_linenumber" name="L320" href="#L320">320</a>         {
-<a class="jxr_linenumber" name="L321" href="#L321">321</a>             <a href="../../../org/displaytag/decorator/hssf/DecoratesHssf.html">DecoratesHssf</a> hdecorator = (DecoratesHssf) decorator;
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>             <a name="DecoratesHssf" href<a name="DecoratesHssf" href="../../../org/displaytag/decorator/hssf/DecoratesHssf.html#DecoratesHssf">DecoratesHssf</a>g/displaytag/decorator/hssf/DecoratesHssf.html#DecoratesHssf">DecoratesHssf</a> hdecorator = (<a name="DecoratesHssf" href="../../../org/displaytag/decorator/hssf/DecoratesHssf.html#DecoratesHssf">DecoratesHssf</a>) decorator;
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>             hdecorator.setSheet(<strong class="jxr_keyword">this</strong>.sheet);
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>         }
 <a class="jxr_linenumber" name="L324" href="#L324">324</a>         decorator.finishRow();
@@ -338,7 +338,7 @@
 <a class="jxr_linenumber" name="L330" href="#L330">330</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writePostBodyFooter(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L331" href="#L331">331</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L332" href="#L332">332</a>     @Override
-<a class="jxr_linenumber" name="L333" href="#L333">333</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writePostBodyFooter(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writePostBodyFooter(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L334" href="#L334">334</a>     {
 <a class="jxr_linenumber" name="L335" href="#L335">335</a>         <strong class="jxr_keyword">this</strong>.colNum = 0;
 <a class="jxr_linenumber" name="L336" href="#L336">336</a>         <strong class="jxr_keyword">this</strong>.currentRow = <strong class="jxr_keyword">this</strong>.sheet.createRow(<strong class="jxr_keyword">this</strong>.sheetRowNum++);
@@ -350,7 +350,7 @@
 <a class="jxr_linenumber" name="L342" href="#L342">342</a> <em class="jxr_javadoccomment">     * Make a row span the width of the table.</em>
 <a class="jxr_linenumber" name="L343" href="#L343">343</a> <em class="jxr_javadoccomment">     * @param model The table model representing the rendered table.</em>
 <a class="jxr_linenumber" name="L344" href="#L344">344</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> rowSpanTable(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model)
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> rowSpanTable(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model)
 <a class="jxr_linenumber" name="L346" href="#L346">346</a>     {
 <a class="jxr_linenumber" name="L347" href="#L347">347</a>         <strong class="jxr_keyword">this</strong>.sheet.addMergedRegion(<strong class="jxr_keyword">this</strong>.getMergeCellsRegion(
 <a class="jxr_linenumber" name="L348" href="#L348">348</a>             <strong class="jxr_keyword">this</strong>.currentCell.getColumnIndex(),
@@ -361,7 +361,7 @@
 <a class="jxr_linenumber" name="L353" href="#L353">353</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L354" href="#L354">354</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L355" href="#L355">355</a>     @Override
-<a class="jxr_linenumber" name="L356" href="#L356">356</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedTableFinish(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model)
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeDecoratedTableFinish(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model)
 <a class="jxr_linenumber" name="L357" href="#L357">357</a>     {
 <a class="jxr_linenumber" name="L358" href="#L358">358</a>         model.getTableDecorator().finish();
 <a class="jxr_linenumber" name="L359" href="#L359">359</a>     }
@@ -426,7 +426,7 @@
 <a class="jxr_linenumber" name="L418" href="#L418">418</a> <em class="jxr_javadoccomment">     * @see org.displaytag.render.TableWriterAdapter#writeBottomBanner(org.displaytag.model.TableModel)</em>
 <a class="jxr_linenumber" name="L419" href="#L419">419</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L420" href="#L420">420</a>     @Override
-<a class="jxr_linenumber" name="L421" href="#L421">421</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeBottomBanner(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeBottomBanner(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L422" href="#L422">422</a>     {
 <a class="jxr_linenumber" name="L423" href="#L423">423</a>         <em class="jxr_comment">// adjust the column widths</em>
 <a class="jxr_linenumber" name="L424" href="#L424">424</a>         <strong class="jxr_keyword">int</strong> colCount = 0;
@@ -437,9 +437,9 @@
 <a class="jxr_linenumber" name="L429" href="#L429">429</a>     }
 <a class="jxr_linenumber" name="L430" href="#L430">430</a> 
 <a class="jxr_linenumber" name="L431" href="#L431">431</a>     @Override
-<a class="jxr_linenumber" name="L432" href="#L432">432</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeSubgroupStart(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeSubgroupStart(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L433" href="#L433">433</a>     {
-<a class="jxr_linenumber" name="L434" href="#L434">434</a>         <a href="../../../org/displaytag/render/TableTotaler.html">TableTotaler</a> tt = model.getTotaler();
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>         <a name="TableTotaler" href="../../../org/displaytag/render/TableTotaler.html#TableTotaler">TableTotaler</a> tt = model.getTotaler();
 <a class="jxr_linenumber" name="L435" href="#L435">435</a>         <strong class="jxr_keyword">if</strong> (tt.howManyGroups == 0)
 <a class="jxr_linenumber" name="L436" href="#L436">436</a>         {
 <a class="jxr_linenumber" name="L437" href="#L437">437</a>             <strong class="jxr_keyword">return</strong>;
@@ -456,7 +456,7 @@
 <a class="jxr_linenumber" name="L448" href="#L448">448</a>             writeRowOpener(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L449" href="#L449">449</a>             <em class="jxr_comment">// for each subgroup</em>
 <a class="jxr_linenumber" name="L450" href="#L450">450</a> 
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>             <strong class="jxr_keyword">for</strong> (HeaderCell cell : model.getHeaderCellList())
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>             <strong class="jxr_keyword">for</strong> (<a name="HeaderCell" href="../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> cell : model.getHeaderCellList())
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>             {
 <a class="jxr_linenumber" name="L453" href="#L453">453</a>                 writeColumnOpener(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L454" href="#L454">454</a>                 <strong class="jxr_keyword">int</strong> thisCellAsDtNumber = asDtColNumber(cell.getColumnNumber());
@@ -496,9 +496,9 @@
 <a class="jxr_linenumber" name="L488" href="#L488">488</a>     }
 <a class="jxr_linenumber" name="L489" href="#L489">489</a> 
 <a class="jxr_linenumber" name="L490" href="#L490">490</a>     @Override
-<a class="jxr_linenumber" name="L491" href="#L491">491</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeSubgroupStop(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeSubgroupStop(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L492" href="#L492">492</a>     {
-<a class="jxr_linenumber" name="L493" href="#L493">493</a>         <a href="../../../org/displaytag/render/TableTotaler.html">TableTotaler</a> tt = model.getTotaler();
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>         <a name="TableTotaler" href="../../../org/displaytag/render/TableTotaler.html#TableTotaler">TableTotaler</a> tt = model.getTotaler();
 <a class="jxr_linenumber" name="L494" href="#L494">494</a> 
 <a class="jxr_linenumber" name="L495" href="#L495">495</a>         <em class="jxr_comment">// for each newly opened subgroup we need to output the opener, in order;</em>
 <a class="jxr_linenumber" name="L496" href="#L496">496</a>         <em class="jxr_comment">// so we need to know somehow which groups are new since we last wrote out openers; how about we track a list of</em>
@@ -516,7 +516,7 @@
 <a class="jxr_linenumber" name="L508" href="#L508">508</a>             writeRowOpener(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L509" href="#L509">509</a>             <em class="jxr_comment">// for each subgroup</em>
 <a class="jxr_linenumber" name="L510" href="#L510">510</a> 
-<a class="jxr_linenumber" name="L511" href="#L511">511</a>             <strong class="jxr_keyword">for</strong> (HeaderCell cell : model.getHeaderCellList())
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>             <strong class="jxr_keyword">for</strong> (<a name="HeaderCell" href="../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> cell : model.getHeaderCellList())
 <a class="jxr_linenumber" name="L512" href="#L512">512</a>             {
 <a class="jxr_linenumber" name="L513" href="#L513">513</a>                 writeColumnOpener(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L514" href="#L514">514</a>                 Object columnValue;
@@ -551,12 +551,12 @@
 <a class="jxr_linenumber" name="L543" href="#L543">543</a> <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L544" href="#L544">544</a> <em class="jxr_javadoccomment">     * @param m the new model</em>
 <a class="jxr_linenumber" name="L545" href="#L545">545</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L546" href="#L546">546</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setModel(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> m)
+<a class="jxr_linenumber" name="L546" href="#L546">546</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setModel(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> m)
 <a class="jxr_linenumber" name="L547" href="#L547">547</a>     {
 <a class="jxr_linenumber" name="L548" href="#L548">548</a>         m.setTableDecorator(XmlTotalsWriter.NOOP);
 <a class="jxr_linenumber" name="L549" href="#L549">549</a>         <strong class="jxr_keyword">if</strong> (m.getTotaler() == <strong class="jxr_keyword">null</strong> || m.getTotaler() == TableTotaler.NULL)
 <a class="jxr_linenumber" name="L550" href="#L550">550</a>         {
-<a class="jxr_linenumber" name="L551" href="#L551">551</a>             <a href="../../../org/displaytag/render/TableTotaler.html">TableTotaler</a> tt = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/render/TableTotaler.html">TableTotaler</a>();
+<a class="jxr_linenumber" name="L551" href="#L551">551</a>             <a name="TableTotaler" href="../../../org/displaytag/render<a name="TableTotaler" href="../../../org/displaytag/render/TableTotaler.html#TableTotaler">TableTotaler</a>r.html#TableTotaler">TableTotaler</a> tt = <strong class="jxr_keyword">new</strong> <a name="TableTotaler" href="../../../org/displaytag/render/TableTotaler.html#TableTotaler">TableTotaler</a>();
 <a class="jxr_linenumber" name="L552" href="#L552">552</a>             tt.init(m);
 <a class="jxr_linenumber" name="L553" href="#L553">553</a>             m.setTotaler(tt);
 <a class="jxr_linenumber" name="L554" href="#L554">554</a>         }
@@ -594,11 +594,11 @@
 <a class="jxr_linenumber" name="L586" href="#L586">586</a>     }
 <a class="jxr_linenumber" name="L587" href="#L587">587</a> 
 <a class="jxr_linenumber" name="L588" href="#L588">588</a>     @Override
-<a class="jxr_linenumber" name="L589" href="#L589">589</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableBodyCloser(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L589" href="#L589">589</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeTableBodyCloser(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L590" href="#L590">590</a>     {
 <a class="jxr_linenumber" name="L591" href="#L591">591</a>         <em class="jxr_comment">// write totals, if there are any</em>
 <a class="jxr_linenumber" name="L592" href="#L592">592</a>         <strong class="jxr_keyword">boolean</strong> hasTotals = false;
-<a class="jxr_linenumber" name="L593" href="#L593">593</a>         <strong class="jxr_keyword">for</strong> (HeaderCell cell : model.getHeaderCellList())
+<a class="jxr_linenumber" name="L593" href="#L593">593</a>         <strong class="jxr_keyword">for</strong> (<a name="HeaderCell" href="../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> cell : model.getHeaderCellList())
 <a class="jxr_linenumber" name="L594" href="#L594">594</a>         {
 <a class="jxr_linenumber" name="L595" href="#L595">595</a>             hasTotals = hasTotals || cell.isTotaled();
 <a class="jxr_linenumber" name="L596" href="#L596">596</a>         }
@@ -606,9 +606,9 @@
 <a class="jxr_linenumber" name="L598" href="#L598">598</a>         {
 <a class="jxr_linenumber" name="L599" href="#L599">599</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L600" href="#L600">600</a>         }
-<a class="jxr_linenumber" name="L601" href="#L601">601</a>         <a href="../../../org/displaytag/render/TableTotaler.html">TableTotaler</a> tt = model.getTotaler();
+<a class="jxr_linenumber" name="L601" href="#L601">601</a>         <a name="TableTotaler" href="../../../org/displaytag/render/TableTotaler.html#TableTotaler">TableTotaler</a> tt = model.getTotaler();
 <a class="jxr_linenumber" name="L602" href="#L602">602</a>         writeRowOpener(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L603" href="#L603">603</a>         <strong class="jxr_keyword">for</strong> (HeaderCell cell : model.getHeaderCellList())
+<a class="jxr_linenumber" name="L603" href="#L603">603</a>         <strong class="jxr_keyword">for</strong> (<a name="HeaderCell" href="../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> cell : model.getHeaderCellList())
 <a class="jxr_linenumber" name="L604" href="#L604">604</a>         {
 <a class="jxr_linenumber" name="L605" href="#L605">605</a>             writeColumnOpener(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L606" href="#L606">606</a>             Object columnValue = (cell.isTotaled()) ? tt.getTotalForColumn(cell.getColumnNumber(), 0) : <strong class="jxr_keyword">null</strong>;
@@ -629,12 +629,12 @@
 <a class="jxr_linenumber" name="L621" href="#L621">621</a> <em class="jxr_javadoccomment">     * @param model the model</em>
 <a class="jxr_linenumber" name="L622" href="#L622">622</a> <em class="jxr_javadoccomment">     * @throws Exception the exception</em>
 <a class="jxr_linenumber" name="L623" href="#L623">623</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L624" href="#L624">624</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeGroupExtraInfo(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
+<a class="jxr_linenumber" name="L624" href="#L624">624</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> writeGroupExtraInfo(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> model) <strong class="jxr_keyword">throws</strong> Exception
 <a class="jxr_linenumber" name="L625" href="#L625">625</a>     {
 <a class="jxr_linenumber" name="L626" href="#L626">626</a>     }
 <a class="jxr_linenumber" name="L627" href="#L627">627</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

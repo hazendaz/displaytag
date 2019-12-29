@@ -46,7 +46,7 @@
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> * @author Fabrizio Giustina</em>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../org/displaytag/model/Row.html">Row</a>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Row" href="../../../org/displaytag/model/Row.html#Row">Row</a>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  {
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>      <em class="jxr_javadoccomment">/**</em>
@@ -67,14 +67,14 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     * TableModel which the row belongs to.</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <a href="../../../org/displaytag/model/TableModel.html">TableModel</a> tableModel;
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> tableModel;
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     * Constructor for Row.</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     * @param object Object</em>
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     * @param number int</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/model/Row.html">Row</a>(Object object, <strong class="jxr_keyword">int</strong> number)
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      <strong class="jxr_keyword">public</strong> <a name="Row" href="../../../org/displaytag/model/Row.html#Row">Row</a>(Object object, <strong class="jxr_keyword">int</strong> number)
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      {
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">this</strong>.rowObject = object;
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">this</strong>.rowNumber = number;
@@ -103,7 +103,7 @@
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_javadoccomment">     * Adds a cell to the row.</em>
 <a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_javadoccomment">     * @param cell Cell</em>
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addCell(<a href="../../../org/displaytag/model/Cell.html">Cell</a> cell)
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> addCell(<a name="Cell" href="../../../org/displaytag/model/Cell.html#Cell">Cell</a> cell)
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>      {
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         <strong class="jxr_keyword">this</strong>.staticCells.add(cell);
 <a class="jxr_linenumber" name="L101" href="#L101">101</a>     }
@@ -131,16 +131,16 @@
 <a class="jxr_linenumber" name="L123" href="#L123">123</a> <em class="jxr_javadoccomment">     * @param columns List</em>
 <a class="jxr_linenumber" name="L124" href="#L124">124</a> <em class="jxr_javadoccomment">     * @return ColumnIterator</em>
 <a class="jxr_linenumber" name="L125" href="#L125">125</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">public</strong> <a href="../../../org/displaytag/model/ColumnIterator.html">ColumnIterator</a> getColumnIterator(List&lt;HeaderCell&gt; columns)
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>     <strong class="jxr_keyword">public</strong> <a name="ColumnIterator" href="../../../org/displaytag/model/ColumnIterator.html#ColumnIterator">ColumnIterator</a> getColumnIterator(List&lt;HeaderCell&gt; columns)
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>     {
-<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/model/ColumnIterator.html">ColumnIterator</a>(columns, <strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> <a name="ColumnIterator" href="../../../org/displaytag/model/ColumnIterator.html#ColumnIterator">ColumnIterator</a>(columns, <strong class="jxr_keyword">this</strong>);
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>     }
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> 
 <a class="jxr_linenumber" name="L131" href="#L131">131</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L132" href="#L132">132</a> <em class="jxr_javadoccomment">     * Setter for the table model the row belongs to.</em>
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> <em class="jxr_javadoccomment">     * @param table TableModel</em>
 <a class="jxr_linenumber" name="L134" href="#L134">134</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> setParentTable(<a href="../../../org/displaytag/model/TableModel.html">TableModel</a> table)
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">void</strong> setParentTable(<a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> table)
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>     {
 <a class="jxr_linenumber" name="L137" href="#L137">137</a>         <strong class="jxr_keyword">this</strong>.tableModel = table;
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     }
@@ -149,7 +149,7 @@
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> <em class="jxr_javadoccomment">     * Getter for the table model the row belongs to.</em>
 <a class="jxr_linenumber" name="L142" href="#L142">142</a> <em class="jxr_javadoccomment">     * @return TableModel</em>
 <a class="jxr_linenumber" name="L143" href="#L143">143</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L144" href="#L144">144</a>     <strong class="jxr_keyword">protected</strong> <a href="../../../org/displaytag/model/TableModel.html">TableModel</a> getParentTable()
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>     <strong class="jxr_keyword">protected</strong> <a name="TableModel" href="../../../org/displaytag/model/TableModel.html#TableModel">TableModel</a> getParentTable()
 <a class="jxr_linenumber" name="L145" href="#L145">145</a>     {
 <a class="jxr_linenumber" name="L146" href="#L146">146</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.tableModel;
 <a class="jxr_linenumber" name="L147" href="#L147">147</a>     }
@@ -160,9 +160,9 @@
 <a class="jxr_linenumber" name="L152" href="#L152">152</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>     <strong class="jxr_keyword">public</strong> String getOpenTag()
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>     {
-<a class="jxr_linenumber" name="L155" href="#L155">155</a>         Map&lt;String, Object&gt; rowAttributes = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/util/HtmlAttributeMap.html">HtmlAttributeMap</a>();
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>         Map&lt;String, Object&gt; rowAttributes = <strong class="jxr_keyword">new</strong> <a name="HtmlAttributeMap" href="../../../org/displaytag/util/HtmlAttributeMap.html#HtmlAttributeMap">HtmlAttributeMap</a>();
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
-<a class="jxr_linenumber" name="L157" href="#L157">157</a>         <a href="../../../org/displaytag/util/MultipleHtmlAttribute.html">MultipleHtmlAttribute</a> cssAttribute = <strong class="jxr_keyword">new</strong> <a href="../../../org/displaytag/util/MultipleHtmlAttribute.html">MultipleHtmlAttribute</a>(<strong class="jxr_keyword">this</strong>.tableModel.getProperties().getCssRow(
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>         <a name="MultipleHtmlAttribute" href="../../../org/displaytag/util/MultipleHtm<a name="MultipleHtmlAttribute" href="../../../org/displaytag/util/MultipleHtmlAttribute.html#MultipleHtmlAttribute">MultipleHtmlAttribute</a>pleHtmlAttribute">MultipleHtmlAttribute</a> cssAttribute = <strong class="jxr_keyword">new</strong> <a name="MultipleHtmlAttribute" href="../../../org/displaytag/util/MultipleHtmlAttribute.html#MultipleHtmlAttribute">MultipleHtmlAttribute</a>(<strong class="jxr_keyword">this</strong>.tableModel.getProperties().getCssRow(
 <a class="jxr_linenumber" name="L158" href="#L158">158</a>             <strong class="jxr_keyword">this</strong>.rowNumber));
 <a class="jxr_linenumber" name="L159" href="#L159">159</a> 
 <a class="jxr_linenumber" name="L160" href="#L160">160</a>         <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.tableModel.getTableDecorator() != <strong class="jxr_keyword">null</strong>)
@@ -229,6 +229,6 @@
 <a class="jxr_linenumber" name="L221" href="#L221">221</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2018 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
