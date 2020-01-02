@@ -40,7 +40,7 @@ public class KnownNumberedList
      */
     public Iterator<NumberedItem> iterator()
     {
-        List<NumberedItem> list = new ArrayList<NumberedItem>();
+        List<NumberedItem> list = new ArrayList<>();
         for (int j = 0; j < 5; j++)
         {
             list.add(new NumberedItem(j));

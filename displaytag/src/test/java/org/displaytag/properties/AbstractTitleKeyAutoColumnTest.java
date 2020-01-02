@@ -21,17 +21,17 @@
  */
 package org.displaytag.properties;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 
 /**

@@ -89,7 +89,7 @@ public final class URLAssert
         {
             Assert.assertEquals("Anchor is different", generatedSplit[2], expectedSplit[2]);
         }
-        else if (generatedSplit.length > 1 && (generatedUrl.indexOf("?") == -1))
+        else if (generatedSplit.length > 1 && generatedUrl.indexOf("?") == -1)
         {
             // url without parameters
             Assert.assertEquals("Anchor is different", generatedSplit[1], expectedSplit[1]);
@@ -108,10 +108,9 @@ public final class URLAssert
                 + " - generated "
                 + generatedUrl, expectedParameters.length, generatedParameters.length);
 
-            for (int j = 0; j < expectedParameters.length; j++)
-            {
+            for (String expectedParameter : expectedParameters) {
                 // assuming url?param == url?param=
-                String singleParam = expectedParameters[j];
+                String singleParam = expectedParameter;
                 if (singleParam.indexOf("=") == -1)
                 {
                     singleParam += "=";

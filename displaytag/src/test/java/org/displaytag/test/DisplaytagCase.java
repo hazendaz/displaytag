@@ -21,6 +21,9 @@
  */
 package org.displaytag.test;
 
+import com.meterware.httpunit.HttpUnitOptions;
+import com.meterware.servletunit.ServletRunner;
+
 import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -33,9 +36,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.servletunit.ServletRunner;
 
 
 /**
@@ -108,7 +108,7 @@ public abstract class DisplaytagCase
         // start servletRunner
         this.runner = new ServletRunner(new File(path), CONTEXT);
 
-        Hashtable<String, String> params = new Hashtable<String, String>();
+        Hashtable<String, String> params = new Hashtable<>();
         params.put("javaEncoding", "utf-8");
         this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
 
@@ -151,12 +151,9 @@ public abstract class DisplaytagCase
                 + ")");
         }
 
-        outer : for (int j = 0; j < expected.length; j++)
-        {
-            String exp = expected[j];
-            for (int q = 0; q < actual.length; q++)
-            {
-                if (StringUtils.equals(exp, actual[q]))
+        outer : for (String exp : expected) {
+            for (String element : actual) {
+                if (StringUtils.equals(exp, element))
                 {
                     continue outer;
                 }

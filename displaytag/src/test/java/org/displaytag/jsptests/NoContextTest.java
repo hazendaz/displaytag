@@ -21,15 +21,15 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -75,9 +75,8 @@ public class NoContextTest extends DisplaytagCase
         WebLink[] links = response.getLinks();
         Assert.assertEquals("Wrong number of links in result.", 8, links.length);
 
-        for (int j = 0; j < links.length; j++)
-        {
-            String url = links[j].getURLString();
+        for (WebLink link : links) {
+            String url = link.getURLString();
             Assert.assertTrue("Invalid url: " + url, url.startsWith("/goforit"));
         }
     }

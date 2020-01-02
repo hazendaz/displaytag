@@ -21,6 +21,11 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpInternalErrorException;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.displaytag.properties.MediaTypeEnum;
@@ -30,11 +35,6 @@ import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HttpInternalErrorException;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 
 /**

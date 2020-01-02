@@ -21,6 +21,11 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -30,11 +35,6 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 
 /**

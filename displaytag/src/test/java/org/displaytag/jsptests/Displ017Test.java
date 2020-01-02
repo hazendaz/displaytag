@@ -21,17 +21,17 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-import org.xml.sax.SAXException;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -98,7 +98,7 @@ public class Displ017Test extends DisplaytagCase
         for (int j = 0; j < 4; j++)
         {
             TableCell cell = tables[0].getTableCell(0, j);
-            boolean containsSorted = (cell.getAttribute("class").indexOf("sorted") > -1);
+            boolean containsSorted = cell.getAttribute("class").indexOf("sorted") > -1;
             if (j == sortedColumn)
             {
                 Assert.assertTrue("Column " + j + " is not sorted as expected", containsSorted);

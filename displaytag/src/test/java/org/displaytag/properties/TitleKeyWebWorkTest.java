@@ -21,12 +21,12 @@
  */
 package org.displaytag.properties;
 
+import com.opensymphony.webwork.dispatcher.ServletDispatcher;
+
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.I18nWebworkAdapter;
 import org.displaytag.localization.LocaleResolver;
 import org.junit.Test;
-
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 
 
 /**

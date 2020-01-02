@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 
 /**
@@ -66,8 +66,9 @@ public class Displ505Test extends DisplaytagCase
 
         WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-            this.log.debug("RESPONSE: " + response.getText());
+        if (this.log.isDebugEnabled()) {
+          this.log.debug("RESPONSE: " + response.getText());
+        }
 
         WebTable[] tables = response.getTables();
 

@@ -40,7 +40,7 @@ public class ShuffledNumberedList
      */
     public Iterator<NumberedItem> iterator()
     {
-        List<NumberedItem> list = new ArrayList<NumberedItem>();
+        List<NumberedItem> list = new ArrayList<>();
         list.add(new NumberedItem(1));
         list.add(new NumberedItem(4));
         list.add(new NumberedItem(2));

@@ -279,7 +279,7 @@ public class PortletHrefTest
     {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
 
-        final Map<String, String[]> params = new HashMap<String, String[]>();
+        final Map<String, String[]> params = new HashMap<>();
         params.put(PortletHref.PARAM_MODE, new String[]{"help"});
         params.put(PortletHref.PARAM_STATE, new String[]{"maximized"});
         params.put(PortletHref.PARAM_SECURE, new String[]{"true"});
@@ -317,7 +317,7 @@ public class PortletHrefTest
 
         href.addParameter("ORIGINAL_PARAM", "ORIGNAL_VALUE");
 
-        final Map<String, String[]> params = new HashMap<String, String[]>();
+        final Map<String, String[]> params = new HashMap<>();
         params.put(PortletHref.PARAM_MODE, new String[]{"help"});
         params.put(PortletHref.PARAM_STATE, new String[]{"maximized"});
         params.put(PortletHref.PARAM_SECURE, new String[]{"true"});
@@ -499,7 +499,7 @@ public class PortletHrefTest
                 "https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL",
                 urlString10);
 
-        final Map<String, String[]> paramMap = new HashMap<String, String[]>();
+        final Map<String, String[]> paramMap = new HashMap<>();
         paramMap.put("MULTI_PARAM", new String[]{"VAL1", "VAL2"});
         href.addParameterMap(paramMap);
         final String urlString11 = href.toString();

@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpInternalErrorException;
+import com.meterware.httpunit.WebRequest;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.displaytag.tags.ColumnTag;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HttpInternalErrorException;
-import com.meterware.httpunit.WebRequest;
 
 
 /**

@@ -21,6 +21,10 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
@@ -29,10 +33,6 @@ import org.displaytag.test.KnownValue;
 import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 
 /**

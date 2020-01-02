@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**

@@ -21,17 +21,17 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebLink;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 
 /**
@@ -71,10 +71,9 @@ public class ExportLinksTest extends DisplaytagCase
 
         Assert.assertEquals("Wrong number of export links. ", 4, links.length);
 
-        Set<String> linkTexts = new HashSet<String>();
-        for (int j = 0; j < links.length; j++)
-        {
-            String url = links[j].getURLString();
+        Set<String> linkTexts = new HashSet<>();
+        for (WebLink link : links) {
+            String url = link.getURLString();
             this.log.debug(url);
             if (linkTexts.contains(url))
             {

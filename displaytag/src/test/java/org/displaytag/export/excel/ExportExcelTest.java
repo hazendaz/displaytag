@@ -21,6 +21,12 @@
  */
 package org.displaytag.export.excel;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpUnitOptions;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.servletunit.ServletRunner;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -39,12 +45,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.servletunit.ServletRunner;
 
 
 /**
@@ -101,7 +101,7 @@ public class ExportExcelTest
         // start servletRunner
         this.runner = new ServletRunner(new File(path), CONTEXT);
 
-        Hashtable<String, String> params = new Hashtable<String, String>();
+        Hashtable<String, String> params = new Hashtable<>();
         params.put("javaEncoding", "utf-8");
         this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
 

@@ -53,7 +53,7 @@ public class ParamEncoderTest
         Assert.assertEquals(
             "The same parameter should produce equals key.",
             new ParamEncoder("equals").encodeParameterName("x"),
-            (new ParamEncoder("equals").encodeParameterName("x")));
+            new ParamEncoder("equals").encodeParameterName("x"));
     }
 
     /**

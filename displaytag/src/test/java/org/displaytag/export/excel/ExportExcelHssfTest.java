@@ -21,12 +21,23 @@
  */
 package org.displaytag.export.excel;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpUnitOptions;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.servletunit.ServletRunner;
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.Hashtable;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.displaytag.export.ExportViewFactory;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
@@ -38,17 +49,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.servletunit.ServletRunner;
-import java.io.FileInputStream;
-import java.util.Hashtable;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 
 
 /**
@@ -105,7 +105,7 @@ public class ExportExcelHssfTest
         // start servletRunner
         this.runner = new ServletRunner(new File(path), CONTEXT);
 
-        Hashtable<String, String> params = new Hashtable<String, String>();
+        Hashtable<String, String> params = new Hashtable<>();
         params.put("javaEncoding", "utf-8");
         this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
 
@@ -140,7 +140,7 @@ public class ExportExcelHssfTest
         fw.write(res);
         fw.flush();
         fw.close();
-        
+
         FileInputStream istr = new FileInputStream(f);
         Workbook wb = new HSSFWorkbook(istr);
 

@@ -38,7 +38,7 @@ public class SimplePaginatedList implements PaginatedList
 {
 
     /** wrapped list. */
-    private List<Object> fullList = new ArrayList<Object>();
+    private List<Object> fullList = new ArrayList<>();
 
     /**
      * Number of objects per page.

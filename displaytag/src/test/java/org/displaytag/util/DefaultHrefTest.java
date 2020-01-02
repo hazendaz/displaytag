@@ -218,7 +218,7 @@ public class DefaultHrefTest
         String url = "http://www.displaytag.org/displaytag/index.jsp#thisanchor";
         Href href = new DefaultHref(url);
 
-        Map<String, String[]> parameterMap = new HashMap<String, String[]>();
+        Map<String, String[]> parameterMap = new HashMap<>();
         parameterMap.put("new1", new String[]{"new1value"});
         parameterMap.put("new2", new String[]{"new2value"});
         parameterMap.put("new3", null);
@@ -239,7 +239,7 @@ public class DefaultHrefTest
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1#thisanchor";
         Href href = new DefaultHref(url);
 
-        Map<String, String[]> parameterMap = new HashMap<String, String[]>();
+        Map<String, String[]> parameterMap = new HashMap<>();
         parameterMap.put("new1", new String[]{"new1value"});
         parameterMap.put("new2", new String[]{"new2value"});
         parameterMap.put("new3", null);
@@ -261,7 +261,7 @@ public class DefaultHrefTest
         String url = "http://www.displaytag.org/displaytag/index.jsp";
         Href href = new DefaultHref(url);
 
-        Map<String, String[]> parameterMap = new HashMap<String, String[]>();
+        Map<String, String[]> parameterMap = new HashMap<>();
         parameterMap.put("param1", new String[]{"à", "<"});
         href.addParameterMap(parameterMap);
 
@@ -279,7 +279,7 @@ public class DefaultHrefTest
         String url = "http://www.displaytag.org/displaytag/index.jsp?param1=original#thisanchor";
         Href href = new DefaultHref(url);
 
-        Map<String, String[]> parameterMap = new HashMap<String, String[]>();
+        Map<String, String[]> parameterMap = new HashMap<>();
         parameterMap.put("param1", new String[]{"original"});
         parameterMap.put("new1", new String[]{"new1value"});
         href.addParameterMap(parameterMap);
@@ -333,7 +333,7 @@ public class DefaultHrefTest
      */
     public void testaddParameterMap()
     {
-        Map<String, String[]> parametersMap = new HashMap<String, String[]>();
+        Map<String, String[]> parametersMap = new HashMap<>();
 
         parametersMap.put("modifiedArray", new String[]{"a&nbspb", "c&nbspd"});
 

@@ -89,7 +89,7 @@ public class TldTest
 
         List<TagAttribute> tagsAttributes = getTagAttributeList(checkedTld);
 
-        List<String> errors = new ArrayList<String>();
+        List<String> errors = new ArrayList<>();
         Iterator<TagAttribute> iterator = tagsAttributes.iterator();
         while (iterator.hasNext())
         {
@@ -236,7 +236,7 @@ public class TldTest
         is.close();
 
         NodeList tagList = webXmlDoc.getElementsByTagName("tag");
-        List<TagAttribute> tagsAttributes = new ArrayList<TagAttribute>();
+        List<TagAttribute> tagsAttributes = new ArrayList<>();
 
         for (int i = 0; i < tagList.getLength(); i++)
         {

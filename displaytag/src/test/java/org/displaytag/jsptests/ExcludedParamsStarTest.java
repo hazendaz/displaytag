@@ -21,14 +21,14 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -75,9 +75,8 @@ public class ExcludedParamsStarTest extends DisplaytagCase
 
         WebLink[] links = response.getLinks();
 
-        for (int j = 0; j < links.length; j++)
-        {
-            String linkUrl = links[j].getURLString();
+        for (WebLink link : links) {
+            String linkUrl = link.getURLString();
             Assert.assertTrue("Link contains the excluded parameter foo.", linkUrl.indexOf("foo") == -1);
             Assert.assertTrue("Link contains the excluded parameter bar.", linkUrl.indexOf("bar") == -1);
             Assert.assertTrue("Link contains the excluded parameter zoo.", linkUrl.indexOf("zoo") == -1);

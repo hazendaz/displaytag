@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 
 /**
@@ -82,11 +82,11 @@ public class TotalsTest extends DisplaytagCase
             StringUtils.isBlank(tables[0].getCellAsText(1, 0)));
         Assert.assertEquals(
             "Bad value in footer cell total.",
-            "" + (KnownTypes.LONG_VALUE.doubleValue() * 2),
+            "" + KnownTypes.LONG_VALUE.doubleValue() * 2,
             tables[0].getCellAsText(1, 1));
         Assert.assertEquals(
             "Bad value in footer cell total.",
-            "" + (KnownTypes.LONG_VALUE.doubleValue() * 2),
+            "" + KnownTypes.LONG_VALUE.doubleValue() * 2,
             tables[0].getCellAsText(1, 2));
     }
 }

@@ -64,7 +64,7 @@ public class ToStringTest
     @Test
     public void testSmartListHelper()
     {
-        checkToString(new SmartListHelper(new ArrayList<Object>(), 100, 10, TableProperties.getInstance(null), false));
+        checkToString(new SmartListHelper(new ArrayList<>(), 100, 10, TableProperties.getInstance(null), false));
     }
 
     /**

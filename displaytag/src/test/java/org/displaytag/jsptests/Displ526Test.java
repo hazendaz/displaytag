@@ -21,14 +21,14 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 /**
@@ -78,7 +78,7 @@ public class Displ526Test extends DisplaytagCase
         if (System.getProperty("java.version").startsWith("1.8.")) {
             Assert.assertEquals("Wrong column content", "1", tables[0].getCellAsText(2, 1));
         } else {
-            Assert.assertEquals("Wrong column content", "5", tables[0].getCellAsText(2, 1));            
+            Assert.assertEquals("Wrong column content", "5", tables[0].getCellAsText(2, 1));
         }
 
     }

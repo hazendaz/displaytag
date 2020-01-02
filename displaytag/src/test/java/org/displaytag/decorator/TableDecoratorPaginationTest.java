@@ -21,7 +21,7 @@
  */
 package org.displaytag.decorator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +50,8 @@ public class TableDecoratorPaginationTest
     @Test
     public void testSinglePage()
     {
-        List<Integer> rawData = new ArrayList<Integer>(10);
-        List<Object> data = new ArrayList<Object>(10);
+        List<Integer> rawData = new ArrayList<>(10);
+        List<Object> data = new ArrayList<>(10);
         for (int i = 1; i <= 10; i++)
         {
             rawData.add(i);
@@ -86,8 +86,8 @@ public class TableDecoratorPaginationTest
     @Test
     public void testFirstPage()
     {
-        List<Integer> rawData = new ArrayList<Integer>(10);
-        List<Object> data = new ArrayList<Object>(10);
+        List<Integer> rawData = new ArrayList<>(10);
+        List<Object> data = new ArrayList<>(10);
         for (int i = 1; i <= 10; i++)
         {
             rawData.add(i);
@@ -122,8 +122,8 @@ public class TableDecoratorPaginationTest
     @Test
     public void testSecondPage()
     {
-        List<Integer> rawData = new ArrayList<Integer>(10);
-        List<Object> data = new ArrayList<Object>(10);
+        List<Integer> rawData = new ArrayList<>(10);
+        List<Object> data = new ArrayList<>(10);
         for (int i = 1; i <= 10; i++)
         {
             rawData.add(i);
