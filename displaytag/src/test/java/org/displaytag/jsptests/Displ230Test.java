@@ -81,9 +81,6 @@ public class Displ230Test extends DisplaytagCase
      */
     private void testWithPlacement(String placement) throws MalformedURLException, IOException, SAXException
     {
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
-
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter("placement", placement);
 

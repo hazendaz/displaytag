@@ -58,8 +58,6 @@ public class Displ601Test extends DisplaytagCase
     {
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
-        ParamEncoder encoder = new ParamEncoder("table");
-
         WebResponse response = this.runner.getResponse(request);
         Assert.assertEquals(3, response.getElementsByTagName("input").length);
     }
