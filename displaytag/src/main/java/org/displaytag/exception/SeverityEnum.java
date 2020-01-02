@@ -60,4 +60,13 @@ public enum SeverityEnum {
         this.severity = severity;
     }
 
+    /**
+     * Gets the severity.
+     *
+     * @return the severity
+     */
+    public String getSeverity() {
+      return severity;
+    }
+
 }
