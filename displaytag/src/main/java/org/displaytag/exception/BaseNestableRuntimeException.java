@@ -137,7 +137,7 @@ public abstract class BaseNestableRuntimeException extends RuntimeException
     public String toString()
     {
         String className = this.sourceClass.getName();
-        className = className.substring(className.lastIndexOf('.')); //$NON-NLS-1$
+        className = className.substring(className.lastIndexOf('.')); 
 
         if (this.nestedException == null)
         {

@@ -139,7 +139,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
     public String toString()
     {
         String className = this.sourceClass.getName();
-        className = className.substring(className.lastIndexOf('.')); //$NON-NLS-1$
+        className = className.substring(className.lastIndexOf('.')); 
 
         if (this.nestedException == null)
         {
