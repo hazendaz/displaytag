@@ -47,7 +47,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.displaytag.Messages;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.exception.ExportException;
-import org.displaytag.exception.FactoryInstantiationException;
 import org.displaytag.exception.InvalidTagAttributeValueException;
 import org.displaytag.exception.WrappedRuntimeException;
 import org.displaytag.export.BinaryExportView;
