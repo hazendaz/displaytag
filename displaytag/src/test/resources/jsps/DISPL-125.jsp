@@ -27,19 +27,13 @@
         </display:column>
         <display:setProperty name="paging.banner.group_size" value="3" />
         <display:setProperty name="paging.banner.full">
-          <jsp:text>
             <div id="pagination">{0}</div>
-          </jsp:text>
         </display:setProperty>
         <display:setProperty name="paging.banner.first">
-          <jsp:text>
             <div id="pagination">{0}</div>
-          </jsp:text>
         </display:setProperty>
         <display:setProperty name="paging.banner.last">
-          <jsp:text>
             <div id="pagination">{0}</div>
-          </jsp:text>
         </display:setProperty>
         <display:setProperty name="paging.banner.page.selected" value="[{0}]" />
         <display:setProperty name="paging.banner.page.link" value="{0}" />

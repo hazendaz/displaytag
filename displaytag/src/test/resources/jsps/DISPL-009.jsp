@@ -21,10 +21,10 @@
                 <display:column property="bee"/>
                 <display:column property="camel" sortable="true"/>
 								<display:setProperty name="paging.banner.first">
-									<jsp:text><span id="PAGEONE">PAGEONE<a id="next" href="{3}">Next</a></span></jsp:text>
+									<span id="PAGEONE">PAGEONE<a id="next" href="{3}">Next</a></span>
 								</display:setProperty>
 								<display:setProperty name="paging.banner.full">
-									<jsp:text><span id="OTHERPAGE">OTHERPAGE</span></jsp:text>
+									<span id="OTHERPAGE">OTHERPAGE</span>
 								</display:setProperty>
 								<display:setProperty name="paging.banner.placement" value="bottom" />
             </display:table>
