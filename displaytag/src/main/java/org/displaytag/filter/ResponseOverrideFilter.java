@@ -141,7 +141,7 @@ public class ResponseOverrideFilter implements Filter
 
         BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl((HttpServletResponse) servletResponse);
 
-        Map<String, Boolean> contentBean = new HashMap<String, Boolean>(4);
+        Map<String, Boolean> contentBean = new HashMap<>(4);
         if (this.buffer)
         {
             contentBean.put(TableTagParameters.BEAN_BUFFER, Boolean.TRUE);

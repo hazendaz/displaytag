@@ -89,15 +89,7 @@ public class DefaultDecoratorFactory implements DecoratorFactory
             {
                 decorator = ReflectHelper.classForName(decoratorName).newInstance();
             }
-            catch (ClassNotFoundException e)
-            {
-                throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
-            }
-            catch (InstantiationException e)
-            {
-                throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
-            }
-            catch (IllegalAccessException e)
+            catch (ClassNotFoundException | InstantiationException | IllegalAccessException e)
             {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
@@ -169,15 +161,7 @@ public class DefaultDecoratorFactory implements DecoratorFactory
             {
                 decorator = ReflectHelper.classForName(decoratorName).newInstance();
             }
-            catch (ClassNotFoundException e)
-            {
-                throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
-            }
-            catch (InstantiationException e)
-            {
-                throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
-            }
-            catch (IllegalAccessException e)
+            catch (ClassNotFoundException | InstantiationException | IllegalAccessException e)
             {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }

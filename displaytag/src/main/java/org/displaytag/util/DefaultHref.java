@@ -72,7 +72,7 @@ public class DefaultHref implements Href
      */
     public DefaultHref(String baseUrl)
     {
-        this.parameters = new LinkedHashMap<String, String[]>();
+        this.parameters = new LinkedHashMap<>();
         setFullUrl(baseUrl);
     }
 
@@ -207,7 +207,7 @@ public class DefaultHref implements Href
     @Override
     public Map<String, String[]> getParameterMap()
     {
-        Map<String, String[]> copyMap = new LinkedHashMap<String, String[]>(this.parameters.size());
+        Map<String, String[]> copyMap = new LinkedHashMap<>(this.parameters.size());
         copyMap.putAll(this.parameters);
         return copyMap;
     }
@@ -221,7 +221,7 @@ public class DefaultHref implements Href
     public void setParameterMap(Map<String, String[]> parametersMap)
     {
         // create a new HashMap
-        this.parameters = new HashMap<String, String[]>(parametersMap.size());
+        this.parameters = new HashMap<>(parametersMap.size());
 
         // copy the parameters
         addParameterMap(parametersMap);
@@ -442,7 +442,7 @@ public class DefaultHref implements Href
             throw new RuntimeException(e); // should never happen
         }
 
-        href.parameters = new LinkedHashMap<String, String[]>(this.parameters);
+        href.parameters = new LinkedHashMap<>(this.parameters);
         return href;
     }
 

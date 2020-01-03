@@ -153,15 +153,7 @@ public final class LookupUtil
         {
             return getProperty(bean, name);
         }
-        catch (IllegalAccessException e)
-        {
-            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
-        }
-        catch (InvocationTargetException e)
-        {
-            throw new ObjectLookupException(LookupUtil.class, bean, name, e);
-        }
-        catch (NoSuchMethodException e)
+        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e)
         {
             throw new ObjectLookupException(LookupUtil.class, bean, name, e);
         }

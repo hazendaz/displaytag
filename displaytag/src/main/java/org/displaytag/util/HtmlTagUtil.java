@@ -137,7 +137,7 @@ public final class HtmlTagUtil
 
         StringBuilder currentTag = new StringBuilder(5); // will contain a tag name
 
-        List<String> openTags = new ArrayList<String>(5); // lit of unclosed tags found in the string
+        List<String> openTags = new ArrayList<>(5); // lit of unclosed tags found in the string
 
         int i;
         for (i = 0; i < sz; i++)

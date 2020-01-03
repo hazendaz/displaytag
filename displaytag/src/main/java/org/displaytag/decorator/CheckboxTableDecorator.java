@@ -26,11 +26,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.displaytag.model.TableModel;
 
 
@@ -123,8 +123,7 @@ public class CheckboxTableDecorator extends TableDecorator
     public String getCheckbox()
     {
 
-        @SuppressWarnings("deprecation")
-        String evaluatedId = ObjectUtils.toString(evaluate(this.id));
+        String evaluatedId = Objects.toString(evaluate(this.id));
 
         boolean checked = this.checkedIds.contains(evaluatedId);
 

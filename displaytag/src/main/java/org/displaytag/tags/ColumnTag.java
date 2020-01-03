@@ -697,7 +697,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         headerCell.setTitle(evalTitle);
         headerCell.setSortable(this.sortable);
 
-        List<DisplaytagColumnDecorator> decorators = new ArrayList<DisplaytagColumnDecorator>();
+        List<DisplaytagColumnDecorator> decorators = new ArrayList<>();
 
         // handle multiple chained decorators, whitespace separated
         if (StringUtils.isNotEmpty(this.decorator))

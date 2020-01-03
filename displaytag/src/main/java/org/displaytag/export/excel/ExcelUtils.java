@@ -62,7 +62,7 @@ public class ExcelUtils
     /*
      * Available already configured cell styles, as HSSF JavaDoc claims there are limits to cell styles.
      */
-    private Map<String, HSSFCellStyle> cellStyles = new HashMap<String, HSSFCellStyle>();
+    private Map<String, HSSFCellStyle> cellStyles = new HashMap<>();
 
     /**
      * Max line length for wrapping.

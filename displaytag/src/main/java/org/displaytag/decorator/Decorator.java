@@ -57,7 +57,7 @@ abstract class Decorator
     /**
      * property info cache contains classname#propertyname Strings as keys and Booleans as values.
      */
-    private static Map<String, Boolean> propertyMap = new ConcurrentHashMap<String, Boolean>();
+    private static Map<String, Boolean> propertyMap = new ConcurrentHashMap<>();
 
     /**
      * page context.
@@ -201,15 +201,7 @@ abstract class Decorator
                 }
             }
         }
-        catch (IllegalAccessException e)
-        {
-            // ignore
-        }
-        catch (InvocationTargetException e)
-        {
-            // ignore
-        }
-        catch (NoSuchMethodException e)
+        catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e)
         {
             // ignore
         }

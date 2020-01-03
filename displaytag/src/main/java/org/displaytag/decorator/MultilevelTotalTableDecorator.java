@@ -66,7 +66,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * Maps the groups to their current totals.
      */
-    private Map<Integer, GroupTotals> groupNumberToGroupTotal = new HashMap<Integer, GroupTotals>();
+    private Map<Integer, GroupTotals> groupNumberToGroupTotal = new HashMap<>();
 
     /**
      * The deepest reset group. Resets on an outer group will force any deeper groups to reset as well.
@@ -126,7 +126,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * Holds the header rows and their content for a particular group.
      */
-    private List<StringBuffer> headerRows = new ArrayList<StringBuffer>(5);
+    private List<StringBuffer> headerRows = new ArrayList<>(5);
 
     @Override
     public void init(PageContext context, Object decorated, TableModel model)
@@ -336,7 +336,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     @Override
     public String startRow()
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (Iterator<StringBuffer> iterator = this.headerRows.iterator(); iterator.hasNext();)
         {
             StringBuffer stringBuffer = iterator.next();
@@ -480,12 +480,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                     column.initialize();
                     return column.getChoppedAndLinkedValue();
                 }
-                catch (ObjectLookupException e)
-                {
-                    this.logger.error("Error: {}", e.getMessage(), e);
-                    throw new RuntimeException("Error: " + e.getMessage(), e);
-                }
-                catch (DecoratorException e)
+                catch (ObjectLookupException | DecoratorException e)
                 {
                     this.logger.error("Error: {}", e.getMessage(), e);
                     throw new RuntimeException("Error: " + e.getMessage(), e);
@@ -522,11 +517,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                     {
                         value = column.getValue(false);
                     }
-                    catch (ObjectLookupException e)
-                    {
-                        this.logger.error("", e);
-                    }
-                    catch (DecoratorException e)
+                    catch (ObjectLookupException | DecoratorException e)
                     {
                         this.logger.error("", e);
                     }

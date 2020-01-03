@@ -54,7 +54,7 @@ public class  TableTotaler
     public static final TableTotaler NULL  = new TableTotaler();
 
     /** The first row for each group. */
-    protected Map<Integer,Integer> firstRowForEachGroup = new HashMap<Integer,Integer>();
+    protected Map<Integer,Integer> firstRowForEachGroup = new HashMap<>();
     
     /** The how many groups. */
     protected int howManyGroups = 0;
@@ -66,13 +66,13 @@ public class  TableTotaler
     protected TableModel tableModel;
     
     /** The opened columns. */
-    List<Integer> openedColumns = new ArrayList<Integer>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
+    List<Integer> openedColumns = new ArrayList<>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
     
     /** The grouping values by column. */
-    TreeMap<Integer,String> groupingValuesByColumn = new TreeMap<Integer,String>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
+    TreeMap<Integer,String> groupingValuesByColumn = new TreeMap<>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
     
     /** The closed columns. */
-    List<Integer> closedColumns = new ArrayList<Integer>();
+    List<Integer> closedColumns = new ArrayList<>();
     /**
      * Magic constant to indicate that we want the whole list, not just a subgroup.
      */
@@ -86,7 +86,7 @@ public class  TableTotaler
     public void init(TableModel model)
     {
         this.tableModel = model;
-        this.firstRowForEachGroup = new HashMap<Integer,Integer>();
+        this.firstRowForEachGroup = new HashMap<>();
         for (HeaderCell c : model.getHeaderCellList())
         {
             if (c.getGroup() > 0)
@@ -153,7 +153,7 @@ public class  TableTotaler
      */
     public List<Integer> getOpenedColumns()
     {
-        return new ArrayList<Integer>(this.openedColumns);
+        return new ArrayList<>(this.openedColumns);
     }
 
     /**
@@ -250,11 +250,7 @@ public class  TableTotaler
                     {
                         value = column.getValue(false);
                     }
-                    catch (ObjectLookupException e)
-                    {
-                        this.logger.error("", e);
-                    }
-                    catch (DecoratorException e)
+                    catch (ObjectLookupException | DecoratorException e)
                     {
                         this.logger.error("", e);
                     }

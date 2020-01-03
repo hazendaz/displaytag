@@ -47,7 +47,7 @@ public class MultipleHtmlAttribute implements Cloneable
      */
     public MultipleHtmlAttribute(String attributeValue)
     {
-        this.attributeSet = new LinkedHashSet<String>();
+        this.attributeSet = new LinkedHashSet<>();
         addAllAttributesFromArray(StringUtils.split(attributeValue));
     }
 

@@ -407,7 +407,7 @@ public final class TableProperties implements Cloneable
     /**
      * TableProperties for each locale are loaded as needed, and cloned for public usage.
      */
-    private static Map<Locale, TableProperties> prototypes = new HashMap<Locale, TableProperties>();
+    private static Map<Locale, TableProperties> prototypes = new HashMap<>();
 
     /**
      * Loaded properties (defaults from defaultProperties + custom from bundle).

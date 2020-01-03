@@ -90,10 +90,7 @@ public class DefaultPdfExportView extends DefaultItextExportView
             {
                 helv = BaseFont.createFont("Helvetica", BaseFont.WINANSI, false);
             }
-            catch (DocumentException e)
-            {
-            }
-            catch (IOException e)
+            catch (DocumentException | IOException e)
             {
             }
             PdfContentByte cb = writer.getDirectContent();
