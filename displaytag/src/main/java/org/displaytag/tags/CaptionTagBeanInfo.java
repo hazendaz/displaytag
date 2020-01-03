@@ -42,7 +42,7 @@ public class CaptionTagBeanInfo extends SimpleBeanInfo
     @Override
     public PropertyDescriptor[] getPropertyDescriptors()
     {
-        List<PropertyDescriptor> proplist = new ArrayList<PropertyDescriptor>();
+        List<PropertyDescriptor> proplist = new ArrayList<>();
 
         try
         {

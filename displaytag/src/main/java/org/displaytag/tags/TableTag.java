@@ -1177,7 +1177,7 @@ public class TableTag extends HtmlTableTag
             // handle * keyword
             if (splittedExcludedParams.length == 1 && "*".equals(splittedExcludedParams[0]))
             {
-                // @todo cleanup: paramEncoder initialization should not be done here
+                // TODO cleanup: paramEncoder initialization should not be done here
                 if (this.paramEncoder == null)
                 {
                     this.paramEncoder = new ParamEncoder(getUid());
@@ -1327,7 +1327,7 @@ public class TableTag extends HtmlTableTag
         {
             if (log.isDebugEnabled())
             {
-                log.debug("[" + getUid() + "] doEndTag - exporting");
+                log.debug("[{}] doEndTag - exporting", getUid());
             }
 
             returnValue = doExport();
@@ -1352,9 +1352,8 @@ public class TableTag extends HtmlTableTag
      */
     private String getConfiguredDecoratorName()
     {
-        String tableDecoratorName = (this.decoratorName == null) ? this.properties
+        return this.decoratorName == null ? this.properties
             .getMediaTypeDecoratorName(this.currentMediaType) : this.decoratorName;
-        return tableDecoratorName;
     }
 
     /**
@@ -1403,7 +1402,7 @@ public class TableTag extends HtmlTableTag
         if (this.tableIterator.hasNext())
         {
             Object iteratedObject = this.tableIterator.next();
-            Map<String, String> objectProperties = new HashMap<String, String>();
+            Map<String, String> objectProperties = new HashMap<>();
 
             // if it's a String don't add the "Bytes" column
             if (iteratedObject instanceof String)
@@ -1702,7 +1701,7 @@ public class TableTag extends HtmlTableTag
      */
     public Map<String, Double> getTotals()
     {
-        Map<String, Double> totalsMap = new HashMap<String, Double>();
+        Map<String, Double> totalsMap = new HashMap<>();
         if (this.varTotals != null)
         {
             List<HeaderCell> headers = this.tableModel.getHeaderCellList();

@@ -92,7 +92,7 @@ public final class MediaUtil
             mediaSupporter.setSupportedMedia(null);
             return;
         }
-        List<MediaTypeEnum> supportedMedia = new ArrayList<MediaTypeEnum>();
+        List<MediaTypeEnum> supportedMedia = new ArrayList<>();
         String[] values = StringUtils.split(media);
         for (int i = 0; i < values.length; i++)
         {

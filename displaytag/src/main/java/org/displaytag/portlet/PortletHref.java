@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletMode;
@@ -35,7 +36,6 @@ import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.displaytag.util.Href;
@@ -115,7 +115,7 @@ public class PortletHref implements Href
     private final MimeResponse renderResponse;
 
     /** The parameters. */
-    private Map<String, String[]> parameters = new LinkedHashMap<String, String[]>();
+    private Map<String, String[]> parameters = new LinkedHashMap<>();
 
     /** The is action. */
     private boolean isAction;
@@ -256,8 +256,7 @@ public class PortletHref implements Href
     @Override
     public Href addParameter(String name, Object objValue)
     {
-        @SuppressWarnings("deprecation")
-        String value = ObjectUtils.toString(objValue, null);
+        String value = Objects.toString(objValue, null);
 
         if (name != null && name.startsWith(PARAM_PREFIX))
         {
@@ -467,7 +466,7 @@ public class PortletHref implements Href
         }
 
         href.isAction = this.isAction;
-        href.parameters = new LinkedHashMap<String, String[]>();
+        href.parameters = new LinkedHashMap<>();
         href.parameters.putAll(this.parameters);
         href.requestedMode = this.requestedMode;
         href.requestedState = this.requestedState;

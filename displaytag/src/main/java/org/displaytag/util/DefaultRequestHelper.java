@@ -128,7 +128,7 @@ public class DefaultRequestHelper implements RequestHelper
     public Map<String, String[]> getParameterMap()
     {
 
-        Map<String, String[]> map = new HashMap<String, String[]>();
+        Map<String, String[]> map = new HashMap<>();
 
         // Note: Don't type enumeration so servlet 2.5 is still possible
         // get the parameters names

@@ -117,7 +117,7 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
 
         BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl(response);
 
-        Map<String, Boolean> contentBean = new HashMap<String, Boolean>(4);
+        Map<String, Boolean> contentBean = new HashMap<>(4);
         if (this.buffer)
         {
             contentBean.put(TableTagParameters.BEAN_BUFFER, Boolean.TRUE);

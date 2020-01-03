@@ -86,7 +86,7 @@ public class Pagination
      * List containg NumberedPage objects.
      * @see org.displaytag.pagination.NumberedPage
      */
-    private List<NumberedPage> pages = new ArrayList<NumberedPage>();
+    private List<NumberedPage> pages = new ArrayList<>();
 
     /**
      * Table properties, needed fot locale.

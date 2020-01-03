@@ -148,8 +148,8 @@ public class TableModel
      */
     public TableModel(TableProperties tableProperties, String charEncoding, PageContext pageContext)
     {
-        this.rowListFull = new ArrayList<Row>(20);
-        this.headerCellList = new ArrayList<HeaderCell>(20);
+        this.rowListFull = new ArrayList<>(20);
+        this.headerCellList = new ArrayList<>(20);
         this.properties = tableProperties;
         this.encoding = charEncoding;
         this.pageContext = pageContext;

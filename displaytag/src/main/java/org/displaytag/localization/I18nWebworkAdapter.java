@@ -112,7 +112,7 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
             if (o instanceof TextProvider)
             {
                 TextProvider tp = (TextProvider) o;
-                message = tp.getText(key, null, (List) null);
+                message = tp.getText(key, null, (List<?>) null);
 
                 break;
             }

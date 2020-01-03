@@ -624,11 +624,7 @@ public class HeaderCell
                 Object val = column.getValue(false);
                 addToTotal(val);
             }
-            catch (ObjectLookupException e)
-            {
-                throw new RuntimeException(e);
-            }
-            catch (DecoratorException e)
+            catch (ObjectLookupException | DecoratorException e)
             {
                 throw new RuntimeException(e);
             }

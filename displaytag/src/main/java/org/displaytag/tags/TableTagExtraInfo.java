@@ -115,7 +115,7 @@ public class TableTagExtraInfo extends TagExtraInfo
     @Override
     public VariableInfo[] getVariableInfo(TagData data)
     {
-        List<VariableInfo> variables = new ArrayList<VariableInfo>(2);
+        List<VariableInfo> variables = new ArrayList<>(2);
 
         Object idObj = data.getAttribute(TagAttributeInfo.ID);
 

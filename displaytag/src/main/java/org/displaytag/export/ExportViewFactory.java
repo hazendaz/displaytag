@@ -56,7 +56,7 @@ public final class ExportViewFactory
     /**
      * Map containing MediaTypeEnum - View class.
      */
-    private final Map<MediaTypeEnum, Class<ExportView>> viewClasses = new HashMap<MediaTypeEnum, Class<ExportView>>();
+    private final Map<MediaTypeEnum, Class<ExportView>> viewClasses = new HashMap<>();
 
     /**
      * Private constructor.
@@ -172,12 +172,7 @@ public final class ExportViewFactory
         {
             view = viewClass.newInstance();
         }
-        catch (InstantiationException e)
-        {
-            // should not happen (class has already been instantiated before)
-            throw new WrappedRuntimeException(getClass(), e);
-        }
-        catch (IllegalAccessException e)
+        catch (InstantiationException | IllegalAccessException e)
         {
             // should not happen (class has already been instantiated before)
             throw new WrappedRuntimeException(getClass(), e);

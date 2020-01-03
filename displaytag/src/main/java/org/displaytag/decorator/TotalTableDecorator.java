@@ -26,10 +26,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.model.HeaderCell;
@@ -55,17 +55,17 @@ public class TotalTableDecorator extends TableDecorator
     /**
      * total amount.
      */
-    private Map<String, Double> grandTotals = new HashMap<String, Double>();
+    private Map<String, Double> grandTotals = new HashMap<>();
 
     /**
      * total amount for current group.
      */
-    private Map<String, Double> subTotals = new HashMap<String, Double>();
+    private Map<String, Double> subTotals = new HashMap<>();
 
     /**
      * Previous values needed for grouping.
      */
-    private Map<String, Object> previousValues = new HashMap<String, Object>();
+    private Map<String, Object> previousValues = new HashMap<>();
 
     /**
      * Name of the property used for grouping.
@@ -124,7 +124,6 @@ public class TotalTableDecorator extends TableDecorator
         }
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public String startRow()
     {
@@ -136,7 +135,7 @@ public class TotalTableDecorator extends TableDecorator
             Object previousGroupedPropertyValue = this.previousValues.get(this.groupPropertyName);
             // subtotals
             if (previousGroupedPropertyValue != null
-                && !ObjectUtils.equals(previousGroupedPropertyValue, groupedPropertyValue))
+                && !Objects.equals(previousGroupedPropertyValue, groupedPropertyValue))
             {
                 subtotalRow = createTotalRow(false);
             }

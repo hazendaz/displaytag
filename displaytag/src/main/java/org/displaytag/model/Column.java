@@ -23,8 +23,8 @@ package org.displaytag.model;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Objects;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -204,11 +204,10 @@ public class Column
      * @throws ObjectLookupException for errors in bean property lookup
      * @throws DecoratorException if a column decorator is used and an exception is thrown during value decoration
      */
-    @SuppressWarnings("deprecation")
     public String createChoppedAndLinkedValue() throws ObjectLookupException, DecoratorException
     {
 
-        String fullValue = ObjectUtils.toString(getValue(true));
+        String fullValue = Objects.toString(getValue(true));
         String choppedValue;
 
         // trim the string if a maxLength or maxWords is defined
@@ -228,7 +227,7 @@ public class Column
         // chopped content? add the full content to the column "title" attribute
         // note, simply checking that length is less than before can't be enough due to the "..." added if the string is
         // cropped
-        if (!ObjectUtils.equals(fullValue, choppedValue))
+        if (!Objects.equals(fullValue, choppedValue))
         {
             // clone the attribute map, don't want to add title to all the columns
             this.htmlAttributes = (HtmlAttributeMap) this.htmlAttributes.clone();

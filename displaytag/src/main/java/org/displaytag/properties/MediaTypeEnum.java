@@ -39,7 +39,7 @@ public final class MediaTypeEnum
     /**
      * Array containing all the export types.
      */
-    private static final List<MediaTypeEnum> ALL = new ArrayList<MediaTypeEnum>();
+    private static final List<MediaTypeEnum> ALL = new ArrayList<>();
 
     /**
      * media type HTML = 0.
@@ -113,7 +113,7 @@ public final class MediaTypeEnum
      */
     public static MediaTypeEnum fromCode(int key)
     {
-        // @todo optimization needed
+        // TODO optimization needed
         for (int i = 0; i < ALL.size(); i++)
         {
             if (key == ALL.get(i).getCode())
@@ -159,7 +159,7 @@ public final class MediaTypeEnum
      */
     public static MediaTypeEnum fromName(String code)
     {
-        // @todo optimization needed
+        // TODO optimization needed
         for (int i = 0; i < ALL.size(); i++)
         {
             if (ALL.get(i).getName().equals(code))

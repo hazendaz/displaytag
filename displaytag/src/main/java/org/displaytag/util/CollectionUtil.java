@@ -56,7 +56,7 @@ public final class CollectionUtil
     private static List<Object> getSubList(Iterator< ? > iterator, int startIndex, int numberOfItems)
     {
 
-        List<Object> croppedList = new ArrayList<Object>(numberOfItems);
+        List<Object> croppedList = new ArrayList<>(numberOfItems);
 
         int skippedRecordCount = 0;
         int copiedRecordCount = 0;
