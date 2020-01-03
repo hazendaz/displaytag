@@ -138,9 +138,8 @@ public class Column
         DisplaytagColumnDecorator[] decorators = this.header.getColumnDecorators();
         if (decorated)
         {
-            for (int j = 0; j < decorators.length; j++)
-            {
-                object = decorators[j].decorate(object, this.row.getParentTable().getPageContext(), this.row
+            for (DisplaytagColumnDecorator decorator : decorators) {
+                object = decorator.decorate(object, this.row.getParentTable().getPageContext(), this.row
                     .getParentTable()
                     .getMedia());
             }

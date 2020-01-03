@@ -52,7 +52,7 @@ public class AutolinkColumnDecorator implements DisplaytagColumnDecorator
      * Urls.
      */
     private static final String[] URLS_PREFIXES = //
-    new String[]{"http", "https", "ftp"}; //$NON-NLS-1$ 
+    new String[]{"http", "https", "ftp"}; //$NON-NLS-1$
 
     /**
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)

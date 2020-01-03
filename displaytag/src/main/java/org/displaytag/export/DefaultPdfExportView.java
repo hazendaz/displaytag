@@ -21,9 +21,6 @@
  */
 package org.displaytag.export;
 
-import java.io.IOException;
-import java.io.OutputStream;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.BaseFont;
@@ -32,6 +29,9 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.IOException;
+import java.io.OutputStream;
 
 
 /**

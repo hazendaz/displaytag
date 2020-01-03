@@ -21,16 +21,6 @@
  */
 package org.displaytag.render;
 
-import java.util.Iterator;
-
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.decorator.TableDecorator;
-import org.displaytag.exception.DecoratorException;
-import org.displaytag.exception.ObjectLookupException;
-import org.displaytag.model.Column;
-import org.displaytag.model.HeaderCell;
-import org.displaytag.model.TableModel;
-
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -43,6 +33,16 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+
+import java.util.Iterator;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.decorator.TableDecorator;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.model.Column;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.TableModel;
 
 
 /**
@@ -180,7 +180,7 @@ public class ItextTableWriter extends TableWriterAdapter
     private float getCellWidth(HeaderCell headerCell)
     {
         int maxWidth = headerCell.getMaxLength();
-        return (maxWidth > 0) ? maxWidth : headerCell.getTitle().length();
+        return maxWidth > 0 ? maxWidth : headerCell.getTitle().length();
     }
 
     /**

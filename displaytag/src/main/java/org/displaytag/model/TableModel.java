@@ -381,7 +381,7 @@ public class TableModel
      */
     public HeaderCell getSortedColumnHeader()
     {
-        if (this.sortedColumn < 0 || (this.sortedColumn > (this.headerCellList.size() - 1)))
+        if (this.sortedColumn < 0 || this.sortedColumn > this.headerCellList.size() - 1)
         {
             return null;
         }
@@ -493,10 +493,10 @@ public class TableModel
             {
                 // If it is an explicit value, then sort by that, otherwise sort by the property...
                 if (sortedHeaderCell.getBeanPropertyName() != null
-                    || (this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size()))
+                    || this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size())
                 {
 
-                    String sorted = (sortedHeaderCell.getSortProperty() != null)
+                    String sorted = sortedHeaderCell.getSortProperty() != null
                         ? sortedHeaderCell.getSortProperty()
                         : sortedHeaderCell.getBeanPropertyName();
 

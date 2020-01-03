@@ -302,7 +302,7 @@ public final class LookupUtil
         // Identify the index of the requested individual property
         int delim = evalName.indexOf(INDEXED_DELIM);
         int delim2 = evalName.indexOf(INDEXED_DELIM2);
-        if ((delim < 0) || (delim2 <= delim))
+        if (delim < 0 || delim2 <= delim)
         {
             throw new IllegalArgumentException("Invalid indexed property '" + evalName + "'");
         }

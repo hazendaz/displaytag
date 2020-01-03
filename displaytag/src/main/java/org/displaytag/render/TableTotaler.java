@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  */
 public class  TableTotaler
 {
-    
+
     /** The logger. */
     protected Logger logger = LoggerFactory.getLogger(TableTotaler.class);
 
@@ -55,22 +55,22 @@ public class  TableTotaler
 
     /** The first row for each group. */
     protected Map<Integer,Integer> firstRowForEachGroup = new HashMap<>();
-    
+
     /** The how many groups. */
     protected int howManyGroups = 0;
-    
+
     /** The current row number. */
     protected Integer currentRowNumber = 0;
-    
+
     /** The table model. */
     protected TableModel tableModel;
-    
+
     /** The opened columns. */
     List<Integer> openedColumns = new ArrayList<>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
-    
+
     /** The grouping values by column. */
     TreeMap<Integer,String> groupingValuesByColumn = new TreeMap<>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
-    
+
     /** The closed columns. */
     List<Integer> closedColumns = new ArrayList<>();
     /**

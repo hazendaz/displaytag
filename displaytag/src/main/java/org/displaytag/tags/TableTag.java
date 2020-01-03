@@ -693,7 +693,7 @@ public class TableTag extends HtmlTableTag
             log.debug("[{}] addColumn {}", getUid(), column);
         }
 
-        if ((this.paginatedList != null) && (column.getSortable()))
+        if (this.paginatedList != null && column.getSortable())
         {
             String sortCriterion = this.paginatedList.getSortCriterion();
 
@@ -703,7 +703,7 @@ public class TableTag extends HtmlTableTag
                 sortProperty = column.getBeanPropertyName();
             }
 
-            if ((sortCriterion != null) && sortCriterion.equals(sortProperty))
+            if (sortCriterion != null && sortCriterion.equals(sortProperty))
             {
                 this.tableModel.setSortedColumnNumber(this.tableModel.getNumberOfColumns());
                 column.setAlreadySorted();
@@ -852,7 +852,7 @@ public class TableTag extends HtmlTableTag
             Object iteratedObject = this.tableIterator.next();
             if (getUid() != null)
             {
-                if ((iteratedObject != null))
+                if (iteratedObject != null)
                 {
                     // set object into this.pageContext
                     if (log.isDebugEnabled())
@@ -884,7 +884,7 @@ public class TableTag extends HtmlTableTag
 
         if (log.isDebugEnabled())
         {
-            log.debug("[{}] doIteration() - iterator ended after {} rows", getUid(), (this.rowNumber - 1));
+            log.debug("[{}] doIteration() - iterator ended after {} rows", getUid(), this.rowNumber - 1);
         }
 
         // end iteration
@@ -965,7 +965,7 @@ public class TableTag extends HtmlTableTag
         }
 
         // set the table model to perform in memory local sorting
-        this.tableModel.setLocalSort(this.localSort && (this.paginatedList == null));
+        this.tableModel.setLocalSort(this.localSort && this.paginatedList == null);
 
         HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();
         RequestHelper requestHelper = rhf.getRequestHelperInstance(this.pageContext);
@@ -973,7 +973,7 @@ public class TableTag extends HtmlTableTag
         initHref(requestHelper);
 
         Integer pageNumberParameter = getFromRequestOrSession(request, requestHelper, TableTagParameters.PARAMETER_PAGE);
-        this.pageNumber = (pageNumberParameter == null) ? 1 : pageNumberParameter.intValue();
+        this.pageNumber = pageNumberParameter == null ? 1 : pageNumberParameter.intValue();
 
         int sortColumn = -1;
         if (!this.tableModel.isLocalSort())
@@ -1008,7 +1008,7 @@ public class TableTag extends HtmlTableTag
                 request,
                 requestHelper,
                 TableTagParameters.PARAMETER_SORT);
-            sortColumn = (sortColumnParameter == null) ? this.defaultSortedColumn : sortColumnParameter.intValue();
+            sortColumn = sortColumnParameter == null ? this.defaultSortedColumn : sortColumnParameter.intValue();
             this.tableModel.setSortedColumnNumber(sortColumn);
         }
         else
@@ -1063,7 +1063,7 @@ public class TableTag extends HtmlTableTag
         // if we are doing partialLists then ensure we have our size object
         if (this.partialList)
         {
-            if ((this.sizeObjectName == null) && (this.size == null))
+            if (this.sizeObjectName == null && this.size == null)
             {
                 // ?
             }
@@ -1086,18 +1086,17 @@ public class TableTag extends HtmlTableTag
         this.tableIterator = IteratorUtils.getIterator(this.list);
 
         // do we really need to skip any row?
-        boolean wishOptimizedIteration = ((this.pagesize > 0 // we are paging
+        boolean wishOptimizedIteration = (this.pagesize > 0 // we are paging
             || this.offset > 0 // or we are skipping some records using offset
         || this.length > 0 // or we are limiting the records using length
-        ) && !this.partialList); // only optimize if we have the full list
+        ) && !this.partialList; // only optimize if we have the full list
 
         // can we actually skip any row?
-        if (wishOptimizedIteration && (this.list instanceof Collection) // we need to know the size
-            && ((sortColumn == -1 // and we are not sorting
+        if (wishOptimizedIteration && this.list instanceof Collection // we need to know the size
+            && (sortColumn == -1 // and we are not sorting
             || !finalSortFull // or we are sorting with the "page" behaviour
             ) && (this.currentMediaType == MediaTypeEnum.HTML // and we are not exporting
-            || !this.properties.getExportFullList()) // or we are exporting a single page
-            ))
+            || !this.properties.getExportFullList())) // or we are exporting a single page
         {
             int start = 0;
             int end = 0;
@@ -1120,7 +1119,7 @@ public class TableTag extends HtmlTableTag
                 {
 
                     int div = fullSize / this.pagesize;
-                    start = ((fullSize % this.pagesize == 0) ? div - 1 : div) * this.pagesize;
+                    start = (fullSize % this.pagesize == 0 ? div - 1 : div) * this.pagesize;
                 }
                 end = start + this.pagesize;
             }
@@ -1197,9 +1196,8 @@ public class TableTag extends HtmlTableTag
             }
             else
             {
-                for (int j = 0; j < splittedExcludedParams.length; j++)
-                {
-                    this.baseHref.removeParameter(splittedExcludedParams[j]);
+                for (String splittedExcludedParam : splittedExcludedParams) {
+                    this.baseHref.removeParameter(splittedExcludedParam);
                 }
             }
         }
@@ -1363,7 +1361,7 @@ public class TableTag extends HtmlTableTag
      */
     private String getTotalerName()
     {
-        return (this.totalerName == null) ? this.properties.getTotalerName() : this.totalerName;
+        return this.totalerName == null ? this.properties.getTotalerName() : this.totalerName;
     }
 
     /**
@@ -1648,7 +1646,7 @@ public class TableTag extends HtmlTableTag
         // SmartListHelper to figure out what page they are after, etc...
         if (this.paginatedList == null && this.pagesize > 0)
         {
-            this.listHelper = new SmartListHelper(fullList, (this.partialList)
+            this.listHelper = new SmartListHelper(fullList, this.partialList
                 ? ((Integer) this.size).intValue()
                 : fullList.size(), this.pagesize, this.properties, this.partialList);
             this.listHelper.setCurrentPage(this.pageNumber);
@@ -1705,9 +1703,7 @@ public class TableTag extends HtmlTableTag
         if (this.varTotals != null)
         {
             List<HeaderCell> headers = this.tableModel.getHeaderCellList();
-            for (Iterator<HeaderCell> iterator = headers.iterator(); iterator.hasNext();)
-            {
-                HeaderCell headerCell = iterator.next();
+            for (HeaderCell headerCell : headers) {
                 if (headerCell.isTotaled())
                 {
                     totalsMap.put("column" + (headerCell.getColumnNumber() + 1), Double.valueOf(headerCell.getTotal()));

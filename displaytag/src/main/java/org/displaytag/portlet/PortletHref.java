@@ -21,7 +21,6 @@
  */
 package org.displaytag.portlet;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -357,10 +356,7 @@ public class PortletHref implements Href
     @Override
     public void addParameterMap(Map<String, String[]> parametersMap)
     {
-        for (final Iterator<Entry<String, String[]>> paramItr = parametersMap.entrySet().iterator(); paramItr.hasNext();)
-        {
-            final Entry<String, String[]> entry = paramItr.next();
-
+        for (Entry<String, String[]> entry : parametersMap.entrySet()) {
             final String name = entry.getKey();
 
             // Allow multivalued parameters since code elsewhere calls this method to copy
@@ -577,11 +573,7 @@ public class PortletHref implements Href
             }
         }
 
-        for (final Iterator<Entry<String, String[]>> paramItr = this.parameters.entrySet().iterator(); paramItr
-            .hasNext();)
-        {
-            final Entry<String, String[]> entry = paramItr.next();
-
+        for (Entry<String, String[]> entry : this.parameters.entrySet()) {
             final String name = entry.getKey();
             final String[] value = entry.getValue();
 

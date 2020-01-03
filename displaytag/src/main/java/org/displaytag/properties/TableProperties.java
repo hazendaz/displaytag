@@ -422,7 +422,7 @@ public final class TableProperties implements Cloneable
     /**
      * Cache for dinamically instantiated object (request factory, decorator factory).
      */
-    private Map<String, Object> objectCache = new HashMap<String, Object>();
+    private Map<String, Object> objectCache = new HashMap<>();
 
     /**
      * Setter for I18nResourceProvider. A resource provider is usually set using displaytag properties, this accessor is
@@ -1044,7 +1044,7 @@ public final class TableProperties implements Cloneable
      */
     public String getCssRow(int rowNumber)
     {
-        return getProperty((rowNumber % 2 == 0) ? PROPERTY_CSS_TR_ODD : PROPERTY_CSS_TR_EVEN);
+        return getProperty(rowNumber % 2 == 0 ? PROPERTY_CSS_TR_ODD : PROPERTY_CSS_TR_EVEN);
     }
 
     /**

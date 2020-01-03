@@ -206,7 +206,7 @@ public class ExcelUtils
      * The Enum CellFormatTypes.
      */
     public enum CellFormatTypes {
-        
+
         /** The integer. */
         INTEGER,
 

@@ -47,7 +47,7 @@ public class EscapeXmlColumnDecorator implements DisplaytagColumnDecorator
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
     {
 
-        if (columnValue == null || (!media.equals(MediaTypeEnum.HTML) && !media.equals(MediaTypeEnum.XML)))
+        if (columnValue == null || !media.equals(MediaTypeEnum.HTML) && !media.equals(MediaTypeEnum.XML))
         {
             return columnValue;
         }

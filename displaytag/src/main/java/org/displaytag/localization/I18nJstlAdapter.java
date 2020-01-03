@@ -41,20 +41,20 @@ import org.slf4j.LoggerFactory;
  * JSTL implementation of a resource provider and locale resolver. It will make the <code>titleKey</code> attribute of
  * column tag works the same as fmt:message's <code>key property</code>. This tag must be the descendant of a
  * <code>fmt:bundle</code> tag in order to use the titleKey. This is just a shortcut, which makes
- * 
+ *
  * <pre>
  * &lt;display:column titleKey="bar"/&gt;
  * </pre>
- * 
+ *
  * behave the same as
- * 
+ *
  * <pre>
  * &lt;c:set var="foo"&gt;
  *   &lt;fmt:message key="bar"/&gt;
  * &lt;/c:set&gt;
  * &lt;display:column title="${foo}"/&gt;
  * </pre>
- * 
+ *
  * If you don't define either <code>titleKey</code> or <code>titleKey</code> property on your column, first the tag
  * will attempt to look up the <code>property</code> property in your ResourceBundle. Failing that, it will fall back
  * to the parent class's behavior of just using the property name.
@@ -106,7 +106,7 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
     {
 
         // if titleKey isn't defined either, use property
-        String key = (resourceKey != null) ? resourceKey : defaultValue;
+        String key = resourceKey != null ? resourceKey : defaultValue;
         String title = null;
         ResourceBundle bundle = null;
 

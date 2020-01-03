@@ -346,7 +346,7 @@ public class HssfTableWriter extends TableWriterAdapter
     {
         this.sheet.addMergedRegion(this.getMergeCellsRegion(
             this.currentCell.getColumnIndex(),
-            (model.getNumberOfColumns() - 1)));
+            model.getNumberOfColumns() - 1));
     }
 
     /**
@@ -452,7 +452,7 @@ public class HssfTableWriter extends TableWriterAdapter
             {
                 writeColumnOpener(null);
                 int thisCellAsDtNumber = asDtColNumber(cell.getColumnNumber());
-                String columnValue = (thisCellAsDtNumber != dtColumnNumber) ? "" : tt.getGroupingValue(dtColumnNumber);
+                String columnValue = thisCellAsDtNumber != dtColumnNumber ? "" : tt.getGroupingValue(dtColumnNumber);
                 writeCellValue(columnValue);
                 writeColumnCloser(null);
             }
@@ -603,7 +603,7 @@ public class HssfTableWriter extends TableWriterAdapter
         for (HeaderCell cell : model.getHeaderCellList())
         {
             writeColumnOpener(null);
-            Object columnValue = (cell.isTotaled()) ? tt.getTotalForColumn(cell.getColumnNumber(), 0) : null;
+            Object columnValue = cell.isTotaled() ? tt.getTotalForColumn(cell.getColumnNumber(), 0) : null;
             writeCellValue(columnValue);
             CellStyle st = this.utils.getNewCellStyle();
             st.cloneStyleFrom(this.currentCell.getCellStyle());

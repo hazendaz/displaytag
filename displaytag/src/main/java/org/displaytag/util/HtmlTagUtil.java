@@ -245,7 +245,7 @@ public final class HtmlTagUtil
 
             }
 
-            if (inTag || (!byNumberOfWords || count < maxLength))
+            if (inTag || !byNumberOfWords || count < maxLength)
             {
                 buffer.append(c);
             }

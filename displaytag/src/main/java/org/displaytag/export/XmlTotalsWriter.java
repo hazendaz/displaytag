@@ -67,25 +67,25 @@ Sample fragment
 * */
 public class XmlTotalsWriter extends TableWriterAdapter
 {
-    
+
     /** The style pat. */
     Pattern stylePat = Pattern.compile("\\s*?([\\w\\-]+?)\\s*?:\\s*?([\\w\\-]+?)(?:;|$)");
-    
+
     /** The xml. */
     protected StringBuffer xml = new StringBuffer();
-    
+
     /** The current grouping value by group. */
-    Map<Integer,String> currentGroupingValueByGroup = new HashMap<Integer,String>();
-    
+    Map<Integer,String> currentGroupingValueByGroup = new HashMap<>();
+
     /** The group id. */
     Integer groupId;
-    
+
     /** The current grouping level. */
     int currentGroupingLevel = 0;
-    
+
     /** The max word length. */
     int maxWordLength = 15;
-    
+
     /** The Constant NOOP. */
     public static final TableDecorator NOOP = new TableDecorator()
         {

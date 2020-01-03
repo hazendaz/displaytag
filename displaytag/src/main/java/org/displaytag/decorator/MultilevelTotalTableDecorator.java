@@ -24,7 +24,6 @@ package org.displaytag.decorator;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -134,9 +133,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         super.init(context, decorated, model);
         List<HeaderCell> headerCells = model.getHeaderCellList();
         // go through each column, looking for grouped columns; add them to the group number map
-        for (Iterator<HeaderCell> iterator = headerCells.iterator(); iterator.hasNext();)
-        {
-            HeaderCell headerCell = iterator.next();
+        for (HeaderCell headerCell : headerCells) {
             if (headerCell.getGroup() > 0)
             {
                 GroupTotals groupTotals = new GroupTotals(headerCell.getColumnNumber());
@@ -337,9 +334,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     public String startRow()
     {
         StringBuilder sb = new StringBuilder();
-        for (Iterator<StringBuffer> iterator = this.headerRows.iterator(); iterator.hasNext();)
-        {
-            StringBuffer stringBuffer = iterator.next();
+        for (StringBuffer stringBuffer : this.headerRows) {
             sb.append(stringBuffer);
         }
         return sb.toString();
@@ -422,9 +417,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
                 + " class=\"grandtotal-row\""
                 + TagConstants.TAG_CLOSE);
             boolean first = true;
-            for (Iterator<HeaderCell> iterator = headerCells.iterator(); iterator.hasNext();)
-            {
-                HeaderCell headerCell = iterator.next();
+            for (HeaderCell headerCell : headerCells) {
                 if (first)
                 {
                     output.append(getTotalsTdOpen(headerCell, getGrandTotalLabel()));
@@ -503,9 +496,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         List<Row> fullList = this.tableModel.getRowListFull();
         List<Row> window = fullList.subList(startRow, stopRow + 1);
         Object total = null;
-        for (Iterator<Row> iterator = window.iterator(); iterator.hasNext();)
-        {
-            Row row = iterator.next();
+        for (Row row : window) {
             ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
             while (columnIterator.hasNext())
             {
@@ -701,10 +692,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
             if (this.firstRowOfCurrentSet < currentRow) // If there is more than one row, show a total
             {
                 out.append(this.totalsRowOpen);
-                for (Iterator<HeaderCell> iterator = headerCells.iterator(); iterator.hasNext();)
-                {
-                    HeaderCell headerCell = iterator.next();
-
+                for (HeaderCell headerCell : headerCells) {
                     if (this.columnNumber == headerCell.getColumnNumber())
                     {
                         // a totals label if it is the column for the current group

@@ -70,7 +70,7 @@ public class Row
     {
         this.rowObject = object;
         this.rowNumber = number;
-        this.staticCells = new ArrayList<Cell>();
+        this.staticCells = new ArrayList<>();
     }
 
     /**
