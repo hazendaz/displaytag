@@ -20,10 +20,10 @@
         <display:column title="ant" property="ant" />
         <display:column title="empty"></display:column>
 		<display:setProperty name="paging.banner.first">
-			<jsp:text><div id="PAGEONE">PAGEONE</div></jsp:text>
+			<div id="PAGEONE">PAGEONE</div>
 		</display:setProperty>
         <display:setProperty name="paging.banner.last">
-          <jsp:text><div id="PAGETWO">PAGETWO</div></jsp:text>
+          <div id="PAGETWO">PAGETWO</div>
         </display:setProperty>
       </display:table>
     </body>

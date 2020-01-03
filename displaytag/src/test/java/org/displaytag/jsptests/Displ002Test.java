@@ -61,9 +61,7 @@ public class Displ002Test extends DisplaytagCase
     public void doTest() throws Exception
     {
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response;
-
-        response = this.runner.getResponse(request);
+        WebResponse response = this.runner.getResponse(request);
 
         if (this.log.isDebugEnabled())
         {

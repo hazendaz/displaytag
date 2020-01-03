@@ -16,7 +16,7 @@
             ]]> </jsp:scriptlet>
             <display:table name="requestScope.test" id="table" >
                 <display:column title="link" maxLength="12">
-                  <jsp:text><a href="mailto:someone@somewhere.com">"the <strong>link</strong>"</a> is here</jsp:text>
+                  <span><a href="mailto:someone@somewhere.com">"the <strong>link</strong>"</a> is here</span>
                 </display:column>
                 <display:column property="ant"/>
             </display:table>

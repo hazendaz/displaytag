@@ -21,10 +21,10 @@
                 <display:column property="ant"/>
                 <display:setProperty name="paging.banner.group_size" value="5" />
                 <display:setProperty name="paging.banner.full">
-	                <jsp:text><div id="pagination">[{6}]</div></jsp:text>
+	                <div id="pagination">[{6}]</div>
                 </display:setProperty>
                 <display:setProperty name="paging.banner.last">
-                  <jsp:text><div id="pagination">[{6}]</div></jsp:text>
+                  <div id="pagination">[{6}]</div>
                 </display:setProperty>
             </display:table>
         </body>
