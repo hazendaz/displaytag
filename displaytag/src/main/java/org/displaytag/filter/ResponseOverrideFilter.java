@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  * jsp:include. If that is your intention, just add this Filter to your web.xml and map it to the appropriate requests,
  * using something like:
  * </p>
- * 
+ *
  * <pre>
  *  &lt;filter&gt;
  *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
@@ -66,13 +66,13 @@ import org.slf4j.LoggerFactory;
  *      &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
  *  &lt;/filter-mapping&gt;
  * </pre>
- * 
+ *
  * <p>
  * By default the filter buffers all the export content before writing it out. You can set an optional parameter
  * <code>buffer</code> to <code>false</code> to make the filter write directly to the output stream. This could be
  * faster and uses less memory, but the content length will not be set.
  * </p>
- * 
+ *
  * <pre>
  *  &lt;filter&gt;
  *      &lt;filter-name&gt;ResponseOverrideFilter&lt;/filter-name&gt;
@@ -83,7 +83,7 @@ import org.slf4j.LoggerFactory;
  *      &lt;/init-param&gt;
  *  &lt;/filter&gt;
  *  </pre>
- * 
+ *
  * @author rapruitt
  * @author Fabrizio Giustina
  * @version $Revision$ ($Author$)
@@ -115,7 +115,7 @@ public class ResponseOverrideFilter implements Filter
         }
         this.buffer = bufferParam == null || StringUtils.equalsIgnoreCase("true", bufferParam);
 
-        this.log.info("Filter initialized. Response buffering is {}", (this.buffer ? "enabled" : "disabled"));
+        this.log.info("Filter initialized. Response buffering is {}", this.buffer ? "enabled" : "disabled");
     }
 
     /**

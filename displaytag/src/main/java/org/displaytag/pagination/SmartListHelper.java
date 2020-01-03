@@ -134,7 +134,7 @@ public class SmartListHelper
     {
         int size = this.fullListSize;
         int div = size / this.pageSize;
-        return (size % this.pageSize == 0) ? div : div + 1;
+        return size % this.pageSize == 0 ? div : div + 1;
     }
 
     /**
@@ -342,7 +342,7 @@ public class SmartListHelper
             {
                 log.debug("adding page {}", j); //$NON-NLS-1$
             }
-            pagination.addPage(j, (j == this.currentPage));
+            pagination.addPage(j, j == this.currentPage);
         }
 
         if (this.currentPage != this.pageCount)

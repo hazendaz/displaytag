@@ -95,8 +95,8 @@ public class ExcelView extends BaseExportView
         {
             // quotes around fields are needed to avoid occasional "Sylk format invalid" messages from excel
             return "\"" //$NON-NLS-1$
-                + StringUtils.replace(StringUtils.trim(value.toString()), "\"", "\"\"") //$NON-NLS-1$ //$NON-NLS-2$ 
-                + "\""; //$NON-NLS-1$ 
+                + StringUtils.replace(StringUtils.trim(value.toString()), "\"", "\"\"") //$NON-NLS-1$ //$NON-NLS-2$
+                + "\""; //$NON-NLS-1$
         }
 
         return null;

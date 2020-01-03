@@ -47,7 +47,7 @@ public class ObjectLookupException extends BaseNestableJspTagException
     public ObjectLookupException(Class<?> source, Object beanObject, String beanProperty, Throwable cause)
     {
         super(source, Messages.getString("ObjectLookupException.msg" //$NON-NLS-1$
-            , new Object[]{beanProperty, ((beanObject == null) ? "null" : beanObject.getClass().getName())}//$NON-NLS-1$
+            , new Object[]{beanProperty, beanObject == null ? "null" : beanObject.getClass().getName()}//$NON-NLS-1$
             ), cause);
     }
 

@@ -23,7 +23,6 @@ package org.displaytag.decorator;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -114,9 +113,7 @@ public class TotalTableDecorator extends TableDecorator
         this.subTotals.clear();
         this.previousValues.clear();
 
-        for (Iterator<HeaderCell> it = tableModel.getHeaderCellList().iterator(); it.hasNext();)
-        {
-            HeaderCell cell = it.next();
+        for (HeaderCell cell : tableModel.getHeaderCellList()) {
             if (cell.getGroup() == 1)
             {
                 this.groupPropertyName = cell.getBeanPropertyName();
@@ -142,9 +139,7 @@ public class TotalTableDecorator extends TableDecorator
             this.previousValues.put(this.groupPropertyName, groupedPropertyValue);
         }
 
-        for (Iterator<HeaderCell> it = this.tableModel.getHeaderCellList().iterator(); it.hasNext();)
-        {
-            HeaderCell cell = it.next();
+        for (HeaderCell cell : this.tableModel.getHeaderCellList()) {
             if (cell.isTotaled())
             {
                 String totalPropertyName = cell.getBeanPropertyName();
@@ -203,9 +198,7 @@ public class TotalTableDecorator extends TableDecorator
 
         List<HeaderCell> headerCells = this.tableModel.getHeaderCellList();
 
-        for (Iterator<HeaderCell> it = headerCells.iterator(); it.hasNext();)
-        {
-            HeaderCell cell = it.next();
+        for (HeaderCell cell : headerCells) {
             Object cssClassObj = cell.getHtmlAttributes().get("class");
             String cssClass = cssClassObj != null ? cssClassObj.toString() : StringUtils.EMPTY;
 
@@ -224,11 +217,10 @@ public class TotalTableDecorator extends TableDecorator
                 Object total = grandTotal ? this.grandTotals.get(totalPropertyName) : this.subTotals.get(totalPropertyName);
 
                 DisplaytagColumnDecorator[] decorators = cell.getColumnDecorators();
-                for (int j = 0; j < decorators.length; j++)
-                {
+                for (DisplaytagColumnDecorator decorator : decorators) {
                     try
                     {
-                        total = decorators[j].decorate(total, this.getPageContext(), this.tableModel.getMedia());
+                        total = decorator.decorate(total, this.getPageContext(), this.tableModel.getMedia());
                     }
                     catch (DecoratorException e)
                     {

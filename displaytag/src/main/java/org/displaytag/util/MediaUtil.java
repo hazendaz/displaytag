@@ -94,9 +94,7 @@ public final class MediaUtil
         }
         List<MediaTypeEnum> supportedMedia = new ArrayList<>();
         String[] values = StringUtils.split(media);
-        for (int i = 0; i < values.length; i++)
-        {
-            String value = values[i];
+        for (String value : values) {
             if (!StringUtils.isBlank(value))
             {
                 MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());

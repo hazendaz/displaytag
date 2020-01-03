@@ -21,6 +21,12 @@
  */
 package org.displaytag.localization;
 
+import com.opensymphony.webwork.views.jsp.TagUtils;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.LocaleProvider;
+import com.opensymphony.xwork.TextProvider;
+import com.opensymphony.xwork.util.OgnlValueStack;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -31,12 +37,6 @@ import javax.servlet.jsp.tagext.Tag;
 import org.displaytag.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.opensymphony.webwork.views.jsp.TagUtils;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.LocaleProvider;
-import com.opensymphony.xwork.TextProvider;
-import com.opensymphony.xwork.util.OgnlValueStack;
 
 
 /**
@@ -99,7 +99,7 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
     {
 
         // if resourceKey isn't defined either, use defaultValue
-        String key = (resourceKey != null) ? resourceKey : defaultValue;
+        String key = resourceKey != null ? resourceKey : defaultValue;
 
         String message = null;
         OgnlValueStack stack = TagUtils.getStack(pageContext);

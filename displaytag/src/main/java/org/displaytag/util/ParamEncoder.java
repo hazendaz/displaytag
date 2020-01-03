@@ -57,9 +57,8 @@ public class ParamEncoder implements Serializable
         // calculate a simple checksum-like value
         int checkSum = 17;
 
-        for (int j = 0; j < charArray.length; j++)
-        {
-            checkSum = 3 * checkSum + charArray[j];
+        for (char element : charArray) {
+            checkSum = 3 * checkSum + element;
         }
 
         // keep it positive

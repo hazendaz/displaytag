@@ -295,9 +295,9 @@ public abstract class TableWriterTemplate
         Row previousRow = null;
         Row currentRow = null;
         Row nextRow = null;
-        Map<Integer, CellStruct> previousRowValues = new HashMap<Integer, CellStruct>(10);
-        Map<Integer, CellStruct> currentRowValues = new HashMap<Integer, CellStruct>(10);
-        Map<Integer, CellStruct> nextRowValues = new HashMap<Integer, CellStruct>(10);
+        Map<Integer, CellStruct> previousRowValues = new HashMap<>(10);
+        Map<Integer, CellStruct> currentRowValues = new HashMap<>(10);
+        Map<Integer, CellStruct> nextRowValues = new HashMap<>(10);
 
         while (nextRow != null || rowIterator.hasNext())
         {
@@ -385,7 +385,7 @@ public abstract class TableWriterTemplate
                     currentRow.getRowNumber() + rowIterator.getPageOffset());
             }
 
-            ArrayList<CellStruct> structsForRow = new ArrayList<CellStruct>(model.getHeaderCellList().size());
+            ArrayList<CellStruct> structsForRow = new ArrayList<>(model.getHeaderCellList().size());
             this.lowestEndedGroup = NO_RESET_GROUP;
             this.lowestStartedGroup = NO_RESET_GROUP;
 

@@ -217,17 +217,14 @@ public class HtmlTableWriter extends TableWriterAdapter
         addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_PAGE));
         addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_SORT));
 
-        for (Iterator<String> it = parameters.keySet().iterator(); it.hasNext();)
-        {
-            String key = it.next();
+        for (String key : parameters.keySet()) {
             Object value = parameters.get(key);
 
             if (value != null && value.getClass().isArray())
             {
                 Object[] arr = (Object[]) value;
-                for (int j = 0; j < arr.length; j++)
-                {
-                    writeField(key, arr[j]);
+                for (Object element : arr) {
+                    writeField(key, element);
                 }
             }
             else
@@ -556,7 +553,7 @@ public class HtmlTableWriter extends TableWriterAdapter
         if (this.paginatedList == null)
         {
             // add column number as link parameter
-            if (!model.isLocalSort() && (headerCell.getSortName() != null))
+            if (!model.isLocalSort() && headerCell.getSortName() != null)
             {
                 href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORT, model), headerCell.getSortName());
                 href.addParameter(encodeParameter(TableTagParameters.PARAMETER_SORTUSINGNAME, model), "1");
@@ -671,8 +668,8 @@ public class HtmlTableWriter extends TableWriterAdapter
      */
     protected void writeSearchResultAndNavigation(TableModel model)
     {
-        if ((this.paginatedList == null && this.pagesize != 0 && this.listHelper != null)
-            || (this.paginatedList != null))
+        if (this.paginatedList == null && this.pagesize != 0 && this.listHelper != null
+            || this.paginatedList != null)
         {
             // create a new href
             Href navigationHref = (Href) this.baseHref.clone();
@@ -692,8 +689,8 @@ public class HtmlTableWriter extends TableWriterAdapter
             else
             {
                 pageParameter = this.properties.getPaginationPageNumberParam();
-                if ((this.paginatedList.getSearchId() != null)
-                    && (!navigationHref.getParameterMap().containsKey(this.properties.getPaginationSearchIdParam())))
+                if (this.paginatedList.getSearchId() != null
+                    && !navigationHref.getParameterMap().containsKey(this.properties.getPaginationSearchIdParam()))
                 {
                     navigationHref.addParameter(this.properties.getPaginationSearchIdParam(), this.paginatedList.getSearchId());
                 }

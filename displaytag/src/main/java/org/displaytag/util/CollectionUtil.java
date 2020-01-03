@@ -72,7 +72,7 @@ public final class CollectionUtil
 
             croppedList.add(object);
 
-            if ((numberOfItems != 0) && (++copiedRecordCount >= numberOfItems))
+            if (numberOfItems != 0 && ++copiedRecordCount >= numberOfItems)
             {
                 break;
             }
@@ -96,7 +96,7 @@ public final class CollectionUtil
         if (iterableObject instanceof List)
         {
             // easier, use sublist
-            List<Object> list = ((List<Object>) iterableObject);
+            List<Object> list = (List<Object>) iterableObject;
 
             // check for partial lists
             int lastRecordExclusive = numberOfItems <= 0 ? list.size() : startIndex + numberOfItems;

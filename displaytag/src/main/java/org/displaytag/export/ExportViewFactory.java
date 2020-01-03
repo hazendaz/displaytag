@@ -71,10 +71,9 @@ public final class ExportViewFactory
             log.info(Messages.getString("ExportViewFactory.initializing", //$NON-NLS-1$
                 new Object[]{ArrayUtils.toString(exportTypes)}));
         }
-        for (int j = 0; j < exportTypes.length; j++)
-        {
-            String className = properties.getExportClass(exportTypes[j]);
-            registerExportView(exportTypes[j], className);
+        for (String exportType : exportTypes) {
+            String className = properties.getExportClass(exportType);
+            registerExportView(exportType, className);
         }
     }
 
@@ -147,7 +146,7 @@ public final class ExportViewFactory
 
         if (log.isDebugEnabled())
         {
-            log.debug(Messages.getString("ExportViewFactory.added", //$NON-NLS-1$ 
+            log.debug(Messages.getString("ExportViewFactory.added", //$NON-NLS-1$
                 new Object[]{media, viewClassName}));
         }
     }

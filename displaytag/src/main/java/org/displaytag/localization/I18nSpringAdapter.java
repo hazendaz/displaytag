@@ -76,7 +76,7 @@ public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider
         }
 
         // if resourceKey isn't defined either, use defaultValue
-        String key = (resourceKey != null) ? resourceKey : defaultValue;
+        String key = resourceKey != null ? resourceKey : defaultValue;
 
         String message = null;
 

@@ -102,11 +102,10 @@ public final class SortOrderEnum implements Serializable
      */
     public static SortOrderEnum fromCode(int key)
     {
-        for (int i = 0; i < ALL.length; i++)
-        {
-            if (key == ALL[i].getCode())
+        for (SortOrderEnum element : ALL) {
+            if (key == element.getCode())
             {
-                return ALL[i];
+                return element;
             }
         }
         // lookup failed
@@ -147,11 +146,10 @@ public final class SortOrderEnum implements Serializable
      */
     public static SortOrderEnum fromName(String code)
     {
-        for (int i = 0; i < ALL.length; i++)
-        {
-            if (ALL[i].getName().equals(code))
+        for (SortOrderEnum element : ALL) {
+            if (element.getName().equals(code))
             {
-                return ALL[i];
+                return element;
             }
         }
         // lookup failed

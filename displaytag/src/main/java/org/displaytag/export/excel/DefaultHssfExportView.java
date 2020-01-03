@@ -36,7 +36,7 @@ import org.displaytag.render.HssfTableWriter;
 
 /**
  * Excel exporter using POI.
- * 
+ *
  * @author Jorge L. Barroso
  * @version $Revision$ ($Author$)
  */
@@ -46,7 +46,7 @@ public class DefaultHssfExportView implements BinaryExportView
      * TableModel to render.
      */
     protected TableModel model;
-    
+
     /**
      * @see org.displaytag.export.BinaryExportView#doExport(java.io.OutputStream)
      */
@@ -77,7 +77,7 @@ public class DefaultHssfExportView implements BinaryExportView
         return new HssfTableWriter(wb);
     }
 
-    /** 
+    /**
      * @see org.displaytag.export.ExportView#setParameters(org.displaytag.model.TableModel, boolean, boolean, boolean)
      */
     @Override
@@ -96,7 +96,7 @@ public class DefaultHssfExportView implements BinaryExportView
     {
         return "application/vnd.ms-excel"; //$NON-NLS-1$
     }
-    
+
     /**
      * Wraps POI-generated exceptions.
      * @author Fabrizio Giustina

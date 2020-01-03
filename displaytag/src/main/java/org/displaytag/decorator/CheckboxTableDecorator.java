@@ -24,7 +24,6 @@ package org.displaytag.decorator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -78,7 +77,7 @@ public class CheckboxTableDecorator extends TableDecorator
     {
         super.init(pageContext, decorated, tableModel);
         String[] params = pageContext.getRequest().getParameterValues(this.fieldName);
-        this.checkedIds = params != null ? new ArrayList<String>(Arrays.asList(params)) : new ArrayList<String>(0);
+        this.checkedIds = params != null ? new ArrayList<>(Arrays.asList(params)) : new ArrayList<String>(0);
     }
 
     /**
@@ -91,9 +90,7 @@ public class CheckboxTableDecorator extends TableDecorator
         if (!this.checkedIds.isEmpty())
         {
             JspWriter writer = getPageContext().getOut();
-            for (Iterator<String> it = this.checkedIds.iterator(); it.hasNext();)
-            {
-                String name = it.next();
+            for (String name : this.checkedIds) {
                 StringBuilder buffer = new StringBuilder();
                 buffer.append("<input type=\"hidden\" name=\"");
                 buffer.append(this.fieldName);

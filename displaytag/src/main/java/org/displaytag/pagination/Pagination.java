@@ -148,7 +148,7 @@ public class Pagination
      */
     public boolean isOnePage()
     {
-        return (this.pages == null) || this.pages.size() <= 1;
+        return this.pages == null || this.pages.size() <= 1;
     }
 
     /**

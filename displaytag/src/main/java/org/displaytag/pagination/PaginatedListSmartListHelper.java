@@ -69,7 +69,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
     private int computePageCount()
     {
         int pageCount = this.paginatedList.getFullListSize() / Math.max(1, this.paginatedList.getObjectsPerPage());
-        if ((this.paginatedList.getFullListSize() % this.paginatedList.getObjectsPerPage()) > 0)
+        if (this.paginatedList.getFullListSize() % this.paginatedList.getObjectsPerPage() > 0)
         {
             pageCount++;
         }
@@ -90,7 +90,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
             pageNumber = this.pageCount;
         }
 
-        return ((pageNumber - 1) * this.paginatedList.getObjectsPerPage());
+        return (pageNumber - 1) * this.paginatedList.getObjectsPerPage();
     }
 
     @Override
@@ -124,7 +124,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
     @Override
     protected List<Object> getListForPage(int pageNumber)
     {
-        if ((pageNumber) == this.paginatedList.getPageNumber())
+        if (pageNumber == this.paginatedList.getPageNumber())
         {
             return getListForCurrentPage();
         }
@@ -165,7 +165,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper
 
         for (int j = startPage; j <= endPage; j++)
         {
-            pagination.addPage(j, (j == this.paginatedList.getPageNumber()));
+            pagination.addPage(j, j == this.paginatedList.getPageNumber());
         }
 
         if (this.paginatedList.getPageNumber() != this.pageCount)

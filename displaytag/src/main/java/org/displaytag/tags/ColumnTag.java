@@ -703,12 +703,11 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         if (StringUtils.isNotEmpty(this.decorator))
         {
             String[] decoratorNames = StringUtils.split(this.decorator);
-            for (int j = 0; j < decoratorNames.length; j++)
-            {
+            for (String decoratorName : decoratorNames) {
                 decorators.add(tableTag
                     .getProperties()
                     .getDecoratorFactoryInstance()
-                    .loadColumnDecorator(this.pageContext, decoratorNames[j]));
+                    .loadColumnDecorator(this.pageContext, decoratorName));
             }
         }
 
@@ -736,7 +735,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         headerCell.setSortProperty(this.sortProperty);
         headerCell.setTotaled(this.totaled);
 
-        Comparator<Object> headerComparator = (this.comparator != null) ? this.comparator : tableTag
+        Comparator<Object> headerComparator = this.comparator != null ? this.comparator : tableTag
             .getProperties()
             .getDefaultComparator();
 
@@ -888,7 +887,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             .append("maxLength", this.maxLength) //$NON-NLS-1$
             .append("decorator", this.decorator) //$NON-NLS-1$
             .append("href", this.href) //$NON-NLS-1$
-            .append("title", this.title) //$NON-NLS-1$ 
+            .append("title", this.title) //$NON-NLS-1$
             .append("property", this.property) //$NON-NLS-1$
             .append("paramProperty", this.paramProperty) //$NON-NLS-1$
             .append("headerAttributeMap", this.headerAttributeMap) //$NON-NLS-1$

@@ -53,7 +53,7 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
     @Override
     public Locale resolveLocale(PageContext pageContext)
     {
-        HttpServletRequest request = ((HttpServletRequest) pageContext.getRequest());
+        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         Locale userLocale = null;
         HttpSession session = request.getSession(false);
 
@@ -80,7 +80,7 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver
     {
 
         // if titleKey isn't defined either, use property
-        String key = (resourceKey != null) ? resourceKey : defaultValue;
+        String key = resourceKey != null ? resourceKey : defaultValue;
 
         // retrieve MessageResources. Don't use TagUtils to mantain Struts 1.1 compatibility
         MessageResources resources = (MessageResources) pageContext.getAttribute(

@@ -114,11 +114,10 @@ public final class MediaTypeEnum
     public static MediaTypeEnum fromCode(int key)
     {
         // TODO optimization needed
-        for (int i = 0; i < ALL.size(); i++)
-        {
-            if (key == ALL.get(i).getCode())
+        for (MediaTypeEnum element : ALL) {
+            if (key == element.getCode())
             {
-                return ALL.get(i);
+                return element;
             }
         }
         // lookup failed
@@ -160,11 +159,10 @@ public final class MediaTypeEnum
     public static MediaTypeEnum fromName(String code)
     {
         // TODO optimization needed
-        for (int i = 0; i < ALL.size(); i++)
-        {
-            if (ALL.get(i).getName().equals(code))
+        for (MediaTypeEnum element : ALL) {
+            if (element.getName().equals(code))
             {
-                return ALL.get(i);
+                return element;
             }
         }
         // lookup failed
