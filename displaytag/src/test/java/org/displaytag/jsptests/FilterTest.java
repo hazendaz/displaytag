@@ -26,8 +26,6 @@ import com.meterware.httpunit.HttpInternalErrorException;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTag;
 import org.displaytag.tags.TableTagParameters;
@@ -70,14 +68,8 @@ public class FilterTest extends DisplaytagCase
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
-        // save previous level, since we are expeting an excetion I don't want to fill logs
-        Level previousLevel = Logger.getLogger(TableTag.class).getLevel();
-
         try
         {
-            // disable log
-            Logger.getLogger(TableTag.class).setLevel(Level.OFF);
-
             // check if page need a filter (unfiltered request)
             this.runner.getResponse(request);
             Assert.fail("Request works also without a filter. Can't test it properly.");
@@ -86,9 +78,6 @@ public class FilterTest extends DisplaytagCase
         {
             // it's ok
         }
-
-        // reset log
-        Logger.getLogger(TableTag.class).setLevel(previousLevel);
 
         request = new GetMethodWebRequest(getJspUrl(getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));

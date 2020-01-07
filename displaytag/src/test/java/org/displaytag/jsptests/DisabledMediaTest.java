@@ -25,13 +25,9 @@ import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpInternalErrorException;
 import com.meterware.httpunit.WebRequest;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.displaytag.tags.ColumnTag;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
-
 
 /**
  * Test for #968559.
@@ -65,10 +61,6 @@ public class DisabledMediaTest extends DisplaytagCase
         // test keep
         WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
 
-        // save previous level, since we are expeting an excetion I don't want to fill logs
-        Level previousLevel = Logger.getLogger(ColumnTag.class).getLevel();
-        Logger.getLogger(ColumnTag.class).setLevel(Level.OFF);
-
         try
         {
             this.runner.getResponse(request);
@@ -76,10 +68,6 @@ public class DisabledMediaTest extends DisplaytagCase
         catch (HttpInternalErrorException e)
         {
             Assert.fail("Should not get any error also if \"foo\" media type is not defined. " + e.getMessage());
-        }
-        finally
-        {
-            Logger.getLogger(ColumnTag.class).setLevel(previousLevel);
         }
 
         // ok
