@@ -1,0 +1,47 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "11:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: javax.portlet:portlet-api
+    versions:
+    - "> 2.0"
+  - dependency-name: javax.portlet:portlet-api
+    versions:
+    - "< 3.0.2"
+    - ">= 3.0.1.a"
+  - dependency-name: javax.servlet:javax.servlet-api
+    versions:
+    - "> 3.0.1"
+  - dependency-name: javax.servlet:javax.servlet-api
+    versions:
+    - "< 4.0.2"
+    - ">= 4.0.1.a"
+  - dependency-name: javax.servlet.jsp:jsp-api
+    versions:
+    - "> 2.1"
+  - dependency-name: net.trajano.wagon:wagon-git
+    versions:
+    - "< 2.0.5"
+    - ">= 2.0.4.a"
+  - dependency-name: opensymphony:webwork
+    versions:
+    - "< 2.2.6"
+    - ">= 2.2.5.a"
+  - dependency-name: org.mozilla:rhino
+    versions:
+    - "> 1.7R5"
+  - dependency-name: org.springframework:spring-test
+    versions:
+    - "> 4.3.25.RELEASE"
+  - dependency-name: org.springframework:spring-test
+    versions:
+    - "< 5.1.5"
+    - ">= 5.1.4.a"
+  - dependency-name: org.springframework:spring-webmvc
+    versions:
+    - "> 4.3.25.RELEASE"
