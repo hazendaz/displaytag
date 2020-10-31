@@ -145,7 +145,7 @@
 <a class="jxr_linenumber" name="L137" href="#L137">137</a> 
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>         StringBuilder currentTag = <strong class="jxr_keyword">new</strong> StringBuilder(5); <em class="jxr_comment">// will contain a tag name</em>
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> 
-<a class="jxr_linenumber" name="L140" href="#L140">140</a>         List&lt;String&gt; openTags = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;(5); <em class="jxr_comment">// lit of unclosed tags found in the string</em>
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>         List&lt;String&gt; openTags = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(5); <em class="jxr_comment">// lit of unclosed tags found in the string</em>
 <a class="jxr_linenumber" name="L141" href="#L141">141</a> 
 <a class="jxr_linenumber" name="L142" href="#L142">142</a>         <strong class="jxr_keyword">int</strong> i;
 <a class="jxr_linenumber" name="L143" href="#L143">143</a>         <strong class="jxr_keyword">for</strong> (i = 0; i &lt; sz; i++)
@@ -253,7 +253,7 @@
 <a class="jxr_linenumber" name="L245" href="#L245">245</a> 
 <a class="jxr_linenumber" name="L246" href="#L246">246</a>             }
 <a class="jxr_linenumber" name="L247" href="#L247">247</a> 
-<a class="jxr_linenumber" name="L248" href="#L248">248</a>             <strong class="jxr_keyword">if</strong> (inTag || (!byNumberOfWords || count &lt; maxLength))
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>             <strong class="jxr_keyword">if</strong> (inTag || !byNumberOfWords || count &lt; maxLength)
 <a class="jxr_linenumber" name="L249" href="#L249">249</a>             {
 <a class="jxr_linenumber" name="L250" href="#L250">250</a>                 buffer.append(c);
 <a class="jxr_linenumber" name="L251" href="#L251">251</a>             }
@@ -288,6 +288,6 @@
 <a class="jxr_linenumber" name="L280" href="#L280">280</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

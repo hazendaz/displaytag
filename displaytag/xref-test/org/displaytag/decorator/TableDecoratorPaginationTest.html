@@ -29,7 +29,7 @@
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> */</em>
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">package</strong> org.displaytag.decorator;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
-<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.*;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> <strong class="jxr_keyword">static</strong> org.junit.Assert.assertEquals;
 <a class="jxr_linenumber" name="L25" href="#L25">25</a>  
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> java.util.List;
@@ -58,8 +58,8 @@
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>      @Test
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSinglePage()
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      {
-<a class="jxr_linenumber" name="L53" href="#L53">53</a>          List&lt;Integer&gt; rawData = <strong class="jxr_keyword">new</strong> ArrayList&lt;Integer&gt;(10);
-<a class="jxr_linenumber" name="L54" href="#L54">54</a>          List&lt;Object&gt; data = <strong class="jxr_keyword">new</strong> ArrayList&lt;Object&gt;(10);
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          List&lt;Integer&gt; rawData = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(10);
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>          List&lt;Object&gt; data = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(10);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 1; i &lt;= 10; i++)
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>          {
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>              rawData.add(i);
@@ -94,8 +94,8 @@
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      @Test
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testFirstPage()
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>      {
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>          List&lt;Integer&gt; rawData = <strong class="jxr_keyword">new</strong> ArrayList&lt;Integer&gt;(10);
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          List&lt;Object&gt; data = <strong class="jxr_keyword">new</strong> ArrayList&lt;Object&gt;(10);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          List&lt;Integer&gt; rawData = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(10);
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>          List&lt;Object&gt; data = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(10);
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 1; i &lt;= 10; i++)
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>          {
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>              rawData.add(i);
@@ -130,8 +130,8 @@
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>     @Test
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testSecondPage()
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>     {
-<a class="jxr_linenumber" name="L125" href="#L125">125</a>         List&lt;Integer&gt; rawData = <strong class="jxr_keyword">new</strong> ArrayList&lt;Integer&gt;(10);
-<a class="jxr_linenumber" name="L126" href="#L126">126</a>         List&lt;Object&gt; data = <strong class="jxr_keyword">new</strong> ArrayList&lt;Object&gt;(10);
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>         List&lt;Integer&gt; rawData = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(10);
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>         List&lt;Object&gt; data = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(10);
 <a class="jxr_linenumber" name="L127" href="#L127">127</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 1; i &lt;= 10; i++)
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         {
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>             rawData.add(i);
@@ -162,6 +162,6 @@
 <a class="jxr_linenumber" name="L154" href="#L154">154</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

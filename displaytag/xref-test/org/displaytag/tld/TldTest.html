@@ -97,7 +97,7 @@
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          List&lt;TagAttribute&gt; tagsAttributes = getTagAttributeList(checkedTld);
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>          List&lt;String&gt; errors = <strong class="jxr_keyword">new</strong> ArrayList&lt;String&gt;();
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>          List&lt;String&gt; errors = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          Iterator&lt;TagAttribute&gt; iterator = tagsAttributes.iterator();
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">while</strong> (iterator.hasNext())
 <a class="jxr_linenumber" name="L95" href="#L95">95</a>          {
@@ -244,7 +244,7 @@
 <a class="jxr_linenumber" name="L236" href="#L236">236</a>         is.close();
 <a class="jxr_linenumber" name="L237" href="#L237">237</a> 
 <a class="jxr_linenumber" name="L238" href="#L238">238</a>         NodeList tagList = webXmlDoc.getElementsByTagName(<span class="jxr_string">"tag"</span>);
-<a class="jxr_linenumber" name="L239" href="#L239">239</a>         List&lt;TagAttribute&gt; tagsAttributes = <strong class="jxr_keyword">new</strong> ArrayList&lt;TagAttribute&gt;();
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>         List&lt;TagAttribute&gt; tagsAttributes = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="L240" href="#L240">240</a> 
 <a class="jxr_linenumber" name="L241" href="#L241">241</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; tagList.getLength(); i++)
 <a class="jxr_linenumber" name="L242" href="#L242">242</a>         {
@@ -457,6 +457,6 @@
 <a class="jxr_linenumber" name="L449" href="#L449">449</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

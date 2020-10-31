@@ -80,7 +80,7 @@
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      <strong class="jxr_keyword">public</strong> <a name="DefaultHref" href="../../../org/displaytag/util/DefaultHref.html#DefaultHref">DefaultHref</a>(String baseUrl)
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      {
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">this</strong>.parameters = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          <strong class="jxr_keyword">this</strong>.parameters = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>          setFullUrl(baseUrl);
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  
@@ -215,7 +215,7 @@
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>     @Override
 <a class="jxr_linenumber" name="L208" href="#L208">208</a>     <strong class="jxr_keyword">public</strong> Map&lt;String, String[]&gt; getParameterMap()
 <a class="jxr_linenumber" name="L209" href="#L209">209</a>     {
-<a class="jxr_linenumber" name="L210" href="#L210">210</a>         Map&lt;String, String[]&gt; copyMap = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;String, String[]&gt;(<strong class="jxr_keyword">this</strong>.parameters.size());
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>         Map&lt;String, String[]&gt; copyMap = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;(<strong class="jxr_keyword">this</strong>.parameters.size());
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>         copyMap.putAll(<strong class="jxr_keyword">this</strong>.parameters);
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>         <strong class="jxr_keyword">return</strong> copyMap;
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>     }
@@ -229,7 +229,7 @@
 <a class="jxr_linenumber" name="L221" href="#L221">221</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setParameterMap(Map&lt;String, String[]&gt; parametersMap)
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>     {
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>         <em class="jxr_comment">// create a new HashMap</em>
-<a class="jxr_linenumber" name="L224" href="#L224">224</a>         <strong class="jxr_keyword">this</strong>.parameters = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;(parametersMap.size());
+<a class="jxr_linenumber" name="L224" href="#L224">224</a>         <strong class="jxr_keyword">this</strong>.parameters = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;(parametersMap.size());
 <a class="jxr_linenumber" name="L225" href="#L225">225</a> 
 <a class="jxr_linenumber" name="L226" href="#L226">226</a>         <em class="jxr_comment">// copy the parameters</em>
 <a class="jxr_linenumber" name="L227" href="#L227">227</a>         addParameterMap(parametersMap);
@@ -450,7 +450,7 @@
 <a class="jxr_linenumber" name="L442" href="#L442">442</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(e); <em class="jxr_comment">// should never happen</em>
 <a class="jxr_linenumber" name="L443" href="#L443">443</a>         }
 <a class="jxr_linenumber" name="L444" href="#L444">444</a> 
-<a class="jxr_linenumber" name="L445" href="#L445">445</a>         href.parameters = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;String, String[]&gt;(<strong class="jxr_keyword">this</strong>.parameters);
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>         href.parameters = <strong class="jxr_keyword">new</strong> LinkedHashMap&lt;&gt;(<strong class="jxr_keyword">this</strong>.parameters);
 <a class="jxr_linenumber" name="L446" href="#L446">446</a>         <strong class="jxr_keyword">return</strong> href;
 <a class="jxr_linenumber" name="L447" href="#L447">447</a>     }
 <a class="jxr_linenumber" name="L448" href="#L448">448</a> 
@@ -491,6 +491,6 @@
 <a class="jxr_linenumber" name="L483" href="#L483">483</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

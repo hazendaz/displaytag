@@ -142,7 +142,7 @@
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>     {
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>         <strong class="jxr_keyword">int</strong> size = <strong class="jxr_keyword">this</strong>.fullListSize;
 <a class="jxr_linenumber" name="L136" href="#L136">136</a>         <strong class="jxr_keyword">int</strong> div = size / <strong class="jxr_keyword">this</strong>.pageSize;
-<a class="jxr_linenumber" name="L137" href="#L137">137</a>         <strong class="jxr_keyword">return</strong> (size % <strong class="jxr_keyword">this</strong>.pageSize == 0) ? div : div + 1;
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>         <strong class="jxr_keyword">return</strong> size % <strong class="jxr_keyword">this</strong>.pageSize == 0 ? div : div + 1;
 <a class="jxr_linenumber" name="L138" href="#L138">138</a>     }
 <a class="jxr_linenumber" name="L139" href="#L139">139</a> 
 <a class="jxr_linenumber" name="L140" href="#L140">140</a>     <em class="jxr_javadoccomment">/**</em>
@@ -350,7 +350,7 @@
 <a class="jxr_linenumber" name="L342" href="#L342">342</a>             {
 <a class="jxr_linenumber" name="L343" href="#L343">343</a>                 log.debug(<span class="jxr_string">"adding page {}"</span>, j); <em class="jxr_comment">//$NON-NLS-1$</em>
 <a class="jxr_linenumber" name="L344" href="#L344">344</a>             }
-<a class="jxr_linenumber" name="L345" href="#L345">345</a>             pagination.addPage(j, (j == <strong class="jxr_keyword">this</strong>.currentPage));
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>             pagination.addPage(j, j == <strong class="jxr_keyword">this</strong>.currentPage);
 <a class="jxr_linenumber" name="L346" href="#L346">346</a>         }
 <a class="jxr_linenumber" name="L347" href="#L347">347</a> 
 <a class="jxr_linenumber" name="L348" href="#L348">348</a>         <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.currentPage != <strong class="jxr_keyword">this</strong>.pageCount)
@@ -405,6 +405,6 @@
 <a class="jxr_linenumber" name="L397" href="#L397">397</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

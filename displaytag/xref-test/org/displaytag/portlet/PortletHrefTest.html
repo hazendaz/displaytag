@@ -287,7 +287,7 @@
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>     {
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>         <strong class="jxr_keyword">final</strong> PortletHref href = <strong class="jxr_keyword">new</strong> PortletHref(<strong class="jxr_keyword">new</strong> MockPortletRequest(), <strong class="jxr_keyword">new</strong> MockRenderResponse());
 <a class="jxr_linenumber" name="L281" href="#L281">281</a> 
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>         <strong class="jxr_keyword">final</strong> Map&lt;String, String[]&gt; params = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>         <strong class="jxr_keyword">final</strong> Map&lt;String, String[]&gt; params = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         params.put(PortletHref.PARAM_MODE, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"help"</span>});
 <a class="jxr_linenumber" name="L284" href="#L284">284</a>         params.put(PortletHref.PARAM_STATE, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"maximized"</span>});
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>         params.put(PortletHref.PARAM_SECURE, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"true"</span>});
@@ -325,7 +325,7 @@
 <a class="jxr_linenumber" name="L317" href="#L317">317</a> 
 <a class="jxr_linenumber" name="L318" href="#L318">318</a>         href.addParameter(<span class="jxr_string">"ORIGINAL_PARAM"</span>, <span class="jxr_string">"ORIGNAL_VALUE"</span>);
 <a class="jxr_linenumber" name="L319" href="#L319">319</a> 
-<a class="jxr_linenumber" name="L320" href="#L320">320</a>         <strong class="jxr_keyword">final</strong> Map&lt;String, String[]&gt; params = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>         <strong class="jxr_keyword">final</strong> Map&lt;String, String[]&gt; params = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L321" href="#L321">321</a>         params.put(PortletHref.PARAM_MODE, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"help"</span>});
 <a class="jxr_linenumber" name="L322" href="#L322">322</a>         params.put(PortletHref.PARAM_STATE, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"maximized"</span>});
 <a class="jxr_linenumber" name="L323" href="#L323">323</a>         params.put(PortletHref.PARAM_SECURE, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"true"</span>});
@@ -507,7 +507,7 @@
 <a class="jxr_linenumber" name="L499" href="#L499">499</a>                 <span class="jxr_string">"https://localhost/mockportlet?urlType=action;windowState=maximized;portletMode=edit;param_SINGLE_PARAM=VAL"</span>,
 <a class="jxr_linenumber" name="L500" href="#L500">500</a>                 urlString10);
 <a class="jxr_linenumber" name="L501" href="#L501">501</a> 
-<a class="jxr_linenumber" name="L502" href="#L502">502</a>         <strong class="jxr_keyword">final</strong> Map&lt;String, String[]&gt; paramMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>         <strong class="jxr_keyword">final</strong> Map&lt;String, String[]&gt; paramMap = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L503" href="#L503">503</a>         paramMap.put(<span class="jxr_string">"MULTI_PARAM"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"VAL1"</span>, <span class="jxr_string">"VAL2"</span>});
 <a class="jxr_linenumber" name="L504" href="#L504">504</a>         href.addParameterMap(paramMap);
 <a class="jxr_linenumber" name="L505" href="#L505">505</a>         <strong class="jxr_keyword">final</strong> String urlString11 = href.toString();
@@ -526,6 +526,6 @@
 <a class="jxr_linenumber" name="L518" href="#L518">518</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

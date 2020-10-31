@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">public</strong> <a name="ObjectLookupException" href="../../../org/displaytag/exception/ObjectLookupException.html#ObjectLookupException">ObjectLookupException</a>(Class&lt;?&gt; source, Object beanObject, String beanProperty, Throwable cause)
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      {
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          <strong class="jxr_keyword">super</strong>(source, Messages.getString(<span class="jxr_string">"ObjectLookupException.msg"</span> <em class="jxr_comment">//$NON-NLS-1$</em>
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>              , <strong class="jxr_keyword">new</strong> Object[]{beanProperty, ((beanObject == <strong class="jxr_keyword">null</strong>) ? <span class="jxr_string">"null"</span> : beanObject.getClass().getName())}<em class="jxr_comment">//$NON-NLS-1$</em>
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>              , <strong class="jxr_keyword">new</strong> Object[]{beanProperty, beanObject == <strong class="jxr_keyword">null</strong> ? <span class="jxr_string">"null"</span> : beanObject.getClass().getName()}<em class="jxr_comment">//$NON-NLS-1$</em>
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>              ), cause);
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>      }
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  
@@ -73,6 +73,6 @@
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

@@ -75,25 +75,25 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_comment">* */</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="XmlTotalsWriter" href="../../../org/displaytag/export/XmlTotalsWriter.html#XmlTotalsWriter">XmlTotalsWriter</a> <strong class="jxr_keyword">extends</strong> <a name="TableWriterAdapter" href="../../../org/displaytag/render/TableWriterAdapter.html#TableWriterAdapter">TableWriterAdapter</a>
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  {
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>      <em class="jxr_javadoccomment">/** The style pat. */</em>
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>      Pattern stylePat = Pattern.compile(<span class="jxr_string">"&#92;&#92;s*?([&#92;&#92;w&#92;&#92;-]+?)&#92;&#92;s*?:&#92;&#92;s*?([&#92;&#92;w&#92;&#92;-]+?)(?:;|$)"</span>);
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>      <em class="jxr_javadoccomment">/** The xml. */</em>
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>      <strong class="jxr_keyword">protected</strong> StringBuffer xml = <strong class="jxr_keyword">new</strong> StringBuffer();
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>      <em class="jxr_javadoccomment">/** The current grouping value by group. */</em>
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      Map&lt;Integer,String&gt; currentGroupingValueByGroup = <strong class="jxr_keyword">new</strong> HashMap&lt;Integer,String&gt;();
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      Map&lt;Integer,String&gt; currentGroupingValueByGroup = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      <em class="jxr_javadoccomment">/** The group id. */</em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>      Integer groupId;
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>      
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      <em class="jxr_javadoccomment">/** The current grouping level. */</em>
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">int</strong> currentGroupingLevel = 0;
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>      
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      <em class="jxr_javadoccomment">/** The max word length. */</em>
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">int</strong> maxWordLength = 15;
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>      <em class="jxr_javadoccomment">/** The Constant NOOP. */</em>
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <a name="TableDecorator" href="../../../org/displaytag/decorato<a name="TableDecorator" href="../../../org/displaytag/decorator/TableDecorator.html#TableDecorator">TableDecorator</a>or.html#TableDecorator">TableDecorator</a> NOOP = <strong class="jxr_keyword">new</strong> <a name="TableDecorator" href="../../../org/displaytag/decorator/TableDecorator.html#TableDecorator">TableDecorator</a>()
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          {
@@ -377,6 +377,6 @@
 <a class="jxr_linenumber" name="L369" href="#L369">369</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
