@@ -37,11 +37,7 @@ updates:
     - "> 1.7R5"
   - dependency-name: org.springframework:spring-test
     versions:
-    - "> 4.3.25.RELEASE"
-  - dependency-name: org.springframework:spring-test
-    versions:
-    - "< 5.1.5"
-    - ">= 5.1.4.a"
+    - "> 5.0.0.RELEASE"
   - dependency-name: org.springframework:spring-webmvc
     versions:
-    - "> 4.3.25.RELEASE"
+    - "> 5.0.0.RELEASE"
