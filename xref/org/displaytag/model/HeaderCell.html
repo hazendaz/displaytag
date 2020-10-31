@@ -632,20 +632,16 @@
 <a class="jxr_linenumber" name="L624" href="#L624">624</a>                 Object val = column.getValue(false);
 <a class="jxr_linenumber" name="L625" href="#L625">625</a>                 addToTotal(val);
 <a class="jxr_linenumber" name="L626" href="#L626">626</a>             }
-<a class="jxr_linenumber" name="L627" href="#L627">627</a>             <strong class="jxr_keyword">catch</strong> (<a name="ObjectLookupException" href="../../../org/displaytag/exception/ObjectLookupException.html#ObjectLookupException">ObjectLookupException</a> e)
+<a class="jxr_linenumber" name="L627" href="#L627">627</a>             <strong class="jxr_keyword">catch</strong> (<a name="ObjectLookupException" href="../../../org/displaytag/exception/ObjectLookupException.html#ObjectLookupException">ObjectLookupException</a> | <a name="DecoratorException" href="../../../org/displaytag/exception/DecoratorException.html#DecoratorException">DecoratorException</a> e)
 <a class="jxr_linenumber" name="L628" href="#L628">628</a>             {
 <a class="jxr_linenumber" name="L629" href="#L629">629</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(e);
 <a class="jxr_linenumber" name="L630" href="#L630">630</a>             }
-<a class="jxr_linenumber" name="L631" href="#L631">631</a>             <strong class="jxr_keyword">catch</strong> (<a name="DecoratorException" href="../../../org/displaytag/exception/DecoratorException.html#DecoratorException">DecoratorException</a> e)
-<a class="jxr_linenumber" name="L632" href="#L632">632</a>             {
-<a class="jxr_linenumber" name="L633" href="#L633">633</a>                 <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(e);
-<a class="jxr_linenumber" name="L634" href="#L634">634</a>             }
-<a class="jxr_linenumber" name="L635" href="#L635">635</a>         }
-<a class="jxr_linenumber" name="L636" href="#L636">636</a>     }
-<a class="jxr_linenumber" name="L637" href="#L637">637</a> 
-<a class="jxr_linenumber" name="L638" href="#L638">638</a> }
+<a class="jxr_linenumber" name="L631" href="#L631">631</a>         }
+<a class="jxr_linenumber" name="L632" href="#L632">632</a>     }
+<a class="jxr_linenumber" name="L633" href="#L633">633</a> 
+<a class="jxr_linenumber" name="L634" href="#L634">634</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

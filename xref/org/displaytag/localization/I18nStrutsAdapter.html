@@ -61,7 +61,7 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      @Override
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>      <strong class="jxr_keyword">public</strong> Locale resolveLocale(PageContext pageContext)
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      {
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>          HttpServletRequest request = ((HttpServletRequest) pageContext.getRequest());
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>          HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          Locale userLocale = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          HttpSession session = request.getSession(false);
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
@@ -88,7 +88,7 @@
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>      {
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>          <em class="jxr_comment">// if titleKey isn't defined either, use property</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>          String key = (resourceKey != <strong class="jxr_keyword">null</strong>) ? resourceKey : defaultValue;
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>          String key = resourceKey != <strong class="jxr_keyword">null</strong> ? resourceKey : defaultValue;
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          <em class="jxr_comment">// retrieve MessageResources. Don't use TagUtils to mantain Struts 1.1 compatibility</em>
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>          MessageResources resources = (MessageResources) pageContext.getAttribute(
@@ -135,6 +135,6 @@
 <a class="jxr_linenumber" name="L127" href="#L127">127</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

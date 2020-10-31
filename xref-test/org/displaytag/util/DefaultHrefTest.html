@@ -226,7 +226,7 @@
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>         String url = <span class="jxr_string">"http://www.displaytag.org/displaytag/index.jsp#thisanchor"</span>;
 <a class="jxr_linenumber" name="L219" href="#L219">219</a>         Href href = <strong class="jxr_keyword">new</strong> DefaultHref(url);
 <a class="jxr_linenumber" name="L220" href="#L220">220</a> 
-<a class="jxr_linenumber" name="L221" href="#L221">221</a>         Map&lt;String, String[]&gt; parameterMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>         Map&lt;String, String[]&gt; parameterMap = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L222" href="#L222">222</a>         parameterMap.put(<span class="jxr_string">"new1"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"new1value"</span>});
 <a class="jxr_linenumber" name="L223" href="#L223">223</a>         parameterMap.put(<span class="jxr_string">"new2"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"new2value"</span>});
 <a class="jxr_linenumber" name="L224" href="#L224">224</a>         parameterMap.put(<span class="jxr_string">"new3"</span>, <strong class="jxr_keyword">null</strong>);
@@ -247,7 +247,7 @@
 <a class="jxr_linenumber" name="L239" href="#L239">239</a>         String url = <span class="jxr_string">"http://www.displaytag.org/displaytag/index.jsp?param1=1#thisanchor"</span>;
 <a class="jxr_linenumber" name="L240" href="#L240">240</a>         Href href = <strong class="jxr_keyword">new</strong> DefaultHref(url);
 <a class="jxr_linenumber" name="L241" href="#L241">241</a> 
-<a class="jxr_linenumber" name="L242" href="#L242">242</a>         Map&lt;String, String[]&gt; parameterMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>         Map&lt;String, String[]&gt; parameterMap = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L243" href="#L243">243</a>         parameterMap.put(<span class="jxr_string">"new1"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"new1value"</span>});
 <a class="jxr_linenumber" name="L244" href="#L244">244</a>         parameterMap.put(<span class="jxr_string">"new2"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"new2value"</span>});
 <a class="jxr_linenumber" name="L245" href="#L245">245</a>         parameterMap.put(<span class="jxr_string">"new3"</span>, <strong class="jxr_keyword">null</strong>);
@@ -269,7 +269,7 @@
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>         String url = <span class="jxr_string">"http://www.displaytag.org/displaytag/index.jsp"</span>;
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>         Href href = <strong class="jxr_keyword">new</strong> DefaultHref(url);
 <a class="jxr_linenumber" name="L263" href="#L263">263</a> 
-<a class="jxr_linenumber" name="L264" href="#L264">264</a>         Map&lt;String, String[]&gt; parameterMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>         Map&lt;String, String[]&gt; parameterMap = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>         parameterMap.put(<span class="jxr_string">"param1"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"à"</span>, <span class="jxr_string">"&lt;"</span>});
 <a class="jxr_linenumber" name="L266" href="#L266">266</a>         href.addParameterMap(parameterMap);
 <a class="jxr_linenumber" name="L267" href="#L267">267</a> 
@@ -287,7 +287,7 @@
 <a class="jxr_linenumber" name="L279" href="#L279">279</a>         String url = <span class="jxr_string">"http://www.displaytag.org/displaytag/index.jsp?param1=original#thisanchor"</span>;
 <a class="jxr_linenumber" name="L280" href="#L280">280</a>         Href href = <strong class="jxr_keyword">new</strong> DefaultHref(url);
 <a class="jxr_linenumber" name="L281" href="#L281">281</a> 
-<a class="jxr_linenumber" name="L282" href="#L282">282</a>         Map&lt;String, String[]&gt; parameterMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>         Map&lt;String, String[]&gt; parameterMap = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L283" href="#L283">283</a>         parameterMap.put(<span class="jxr_string">"param1"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"original"</span>});
 <a class="jxr_linenumber" name="L284" href="#L284">284</a>         parameterMap.put(<span class="jxr_string">"new1"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"new1value"</span>});
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>         href.addParameterMap(parameterMap);
@@ -341,7 +341,7 @@
 <a class="jxr_linenumber" name="L333" href="#L333">333</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L334" href="#L334">334</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testaddParameterMap()
 <a class="jxr_linenumber" name="L335" href="#L335">335</a>     {
-<a class="jxr_linenumber" name="L336" href="#L336">336</a>         Map&lt;String, String[]&gt; parametersMap = <strong class="jxr_keyword">new</strong> HashMap&lt;String, String[]&gt;();
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>         Map&lt;String, String[]&gt; parametersMap = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L337" href="#L337">337</a> 
 <a class="jxr_linenumber" name="L338" href="#L338">338</a>         parametersMap.put(<span class="jxr_string">"modifiedArray"</span>, <strong class="jxr_keyword">new</strong> String[]{<span class="jxr_string">"a&amp;nbspb"</span>, <span class="jxr_string">"c&amp;nbspd"</span>});
 <a class="jxr_linenumber" name="L339" href="#L339">339</a> 
@@ -355,6 +355,6 @@
 <a class="jxr_linenumber" name="L347" href="#L347">347</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

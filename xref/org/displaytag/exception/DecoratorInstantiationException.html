@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <strong class="jxr_keyword">public</strong> <a name="DecoratorInstantiationException" href="../../../org/displaytag/exception/DecoratorInstantiationException.html#DecoratorInstantiationException">DecoratorInstantiationException</a>(Class&lt;DefaultDecoratorFactory&gt; source, String decorator, Throwable cause)
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>      {
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">super</strong>(source, Messages.getString(<span class="jxr_string">"DecoratorInstantiationException.msg"</span> <em class="jxr_comment">//$NON-NLS-1$</em>
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>              , <strong class="jxr_keyword">new</strong> Object[]{decorator, (cause != <strong class="jxr_keyword">null</strong> ? cause.getClass().getName() : TagConstants.EMPTY_STRING)}), <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>              , <strong class="jxr_keyword">new</strong> Object[]{decorator, cause != <strong class="jxr_keyword">null</strong> ? cause.getClass().getName() : TagConstants.EMPTY_STRING}), <em class="jxr_comment">//</em>
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>              cause);
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      }
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
@@ -74,6 +74,6 @@
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

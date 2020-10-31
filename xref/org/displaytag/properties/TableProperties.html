@@ -415,7 +415,7 @@
 <a class="jxr_linenumber" name="L407" href="#L407">407</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L408" href="#L408">408</a> <em class="jxr_javadoccomment">     * TableProperties for each locale are loaded as needed, and cloned for public usage.</em>
 <a class="jxr_linenumber" name="L409" href="#L409">409</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L410" href="#L410">410</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Map&lt;Locale, TableProperties&gt; prototypes = <strong class="jxr_keyword">new</strong> HashMap&lt;Locale, TableProperties&gt;();
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Map&lt;Locale, TableProperties&gt; prototypes = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L411" href="#L411">411</a> 
 <a class="jxr_linenumber" name="L412" href="#L412">412</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L413" href="#L413">413</a> <em class="jxr_javadoccomment">     * Loaded properties (defaults from defaultProperties + custom from bundle).</em>
@@ -430,7 +430,7 @@
 <a class="jxr_linenumber" name="L422" href="#L422">422</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L423" href="#L423">423</a> <em class="jxr_javadoccomment">     * Cache for dinamically instantiated object (request factory, decorator factory).</em>
 <a class="jxr_linenumber" name="L424" href="#L424">424</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>     <strong class="jxr_keyword">private</strong> Map&lt;String, Object&gt; objectCache = <strong class="jxr_keyword">new</strong> HashMap&lt;String, Object&gt;();
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>     <strong class="jxr_keyword">private</strong> Map&lt;String, Object&gt; objectCache = <strong class="jxr_keyword">new</strong> HashMap&lt;&gt;();
 <a class="jxr_linenumber" name="L426" href="#L426">426</a> 
 <a class="jxr_linenumber" name="L427" href="#L427">427</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L428" href="#L428">428</a> <em class="jxr_javadoccomment">     * Setter for I18nResourceProvider. A resource provider is usually set using displaytag properties, this accessor is</em>
@@ -1052,7 +1052,7 @@
 <a class="jxr_linenumber" name="L1044" href="#L1044">1044</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L1045" href="#L1045">1045</a>     <strong class="jxr_keyword">public</strong> String getCssRow(<strong class="jxr_keyword">int</strong> rowNumber)
 <a class="jxr_linenumber" name="L1046" href="#L1046">1046</a>     {
-<a class="jxr_linenumber" name="L1047" href="#L1047">1047</a>         <strong class="jxr_keyword">return</strong> getProperty((rowNumber % 2 == 0) ? PROPERTY_CSS_TR_ODD : PROPERTY_CSS_TR_EVEN);
+<a class="jxr_linenumber" name="L1047" href="#L1047">1047</a>         <strong class="jxr_keyword">return</strong> getProperty(rowNumber % 2 == 0 ? PROPERTY_CSS_TR_ODD : PROPERTY_CSS_TR_EVEN);
 <a class="jxr_linenumber" name="L1048" href="#L1048">1048</a>     }
 <a class="jxr_linenumber" name="L1049" href="#L1049">1049</a> 
 <a class="jxr_linenumber" name="L1050" href="#L1050">1050</a>     <em class="jxr_javadoccomment">/**</em>
@@ -1476,6 +1476,6 @@
 <a class="jxr_linenumber" name="L1468" href="#L1468">1468</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

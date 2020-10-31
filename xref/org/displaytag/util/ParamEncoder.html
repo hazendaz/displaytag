@@ -65,42 +65,41 @@
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>          <em class="jxr_comment">// calculate a simple checksum-like value</em>
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>          <strong class="jxr_keyword">int</strong> checkSum = 17;
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> j = 0; j &lt; charArray.length; j++)
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>          {
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>              checkSum = 3 * checkSum + charArray[j];
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          }
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <em class="jxr_comment">// keep it positive</em>
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          checkSum &amp;= 0x7fffff;
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <em class="jxr_comment">// this is the full identifier used for all the parameters</em>
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">this</strong>.parameterIdentifier = <span class="jxr_string">"d-"</span> + checkSum + <span class="jxr_string">"-"</span>; <em class="jxr_comment">//$NON-NLS-1$ //$NON-NLS-2$</em>
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>      }
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">     * encode a parameter name prepending calculated &lt;code&gt;parameterIdentifier&lt;/code&gt;.</em>
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment">     * @param paramName parameter name</em>
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">     * @return encoded parameter name in the form &lt;code&gt;d-&lt;em&gt;XXXX&lt;/em&gt;-&lt;em&gt;name&lt;/em&gt;&lt;/code&gt;</em>
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">public</strong> String encodeParameterName(String paramName)
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      {
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.parameterIdentifier + paramName;
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      }
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     * Check if the given parameter has been encoded using paramEncoder. It actually check if the parameter name starts</em>
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">     * with the calculated &lt;code&gt;parameterIdentifier&lt;/code&gt;. Null safe (a null string returns &lt;code&gt;false&lt;/code&gt;).</em>
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     * @param paramName parameter name</em>
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if the given parameter as been encoded using this param encoder</em>
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isParameterEncoded(String paramName)
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>      {
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>          <strong class="jxr_keyword">return</strong> paramName != <strong class="jxr_keyword">null</strong> &amp;&amp; paramName.startsWith(<strong class="jxr_keyword">this</strong>.parameterIdentifier);
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>      }
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>  
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  }
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">char</strong> element : charArray) {
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>              checkSum = 3 * checkSum + element;
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          }
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <em class="jxr_comment">// keep it positive</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          checkSum &amp;= 0x7fffff;
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          <em class="jxr_comment">// this is the full identifier used for all the parameters</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          <strong class="jxr_keyword">this</strong>.parameterIdentifier = <span class="jxr_string">"d-"</span> + checkSum + <span class="jxr_string">"-"</span>; <em class="jxr_comment">//$NON-NLS-1$ //$NON-NLS-2$</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      }
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">     * encode a parameter name prepending calculated &lt;code&gt;parameterIdentifier&lt;/code&gt;.</em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_javadoccomment">     * @param paramName parameter name</em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_javadoccomment">     * @return encoded parameter name in the form &lt;code&gt;d-&lt;em&gt;XXXX&lt;/em&gt;-&lt;em&gt;name&lt;/em&gt;&lt;/code&gt;</em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      <strong class="jxr_keyword">public</strong> String encodeParameterName(String paramName)
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      {
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.parameterIdentifier + paramName;
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      }
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">     * Check if the given parameter has been encoded using paramEncoder. It actually check if the parameter name starts</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_javadoccomment">     * with the calculated &lt;code&gt;parameterIdentifier&lt;/code&gt;. Null safe (a null string returns &lt;code&gt;false&lt;/code&gt;).</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_javadoccomment">     * @param paramName parameter name</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_javadoccomment">     * @return &lt;code&gt;true&lt;/code&gt; if the given parameter as been encoded using this param encoder</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">boolean</strong> isParameterEncoded(String paramName)
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      {
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          <strong class="jxr_keyword">return</strong> paramName != <strong class="jxr_keyword">null</strong> &amp;&amp; paramName.startsWith(<strong class="jxr_keyword">this</strong>.parameterIdentifier);
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      }
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

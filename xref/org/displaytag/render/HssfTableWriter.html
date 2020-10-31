@@ -354,7 +354,7 @@
 <a class="jxr_linenumber" name="L346" href="#L346">346</a>     {
 <a class="jxr_linenumber" name="L347" href="#L347">347</a>         <strong class="jxr_keyword">this</strong>.sheet.addMergedRegion(<strong class="jxr_keyword">this</strong>.getMergeCellsRegion(
 <a class="jxr_linenumber" name="L348" href="#L348">348</a>             <strong class="jxr_keyword">this</strong>.currentCell.getColumnIndex(),
-<a class="jxr_linenumber" name="L349" href="#L349">349</a>             (model.getNumberOfColumns() - 1)));
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>             model.getNumberOfColumns() - 1));
 <a class="jxr_linenumber" name="L350" href="#L350">350</a>     }
 <a class="jxr_linenumber" name="L351" href="#L351">351</a> 
 <a class="jxr_linenumber" name="L352" href="#L352">352</a>     <em class="jxr_javadoccomment">/**</em>
@@ -460,7 +460,7 @@
 <a class="jxr_linenumber" name="L452" href="#L452">452</a>             {
 <a class="jxr_linenumber" name="L453" href="#L453">453</a>                 writeColumnOpener(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L454" href="#L454">454</a>                 <strong class="jxr_keyword">int</strong> thisCellAsDtNumber = asDtColNumber(cell.getColumnNumber());
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>                 String columnValue = (thisCellAsDtNumber != dtColumnNumber) ? <span class="jxr_string">""</span> : tt.getGroupingValue(dtColumnNumber);
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>                 String columnValue = thisCellAsDtNumber != dtColumnNumber ? <span class="jxr_string">""</span> : tt.getGroupingValue(dtColumnNumber);
 <a class="jxr_linenumber" name="L456" href="#L456">456</a>                 writeCellValue(columnValue);
 <a class="jxr_linenumber" name="L457" href="#L457">457</a>                 writeColumnCloser(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L458" href="#L458">458</a>             }
@@ -611,7 +611,7 @@
 <a class="jxr_linenumber" name="L603" href="#L603">603</a>         <strong class="jxr_keyword">for</strong> (<a name="HeaderCell" href="../../../org/displaytag/model/HeaderCell.html#HeaderCell">HeaderCell</a> cell : model.getHeaderCellList())
 <a class="jxr_linenumber" name="L604" href="#L604">604</a>         {
 <a class="jxr_linenumber" name="L605" href="#L605">605</a>             writeColumnOpener(<strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L606" href="#L606">606</a>             Object columnValue = (cell.isTotaled()) ? tt.getTotalForColumn(cell.getColumnNumber(), 0) : <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L606" href="#L606">606</a>             Object columnValue = cell.isTotaled() ? tt.getTotalForColumn(cell.getColumnNumber(), 0) : <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L607" href="#L607">607</a>             writeCellValue(columnValue);
 <a class="jxr_linenumber" name="L608" href="#L608">608</a>             CellStyle st = <strong class="jxr_keyword">this</strong>.utils.getNewCellStyle();
 <a class="jxr_linenumber" name="L609" href="#L609">609</a>             st.cloneStyleFrom(<strong class="jxr_keyword">this</strong>.currentCell.getCellStyle());
@@ -635,6 +635,6 @@
 <a class="jxr_linenumber" name="L627" href="#L627">627</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2019 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2020 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
