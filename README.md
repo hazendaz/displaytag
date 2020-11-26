@@ -1,7 +1,7 @@
 Displaytag
 ==========
 
-[![Build Status](https://travis-ci.org/hazendaz/displaytag.svg?branch=master)](https://travis-ci.org/hazendaz/displaytag)
+[![Java CI](https://github.com/hazendaz/displaytag/workflows/Java%20CI/badge.svg)](https://github.com/hazendaz/displaytag/actions?query=workflow%3A%22Java+CI%22)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/displaytag/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/displaytag)
 
 See site page [here](http://hazendaz.github.io/displaytag/)
