@@ -16,3 +16,6 @@ updates:
   - dependency-name: org.glassfish:jakarta.el
     versions:
     - ">= 4.0.0"
+  - dependency-name: net.trajano.wagon:wagon-git
+    versions:
+    - ">= 2.0.4"
