@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2002-2014 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
