@@ -23,6 +23,7 @@
           java.util.Map<String, String> beeColumn = new java.util.HashMap<String, String>();
           beeColumn.put("property", "bee");
           beeColumn.put("title", "bee title");
+          beeColumn.put("sortable", "false");
 
           java.util.List<java.util.Map<String, String>> columnlist = new java.util.ArrayList<java.util.Map<String, String>>();
           columnlist.add(antColumn);
