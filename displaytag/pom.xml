@@ -314,10 +314,6 @@
           <groupId>javax.servlet</groupId>
           <artifactId>javax.servlet-api</artifactId>
         </exclusion>
-        <exclusion>
-          <groupId>rhino</groupId>
-          <artifactId>js</artifactId>
-        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
