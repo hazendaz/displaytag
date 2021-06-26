@@ -299,7 +299,7 @@
     <dependency>
       <groupId>org.httpunit</groupId>
       <artifactId>httpunit</artifactId>
-      <version>1.7.3</version>
+      <version>1.7.4-SNAPSHOT</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -312,7 +312,7 @@
         </exclusion>
         <exclusion>
           <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
+          <artifactId>javax.servlet-api</artifactId>
         </exclusion>
         <exclusion>
           <groupId>rhino</groupId>
