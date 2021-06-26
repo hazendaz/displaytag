@@ -237,8 +237,8 @@
           <artifactId>velocity-dep</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>ognl</artifactId>
           <groupId>opensymphony</groupId>
+          <artifactId>ognl</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -351,12 +351,12 @@
       <scope>test</scope>
       <exclusions>
         <exclusion>
-          <artifactId>jsp-api</artifactId>
           <groupId>org.apache.tomcat</groupId>
+          <artifactId>jsp-api</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>servlet-api</artifactId>
           <groupId>org.apache.tomcat</groupId>
+          <artifactId>servlet-api</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.apache.tomcat</groupId>
