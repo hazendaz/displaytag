@@ -107,6 +107,7 @@ public class ExportExcelHssfTest
 
         Hashtable<String, String> params = new Hashtable<>();
         params.put("javaEncoding", "utf-8");
+        params.put("scratchdir", "target");
         this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
 
         this.log.debug("ServletRunner setup OK");
