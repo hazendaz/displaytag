@@ -307,10 +307,6 @@
           <artifactId>nekohtml</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>xerces</groupId>
-          <artifactId>xmlParserAPIs</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>javax.servlet</groupId>
           <artifactId>javax.servlet-api</artifactId>
         </exclusion>
