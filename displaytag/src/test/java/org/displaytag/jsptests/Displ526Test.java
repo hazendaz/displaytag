@@ -75,7 +75,7 @@ public class Displ526Test extends DisplaytagCase
         Assert.assertEquals(1, tables.length);
 
         // TODO 12/12/2016 JWL Review why we are having JVM inconsistencies.
-        if (System.getProperty("java.version").startsWith("1.8.")) {
+        if (System.getProperty("java.version").startsWith("1.8.") || System.getProperty("java.version").startsWith("11")) {
             Assert.assertEquals("Wrong column content", "1", tables[0].getCellAsText(2, 1));
         } else {
             Assert.assertEquals("Wrong column content", "5", tables[0].getCellAsText(2, 1));
