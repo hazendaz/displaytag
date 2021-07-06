@@ -297,9 +297,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.httpunit</groupId>
+      <groupId>com.github.hazendaz.httpunit</groupId>
       <artifactId>httpunit</artifactId>
-      <version>1.7.4-SNAPSHOT</version>
+      <version>1.8.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
