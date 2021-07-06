@@ -163,28 +163,28 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-        <groupId>commons-digester</groupId>
-        <artifactId>commons-digester</artifactId>
-        <version>2.1</version>
-        <optional>true</optional>
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-        </exclusions>
+      <groupId>commons-digester</groupId>
+      <artifactId>commons-digester</artifactId>
+      <version>2.1</version>
+      <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
-        <groupId>xalan</groupId>
-        <artifactId>xalan</artifactId>
-        <version>2.7.2</version>
-        <optional>true</optional>
-        <exclusions>
-          <exclusion>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-          </exclusion>
-        </exclusions>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>2.7.2</version>
+      <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.struts</groupId>
@@ -297,9 +297,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.httpunit</groupId>
+      <groupId>com.github.hazendaz.httpunit</groupId>
       <artifactId>httpunit</artifactId>
-      <version>1.7.3</version>
+      <version>1.8.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -307,23 +307,15 @@
           <artifactId>nekohtml</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>xerces</groupId>
-          <artifactId>xmlParserAPIs</artifactId>
-        </exclusion>
-        <exclusion>
           <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>rhino</groupId>
-          <artifactId>js</artifactId>
+          <artifactId>javax.servlet-api</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
       <groupId>org.mozilla</groupId>
       <artifactId>rhino</artifactId>
-      <version>1.7R5</version>
+      <version>1.7.13</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -346,39 +338,55 @@
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
-      <artifactId>jasper</artifactId>
-      <version>6.0.53</version>
+      <artifactId>tomcat-catalina</artifactId>
+      <version>7.0.109</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
           <groupId>org.apache.tomcat</groupId>
-          <artifactId>jsp-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.tomcat</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.tomcat</groupId>
-          <artifactId>el-api</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.tomcat</groupId>
-          <artifactId>annotations-api</artifactId>
+          <artifactId>tomcat-annotations-api</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
-      <artifactId>jasper-el</artifactId>
-      <version>6.0.53</version>
+      <artifactId>tomcat-coyote</artifactId>
+      <version>7.0.109</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-jasper</artifactId>
+      <version>7.0.109</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
           <groupId>org.apache.tomcat</groupId>
-          <artifactId>el-api</artifactId>
+          <artifactId>tomcat-el-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-annotations-api</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-jasper-el</artifactId>
+      <version>7.0.109</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>tomcat-el-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-servlet-api</artifactId>
+      <version>7.0.109</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>jakarta.annotation</groupId>
