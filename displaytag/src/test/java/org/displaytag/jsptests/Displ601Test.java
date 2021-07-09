@@ -21,43 +21,48 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for DISPL-601 - javascript function and hidden form fields not rendered when "paging.banner.placement"="bottom"
  * used.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision: 1081 $ ($Author: fgiust $)
  */
-public class Displ601Test extends DisplaytagCase
-{
+public class Displ601Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-601.jsp";
     }
 
+    /**
+     * Do test.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
         Assert.assertEquals(3, response.getElementsByTagName("input").length);
     }
 

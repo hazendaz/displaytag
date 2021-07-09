@@ -24,14 +24,14 @@ package org.displaytag.exception;
 import org.displaytag.Messages;
 import org.displaytag.model.RowSorter;
 
-
 /**
  * runtime exception thrown during sorting when a checked exception can't be used.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class RuntimeLookupException extends RuntimeException
-{
+public class RuntimeLookupException extends RuntimeException {
 
     /**
      * D1597A17A6.
@@ -41,14 +41,17 @@ public class RuntimeLookupException extends RuntimeException
     /**
      * Instantiates a new runtime lookup exception.
      *
-     * @param sourceClass class where the exception is thrown
-     * @param property object property who caused the exception
-     * @param cause previous (checked) exception
+     * @param sourceClass
+     *            class where the exception is thrown
+     * @param property
+     *            object property who caused the exception
+     * @param cause
+     *            previous (checked) exception
      */
-    public RuntimeLookupException(Class< ? extends RowSorter> sourceClass, String property, BaseNestableJspTagException cause)
-    {
+    public RuntimeLookupException(final Class<? extends RowSorter> sourceClass, final String property,
+            final BaseNestableJspTagException cause) {
         super(Messages.getString("RuntimeLookupException.msg", //$NON-NLS-1$
-            new Object[]{property, cause.getMessage()}));
+                new Object[] { property, cause.getMessage() }));
     }
 
 }

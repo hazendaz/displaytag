@@ -46,15 +46,15 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
-
 /**
  * Reads tlds and check tag classes for declared attributes. This simple reports missing/invalid setters in tag classes.
  * Basic tests only, other tests are performed by the maven-taglib plugin.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class TldTest
-{
+public class TldTest {
 
     /**
      * logger.
@@ -63,12 +63,13 @@ public class TldTest
 
     /**
      * Check displaytag 1.2 dtd.
-     * @throws Exception any Exception generated during test.
+     *
+     * @throws Exception
+     *             any Exception generated during test.
      */
     @Test
-    public void testStandardTld() throws Exception
-    {
-        checkTld("/META-INF/displaytag.tld");
+    public void testStandardTld() throws Exception {
+        this.checkTld("/META-INF/displaytag.tld");
     }
 
     /**
@@ -78,79 +79,66 @@ public class TldTest
      * <li>the tag class has a setter for any of the declared attribute</li>
      * <li>the type declared in the dtd for an attribute (if any) matches the type accepted by the getter</li>
      * </ul>
-     * @param checkedTld path for the tld to check, relative to basedir.
-     * @throws Exception any Exception generated during test.
+     *
+     * @param checkedTld
+     *            path for the tld to check, relative to basedir.
+     *
+     * @throws Exception
+     *             any Exception generated during test.
      */
-    public void checkTld(String checkedTld) throws Exception
-    {
+    public void checkTld(final String checkedTld) throws Exception {
         // Allow access to class as this is only a test case and low risk
         final BeanUtilsBean bub = new BeanUtilsBean();
         bub.getPropertyUtils().removeBeanIntrospector(SuppressPropertiesBeanIntrospector.SUPPRESS_CLASS);
 
-        List<TagAttribute> tagsAttributes = getTagAttributeList(checkedTld);
+        final List<TagAttribute> tagsAttributes = this.getTagAttributeList(checkedTld);
 
-        List<String> errors = new ArrayList<>();
-        Iterator<TagAttribute> iterator = tagsAttributes.iterator();
-        while (iterator.hasNext())
-        {
-            TagAttribute attribute = iterator.next();
+        final List<String> errors = new ArrayList<>();
+        final Iterator<TagAttribute> iterator = tagsAttributes.iterator();
+        while (iterator.hasNext()) {
+            final TagAttribute attribute = iterator.next();
 
-            if (log.isDebugEnabled())
-            {
-                log.debug("testing " + attribute);
+            if (TldTest.log.isDebugEnabled()) {
+                TldTest.log.debug("testing " + attribute);
             }
-            String className = attribute.getTagClass();
+            final String className = attribute.getTagClass();
             Class<TagSupport> tagClass = null;
-            try
-            {
+            try {
                 tagClass = (Class<TagSupport>) Class.forName(className);
-            }
-            catch (ClassNotFoundException e)
-            {
+            } catch (final ClassNotFoundException e) {
                 errors.add("unable to find declared tag class [" + className + "]");
                 continue;
             }
 
-            if (!TagSupport.class.isAssignableFrom(tagClass))
-            {
+            if (!TagSupport.class.isAssignableFrom(tagClass)) {
                 errors.add("Declared class [" + className + "] doesn't extend TagSupport");
                 continue;
             }
 
             // load it
             Object tagObject = null;
-            try
-            {
+            try {
                 tagObject = tagClass.newInstance();
-            }
-            catch (Throwable e)
-            {
+            } catch (final Throwable e) {
                 errors.add("unable to instantiate declared tag class [" + className + "]");
                 continue;
             }
 
-            if (!bub.getPropertyUtils().isWriteable(tagObject, attribute.getAttributeName()))
-            {
+            if (!bub.getPropertyUtils().isWriteable(tagObject, attribute.getAttributeName())) {
                 errors.add("Setter for attribute [" + attribute.getAttributeName() + "] not found in " + className);
                 continue;
             }
 
-            Class< ? > propertyType = bub.getPropertyUtils().getPropertyType(tagObject, attribute.getAttributeName());
+            final Class<?> propertyType = bub.getPropertyUtils().getPropertyType(tagObject,
+                    attribute.getAttributeName());
 
-            String tldType = attribute.getAttributeType();
-            if (tldType != null)
-            {
-                Class< ? > tldTypeClass = getClassFromName(tldType);
+            final String tldType = attribute.getAttributeType();
+            if (tldType != null) {
+                final Class<?> tldTypeClass = this.getClassFromName(tldType);
 
-                if (!propertyType.isAssignableFrom(tldTypeClass))
-                {
-                    errors.add("Tag attribute ["
-                        + attribute.getAttributeName()
-                        + "] declared in tld as ["
-                        + tldType
-                        + "], class declare ["
-                        + propertyType.getName()
-                        + "]");
+                if (!propertyType.isAssignableFrom(tldTypeClass)) {
+                    errors.add("Tag attribute [" + attribute.getAttributeName() + "] declared in tld as [" + tldType
+                            + "], class declare [" + propertyType.getName() + "]");
                     continue;
                 }
 
@@ -158,11 +146,9 @@ public class TldTest
 
         }
 
-        if (errors.size() > 0)
-        {
-            if (log.isInfoEnabled())
-            {
-                log.info(errors.size() + " errors found in tag classes: " + errors);
+        if (errors.size() > 0) {
+            if (TldTest.log.isInfoEnabled()) {
+                TldTest.log.info(errors.size() + " errors found in tag classes: " + errors);
             }
             Assert.fail(errors.size() + " errors found in tag classes: " + errors);
         }
@@ -170,48 +156,35 @@ public class TldTest
 
     /**
      * returns a class from its name, handling primitives.
-     * @param className clss name
+     *
+     * @param className
+     *            clss name
+     *
      * @return Class istantiated using Class.forName or the matching primitive.
      */
-    private Class< ? > getClassFromName(String className)
-    {
+    private Class<?> getClassFromName(final String className) {
 
-        Class< ? > tldTypeClass = null;
+        Class<?> tldTypeClass = null;
 
-        if ("int".equals(className))
-        {
+        if ("int".equals(className)) {
             tldTypeClass = int.class;
-        }
-        else if ("long".equals(className))
-        {
+        } else if ("long".equals(className)) {
             tldTypeClass = long.class;
-        }
-        else if ("double".equals(className))
-        {
+        } else if ("double".equals(className)) {
             tldTypeClass = double.class;
-        }
-        else if ("boolean".equals(className))
-        {
+        } else if ("boolean".equals(className)) {
             tldTypeClass = boolean.class;
-        }
-        else if ("char".equals(className))
-        {
+        } else if ("char".equals(className)) {
             tldTypeClass = char.class;
-        }
-        else if ("byte".equals(className))
-        {
+        } else if ("byte".equals(className)) {
             tldTypeClass = byte.class;
         }
 
-        if (tldTypeClass == null)
-        {
+        if (tldTypeClass == null) {
             // not a primitive type
-            try
-            {
+            try {
                 tldTypeClass = Class.forName(className);
-            }
-            catch (ClassNotFoundException e)
-            {
+            } catch (final ClassNotFoundException e) {
                 Assert.fail("unable to find class [" + className + "] declared in 'type' attribute");
             }
         }
@@ -220,40 +193,41 @@ public class TldTest
 
     /**
      * Extract a list of attributes from tld.
-     * @param checkedTld path for the checked tld, relative to basedir.
+     *
+     * @param checkedTld
+     *            path for the checked tld, relative to basedir.
+     *
      * @return List of TagAttribute
-     * @throws Exception any Exception thrown during test
+     *
+     * @throws Exception
+     *             any Exception thrown during test
      */
-    private List<TagAttribute> getTagAttributeList(String checkedTld) throws Exception
-    {
+    private List<TagAttribute> getTagAttributeList(final String checkedTld) throws Exception {
 
-        InputStream is = getClass().getResourceAsStream(checkedTld);
+        final InputStream is = this.getClass().getResourceAsStream(checkedTld);
 
-        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        final DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         builder.setEntityResolver(new ClasspathEntityResolver());
-        Document webXmlDoc = builder.parse(is);
+        final Document webXmlDoc = builder.parse(is);
 
         is.close();
 
-        NodeList tagList = webXmlDoc.getElementsByTagName("tag");
-        List<TagAttribute> tagsAttributes = new ArrayList<>();
+        final NodeList tagList = webXmlDoc.getElementsByTagName("tag");
+        final List<TagAttribute> tagsAttributes = new ArrayList<>();
 
-        for (int i = 0; i < tagList.getLength(); i++)
-        {
-            Node tag = tagList.item(i);
+        for (int i = 0; i < tagList.getLength(); i++) {
+            final Node tag = tagList.item(i);
 
             // String tagclass = tag.getAttributes().getNamedItem("tag-class").getNodeValue();
 
             NodeList tagAttributes = tag.getChildNodes();
 
             String tagclass = null;
-            for (int k = 0; k < tagAttributes.getLength(); k++)
-            {
-                Node tagAttribute = tagAttributes.item(k);
+            for (int k = 0; k < tagAttributes.getLength(); k++) {
+                final Node tagAttribute = tagAttributes.item(k);
 
                 // only handle 1.0 tlds
-                if ("tag-class".equals(tagAttribute.getNodeName()))
-                {
+                if ("tag-class".equals(tagAttribute.getNodeName())) {
                     tagclass = tagAttribute.getChildNodes().item(0).getNodeValue();
                     break;
                 }
@@ -261,37 +235,29 @@ public class TldTest
             }
 
             tagAttributes = tag.getChildNodes();
-            for (int k = 0; k < tagAttributes.getLength(); k++)
-            {
-                Node tagAttribute = tagAttributes.item(k);
-                if ("attribute".equals(tagAttribute.getNodeName()))
-                {
-                    NodeList initParams = tagAttribute.getChildNodes();
+            for (int k = 0; k < tagAttributes.getLength(); k++) {
+                final Node tagAttribute = tagAttributes.item(k);
+                if ("attribute".equals(tagAttribute.getNodeName())) {
+                    final NodeList initParams = tagAttribute.getChildNodes();
                     String attributeName = null;
                     String attributeType = null;
-                    for (int z = 0; z < initParams.getLength(); z++)
-                    {
-                        Node initParam = initParams.item(z);
-                        if (initParam.getNodeType() != Node.TEXT_NODE && initParam.hasChildNodes())
-                        {
-                            if (initParam.getNodeName().equals("name"))
-                            {
+                    for (int z = 0; z < initParams.getLength(); z++) {
+                        final Node initParam = initParams.item(z);
+                        if (initParam.getNodeType() != Node.TEXT_NODE && initParam.hasChildNodes()) {
+                            if (initParam.getNodeName().equals("name")) {
                                 attributeName = initParam.getFirstChild().getNodeValue();
-                            }
-                            else if (initParam.getNodeName().equals("type"))
-                            {
+                            } else if (initParam.getNodeName().equals("type")) {
                                 attributeType = initParam.getFirstChild().getNodeValue();
                             }
                         }
                     }
-                    TagAttribute attribute = new TagAttribute();
+                    final TagAttribute attribute = new TagAttribute();
                     attribute.setTagClass(tagclass);
                     attribute.setAttributeName(attributeName);
                     attribute.setAttributeType(attributeType);
                     tagsAttributes.add(attribute);
-                    if (log.isDebugEnabled())
-                    {
-                        log.debug("{}", attribute);
+                    if (TldTest.log.isDebugEnabled()) {
+                        TldTest.log.debug("{}", attribute);
                     }
                 }
             }
@@ -302,45 +268,46 @@ public class TldTest
 
     /**
      * Simple Entity resolver which looks in the classpath for dtds.
+     *
      * @author Fabrizio Giustina
+     *
      * @version $Revision$ ($Author$)
      */
-    public static class ClasspathEntityResolver implements EntityResolver
-    {
+    public static class ClasspathEntityResolver implements EntityResolver {
 
         /**
+         * Resolve entity.
+         *
+         * @param publicID
+         *            the public ID
+         * @param systemID
+         *            the system ID
+         *
+         * @return the input source
+         *
          * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
          */
         @Override
-        public InputSource resolveEntity(String publicID, String systemID)
-        {
-            if (systemID != null)
-            {
+        public InputSource resolveEntity(final String publicID, final String systemID) {
+            if (systemID != null) {
                 String systemFileName = systemID;
 
-                if (systemFileName.indexOf("/") > 0)
-                {
-                    systemFileName = systemFileName.substring(
-                        systemFileName.lastIndexOf("/") + 1,
-                        systemFileName.length());
+                if (systemFileName.indexOf("/") > 0) {
+                    systemFileName = systemFileName.substring(systemFileName.lastIndexOf("/") + 1);
                 }
 
-                ClassLoader classLoader = getClass().getClassLoader();
+                final ClassLoader classLoader = this.getClass().getClassLoader();
 
-                URL dtdURL = classLoader.getResource("javax/servlet/jsp/resources/" + systemFileName);
+                final URL dtdURL = classLoader.getResource("javax/servlet/jsp/resources/" + systemFileName);
 
-                if (dtdURL == null)
-                {
+                if (dtdURL == null) {
                     return null;
                 }
 
                 // Return local copy of the dtd
-                try
-                {
+                try {
                     return new InputSource(dtdURL.openStream());
-                }
-                catch (IOException e)
-                {
+                } catch (final IOException e) {
                     // return null
                 }
             }
@@ -352,11 +319,12 @@ public class TldTest
 
     /**
      * Javabean representing a tag attribute.
+     *
      * @author Fabrizio Giustina
+     *
      * @version $Revision$ ($Author$)
      */
-    public static class TagAttribute
-    {
+    public static class TagAttribute {
 
         /**
          * Tag class.
@@ -378,18 +346,17 @@ public class TldTest
          *
          * @return Returns the attribute name.
          */
-        public String getAttributeName()
-        {
+        public String getAttributeName() {
             return this.attributeName;
         }
 
         /**
          * Sets the attribute name.
          *
-         * @param name attribute name.
+         * @param name
+         *            attribute name.
          */
-        public void setAttributeName(String name)
-        {
+        public void setAttributeName(final String name) {
             this.attributeName = name;
         }
 
@@ -398,18 +365,17 @@ public class TldTest
          *
          * @return Returns the attributeType.
          */
-        public String getAttributeType()
-        {
+        public String getAttributeType() {
             return this.attributeType;
         }
 
         /**
          * Sets the attribute type.
          *
-         * @param type The attributeType to set.
+         * @param type
+         *            The attributeType to set.
          */
-        public void setAttributeType(String type)
-        {
+        public void setAttributeType(final String type) {
             this.attributeType = type;
         }
 
@@ -418,32 +384,31 @@ public class TldTest
          *
          * @return Returns the tagClass.
          */
-        public String getTagClass()
-        {
+        public String getTagClass() {
             return this.tagClass;
         }
 
         /**
          * Sets the tag class.
          *
-         * @param tagClassName name of the tag class
+         * @param tagClassName
+         *            name of the tag class
          */
-        public void setTagClass(String tagClassName)
-        {
+        public void setTagClass(final String tagClassName) {
             this.tagClass = tagClassName;
         }
 
         /**
+         * To string.
+         *
+         * @return the string
+         *
          * @see java.lang.Object#toString()
          */
         @Override
-        public String toString()
-        {
-            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-                .append("tagClass", this.tagClass)
-                .append("attributeName", this.attributeName)
-                .append("attributeType", this.attributeType)
-                .toString();
+        public String toString() {
+            return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE).append("tagClass", this.tagClass)
+                    .append("attributeName", this.attributeName).append("attributeType", this.attributeType).toString();
         }
     }
 }

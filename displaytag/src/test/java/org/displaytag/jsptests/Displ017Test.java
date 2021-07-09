@@ -21,6 +21,11 @@
  */
 package org.displaytag.jsptests;
 
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
+import org.xml.sax.SAXException;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebLink;
@@ -28,86 +33,78 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-import org.xml.sax.SAXException;
-
-
 /**
  * Tests for basic displaytag functionalities.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ017Test extends DisplaytagCase
-{
+public class Displ017Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-017.jsp";
     }
 
     /**
      * Verifies that the generated page contains a table with the expected number of columns.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
         WebResponse response = this.runner.getResponse(request);
 
-        for (int j = 0; j < 4; j++)
-        {
-            WebLink[] links = response.getLinks();
+        for (int j = 0; j < 4; j++) {
+            final WebLink[] links = response.getLinks();
             response = links[j].click();
 
-            if (this.log.isDebugEnabled())
-            {
+            if (this.log.isDebugEnabled()) {
                 this.log.debug("After clicking on " + j + ":\n" + response.getText());
             }
-            checkOnlyOneSorted(response, j);
+            this.checkOnlyOneSorted(response, j);
         }
 
     }
 
     /**
      * Check that only the expected column is sorted.
-     * @param response WebResponse
-     * @param sortedColumn expected sorted column number
-     * @throws SAXException in processing WebTables
+     *
+     * @param response
+     *            WebResponse
+     * @param sortedColumn
+     *            expected sorted column number
+     *
+     * @throws SAXException
+     *             in processing WebTables
      */
-    private void checkOnlyOneSorted(WebResponse response, int sortedColumn) throws SAXException
-    {
-        WebTable[] tables = response.getTables();
+    private void checkOnlyOneSorted(final WebResponse response, final int sortedColumn) throws SAXException {
+        final WebTable[] tables = response.getTables();
 
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
         Assert.assertEquals("Wrong number of columns in result.", 4, tables[0].getColumnCount());
 
-        for (int j = 0; j < 4; j++)
-        {
-            TableCell cell = tables[0].getTableCell(0, j);
-            boolean containsSorted = cell.getAttribute("class").indexOf("sorted") > -1;
-            if (j == sortedColumn)
-            {
+        for (int j = 0; j < 4; j++) {
+            final TableCell cell = tables[0].getTableCell(0, j);
+            final boolean containsSorted = cell.getAttribute("class").indexOf("sorted") > -1;
+            if (j == sortedColumn) {
                 Assert.assertTrue("Column " + j + " is not sorted as expected", containsSorted);
-            }
-            else
-            {
-                Assert.assertFalse(
-                    "Column " + j + " is sorted, but only " + sortedColumn + " should be",
-                    containsSorted);
+            } else {
+                Assert.assertFalse("Column " + j + " is sorted, but only " + sortedColumn + " should be",
+                        containsSorted);
             }
 
         }

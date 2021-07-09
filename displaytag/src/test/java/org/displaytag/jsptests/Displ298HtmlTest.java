@@ -21,31 +21,29 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.decorator.ModelDecorator;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * The Class Displ298HtmlTest.
  */
-public class Displ298HtmlTest extends DisplaytagCase
-{
+public class Displ298HtmlTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-298.jsp";
     }
 
@@ -53,18 +51,19 @@ public class Displ298HtmlTest extends DisplaytagCase
      * Check that model modifications made by table decorator specified with in the decorator property the table tag
      * show up in the html output.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = this.runner.getResponse(request);
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", "text/html", response.getContentType());
-        String responseText = response.getText();
-        boolean expectedTextPresent = responseText != null && responseText.indexOf(ModelDecorator.DECORATED_VALUE) > -1;
+        final String responseText = response.getText();
+        final boolean expectedTextPresent = responseText != null
+                && responseText.indexOf(ModelDecorator.DECORATED_VALUE) > -1;
         Assert.assertTrue("Missing content.", expectedTextPresent);
     }
 

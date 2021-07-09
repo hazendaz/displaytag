@@ -24,35 +24,35 @@ package org.displaytag.model;
 import java.text.Collator;
 import java.util.Comparator;
 
-
 /**
  * Default comparator. Was previously part of RowSorter.
+ *
  * @author fguist
  * @author rapruitt
+ *
  * @version $Revision$ ($Author$)
  */
-public class DefaultComparator implements Comparator<Object>
-{
+public class DefaultComparator implements Comparator<Object> {
 
     /**
      * Use this collator.
      */
-    private Collator collator;
+    private final Collator collator;
 
     /**
      * Instantiate a default comparator with no collator specified.
      */
-    public DefaultComparator()
-    {
+    public DefaultComparator() {
         this(Collator.getInstance());
     }
 
     /**
      * Instantiate a default comparator with a specified collator.
-     * @param collatorToUse collator instance
+     *
+     * @param collatorToUse
+     *            collator instance
      */
-    public DefaultComparator(Collator collatorToUse)
-    {
+    public DefaultComparator(final Collator collatorToUse) {
         this.collator = collatorToUse;
         this.collator.setStrength(Collator.PRIMARY); // ignore case and accents
     }
@@ -60,28 +60,24 @@ public class DefaultComparator implements Comparator<Object>
     /**
      * Compares two given objects. Not comparable objects are compared using their string representation. String
      * comparisons are done using a Collator.
-     * @param object1 first parameter
-     * @param object2 second parameter
+     *
+     * @param object1
+     *            first parameter
+     * @param object2
+     *            second parameter
+     *
      * @return the value
      */
     @Override
-    public int compare(Object object1, Object object2)
-    {
+    public int compare(final Object object1, final Object object2) {
         int returnValue;
-        if (object1 instanceof String && object2 instanceof String)
-        {
+        if (object1 instanceof String && object2 instanceof String) {
             returnValue = this.collator.compare(object1, object2);
-        }
-        else if (object1 instanceof Cell)
-        {
+        } else if (object1 instanceof Cell) {
             return ((Cell) object1).compareTo(object2, this.collator);
-        }
-        else if (object1 instanceof Comparable && object2 instanceof Comparable)
-        {
+        } else if (object1 instanceof Comparable && object2 instanceof Comparable) {
             returnValue = ((Comparable<Object>) object1).compareTo(object2);
-        }
-        else
-        {
+        } else {
             // if object are not null and don't implement comparable, compare using string values
             returnValue = this.collator.compare(object1.toString(), object2.toString());
         }

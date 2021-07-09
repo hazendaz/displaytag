@@ -36,15 +36,15 @@ import org.displaytag.util.HtmlTagUtil;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
-
 /**
  * DataObject representing the column header. The header cell contains all the properties common to cells in the same
  * column.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class HeaderCell
-{
+public class HeaderCell {
 
     /**
      * Map containing the html tag attributes for cells (td).
@@ -141,55 +141,58 @@ public class HeaderCell
 
     /**
      * getter for the grouping index.
+     *
      * @return 0 if the column is not grouped or the grouping order
      */
-    public int getGroup()
-    {
+    public int getGroup() {
         return this.group;
     }
 
     /**
      * setter for the grouping index.
-     * @param groupingOrder int grouping order (int &gt; 0)
+     *
+     * @param groupingOrder
+     *            int grouping order (int &gt; 0)
      */
-    public void setGroup(int groupingOrder)
-    {
+    public void setGroup(final int groupingOrder) {
         this.group = groupingOrder;
     }
 
     /**
      * getter for the max number of characters to display in the column.
+     *
      * @return int number of characters to display in the column
      */
-    public int getMaxLength()
-    {
+    public int getMaxLength() {
         return this.maxLength;
     }
 
     /**
      * setter for the max number of characters to display in the column.
-     * @param numOfChars number of characters to display in the column
+     *
+     * @param numOfChars
+     *            number of characters to display in the column
      */
-    public void setMaxLength(int numOfChars)
-    {
+    public void setMaxLength(final int numOfChars) {
         this.maxLength = numOfChars;
     }
 
     /**
      * getter for the max number of words to display in the column.
+     *
      * @return int number of words to display in the column
      */
-    public int getMaxWords()
-    {
+    public int getMaxWords() {
         return this.maxWords;
     }
 
     /**
      * setter for the max number of words to display in the column.
-     * @param numOfWords number of words to display in the column
+     *
+     * @param numOfWords
+     *            number of words to display in the column
      */
-    public void setMaxWords(int numOfWords)
-    {
+    public void setMaxWords(final int numOfWords) {
         this.maxWords = numOfWords;
     }
 
@@ -198,35 +201,36 @@ public class HeaderCell
      *
      * @return true null will be displayed in cell content
      */
-    public boolean getShowNulls()
-    {
+    public boolean getShowNulls() {
         return this.showNulls;
     }
 
     /**
      * Enable or disable displaying of null values.
-     * @param outputNulls boolean true if null should be displayed
+     *
+     * @param outputNulls
+     *            boolean true if null should be displayed
      */
-    public void setShowNulls(boolean outputNulls)
-    {
+    public void setShowNulls(final boolean outputNulls) {
         this.showNulls = outputNulls;
     }
 
     /**
      * Getter for the name of the property to look up in the bean.
+     *
      * @return String name of the property to look up in the bean
      */
-    public String getBeanPropertyName()
-    {
+    public String getBeanPropertyName() {
         return this.beanPropertyName;
     }
 
     /**
      * Setter for the name of the property to look up in the bean.
-     * @param propertyName - name of the property to look up in the bean
+     *
+     * @param propertyName
+     *            - name of the property to look up in the bean
      */
-    public void setBeanPropertyName(String propertyName)
-    {
+    public void setBeanPropertyName(final String propertyName) {
         this.beanPropertyName = propertyName;
     }
 
@@ -235,52 +239,52 @@ public class HeaderCell
      *
      * @return true if the column already sorted
      */
-    public boolean isAlreadySorted()
-    {
+    public boolean isAlreadySorted() {
         return this.alreadySorted;
     }
 
     /**
      * Setter for the sorted property (the column is actually sorted).
      */
-    public void setAlreadySorted()
-    {
+    public void setAlreadySorted() {
         this.alreadySorted = true;
     }
 
     /**
      * Getter for the column number.
+     *
      * @return int column number
      */
-    public int getColumnNumber()
-    {
+    public int getColumnNumber() {
         return this.columnNumber;
     }
 
     /**
      * Setter for the column number.
-     * @param number - int column number
+     *
+     * @param number
+     *            - int column number
      */
-    public void setColumnNumber(int number)
-    {
+    public void setColumnNumber(final int number) {
         this.columnNumber = number;
     }
 
     /**
      * Returns the columnDecorator object for this column.
+     *
      * @return DisplaytagColumnDecorator
      */
-    public DisplaytagColumnDecorator[] getColumnDecorators()
-    {
+    public DisplaytagColumnDecorator[] getColumnDecorators() {
         return this.columnDecorators != null ? this.columnDecorators : new DisplaytagColumnDecorator[0];
     }
 
     /**
      * Sets the columnDecorator object for this column.
-     * @param decorator - the DisplaytagColumnDecorator
+     *
+     * @param decorator
+     *            - the DisplaytagColumnDecorator
      */
-    public void setColumnDecorators(DisplaytagColumnDecorator[] decorator)
-    {
+    public void setColumnDecorators(final DisplaytagColumnDecorator[] decorator) {
         this.columnDecorators = decorator;
     }
 
@@ -289,18 +293,17 @@ public class HeaderCell
      *
      * @return true if the column is sortable
      */
-    public boolean getSortable()
-    {
+    public boolean getSortable() {
         return this.sortable;
     }
 
     /**
      * is the column sortable?.
      *
-     * @param isSortable - true if the column can be sorted
+     * @param isSortable
+     *            - true if the column can be sorted
      */
-    public void setSortable(boolean isSortable)
-    {
+    public void setSortable(final boolean isSortable) {
         this.sortable = isSortable;
     }
 
@@ -309,33 +312,30 @@ public class HeaderCell
      *
      * @return name given to server for sorting this column
      */
-    public String getSortName()
-    {
+    public String getSortName() {
         return this.sortName;
     }
 
     /**
      * Set name given to server for sorting this column.
      *
-     * @param sortName name given to server for sorting this column
+     * @param sortName
+     *            name given to server for sorting this column
      */
-    public void setSortName(String sortName)
-    {
+    public void setSortName(final String sortName) {
         this.sortName = sortName;
     }
 
     /**
      * Gets the column title.
+     *
      * @return the column title. If no title is specified the capitalized bean property name is returned
      */
-    public String getTitle()
-    {
-        if (this.title != null)
-        {
+    public String getTitle() {
+        if (this.title != null) {
             return this.title;
         }
-        else if (this.beanPropertyName != null)
-        {
+        if (this.beanPropertyName != null) {
             return StringUtils.capitalize(this.beanPropertyName);
         }
 
@@ -344,176 +344,179 @@ public class HeaderCell
 
     /**
      * Setter for the column title.
-     * @param value - the column title
+     *
+     * @param value
+     *            - the column title
      */
-    public void setTitle(String value)
-    {
+    public void setTitle(final String value) {
         this.title = value;
     }
 
     /**
      * Returns the HtmlAttributeMap containg all the html attributes for the <strong>td </strong> tags.
+     *
      * @return HtmlAttributeMap with td attributes
      */
-    public HtmlAttributeMap getHtmlAttributes()
-    {
+    public HtmlAttributeMap getHtmlAttributes() {
         return this.htmlAttributes;
     }
 
     /**
      * Sets the HtmlAttributeMap containg all the html attributes for the <strong>td </strong> tags.
-     * @param attributes HtmlAttributeMap
+     *
+     * @param attributes
+     *            HtmlAttributeMap
      */
-    public void setHtmlAttributes(HtmlAttributeMap attributes)
-    {
+    public void setHtmlAttributes(final HtmlAttributeMap attributes) {
         this.htmlAttributes = attributes;
     }
 
     /**
      * returns the HtmlAttributeMap containg all the html attributes for the <strong>th </strong> tag.
+     *
      * @return HtmlAttributeMap with th attributes
      */
-    public HtmlAttributeMap getHeaderAttributes()
-    {
+    public HtmlAttributeMap getHeaderAttributes() {
         return this.headerAttributes;
     }
 
     /**
      * Sets the HtmlAttributeMap containg all the html attributes for the <strong>th </strong> tag.
-     * @param attributes HtmlAttributeMap
+     *
+     * @param attributes
+     *            HtmlAttributeMap
      */
-    public void setHeaderAttributes(HtmlAttributeMap attributes)
-    {
+    public void setHeaderAttributes(final HtmlAttributeMap attributes) {
         this.headerAttributes = attributes;
     }
 
     /**
      * Adds a css class to the html "class" attribute.
-     * @param cssClass String
+     *
+     * @param cssClass
+     *            String
      */
-    public void addHeaderClass(String cssClass)
-    {
+    public void addHeaderClass(final String cssClass) {
         // null safe
-        if (StringUtils.isBlank(cssClass))
-        {
+        if (StringUtils.isBlank(cssClass)) {
             return;
         }
 
         // if headerAttributes has not been set, instantiates a new map
-        if (this.headerAttributes == null)
-        {
+        if (this.headerAttributes == null) {
             this.headerAttributes = new HtmlAttributeMap();
         }
 
-        Object classAttributes = this.headerAttributes.get(TagConstants.ATTRIBUTE_CLASS);
+        final Object classAttributes = this.headerAttributes.get(TagConstants.ATTRIBUTE_CLASS);
 
         // handle multiple values
-        if (classAttributes == null)
-        {
+        if (classAttributes == null) {
             this.headerAttributes.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(cssClass));
-        }
-        else
-        {
+        } else {
             ((MultipleHtmlAttribute) classAttributes).addAttributeValue(cssClass);
         }
     }
 
     /**
      * return the open tag for a column header (th).
+     *
      * @return String &lt;th&gt; tag with attributes
      */
-    public String getHeaderOpenTag()
-    {
+    public String getHeaderOpenTag() {
         return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN_HEADER, this.headerAttributes);
     }
 
     /**
      * return the closing tag for a cell (td).
+     *
      * @return String &lt;/td&gt;
      */
-    public String getCloseTag()
-    {
+    public String getCloseTag() {
         return TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE;
     }
 
     /**
      * return the closing tag for a column header (th).
+     *
      * @return String &lt;/th&gt;
      */
-    public String getHeaderCloseTag()
-    {
+    public String getHeaderCloseTag() {
         return TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN_HEADER + TagConstants.TAG_CLOSE;
     }
 
     /**
      * Setter for the href to be used for dinamic links in cells.
-     * @param baseHref base href for links
+     *
+     * @param baseHref
+     *            base href for links
      */
-    public void setHref(Href baseHref)
-    {
+    public void setHref(final Href baseHref) {
         this.href = baseHref;
     }
 
     /**
      * Getter for the href to be used for dinamic links in cells.
+     *
      * @return Href base href for links
      */
-    public Href getHref()
-    {
+    public Href getHref() {
         return this.href;
     }
 
     /**
      * Setter for the name of the param to add to links.
-     * @param name name of the param
+     *
+     * @param name
+     *            name of the param
      */
-    public void setParamName(String name)
-    {
+    public void setParamName(final String name) {
         this.paramName = name;
     }
 
     /**
      * Getter for the name of the param to add to links.
+     *
      * @return String name of the param
      */
-    public String getParamName()
-    {
+    public String getParamName() {
         return this.paramName;
     }
 
     /**
      * Setter for the name of the property to look up in bean to get the param value for links.
-     * @param property name of the property to look up in bean to get the param value for links
+     *
+     * @param property
+     *            name of the property to look up in bean to get the param value for links
      */
-    public void setParamProperty(String property)
-    {
+    public void setParamProperty(final String property) {
         this.paramProperty = property;
     }
 
     /**
      * Getter for the name of the property to look up in bean to get the param value for links.
+     *
      * @return String name of the property to look up in bean to get the param value for links
      */
-    public String getParamProperty()
-    {
+    public String getParamProperty() {
         return this.paramProperty;
     }
 
     /**
      * Getter for the name of the property in the bean which will be used for sorting.
+     *
      * @return String name of the property in the bean which will be used for sorting
      */
-    public String getSortProperty()
-    {
+    public String getSortProperty() {
         return this.sortPropertyName;
     }
 
     /**
      * Setter for the name of the property in the bean which will be used for sorting.
-     * @param propertyName - name of the property in the bean which will be used for sorting
+     *
+     * @param propertyName
+     *            - name of the property in the bean which will be used for sorting
      */
-    public void setSortProperty(String propertyName)
-    {
+    public void setSortProperty(final String propertyName) {
         this.sortPropertyName = propertyName;
     }
 
@@ -522,49 +525,52 @@ public class HeaderCell
      *
      * @return default order
      */
-    public SortOrderEnum getDefaultSortOrder()
-    {
+    public SortOrderEnum getDefaultSortOrder() {
         return this.defaultSortOrder;
     }
 
     /**
      * Gets the default sort order for this column.
      *
-     * @param order default order
+     * @param order
+     *            default order
      */
-    public void setDefaultSortOrder(SortOrderEnum order)
-    {
+    public void setDefaultSortOrder(final SortOrderEnum order) {
         this.defaultSortOrder = order;
     }
 
     /**
+     * To string.
+     *
+     * @return the string
+     *
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("columnNumber", this.columnNumber) //$NON-NLS-1$
-            .append("title", this.title) //$NON-NLS-1$
-            .append("beanPropertyName", this.beanPropertyName) //$NON-NLS-1$
-            .toString();
+                .append("columnNumber", this.columnNumber) //$NON-NLS-1$
+                .append("title", this.title) //$NON-NLS-1$
+                .append("beanPropertyName", this.beanPropertyName) //$NON-NLS-1$
+                .toString();
     }
 
     /**
      * Set the column comparator.
-     * @param columnComparator the value
+     *
+     * @param columnComparator
+     *            the value
      */
-    public void setComparator(Comparator<Object> columnComparator)
-    {
+    public void setComparator(final Comparator<Object> columnComparator) {
         this.comparator = columnComparator;
     }
 
     /**
      * Get the comparator for sorting this column.
+     *
      * @return the comparator
      */
-    public Comparator<Object> getComparator()
-    {
+    public Comparator<Object> getComparator() {
         return this.comparator;
     }
 
@@ -573,59 +579,57 @@ public class HeaderCell
      *
      * @return true if we are totaling
      */
-    public boolean isTotaled()
-    {
+    public boolean isTotaled() {
         return this.totaled;
     }
 
     /**
      * Setter for totaled.
-     * @param isTotaled the value
+     *
+     * @param isTotaled
+     *            the value
      */
-    public void setTotaled(boolean isTotaled)
-    {
+    public void setTotaled(final boolean isTotaled) {
         this.totaled = isTotaled;
     }
 
     /**
      * Add the value of this parameter to the column total. The param will be converted to a number via a property
      * Converter.
-     * @param value the value
+     *
+     * @param value
+     *            the value
+     *
      * @see Converter#convert(Class, Object)
      */
-    private void addToTotal(Object value)
-    {
-        if (value != null && value instanceof Number)
-        {
+    private void addToTotal(final Object value) {
+        if (value instanceof Number) {
             this.total = this.total + ((Number) value).doubleValue();
         }
     }
 
     /**
      * Get the current total.
+     *
      * @return the current total.
      */
-    public double getTotal()
-    {
+    public double getTotal() {
         return this.total;
     }
 
     /**
      * Add a new cell to this column.
-     * @param column the value
+     *
+     * @param column
+     *            the value
      */
-    public void addCell(Column column)
-    {
+    public void addCell(final Column column) {
         // Not actually going to hold a reference to the added cell - we just need access for the totals
-        if (this.totaled)
-        {
-            try
-            {
-                Object val = column.getValue(false);
-                addToTotal(val);
-            }
-            catch (ObjectLookupException | DecoratorException e)
-            {
+        if (this.totaled) {
+            try {
+                final Object val = column.getValue(false);
+                this.addToTotal(val);
+            } catch (ObjectLookupException | DecoratorException e) {
                 throw new RuntimeException(e);
             }
         }

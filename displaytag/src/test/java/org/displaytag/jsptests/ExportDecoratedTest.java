@@ -21,10 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.properties.MediaTypeEnum;
@@ -35,56 +31,55 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for column decorators.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ExportDecoratedTest extends DisplaytagCase
-{
+public class ExportDecoratedTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "columndecorator.jsp";
     }
 
     /**
      * Export should not be decorated.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+    public void doTest() throws Exception {
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
 
-        WebResponse response = this.runner.getResponse(request);
-        if (this.log.isDebugEnabled())
-        {
+        final WebResponse response = this.runner.getResponse(request);
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
         Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
-        Assert.assertFalse(
-            "Export should not be decorated",
-            StringUtils.contains(
-                response.getText(),
+        Assert.assertFalse("Export should not be decorated", StringUtils.contains(response.getText(),
                 (String) new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null)));
-        Assert.assertTrue(
-            "Export should not be decorated",
-            StringUtils.contains(response.getText(), KnownTypes.TIME_VALUE.toString()));
+        Assert.assertTrue("Export should not be decorated",
+                StringUtils.contains(response.getText(), KnownTypes.TIME_VALUE.toString()));
     }
 }

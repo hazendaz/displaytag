@@ -21,11 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.itextpdf.text.pdf.PdfReader;
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,41 +38,66 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.itextpdf.text.pdf.PdfReader;
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for pdf export.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ExportPdfTest extends DisplaytagCase
-{
+public class ExportPdfTest extends DisplaytagCase {
 
+    /**
+     * Do test.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
         // Not used
     }
 
+    /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
+     */
     @Override
     public String getJspName() {
         // Not used
         return null;
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Override
     @Before
-    public void setUp() throws Exception
-    {
-        Properties p = new Properties();
+    public void setUp() throws Exception {
+        final Properties p = new Properties();
         p.setProperty("export.pdf.class", "org.displaytag.export.FopExportView");
         TableProperties.setUserProperties(p);
         super.setUp();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Override
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         TableProperties.clearProperties();
         super.tearDown();
     }
@@ -86,23 +106,25 @@ public class ExportPdfTest extends DisplaytagCase
      * Gets the test file.
      *
      * @return the test file
-     * @throws IOException Signals that an I/O exception has occurred.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
-    public File getTestFile() throws IOException
-    {
+    public File getTestFile() throws IOException {
         return File.createTempFile("inline", "pdf");
     }
 
     /**
      * Test for content disposition and filename. jspName jsp name, with full path
-     * @throws Exception any axception thrown during test.
+     *
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Test
-    public void doDefaultTest() throws Exception
-    {
-        byte[] res = runPage("exportfull.jsp");
-        File f = getTestFile();
-        FileOutputStream fw = new FileOutputStream(f);
+    public void doDefaultTest() throws Exception {
+        final byte[] res = this.runPage("exportfull.jsp");
+        final File f = this.getTestFile();
+        final FileOutputStream fw = new FileOutputStream(f);
         fw.write(res);
         fw.flush();
         fw.close();
@@ -111,14 +133,14 @@ public class ExportPdfTest extends DisplaytagCase
     /**
      * Do inline test.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    public void doInlineTest() throws Exception
-    {
-        byte[] res = runPage("exportFoInline.jsp");
-        File f = getTestFile();
-        FileOutputStream fw = new FileOutputStream(f);
+    public void doInlineTest() throws Exception {
+        final byte[] res = this.runPage("exportFoInline.jsp");
+        final File f = this.getTestFile();
+        final FileOutputStream fw = new FileOutputStream(f);
         fw.write(res);
         fw.flush();
         fw.close();
@@ -127,33 +149,36 @@ public class ExportPdfTest extends DisplaytagCase
     /**
      * Run page.
      *
-     * @param jspPage the jsp page
+     * @param jspPage
+     *            the jsp page
+     *
      * @return the byte[]
-     * @throws Exception the exception
+     *
+     * @throws Exception
+     *             the exception
      */
-    public byte[] runPage(String jspPage) throws Exception
-    {
+    public byte[] runPage(final String jspPage) throws Exception {
 
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
-        WebRequest request = new GetMethodWebRequest(getJspUrl(jspPage));
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(jspPage));
 
         // this will force media type initialization
         ExportViewFactory.getInstance();
-        MediaTypeEnum pdfMedia = MediaTypeEnum.PDF;
+        final MediaTypeEnum pdfMedia = MediaTypeEnum.PDF;
         Assert.assertNotNull("Pdf export view not correctly registered.", pdfMedia);
         request.setParameter(mediaParameter, Integer.toString(pdfMedia.getCode()));
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
         Assert.assertEquals("Expected a different content type.", "application/pdf", response.getContentType());
 
-        InputStream stream = response.getInputStream();
-        byte[] result = new byte[9000];
+        final InputStream stream = response.getInputStream();
+        final byte[] result = new byte[9000];
         stream.read(result);
 
-        PdfReader reader = new PdfReader(result);
+        final PdfReader reader = new PdfReader(result);
         // byte[] page = reader.getPageContent(1);
         Assert.assertEquals("Expected a valid pdf file with a single page", 1, reader.getNumberOfPages());
 

@@ -23,36 +23,40 @@ package org.displaytag.decorator;
 
 /**
  * Test decorator used in tests.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision: 1081 $ ($Author: fgiust $)
  */
-public class TableDecoratorThree extends TableDecorator
-{
+public class TableDecoratorThree extends TableDecorator {
 
     /**
      * Setter for <code>simple</code>.
-     * @param simple The simple property to set.
+     *
+     * @param simple
+     *            The simple property to set.
      */
-    public void setSimple(String simple)
-    {
+    public void setSimple(final String simple) {
         //
     }
 
     /**
      * setter for a mapped property.
-     * @param key property name
+     *
+     * @param key
+     *            property name
      */
-    public void setMapped(String key)
-    {
+    public void setMapped(final String key) {
         //
     }
 
     /**
      * setter for an indexed property.
-     * @param key property index
+     *
+     * @param key
+     *            property index
      */
-    public void setIndexed(int key)
-    {
+    public void setIndexed(final int key) {
         //
     }
 

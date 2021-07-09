@@ -35,15 +35,15 @@ import org.displaytag.tags.TableTagParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Actually writes out the content of the wrapped response. Used by the j2ee filter and the Spring interceptor
  * implementations.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public final class ExportDelegate
-{
+public final class ExportDelegate {
 
     /**
      * logger.
@@ -53,8 +53,7 @@ public final class ExportDelegate
     /**
      * Don't instantiate.
      */
-    private ExportDelegate()
-    {
+    private ExportDelegate() {
         // unused
     }
 
@@ -62,44 +61,46 @@ public final class ExportDelegate
      * Actually writes exported data. Extracts content from the Map stored in request with the
      * <code>TableTag.FILTER_CONTENT_OVERRIDE_BODY</code> key.
      *
-     * @param response HttpServletResponse
-     * @param request ServletRequest
-     * @param wrapper BufferedResponseWrapper implementation
-     * @throws IOException exception thrown by response writer/outputStream
+     * @param response
+     *            HttpServletResponse
+     * @param request
+     *            ServletRequest
+     * @param wrapper
+     *            BufferedResponseWrapper implementation
+     *
+     * @throws IOException
+     *             exception thrown by response writer/outputStream
      */
-    protected static void writeExport(HttpServletResponse response, ServletRequest request,
-        BufferedResponseWrapper wrapper) throws IOException
-    {
+    protected static void writeExport(final HttpServletResponse response, final ServletRequest request,
+            final BufferedResponseWrapper wrapper) throws IOException {
 
-        if (wrapper.isOutRequested())
-        {
+        if (wrapper.isOutRequested()) {
             // data already written
-            log.debug("Filter operating in unbuffered mode. Everything done, exiting");
+            ExportDelegate.log.debug("Filter operating in unbuffered mode. Everything done, exiting");
             return;
         }
 
         // if you reach this point the PARAMETER_EXPORTING has been found, but the special header has never been set in
         // response (this is the signal from table tag that it is going to write exported data)
-        log.debug("Filter operating in buffered mode. ");
+        ExportDelegate.log.debug("Filter operating in buffered mode. ");
 
-        Map<String, Object> bean = (Map<String, Object>) request.getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);
+        final Map<String, Object> bean = (Map<String, Object>) request
+                .getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);
 
-        if (log.isDebugEnabled())
-        {
-            log.debug("{}", bean);
+        if (ExportDelegate.log.isDebugEnabled()) {
+            ExportDelegate.log.debug("{}", bean);
         }
 
-        Object pageContent = bean.get(TableTagParameters.BEAN_BODY);
+        final Object pageContent = bean.get(TableTagParameters.BEAN_BODY);
 
-        if (pageContent == null)
-        {
-            if (log.isDebugEnabled())
-            {
-                log.debug("Filter is enabled but exported content has not been found. Maybe an error occurred?");
+        if (pageContent == null) {
+            if (ExportDelegate.log.isDebugEnabled()) {
+                ExportDelegate.log
+                        .debug("Filter is enabled but exported content has not been found. Maybe an error occurred?");
             }
 
             response.setContentType(wrapper.getContentType());
-            PrintWriter out = response.getWriter();
+            final PrintWriter out = response.getWriter();
 
             out.write(wrapper.getContentAsString());
             out.flush();
@@ -107,24 +108,21 @@ public final class ExportDelegate
         }
 
         String characterEncoding = wrapper.getCharacterEncoding();
-        String wrappedContentType = wrapper.getContentType();
+        final String wrappedContentType = wrapper.getContentType();
 
         // clear headers
-        if (!response.isCommitted())
-        {
+        if (!response.isCommitted()) {
             response.reset();
         }
 
-        String filename = (String) bean.get(TableTagParameters.BEAN_FILENAME);
+        final String filename = (String) bean.get(TableTagParameters.BEAN_FILENAME);
         String contentType = (String) bean.get(TableTagParameters.BEAN_CONTENTTYPE);
 
-        if (StringUtils.isNotBlank(filename))
-        {
+        if (StringUtils.isNotBlank(filename)) {
             response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
         }
 
-        if (wrappedContentType != null && wrappedContentType.indexOf("charset") > -1)
-        {
+        if (wrappedContentType != null && wrappedContentType.indexOf("charset") > -1) {
             // charset is already specified (see #921811)
             characterEncoding = StringUtils.substringAfter(wrappedContentType, "charset=");
         }
@@ -136,28 +134,22 @@ public final class ExportDelegate
 
         response.setContentType(contentType);
 
-        if (pageContent instanceof String)
-        {
+        if (pageContent instanceof String) {
             // text content
-            if (characterEncoding != null)
-            {
+            if (characterEncoding != null) {
                 response.setContentLength(((String) pageContent).getBytes(characterEncoding).length);
-            }
-            else
-            {
+            } else {
                 response.setContentLength(((String) pageContent).getBytes().length);
             }
 
-            PrintWriter out = response.getWriter();
+            final PrintWriter out = response.getWriter();
             out.write((String) pageContent);
             out.flush();
-        }
-        else
-        {
+        } else {
             // dealing with binary content
-            byte[] content = (byte[]) pageContent;
+            final byte[] content = (byte[]) pageContent;
             response.setContentLength(content.length);
-            OutputStream out = response.getOutputStream();
+            final OutputStream out = response.getOutputStream();
             out.write(content);
             out.flush();
         }

@@ -21,54 +21,53 @@
  */
 package org.displaytag.jsptests;
 
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
-
 /**
  * Test for DISPL-161 - "null" still displayed even when nulls="false".
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ161Test extends DisplaytagCase
-{
+public class Displ161Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-161.jsp";
     }
 
     /**
      * No exception when an invalid page is requested.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = this.runner.getResponse(request);
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
         Assert.assertEquals("Wrong content for first column", "", tables[0].getCellAsText(1, 0));

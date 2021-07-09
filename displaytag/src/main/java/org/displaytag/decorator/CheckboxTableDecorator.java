@@ -32,14 +32,14 @@ import javax.servlet.jsp.PageContext;
 
 import org.displaytag.model.TableModel;
 
-
 /**
  * A table decorator which adds checkboxes for selectable rows.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public class CheckboxTableDecorator extends TableDecorator
-{
+public class CheckboxTableDecorator extends TableDecorator {
 
     /** The id. */
     private String id = "id";
@@ -52,57 +52,64 @@ public class CheckboxTableDecorator extends TableDecorator
 
     /**
      * Setter for <code>id</code>.
-     * @param id The id to set.
+     *
+     * @param id
+     *            The id to set.
      */
-    public void setId(String id)
-    {
+    public void setId(final String id) {
         this.id = id;
     }
 
     /**
      * Setter for <code>fieldName</code>.
-     * @param fieldName The fieldName to set.
+     *
+     * @param fieldName
+     *            The fieldName to set.
      */
-    public void setFieldName(String fieldName)
-    {
+    public void setFieldName(final String fieldName) {
         this.fieldName = fieldName;
     }
 
     /**
+     * Inits the.
+     *
+     * @param pageContext
+     *            the page context
+     * @param decorated
+     *            the decorated
+     * @param tableModel
+     *            the table model
+     *
      * @see org.displaytag.decorator.Decorator#init(javax.servlet.jsp.PageContext, java.lang.Object,
-     * org.displaytag.model.TableModel)
+     *      org.displaytag.model.TableModel)
      */
     @Override
-    public void init(PageContext pageContext, Object decorated, TableModel tableModel)
-    {
+    public void init(final PageContext pageContext, final Object decorated, final TableModel tableModel) {
         super.init(pageContext, decorated, tableModel);
-        String[] params = pageContext.getRequest().getParameterValues(this.fieldName);
-        this.checkedIds = params != null ? new ArrayList<>(Arrays.asList(params)) : new ArrayList<String>(0);
+        final String[] params = pageContext.getRequest().getParameterValues(this.fieldName);
+        this.checkedIds = params != null ? new ArrayList<>(Arrays.asList(params)) : new ArrayList<>(0);
     }
 
     /**
+     * Finish.
+     *
      * @see org.displaytag.decorator.TableDecorator#finish()
      */
     @Override
-    public void finish()
-    {
+    public void finish() {
 
-        if (!this.checkedIds.isEmpty())
-        {
-            JspWriter writer = getPageContext().getOut();
-            for (String name : this.checkedIds) {
-                StringBuilder buffer = new StringBuilder();
+        if (!this.checkedIds.isEmpty()) {
+            final JspWriter writer = this.getPageContext().getOut();
+            for (final String name : this.checkedIds) {
+                final StringBuilder buffer = new StringBuilder();
                 buffer.append("<input type=\"hidden\" name=\"");
                 buffer.append(this.fieldName);
                 buffer.append("\" value=\"");
                 buffer.append(name);
                 buffer.append("\">");
-                try
-                {
+                try {
                     writer.write(buffer.toString());
-                }
-                catch (IOException e)
-                {
+                } catch (final IOException e) {
                     // should never happen
                 }
             }
@@ -117,19 +124,17 @@ public class CheckboxTableDecorator extends TableDecorator
      *
      * @return the checkbox
      */
-    public String getCheckbox()
-    {
+    public String getCheckbox() {
 
-        String evaluatedId = Objects.toString(evaluate(this.id));
+        final String evaluatedId = Objects.toString(this.evaluate(this.id));
 
-        boolean checked = this.checkedIds.contains(evaluatedId);
+        final boolean checked = this.checkedIds.contains(evaluatedId);
 
-        StringBuilder buffer = new StringBuilder();
+        final StringBuilder buffer = new StringBuilder();
         buffer.append("<input type=\"checkbox\" name=\"_chk\" value=\"");
         buffer.append(evaluatedId);
         buffer.append("\"");
-        if (checked)
-        {
+        if (checked) {
             this.checkedIds.remove(evaluatedId);
             buffer.append(" checked=\"checked\"");
         }

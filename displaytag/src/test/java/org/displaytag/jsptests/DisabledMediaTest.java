@@ -21,52 +21,50 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HttpInternalErrorException;
-import com.meterware.httpunit.WebRequest;
-
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpInternalErrorException;
+import com.meterware.httpunit.WebRequest;
+
 /**
  * Test for #968559.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class DisabledMediaTest extends DisplaytagCase
-{
+public class DisabledMediaTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "disabledmedia.jsp";
     }
 
     /**
      * Should not break on media="foo", since foo could be a valid media not enabled at runtime.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
         // test keep
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        try
-        {
+        try {
             this.runner.getResponse(request);
-        }
-        catch (HttpInternalErrorException e)
-        {
+        } catch (final HttpInternalErrorException e) {
             Assert.fail("Should not get any error also if \"foo\" media type is not defined. " + e.getMessage());
         }
 

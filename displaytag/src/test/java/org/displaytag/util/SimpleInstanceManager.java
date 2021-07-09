@@ -19,9 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
- 
- // Borrowed from tomcat 8 so we can get to tomcat 7 more easily here. //
- 
+
+// Borrowed from tomcat 8 so we can get to tomcat 7 more easily here. //
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -47,49 +47,136 @@ import javax.naming.NamingException;
 import org.apache.tomcat.InstanceManager;
 
 /**
- * SimpleInstanceManager
- *
- * Implement the org.apache.tomcat.InstanceManager interface.
+ * SimpleInstanceManager Implement the org.apache.tomcat.InstanceManager interface.
  */
 // NOTE: This is necessary until we can upgrade to tomcat 8+
 public class SimpleInstanceManager implements InstanceManager {
 
+    /**
+     * Instantiates a new simple instance manager.
+     */
     public SimpleInstanceManager() {
     }
 
+    /**
+     * New instance.
+     *
+     * @param clazz
+     *            the clazz
+     *
+     * @return the object
+     *
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     * @throws NamingException
+     *             the naming exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     */
     @Override
-    public Object newInstance(Class clazz) throws IllegalAccessException,
-            InvocationTargetException, NamingException, InstantiationException {
-        return prepareInstance(clazz.newInstance());
+    public Object newInstance(final Class clazz)
+            throws IllegalAccessException, InvocationTargetException, NamingException, InstantiationException {
+        return this.prepareInstance(clazz.newInstance());
     }
 
+    /**
+     * New instance.
+     *
+     * @param className
+     *            the class name
+     *
+     * @return the object
+     *
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     * @throws NamingException
+     *             the naming exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     @Override
-    public Object newInstance(String className) throws IllegalAccessException,
-            InvocationTargetException, NamingException, InstantiationException,
-            ClassNotFoundException  {
-        Class clazz = Thread.currentThread().getContextClassLoader().loadClass(className);
-        return prepareInstance(clazz.newInstance());
+    public Object newInstance(final String className) throws IllegalAccessException, InvocationTargetException,
+            NamingException, InstantiationException, ClassNotFoundException {
+        final Class clazz = Thread.currentThread().getContextClassLoader().loadClass(className);
+        return this.prepareInstance(clazz.newInstance());
     }
 
+    /**
+     * New instance.
+     *
+     * @param fqcn
+     *            the fqcn
+     * @param classLoader
+     *            the class loader
+     *
+     * @return the object
+     *
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     * @throws NamingException
+     *             the naming exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     @Override
-    public Object newInstance(String fqcn, ClassLoader classLoader) throws IllegalAccessException,
-            InvocationTargetException, NamingException, InstantiationException,
-            ClassNotFoundException  {
-        Class clazz = classLoader.loadClass(fqcn);
-        return prepareInstance(clazz.newInstance());
+    public Object newInstance(final String fqcn, final ClassLoader classLoader) throws IllegalAccessException,
+            InvocationTargetException, NamingException, InstantiationException, ClassNotFoundException {
+        final Class clazz = classLoader.loadClass(fqcn);
+        return this.prepareInstance(clazz.newInstance());
     }
 
+    /**
+     * New instance.
+     *
+     * @param o
+     *            the o
+     *
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     * @throws NamingException
+     *             the naming exception
+     */
     @Override
-    public void newInstance(Object o) throws IllegalAccessException, InvocationTargetException,
-            NamingException  {
-        prepareInstance(o);
+    public void newInstance(final Object o) throws IllegalAccessException, InvocationTargetException, NamingException {
+        this.prepareInstance(o);
     }
 
+    /**
+     * Destroy instance.
+     *
+     * @param o
+     *            the o
+     *
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     @Override
-    public void destroyInstance(Object o) throws IllegalAccessException, InvocationTargetException {
+    public void destroyInstance(final Object o) throws IllegalAccessException, InvocationTargetException {
     }
 
-    private Object prepareInstance(Object o) {
+    /**
+     * Prepare instance.
+     *
+     * @param o
+     *            the o
+     *
+     * @return the object
+     */
+    private Object prepareInstance(final Object o) {
         return o;
     }
 }

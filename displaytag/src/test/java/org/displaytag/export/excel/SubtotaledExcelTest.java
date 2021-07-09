@@ -21,8 +21,6 @@
  */
 package org.displaytag.export.excel;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -40,29 +38,27 @@ import org.displaytag.test.KnownValue;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
+import org.junit.Assert;
 import org.junit.Test;
-
 
 /**
  * The Class SubtotaledExcelTest.
  *
  * @author andy Date: Oct 30, 2010 Time: 1:18:01 PM
  */
-public class SubtotaledExcelTest
-{
+public class SubtotaledExcelTest {
 
     /**
      * Gets the model.
      *
      * @return the model
      */
-    TableModel getModel()
-    {
-        TableProperties props = TableProperties.getInstance(null);
-        TableModel model = new TableModel(props, "", null);
+    TableModel getModel() {
+        final TableProperties props = TableProperties.getInstance(null);
+        final TableModel model = new TableModel(props, "", null);
         model.setRowListPage(model.getRowListFull());
         {
-            HeaderCell ha = new HeaderCell();
+            final HeaderCell ha = new HeaderCell();
             ha.setTitle("ColumnAnt");
             ha.setBeanPropertyName("ant");
             ha.setHtmlAttributes(new HtmlAttributeMap());
@@ -70,7 +66,7 @@ public class SubtotaledExcelTest
             model.addColumnHeader(ha);
         }
         {
-            HeaderCell hb = new HeaderCell();
+            final HeaderCell hb = new HeaderCell();
             hb.setTitle("Column2");
             hb.setHtmlAttributes(new HtmlAttributeMap());
             hb.setBeanPropertyName("bee");
@@ -78,18 +74,18 @@ public class SubtotaledExcelTest
             model.addColumnHeader(hb);
         }
         {
-            HeaderCell hb = new HeaderCell();
+            final HeaderCell hb = new HeaderCell();
             hb.setTitle("long");
             hb.setBeanPropertyName("camel");
             hb.setTotaled(false);
-            HtmlAttributeMap mm = new HtmlAttributeMap();
+            final HtmlAttributeMap mm = new HtmlAttributeMap();
             mm.put(TagConstants.ATTRIBUTE_STYLE, "font-weight: bold; text-align: right");
             mm.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute("right rowish"));
             hb.setHtmlAttributes(mm);
             model.addColumnHeader(hb);
         }
         {
-            HeaderCell hb = new HeaderCell();
+            final HeaderCell hb = new HeaderCell();
             hb.setTitle("Column3");
             hb.setHtmlAttributes(new HtmlAttributeMap());
             hb.setBeanPropertyName("two");
@@ -97,7 +93,7 @@ public class SubtotaledExcelTest
             model.addColumnHeader(hb);
         }
         {
-            HeaderCell hb = new HeaderCell();
+            final HeaderCell hb = new HeaderCell();
             hb.setTitle("DateColumn");
             hb.setHtmlAttributes(new HtmlAttributeMap());
             hb.setBeanPropertyName("date");
@@ -106,13 +102,13 @@ public class SubtotaledExcelTest
         model.addRow(new Row(new KnownValue(), 0));
         model.addRow(new Row(new KnownValue(), 0));
         model.addRow(new Row(new KnownValue(), 1));
-        KnownValue third = new KnownValue();
+        final KnownValue third = new KnownValue();
         third.beeValue = "BeeAnt";
         third.twoValue = 3;
         third.camelValue = "arealllylongtextstringthatshouldforceafailuretowrapontheoutputlasdfasdfddine";
         // third.camelValue = "a reallly long text string that should force a failure to wrap on the output line";
         model.addRow(new Row(third, 2));
-        KnownValue antv = new KnownValue();
+        final KnownValue antv = new KnownValue();
         antv.antValue = "anteater";
         antv.twoValue = 4;
         model.addRow(new Row(antv, 3));
@@ -122,98 +118,97 @@ public class SubtotaledExcelTest
     /**
      * Test no groups.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    public void testNoGroups() throws Exception
-    {
-        TableModel m = getModel();
-        for (HeaderCell cell : m.getHeaderCellList())
-        {
+    public void testNoGroups() throws Exception {
+        final TableModel m = this.getModel();
+        for (final HeaderCell cell : m.getHeaderCellList()) {
             cell.setGroup(0);
         }
-        TableTotaler tt = new TableTotaler();
+        final TableTotaler tt = new TableTotaler();
         m.setTotaler(tt);
-        HssfDoubleExportView view = new HssfDoubleExportView();
+        final HssfDoubleExportView view = new HssfDoubleExportView();
         tt.init(m);
         view.setParameters(m, true, true, true);
 
-        File f = File.createTempFile("nogroups", null);
-        FileOutputStream str = new FileOutputStream(f);
+        final File f = File.createTempFile("nogroups", null);
+        final FileOutputStream str = new FileOutputStream(f);
         view.doExport(str);
         str.flush();
         str.close();
 
-        FileInputStream istr = new FileInputStream(f);
-        Workbook wb = new HSSFWorkbook(istr);
+        final FileInputStream istr = new FileInputStream(f);
+        final Workbook wb = new HSSFWorkbook(istr);
 
-        Sheet sh = wb.getSheetAt(0);
+        final Sheet sh = wb.getSheetAt(0);
 
-        Cell a2 = sh.getRow(1).getCell(0);
-        Cell b2 = sh.getRow(1).getCell(1);
-        Cell d2 = sh.getRow(1).getCell(3);
-        Cell e2 = sh.getRow(1).getCell(4);
-        assertEquals("ant", a2.getStringCellValue());
-        assertEquals("bee", b2.getStringCellValue());
-        assertEquals(KnownValue.MAY, e2.getDateCellValue());
-        assertEquals(2, (int) d2.getNumericCellValue());
+        final Cell a2 = sh.getRow(1).getCell(0);
+        final Cell b2 = sh.getRow(1).getCell(1);
+        final Cell d2 = sh.getRow(1).getCell(3);
+        final Cell e2 = sh.getRow(1).getCell(4);
+        Assert.assertEquals("ant", a2.getStringCellValue());
+        Assert.assertEquals("bee", b2.getStringCellValue());
+        Assert.assertEquals(KnownValue.MAY, e2.getDateCellValue());
+        Assert.assertEquals(2, (int) d2.getNumericCellValue());
         wb.close();
     }
 
     /**
      * Test simple totals correct.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    public void testSimpleTotalsCorrect() throws Exception
-    {
-        TableModel m = getModel();
-        TableTotaler tt = new TableTotaler();
+    public void testSimpleTotalsCorrect() throws Exception {
+        final TableModel m = this.getModel();
+        final TableTotaler tt = new TableTotaler();
         m.setTotaler(tt);
-        HssfDoubleExportView view = new HssfDoubleExportView();
+        final HssfDoubleExportView view = new HssfDoubleExportView();
         tt.init(m);
         view.setParameters(m, true, true, true);
 
-        File f = File.createTempFile("displaytag", null);
-        FileOutputStream str = new FileOutputStream(f);
+        final File f = File.createTempFile("displaytag", null);
+        final FileOutputStream str = new FileOutputStream(f);
         view.doExport(str);
         str.flush();
         str.close();
 
-        FileInputStream istr = new FileInputStream(f);
-        Workbook wb = new HSSFWorkbook(istr);
+        final FileInputStream istr = new FileInputStream(f);
+        final Workbook wb = new HSSFWorkbook(istr);
 
-        Sheet sh = wb.getSheetAt(0);
+        final Sheet sh = wb.getSheetAt(0);
 
-        Cell a2 = sh.getRow(1).getCell(0);
-        Cell b2 = sh.getRow(1).getCell(1);
-        assertEquals("ant", a2.getStringCellValue());
-        assertEquals("", b2.getStringCellValue());
+        final Cell a2 = sh.getRow(1).getCell(0);
+        final Cell b2 = sh.getRow(1).getCell(1);
+        Assert.assertEquals("ant", a2.getStringCellValue());
+        Assert.assertEquals("", b2.getStringCellValue());
 
-        Cell a3 = sh.getRow(2).getCell(0);
-        Cell b3 = sh.getRow(2).getCell(1);
-        Cell c3 = sh.getRow(2).getCell(2);
-        assertEquals("", a3.getStringCellValue());
-        assertEquals("", c3.getStringCellValue());
-        assertEquals("bee", b3.getStringCellValue());
+        final Cell a3 = sh.getRow(2).getCell(0);
+        final Cell b3 = sh.getRow(2).getCell(1);
+        final Cell c3 = sh.getRow(2).getCell(2);
+        Assert.assertEquals("", a3.getStringCellValue());
+        Assert.assertEquals("", c3.getStringCellValue());
+        Assert.assertEquals("bee", b3.getStringCellValue());
 
-        Cell a4 = sh.getRow(3).getCell(0);
-        Cell b4 = sh.getRow(3).getCell(1);
-        Cell c4 = sh.getRow(3).getCell(2);
-        assertEquals("", a4.getStringCellValue());
-        assertEquals("", b4.getStringCellValue());
-        assertEquals("camel", c4.getStringCellValue());
+        final Cell a4 = sh.getRow(3).getCell(0);
+        final Cell b4 = sh.getRow(3).getCell(1);
+        final Cell c4 = sh.getRow(3).getCell(2);
+        Assert.assertEquals("", a4.getStringCellValue());
+        Assert.assertEquals("", b4.getStringCellValue());
+        Assert.assertEquals("camel", c4.getStringCellValue());
 
-        Cell d7 = sh.getRow(6).getCell(3);
-        Cell b7 = sh.getRow(6).getCell(1);
-        assertEquals(6, (int) d7.getNumericCellValue());
-        assertEquals("bee Total", b7.getStringCellValue());
+        final Cell d7 = sh.getRow(6).getCell(3);
+        final Cell b7 = sh.getRow(6).getCell(1);
+        Assert.assertEquals(6, (int) d7.getNumericCellValue());
+        Assert.assertEquals("bee Total", b7.getStringCellValue());
 
-        Cell d10 = sh.getRow(9).getCell(3);
-        Cell b10 = sh.getRow(9).getCell(1);
-        assertEquals(3, (int) d10.getNumericCellValue());
-        assertEquals("BeeAnt Total", b10.getStringCellValue());
+        final Cell d10 = sh.getRow(9).getCell(3);
+        final Cell b10 = sh.getRow(9).getCell(1);
+        Assert.assertEquals(3, (int) d10.getNumericCellValue());
+        Assert.assertEquals("BeeAnt Total", b10.getStringCellValue());
 
         // verify that the total for the entire table is correct
         // We want an overlay that gives us a model of the grouping, so

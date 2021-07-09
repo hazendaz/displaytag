@@ -27,53 +27,54 @@ import java.util.List;
 
 import org.apache.commons.collections.IteratorUtils;
 
-
 /**
  * Utility methods for collection handling.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public final class CollectionUtil
-{
+public final class CollectionUtil {
 
     /**
      * Don't instantiate a CollectionUtil.
      */
-    private CollectionUtil()
-    {
+    private CollectionUtil() {
         // unused
     }
 
     /**
      * Create a list of objects taken from the given iterator and crop the resulting list according to the startIndex
      * and numberOfItems parameters.
-     * @param iterator Iterator
-     * @param startIndex int starting index
-     * @param numberOfItems int number of items to keep in the list
+     *
+     * @param iterator
+     *            Iterator
+     * @param startIndex
+     *            int starting index
+     * @param numberOfItems
+     *            int number of items to keep in the list
+     *
      * @return List with values taken from the given object, cropped according to startIndex and numberOfItems
-     * parameters
+     *         parameters
      */
-    private static List<Object> getSubList(Iterator< ? > iterator, int startIndex, int numberOfItems)
-    {
+    private static List<Object> getSubList(final Iterator<?> iterator, final int startIndex, final int numberOfItems) {
 
-        List<Object> croppedList = new ArrayList<>(numberOfItems);
+        final List<Object> croppedList = new ArrayList<>(numberOfItems);
 
         int skippedRecordCount = 0;
         int copiedRecordCount = 0;
-        while (iterator.hasNext())
-        {
+        while (iterator.hasNext()) {
 
-            Object object = iterator.next();
+            final Object object = iterator.next();
 
-            if (++skippedRecordCount <= startIndex)
-            {
+            skippedRecordCount++;
+            if (skippedRecordCount <= startIndex) {
                 continue;
             }
 
             croppedList.add(object);
 
-            if (numberOfItems != 0 && ++copiedRecordCount >= numberOfItems)
-            {
+            if (numberOfItems != 0 && ++copiedRecordCount >= numberOfItems) {
                 break;
             }
         }
@@ -85,34 +86,36 @@ public final class CollectionUtil
     /**
      * create an iterator on a given object (Collection, Enumeration, array, single Object) and crop the resulting list
      * according to the startIndex and numberOfItems parameters.
-     * @param iterableObject Collection, Enumeration or array to crop
-     * @param startIndex int starting index
-     * @param numberOfItems int number of items to keep in the list
+     *
+     * @param iterableObject
+     *            Collection, Enumeration or array to crop
+     * @param startIndex
+     *            int starting index
+     * @param numberOfItems
+     *            int number of items to keep in the list
+     *
      * @return List with values taken from the given object, cropped according the startIndex and numberOfItems
-     * parameters
+     *         parameters
      */
-    public static List<Object> getListFromObject(Object iterableObject, int startIndex, int numberOfItems)
-    {
-        if (iterableObject instanceof List)
-        {
+    public static List<Object> getListFromObject(final Object iterableObject, final int startIndex,
+            final int numberOfItems) {
+        if (iterableObject instanceof List) {
             // easier, use sublist
-            List<Object> list = (List<Object>) iterableObject;
+            final List<Object> list = (List<Object>) iterableObject;
 
             // check for partial lists
             int lastRecordExclusive = numberOfItems <= 0 ? list.size() : startIndex + numberOfItems;
-            if (lastRecordExclusive > list.size())
-            {
+            if (lastRecordExclusive > list.size()) {
                 lastRecordExclusive = list.size();
             }
 
-            if (startIndex < list.size())
-            {
+            if (startIndex < list.size()) {
                 return list.subList(startIndex, lastRecordExclusive);
             }
         }
 
         // use an iterator
-        Iterator< ? > iterator = IteratorUtils.getIterator(iterableObject);
-        return getSubList(iterator, startIndex, numberOfItems);
+        final Iterator<?> iterator = IteratorUtils.getIterator(iterableObject);
+        return CollectionUtil.getSubList(iterator, startIndex, numberOfItems);
     }
 }

@@ -21,12 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HTMLElement;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import java.io.IOException;
 
 import org.displaytag.tags.TableTagParameters;
@@ -36,80 +30,86 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HTMLElement;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-125 - Preserve The Current Page And Sort Across Session.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id: $
  */
-public class Displ125Test extends DisplaytagCase
-{
+public class Displ125Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-125.jsp";
     }
 
     /**
      * Preserve The Current Page And Sort Across Session.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        ParamEncoder encoder = new ParamEncoder("table");
+    public void doTest() throws Exception {
+        WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "3");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "0");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_ORDER), "1");
 
         WebResponse response = this.runner.getResponse(request);
 
-        checkResponse(response);
+        this.checkResponse(response);
 
         // repeating the same request without parameters must return the same result (using session)
-        request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         response = this.runner.getResponse(request);
-        checkResponse(response);
+        this.checkResponse(response);
     }
 
     /**
      * Check response.
      *
-     * @param response the response
-     * @throws SAXException the SAX exception
-     * @throws IOException Signals that an I/O exception has occurred.
+     * @param response
+     *            the response
+     *
+     * @throws SAXException
+     *             the SAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
-    private void checkResponse(WebResponse response) throws SAXException, IOException
-    {
+    private void checkResponse(final WebResponse response) throws SAXException, IOException {
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
         Assert.assertEquals("Wrong number of rows.", 2, tables[0].getRowCount());
         Assert.assertEquals("Column content missing?", "ant", tables[0].getCellAsText(1, 0));
 
-        HTMLElement pagination = response.getElementWithID("pagination");
+        final HTMLElement pagination = response.getElementWithID("pagination");
         Assert.assertNotNull("Paging banner not found.", pagination);
         Assert.assertEquals("Pagination links are not as expected.", "1, 2, [3]", pagination.getText());
 
-        Assert.assertEquals(
-            "Column 1 should be marked as sorted.",
-            "sortable sorted order2",
-            tables[0].getTableCell(0, 0).getClassName());
+        Assert.assertEquals("Column 1 should be marked as sorted.", "sortable sorted order2",
+                tables[0].getTableCell(0, 0).getClassName());
     }
 
 }

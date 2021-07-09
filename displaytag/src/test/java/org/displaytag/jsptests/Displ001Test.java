@@ -21,55 +21,55 @@
  */
 package org.displaytag.jsptests;
 
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
-
 /**
  * Tests for DISPL-1 - Autolink and maxlength problem.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ001Test extends DisplaytagCase
-{
+public class Displ001Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-001.jsp";
     }
 
     /**
      * Check the content of the title attribute.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl("DISPL-001.jsp"));
-        WebResponse response = this.runner.getResponse(request);
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl("DISPL-001.jsp"));
+        final WebResponse response = this.runner.getResponse(request);
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
-        Assert
-            .assertEquals("Wrong title in column", "averylongemail@mail.com", tables[0].getTableCell(1, 0).getTitle());
+        Assert.assertEquals("Wrong title in column", "averylongemail@mail.com",
+                tables[0].getTableCell(1, 0).getTitle());
 
-        WebLink[] links = tables[0].getTableCell(1, 0).getLinks();
+        final WebLink[] links = tables[0].getTableCell(1, 0).getLinks();
         Assert.assertEquals("Expected link not found", 1, links.length);
         Assert.assertEquals("Wrong text in link", "averylongemail@...", links[0].getText());
         Assert.assertEquals("Wrong url in link", "mailto:averylongemail@mail.com", links[0].getURLString());

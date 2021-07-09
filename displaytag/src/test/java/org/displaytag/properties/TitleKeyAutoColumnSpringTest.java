@@ -28,60 +28,76 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.web.servlet.DispatcherServlet;
 
-
 /**
  * I18n test with Spring adapter.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class TitleKeyAutoColumnSpringTest extends AbstractTitleKeyAutoColumnTest
-{
+public class TitleKeyAutoColumnSpringTest extends AbstractTitleKeyAutoColumnTest {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return super.getJspName() + ".spring";
     }
 
     /**
+     * Gets the expected suffix.
+     *
+     * @return the expected suffix
+     *
      * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
      */
     @Override
-    protected String getExpectedSuffix()
-    {
+    protected String getExpectedSuffix() {
         return " spring";
     }
 
     /**
+     * Gets the i 18 n resource provider.
+     *
+     * @return the i 18 n resource provider
+     *
      * @see org.displaytag.properties.AbstractTitleKeyTest#getI18nResourceProvider()
      */
     @Override
-    protected I18nResourceProvider getI18nResourceProvider()
-    {
+    protected I18nResourceProvider getI18nResourceProvider() {
         return new I18nSpringAdapter();
     }
 
     /**
+     * Gets the resolver.
+     *
+     * @return the resolver
+     *
      * @see org.displaytag.properties.AbstractTitleKeyTest#getResolver()
      */
     @Override
-    protected LocaleResolver getResolver()
-    {
+    protected LocaleResolver getResolver() {
         return new I18nSpringAdapter();
     }
 
     /**
+     * Do test.
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.test.DisplaytagCase#doTest()
      */
     // Spring 4.1.x+ causes illegal access exception with httpunit
     @Ignore
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
         this.runner.registerServlet("*.spring", DispatcherServlet.class.getName());
         super.doTest();
     }

@@ -21,56 +21,54 @@
  */
 package org.displaytag.jsptests;
 
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
-
 /**
  * Test for DISPL-139 - Will ColumnDecorator regain access to the PageContext?.
  *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public class Displ139Test extends DisplaytagCase
-{
+public class Displ139Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-139.jsp";
     }
 
     /**
-     * Decorated object based on a pageContext attribute
+     * Decorated object based on a pageContext attribute.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
         Assert.assertEquals("Wrong (undecorated?) value", "pageContext: html ant", tables[0].getCellAsText(1, 0));

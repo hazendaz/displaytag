@@ -21,59 +21,58 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HTMLElement;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HTMLElement;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Test for DISPL-109 - Center of paging banner number.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ109Test extends DisplaytagCase
-{
+public class Displ109Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-109.jsp";
     }
 
     /**
      * No exception when an invalid page is requested.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        ParamEncoder encoder = new ParamEncoder("table");
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "9");
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        HTMLElement pagination = response.getElementWithID("pagination");
+        final HTMLElement pagination = response.getElementWithID("pagination");
         Assert.assertNotNull("Paging banner not found.", pagination);
         Assert.assertEquals("Pagination links are not as expected.", "7, 8, [9], 10, 11", pagination.getText());
 

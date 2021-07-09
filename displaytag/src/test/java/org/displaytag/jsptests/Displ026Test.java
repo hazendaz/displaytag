@@ -21,56 +21,52 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for DISPL-26 - More params for paging.banner.*_items_found.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ026Test extends DisplaytagCase
-{
+public class Displ026Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-026.jsp";
     }
 
     /**
      * Check addictional parameters in paging.banner.*.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         WebResponse response;
 
         response = this.runner.getResponse(request);
-        Assert.assertEquals(
-            "Parameters {5} and {6} are not correctly evaluated in paging.banner.first.",
-            "1|3",
-            response.getElementWithID("numbers").getText());
-        Assert.assertEquals(
-            "Parameters {4} and {5} are not correctly evaluated in paging.banner.some_items_found.",
-            "1|3",
-            response.getElementWithID("label").getText());
+        Assert.assertEquals("Parameters {5} and {6} are not correctly evaluated in paging.banner.first.", "1|3",
+                response.getElementWithID("numbers").getText());
+        Assert.assertEquals("Parameters {4} and {5} are not correctly evaluated in paging.banner.some_items_found.",
+                "1|3", response.getElementWithID("label").getText());
     }
 
 }

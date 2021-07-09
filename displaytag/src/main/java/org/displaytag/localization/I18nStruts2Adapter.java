@@ -21,11 +21,6 @@
  */
 package org.displaytag.localization;
 
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.LocaleProvider;
-import com.opensymphony.xwork2.TextProvider;
-import com.opensymphony.xwork2.util.ValueStack;
-
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -37,16 +32,21 @@ import org.displaytag.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.LocaleProvider;
+import com.opensymphony.xwork2.TextProvider;
+import com.opensymphony.xwork2.util.ValueStack;
 
 /**
  * Resolve i18n resources in Struts 2.
  *
  * @author snowwolf@wabunoh-tech.com
+ *
  * @version $Revision: 1.1 $
+ *
  * @since Jan 4, 2008 2:37:29 PM
  */
-public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider
-{
+public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider {
 
     /**
      * prefix/suffix for missing entries.
@@ -59,32 +59,35 @@ public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider
     private static Logger log = LoggerFactory.getLogger(I18nStruts2Adapter.class);
 
     /**
+     * Resolve locale.
+     *
+     * @param pageContext
+     *            the page context
+     *
+     * @return the locale
+     *
      * @see LocaleResolver#resolveLocale(PageContext)
      */
     @Override
-    public Locale resolveLocale(PageContext pageContext)
-    {
+    public Locale resolveLocale(final PageContext pageContext) {
 
         Locale result = null;
-        ValueStack stack = ActionContext.getContext().getValueStack();
+        final ValueStack stack = ActionContext.getContext().getValueStack();
 
-        Iterator<Object> iterator = stack.getRoot().iterator();
-        while (iterator.hasNext())
-        {
-            Object o = iterator.next();
+        final Iterator<Object> iterator = stack.getRoot().iterator();
+        while (iterator.hasNext()) {
+            final Object o = iterator.next();
 
-            if (o instanceof LocaleProvider)
-            {
-                LocaleProvider lp = (LocaleProvider) o;
+            if (o instanceof LocaleProvider) {
+                final LocaleProvider lp = (LocaleProvider) o;
                 result = lp.getLocale();
 
                 break;
             }
         }
 
-        if (result == null)
-        {
-            log.debug("Missing LocalProvider actions, init locale to default");
+        if (result == null) {
+            I18nStruts2Adapter.log.debug("Missing LocalProvider actions, init locale to default");
             result = Locale.getDefault();
         }
 
@@ -92,26 +95,37 @@ public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider
     }
 
     /**
+     * Gets the resource.
+     *
+     * @param resourceKey
+     *            the resource key
+     * @param defaultValue
+     *            the default value
+     * @param tag
+     *            the tag
+     * @param pageContext
+     *            the page context
+     *
+     * @return the resource
+     *
      * @see I18nResourceProvider#getResource(String, String, Tag, javax.servlet.jsp.PageContext)
      */
     @Override
-    public String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext)
-    {
+    public String getResource(final String resourceKey, final String defaultValue, final Tag tag,
+            final PageContext pageContext) {
 
         // if resourceKey isn't defined either, use defaultValue
-        String key = resourceKey != null ? resourceKey : defaultValue;
+        final String key = resourceKey != null ? resourceKey : defaultValue;
 
         String message = null;
-        ValueStack stack = TagUtils.getStack(pageContext);
-        Iterator<Object> iterator = stack.getRoot().iterator();
+        final ValueStack stack = TagUtils.getStack(pageContext);
+        final Iterator<Object> iterator = stack.getRoot().iterator();
 
-        while (iterator.hasNext())
-        {
-            Object o = iterator.next();
+        while (iterator.hasNext()) {
+            final Object o = iterator.next();
 
-            if (o instanceof TextProvider)
-            {
-                TextProvider tp = (TextProvider) o;
+            if (o instanceof TextProvider) {
+                final TextProvider tp = (TextProvider) o;
                 message = tp.getText(key, null, (String) null);
 
                 break;
@@ -119,10 +133,9 @@ public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider
         }
 
         // if user explicitly added a titleKey we guess this is an error
-        if (message == null && resourceKey != null)
-        {
-            log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$
-            message = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;
+        if (message == null && resourceKey != null) {
+            I18nStruts2Adapter.log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$
+            message = I18nStruts2Adapter.UNDEFINED_KEY + resourceKey + I18nStruts2Adapter.UNDEFINED_KEY;
         }
 
         return message;

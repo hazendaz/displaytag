@@ -21,55 +21,54 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HTMLElement;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HTMLElement;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Test for DISPL-232 - paging.banner.full: {6} is not the total number of pages.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ232Test extends DisplaytagCase
-{
+public class Displ232Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-232.jsp";
     }
 
     /**
-     * Paging banner should contain [10]
+     * Paging banner should contain [10].
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        ParamEncoder encoder = new ParamEncoder("table");
+    public void doTest() throws Exception {
+        WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "3");
 
         WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
@@ -77,12 +76,11 @@ public class Displ232Test extends DisplaytagCase
         Assert.assertNotNull("Paging banner not found.", pagination);
         Assert.assertEquals("Total number of pages is not displayted properly.", "[10]", pagination.getText());
 
-        request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "10");
         response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 

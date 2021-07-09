@@ -29,36 +29,35 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
 
-
 /**
  * An implementation of SmartListHelper used for externally sorted and paginated lists. It duplicates nearly all of its
  * superclass, so these two classes should be refactored
+ *
  * @author JBN
  */
-public class PaginatedListSmartListHelper extends SmartListHelper
-{
+public class PaginatedListSmartListHelper extends SmartListHelper {
 
     /** The paginated list. */
-    private PaginatedList paginatedList;
+    private final PaginatedList paginatedList;
 
     /** The properties. */
-    private TableProperties properties;
+    private final TableProperties properties;
 
     /** The page count. */
-    private int pageCount;
+    private final int pageCount;
 
     /**
      * Instantiates a new paginated list smart list helper.
      *
-     * @param paginatedList the paginated list
-     * @param tableProperties the table properties
+     * @param paginatedList
+     *            the paginated list
+     * @param tableProperties
+     *            the table properties
      */
-    public PaginatedListSmartListHelper(PaginatedList paginatedList, TableProperties tableProperties)
-    {
-        super();
+    public PaginatedListSmartListHelper(final PaginatedList paginatedList, final TableProperties tableProperties) {
         this.paginatedList = paginatedList;
         this.properties = tableProperties;
-        this.pageCount = computePageCount();
+        this.pageCount = this.computePageCount();
     }
 
     /**
@@ -66,110 +65,140 @@ public class PaginatedListSmartListHelper extends SmartListHelper
      *
      * @return the int
      */
-    private int computePageCount()
-    {
+    private int computePageCount() {
         int pageCount = this.paginatedList.getFullListSize() / Math.max(1, this.paginatedList.getObjectsPerPage());
-        if (this.paginatedList.getFullListSize() % this.paginatedList.getObjectsPerPage() > 0)
-        {
+        if (this.paginatedList.getFullListSize() % this.paginatedList.getObjectsPerPage() > 0) {
             pageCount++;
         }
         return pageCount;
     }
 
+    /**
+     * Gets the first index for current page.
+     *
+     * @return the first index for current page
+     */
     @Override
-    public int getFirstIndexForCurrentPage()
-    {
-        return getFirstIndexForPage(this.paginatedList.getPageNumber());
+    public int getFirstIndexForCurrentPage() {
+        return this.getFirstIndexForPage(this.paginatedList.getPageNumber());
     }
 
+    /**
+     * Gets the first index for page.
+     *
+     * @param pageNumber
+     *            the page number
+     *
+     * @return the first index for page
+     */
     @Override
-    protected int getFirstIndexForPage(int pageNumber)
-    {
-        if (pageNumber > this.pageCount)
-        {
+    protected int getFirstIndexForPage(int pageNumber) {
+        if (pageNumber > this.pageCount) {
             pageNumber = this.pageCount;
         }
 
         return (pageNumber - 1) * this.paginatedList.getObjectsPerPage();
     }
 
+    /**
+     * Gets the last index for current page.
+     *
+     * @return the last index for current page
+     */
     @Override
-    protected int getLastIndexForCurrentPage()
-    {
-        return getLastIndexForPage(this.paginatedList.getPageNumber());
+    protected int getLastIndexForCurrentPage() {
+        return this.getLastIndexForPage(this.paginatedList.getPageNumber());
     }
 
+    /**
+     * Gets the last index for page.
+     *
+     * @param pageNumber
+     *            the page number
+     *
+     * @return the last index for page
+     */
     @Override
-    protected int getLastIndexForPage(int pageNumber)
-    {
-        if (pageNumber > this.pageCount)
-        {
+    protected int getLastIndexForPage(int pageNumber) {
+        if (pageNumber > this.pageCount) {
             pageNumber = this.pageCount;
         }
 
-        int result = getFirstIndexForPage(pageNumber) + this.paginatedList.getObjectsPerPage() - 1;
-        if (result >= this.paginatedList.getFullListSize())
-        {
+        int result = this.getFirstIndexForPage(pageNumber) + this.paginatedList.getObjectsPerPage() - 1;
+        if (result >= this.paginatedList.getFullListSize()) {
             result = this.paginatedList.getFullListSize() - 1;
         }
         return result;
     }
 
+    /**
+     * Gets the list for current page.
+     *
+     * @return the list for current page
+     */
     @Override
-    public List<Object> getListForCurrentPage()
-    {
+    public List<Object> getListForCurrentPage() {
         return this.paginatedList.getList();
     }
 
+    /**
+     * Gets the list for page.
+     *
+     * @param pageNumber
+     *            the page number
+     *
+     * @return the list for page
+     */
     @Override
-    protected List<Object> getListForPage(int pageNumber)
-    {
-        if (pageNumber == this.paginatedList.getPageNumber())
-        {
-            return getListForCurrentPage();
+    protected List<Object> getListForPage(final int pageNumber) {
+        if (pageNumber == this.paginatedList.getPageNumber()) {
+            return this.getListForCurrentPage();
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
+    /**
+     * Gets the page navigation bar.
+     *
+     * @param baseHref
+     *            the base href
+     * @param pageParameter
+     *            the page parameter
+     *
+     * @return the page navigation bar
+     */
     @Override
-    public String getPageNavigationBar(Href baseHref, String pageParameter)
-    {
+    public String getPageNavigationBar(final Href baseHref, final String pageParameter) {
 
-        int groupSize = this.properties.getPagingGroupSize();
+        final int groupSize = this.properties.getPagingGroupSize();
         int startPage;
         int endPage;
 
-        Pagination pagination = new Pagination(baseHref, pageParameter, this.properties);
+        final Pagination pagination = new Pagination(baseHref, pageParameter, this.properties);
         pagination.setCurrent(Integer.valueOf(this.paginatedList.getPageNumber()));
 
         // if no items are found still add pagination?
-        if (this.pageCount == 0)
-        {
+        if (this.pageCount == 0) {
             pagination.addPage(1, true);
         }
 
         // center the selected page, but only if there are {groupSize} pages
         // available after it, and check that the
         // result is not < 1
-        startPage = Math.max(Math.min(this.paginatedList.getPageNumber() - groupSize / 2, this.pageCount - (groupSize - 1)), 1);
+        startPage = Math
+                .max(Math.min(this.paginatedList.getPageNumber() - groupSize / 2, this.pageCount - (groupSize - 1)), 1);
         endPage = Math.min(startPage + groupSize - 1, this.pageCount);
 
-        if (this.paginatedList.getPageNumber() != 1)
-        {
+        if (this.paginatedList.getPageNumber() != 1) {
             pagination.setFirst(Integer.valueOf(1));
             pagination.setPrevious(Integer.valueOf(this.paginatedList.getPageNumber() - 1));
         }
 
-        for (int j = startPage; j <= endPage; j++)
-        {
+        for (int j = startPage; j <= endPage; j++) {
             pagination.addPage(j, j == this.paginatedList.getPageNumber());
         }
 
-        if (this.paginatedList.getPageNumber() != this.pageCount)
-        {
+        if (this.paginatedList.getPageNumber() != this.pageCount) {
             pagination.setNext(Integer.valueOf(this.paginatedList.getPageNumber() + 1));
             pagination.setLast(Integer.valueOf(this.pageCount));
         }
@@ -177,64 +206,46 @@ public class PaginatedListSmartListHelper extends SmartListHelper
         // format for previous/next banner
         String bannerFormat;
 
-        if (pagination.isOnePage())
-        {
+        if (pagination.isOnePage()) {
             bannerFormat = this.properties.getPagingBannerOnePage();
-        }
-        else if (pagination.isFirst())
-        {
+        } else if (pagination.isFirst()) {
             bannerFormat = this.properties.getPagingBannerFirst();
-        }
-        else if (pagination.isLast())
-        {
+        } else if (pagination.isLast()) {
             bannerFormat = this.properties.getPagingBannerLast();
-        }
-        else
-        {
+        } else {
             bannerFormat = this.properties.getPagingBannerFull();
         }
 
-        return pagination.getFormattedBanner(
-            this.properties.getPagingPageLink(),
-            this.properties.getPagingPageSelected(),
-            this.properties.getPagingPageSeparator(),
-            bannerFormat);
+        return pagination.getFormattedBanner(this.properties.getPagingPageLink(),
+                this.properties.getPagingPageSelected(), this.properties.getPagingPageSeparator(), bannerFormat);
     }
 
+    /**
+     * Gets the search results summary.
+     *
+     * @return the search results summary
+     */
     @Override
-    public String getSearchResultsSummary()
-    {
+    public String getSearchResultsSummary() {
 
         Object[] objs;
         String message;
 
-        if (this.paginatedList.getFullListSize() == 0)
-        {
-            objs = new Object[]{this.properties.getPagingItemsName()};
+        if (this.paginatedList.getFullListSize() == 0) {
+            objs = new Object[] { this.properties.getPagingItemsName() };
             message = this.properties.getPagingFoundNoItems();
-        }
-        else if (this.paginatedList.getFullListSize() == 1)
-        {
-            objs = new Object[]{this.properties.getPagingItemName()};
+        } else if (this.paginatedList.getFullListSize() == 1) {
+            objs = new Object[] { this.properties.getPagingItemName() };
             message = this.properties.getPagingFoundOneItem();
-        }
-        else if (this.pageCount == 1)
-        {
-            objs = new Object[]{
-                Integer.valueOf(this.paginatedList.getFullListSize()),
-                this.properties.getPagingItemsName(),
-                this.properties.getPagingItemsName()};
+        } else if (this.pageCount == 1) {
+            objs = new Object[] { Integer.valueOf(this.paginatedList.getFullListSize()),
+                    this.properties.getPagingItemsName(), this.properties.getPagingItemsName() };
             message = this.properties.getPagingFoundAllItems();
-        }
-        else
-        {
-            objs = new Object[]{
-                Integer.valueOf(this.paginatedList.getFullListSize()),
-                this.properties.getPagingItemsName(),
-                Integer.valueOf(getFirstIndexForCurrentPage() + 1),
-                Integer.valueOf(getLastIndexForCurrentPage() + 1),
-                Integer.valueOf(this.paginatedList.getPageNumber()),
-                Integer.valueOf(this.pageCount)};
+        } else {
+            objs = new Object[] { Integer.valueOf(this.paginatedList.getFullListSize()),
+                    this.properties.getPagingItemsName(), Integer.valueOf(this.getFirstIndexForCurrentPage() + 1),
+                    Integer.valueOf(this.getLastIndexForCurrentPage() + 1),
+                    Integer.valueOf(this.paginatedList.getPageNumber()), Integer.valueOf(this.pageCount) };
             message = this.properties.getPagingFoundSomeItems();
         }
 
@@ -242,14 +253,17 @@ public class PaginatedListSmartListHelper extends SmartListHelper
     }
 
     /**
+     * To string.
+     *
+     * @return the string
+     *
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("paginatedList", this.paginatedList) //$NON-NLS-1$
-            .append("properties", this.properties) //$NON-NLS-1$
-            .toString();
+                .append("paginatedList", this.paginatedList) //$NON-NLS-1$
+                .append("properties", this.properties) //$NON-NLS-1$
+                .toString();
     }
 }

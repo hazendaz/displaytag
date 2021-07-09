@@ -21,12 +21,6 @@
  */
 package org.displaytag.export.excel;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.servletunit.ServletRunner;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -48,19 +42,23 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpUnitOptions;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.servletunit.ServletRunner;
 
 /**
  * The Class ExportExcelTest.
  *
  * @author andy Date: Oct 30, 2010 Time: 12:04:04 PM
  */
-public class ExportExcelTest
-{
+public class ExportExcelTest {
 
     /**
      * logger.
      */
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
      * HttpUnit ServletRunner.
@@ -75,36 +73,39 @@ public class ExportExcelTest
     /**
      * Gets the jsp url.
      *
-     * @param jsp the jsp
+     * @param jsp
+     *            the jsp
+     *
      * @return the jsp url
      */
-    protected String getJspUrl(String jsp)
-    {
-        return "http://localhost" + CONTEXT + "/jsps/" + jsp;
+    protected String getJspUrl(final String jsp) {
+        return "http://localhost" + ExportExcelTest.CONTEXT + "/jsps/" + jsp;
     }
 
     /**
      * Sets the up.
      *
-     * @throws Exception e
+     * @throws Exception
+     *             e
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         // need to pass a web.xml file to setup servletunit working directory
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
-        String path = URLDecoder.decode(webXmlUrl.getFile(), "UTF-8");
+        final ClassLoader classLoader = this.getClass().getClassLoader();
+        final URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
+        final String path = URLDecoder.decode(webXmlUrl.getFile(), "UTF-8");
 
         HttpUnitOptions.setDefaultCharacterSet("utf-8");
         System.setProperty("file.encoding", "utf-8");
 
         // start servletRunner
-        this.runner = new ServletRunner(new File(path), CONTEXT);
-        this.runner.getSession(true).getServletContext().setAttribute(InstanceManager.class.getName(), new SimpleInstanceManager());
+        this.runner = new ServletRunner(new File(path), ExportExcelTest.CONTEXT);
+        this.runner.getSession(true).getServletContext().setAttribute(InstanceManager.class.getName(),
+                new SimpleInstanceManager());
 
-        Hashtable<String, String> params = new Hashtable<>();
+        final Hashtable<String, String> params = new Hashtable<>();
         params.put("javaEncoding", "utf-8");
         params.put("scratchdir", "target");
         this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
@@ -116,12 +117,13 @@ public class ExportExcelTest
     /**
      * Tear down.
      *
-     * @throws Exception e
+     * @throws Exception
+     *             e
+     *
      * @see junit.framework.TestCase#tearDown()
      */
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         // shutdown servlet engine
         TableProperties.clearProperties();
         this.runner.shutDown();
@@ -129,14 +131,15 @@ public class ExportExcelTest
 
     /**
      * Test for content disposition and filename. jspName jsp name, with full path
-     * @throws Exception any axception thrown during test.
+     *
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Test
-    public void doDefaultTest() throws Exception
-    {
-        byte[] res = runPage("exportExcel.jsp");
-        File f = File.createTempFile("exporttest", ".xls");
-        FileOutputStream fw = new FileOutputStream(f);
+    public void doDefaultTest() throws Exception {
+        final byte[] res = this.runPage("exportExcel.jsp");
+        final File f = File.createTempFile("exporttest", ".xls");
+        final FileOutputStream fw = new FileOutputStream(f);
         fw.write(res);
         fw.flush();
         fw.close();
@@ -145,32 +148,35 @@ public class ExportExcelTest
     /**
      * Run page.
      *
-     * @param jspPage the jsp page
+     * @param jspPage
+     *            the jsp page
+     *
      * @return the byte[]
-     * @throws Exception the exception
+     *
+     * @throws Exception
+     *             the exception
      */
-    public byte[] runPage(String jspPage) throws Exception
-    {
+    public byte[] runPage(final String jspPage) throws Exception {
 
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
-        WebRequest request = new GetMethodWebRequest(getJspUrl(jspPage));
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(jspPage));
 
         // this will force media type initialization
-        ExportViewFactory evf= ExportViewFactory.getInstance();
+        final ExportViewFactory evf = ExportViewFactory.getInstance();
         evf.registerExportView("excel", "org.displaytag.export.ExcelView");
-        MediaTypeEnum excelMedia = MediaTypeEnum.EXCEL;
+        final MediaTypeEnum excelMedia = MediaTypeEnum.EXCEL;
         Assert.assertNotNull("Excel export view not correctly registered.", excelMedia);
         request.setParameter(mediaParameter, Integer.toString(excelMedia.getCode()));
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
-        Assert
-            .assertEquals("Expected a different content type.", "application/vnd.ms-excel", response.getContentType());
+        Assert.assertEquals("Expected a different content type.", "application/vnd.ms-excel",
+                response.getContentType());
 
-        InputStream stream = response.getInputStream();
-        byte[] result = new byte[9000];
+        final InputStream stream = response.getInputStream();
+        final byte[] result = new byte[9000];
         stream.read(result);
         return result;
     }

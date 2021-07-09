@@ -21,10 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
@@ -32,41 +28,45 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for DISPL-142: Export of nested tables does not work.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ142Test extends DisplaytagCase
-{
+public class Displ142Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-142.jsp";
     }
 
     /**
      * Nested tables should be ignored.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
         ParamEncoder encoder = new ParamEncoder("table");
         String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.CSV.getCode()));
 
         WebResponse response = this.runner.getResponse(request);
@@ -79,7 +79,7 @@ public class Displ142Test extends DisplaytagCase
         // now export a nested table
         encoder = new ParamEncoder("nested");
         mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
-        request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.CSV.getCode()));
         // this test needs the export filter
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");

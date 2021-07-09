@@ -21,64 +21,62 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-220 - Case-insensitive sorting.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public class Displ220Test extends DisplaytagCase
-{
+public class Displ220Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-220.jsp";
     }
 
     /**
      * No exception when an invalid page is requested.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = this.runner.getResponse(request);
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final WebResponse response = this.runner.getResponse(request);
 
-        ParamEncoder encoder = new ParamEncoder("table");
+        final ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
         Assert.assertEquals("Wrong number of rows in result.", 6, tables[0].getRowCount());
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 

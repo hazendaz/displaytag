@@ -23,60 +23,72 @@ package org.displaytag.export;
 
 import org.apache.commons.lang3.StringUtils;
 
-
 /**
  * Export view for excel exporting.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ExcelView extends BaseExportView
-{
+public class ExcelView extends BaseExportView {
 
     /**
-     * @see org.displaytag.export.ExportView#getMimeType()
+     * Gets the mime type.
+     *
      * @return "application/vnd.ms-excel"
+     *
+     * @see org.displaytag.export.ExportView#getMimeType()
      */
     @Override
-    public String getMimeType()
-    {
+    public String getMimeType() {
         return "application/vnd.ms-excel"; //$NON-NLS-1$
     }
 
     /**
+     * Gets the row end.
+     *
+     * @return the row end
+     *
      * @see org.displaytag.export.BaseExportView#getRowEnd()
      */
     @Override
-    protected String getRowEnd()
-    {
+    protected String getRowEnd() {
         return "\n"; //$NON-NLS-1$
     }
 
     /**
+     * Gets the cell end.
+     *
+     * @return the cell end
+     *
      * @see org.displaytag.export.BaseExportView#getCellEnd()
      */
     @Override
-    protected String getCellEnd()
-    {
+    protected String getCellEnd() {
         return "\t"; //$NON-NLS-1$
     }
 
     /**
-     * @see org.displaytag.export.BaseExportView#getAlwaysAppendCellEnd()
+     * Gets the always append cell end.
+     *
      * @return false
+     *
+     * @see org.displaytag.export.BaseExportView#getAlwaysAppendCellEnd()
      */
     @Override
-    protected boolean getAlwaysAppendCellEnd()
-    {
+    protected boolean getAlwaysAppendCellEnd() {
         return false;
     }
 
     /**
-     * @see org.displaytag.export.BaseExportView#getAlwaysAppendRowEnd()
+     * Gets the always append row end.
+     *
      * @return false
+     *
+     * @see org.displaytag.export.BaseExportView#getAlwaysAppendRowEnd()
      */
     @Override
-    protected boolean getAlwaysAppendRowEnd()
-    {
+    protected boolean getAlwaysAppendRowEnd() {
         return false;
     }
 
@@ -86,17 +98,21 @@ public class ExcelView extends BaseExportView
      * <li>Quotes inside quoted strings are escaped with a double quote</li>
      * <li>Fields are surrounded by " (should be optional, but sometimes you get a "Sylk error" without those)</li>
      * </ul>
+     *
+     * @param value
+     *            the value
+     *
+     * @return the string
+     *
      * @see org.displaytag.export.BaseExportView#escapeColumnValue(java.lang.Object)
      */
     @Override
-    protected String escapeColumnValue(Object value)
-    {
-        if (value != null)
-        {
+    protected String escapeColumnValue(final Object value) {
+        if (value != null) {
             // quotes around fields are needed to avoid occasional "Sylk format invalid" messages from excel
             return "\"" //$NON-NLS-1$
-                + StringUtils.replace(StringUtils.trim(value.toString()), "\"", "\"\"") //$NON-NLS-1$ //$NON-NLS-2$
-                + "\""; //$NON-NLS-1$
+                    + StringUtils.replace(StringUtils.trim(value.toString()), "\"", "\"\"") //$NON-NLS-1$ //$NON-NLS-2$
+                    + "\""; //$NON-NLS-1$
         }
 
         return null;

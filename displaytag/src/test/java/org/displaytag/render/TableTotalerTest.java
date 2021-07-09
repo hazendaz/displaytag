@@ -36,25 +36,22 @@ import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 import org.junit.Test;
 
-
 /**
  * User: rapruitt Date: May 31, 2010 Time: 1:08:02 PM.
  */
-public class TableTotalerTest extends XMLTestCase
-{
+public class TableTotalerTest extends XMLTestCase {
 
     /**
      * Gets the model.
      *
      * @return the model
      */
-    TableModel getModel()
-    {
-        TableProperties props = TableProperties.getInstance(null);
-        TableModel model = new TableModel(props, "", null);
+    TableModel getModel() {
+        final TableProperties props = TableProperties.getInstance(null);
+        final TableModel model = new TableModel(props, "", null);
         model.setRowListPage(model.getRowListFull());
         {
-            HeaderCell ha = new HeaderCell();
+            final HeaderCell ha = new HeaderCell();
             ha.setTitle("ColumnAnt");
             ha.setBeanPropertyName("ant");
             ha.setHtmlAttributes(new HtmlAttributeMap());
@@ -62,7 +59,7 @@ public class TableTotalerTest extends XMLTestCase
             model.addColumnHeader(ha);
         }
         {
-            HeaderCell hb = new HeaderCell();
+            final HeaderCell hb = new HeaderCell();
             hb.setTitle("Column2");
             hb.setHtmlAttributes(new HtmlAttributeMap());
             hb.setBeanPropertyName("bee");
@@ -70,18 +67,18 @@ public class TableTotalerTest extends XMLTestCase
             model.addColumnHeader(hb);
         }
         {
-            HeaderCell hb = new HeaderCell();
+            final HeaderCell hb = new HeaderCell();
             hb.setTitle("long");
             hb.setBeanPropertyName("camel");
             hb.setTotaled(false);
-            HtmlAttributeMap mm = new HtmlAttributeMap();
+            final HtmlAttributeMap mm = new HtmlAttributeMap();
             mm.put(TagConstants.ATTRIBUTE_STYLE, "font-weight: bold; text-align: right");
             mm.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute("right rowish"));
             hb.setHtmlAttributes(mm);
             model.addColumnHeader(hb);
         }
         {
-            HeaderCell hb = new HeaderCell();
+            final HeaderCell hb = new HeaderCell();
             hb.setTitle("Column3");
             hb.setHtmlAttributes(new HtmlAttributeMap());
             hb.setBeanPropertyName("two");
@@ -90,13 +87,13 @@ public class TableTotalerTest extends XMLTestCase
         }
         model.addRow(new Row(new KnownValue(), 0));
         model.addRow(new Row(new KnownValue(), 1));
-        KnownValue third = new KnownValue();
+        final KnownValue third = new KnownValue();
         third.beeValue = "BeeAnt";
         third.twoValue = 3;
         third.camelValue = "arealllylongtextstringthatshouldforceafailuretowrapontheoutputline";
         // third.camelValue = "a reallly long text string that should force a failure to wrap on the output line";
         model.addRow(new Row(third, 2));
-        KnownValue antv = new KnownValue();
+        final KnownValue antv = new KnownValue();
         antv.antValue = "bee";
         antv.twoValue = 4;
         model.addRow(new Row(antv, 3));
@@ -106,24 +103,24 @@ public class TableTotalerTest extends XMLTestCase
     /**
      * Test simple totals correct.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
      */
     @Test
-    public void testSimpleTotalsCorrect() throws Exception
-    {
-        TableModel m = getModel();
-        TableTotaler tt = new TableTotaler();
+    public void testSimpleTotalsCorrect() throws Exception {
+        final TableModel m = this.getModel();
+        final TableTotaler tt = new TableTotaler();
         m.setTotaler(tt);
         tt.init(m);
-        XmlTotalsWriter tw = new XmlTotalsWriter(m);
+        final XmlTotalsWriter tw = new XmlTotalsWriter(m);
         tw.writeTable(m, "safd");
-        String xml = tw.getXml();
-        assertXpathEvaluatesTo("11.0", "//subgroup[@grouped-by=0]/subtotal/subtotal-cell[4]", xml);
-        assertXpathEvaluatesTo("7.0", "//subgroup[@grouped-by=1]/subtotal/subtotal-cell[4]", xml);
-        assertXpathEvaluatesTo("4.0", "//subgroup[@grouped-by=2]/subtotal/subtotal-cell[4]", xml);
-        assertXpathExists("//cell[@text-align='right']", xml);
+        final String xml = tw.getXml();
+        this.assertXpathEvaluatesTo("11.0", "//subgroup[@grouped-by=0]/subtotal/subtotal-cell[4]", xml);
+        this.assertXpathEvaluatesTo("7.0", "//subgroup[@grouped-by=1]/subtotal/subtotal-cell[4]", xml);
+        this.assertXpathEvaluatesTo("4.0", "//subgroup[@grouped-by=2]/subtotal/subtotal-cell[4]", xml);
+        this.assertXpathExists("//cell[@text-align='right']", xml);
 
-        File f = File.createTempFile("displaytag", "pdf");
+        final File f = File.createTempFile("displaytag", "pdf");
 
         FopExportView.transform(tw.getXml(), "/org/displaytag/export/asFo_us.xsl", f);
 

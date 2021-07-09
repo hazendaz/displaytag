@@ -23,14 +23,14 @@ package org.displaytag.exception;
 
 import org.displaytag.Messages;
 
-
 /**
  * Exception thrown when a Tag is not properly nested into another one.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class TagStructureException extends BaseNestableJspTagException
-{
+public class TagStructureException extends BaseNestableJspTagException {
 
     /**
      * D1597A17A6.
@@ -39,24 +39,29 @@ public class TagStructureException extends BaseNestableJspTagException
 
     /**
      * Constructor for InvalidTagAttributeValueException.
-     * @param source Class where the exception is generated
-     * @param currentTag name of the current tag
-     * @param shoudBeNestedIn missing parent tag
+     *
+     * @param source
+     *            Class where the exception is generated
+     * @param currentTag
+     *            name of the current tag
+     * @param shoudBeNestedIn
+     *            missing parent tag
      */
-    public TagStructureException(Class<?> source, String currentTag, String shoudBeNestedIn)
-    {
+    public TagStructureException(final Class<?> source, final String currentTag, final String shoudBeNestedIn) {
         super(source, Messages.getString("TagStructureException.msg", //$NON-NLS-1$
-            new Object[]{currentTag, shoudBeNestedIn}));
+                new Object[] { currentTag, shoudBeNestedIn }));
     }
 
     /**
+     * Gets the severity.
+     *
      * @return SeverityEnum.ERROR
+     *
      * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
      * @see org.displaytag.exception.SeverityEnum
      */
     @Override
-    public SeverityEnum getSeverity()
-    {
+    public SeverityEnum getSeverity() {
         return SeverityEnum.ERROR;
     }
 

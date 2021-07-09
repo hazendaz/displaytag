@@ -25,10 +25,10 @@ package org.displaytag.test;
  * The Class KnownValueWithId.
  *
  * @author fgiust
+ *
  * @version $Revision$ ($Author$)
  */
-public class KnownValueWithId extends KnownValue
-{
+public class KnownValueWithId extends KnownValue {
 
     /** The id. */
     private String id;
@@ -36,28 +36,29 @@ public class KnownValueWithId extends KnownValue
     /**
      * Instantiates a new known value with id.
      *
-     * @param id the id
+     * @param id
+     *            the id
      */
-    public KnownValueWithId(String id)
-    {
+    public KnownValueWithId(final String id) {
         this.id = id;
     }
 
     /**
      * Getter for <code>objectId</code>.
+     *
      * @return Returns the objectId.
      */
-    public String getId()
-    {
+    public String getId() {
         return this.id;
     }
 
     /**
      * Setter for <code>objectId</code>.
-     * @param objectId The objectId to set.
+     *
+     * @param objectId
+     *            The objectId to set.
      */
-    public void setId(String objectId)
-    {
+    public void setId(final String objectId) {
         this.id = objectId;
     }
 

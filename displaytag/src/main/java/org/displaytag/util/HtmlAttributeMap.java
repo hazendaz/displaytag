@@ -26,14 +26,14 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * Extends Map providing only a different toString() method which can be used in printing attributes inside an html tag.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class HtmlAttributeMap extends HashMap<String, Object>
-{
+public class HtmlAttributeMap extends HashMap<String, Object> {
 
     /**
      * D1597A17A6.
@@ -57,38 +57,31 @@ public class HtmlAttributeMap extends HashMap<String, Object>
 
     /**
      * toString method: returns attributes in the format: attributename="attributevalue" attr2="attrValue2" ...
+     *
      * @return String representation of the HtmlAttributeMap
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         // fast exit when no attribute are present
-        if (size() == 0)
-        {
+        if (this.size() == 0) {
             return TagConstants.EMPTY_STRING;
         }
 
         // buffer estimated in number of attributes * 30
-        StringBuilder buffer = new StringBuilder(size() * 30);
+        final StringBuilder buffer = new StringBuilder(this.size() * 30);
 
         // get the entrySet
-        Set<java.util.Map.Entry<String, Object>> entrySet = entrySet();
+        final Set<java.util.Map.Entry<String, Object>> entrySet = this.entrySet();
 
-        Iterator<java.util.Map.Entry<String, Object>> iterator = entrySet.iterator();
+        final Iterator<java.util.Map.Entry<String, Object>> iterator = entrySet.iterator();
 
         // iterates on attributes
-        while (iterator.hasNext())
-        {
-            Map.Entry<String, Object> entry = iterator.next();
+        while (iterator.hasNext()) {
+            final Map.Entry<String, Object> entry = iterator.next();
 
             // append a new attribute
-            buffer
-                .append(SPACE)
-                .append(entry.getKey())
-                .append(EQUALS)
-                .append(DELIMITER)
-                .append(entry.getValue())
-                .append(DELIMITER);
+            buffer.append(HtmlAttributeMap.SPACE).append(entry.getKey()).append(HtmlAttributeMap.EQUALS)
+                    .append(HtmlAttributeMap.DELIMITER).append(entry.getValue()).append(HtmlAttributeMap.DELIMITER);
         }
 
         // return

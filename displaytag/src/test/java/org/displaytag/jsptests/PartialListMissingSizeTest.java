@@ -21,32 +21,32 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Basic tests for pagination.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class PartialListMissingSizeTest extends DisplaytagCase
-{
+public class PartialListMissingSizeTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "partialListMissingSize.jsp";
     }
 
@@ -54,28 +54,24 @@ public class PartialListMissingSizeTest extends DisplaytagCase
      * Verifies that the generated page contains the pagination links with the inupt parameter. Tests #917200 ("{}" in
      * parameters).
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
         WebResponse response = null;
 
-        try
-        {
+        try {
             response = this.runner.getResponse(request);
             Assert.fail("Should have thrown an exception, missing size attribute");
-        }
-        catch (Throwable t)
-        {
+        } catch (final Throwable t) {
         }
 
-        if (this.log.isDebugEnabled() && response != null)
-        {
+        if (this.log.isDebugEnabled() && response != null) {
             this.log.debug("RESPONSE: " + response.getText());
         }
     }

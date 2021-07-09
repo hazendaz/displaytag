@@ -21,22 +21,22 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Verify that the TableProperties will show values from the proper locale.
+ *
  * @author rapruitt
+ *
  * @version $Revision$ ($Author$)
  */
-public class I18nPropertiesTest extends DisplaytagCase
-{
+public class I18nPropertiesTest extends DisplaytagCase {
 
     /**
      * No results for an en locale.
@@ -52,57 +52,57 @@ public class I18nPropertiesTest extends DisplaytagCase
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "i18nProperties.jsp";
     }
 
     /**
      * Check that the "no results" property is loaded from the correct locale file.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setHeaderField("Accept-Language", "en-us,en;q=0.5");
 
         WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug("RESPONSE: " + response.getText());
         }
 
         Assert.assertTrue(
-            "Expected message\"" + MSG_DEFAULT + "\" has not been found in response with locale en",
-            response.getText().indexOf(MSG_DEFAULT) > -1);
-        Assert.assertTrue("Unexpected message\"" + MSG_IT + "\" has been found in response with locale en", response
-            .getText()
-            .indexOf(MSG_IT) == -1);
+                "Expected message\"" + I18nPropertiesTest.MSG_DEFAULT
+                        + "\" has not been found in response with locale en",
+                response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT) > -1);
+        Assert.assertTrue(
+                "Unexpected message\"" + I18nPropertiesTest.MSG_IT + "\" has been found in response with locale en",
+                response.getText().indexOf(I18nPropertiesTest.MSG_IT) == -1);
 
         // Now, with an Italian locale.
-        request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setHeaderField("Accept-Language", "it-it,it;q=0.5");
 
         response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug("RESPONSE: " + response.getText());
         }
 
-        Assert.assertTrue("Expected message\"" + MSG_IT + "\" has not been found in response with locale it", response
-            .getText()
-            .indexOf(MSG_IT) > -1);
         Assert.assertTrue(
-            "Unexpected message\"" + MSG_DEFAULT + "\" has been found in response with locale it",
-            response.getText().indexOf(MSG_DEFAULT) == -1);
+                "Expected message\"" + I18nPropertiesTest.MSG_IT + "\" has not been found in response with locale it",
+                response.getText().indexOf(I18nPropertiesTest.MSG_IT) > -1);
+        Assert.assertTrue(
+                "Unexpected message\"" + I18nPropertiesTest.MSG_DEFAULT
+                        + "\" has been found in response with locale it",
+                response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT) == -1);
     }
 }

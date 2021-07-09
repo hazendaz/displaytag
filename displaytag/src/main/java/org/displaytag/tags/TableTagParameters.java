@@ -23,11 +23,12 @@ package org.displaytag.tags;
 
 /**
  * Constants for parameter names.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public final class TableTagParameters
-{
+public final class TableTagParameters {
 
     /**
      * name of the parameter specifying the current sorted column index.
@@ -101,8 +102,7 @@ public final class TableTagParameters
     /**
      * utility class - don't instantiate.
      */
-    private TableTagParameters()
-    {
+    private TableTagParameters() {
         // unused
     }
 

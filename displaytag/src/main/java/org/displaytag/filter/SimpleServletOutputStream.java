@@ -26,14 +26,14 @@ import java.io.ByteArrayOutputStream;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 
-
 /**
  * A simple implementation of ServletOutputStream which wraps a ByteArrayOutputStream.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class SimpleServletOutputStream extends ServletOutputStream
-{
+public class SimpleServletOutputStream extends ServletOutputStream {
 
     /**
      * My outputWriter stream, a buffer.
@@ -44,38 +44,49 @@ public class SimpleServletOutputStream extends ServletOutputStream
      * {@inheritDoc}
      */
     @Override
-    public void write(int b)
-    {
+    public void write(final int b) {
         this.outputStream.write(b);
     }
 
     /**
      * Get the contents of the outputStream.
+     *
      * @return contents of the outputStream
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.outputStream.toString();
     }
 
     /**
      * Reset the wrapped ByteArrayOutputStream.
      */
-    public void reset()
-    {
+    public void reset() {
         this.outputStream.reset();
     }
 
-    // TODO Do not add override as this is intended for very old legacy support and otherwise has no value beyond compilation.
-    public boolean isReady()
-    {
+    /**
+     * Checks if is ready.
+     *
+     * @return true, if is ready
+     */
+    // TODO Do not add override as this is intended for very old legacy support and otherwise has no value beyond
+    // compilation.
+    @Override
+    public boolean isReady() {
         return false;
     }
 
-    // TODO Do not add override as this is intended for very old legacy support and otherwise has no value beyond compilation.
-    public void setWriteListener(WriteListener writeListener)
-    {
+    /**
+     * Sets the write listener.
+     *
+     * @param writeListener
+     *            the new write listener
+     */
+    // TODO Do not add override as this is intended for very old legacy support and otherwise has no value beyond
+    // compilation.
+    @Override
+    public void setWriteListener(final WriteListener writeListener) {
         // TODO Not yet supported
     }
 }

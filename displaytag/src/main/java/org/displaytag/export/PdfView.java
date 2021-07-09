@@ -21,20 +21,6 @@
  */
 package org.displaytag.export;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfPageEventHelper;
-import com.itextpdf.text.pdf.PdfWriter;
-
 import java.io.OutputStream;
 import java.util.Iterator;
 
@@ -52,16 +38,30 @@ import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 import org.displaytag.util.TagConstants;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
+import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * PDF exporter using IText. This class is provided more as an example than as a "production ready" class: users
  * probably will need to write a custom export class with a specific layout.
+ *
  * @author Ivan Markov
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class PdfView implements BinaryExportView
-{
+public class PdfView implements BinaryExportView {
 
     /**
      * TableModel to render.
@@ -89,12 +89,22 @@ public class PdfView implements BinaryExportView
     private Font smallFont;
 
     /**
+     * Sets the parameters.
+     *
+     * @param tableModel
+     *            the table model
+     * @param exportFullList
+     *            the export full list
+     * @param includeHeader
+     *            the include header
+     * @param decorateValues
+     *            the decorate values
+     *
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
     @Override
-    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
-        boolean decorateValues)
-    {
+    public void setParameters(final TableModel tableModel, final boolean exportFullList, final boolean includeHeader,
+            final boolean decorateValues) {
         this.model = tableModel;
         this.exportFull = exportFullList;
         this.header = includeHeader;
@@ -104,8 +114,7 @@ public class PdfView implements BinaryExportView
     /**
      * Initialize the main info holder table.
      */
-    protected void initTable()
-    {
+    protected void initTable() {
         this.tablePDF = new PdfPTable(this.model.getNumberOfColumns());
         this.tablePDF.getDefaultCell().setVerticalAlignment(Element.ALIGN_TOP);
         this.tablePDF.setWidthPercentage(100);
@@ -115,68 +124,72 @@ public class PdfView implements BinaryExportView
     }
 
     /**
-     * @see org.displaytag.export.BaseExportView#getMimeType()
+     * Gets the mime type.
+     *
      * @return "application/pdf"
+     *
+     * @see org.displaytag.export.BaseExportView#getMimeType()
      */
     @Override
-    public String getMimeType()
-    {
+    public String getMimeType() {
         return "application/pdf"; //$NON-NLS-1$
     }
 
     /**
      * The overall PDF table generator.
-     * @throws JspException for errors during value retrieving from the table model
+     *
+     * @throws JspException
+     *             for errors during value retrieving from the table model
      */
-    protected void generatePDFTable() throws JspException
-    {
-        if (this.header)
-        {
-            generateHeaders();
+    protected void generatePDFTable() throws JspException {
+        if (this.header) {
+            this.generateHeaders();
         }
-        generateRows();
+        this.generateRows();
     }
 
     /**
+     * Do export.
+     *
+     * @param out
+     *            the out
+     *
+     * @throws JspException
+     *             the jsp exception
+     *
      * @see org.displaytag.export.BinaryExportView#doExport(OutputStream)
      */
     @Override
-    public void doExport(OutputStream out) throws JspException
-    {
-        try
-        {
+    public void doExport(final OutputStream out) throws JspException {
+        try {
             // Initialize the table with the appropriate number of columns
-            initTable();
+            this.initTable();
 
             // Initialize the Document and register it with PdfWriter listener and the OutputStream
-            Document document = new Document(PageSize.A4.rotate(), 60, 60, 40, 40);
+            final Document document = new Document(PageSize.A4.rotate(), 60, 60, 40, 40);
             document.addCreationDate();
 
-            PdfWriter writer = PdfWriter.getInstance(document, out);
-            writer.setPageEvent(new PdfPageEventHelper()
-            {
+            final PdfWriter writer = PdfWriter.getInstance(document, out);
+            writer.setPageEvent(new PdfPageEventHelper() {
 
                 @Override
-                public void onEndPage(PdfWriter writer, Document document)
-                {
+                public void onEndPage(final PdfWriter writer, final Document document) {
 
-                    ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER, new Phrase(
-                        TagConstants.EMPTY_STRING,
-                        PdfView.this.smallFont), (document.left() + document.right()) / 2, document.bottom() - 18, 0);
+                    ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER,
+                            new Phrase(TagConstants.EMPTY_STRING, PdfView.this.smallFont),
+                            (document.left() + document.right()) / 2, document.bottom() - 18, 0);
                 }
 
             });
 
             // Fill the virtual PDF table with the necessary data
-            generatePDFTable();
+            this.generatePDFTable();
 
             document.open();
             document.add(this.tablePDF);
             document.close();
 
-        }
-        catch (Exception e)
-        {
+        } catch (final Exception e) {
             throw new PdfGenerationException(e);
         }
     }
@@ -184,22 +197,19 @@ public class PdfView implements BinaryExportView
     /**
      * Generates the header cells, which persist on every page of the PDF document.
      */
-    protected void generateHeaders()
-    {
-        Iterator<HeaderCell> iterator = this.model.getHeaderCellList().iterator();
+    protected void generateHeaders() {
+        final Iterator<HeaderCell> iterator = this.model.getHeaderCellList().iterator();
 
-        while (iterator.hasNext())
-        {
-            HeaderCell headerCell = iterator.next();
+        while (iterator.hasNext()) {
+            final HeaderCell headerCell = iterator.next();
 
             String columnHeader = headerCell.getTitle();
 
-            if (columnHeader == null)
-            {
+            if (columnHeader == null) {
                 columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());
             }
 
-            PdfPCell hdrCell = getCell(columnHeader);
+            final PdfPCell hdrCell = this.getCell(columnHeader);
             hdrCell.setGrayFill(0.9f);
             this.tablePDF.addCell(hdrCell);
 
@@ -209,28 +219,27 @@ public class PdfView implements BinaryExportView
 
     /**
      * Generates all the row cells.
-     * @throws JspException for errors during value retrieving from the table model
+     *
+     * @throws JspException
+     *             for errors during value retrieving from the table model
      */
-    protected void generateRows() throws JspException
-    {
+    protected void generateRows() throws JspException {
         // get the correct iterator (full or partial list according to the exportFull field)
-        RowIterator rowIterator = this.model.getRowIterator(this.exportFull);
+        final RowIterator rowIterator = this.model.getRowIterator(this.exportFull);
         // iterator on rows
-        while (rowIterator.hasNext())
-        {
-            Row row = rowIterator.next();
+        while (rowIterator.hasNext()) {
+            final Row row = rowIterator.next();
 
             // iterator on columns
-            ColumnIterator columnIterator = row.getColumnIterator(this.model.getHeaderCellList());
+            final ColumnIterator columnIterator = row.getColumnIterator(this.model.getHeaderCellList());
 
-            while (columnIterator.hasNext())
-            {
-                Column column = columnIterator.nextColumn();
+            while (columnIterator.hasNext()) {
+                final Column column = columnIterator.nextColumn();
 
                 // Get the value to be displayed for the column
-                Object value = column.getValue(this.decorated);
+                final Object value = column.getValue(this.decorated);
 
-                PdfPCell cell = getCell(value != null ? value.toString() : StringUtils.EMPTY);
+                final PdfPCell cell = this.getCell(value != null ? value.toString() : StringUtils.EMPTY);
                 this.tablePDF.addCell(cell);
             }
         }
@@ -238,12 +247,14 @@ public class PdfView implements BinaryExportView
 
     /**
      * Returns a formatted cell for the given value.
-     * @param value cell value
+     *
+     * @param value
+     *            cell value
+     *
      * @return Cell
      */
-    private PdfPCell getCell(String value)
-    {
-        PdfPCell cell = new PdfPCell(new Phrase(new Chunk(StringUtils.trimToEmpty(value), this.smallFont)));
+    private PdfPCell getCell(final String value) {
+        final PdfPCell cell = new PdfPCell(new Phrase(new Chunk(StringUtils.trimToEmpty(value), this.smallFont)));
         cell.setVerticalAlignment(Element.ALIGN_TOP);
         cell.setLeading(8, 0);
         cell.setPadding(2);
@@ -252,11 +263,12 @@ public class PdfView implements BinaryExportView
 
     /**
      * Wraps IText-generated exceptions.
+     *
      * @author Fabrizio Giustina
+     *
      * @version $Revision$ ($Author$)
      */
-    static class PdfGenerationException extends BaseNestableJspTagException
-    {
+    static class PdfGenerationException extends BaseNestableJspTagException {
 
         /**
          * D1597A17A6.
@@ -265,19 +277,23 @@ public class PdfView implements BinaryExportView
 
         /**
          * Instantiate a new PdfGenerationException with a fixed message and the given cause.
-         * @param cause Previous exception
+         *
+         * @param cause
+         *            Previous exception
          */
-        public PdfGenerationException(Throwable cause)
-        {
+        public PdfGenerationException(final Throwable cause) {
             super(PdfView.class, Messages.getString("PdfView.errorexporting"), cause); //$NON-NLS-1$
         }
 
         /**
+         * Gets the severity.
+         *
+         * @return the severity
+         *
          * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
          */
         @Override
-        public SeverityEnum getSeverity()
-        {
+        public SeverityEnum getSeverity() {
             return SeverityEnum.ERROR;
         }
     }

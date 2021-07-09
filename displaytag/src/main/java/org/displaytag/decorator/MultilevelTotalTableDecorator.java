@@ -42,20 +42,19 @@ import org.displaytag.util.TagConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * A TableDecorator that, in conjunction with totaled and grouped columns, produces multi level subtotals on arbitrary
  * String groupings. Use it directly, subclass it, or use it as an example to better meet your local needs.
+ *
  * @author rapruitt
  * @author Fabrizio Giustina
  */
-public class MultilevelTotalTableDecorator extends TableDecorator
-{
+public class MultilevelTotalTableDecorator extends TableDecorator {
 
     /**
      * If there are no columns that are totaled, we should not issue a totals row.
      */
-    private boolean containsTotaledColumns = true;
+    private final boolean containsTotaledColumns = true;
 
     /**
      * No current reset group.
@@ -65,12 +64,12 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * Maps the groups to their current totals.
      */
-    private Map<Integer, GroupTotals> groupNumberToGroupTotal = new HashMap<>();
+    private final Map<Integer, GroupTotals> groupNumberToGroupTotal = new HashMap<>();
 
     /**
      * The deepest reset group. Resets on an outer group will force any deeper groups to reset as well.
      */
-    private int deepestResetGroup = NO_RESET_GROUP;
+    private int deepestResetGroup = MultilevelTotalTableDecorator.NO_RESET_GROUP;
 
     /**
      * Controls when the subgroup is ended.
@@ -80,7 +79,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * Logger.
      */
-    private Logger logger = LoggerFactory.getLogger(MultilevelTotalTableDecorator.class);
+    private final Logger logger = LoggerFactory.getLogger(MultilevelTotalTableDecorator.class);
 
     /**
      * CSS class applied to grand total totals.
@@ -125,22 +124,29 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * Holds the header rows and their content for a particular group.
      */
-    private List<StringBuffer> headerRows = new ArrayList<>(5);
+    private final List<StringBuffer> headerRows = new ArrayList<>(5);
 
+    /**
+     * Inits the.
+     *
+     * @param context
+     *            the context
+     * @param decorated
+     *            the decorated
+     * @param model
+     *            the model
+     */
     @Override
-    public void init(PageContext context, Object decorated, TableModel model)
-    {
+    public void init(final PageContext context, final Object decorated, final TableModel model) {
         super.init(context, decorated, model);
-        List<HeaderCell> headerCells = model.getHeaderCellList();
+        final List<HeaderCell> headerCells = model.getHeaderCellList();
         // go through each column, looking for grouped columns; add them to the group number map
-        for (HeaderCell headerCell : headerCells) {
-            if (headerCell.getGroup() > 0)
-            {
-                GroupTotals groupTotals = new GroupTotals(headerCell.getColumnNumber());
+        for (final HeaderCell headerCell : headerCells) {
+            if (headerCell.getGroup() > 0) {
+                final GroupTotals groupTotals = new GroupTotals(headerCell.getColumnNumber());
                 groupTotals.setStartRow(this.tableModel.getPageOffset());
                 this.groupNumberToGroupTotal.put(Integer.valueOf(headerCell.getGroup()), groupTotals);
-                if (headerCell.getGroup() > this.innermostGroup)
-                {
+                if (headerCell.getGroup() > this.innermostGroup) {
                     this.innermostGroup = headerCell.getGroup();
                 }
             }
@@ -152,18 +158,17 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      *
      * @return the grand total description
      */
-    public String getGrandTotalDescription()
-    {
+    public String getGrandTotalDescription() {
         return this.grandTotalDescription;
     }
 
     /**
      * Sets the grand total description.
      *
-     * @param grandTotalDescription the new grand total description
+     * @param grandTotalDescription
+     *            the new grand total description
      */
-    public void setGrandTotalDescription(String grandTotalDescription)
-    {
+    public void setGrandTotalDescription(final String grandTotalDescription) {
         this.grandTotalDescription = grandTotalDescription;
     }
 
@@ -171,11 +176,12 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      * The pattern to use to generate the subtotal labels. The grouping value of the cell will be the first arg. The
      * default value is "{0} Total".
      *
-     * @param pattern the pattern
-     * @param locale the locale
+     * @param pattern
+     *            the pattern
+     * @param locale
+     *            the locale
      */
-    public void setSubtotalLabel(String pattern, Locale locale)
-    {
+    public void setSubtotalLabel(final String pattern, final Locale locale) {
         this.subtotalDesc = new MessageFormat(pattern, locale);
     }
 
@@ -184,8 +190,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      *
      * @return the grand total label
      */
-    public String getGrandTotalLabel()
-    {
+    public String getGrandTotalLabel() {
         return this.grandTotalLabel;
     }
 
@@ -194,8 +199,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      *
      * @return the grand total sum
      */
-    public String getGrandTotalSum()
-    {
+    public String getGrandTotalSum() {
         return this.grandTotalSum;
     }
 
@@ -204,38 +208,37 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      *
      * @return the grand total no sum
      */
-    public String getGrandTotalNoSum()
-    {
+    public String getGrandTotalNoSum() {
         return this.grandTotalNoSum;
     }
 
     /**
      * Sets the grand total no sum.
      *
-     * @param grandTotalNoSum the new grand total no sum
+     * @param grandTotalNoSum
+     *            the new grand total no sum
      */
-    public void setGrandTotalNoSum(String grandTotalNoSum)
-    {
+    public void setGrandTotalNoSum(final String grandTotalNoSum) {
         this.grandTotalNoSum = grandTotalNoSum;
     }
 
     /**
      * Sets the grand total sum.
      *
-     * @param grandTotalSum the new grand total sum
+     * @param grandTotalSum
+     *            the new grand total sum
      */
-    public void setGrandTotalSum(String grandTotalSum)
-    {
+    public void setGrandTotalSum(final String grandTotalSum) {
         this.grandTotalSum = grandTotalSum;
     }
 
     /**
      * Sets the grand total label.
      *
-     * @param grandTotalLabel the new grand total label
+     * @param grandTotalLabel
+     *            the new grand total label
      */
-    public void setGrandTotalLabel(String grandTotalLabel)
-    {
+    public void setGrandTotalLabel(final String grandTotalLabel) {
         this.grandTotalLabel = grandTotalLabel;
     }
 
@@ -244,18 +247,17 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      *
      * @return the subtotal value class
      */
-    public String getSubtotalValueClass()
-    {
+    public String getSubtotalValueClass() {
         return this.subtotalValueClass;
     }
 
     /**
      * Sets the subtotal value class.
      *
-     * @param subtotalValueClass the new subtotal value class
+     * @param subtotalValueClass
+     *            the new subtotal value class
      */
-    public void setSubtotalValueClass(String subtotalValueClass)
-    {
+    public void setSubtotalValueClass(final String subtotalValueClass) {
         this.subtotalValueClass = subtotalValueClass;
     }
 
@@ -264,18 +266,17 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      *
      * @return the subtotal label class
      */
-    public String getSubtotalLabelClass()
-    {
+    public String getSubtotalLabelClass() {
         return this.subtotalLabelClass;
     }
 
     /**
      * Sets the subtotal label class.
      *
-     * @param subtotalLabelClass the new subtotal label class
+     * @param subtotalLabelClass
+     *            the new subtotal label class
      */
-    public void setSubtotalLabelClass(String subtotalLabelClass)
-    {
+    public void setSubtotalLabelClass(final String subtotalLabelClass) {
         this.subtotalLabelClass = subtotalLabelClass;
     }
 
@@ -284,39 +285,43 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      *
      * @return the subtotal header class
      */
-    public String getSubtotalHeaderClass()
-    {
+    public String getSubtotalHeaderClass() {
         return this.subtotalHeaderClass;
     }
 
     /**
      * Sets the subtotal header class.
      *
-     * @param subtotalHeaderClass the new subtotal header class
+     * @param subtotalHeaderClass
+     *            the new subtotal header class
      */
-    public void setSubtotalHeaderClass(String subtotalHeaderClass)
-    {
+    public void setSubtotalHeaderClass(final String subtotalHeaderClass) {
         this.subtotalHeaderClass = subtotalHeaderClass;
     }
 
+    /**
+     * Start of group.
+     *
+     * @param value
+     *            the value
+     * @param group
+     *            the group
+     */
     @Override
-    public void startOfGroup(String value, int group)
-    {
-        if (this.containsTotaledColumns)
-        {
-            StringBuffer tr = new StringBuffer();
+    public void startOfGroup(final String value, final int group) {
+        if (this.containsTotaledColumns) {
+            final StringBuffer tr = new StringBuffer();
             tr.append("<tr>");
-            GroupTotals groupTotals = this.groupNumberToGroupTotal.get(Integer.valueOf(group));
-            int myColumnNumber = groupTotals.columnNumber;
-            for (int i = 0; i < myColumnNumber; i++)
-            {
+            final GroupTotals groupTotals = this.groupNumberToGroupTotal.get(Integer.valueOf(group));
+            final int myColumnNumber = groupTotals.columnNumber;
+            for (int i = 0; i < myColumnNumber; i++) {
                 tr.append("<td></td>\n");
             }
-            tr.append("<td class=\"").append(getSubtotalHeaderClass()).append(" group-").append(group).append("\" >");
+            tr.append("<td class=\"").append(this.getSubtotalHeaderClass()).append(" group-").append(group)
+                    .append("\" >");
             tr.append(value).append("</td>\n");
-            List<HeaderCell> headerCells = this.tableModel.getHeaderCellList();
-            for (int i = myColumnNumber; i < headerCells.size() - 1; i++)
-            {
+            final List<HeaderCell> headerCells = this.tableModel.getHeaderCellList();
+            for (int i = myColumnNumber; i < headerCells.size() - 1; i++) {
                 tr.append("<td></td>\n");
             }
             tr.append("</tr>\n");
@@ -324,67 +329,85 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         }
     }
 
+    /**
+     * Display grouped value.
+     *
+     * @param value
+     *            the value
+     * @param groupingStatus
+     *            the grouping status
+     * @param columnNumber
+     *            the column number
+     *
+     * @return the string
+     */
     @Override
-    public String displayGroupedValue(String value, short groupingStatus, int columnNumber)
-    {
+    public String displayGroupedValue(final String value, final short groupingStatus, final int columnNumber) {
         return "";
     }
 
+    /**
+     * Start row.
+     *
+     * @return the string
+     */
     @Override
-    public String startRow()
-    {
-        StringBuilder sb = new StringBuilder();
-        for (StringBuffer stringBuffer : this.headerRows) {
+    public String startRow() {
+        final StringBuilder sb = new StringBuilder();
+        for (final StringBuffer stringBuffer : this.headerRows) {
             sb.append(stringBuffer);
         }
         return sb.toString();
     }
 
+    /**
+     * End of group.
+     *
+     * @param value
+     *            the value
+     * @param groupNumber
+     *            the group number
+     */
     @Override
-    public void endOfGroup(String value, int groupNumber)
-    {
-        if (this.deepestResetGroup > groupNumber)
-        {
+    public void endOfGroup(final String value, final int groupNumber) {
+        if (this.deepestResetGroup > groupNumber) {
             this.deepestResetGroup = groupNumber;
         }
     }
 
+    /**
+     * Finish row.
+     *
+     * @return the string
+     */
     @Override
-    public String finishRow()
-    {
+    public String finishRow() {
         String returnValue = "";
-        if (this.containsTotaledColumns)
-        {
-            if (this.innermostGroup > 0 && this.deepestResetGroup != NO_RESET_GROUP)
-            {
-                StringBuffer out = new StringBuffer();
+        if (this.containsTotaledColumns) {
+            if (this.innermostGroup > 0 && this.deepestResetGroup != MultilevelTotalTableDecorator.NO_RESET_GROUP) {
+                final StringBuffer out = new StringBuffer();
                 // Starting with the deepest group, print the current total and reset. Do not reset unaffected groups.
-                for (int i = this.innermostGroup; i >= this.deepestResetGroup; i--)
-                {
-                    Integer groupNumber = Integer.valueOf(i);
+                for (int i = this.innermostGroup; i >= this.deepestResetGroup; i--) {
+                    final Integer groupNumber = Integer.valueOf(i);
 
-                    GroupTotals totals = this.groupNumberToGroupTotal.get(groupNumber);
-                    if (totals == null)
-                    {
+                    final GroupTotals totals = this.groupNumberToGroupTotal.get(groupNumber);
+                    if (totals == null) {
                         this.logger.warn("There is a gap in the defined groups - no group defined for {}", groupNumber);
                         continue;
                     }
-                    totals.printTotals(getListIndex(), out);
-                    finishGroup(totals.getColumnNumber(), out);
-                    totals.setStartRow(getListIndex() + 1);
+                    totals.printTotals(this.getListIndex(), out);
+                    this.finishGroup(totals.getColumnNumber(), out);
+                    totals.setStartRow(this.getListIndex() + 1);
                 }
                 returnValue = out.toString();
-            }
-            else
-            {
+            } else {
                 returnValue = null;
             }
-            this.deepestResetGroup = NO_RESET_GROUP;
+            this.deepestResetGroup = MultilevelTotalTableDecorator.NO_RESET_GROUP;
             this.headerRows.clear();
-            if (isLastRow())
-            {
+            if (this.isLastRow()) {
                 returnValue = StringUtils.defaultString(returnValue);
-                returnValue += totalAllRows();
+                returnValue += this.totalAllRows();
             }
         }
         return returnValue;
@@ -393,88 +416,73 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * Finish group.
      *
-     * @param columnNumber the column number
-     * @param out the out
+     * @param columnNumber
+     *            the column number
+     * @param out
+     *            the out
      */
-    protected void finishGroup(int columnNumber, StringBuffer out)
-    {
+    protected void finishGroup(final int columnNumber, final StringBuffer out) {
         // Not Implemented
     }
 
     /**
      * Issue a grand total row at the bottom.
+     *
      * @return the suitable string
      */
-    protected String totalAllRows()
-    {
-        if (this.containsTotaledColumns)
-        {
-            List<HeaderCell> headerCells = this.tableModel.getHeaderCellList();
-            StringBuffer output = new StringBuffer();
-            int currentRow = getListIndex();
-            output.append(TagConstants.TAG_OPEN
-                + TagConstants.TAGNAME_ROW
-                + " class=\"grandtotal-row\""
-                + TagConstants.TAG_CLOSE);
-            boolean first = true;
-            for (HeaderCell headerCell : headerCells) {
-                if (first)
-                {
-                    output.append(getTotalsTdOpen(headerCell, getGrandTotalLabel()));
-                    output.append(getGrandTotalDescription());
-                    first = false;
-                }
-                else if (headerCell.isTotaled())
-                {
-                    // a total if the column should be totaled
-                    Object total = getTotalForColumn(
-                        headerCell.getColumnNumber(),
-                        this.tableModel.getPageOffset(),
-                        currentRow);
-                    output.append(getTotalsTdOpen(headerCell, getGrandTotalSum()));
-                    output.append(formatTotal(headerCell, total));
-                }
-                else
-                {
-                    // blank, if it is not a totals column
-                    output.append(getTotalsTdOpen(headerCell, getGrandTotalNoSum()));
-                }
-                output.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
-            }
-            output.append("\n</tr>\n");
-
-            return output.toString();
-        }
-        else
-        {
+    protected String totalAllRows() {
+        if (!this.containsTotaledColumns) {
             return "";
         }
+        final List<HeaderCell> headerCells = this.tableModel.getHeaderCellList();
+        final StringBuffer output = new StringBuffer();
+        final int currentRow = this.getListIndex();
+        output.append(TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + " class=\"grandtotal-row\""
+                + TagConstants.TAG_CLOSE);
+        boolean first = true;
+        for (final HeaderCell headerCell : headerCells) {
+            if (first) {
+                output.append(this.getTotalsTdOpen(headerCell, this.getGrandTotalLabel()));
+                output.append(this.getGrandTotalDescription());
+                first = false;
+            } else if (headerCell.isTotaled()) {
+                // a total if the column should be totaled
+                final Object total = this.getTotalForColumn(headerCell.getColumnNumber(),
+                        this.tableModel.getPageOffset(), currentRow);
+                output.append(this.getTotalsTdOpen(headerCell, this.getGrandTotalSum()));
+                output.append(this.formatTotal(headerCell, total));
+            } else {
+                // blank, if it is not a totals column
+                output.append(this.getTotalsTdOpen(headerCell, this.getGrandTotalNoSum()));
+            }
+            output.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
+        }
+        output.append("\n</tr>\n");
+
+        return output.toString();
     }
 
     /**
      * Gets the cell value.
      *
-     * @param columnNumber the column number
-     * @param rowNumber the row number
+     * @param columnNumber
+     *            the column number
+     * @param rowNumber
+     *            the row number
+     *
      * @return the cell value
      */
-    protected String getCellValue(int columnNumber, int rowNumber)
-    {
-        List<Row> fullList = this.tableModel.getRowListFull();
-        Row row = fullList.get(rowNumber);
-        ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
-        while (columnIterator.hasNext())
-        {
-            Column column = columnIterator.nextColumn();
-            if (column.getHeaderCell().getColumnNumber() == columnNumber)
-            {
-                try
-                {
+    protected String getCellValue(final int columnNumber, final int rowNumber) {
+        final List<Row> fullList = this.tableModel.getRowListFull();
+        final Row row = fullList.get(rowNumber);
+        final ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
+        while (columnIterator.hasNext()) {
+            final Column column = columnIterator.nextColumn();
+            if (column.getHeaderCell().getColumnNumber() == columnNumber) {
+                try {
                     column.initialize();
                     return column.getChoppedAndLinkedValue();
-                }
-                catch (ObjectLookupException | DecoratorException e)
-                {
+                } catch (ObjectLookupException | DecoratorException e) {
                     this.logger.error("Error: {}", e.getMessage(), e);
                     throw new RuntimeException("Error: " + e.getMessage(), e);
                 }
@@ -486,35 +494,32 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * Gets the total for column.
      *
-     * @param columnNumber the column number
-     * @param startRow the start row
-     * @param stopRow the stop row
+     * @param columnNumber
+     *            the column number
+     * @param startRow
+     *            the start row
+     * @param stopRow
+     *            the stop row
+     *
      * @return the total for column
      */
-    protected Object getTotalForColumn(int columnNumber, int startRow, int stopRow)
-    {
-        List<Row> fullList = this.tableModel.getRowListFull();
-        List<Row> window = fullList.subList(startRow, stopRow + 1);
+    protected Object getTotalForColumn(final int columnNumber, final int startRow, final int stopRow) {
+        final List<Row> fullList = this.tableModel.getRowListFull();
+        final List<Row> window = fullList.subList(startRow, stopRow + 1);
         Object total = null;
-        for (Row row : window) {
-            ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
-            while (columnIterator.hasNext())
-            {
-                Column column = columnIterator.nextColumn();
-                if (column.getHeaderCell().getColumnNumber() == columnNumber)
-                {
+        for (final Row row : window) {
+            final ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
+            while (columnIterator.hasNext()) {
+                final Column column = columnIterator.nextColumn();
+                if (column.getHeaderCell().getColumnNumber() == columnNumber) {
                     Object value = null;
-                    try
-                    {
+                    try {
                         value = column.getValue(false);
-                    }
-                    catch (ObjectLookupException | DecoratorException e)
-                    {
+                    } catch (ObjectLookupException | DecoratorException e) {
                         this.logger.error("", e);
                     }
-                    if (value != null && !TagConstants.EMPTY_STRING.equals(value))
-                    {
-                        total = add(column, total, value);
+                    if (value != null && !TagConstants.EMPTY_STRING.equals(value)) {
+                        total = this.add(column, total, value);
                     }
                 }
             }
@@ -525,65 +530,59 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * Adds the.
      *
-     * @param column the column
-     * @param total the total
-     * @param value the value
+     * @param column
+     *            the column
+     * @param total
+     *            the total
+     * @param value
+     *            the value
+     *
      * @return the object
      */
-    protected Object add(Column column, Object total, Object value)
-    {
-        if (value == null)
-        {
+    protected Object add(final Column column, final Object total, final Object value) {
+        if (value == null) {
             return total;
         }
-        else if (value instanceof Number)
-        {
+        if (value instanceof Number) {
             Number oldTotal = Double.valueOf(0);
-            if (total != null)
-            {
+            if (total != null) {
                 oldTotal = (Number) total;
             }
             return Double.valueOf(oldTotal.doubleValue() + ((Number) value).doubleValue());
-        }
-        else
-        {
-            throw new UnsupportedOperationException("Cannot add a value of "
-                + value
-                + " in column "
-                + column.getHeaderCell().getTitle());
+        } else {
+            throw new UnsupportedOperationException(
+                    "Cannot add a value of " + value + " in column " + column.getHeaderCell().getTitle());
         }
     }
 
     /**
      * Gets the totals td open.
      *
-     * @param header the header
-     * @param totalClass the total class
+     * @param header
+     *            the header
+     * @param totalClass
+     *            the total class
+     *
      * @return the totals td open
      */
-    public String getTotalsTdOpen(HeaderCell header, String totalClass)
-    {
+    public String getTotalsTdOpen(final HeaderCell header, final String totalClass) {
 
-        Object cssClassObj = header.getHtmlAttributes().get("class");
-        String cssClass = cssClassObj != null ? cssClassObj.toString() : StringUtils.EMPTY;
+        final Object cssClassObj = header.getHtmlAttributes().get("class");
+        final String cssClass = cssClassObj != null ? cssClassObj.toString() : StringUtils.EMPTY;
 
-        StringBuffer buffer = new StringBuffer();
+        final StringBuffer buffer = new StringBuffer();
         buffer.append(TagConstants.TAG_OPEN);
         buffer.append(TagConstants.TAGNAME_COLUMN);
-        if (cssClass != null || totalClass != null)
-        {
+        if (cssClass != null || totalClass != null) {
             buffer.append(" class=\"");
 
-            if (cssClass != null)
-            {
+            if (cssClass != null) {
                 buffer.append(cssClass);
-                if (totalClass != null)
-                {
+                if (totalClass != null) {
                     buffer.append(" ");
                 }
             }
-            if (totalClass != null)
-            {
+            if (totalClass != null) {
                 buffer.append(totalClass);
             }
             buffer.append("\"");
@@ -597,43 +596,40 @@ public class MultilevelTotalTableDecorator extends TableDecorator
      *
      * @return the totals row open
      */
-    public String getTotalsRowOpen()
-    {
+    public String getTotalsRowOpen() {
         return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + " class=\"subtotal\"" + TagConstants.TAG_CLOSE;
     }
 
     /**
      * Gets the total row label.
      *
-     * @param groupingValue the grouping value
+     * @param groupingValue
+     *            the grouping value
+     *
      * @return the total row label
      */
-    public String getTotalRowLabel(String groupingValue)
-    {
-        return this.subtotalDesc.format(new Object[]{groupingValue});
+    public String getTotalRowLabel(final String groupingValue) {
+        return this.subtotalDesc.format(new Object[] { groupingValue });
     }
 
     /**
      * Format total.
      *
-     * @param header the header
-     * @param total the total
+     * @param header
+     *            the header
+     * @param total
+     *            the total
+     *
      * @return the string
      */
-    public String formatTotal(HeaderCell header, Object total)
-    {
+    public String formatTotal(final HeaderCell header, final Object total) {
         Object displayValue = total;
-        if (header.getColumnDecorators().length > 0)
-        {
-            for (int i = 0; i < header.getColumnDecorators().length; i++)
-            {
-                DisplaytagColumnDecorator decorator = header.getColumnDecorators()[i];
-                try
-                {
+        if (header.getColumnDecorators().length > 0) {
+            for (int i = 0; i < header.getColumnDecorators().length; i++) {
+                final DisplaytagColumnDecorator decorator = header.getColumnDecorators()[i];
+                try {
                     displayValue = decorator.decorate(total, this.getPageContext(), this.tableModel.getMedia());
-                }
-                catch (DecoratorException e)
-                {
+                } catch (final DecoratorException e) {
                     this.logger.warn(e.getMessage(), e);
                     // ignore, use undecorated value for totals
                 }
@@ -645,24 +641,23 @@ public class MultilevelTotalTableDecorator extends TableDecorator
     /**
      * The Class GroupTotals.
      */
-    class GroupTotals
-    {
+    class GroupTotals {
 
         /**
          * The label class.
          */
-        protected String totalLabelClass = getSubtotalLabelClass();
+        protected String totalLabelClass = MultilevelTotalTableDecorator.this.getSubtotalLabelClass();
 
         /** The row opener. */
-        protected String totalsRowOpen = getTotalsRowOpen();
+        protected String totalsRowOpen = MultilevelTotalTableDecorator.this.getTotalsRowOpen();
 
         /**
          * The value class.
          */
-        protected String totalValueClass = getSubtotalValueClass();
+        protected String totalValueClass = MultilevelTotalTableDecorator.this.getSubtotalValueClass();
 
         /** The column number. */
-        private int columnNumber;
+        private final int columnNumber;
 
         /** The first row of current set. */
         private int firstRowOfCurrentSet;
@@ -670,10 +665,10 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         /**
          * Instantiates a new group totals.
          *
-         * @param headerCellColumn the header cell column
+         * @param headerCellColumn
+         *            the header cell column
          */
-        public GroupTotals(int headerCellColumn)
-        {
+        public GroupTotals(final int headerCellColumn) {
             this.columnNumber = headerCellColumn;
             this.firstRowOfCurrentSet = 0;
         }
@@ -681,41 +676,40 @@ public class MultilevelTotalTableDecorator extends TableDecorator
         /**
          * Prints the totals.
          *
-         * @param currentRow the current row
-         * @param out the out
+         * @param currentRow
+         *            the current row
+         * @param out
+         *            the out
          */
-        public void printTotals(int currentRow, StringBuffer out)
-        {
+        public void printTotals(final int currentRow, final StringBuffer out) {
 
             // For each column, output:
-            List<HeaderCell> headerCells = MultilevelTotalTableDecorator.this.tableModel.getHeaderCellList();
+            final List<HeaderCell> headerCells = MultilevelTotalTableDecorator.this.tableModel.getHeaderCellList();
             if (this.firstRowOfCurrentSet < currentRow) // If there is more than one row, show a total
             {
                 out.append(this.totalsRowOpen);
-                for (HeaderCell headerCell : headerCells) {
-                    if (this.columnNumber == headerCell.getColumnNumber())
-                    {
+                for (final HeaderCell headerCell : headerCells) {
+                    if (this.columnNumber == headerCell.getColumnNumber()) {
                         // a totals label if it is the column for the current group
-                        String currentLabel = getCellValue(this.columnNumber, this.firstRowOfCurrentSet);
-                        out.append(getTotalsTdOpen(headerCell, getTotalLabelClass() + " group-" + (this.columnNumber + 1)));
-                        out.append(getTotalRowLabel(currentLabel));
-                    }
-                    else if (headerCell.isTotaled())
-                    {
+                        final String currentLabel = MultilevelTotalTableDecorator.this.getCellValue(this.columnNumber,
+                                this.firstRowOfCurrentSet);
+                        out.append(MultilevelTotalTableDecorator.this.getTotalsTdOpen(headerCell,
+                                this.getTotalLabelClass() + " group-" + (this.columnNumber + 1)));
+                        out.append(MultilevelTotalTableDecorator.this.getTotalRowLabel(currentLabel));
+                    } else if (headerCell.isTotaled()) {
                         // a total if the column should be totaled
-                        Object total = getTotalForColumn(headerCell.getColumnNumber(), this.firstRowOfCurrentSet, currentRow);
-                        out.append(getTotalsTdOpen(headerCell, getTotalValueClass() + " group-" + (this.columnNumber + 1)));
-                        out.append(formatTotal(headerCell, total));
-                    }
-                    else
-                    {
+                        final Object total = MultilevelTotalTableDecorator.this
+                                .getTotalForColumn(headerCell.getColumnNumber(), this.firstRowOfCurrentSet, currentRow);
+                        out.append(MultilevelTotalTableDecorator.this.getTotalsTdOpen(headerCell,
+                                this.getTotalValueClass() + " group-" + (this.columnNumber + 1)));
+                        out.append(MultilevelTotalTableDecorator.this.formatTotal(headerCell, total));
+                    } else {
                         // blank, if it is not a totals column
-                        StringBuilder style = new StringBuilder("group-" + (this.columnNumber + 1));
-                        if (headerCell.getColumnNumber() < MultilevelTotalTableDecorator.this.innermostGroup)
-                        {
-                            style.append(" ").append(getTotalLabelClass()).append(" ");
+                        final StringBuilder style = new StringBuilder("group-" + (this.columnNumber + 1));
+                        if (headerCell.getColumnNumber() < MultilevelTotalTableDecorator.this.innermostGroup) {
+                            style.append(" ").append(this.getTotalLabelClass()).append(" ");
                         }
-                        out.append(getTotalsTdOpen(headerCell, style.toString()));
+                        out.append(MultilevelTotalTableDecorator.this.getTotalsTdOpen(headerCell, style.toString()));
                     }
                     out.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);
                 }
@@ -728,18 +722,17 @@ public class MultilevelTotalTableDecorator extends TableDecorator
          *
          * @return the column number
          */
-        public int getColumnNumber()
-        {
+        public int getColumnNumber() {
             return this.columnNumber;
         }
 
         /**
          * Sets the start row.
          *
-         * @param i the new start row
+         * @param i
+         *            the new start row
          */
-        public void setStartRow(int i)
-        {
+        public void setStartRow(final int i) {
             this.firstRowOfCurrentSet = i;
         }
 
@@ -748,28 +741,27 @@ public class MultilevelTotalTableDecorator extends TableDecorator
          *
          * @return the total label class
          */
-        public String getTotalLabelClass()
-        {
+        public String getTotalLabelClass() {
             return this.totalLabelClass;
         }
 
         /**
          * Sets the totals row open.
          *
-         * @param totalsRowOpen the new totals row open
+         * @param totalsRowOpen
+         *            the new totals row open
          */
-        public void setTotalsRowOpen(String totalsRowOpen)
-        {
+        public void setTotalsRowOpen(final String totalsRowOpen) {
             this.totalsRowOpen = totalsRowOpen;
         }
 
         /**
          * Sets the total label class.
          *
-         * @param totalLabelClass the new total label class
+         * @param totalLabelClass
+         *            the new total label class
          */
-        public void setTotalLabelClass(String totalLabelClass)
-        {
+        public void setTotalLabelClass(final String totalLabelClass) {
             this.totalLabelClass = totalLabelClass;
         }
 
@@ -778,18 +770,17 @@ public class MultilevelTotalTableDecorator extends TableDecorator
          *
          * @return the total value class
          */
-        public String getTotalValueClass()
-        {
+        public String getTotalValueClass() {
             return this.totalValueClass;
         }
 
         /**
          * Sets the total value class.
          *
-         * @param totalValueClass the new total value class
+         * @param totalValueClass
+         *            the new total value class
          */
-        public void setTotalValueClass(String totalValueClass)
-        {
+        public void setTotalValueClass(final String totalValueClass) {
             this.totalValueClass = totalValueClass;
         }
     }

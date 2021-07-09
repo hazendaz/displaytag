@@ -29,29 +29,24 @@ import org.springframework.mock.web.MockPageContext;
 import org.springframework.mock.web.portlet.MockPortletRequest;
 import org.springframework.mock.web.portlet.MockRenderResponse;
 
-
 /**
  * The Class PortletRequestHelperTest.
  *
  * @author Eric Dalquist <a href="mailto:edalquist@unicon.net">edalquist@unicon.net</a>
+ *
  * @version $Id$
  */
-public class PortletRequestHelperTest
-{
+public class PortletRequestHelperTest {
 
     /**
      * Test null page context.
      */
     @Test
-    public void testNullPageContext()
-    {
-        try
-        {
+    public void testNullPageContext() {
+        try {
             new PortletRequestHelper(null);
             Assert.fail("IllegalArgumentException should have been thrown");
-        }
-        catch (IllegalArgumentException iae)
-        {
+        } catch (final IllegalArgumentException iae) {
             // expected
         }
     }
@@ -60,41 +55,31 @@ public class PortletRequestHelperTest
      * Test empty page context.
      */
     @Test
-    public void testEmptyPageContext()
-    {
+    public void testEmptyPageContext() {
         final MockPageContext pageContext = new MockPageContext();
 
-        try
-        {
+        try {
             new PortletRequestHelper(pageContext);
             Assert.fail("IllegalStateException should have been thrown");
-        }
-        catch (IllegalStateException ise)
-        {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_REQUEST, new MockPortletRequest());
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_REQUEST, null);
-        try
-        {
+        try {
             new PortletRequestHelper(pageContext);
             Assert.fail("IllegalStateException should have been thrown");
-        }
-        catch (IllegalStateException ise)
-        {
+        } catch (final IllegalStateException ise) {
             // expected
         }
 
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_REQUEST, null);
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_RESPONSE, new MockRenderResponse());
-        try
-        {
+        try {
             new PortletRequestHelper(pageContext);
             Assert.fail("IllegalStateException should have been thrown");
-        }
-        catch (IllegalStateException ise)
-        {
+        } catch (final IllegalStateException ise) {
             // expected
         }
     }
@@ -103,8 +88,7 @@ public class PortletRequestHelperTest
      * Test basic page context.
      */
     @Test
-    public void testBasicPageContext()
-    {
+    public void testBasicPageContext() {
         final MockPageContext pageContext = new MockPageContext();
 
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_REQUEST, new MockPortletRequest());
@@ -117,8 +101,7 @@ public class PortletRequestHelperTest
      * Test request parameters.
      */
     @Test
-    public void testRequestParameters()
-    {
+    public void testRequestParameters() {
         final MockPageContext pageContext = new MockPageContext();
         final MockPortletRequest request = new MockPortletRequest();
 
@@ -142,12 +125,12 @@ public class PortletRequestHelperTest
         final Map<String, String[]> params = helper.getParameterMap();
         Assert.assertEquals(2, params.size());
 
-        final String[] expextedStrArryVal = new String[]{"STRING_VALUE"};
+        final String[] expextedStrArryVal = { "STRING_VALUE" };
         final String[] strArryVal = params.get("STRING_PARAM");
         Assert.assertEquals(expextedStrArryVal.length, strArryVal.length);
         Assert.assertEquals(expextedStrArryVal[0], strArryVal[0]);
 
-        final String[] expextedIntArryVal = new String[]{"31337"};
+        final String[] expextedIntArryVal = { "31337" };
         final String[] intArryVal = params.get("INTEGER_PARAM");
         Assert.assertEquals(expextedIntArryVal.length, intArryVal.length);
         Assert.assertEquals(expextedIntArryVal[0], intArryVal[0]);
@@ -157,8 +140,7 @@ public class PortletRequestHelperTest
      * Test create empty href.
      */
     @Test
-    public void testCreateEmptyHref()
-    {
+    public void testCreateEmptyHref() {
         final MockPageContext pageContext = new MockPageContext();
 
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_REQUEST, new MockPortletRequest());
@@ -182,8 +164,7 @@ public class PortletRequestHelperTest
      * Test create secure href.
      */
     @Test
-    public void testCreateSecureHref()
-    {
+    public void testCreateSecureHref() {
         final MockPageContext pageContext = new MockPageContext();
         final MockPortletRequest request = new MockPortletRequest();
 
@@ -210,8 +191,7 @@ public class PortletRequestHelperTest
      * Test parameterized href.
      */
     @Test
-    public void testParameterizedHref()
-    {
+    public void testParameterizedHref() {
         final MockPageContext pageContext = new MockPageContext();
         final MockPortletRequest request = new MockPortletRequest();
 
@@ -228,12 +208,12 @@ public class PortletRequestHelperTest
         final Map<String, String[]> params = ref.getParameterMap();
         Assert.assertEquals(2, params.size());
 
-        final String[] expextedStrArryVal = new String[]{"STRING_VALUE"};
+        final String[] expextedStrArryVal = { "STRING_VALUE" };
         final String[] strArryVal = params.get("STRING_PARAM");
         Assert.assertEquals(expextedStrArryVal.length, strArryVal.length);
         Assert.assertEquals(expextedStrArryVal[0], strArryVal[0]);
 
-        final String[] expextedIntArryVal = new String[]{"31337"};
+        final String[] expextedIntArryVal = { "31337" };
         final String[] intArryVal = params.get("INTEGER_PARAM");
         Assert.assertEquals(expextedIntArryVal.length, intArryVal.length);
         Assert.assertEquals(expextedIntArryVal[0], intArryVal[0]);

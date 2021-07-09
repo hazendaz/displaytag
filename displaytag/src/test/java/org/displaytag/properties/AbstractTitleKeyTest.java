@@ -21,52 +21,55 @@
  */
 package org.displaytag.properties;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for "titlekey" column attribute.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public abstract class AbstractTitleKeyTest extends DisplaytagCase
-{
+public abstract class AbstractTitleKeyTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "titlekey.jsp";
     }
 
     /**
      * Returns the LocaleResolver instance to be used in this test.
+     *
      * @return LocaleResolver
      */
     protected abstract LocaleResolver getResolver();
 
     /**
      * Returns the I18nResourceProvider instance to be used in this test.
+     *
      * @return I18nResourceProvider
      */
     protected abstract I18nResourceProvider getI18nResourceProvider();
 
     /**
      * Returns the suffix expected in the specific resource bundle.
+     *
      * @return expected suffix
      */
     protected abstract String getExpectedSuffix();
@@ -74,54 +77,45 @@ public abstract class AbstractTitleKeyTest extends DisplaytagCase
     /**
      * Test that headers are correctly removed.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
         // test keep
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        TableProperties.setLocaleResolver(getResolver());
-        TableProperties.setResourceProvider(getI18nResourceProvider());
+        TableProperties.setLocaleResolver(this.getResolver());
+        TableProperties.setResourceProvider(this.getI18nResourceProvider());
 
         WebResponse response;
-        try
-        {
+        try {
             response = this.runner.getResponse(request);
-        }
-        finally
-        {
+        } finally {
             // reset
             TableProperties.setLocaleResolver(null);
             TableProperties.setResourceProvider(null);
         }
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Expected one table", 1, tables.length);
 
         Assert.assertEquals("Header from resource is not valid.", //
-            "foo title" + getExpectedSuffix(),
-            tables[0].getCellAsText(0, 0));
+                "foo title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, 0));
 
         Assert.assertEquals("Header from resource is not valid.", //
-            "baz title" + getExpectedSuffix(),
-            tables[0].getCellAsText(0, 1));
+                "baz title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, 1));
 
         Assert.assertEquals("Header from resource is not valid.", //
-            "camel title" + getExpectedSuffix(),
-            tables[0].getCellAsText(0, 2));
+                "camel title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, 2));
 
-        Assert.assertEquals(
-            "Missing resource should generate the ???missing??? header.",
-            "???missing???",
-            tables[0].getCellAsText(0, 3));
+        Assert.assertEquals("Missing resource should generate the ???missing??? header.", "???missing???",
+                tables[0].getCellAsText(0, 3));
 
     }
 }

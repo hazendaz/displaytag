@@ -27,15 +27,15 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.LookupUtil;
 
-
 /**
  * Base template class.
+ *
  * @author bgsmith
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public abstract class TemplateTag extends BodyTagSupport
-{
+public abstract class TemplateTag extends BodyTagSupport {
 
     /**
      * Stable serialVersionUID.
@@ -59,12 +59,16 @@ public abstract class TemplateTag extends BodyTagSupport
      * Tokens after the object name are interpreted as javabean properties (accessed through getters), mapped or indexed
      * properties, using the jakarta common-beans library
      * </p>
-     * @param expression expression to evaluate
+     *
+     * @param expression
+     *            expression to evaluate
+     *
      * @return Object result
-     * @throws ObjectLookupException if unable to get a bean using the given expression
+     *
+     * @throws ObjectLookupException
+     *             if unable to get a bean using the given expression
      */
-    protected Object evaluateExpression(String expression) throws ObjectLookupException
-    {
+    protected Object evaluateExpression(final String expression) throws ObjectLookupException {
 
         String expressionWithoutScope = expression;
 
@@ -76,20 +80,17 @@ public abstract class TemplateTag extends BodyTagSupport
         {
             scope = PageContext.PAGE_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
-        }
-        else if (expression.startsWith("requestScope.")) //$NON-NLS-1$
+        } else if (expression.startsWith("requestScope.")) //$NON-NLS-1$
         {
             scope = PageContext.REQUEST_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
 
-        }
-        else if (expression.startsWith("sessionScope.")) //$NON-NLS-1$
+        } else if (expression.startsWith("sessionScope.")) //$NON-NLS-1$
         {
             scope = PageContext.SESSION_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);
 
-        }
-        else if (expression.startsWith("applicationScope.")) //$NON-NLS-1$
+        } else if (expression.startsWith("applicationScope.")) //$NON-NLS-1$
         {
             scope = PageContext.APPLICATION_SCOPE;
             expressionWithoutScope = expressionWithoutScope.substring(expressionWithoutScope.indexOf('.') + 1);

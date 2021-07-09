@@ -21,11 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -34,53 +29,55 @@ import org.displaytag.test.KnownTypes;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-252 - Multiple (chained) column decorators.
  *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public class Displ028Test extends DisplaytagCase
-{
+public class Displ028Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-028.jsp";
     }
 
     /**
-     * Decorated object based on a pageContext attribute
+     * Decorated object based on a pageContext attribute.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
-        Assert.assertEquals(
-            "Value not decorated as expected",
-            "day is " + new SimpleDateFormat("dd", Locale.ENGLISH).format(new KnownTypes().getTime()),
-            tables[0].getCellAsText(1, 0));
+        Assert.assertEquals("Value not decorated as expected",
+                "day is " + new SimpleDateFormat("dd", Locale.ENGLISH).format(new KnownTypes().getTime()),
+                tables[0].getCellAsText(1, 0));
 
     }
 

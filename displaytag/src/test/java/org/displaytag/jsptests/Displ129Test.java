@@ -21,6 +21,13 @@
  */
 package org.displaytag.jsptests;
 
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.tags.TableTagParameters;
+import org.displaytag.test.DisplaytagCase;
+import org.displaytag.util.ParamEncoder;
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HTMLElement;
 import com.meterware.httpunit.TableCell;
@@ -29,62 +36,53 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.tags.TableTagParameters;
-import org.displaytag.test.DisplaytagCase;
-import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
-
-
 /**
  * Test for DISPL-129 - Partial list support with valuelist pattern.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id: $
  */
-public class Displ129Test extends DisplaytagCase
-{
+public class Displ129Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-129.jsp";
     }
 
     /**
      * No exception when an invalid page is requested.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        ParamEncoder encoder = new ParamEncoder("table");
-        String pageParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE);
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String pageParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE);
         request.setParameter(pageParameter, "2");
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
         Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
@@ -92,25 +90,21 @@ public class Displ129Test extends DisplaytagCase
         Assert.assertEquals("Wrong column content.", "3", tables[0].getCellAsText(1, 0));
         Assert.assertEquals("Wrong column content.", "4", tables[0].getCellAsText(2, 0));
 
-        TableCell headerCell = tables[0].getTableCell(0, 0);
+        final TableCell headerCell = tables[0].getTableCell(0, 0);
 
-        String cssClass = headerCell.getClassName();
-        assertEqualsIgnoreOrder(
-            "Wrong css attributes.",
-            new String[]{"sortable", "sorted", "order2"},
-            StringUtils.split(cssClass));
+        final String cssClass = headerCell.getClassName();
+        this.assertEqualsIgnoreOrder("Wrong css attributes.", new String[] { "sortable", "sorted", "order2" },
+                StringUtils.split(cssClass));
 
-        WebLink[] headerLinks = headerCell.getLinks();
+        final WebLink[] headerLinks = headerCell.getLinks();
         Assert.assertEquals("Sorting link not found.", 1, headerLinks.length);
-        WebLink sortingLink = headerLinks[0];
-        assertEqualsIgnoreOrder(
-            "Wrong parameters.",
-            new String[]{"sort", "searchid", "dir", pageParameter},
-            sortingLink.getParameterNames());
+        final WebLink sortingLink = headerLinks[0];
+        this.assertEqualsIgnoreOrder("Wrong parameters.", new String[] { "sort", "searchid", "dir", pageParameter },
+                sortingLink.getParameterNames());
 
-        HTMLElement pagebanner = response.getElementWithID("pagebanner");
+        final HTMLElement pagebanner = response.getElementWithID("pagebanner");
         Assert.assertEquals("Wrong page banner", "10|3|4", pagebanner.getText());
-        HTMLElement pagelinks = response.getElementWithID("pagelinks");
+        final HTMLElement pagelinks = response.getElementWithID("pagelinks");
         Assert.assertEquals("Wrong page links", "1|[2]|3|4|5", pagelinks.getText());
 
     }

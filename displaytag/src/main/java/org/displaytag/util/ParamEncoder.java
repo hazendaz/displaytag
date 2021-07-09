@@ -23,14 +23,14 @@ package org.displaytag.util;
 
 import java.io.Serializable;
 
-
 /**
  * Simple utility class for encoding parameter names.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ParamEncoder implements Serializable
-{
+public class ParamEncoder implements Serializable {
 
     /**
      * D1597A17A6.
@@ -40,24 +40,25 @@ public class ParamEncoder implements Serializable
     /**
      * Unique identifier for a tag with the given id/name.
      */
-    private String parameterIdentifier;
+    private final String parameterIdentifier;
 
     /**
      * Generates a new parameter encoder for the table with the given id.
-     * @param idAttribute value of "id" attribute
+     *
+     * @param idAttribute
+     *            value of "id" attribute
      */
-    public ParamEncoder(String idAttribute)
-    {
+    public ParamEncoder(final String idAttribute) {
         // use name and id to get the unique identifier
-        String stringIdentifier = "x-" + idAttribute; //$NON-NLS-1$
+        final String stringIdentifier = "x-" + idAttribute; //$NON-NLS-1$
 
         // get the array
-        char[] charArray = stringIdentifier.toCharArray();
+        final char[] charArray = stringIdentifier.toCharArray();
 
         // calculate a simple checksum-like value
         int checkSum = 17;
 
-        for (char element : charArray) {
+        for (final char element : charArray) {
             checkSum = 3 * checkSum + element;
         }
 
@@ -70,22 +71,26 @@ public class ParamEncoder implements Serializable
 
     /**
      * encode a parameter name prepending calculated <code>parameterIdentifier</code>.
-     * @param paramName parameter name
+     *
+     * @param paramName
+     *            parameter name
+     *
      * @return encoded parameter name in the form <code>d-<em>XXXX</em>-<em>name</em></code>
      */
-    public String encodeParameterName(String paramName)
-    {
+    public String encodeParameterName(final String paramName) {
         return this.parameterIdentifier + paramName;
     }
 
     /**
      * Check if the given parameter has been encoded using paramEncoder. It actually check if the parameter name starts
      * with the calculated <code>parameterIdentifier</code>. Null safe (a null string returns <code>false</code>).
-     * @param paramName parameter name
+     *
+     * @param paramName
+     *            parameter name
+     *
      * @return <code>true</code> if the given parameter as been encoded using this param encoder
      */
-    public boolean isParameterEncoded(String paramName)
-    {
+    public boolean isParameterEncoded(final String paramName) {
         return paramName != null && paramName.startsWith(this.parameterIdentifier);
     }
 

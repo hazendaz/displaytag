@@ -21,12 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebLink;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
@@ -34,45 +28,49 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-243 - Default column sort breaks sorting after a few sorts of the column.
  *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ243Test extends DisplaytagCase
-{
+public class Displ243Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-243.jsp";
     }
 
     /**
-     * CHeck sort order after some clicks
+     * CHeck sort order after some clicks.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        ParamEncoder encoder = new ParamEncoder("table");
-        String orderParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_ORDER);
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String orderParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_ORDER);
 
         WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
@@ -82,21 +80,17 @@ public class Displ243Test extends DisplaytagCase
         WebLink[] links = response.getLinks();
         Assert.assertEquals("Wrong number of links.", 1, links.length);
 
-        Assert.assertEquals(
-            "wrong sorting order",
-            Integer.toString(SortOrderEnum.DESCENDING.getCode()),
-            links[0].getParameterValues(orderParameter)[0]);
+        Assert.assertEquals("wrong sorting order", Integer.toString(SortOrderEnum.DESCENDING.getCode()),
+                links[0].getParameterValues(orderParameter)[0]);
 
         // a few clicks...
-        for (int j = 0; j < 10; j++)
-        {
-            String expectedSortOrder = j % 2 == 0 ? SortOrderEnum.ASCENDING.getName() : SortOrderEnum.DESCENDING
-                .getName();
+        for (int j = 0; j < 10; j++) {
+            final String expectedSortOrder = j % 2 == 0 ? SortOrderEnum.ASCENDING.getName()
+                    : SortOrderEnum.DESCENDING.getName();
 
             response = links[0].click();
 
-            if (this.log.isDebugEnabled())
-            {
+            if (this.log.isDebugEnabled()) {
                 this.log.debug(response.getText());
             }
 
@@ -106,10 +100,8 @@ public class Displ243Test extends DisplaytagCase
             links = response.getLinks();
             Assert.assertEquals("Wrong number of links.", 1, links.length);
 
-            Assert.assertEquals(
-                "Wrong sorting order for iteration " + j,
-                expectedSortOrder,
-                SortOrderEnum.fromCode(Integer.parseInt(links[0].getParameterValues(orderParameter)[0])).getName());
+            Assert.assertEquals("Wrong sorting order for iteration " + j, expectedSortOrder,
+                    SortOrderEnum.fromCode(Integer.parseInt(links[0].getParameterValues(orderParameter)[0])).getName());
         }
 
     }

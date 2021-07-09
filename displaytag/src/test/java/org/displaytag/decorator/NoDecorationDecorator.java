@@ -24,7 +24,6 @@ package org.displaytag.decorator;
 /**
  * The Class NoDecorationDecorator.
  */
-public class NoDecorationDecorator extends TableDecorator
-{
+public class NoDecorationDecorator extends TableDecorator {
 
 }

@@ -39,7 +39,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.displaytag.util.Href;
 
-
 /**
  * Implementation of the Href interface that generates URLs using the javax.portlet APIs. As the portlet API supports
  * the concept of WindowStates, PorletModes, secure URLs and actions versus render the implementation supports these
@@ -73,27 +72,28 @@ import org.displaytag.util.Href;
  * <td>"true" requests a secure URL, anything else requests a standard URL</td>
  * </tr>
  * </table>
+ *
  * @author Eric Dalquist <a href="mailto:dalquist@gmail.com">dalquist@gmail.com</a>
+ *
  * @version $Id$
  */
-public class PortletHref implements Href
-{
+public class PortletHref implements Href {
 
     /** The Constant PARAM_PREFIX. */
     // Constants for working with the special parameters
     private static final String PARAM_PREFIX = "portlet:";
 
     /** The Constant PARAM_MODE. */
-    public static final String PARAM_MODE = PARAM_PREFIX + "mode";
+    public static final String PARAM_MODE = PortletHref.PARAM_PREFIX + "mode";
 
     /** The Constant PARAM_STATE. */
-    public static final String PARAM_STATE = PARAM_PREFIX + "state";
+    public static final String PARAM_STATE = PortletHref.PARAM_PREFIX + "state";
 
     /** The Constant PARAM_SECURE. */
-    public static final String PARAM_SECURE = PARAM_PREFIX + "secure";
+    public static final String PARAM_SECURE = PortletHref.PARAM_PREFIX + "secure";
 
     /** The Constant PARAM_TYPE. */
-    public static final String PARAM_TYPE = PARAM_PREFIX + "type";
+    public static final String PARAM_TYPE = PortletHref.PARAM_PREFIX + "type";
 
     /** The Constant TYPE_RENDER. */
     public static final String TYPE_RENDER = "render";
@@ -133,17 +133,17 @@ public class PortletHref implements Href
 
     /**
      * Creates a new PortletHref. The actual PortletURL object is not generated until the toString method is called.
-     * @param portletRequest request to to feature checking with, may not be null.
-     * @param renderResponse response to generate the URLs from, may not be null.
+     *
+     * @param portletRequest
+     *            request to to feature checking with, may not be null.
+     * @param renderResponse
+     *            response to generate the URLs from, may not be null.
      */
-    public PortletHref(PortletRequest portletRequest, MimeResponse renderResponse)
-    {
-        if (portletRequest == null)
-        {
+    public PortletHref(final PortletRequest portletRequest, final MimeResponse renderResponse) {
+        if (portletRequest == null) {
             throw new IllegalArgumentException("portletRequest may not be null");
         }
-        if (renderResponse == null)
-        {
+        if (renderResponse == null) {
             throw new IllegalArgumentException("renderResponse may not be null");
         }
 
@@ -152,11 +152,15 @@ public class PortletHref implements Href
     }
 
     /**
+     * Sets the full url.
+     *
+     * @param baseUrl
+     *            the new full url
+     *
      * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
      */
     @Override
-    public void setFullUrl(String baseUrl)
-    {
+    public void setFullUrl(final String baseUrl) {
         // do nothing
     }
 
@@ -165,18 +169,17 @@ public class PortletHref implements Href
      *
      * @return Returns the isAction.
      */
-    public boolean isAction()
-    {
+    public boolean isAction() {
         return this.isAction;
     }
 
     /**
      * Sets the action.
      *
-     * @param isAction The isAction to set.
+     * @param isAction
+     *            The isAction to set.
      */
-    public void setAction(boolean isAction)
-    {
+    public void setAction(final boolean isAction) {
         this.isAction = isAction;
     }
 
@@ -185,18 +188,17 @@ public class PortletHref implements Href
      *
      * @return Returns the requestedMode.
      */
-    public PortletMode getRequestedMode()
-    {
+    public PortletMode getRequestedMode() {
         return this.requestedMode;
     }
 
     /**
      * Sets the requested mode.
      *
-     * @param requestedMode The requestedMode to set.
+     * @param requestedMode
+     *            The requestedMode to set.
      */
-    public void setRequestedMode(PortletMode requestedMode)
-    {
+    public void setRequestedMode(final PortletMode requestedMode) {
         this.requestedMode = requestedMode;
     }
 
@@ -205,18 +207,17 @@ public class PortletHref implements Href
      *
      * @return Returns the requestedSecure.
      */
-    public boolean isRequestedSecure()
-    {
+    public boolean isRequestedSecure() {
         return this.requestedSecure;
     }
 
     /**
      * Sets the requested secure.
      *
-     * @param requestedSecure The requestedSecure to set.
+     * @param requestedSecure
+     *            The requestedSecure to set.
      */
-    public void setRequestedSecure(boolean requestedSecure)
-    {
+    public void setRequestedSecure(final boolean requestedSecure) {
         this.requestedSecure = requestedSecure;
     }
 
@@ -225,166 +226,145 @@ public class PortletHref implements Href
      *
      * @return Returns the requestedState.
      */
-    public WindowState getRequestedState()
-    {
+    public WindowState getRequestedState() {
         return this.requestedState;
     }
 
     /**
      * Sets the requested state.
      *
-     * @param requestedState The requestedState to set.
+     * @param requestedState
+     *            The requestedState to set.
      */
-    public void setRequestedState(WindowState requestedState)
-    {
+    public void setRequestedState(final WindowState requestedState) {
         this.requestedState = requestedState;
     }
 
     /**
+     * Adds the parameter.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @return the href
+     *
      * @see org.displaytag.util.Href#addParameter(java.lang.String, int)
      */
     @Override
-    public Href addParameter(String name, int value)
-    {
+    public Href addParameter(final String name, final int value) {
         return this.addParameter(name, Integer.toString(value));
     }
 
     /**
+     * Adds the parameter.
+     *
+     * @param name
+     *            the name
+     * @param objValue
+     *            the obj value
+     *
+     * @return the href
+     *
      * @see org.displaytag.util.Href#addParameter(String, Object)
      */
     @Override
-    public Href addParameter(String name, Object objValue)
-    {
-        String value = Objects.toString(objValue, null);
+    public Href addParameter(final String name, final Object objValue) {
+        final String value = Objects.toString(objValue, null);
 
-        if (name != null && name.startsWith(PARAM_PREFIX))
-        {
-            if (PARAM_TYPE.equals(name))
-            {
-                if (TYPE_RENDER.equals(value))
-                {
+        if (name != null && name.startsWith(PortletHref.PARAM_PREFIX)) {
+            if (PortletHref.PARAM_TYPE.equals(name)) {
+                if (PortletHref.TYPE_RENDER.equals(value)) {
                     this.setAction(false);
-                }
-                else if (TYPE_ACTION.equals(value))
-                {
+                } else if (PortletHref.TYPE_ACTION.equals(value)) {
                     this.setAction(true);
+                } else {
+                    throw new IllegalArgumentException(
+                            "Value of parameter '" + name + "' must be equal to '" + PortletHref.TYPE_RENDER + "' or '"
+                                    + PortletHref.TYPE_ACTION + "'. '" + value + "' is not allowed.");
                 }
-                else
-                {
-                    throw new IllegalArgumentException("Value of parameter '"
-                        + name
-                        + "' must be equal to '"
-                        + TYPE_RENDER
-                        + "' or '"
-                        + TYPE_ACTION
-                        + "'. '"
-                        + value
-                        + "' is not allowed.");
-                }
-            }
-            else if (PARAM_SECURE.equals(name))
-            {
-                if (Boolean.parseBoolean(value))
-                {
+            } else if (PortletHref.PARAM_SECURE.equals(name)) {
+                if (Boolean.parseBoolean(value)) {
                     this.setRequestedSecure(true);
-                }
-                else
-                {
+                } else {
                     this.setRequestedSecure(false);
                 }
-            }
-            else if (PARAM_MODE.equals(name))
-            {
-                if (value == null)
-                {
+            } else if (PortletHref.PARAM_MODE.equals(name)) {
+                if (value == null) {
                     this.setRequestedMode(null);
-                }
-                else
-                {
+                } else {
                     final PortletMode mode = new PortletMode(value);
 
-                    if (!this.portletRequest.isPortletModeAllowed(mode))
-                    {
-                        throw new IllegalArgumentException("PortletMode '"
-                            + mode
-                            + "' is not allowed for this request.");
+                    if (!this.portletRequest.isPortletModeAllowed(mode)) {
+                        throw new IllegalArgumentException(
+                                "PortletMode '" + mode + "' is not allowed for this request.");
                     }
 
                     this.setRequestedMode(mode);
                 }
-            }
-            else if (PARAM_STATE.equals(name))
-            {
-                if (value == null)
-                {
+            } else if (PortletHref.PARAM_STATE.equals(name)) {
+                if (value == null) {
                     this.setRequestedState(null);
-                }
-                else
-                {
+                } else {
                     final WindowState state = new WindowState(value);
 
-                    if (!this.portletRequest.isWindowStateAllowed(state))
-                    {
-                        throw new IllegalArgumentException("WindowState '"
-                            + state
-                            + "' is not allowed for this request.");
+                    if (!this.portletRequest.isWindowStateAllowed(state)) {
+                        throw new IllegalArgumentException(
+                                "WindowState '" + state + "' is not allowed for this request.");
                     }
 
                     this.setRequestedState(state);
                 }
+            } else {
+                throw new IllegalArgumentException(
+                        "'" + name + "' is not a valid '" + PortletHref.PARAM_PREFIX + "' prefixed parameter.");
             }
-            else
-            {
-                throw new IllegalArgumentException("'"
-                    + name
-                    + "' is not a valid '"
-                    + PARAM_PREFIX
-                    + "' prefixed parameter.");
-            }
-        }
-        else
-        {
-            this.parameters.put(name, new String[]{value});
+        } else {
+            this.parameters.put(name, new String[] { value });
         }
 
         return this;
     }
 
     /**
+     * Adds the parameter map.
+     *
+     * @param parametersMap
+     *            the parameters map
+     *
      * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
      */
     @Override
-    public void addParameterMap(Map<String, String[]> parametersMap)
-    {
-        for (Entry<String, String[]> entry : parametersMap.entrySet()) {
+    public void addParameterMap(final Map<String, String[]> parametersMap) {
+        for (final Entry<String, String[]> entry : parametersMap.entrySet()) {
             final String name = entry.getKey();
 
             // Allow multivalued parameters since code elsewhere calls this method to copy
             // parameters from the request to the response. Ensures that developer specified
             // multivalued parameters are retained correctly.
 
-            if (entry.getValue() == null)
-            {
+            if (entry.getValue() == null) {
                 this.addParameter(name, entry.getValue());
-            }
-            else if (entry.getValue().length == 1)
-            {
+            } else if (entry.getValue().length == 1) {
                 // addParameter does some special processing of portlet paramters
                 this.addParameter(name, entry.getValue()[0]);
-            }
-            else if (entry.getValue().getClass().isArray())
-            {
+            } else if (entry.getValue().getClass().isArray()) {
                 this.parameters.put(name, entry.getValue());
             }
         }
     }
 
     /**
+     * Sets the parameter map.
+     *
+     * @param parametersMap
+     *            the parameters map
+     *
      * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
      */
     @Override
-    public void setParameterMap(Map<String, String[]> parametersMap)
-    {
+    public void setParameterMap(final Map<String, String[]> parametersMap) {
         this.parameters.clear();
         this.addParameterMap(parametersMap);
     }
@@ -392,72 +372,83 @@ public class PortletHref implements Href
     /**
      * Warning, parameters added to the Map directly will not be parsed by the PortletUrl feature support portions of
      * this class.
+     *
+     * @return the parameter map
+     *
      * @see org.displaytag.util.Href#getParameterMap()
      */
     @Override
-    public Map<String, String[]> getParameterMap()
-    {
+    public Map<String, String[]> getParameterMap() {
         return this.parameters;
     }
 
     /**
+     * Removes the parameter.
+     *
+     * @param name
+     *            the name
+     *
      * @see org.displaytag.util.Href#removeParameter(java.lang.String)
      */
     @Override
-    public void removeParameter(String name)
-    {
+    public void removeParameter(final String name) {
         this.parameters.remove(name);
     }
 
     /**
+     * Sets the anchor.
+     *
+     * @param name
+     *            the new anchor
+     *
      * @see org.displaytag.util.Href#setAnchor(java.lang.String)
      */
     @Override
-    public void setAnchor(String name)
-    {
+    public void setAnchor(final String name) {
         this.anchor = name;
     }
 
     /**
+     * Gets the anchor.
+     *
+     * @return the anchor
+     *
      * @see org.displaytag.util.Href#getAnchor()
      */
     @Override
-    public String getAnchor()
-    {
+    public String getAnchor() {
         return this.anchor;
     }
 
     /**
      * Generates a render or action URL depending on the use of the PortletUrl specific features of this class.
+     *
+     * @return the base url
+     *
      * @see org.displaytag.util.Href#getBaseUrl()
      */
     @Override
-    public String getBaseUrl()
-    {
-        if (this.isAction())
-        {
+    public String getBaseUrl() {
+        if (this.isAction()) {
             return this.renderResponse.createActionURL().toString();
         }
-        else
-        {
-            return this.renderResponse.createRenderURL().toString();
-        }
+        return this.renderResponse.createRenderURL().toString();
     }
 
     /**
+     * Clone.
+     *
+     * @return the object
+     *
      * @see org.displaytag.util.Href#clone()
      */
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         PortletHref href;
 
-        try
-        {
+        try {
             href = (PortletHref) super.clone();
-        }
-        catch (CloneNotSupportedException cnse)
-        {
+        } catch (final CloneNotSupportedException cnse) {
             throw new RuntimeException("Parent through a CloneNotSupportedException, this should never happen", cnse);
         }
 
@@ -473,121 +464,100 @@ public class PortletHref implements Href
     }
 
     /**
+     * Equals.
+     *
+     * @param object
+     *            the object
+     *
+     * @return true, if successful
+     *
      * @see org.displaytag.util.Href#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object object)
-    {
-        if (this == object)
-        {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (!(object instanceof PortletHref))
-        {
+        if (!(object instanceof PortletHref)) {
             return false;
         }
-        PortletHref rhs = (PortletHref) object;
-        return new EqualsBuilder()
-            .append(this.isAction, rhs.isAction)
-            .append(this.parameters, rhs.parameters)
-            .append(this.requestedMode, rhs.requestedMode)
-            .append(this.requestedState, rhs.requestedState)
-            .append(this.requestedSecure, rhs.requestedSecure)
-            .append(this.anchor, rhs.anchor)
-            .isEquals();
+        final PortletHref rhs = (PortletHref) object;
+        return new EqualsBuilder().append(this.isAction, rhs.isAction).append(this.parameters, rhs.parameters)
+                .append(this.requestedMode, rhs.requestedMode).append(this.requestedState, rhs.requestedState)
+                .append(this.requestedSecure, rhs.requestedSecure).append(this.anchor, rhs.anchor).isEquals();
     }
 
     /**
+     * Hash code.
+     *
+     * @return the int
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
-    public int hashCode()
-    {
-        return new HashCodeBuilder(1313733113, -431360889)
-            .append(this.isAction)
-            .append(this.parameters)
-            .append(this.requestedMode)
-            .append(this.requestedState)
-            .append(this.requestedSecure)
-            .append(this.anchor)
-            .toHashCode();
+    public int hashCode() {
+        return new HashCodeBuilder(1313733113, -431360889).append(this.isAction).append(this.parameters)
+                .append(this.requestedMode).append(this.requestedState).append(this.requestedSecure).append(this.anchor)
+                .toHashCode();
     }
 
     /**
+     * To string.
+     *
+     * @return the string
+     *
      * @see org.displaytag.util.Href#toString()
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         final PortletURL url;
-        if (this.isAction())
-        {
+        if (this.isAction()) {
             url = this.renderResponse.createActionURL();
-        }
-        else
-        {
+        } else {
             url = this.renderResponse.createRenderURL();
         }
 
-        if (this.isRequestedSecure())
-        {
-            try
-            {
+        if (this.isRequestedSecure()) {
+            try {
                 url.setSecure(true);
-            }
-            catch (PortletSecurityException pse)
-            {
+            } catch (final PortletSecurityException pse) {
                 throw new RuntimeException("Creating secure PortletURL Failed.", pse);
             }
         }
 
-        if (this.getRequestedMode() != null)
-        {
-            try
-            {
+        if (this.getRequestedMode() != null) {
+            try {
                 url.setPortletMode(this.getRequestedMode());
-            }
-            catch (PortletModeException pme)
-            {
-                final IllegalStateException ise = new IllegalStateException("Requested PortletMode='"
-                    + this.getRequestedMode()
-                    + "' could not be set.");
+            } catch (final PortletModeException pme) {
+                final IllegalStateException ise = new IllegalStateException(
+                        "Requested PortletMode='" + this.getRequestedMode() + "' could not be set.");
                 ise.initCause(pme);
                 throw ise;
             }
         }
 
-        if (this.getRequestedState() != null)
-        {
-            try
-            {
+        if (this.getRequestedState() != null) {
+            try {
                 url.setWindowState(this.getRequestedState());
-            }
-            catch (WindowStateException wse)
-            {
-                final IllegalStateException ise = new IllegalStateException("Requested WindowState='"
-                    + this.getRequestedState()
-                    + "' could not be set.");
+            } catch (final WindowStateException wse) {
+                final IllegalStateException ise = new IllegalStateException(
+                        "Requested WindowState='" + this.getRequestedState() + "' could not be set.");
                 ise.initCause(wse);
                 throw ise;
             }
         }
 
-        for (Entry<String, String[]> entry : this.parameters.entrySet()) {
+        for (final Entry<String, String[]> entry : this.parameters.entrySet()) {
             final String name = entry.getKey();
             final String[] value = entry.getValue();
 
             url.setParameter(name, value);
         }
 
-        if (this.getAnchor() == null)
-        {
+        if (this.getAnchor() == null) {
             return url.toString();
         }
-        else
-        {
-            return url.toString() + "#" + this.getAnchor();
-        }
+        return url.toString() + "#" + this.getAnchor();
     }
 
 }

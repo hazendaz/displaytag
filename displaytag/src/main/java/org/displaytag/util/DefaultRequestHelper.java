@@ -36,16 +36,17 @@ import org.displaytag.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Default RequestHelper implementation.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
+ *
  * @see org.displaytag.util.Href
  * @see org.displaytag.util.RequestHelper
  */
-public class DefaultRequestHelper implements RequestHelper
-{
+public class DefaultRequestHelper implements RequestHelper {
 
     /**
      * logger.
@@ -55,66 +56,79 @@ public class DefaultRequestHelper implements RequestHelper
     /**
      * original HttpServletRequest.
      */
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
     /**
      * original HttpServletResponse.
      */
-    private HttpServletResponse response;
+    private final HttpServletResponse response;
 
     /**
      * Construct a new RequestHelper for the given request.
-     * @param servletRequest HttpServletRequest needed to generate the base href
-     * @param servletResponse HttpServletResponse needed to encode generated urls
+     *
+     * @param servletRequest
+     *            HttpServletRequest needed to generate the base href
+     * @param servletResponse
+     *            HttpServletResponse needed to encode generated urls
      */
-    public DefaultRequestHelper(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
-    {
+    public DefaultRequestHelper(final HttpServletRequest servletRequest, final HttpServletResponse servletResponse) {
         this.request = servletRequest;
         this.response = servletResponse;
     }
 
     /**
+     * Gets the href.
+     *
+     * @return the href
+     *
      * @see org.displaytag.util.RequestHelper#getHref()
      */
     @Override
-    public Href getHref()
-    {
-        String requestURI = this.request.getRequestURI();
+    public Href getHref() {
+        final String requestURI = this.request.getRequestURI();
         // call encodeURL to preserve session id when cookies are disabled
-        Href href = new DefaultHref(this.response.encodeURL(requestURI));
-        href.setParameterMap(getParameterMap());
+        final Href href = new DefaultHref(this.response.encodeURL(requestURI));
+        href.setParameterMap(this.getParameterMap());
         return href;
     }
 
     /**
+     * Gets the parameter.
+     *
+     * @param key
+     *            the key
+     *
+     * @return the parameter
+     *
      * @see org.displaytag.util.RequestHelper#getParameter(java.lang.String)
      */
     @Override
-    public String getParameter(String key)
-    {
+    public String getParameter(final String key) {
         // actually simply return the parameter, this behaviour could be changed
         return this.request.getParameter(key);
     }
 
     /**
+     * Gets the int parameter.
+     *
+     * @param key
+     *            the key
+     *
+     * @return the int parameter
+     *
      * @see org.displaytag.util.RequestHelper#getIntParameter(java.lang.String)
      */
     @Override
-    public Integer getIntParameter(String key)
-    {
-        String value = this.request.getParameter(key);
+    public Integer getIntParameter(final String key) {
+        final String value = this.request.getParameter(key);
 
-        if (value != null)
-        {
-            try
-            {
+        if (value != null) {
+            try {
                 return Integer.valueOf(value);
-            }
-            catch (NumberFormatException e)
-            {
+            } catch (final NumberFormatException e) {
                 // It's ok to ignore, simply return null
-                log.debug(Messages.getString("RequestHelper.invalidparameter", //$NON-NLS-1$
-                    new Object[]{key, value}));
+                DefaultRequestHelper.log.debug(Messages.getString("RequestHelper.invalidparameter", //$NON-NLS-1$
+                        new Object[] { key, value }));
             }
         }
 
@@ -122,40 +136,36 @@ public class DefaultRequestHelper implements RequestHelper
     }
 
     /**
+     * Gets the parameter map.
+     *
+     * @return the parameter map
+     *
      * @see org.displaytag.util.RequestHelper#getParameterMap()
      */
     @Override
-    public Map<String, String[]> getParameterMap()
-    {
+    public Map<String, String[]> getParameterMap() {
 
-        Map<String, String[]> map = new HashMap<>();
+        final Map<String, String[]> map = new HashMap<>();
 
         // Note: Don't type enumeration so servlet 2.5 is still possible
         // get the parameters names
-        Enumeration parametersName = this.request.getParameterNames();
+        final Enumeration parametersName = this.request.getParameterNames();
 
-        while (parametersName.hasMoreElements())
-        {
+        while (parametersName.hasMoreElements()) {
             // ... get the value
-            String paramName = (String) parametersName.nextElement();
+            final String paramName = (String) parametersName.nextElement();
 
             this.request.getParameter(paramName);
             // put key/value in the map
-            String[] originalValues = ObjectUtils.defaultIfNull(
-                this.request.getParameterValues(paramName),
-                new String[0]);
-            String[] values = new String[originalValues.length];
+            final String[] originalValues = ObjectUtils.defaultIfNull(this.request.getParameterValues(paramName),
+                    new String[0]);
+            final String[] values = new String[originalValues.length];
 
-            for (int i = 0; i < values.length; i++)
-            {
-                try
-                {
-                    values[i] = URLEncoder.encode(
-                        StringUtils.defaultString(originalValues[i]),
-                        StringUtils.defaultString(this.response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
-                }
-                catch (UnsupportedEncodingException e)
-                {
+            for (int i = 0; i < values.length; i++) {
+                try {
+                    values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]),
+                            StringUtils.defaultString(this.response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
+                } catch (final UnsupportedEncodingException e) {
                     throw new RuntimeException(e);
                 }
             }

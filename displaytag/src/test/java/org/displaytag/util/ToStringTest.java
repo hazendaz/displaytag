@@ -37,24 +37,25 @@ import org.displaytag.tags.ColumnTag;
 import org.junit.Assert;
 import org.junit.Test;
 
-
 /**
  * Check that toString() methods are constructed appropriately, uses the correct style and that there aren't stupid NPE
  * bugs in them.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ToStringTest
-{
+public class ToStringTest {
 
     /**
      * ToString methods should be costructed using toStringBuilder and the <code>ShortToStringStyle.SHORT_STYLE</code>
      * style.
-     * @param object test instance
+     *
+     * @param object
+     *            test instance
      */
-    private void checkToString(Object object)
-    {
-        String toString = object.toString();
+    private void checkToString(final Object object) {
+        final String toString = object.toString();
         Assert.assertTrue(toString.startsWith(ClassUtils.getShortClassName(object, null)));
     }
 
@@ -62,81 +63,72 @@ public class ToStringTest
      * ToString() test.
      */
     @Test
-    public void testSmartListHelper()
-    {
-        checkToString(new SmartListHelper(new ArrayList<>(), 100, 10, TableProperties.getInstance(null), false));
+    public void testSmartListHelper() {
+        this.checkToString(new SmartListHelper(new ArrayList<>(), 100, 10, TableProperties.getInstance(null), false));
     }
 
     /**
      * ToString() test.
      */
     @Test
-    public void testNumberedPage()
-    {
-        checkToString(new NumberedPage(1, false));
+    public void testNumberedPage() {
+        this.checkToString(new NumberedPage(1, false));
     }
 
     /**
      * ToString() test.
      */
     @Test
-    public void testPagination()
-    {
-        checkToString(new Pagination(null, null, null));
+    public void testPagination() {
+        this.checkToString(new Pagination(null, null, null));
     }
 
     /**
      * ToString() test.
      */
     @Test
-    public void testCell()
-    {
-        checkToString(new Cell(null));
+    public void testCell() {
+        this.checkToString(new Cell(null));
     }
 
     /**
      * ToString() test.
      */
     @Test
-    public void testHeaderCell()
-    {
-        checkToString(new HeaderCell());
+    public void testHeaderCell() {
+        this.checkToString(new HeaderCell());
     }
 
     /**
      * ToString() test.
      */
     @Test
-    public void testColumn()
-    {
-        checkToString(new Column(new HeaderCell(), null, null));
+    public void testColumn() {
+        this.checkToString(new Column(new HeaderCell(), null, null));
     }
 
     /**
      * ToString() test.
      */
     @Test
-    public void testRow()
-    {
-        checkToString(new Row(null, 0));
+    public void testRow() {
+        this.checkToString(new Row(null, 0));
     }
 
     /**
      * ToString() test.
      */
     @Test
-    public void testTableModel()
-    {
-        checkToString(new TableModel(null, null, null));
+    public void testTableModel() {
+        this.checkToString(new TableModel(null, null, null));
     }
 
     /**
      * ToString() test.
      */
     @Test
-    public void testColumnTag()
-    {
-        checkToString(new ColumnTag());
+    public void testColumnTag() {
+        this.checkToString(new ColumnTag());
     }
 
 }

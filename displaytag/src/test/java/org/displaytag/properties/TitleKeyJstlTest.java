@@ -25,39 +25,48 @@ import org.displaytag.localization.I18nJstlAdapter;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
 
-
 /**
  * I18n test with JSTL adapter.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class TitleKeyJstlTest extends AbstractTitleKeyTest
-{
+public class TitleKeyJstlTest extends AbstractTitleKeyTest {
 
     /**
+     * Gets the expected suffix.
+     *
+     * @return the expected suffix
+     *
      * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
      */
     @Override
-    protected String getExpectedSuffix()
-    {
+    protected String getExpectedSuffix() {
         return "";
     }
 
     /**
+     * Gets the i 18 n resource provider.
+     *
+     * @return the i 18 n resource provider
+     *
      * @see org.displaytag.properties.AbstractTitleKeyTest#getI18nResourceProvider()
      */
     @Override
-    protected I18nResourceProvider getI18nResourceProvider()
-    {
+    protected I18nResourceProvider getI18nResourceProvider() {
         return new I18nJstlAdapter();
     }
 
     /**
+     * Gets the resolver.
+     *
+     * @return the resolver
+     *
      * @see org.displaytag.properties.AbstractTitleKeyTest#getResolver()
      */
     @Override
-    protected LocaleResolver getResolver()
-    {
+    protected LocaleResolver getResolver() {
         return new I18nJstlAdapter();
     }
 

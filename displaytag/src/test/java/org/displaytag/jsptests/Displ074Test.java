@@ -21,72 +21,70 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebLink;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-074 - href in column doesn't work in rc1 and rc2, worked in b1.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public class Displ074Test extends DisplaytagCase
-{
+public class Displ074Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-074.jsp";
     }
 
     /**
      * Check generated href.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = this.runner.getResponse(request);
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final WebResponse response = this.runner.getResponse(request);
 
-        ParamEncoder encoder = new ParamEncoder("table");
+        final ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
         Assert.assertEquals("Wrong number of rows in result.", 2, tables[0].getRowCount());
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
         Assert.assertEquals("Wrong column content.", "ant", tables[0].getCellAsText(1, 0));
         Assert.assertEquals("Wrong column content.", "bee", tables[0].getCellAsText(1, 1));
 
-        WebLink[] links = response.getLinks();
+        final WebLink[] links = response.getLinks();
         Assert.assertEquals("Wrong number of links", 2, links.length);
     }
 

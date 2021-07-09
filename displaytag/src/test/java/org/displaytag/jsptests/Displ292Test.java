@@ -21,10 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
@@ -34,20 +30,21 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * The Class Displ292Test.
  */
-public class Displ292Test extends DisplaytagCase
-{
+public class Displ292Test extends DisplaytagCase {
 
     /**
      * Gets the mime type.
      *
      * @return the mime type
      */
-    protected String getMimeType()
-    {
+    protected String getMimeType() {
         return "application/vnd.ms-excel";
     }
 
@@ -56,8 +53,7 @@ public class Displ292Test extends DisplaytagCase
      *
      * @return the code
      */
-    protected int getCode()
-    {
+    protected int getCode() {
         return MediaTypeEnum.EXCEL.getCode();
     }
 
@@ -65,11 +61,11 @@ public class Displ292Test extends DisplaytagCase
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-292.jsp";
     }
 
@@ -77,26 +73,26 @@ public class Displ292Test extends DisplaytagCase
      * Check that model modifications made by table decorator specified with in the decorator property the table tag
      * show up in the csv export.
      *
-     * @throws Exception any exception thrown during test.
+     * @throws Exception
+     *             any exception thrown during test.
      */
     // TODO This fails when run with everything but works in isolation so ignore
     @Ignore
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+    public void doTest() throws Exception {
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(mediaParameter, Integer.toString(this.getCode()));
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", this.getMimeType(), response.getContentType());
-        String responseText = response.getText();
+        final String responseText = response.getText();
 
-        String[] rows = StringUtils.split(responseText, "\n");
+        final String[] rows = StringUtils.split(responseText, "\n");
 
         Assert.assertEquals("Wrong number of rows exported", 4, rows.length);
 

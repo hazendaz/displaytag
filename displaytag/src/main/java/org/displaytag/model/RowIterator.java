@@ -28,14 +28,14 @@ import org.displaytag.decorator.TableDecorator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Iterator on table rows.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class RowIterator
-{
+public class RowIterator {
 
     /**
      * logger.
@@ -45,7 +45,7 @@ public class RowIterator
     /**
      * internal iterator for Rows.
      */
-    private Iterator<Row> iterator;
+    private final Iterator<Row> iterator;
 
     /**
      * row number counter.
@@ -55,7 +55,7 @@ public class RowIterator
     /**
      * reference to the table TableDecorator.
      */
-    private TableDecorator decorator;
+    private final TableDecorator decorator;
 
     /**
      * id inherited from the TableTag (needed only for logging).
@@ -65,17 +65,22 @@ public class RowIterator
     /**
      * Starting offset for items n the current page. Needed to calculare the index in the original list
      */
-    private int pageOffset;
+    private final int pageOffset;
 
     /**
      * Constructor for RowIterator.
-     * @param rowList List containing Row objects
-     * @param columnList List containing CellHeader objects
-     * @param tableDecorator TableDecorator
-     * @param offset Starting offset for items n the current page
+     *
+     * @param rowList
+     *            List containing Row objects
+     * @param columnList
+     *            List containing CellHeader objects
+     * @param tableDecorator
+     *            TableDecorator
+     * @param offset
+     *            Starting offset for items n the current page
      */
-    protected RowIterator(List<Row> rowList, List<HeaderCell> columnList, TableDecorator tableDecorator, int offset)
-    {
+    protected RowIterator(final List<Row> rowList, final List<HeaderCell> columnList,
+            final TableDecorator tableDecorator, final int offset) {
         this.iterator = rowList.iterator();
         this.rowNumber = 0;
         this.decorator = tableDecorator;
@@ -84,19 +89,20 @@ public class RowIterator
 
     /**
      * Setter for the tablemodel id.
-     * @param tableId same id of table tag, needed for logging
+     *
+     * @param tableId
+     *            same id of table tag, needed for logging
      */
-    public void setId(String tableId)
-    {
+    public void setId(final String tableId) {
         this.id = tableId;
     }
 
     /**
      * Check if a next row exist.
+     *
      * @return boolean true if a new row
      */
-    public boolean hasNext()
-    {
+    public boolean hasNext() {
         return this.iterator.hasNext();
     }
 
@@ -105,32 +111,29 @@ public class RowIterator
      *
      * @return the page offset
      */
-    public int getPageOffset()
-    {
+    public int getPageOffset() {
         return this.pageOffset;
     }
 
     /**
      * Returns the next row object.
+     *
      * @return Row
      */
-    public Row next()
-    {
+    public Row next() {
 
-        int currentRowNumber = this.rowNumber++;
+        final int currentRowNumber = this.rowNumber++;
 
-        if (log.isDebugEnabled())
-        {
-            log.debug("[{}] rowIterator.next() row number={}", this.id, currentRowNumber);
+        if (RowIterator.log.isDebugEnabled()) {
+            RowIterator.log.debug("[{}] rowIterator.next() row number={}", this.id, currentRowNumber);
         }
 
-        Row row = this.iterator.next();
+        final Row row = this.iterator.next();
 
         row.setRowNumber(currentRowNumber);
 
-        if (this.decorator != null)
-        {
-            this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber + getPageOffset());
+        if (this.decorator != null) {
+            this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber + this.getPageOffset());
         }
 
         return row;

@@ -21,63 +21,62 @@
  */
 package org.displaytag.jsptests;
 
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableRow;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
-
 /**
  * Test for DISPL-110 - Ability to highlight selected table row.
  *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public class Displ110Test extends DisplaytagCase
-{
+public class Displ110Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-110.jsp";
     }
 
     /**
+     * Do test.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
 
         Assert.assertEquals("Wrong number of columns.", 2, tables[0].getColumnCount());
         Assert.assertEquals("Wrong number of rows.", 3, tables[0].getRowCount()); // 2 plus header
 
-        TableRow[] rows = tables[0].getRows();
+        final TableRow[] rows = tables[0].getRows();
 
         Assert.assertEquals("Wrong id for row 1", "idcamel0", rows[1].getID());
         Assert.assertEquals("Wrong id for row 2", "idcamel1", rows[2].getID());

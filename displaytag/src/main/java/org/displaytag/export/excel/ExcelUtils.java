@@ -35,13 +35,12 @@ import org.displaytag.exception.BaseNestableJspTagException;
 import org.displaytag.exception.SeverityEnum;
 import org.displaytag.properties.TableProperties;
 
-
 /**
  * Convenience methods for the excel export. Contains code extracted from several existing classes.
+ *
  * @author andy Date: Nov 13, 2010 Time: 10:16:33 AM
  */
-public class ExcelUtils
-{
+public class ExcelUtils {
 
     /** The Constant EXCEL_SHEET_NAME. */
     public static final String EXCEL_SHEET_NAME = "export.excel.sheetname"; //$NON-NLS-1$
@@ -62,7 +61,7 @@ public class ExcelUtils
     /*
      * Available already configured cell styles, as HSSF JavaDoc claims there are limits to cell styles.
      */
-    private Map<String, HSSFCellStyle> cellStyles = new HashMap<>();
+    private final Map<String, HSSFCellStyle> cellStyles = new HashMap<>();
 
     /**
      * Max line length for wrapping.
@@ -107,10 +106,10 @@ public class ExcelUtils
     /**
      * Instantiates a new excel utils.
      *
-     * @param book the book
+     * @param book
+     *            the book
      */
-    public ExcelUtils(HSSFWorkbook book)
-    {
+    public ExcelUtils(final HSSFWorkbook book) {
         this.wb = book;
     }
 
@@ -119,65 +118,66 @@ public class ExcelUtils
      *
      * @return the wb
      */
-    public HSSFWorkbook getWb()
-    {
+    public HSSFWorkbook getWb() {
         return this.wb;
     }
 
     /**
      * Sets the wb.
      *
-     * @param wb the new wb
+     * @param wb
+     *            the new wb
      */
-    public void setWb(HSSFWorkbook wb)
-    {
+    public void setWb(final HSSFWorkbook wb) {
         this.wb = wb;
     }
 
     /**
      * We cache the styles; they are expensive to construct.
-     * @param properties props for this run
+     *
+     * @param properties
+     *            props for this run
      */
-    public void initCellStyles(TableProperties properties)
-    {
+    public void initCellStyles(final TableProperties properties) {
         // Integer
-        HSSFCellStyle style = getNewCellStyle();
+        HSSFCellStyle style = this.getNewCellStyle();
         style.setAlignment(HorizontalAlignment.RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_INTEGER)));
-        this.cellStyles.put(STYLE_INTEGER, style);
+        this.cellStyles.put(ExcelUtils.STYLE_INTEGER, style);
 
         // NUMBER
-        style = getNewCellStyle();
+        style = this.getNewCellStyle();
         style.setAlignment(HorizontalAlignment.RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_NUMBER)));
-        this.cellStyles.put(STYLE_NUMBER, style);
+        this.cellStyles.put(ExcelUtils.STYLE_NUMBER, style);
 
         // Date
-        style = getNewCellStyle();
+        style = this.getNewCellStyle();
         style.setAlignment(HorizontalAlignment.RIGHT);
         style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_DATE)));
         style.setAlignment(HorizontalAlignment.RIGHT);
-        this.cellStyles.put(STYLE_DATE, style);
+        this.cellStyles.put(ExcelUtils.STYLE_DATE, style);
 
         // Long text
-        style = getNewCellStyle(); // http://jakarta.apache.org/poi/hssf/quick-guide.html#NewLinesInCells
+        style = this.getNewCellStyle(); // http://jakarta.apache.org/poi/hssf/quick-guide.html#NewLinesInCells
         style.setWrapText(true);
-        this.cellStyles.put(STYLE_LONGSTRING, style);
+        this.cellStyles.put(ExcelUtils.STYLE_LONGSTRING, style);
 
         // Regular text
-        this.cellStyles.put(STYLE_STRING, getNewCellStyle());
+        this.cellStyles.put(ExcelUtils.STYLE_STRING, this.getNewCellStyle());
 
-        this.wrapAt = Integer.valueOf(properties.getProperty(ExcelUtils.EXCEL_WRAPAT));
+        this.wrapAt = Integer.parseInt(properties.getProperty(ExcelUtils.EXCEL_WRAPAT));
     }
 
     /**
      * You can add styles too, but they won't be picked up unless you do so in a subclass.
      *
-     * @param key the key
-     * @param st the st
+     * @param key
+     *            the key
+     * @param st
+     *            the st
      */
-    public void addCellStyle(String key, HSSFCellStyle st)
-    {
+    public void addCellStyle(final String key, final HSSFCellStyle st) {
         this.cellStyles.put(key, st);
     }
 
@@ -186,19 +186,19 @@ public class ExcelUtils
      *
      * @return the new cell style
      */
-    public HSSFCellStyle getNewCellStyle()
-    {
-        return getWb() == null ? null : getWb().createCellStyle();
+    public HSSFCellStyle getNewCellStyle() {
+        return this.getWb() == null ? null : this.getWb().createCellStyle();
     }
 
     /**
      * Gets the style.
      *
-     * @param clz the clz
+     * @param clz
+     *            the clz
+     *
      * @return the style
      */
-    public HSSFCellStyle getStyle(String clz)
-    {
+    public HSSFCellStyle getStyle(final String clz) {
         return this.cellStyles.get(clz);
     }
 
@@ -219,11 +219,12 @@ public class ExcelUtils
 
     /**
      * Wraps IText-generated exceptions.
+     *
      * @author Fabrizio Giustina
+     *
      * @version $Revision: 1163 $ ($Author: rapruitt $)
      */
-    static class ExcelGenerationException extends BaseNestableJspTagException
-    {
+    static class ExcelGenerationException extends BaseNestableJspTagException {
 
         /**
          * D1597A17A6.
@@ -232,29 +233,33 @@ public class ExcelUtils
 
         /**
          * Instantiate a new PdfGenerationException with a fixed message and the given cause.
-         * @param cause Previous exception
+         *
+         * @param cause
+         *            Previous exception
          */
-        public ExcelGenerationException(Throwable cause)
-        {
+        public ExcelGenerationException(final Throwable cause) {
             super(ExcelHssfView.class, Messages.getString("ExcelView.errorexporting"), cause); //$NON-NLS-1$
         }
 
         /**
+         * Gets the severity.
+         *
+         * @return the severity
+         *
          * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
          */
         @Override
-        public SeverityEnum getSeverity()
-        {
+        public SeverityEnum getSeverity() {
             return SeverityEnum.ERROR;
         }
     }
 
     /**
      * Set the cell to wrap if the text is this long.
+     *
      * @return the max length for not wrapping
      */
-    public int getWrapAtLength()
-    {
+    public int getWrapAtLength() {
         return this.wrapAt;
 
     }
@@ -262,13 +267,14 @@ public class ExcelUtils
     // patch from Karsten Voges
     /**
      * Escape certain values that are not permitted in excel cells.
-     * @param rawValue the object value
+     *
+     * @param rawValue
+     *            the object value
+     *
      * @return the escaped value
      */
-    public static String escapeColumnValue(Object rawValue)
-    {
-        if (rawValue == null)
-        {
+    public static String escapeColumnValue(final Object rawValue) {
+        if (rawValue == null) {
             return null;
         }
         String returnString = rawValue.toString();
@@ -278,9 +284,7 @@ public class ExcelUtils
         returnString = StringUtils.replace(StringUtils.trim(returnString), "\\t", "    ");
         // remove the return, only newline valid in excel
         returnString = StringUtils.replace(StringUtils.trim(returnString), "\\r", " ");
-        // unescape so that \n gets back to newline
-        returnString = StringEscapeUtils.unescapeJava(returnString);
-        return returnString;
+        return StringEscapeUtils.unescapeJava(returnString);
     }
 
 }

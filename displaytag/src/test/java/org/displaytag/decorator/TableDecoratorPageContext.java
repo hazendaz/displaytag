@@ -23,19 +23,19 @@ package org.displaytag.decorator;
 
 /**
  * Test decorator used in tests.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class TableDecoratorPageContext extends TableDecorator
-{
+public class TableDecoratorPageContext extends TableDecorator {
 
     /**
      * Gets the use page context.
      *
      * @return the use page context
      */
-    public String getUsePageContext()
-    {
+    public String getUsePageContext() {
         return this.getPageContext() != null ? "OK" : "ko";
     }
 

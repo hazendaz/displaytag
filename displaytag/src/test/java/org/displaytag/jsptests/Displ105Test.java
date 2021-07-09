@@ -21,48 +21,52 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebLink;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for DISPL-105: https hrefs in Table get generated as http.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ105Test extends DisplaytagCase
-{
+public class Displ105Test extends DisplaytagCase {
 
     /**
      * Generated link should be https.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        String httpsUrl = StringUtils.replace(getJspUrl("DISPL-105.jsp"), "http://", "https://");
-        WebRequest request = new GetMethodWebRequest(httpsUrl);
+    public void doTest() throws Exception {
+        final String httpsUrl = StringUtils.replace(this.getJspUrl("DISPL-105.jsp"), "http://", "https://");
+        final WebRequest request = new GetMethodWebRequest(httpsUrl);
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        WebLink[] links = response.getLinks();
+        final WebLink[] links = response.getLinks();
         Assert.assertEquals("Wrong number of generated links.", 1, links.length);
 
-        Assert.assertTrue("Generated link doesn't start with https: " + links[0].getURLString(), links[0]
-            .getURLString()
-            .startsWith("https://"));
+        Assert.assertTrue("Generated link doesn't start with https: " + links[0].getURLString(),
+                links[0].getURLString().startsWith("https://"));
 
     }
 
+    /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
+     */
     @Override
     public String getJspName() {
         // Not used

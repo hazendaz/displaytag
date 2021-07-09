@@ -21,10 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
@@ -34,64 +30,64 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for "media" attribute support.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class MediaSupportXmlTest extends DisplaytagCase
-{
+public class MediaSupportXmlTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "media.jsp";
     }
 
     /**
      * Test as Xml.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(mediaParameter, "" + MediaTypeEnum.XML.getCode());
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug("RESPONSE: " + response.getText());
         }
 
         // we are really testing an xml output?
         Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
 
-        String output = response.getText();
+        final String output = response.getText();
 
-        Assert.assertTrue(
-            "Expected value [" + KnownValue.BEE + "] missing",
-            StringUtils.contains(output, KnownValue.BEE));
-        Assert.assertTrue(
-            "Expected value [" + KnownValue.CAMEL + "] missing",
-            StringUtils.contains(output, KnownValue.CAMEL));
-        Assert.assertTrue(
-            "Unexpected value [" + KnownValue.ANT + "] found",
-            !StringUtils.contains(output, KnownValue.ANT));
+        Assert.assertTrue("Expected value [" + KnownValue.BEE + "] missing",
+                StringUtils.contains(output, KnownValue.BEE));
+        Assert.assertTrue("Expected value [" + KnownValue.CAMEL + "] missing",
+                StringUtils.contains(output, KnownValue.CAMEL));
+        Assert.assertTrue("Unexpected value [" + KnownValue.ANT + "] found",
+                !StringUtils.contains(output, KnownValue.ANT));
 
     }
 

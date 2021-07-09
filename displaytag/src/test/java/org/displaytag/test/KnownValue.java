@@ -23,14 +23,14 @@ package org.displaytag.test;
 
 import java.util.Date;
 
-
 /**
  * Simple test data provider.
+ *
  * @author rapruitt
+ *
  * @version $Revision$ ($Author$)
  */
-public class KnownValue
-{
+public class KnownValue {
 
     /**
      * constant for the "ant" property (this is both the property name and value).
@@ -50,22 +50,22 @@ public class KnownValue
     /**
      * constant for the "date" property (this is both the property name and value).
      */
-    public static final Date MAY = new Date(12934123434l);
+    public static final Date MAY = new Date(12934123434L);
 
     /** The ant value. */
-    public String antValue = ANT;
+    public String antValue = KnownValue.ANT;
 
     /** The bee value. */
-    public String beeValue = BEE;
+    public String beeValue = KnownValue.BEE;
 
     /** The two value. */
-    public int twoValue = TWO;
+    public int twoValue = KnownValue.TWO;
 
     /** The camel value. */
-    public String camelValue = CAMEL;
+    public String camelValue = KnownValue.CAMEL;
 
     /** The date. */
-    public Date date = MAY;
+    public Date date = KnownValue.MAY;
 
     /**
      * constant for the "two" property (this is both the property name and value).
@@ -74,46 +74,46 @@ public class KnownValue
 
     /**
      * getter for the "ant" property.
+     *
      * @return ANT
      */
-    public String getAnt()
-    {
+    public String getAnt() {
         return this.antValue;
     }
 
     /**
      * getter for the "bee" property.
+     *
      * @return BEE
      */
-    public String getBee()
-    {
+    public String getBee() {
         return this.beeValue;
     }
 
     /**
      * getter for the "camel" property.
+     *
      * @return CAMEL
      */
-    public String getCamel()
-    {
+    public String getCamel() {
         return this.camelValue;
     }
 
     /**
      * getter for the "two" property.
+     *
      * @return TWO
      */
-    public int getTwo()
-    {
+    public int getTwo() {
         return this.twoValue;
     }
 
     /**
      * getter for the "date" property.
+     *
      * @return date
      */
-    public Date getDate()
-    {
+    public Date getDate() {
         return this.date;
     }
 }

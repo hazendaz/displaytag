@@ -26,14 +26,14 @@ import javax.servlet.jsp.PageContext;
 import org.apache.commons.text.StringEscapeUtils;
 import org.displaytag.properties.MediaTypeEnum;
 
-
 /**
  * This takes the string that is passed in, and escapes html tags and entities. Only operates on "html" or "xml" media.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class EscapeXmlColumnDecorator implements DisplaytagColumnDecorator
-{
+public class EscapeXmlColumnDecorator implements DisplaytagColumnDecorator {
 
     /**
      * Instance used for the "escapeXml" tag attribute.
@@ -41,14 +41,23 @@ public class EscapeXmlColumnDecorator implements DisplaytagColumnDecorator
     public static final DisplaytagColumnDecorator INSTANCE = new EscapeXmlColumnDecorator();
 
     /**
+     * Decorate.
+     *
+     * @param columnValue
+     *            the column value
+     * @param pageContext
+     *            the page context
+     * @param media
+     *            the media
+     *
+     * @return the object
+     *
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
     @Override
-    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
-    {
+    public Object decorate(final Object columnValue, final PageContext pageContext, final MediaTypeEnum media) {
 
-        if (columnValue == null || !media.equals(MediaTypeEnum.HTML) && !media.equals(MediaTypeEnum.XML))
-        {
+        if (columnValue == null || !media.equals(MediaTypeEnum.HTML) && !media.equals(MediaTypeEnum.XML)) {
             return columnValue;
         }
 

@@ -24,14 +24,14 @@ package org.displaytag.exception;
 import org.displaytag.Messages;
 import org.displaytag.properties.TableProperties;
 
-
 /**
  * Exception thrown when displaytag is unable to instantiate a class specified by the user in the properties file.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class FactoryInstantiationException extends BaseNestableRuntimeException
-{
+public class FactoryInstantiationException extends BaseNestableRuntimeException {
 
     /**
      * D1597A17A6.
@@ -40,23 +40,31 @@ public class FactoryInstantiationException extends BaseNestableRuntimeException
 
     /**
      * Instantiate a new FactoryInstantiationException.
-     * @param source Class where the exception is generated
-     * @param propertyName name of the property
-     * @param propertyValue value for the property (class name)
-     * @param cause previous exception
+     *
+     * @param source
+     *            Class where the exception is generated
+     * @param propertyName
+     *            name of the property
+     * @param propertyValue
+     *            value for the property (class name)
+     * @param cause
+     *            previous exception
      */
-    public FactoryInstantiationException(Class< ? extends TableProperties> source, String propertyName, String propertyValue, Throwable cause)
-    {
+    public FactoryInstantiationException(final Class<? extends TableProperties> source, final String propertyName,
+            final String propertyValue, final Throwable cause) {
         super(source, Messages.getString("FactoryInstantiationException.msg", //$NON-NLS-1$
-            new Object[]{propertyValue, propertyName}), cause);
+                new Object[] { propertyValue, propertyName }), cause);
     }
 
     /**
+     * Gets the severity.
+     *
+     * @return the severity
+     *
      * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
      */
     @Override
-    public SeverityEnum getSeverity()
-    {
+    public SeverityEnum getSeverity() {
         return SeverityEnum.FATAL;
     }
 

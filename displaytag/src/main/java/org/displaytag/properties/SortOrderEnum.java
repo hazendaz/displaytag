@@ -27,14 +27,14 @@ import java.util.Iterator;
 import org.apache.commons.collections.iterators.ArrayIterator;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-
 /**
  * Enumeration for sort order.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public final class SortOrderEnum implements Serializable
-{
+public final class SortOrderEnum implements Serializable {
 
     /**
      * Stable serialVersionUID.
@@ -54,7 +54,7 @@ public final class SortOrderEnum implements Serializable
     /**
      * array containing all the export types.
      */
-    static final SortOrderEnum[] ALL = {DESCENDING, ASCENDING};
+    static final SortOrderEnum[] ALL = { SortOrderEnum.DESCENDING, SortOrderEnum.ASCENDING };
 
     /**
      * Code; this is the primary key for these objects.
@@ -68,43 +68,46 @@ public final class SortOrderEnum implements Serializable
 
     /**
      * private constructor. Use only constants.
-     * @param code int code
-     * @param name description of enumerated type
+     *
+     * @param code
+     *            int code
+     * @param name
+     *            description of enumerated type
      */
-    private SortOrderEnum(int code, String name)
-    {
+    private SortOrderEnum(final int code, final String name) {
         this.enumCode = code;
         this.enumName = name;
     }
 
     /**
      * returns the int code.
+     *
      * @return int code
      */
-    public int getCode()
-    {
+    public int getCode() {
         return this.enumCode;
     }
 
     /**
      * returns the description.
+     *
      * @return String description of the sort order ("ascending" or "descending")
      */
-    public String getName()
-    {
+    public String getName() {
         return this.enumName;
     }
 
     /**
      * lookup a SortOrderEnum by key.
-     * @param key int code
+     *
+     * @param key
+     *            int code
+     *
      * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
      */
-    public static SortOrderEnum fromCode(int key)
-    {
-        for (SortOrderEnum element : ALL) {
-            if (key == element.getCode())
-            {
+    public static SortOrderEnum fromCode(final int key) {
+        for (final SortOrderEnum element : SortOrderEnum.ALL) {
+            if (key == element.getCode()) {
                 return element;
             }
         }
@@ -114,41 +117,46 @@ public final class SortOrderEnum implements Serializable
 
     /**
      * lookup a SortOrderEnum by an Integer key.
-     * @param key Integer code - null safe: a null key returns a null Enum
+     *
+     * @param key
+     *            Integer code - null safe: a null key returns a null Enum
+     *
      * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
      */
-    public static SortOrderEnum fromCode(Integer key)
-    {
-        if (key == null)
-        {
+    public static SortOrderEnum fromCode(final Integer key) {
+        if (key == null) {
             return null;
         }
 
-        return fromCode(key.intValue());
+        return SortOrderEnum.fromCode(key.intValue());
     }
 
     /**
      * lookup a SortOrderEnum by an Integer key.
-     * @param key Integer code - null safe: a null key returns a null Enum
+     *
+     * @param key
+     *            Integer code - null safe: a null key returns a null Enum
+     *
      * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
+     *
      * @deprecated use fromCode(Integer)
      */
     @Deprecated
-    public static SortOrderEnum fromIntegerCode(Integer key)
-    {
-        return fromCode(key);
+    public static SortOrderEnum fromIntegerCode(final Integer key) {
+        return SortOrderEnum.fromCode(key);
     }
 
     /**
      * Lookup a SortOrderEnum by a String key.
-     * @param code String code - null safe: a null key returns a null Enum
+     *
+     * @param code
+     *            String code - null safe: a null key returns a null Enum
+     *
      * @return SortOrderEnum or null if no SortOrderEnum is found with the given key
      */
-    public static SortOrderEnum fromName(String code)
-    {
-        for (SortOrderEnum element : ALL) {
-            if (element.getName().equals(code))
-            {
+    public static SortOrderEnum fromName(final String code) {
+        for (final SortOrderEnum element : SortOrderEnum.ALL) {
+            if (element.getName().equals(code)) {
                 return element;
             }
         }
@@ -158,40 +166,47 @@ public final class SortOrderEnum implements Serializable
 
     /**
      * returns an iterator on all the enumerated instaces.
+     *
      * @return iterator
      */
-    public static Iterator<SortOrderEnum> iterator()
-    {
-        return new ArrayIterator(ALL);
+    public static Iterator<SortOrderEnum> iterator() {
+        return new ArrayIterator(SortOrderEnum.ALL);
     }
 
     /**
      * returns the enumeration description.
+     *
+     * @return the string
+     *
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString()
-    {
-        return getName();
+    public String toString() {
+        return this.getName();
     }
 
     /**
      * Only a single instance of a specific enumeration can be created, so we can check using ==.
-     * @param o the object to compare to
+     *
+     * @param o
+     *            the object to compare to
+     *
      * @return hashCode
      */
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(final Object o) {
         return this == o;
     }
 
     /**
+     * Hash code.
+     *
+     * @return the int
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return new HashCodeBuilder(1123997057, -1289836553).append(this.enumCode).toHashCode();
     }
 

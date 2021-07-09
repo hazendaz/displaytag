@@ -25,14 +25,14 @@ import org.displaytag.Messages;
 import org.displaytag.decorator.DefaultDecoratorFactory;
 import org.displaytag.util.TagConstants;
 
-
 /**
  * Exception thrown when DecoratorFactory is unable to load a Decorator.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class DecoratorInstantiationException extends BaseNestableJspTagException
-{
+public class DecoratorInstantiationException extends BaseNestableJspTagException {
 
     /**
      * D1597A17A6.
@@ -41,25 +41,31 @@ public class DecoratorInstantiationException extends BaseNestableJspTagException
 
     /**
      * Constructor for DecoratorInstantiationException.
-     * @param source Class where the exception is generated
-     * @param decorator decorator name
-     * @param cause previous Exception
+     *
+     * @param source
+     *            Class where the exception is generated
+     * @param decorator
+     *            decorator name
+     * @param cause
+     *            previous Exception
      */
-    public DecoratorInstantiationException(Class<DefaultDecoratorFactory> source, String decorator, Throwable cause)
-    {
+    public DecoratorInstantiationException(final Class<DefaultDecoratorFactory> source, final String decorator,
+            final Throwable cause) {
         super(source, Messages.getString("DecoratorInstantiationException.msg" //$NON-NLS-1$
-            , new Object[]{decorator, cause != null ? cause.getClass().getName() : TagConstants.EMPTY_STRING}), //
-            cause);
+                , new Object[] { decorator, cause != null ? cause.getClass().getName() : TagConstants.EMPTY_STRING }), //
+                cause);
     }
 
     /**
+     * Gets the severity.
+     *
      * @return SeverityEnum.ERROR
+     *
      * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
      * @see org.displaytag.exception.SeverityEnum
      */
     @Override
-    public SeverityEnum getSeverity()
-    {
+    public SeverityEnum getSeverity() {
         return SeverityEnum.ERROR;
     }
 

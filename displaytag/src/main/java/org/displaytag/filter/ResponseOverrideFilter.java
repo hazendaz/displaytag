@@ -66,7 +66,6 @@ import org.slf4j.LoggerFactory;
  *      &lt;url-pattern&gt;*.jsp&lt;/url-pattern&gt;
  *  &lt;/filter-mapping&gt;
  * </pre>
- *
  * <p>
  * By default the filter buffers all the export content before writing it out. You can set an optional parameter
  * <code>buffer</code> to <code>false</code> to make the filter write directly to the output stream. This could be
@@ -82,14 +81,14 @@ import org.slf4j.LoggerFactory;
  *          &lt;param-value&gt;false&lt;/param-value&gt;
  *      &lt;/init-param&gt;
  *  &lt;/filter&gt;
- *  </pre>
+ * </pre>
  *
  * @author rapruitt
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ResponseOverrideFilter implements Filter
-{
+public class ResponseOverrideFilter implements Filter {
 
     /**
      * Logger.
@@ -105,12 +104,10 @@ public class ResponseOverrideFilter implements Filter
      * {@inheritDoc}
      */
     @Override
-    public void init(FilterConfig filterConfig)
-    {
+    public void init(final FilterConfig filterConfig) {
         this.log = LoggerFactory.getLogger(ResponseOverrideFilter.class);
-        String bufferParam = filterConfig.getInitParameter("buffer");
-        if (this.log.isDebugEnabled())
-        {
+        final String bufferParam = filterConfig.getInitParameter("buffer");
+        if (this.log.isDebugEnabled()) {
             this.log.debug("bufferParam={}", bufferParam);
         }
         this.buffer = bufferParam == null || StringUtils.equalsIgnoreCase("true", bufferParam);
@@ -122,14 +119,11 @@ public class ResponseOverrideFilter implements Filter
      * {@inheritDoc}
      */
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-        throws IOException, ServletException
-    {
+    public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse,
+            final FilterChain filterChain) throws IOException, ServletException {
 
-        if (servletRequest.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null)
-        {
-            if (this.log.isDebugEnabled())
-            {
+        if (servletRequest.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null) {
+            if (this.log.isDebugEnabled()) {
                 this.log.debug(Messages.getString("ResponseOverrideFilter.parameternotfound")); //$NON-NLS-1$
             }
             // don't filter!
@@ -137,13 +131,13 @@ public class ResponseOverrideFilter implements Filter
             return;
         }
 
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        final HttpServletRequest request = (HttpServletRequest) servletRequest;
 
-        BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl((HttpServletResponse) servletResponse);
+        final BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl(
+                (HttpServletResponse) servletResponse);
 
-        Map<String, Boolean> contentBean = new HashMap<>(4);
-        if (this.buffer)
-        {
+        final Map<String, Boolean> contentBean = new HashMap<>(4);
+        if (this.buffer) {
             contentBean.put(TableTagParameters.BEAN_BUFFER, Boolean.TRUE);
         }
         request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, contentBean);
@@ -157,8 +151,7 @@ public class ResponseOverrideFilter implements Filter
      * {@inheritDoc}
      */
     @Override
-    public void destroy()
-    {
+    public void destroy() {
         // nothing to destroy
     }
 }

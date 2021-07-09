@@ -34,14 +34,14 @@ import org.displaytag.util.ReflectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Factory for export views.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public final class ExportViewFactory
-{
+public final class ExportViewFactory {
 
     /**
      * Singleton.
@@ -61,120 +61,107 @@ public final class ExportViewFactory
     /**
      * Private constructor.
      */
-    private ExportViewFactory()
-    {
-        TableProperties properties = TableProperties.getInstance(null);
-        String[] exportTypes = properties.getExportTypes();
+    private ExportViewFactory() {
+        final TableProperties properties = TableProperties.getInstance(null);
+        final String[] exportTypes = properties.getExportTypes();
 
-        if (log.isInfoEnabled())
-        {
-            log.info(Messages.getString("ExportViewFactory.initializing", //$NON-NLS-1$
-                new Object[]{ArrayUtils.toString(exportTypes)}));
+        if (ExportViewFactory.log.isInfoEnabled()) {
+            ExportViewFactory.log.info(Messages.getString("ExportViewFactory.initializing", //$NON-NLS-1$
+                    new Object[] { ArrayUtils.toString(exportTypes) }));
         }
-        for (String exportType : exportTypes) {
-            String className = properties.getExportClass(exportType);
-            registerExportView(exportType, className);
+        for (final String exportType : exportTypes) {
+            final String className = properties.getExportClass(exportType);
+            this.registerExportView(exportType, className);
         }
     }
 
     /**
      * Returns the simgleton for this class.
+     *
      * @return ExportViewFactory instance
      */
-    public static synchronized ExportViewFactory getInstance()
-    {
-        if (instance == null)
-        {
-            instance = new ExportViewFactory();
+    public static synchronized ExportViewFactory getInstance() {
+        if (ExportViewFactory.instance == null) {
+            ExportViewFactory.instance = new ExportViewFactory();
         }
-        return instance;
+        return ExportViewFactory.instance;
     }
 
     /**
      * Register a new Export View, associated with a Media Type. If another export view is currently associated with the
      * given media type it's replaced.
-     * @param name media name
-     * @param viewClassName export view class name
+     *
+     * @param name
+     *            media name
+     * @param viewClassName
+     *            export view class name
      */
-    public void registerExportView(String name, String viewClassName)
-    {
+    public void registerExportView(final String name, final String viewClassName) {
         Class<ExportView> exportClass;
-        try
-        {
+        try {
             exportClass = (Class<ExportView>) ReflectHelper.classForName(viewClassName);
-        }
-        catch (ClassNotFoundException e)
-        {
-            log.error(Messages.getString("ExportViewFactory.classnotfound", //$NON-NLS-1$
-                new Object[]{name, viewClassName}));
+        } catch (final ClassNotFoundException e) {
+            ExportViewFactory.log.error(Messages.getString("ExportViewFactory.classnotfound", //$NON-NLS-1$
+                    new Object[] { name, viewClassName }));
             return;
-        }
-        catch (NoClassDefFoundError e)
-        {
-            log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
-                ,
-                new Object[]{name, viewClassName, e.getMessage()}));
+        } catch (final NoClassDefFoundError e) {
+            ExportViewFactory.log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
+                    , new Object[] { name, viewClassName, e.getMessage() }));
             return;
         }
 
-        try
-        {
+        try {
             exportClass.newInstance();
-        }
-        catch (InstantiationException e)
-        {
-            log.error(Messages.getString("ExportViewFactory.instantiationexception", //$NON-NLS-1$
-                new Object[]{name, viewClassName, e.getMessage()}));
+        } catch (final InstantiationException e) {
+            ExportViewFactory.log.error(Messages.getString("ExportViewFactory.instantiationexception", //$NON-NLS-1$
+                    new Object[] { name, viewClassName, e.getMessage() }));
             return;
-        }
-        catch (IllegalAccessException e)
-        {
-            log.error(Messages.getString("ExportViewFactory.illegalaccess", //$NON-NLS-1$
-                new Object[]{name, viewClassName, e.getMessage()}));
+        } catch (final IllegalAccessException e) {
+            ExportViewFactory.log.error(Messages.getString("ExportViewFactory.illegalaccess", //$NON-NLS-1$
+                    new Object[] { name, viewClassName, e.getMessage() }));
             return;
-        }
-        catch (NoClassDefFoundError e)
-        {
-            log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
-                ,
-                new Object[]{name, viewClassName, e.getMessage()}));
+        } catch (final NoClassDefFoundError e) {
+            ExportViewFactory.log.warn(Messages.getString("ExportViewFactory.noclassdef" //$NON-NLS-1$
+                    , new Object[] { name, viewClassName, e.getMessage() }));
             return;
         }
 
-        MediaTypeEnum media = MediaTypeEnum.registerMediaType(name);
+        final MediaTypeEnum media = MediaTypeEnum.registerMediaType(name);
         this.viewClasses.put(media, exportClass);
 
-        if (log.isDebugEnabled())
-        {
-            log.debug(Messages.getString("ExportViewFactory.added", //$NON-NLS-1$
-                new Object[]{media, viewClassName}));
+        if (ExportViewFactory.log.isDebugEnabled()) {
+            ExportViewFactory.log.debug(Messages.getString("ExportViewFactory.added", //$NON-NLS-1$
+                    new Object[] { media, viewClassName }));
         }
     }
 
     /**
      * returns an instance of export view associated with the given export type.
-     * @param exportType MediaTypeEnum
-     * @param tableModel table model containing data to render
-     * @param exportFullList should the complete list be exported?
-     * @param includeHeader should header be included in export?
-     * @param decorateValues should ouput be decorated?
+     *
+     * @param exportType
+     *            MediaTypeEnum
+     * @param tableModel
+     *            table model containing data to render
+     * @param exportFullList
+     *            should the complete list be exported?
+     * @param includeHeader
+     *            should header be included in export?
+     * @param decorateValues
+     *            should ouput be decorated?
+     *
      * @return specialized instance of BaseExportView
      */
-    public ExportView getView(MediaTypeEnum exportType, TableModel tableModel, boolean exportFullList,
-        boolean includeHeader, boolean decorateValues)
-    {
+    public ExportView getView(final MediaTypeEnum exportType, final TableModel tableModel, final boolean exportFullList,
+            final boolean includeHeader, final boolean decorateValues) {
         ExportView view;
 
-        Class<ExportView> viewClass = this.viewClasses.get(exportType);
+        final Class<ExportView> viewClass = this.viewClasses.get(exportType);
 
-        try
-        {
+        try {
             view = viewClass.newInstance();
-        }
-        catch (InstantiationException | IllegalAccessException e)
-        {
+        } catch (InstantiationException | IllegalAccessException e) {
             // should not happen (class has already been instantiated before)
-            throw new WrappedRuntimeException(getClass(), e);
+            throw new WrappedRuntimeException(this.getClass(), e);
         }
 
         view.setParameters(tableModel, exportFullList, includeHeader, decorateValues);

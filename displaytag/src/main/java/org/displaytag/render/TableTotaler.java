@@ -40,21 +40,19 @@ import org.slf4j.LoggerFactory;
 /**
  * This class just keeps a running grouped total. It does not output anything; it is the responsibility of the exporter
  * or of the decorator to actually output the results.
- * @author rapruitt
- * Date: May 21, 2010
- * Time: 9:17:43 PM
+ *
+ * @author rapruitt Date: May 21, 2010 Time: 9:17:43 PM
  */
-public class  TableTotaler
-{
+public class TableTotaler {
 
     /** The logger. */
     protected Logger logger = LoggerFactory.getLogger(TableTotaler.class);
 
     /** The Constant NULL. */
-    public static final TableTotaler NULL  = new TableTotaler();
+    public static final TableTotaler NULL = new TableTotaler();
 
     /** The first row for each group. */
-    protected Map<Integer,Integer> firstRowForEachGroup = new HashMap<>();
+    protected Map<Integer, Integer> firstRowForEachGroup = new HashMap<>();
 
     /** The how many groups. */
     protected int howManyGroups = 0;
@@ -66,10 +64,13 @@ public class  TableTotaler
     protected TableModel tableModel;
 
     /** The opened columns. */
-    List<Integer> openedColumns = new ArrayList<>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
+    List<Integer> openedColumns = new ArrayList<>(); // in excel, i need to know which ones are currently open; in xml,
+                                                     // just what has just opened
 
     /** The grouping values by column. */
-    TreeMap<Integer,String> groupingValuesByColumn = new TreeMap<>();    // in excel, i need to know which ones are currently open; in xml, just what has just opened
+    TreeMap<Integer, String> groupingValuesByColumn = new TreeMap<>(); // in excel, i need to know which ones are
+                                                                       // currently open; in xml, just what has just
+                                                                       // opened
 
     /** The closed columns. */
     List<Integer> closedColumns = new ArrayList<>();
@@ -81,16 +82,14 @@ public class  TableTotaler
     /**
      * Inits the.
      *
-     * @param model the model
+     * @param model
+     *            the model
      */
-    public void init(TableModel model)
-    {
+    public void init(final TableModel model) {
         this.tableModel = model;
         this.firstRowForEachGroup = new HashMap<>();
-        for (HeaderCell c : model.getHeaderCellList())
-        {
-            if (c.getGroup() > 0)
-            {
+        for (final HeaderCell c : model.getHeaderCellList()) {
+            if (c.getGroup() > 0) {
                 this.firstRowForEachGroup.put(c.getGroup(), 0);
                 this.howManyGroups++;
             }
@@ -101,11 +100,12 @@ public class  TableTotaler
     /**
      * Inits the row.
      *
-     * @param currentViewIndex the current view index
-     * @param currentListIndex the current list index
+     * @param currentViewIndex
+     *            the current view index
+     * @param currentListIndex
+     *            the current list index
      */
-    public void initRow(int currentViewIndex, int currentListIndex)
-    {
+    public void initRow(final int currentViewIndex, final int currentListIndex) {
         this.openedColumns.clear();
         this.closedColumns.clear();
         this.currentRowNumber = currentListIndex;
@@ -114,35 +114,38 @@ public class  TableTotaler
     /**
      * As column.
      *
-     * @param groupNumber the group number
+     * @param groupNumber
+     *            the group number
+     *
      * @return the int
      */
-    public int asColumn(int groupNumber)
-    {
+    public int asColumn(final int groupNumber) {
         return groupNumber;
     }
 
     /**
      * As group.
      *
-     * @param columnNumber the column number
+     * @param columnNumber
+     *            the column number
+     *
      * @return the int
      */
-    public int asGroup(int columnNumber)
-    {
+    public int asGroup(final int columnNumber) {
         return columnNumber;
     }
 
     /**
      * Start group.
      *
-     * @param groupingValue the grouping value
-     * @param groupNumber the group number
+     * @param groupingValue
+     *            the grouping value
+     * @param groupNumber
+     *            the group number
      */
-    public void startGroup(String groupingValue,  int groupNumber)
-    {
-        this.openedColumns.add(asColumn(groupNumber));
-        this.groupingValuesByColumn.put(asColumn(groupNumber), groupingValue);
+    public void startGroup(final String groupingValue, final int groupNumber) {
+        this.openedColumns.add(this.asColumn(groupNumber));
+        this.groupingValuesByColumn.put(this.asColumn(groupNumber), groupingValue);
         this.firstRowForEachGroup.put(groupNumber, this.currentRowNumber);
     }
 
@@ -151,8 +154,7 @@ public class  TableTotaler
      *
      * @return the opened columns
      */
-    public List<Integer> getOpenedColumns()
-    {
+    public List<Integer> getOpenedColumns() {
         return new ArrayList<>(this.openedColumns);
     }
 
@@ -161,102 +163,92 @@ public class  TableTotaler
      *
      * @return the closed columns
      */
-    public List<Integer> getClosedColumns()
-    {
+    public List<Integer> getClosedColumns() {
         return this.closedColumns;
     }
 
     /**
      * Stop group.
      *
-     * @param value the value
-     * @param groupNumber the group number
+     * @param value
+     *            the value
+     * @param groupNumber
+     *            the group number
      */
-    public void stopGroup(String value, int groupNumber)
-    {
-        this.closedColumns.add(asColumn(groupNumber));
+    public void stopGroup(final String value, final int groupNumber) {
+        this.closedColumns.add(this.asColumn(groupNumber));
     }
-
 
     /**
      * Override locally to perform your own math.
      *
-     * @param column the column
-     * @param total the total
-     * @param value the value
+     * @param column
+     *            the column
+     * @param total
+     *            the total
+     * @param value
+     *            the value
+     *
      * @return the object
      */
-    public Object add(Column column, Object total, Object value)
-    {
-        if (value == null)
-        {
+    public Object add(final Column column, final Object total, final Object value) {
+        if (value == null) {
             return total;
         }
-        else if (value instanceof Number)
-        {
+        if (value instanceof Number) {
             Number oldTotal = (double) 0;
-            if (total != null)
-            {
+            if (total != null) {
                 oldTotal = (Number) total;
             }
             return oldTotal.doubleValue() + ((Number) value).doubleValue();
-        }
-        else
-        {
-            throw new UnsupportedOperationException("Cannot add a value of "
-                + value
-                + " in column "
-                + column.getHeaderCell().getTitle());
+        } else {
+            throw new UnsupportedOperationException(
+                    "Cannot add a value of " + value + " in column " + column.getHeaderCell().getTitle());
         }
     }
 
     /**
      * Override locally to format it yourself.
      *
-     * @param cell the current cell
-     * @param total the current value
+     * @param cell
+     *            the current cell
+     * @param total
+     *            the current value
+     *
      * @return the string
      */
-    public String formatTotal(HeaderCell cell, Object total)
-    {
-        if (total == null)
-        {
+    public String formatTotal(final HeaderCell cell, Object total) {
+        if (total == null) {
             total = "";
         }
         return total instanceof String ? (String) total : total.toString();
     }
 
-
     /**
      * Gets the total for list.
      *
-     * @param window the window
-     * @param columnNumber the column number
+     * @param window
+     *            the window
+     * @param columnNumber
+     *            the column number
+     *
      * @return the total for list
      */
-    protected Object getTotalForList(List<Row> window, int columnNumber)
-    {
+    protected Object getTotalForList(final List<Row> window, final int columnNumber) {
         Object total = null;
-        for (Row row : window)
-        {
-            ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
-            while (columnIterator.hasNext())
-            {
-                Column column = columnIterator.nextColumn();
-                if (column.getHeaderCell().getColumnNumber() == columnNumber)
-                {
+        for (final Row row : window) {
+            final ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());
+            while (columnIterator.hasNext()) {
+                final Column column = columnIterator.nextColumn();
+                if (column.getHeaderCell().getColumnNumber() == columnNumber) {
                     Object value = null;
-                    try
-                    {
+                    try {
                         value = column.getValue(false);
-                    }
-                    catch (ObjectLookupException | DecoratorException e)
-                    {
+                    } catch (ObjectLookupException | DecoratorException e) {
                         this.logger.error("", e);
                     }
-                    if (value != null && !"".equals(value))
-                    {
-                        total = add(column, total, value);
+                    if (value != null && !"".equals(value)) {
+                        total = this.add(column, total, value);
                     }
                 }
             }
@@ -267,41 +259,40 @@ public class  TableTotaler
     /**
      * Gets the total for column.
      *
-     * @param columnNumber the column number
-     * @param groupNumber the group number
+     * @param columnNumber
+     *            the column number
+     * @param groupNumber
+     *            the group number
+     *
      * @return the total for column
      */
-    public Object getTotalForColumn(int columnNumber, int groupNumber)
-    {
-        List<Row> fullList = this.tableModel.getRowListFull();
+    public Object getTotalForColumn(final int columnNumber, final int groupNumber) {
+        final List<Row> fullList = this.tableModel.getRowListFull();
         Integer startRow = this.firstRowForEachGroup.get(groupNumber);
-        Integer stopRow = this.currentRowNumber + 1;
-        if (groupNumber == WHOLE_TABLE)
-        {   // asking for a total for the entire table
+        final Integer stopRow = this.currentRowNumber + 1;
+        if (groupNumber == TableTotaler.WHOLE_TABLE) { // asking for a total for the entire table
             startRow = 0;
         }
-        List<Row> window = fullList.subList(startRow, stopRow);
-        return getTotalForList(window, columnNumber);
+        final List<Row> window = fullList.subList(startRow, stopRow);
+        return this.getTotalForList(window, columnNumber);
     }
 
     /**
      * Gets the grouping value.
      *
-     * @param columnNumber the column number
+     * @param columnNumber
+     *            the column number
+     *
      * @return the grouping value
      */
-    public String getGroupingValue(Integer columnNumber)
-    {
+    public String getGroupingValue(final Integer columnNumber) {
         return this.groupingValuesByColumn.get(columnNumber);
     }
-
-
 
     /**
      * Reset.
      */
-    public void reset()
-    {
+    public void reset() {
         this.closedColumns.clear();
         this.openedColumns.clear();
         this.groupingValuesByColumn.clear();

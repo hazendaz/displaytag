@@ -21,11 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -36,61 +31,75 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for DISPL-629 - display:column w/o property works correctly only on first page.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision: 1081 $ ($Author: fgiust $)
  */
-public class Displ629Test extends DisplaytagCase
-{
+public class Displ629Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-629.jsp";
     }
 
+    /**
+     * Do test.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+    public void doTest() throws Exception {
+        WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        ParamEncoder encoder = new ParamEncoder("table");
+        final ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "5");
         request.setParameter("pagesize", "1");
 
-        checkLastColumn(request);
+        this.checkLastColumn(request);
 
-        request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "10");
         request.setParameter("pagesize", "2");
 
-        checkLastColumn(request);
+        this.checkLastColumn(request);
 
     }
 
     /**
      * Check last column.
      *
-     * @param request the request
-     * @throws MalformedURLException the malformed URL exception
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws SAXException the SAX exception
+     * @param request
+     *            the request
+     *
+     * @throws MalformedURLException
+     *             the malformed URL exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SAXException
+     *             the SAX exception
      */
-    private void checkLastColumn(WebRequest request) throws MalformedURLException, IOException, SAXException
-    {
-        WebResponse response = this.runner.getResponse(request);
+    private void checkLastColumn(final WebRequest request) throws MalformedURLException, IOException, SAXException {
+        final WebResponse response = this.runner.getResponse(request);
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals(1, tables.length);
 
         Assert.assertEquals("Wrong column content", "D", tables[0].getCellAsText(tables[0].getRowCount() - 1, 0));

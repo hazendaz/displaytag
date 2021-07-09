@@ -29,14 +29,14 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
 
-
 /**
  * A test column decorator for dates.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class DateColumnDecorator implements DisplaytagColumnDecorator
-{
+public class DateColumnDecorator implements DisplaytagColumnDecorator {
 
     /**
      * date formatter.
@@ -44,12 +44,26 @@ public class DateColumnDecorator implements DisplaytagColumnDecorator
     FastDateFormat dateFormat = FastDateFormat.getInstance("EEEE", Locale.ENGLISH);
 
     /**
+     * Decorate.
+     *
+     * @param columnValue
+     *            the column value
+     * @param pageContext
+     *            the page context
+     * @param media
+     *            the media
+     *
+     * @return the object
+     *
+     * @throws DecoratorException
+     *             the decorator exception
+     *
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, javax.servlet.jsp.PageContext,
-     * org.displaytag.properties.MediaTypeEnum)
+     *      org.displaytag.properties.MediaTypeEnum)
      */
     @Override
-    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
-    {
+    public Object decorate(final Object columnValue, final PageContext pageContext, final MediaTypeEnum media)
+            throws DecoratorException {
         return this.dateFormat.format(columnValue);
     }
 

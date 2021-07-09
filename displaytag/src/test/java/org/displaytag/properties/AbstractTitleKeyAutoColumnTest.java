@@ -21,11 +21,6 @@
  */
 package org.displaytag.properties;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
 import org.displaytag.test.DisplaytagCase;
@@ -33,41 +28,49 @@ import org.displaytag.test.KnownValue;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for "titlekey" column attribute.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
-{
+public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "titlekeyautocolumn.jsp";
     }
 
     /**
      * Returns the suffix expected in the specific resource bundle.
+     *
      * @return expected suffix
      */
     protected abstract String getExpectedSuffix();
 
     /**
      * Returns the LocaleResolver instance to be used in this test.
+     *
      * @return LocaleResolver
      */
     protected abstract LocaleResolver getResolver();
 
     /**
      * Returns the I18nResourceProvider instance to be used in this test.
+     *
      * @return I18nResourceProvider
      */
     protected abstract I18nResourceProvider getI18nResourceProvider();
@@ -75,53 +78,45 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase
     /**
      * Test that headers are correctly removed.
      *
-     * @throws Exception any exception thrown during test.
+     * @throws Exception
+     *             any exception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
         // test keep
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        TableProperties.setLocaleResolver(getResolver());
-        TableProperties.setResourceProvider(getI18nResourceProvider());
+        TableProperties.setLocaleResolver(this.getResolver());
+        TableProperties.setResourceProvider(this.getI18nResourceProvider());
 
         WebResponse response;
-        try
-        {
+        try {
             response = this.runner.getResponse(request);
-        }
-        finally
-        {
+        } finally {
             // reset
             TableProperties.setLocaleResolver(null);
             TableProperties.setResourceProvider(null);
         }
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Expected one table", 1, tables.length);
 
         // find the "camel" column
         int j;
-        for (j = 0; j < tables[0].getColumnCount(); j++)
-        {
-            if (KnownValue.CAMEL.equals(tables[0].getCellAsText(1, j)))
-            {
+        for (j = 0; j < tables[0].getColumnCount(); j++) {
+            if (KnownValue.CAMEL.equals(tables[0].getCellAsText(1, j))) {
                 break;
             }
         }
 
         // resource should be used also without the property attribute for the "camel" header
-        Assert.assertEquals(
-            "Header from resource is not valid.",
-            "camel title" + getExpectedSuffix(),
-            tables[0].getCellAsText(0, j));
+        Assert.assertEquals("Header from resource is not valid.", "camel title" + this.getExpectedSuffix(),
+                tables[0].getCellAsText(0, j));
 
     }
 }

@@ -36,7 +36,6 @@ import org.displaytag.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * JSTL implementation of a resource provider and locale resolver. It will make the <code>titleKey</code> attribute of
  * column tag works the same as fmt:message's <code>key property</code>. This tag must be the descendant of a
@@ -55,14 +54,15 @@ import org.slf4j.LoggerFactory;
  * &lt;display:column title="${foo}"/&gt;
  * </pre>
  *
- * If you don't define either <code>titleKey</code> or <code>titleKey</code> property on your column, first the tag
- * will attempt to look up the <code>property</code> property in your ResourceBundle. Failing that, it will fall back
- * to the parent class's behavior of just using the property name.
+ * If you don't define either <code>titleKey</code> or <code>titleKey</code> property on your column, first the tag will
+ * attempt to look up the <code>property</code> property in your ResourceBundle. Failing that, it will fall back to the
+ * parent class's behavior of just using the property name.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
-{
+public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver {
 
     /**
      * prefix/suffix for missing entries.
@@ -77,33 +77,50 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
     /**
      * Instantiates a new I18nJstlAdapter. Throw a NoClassDefFound error if BundleSupport is not available.
      */
-    public I18nJstlAdapter()
-    {
+    public I18nJstlAdapter() {
         // this will check if BundleSupport is available
         // if a NoClassDefFound error is thrown, the I18nJstlAdapter will not be used
         BundleSupport.class.hashCode();
     }
 
     /**
+     * Resolve locale.
+     *
+     * @param pageContext
+     *            the page context
+     *
+     * @return the locale
+     *
      * @see LocaleResolver#resolveLocale(PageContext)
      */
     @Override
-    public Locale resolveLocale(PageContext pageContext)
-    {
+    public Locale resolveLocale(final PageContext pageContext) {
         Locale locale = (Locale) Config.find(pageContext, Config.FMT_LOCALE);
-        if (locale == null)
-        {
+        if (locale == null) {
             locale = pageContext.getRequest().getLocale();
         }
         return locale;
     }
 
     /**
+     * Gets the resource.
+     *
+     * @param resourceKey
+     *            the resource key
+     * @param defaultValue
+     *            the default value
+     * @param tag
+     *            the tag
+     * @param pageContext
+     *            the page context
+     *
+     * @return the resource
+     *
      * @see I18nResourceProvider#getResource(String, String, Tag, PageContext)
      */
     @Override
-    public String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext)
-    {
+    public String getResource(final String resourceKey, final String defaultValue, final Tag tag,
+            final PageContext pageContext) {
 
         // if titleKey isn't defined either, use property
         String key = resourceKey != null ? resourceKey : defaultValue;
@@ -111,15 +128,12 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
         ResourceBundle bundle = null;
 
         // jakarta jstl implementation, there is no other way to get the bundle from the parent fmt:bundle tag
-        Tag bundleTag = TagSupport.findAncestorWithClass(tag, BundleSupport.class);
-        if (bundleTag != null)
-        {
-            BundleSupport parent = (BundleSupport) bundleTag;
-            if (key != null)
-            {
-                String prefix = parent.getPrefix();
-                if (prefix != null)
-                {
+        final Tag bundleTag = TagSupport.findAncestorWithClass(tag, BundleSupport.class);
+        if (bundleTag != null) {
+            final BundleSupport parent = (BundleSupport) bundleTag;
+            if (key != null) {
+                final String prefix = parent.getPrefix();
+                if (prefix != null) {
                     key = prefix + key;
                 }
             }
@@ -127,48 +141,38 @@ public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver
         }
 
         // resin jstl implementation, more versatile (we don't need to look up resin classes)
-        if (bundle == null)
-        {
-            Object cauchoBundle = pageContext.getAttribute("caucho.bundle"); //$NON-NLS-1$
-            if (cauchoBundle != null && cauchoBundle instanceof LocalizationContext)
-            {
+        if (bundle == null) {
+            final Object cauchoBundle = pageContext.getAttribute("caucho.bundle"); //$NON-NLS-1$
+            if (cauchoBundle instanceof LocalizationContext) {
                 bundle = ((LocalizationContext) cauchoBundle).getResourceBundle();
 
                 // handle prefix just like resin does
-                String prefix = (String) pageContext.getAttribute("caucho.bundle.prefix"); //$NON-NLS-1$
-                if (prefix != null)
-                {
+                final String prefix = (String) pageContext.getAttribute("caucho.bundle.prefix"); //$NON-NLS-1$
+                if (prefix != null) {
                     key = prefix + key;
                 }
             }
         }
 
         // standard jstl localizationContest
-        if (bundle == null)
-        {
+        if (bundle == null) {
             // check for the localizationContext in applicationScope, set in web.xml
-            LocalizationContext localization = BundleSupport.getLocalizationContext(pageContext);
+            final LocalizationContext localization = BundleSupport.getLocalizationContext(pageContext);
 
-            if (localization != null)
-            {
+            if (localization != null) {
                 bundle = localization.getResourceBundle();
             }
         }
 
-        if (bundle != null)
-        {
-            try
-            {
+        if (bundle != null) {
+            try {
                 title = bundle.getString(key);
-            }
-            catch (MissingResourceException e)
-            {
-                log.debug(Messages.getString("Localization.missingkey", key)); //$NON-NLS-1$
+            } catch (final MissingResourceException e) {
+                I18nJstlAdapter.log.debug(Messages.getString("Localization.missingkey", key)); //$NON-NLS-1$
 
                 // if user explicitly added a titleKey we guess this is an error
-                if (resourceKey != null)
-                {
-                    title = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;
+                if (resourceKey != null) {
+                    title = I18nJstlAdapter.UNDEFINED_KEY + resourceKey + I18nJstlAdapter.UNDEFINED_KEY;
                 }
             }
         }

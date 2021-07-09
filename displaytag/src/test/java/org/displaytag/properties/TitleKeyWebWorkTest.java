@@ -21,65 +21,81 @@
  */
 package org.displaytag.properties;
 
-import com.opensymphony.webwork.dispatcher.ServletDispatcher;
-
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.I18nWebworkAdapter;
 import org.displaytag.localization.LocaleResolver;
 import org.junit.Test;
 
+import com.opensymphony.webwork.dispatcher.ServletDispatcher;
 
 /**
  * I18n test with WebWork adapter.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class TitleKeyWebWorkTest extends AbstractTitleKeyTest
-{
+public class TitleKeyWebWorkTest extends AbstractTitleKeyTest {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return super.getJspName() + ".webwork";
     }
 
     /**
+     * Gets the expected suffix.
+     *
+     * @return the expected suffix
+     *
      * @see org.displaytag.properties.AbstractTitleKeyTest#getExpectedSuffix()
      */
     @Override
-    protected String getExpectedSuffix()
-    {
+    protected String getExpectedSuffix() {
         return " webwork";
     }
 
     /**
+     * Gets the i 18 n resource provider.
+     *
+     * @return the i 18 n resource provider
+     *
      * @see org.displaytag.properties.AbstractTitleKeyTest#getI18nResourceProvider()
      */
     @Override
-    protected I18nResourceProvider getI18nResourceProvider()
-    {
+    protected I18nResourceProvider getI18nResourceProvider() {
         return new I18nWebworkAdapter();
     }
 
     /**
+     * Gets the resolver.
+     *
+     * @return the resolver
+     *
      * @see org.displaytag.properties.AbstractTitleKeyTest#getResolver()
      */
     @Override
-    protected LocaleResolver getResolver()
-    {
+    protected LocaleResolver getResolver() {
         return new I18nWebworkAdapter();
     }
 
     /**
+     * Do test.
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.test.DisplaytagCase#doTest()
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
         this.runner.registerServlet("*.webwork", ServletDispatcher.class.getName());
         super.doTest();
     }

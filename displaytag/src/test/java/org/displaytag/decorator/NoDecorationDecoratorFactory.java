@@ -26,31 +26,65 @@ import javax.servlet.jsp.PageContext;
 import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.render.TableTotaler;
 
-
 /**
  * A factory for creating NoDecorationDecorator objects.
  */
-public class NoDecorationDecoratorFactory implements DecoratorFactory
-{
+public class NoDecorationDecoratorFactory implements DecoratorFactory {
 
+    /**
+     * Load column decorator.
+     *
+     * @param pageContext
+     *            the page context
+     * @param decoratorName
+     *            the decorator name
+     *
+     * @return the displaytag column decorator
+     *
+     * @throws DecoratorInstantiationException
+     *             the decorator instantiation exception
+     */
     @Override
-    public DisplaytagColumnDecorator loadColumnDecorator(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException
-    {
+    public DisplaytagColumnDecorator loadColumnDecorator(final PageContext pageContext, final String decoratorName)
+            throws DecoratorInstantiationException {
         return new NoDecorationColumnDecorator();
     }
 
+    /**
+     * Load table decorator.
+     *
+     * @param pageContext
+     *            the page context
+     * @param decoratorName
+     *            the decorator name
+     *
+     * @return the table decorator
+     *
+     * @throws DecoratorInstantiationException
+     *             the decorator instantiation exception
+     */
     @Override
-    public TableDecorator loadTableDecorator(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException
-    {
+    public TableDecorator loadTableDecorator(final PageContext pageContext, final String decoratorName)
+            throws DecoratorInstantiationException {
         return new NoDecorationDecorator();
     }
 
+    /**
+     * Load table totaler.
+     *
+     * @param pageContext
+     *            the page context
+     * @param decoratorName
+     *            the decorator name
+     *
+     * @return the table totaler
+     *
+     * @throws DecoratorInstantiationException
+     *             the decorator instantiation exception
+     */
     @Override
-    public TableTotaler loadTableTotaler(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException
-    {
+    public TableTotaler loadTableTotaler(final PageContext pageContext, final String decoratorName)
+            throws DecoratorInstantiationException {
         return null;
     }
 }

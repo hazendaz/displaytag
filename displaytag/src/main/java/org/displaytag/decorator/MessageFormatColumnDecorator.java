@@ -31,15 +31,15 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * A decorator that simply formats input Objects using a <code>java.text.messageFormat</code>. By design, this
  * implementations handle MessageFormat errors by returning the unformatted value and logging the exception.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
-{
+public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator {
 
     /**
      * Logger.
@@ -49,39 +49,50 @@ public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
     /**
      * Pre-compiled messageFormat.
      */
-    private MessageFormat format;
-
+    private final MessageFormat format;
 
     /**
      * Pattern is held for alternative (eg excel) formatters.
      */
-    private String pattern;
+    private final String pattern;
+
     /**
      * Instantiates a new MessageFormatColumnDecorator with a given pattern and locale.
-     * @param pattern see <code>java.text.messageFormat</code>
-     * @param locale current locale
+     *
+     * @param pattern
+     *            see <code>java.text.messageFormat</code>
+     * @param locale
+     *            current locale
+     *
      * @see java.text.MessageFormat
      */
-    public MessageFormatColumnDecorator(String pattern, Locale locale)
-    {
+    public MessageFormatColumnDecorator(final String pattern, final Locale locale) {
         this.pattern = pattern;
         this.format = new MessageFormat(pattern, locale);
     }
 
     /**
+     * Decorate.
+     *
+     * @param columnValue
+     *            the column value
+     * @param pageContext
+     *            the page context
+     * @param media
+     *            the media
+     *
+     * @return the object
+     *
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
     @Override
-    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media)
-    {
-        try
-        {
-            return this.format.format(new Object[]{columnValue});
-        }
-        catch (IllegalArgumentException e)
-        {
-            log.error(Messages.getString("MessageFormatColumnDecorator.invalidArgument", new Object[]{ //$NON-NLS-1$
-                this.format.toPattern(), columnValue != null ? columnValue.getClass().getName() : "null"})); //$NON-NLS-1$
+    public Object decorate(final Object columnValue, final PageContext pageContext, final MediaTypeEnum media) {
+        try {
+            return this.format.format(new Object[] { columnValue });
+        } catch (final IllegalArgumentException e) {
+            MessageFormatColumnDecorator.log.error(Messages.getString("MessageFormatColumnDecorator.invalidArgument", //$NON-NLS-1$
+                    new Object[] { this.format.toPattern(),
+                            columnValue != null ? columnValue.getClass().getName() : "null" })); //$NON-NLS-1$
 
             return columnValue;
         }
@@ -89,10 +100,10 @@ public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator
 
     /**
      * get the format.
-     * @return        the format
+     *
+     * @return the format
      */
-    public String getPattern()
-    {
+    public String getPattern() {
         return this.pattern;
     }
 

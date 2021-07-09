@@ -26,29 +26,34 @@ import javax.servlet.jsp.PageContext;
 import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.render.TableTotaler;
 
-
 /**
  * Factory for TableDecorator or ColumnDecorator object.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public interface DecoratorFactory
-{
+public interface DecoratorFactory {
 
     /**
      * <p>
-     * Given a table decorator name, returns a <code>org.displaytag.decorator.TableDecorator</code> instance. The
-     * method used to lookup decorator (direct instantiation, load from a pre-istantiated list or from the page context)
-     * may vary between different implementations.
+     * Given a table decorator name, returns a <code>org.displaytag.decorator.TableDecorator</code> instance. The method
+     * used to lookup decorator (direct instantiation, load from a pre-istantiated list or from the page context) may
+     * vary between different implementations.
      * </p>
      *
-     * @param pageContext the page context
-     * @param decoratorName String full decorator class name
+     * @param pageContext
+     *            the page context
+     * @param decoratorName
+     *            String full decorator class name
+     *
      * @return instance of TableDecorator
-     * @throws DecoratorInstantiationException if unable to load specified TableDecorator
+     *
+     * @throws DecoratorInstantiationException
+     *             if unable to load specified TableDecorator
      */
     TableDecorator loadTableDecorator(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException;
+            throws DecoratorInstantiationException;
 
     /**
      * <p>
@@ -57,23 +62,32 @@ public interface DecoratorFactory
      * page context) may vary between different implementations.
      * </p>
      *
-     * @param pageContext the page context
-     * @param decoratorName String full decorator class name
+     * @param pageContext
+     *            the page context
+     * @param decoratorName
+     *            String full decorator class name
+     *
      * @return instance of DisplaytagColumnDecorator
-     * @throws DecoratorInstantiationException if unable to load ColumnDecorator
+     *
+     * @throws DecoratorInstantiationException
+     *             if unable to load ColumnDecorator
      */
     DisplaytagColumnDecorator loadColumnDecorator(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException;
+            throws DecoratorInstantiationException;
 
     /**
      * Load table totaler.
      *
-     * @param pageContext ctxt
-     * @param decoratorName  full class name
+     * @param pageContext
+     *            ctxt
+     * @param decoratorName
+     *            full class name
+     *
      * @return the table totaler
-     * @throws DecoratorInstantiationException the decorator instantiation exception
+     *
+     * @throws DecoratorInstantiationException
+     *             the decorator instantiation exception
      */
-     TableTotaler loadTableTotaler(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException;
+    TableTotaler loadTableTotaler(PageContext pageContext, String decoratorName) throws DecoratorInstantiationException;
 
 }

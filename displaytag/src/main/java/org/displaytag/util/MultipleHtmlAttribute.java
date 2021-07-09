@@ -27,51 +27,50 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
-
 /**
  * Object used to contain html multiple attribute value (for the "class" attribute).
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class MultipleHtmlAttribute implements Cloneable
-{
+public class MultipleHtmlAttribute implements Cloneable {
 
     /**
      * Sets containing splitted attribute values.
      */
-    private Set<String> attributeSet;
+    private final Set<String> attributeSet;
 
     /**
      * Constructor for MultipleHtmlAttribute.
-     * @param attributeValue String
+     *
+     * @param attributeValue
+     *            String
      */
-    public MultipleHtmlAttribute(String attributeValue)
-    {
+    public MultipleHtmlAttribute(final String attributeValue) {
         this.attributeSet = new LinkedHashSet<>();
-        addAllAttributesFromArray(StringUtils.split(attributeValue));
+        this.addAllAttributesFromArray(StringUtils.split(attributeValue));
     }
 
     /**
      * Adds attributes from an array.
-     * @param attributes Object[] Array containing attributes
+     *
+     * @param attributes
+     *            Object[] Array containing attributes
      */
-    private void addAllAttributesFromArray(String[] attributes)
-    {
-        if (attributes == null)
-        {
+    private void addAllAttributesFromArray(final String[] attributes) {
+        if (attributes == null) {
             return;
         }
 
         // number of attributes to add
-        int length = attributes.length;
+        final int length = attributes.length;
 
         // add all the splitted attributes
-        for (int j = 0; j < length; j++)
-        {
+        for (int j = 0; j < length; j++) {
 
             // don't add if empty
-            if (!StringUtils.isEmpty(attributes[j]))
-            {
+            if (!StringUtils.isEmpty(attributes[j])) {
                 this.attributeSet.add(attributes[j]);
             }
 
@@ -80,21 +79,19 @@ public class MultipleHtmlAttribute implements Cloneable
 
     /**
      * Returns the list of attributes separated by a space.
+     *
      * @return String
      */
     @Override
-    public String toString()
-    {
-        StringBuilder buffer = new StringBuilder();
+    public String toString() {
+        final StringBuilder buffer = new StringBuilder();
 
-        Iterator<String> iterator = this.attributeSet.iterator();
+        final Iterator<String> iterator = this.attributeSet.iterator();
 
-        while (iterator.hasNext())
-        {
+        while (iterator.hasNext()) {
             // apend next value
             buffer.append(iterator.next());
-            if (iterator.hasNext())
-            {
+            if (iterator.hasNext()) {
                 // append a space if there are more
                 buffer.append(' ');
             }
@@ -105,13 +102,13 @@ public class MultipleHtmlAttribute implements Cloneable
 
     /**
      * Adds a value to the attribute.
-     * @param attributeValue value to add to the attribute
+     *
+     * @param attributeValue
+     *            value to add to the attribute
      */
-    public void addAttributeValue(String attributeValue)
-    {
+    public void addAttributeValue(final String attributeValue) {
         // don't add if empty
-        if (!StringUtils.isEmpty(attributeValue))
-        {
+        if (!StringUtils.isEmpty(attributeValue)) {
             this.attributeSet.add(attributeValue);
         }
 
@@ -119,27 +116,27 @@ public class MultipleHtmlAttribute implements Cloneable
 
     /**
      * Return true if this MultipleHtmlValue doesn't store any value.
+     *
      * @return <code>true</code> if this MultipleHtmlValue doesn't store any value
      */
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         return this.attributeSet.isEmpty();
     }
 
     /**
+     * Clone.
+     *
+     * @return the object
+     *
      * @see java.lang.Object#clone()
      */
     @Override
-    protected Object clone()
-    {
+    protected Object clone() {
         MultipleHtmlAttribute clone;
 
-        try
-        {
+        try {
             clone = (MultipleHtmlAttribute) super.clone();
-        }
-        catch (CloneNotSupportedException e)
-        {
+        } catch (final CloneNotSupportedException e) {
             // should never happen
             throw new RuntimeException(e);
         }

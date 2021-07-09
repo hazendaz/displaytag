@@ -21,9 +21,6 @@
  */
 package org.displaytag.test;
 
-import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.servletunit.ServletRunner;
-
 import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -39,14 +36,17 @@ import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.meterware.httpunit.HttpUnitOptions;
+import com.meterware.servletunit.ServletRunner;
 
 /**
  * Base TestCase class for tests.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public abstract class DisplaytagCase
-{
+public abstract class DisplaytagCase {
 
     /**
      * Context mapped to the test application.
@@ -56,8 +56,7 @@ public abstract class DisplaytagCase
     /**
      * logger.
      */
-    protected final Logger log = LoggerFactory.getLogger(getClass());
-
+    protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
      * HttpUnit ServletRunner.
@@ -67,7 +66,8 @@ public abstract class DisplaytagCase
     /**
      * Runs the test.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     public abstract void doTest() throws Exception;
 
@@ -75,43 +75,45 @@ public abstract class DisplaytagCase
      * Gets the jsp name.
      *
      * @return the jsp name
-     *
      */
     public abstract String getJspName();
 
     /**
      * Gets the jsp url.
      *
-     * @param jsp the jsp
+     * @param jsp
+     *            the jsp
+     *
      * @return the jsp url
      */
-    protected String getJspUrl(String jsp)
-    {
-        return "http://localhost" + CONTEXT + "/jsps/" + jsp;
+    protected String getJspUrl(final String jsp) {
+        return "http://localhost" + DisplaytagCase.CONTEXT + "/jsps/" + jsp;
     }
 
     /**
      * Sets the up.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
+     *
      * @see junit.framework.TestCase#setUp()
      */
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         // need to pass a web.xml file to setup servletunit working directory
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
-        String path = URLDecoder.decode(webXmlUrl.getFile(), "UTF-8");
+        final ClassLoader classLoader = this.getClass().getClassLoader();
+        final URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
+        final String path = URLDecoder.decode(webXmlUrl.getFile(), "UTF-8");
 
         HttpUnitOptions.setDefaultCharacterSet("utf-8");
         System.setProperty("file.encoding", "utf-8");
 
         // start servletRunner
-        this.runner = new ServletRunner(new File(path), CONTEXT);
-        this.runner.getSession(true).getServletContext().setAttribute(InstanceManager.class.getName(), new SimpleInstanceManager());
+        this.runner = new ServletRunner(new File(path), DisplaytagCase.CONTEXT);
+        this.runner.getSession(true).getServletContext().setAttribute(InstanceManager.class.getName(),
+                new SimpleInstanceManager());
 
-        Hashtable<String, String> params = new Hashtable<>();
+        final Hashtable<String, String> params = new Hashtable<>();
         params.put("javaEncoding", "utf-8");
         params.put("scratchdir", "target");
         this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
@@ -123,50 +125,42 @@ public abstract class DisplaytagCase
     /**
      * Tear down.
      *
-     * @throws Exception the exception
+     * @throws Exception
+     *             the exception
+     *
      * @see junit.framework.TestCase#tearDown()
      */
     @After
-    public void tearDown() throws Exception
-    {
+    public void tearDown() throws Exception {
         // shutdown servlet engine
         this.runner.shutDown();
     }
 
     /**
      * Compare 2 arrays of string ignoring order.
-     * @param message message to output in case of failure
-     * @param expected expected array
-     * @param actual actual array
+     *
+     * @param message
+     *            message to output in case of failure
+     * @param expected
+     *            expected array
+     * @param actual
+     *            actual array
      */
-    public void assertEqualsIgnoreOrder(String message, String[] expected, String[] actual)
-    {
-        if (expected.length != actual.length)
-        {
-            Assert.fail(message
-                + " Wrong number of values, expected "
-                + expected.length
-                + " ("
-                + ArrayUtils.toString(expected)
-                + "), actual "
-                + actual.length
-                + " ("
-                + ArrayUtils.toString(actual)
-                + ")");
+    public void assertEqualsIgnoreOrder(final String message, final String[] expected, final String[] actual) {
+        if (expected.length != actual.length) {
+            Assert.fail(message + " Wrong number of values, expected " + expected.length + " ("
+                    + ArrayUtils.toString(expected) + "), actual " + actual.length + " (" + ArrayUtils.toString(actual)
+                    + ")");
         }
 
-        outer : for (String exp : expected) {
-            for (String element : actual) {
-                if (StringUtils.equals(exp, element))
-                {
+        outer: for (final String exp : expected) {
+            for (final String element : actual) {
+                if (StringUtils.equals(exp, element)) {
                     continue outer;
                 }
             }
-            Assert.fail(message
-                + " Expected value \""
-                + exp
-                + "\" not found in actual array: "
-                + ArrayUtils.toString(actual));
+            Assert.fail(message + " Expected value \"" + exp + "\" not found in actual array: "
+                    + ArrayUtils.toString(actual));
         }
     }
 }

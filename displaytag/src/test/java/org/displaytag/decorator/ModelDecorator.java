@@ -25,10 +25,10 @@ package org.displaytag.decorator;
  * The Class ModelDecorator.
  *
  * @author Jorge Barroso
+ *
  * @version $Id$
  */
-public class ModelDecorator extends TableDecorator
-{
+public class ModelDecorator extends TableDecorator {
 
     /** The Constant DECORATED_VALUE. */
     public static final String DECORATED_VALUE = "decoratedValue";
@@ -38,9 +38,8 @@ public class ModelDecorator extends TableDecorator
      *
      * @return the decorated value
      */
-    public String getDecoratedValue()
-    {
-        return DECORATED_VALUE;
+    public String getDecoratedValue() {
+        return ModelDecorator.DECORATED_VALUE;
     }
 
 }

@@ -21,11 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebLink;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.URLAssert;
@@ -33,63 +28,65 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Testcase for #944056.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class PaginationLinksTest extends DisplaytagCase
-{
+public class PaginationLinksTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "pagination-links.jsp";
     }
 
     /**
      * Checks generated pagination links.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName())
-            + "?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
-            + "&initiatedTDate=04/28/2004&approvedFDate=&method=search&approver=");
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName())
+                + "?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
+                + "&initiatedTDate=04/28/2004&approvedFDate=&method=search&approver=");
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug("RESPONSE: " + response.getText());
         }
 
-        WebLink[] links = response.getLinks();
+        final WebLink[] links = response.getLinks();
 
         Assert.assertEquals("Wrong number of pagination links", 36, links.length);
 
         String lastLink = links[links.length - 1].getURLString();
 
         // remove prefix
-        lastLink = lastLink.substring(lastLink.indexOf(getJspName()), lastLink.length());
+        lastLink = lastLink.substring(lastLink.indexOf(this.getJspName()));
 
-        String encodedParam = new ParamEncoder("table2").encodeParameterName(TableTagParameters.PARAMETER_PAGE);
+        final String encodedParam = new ParamEncoder("table2").encodeParameterName(TableTagParameters.PARAMETER_PAGE);
 
-        String expected = "pagination-links.jsp?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
-            + "&initiatedTDate=04%2F28%2F2004&approvedFDate=&method=search&approver=&"
-            + encodedParam
-            + "=12";
+        final String expected = "pagination-links.jsp?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
+                + "&initiatedTDate=04%2F28%2F2004&approvedFDate=&method=search&approver=&" + encodedParam + "=12";
 
         URLAssert.assertEquals(expected, lastLink);
 

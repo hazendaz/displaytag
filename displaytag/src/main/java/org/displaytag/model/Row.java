@@ -32,24 +32,24 @@ import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 
-
 /**
  * Holds informations for a table row.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Row
-{
+public class Row {
 
     /**
      * Object holding values for the current row.
      */
-    private Object rowObject;
+    private final Object rowObject;
 
     /**
      * List of cell objects.
      */
-    private List<Cell> staticCells;
+    private final List<Cell> staticCells;
 
     /**
      * Row number.
@@ -63,11 +63,13 @@ public class Row
 
     /**
      * Constructor for Row.
-     * @param object Object
-     * @param number int
+     *
+     * @param object
+     *            Object
+     * @param number
+     *            int
      */
-    public Row(Object object, int number)
-    {
+    public Row(final Object object, final int number) {
         this.rowObject = object;
         this.rowNumber = number;
         this.staticCells = new ArrayList<>();
@@ -75,119 +77,117 @@ public class Row
 
     /**
      * Setter for the row number.
-     * @param number row number
+     *
+     * @param number
+     *            row number
      */
-    public void setRowNumber(int number)
-    {
+    public void setRowNumber(final int number) {
         this.rowNumber = number;
     }
 
     /**
      * Getter for the row number.
+     *
      * @return row number
      */
-    public int getRowNumber()
-    {
+    public int getRowNumber() {
         return this.rowNumber;
     }
 
     /**
      * Adds a cell to the row.
-     * @param cell Cell
+     *
+     * @param cell
+     *            Cell
      */
-    public void addCell(Cell cell)
-    {
+    public void addCell(final Cell cell) {
         this.staticCells.add(cell);
     }
 
     /**
      * getter for the list of Cell object.
+     *
      * @return List containing Cell objects
      */
-    public List<Cell> getCellList()
-    {
+    public List<Cell> getCellList() {
         return this.staticCells;
     }
 
     /**
      * getter for the object holding values for the current row.
+     *
      * @return Object object holding values for the current row
      */
-    public Object getObject()
-    {
+    public Object getObject() {
         return this.rowObject;
     }
 
     /**
      * Iterates on columns.
-     * @param columns List
+     *
+     * @param columns
+     *            List
+     *
      * @return ColumnIterator
      */
-    public ColumnIterator getColumnIterator(List<HeaderCell> columns)
-    {
+    public ColumnIterator getColumnIterator(final List<HeaderCell> columns) {
         return new ColumnIterator(columns, this);
     }
 
     /**
      * Setter for the table model the row belongs to.
-     * @param table TableModel
+     *
+     * @param table
+     *            TableModel
      */
-    protected void setParentTable(TableModel table)
-    {
+    protected void setParentTable(final TableModel table) {
         this.tableModel = table;
     }
 
     /**
      * Getter for the table model the row belongs to.
+     *
      * @return TableModel
      */
-    protected TableModel getParentTable()
-    {
+    protected TableModel getParentTable() {
         return this.tableModel;
     }
 
     /**
      * Writes the open &lt;tr&gt; tag.
+     *
      * @return String &lt;tr&gt; tag with the appropriate css class attribute
      */
-    public String getOpenTag()
-    {
-        Map<String, Object> rowAttributes = new HtmlAttributeMap();
+    public String getOpenTag() {
+        final Map<String, Object> rowAttributes = new HtmlAttributeMap();
 
-        MultipleHtmlAttribute cssAttribute = new MultipleHtmlAttribute(this.tableModel.getProperties().getCssRow(
-            this.rowNumber));
+        final MultipleHtmlAttribute cssAttribute = new MultipleHtmlAttribute(
+                this.tableModel.getProperties().getCssRow(this.rowNumber));
 
-        if (this.tableModel.getTableDecorator() != null)
-        {
-            try
-            {
-                String addStyle = this.tableModel.getTableDecorator().addRowClass();
+        if (this.tableModel.getTableDecorator() != null) {
+            try {
+                final String addStyle = this.tableModel.getTableDecorator().addRowClass();
 
-                if (StringUtils.isNotBlank(addStyle))
-                {
+                if (StringUtils.isNotBlank(addStyle)) {
                     cssAttribute.addAttributeValue(addStyle);
                 }
 
-                String id = this.tableModel.getTableDecorator().addRowId();
-                if (StringUtils.isNotBlank(id))
-                {
+                final String id = this.tableModel.getTableDecorator().addRowId();
+                if (StringUtils.isNotBlank(id)) {
                     rowAttributes.put(TagConstants.ATTRIBUTE_ID, id);
                 }
-            }
-            catch (NoSuchMethodError e)
-            {
+            } catch (final NoSuchMethodError e) {
                 // this catch is here to allow decorators compiled with displaytag 1.0 work with 1.1
                 // since the addRowClass() and addRowId() are new in displaytag 1.1 earlier decorators could throw
                 // a NoSuchMethodError... be nice with them till a next major release
             }
         }
 
-        if (!cssAttribute.isEmpty())
-        {
+        if (!cssAttribute.isEmpty()) {
             rowAttributes.put(TagConstants.ATTRIBUTE_CLASS, cssAttribute);
         }
 
-        StringBuilder tag = new StringBuilder();
+        final StringBuilder tag = new StringBuilder();
         tag.append(TagConstants.TAG_OPEN);
         tag.append(TagConstants.TAGNAME_ROW);
 
@@ -200,22 +200,25 @@ public class Row
 
     /**
      * writes the &lt;/tr&gt; tag.
+     *
      * @return String &lt;/tr&gt; tag
      */
-    public String getCloseTag()
-    {
+    public String getCloseTag() {
         return TagConstants.TAG_TR_CLOSE;
     }
 
     /**
+     * To string.
+     *
+     * @return the string
+     *
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("rowNumber", this.rowNumber) //$NON-NLS-1$
-            .append("rowObject", this.rowObject) //$NON-NLS-1$
-            .toString();
+                .append("rowNumber", this.rowNumber) //$NON-NLS-1$
+                .append("rowObject", this.rowObject) //$NON-NLS-1$
+                .toString();
     }
 }

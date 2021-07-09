@@ -21,63 +21,61 @@
  */
 package org.displaytag.jsptests;
 
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
-
 /**
  * Tests for DISPL-56 - unable to dinamically generate multiple tables on the same page with indipendent sorting
  * (different id).
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Displ056Test extends DisplaytagCase
-{
+public class Displ056Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-056.jsp";
     }
 
     /**
      * Try to sort generated tables.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         WebResponse response;
 
         response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
         WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables in result.", 3, tables.length);
 
-        for (int j = 0; j < tables.length; j++)
-        {
+        for (int j = 0; j < tables.length; j++) {
             Assert.assertEquals("invalid id", "row" + j, tables[j].getID());
         }
 
@@ -94,8 +92,7 @@ public class Displ056Test extends DisplaytagCase
         // and click again to sort in reversed order
         response = links[0].click();
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
@@ -104,26 +101,20 @@ public class Displ056Test extends DisplaytagCase
 
         // first is sorted, other aren't
         Assert.assertTrue("First table should be sorted. Wrong class attribute.", //
-            StringUtils.contains(tables[0].getTableCell(0, 0).getClassName(), "sorted"));
+                StringUtils.contains(tables[0].getTableCell(0, 0).getClassName(), "sorted"));
         Assert.assertEquals("Second table should not be sorted. Wrong class attribute.", //
-            "sortable",
-            tables[1].getTableCell(0, 0).getClassName());
+                "sortable", tables[1].getTableCell(0, 0).getClassName());
         Assert.assertEquals("Third table should not be sorted. Wrong class attribute.", //
-            "sortable",
-            tables[2].getTableCell(0, 0).getClassName());
+                "sortable", tables[2].getTableCell(0, 0).getClassName());
 
         // and just to be sure also check values: sorted table
-        for (int j = 1; j < tables[0].getRowCount(); j++)
-        {
-            Assert.assertEquals(
-                "Unexpected value in table cell",
-                Integer.toString(4 - j),
-                tables[0].getCellAsText(j, 0));
+        for (int j = 1; j < tables[0].getRowCount(); j++) {
+            Assert.assertEquals("Unexpected value in table cell", Integer.toString(4 - j),
+                    tables[0].getCellAsText(j, 0));
         }
 
         // unsorted tables:
-        for (int j = 1; j < tables[1].getRowCount(); j++)
-        {
+        for (int j = 1; j < tables[1].getRowCount(); j++) {
             Assert.assertEquals("Unexpected value in table cell", Integer.toString(j), tables[1].getCellAsText(j, 0));
             Assert.assertEquals("Unexpected value in table cell", Integer.toString(j), tables[2].getCellAsText(j, 0));
         }

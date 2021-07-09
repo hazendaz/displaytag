@@ -26,7 +26,6 @@ import javax.servlet.jsp.PageContext;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
 
-
 /**
  * <p>
  * Interface for simple column decorators.
@@ -36,25 +35,34 @@ import org.displaytag.properties.MediaTypeEnum;
  * rendering.
  * </p>
  * <p>
- * The <code>DisplaytagColumnDecorator</code> interface has been introduced in displaytag 1.1 and replaces the
- * previous <code>ColumnDecorator</code> interface, adding the pageContext and media parameters, and changing the
- * return type to object to allow decorator chaining.
+ * The <code>DisplaytagColumnDecorator</code> interface has been introduced in displaytag 1.1 and replaces the previous
+ * <code>ColumnDecorator</code> interface, adding the pageContext and media parameters, and changing the return type to
+ * object to allow decorator chaining.
  * </p>
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
+ *
  * @since 1.1
  */
-public interface DisplaytagColumnDecorator
-{
+public interface DisplaytagColumnDecorator {
 
     /**
      * Called after the object has been retrieved from the bean contained in the list. The decorate method is
      * responsible for transforming the object into a string to render in the page.
-     * @param columnValue Object to decorate
-     * @param pageContext jsp page context
-     * @param media current media (html, pdf, excel...)
+     *
+     * @param columnValue
+     *            Object to decorate
+     * @param pageContext
+     *            jsp page context
+     * @param media
+     *            current media (html, pdf, excel...)
+     *
      * @return Object decorated object
-     * @throws DecoratorException wrapper exception for any exception thrown during decoration
+     *
+     * @throws DecoratorException
+     *             wrapper exception for any exception thrown during decoration
      */
     Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException;
 

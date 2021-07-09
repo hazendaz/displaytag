@@ -21,77 +21,72 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-280 - Sortable header links fail when using external sorting and an integer as the sortName.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public class Displ280Test extends DisplaytagCase
-{
+public class Displ280Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-280.jsp";
     }
 
     /**
      * Check sorted column.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        ParamEncoder encoder = new ParamEncoder("table");
+        final ParamEncoder encoder = new ParamEncoder("table");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "1");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORTUSINGNAME), "1");
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
         Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
         Assert.assertEquals("Wrong value in first row. Table incorrectly sorted?", "2", tables[0].getCellAsText(1, 1));
-        Assert.assertEquals("Column 1 should not be marked as sorted.", "sortable", tables[0]
-            .getTableCell(0, 1)
-            .getClassName());
-        Assert.assertEquals(
-            "Column 2 should be marked as sorted.",
-            "sortable sorted order1",
-            tables[0].getTableCell(0, 2).getClassName());
+        Assert.assertEquals("Column 1 should not be marked as sorted.", "sortable",
+                tables[0].getTableCell(0, 1).getClassName());
+        Assert.assertEquals("Column 2 should be marked as sorted.", "sortable sorted order1",
+                tables[0].getTableCell(0, 2).getClassName());
 
     }
 

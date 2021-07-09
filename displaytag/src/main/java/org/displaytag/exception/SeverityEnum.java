@@ -23,7 +23,9 @@ package org.displaytag.exception;
 
 /**
  * Enumeration for logging severities.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
 public enum SeverityEnum {
@@ -53,10 +55,11 @@ public enum SeverityEnum {
 
     /**
      * private constructor. Use only constants
-     * @param severity Severity name as String
+     *
+     * @param severity
+     *            Severity name as String
      */
-    private SeverityEnum(String severity)
-    {
+    SeverityEnum(final String severity) {
         this.severity = severity;
     }
 
@@ -66,7 +69,7 @@ public enum SeverityEnum {
      * @return the severity
      */
     public String getSeverity() {
-      return severity;
+        return this.severity;
     }
 
 }

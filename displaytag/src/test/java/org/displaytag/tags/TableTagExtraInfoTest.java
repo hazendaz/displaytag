@@ -24,21 +24,20 @@ package org.displaytag.tags;
 import org.junit.Assert;
 import org.junit.Test;
 
-
 /**
  * Test case for org.displaytag.tags.TableTagExtraInfo.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class TableTagExtraInfoTest
-{
+public class TableTagExtraInfoTest {
 
     /**
      * Test for isJavaId().
      */
     @Test
-    public final void testIsJavaIdValid()
-    {
+    public final void testIsJavaIdValid() {
         Assert.assertTrue(TableTagExtraInfo.isJavaId("table"));
     }
 
@@ -46,8 +45,7 @@ public class TableTagExtraInfoTest
      * Test for isJavaId().
      */
     @Test
-    public final void testIsJavaIdEnum()
-    {
+    public final void testIsJavaIdEnum() {
         Assert.assertFalse(TableTagExtraInfo.isJavaId("enum"));
     }
 
@@ -55,8 +53,7 @@ public class TableTagExtraInfoTest
      * Test for isJavaId().
      */
     @Test
-    public final void testIsJavaIdSpace()
-    {
+    public final void testIsJavaIdSpace() {
         Assert.assertFalse(TableTagExtraInfo.isJavaId("invalid x"));
     }
 
@@ -64,8 +61,7 @@ public class TableTagExtraInfoTest
      * Test for isJavaId().
      */
     @Test
-    public final void testIsJavaIdEsclamationMark()
-    {
+    public final void testIsJavaIdEsclamationMark() {
         Assert.assertFalse(TableTagExtraInfo.isJavaId("invalid!"));
     }
 

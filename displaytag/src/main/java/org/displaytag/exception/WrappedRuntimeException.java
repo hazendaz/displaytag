@@ -23,11 +23,12 @@ package org.displaytag.exception;
 
 /**
  * Basic wrapper for checked exceptions.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class WrappedRuntimeException extends BaseNestableRuntimeException
-{
+public class WrappedRuntimeException extends BaseNestableRuntimeException {
 
     /**
      * D1597A17A6.
@@ -36,20 +37,25 @@ public class WrappedRuntimeException extends BaseNestableRuntimeException
 
     /**
      * Instantiate a new WrappedRuntimeException.
-     * @param source Class where the exception is generated
-     * @param cause Original exception
+     *
+     * @param source
+     *            Class where the exception is generated
+     * @param cause
+     *            Original exception
      */
-    public WrappedRuntimeException(Class<?> source, Throwable cause)
-    {
+    public WrappedRuntimeException(final Class<?> source, final Throwable cause) {
         super(source, cause.getMessage(), cause);
     }
 
     /**
+     * Gets the severity.
+     *
+     * @return the severity
+     *
      * @see org.displaytag.exception.BaseNestableRuntimeException#getSeverity()
      */
     @Override
-    public SeverityEnum getSeverity()
-    {
+    public SeverityEnum getSeverity() {
         return SeverityEnum.WARN;
     }
 

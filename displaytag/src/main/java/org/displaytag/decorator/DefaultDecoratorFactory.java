@@ -28,14 +28,14 @@ import org.displaytag.exception.DecoratorInstantiationException;
 import org.displaytag.render.TableTotaler;
 import org.displaytag.util.ReflectHelper;
 
-
 /**
  * Factory for TableDecorator or ColumnDecorator object.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Id$
  */
-public class DefaultDecoratorFactory implements DecoratorFactory
-{
+public class DefaultDecoratorFactory implements DecoratorFactory {
 
     /**
      * <p>
@@ -47,34 +47,44 @@ public class DefaultDecoratorFactory implements DecoratorFactory
      * Two different methods for loading a decorator are handled by this factory:
      * </p>
      * <ul>
-     * <li>First of all, an object with key <code>decoratorName</code> is searched in the page/request/session/scope</li>
+     * <li>First of all, an object with key <code>decoratorName</code> is searched in the
+     * page/request/session/scope</li>
      * <li>If not found, assume <code>decoratorName</code> is the class name of the decorator and load it using
      * reflection</li>
      * </ul>
-     * @param decoratorName String full decorator class name
+     *
+     * @param pageContext
+     *            the page context
+     * @param decoratorName
+     *            String full decorator class name
+     *
      * @return instance of TableDecorator
-     * @throws DecoratorInstantiationException if unable to load specified TableDecorator
+     *
+     * @throws DecoratorInstantiationException
+     *             if unable to load specified TableDecorator
      */
     @Override
-    public TableDecorator loadTableDecorator(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException
-    {
-        return (TableDecorator) lookup( pageContext,  decoratorName);
+    public TableDecorator loadTableDecorator(final PageContext pageContext, final String decoratorName)
+            throws DecoratorInstantiationException {
+        return (TableDecorator) this.lookup(pageContext, decoratorName);
     }
 
     /**
      * Lookup.
      *
-     * @param pageContext the page context
-     * @param decoratorName the decorator name
+     * @param pageContext
+     *            the page context
+     * @param decoratorName
+     *            the decorator name
+     *
      * @return the object
-     * @throws DecoratorInstantiationException the decorator instantiation exception
+     *
+     * @throws DecoratorInstantiationException
+     *             the decorator instantiation exception
      */
-    private Object lookup(PageContext pageContext, String decoratorName)
-            throws DecoratorInstantiationException
-    {
-        if (StringUtils.isBlank(decoratorName))
-        {
+    private Object lookup(final PageContext pageContext, final String decoratorName)
+            throws DecoratorInstantiationException {
+        if (StringUtils.isBlank(decoratorName)) {
             return null;
         }
 
@@ -83,44 +93,46 @@ public class DefaultDecoratorFactory implements DecoratorFactory
 
         // second check: if a decorator was not found assume decoratorName is the class name and load it using
         // reflection
-        if (decorator == null)
-        {
-            try
-            {
+        if (decorator == null) {
+            try {
                 decorator = ReflectHelper.classForName(decoratorName).newInstance();
-            }
-            catch (ClassNotFoundException | InstantiationException | IllegalAccessException e)
-            {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
         }
         return decorator;
     }
 
-
     /**
      * <p>
-     * If the user has specified a table totaler, then this method takes care of creating the totaler. If there are
-     * any problems loading the
-     * decorator then this will throw a DecoratorInstantiationException which will get propagated up to the page.
+     * If the user has specified a table totaler, then this method takes care of creating the totaler. If there are any
+     * problems loading the decorator then this will throw a DecoratorInstantiationException which will get propagated
+     * up to the page.
      * </p>
      * <p>
      * Two different methods for loading a decorator are handled by this factory:
      * </p>
      * <ul>
-     * <li>First of all, an object with key <code>decoratorName</code> is searched in the page/request/session/scope</li>
+     * <li>First of all, an object with key <code>decoratorName</code> is searched in the
+     * page/request/session/scope</li>
      * <li>If not found, assume <code>decoratorName</code> is the class name of the decorator and load it using
      * reflection</li>
      * </ul>
-     * @param decoratorName String full decorator class name
+     *
+     * @param pageContext
+     *            the page context
+     * @param decoratorName
+     *            String full decorator class name
+     *
      * @return instance of DisplaytagColumnDecorator
-     * @throws DecoratorInstantiationException if unable to load ColumnDecorator
+     *
+     * @throws DecoratorInstantiationException
+     *             if unable to load ColumnDecorator
      */
     @Override
-    public TableTotaler loadTableTotaler(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException
-    {
-        return (TableTotaler) lookup(pageContext, decoratorName);
+    public TableTotaler loadTableTotaler(final PageContext pageContext, final String decoratorName)
+            throws DecoratorInstantiationException {
+        return (TableTotaler) this.lookup(pageContext, decoratorName);
     }
 
     /**
@@ -133,20 +145,26 @@ public class DefaultDecoratorFactory implements DecoratorFactory
      * Two different methods for loading a decorator are handled by this factory:
      * </p>
      * <ul>
-     * <li>First of all, an object with key <code>decoratorName</code> is searched in the page/request/session/scope</li>
+     * <li>First of all, an object with key <code>decoratorName</code> is searched in the
+     * page/request/session/scope</li>
      * <li>If not found, assume <code>decoratorName</code> is the class name of the decorator and load it using
      * reflection</li>
      * </ul>
-     * @param decoratorName String full decorator class name
+     *
+     * @param pageContext
+     *            the page context
+     * @param decoratorName
+     *            String full decorator class name
+     *
      * @return instance of DisplaytagColumnDecorator
-     * @throws DecoratorInstantiationException if unable to load ColumnDecorator
+     *
+     * @throws DecoratorInstantiationException
+     *             if unable to load ColumnDecorator
      */
     @Override
-    public DisplaytagColumnDecorator loadColumnDecorator(PageContext pageContext, String decoratorName)
-        throws DecoratorInstantiationException
-    {
-        if (StringUtils.isBlank(decoratorName))
-        {
+    public DisplaytagColumnDecorator loadColumnDecorator(final PageContext pageContext, final String decoratorName)
+            throws DecoratorInstantiationException {
+        if (StringUtils.isBlank(decoratorName)) {
             return null;
         }
 
@@ -155,29 +173,19 @@ public class DefaultDecoratorFactory implements DecoratorFactory
 
         // second check: if a decorator was not found assume decoratorName is the class name and load it using
         // reflection
-        if (decorator == null)
-        {
-            try
-            {
+        if (decorator == null) {
+            try {
                 decorator = ReflectHelper.classForName(decoratorName).newInstance();
-            }
-            catch (ClassNotFoundException | InstantiationException | IllegalAccessException e)
-            {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
         }
 
-        if (decorator instanceof DisplaytagColumnDecorator)
-        {
+        if (decorator instanceof DisplaytagColumnDecorator) {
             return (DisplaytagColumnDecorator) decorator;
         }
-        else
-        {
-            throw new DecoratorInstantiationException(
-                DefaultDecoratorFactory.class,
-                decoratorName,
+        throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName,
                 new ClassCastException(decorator.getClass().getName()));
-        }
     }
 
 }

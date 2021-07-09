@@ -25,14 +25,14 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-
 /**
  * Helper class for message bundle access.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public final class Messages
-{
+public final class Messages {
 
     /**
      * Base name for the bundle.
@@ -42,48 +42,46 @@ public final class Messages
     /**
      * Loaded ResourceBundle.
      */
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(Messages.BUNDLE_NAME);
 
     /**
      * Don't instantiate.
      */
-    private Messages()
-    {
+    private Messages() {
         // unused
     }
 
     /**
      * Returns a message from the resource bundle.
-     * @param key Message key.
+     *
+     * @param key
+     *            Message key.
+     *
      * @return message String.
      */
-    public static String getString(String key)
-    {
-        try
-        {
-            return RESOURCE_BUNDLE.getString(key);
-        }
-        catch (MissingResourceException e)
-        {
+    public static String getString(final String key) {
+        try {
+            return Messages.RESOURCE_BUNDLE.getString(key);
+        } catch (final MissingResourceException e) {
             return '!' + key + '!';
         }
     }
 
     /**
      * Reads a message from the resource bundle and format it using java MessageFormat.
-     * @param key Message key.
-     * @param parameters Parameters to pass to MessageFormat.format()
+     *
+     * @param key
+     *            Message key.
+     * @param parameters
+     *            Parameters to pass to MessageFormat.format()
+     *
      * @return message String.
      */
-    public static String getString(String key, Object[] parameters)
-    {
+    public static String getString(final String key, final Object[] parameters) {
         String baseMsg;
-        try
-        {
-            baseMsg = RESOURCE_BUNDLE.getString(key);
-        }
-        catch (MissingResourceException e)
-        {
+        try {
+            baseMsg = Messages.RESOURCE_BUNDLE.getString(key);
+        } catch (final MissingResourceException e) {
             return '!' + key + '!';
         }
 
@@ -92,12 +90,15 @@ public final class Messages
 
     /**
      * Reads a message from the resource bundle and format it using java MessageFormat.
-     * @param key Message key.
-     * @param parameter single parameter to pass to MessageFormat.format()
+     *
+     * @param key
+     *            Message key.
+     * @param parameter
+     *            single parameter to pass to MessageFormat.format()
+     *
      * @return message String.
      */
-    public static String getString(String key, Object parameter)
-    {
-        return getString(key, new Object[]{parameter});
+    public static String getString(final String key, final Object parameter) {
+        return Messages.getString(key, new Object[] { parameter });
     }
 }

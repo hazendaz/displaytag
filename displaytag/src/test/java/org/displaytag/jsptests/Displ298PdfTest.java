@@ -21,11 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.itextpdf.text.pdf.PdfReader;
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import java.io.InputStream;
 
 import org.displaytag.export.ExportViewFactory;
@@ -36,22 +31,25 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.itextpdf.text.pdf.PdfReader;
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * The Class Displ298PdfTest.
  */
-public class Displ298PdfTest extends DisplaytagCase
-{
+public class Displ298PdfTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-298.jsp";
     }
 
@@ -59,34 +57,34 @@ public class Displ298PdfTest extends DisplaytagCase
      * Check that model modifications made by table decorator specified with in the decorator property the table tag
      * show up in the pdf export.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
         // this will force media type initialization
         MediaTypeEnum.registerMediaType("wpdf");
-        ExportViewFactory factory = ExportViewFactory.getInstance();
+        final ExportViewFactory factory = ExportViewFactory.getInstance();
         factory.registerExportView("wpdf", "org.displaytag.export.DefaultPdfExportView");
-        MediaTypeEnum pdfMedia = MediaTypeEnum.fromName("wpdf");
+        final MediaTypeEnum pdfMedia = MediaTypeEnum.fromName("wpdf");
         Assert.assertNotNull("Pdf export view not correctly registered.", pdfMedia);
         request.setParameter(mediaParameter, Integer.toString(pdfMedia.getCode()));
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", "application/pdf", response.getContentType());
 
-        InputStream stream = response.getInputStream();
-        byte[] result = new byte[3000];
+        final InputStream stream = response.getInputStream();
+        final byte[] result = new byte[3000];
         stream.read(result);
 
-        PdfReader reader = new PdfReader(result);
+        final PdfReader reader = new PdfReader(result);
         Assert.assertEquals("Expected a valid pdf file with a single page", 1, reader.getNumberOfPages());
 
         // @todo assert expected content.

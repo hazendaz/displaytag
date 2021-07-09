@@ -23,17 +23,20 @@ package org.displaytag.jsptests;
 
 /**
  * Tests decorator.media.html configuration.
+ *
  * @author JBarroso
  */
-public class Displ298HtmlMediaDecoratorTest extends Displ298HtmlTest
-{
+public class Displ298HtmlMediaDecoratorTest extends Displ298HtmlTest {
 
     /**
+     * Gets the jsp name.
+     *
+     * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-298-media-decorator.jsp";
     }
 

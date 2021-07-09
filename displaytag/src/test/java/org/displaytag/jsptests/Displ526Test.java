@@ -21,61 +21,61 @@
  */
 package org.displaytag.jsptests;
 
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
-
 /**
  * Tests for DISPL-526 - cell value that is the same as the one vertically above is omitted.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision: 1081 $ ($Author: fgiust $)
  */
-public class Displ526Test extends DisplaytagCase
-{
+public class Displ526Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-526.jsp";
     }
 
     /**
      * Check additional parameters in paging.banner.*.
      *
-     * @throws Exception any exception thrown during test.
+     * @throws Exception
+     *             any exception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
         WebResponse response;
 
         response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals(1, tables.length);
 
         // TODO 12/12/2016 JWL Review why we are having JVM inconsistencies.
-        if (System.getProperty("java.version").startsWith("1.8.") || System.getProperty("java.version").startsWith("11")) {
+        if (System.getProperty("java.version").startsWith("1.8.")
+                || System.getProperty("java.version").startsWith("11")) {
             Assert.assertEquals("Wrong column content", "1", tables[0].getCellAsText(2, 1));
         } else {
             Assert.assertEquals("Wrong column content", "5", tables[0].getCellAsText(2, 1));

@@ -27,26 +27,39 @@ import org.apache.commons.lang3.StringUtils;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
 
-
 /**
  * A column decorator which returns 100/value with padding of spaces.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class PercentualColumnDecorator implements DisplaytagColumnDecorator
-{
+public class PercentualColumnDecorator implements DisplaytagColumnDecorator {
 
     /**
+     * Decorate.
+     *
+     * @param columnValue
+     *            the column value
+     * @param pageContext
+     *            the page context
+     * @param media
+     *            the media
+     *
+     * @return the object
+     *
+     * @throws DecoratorException
+     *             the decorator exception
+     *
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, javax.servlet.jsp.PageContext,
-     * org.displaytag.properties.MediaTypeEnum)
+     *      org.displaytag.properties.MediaTypeEnum)
      */
     @Override
-    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
-    {
+    public Object decorate(final Object columnValue, final PageContext pageContext, final MediaTypeEnum media)
+            throws DecoratorException {
 
         int intValue = ((Number) columnValue).intValue();
-        if (intValue == 0)
-        {
+        if (intValue == 0) {
             intValue = 1;
         }
         return StringUtils.leftPad(Integer.toString(100 / intValue), 3);

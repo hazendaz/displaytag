@@ -23,14 +23,14 @@ package org.displaytag.test;
 
 import java.util.Date;
 
-
 /**
  * Simple test data provider.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class KnownTypes
-{
+public class KnownTypes {
 
     /**
      * constant for the "time" property name.
@@ -55,28 +55,28 @@ public class KnownTypes
 
     /**
      * getter for the <code>TIME_PROPERTY</code> property.
+     *
      * @return <code>TIME_VALUE</code>
      */
-    public Date getTime()
-    {
-        return TIME_VALUE;
+    public Date getTime() {
+        return KnownTypes.TIME_VALUE;
     }
 
     /**
      * getter for the <code>LONG_PROPERTY</code> property.
+     *
      * @return <code>LONG_VALUE</code>
      */
-    public Long getLong()
-    {
-        return LONG_VALUE;
+    public Long getLong() {
+        return KnownTypes.LONG_VALUE;
     }
 
     /**
      * getter for a null property.
+     *
      * @return <code>null</code>
      */
-    public Long getNullValue()
-    {
+    public Long getNullValue() {
         return null;
     }
 

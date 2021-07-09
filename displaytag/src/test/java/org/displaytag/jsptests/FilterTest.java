@@ -21,71 +21,71 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HttpInternalErrorException;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.properties.MediaTypeEnum;
-import org.displaytag.tags.TableTag;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpInternalErrorException;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests the ResponseOverrideFilter.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class FilterTest extends DisplaytagCase
-{
+public class FilterTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "filter.jsp";
     }
 
     /**
+     * Do test.
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.test.DisplaytagCase#doTest()
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+    public void doTest() throws Exception {
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
-        try
-        {
+        try {
             // check if page need a filter (unfiltered request)
             this.runner.getResponse(request);
             Assert.fail("Request works also without a filter. Can't test it properly.");
-        }
-        catch (HttpInternalErrorException e)
-        {
+        } catch (final HttpInternalErrorException e) {
             // it's ok
         }
 
-        request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(mediaParameter, Integer.toString(MediaTypeEnum.XML.getCode()));
 
         // this enable the filter!
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
     }

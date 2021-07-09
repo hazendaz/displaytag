@@ -21,11 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
-
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
@@ -33,24 +28,29 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for optimized iterations (don't evaluate unneeded body of columns).
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class OptimizedIterationTest extends DisplaytagCase
-{
+public class OptimizedIterationTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "optimizediteration.jsp";
     }
 
@@ -58,39 +58,37 @@ public class OptimizedIterationTest extends DisplaytagCase
      * Verifies that the generated page contains the pagination links with the inupt parameter. Tests #917200 ("{}" in
      * parameters).
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        ParamEncoder encoder = new ParamEncoder("table");
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final ParamEncoder encoder = new ParamEncoder("table");
 
         // page 1, not sorted
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
-        checkNumberOfIterations(this.runner.getResponse(request), 1);
+        this.checkNumberOfIterations(this.runner.getResponse(request), 1);
 
         // page 2, not sorted
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "2");
-        checkNumberOfIterations(this.runner.getResponse(request), 1);
+        this.checkNumberOfIterations(this.runner.getResponse(request), 1);
 
         // page 1, sorted full list (all rows)
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_SORT), "1");
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
-        checkNumberOfIterations(this.runner.getResponse(request), 4);
+        this.checkNumberOfIterations(this.runner.getResponse(request), 4);
 
         // page 1, not sorted but export full list
-        request.setParameter(
-            encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE),
-            Integer.toString(MediaTypeEnum.CSV.getCode()));
+        request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE),
+                Integer.toString(MediaTypeEnum.CSV.getCode()));
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "1");
 
-        WebResponse response = this.runner.getResponse(request);
-        String csvExport = response.getText();
-        if (this.log.isDebugEnabled())
-        {
+        final WebResponse response = this.runner.getResponse(request);
+        final String csvExport = response.getText();
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
@@ -101,24 +99,24 @@ public class OptimizedIterationTest extends DisplaytagCase
     /**
      * Check number of iterations.
      *
-     * @param response WebResponse
-     * @param iterations expected number of iterations
-     * @throws Exception any axception thrown during test.
+     * @param response
+     *            WebResponse
+     * @param iterations
+     *            expected number of iterations
+     *
+     * @throws Exception
+     *             any axception thrown during test.
      */
-    private void checkNumberOfIterations(WebResponse response, int iterations) throws Exception
-    {
-        if (this.log.isDebugEnabled())
-        {
+    private void checkNumberOfIterations(final WebResponse response, final int iterations) throws Exception {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
         Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
         Assert.assertEquals("Expected 2 rows in table.", 2, tables[0].getRowCount());
 
-        Assert.assertEquals(
-            "Wrong number of iterations. Evaluated column bodies number is different from expected",
-            Integer.toString(iterations),
-            response.getElementWithID("iterations").getText());
+        Assert.assertEquals("Wrong number of iterations. Evaluated column bodies number is different from expected",
+                Integer.toString(iterations), response.getElementWithID("iterations").getText());
     }
 }

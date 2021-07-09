@@ -21,10 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import org.displaytag.decorator.ModelDecorator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
@@ -33,20 +29,21 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * The Class Displ298CsvTest.
  */
-public class Displ298CsvTest extends DisplaytagCase
-{
+public class Displ298CsvTest extends DisplaytagCase {
 
     /**
      * Gets the mime type.
      *
      * @return the mime type
      */
-    protected String getMimeType()
-    {
+    protected String getMimeType() {
         return "text/csv";
     }
 
@@ -55,8 +52,7 @@ public class Displ298CsvTest extends DisplaytagCase
      *
      * @return the code
      */
-    protected int getCode()
-    {
+    protected int getCode() {
         return MediaTypeEnum.CSV.getCode();
     }
 
@@ -64,11 +60,11 @@ public class Displ298CsvTest extends DisplaytagCase
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "DISPL-298.jsp";
     }
 
@@ -76,23 +72,24 @@ public class Displ298CsvTest extends DisplaytagCase
      * Check that model modifications made by table decorator specified with in the decorator property the table tag
      * show up in the csv export.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        ParamEncoder encoder = new ParamEncoder("table");
-        String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
+    public void doTest() throws Exception {
+        final ParamEncoder encoder = new ParamEncoder("table");
+        final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(mediaParameter, Integer.toString(this.getCode()));
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
         Assert.assertEquals("Expected a different content type.", this.getMimeType(), response.getContentType());
-        String responseText = response.getText();
-        boolean expectedTextPresent = responseText != null && responseText.indexOf(ModelDecorator.DECORATED_VALUE) > -1;
+        final String responseText = response.getText();
+        final boolean expectedTextPresent = responseText != null
+                && responseText.indexOf(ModelDecorator.DECORATED_VALUE) > -1;
         Assert.assertTrue("Missing content.", expectedTextPresent);
     }
 

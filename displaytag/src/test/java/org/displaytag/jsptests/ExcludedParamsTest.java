@@ -21,62 +21,61 @@
  */
 package org.displaytag.jsptests;
 
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
+
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
-
-
 /**
  * Testcase for "excludedParams" table attribute.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ExcludedParamsTest extends DisplaytagCase
-{
+public class ExcludedParamsTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "excludedparams.jsp";
     }
 
     /**
      * Checks generated pagination links.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
 
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter("foo", "foovalue");
         request.setParameter("bar", "barvalue");
         request.setParameter("zoo", "zoovalue");
 
-        WebResponse response = this.runner.getResponse(request);
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug("RESPONSE: " + response.getText());
         }
 
-        WebLink[] links = response.getLinks();
+        final WebLink[] links = response.getLinks();
 
-        for (WebLink link : links) {
-            String linkUrl = link.getURLString();
+        for (final WebLink link : links) {
+            final String linkUrl = link.getURLString();
             Assert.assertTrue("Link contains the excluded parameter foo.", linkUrl.indexOf("foo") == -1);
             Assert.assertTrue("Link contains the excluded parameter bar.", linkUrl.indexOf("bar") == -1);
             Assert.assertTrue("Link doesn't contains the parameter zoo.", linkUrl.indexOf("zoo") > -1);

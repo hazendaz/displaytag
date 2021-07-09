@@ -50,7 +50,6 @@ import org.displaytag.model.TableModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Exports the data to a totaled xml format, and then transforms that data using XSL-FO to a pdf. The stylesheet can be
  * fed in as a string from the property export.pdf.fo.stylesheetbody, or you can use a default stylesheet named by the
@@ -77,12 +76,12 @@ import org.slf4j.LoggerFactory;
  * </pre>
  *
  * @author rapruitt Date: Aug 26, 2009 Time: 1:55:29 PM
+ *
  * @see FopExportView#SPECIFIC_STYLESHEET the property that contains the text of a stylesheet
  * @see FopExportView#DEFAULT_STYLESHEET the default stylesheet location
  * @see XmlTotalsWriter
  */
-public class FopExportView implements BinaryExportView
-{
+public class FopExportView implements BinaryExportView {
 
     /** The log. */
     private static Logger log = LoggerFactory.getLogger(FopExportView.class);
@@ -103,45 +102,55 @@ public class FopExportView implements BinaryExportView
     protected TableModel model;
 
     /**
+     * Sets the parameters.
+     *
+     * @param tableModel
+     *            the table model
+     * @param exportFullList
+     *            the export full list
+     * @param includeHeader
+     *            the include header
+     * @param decorateValues
+     *            the decorate values
+     *
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
     @Override
-    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
-        boolean decorateValues)
-    {
+    public void setParameters(final TableModel tableModel, final boolean exportFullList, final boolean includeHeader,
+            final boolean decorateValues) {
         this.model = tableModel;
     }
 
     /**
-     * @see org.displaytag.export.BaseExportView#getMimeType()
+     * Gets the mime type.
+     *
      * @return "application/pdf"
+     *
+     * @see org.displaytag.export.BaseExportView#getMimeType()
      */
     @Override
-    public String getMimeType()
-    {
+    public String getMimeType() {
         return "application/pdf"; //$NON-NLS-1$
     }
 
     /**
      * Load the stylesheet.
+     *
      * @return the stylesheet
-     * @throws IOException if we cannot locate it
+     *
+     * @throws IOException
+     *             if we cannot locate it
      */
-    public InputStream getStyleSheet() throws IOException
-    {
+    public InputStream getStyleSheet() throws IOException {
 
         InputStream styleSheetStream;
-        String styleSheetString = this.model.getProperties().getProperty(SPECIFIC_STYLESHEET);
-        if (StringUtils.isNotEmpty(styleSheetString))
-        {
+        final String styleSheetString = this.model.getProperties().getProperty(FopExportView.SPECIFIC_STYLESHEET);
+        if (StringUtils.isNotEmpty(styleSheetString)) {
             styleSheetStream = new ByteArrayInputStream(styleSheetString.getBytes());
-        }
-        else
-        {
-            String styleSheetPath = this.model.getProperties().getProperty(DEFAULT_STYLESHEET);
+        } else {
+            final String styleSheetPath = this.model.getProperties().getProperty(FopExportView.DEFAULT_STYLESHEET);
             styleSheetStream = this.getClass().getResourceAsStream(styleSheetPath);
-            if (styleSheetStream == null)
-            {
+            if (styleSheetStream == null) {
                 throw new IOException("Cannot locate stylesheet " + styleSheetPath); //$NON-NLS-1$
             }
         }
@@ -151,70 +160,56 @@ public class FopExportView implements BinaryExportView
     /**
      * Don't forget to enable debug if you want to see the raw FO.
      *
-     * @param out output writer
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws JspException the jsp exception
+     * @param out
+     *            output writer
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws JspException
+     *             the jsp exception
      */
     @Override
-    public void doExport(OutputStream out) throws IOException, JspException
-    {
-        String xmlResults = getXml();
+    public void doExport(final OutputStream out) throws IOException, JspException {
+        final String xmlResults = this.getXml();
 
-        FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
-        Source xslt = new StreamSource(getStyleSheet());
-        TransformerFactory factory = TransformerFactory.newInstance();
+        final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+        final Source xslt = new StreamSource(this.getStyleSheet());
+        final TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer;
-        try
-        {
+        try {
             transformer = factory.newTransformer(xslt);
-        }
-        catch (TransformerConfigurationException e)
-        {
+        } catch (final TransformerConfigurationException e) {
             throw new JspException("Cannot configure pdf export " + e.getMessage(), e); //$NON-NLS-1$
         }
 
-        boolean outputForDebug = log.isDebugEnabled();
-        if (outputForDebug)
-        {
-            logXsl(xmlResults, transformer, null);
+        final boolean outputForDebug = FopExportView.log.isDebugEnabled();
+        if (outputForDebug) {
+            this.logXsl(xmlResults, transformer, null);
         }
 
         Fop fop;
-        try
-        {
+        try {
             fop = fopFactory.newFop(org.apache.xmlgraphics.util.MimeConstants.MIME_PDF, out);
-        }
-        catch (FOPException e)
-        {
+        } catch (final FOPException e) {
             throw new JspException("Cannot configure pdf export " + e.getMessage(), e); //$NON-NLS-1$
         }
 
-        StreamSource src = new StreamSource(new StringReader(xmlResults));
+        final StreamSource src = new StreamSource(new StringReader(xmlResults));
         Result res;
-        try
-        {
+        try {
             res = new SAXResult(fop.getDefaultHandler());
-        }
-        catch (FOPException e)
-        {
+        } catch (final FOPException e) {
             throw new JspException("error setting up transform ", e); //$NON-NLS-1$
         }
-        try
-        {
+        try {
             transformer.transform(src, res);
-        }
-        catch (TransformerException e)
-        {
-            if (e.getCause() instanceof ValidationException)
-            {
-                // recreate the errant fo
-                ValidationException ve = (ValidationException) e.getCause();
-                logXsl(xmlResults, transformer, ve);
-            }
-            else
-            {
+        } catch (final TransformerException e) {
+            if (!(e.getCause() instanceof ValidationException)) {
                 throw new JspException("error creating pdf output", e); //$NON-NLS-1$
             }
+            // recreate the errant fo
+            final ValidationException ve = (ValidationException) e.getCause();
+            this.logXsl(xmlResults, transformer, ve);
 
         }
     }
@@ -223,42 +218,42 @@ public class FopExportView implements BinaryExportView
      * Gets the xml.
      *
      * @return the xml
-     * @throws JspException the jsp exception
+     *
+     * @throws JspException
+     *             the jsp exception
      */
-    protected String getXml() throws JspException
-    {
-        XmlTotalsWriter totals = new XmlTotalsWriter(this.model);
+    protected String getXml() throws JspException {
+        final XmlTotalsWriter totals = new XmlTotalsWriter(this.model);
         totals.writeTable(this.model, "-1");
         return totals.getXml();
     }
 
     /**
      * log it.
-     * @param xmlResults raw
-     * @param transformer the transformer
-     * @param e the optional exception
-     * @throws JspException wrapping an existing error
+     *
+     * @param xmlResults
+     *            raw
+     * @param transformer
+     *            the transformer
+     * @param e
+     *            the optional exception
+     *
+     * @throws JspException
+     *             wrapping an existing error
      */
-    protected void logXsl(String xmlResults, Transformer transformer, Exception e) throws JspException
-    {
-        StreamResult debugRes = new StreamResult(new StringWriter());
-        StreamSource src = new StreamSource(new StringReader(xmlResults));
-        try
-        {
+    protected void logXsl(final String xmlResults, final Transformer transformer, final Exception e)
+            throws JspException {
+        final StreamResult debugRes = new StreamResult(new StringWriter());
+        final StreamSource src = new StreamSource(new StringReader(xmlResults));
+        try {
             transformer.transform(src, debugRes);
-            if (e != null)
-            {
-                log.error("xslt-fo error {}", e.getMessage(), e); //$NON-NLS-1$
-                log.error("xslt-fo result of {}", debugRes.getWriter()); //$NON-NLS-1$
+            if (e != null) {
+                FopExportView.log.error("xslt-fo error {}", e.getMessage(), e); //$NON-NLS-1$
+                FopExportView.log.error("xslt-fo result of {}", debugRes.getWriter()); //$NON-NLS-1$
                 throw new JspException("Stylesheet produced invalid xsl-fo result", e); //$NON-NLS-1$
             }
-            else
-            {
-                log.info("xslt-fo result of {}", debugRes.getWriter()); //$NON-NLS-1$
-            }
-        }
-        catch (TransformerException ee)
-        {
+            FopExportView.log.info("xslt-fo result of {}", debugRes.getWriter()); //$NON-NLS-1$
+        } catch (final TransformerException ee) {
             throw new JspException("error creating pdf output " + ee.getMessage(), ee); //$NON-NLS-1$
         }
     }
@@ -267,55 +262,47 @@ public class FopExportView implements BinaryExportView
      * If you are authoring a stylesheet locally, this is highly recommended as a way to test your stylesheet against
      * dummy data.
      *
-     * @param xmlSrc xml as string
-     * @param styleSheetPath the path to the stylesheet
-     * @param f the f
-     * @throws Exception if trouble
+     * @param xmlSrc
+     *            xml as string
+     * @param styleSheetPath
+     *            the path to the stylesheet
+     * @param f
+     *            the f
+     *
+     * @throws Exception
+     *             if trouble
      */
-    public static void transform(String xmlSrc, String styleSheetPath, File f) throws Exception
-    {
+    public static void transform(final String xmlSrc, final String styleSheetPath, final File f) throws Exception {
 
-        FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
-        InputStream styleSheetStream = FopExportView.class.getResourceAsStream(styleSheetPath);
+        final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+        final InputStream styleSheetStream = FopExportView.class.getResourceAsStream(styleSheetPath);
 
-        Source xslt = new StreamSource(styleSheetStream);
-        TransformerFactory factory = TransformerFactory.newInstance();
+        final Source xslt = new StreamSource(styleSheetStream);
+        final TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer;
-        try
-        {
+        try {
             transformer = factory.newTransformer(xslt);
-        }
-        catch (TransformerConfigurationException e)
-        {
+        } catch (final TransformerConfigurationException e) {
             throw new JspException("Cannot configure pdf export " + e.getMessage(), e); //$NON-NLS-1$
         }
         Fop fop;
-        try
-        {
-            FileOutputStream fw = new FileOutputStream(f);
+        try {
+            final FileOutputStream fw = new FileOutputStream(f);
             fop = fopFactory.newFop(org.apache.xmlgraphics.util.MimeConstants.MIME_PDF, fw);
-        }
-        catch (FOPException e)
-        {
+        } catch (final FOPException e) {
             throw new JspException("Cannot configure pdf export " + e.getMessage(), e); //$NON-NLS-1$
         }
 
-        Source src = new StreamSource(new StringReader(xmlSrc));
+        final Source src = new StreamSource(new StringReader(xmlSrc));
         Result res;
-        try
-        {
+        try {
             res = new SAXResult(fop.getDefaultHandler());
-        }
-        catch (FOPException e)
-        {
+        } catch (final FOPException e) {
             throw new JspException("error setting up transform ", e); //$NON-NLS-1$
         }
-        try
-        {
+        try {
             transformer.transform(src, res);
-        }
-        catch (TransformerException e)
-        {
+        } catch (final TransformerException e) {
             throw new JspException("error creating pdf output " + e.getMessage(), e); //$NON-NLS-1$
         }
     }

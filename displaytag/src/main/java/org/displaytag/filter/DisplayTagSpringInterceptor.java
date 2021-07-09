@@ -37,7 +37,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
 
-
 /**
  * <p>
  * Allow the author of an included JSP page to reset the content type to something else (like a binary stream), and then
@@ -58,26 +57,25 @@ import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
  *   &lt;/property&gt;
  * &lt;/bean&gt;
  * </pre>
- *
  * <p>
  * By default the interceptor buffers all the export content before writing it out. You can set an optional parameter
- * <code>buffer</code> to <code>false</code> to make the interceptor write directly to the output stream. This could
- * be faster and uses less memory, but the content length will not be set.
+ * <code>buffer</code> to <code>false</code> to make the interceptor write directly to the output stream. This could be
+ * faster and uses less memory, but the content length will not be set.
  * </p>
  *
  * <pre>
  *  &lt;bean class="org.displaytag.filter.DisplayTagSpringInterceptor"&gt;
  *      &lt;property name="buffer"&gt;&lt;value&gt;false&lt;/value&gt;&lt;/property&gt;
  *  &lt;/bean&gt;
- *  </pre>
+ * </pre>
  *
  * @author Keith Garry Boyce
  * @author rapruitt
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class DisplayTagSpringInterceptor implements HandlerInterceptor
-{
+public class DisplayTagSpringInterceptor implements HandlerInterceptor {
 
     /**
      * Logger.
@@ -91,45 +89,56 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
 
     /**
      * Sets the buffer state.
-     * @param bufferingEnabled it <code>true</code> buffering will be used
+     *
+     * @param bufferingEnabled
+     *            it <code>true</code> buffering will be used
      */
-    public void setBuffer(boolean bufferingEnabled)
-    {
+    public void setBuffer(final boolean bufferingEnabled) {
         this.buffer = bufferingEnabled;
     }
 
     /**
+     * Pre handle.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param handler
+     *            the handler
+     *
+     * @return true, if successful
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see HandlerInterceptor#preHandle(HttpServletRequest,HttpServletResponse, Object)
      */
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
-    {
+    public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler)
+            throws Exception {
 
-        if (request.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null)
-        {
-            if (log.isDebugEnabled())
-            {
-                log.debug(Messages.getString("ResponseOverrideFilter.parameternotfound")); //$NON-NLS-1$
+        if (request.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null) {
+            if (DisplayTagSpringInterceptor.log.isDebugEnabled()) {
+                DisplayTagSpringInterceptor.log.debug(Messages.getString("ResponseOverrideFilter.parameternotfound")); //$NON-NLS-1$
             }
             // don't intercept!
             return true;
         }
 
-        BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl(response);
+        final BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl(response);
 
-        Map<String, Boolean> contentBean = new HashMap<>(4);
-        if (this.buffer)
-        {
+        final Map<String, Boolean> contentBean = new HashMap<>(4);
+        if (this.buffer) {
             contentBean.put(TableTagParameters.BEAN_BUFFER, Boolean.TRUE);
         }
         request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, contentBean);
 
-        if (log.isDebugEnabled())
-        {
-            log.debug("handler is {}", handler);
+        if (DisplayTagSpringInterceptor.log.isDebugEnabled()) {
+            DisplayTagSpringInterceptor.log.debug("handler is {}", handler);
         }
 
-        HandlerAdapter handlerAdaptor = new SimpleControllerHandlerAdapter();
+        final HandlerAdapter handlerAdaptor = new SimpleControllerHandlerAdapter();
         handlerAdaptor.handle(request, wrapper, handler);
 
         ExportDelegate.writeExport(response, request, wrapper);
@@ -138,22 +147,48 @@ public class DisplayTagSpringInterceptor implements HandlerInterceptor
     }
 
     /**
+     * Post handle.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param obj
+     *            the obj
+     * @param modelAndView
+     *            the model and view
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see HandlerInterceptor#postHandle(HttpServletRequest,HttpServletResponse, Object, ModelAndView)
      */
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object obj,
-        ModelAndView modelAndView) throws Exception
-    {
+    public void postHandle(final HttpServletRequest request, final HttpServletResponse response, final Object obj,
+            final ModelAndView modelAndView) throws Exception {
         // Nothing to do
     }
 
     /**
+     * After completion.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param obj
+     *            the obj
+     * @param exception
+     *            the exception
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see HandlerInterceptor#afterCompletion(HttpServletRequest,HttpServletResponse, Object, Exception)
      */
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object obj,
-        Exception exception) throws Exception
-    {
+    public void afterCompletion(final HttpServletRequest request, final HttpServletResponse response, final Object obj,
+            final Exception exception) throws Exception {
         // Nothing to do
     }
 

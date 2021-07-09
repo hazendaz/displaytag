@@ -30,15 +30,14 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
-
 /**
  * The Class PostHref.
  *
  * @author fgiust
+ *
  * @version $Revision$ ($Author$)
  */
-public class PostHref implements Href
-{
+public class PostHref implements Href {
 
     /**
      * D1597A17A6.
@@ -49,16 +48,17 @@ public class PostHref implements Href
     private Href parent;
 
     /** The form. */
-    private String form;
+    private final String form;
 
     /**
      * Instantiates a new post href.
      *
-     * @param parent the parent
-     * @param form the form
+     * @param parent
+     *            the parent
+     * @param form
+     *            the form
      */
-    public PostHref(Href parent, String form)
-    {
+    public PostHref(final Href parent, final String form) {
         this.parent = parent;
         this.form = form;
     }
@@ -66,14 +66,17 @@ public class PostHref implements Href
     /**
      * Adds the parameter.
      *
-     * @param name the name
-     * @param value the value
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
      * @return the href
+     *
      * @see org.displaytag.util.Href#addParameter(java.lang.String, java.lang.Object)
      */
     @Override
-    public Href addParameter(String name, Object value)
-    {
+    public Href addParameter(final String name, final Object value) {
         this.parent.addParameter(name, value);
         return this;
     }
@@ -81,14 +84,17 @@ public class PostHref implements Href
     /**
      * Adds the parameter.
      *
-     * @param name the name
-     * @param value the value
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
      * @return the href
+     *
      * @see org.displaytag.util.Href#addParameter(java.lang.String, int)
      */
     @Override
-    public Href addParameter(String name, int value)
-    {
+    public Href addParameter(final String name, final int value) {
         this.parent.addParameter(name, value);
         return this;
     }
@@ -96,25 +102,28 @@ public class PostHref implements Href
     /**
      * Adds the parameter map.
      *
-     * @param parametersMap the parameters map
+     * @param parametersMap
+     *            the parameters map
+     *
      * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
      */
     @Override
-    public void addParameterMap(Map<String, String[]> parametersMap)
-    {
+    public void addParameterMap(final Map<String, String[]> parametersMap) {
         this.parent.addParameterMap(parametersMap);
     }
 
     /**
      * Equals.
      *
-     * @param object the object
+     * @param object
+     *            the object
+     *
      * @return true, if successful
+     *
      * @see org.displaytag.util.Href#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object object)
-    {
+    public boolean equals(final Object object) {
         return this.parent.equals(object);
     }
 
@@ -122,11 +131,11 @@ public class PostHref implements Href
      * Gets the anchor.
      *
      * @return the anchor
+     *
      * @see org.displaytag.util.Href#getAnchor()
      */
     @Override
-    public String getAnchor()
-    {
+    public String getAnchor() {
         return this.parent.getAnchor();
     }
 
@@ -134,11 +143,11 @@ public class PostHref implements Href
      * Gets the base url.
      *
      * @return the base url
+     *
      * @see org.displaytag.util.Href#getBaseUrl()
      */
     @Override
-    public String getBaseUrl()
-    {
+    public String getBaseUrl() {
         return this.parent.getBaseUrl();
     }
 
@@ -146,59 +155,63 @@ public class PostHref implements Href
      * Gets the parameter map.
      *
      * @return the parameter map
+     *
      * @see org.displaytag.util.Href#getParameterMap()
      */
     @Override
-    public Map<String, String[]> getParameterMap()
-    {
+    public Map<String, String[]> getParameterMap() {
         return this.parent.getParameterMap();
     }
 
     /**
      * Removes the parameter.
      *
-     * @param name the name
+     * @param name
+     *            the name
+     *
      * @see org.displaytag.util.Href#removeParameter(java.lang.String)
      */
     @Override
-    public void removeParameter(String name)
-    {
+    public void removeParameter(final String name) {
         this.parent.removeParameter(name);
     }
 
     /**
      * Sets the anchor.
      *
-     * @param name the new anchor
+     * @param name
+     *            the new anchor
+     *
      * @see org.displaytag.util.Href#setAnchor(java.lang.String)
      */
     @Override
-    public void setAnchor(String name)
-    {
+    public void setAnchor(final String name) {
         this.parent.setAnchor(name);
     }
 
     /**
      * Sets the full url.
      *
-     * @param url the new full url
+     * @param url
+     *            the new full url
+     *
      * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
      */
     @Override
-    public void setFullUrl(String url)
-    {
+    public void setFullUrl(final String url) {
         this.parent.setFullUrl(url);
     }
 
     /**
      * Sets the parameter map.
      *
-     * @param parametersMap the parameters map
+     * @param parametersMap
+     *            the parameters map
+     *
      * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
      */
     @Override
-    public void setParameterMap(Map<String, String[]> parametersMap)
-    {
+    public void setParameterMap(final Map<String, String[]> parametersMap) {
         this.parent.setParameterMap(parametersMap);
     }
 
@@ -206,71 +219,62 @@ public class PostHref implements Href
      * To string.
      *
      * @return the string
+     *
      * @see org.displaytag.util.Href#toString()
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
 
-        StringBuilder buffer = new StringBuilder(30);
+        final StringBuilder buffer = new StringBuilder(30);
 
         buffer.append("javascript:displaytagform('");
         buffer.append(this.form);
         buffer.append("',[");
 
-        Map<String, String[]> parameters = getParameterMap();
+        final Map<String, String[]> parameters = this.getParameterMap();
 
-        Set<Entry<String, String[]>> parameterSet = parameters.entrySet();
+        final Set<Entry<String, String[]>> parameterSet = parameters.entrySet();
 
-        Iterator<Entry<String, String[]>> iterator = parameterSet.iterator();
+        final Iterator<Entry<String, String[]>> iterator = parameterSet.iterator();
 
-        while (iterator.hasNext())
-        {
+        while (iterator.hasNext()) {
             // {f:'param1',v:'1'},
-            Entry<String, String[]> entry = iterator.next();
+            final Entry<String, String[]> entry = iterator.next();
 
-            Object key = entry.getKey();
-            Object value = entry.getValue();
+            final Object key = entry.getKey();
+            final Object value = entry.getValue();
 
             buffer.append("{f:'");
-            buffer.append(esc(key));
+            buffer.append(this.esc(key));
             buffer.append("',v:");
 
-            if (value != null && value.getClass().isArray())
-            {
-                Object[] values = (Object[]) value;
+            if (value != null && value.getClass().isArray()) {
+                final Object[] values = (Object[]) value;
 
-                if (values.length > 1)
-                {
+                if (values.length > 1) {
                     buffer.append("[");
                 }
-                for (int i = 0; i < values.length; i++)
-                {
-                    if (i > 0)
-                    {
+                for (int i = 0; i < values.length; i++) {
+                    if (i > 0) {
                         buffer.append(",");
                     }
 
                     buffer.append("'");
-                    buffer.append(esc(values[i]));
+                    buffer.append(this.esc(values[i]));
                     buffer.append("'");
                 }
-                if (values.length > 1)
-                {
+                if (values.length > 1) {
                     buffer.append("]");
                 }
-            }
-            else
-            {
+            } else {
                 buffer.append("'");
-                buffer.append(esc(value));
+                buffer.append(this.esc(value));
                 buffer.append("'");
             }
 
             buffer.append("}");
 
-            if (iterator.hasNext())
-            {
+            if (iterator.hasNext()) {
                 buffer.append(",");
             }
         }
@@ -282,38 +286,35 @@ public class PostHref implements Href
     /**
      * Esc.
      *
-     * @param value the value
+     * @param value
+     *            the value
+     *
      * @return the string
      */
-    private String esc(Object value)
-    {
+    private String esc(final Object value) {
 
-        try
-        {
+        try {
             String param = URLDecoder.decode(value != null ? value.toString() : StringUtils.EMPTY, "utf-8");
             param = StringUtils.replace(param, "'", "\\'");
-            param = StringUtils.replace(param, "\"", "%22");
-            return param;
-        }
-        catch (UnsupportedEncodingException e)
-        {
+            return StringUtils.replace(param, "\"", "%22");
+        } catch (final UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
+     * Clone.
+     *
+     * @return the object
+     *
      * @see java.lang.Object#clone()
      */
     @Override
-    public Object clone()
-    {
+    public Object clone() {
         final PostHref href;
-        try
-        {
+        try {
             href = (PostHref) super.clone();
-        }
-        catch (CloneNotSupportedException e)
-        {
+        } catch (final CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
         href.parent = (Href) this.parent.clone();

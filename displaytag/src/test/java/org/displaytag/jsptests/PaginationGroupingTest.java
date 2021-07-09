@@ -21,25 +21,23 @@
  */
 package org.displaytag.jsptests;
 
-import static org.junit.Assert.assertEquals;
+import org.displaytag.test.DisplaytagCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.Test;
-
-
 /**
  * The Class PaginationGroupingTest.
  *
  * @author rwest
+ *
  * @version $Revision: 1159 $ ($Author: rwest $)
  */
-public class PaginationGroupingTest extends DisplaytagCase
-{
+public class PaginationGroupingTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -47,29 +45,32 @@ public class PaginationGroupingTest extends DisplaytagCase
      * @return the jsp name
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "pagination-grouping.jsp";
     }
 
+    /**
+     * Do test.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = this.runner.getResponse(request);
+    public void doTest() throws Exception {
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final WebResponse response = this.runner.getResponse(request);
 
-        if (this.log.isDebugEnabled())
-        {
+        if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        WebTable[] tables = response.getTables();
+        final WebTable[] tables = response.getTables();
 
-        assertEquals("Wrong number of tables.", 1, tables.length);
-        assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
-        assertEquals("Bad sub-total for group 1", "4.0", tables[0].getCellAsText(4, 1));
-        assertEquals("Bad sub-total for group 2", "6.0", tables[0].getCellAsText(9, 1));
-        assertEquals("Bad grand total", "10.0", tables[0].getCellAsText(10, 1));
+        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assert.assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
+        Assert.assertEquals("Bad sub-total for group 1", "4.0", tables[0].getCellAsText(4, 1));
+        Assert.assertEquals("Bad sub-total for group 2", "6.0", tables[0].getCellAsText(9, 1));
+        Assert.assertEquals("Bad grand total", "10.0", tables[0].getCellAsText(10, 1));
     }
 }

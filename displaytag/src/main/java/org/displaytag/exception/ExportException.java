@@ -23,14 +23,14 @@ package org.displaytag.exception;
 
 import org.displaytag.Messages;
 
-
 /**
  * Exception thrown when displaytag is unable to reset the response during export.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ExportException extends BaseNestableJspTagException
-{
+public class ExportException extends BaseNestableJspTagException {
 
     /**
      * D1597A17A6.
@@ -39,19 +39,23 @@ public class ExportException extends BaseNestableJspTagException
 
     /**
      * Instantiate a new Exception with a fixed message.
-     * @param source Class where the exception is generated
+     *
+     * @param source
+     *            Class where the exception is generated
      */
-    public ExportException(Class<?> source)
-    {
+    public ExportException(final Class<?> source) {
         super(source, Messages.getString("ExportException.msg")); //$NON-NLS-1$
     }
 
     /**
+     * Gets the severity.
+     *
+     * @return the severity
+     *
      * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
      */
     @Override
-    public SeverityEnum getSeverity()
-    {
+    public SeverityEnum getSeverity() {
         return SeverityEnum.WARN;
     }
 

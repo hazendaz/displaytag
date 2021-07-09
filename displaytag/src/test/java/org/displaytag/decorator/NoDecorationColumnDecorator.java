@@ -26,16 +26,29 @@ import javax.servlet.jsp.PageContext;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
 
-
 /**
  * The Class NoDecorationColumnDecorator.
  */
-public class NoDecorationColumnDecorator implements DisplaytagColumnDecorator
-{
+public class NoDecorationColumnDecorator implements DisplaytagColumnDecorator {
 
+    /**
+     * Decorate.
+     *
+     * @param columnValue
+     *            the column value
+     * @param pageContext
+     *            the page context
+     * @param media
+     *            the media
+     *
+     * @return the object
+     *
+     * @throws DecoratorException
+     *             the decorator exception
+     */
     @Override
-    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
-    {
+    public Object decorate(final Object columnValue, final PageContext pageContext, final MediaTypeEnum media)
+            throws DecoratorException {
         return columnValue;
     }
 }

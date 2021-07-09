@@ -51,15 +51,16 @@ import org.displaytag.model.HeaderCell;
 import org.displaytag.model.Row;
 import org.displaytag.model.TableModel;
 
-
 /**
  * A table writer that formats a table in Excel's spreadsheet format, and writes it to an HSSF workbook.
+ *
  * @author Jorge L. Barroso
+ *
  * @version $Revision$ ($Author$)
+ *
  * @see org.displaytag.render.TableWriterTemplate
  */
-public class HssfTableWriter extends TableWriterAdapter
-{
+public class HssfTableWriter extends TableWriterAdapter {
 
     /** The Constant EMPTY_TEXT. */
     public static final HSSFRichTextString EMPTY_TEXT = new HSSFRichTextString("");
@@ -73,7 +74,7 @@ public class HssfTableWriter extends TableWriterAdapter
     /**
      * The workbook to which the table is written.
      */
-    private HSSFWorkbook wb;
+    private final HSSFWorkbook wb;
 
     /**
      * Generated sheet.
@@ -122,23 +123,31 @@ public class HssfTableWriter extends TableWriterAdapter
 
     /**
      * This table writer uses an HSSF workbook to write the table.
-     * @param wb The HSSF workbook to write the table.
+     *
+     * @param wb
+     *            The HSSF workbook to write the table.
      */
-    public HssfTableWriter(HSSFWorkbook wb)
-    {
+    public HssfTableWriter(final HSSFWorkbook wb) {
         this.wb = wb;
         this.utils = new ExcelUtils(wb);
     }
 
     /**
+     * Write table opener.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)
      */
     @Override
-    protected void writeTableOpener(TableModel model) throws Exception
-    {
+    protected void writeTableOpener(final TableModel model) throws Exception {
         this.sheet = this.wb.createSheet(this.sheetName);
-        setModel(model);
-        init(model);
+        this.setModel(model);
+        this.init(model);
         this.sheetRowNum = 0;
 
     }
@@ -146,21 +155,28 @@ public class HssfTableWriter extends TableWriterAdapter
     /**
      * Override this to do local config, but you should call super() first so that this can set up the ExcelUtils.
      *
-     * @param model the model
+     * @param model
+     *            the model
      */
-    protected void init(TableModel model)
-    {
+    protected void init(final TableModel model) {
         this.utils.initCellStyles(model.getProperties());
     }
 
     /**
+     * Write caption.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)
      */
     @Override
-    protected void writeCaption(TableModel model) throws Exception
-    {
-        HSSFCellStyle style = this.wb.createCellStyle();
-        HSSFFont bold = this.wb.createFont();
+    protected void writeCaption(final TableModel model) throws Exception {
+        final HSSFCellStyle style = this.wb.createCellStyle();
+        final HSSFFont bold = this.wb.createFont();
         bold.setBold(true);
         bold.setFontHeightInPoints((short) 14);
         style.setFont(bold);
@@ -170,36 +186,44 @@ public class HssfTableWriter extends TableWriterAdapter
         this.currentRow = this.sheet.createRow(this.sheetRowNum++);
         this.currentCell = this.currentRow.createCell(this.colNum);
         this.currentCell.setCellStyle(style);
-        String caption = model.getCaption();
+        final String caption = model.getCaption();
         this.currentCell.setCellValue(new HSSFRichTextString(caption));
         this.rowSpanTable(model);
     }
 
     /**
      * Obtain the region over which to merge a cell.
-     * @param first Column number of first cell from which to merge.
-     * @param last Column number of last cell over which to merge.
+     *
+     * @param first
+     *            Column number of first cell from which to merge.
+     * @param last
+     *            Column number of last cell over which to merge.
+     *
      * @return The region over which to merge a cell.
      */
-    private CellRangeAddress getMergeCellsRegion(int first, int last)
-    {
+    private CellRangeAddress getMergeCellsRegion(final int first, final int last) {
         return new CellRangeAddress(this.currentRow.getRowNum(), this.currentRow.getRowNum(), first, last);
     }
 
     /**
+     * Write table header.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)
      */
     @Override
-    protected void writeTableHeader(TableModel model) throws Exception
-    {
+    protected void writeTableHeader(final TableModel model) throws Exception {
         this.currentRow = this.sheet.createRow(this.sheetRowNum++);
         this.colNum = 0;
-        HSSFCellStyle headerStyle = this.getHeaderFooterStyle();
-        for (HeaderCell headerCell : model.getHeaderCellList())
-        {
+        final HSSFCellStyle headerStyle = this.getHeaderFooterStyle();
+        for (final HeaderCell headerCell : model.getHeaderCellList()) {
             String columnHeader = headerCell.getTitle();
-            if (columnHeader == null)
-            {
+            if (columnHeader == null) {
                 columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());
             }
 
@@ -208,99 +232,108 @@ public class HssfTableWriter extends TableWriterAdapter
     }
 
     /**
+     * Write decorated row start.
+     *
+     * @param model
+     *            the model
+     *
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
      */
     @Override
-    protected void writeDecoratedRowStart(TableModel model)
-    {
+    protected void writeDecoratedRowStart(final TableModel model) {
         model.getTableDecorator().startRow();
     }
 
     /**
+     * Write row opener.
+     *
+     * @param row
+     *            the row
+     *
+     * @throws Exception
+     *             the exception
      */
     @Override
-    protected void writeRowOpener(Row row) throws Exception
-    {
+    protected void writeRowOpener(final Row row) throws Exception {
         this.currentRow = this.sheet.createRow(this.sheetRowNum++);
         this.colNum = 0;
     }
 
     /**
      * Write a column's opening structure to a HSSF document.
+     *
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)
      */
     @Override
-    protected void writeColumnOpener(Column column) throws Exception
-    {
-        if (column != null)
-        {
+    protected void writeColumnOpener(final Column column) throws Exception {
+        if (column != null) {
             column.getOpenTag(); // has side effect, setting its stringValue, which affects grouping logic.
         }
         this.currentCell = this.currentRow.createCell(this.colNum++);
     }
 
     /**
+     * Write column value.
+     *
+     * @param value
+     *            the value
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)
      */
     @Override
-    protected void writeColumnValue(Object value, Column column) throws Exception
-    {
+    protected void writeColumnValue(final Object value, final Column column) throws Exception {
         // is this a detail row for a column that is currently grouped?
-        int myGroup = column.getHeaderCell().getGroup();
+        final int myGroup = column.getHeaderCell().getGroup();
         Object cellValue = column.getValue(this.decorated);
-        if (myGroup > 0)
-        {
+        if (myGroup > 0) {
             cellValue = "";
         }
-        writeCellValue(cellValue);
+        this.writeCellValue(cellValue);
     }
 
     /**
      * Override in subclasses to handle local data types.
-     * @param value the value object to write
+     *
+     * @param value
+     *            the value object to write
      */
-    protected void writeCellValue(Object value)
-    {
-        if (value instanceof Number)
-        {
-            Number num = (Number) value;
+    protected void writeCellValue(final Object value) {
+        if (value instanceof Number) {
+            final Number num = (Number) value;
             // Percentage
-            if (value.toString().indexOf('%') > -1)
-            {
+            if (value.toString().indexOf('%') > -1) {
                 this.currentCell.setCellValue(num.doubleValue() / 100);
                 this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_PCT));
-            }
-            else if (value instanceof Integer)
-            {
+            } else if (value instanceof Integer) {
                 this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_INTEGER));
                 this.currentCell.setCellValue(num.intValue());
-            }
-            else
-            {
+            } else {
                 this.currentCell.setCellValue(num.doubleValue());
             }
 
-        }
-        else if (value instanceof Date)
-        {
+        } else if (value instanceof Date) {
             this.currentCell.setCellValue((Date) value);
             this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));
-        }
-        else if (value instanceof Calendar)
-        {
-            Calendar c = (Calendar) value;
+        } else if (value instanceof Calendar) {
+            final Calendar c = (Calendar) value;
             this.currentCell.setCellValue(c);
             this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));
-        }
-        else if (value == null)
-        {
-            this.currentCell.setCellValue(EMPTY_TEXT);
-        }
-        else
-        {
-            String v = value.toString();
-            if (v.length() > this.utils.getWrapAtLength())
-            {
+        } else if (value == null) {
+            this.currentCell.setCellValue(HssfTableWriter.EMPTY_TEXT);
+        } else {
+            final String v = value.toString();
+            if (v.length() > this.utils.getWrapAtLength()) {
                 this.currentCell.getCellStyle().setWrapText(true);
             }
             this.currentCell.setCellValue(new HSSFRichTextString(ExcelUtils.escapeColumnValue(value)));
@@ -310,15 +343,20 @@ public class HssfTableWriter extends TableWriterAdapter
 
     /**
      * Decorators that help render the table to an HSSF table must implement DecoratesHssf.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
      */
     @Override
-    protected void writeDecoratedRowFinish(TableModel model) throws Exception
-    {
-        TableDecorator decorator = model.getTableDecorator();
-        if (decorator instanceof DecoratesHssf)
-        {
-            DecoratesHssf hdecorator = (DecoratesHssf) decorator;
+    protected void writeDecoratedRowFinish(final TableModel model) throws Exception {
+        final TableDecorator decorator = model.getTableDecorator();
+        if (decorator instanceof DecoratesHssf) {
+            final DecoratesHssf hdecorator = (DecoratesHssf) decorator;
             hdecorator.setSheet(this.sheet);
         }
         decorator.finishRow();
@@ -327,11 +365,18 @@ public class HssfTableWriter extends TableWriterAdapter
     }
 
     /**
+     * Write post body footer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.render.TableWriterTemplate#writePostBodyFooter(org.displaytag.model.TableModel)
      */
     @Override
-    protected void writePostBodyFooter(TableModel model) throws Exception
-    {
+    protected void writePostBodyFooter(final TableModel model) throws Exception {
         this.colNum = 0;
         this.currentRow = this.sheet.createRow(this.sheetRowNum++);
         this.writeHeaderFooter(model.getFooter(), this.currentRow, this.getHeaderFooterStyle());
@@ -340,46 +385,48 @@ public class HssfTableWriter extends TableWriterAdapter
 
     /**
      * Make a row span the width of the table.
-     * @param model The table model representing the rendered table.
+     *
+     * @param model
+     *            The table model representing the rendered table.
      */
-    private void rowSpanTable(TableModel model)
-    {
-        this.sheet.addMergedRegion(this.getMergeCellsRegion(
-            this.currentCell.getColumnIndex(),
-            model.getNumberOfColumns() - 1));
+    private void rowSpanTable(final TableModel model) {
+        this.sheet.addMergedRegion(
+                this.getMergeCellsRegion(this.currentCell.getColumnIndex(), model.getNumberOfColumns() - 1));
     }
 
     /**
+     * Write decorated table finish.
+     *
+     * @param model
+     *            the model
+     *
      * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)
      */
     @Override
-    protected void writeDecoratedTableFinish(TableModel model)
-    {
+    protected void writeDecoratedTableFinish(final TableModel model) {
         model.getTableDecorator().finish();
     }
 
     /**
      * Is this value numeric? You should probably override this method to handle your locale.
-     * @param rawValue the object value
+     *
+     * @param rawValue
+     *            the object value
+     *
      * @return true if numeric
      */
-    protected boolean isNumber(String rawValue)
-    {
-        if (rawValue == null)
-        {
+    protected boolean isNumber(final String rawValue) {
+        if (rawValue == null) {
             return false;
         }
         String rawV = rawValue;
-        if (rawV.indexOf('%') > -1)
-        {
+        if (rawV.indexOf('%') > -1) {
             rawV = rawV.replace('%', ' ').trim();
         }
-        if (rawV.indexOf('$') > -1)
-        {
+        if (rawV.indexOf('$') > -1) {
             rawV = rawV.replace('$', ' ').trim();
         }
-        if (rawV.indexOf(',') > -1)
-        {
+        if (rawV.indexOf(',') > -1) {
             rawV = StringUtils.replace(rawV, ",", "");
         }
         return NumberUtils.isCreatable(rawV.trim());
@@ -387,12 +434,15 @@ public class HssfTableWriter extends TableWriterAdapter
 
     /**
      * Writes a table header or a footer.
-     * @param value Header or footer value to be rendered.
-     * @param row The row in which to write the header or footer.
-     * @param style Style used to render the header or footer.
+     *
+     * @param value
+     *            Header or footer value to be rendered.
+     * @param row
+     *            The row in which to write the header or footer.
+     * @param style
+     *            Style used to render the header or footer.
      */
-    private void writeHeaderFooter(String value, HSSFRow row, HSSFCellStyle style)
-    {
+    private void writeHeaderFooter(final String value, final HSSFRow row, final HSSFCellStyle style) {
         this.currentCell = row.createCell(this.colNum++);
         this.currentCell.setCellValue(new HSSFRichTextString(value));
         this.currentCell.setCellStyle(style);
@@ -400,12 +450,12 @@ public class HssfTableWriter extends TableWriterAdapter
 
     /**
      * Obtain the style used to render a header or footer.
+     *
      * @return The style used to render a header or footer.
      */
-    private HSSFCellStyle getHeaderFooterStyle()
-    {
-        HSSFCellStyle style = this.wb.createCellStyle();
-        HSSFFont bold = this.wb.createFont();
+    private HSSFCellStyle getHeaderFooterStyle() {
+        final HSSFCellStyle style = this.wb.createCellStyle();
+        final HSSFFont bold = this.wb.createFont();
         bold.setBold(true);
         style.setBorderBottom(BorderStyle.THIN);
         style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
@@ -415,25 +465,39 @@ public class HssfTableWriter extends TableWriterAdapter
     }
 
     /**
+     * Write bottom banner.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
      * @see org.displaytag.render.TableWriterAdapter#writeBottomBanner(org.displaytag.model.TableModel)
      */
     @Override
-    protected void writeBottomBanner(TableModel model) throws Exception
-    {
+    protected void writeBottomBanner(final TableModel model) throws Exception {
         // adjust the column widths
         int colCount = 0;
-        while (colCount <= this.colNum)
-        {
-            this.sheet.autoSizeColumn((short) colCount++);
+        while (colCount <= this.colNum) {
+            this.sheet.autoSizeColumn((short) colCount);
+            colCount++;
         }
     }
 
+    /**
+     * Write subgroup start.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    protected void writeSubgroupStart(TableModel model) throws Exception
-    {
-        TableTotaler tt = model.getTotaler();
-        if (tt.howManyGroups == 0)
-        {
+    protected void writeSubgroupStart(final TableModel model) throws Exception {
+        final TableTotaler tt = model.getTotaler();
+        if (tt.howManyGroups == 0) {
             return;
         }
 
@@ -442,22 +506,21 @@ public class HssfTableWriter extends TableWriterAdapter
         // the
         // already opened groups, and ask the tt for a list of all known groups?
 
-        for (int dtColumnNumber : tt.getOpenedColumns())
-        {
+        for (final int dtColumnNumber : tt.getOpenedColumns()) {
             this.currentGrouping++;
-            writeRowOpener(null);
+            this.writeRowOpener(null);
             // for each subgroup
 
-            for (HeaderCell cell : model.getHeaderCellList())
-            {
-                writeColumnOpener(null);
-                int thisCellAsDtNumber = asDtColNumber(cell.getColumnNumber());
-                String columnValue = thisCellAsDtNumber != dtColumnNumber ? "" : tt.getGroupingValue(dtColumnNumber);
-                writeCellValue(columnValue);
-                writeColumnCloser(null);
+            for (final HeaderCell cell : model.getHeaderCellList()) {
+                this.writeColumnOpener(null);
+                final int thisCellAsDtNumber = this.asDtColNumber(cell.getColumnNumber());
+                final String columnValue = thisCellAsDtNumber != dtColumnNumber ? ""
+                        : tt.getGroupingValue(dtColumnNumber);
+                this.writeCellValue(columnValue);
+                this.writeColumnCloser(null);
             }
 
-            writeRowCloser(null);
+            this.writeRowCloser(null);
             // Have to handle a case where this is a nested subgroup start;
             // put out the blanks for any column that has already exists
             // now write the label for the group that is opening
@@ -467,70 +530,72 @@ public class HssfTableWriter extends TableWriterAdapter
     /**
      * DT columns are 1 based, excel columns are 0 based.
      *
-     * @param cellColumnNumber the cell column number
+     * @param cellColumnNumber
+     *            the cell column number
+     *
      * @return the int
      */
-    protected int asDtColNumber(int cellColumnNumber)
-    {
+    protected int asDtColNumber(final int cellColumnNumber) {
         return cellColumnNumber + 1;
     }
 
     /**
      * Gets the total label.
      *
-     * @param groupingValue the grouping value
+     * @param groupingValue
+     *            the grouping value
+     *
      * @return the total label
      */
-    public String getTotalLabel(String groupingValue)
-    {
-        String gv = StringUtils.defaultString(groupingValue);
+    public String getTotalLabel(final String groupingValue) {
+        final String gv = StringUtils.defaultString(groupingValue);
         return MessageFormat.format("{0} Total", gv);
     }
 
+    /**
+     * Write subgroup stop.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    protected void writeSubgroupStop(TableModel model) throws Exception
-    {
-        TableTotaler tt = model.getTotaler();
+    protected void writeSubgroupStop(final TableModel model) throws Exception {
+        final TableTotaler tt = model.getTotaler();
 
         // for each newly opened subgroup we need to output the opener, in order;
         // so we need to know somehow which groups are new since we last wrote out openers; how about we track a list of
         // the
         // already opened groups, and ask the tt for a list of all known groups?
 
-        if (tt.howManyGroups == 0)
-        {
+        if (tt.howManyGroups == 0) {
             return;
         }
-        List<Integer> closedColumns = tt.getClosedColumns();
+        final List<Integer> closedColumns = tt.getClosedColumns();
         Collections.reverse(closedColumns);
-        for (int columnNumber : closedColumns)
-        {
-            writeRowOpener(null);
+        for (final int columnNumber : closedColumns) {
+            this.writeRowOpener(null);
             // for each subgroup
 
-            for (HeaderCell cell : model.getHeaderCellList())
-            {
-                writeColumnOpener(null);
+            for (final HeaderCell cell : model.getHeaderCellList()) {
+                this.writeColumnOpener(null);
                 Object columnValue;
-                int cellColumnNumberAsDt = asDtColNumber(cell.getColumnNumber());
-                if (cellColumnNumberAsDt > columnNumber && cell.isTotaled())
-                {
+                final int cellColumnNumberAsDt = this.asDtColNumber(cell.getColumnNumber());
+                if (cellColumnNumberAsDt > columnNumber && cell.isTotaled()) {
                     columnValue = tt.getTotalForColumn(cell.getColumnNumber(), this.currentGrouping);
-                }
-                else if (cellColumnNumberAsDt == columnNumber)
-                {
-                    columnValue = getTotalLabel(tt.getGroupingValue(columnNumber));
-                }
-                else
-                {
+                } else if (cellColumnNumberAsDt == columnNumber) {
+                    columnValue = this.getTotalLabel(tt.getGroupingValue(columnNumber));
+                } else {
                     columnValue = null;
                 }
-                writeCellValue(columnValue);
-                writeColumnCloser(null);
+                this.writeCellValue(columnValue);
+                this.writeColumnCloser(null);
             }
 
-            writeRowCloser(null);
-            writeGroupExtraInfo(model);
+            this.writeRowCloser(null);
+            this.writeGroupExtraInfo(model);
             this.currentGrouping--;
         }
 
@@ -541,14 +606,13 @@ public class HssfTableWriter extends TableWriterAdapter
     /**
      * Sets the model.
      *
-     * @param m the new model
+     * @param m
+     *            the new model
      */
-    public void setModel(TableModel m)
-    {
+    public void setModel(final TableModel m) {
         m.setTableDecorator(XmlTotalsWriter.NOOP);
-        if (m.getTotaler() == null || m.getTotaler() == TableTotaler.NULL)
-        {
-            TableTotaler tt = new TableTotaler();
+        if (m.getTotaler() == null || m.getTotaler() == TableTotaler.NULL) {
+            final TableTotaler tt = new TableTotaler();
             tt.init(m);
             m.setTotaler(tt);
         }
@@ -560,18 +624,17 @@ public class HssfTableWriter extends TableWriterAdapter
      *
      * @return the sheet name
      */
-    public String getSheetName()
-    {
+    public String getSheetName() {
         return this.sheetName;
     }
 
     /**
      * Sets the sets the sheet name.
      *
-     * @param name the new sets the sheet name
+     * @param name
+     *            the new sets the sheet name
      */
-    public void setSetSheetName(String name)
-    {
+    public void setSetSheetName(final String name) {
         this.sheetName = name;
     }
 
@@ -580,48 +643,54 @@ public class HssfTableWriter extends TableWriterAdapter
      *
      * @return the sheet
      */
-    public HSSFSheet getSheet()
-    {
+    public HSSFSheet getSheet() {
         return this.sheet;
     }
 
+    /**
+     * Write table body closer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Override
-    protected void writeTableBodyCloser(TableModel model) throws Exception
-    {
+    protected void writeTableBodyCloser(final TableModel model) throws Exception {
         // write totals, if there are any
         boolean hasTotals = false;
-        for (HeaderCell cell : model.getHeaderCellList())
-        {
+        for (final HeaderCell cell : model.getHeaderCellList()) {
             hasTotals = hasTotals || cell.isTotaled();
         }
-        if (!hasTotals)
-        {
+        if (!hasTotals) {
             return;
         }
-        TableTotaler tt = model.getTotaler();
-        writeRowOpener(null);
-        for (HeaderCell cell : model.getHeaderCellList())
-        {
-            writeColumnOpener(null);
-            Object columnValue = cell.isTotaled() ? tt.getTotalForColumn(cell.getColumnNumber(), 0) : null;
-            writeCellValue(columnValue);
-            CellStyle st = this.utils.getNewCellStyle();
+        final TableTotaler tt = model.getTotaler();
+        this.writeRowOpener(null);
+        for (final HeaderCell cell : model.getHeaderCellList()) {
+            this.writeColumnOpener(null);
+            final Object columnValue = cell.isTotaled() ? tt.getTotalForColumn(cell.getColumnNumber(), 0) : null;
+            this.writeCellValue(columnValue);
+            final CellStyle st = this.utils.getNewCellStyle();
             st.cloneStyleFrom(this.currentCell.getCellStyle());
             st.setBorderTop(BorderStyle.THIN);
             st.setTopBorderColor(IndexedColors.BLACK.getIndex());
             this.currentCell.setCellStyle(st);
-            writeColumnCloser(null);
+            this.writeColumnCloser(null);
         }
-        writeRowCloser(null);
+        this.writeRowCloser(null);
     }
 
     /**
      * Write group extra info.
      *
-     * @param model the model
-     * @throws Exception the exception
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
      */
-    protected void writeGroupExtraInfo(TableModel model) throws Exception
-    {
+    protected void writeGroupExtraInfo(final TableModel model) throws Exception {
     }
 }

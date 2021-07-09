@@ -27,37 +27,36 @@ import java.util.List;
 import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.test.NumberedItem;
 
-
 /**
  * The Class SimplePaginatedList.
  *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class SimplePaginatedList implements PaginatedList
-{
+public class SimplePaginatedList implements PaginatedList {
 
     /** wrapped list. */
-    private List<Object> fullList = new ArrayList<>();
+    private final List<Object> fullList = new ArrayList<>();
 
     /**
      * Number of objects per page.
      */
-    private int objectsPerPage;
+    private final int objectsPerPage;
 
     /** Current page (starting from 1). */
-    private int currentPage;
+    private final int currentPage;
 
     /**
      * Instantiates a new paginated list.
      *
-     * @param objectsPerPage the objects per page
-     * @param currentPage the current page
+     * @param objectsPerPage
+     *            the objects per page
+     * @param currentPage
+     *            the current page
      */
-    public SimplePaginatedList(int objectsPerPage, int currentPage)
-    {
-        for (int j = 1; j < 11; j++)
-        {
+    public SimplePaginatedList(final int objectsPerPage, final int currentPage) {
+        for (int j = 1; j < 11; j++) {
             this.fullList.add(new NumberedItem(j));
         }
         this.objectsPerPage = objectsPerPage;
@@ -65,67 +64,87 @@ public class SimplePaginatedList implements PaginatedList
     }
 
     /**
+     * Gets the list.
+     *
+     * @return the list
+     *
      * @see org.displaytag.pagination.PaginatedList#getList()
      */
     @Override
-    public List<Object> getList()
-    {
-        int startOffset = this.objectsPerPage * (this.currentPage - 1);
-        List<Object> sublist = this.fullList.subList(startOffset, Math.min(this.fullList.size(), startOffset + this.objectsPerPage));
-        return sublist;
+    public List<Object> getList() {
+        final int startOffset = this.objectsPerPage * (this.currentPage - 1);
+        return this.fullList.subList(startOffset, Math.min(this.fullList.size(), startOffset + this.objectsPerPage));
     }
 
     /**
+     * Gets the page number.
+     *
+     * @return the page number
+     *
      * @see org.displaytag.pagination.PaginatedList#getPageNumber()
      */
     @Override
-    public int getPageNumber()
-    {
+    public int getPageNumber() {
         return this.currentPage;
     }
 
     /**
+     * Gets the objects per page.
+     *
+     * @return the objects per page
+     *
      * @see org.displaytag.pagination.PaginatedList#getObjectsPerPage()
      */
     @Override
-    public int getObjectsPerPage()
-    {
+    public int getObjectsPerPage() {
         return this.objectsPerPage;
     }
 
     /**
+     * Gets the full list size.
+     *
+     * @return the full list size
+     *
      * @see org.displaytag.pagination.PaginatedList#getFullListSize()
      */
     @Override
-    public int getFullListSize()
-    {
+    public int getFullListSize() {
         return this.fullList.size();
     }
 
     /**
+     * Gets the sort criterion.
+     *
+     * @return the sort criterion
+     *
      * @see org.displaytag.pagination.PaginatedList#getSortCriterion()
      */
     @Override
-    public String getSortCriterion()
-    {
+    public String getSortCriterion() {
         return "number";
     }
 
     /**
+     * Gets the sort direction.
+     *
+     * @return the sort direction
+     *
      * @see org.displaytag.pagination.PaginatedList#getSortDirection()
      */
     @Override
-    public SortOrderEnum getSortDirection()
-    {
+    public SortOrderEnum getSortDirection() {
         return SortOrderEnum.DESCENDING;
     }
 
     /**
+     * Gets the search id.
+     *
+     * @return the search id
+     *
      * @see org.displaytag.pagination.PaginatedList#getSearchId()
      */
     @Override
-    public String getSearchId()
-    {
+    public String getSearchId() {
         return Integer.toHexString(this.objectsPerPage * 10000 + this.currentPage);
     }
 

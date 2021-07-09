@@ -27,7 +27,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.displaytag.util.HtmlAttributeMap;
 
-
 /**
  * <p>
  * Represents a table cell.
@@ -36,11 +35,12 @@ import org.displaytag.util.HtmlAttributeMap;
  * A cell is used only when the content is placed as content of the column tag and need to be evaluated during
  * iteration.
  * </p>
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class Cell implements Comparable<Cell>, Cloneable
-{
+public class Cell implements Comparable<Cell>, Cloneable {
 
     /**
      * empty cell object. Use as placeholder for empty cell to avoid useless object creation.
@@ -60,93 +60,92 @@ public class Cell implements Comparable<Cell>, Cloneable
     /**
      * Creates a new empty cell. This should never be done, use EMPTY_CELL instead.
      */
-    private Cell()
-    {
-        super();
+    private Cell() {
     }
 
     /**
      * Creates a cell with a static value.
-     * @param value Object value of the Cell object
+     *
+     * @param value
+     *            Object value of the Cell object
      */
-    public Cell(Object value)
-    {
+    public Cell(final Object value) {
         this.staticValue = value;
     }
 
     /**
      * get the static value for the cell.
+     *
      * @return the Object value of this.staticValue.
      */
-    public Object getStaticValue()
-    {
+    public Object getStaticValue() {
         return this.staticValue;
     }
 
     /**
      * Compare the Cell value to another Cell.
-     * @param obj Object to compare this cell to
-     * @param collator Collator to use for the comparison of the other object is a Cell holding a String
+     *
+     * @param obj
+     *            Object to compare this cell to
+     * @param collator
+     *            Collator to use for the comparison of the other object is a Cell holding a String
+     *
      * @return int
+     *
      * @see java.lang.Comparable#compareTo(Object)
      */
-    public int compareTo(Object obj, Collator collator)
-    {
-        if (this.staticValue == null)
-        {
+    public int compareTo(final Object obj, final Collator collator) {
+        if (this.staticValue == null) {
             return -1;
         }
-        if (obj instanceof Cell)
-        {
-            Object otherStatic = ((Cell) obj).getStaticValue();
-            if (otherStatic == null)
-            {
+        if (obj instanceof Cell) {
+            final Object otherStatic = ((Cell) obj).getStaticValue();
+            if (otherStatic == null) {
                 return 1;
             }
-            if (collator != null && this.staticValue instanceof String && otherStatic instanceof String)
-            {
-                String a = (String) this.staticValue;
-                String b = (String) otherStatic;
+            if (collator != null && this.staticValue instanceof String && otherStatic instanceof String) {
+                final String a = (String) this.staticValue;
+                final String b = (String) otherStatic;
                 return collator.compare(a, b);
             }
-            else
-            {
-                return ((Comparable<Object>) this.staticValue).compareTo(otherStatic);
-            }
+            return ((Comparable<Object>) this.staticValue).compareTo(otherStatic);
         }
         return ((Comparable<Object>) this.staticValue).compareTo(obj);
     }
 
     /**
      * Compare the Cell value to another Cell.
-     * @param obj Object to compare this cell to
+     *
+     * @param obj
+     *            Object to compare this cell to
+     *
      * @return int
+     *
      * @see java.lang.Comparable#compareTo(Object)
      */
     @Override
-    public int compareTo(Cell obj)
-    {
-        return compareTo(obj, null);
+    public int compareTo(final Cell obj) {
+        return this.compareTo(obj, null);
     }
 
     /**
      * Simple toString which output the static value.
+     *
      * @return String representation of the cell
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //
-            .append("staticValue", this.staticValue).toString(); //$NON-NLS-1$
+                .append("staticValue", this.staticValue).toString(); //$NON-NLS-1$
     }
 
     /**
      * Sets the per row attributes.
      *
-     * @param perRowValues the new per row attributes
+     * @param perRowValues
+     *            the new per row attributes
      */
-    public void setPerRowAttributes(HtmlAttributeMap perRowValues)
-    {
+    public void setPerRowAttributes(final HtmlAttributeMap perRowValues) {
         this.attributes = perRowValues;
     }
 
@@ -155,8 +154,7 @@ public class Cell implements Comparable<Cell>, Cloneable
      *
      * @return the per row attributes
      */
-    public HtmlAttributeMap getPerRowAttributes()
-    {
+    public HtmlAttributeMap getPerRowAttributes() {
         return this.attributes;
     }
 

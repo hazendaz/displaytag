@@ -46,15 +46,15 @@ import org.displaytag.model.Row;
 import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 
-
 /**
  * Excel exporter using POI HSSF.
+ *
  * @author Fabrizio Giustina
  * @author rapruitt
+ *
  * @version $Revision$ ($Author$)
  */
-public class ExcelHssfView implements BinaryExportView
-{
+public class ExcelHssfView implements BinaryExportView {
 
     /**
      * TableModel to render.
@@ -85,17 +85,26 @@ public class ExcelHssfView implements BinaryExportView
     /**
      * Instantiates a new excel hssf view.
      */
-    public ExcelHssfView()
-    {
+    public ExcelHssfView() {
     }
 
     /**
+     * Sets the parameters.
+     *
+     * @param tableModel
+     *            the table model
+     * @param exportFullList
+     *            the export full list
+     * @param includeHeader
+     *            the include header
+     * @param decorateValues
+     *            the decorate values
+     *
      * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
      */
     @Override
-    public void setParameters(TableModel tableModel, boolean exportFullList, boolean includeHeader,
-        boolean decorateValues)
-    {
+    public void setParameters(final TableModel tableModel, final boolean exportFullList, final boolean includeHeader,
+            final boolean decorateValues) {
         this.model = tableModel;
         this.exportFull = exportFullList;
         this.header = includeHeader;
@@ -105,80 +114,84 @@ public class ExcelHssfView implements BinaryExportView
     }
 
     /**
+     * Gets the mime type.
+     *
      * @return "application/vnd.ms-excel"
+     *
      * @see org.displaytag.export.BaseExportView#getMimeType()
      */
     @Override
-    public String getMimeType()
-    {
+    public String getMimeType() {
         return "application/vnd.ms-excel"; //$NON-NLS-1$
     }
 
     /**
+     * Do export.
+     *
+     * @param out
+     *            the out
+     *
+     * @throws JspException
+     *             the jsp exception
+     *
      * @see org.displaytag.export.BinaryExportView#doExport(OutputStream)
      */
     @Override
-    public void doExport(OutputStream out) throws JspException
-    {
-        try
-        {
-            String inputSheetName = this.model.getProperties().getProperty(ExcelUtils.EXCEL_SHEET_NAME);
-            setSheetName(inputSheetName);
-            setSheet(getWb().createSheet(getSheetName()));
+    public void doExport(final OutputStream out) throws JspException {
+        try {
+            final String inputSheetName = this.model.getProperties().getProperty(ExcelUtils.EXCEL_SHEET_NAME);
+            this.setSheetName(inputSheetName);
+            this.setSheet(this.getWb().createSheet(this.getSheetName()));
 
             int rowNum = 0;
             int colNum = 0;
 
-            if (this.header)
-            {
+            if (this.header) {
                 // Create an header row
-                HSSFRow xlsRow = this.sheet.createRow(rowNum++);
+                final HSSFRow xlsRow = this.sheet.createRow(rowNum);
+                rowNum++;
 
-                Iterator<HeaderCell> iterator = this.model.getHeaderCellList().iterator();
+                final Iterator<HeaderCell> iterator = this.model.getHeaderCellList().iterator();
 
-                while (iterator.hasNext())
-                {
-                    HeaderCell headerCell = iterator.next();
+                while (iterator.hasNext()) {
+                    final HeaderCell headerCell = iterator.next();
 
-                    HSSFCell cell = xlsRow.createCell(colNum++);
-                    cell.setCellValue(new HSSFRichTextString(getHeaderCellValue(headerCell)));
-                    cell.setCellStyle(createHeaderStyle(getWb(), headerCell));
+                    final HSSFCell cell = xlsRow.createCell(colNum++);
+                    cell.setCellValue(new HSSFRichTextString(this.getHeaderCellValue(headerCell)));
+                    cell.setCellStyle(this.createHeaderStyle(this.getWb(), headerCell));
                 }
             }
 
             // get the correct iterator (full or partial list according to the exportFull field)
-            RowIterator rowIterator = this.model.getRowIterator(this.exportFull);
+            final RowIterator rowIterator = this.model.getRowIterator(this.exportFull);
 
             // iterator on rows
-            while (rowIterator.hasNext())
-            {
-                Row row = rowIterator.next();
-                HSSFRow xlsRow = getSheet().createRow(rowNum++);
+            while (rowIterator.hasNext()) {
+                final Row row = rowIterator.next();
+                final HSSFRow xlsRow = this.getSheet().createRow(rowNum);
+                rowNum++;
                 colNum = 0;
 
                 // iterator on columns
-                ColumnIterator columnIterator = row.getColumnIterator(this.model.getHeaderCellList());
+                final ColumnIterator columnIterator = row.getColumnIterator(this.model.getHeaderCellList());
 
-                while (columnIterator.hasNext())
-                {
-                    Column column = columnIterator.nextColumn();
+                while (columnIterator.hasNext()) {
+                    final Column column = columnIterator.nextColumn();
 
                     // Get the value to be displayed for the column
-                    Object value = column.getValue(this.decorated);
+                    final Object value = column.getValue(this.decorated);
 
-                    HSSFCell cell = xlsRow.createCell(colNum++);
-                    writeCell(value, cell);
+                    final HSSFCell cell = xlsRow.createCell(colNum++);
+                    this.writeCell(value, cell);
                 }
             }
 
-            createTotalsRow(getSheet(), rowNum, this.model);
+            this.createTotalsRow(this.getSheet(), rowNum, this.model);
 
-            autosizeColumns();
+            this.autosizeColumns();
 
-            getWb().write(out);
-        }
-        catch (Exception e)
-        {
+            this.getWb().write(out);
+        } catch (final Exception e) {
             throw new ExcelUtils.ExcelGenerationException(e);
         }
     }
@@ -190,62 +203,48 @@ public class ExcelHssfView implements BinaryExportView
      * available. In case if graphical environment is not available, you must tell Java that you are running in headless
      * mode and set the following system property: java.awt.headless=true."
      */
-    protected void autosizeColumns()
-    {
-        for (int i = 0; i < getModel().getNumberOfColumns(); i++)
-        {
-            getSheet().autoSizeColumn((short) i);
+    protected void autosizeColumns() {
+        for (int i = 0; i < this.getModel().getNumberOfColumns(); i++) {
+            this.getSheet().autoSizeColumn((short) i);
             // since this usually creates column widths that are just too short, adjust here!
             // gives column width an extra character
-            int width = getSheet().getColumnWidth(i);
+            int width = this.getSheet().getColumnWidth(i);
             width += 256;
-            getSheet().setColumnWidth(i, (short) width);
+            this.getSheet().setColumnWidth(i, (short) width);
         }
     }
 
     /**
      * Write the value to the cell. Override this method if you have complex data types that may need to be exported.
-     * @param value the value of the cell
-     * @param cell the cell to write it to
+     *
+     * @param value
+     *            the value of the cell
+     * @param cell
+     *            the cell to write it to
      */
-    protected void writeCell(Object value, HSSFCell cell)
-    {
-        if (value == null)
-        {
+    protected void writeCell(final Object value, final HSSFCell cell) {
+        if (value == null) {
             cell.setCellValue(new HSSFRichTextString(""));
-        }
-        else if (value instanceof Integer)
-        {
-            Integer integer = (Integer) value;
+        } else if (value instanceof Integer) {
+            final Integer integer = (Integer) value;
             // due to a weird bug in HSSF where it uses shorts, we need to input this as a double value :(
             cell.setCellValue(integer.doubleValue());
             cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_INTEGER));
-        }
-        else if (value instanceof Number)
-        {
-            Number num = (Number) value;
-            if (num.equals(Double.NaN))
-            {
+        } else if (value instanceof Number) {
+            final Number num = (Number) value;
+            if (num.equals(Double.NaN)) {
                 cell.setCellValue(new HSSFRichTextString(""));
-            }
-            else
-            {
+            } else {
                 cell.setCellValue(num.doubleValue());
             }
             cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_NUMBER));
-        }
-        else if (value instanceof Date)
-        {
+        } else if (value instanceof Date) {
             cell.setCellValue((Date) value);
             cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));
-        }
-        else if (value instanceof Calendar)
-        {
+        } else if (value instanceof Calendar) {
             cell.setCellValue((Calendar) value);
             cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));
-        }
-        else
-        {
+        } else {
             cell.setCellValue(new HSSFRichTextString(ExcelUtils.escapeColumnValue(value)));
         }
     }
@@ -253,28 +252,31 @@ public class ExcelHssfView implements BinaryExportView
     /**
      * Templated method that is called for all non-header and non-total cells.
      *
-     * @param wb the wb
-     * @param rowCtr the row ctr
-     * @param column the column
+     * @param wb
+     *            the wb
+     * @param rowCtr
+     *            the row ctr
+     * @param column
+     *            the column
+     *
      * @return the HSSF cell style
      */
-    public HSSFCellStyle createRowStyle(HSSFWorkbook wb, int rowCtr, Column column)
-    {
+    public HSSFCellStyle createRowStyle(final HSSFWorkbook wb, final int rowCtr, final Column column) {
         return wb.createCellStyle();
     }
 
     /**
      * Gets the header cell value.
      *
-     * @param headerCell the header cell
+     * @param headerCell
+     *            the header cell
+     *
      * @return the header cell value
      */
-    public String getHeaderCellValue(HeaderCell headerCell)
-    {
+    public String getHeaderCellValue(final HeaderCell headerCell) {
         String columnHeader = headerCell.getTitle();
 
-        if (columnHeader == null)
-        {
+        if (columnHeader == null) {
             columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());
         }
 
@@ -284,17 +286,19 @@ public class ExcelHssfView implements BinaryExportView
     /**
      * Templated method that is called for all header cells.
      *
-     * @param wb the wb
-     * @param headerCell the header cell
+     * @param wb
+     *            the wb
+     * @param headerCell
+     *            the header cell
+     *
      * @return the HSSF cell style
      */
-    public HSSFCellStyle createHeaderStyle(HSSFWorkbook wb, HeaderCell headerCell)
-    {
-        HSSFCellStyle headerStyle = getNewCellStyle();
+    public HSSFCellStyle createHeaderStyle(final HSSFWorkbook wb, final HeaderCell headerCell) {
+        final HSSFCellStyle headerStyle = this.getNewCellStyle();
 
         headerStyle.setFillPattern(FillPatternType.FINE_DOTS);
         headerStyle.setFillBackgroundColor(HSSFColorPredefined.BLUE_GREY.getIndex());
-        HSSFFont bold = wb.createFont();
+        final HSSFFont bold = wb.createFont();
         bold.setBold(true);
         bold.setColor(HSSFColorPredefined.WHITE.getIndex());
         headerStyle.setFont(bold);
@@ -305,12 +309,14 @@ public class ExcelHssfView implements BinaryExportView
     /**
      * Templated method that is used if a totals row is desired.
      *
-     * @param sheet the sheet
-     * @param rowNum the row num
-     * @param tableModel the table model
+     * @param sheet
+     *            the sheet
+     * @param rowNum
+     *            the row num
+     * @param tableModel
+     *            the table model
      */
-    public void createTotalsRow(HSSFSheet sheet, int rowNum, TableModel tableModel)
-    {
+    public void createTotalsRow(final HSSFSheet sheet, final int rowNum, final TableModel tableModel) {
     }
 
     /**
@@ -318,8 +324,7 @@ public class ExcelHssfView implements BinaryExportView
      *
      * @return the table model
      */
-    public TableModel getTableModel()
-    {
+    public TableModel getTableModel() {
         return this.model;
     }
 
@@ -328,8 +333,7 @@ public class ExcelHssfView implements BinaryExportView
      *
      * @return true, if is export full
      */
-    public boolean isExportFull()
-    {
+    public boolean isExportFull() {
         return this.exportFull;
     }
 
@@ -338,8 +342,7 @@ public class ExcelHssfView implements BinaryExportView
      *
      * @return true, if is include header in export
      */
-    public boolean isIncludeHeaderInExport()
-    {
+    public boolean isIncludeHeaderInExport() {
         return this.header;
     }
 
@@ -348,8 +351,7 @@ public class ExcelHssfView implements BinaryExportView
      *
      * @return true, if is decorate export
      */
-    public boolean isDecorateExport()
-    {
+    public boolean isDecorateExport() {
         return this.decorated;
     }
 
@@ -358,25 +360,25 @@ public class ExcelHssfView implements BinaryExportView
      *
      * @return the sheet name
      */
-    public String getSheetName()
-    {
+    public String getSheetName() {
         return this.sheetName;
     }
 
     /**
      * Sets the sheet name.
      *
-     * @param sheetName the new sheet name
-     * @throws JspException the jsp exception
+     * @param sheetName
+     *            the new sheet name
+     *
+     * @throws JspException
+     *             the jsp exception
      */
-    public void setSheetName(String sheetName) throws JspException
-    {
+    public void setSheetName(String sheetName) throws JspException {
         // this is due to either the POI limitations or excel (I'm not sure). you get the following error if you don't
         // do this:
         // Exception: [.ExcelHssfView] !ExcelView.errorexporting! Cause: Sheet name cannot be blank, greater than 31
         // chars, or contain any of /\*?[]
-        if (StringUtils.isBlank(sheetName))
-        {
+        if (StringUtils.isBlank(sheetName)) {
             throw new JspException("The sheet name property " + ExcelUtils.EXCEL_SHEET_NAME + " must not be blank.");
         }
         sheetName = sheetName.replaceAll("/|\\\\|\\*|\\?|\\[|\\]", "");
@@ -388,9 +390,8 @@ public class ExcelHssfView implements BinaryExportView
      *
      * @return the new cell style
      */
-    public HSSFCellStyle getNewCellStyle()
-    {
-        return getWb() == null ? null : getWb().createCellStyle();
+    public HSSFCellStyle getNewCellStyle() {
+        return this.getWb() == null ? null : this.getWb().createCellStyle();
     }
 
     /**
@@ -398,8 +399,7 @@ public class ExcelHssfView implements BinaryExportView
      *
      * @return the wb
      */
-    public HSSFWorkbook getWb()
-    {
+    public HSSFWorkbook getWb() {
         if (this.wb == null) {
             this.wb = new HSSFWorkbook();
         }
@@ -409,10 +409,10 @@ public class ExcelHssfView implements BinaryExportView
     /**
      * Sets the wb.
      *
-     * @param wb the new wb
+     * @param wb
+     *            the new wb
      */
-    public void setWb(HSSFWorkbook wb)
-    {
+    public void setWb(final HSSFWorkbook wb) {
         this.wb = wb;
     }
 
@@ -421,18 +421,17 @@ public class ExcelHssfView implements BinaryExportView
      *
      * @return the sheet
      */
-    public HSSFSheet getSheet()
-    {
+    public HSSFSheet getSheet() {
         return this.sheet;
     }
 
     /**
      * Sets the sheet.
      *
-     * @param sheet the new sheet
+     * @param sheet
+     *            the new sheet
      */
-    public void setSheet(HSSFSheet sheet)
-    {
+    public void setSheet(final HSSFSheet sheet) {
         this.sheet = sheet;
     }
 
@@ -441,18 +440,17 @@ public class ExcelHssfView implements BinaryExportView
      *
      * @return the model
      */
-    public TableModel getModel()
-    {
+    public TableModel getModel() {
         return this.model;
     }
 
     /**
      * Sets the model.
      *
-     * @param model the new model
+     * @param model
+     *            the new model
      */
-    public void setModel(TableModel model)
-    {
+    public void setModel(final TableModel model) {
         this.model = model;
     }
 

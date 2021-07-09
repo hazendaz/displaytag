@@ -25,13 +25,12 @@ import java.util.List;
 
 import org.displaytag.properties.SortOrderEnum;
 
-
 /**
  * Interface describing an externally sorted and paginated list.
+ *
  * @author JBN
  */
-public interface PaginatedList
-{
+public interface PaginatedList {
 
     /**
      * Returns the current partial list.
@@ -50,6 +49,7 @@ public interface PaginatedList
     /**
      * Returns the number of objects per page. Unless this page is the last one the partial list should thus have a size
      * equal to the result of this method
+     *
      * @return the number of objects per page
      */
     int getObjectsPerPage();
@@ -79,6 +79,7 @@ public interface PaginatedList
      * Returns an ID for the search used to get the list. It may be null. Such an ID can be necessary if the full list
      * is cached, in a way or another (in the session, in the business tier, or anywhere else), to be able to retrieve
      * the full list from the cache
+     *
      * @return the search ID
      */
     String getSearchId();

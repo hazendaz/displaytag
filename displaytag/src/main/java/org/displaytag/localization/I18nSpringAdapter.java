@@ -33,15 +33,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-
 /**
  * Spring implementation of a resource provider and locale resolver. Since Displaytag locale resolution is modelled on
  * the Spring one, it simply forward <code>resolveLocale</code> calls to the Spring-configured LocaleResolver.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider
-{
+public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider {
 
     /**
      * prefix/suffix for missing entries.
@@ -54,40 +54,58 @@ public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider
     private static Logger log = LoggerFactory.getLogger(I18nSpringAdapter.class);
 
     /**
+     * Resolve locale.
+     *
+     * @param pageContext
+     *            the page context
+     *
+     * @return the locale
+     *
      * @see LocaleResolver#resolveLocale(PageContext)
      */
     @Override
-    public Locale resolveLocale(PageContext pageContext)
-    {
+    public Locale resolveLocale(final PageContext pageContext) {
         return RequestContextUtils.getLocale((HttpServletRequest) pageContext.getRequest());
     }
 
     /**
+     * Gets the resource.
+     *
+     * @param resourceKey
+     *            the resource key
+     * @param defaultValue
+     *            the default value
+     * @param tag
+     *            the tag
+     * @param pageContext
+     *            the page context
+     *
+     * @return the resource
+     *
      * @see I18nResourceProvider#getResource(String, String, Tag, PageContext)
      */
     @Override
-    public String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext)
-    {
-        MessageSource messageSource = RequestContextUtils.findWebApplicationContext((HttpServletRequest) pageContext.getRequest());
-        if (messageSource == null)
-        {
-            log.warn("messageSource not found");
+    public String getResource(final String resourceKey, final String defaultValue, final Tag tag,
+            final PageContext pageContext) {
+        final MessageSource messageSource = RequestContextUtils
+                .findWebApplicationContext((HttpServletRequest) pageContext.getRequest());
+        if (messageSource == null) {
+            I18nSpringAdapter.log.warn("messageSource not found");
             return null;
         }
 
         // if resourceKey isn't defined either, use defaultValue
-        String key = resourceKey != null ? resourceKey : defaultValue;
+        final String key = resourceKey != null ? resourceKey : defaultValue;
 
-        String message = null;
+        String message;
 
-        message = messageSource.getMessage(key, null, null, RequestContextUtils
-            .getLocale((HttpServletRequest) pageContext.getRequest()));
+        message = messageSource.getMessage(key, null, null,
+                RequestContextUtils.getLocale((HttpServletRequest) pageContext.getRequest()));
 
         // if user explicitly added a titleKey we guess this is an error
-        if (message == null && resourceKey != null)
-        {
-            log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$
-            message = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;
+        if (message == null && resourceKey != null) {
+            I18nSpringAdapter.log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$
+            message = I18nSpringAdapter.UNDEFINED_KEY + resourceKey + I18nSpringAdapter.UNDEFINED_KEY;
         }
 
         return message;

@@ -27,14 +27,14 @@ import org.displaytag.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * Base exception: extendes JspTagException providing logging and exception nesting functionalities.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public abstract class BaseNestableJspTagException extends JspTagException
-{
+public abstract class BaseNestableJspTagException extends JspTagException {
 
     /**
      * Stable serialVersionUID.
@@ -44,7 +44,7 @@ public abstract class BaseNestableJspTagException extends JspTagException
     /**
      * Class where the exception has been generated.
      */
-    private final Class< ? > sourceClass;
+    private final Class<?> sourceClass;
 
     /**
      * previous exception.
@@ -53,32 +53,27 @@ public abstract class BaseNestableJspTagException extends JspTagException
 
     /**
      * Instantiate a new BaseNestableJspTagException.
-     * @param source Class where the exception is generated
-     * @param message message
+     *
+     * @param source
+     *            Class where the exception is generated
+     * @param message
+     *            message
      */
-    public BaseNestableJspTagException(Class< ? > source, String message)
-    {
+    public BaseNestableJspTagException(final Class<?> source, final String message) {
         super(message);
         this.sourceClass = source;
 
         // log exception
-        Logger log = LoggerFactory.getLogger(source);
+        final Logger log = LoggerFactory.getLogger(source);
 
         // choose appropriate logging method
-        if (getSeverity() == SeverityEnum.DEBUG)
-        {
+        if (this.getSeverity() == SeverityEnum.DEBUG) {
             log.debug("{}", this);
-        }
-        else if (getSeverity() == SeverityEnum.INFO)
-        {
+        } else if (this.getSeverity() == SeverityEnum.INFO) {
             log.info("{}", this);
-        }
-        else if (getSeverity() == SeverityEnum.WARN)
-        {
+        } else if (this.getSeverity() == SeverityEnum.WARN) {
             log.warn("{}", this);
-        }
-        else
-        {
+        } else {
             // error - default
             log.error("{}", this);
         }
@@ -87,34 +82,30 @@ public abstract class BaseNestableJspTagException extends JspTagException
 
     /**
      * Instantiate a new BaseNestableJspTagException.
-     * @param source Class where the exception is generated
-     * @param message message
-     * @param cause previous Exception
+     *
+     * @param source
+     *            Class where the exception is generated
+     * @param message
+     *            message
+     * @param cause
+     *            previous Exception
      */
-    public BaseNestableJspTagException(Class< ? > source, String message, Throwable cause)
-    {
+    public BaseNestableJspTagException(final Class<?> source, final String message, final Throwable cause) {
         super(message);
         this.sourceClass = source;
         this.nestedException = cause;
 
         // log exception
-        Logger log = LoggerFactory.getLogger(source);
+        final Logger log = LoggerFactory.getLogger(source);
 
         // choose appropriate logging method
-        if (getSeverity() == SeverityEnum.DEBUG)
-        {
+        if (this.getSeverity() == SeverityEnum.DEBUG) {
             log.debug("{}", this, cause);
-        }
-        else if (getSeverity() == SeverityEnum.INFO)
-        {
+        } else if (this.getSeverity() == SeverityEnum.INFO) {
             log.info("{}", this, cause);
-        }
-        else if (getSeverity() == SeverityEnum.WARN)
-        {
+        } else if (this.getSeverity() == SeverityEnum.WARN) {
             log.warn("{}", this, cause);
-        }
-        else
-        {
+        } else {
             // error - default
             log.error("{}", this, cause);
         }
@@ -123,37 +114,38 @@ public abstract class BaseNestableJspTagException extends JspTagException
 
     /**
      * returns the previous exception.
+     *
      * @return Throwable previous exception
      */
     @Override
-    public Throwable getCause()
-    {
+    public Throwable getCause() {
         return this.nestedException;
     }
 
     /**
      * basic toString. Returns the message plus the previous exception (if a previous exception exists).
+     *
      * @return String
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         String className = this.sourceClass.getName();
         className = className.substring(className.lastIndexOf('.'));
 
-        if (this.nestedException == null)
-        {
+        if (this.nestedException == null) {
             return Messages.getString("NestableException.msg", //$NON-NLS-1$
-                new Object[]{className, getMessage()});
+                    new Object[] { className, this.getMessage() });
         }
 
         return Messages.getString("NestableException.msgcause", //$NON-NLS-1$
-            new Object[]{className, getMessage(), this.nestedException.getMessage()});
+                new Object[] { className, this.getMessage(), this.nestedException.getMessage() });
     }
 
     /**
      * subclasses need to define the getSeverity method to provide correct severity for logging.
+     *
      * @return SeverityEnum exception severity
+     *
      * @see org.displaytag.exception.SeverityEnum
      */
     public abstract SeverityEnum getSeverity();

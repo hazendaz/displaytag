@@ -21,12 +21,6 @@
  */
 package org.displaytag.localization;
 
-import com.opensymphony.webwork.views.jsp.TagUtils;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.LocaleProvider;
-import com.opensymphony.xwork.TextProvider;
-import com.opensymphony.xwork.util.OgnlValueStack;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -38,15 +32,21 @@ import org.displaytag.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.opensymphony.webwork.views.jsp.TagUtils;
+import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.LocaleProvider;
+import com.opensymphony.xwork.TextProvider;
+import com.opensymphony.xwork.util.OgnlValueStack;
 
 /**
  * Webwork implementation of a resource provider and locale resolver.
+ *
  * @author Richard HALLIER
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
-{
+public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider {
 
     /**
      * prefix/suffix for missing entries.
@@ -59,32 +59,35 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
     private static Logger log = LoggerFactory.getLogger(I18nWebworkAdapter.class);
 
     /**
+     * Resolve locale.
+     *
+     * @param pageContext
+     *            the page context
+     *
+     * @return the locale
+     *
      * @see LocaleResolver#resolveLocale(PageContext)
      */
     @Override
-    public Locale resolveLocale(PageContext pageContext)
-    {
+    public Locale resolveLocale(final PageContext pageContext) {
 
         Locale result = null;
-        OgnlValueStack stack = ActionContext.getContext().getValueStack();
+        final OgnlValueStack stack = ActionContext.getContext().getValueStack();
 
-        Iterator<Object> iterator = stack.getRoot().iterator();
-        while (iterator.hasNext())
-        {
-            Object o = iterator.next();
+        final Iterator<Object> iterator = stack.getRoot().iterator();
+        while (iterator.hasNext()) {
+            final Object o = iterator.next();
 
-            if (o instanceof LocaleProvider)
-            {
-                LocaleProvider lp = (LocaleProvider) o;
+            if (o instanceof LocaleProvider) {
+                final LocaleProvider lp = (LocaleProvider) o;
                 result = lp.getLocale();
 
                 break;
             }
         }
 
-        if (result == null)
-        {
-            log.debug("Missing LocalProvider actions, init locale to default");
+        if (result == null) {
+            I18nWebworkAdapter.log.debug("Missing LocalProvider actions, init locale to default");
             result = Locale.getDefault();
         }
 
@@ -92,26 +95,37 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
     }
 
     /**
+     * Gets the resource.
+     *
+     * @param resourceKey
+     *            the resource key
+     * @param defaultValue
+     *            the default value
+     * @param tag
+     *            the tag
+     * @param pageContext
+     *            the page context
+     *
+     * @return the resource
+     *
      * @see I18nResourceProvider#getResource(String, String, Tag, PageContext)
      */
     @Override
-    public String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext)
-    {
+    public String getResource(final String resourceKey, final String defaultValue, final Tag tag,
+            final PageContext pageContext) {
 
         // if resourceKey isn't defined either, use defaultValue
-        String key = resourceKey != null ? resourceKey : defaultValue;
+        final String key = resourceKey != null ? resourceKey : defaultValue;
 
         String message = null;
-        OgnlValueStack stack = TagUtils.getStack(pageContext);
-        Iterator<Object> iterator = stack.getRoot().iterator();
+        final OgnlValueStack stack = TagUtils.getStack(pageContext);
+        final Iterator<Object> iterator = stack.getRoot().iterator();
 
-        while (iterator.hasNext())
-        {
-            Object o = iterator.next();
+        while (iterator.hasNext()) {
+            final Object o = iterator.next();
 
-            if (o instanceof TextProvider)
-            {
-                TextProvider tp = (TextProvider) o;
+            if (o instanceof TextProvider) {
+                final TextProvider tp = (TextProvider) o;
                 message = tp.getText(key, null, (List<?>) null);
 
                 break;
@@ -119,10 +133,9 @@ public class I18nWebworkAdapter implements LocaleResolver, I18nResourceProvider
         }
 
         // if user explicitly added a titleKey we guess this is an error
-        if (message == null && resourceKey != null)
-        {
-            log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$
-            message = UNDEFINED_KEY + resourceKey + UNDEFINED_KEY;
+        if (message == null && resourceKey != null) {
+            I18nWebworkAdapter.log.debug(Messages.getString("Localization.missingkey", resourceKey)); //$NON-NLS-1$
+            message = I18nWebworkAdapter.UNDEFINED_KEY + resourceKey + I18nWebworkAdapter.UNDEFINED_KEY;
         }
 
         return message;

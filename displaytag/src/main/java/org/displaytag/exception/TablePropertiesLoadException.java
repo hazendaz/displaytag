@@ -23,14 +23,14 @@ package org.displaytag.exception;
 
 import org.displaytag.Messages;
 
-
 /**
  * Runtime exception thrown for problems in loading the (standard or user defined) property file.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class TablePropertiesLoadException extends BaseNestableRuntimeException
-{
+public class TablePropertiesLoadException extends BaseNestableRuntimeException {
 
     /**
      * D1597A17A6.
@@ -39,24 +39,29 @@ public class TablePropertiesLoadException extends BaseNestableRuntimeException
 
     /**
      * Constructor for TablePropertiesLoadException.
-     * @param source Class where the exception is generated
-     * @param propertiesFileName properties file name
-     * @param cause previous Exception
+     *
+     * @param source
+     *            Class where the exception is generated
+     * @param propertiesFileName
+     *            properties file name
+     * @param cause
+     *            previous Exception
      */
-    public TablePropertiesLoadException(Class<?> source, String propertiesFileName, Throwable cause)
-    {
+    public TablePropertiesLoadException(final Class<?> source, final String propertiesFileName, final Throwable cause) {
         super(source, Messages.getString("TablePropertiesLoadException.msg", //$NON-NLS-1$
-            new Object[]{propertiesFileName}), cause);
+                new Object[] { propertiesFileName }), cause);
     }
 
     /**
+     * Gets the severity.
+     *
      * @return SeverityEnum.ERROR
+     *
      * @see org.displaytag.exception.BaseNestableRuntimeException#getSeverity()
      * @see org.displaytag.exception.SeverityEnum
      */
     @Override
-    public SeverityEnum getSeverity()
-    {
+    public SeverityEnum getSeverity() {
         return SeverityEnum.ERROR;
     }
 

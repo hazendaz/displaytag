@@ -21,11 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebLink;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,50 +28,54 @@ import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for "media" attribute support.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ExportLinksTest extends DisplaytagCase
-{
+public class ExportLinksTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
      *
      * @return the jsp name
+     *
      * @see org.displaytag.test.DisplaytagCase#getJspName()
      */
     @Override
-    public String getJspName()
-    {
+    public String getJspName() {
         return "media.jsp";
     }
 
     /**
      * Test that headers are correctly removed.
      *
-     * @throws Exception any axception thrown during test.
+     * @throws Exception
+     *             any axception thrown during test.
      */
     @Override
     @Test
-    public void doTest() throws Exception
-    {
+    public void doTest() throws Exception {
         // test keep
-        WebRequest request = new GetMethodWebRequest(getJspUrl(getJspName()));
-        WebResponse response = this.runner.getResponse(request);
+        final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
+        final WebResponse response = this.runner.getResponse(request);
 
-        WebLink[] links = response.getLinks();
+        final WebLink[] links = response.getLinks();
 
         Assert.assertEquals("Wrong number of export links. ", 4, links.length);
 
-        Set<String> linkTexts = new HashSet<>();
-        for (WebLink link : links) {
-            String url = link.getURLString();
+        final Set<String> linkTexts = new HashSet<>();
+        for (final WebLink link : links) {
+            final String url = link.getURLString();
             this.log.debug(url);
-            if (linkTexts.contains(url))
-            {
+            if (linkTexts.contains(url)) {
                 Assert.fail("Found duplicated link in export banner: " + url);
             }
             linkTexts.add(url);
