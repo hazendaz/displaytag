@@ -19,3 +19,18 @@ updates:
   - dependency-name: net.trajano.wagon:wagon-git
     versions:
     - ">= 2.0.4"
+  - dependency-name: org.apache.tomcat:tomcat-catalina
+    versions:
+    - "> 9.1.0"
+  - dependency-name: org.apache.tomcat:tomcat-servlet-api
+    versions:
+    - "> 9.1.0"
+  - dependency-name: org.apache.tomcat:tomcat-jasper-el
+    versions:
+    - "> 9.1.0"
+  - dependency-name: org.apache.tomcat:tomcat-jasper
+    versions:
+    - "> 9.1.0"
+  - dependency-name: org.apache.tomcat:tomcat-coyote
+    versions:
+    - "> 9.1.0"
