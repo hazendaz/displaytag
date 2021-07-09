@@ -21,8 +21,6 @@
  */
 package org.displaytag.jsptests;
 
-import java.nio.charset.Charset;
-
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
@@ -64,8 +62,6 @@ public class EncodedUriTest extends DisplaytagCase {
     @Override
     @Test
     public void doTest() throws Exception {
-
-        Assert.assertEquals("UTF-8", Charset.defaultCharset().displayName());
 
         final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter("city", "MünchenXX");
