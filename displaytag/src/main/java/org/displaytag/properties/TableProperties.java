@@ -373,6 +373,11 @@ public final class TableProperties implements Cloneable {
      * Will be overriden by column level comparators.
      */
     public static final String PROPERTY_DEFAULT_COMPARATOR = "comparator.default"; //$NON-NLS-1$
+    
+    /**
+     * Property <code>escapeXml.default</code>. Specifies the default value for column <code>escapeXml</code> attribute.
+     */
+    public static final String PROPERTY_BOOLEAN_ESCAPEXML_DEFAULT = "escapeXml.default"; //$NON-NLS-1$
 
     // </JBN>
 
@@ -1386,5 +1391,14 @@ public final class TableProperties implements Cloneable {
             }
         }
         return new DefaultComparator(Collator.getInstance(this.getLocale()));
+    }
+ 
+    /**
+     * Returns the default value for column <code>escapeXml</code> attribute.
+     * 
+     * @return The default value for column <code>escapeXml</code> attribute
+     */
+    public boolean getEscapeXmlDefault() {
+    	return getBooleanProperty(PROPERTY_BOOLEAN_ESCAPEXML_DEFAULT);
     }
 }

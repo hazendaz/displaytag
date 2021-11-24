@@ -139,7 +139,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
     /**
      * Automatically escape column content for html and xml media.
      */
-    private boolean escapeXml;
+    private Boolean escapeXml;
 
     /**
      * A MessageFormat patter that will be used to decorate objects in the column. Can be used as a "shortcut" for
@@ -721,7 +721,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         }
 
         // "special" decorators
-        if (this.escapeXml) {
+        if (this.escapeXml != null && this.escapeXml) {
             decorators.add(EscapeXmlColumnDecorator.INSTANCE);
         }
         if (this.autolink) {
@@ -835,7 +835,7 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         this.sortProperty = null;
         this.comparator = null;
         this.defaultorder = null;
-        this.escapeXml = false;
+        this.escapeXml = null;
         this.format = null;
         this.value = null;
         this.totaled = false;
@@ -867,6 +867,11 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
                 .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);
         if (!MediaUtil.availableForMedia(this, currentMediaType)) {
             return Tag.SKIP_BODY;
+        }
+        
+        // Configure escapeXml default value from properties
+        if (this.escapeXml == null) {
+        	this.escapeXml = tableTag.getProperties().getEscapeXmlDefault();
         }
 
         return super.doStartTag();
