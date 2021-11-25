@@ -165,7 +165,7 @@ public final class SortOrderEnum implements Serializable {
     }
 
     /**
-     * returns an iterator on all the enumerated instaces.
+     * returns an iterator on all the enumerated instances.
      *
      * @return iterator
      */

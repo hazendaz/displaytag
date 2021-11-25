@@ -419,7 +419,7 @@ public final class TableProperties implements Cloneable {
     private final Locale locale;
 
     /**
-     * Cache for dinamically instantiated object (request factory, decorator factory).
+     * Cache for dynamically instantiated object (request factory, decorator factory).
      */
     private final Map<String, Object> objectCache = new HashMap<>();
 
@@ -653,7 +653,7 @@ public final class TableProperties implements Cloneable {
      * Local, non-default properties; these settings override the defaults from displaytag.properties and
      * TableTag.properties. Please note that the values are copied in, so that multiple calls with non-overlapping
      * properties will be merged, not overwritten. Note: setUserProperties() MUST BE CALLED before the first
-     * TableProperties instantation.
+     * TableProperties instantiation.
      *
      * @param overrideProperties
      *            - The local, non-default properties
