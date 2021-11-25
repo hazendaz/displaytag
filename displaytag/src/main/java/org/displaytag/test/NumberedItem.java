@@ -23,6 +23,7 @@ package org.displaytag.test;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.model.Row;
 
 /**
  * Simple test objects which wraps an int value.
@@ -31,7 +32,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @version $Revision$ ($Author$)
  */
-public class NumberedItem {
+public class NumberedItem extends Row {
 
     /**
      * Wrapped int.
@@ -45,6 +46,7 @@ public class NumberedItem {
      *            integer that will be returned by getNumber()
      */
     public NumberedItem(final int num) {
+        super("Row" + num, num);
         this.number = num;
     }
 

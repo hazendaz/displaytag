@@ -1510,7 +1510,7 @@ public class TableTag extends HtmlTableTag {
 
         // If they have asked for a subset of the list via the length
         // attribute, then only fetch those items out of the master list.
-        List fullList = CollectionUtil.getListFromObject(originalData, this.offset, this.length);
+        List<Row> fullList = CollectionUtil.getListFromObject(originalData, this.offset, this.length);
 
         int pageOffset = this.offset;
         // If they have asked for just a page of the data, then use the

@@ -27,6 +27,7 @@ import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.displaytag.Messages;
+import org.displaytag.model.Row;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
 import org.slf4j.Logger;
@@ -55,7 +56,7 @@ public class SmartListHelper {
     /**
      * full list.
      */
-    private List<Object> fullList;
+    private List<Row> fullList;
 
     /**
      * sixe of the full list.
@@ -100,7 +101,7 @@ public class SmartListHelper {
      * @param partialList
      *            the partial list
      */
-    public SmartListHelper(final List<Object> list, final int fullSize, final int itemsInPage,
+    public SmartListHelper(final List<Row> list, final int fullSize, final int itemsInPage,
             final TableProperties tableProperties, final boolean partialList) {
         if (SmartListHelper.log.isDebugEnabled()) {
             SmartListHelper.log.debug(Messages.getString("SmartListHelper.debug.instantiated", //$NON-NLS-1$
@@ -192,7 +193,7 @@ public class SmartListHelper {
      *
      * @return List subsection of the list that contains the elements that are supposed to be shown on the current page
      */
-    public List<Object> getListForCurrentPage() {
+    public List<Row> getListForCurrentPage() {
         return this.getListForPage(this.currentPage);
     }
 
@@ -205,7 +206,7 @@ public class SmartListHelper {
      * @return List subsection of the list that contains just the elements that are supposed to be shown on the given
      *         page
      */
-    protected List<Object> getListForPage(final int pageNumber) {
+    protected List<Row> getListForPage(final int pageNumber) {
         if (SmartListHelper.log.isDebugEnabled()) {
             SmartListHelper.log.debug(Messages.getString("SmartListHelper.debug.sublist", //$NON-NLS-1$
                     new Object[] { Integer.valueOf(pageNumber) }));

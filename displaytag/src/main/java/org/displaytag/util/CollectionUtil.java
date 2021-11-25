@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.collections.IteratorUtils;
+import org.displaytag.model.Row;
 
 /**
  * Utility methods for collection handling.
@@ -57,15 +58,15 @@ public final class CollectionUtil {
      * @return List with values taken from the given object, cropped according to startIndex and numberOfItems
      *         parameters
      */
-    private static List<Object> getSubList(final Iterator<?> iterator, final int startIndex, final int numberOfItems) {
+    private static List<Row> getSubList(final Iterator<Row> iterator, final int startIndex, final int numberOfItems) {
 
-        final List<Object> croppedList = new ArrayList<>(numberOfItems);
+        final List<Row> croppedList = new ArrayList<>(numberOfItems);
 
         int skippedRecordCount = 0;
         int copiedRecordCount = 0;
         while (iterator.hasNext()) {
 
-            final Object object = iterator.next();
+            final Row object = iterator.next();
 
             skippedRecordCount++;
             if (skippedRecordCount <= startIndex) {
@@ -97,11 +98,11 @@ public final class CollectionUtil {
      * @return List with values taken from the given object, cropped according the startIndex and numberOfItems
      *         parameters
      */
-    public static List<Object> getListFromObject(final Object iterableObject, final int startIndex,
+    public static List<Row> getListFromObject(final Object iterableObject, final int startIndex,
             final int numberOfItems) {
         if (iterableObject instanceof List) {
             // easier, use sublist
-            final List<Object> list = (List<Object>) iterableObject;
+            final List<Row> list = (List<Row>) iterableObject;
 
             // check for partial lists
             int lastRecordExclusive = numberOfItems <= 0 ? list.size() : startIndex + numberOfItems;
@@ -115,7 +116,7 @@ public final class CollectionUtil {
         }
 
         // use an iterator
-        final Iterator<?> iterator = IteratorUtils.getIterator(iterableObject);
+        final Iterator<Row> iterator = IteratorUtils.getIterator(iterableObject);
         return CollectionUtil.getSubList(iterator, startIndex, numberOfItems);
     }
 }

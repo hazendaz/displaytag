@@ -24,6 +24,7 @@ package org.displaytag.pagination;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.displaytag.model.Row;
 import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.test.NumberedItem;
 
@@ -37,7 +38,7 @@ import org.displaytag.test.NumberedItem;
 public class SimplePaginatedList implements PaginatedList {
 
     /** wrapped list. */
-    private final List<Object> fullList = new ArrayList<>();
+    private final List<Row> fullList = new ArrayList<>();
 
     /**
      * Number of objects per page.
@@ -71,7 +72,7 @@ public class SimplePaginatedList implements PaginatedList {
      * @see org.displaytag.pagination.PaginatedList#getList()
      */
     @Override
-    public List<Object> getList() {
+    public List<Row> getList() {
         final int startOffset = this.objectsPerPage * (this.currentPage - 1);
         return this.fullList.subList(startOffset, Math.min(this.fullList.size(), startOffset + this.objectsPerPage));
     }

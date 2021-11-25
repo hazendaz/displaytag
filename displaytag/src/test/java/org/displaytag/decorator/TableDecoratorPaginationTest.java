@@ -49,7 +49,7 @@ public class TableDecoratorPaginationTest {
     @Test
     public void testSinglePage() {
         final List<Integer> rawData = new ArrayList<>(10);
-        final List<Object> data = new ArrayList<>(10);
+        final List<Row> data = new ArrayList<>(10);
         for (int i = 1; i <= 10; i++) {
             rawData.add(i);
             data.add(new Row(i, i));
@@ -82,7 +82,7 @@ public class TableDecoratorPaginationTest {
     @Test
     public void testFirstPage() {
         final List<Integer> rawData = new ArrayList<>(10);
-        final List<Object> data = new ArrayList<>(10);
+        final List<Row> data = new ArrayList<>(10);
         for (int i = 1; i <= 10; i++) {
             rawData.add(i);
             data.add(new Row(i, i));
@@ -115,7 +115,7 @@ public class TableDecoratorPaginationTest {
     @Test
     public void testSecondPage() {
         final List<Integer> rawData = new ArrayList<>(10);
-        final List<Object> data = new ArrayList<>(10);
+        final List<Row> data = new ArrayList<>(10);
         for (int i = 1; i <= 10; i++) {
             rawData.add(i);
             data.add(new Row(i, i));

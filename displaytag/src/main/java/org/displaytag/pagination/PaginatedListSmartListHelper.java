@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.model.Row;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.util.Href;
 
@@ -137,7 +138,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper {
      * @return the list for current page
      */
     @Override
-    public List<Object> getListForCurrentPage() {
+    public List<Row> getListForCurrentPage() {
         return this.paginatedList.getList();
     }
 
@@ -150,7 +151,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper {
      * @return the list for page
      */
     @Override
-    protected List<Object> getListForPage(final int pageNumber) {
+    protected List<Row> getListForPage(final int pageNumber) {
         if (pageNumber == this.paginatedList.getPageNumber()) {
             return this.getListForCurrentPage();
         }
