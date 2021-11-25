@@ -15,7 +15,7 @@
 <display:table id="table" name="test" sort="list">
     <display:column property="ant" />
     <display:column><%=((org.displaytag.test.KnownValue)pageContext.getAttribute("table")).getBee()%></display:column>
-    <display:column><%=((org.displaytag.test.KnownValue)table).getCamel()%></display:column>
+    <display:column><%=((org.displaytag.test.KnownValue)pageContext.getAttribute("table")).getCamel()%></display:column>
 </display:table>
 
 <display:table id='<%=new String("table2")%>' name="test" sort="list">
