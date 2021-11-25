@@ -40,7 +40,7 @@ import org.displaytag.util.HtmlAttributeMap;
  *
  * @version $Revision$ ($Author$)
  */
-public class Cell implements Comparable<Cell>, Cloneable {
+public class Cell implements Comparable<Cell> {
 
     /**
      * empty cell object. Use as placeholder for empty cell to avoid useless object creation.
