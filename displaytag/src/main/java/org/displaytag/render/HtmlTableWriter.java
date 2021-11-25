@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.jsp.JspWriter;
 
@@ -219,16 +220,16 @@ public class HtmlTableWriter extends TableWriterAdapter {
         this.addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_PAGE));
         this.addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_SORT));
 
-        for (final String key : parameters.keySet()) {
-            final Object value = parameters.get(key);
+        for (final Entry<String, String[]> entry : parameters.entrySet()) {
+            final Object value = entry.getValue();
 
             if (value != null && value.getClass().isArray()) {
                 final Object[] arr = (Object[]) value;
                 for (final Object element : arr) {
-                    this.writeField(key, element);
+                    this.writeField(entry.getKey(), element);
                 }
             } else {
-                this.writeField(key, value);
+                this.writeField(entry.getKey(), value);
             }
         }
     }
