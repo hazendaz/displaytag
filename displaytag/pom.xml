@@ -374,6 +374,12 @@
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-juli</artifactId>
+      <version>9.0.55</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat-servlet-api</artifactId>
       <version>9.0.55</version>
       <scope>test</scope>
