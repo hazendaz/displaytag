@@ -104,7 +104,7 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase {
 
         Assert.assertEquals("Wrong number of tables.", 1, tables.length);
         Assert.assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
-        Assert.assertEquals("Bad sub-total for group 1", "8.0", tables[0].getCellAsText(6, 1));
+        Assert.assertEquals("Bad sub-total for group 1", "18.0", tables[0].getCellAsText(6, 1));
         Assert.assertEquals("Bad grand total", "10.0", tables[0].getCellAsText(9, 1));
     }
 }

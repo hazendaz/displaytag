@@ -1216,8 +1216,6 @@ public class TableTag extends HtmlTableTag {
         final TableDecorator tableDecorator = this.properties.getDecoratorFactoryInstance()
                 .loadTableDecorator(this.pageContext, this.getConfiguredDecoratorName());
 
-        this.setupViewableData();
-
         if (tableDecorator != null) {
             tableDecorator.init(this.pageContext, this.list, this.tableModel);
             this.tableModel.setTableDecorator(tableDecorator);
@@ -1225,11 +1223,13 @@ public class TableTag extends HtmlTableTag {
 
         final TableTotaler totaler = this.properties.getDecoratorFactoryInstance().loadTableTotaler(this.pageContext,
                 this.getTotalerName());
+
         if (totaler != null) {
             totaler.init(this.tableModel);
             this.tableModel.setTotaler(totaler);
-
         }
+
+        this.setupViewableData();
 
         // Figure out how we should sort this data, typically we just sort
         // the data being shown, but the programmer can override this behavior
