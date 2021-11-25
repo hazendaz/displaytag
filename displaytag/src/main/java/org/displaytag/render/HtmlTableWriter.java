@@ -66,10 +66,8 @@ import org.slf4j.LoggerFactory;
  */
 public class HtmlTableWriter extends TableWriterAdapter {
 
-    /**
-     * Logger.
-     */
-    private static Logger log = LoggerFactory.getLogger(HtmlTableWriter.class);
+    /** Logger. */
+    private static Logger logger = LoggerFactory.getLogger(HtmlTableWriter.class);
 
     /** <code>TableProperties</code>. */
     private final TableProperties properties;
@@ -526,8 +524,8 @@ public class HtmlTableWriter extends TableWriterAdapter {
     @Override
     protected void writeTableHeader(final TableModel model) {
 
-        if (HtmlTableWriter.log.isDebugEnabled()) {
-            HtmlTableWriter.log.debug("[{}] getTableHeader called", model.getId());
+        if (HtmlTableWriter.logger.isDebugEnabled()) {
+            HtmlTableWriter.logger.debug("[{}] getTableHeader called", model.getId());
         }
 
         // open thead
@@ -588,8 +586,8 @@ public class HtmlTableWriter extends TableWriterAdapter {
         // close thead
         this.write(TagConstants.TAG_THEAD_CLOSE);
 
-        if (HtmlTableWriter.log.isDebugEnabled()) {
-            HtmlTableWriter.log.debug("[{}] getTableHeader end", model.getId());
+        if (HtmlTableWriter.logger.isDebugEnabled()) {
+            HtmlTableWriter.logger.debug("[{}] getTableHeader end", model.getId());
         }
     }
 
