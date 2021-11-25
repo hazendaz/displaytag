@@ -532,7 +532,7 @@ public final class TableProperties implements Cloneable {
 
                     TableProperties.log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(LocaleResolver.class), className }));
-                } catch (final Throwable e) {
+                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                     TableProperties.log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(LocaleResolver.class), e.getClass().getName(),
                                     e.getMessage() }));
@@ -1234,7 +1234,7 @@ public final class TableProperties implements Cloneable {
 
                     TableProperties.log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class), className }));
-                } catch (final Throwable e) {
+                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                     TableProperties.log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class),
                                     e.getClass().getName(), e.getMessage() }));
@@ -1379,7 +1379,7 @@ public final class TableProperties implements Cloneable {
                 final Class<Comparator<Object>> classProperty = (Class<Comparator<Object>>) ReflectHelper
                         .classForName(className);
                 return classProperty.newInstance();
-            } catch (final Throwable e) {
+            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 TableProperties.log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
                         new Object[] { ClassUtils.getShortClassName(Comparator.class), e.getClass().getName(),
                                 e.getMessage() }));
