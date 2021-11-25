@@ -274,9 +274,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
      *            param key
      */
     private void addIfMissing(final Map<String, String[]> parameters, final String key) {
-        if (!parameters.containsKey(key)) {
-            parameters.put(key, new String[] { StringUtils.EMPTY });
-        }
+        parameters.computeIfAbsent(key, k -> new String[] { StringUtils.EMPTY });
     }
 
     /**
