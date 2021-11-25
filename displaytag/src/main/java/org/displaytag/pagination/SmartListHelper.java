@@ -153,7 +153,6 @@ public class SmartListHelper {
      * @return int
      */
     protected int getLastIndexForCurrentPage() {
-
         return this.getLastIndexForPage(this.currentPage);
     }
 
@@ -194,7 +193,6 @@ public class SmartListHelper {
      * @return List subsection of the list that contains the elements that are supposed to be shown on the current page
      */
     public List<Object> getListForCurrentPage() {
-
         return this.getListForPage(this.currentPage);
     }
 
