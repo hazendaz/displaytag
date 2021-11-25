@@ -90,8 +90,7 @@ abstract class Decorator {
      */
     @Deprecated
     public void init(final PageContext pageContext, final Object decorated) {
-        this.pageContext = pageContext;
-        this.decoratedObject = decorated;
+        this.init(pageContext, decorated, null);
     }
 
     /**
@@ -105,8 +104,8 @@ abstract class Decorator {
      *            table model
      */
     public void init(final PageContext pageContext, final Object decorated, final TableModel tableModel) {
-        // temporary used for backward (source) compatibility
-        this.init(pageContext, decorated);
+        this.pageContext = pageContext;
+        this.decoratedObject = decorated;
         this.tableModel = tableModel;
     }
 
