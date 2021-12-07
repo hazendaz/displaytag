@@ -45,7 +45,8 @@ import org.displaytag.util.Href;
  * concepts as well through the standard {@link Href} APIs. <br>
  * <br>
  * The features are manipulated using special parameter names and values:
- * <table summary="">
+ * <table>
+ * <caption>Portlet Href</caption>
  * <tr>
  * <th>Feature</th>
  * <th>Parameter Name</th>
