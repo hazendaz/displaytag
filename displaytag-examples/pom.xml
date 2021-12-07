@@ -4,20 +4,20 @@
   <parent>
     <groupId>com.github.hazendaz</groupId>
     <artifactId>displaytag-doc</artifactId>
-    <version>2.4.3-SNAPSHOT</version>
+    <version>2.4.3</version>
   </parent>
 
   <groupId>com.github.hazendaz</groupId>
   <artifactId>displaytag-examples</artifactId>
   <packaging>war</packaging>
   <name>Display tag library examples</name>
-  <version>2.4.3-SNAPSHOT</version>
+  <version>2.4.3</version>
 
   <scm>
     <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</developerConnection>
     <url>https://github.com/hazendaz/displaytag/</url>
-    <tag>displaytag-doc-2.3.0</tag>
+    <tag>displaytag-doc-2.4.3</tag>
   </scm>
 
   <description>Example webapp for the display tag library</description>
