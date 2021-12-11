@@ -58,7 +58,7 @@ public class TableDecoratorPaginationTest {
         final TableProperties props = TableProperties.getInstance(null);
         final SmartListHelper helper = new SmartListHelper(data, data.size(), 10, props, false);
         helper.setCurrentPage(1);
-        final List fullList = helper.getListForCurrentPage();
+        final List<Row> fullList = helper.getListForCurrentPage();
 
         final TableModel model = new TableModel(props, "", null);
         model.setRowListPage(fullList);
@@ -91,7 +91,7 @@ public class TableDecoratorPaginationTest {
         final TableProperties props = TableProperties.getInstance(null);
         final SmartListHelper helper = new SmartListHelper(data, data.size(), 5, props, false);
         helper.setCurrentPage(1);
-        final List fullList = helper.getListForCurrentPage();
+        final List<Row> fullList = helper.getListForCurrentPage();
 
         final TableModel model = new TableModel(props, "", null);
         model.setRowListPage(fullList);
@@ -124,7 +124,7 @@ public class TableDecoratorPaginationTest {
         final TableProperties props = TableProperties.getInstance(null);
         final SmartListHelper helper = new SmartListHelper(data, data.size(), 5, props, false);
         helper.setCurrentPage(2);
-        final List fullList = helper.getListForCurrentPage();
+        final List<Row> fullList = helper.getListForCurrentPage();
 
         final TableModel model = new TableModel(props, "", null);
         model.setRowListPage(fullList);

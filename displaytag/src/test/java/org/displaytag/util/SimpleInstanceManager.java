@@ -76,7 +76,7 @@ public class SimpleInstanceManager implements InstanceManager {
      *             the instantiation exception
      */
     @Override
-    public Object newInstance(final Class clazz)
+    public Object newInstance(final Class<?> clazz)
             throws IllegalAccessException, InvocationTargetException, NamingException, InstantiationException {
         return this.prepareInstance(clazz.newInstance());
     }
@@ -103,7 +103,7 @@ public class SimpleInstanceManager implements InstanceManager {
     @Override
     public Object newInstance(final String className) throws IllegalAccessException, InvocationTargetException,
             NamingException, InstantiationException, ClassNotFoundException {
-        final Class clazz = Thread.currentThread().getContextClassLoader().loadClass(className);
+        final Class<?> clazz = Thread.currentThread().getContextClassLoader().loadClass(className);
         return this.prepareInstance(clazz.newInstance());
     }
 
@@ -131,7 +131,7 @@ public class SimpleInstanceManager implements InstanceManager {
     @Override
     public Object newInstance(final String fqcn, final ClassLoader classLoader) throws IllegalAccessException,
             InvocationTargetException, NamingException, InstantiationException, ClassNotFoundException {
-        final Class clazz = classLoader.loadClass(fqcn);
+        final Class<?> clazz = classLoader.loadClass(fqcn);
         return this.prepareInstance(clazz.newInstance());
     }
 
