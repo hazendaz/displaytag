@@ -196,14 +196,8 @@
     <dependency>
       <groupId>com.github.hazendaz.httpunit</groupId>
       <artifactId>httpunit</artifactId>
-      <version>1.9.0</version>
+      <version>1.10.0</version>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.mozilla</groupId>
