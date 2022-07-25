@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed under the GPL License. You may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+      https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+    THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
+    WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR
+    PURPOSE.
+
+-->
+<Context path="/context" privileged="true">
+  <Loader delegate="false" />
+  <JarScanner>
+     <JarScanFilter defaultPluggabilityScan="false"
+                    defaultTldScan="false"
+                    pluggabilityScan="${tomcat.util.scan.StandardJarScanFilter.jarsToScan},displaytag-*.jar"
+                    pluggabilitySkip=""
+                    tldScan="${tomcat.util.scan.StandardJarScanFilter.jarsToScan},spring-webmvc-*.jar,displaytag-*.jar,jakarta.servlet.jsp.jstl-*.jar"
+                    tldSkip="jakarta.servlet.jsp.jstl-api-*.jar,xalan-*.jar" />
+  </JarScanner>
+</Context>
