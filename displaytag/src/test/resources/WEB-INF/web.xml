@@ -16,6 +16,10 @@
     <param-name>jakarta.servlet.jsp.jstl.fmt.localizationContext</param-name>
     <param-value>jstlresources</param-value>
   </context-param>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/context.xml</param-value>
+  </context-param>
   <!-- needed for servletunit tests -->
   <filter>
     <filter-name>ResponseOverrideFilter</filter-name>
