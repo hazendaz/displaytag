@@ -348,7 +348,7 @@ public class PortletHref implements Href {
             if (entry.getValue() == null) {
                 this.addParameter(name, entry.getValue());
             } else if (entry.getValue().length == 1) {
-                // addParameter does some special processing of portlet paramters
+                // addParameter does some special processing of portlet parameters
                 this.addParameter(name, entry.getValue()[0]);
             } else if (entry.getValue().getClass().isArray()) {
                 this.parameters.put(name, entry.getValue());
