@@ -4,7 +4,7 @@
   "devDependencies": {
     "grunt": "1.5.3",
     "grunt-contrib-clean": "2.0.1",
-    "grunt-contrib-watch": "0.6.1",
+    "grunt-contrib-watch": "1.1.0",
     "grunt-iconizr": "0.2.3",
     "grunt-sass": "0.18.1",
     "grunt-svg-sprite": "0.3.2",
