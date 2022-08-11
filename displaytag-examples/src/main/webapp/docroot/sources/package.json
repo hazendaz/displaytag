@@ -11,6 +11,6 @@
     "grunt-svgmin": "^0.4.0",
     "matchdep": "^0.3.0",
     "maxmin": "0.2.2",
-    "plugin": "0.3.2"
+    "plugin": "0.3.3"
   }
 }
