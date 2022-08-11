@@ -10,7 +10,7 @@
     "grunt-svg-sprite": "1.5.0",
     "grunt-svgmin": "6.0.1",
     "matchdep": "2.0.0",
-    "maxmin": "0.2.2",
+    "maxmin": "4.0.0",
     "plugin": "0.3.3"
   }
 }
