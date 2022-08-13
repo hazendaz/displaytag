@@ -24,13 +24,16 @@ package org.displaytag.portlet;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.portlet.MimeResponse;
 import javax.portlet.PortletMode;
+import javax.portlet.PortletRequest;
 import javax.portlet.WindowState;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.mock.web.portlet.MockPortletRequest;
-import org.springframework.mock.web.portlet.MockRenderResponse;
+
+import mockit.Expectations;
+import mockit.Mocked;
 
 /**
  * The Class PortletHrefTest.
@@ -40,6 +43,12 @@ import org.springframework.mock.web.portlet.MockRenderResponse;
  * @version $Id$
  */
 class PortletHrefTest {
+
+    @Mocked
+    PortletRequest portletRequest;
+
+    @Mocked
+    MimeResponse portletResponse;
 
     /**
      * Test constructor.
@@ -54,14 +63,14 @@ class PortletHrefTest {
         }
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new PortletHref(new MockPortletRequest(), null);
+            new PortletHref(portletRequest, null);
         }, "IllegalArgumentException should have been thrown");
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new PortletHref(null, new MockRenderResponse());
+            new PortletHref(null, portletResponse);
         }, "IllegalArgumentException should have been thrown");
 
-        new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        new PortletHref(portletRequest, portletResponse);
     }
 
     /**
@@ -69,7 +78,7 @@ class PortletHrefTest {
      */
     @Test
     void testUrlTypeParameters() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         Assertions.assertFalse(href.isAction());
 
@@ -109,7 +118,7 @@ class PortletHrefTest {
      */
     @Test
     void testSecureParameters() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         Assertions.assertFalse(href.isRequestedSecure());
 
@@ -137,7 +146,14 @@ class PortletHrefTest {
      */
     @Test
     void testPortletModeParameters() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        new Expectations() {
+            {
+                portletRequest.isPortletModeAllowed(this.withInstanceOf(PortletMode.class));
+                result = true;
+            }
+        };
+
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         Assertions.assertNull(href.getRequestedMode());
 
@@ -153,6 +169,13 @@ class PortletHrefTest {
         href.addParameter(PortletHref.PARAM_MODE, null);
         Assertions.assertNull(href.getRequestedMode());
 
+        new Expectations() {
+            {
+                portletRequest.isPortletModeAllowed(this.withInstanceOf(PortletMode.class));
+                result = false;
+            }
+        };
+
         try {
             href.addParameter(PortletHref.PARAM_MODE, "info");
             Assertions.fail("IllegalArgumentException should have been thrown");
@@ -166,7 +189,14 @@ class PortletHrefTest {
      */
     @Test
     void testWindowStateParameters() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        new Expectations() {
+            {
+                portletRequest.isWindowStateAllowed(this.withInstanceOf(WindowState.class));
+                result = true;
+            }
+        };
+
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         Assertions.assertNull(href.getRequestedState());
 
@@ -182,6 +212,13 @@ class PortletHrefTest {
         href.addParameter(PortletHref.PARAM_STATE, null);
         Assertions.assertNull(href.getRequestedState());
 
+        new Expectations() {
+            {
+                portletRequest.isWindowStateAllowed(this.withInstanceOf(WindowState.class));
+                result = false;
+            }
+        };
+
         try {
             href.addParameter(PortletHref.PARAM_STATE, "exclusive");
             Assertions.fail("IllegalArgumentException should have been thrown");
@@ -195,7 +232,7 @@ class PortletHrefTest {
      */
     @Test
     void testInvalidPrefixUseParameters() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         try {
             href.addParameter("portlet:WindowState", "exclusive");
@@ -210,7 +247,17 @@ class PortletHrefTest {
      */
     @Test
     void testAddParameters() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        new Expectations() {
+            {
+                portletRequest.isPortletModeAllowed(this.withInstanceOf(PortletMode.class));
+                result = true;
+
+                portletRequest.isWindowStateAllowed(this.withInstanceOf(WindowState.class));
+                result = true;
+            }
+        };
+
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         href.addParameter(PortletHref.PARAM_MODE, "help");
         href.addParameter(PortletHref.PARAM_STATE, "maximized");
@@ -235,7 +282,17 @@ class PortletHrefTest {
      */
     @Test
     void testAddParameterMap() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        new Expectations() {
+            {
+                portletRequest.isPortletModeAllowed(this.withInstanceOf(PortletMode.class));
+                result = true;
+
+                portletRequest.isWindowStateAllowed(this.withInstanceOf(WindowState.class));
+                result = true;
+            }
+        };
+
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         final Map<String, String[]> params = new HashMap<>();
         params.put(PortletHref.PARAM_MODE, new String[] { "help" });
@@ -270,7 +327,17 @@ class PortletHrefTest {
      */
     @Test
     void testSetParameterMap() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        new Expectations() {
+            {
+                portletRequest.isPortletModeAllowed(this.withInstanceOf(PortletMode.class));
+                result = true;
+
+                portletRequest.isWindowStateAllowed(this.withInstanceOf(WindowState.class));
+                result = true;
+            }
+        };
+
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         href.addParameter("ORIGINAL_PARAM", "ORIGNAL_VALUE");
 
@@ -308,7 +375,7 @@ class PortletHrefTest {
      */
     @Test
     void testRemoveParameter() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         href.addParameter("SINGLE_PARAM", "VAL1");
 
@@ -328,7 +395,17 @@ class PortletHrefTest {
      */
     @Test
     void testClone() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        new Expectations() {
+            {
+                portletRequest.isPortletModeAllowed(this.withInstanceOf(PortletMode.class));
+                result = true;
+
+                portletRequest.isWindowStateAllowed(this.withInstanceOf(WindowState.class));
+                result = true;
+            }
+        };
+
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         href.addParameter(PortletHref.PARAM_MODE, "help");
         href.addParameter(PortletHref.PARAM_STATE, "maximized");
@@ -358,7 +435,17 @@ class PortletHrefTest {
      */
     @Test
     void testBaseUrl() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        new Expectations() {
+            {
+                portletRequest.isPortletModeAllowed(this.withInstanceOf(PortletMode.class));
+                result = true;
+
+                portletRequest.isWindowStateAllowed(this.withInstanceOf(WindowState.class));
+                result = true;
+            }
+        };
+
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         href.addParameter(PortletHref.PARAM_MODE, "help");
         href.addParameter(PortletHref.PARAM_STATE, "maximized");
@@ -379,7 +466,7 @@ class PortletHrefTest {
      */
     @Test
     void testFullUrl() {
-        final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());
+        final PortletHref href = new PortletHref(portletRequest, portletResponse);
 
         final String urlString1 = href.toString();
         Assertions.assertEquals("http://localhost/mockportlet?urlType=render", urlString1);
