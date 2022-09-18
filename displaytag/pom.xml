@@ -153,10 +153,10 @@
       <version>3.0.1</version>
       <scope>provided</scope>
       <exclusions>
-      	<exclusion>
-      		<groupId>javax.el</groupId>
-      		<artifactId>javax.el-api</artifactId>
-      	</exclusion>
+        <exclusion>
+          <groupId>javax.el</groupId>
+          <artifactId>javax.el-api</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
