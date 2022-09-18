@@ -278,9 +278,9 @@
         <version>3.12.1</version>
         <dependencies>
           <dependency>
-            <groupId>lt.velykis.maven.skins</groupId>
+            <groupId>io.github.olamy.maven.skins</groupId>
             <artifactId>reflow-velocity-tools</artifactId>
-            <version>1.1.1</version>
+            <version>2.0.0</version>
           </dependency>
           <dependency>
             <groupId>org.apache.velocity</groupId>
