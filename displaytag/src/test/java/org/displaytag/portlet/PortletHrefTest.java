@@ -53,19 +53,13 @@ class PortletHrefTest {
             // expected
         }
 
-        try {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new PortletHref(new MockPortletRequest(), null);
-            Assertions.fail("IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException iae) {
-            // expected
-        }
+        }, "IllegalArgumentException should have been thrown");
 
-        try {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new PortletHref(null, new MockRenderResponse());
-            Assertions.fail("IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException iae) {
-            // expected
-        }
+        }, "IllegalArgumentException should have been thrown");
 
         new PortletHref(new MockPortletRequest(), new MockRenderResponse());
     }
