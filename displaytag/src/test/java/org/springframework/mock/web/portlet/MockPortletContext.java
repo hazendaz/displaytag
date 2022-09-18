@@ -294,4 +294,28 @@ public class MockPortletContext implements PortletContext {
 		}
 	}
 
+  @Override
+  public int getEffectiveMajorVersion() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public int getEffectiveMinorVersion() {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public String getContextPath() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ClassLoader getClassLoader() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

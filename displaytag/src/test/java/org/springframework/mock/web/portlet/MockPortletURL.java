@@ -16,13 +16,20 @@
 
 package org.springframework.mock.web.portlet;
 
+import java.io.IOException;
 import java.util.Map;
+
+import javax.portlet.ActionURL;
+import javax.portlet.MutableActionParameters;
+import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
 import javax.portlet.PortletURL;
+import javax.portlet.RenderURL;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
+import javax.portlet.annotations.PortletSerializable;
 
 import org.junit.jupiter.api.Assertions;
 import org.springframework.util.CollectionUtils;
@@ -34,7 +41,7 @@ import org.springframework.util.CollectionUtils;
  * @author Juergen Hoeller
  * @since 2.0
  */
-public class MockPortletURL extends MockBaseURL implements PortletURL {
+public class MockPortletURL extends MockBaseURL implements PortletURL, RenderURL, ActionURL {
 
 	public static final String URL_TYPE_RENDER = "render";
 
@@ -117,5 +124,50 @@ public class MockPortletURL extends MockBaseURL implements PortletURL {
 		return (isSecure() ? "https:" : "http:") +
 				"//localhost/mockportlet?" + sb.toString();
 	}
+
+  @Override
+  public Appendable append(Appendable out) throws IOException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Appendable append(Appendable out, boolean escapeXML) throws IOException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public MutableRenderParameters getRenderParameters() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public void setBeanParameter(PortletSerializable bean) {
+    // TODO Auto-generated method stub
+    
+  }
+
+
+  @Override
+  public MutableActionParameters getActionParameters() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+
+  @Override
+  public void setFragmentIdentifier(String fragment) {
+    // TODO Auto-generated method stub
+    
+  }
+
+
+  @Override
+  public String getFragmentIdentifier() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

@@ -33,6 +33,7 @@ import javax.portlet.PortletMode;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletSession;
+import javax.portlet.RenderParameters;
 import javax.portlet.WindowState;
 import javax.servlet.http.Cookie;
 
@@ -565,5 +566,22 @@ public class MockPortletRequest implements PortletRequest {
 	public void registerPublicParameter(String name) {
 		this.publicParameterNames.add(name);
 	}
+
+  @Override
+  public RenderParameters getRenderParameters() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public PortletContext getPortletContext() {
+    return this.portletContext;
+  }
+
+  @Override
+  public String getUserAgent() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

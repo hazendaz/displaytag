@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.portlet.MutableRenderParameters;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
 import javax.portlet.PortletModeException;
@@ -161,5 +163,11 @@ public class MockStateAwareResponse extends MockPortletResponse implements State
 	public Serializable getEvent(String name) {
 		return this.events.get(new QName(name));
 	}
+
+  @Override
+  public MutableRenderParameters getRenderParameters() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }
