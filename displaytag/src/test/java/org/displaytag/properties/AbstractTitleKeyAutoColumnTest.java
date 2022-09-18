@@ -25,8 +25,8 @@ import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -104,7 +104,7 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Expected one table", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Expected one table");
 
         // find the "camel" column
         int j;
@@ -115,8 +115,8 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase {
         }
 
         // resource should be used also without the property attribute for the "camel" header
-        Assert.assertEquals("Header from resource is not valid.", "camel title" + this.getExpectedSuffix(),
-                tables[0].getCellAsText(0, j));
+        Assertions.assertEquals("camel title" + this.getExpectedSuffix(),
+                tables[0].getCellAsText(0, j), "Header from resource is not valid.");
 
     }
 }

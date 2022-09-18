@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HTMLElement;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ212Test extends DisplaytagCase {
+class Displ212Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -73,8 +73,8 @@ public class Displ212Test extends DisplaytagCase {
         }
 
         final HTMLElement pagination = response.getElementWithID("pagination");
-        Assert.assertNotNull("Paging banner not found.", pagination);
-        Assert.assertEquals("Pagination links are not as expected.", "1, [2]", pagination.getText());
+        Assertions.assertNotNull(pagination, "Paging banner not found.");
+        Assertions.assertEquals("1, [2]", pagination.getText(), "Pagination links are not as expected.");
 
     }
 }

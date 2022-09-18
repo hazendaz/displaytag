@@ -25,8 +25,8 @@ import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -41,7 +41,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ208Test extends DisplaytagCase {
+class Displ208Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -73,20 +73,20 @@ public class Displ208Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links.", 3, links.length);
+        Assertions.assertEquals(3, links.length, "Wrong number of links.");
 
         final ParamEncoder encoder = new ParamEncoder("table");
         final String orderParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_ORDER);
 
-        Assert.assertEquals("wrong sorting order", Integer.toString(SortOrderEnum.DESCENDING.getCode()),
-                links[0].getParameterValues(orderParameter)[0]);
-        Assert.assertEquals("wrong sorting order", Integer.toString(SortOrderEnum.ASCENDING.getCode()),
-                links[1].getParameterValues(orderParameter)[0]);
-        Assert.assertEquals("wrong sorting order", Integer.toString(SortOrderEnum.ASCENDING.getCode()),
-                links[2].getParameterValues(orderParameter)[0]);
+        Assertions.assertEquals(Integer.toString(SortOrderEnum.DESCENDING.getCode()),
+                links[0].getParameterValues(orderParameter)[0], "wrong sorting order");
+        Assertions.assertEquals(Integer.toString(SortOrderEnum.ASCENDING.getCode()),
+                links[1].getParameterValues(orderParameter)[0], "wrong sorting order");
+        Assertions.assertEquals(Integer.toString(SortOrderEnum.ASCENDING.getCode()),
+                links[2].getParameterValues(orderParameter)[0], "wrong sorting order");
 
     }
 

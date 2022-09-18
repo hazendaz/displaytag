@@ -25,8 +25,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class ExportHeadersTest extends DisplaytagCase {
+class ExportHeadersTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -75,9 +75,9 @@ public class ExportHeadersTest extends DisplaytagCase {
 
         response = this.runner.getResponse(request);
 
-        Assert.assertNull("Header Cache-Control not overwritten", response.getHeaderField("Cache-Control"));
-        Assert.assertNull("Header Expires not overwritten", response.getHeaderField("Expires"));
-        Assert.assertNull("Header Pragma not overwritten", response.getHeaderField("Pragma"));
+        Assertions.assertNull(response.getHeaderField("Cache-Control"), "Header Cache-Control not overwritten");
+        Assertions.assertNull(response.getHeaderField("Expires"), "Header Expires not overwritten");
+        Assertions.assertNull(response.getHeaderField("Pragma"), "Header Pragma not overwritten");
     }
 
 }

@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -40,7 +40,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class ExternalSortTest extends DisplaytagCase {
+class ExternalSortTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -80,27 +80,27 @@ public class ExternalSortTest extends DisplaytagCase {
 
         final WebLink[] links = response.getLinks();
 
-        Assert.assertEquals("0",
+        Assertions.assertEquals("0",
                 links[0].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
-        Assert.assertEquals("2",
+        Assertions.assertEquals("2",
                 links[0].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
 
-        Assert.assertEquals("buzz",
+        Assertions.assertEquals("buzz",
                 links[1].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
-        Assert.assertEquals("2",
+        Assertions.assertEquals("2",
                 links[1].getParameterValues(p1.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
 
         // test that the column with sortName buzz was set as sorted and now has a link to sort desc
-        Assert.assertEquals("number",
+        Assertions.assertEquals("number",
                 links[2].getParameterValues(p2.encodeParameterName(TableTagParameters.PARAMETER_SORT))[0]);
-        Assert.assertEquals("1",
+        Assertions.assertEquals("1",
                 links[2].getParameterValues(p2.encodeParameterName(TableTagParameters.PARAMETER_ORDER))[0]);
 
         // now ensure that our data has not been sorted at all since we are doing it 'externally'
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("1", tables[1].getCellAsText(1, 0));
-        Assert.assertEquals("4", tables[1].getCellAsText(2, 0));
-        Assert.assertEquals("2", tables[1].getCellAsText(3, 0));
-        Assert.assertEquals("3", tables[1].getCellAsText(4, 0));
+        Assertions.assertEquals("1", tables[1].getCellAsText(1, 0));
+        Assertions.assertEquals("4", tables[1].getCellAsText(2, 0));
+        Assertions.assertEquals("2", tables[1].getCellAsText(3, 0));
+        Assertions.assertEquals("3", tables[1].getCellAsText(4, 0));
     }
 }

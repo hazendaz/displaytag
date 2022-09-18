@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class ColumnBodyTest extends DisplaytagCase {
+class ColumnBodyTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -66,14 +66,14 @@ public class ColumnBodyTest extends DisplaytagCase {
         response = this.runner.getResponse(request);
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
 
         if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
         for (int j = 0; j < tables[0].getColumnCount(); j++) {
-            Assert.assertEquals("Wrong content in table cell", "ant", tables[0].getCellAsText(1, j));
+            Assertions.assertEquals("ant", tables[0].getCellAsText(1, j), "Wrong content in table cell");
         }
 
     }

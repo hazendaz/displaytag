@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision: 1081 $ ($Author: fgiust $)
  */
-public class Displ526Test extends DisplaytagCase {
+class Displ526Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,9 +71,9 @@ public class Displ526Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals(1, tables.length);
+        Assertions.assertEquals(1, tables.length);
 
-        Assert.assertEquals("Wrong column content", "1", tables[0].getCellAsText(2, 1));
+        Assertions.assertEquals("1", tables[0].getCellAsText(2, 1), "Wrong column content");
 
     }
 

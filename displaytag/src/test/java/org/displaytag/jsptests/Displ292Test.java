@@ -26,9 +26,9 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebResponse;
 /**
  * The Class Displ292Test.
  */
-public class Displ292Test extends DisplaytagCase {
+class Displ292Test extends DisplaytagCase {
 
     /**
      * Gets the mime type.
@@ -76,8 +76,8 @@ public class Displ292Test extends DisplaytagCase {
      * @throws Exception
      *             any exception thrown during test.
      */
-    // TODO This fails when run with everything but works in isolation so ignore
-    @Ignore
+    // TODO JWL 9/18/2022 This test fails on ubuntu only so there must be some leak somewhere, review
+    @Disabled
     @Override
     @Test
     public void doTest() throws Exception {
@@ -89,12 +89,12 @@ public class Displ292Test extends DisplaytagCase {
 
         final WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertEquals("Expected a different content type.", this.getMimeType(), response.getContentType());
+        Assertions.assertEquals(this.getMimeType(), response.getContentType(), "Expected a different content type.");
         final String responseText = response.getText();
 
         final String[] rows = StringUtils.split(responseText, "\n");
 
-        Assert.assertEquals("Wrong number of rows exported", 4, rows.length);
+        Assertions.assertEquals(4, rows.length, "Wrong number of rows exported");
 
     }
 

@@ -21,8 +21,8 @@
  */
 package org.displaytag.util;
 
-import org.displaytag.test.URLAssert;
-import org.junit.Test;
+import org.displaytag.test.URLAssertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class PostHrefTest.
@@ -31,28 +31,28 @@ import org.junit.Test;
  *
  * @version $Revision$ ($Author$)
  */
-public class PostHrefTest {
+class PostHrefTest {
 
     /**
      * Test for URLs containing parameters.
      */
     @Test
-    public final void testHrefWithParameters() {
+    void testHrefWithParameters() {
         final String url = "http://www.displaytag.org/displaytag/index.jsp?param1=1&param2=2";
         final Href href = new PostHref(new DefaultHref(url), "frm");
         final String newUrl = href.toString();
-        URLAssert.assertEquals("javascript:displaytagform('frm',[{f:'param1',v:'1'},{f:'param2',v:'2'}])", newUrl);
+        URLAssertions.assertEquals("javascript:displaytagform('frm',[{f:'param1',v:'1'},{f:'param2',v:'2'}])", newUrl);
     }
 
     /**
      * Test for URLs containing parameters.
      */
     @Test
-    public final void testHrefWithParametersToBeEscaped() {
+    void testHrefWithParametersToBeEscaped() {
         final String url = "http://www.displaytag.org/displaytag/index.jsp?param1=a'a&param2=2";
         final Href href = new PostHref(new DefaultHref(url), "frm");
         final String newUrl = href.toString();
-        URLAssert.assertEquals("javascript:displaytagform('frm',[{f:'param1',v:'a\\'a'},{f:'param2',v:'2'}])", newUrl);
+        URLAssertions.assertEquals("javascript:displaytagform('frm',[{f:'param1',v:'a\\'a'},{f:'param2',v:'2'}])", newUrl);
     }
 
 }

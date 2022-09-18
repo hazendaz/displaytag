@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ174Test extends DisplaytagCase {
+class Displ174Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -69,13 +69,13 @@ public class Displ174Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Wrong value", "1234567890...", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Wrong title", "1234567890123", tables[0].getTableCell(1, 0).getAttribute("title"));
+        Assertions.assertEquals("1234567890...", tables[0].getCellAsText(1, 0), "Wrong value");
+        Assertions.assertEquals("1234567890123", tables[0].getTableCell(1, 0).getAttribute("title"), "Wrong title");
 
-        Assert.assertEquals("Wrong value", "1234567890", tables[0].getCellAsText(1, 1));
-        Assert.assertEquals("Wrong title", "", tables[0].getTableCell(1, 1).getAttribute("title"));
+        Assertions.assertEquals("1234567890", tables[0].getCellAsText(1, 1), "Wrong value");
+        Assertions.assertEquals("", tables[0].getTableCell(1, 1).getAttribute("title"), "Wrong title");
 
     }
 

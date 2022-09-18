@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class OffsetTest extends DisplaytagCase {
+class OffsetTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,10 +71,10 @@ public class OffsetTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Bad number of generated rows.", 3, tables[0].getRowCount());
-        Assert.assertEquals("Wrong cell content.", "2", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Wrong cell content.", "3", tables[0].getCellAsText(2, 0));
+        Assertions.assertEquals(3, tables[0].getRowCount(), "Bad number of generated rows.");
+        Assertions.assertEquals("2", tables[0].getCellAsText(1, 0), "Wrong cell content.");
+        Assertions.assertEquals("3", tables[0].getCellAsText(2, 0), "Wrong cell content.");
     }
 }

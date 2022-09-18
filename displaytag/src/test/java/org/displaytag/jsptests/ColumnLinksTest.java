@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class ColumnLinksTest extends DisplaytagCase {
+class ColumnLinksTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -69,18 +69,18 @@ public class ColumnLinksTest extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links in result.", 6, links.length);
+        Assertions.assertEquals(6, links.length, "Wrong number of links in result.");
 
-        Assert.assertEquals("Text in first link is wrong.", "/context/dynlink?param=ant", links[0].getURLString());
-        Assert.assertEquals("Text in second link is wrong.", "/context/dynlink?param=ant", links[1].getURLString());
-        Assert.assertEquals("Text in third link is wrong.", "dynlink?param=ant", links[2].getURLString());
-        Assert.assertEquals("Text in fourth link is wrong.", "http://something/dynlink?param=ant",
-                links[3].getURLString());
-        Assert.assertEquals("Text in fifth link is wrong.", "http://something/dynlink", links[4].getURLString());
-        Assert.assertEquals("Text in sixth link is wrong.", "/context/dynlink", links[5].getURLString());
+        Assertions.assertEquals("/context/dynlink?param=ant", links[0].getURLString(), "Text in first link is wrong.");
+        Assertions.assertEquals("/context/dynlink?param=ant", links[1].getURLString(), "Text in second link is wrong.");
+        Assertions.assertEquals("dynlink?param=ant", links[2].getURLString(), "Text in third link is wrong.");
+        Assertions.assertEquals("http://something/dynlink?param=ant",
+                links[3].getURLString(), "Text in fourth link is wrong.");
+        Assertions.assertEquals("http://something/dynlink", links[4].getURLString(), "Text in fifth link is wrong.");
+        Assertions.assertEquals("/context/dynlink", links[5].getURLString(), "Text in sixth link is wrong.");
     }
 
 }

@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class OneRowOnlyTest extends DisplaytagCase {
+class OneRowOnlyTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,12 +71,12 @@ public class OneRowOnlyTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Bad number of generated columns.", 2, tables[0].getColumnCount());
-        Assert.assertEquals("Bad number of generated rows.", 2, tables[0].getRowCount());
+        Assertions.assertEquals(2, tables[0].getColumnCount(), "Bad number of generated columns.");
+        Assertions.assertEquals(2, tables[0].getRowCount(), "Bad number of generated rows.");
 
-        Assert.assertEquals("Bad content in column 1.", "ant", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Bad content in column 2.", "bee", tables[0].getCellAsText(1, 1));
+        Assertions.assertEquals("ant", tables[0].getCellAsText(1, 0), "Bad content in column 1.");
+        Assertions.assertEquals("bee", tables[0].getCellAsText(1, 1), "Bad content in column 2.");
     }
 }

@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ224Test extends DisplaytagCase {
+class Displ224Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -66,13 +66,13 @@ public class Displ224Test extends DisplaytagCase {
         final WebResponse response = this.runner.getResponse(request);
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
 
-        Assert.assertEquals("Wrong number of rows in result.", 2, tables[0].getRowCount());
-        Assert.assertEquals("col", tables[0].getTableCell(0, 0).getAttribute("scope"));
-        Assert.assertEquals(StringUtils.EMPTY, tables[0].getTableCell(0, 1).getAttribute("scope"));
-        Assert.assertEquals(StringUtils.EMPTY, tables[0].getTableCell(1, 0).getAttribute("scope"));
-        Assert.assertEquals("row", tables[0].getTableCell(1, 1).getAttribute("scope"));
+        Assertions.assertEquals(2, tables[0].getRowCount(), "Wrong number of rows in result.");
+        Assertions.assertEquals("col", tables[0].getTableCell(0, 0).getAttribute("scope"));
+        Assertions.assertEquals(StringUtils.EMPTY, tables[0].getTableCell(0, 1).getAttribute("scope"));
+        Assertions.assertEquals(StringUtils.EMPTY, tables[0].getTableCell(1, 0).getAttribute("scope"));
+        Assertions.assertEquals("row", tables[0].getTableCell(1, 1).getAttribute("scope"));
 
     }
 

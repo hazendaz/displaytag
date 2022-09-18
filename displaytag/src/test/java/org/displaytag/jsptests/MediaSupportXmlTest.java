@@ -27,8 +27,8 @@ import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -41,7 +41,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class MediaSupportXmlTest extends DisplaytagCase {
+class MediaSupportXmlTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -78,16 +78,19 @@ public class MediaSupportXmlTest extends DisplaytagCase {
         }
 
         // we are really testing an xml output?
-        Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
+        Assertions.assertEquals("text/xml", response.getContentType(), "Expected a different content type.");
 
         final String output = response.getText();
 
-        Assert.assertTrue("Expected value [" + KnownValue.BEE + "] missing",
-                StringUtils.contains(output, KnownValue.BEE));
-        Assert.assertTrue("Expected value [" + KnownValue.CAMEL + "] missing",
-                StringUtils.contains(output, KnownValue.CAMEL));
-        Assert.assertTrue("Unexpected value [" + KnownValue.ANT + "] found",
-                !StringUtils.contains(output, KnownValue.ANT));
+        Assertions.assertTrue(
+                StringUtils.contains(output, KnownValue.BEE),
+                "Expected value [" + KnownValue.BEE + "] missing");
+        Assertions.assertTrue(
+                StringUtils.contains(output, KnownValue.CAMEL),
+                "Expected value [" + KnownValue.CAMEL + "] missing");
+        Assertions.assertTrue(
+                !StringUtils.contains(output, KnownValue.ANT),
+                "Unexpected value [" + KnownValue.ANT + "] found");
 
     }
 

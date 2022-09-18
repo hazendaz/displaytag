@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class DataSourceMapAutoColumnTest extends DisplaytagCase {
+class DataSourceMapAutoColumnTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -73,19 +73,21 @@ public class DataSourceMapAutoColumnTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
+        Assertions.assertEquals(3, tables[0].getColumnCount(), "Bad number of generated columns.");
 
-        Assert.assertEquals("Bad value in column header.", //
-                StringUtils.capitalize(KnownValue.ANT), tables[0].getCellAsText(0, 0));
-        Assert.assertEquals("Bad value in column header.", //
-                StringUtils.capitalize(KnownValue.BEE), tables[0].getCellAsText(0, 1));
-        Assert.assertEquals("Bad value in column header.", //
-                "camel title", tables[0].getCellAsText(0, 2)); // localized text
+        Assertions.assertEquals(
+                StringUtils.capitalize(KnownValue.ANT), tables[0].getCellAsText(0, 0),
+                "Bad value in column header.");
+        Assertions.assertEquals(
+                StringUtils.capitalize(KnownValue.BEE), tables[0].getCellAsText(0, 1),
+                "Bad value in column header.");
+        Assertions.assertEquals(
+                "camel title", tables[0].getCellAsText(0, 2), "Bad value in column header."); // localized text
 
-        Assert.assertEquals("Bad value in column content.", KnownValue.ANT, tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Bad value in column content.", KnownValue.BEE, tables[0].getCellAsText(1, 1));
-        Assert.assertEquals("Bad value in column content.", KnownValue.CAMEL, tables[0].getCellAsText(1, 2));
+        Assertions.assertEquals(KnownValue.ANT, tables[0].getCellAsText(1, 0), "Bad value in column content.");
+        Assertions.assertEquals(KnownValue.BEE, tables[0].getCellAsText(1, 1), "Bad value in column content.");
+        Assertions.assertEquals(KnownValue.CAMEL, tables[0].getCellAsText(1, 2), "Bad value in column content.");
     }
 }

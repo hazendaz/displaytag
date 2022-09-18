@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HTMLElement;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ199Test extends DisplaytagCase {
+class Displ199Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,13 +71,13 @@ public class Displ199Test extends DisplaytagCase {
         }
 
         final HTMLElement divtotal = response.getElementWithID("divtotal");
-        Assert.assertEquals("7.0", divtotal.getText());
+        Assertions.assertEquals("7.0", divtotal.getText());
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
         final WebTable table = tables[0];
-        Assert.assertEquals("Wrong number of rows.", 5, table.getRowCount());
-        Assert.assertEquals("Total not found in las row.", "7.0", table.getCellAsText(4, 0));
+        Assertions.assertEquals(5, table.getRowCount(), "Wrong number of rows.");
+        Assertions.assertEquals("7.0", table.getCellAsText(4, 0), "Total not found in las row.");
 
     }
 

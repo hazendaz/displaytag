@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ280Test extends DisplaytagCase {
+class Displ280Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -75,18 +75,18 @@ public class Displ280Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
-        Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
+        Assertions.assertEquals(3, tables[0].getRowCount(), "Wrong number of rows in result.");
 
         if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        Assert.assertEquals("Wrong value in first row. Table incorrectly sorted?", "2", tables[0].getCellAsText(1, 1));
-        Assert.assertEquals("Column 1 should not be marked as sorted.", "sortable",
-                tables[0].getTableCell(0, 1).getClassName());
-        Assert.assertEquals("Column 2 should be marked as sorted.", "sortable sorted order1",
-                tables[0].getTableCell(0, 2).getClassName());
+        Assertions.assertEquals("2", tables[0].getCellAsText(1, 1), "Wrong value in first row. Table incorrectly sorted?");
+        Assertions.assertEquals("sortable",
+                tables[0].getTableCell(0, 1).getClassName(), "Column 1 should not be marked as sorted.");
+        Assertions.assertEquals("sortable sorted order1",
+                tables[0].getTableCell(0, 2).getClassName(), "Column 2 should be marked as sorted.");
 
     }
 

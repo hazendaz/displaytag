@@ -21,8 +21,8 @@
  */
 package org.displaytag.decorator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for AutolinkColumnDecorator.
@@ -31,19 +31,19 @@ import org.junit.Test;
  *
  * @version $Revision$ ($Author$)
  */
-public class AutolinkColumnDecoratorTest {
+class AutolinkColumnDecoratorTest {
 
     /**
      * Test for [952129] column:autolink throwing exception.
      */
     @Test
-    public void testLongTextWithLink() {
+    void testLongTextWithLink() {
         final Object linked = new AutolinkColumnDecorator()
                 .decorate("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
                         + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. "
                         + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. http://foo.bar.", null, null);
 
-        Assert.assertEquals("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
+        Assertions.assertEquals("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
                 + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. "
                 + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. <a href=\"http://foo.bar.\">http://foo.bar.</a>",
                 linked);
@@ -53,13 +53,13 @@ public class AutolinkColumnDecoratorTest {
      * Test for [952129] column:autolink throwing exception.
      */
     @Test
-    public void testLongTextWithEmail() {
+    void testLongTextWithEmail() {
         final Object linked = new AutolinkColumnDecorator()
                 .decorate("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
                         + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. "
                         + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. foo@bar.com.", null, null);
 
-        Assert.assertEquals("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
+        Assertions.assertEquals("A large string of text. Foo bar. Foo bar. Foo bar. Foo bar. "
                 + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. "
                 + "Foo bar. Foo bar. Foo bar. Foo bar. Foo bar. <a href=\"mailto:foo@bar.com.\">foo@bar.com.</a>",
                 linked);
@@ -69,10 +69,10 @@ public class AutolinkColumnDecoratorTest {
      * Test for [952132 ] autolink garbling urls.
      */
     @Test
-    public void testGarbledUrl() {
+    void testGarbledUrl() {
         final Object linked = new AutolinkColumnDecorator().decorate("http://foo.bar cat http://stoat", null, null);
 
-        Assert.assertEquals(
+        Assertions.assertEquals(
                 "<a href=\"http://foo.bar\">http://foo.bar</a> cat <a href=\"http://stoat\">http://stoat</a>", linked);
     }
 
@@ -80,66 +80,66 @@ public class AutolinkColumnDecoratorTest {
      * Test simple link.
      */
     @Test
-    public void testSimpleLink() {
+    void testSimpleLink() {
         final Object linked = new AutolinkColumnDecorator().decorate("http://foo.bar", null, null);
 
-        Assert.assertEquals("<a href=\"http://foo.bar\">http://foo.bar</a>", linked);
+        Assertions.assertEquals("<a href=\"http://foo.bar\">http://foo.bar</a>", linked);
     }
 
     /**
      * Test simple https link.
      */
     @Test
-    public void testSimpleHttpsLink() {
+    void testSimpleHttpsLink() {
         final Object linked = new AutolinkColumnDecorator().decorate("https://foo.bar", null, null);
 
-        Assert.assertEquals("<a href=\"https://foo.bar\">https://foo.bar</a>", linked);
+        Assertions.assertEquals("<a href=\"https://foo.bar\">https://foo.bar</a>", linked);
     }
 
     /**
      * Test simple ftp link.
      */
     @Test
-    public void testSimpleFtpLink() {
+    void testSimpleFtpLink() {
         final Object linked = new AutolinkColumnDecorator().decorate("ftp://foo.bar", null, null);
 
-        Assert.assertEquals("<a href=\"ftp://foo.bar\">ftp://foo.bar</a>", linked);
+        Assertions.assertEquals("<a href=\"ftp://foo.bar\">ftp://foo.bar</a>", linked);
     }
 
     /**
      * Test simple email.
      */
     @Test
-    public void testSimpleEmail() {
+    void testSimpleEmail() {
         final Object linked = new AutolinkColumnDecorator().decorate("foo@bar.com", null, null);
-        Assert.assertEquals("<a href=\"mailto:foo@bar.com\">foo@bar.com</a>", linked);
+        Assertions.assertEquals("<a href=\"mailto:foo@bar.com\">foo@bar.com</a>", linked);
     }
 
     /**
      * Test simple link plus dot.
      */
     @Test
-    public void testSimpleLinkPlusDot() {
+    void testSimpleLinkPlusDot() {
         final Object linked = new AutolinkColumnDecorator().decorate("http://foo.bar .", null, null);
-        Assert.assertEquals("<a href=\"http://foo.bar\">http://foo.bar</a> .", linked);
+        Assertions.assertEquals("<a href=\"http://foo.bar\">http://foo.bar</a> .", linked);
     }
 
     /**
      * Test no link.
      */
     @Test
-    public void testNoLink() {
+    void testNoLink() {
         final Object linked = new AutolinkColumnDecorator().decorate("aa://bb", null, null);
-        Assert.assertEquals("aa://bb", linked);
+        Assertions.assertEquals("aa://bb", linked);
     }
 
     /**
      * Test no link beginning.
      */
     @Test
-    public void testNoLinkBeginning() {
+    void testNoLinkBeginning() {
         final Object linked = new AutolinkColumnDecorator().decorate("://bb", null, null);
-        Assert.assertEquals("://bb", linked);
+        Assertions.assertEquals("://bb", linked);
     }
 
 }

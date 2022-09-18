@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ237Test extends DisplaytagCase {
+class Displ237Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -70,27 +70,27 @@ public class Displ237Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables");
 
         WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links", 6, links.length); // sorting + paging
+        Assertions.assertEquals(6, links.length, "Wrong number of links"); // sorting + paging
 
         response = links[3].click(); // sort again on default sorted column
         response = links[4].click(); // sort on column 2
 
         response.getTables();
-        Assert.assertEquals("Wrong number of tables", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables");
 
         links = response.getLinks();
-        Assert.assertEquals("Wrong number of links", 6, links.length); // sorting + paging
+        Assertions.assertEquals(6, links.length, "Wrong number of links"); // sorting + paging
 
         response = links[0].click(); // go to page 2
 
         response.getTables();
-        Assert.assertEquals("Wrong number of tables", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables");
 
         links = response.getLinks();
-        Assert.assertEquals("Wrong number of links", 6, links.length); // sorting + paging
+        Assertions.assertEquals(6, links.length, "Wrong number of links"); // sorting + paging
 
         response = links[3].click(); // sort again on default sorted column
         response = links[4].click(); // sort on column 2

@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class TotalsTest extends DisplaytagCase {
+class TotalsTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,15 +71,16 @@ public class TotalsTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
+        Assertions.assertEquals(3, tables[0].getColumnCount(), "Bad number of generated columns.");
         // The footer will PRECEDE the body.
-        Assert.assertTrue("Totals should not be calculated / present if the column is not so marked.",
-                StringUtils.isBlank(tables[0].getCellAsText(1, 0)));
-        Assert.assertEquals("Bad value in footer cell total.", "" + KnownTypes.LONG_VALUE.doubleValue() * 2,
-                tables[0].getCellAsText(1, 1));
-        Assert.assertEquals("Bad value in footer cell total.", "" + KnownTypes.LONG_VALUE.doubleValue() * 2,
-                tables[0].getCellAsText(1, 2));
+        Assertions.assertTrue(
+                StringUtils.isBlank(tables[0].getCellAsText(1, 0)),
+                "Totals should not be calculated / present if the column is not so marked.  Value is: " + tables[0].getCellAsText(1, 0));
+        Assertions.assertEquals("" + KnownTypes.LONG_VALUE.doubleValue() * 2,
+                tables[0].getCellAsText(1, 1), "Bad value in footer cell total.");
+        Assertions.assertEquals("" + KnownTypes.LONG_VALUE.doubleValue() * 2,
+                tables[0].getCellAsText(1, 2), "Bad value in footer cell total.");
     }
 }

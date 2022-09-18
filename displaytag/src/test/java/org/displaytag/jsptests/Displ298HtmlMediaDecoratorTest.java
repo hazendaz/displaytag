@@ -26,7 +26,7 @@ package org.displaytag.jsptests;
  *
  * @author JBarroso
  */
-public class Displ298HtmlMediaDecoratorTest extends Displ298HtmlTest {
+class Displ298HtmlMediaDecoratorTest extends Displ298HtmlTest {
 
     /**
      * Gets the jsp name.

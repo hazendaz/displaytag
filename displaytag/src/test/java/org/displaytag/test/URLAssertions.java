@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Assert class used to compare URLs.
@@ -36,12 +36,12 @@ import org.junit.Assert;
  *
  * @version $Revision$ ($Author$)
  */
-public final class URLAssert {
+public final class URLAssertions {
 
     /**
      * Don't instantiate.
      */
-    private URLAssert() {
+    private URLAssertions() {
         // unused
     }
 
@@ -73,18 +73,18 @@ public final class URLAssert {
         final String[] generatedSplit = StringUtils.split(generatedUrl, "?#");
         final String[] expectedSplit = StringUtils.split(expectedUrl, "?#");
 
-        Assert.assertEquals("Different number of tokens (base, parameters, anchor) in link.", generatedSplit.length,
-                expectedSplit.length);
+        Assertions.assertEquals(generatedSplit.length,
+                expectedSplit.length, "Different number of tokens (base, parameters, anchor) in link.");
 
         // same base url
-        Assert.assertEquals("Wrong base url", expectedSplit[0], generatedSplit[0]);
+        Assertions.assertEquals(expectedSplit[0], generatedSplit[0], "Wrong base url");
 
         // same anchor #
         if (generatedSplit.length > 2) {
-            Assert.assertEquals("Anchor is different", generatedSplit[2], expectedSplit[2]);
+            Assertions.assertEquals(generatedSplit[2], expectedSplit[2], "Anchor is different");
         } else if (generatedSplit.length > 1 && generatedUrl.indexOf("?") == -1) {
             // url without parameters
-            Assert.assertEquals("Anchor is different", generatedSplit[1], expectedSplit[1]);
+            Assertions.assertEquals(generatedSplit[1], expectedSplit[1], "Anchor is different");
             return;
         }
 
@@ -96,8 +96,8 @@ public final class URLAssert {
             final String[] expectedParameters = StringUtils.split(StringUtils.replace(expectedSplit[1], "&amp;", "&"),
                     '&');
 
-            Assert.assertEquals("Compared urls have different number of parameters. Expected " + expectedUrl
-                    + " - generated " + generatedUrl, expectedParameters.length, generatedParameters.length);
+            Assertions.assertEquals(expectedParameters.length, generatedParameters.length, "Compared urls have different number of parameters. Expected " + expectedUrl
+                + " - generated " + generatedUrl);
 
             for (final String expectedParameter : expectedParameters) {
                 // assuming url?param == url?param=
@@ -105,10 +105,9 @@ public final class URLAssert {
                 if (singleParam.indexOf("=") == -1) {
                     singleParam += "=";
                 }
-                Assert.assertTrue(
-                        "Expected parameter " + singleParam + " could not be found in generated URL. Expected url "
-                                + expectedUrl + " - generated " + generatedUrl,
-                        ArrayUtils.contains(generatedParameters, singleParam));
+                Assertions.assertTrue(
+                        ArrayUtils.contains(generatedParameters, singleParam), "Expected parameter " + singleParam + " could not be found in generated URL. Expected url "
+                            + expectedUrl + " - generated " + generatedUrl);
             }
         }
     }

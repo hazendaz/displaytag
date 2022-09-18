@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class HtmlIdTest extends DisplaytagCase {
+class HtmlIdTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -66,11 +66,11 @@ public class HtmlIdTest extends DisplaytagCase {
         response = this.runner.getResponse(request);
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 3, tables.length);
+        Assertions.assertEquals(3, tables.length, "Wrong number of tables in result.");
 
         for (int j = 0; j < tables.length; j++) {
-            Assert.assertEquals("invalid id", "html" + (j + 1), tables[j].getID());
-            Assert.assertEquals("Unexpected value in table cell", "bee", tables[j].getCellAsText(1, 0));
+            Assertions.assertEquals("html" + (j + 1), tables[j].getID(), "invalid id");
+            Assertions.assertEquals("bee", tables[j].getCellAsText(1, 0), "Unexpected value in table cell");
         }
 
     }

@@ -38,15 +38,15 @@ import org.displaytag.test.KnownValue;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * The Class SubtotaledExcelTest.
  *
  * @author andy Date: Oct 30, 2010 Time: 1:18:01 PM
  */
-public class SubtotaledExcelTest {
+class SubtotaledExcelTest {
 
     /**
      * Gets the model.
@@ -122,7 +122,7 @@ public class SubtotaledExcelTest {
      *             the exception
      */
     @Test
-    public void testNoGroups() throws Exception {
+    void testNoGroups() throws Exception {
         final TableModel m = this.getModel();
         for (final HeaderCell cell : m.getHeaderCellList()) {
             cell.setGroup(0);
@@ -148,10 +148,10 @@ public class SubtotaledExcelTest {
         final Cell b2 = sh.getRow(1).getCell(1);
         final Cell d2 = sh.getRow(1).getCell(3);
         final Cell e2 = sh.getRow(1).getCell(4);
-        Assert.assertEquals("ant", a2.getStringCellValue());
-        Assert.assertEquals("bee", b2.getStringCellValue());
-        Assert.assertEquals(KnownValue.MAY, e2.getDateCellValue());
-        Assert.assertEquals(2, (int) d2.getNumericCellValue());
+        Assertions.assertEquals("ant", a2.getStringCellValue());
+        Assertions.assertEquals("bee", b2.getStringCellValue());
+        Assertions.assertEquals(KnownValue.MAY, e2.getDateCellValue());
+        Assertions.assertEquals(2, (int) d2.getNumericCellValue());
         wb.close();
     }
 
@@ -162,7 +162,7 @@ public class SubtotaledExcelTest {
      *             the exception
      */
     @Test
-    public void testSimpleTotalsCorrect() throws Exception {
+    void testSimpleTotalsCorrect() throws Exception {
         final TableModel m = this.getModel();
         final TableTotaler tt = new TableTotaler();
         m.setTotaler(tt);
@@ -183,32 +183,32 @@ public class SubtotaledExcelTest {
 
         final Cell a2 = sh.getRow(1).getCell(0);
         final Cell b2 = sh.getRow(1).getCell(1);
-        Assert.assertEquals("ant", a2.getStringCellValue());
-        Assert.assertEquals("", b2.getStringCellValue());
+        Assertions.assertEquals("ant", a2.getStringCellValue());
+        Assertions.assertEquals("", b2.getStringCellValue());
 
         final Cell a3 = sh.getRow(2).getCell(0);
         final Cell b3 = sh.getRow(2).getCell(1);
         final Cell c3 = sh.getRow(2).getCell(2);
-        Assert.assertEquals("", a3.getStringCellValue());
-        Assert.assertEquals("", c3.getStringCellValue());
-        Assert.assertEquals("bee", b3.getStringCellValue());
+        Assertions.assertEquals("", a3.getStringCellValue());
+        Assertions.assertEquals("", c3.getStringCellValue());
+        Assertions.assertEquals("bee", b3.getStringCellValue());
 
         final Cell a4 = sh.getRow(3).getCell(0);
         final Cell b4 = sh.getRow(3).getCell(1);
         final Cell c4 = sh.getRow(3).getCell(2);
-        Assert.assertEquals("", a4.getStringCellValue());
-        Assert.assertEquals("", b4.getStringCellValue());
-        Assert.assertEquals("camel", c4.getStringCellValue());
+        Assertions.assertEquals("", a4.getStringCellValue());
+        Assertions.assertEquals("", b4.getStringCellValue());
+        Assertions.assertEquals("camel", c4.getStringCellValue());
 
         final Cell d7 = sh.getRow(6).getCell(3);
         final Cell b7 = sh.getRow(6).getCell(1);
-        Assert.assertEquals(6, (int) d7.getNumericCellValue());
-        Assert.assertEquals("bee Total", b7.getStringCellValue());
+        Assertions.assertEquals(6, (int) d7.getNumericCellValue());
+        Assertions.assertEquals("bee Total", b7.getStringCellValue());
 
         final Cell d10 = sh.getRow(9).getCell(3);
         final Cell b10 = sh.getRow(9).getCell(1);
-        Assert.assertEquals(3, (int) d10.getNumericCellValue());
-        Assert.assertEquals("BeeAnt Total", b10.getStringCellValue());
+        Assertions.assertEquals(3, (int) d10.getNumericCellValue());
+        Assertions.assertEquals("BeeAnt Total", b10.getStringCellValue());
 
         // verify that the total for the entire table is correct
         // We want an overlay that gives us a model of the grouping, so

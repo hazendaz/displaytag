@@ -34,8 +34,8 @@ import org.displaytag.pagination.Pagination;
 import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.ColumnTag;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Check that toString() methods are constructed appropriately, uses the correct style and that there aren't stupid NPE
@@ -45,7 +45,7 @@ import org.junit.Test;
  *
  * @version $Revision$ ($Author$)
  */
-public class ToStringTest {
+class ToStringTest {
 
     /**
      * ToString methods should be costructed using toStringBuilder and the <code>ShortToStringStyle.SHORT_STYLE</code>
@@ -56,14 +56,14 @@ public class ToStringTest {
      */
     private void checkToString(final Object object) {
         final String toString = object.toString();
-        Assert.assertTrue(toString.startsWith(ClassUtils.getShortClassName(object, null)));
+        Assertions.assertTrue(toString.startsWith(ClassUtils.getShortClassName(object, null)));
     }
 
     /**
      * ToString() test.
      */
     @Test
-    public void testSmartListHelper() {
+    void testSmartListHelper() {
         this.checkToString(new SmartListHelper(new ArrayList<>(), 100, 10, TableProperties.getInstance(null), false));
     }
 
@@ -71,7 +71,7 @@ public class ToStringTest {
      * ToString() test.
      */
     @Test
-    public void testNumberedPage() {
+    void testNumberedPage() {
         this.checkToString(new NumberedPage(1, false));
     }
 
@@ -79,7 +79,7 @@ public class ToStringTest {
      * ToString() test.
      */
     @Test
-    public void testPagination() {
+    void testPagination() {
         this.checkToString(new Pagination(null, null, null));
     }
 
@@ -87,7 +87,7 @@ public class ToStringTest {
      * ToString() test.
      */
     @Test
-    public void testCell() {
+    void testCell() {
         this.checkToString(new Cell(null));
     }
 
@@ -95,7 +95,7 @@ public class ToStringTest {
      * ToString() test.
      */
     @Test
-    public void testHeaderCell() {
+    void testHeaderCell() {
         this.checkToString(new HeaderCell());
     }
 
@@ -103,7 +103,7 @@ public class ToStringTest {
      * ToString() test.
      */
     @Test
-    public void testColumn() {
+    void testColumn() {
         this.checkToString(new Column(new HeaderCell(), null, null));
     }
 
@@ -111,7 +111,7 @@ public class ToStringTest {
      * ToString() test.
      */
     @Test
-    public void testRow() {
+    void testRow() {
         this.checkToString(new Row(null, 0));
     }
 
@@ -119,7 +119,7 @@ public class ToStringTest {
      * ToString() test.
      */
     @Test
-    public void testTableModel() {
+    void testTableModel() {
         this.checkToString(new TableModel(null, null, null));
     }
 
@@ -127,7 +127,7 @@ public class ToStringTest {
      * ToString() test.
      */
     @Test
-    public void testColumnTag() {
+    void testColumnTag() {
         this.checkToString(new ColumnTag());
     }
 

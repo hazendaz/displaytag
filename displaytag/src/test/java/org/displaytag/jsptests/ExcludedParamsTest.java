@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class ExcludedParamsTest extends DisplaytagCase {
+class ExcludedParamsTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -76,9 +76,9 @@ public class ExcludedParamsTest extends DisplaytagCase {
 
         for (final WebLink link : links) {
             final String linkUrl = link.getURLString();
-            Assert.assertTrue("Link contains the excluded parameter foo.", linkUrl.indexOf("foo") == -1);
-            Assert.assertTrue("Link contains the excluded parameter bar.", linkUrl.indexOf("bar") == -1);
-            Assert.assertTrue("Link doesn't contains the parameter zoo.", linkUrl.indexOf("zoo") > -1);
+            Assertions.assertEquals(-1, linkUrl.indexOf("foo"), "Link contains the excluded parameter foo.");
+            Assertions.assertEquals(-1, linkUrl.indexOf("bar"), "Link contains the excluded parameter bar.");
+            Assertions.assertTrue(linkUrl.indexOf("zoo") > -1, "Link doesn't contains the parameter zoo.");
         }
 
     }

@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class MaxLengthTest extends DisplaytagCase {
+class MaxLengthTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -66,15 +66,15 @@ public class MaxLengthTest extends DisplaytagCase {
         final WebResponse response = this.runner.getResponse(request);
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
-        Assert.assertEquals("Wrong number of columns.", 4, tables[0].getColumnCount());
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
+        Assertions.assertEquals(4, tables[0].getColumnCount(), "Wrong number of columns.");
 
-        Assert.assertEquals("Broken title.", "123\"567890\"123", tables[0].getTableCell(1, 0).getTitle());
+        Assertions.assertEquals("123\"567890\"123", tables[0].getTableCell(1, 0).getTitle(), "Broken title.");
 
-        Assert.assertEquals("Wrong content in column 1", "123\"567890...", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Wrong content in column 2", "Lorem ipsum dolor...", tables[0].getCellAsText(1, 1));
-        Assert.assertEquals("Wrong content in column 3", "", tables[0].getCellAsText(1, 2));
-        Assert.assertEquals("Wrong content in column 4", "", tables[0].getCellAsText(1, 3));
+        Assertions.assertEquals("123\"567890...", tables[0].getCellAsText(1, 0), "Wrong content in column 1");
+        Assertions.assertEquals("Lorem ipsum dolor...", tables[0].getCellAsText(1, 1), "Wrong content in column 2");
+        Assertions.assertEquals("", tables[0].getCellAsText(1, 2), "Wrong content in column 3");
+        Assertions.assertEquals("", tables[0].getCellAsText(1, 3), "Wrong content in column 4");
 
     }
 }

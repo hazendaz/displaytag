@@ -25,8 +25,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -41,7 +41,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class EncodedUriTest extends DisplaytagCase {
+class EncodedUriTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -70,25 +70,25 @@ public class EncodedUriTest extends DisplaytagCase {
         request.setHeaderField("Content-Type", "text/html; charset=UTF-8");
 
         // just check that everything is ok before reaching displaytag
-        Assert.assertEquals("MünchenXX", request.getParameter("city"));
+        Assertions.assertEquals("MünchenXX", request.getParameter("city"));
         final WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertEquals(StandardCharsets.UTF_8.name(), response.getCharacterSet());
+        Assertions.assertEquals(StandardCharsets.UTF_8.name(), response.getCharacterSet());
 
         if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links in result.", 4, links.length);
+        Assertions.assertEquals(4, links.length, "Wrong number of links in result.");
 
         final String expected = "M%C3%BCnchen";
 
         final String actual = StringUtils.substringBetween(links[0].getURLString(), "city=", "XX");
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 }

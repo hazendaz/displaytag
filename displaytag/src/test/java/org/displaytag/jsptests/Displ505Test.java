@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision: 1081 $ ($Author: fgiust $)
  */
-public class Displ505Test extends DisplaytagCase {
+class Displ505Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -72,12 +72,12 @@ public class Displ505Test extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 2, tables.length);
+        Assertions.assertEquals(2, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Expected decorated value not found.",
-                new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null), tables[0].getCellAsText(1, 0));
+        Assertions.assertEquals(new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null), tables[0].getCellAsText(1, 0),
+            "Expected decorated value not found.");
 
-        Assert.assertEquals("Expected decorated value not found.", KnownTypes.TIME_VALUE.toString(),
-                tables[1].getCellAsText(1, 0));
+        Assertions.assertEquals(KnownTypes.TIME_VALUE.toString(),
+                tables[1].getCellAsText(1, 0), "Expected decorated value not found.");
     }
 }

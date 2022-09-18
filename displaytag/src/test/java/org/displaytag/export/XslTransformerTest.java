@@ -35,8 +35,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.itextpdf.text.pdf.PdfReader;
 
@@ -45,7 +45,7 @@ import com.itextpdf.text.pdf.PdfReader;
  *
  * @author rapruitt Date: May 19, 2010 Time: 8:31:54 PM
  */
-public class XslTransformerTest {
+class XslTransformerTest {
 
     /**
      * Test main test.
@@ -54,13 +54,13 @@ public class XslTransformerTest {
      *             the exception
      */
     @Test
-    public void testMainTest() throws Exception {
+    void testMainTest() throws Exception {
         final File f = File.createTempFile("inline", "pdf");
         final String styleSheetPath = "/org/displaytag/export/asFo_us.xsl";
         FopExportView.transform(XslTransformerTest.XML, styleSheetPath, f);
         final PdfReader reader = new PdfReader(f.getAbsolutePath());
         // byte[] page = reader.getPageContent(1);
-        Assert.assertEquals("Expected a valid pdf file with a single page", 1, reader.getNumberOfPages());
+        Assertions.assertEquals(1, reader.getNumberOfPages(), "Expected a valid pdf file with a single page");
 
     }
 

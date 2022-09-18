@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ264Test extends DisplaytagCase {
+class Displ264Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,16 +71,16 @@ public class Displ264Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
 
         if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
         final WebLink[] links = response.getLinks();
-        Assert.assertTrue("No links found.", links.length > 0);
+        Assertions.assertTrue(links.length > 0, "No links found.");
         final String url = links[0].getURLString();
-        Assert.assertTrue("Expected parameter not found in url " + url, StringUtils.contains(url, "test=value"));
+        Assertions.assertTrue(StringUtils.contains(url, "test=value"), "Expected parameter not found in url " + url);
     }
 
 }

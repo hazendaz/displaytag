@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableCell;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class HtmlAttributesTest extends DisplaytagCase {
+class HtmlAttributesTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -67,25 +67,25 @@ public class HtmlAttributesTest extends DisplaytagCase {
         response = this.runner.getResponse(request);
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
         final WebTable table = tables[0];
 
-        Assert.assertEquals("invalid id", "idX", table.getID());
+        Assertions.assertEquals("idX", table.getID(), "invalid id");
 
-        Assert.assertEquals("invalid attribute value", "cellspacingX", table.getAttribute("cellspacing"));
-        Assert.assertEquals("invalid attribute value", "cellpaddingX", table.getAttribute("cellpadding"));
-        Assert.assertEquals("invalid attribute value", "frameX", table.getAttribute("frame"));
-        Assert.assertEquals("invalid attribute value", "rulesX", table.getAttribute("rules"));
-        Assert.assertEquals("invalid attribute value", "styleX", table.getAttribute("style"));
-        Assert.assertEquals("invalid attribute value", "summaryX", table.getAttribute("summary"));
-        Assert.assertEquals("invalid attribute value", "classX table", table.getAttribute("class"));
+        Assertions.assertEquals("cellspacingX", table.getAttribute("cellspacing"), "invalid attribute value");
+        Assertions.assertEquals("cellpaddingX", table.getAttribute("cellpadding"), "invalid attribute value");
+        Assertions.assertEquals("frameX", table.getAttribute("frame"), "invalid attribute value");
+        Assertions.assertEquals("rulesX", table.getAttribute("rules"), "invalid attribute value");
+        Assertions.assertEquals("styleX", table.getAttribute("style"), "invalid attribute value");
+        Assertions.assertEquals("summaryX", table.getAttribute("summary"), "invalid attribute value");
+        Assertions.assertEquals("classX table", table.getAttribute("class"), "invalid attribute value");
 
         final TableCell header = table.getTableCell(0, 0);
-        Assert.assertEquals("invalid attribute value", "classH", header.getAttribute("class"));
-        Assert.assertEquals("invalid attribute value", "styleH", header.getAttribute("style"));
+        Assertions.assertEquals("classH", header.getAttribute("class"), "invalid attribute value");
+        Assertions.assertEquals("styleH", header.getAttribute("style"), "invalid attribute value");
 
         final TableCell cell = table.getTableCell(1, 0);
-        Assert.assertEquals("invalid attribute value", "styleX", cell.getAttribute("style"));
-        Assert.assertEquals("invalid attribute value", "classX", cell.getAttribute("class"));
+        Assertions.assertEquals("styleX", cell.getAttribute("style"), "invalid attribute value");
+        Assertions.assertEquals("classX", cell.getAttribute("class"), "invalid attribute value");
     }
 }

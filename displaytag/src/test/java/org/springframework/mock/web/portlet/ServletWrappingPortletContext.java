@@ -26,7 +26,7 @@ import javax.portlet.PortletContext;
 import javax.portlet.PortletRequestDispatcher;
 import javax.servlet.ServletContext;
 
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Mock implementation of the {@link javax.portlet.PortletContext} interface,
@@ -46,7 +46,7 @@ public class ServletWrappingPortletContext implements PortletContext {
 	 * @param servletContext the ServletContext to wrap
 	 */
 	public ServletWrappingPortletContext(ServletContext servletContext) {
-		Assert.notNull(servletContext, "ServletContext must not be null");
+		Assertions.assertNotNull(servletContext, "ServletContext must not be null");
 		this.servletContext = servletContext;
 	}
 

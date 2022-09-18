@@ -25,8 +25,8 @@ import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -41,7 +41,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ243Test extends DisplaytagCase {
+class Displ243Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -75,13 +75,13 @@ public class Displ243Test extends DisplaytagCase {
         }
 
         WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
         WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links.", 1, links.length);
+        Assertions.assertEquals(1, links.length, "Wrong number of links.");
 
-        Assert.assertEquals("wrong sorting order", Integer.toString(SortOrderEnum.DESCENDING.getCode()),
-                links[0].getParameterValues(orderParameter)[0]);
+        Assertions.assertEquals(Integer.toString(SortOrderEnum.DESCENDING.getCode()),
+                links[0].getParameterValues(orderParameter)[0], "wrong sorting order");
 
         // a few clicks...
         for (int j = 0; j < 10; j++) {
@@ -95,13 +95,14 @@ public class Displ243Test extends DisplaytagCase {
             }
 
             tables = response.getTables();
-            Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+            Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
             links = response.getLinks();
-            Assert.assertEquals("Wrong number of links.", 1, links.length);
+            Assertions.assertEquals(1, links.length, "Wrong number of links.");
 
-            Assert.assertEquals("Wrong sorting order for iteration " + j, expectedSortOrder,
-                    SortOrderEnum.fromCode(Integer.parseInt(links[0].getParameterValues(orderParameter)[0])).getName());
+            Assertions.assertEquals(expectedSortOrder,
+                    SortOrderEnum.fromCode(Integer.parseInt(links[0].getParameterValues(orderParameter)[0])).getName(),
+                    "Wrong sorting order for iteration " + j);
         }
 
     }

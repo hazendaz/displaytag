@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ001Test extends DisplaytagCase {
+class Displ001Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -65,14 +65,14 @@ public class Displ001Test extends DisplaytagCase {
         final WebResponse response = this.runner.getResponse(request);
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
-        Assert.assertEquals("Wrong title in column", "averylongemail@mail.com",
-                tables[0].getTableCell(1, 0).getTitle());
+        Assertions.assertEquals(1, tables.length, "Expected 1 table in result.");
+        Assertions.assertEquals("averylongemail@mail.com",
+                tables[0].getTableCell(1, 0).getTitle(), "Wrong title in column");
 
         final WebLink[] links = tables[0].getTableCell(1, 0).getLinks();
-        Assert.assertEquals("Expected link not found", 1, links.length);
-        Assert.assertEquals("Wrong text in link", "averylongemail@...", links[0].getText());
-        Assert.assertEquals("Wrong url in link", "mailto:averylongemail@mail.com", links[0].getURLString());
+        Assertions.assertEquals(1, links.length, "Expected link not found");
+        Assertions.assertEquals("averylongemail@...", links[0].getText(), "Wrong text in link");
+        Assertions.assertEquals("mailto:averylongemail@mail.com", links[0].getURLString(), "Wrong url in link");
     }
 
 }

@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -40,7 +40,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ017Test extends DisplaytagCase {
+class Displ017Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -94,17 +94,16 @@ public class Displ017Test extends DisplaytagCase {
     private void checkOnlyOneSorted(final WebResponse response, final int sortedColumn) throws SAXException {
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
-        Assert.assertEquals("Wrong number of columns in result.", 4, tables[0].getColumnCount());
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
+        Assertions.assertEquals(4, tables[0].getColumnCount(), "Wrong number of columns in result.");
 
         for (int j = 0; j < 4; j++) {
             final TableCell cell = tables[0].getTableCell(0, j);
             final boolean containsSorted = cell.getAttribute("class").indexOf("sorted") > -1;
             if (j == sortedColumn) {
-                Assert.assertTrue("Column " + j + " is not sorted as expected", containsSorted);
+                Assertions.assertTrue(containsSorted, "Column " + j + " is not sorted as expected");
             } else {
-                Assert.assertFalse("Column " + j + " is sorted, but only " + sortedColumn + " should be",
-                        containsSorted);
+                Assertions.assertFalse(containsSorted, "Column " + j + " is sorted, but only " + sortedColumn + " should be");
             }
 
         }

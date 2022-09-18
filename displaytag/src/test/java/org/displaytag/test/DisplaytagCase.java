@@ -31,9 +31,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.InstanceManager;
 import org.displaytag.util.SimpleInstanceManager;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,7 +99,7 @@ public abstract class DisplaytagCase {
      *
      * @see junit.framework.TestCase#setUp()
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         // need to pass a web.xml file to setup servletunit working directory
         final ClassLoader classLoader = this.getClass().getClassLoader();
@@ -131,7 +131,7 @@ public abstract class DisplaytagCase {
      *
      * @see junit.framework.TestCase#tearDown()
      */
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         // shutdown servlet engine
         this.runner.shutDown();
@@ -149,7 +149,7 @@ public abstract class DisplaytagCase {
      */
     public void assertEqualsIgnoreOrder(final String message, final String[] expected, final String[] actual) {
         if (expected.length != actual.length) {
-            Assert.fail(message + " Wrong number of values, expected " + expected.length + " ("
+            Assertions.fail(message + " Wrong number of values, expected " + expected.length + " ("
                     + ArrayUtils.toString(expected) + "), actual " + actual.length + " (" + ArrayUtils.toString(actual)
                     + ")");
         }
@@ -160,7 +160,7 @@ public abstract class DisplaytagCase {
                     continue outer;
                 }
             }
-            Assert.fail(message + " Expected value \"" + exp + "\" not found in actual array: "
+            Assertions.fail(message + " Expected value \"" + exp + "\" not found in actual array: "
                     + ArrayUtils.toString(actual));
         }
     }

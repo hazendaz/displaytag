@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HTMLElement;
@@ -40,7 +40,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Id: Displ305Test.java 1081 2006-04-03 20:26:34Z fgiust $
  */
-public class Displ304Test extends DisplaytagCase {
+class Displ304Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -77,7 +77,7 @@ public class Displ304Test extends DisplaytagCase {
         // <span class="pagebanner">3 items found, displaying 1 to 1.</span>
 
         final HTMLElement pagebanner = response.getElementWithID("pagebanner");
-        Assert.assertEquals("Wrong page banner", "4|3|4", pagebanner.getText());
+        Assertions.assertEquals("4|3|4", pagebanner.getText(), "Wrong page banner");
     }
 
 }

@@ -21,8 +21,8 @@
  */
 package org.displaytag.tags;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for org.displaytag.tags.TableTagExtraInfo.
@@ -37,32 +37,32 @@ public class TableTagExtraInfoTest {
      * Test for isJavaId().
      */
     @Test
-    public final void testIsJavaIdValid() {
-        Assert.assertTrue(TableTagExtraInfo.isJavaId("table"));
+    void testIsJavaIdValid() {
+        Assertions.assertTrue(TableTagExtraInfo.isJavaId("table"));
     }
 
     /**
      * Test for isJavaId().
      */
     @Test
-    public final void testIsJavaIdEnum() {
-        Assert.assertFalse(TableTagExtraInfo.isJavaId("enum"));
+    void testIsJavaIdEnum() {
+        Assertions.assertFalse(TableTagExtraInfo.isJavaId("enum"));
     }
 
     /**
      * Test for isJavaId().
      */
     @Test
-    public final void testIsJavaIdSpace() {
-        Assert.assertFalse(TableTagExtraInfo.isJavaId("invalid x"));
+    void testIsJavaIdSpace() {
+        Assertions.assertFalse(TableTagExtraInfo.isJavaId("invalid x"));
     }
 
     /**
      * Test for isJavaId().
      */
     @Test
-    public final void testIsJavaIdEsclamationMark() {
-        Assert.assertFalse(TableTagExtraInfo.isJavaId("invalid!"));
+    void testIsJavaIdEsclamationMark() {
+        Assertions.assertFalse(TableTagExtraInfo.isJavaId("invalid!"));
     }
 
 }

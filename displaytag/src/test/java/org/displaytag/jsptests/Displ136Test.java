@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ136Test extends DisplaytagCase {
+class Displ136Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -73,9 +73,9 @@ public class Displ136Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
-        Assert.assertEquals("Wrong number of rows.", 2, tables[0].getRowCount());
-        Assert.assertEquals("Column content missing?", "ant", tables[0].getCellAsText(1, 0));
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
+        Assertions.assertEquals(2, tables[0].getRowCount(), "Wrong number of rows.");
+        Assertions.assertEquals("ant", tables[0].getCellAsText(1, 0), "Column content missing?");
 
     }
 

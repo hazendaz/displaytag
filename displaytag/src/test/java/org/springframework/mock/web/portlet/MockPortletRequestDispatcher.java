@@ -26,8 +26,7 @@ import javax.portlet.RenderResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Mock implementation of the {@link javax.portlet.PortletRequestDispatcher} interface.
@@ -48,7 +47,7 @@ public class MockPortletRequestDispatcher implements PortletRequestDispatcher {
 	 * @param url the URL to dispatch to.
 	 */
 	public MockPortletRequestDispatcher(String url) {
-		Assert.notNull(url, "URL must not be null");
+		Assertions.assertNotNull(url, "URL must not be null");
 		this.url = url;
 	}
 
@@ -60,8 +59,8 @@ public class MockPortletRequestDispatcher implements PortletRequestDispatcher {
 
 	@Override
 	public void include(PortletRequest request, PortletResponse response) throws PortletException, IOException {
-		Assert.notNull(request, "Request must not be null");
-		Assert.notNull(response, "Response must not be null");
+		Assertions.assertNotNull(request, "Request must not be null");
+		Assertions.assertNotNull(response, "Response must not be null");
 		if (!(response instanceof MockMimeResponse)) {
 			throw new IllegalArgumentException("MockPortletRequestDispatcher requires MockMimeResponse");
 		}
@@ -73,8 +72,8 @@ public class MockPortletRequestDispatcher implements PortletRequestDispatcher {
 
 	@Override
 	public void forward(PortletRequest request, PortletResponse response) throws PortletException, IOException {
-		Assert.notNull(request, "Request must not be null");
-		Assert.notNull(response, "Response must not be null");
+		Assertions.assertNotNull(request, "Request must not be null");
+		Assertions.assertNotNull(response, "Response must not be null");
 		if (!(response instanceof MockMimeResponse)) {
 			throw new IllegalArgumentException("MockPortletRequestDispatcher requires MockMimeResponse");
 		}

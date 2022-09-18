@@ -26,8 +26,8 @@ import java.nio.charset.StandardCharsets;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -40,7 +40,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class ExportUTF8FilterTest extends ExportUTF8Test {
+class ExportUTF8FilterTest extends ExportUTF8Test {
 
     /**
      * Gets the jsp name.
@@ -78,7 +78,7 @@ public class ExportUTF8FilterTest extends ExportUTF8Test {
 
         final String encoding = response.getCharacterSet();
 
-        Assert.assertEquals("Encoding is not UTF-8 as expected.", StandardCharsets.UTF_8.name(), encoding);
+        Assertions.assertEquals(StandardCharsets.UTF_8.name(), encoding, "Encoding is not UTF-8 as expected.");
 
     }
 }

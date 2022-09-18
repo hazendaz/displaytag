@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ002Test extends DisplaytagCase {
+class Displ002Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -68,13 +68,13 @@ public class Displ002Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 4, tables.length);
+        Assertions.assertEquals(4, tables.length, "Wrong number of tables in result.");
 
         for (int j = 0; j < tables.length; j++) {
             final WebTable table = tables[j];
-            Assert.assertEquals("Wrong number of rows in table " + (j + 1), 2, table.getRowCount());
-            Assert.assertEquals("Wrong content in cell for table " + (j + 1), "ant", table.getCellAsText(1, 0));
-            Assert.assertEquals("Wrong content in cell for table " + (j + 1), "bee", table.getCellAsText(1, 1));
+            Assertions.assertEquals(2, table.getRowCount(), "Wrong number of rows in table " + (j + 1));
+            Assertions.assertEquals("ant", table.getCellAsText(1, 0), "Wrong content in cell for table " + (j + 1));
+            Assertions.assertEquals("bee", table.getCellAsText(1, 1), "Wrong content in cell for table " + (j + 1));
         }
     }
 }

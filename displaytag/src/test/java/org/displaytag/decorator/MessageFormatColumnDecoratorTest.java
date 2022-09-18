@@ -25,8 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for MessageFormatColumnDecoratorTest.
@@ -35,26 +35,26 @@ import org.junit.Test;
  *
  * @version $Id$
  */
-public class MessageFormatColumnDecoratorTest {
+class MessageFormatColumnDecoratorTest {
 
     /**
      * Test with <code>day is {0, date, EEEE}</code>.
      */
     @Test
-    public void testDate() {
+    void testDate() {
         final Object result = new MessageFormatColumnDecorator("day is {0,date,EEEE}", Locale.ENGLISH)
                 .decorate(new Date(0), null, null);
-        Assert.assertEquals("day is " + new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date(0)), result);
+        Assertions.assertEquals("day is " + new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date(0)), result);
     }
 
     /**
      * Test with <code>day is {0, date, EEEE}</code>.
      */
     @Test
-    public void testWrongDate() {
+    void testWrongDate() {
         final Object result = new MessageFormatColumnDecorator("day is {0,date,EEEE}", Locale.ENGLISH).decorate("abc",
                 null, null);
-        Assert.assertEquals("abc", result);
+        Assertions.assertEquals("abc", result);
     }
 
 }

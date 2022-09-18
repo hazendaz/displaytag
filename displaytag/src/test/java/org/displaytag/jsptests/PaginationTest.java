@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class PaginationTest extends DisplaytagCase {
+class PaginationTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -74,14 +74,14 @@ public class PaginationTest extends DisplaytagCase {
 
         final WebLink[] links = response.getLinks();
 
-        Assert.assertEquals("Wrong number of links in result.", 4, links.length);
+        Assertions.assertEquals(4, links.length, "Wrong number of links in result.");
 
         for (int j = 0; j < links.length; j++) {
             if (this.log.isDebugEnabled()) {
                 this.log.debug(j + " " + links[j].getURLString());
             }
 
-            Assert.assertTrue(StringUtils.contains(links[j].getURLString(), "%7Bfoo%7D=%2F.%2C%3B%3A%2F%7C%7C%5Cbar"));
+            Assertions.assertTrue(StringUtils.contains(links[j].getURLString(), "%7Bfoo%7D=%2F.%2C%3B%3A%2F%7C%7C%5Cbar"));
         }
 
     }

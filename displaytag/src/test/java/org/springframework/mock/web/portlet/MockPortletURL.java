@@ -24,7 +24,7 @@ import javax.portlet.PortletURL;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -59,7 +59,7 @@ public class MockPortletURL extends MockBaseURL implements PortletURL {
 	 * @see #URL_TYPE_ACTION
 	 */
 	public MockPortletURL(PortalContext portalContext, String urlType) {
-		Assert.notNull(portalContext, "PortalContext is required");
+		Assertions.assertNotNull(portalContext, "PortalContext is required");
 		this.portalContext = portalContext;
 		this.urlType = urlType;
 	}

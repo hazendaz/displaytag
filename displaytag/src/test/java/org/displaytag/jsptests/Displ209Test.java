@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -41,7 +41,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ209Test extends DisplaytagCase {
+class Displ209Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -75,24 +75,24 @@ public class Displ209Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
-        Assert.assertEquals("Wrong number of rows in result.", 4, tables[0].getRowCount());
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
+        Assertions.assertEquals(4, tables[0].getRowCount(), "Wrong number of rows in result.");
 
         if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        Assert.assertEquals("Wrong value", "a", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Wrong viewIndex", "0", tables[0].getCellAsText(1, 1));
-        Assert.assertEquals("Wrong listIndex", "0", tables[0].getCellAsText(1, 2));
+        Assertions.assertEquals("a", tables[0].getCellAsText(1, 0), "Wrong value");
+        Assertions.assertEquals("0", tables[0].getCellAsText(1, 1), "Wrong viewIndex");
+        Assertions.assertEquals("0", tables[0].getCellAsText(1, 2), "Wrong listIndex");
 
-        Assert.assertEquals("Wrong value", "b", tables[0].getCellAsText(2, 0));
-        Assert.assertEquals("Wrong viewIndex", "1", tables[0].getCellAsText(2, 1));
-        Assert.assertEquals("Wrong listIndex", "1", tables[0].getCellAsText(2, 2));
+        Assertions.assertEquals("b", tables[0].getCellAsText(2, 0), "Wrong value");
+        Assertions.assertEquals("1", tables[0].getCellAsText(2, 1), "Wrong viewIndex");
+        Assertions.assertEquals("1", tables[0].getCellAsText(2, 2), "Wrong listIndex");
 
-        Assert.assertEquals("Wrong value", "c", tables[0].getCellAsText(3, 0));
-        Assert.assertEquals("Wrong viewIndex", "2", tables[0].getCellAsText(3, 1));
-        Assert.assertEquals("Wrong listIndex", "2", tables[0].getCellAsText(3, 2));
+        Assertions.assertEquals("c", tables[0].getCellAsText(3, 0), "Wrong value");
+        Assertions.assertEquals("2", tables[0].getCellAsText(3, 1), "Wrong viewIndex");
+        Assertions.assertEquals("2", tables[0].getCellAsText(3, 2), "Wrong listIndex");
     }
 
 }

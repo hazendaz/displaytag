@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.displaytag.decorator.ModelDecorator;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -60,11 +60,11 @@ public class Displ298HtmlTest extends DisplaytagCase {
         final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         final WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertEquals("Expected a different content type.", "text/html", response.getContentType());
+        Assertions.assertEquals("text/html", response.getContentType(), "Expected a different content type.");
         final String responseText = response.getText();
         final boolean expectedTextPresent = responseText != null
                 && responseText.indexOf(ModelDecorator.DECORATED_VALUE) > -1;
-        Assert.assertTrue("Missing content.", expectedTextPresent);
+        Assertions.assertTrue(expectedTextPresent, "Missing content.");
     }
 
 }

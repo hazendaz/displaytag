@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ118Test extends DisplaytagCase {
+class Displ118Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -73,9 +73,9 @@ public class Displ118Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertNotNull("Not in page 2 as expected?", response.getElementWithID("PAGETWO"));
+        Assertions.assertNotNull(response.getElementWithID("PAGETWO"), "Not in page 2 as expected?");
 
     }
 

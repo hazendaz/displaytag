@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class ExportHeadersFilterTest extends ExportHeadersTest {
+class ExportHeadersFilterTest extends ExportHeadersTest {
 
     /**
      * Test that headers are correctly removed.
@@ -61,9 +61,9 @@ public class ExportHeadersFilterTest extends ExportHeadersTest {
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
         final WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertNull("Header Cache-Control not overwritten", response.getHeaderField("Cache-Control"));
-        Assert.assertNull("Header Expires not overwritten", response.getHeaderField("Expires"));
-        Assert.assertNull("Header Pragma not overwritten", response.getHeaderField("Pragma"));
+        Assertions.assertNull(response.getHeaderField("Cache-Control"), "Header Cache-Control not overwritten");
+        Assertions.assertNull(response.getHeaderField("Expires"), "Header Expires not overwritten");
+        Assertions.assertNull(response.getHeaderField("Pragma"), "Header Pragma not overwritten");
     }
 
 }

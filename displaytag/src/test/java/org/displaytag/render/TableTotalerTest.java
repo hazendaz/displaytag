@@ -34,7 +34,7 @@ import org.displaytag.test.KnownValue;
 import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * User: rapruitt Date: May 31, 2010 Time: 1:08:02 PM.
@@ -107,7 +107,7 @@ public class TableTotalerTest extends XMLTestCase {
      *             the exception
      */
     @Test
-    public void testSimpleTotalsCorrect() throws Exception {
+    void testSimpleTotalsCorrect() throws Exception {
         final TableModel m = this.getModel();
         final TableTotaler tt = new TableTotaler();
         m.setTotaler(tt);

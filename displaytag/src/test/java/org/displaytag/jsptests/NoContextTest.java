@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class NoContextTest extends DisplaytagCase {
+class NoContextTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -69,14 +69,14 @@ public class NoContextTest extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links in result.", 8, links.length);
+        Assertions.assertEquals(8, links.length, "Wrong number of links in result.");
 
         for (final WebLink link : links) {
             final String url = link.getURLString();
-            Assert.assertTrue("Invalid url: " + url, url.startsWith("/goforit"));
+            Assertions.assertTrue(url.startsWith("/goforit"), "Invalid url: " + url);
         }
     }
 

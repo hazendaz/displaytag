@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -40,7 +40,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ056Test extends DisplaytagCase {
+class Displ056Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -73,21 +73,21 @@ public class Displ056Test extends DisplaytagCase {
         }
 
         WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 3, tables.length);
+        Assertions.assertEquals(3, tables.length, "Wrong number of tables in result.");
 
         for (int j = 0; j < tables.length; j++) {
-            Assert.assertEquals("invalid id", "row" + j, tables[j].getID());
+            Assertions.assertEquals("row" + j, tables[j].getID(), "invalid id");
         }
 
         WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links in result.", 3, links.length);
+        Assertions.assertEquals(3, links.length, "Wrong number of links in result.");
 
         // click to sort the first table
         response = links[0].click();
 
         // get the links
         links = response.getLinks();
-        Assert.assertEquals("Wrong number of links in result.", 3, links.length);
+        Assertions.assertEquals(3, links.length, "Wrong number of links in result.");
 
         // and click again to sort in reversed order
         response = links[0].click();
@@ -97,26 +97,29 @@ public class Displ056Test extends DisplaytagCase {
         }
 
         tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 3, tables.length);
+        Assertions.assertEquals(3, tables.length, "Wrong number of tables in result.");
 
         // first is sorted, other aren't
-        Assert.assertTrue("First table should be sorted. Wrong class attribute.", //
-                StringUtils.contains(tables[0].getTableCell(0, 0).getClassName(), "sorted"));
-        Assert.assertEquals("Second table should not be sorted. Wrong class attribute.", //
-                "sortable", tables[1].getTableCell(0, 0).getClassName());
-        Assert.assertEquals("Third table should not be sorted. Wrong class attribute.", //
-                "sortable", tables[2].getTableCell(0, 0).getClassName());
+        Assertions.assertTrue(
+                StringUtils.contains(tables[0].getTableCell(0, 0).getClassName(), "sorted"),
+                "First table should be sorted. Wrong class attribute.");
+        Assertions.assertEquals(
+                "sortable", tables[1].getTableCell(0, 0).getClassName(),
+                "Second table should not be sorted. Wrong class attribute.");
+        Assertions.assertEquals(
+                "sortable", tables[2].getTableCell(0, 0).getClassName(),
+                "Third table should not be sorted. Wrong class attribute.");
 
         // and just to be sure also check values: sorted table
         for (int j = 1; j < tables[0].getRowCount(); j++) {
-            Assert.assertEquals("Unexpected value in table cell", Integer.toString(4 - j),
-                    tables[0].getCellAsText(j, 0));
+            Assertions.assertEquals(Integer.toString(4 - j),
+                    tables[0].getCellAsText(j, 0), "Unexpected value in table cell");
         }
 
         // unsorted tables:
         for (int j = 1; j < tables[1].getRowCount(); j++) {
-            Assert.assertEquals("Unexpected value in table cell", Integer.toString(j), tables[1].getCellAsText(j, 0));
-            Assert.assertEquals("Unexpected value in table cell", Integer.toString(j), tables[2].getCellAsText(j, 0));
+            Assertions.assertEquals(Integer.toString(j), tables[1].getCellAsText(j, 0), "Unexpected value in table cell");
+            Assertions.assertEquals(Integer.toString(j), tables[2].getCellAsText(j, 0), "Unexpected value in table cell");
         }
     }
 }

@@ -25,8 +25,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ142Test extends DisplaytagCase {
+class Displ142Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,10 +71,10 @@ public class Displ142Test extends DisplaytagCase {
 
         WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertEquals("Expected a different content type.", "text/csv", response.getContentType());
+        Assertions.assertEquals("text/csv", response.getContentType(), "Expected a different content type.");
 
         // second column should be empty
-        Assert.assertEquals("Wrong content.", "ant,,camel\nant,,camel\n", response.getText());
+        Assertions.assertEquals("ant,,camel\nant,,camel\n", response.getText(), "Wrong content.");
 
         // now export a nested table
         encoder = new ParamEncoder("nested");
@@ -85,10 +85,10 @@ public class Displ142Test extends DisplaytagCase {
         request.setParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
         response = this.runner.getResponse(request);
 
-        Assert.assertEquals("Expected a different content type.", "text/csv", response.getContentType());
+        Assertions.assertEquals("text/csv", response.getContentType(), "Expected a different content type.");
 
         // second column should be empty
-        Assert.assertEquals("Wrong content.", "bee\nbee\n", response.getText());
+        Assertions.assertEquals("bee\nbee\n", response.getText(), "Wrong content.");
     }
 
 }

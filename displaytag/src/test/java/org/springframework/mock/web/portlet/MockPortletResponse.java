@@ -27,11 +27,10 @@ import javax.servlet.http.Cookie;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.jupiter.api.Assertions;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import org.springframework.util.Assert;
 
 /**
  * Mock implementation of the {@link javax.portlet.PortletResponse} interface.
@@ -87,7 +86,7 @@ public class MockPortletResponse implements PortletResponse {
 
 	@Override
 	public void addProperty(String key, String value) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		String[] oldArr = this.properties.get(key);
 		if (oldArr != null) {
 			String[] newArr = new String[oldArr.length + 1];
@@ -102,7 +101,7 @@ public class MockPortletResponse implements PortletResponse {
 
 	@Override
 	public void setProperty(String key, String value) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		this.properties.put(key, new String[] {value});
 	}
 
@@ -111,13 +110,13 @@ public class MockPortletResponse implements PortletResponse {
 	}
 
 	public String getProperty(String key) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		String[] arr = this.properties.get(key);
 		return (arr != null && arr.length > 0 ? arr[0] : null);
 	}
 
 	public String[] getProperties(String key) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		return this.properties.get(key);
 	}
 
@@ -137,7 +136,7 @@ public class MockPortletResponse implements PortletResponse {
 
 	@Override
 	public void addProperty(Cookie cookie) {
-		Assert.notNull(cookie, "Cookie must not be null");
+		Assertions.assertNotNull(cookie, "Cookie must not be null");
 		this.cookies.add(cookie);
 	}
 
@@ -146,7 +145,7 @@ public class MockPortletResponse implements PortletResponse {
 	}
 
 	public Cookie getCookie(String name) {
-		Assert.notNull(name, "Cookie name must not be null");
+		Assertions.assertNotNull(name, "Cookie name must not be null");
 		for (Cookie cookie : this.cookies) {
 			if (name.equals(cookie.getName())) {
 				return cookie;
@@ -157,7 +156,7 @@ public class MockPortletResponse implements PortletResponse {
 
 	@Override
 	public void addProperty(String key, Element value) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		Element[] oldArr = this.xmlProperties.get(key);
 		if (oldArr != null) {
 			Element[] newArr = new Element[oldArr.length + 1];
@@ -176,13 +175,13 @@ public class MockPortletResponse implements PortletResponse {
 	}
 
 	public Element getXmlProperty(String key) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		Element[] arr = this.xmlProperties.get(key);
 		return (arr != null && arr.length > 0 ? arr[0] : null);
 	}
 
 	public Element[] getXmlProperties(String key) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		return this.xmlProperties.get(key);
 	}
 

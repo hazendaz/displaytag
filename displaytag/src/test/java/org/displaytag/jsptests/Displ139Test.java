@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ139Test extends DisplaytagCase {
+class Displ139Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -69,9 +69,9 @@ public class Displ139Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Wrong (undecorated?) value", "pageContext: html ant", tables[0].getCellAsText(1, 0));
+        Assertions.assertEquals("pageContext: html ant", tables[0].getCellAsText(1, 0), "Wrong (undecorated?) value");
 
     }
 

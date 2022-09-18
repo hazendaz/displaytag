@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ147Test extends DisplaytagCase {
+class Displ147Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -68,9 +68,9 @@ public class Displ147Test extends DisplaytagCase {
         }
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links in result.", 1, links.length);
+        Assertions.assertEquals(1, links.length, "Wrong number of links in result.");
 
-        Assert.assertEquals("Link text is wrong.", "/context/dynlink?param=Raja%26Siva", links[0].getURLString());
+        Assertions.assertEquals("/context/dynlink?param=Raja%26Siva", links[0].getURLString(), "Link text is wrong.");
     }
 
 }
