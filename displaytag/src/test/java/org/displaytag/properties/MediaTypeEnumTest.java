@@ -21,8 +21,8 @@
  */
 package org.displaytag.properties;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for org.displaytag.properties.MediaTypeEnum.
@@ -31,56 +31,56 @@ import org.junit.Test;
  *
  * @version $Revision$ ($Author$)
  */
-public class MediaTypeEnumTest {
+class MediaTypeEnumTest {
 
     /**
      * Test for the "fixed" enum instances.
      */
     @Test
-    public void testCsv() {
-        Assert.assertEquals(MediaTypeEnum.fromCode(1), MediaTypeEnum.CSV);
-        Assert.assertEquals(MediaTypeEnum.fromName("csv"), MediaTypeEnum.CSV);
-        Assert.assertEquals(MediaTypeEnum.fromCode(1), MediaTypeEnum.fromName("csv"));
+    void testCsv() {
+        Assertions.assertEquals(MediaTypeEnum.CSV, MediaTypeEnum.fromCode(1));
+        Assertions.assertEquals(MediaTypeEnum.CSV, MediaTypeEnum.fromName("csv"));
+        Assertions.assertEquals(MediaTypeEnum.fromCode(1), MediaTypeEnum.fromName("csv"));
     }
 
     /**
      * Test for the "fixed" enum instances.
      */
     @Test
-    public void testExcel() {
-        Assert.assertEquals(MediaTypeEnum.fromCode(2), MediaTypeEnum.EXCEL);
-        Assert.assertEquals(MediaTypeEnum.fromName("excel"), MediaTypeEnum.EXCEL);
-        Assert.assertEquals(MediaTypeEnum.fromCode(2), MediaTypeEnum.fromName("excel"));
+    void testExcel() {
+        Assertions.assertEquals(MediaTypeEnum.EXCEL, MediaTypeEnum.fromCode(2));
+        Assertions.assertEquals(MediaTypeEnum.EXCEL, MediaTypeEnum.fromName("excel"));
+        Assertions.assertEquals(MediaTypeEnum.fromCode(2), MediaTypeEnum.fromName("excel"));
     }
 
     /**
      * Test for the "fixed" enum instances.
      */
     @Test
-    public void testXml() {
-        Assert.assertEquals(MediaTypeEnum.fromCode(3), MediaTypeEnum.XML);
-        Assert.assertEquals(MediaTypeEnum.fromName("xml"), MediaTypeEnum.XML);
-        Assert.assertEquals(MediaTypeEnum.fromCode(3), MediaTypeEnum.fromName("xml"));
+    void testXml() {
+        Assertions.assertEquals(MediaTypeEnum.XML, MediaTypeEnum.fromCode(3));
+        Assertions.assertEquals(MediaTypeEnum.XML, MediaTypeEnum.fromName("xml"));
+        Assertions.assertEquals(MediaTypeEnum.fromCode(3), MediaTypeEnum.fromName("xml"));
     }
 
     /**
      * Test for the "fixed" enum instances.
      */
     @Test
-    public void testHtml() {
-        Assert.assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.HTML);
-        Assert.assertEquals(MediaTypeEnum.fromName("html"), MediaTypeEnum.HTML);
-        Assert.assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.fromName("html"));
+    void testHtml() {
+        Assertions.assertEquals(MediaTypeEnum.HTML, MediaTypeEnum.fromCode(0));
+        Assertions.assertEquals(MediaTypeEnum.HTML, MediaTypeEnum.fromName("html"));
+        Assertions.assertEquals(MediaTypeEnum.fromCode(0), MediaTypeEnum.fromName("html"));
     }
 
     /**
      * Test pdf.
      */
     @Test
-    public void testPdf() {
-        Assert.assertEquals(MediaTypeEnum.fromCode(4), MediaTypeEnum.PDF);
-        Assert.assertEquals(MediaTypeEnum.fromName("pdf"), MediaTypeEnum.PDF);
-        Assert.assertEquals(MediaTypeEnum.fromCode(4), MediaTypeEnum.fromName("pdf"));
+    void testPdf() {
+        Assertions.assertEquals(MediaTypeEnum.PDF, MediaTypeEnum.fromCode(4));
+        Assertions.assertEquals(MediaTypeEnum.PDF, MediaTypeEnum.fromName("pdf"));
+        Assertions.assertEquals(MediaTypeEnum.fromCode(4), MediaTypeEnum.fromName("pdf"));
     }
 
 }

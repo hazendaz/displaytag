@@ -34,11 +34,10 @@ import javax.portlet.PortletRequestDispatcher;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.junit.jupiter.api.Assertions;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.util.Assert;
 import org.springframework.web.util.WebUtils;
 
 /**
@@ -240,13 +239,13 @@ public class MockPortletContext implements PortletContext {
 	}
 
 	public void addInitParameter(String name, String value) {
-		Assert.notNull(name, "Parameter name must not be null");
+		Assertions.assertNotNull(name, "Parameter name must not be null");
 		this.initParameters.put(name, value);
 	}
 
 	@Override
 	public String getInitParameter(String name) {
-		Assert.notNull(name, "Parameter name must not be null");
+		Assertions.assertNotNull(name, "Parameter name must not be null");
 		return this.initParameters.get(name);
 	}
 

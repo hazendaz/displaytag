@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -36,7 +36,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ026Test extends DisplaytagCase {
+class Displ026Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -63,10 +63,10 @@ public class Displ026Test extends DisplaytagCase {
         WebResponse response;
 
         response = this.runner.getResponse(request);
-        Assert.assertEquals("Parameters {5} and {6} are not correctly evaluated in paging.banner.first.", "1|3",
-                response.getElementWithID("numbers").getText());
-        Assert.assertEquals("Parameters {4} and {5} are not correctly evaluated in paging.banner.some_items_found.",
-                "1|3", response.getElementWithID("label").getText());
+        Assertions.assertEquals("1|3",
+                response.getElementWithID("numbers").getText(), "Parameters {5} and {6} are not correctly evaluated in paging.banner.first.");
+        Assertions.assertEquals(
+                "1|3", response.getElementWithID("label").getText(), "Parameters {4} and {5} are not correctly evaluated in paging.banner.some_items_found.");
     }
 
 }

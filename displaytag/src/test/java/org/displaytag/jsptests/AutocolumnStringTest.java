@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class AutocolumnStringTest extends DisplaytagCase {
+class AutocolumnStringTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,13 +71,13 @@ public class AutocolumnStringTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Bad number of generated columns.", 1, tables[0].getColumnCount());
-        Assert.assertEquals("Bad number of generated rows.", 4, tables[0].getRowCount());
+        Assertions.assertEquals(1, tables[0].getColumnCount(), "Bad number of generated columns.");
+        Assertions.assertEquals(4, tables[0].getRowCount(), "Bad number of generated rows.");
 
-        Assert.assertEquals("string1", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("string2", tables[0].getCellAsText(2, 0));
-        Assert.assertEquals("string3", tables[0].getCellAsText(3, 0));
+        Assertions.assertEquals("string1", tables[0].getCellAsText(1, 0));
+        Assertions.assertEquals("string2", tables[0].getCellAsText(2, 0));
+        Assertions.assertEquals("string3", tables[0].getCellAsText(3, 0));
     }
 }

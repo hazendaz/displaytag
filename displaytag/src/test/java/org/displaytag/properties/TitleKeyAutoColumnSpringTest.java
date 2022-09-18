@@ -24,7 +24,7 @@ package org.displaytag.properties;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.I18nSpringAdapter;
 import org.displaytag.localization.LocaleResolver;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
@@ -34,7 +34,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  *
  * @version $Revision$ ($Author$)
  */
-public class TitleKeyAutoColumnSpringTest extends AbstractTitleKeyAutoColumnTest {
+class TitleKeyAutoColumnSpringTest extends AbstractTitleKeyAutoColumnTest {
 
     /**
      * Gets the jsp name.

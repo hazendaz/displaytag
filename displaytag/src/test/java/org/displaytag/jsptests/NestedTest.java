@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class NestedTest extends DisplaytagCase {
+class NestedTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -68,31 +68,31 @@ public class NestedTest extends DisplaytagCase {
         final WebTable[] tables = response.getTables();
 
         // nested tables don't show up in the count
-        Assert.assertEquals("Wrong number of first-level tables", 1, tables.length);
-        Assert.assertEquals("Wrong number of columns in main table", 4, tables[0].getColumnCount());
-        Assert.assertEquals("Wrong number of rows in main table", 4, tables[0].getRowCount());
+        Assertions.assertEquals(1, tables.length, "Wrong number of first-level tables");
+        Assertions.assertEquals(4, tables[0].getColumnCount(), "Wrong number of columns in main table");
+        Assertions.assertEquals(4, tables[0].getRowCount(), "Wrong number of rows in main table");
 
         for (int j = 1; j < tables[0].getRowCount(); j++) {
-            Assert.assertEquals("Content in cell [" + j + ",0] in main table is wrong", Integer.toString(j),
-                    tables[0].getCellAsText(j, 0));
-            Assert.assertEquals("Content in cell [" + j + ",1] in main table is wrong", KnownValue.ANT,
-                    tables[0].getCellAsText(j, 1));
-            Assert.assertEquals("Content in cell [" + j + ",2] in main table is wrong", KnownValue.BEE,
-                    tables[0].getCellAsText(j, 2));
+            Assertions.assertEquals(Integer.toString(j),
+                    tables[0].getCellAsText(j, 0), "Content in cell [" + j + ",0] in main table is wrong");
+            Assertions.assertEquals(KnownValue.ANT,
+                    tables[0].getCellAsText(j, 1), "Content in cell [" + j + ",1] in main table is wrong");
+            Assertions.assertEquals(KnownValue.BEE,
+                    tables[0].getCellAsText(j, 2), "Content in cell [" + j + ",2] in main table is wrong");
 
             final WebTable nested = tables[0].getTableCell(j, 3).getFirstMatchingTable((htmlElement, criteria) -> true, null);
 
-            Assert.assertNotNull("Nested table not found in cell [" + j + ",3]", nested);
-            Assert.assertEquals("Wrong number of columns in nested table", 3, nested.getColumnCount());
-            Assert.assertEquals("Wrong number of rows in nested table", 4, nested.getRowCount());
+            Assertions.assertNotNull(nested, "Nested table not found in cell [" + j + ",3]");
+            Assertions.assertEquals(3, nested.getColumnCount(), "Wrong number of columns in nested table");
+            Assertions.assertEquals(4, nested.getRowCount(), "Wrong number of rows in nested table");
 
             for (int x = 1; x < nested.getRowCount(); x++) {
-                Assert.assertEquals("Content in cell [" + x + ",0] in nested table is wrong", Integer.toString(x),
-                        nested.getCellAsText(x, 0));
-                Assert.assertEquals("Content in cell [" + x + ",1] in nested table is wrong", KnownValue.ANT,
-                        nested.getCellAsText(x, 1));
-                Assert.assertEquals("Content in cell [" + x + ",2] in nested table is wrong", KnownValue.CAMEL,
-                        nested.getCellAsText(x, 2));
+                Assertions.assertEquals(Integer.toString(x),
+                        nested.getCellAsText(x, 0), "Content in cell [" + x + ",0] in nested table is wrong");
+                Assertions.assertEquals(KnownValue.ANT,
+                        nested.getCellAsText(x, 1), "Content in cell [" + x + ",1] in nested table is wrong");
+                Assertions.assertEquals(KnownValue.CAMEL,
+                        nested.getCellAsText(x, 2), "Content in cell [" + x + ",2] in nested table is wrong");
             }
 
         }

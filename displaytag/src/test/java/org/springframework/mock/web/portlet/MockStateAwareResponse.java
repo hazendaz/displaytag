@@ -30,7 +30,7 @@ import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 import javax.xml.namespace.QName;
 
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -96,33 +96,33 @@ public class MockStateAwareResponse extends MockPortletResponse implements State
 
 	@Override
 	public void setRenderParameters(Map<String, String[]> parameters) {
-		Assert.notNull(parameters, "Parameters Map must not be null");
+		Assertions.assertNotNull(parameters, "Parameters Map must not be null");
 		this.renderParameters.clear();
 		this.renderParameters.putAll(parameters);
 	}
 
 	@Override
 	public void setRenderParameter(String key, String value) {
-		Assert.notNull(key, "Parameter key must not be null");
-		Assert.notNull(value, "Parameter value must not be null");
+		Assertions.assertNotNull(key, "Parameter key must not be null");
+		Assertions.assertNotNull(value, "Parameter value must not be null");
 		this.renderParameters.put(key, new String[] {value});
 	}
 
 	@Override
 	public void setRenderParameter(String key, String[] values) {
-		Assert.notNull(key, "Parameter key must not be null");
-		Assert.notNull(values, "Parameter values must not be null");
+		Assertions.assertNotNull(key, "Parameter key must not be null");
+		Assertions.assertNotNull(values, "Parameter values must not be null");
 		this.renderParameters.put(key, values);
 	}
 
 	public String getRenderParameter(String key) {
-		Assert.notNull(key, "Parameter key must not be null");
+		Assertions.assertNotNull(key, "Parameter key must not be null");
 		String[] arr = this.renderParameters.get(key);
 		return (arr != null && arr.length > 0 ? arr[0] : null);
 	}
 
 	public String[] getRenderParameterValues(String key) {
-		Assert.notNull(key, "Parameter key must not be null");
+		Assertions.assertNotNull(key, "Parameter key must not be null");
 		return this.renderParameters.get(key);
 	}
 

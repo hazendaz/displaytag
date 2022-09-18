@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ161Test extends DisplaytagCase {
+class Displ161Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -68,11 +68,11 @@ public class Displ161Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Wrong content for first column", "", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Wrong content for second column", "", tables[0].getCellAsText(1, 1));
-        Assert.assertEquals("Wrong content for third column", "null", tables[0].getCellAsText(1, 2));
+        Assertions.assertEquals("", tables[0].getCellAsText(1, 0), "Wrong content for first column");
+        Assertions.assertEquals("", tables[0].getCellAsText(1, 1), "Wrong content for second column");
+        Assertions.assertEquals("null", tables[0].getCellAsText(1, 2), "Wrong content for third column");
     }
 
 }

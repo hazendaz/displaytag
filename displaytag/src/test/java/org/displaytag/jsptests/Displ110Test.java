@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableRow;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ110Test extends DisplaytagCase {
+class Displ110Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,18 +71,18 @@ public class Displ110Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Wrong number of columns.", 2, tables[0].getColumnCount());
-        Assert.assertEquals("Wrong number of rows.", 3, tables[0].getRowCount()); // 2 plus header
+        Assertions.assertEquals(2, tables[0].getColumnCount(), "Wrong number of columns.");
+        Assertions.assertEquals(3, tables[0].getRowCount(), "Wrong number of rows."); // 2 plus header
 
         final TableRow[] rows = tables[0].getRows();
 
-        Assert.assertEquals("Wrong id for row 1", "idcamel0", rows[1].getID());
-        Assert.assertEquals("Wrong id for row 2", "idcamel1", rows[2].getID());
+        Assertions.assertEquals("idcamel0", rows[1].getID(), "Wrong id for row 1");
+        Assertions.assertEquals("idcamel1", rows[2].getID(), "Wrong id for row 2");
 
-        Assert.assertEquals("Wrong class for row 1", "odd classcamel0", rows[1].getClassName());
-        Assert.assertEquals("Wrong class for row 2", "even classcamel1", rows[2].getClassName());
+        Assertions.assertEquals("odd classcamel0", rows[1].getClassName(), "Wrong class for row 1");
+        Assertions.assertEquals("even classcamel1", rows[2].getClassName(), "Wrong class for row 2");
 
     }
 }

@@ -28,7 +28,7 @@ import javax.portlet.PreferencesValidator;
 import javax.portlet.ReadOnlyException;
 import javax.portlet.ValidatorException;
 
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Mock implementation of the {@link javax.portlet.PortletPreferences} interface.
@@ -47,7 +47,7 @@ public class MockPortletPreferences implements PortletPreferences {
 
 
 	public void setReadOnly(String key, boolean readOnly) {
-		Assert.notNull(key, "Key must not be null");
+		Assertions.assertNotNull(key, "Key must not be null");
 		if (readOnly) {
 			this.readOnly.add(key);
 		}
@@ -58,20 +58,20 @@ public class MockPortletPreferences implements PortletPreferences {
 
 	@Override
 	public boolean isReadOnly(String key) {
-		Assert.notNull(key, "Key must not be null");
+		Assertions.assertNotNull(key, "Key must not be null");
 		return this.readOnly.contains(key);
 	}
 
 	@Override
 	public String getValue(String key, String def) {
-		Assert.notNull(key, "Key must not be null");
+		Assertions.assertNotNull(key, "Key must not be null");
 		String[] values = this.preferences.get(key);
 		return (values != null && values.length > 0 ? values[0] : def);
 	}
 
 	@Override
 	public String[] getValues(String key, String[] def) {
-		Assert.notNull(key, "Key must not be null");
+		Assertions.assertNotNull(key, "Key must not be null");
 		String[] values = this.preferences.get(key);
 		return (values != null && values.length > 0 ? values : def);
 	}
@@ -83,7 +83,7 @@ public class MockPortletPreferences implements PortletPreferences {
 
 	@Override
 	public void setValues(String key, String[] values) throws ReadOnlyException {
-		Assert.notNull(key, "Key must not be null");
+		Assertions.assertNotNull(key, "Key must not be null");
 		if (isReadOnly(key)) {
 			throw new ReadOnlyException("Preference '" + key + "' is read-only");
 		}
@@ -102,7 +102,7 @@ public class MockPortletPreferences implements PortletPreferences {
 
 	@Override
 	public void reset(String key) throws ReadOnlyException {
-		Assert.notNull(key, "Key must not be null");
+		Assertions.assertNotNull(key, "Key must not be null");
 		if (isReadOnly(key)) {
 			throw new ReadOnlyException("Preference '" + key + "' is read-only");
 		}

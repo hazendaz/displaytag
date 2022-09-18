@@ -24,8 +24,8 @@ package org.displaytag.properties;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -103,19 +103,18 @@ public abstract class AbstractTitleKeyTest extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Expected one table", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Expected one table");
 
-        Assert.assertEquals("Header from resource is not valid.", //
-                "foo title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, 0));
+        Assertions.assertEquals("foo title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, 0), "Header from resource is not valid.");
 
-        Assert.assertEquals("Header from resource is not valid.", //
-                "baz title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, 1));
+        Assertions.assertEquals("baz title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, 1),
+            "Header from resource is not valid.");
 
-        Assert.assertEquals("Header from resource is not valid.", //
-                "camel title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, 2));
+        Assertions.assertEquals("camel title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, 2),
+            "Header from resource is not valid.");
 
-        Assert.assertEquals("Missing resource should generate the ???missing??? header.", "???missing???",
-                tables[0].getCellAsText(0, 3));
+        Assertions.assertEquals("???missing???",
+                tables[0].getCellAsText(0, 3), "Missing resource should generate the ???missing??? header.");
 
     }
 }

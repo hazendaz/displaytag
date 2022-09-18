@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class ColumnPoolingTest extends DisplaytagCase {
+class ColumnPoolingTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -66,7 +66,7 @@ public class ColumnPoolingTest extends DisplaytagCase {
         final WebResponse response = this.runner.getResponse(request);
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("links should be generated for all the columns", 3, links.length);
+        Assertions.assertEquals(3, links.length, "links should be generated for all the columns");
 
     }
 }

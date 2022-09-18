@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class ExportFilterErrorTest extends DisplaytagCase {
+class ExportFilterErrorTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -70,7 +70,7 @@ public class ExportFilterErrorTest extends DisplaytagCase {
         final WebResponse response = this.runner.getResponse(request);
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Expected 1 table in result.");
 
     }
 

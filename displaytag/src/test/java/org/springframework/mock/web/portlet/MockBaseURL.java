@@ -28,7 +28,7 @@ import java.util.Set;
 import javax.portlet.BaseURL;
 import javax.portlet.PortletSecurityException;
 
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.util.StringUtils;
 
 /**
@@ -59,21 +59,21 @@ public abstract class MockBaseURL implements BaseURL {
 
 	@Override
 	public void setParameter(String key, String value) {
-		Assert.notNull(key, "Parameter key must be null");
-		Assert.notNull(value, "Parameter value must not be null");
+		Assertions.assertNotNull(key, "Parameter key must be null");
+		Assertions.assertNotNull(value, "Parameter value must not be null");
 		this.parameters.put(key, new String[] {value});
 	}
 
 	@Override
 	public void setParameter(String key, String[] values) {
-		Assert.notNull(key, "Parameter key must be null");
-		Assert.notNull(values, "Parameter values must not be null");
+		Assertions.assertNotNull(key, "Parameter key must be null");
+		Assertions.assertNotNull(values, "Parameter values must not be null");
 		this.parameters.put(key, values);
 	}
 
 	@Override
 	public void setParameters(Map<String, String[]> parameters) {
-		Assert.notNull(parameters, "Parameters Map must not be null");
+		Assertions.assertNotNull(parameters, "Parameters Map must not be null");
 		this.parameters.clear();
 		this.parameters.putAll(parameters);
 	}

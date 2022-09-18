@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -36,7 +36,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class I18nPropertiesTest extends DisplaytagCase {
+class I18nPropertiesTest extends DisplaytagCase {
 
     /**
      * No results for an en locale.
@@ -79,13 +79,13 @@ public class I18nPropertiesTest extends DisplaytagCase {
             this.log.debug("RESPONSE: " + response.getText());
         }
 
-        Assert.assertTrue(
+        Assertions.assertTrue(
+                response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT) > -1,
                 "Expected message\"" + I18nPropertiesTest.MSG_DEFAULT
-                        + "\" has not been found in response with locale en",
-                response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT) > -1);
-        Assert.assertTrue(
-                "Unexpected message\"" + I18nPropertiesTest.MSG_IT + "\" has been found in response with locale en",
-                response.getText().indexOf(I18nPropertiesTest.MSG_IT) == -1);
+                + "\" has not been found in response with locale en");
+        Assertions.assertEquals(-1,
+                response.getText().indexOf(I18nPropertiesTest.MSG_IT),
+                "Unexpected message\"" + I18nPropertiesTest.MSG_IT + "\" has been found in response with locale en");
 
         // Now, with an Italian locale.
         request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
@@ -97,12 +97,12 @@ public class I18nPropertiesTest extends DisplaytagCase {
             this.log.debug("RESPONSE: " + response.getText());
         }
 
-        Assert.assertTrue(
-                "Expected message\"" + I18nPropertiesTest.MSG_IT + "\" has not been found in response with locale it",
-                response.getText().indexOf(I18nPropertiesTest.MSG_IT) > -1);
-        Assert.assertTrue(
+        Assertions.assertTrue(
+                response.getText().indexOf(I18nPropertiesTest.MSG_IT) > -1,
+                "Expected message\"" + I18nPropertiesTest.MSG_IT + "\" has not been found in response with locale it");
+        Assertions.assertEquals(-1,
+                response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT),
                 "Unexpected message\"" + I18nPropertiesTest.MSG_DEFAULT
-                        + "\" has been found in response with locale it",
-                response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT) == -1);
+                + "\" has been found in response with locale it");
     }
 }

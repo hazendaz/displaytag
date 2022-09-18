@@ -26,8 +26,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -36,7 +36,7 @@ import com.meterware.httpunit.WebResponse;
 /**
  * The Class Displ298CsvTest.
  */
-public class Displ298CsvTest extends DisplaytagCase {
+class Displ298CsvTest extends DisplaytagCase {
 
     /**
      * Gets the mime type.
@@ -86,11 +86,11 @@ public class Displ298CsvTest extends DisplaytagCase {
 
         final WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertEquals("Expected a different content type.", this.getMimeType(), response.getContentType());
+        Assertions.assertEquals(this.getMimeType(), response.getContentType(), "Expected a different content type.");
         final String responseText = response.getText();
         final boolean expectedTextPresent = responseText != null
                 && responseText.indexOf(ModelDecorator.DECORATED_VALUE) > -1;
-        Assert.assertTrue("Missing content.", expectedTextPresent);
+        Assertions.assertTrue(expectedTextPresent, "Missing content.");
     }
 
 }

@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -36,7 +36,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class EmptyExportTest extends DisplaytagCase {
+class EmptyExportTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -64,7 +64,7 @@ public class EmptyExportTest extends DisplaytagCase {
 
         final WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertEquals("Export links should not be shown for an empty table", 0, response.getLinks().length);
+        Assertions.assertEquals(0, response.getLinks().length, "Export links should not be shown for an empty table");
 
     }
 }

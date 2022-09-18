@@ -25,8 +25,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -40,7 +40,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class OptimizedIteration3Test extends DisplaytagCase {
+class OptimizedIteration3Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -89,7 +89,7 @@ public class OptimizedIteration3Test extends DisplaytagCase {
             this.log.debug(response.getText());
         }
 
-        Assert.assertEquals("Wrong csv export", "ant,1\nant,2\nant,3\nant,4\n", csvExport);
+        Assertions.assertEquals("ant,1\nant,2\nant,3\nant,4\n", csvExport, "Wrong csv export");
 
     }
 
@@ -110,10 +110,10 @@ public class OptimizedIteration3Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
-        Assert.assertEquals("Expected 2 rows in table.", 2, tables[0].getRowCount());
+        Assertions.assertEquals(1, tables.length, "Expected 1 table in result.");
+        Assertions.assertEquals(2, tables[0].getRowCount(), "Expected 2 rows in table.");
 
-        Assert.assertEquals("Wrong number of iterations. Evaluated column bodies number is different from expected",
-                Integer.toString(iterations), response.getElementWithID("iterations").getText());
+        Assertions.assertEquals(Integer.toString(iterations), response.getElementWithID("iterations").getText(),
+            "Wrong number of iterations. Evaluated column bodies number is different from expected");
     }
 }

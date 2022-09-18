@@ -26,8 +26,8 @@ import java.net.MalformedURLException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebResponse;
 /**
  * The Class Displ230.
  */
-public class Displ230Test extends DisplaytagCase {
+class Displ230Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -89,18 +89,18 @@ public class Displ230Test extends DisplaytagCase {
         final HTMLElement[] elements = response.getElementsWithClassName("testitem");
 
         if (StringUtils.equals(placement, "top")) {
-            Assert.assertEquals(2, elements.length);
-            Assert.assertEquals("SPAN", elements[0].getTagName());
-            Assert.assertEquals("TABLE", elements[1].getTagName());
+            Assertions.assertEquals(2, elements.length);
+            Assertions.assertEquals("SPAN", elements[0].getTagName());
+            Assertions.assertEquals("TABLE", elements[1].getTagName());
         } else if (StringUtils.equals(placement, "bottom")) {
-            Assert.assertEquals(2, elements.length);
-            Assert.assertEquals("TABLE", elements[0].getTagName());
-            Assert.assertEquals("SPAN", elements[1].getTagName());
+            Assertions.assertEquals(2, elements.length);
+            Assertions.assertEquals("TABLE", elements[0].getTagName());
+            Assertions.assertEquals("SPAN", elements[1].getTagName());
         } else if (StringUtils.equals(placement, "both")) {
-            Assert.assertEquals(3, elements.length);
-            Assert.assertEquals("SPAN", elements[0].getTagName());
-            Assert.assertEquals("TABLE", elements[1].getTagName());
-            Assert.assertEquals("SPAN", elements[2].getTagName());
+            Assertions.assertEquals(3, elements.length);
+            Assertions.assertEquals("SPAN", elements[0].getTagName());
+            Assertions.assertEquals("TABLE", elements[1].getTagName());
+            Assertions.assertEquals("SPAN", elements[2].getTagName());
         }
     }
 

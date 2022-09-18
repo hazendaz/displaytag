@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ004Test extends DisplaytagCase {
+class Displ004Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -64,8 +64,8 @@ public class Displ004Test extends DisplaytagCase {
         final WebResponse response = this.runner.getResponse(request);
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Expected 1 table in result.", 1, tables.length);
-        Assert.assertEquals("Wrong title in column", "\"the link\" is here", tables[0].getTableCell(1, 0).getTitle());
+        Assertions.assertEquals(1, tables.length, "Expected 1 table in result.");
+        Assertions.assertEquals("\"the link\" is here", tables[0].getTableCell(1, 0).getTitle(), "Wrong title in column");
     }
 
 }

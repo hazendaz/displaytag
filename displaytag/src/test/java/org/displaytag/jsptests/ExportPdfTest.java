@@ -33,10 +33,10 @@ import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -50,7 +50,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class ExportPdfTest extends DisplaytagCase {
+class ExportPdfTest extends DisplaytagCase {
 
     /**
      * Do test.
@@ -81,7 +81,7 @@ public class ExportPdfTest extends DisplaytagCase {
      *             the exception
      */
     @Override
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         final Properties p = new Properties();
         p.setProperty("export.pdf.class", "org.displaytag.export.FopExportView");
@@ -96,7 +96,7 @@ public class ExportPdfTest extends DisplaytagCase {
      *             the exception
      */
     @Override
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         TableProperties.clearProperties();
         super.tearDown();
@@ -121,7 +121,7 @@ public class ExportPdfTest extends DisplaytagCase {
      *             any exception thrown during test.
      */
     @Test
-    public void doDefaultTest() throws Exception {
+    void doDefaultTest() throws Exception {
         final byte[] res = this.runPage("exportfull.jsp");
         final File f = this.getTestFile();
         final FileOutputStream fw = new FileOutputStream(f);
@@ -137,7 +137,7 @@ public class ExportPdfTest extends DisplaytagCase {
      *             the exception
      */
     @Test
-    public void doInlineTest() throws Exception {
+    void doInlineTest() throws Exception {
         final byte[] res = this.runPage("exportFoInline.jsp");
         final File f = this.getTestFile();
         final FileOutputStream fw = new FileOutputStream(f);
@@ -166,13 +166,13 @@ public class ExportPdfTest extends DisplaytagCase {
         // this will force media type initialization
         ExportViewFactory.getInstance();
         final MediaTypeEnum pdfMedia = MediaTypeEnum.PDF;
-        Assert.assertNotNull("Pdf export view not correctly registered.", pdfMedia);
+        Assertions.assertNotNull(pdfMedia, "Pdf export view not correctly registered.");
         request.setParameter(mediaParameter, Integer.toString(pdfMedia.getCode()));
 
         final WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
-        Assert.assertEquals("Expected a different content type.", "application/pdf", response.getContentType());
+        Assertions.assertEquals("application/pdf", response.getContentType(), "Expected a different content type.");
 
         final InputStream stream = response.getInputStream();
         final byte[] result = new byte[9000];
@@ -180,7 +180,7 @@ public class ExportPdfTest extends DisplaytagCase {
 
         final PdfReader reader = new PdfReader(result);
         // byte[] page = reader.getPageContent(1);
-        Assert.assertEquals("Expected a valid pdf file with a single page", 1, reader.getNumberOfPages());
+        Assertions.assertEquals(1, reader.getNumberOfPages(), "Expected a valid pdf file with a single page");
 
         return result;
     }

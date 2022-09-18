@@ -22,8 +22,8 @@
 package org.displaytag.properties;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -70,14 +70,14 @@ public class TitleKeyJstlFmtBundlePrefixTest extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Expected one table", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Expected one table");
 
-        Assert.assertEquals("Header from resource is not valid.", "foo bundle prefixed", tables[0].getCellAsText(0, 0));
-        Assert.assertEquals("Header from resource is not valid.", "baz bundle prefixed", tables[0].getCellAsText(0, 1));
-        Assert.assertEquals("Header from resource is not valid.", "camel bundle prefixed",
-                tables[0].getCellAsText(0, 2));
-        Assert.assertEquals("Missing resource should generate the ???missing??? header.", "???missing???",
-                tables[0].getCellAsText(0, 3));
+        Assertions.assertEquals("foo bundle prefixed", tables[0].getCellAsText(0, 0), "Header from resource is not valid.");
+        Assertions.assertEquals("baz bundle prefixed", tables[0].getCellAsText(0, 1), "Header from resource is not valid.");
+        Assertions.assertEquals("camel bundle prefixed",
+                tables[0].getCellAsText(0, 2), "Header from resource is not valid.");
+        Assertions.assertEquals("???missing???",
+                tables[0].getCellAsText(0, 3), "Missing resource should generate the ???missing??? header.");
 
     }
 }

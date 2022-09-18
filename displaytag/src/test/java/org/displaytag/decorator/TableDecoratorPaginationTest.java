@@ -29,8 +29,8 @@ import org.displaytag.model.RowIterator;
 import org.displaytag.model.TableModel;
 import org.displaytag.pagination.SmartListHelper;
 import org.displaytag.properties.TableProperties;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for TableDecorator with pagination. If you set up pagination and iterate through the entire page, you should
@@ -41,13 +41,13 @@ import org.junit.Test;
  *
  * @version $Revision: 1 $ ($Author: rwest $)
  */
-public class TableDecoratorPaginationTest {
+class TableDecoratorPaginationTest {
 
     /**
      * Test single page.
      */
     @Test
-    public void testSinglePage() {
+    void testSinglePage() {
         final List<Integer> rawData = new ArrayList<>(10);
         final List<Row> data = new ArrayList<>(10);
         for (int i = 1; i <= 10; i++) {
@@ -73,14 +73,14 @@ public class TableDecoratorPaginationTest {
             iterator.next();
         }
 
-        Assert.assertEquals(decorator.isLastRow(), true);
+        Assertions.assertTrue(decorator.isLastRow());
     }
 
     /**
      * Test first page.
      */
     @Test
-    public void testFirstPage() {
+    void testFirstPage() {
         final List<Integer> rawData = new ArrayList<>(10);
         final List<Row> data = new ArrayList<>(10);
         for (int i = 1; i <= 10; i++) {
@@ -106,14 +106,14 @@ public class TableDecoratorPaginationTest {
             iterator.next();
         }
 
-        Assert.assertEquals(decorator.isLastRow(), true);
+        Assertions.assertTrue(decorator.isLastRow());
     }
 
     /**
      * Test second page.
      */
     @Test
-    public void testSecondPage() {
+    void testSecondPage() {
         final List<Integer> rawData = new ArrayList<>(10);
         final List<Row> data = new ArrayList<>(10);
         for (int i = 1; i <= 10; i++) {
@@ -139,6 +139,6 @@ public class TableDecoratorPaginationTest {
             iterator.next();
         }
 
-        Assert.assertEquals(decorator.isLastRow(), true);
+        Assertions.assertTrue(decorator.isLastRow());
     }
 }

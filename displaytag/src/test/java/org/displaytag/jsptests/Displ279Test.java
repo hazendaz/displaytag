@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ279Test extends DisplaytagCase {
+class Displ279Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -68,18 +68,18 @@ public class Displ279Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
 
         if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        Assert.assertEquals("Wrong number of rows.", 2, tables[0].getRowCount());
-        Assert.assertEquals("Wrong number of columns.", 3, tables[0].getColumnCount());
+        Assertions.assertEquals(2, tables[0].getRowCount(), "Wrong number of rows.");
+        Assertions.assertEquals(3, tables[0].getColumnCount(), "Wrong number of columns.");
 
-        Assert.assertEquals("Wrong value in cell.", "ant", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Wrong value in cell.", "1", tables[0].getCellAsText(1, 1));
-        Assert.assertEquals("Wrong value in cell.", "1 $", tables[0].getCellAsText(1, 2));
+        Assertions.assertEquals("ant", tables[0].getCellAsText(1, 0), "Wrong value in cell.");
+        Assertions.assertEquals("1", tables[0].getCellAsText(1, 1), "Wrong value in cell.");
+        Assertions.assertEquals("1 $", tables[0].getCellAsText(1, 2), "Wrong value in cell.");
 
     }
 

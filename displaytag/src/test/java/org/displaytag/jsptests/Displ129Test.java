@@ -25,8 +25,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HTMLElement;
@@ -43,7 +43,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id: $
  */
-public class Displ129Test extends DisplaytagCase {
+class Displ129Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -79,16 +79,16 @@ public class Displ129Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
-        Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
+        Assertions.assertEquals(3, tables[0].getRowCount(), "Wrong number of rows in result.");
 
         if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
-        Assert.assertEquals("Wrong column header.", "Number", tables[0].getCellAsText(0, 0));
-        Assert.assertEquals("Wrong column content.", "3", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Wrong column content.", "4", tables[0].getCellAsText(2, 0));
+        Assertions.assertEquals("Number", tables[0].getCellAsText(0, 0), "Wrong column header.");
+        Assertions.assertEquals("3", tables[0].getCellAsText(1, 0), "Wrong column content.");
+        Assertions.assertEquals("4", tables[0].getCellAsText(2, 0), "Wrong column content.");
 
         final TableCell headerCell = tables[0].getTableCell(0, 0);
 
@@ -97,15 +97,15 @@ public class Displ129Test extends DisplaytagCase {
                 StringUtils.split(cssClass));
 
         final WebLink[] headerLinks = headerCell.getLinks();
-        Assert.assertEquals("Sorting link not found.", 1, headerLinks.length);
+        Assertions.assertEquals(1, headerLinks.length, "Sorting link not found.");
         final WebLink sortingLink = headerLinks[0];
         this.assertEqualsIgnoreOrder("Wrong parameters.", new String[] { "sort", "searchid", "dir", pageParameter },
                 sortingLink.getParameterNames());
 
         final HTMLElement pagebanner = response.getElementWithID("pagebanner");
-        Assert.assertEquals("Wrong page banner", "10|3|4", pagebanner.getText());
+        Assertions.assertEquals("10|3|4", pagebanner.getText(), "Wrong page banner");
         final HTMLElement pagelinks = response.getElementWithID("pagelinks");
-        Assert.assertEquals("Wrong page links", "1|[2]|3|4|5", pagelinks.getText());
+        Assertions.assertEquals("1|[2]|3|4|5", pagelinks.getText(), "Wrong page links");
 
     }
 

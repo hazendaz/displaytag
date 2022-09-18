@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class CaptionTagTest extends DisplaytagCase {
+class CaptionTagTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -72,18 +72,18 @@ public class CaptionTagTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
         final String output = response.getText();
 
-        Assert.assertTrue("Caption tag missing", StringUtils.contains(output, "<caption"));
+        Assertions.assertTrue(StringUtils.contains(output, "<caption"), "Caption tag missing");
 
-        Assert.assertTrue(StringUtils.contains(output, "class=\"theclass\""));
-        Assert.assertTrue(StringUtils.contains(output, "dir=\"thedir\""));
-        Assert.assertTrue(StringUtils.contains(output, "id=\"theid\""));
-        Assert.assertTrue(StringUtils.contains(output, "lang=\"thelang\""));
-        Assert.assertTrue(StringUtils.contains(output, "style=\"thestyle\""));
-        Assert.assertTrue(StringUtils.contains(output, "title=\"thetitle\""));
+        Assertions.assertTrue(StringUtils.contains(output, "class=\"theclass\""));
+        Assertions.assertTrue(StringUtils.contains(output, "dir=\"thedir\""));
+        Assertions.assertTrue(StringUtils.contains(output, "id=\"theid\""));
+        Assertions.assertTrue(StringUtils.contains(output, "lang=\"thelang\""));
+        Assertions.assertTrue(StringUtils.contains(output, "style=\"thestyle\""));
+        Assertions.assertTrue(StringUtils.contains(output, "title=\"thetitle\""));
 
     }
 }

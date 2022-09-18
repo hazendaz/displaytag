@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ052Test extends DisplaytagCase {
+class Displ052Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -70,17 +70,17 @@ public class Displ052Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
-        Assert.assertEquals("Wrong number of rows.", 3, tables[0].getRowCount());
-        Assert.assertEquals("Column content missing?", "ant", tables[0].getCellAsText(1, 2));
-        Assert.assertEquals("Checkbox missing?", "INPUT",
-                tables[0].getTableCell(1, 0).getElementsWithName("_chk")[0].getTagName());
-        Assert.assertEquals("Checkbox value missing?", "10",
-                tables[0].getTableCell(1, 0).getElementsWithName("_chk")[0].getAttribute("value"));
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
+        Assertions.assertEquals(3, tables[0].getRowCount(), "Wrong number of rows.");
+        Assertions.assertEquals("ant", tables[0].getCellAsText(1, 2), "Column content missing?");
+        Assertions.assertEquals("INPUT",
+                tables[0].getTableCell(1, 0).getElementsWithName("_chk")[0].getTagName(), "Checkbox missing?");
+        Assertions.assertEquals("10",
+                tables[0].getTableCell(1, 0).getElementsWithName("_chk")[0].getAttribute("value"), "Checkbox value missing?");
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong link generated", "javascript:displaytagform(\'displ\',[{f:\'d-148916-p\',v:\'2\'}])",
-                links[0].getAttribute("href"));
+        Assertions.assertEquals("javascript:displaytagform(\'displ\',[{f:\'d-148916-p\',v:\'2\'}])",
+                links[0].getAttribute("href"), "Wrong link generated");
 
     }
 

@@ -23,8 +23,8 @@ package org.displaytag.portlet;
 
 import java.util.Map;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockPageContext;
 import org.springframework.mock.web.portlet.MockPortletRequest;
 import org.springframework.mock.web.portlet.MockRenderResponse;
@@ -36,16 +36,16 @@ import org.springframework.mock.web.portlet.MockRenderResponse;
  *
  * @version $Id$
  */
-public class PortletRequestHelperTest {
+class PortletRequestHelperTest {
 
     /**
      * Test null page context.
      */
     @Test
-    public void testNullPageContext() {
+    void testNullPageContext() {
         try {
             new PortletRequestHelper(null);
-            Assert.fail("IllegalArgumentException should have been thrown");
+            Assertions.fail("IllegalArgumentException should have been thrown");
         } catch (final IllegalArgumentException iae) {
             // expected
         }
@@ -55,12 +55,12 @@ public class PortletRequestHelperTest {
      * Test empty page context.
      */
     @Test
-    public void testEmptyPageContext() {
+    void testEmptyPageContext() {
         final MockPageContext pageContext = new MockPageContext();
 
         try {
             new PortletRequestHelper(pageContext);
-            Assert.fail("IllegalStateException should have been thrown");
+            Assertions.fail("IllegalStateException should have been thrown");
         } catch (final IllegalStateException ise) {
             // expected
         }
@@ -69,7 +69,7 @@ public class PortletRequestHelperTest {
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_REQUEST, null);
         try {
             new PortletRequestHelper(pageContext);
-            Assert.fail("IllegalStateException should have been thrown");
+            Assertions.fail("IllegalStateException should have been thrown");
         } catch (final IllegalStateException ise) {
             // expected
         }
@@ -78,7 +78,7 @@ public class PortletRequestHelperTest {
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_RESPONSE, new MockRenderResponse());
         try {
             new PortletRequestHelper(pageContext);
-            Assert.fail("IllegalStateException should have been thrown");
+            Assertions.fail("IllegalStateException should have been thrown");
         } catch (final IllegalStateException ise) {
             // expected
         }
@@ -88,20 +88,20 @@ public class PortletRequestHelperTest {
      * Test basic page context.
      */
     @Test
-    public void testBasicPageContext() {
+    void testBasicPageContext() {
         final MockPageContext pageContext = new MockPageContext();
 
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_REQUEST, new MockPortletRequest());
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_RESPONSE, new MockRenderResponse());
 
-        new PortletRequestHelper(pageContext);
+        Assertions.assertNotNull(new PortletRequestHelper(pageContext));
     }
 
     /**
      * Test request parameters.
      */
     @Test
-    public void testRequestParameters() {
+    void testRequestParameters() {
         final MockPageContext pageContext = new MockPageContext();
         final MockPortletRequest request = new MockPortletRequest();
 
@@ -114,33 +114,33 @@ public class PortletRequestHelperTest {
         final PortletRequestHelper helper = new PortletRequestHelper(pageContext);
 
         final String strVal = helper.getParameter("STRING_PARAM");
-        Assert.assertEquals("STRING_VALUE", strVal);
+        Assertions.assertEquals("STRING_VALUE", strVal);
 
         final Integer intVal = helper.getIntParameter("INTEGER_PARAM");
-        Assert.assertEquals(Integer.valueOf(31337), intVal);
+        Assertions.assertEquals(Integer.valueOf(31337), intVal);
 
         final Integer nullIntVal = helper.getIntParameter("STRING_PARAM");
-        Assert.assertNull(nullIntVal);
+        Assertions.assertNull(nullIntVal);
 
         final Map<String, String[]> params = helper.getParameterMap();
-        Assert.assertEquals(2, params.size());
+        Assertions.assertEquals(2, params.size());
 
         final String[] expextedStrArryVal = { "STRING_VALUE" };
         final String[] strArryVal = params.get("STRING_PARAM");
-        Assert.assertEquals(expextedStrArryVal.length, strArryVal.length);
-        Assert.assertEquals(expextedStrArryVal[0], strArryVal[0]);
+        Assertions.assertEquals(expextedStrArryVal.length, strArryVal.length);
+        Assertions.assertEquals(expextedStrArryVal[0], strArryVal[0]);
 
         final String[] expextedIntArryVal = { "31337" };
         final String[] intArryVal = params.get("INTEGER_PARAM");
-        Assert.assertEquals(expextedIntArryVal.length, intArryVal.length);
-        Assert.assertEquals(expextedIntArryVal[0], intArryVal[0]);
+        Assertions.assertEquals(expextedIntArryVal.length, intArryVal.length);
+        Assertions.assertEquals(expextedIntArryVal[0], intArryVal[0]);
     }
 
     /**
      * Test create empty href.
      */
     @Test
-    public void testCreateEmptyHref() {
+    void testCreateEmptyHref() {
         final MockPageContext pageContext = new MockPageContext();
 
         pageContext.setAttribute(PortletRequestHelper.JAVAX_PORTLET_REQUEST, new MockPortletRequest());
@@ -151,20 +151,20 @@ public class PortletRequestHelperTest {
         final PortletHref ref = (PortletHref) helper.getHref();
 
         final Map<String, String[]> params = ref.getParameterMap();
-        Assert.assertEquals(0, params.size());
+        Assertions.assertEquals(0, params.size());
 
-        Assert.assertNull(ref.getAnchor());
-        Assert.assertNull(ref.getRequestedMode());
-        Assert.assertNull(ref.getRequestedState());
+        Assertions.assertNull(ref.getAnchor());
+        Assertions.assertNull(ref.getRequestedMode());
+        Assertions.assertNull(ref.getRequestedState());
 
-        Assert.assertFalse(ref.isRequestedSecure());
+        Assertions.assertFalse(ref.isRequestedSecure());
     }
 
     /**
      * Test create secure href.
      */
     @Test
-    public void testCreateSecureHref() {
+    void testCreateSecureHref() {
         final MockPageContext pageContext = new MockPageContext();
         final MockPortletRequest request = new MockPortletRequest();
 
@@ -178,20 +178,20 @@ public class PortletRequestHelperTest {
         final PortletHref ref = (PortletHref) helper.getHref();
 
         final Map<String, String[]> params = ref.getParameterMap();
-        Assert.assertEquals(0, params.size());
+        Assertions.assertEquals(0, params.size());
 
-        Assert.assertNull(ref.getAnchor());
-        Assert.assertNull(ref.getRequestedMode());
-        Assert.assertNull(ref.getRequestedState());
+        Assertions.assertNull(ref.getAnchor());
+        Assertions.assertNull(ref.getRequestedMode());
+        Assertions.assertNull(ref.getRequestedState());
 
-        Assert.assertTrue(ref.isRequestedSecure());
+        Assertions.assertTrue(ref.isRequestedSecure());
     }
 
     /**
      * Test parameterized href.
      */
     @Test
-    public void testParameterizedHref() {
+    void testParameterizedHref() {
         final MockPageContext pageContext = new MockPageContext();
         final MockPortletRequest request = new MockPortletRequest();
 
@@ -206,22 +206,22 @@ public class PortletRequestHelperTest {
         final PortletHref ref = (PortletHref) helper.getHref();
 
         final Map<String, String[]> params = ref.getParameterMap();
-        Assert.assertEquals(2, params.size());
+        Assertions.assertEquals(2, params.size());
 
         final String[] expextedStrArryVal = { "STRING_VALUE" };
         final String[] strArryVal = params.get("STRING_PARAM");
-        Assert.assertEquals(expextedStrArryVal.length, strArryVal.length);
-        Assert.assertEquals(expextedStrArryVal[0], strArryVal[0]);
+        Assertions.assertEquals(expextedStrArryVal.length, strArryVal.length);
+        Assertions.assertEquals(expextedStrArryVal[0], strArryVal[0]);
 
         final String[] expextedIntArryVal = { "31337" };
         final String[] intArryVal = params.get("INTEGER_PARAM");
-        Assert.assertEquals(expextedIntArryVal.length, intArryVal.length);
-        Assert.assertEquals(expextedIntArryVal[0], intArryVal[0]);
+        Assertions.assertEquals(expextedIntArryVal.length, intArryVal.length);
+        Assertions.assertEquals(expextedIntArryVal[0], intArryVal[0]);
 
-        Assert.assertNull(ref.getAnchor());
-        Assert.assertNull(ref.getRequestedMode());
-        Assert.assertNull(ref.getRequestedState());
+        Assertions.assertNull(ref.getAnchor());
+        Assertions.assertNull(ref.getRequestedMode());
+        Assertions.assertNull(ref.getRequestedState());
 
-        Assert.assertFalse(ref.isRequestedSecure());
+        Assertions.assertFalse(ref.isRequestedSecure());
     }
 }

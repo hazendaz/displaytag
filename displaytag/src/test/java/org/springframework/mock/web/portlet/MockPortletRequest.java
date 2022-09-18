@@ -36,7 +36,7 @@ import javax.portlet.PortletSession;
 import javax.portlet.WindowState;
 import javax.servlet.http.Cookie;
 
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -184,7 +184,7 @@ public class MockPortletRequest implements PortletRequest {
 	}
 
 	public void setPortletMode(PortletMode portletMode) {
-		Assert.notNull(portletMode, "PortletMode must not be null");
+		Assertions.assertNotNull(portletMode, "PortletMode must not be null");
 		this.portletMode = portletMode;
 	}
 
@@ -194,7 +194,7 @@ public class MockPortletRequest implements PortletRequest {
 	}
 
 	public void setWindowState(WindowState windowState) {
-		Assert.notNull(windowState, "WindowState must not be null");
+		Assertions.assertNotNull(windowState, "WindowState must not be null");
 		this.windowState = windowState;
 	}
 
@@ -204,7 +204,7 @@ public class MockPortletRequest implements PortletRequest {
 	}
 
 	public void setPreferences(PortletPreferences preferences) {
-		Assert.notNull(preferences, "PortletPreferences must not be null");
+		Assertions.assertNotNull(preferences, "PortletPreferences must not be null");
 		this.portletPreferences = preferences;
 	}
 
@@ -247,7 +247,7 @@ public class MockPortletRequest implements PortletRequest {
 	 * key, they will be replaced.
 	 */
 	public void setProperty(String key, String value) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		List<String> list = new LinkedList<String>();
 		list.add(value);
 		this.properties.put(key, list);
@@ -260,7 +260,7 @@ public class MockPortletRequest implements PortletRequest {
 	 * key, the given value will be added to the end of the list.
 	 */
 	public void addProperty(String key, String value) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		List<String> oldList = this.properties.get(key);
 		if (oldList != null) {
 			oldList.add(value);
@@ -274,14 +274,14 @@ public class MockPortletRequest implements PortletRequest {
 
 	@Override
 	public String getProperty(String key) {
-		Assert.notNull(key, "Property key must not be null");
+		Assertions.assertNotNull(key, "Property key must not be null");
 		List<String> list = this.properties.get(key);
 		return (list != null && list.size() > 0 ? list.get(0) : null);
 	}
 
 	@Override
 	public Enumeration<String> getProperties(String key) {
-		Assert.notNull(key, "property key must not be null");
+		Assertions.assertNotNull(key, "property key must not be null");
 		return Collections.enumeration(this.properties.get(key));
 	}
 
@@ -353,20 +353,20 @@ public class MockPortletRequest implements PortletRequest {
 	}
 
 	public void setParameters(Map<String, String[]> parameters) {
-		Assert.notNull(parameters, "Parameters Map must not be null");
+		Assertions.assertNotNull(parameters, "Parameters Map must not be null");
 		this.parameters.clear();
 		this.parameters.putAll(parameters);
 	}
 
 	public void setParameter(String key, String value) {
-		Assert.notNull(key, "Parameter key must be null");
-		Assert.notNull(value, "Parameter value must not be null");
+		Assertions.assertNotNull(key, "Parameter key must be null");
+		Assertions.assertNotNull(value, "Parameter value must not be null");
 		this.parameters.put(key, new String[] { value });
 	}
 
 	public void setParameter(String key, String[] values) {
-		Assert.notNull(key, "Parameter key must be null");
-		Assert.notNull(values, "Parameter values must not be null");
+		Assertions.assertNotNull(key, "Parameter key must be null");
+		Assertions.assertNotNull(values, "Parameter values must not be null");
 		this.parameters.put(key, values);
 	}
 

@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class PaginationAllItemsTest extends DisplaytagCase {
+class PaginationAllItemsTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -72,9 +72,9 @@ public class PaginationAllItemsTest extends DisplaytagCase {
 
         final WebLink[] links = response.getLinks();
 
-        Assert.assertEquals("Wrong number of links in result.", 0, links.length);
-        Assert.assertFalse("Using setProperty you should not see any page number",
-                StringUtils.contains(response.getText(), ">1<"));
+        Assertions.assertEquals(0, links.length, "Wrong number of links in result.");
+        Assertions.assertFalse(
+                StringUtils.contains(response.getText(), ">1<"), "Using setProperty you should not see any page number");
 
     }
 }

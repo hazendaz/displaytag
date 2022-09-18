@@ -24,8 +24,8 @@ package org.displaytag.jsptests;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HTMLElement;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ232Test extends DisplaytagCase {
+class Displ232Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -73,8 +73,8 @@ public class Displ232Test extends DisplaytagCase {
         }
 
         HTMLElement pagination = response.getElementWithID("pagination");
-        Assert.assertNotNull("Paging banner not found.", pagination);
-        Assert.assertEquals("Total number of pages is not displayted properly.", "[10]", pagination.getText());
+        Assertions.assertNotNull(pagination, "Paging banner not found.");
+        Assertions.assertEquals("[10]", pagination.getText(), "Total number of pages is not displayted properly.");
 
         request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter(encoder.encodeParameterName(TableTagParameters.PARAMETER_PAGE), "10");
@@ -85,8 +85,8 @@ public class Displ232Test extends DisplaytagCase {
         }
 
         pagination = response.getElementWithID("pagination");
-        Assert.assertNotNull("Paging banner not found.", pagination);
-        Assert.assertEquals("Total number of pages is not displayted properly.", "[10]", pagination.getText());
+        Assertions.assertNotNull(pagination, "Paging banner not found.");
+        Assertions.assertEquals("[10]", pagination.getText(), "Total number of pages is not displayted properly.");
 
     }
 

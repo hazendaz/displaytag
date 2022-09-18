@@ -25,8 +25,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpInternalErrorException;
@@ -40,7 +40,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class FilterTest extends DisplaytagCase {
+class FilterTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -74,7 +74,7 @@ public class FilterTest extends DisplaytagCase {
         try {
             // check if page need a filter (unfiltered request)
             this.runner.getResponse(request);
-            Assert.fail("Request works also without a filter. Can't test it properly.");
+            Assertions.fail("Request works also without a filter. Can't test it properly.");
         } catch (final HttpInternalErrorException e) {
             // it's ok
         }
@@ -87,7 +87,7 @@ public class FilterTest extends DisplaytagCase {
 
         final WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertEquals("Expected a different content type.", "text/xml", response.getContentType());
+        Assertions.assertEquals("text/xml", response.getContentType(), "Expected a different content type.");
     }
 
 }

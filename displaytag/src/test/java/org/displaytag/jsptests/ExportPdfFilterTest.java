@@ -28,8 +28,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -43,7 +43,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class ExportPdfFilterTest extends DisplaytagCase {
+class ExportPdfFilterTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -74,7 +74,7 @@ public class ExportPdfFilterTest extends DisplaytagCase {
         // this will force media type initialization
         ExportViewFactory.getInstance();
         final MediaTypeEnum pdfMedia = MediaTypeEnum.fromName("pdf");
-        Assert.assertNotNull("Pdf export view not correctly registered.", pdfMedia);
+        Assertions.assertNotNull(pdfMedia, "Pdf export view not correctly registered.");
         request.setParameter(mediaParameter, Integer.toString(pdfMedia.getCode()));
 
         // this will enable the filter!
@@ -83,15 +83,15 @@ public class ExportPdfFilterTest extends DisplaytagCase {
         final WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
-        Assert.assertEquals("Expected a different content type.", "application/pdf", response.getContentType());
+        Assertions.assertEquals("application/pdf", response.getContentType(), "Expected a different content type.");
 
-        Assert.assertTrue("Content length should be set.", response.getContentLength() > -1);
+        Assertions.assertTrue(response.getContentLength() > -1, "Content length should be set.");
         final InputStream stream = response.getInputStream();
         final byte[] result = new byte[response.getContentLength()];
         stream.read(result);
 
         final PdfReader reader = new PdfReader(result);
-        Assert.assertEquals("Expected a valid pdf file with a single page", 1, reader.getNumberOfPages());
+        Assertions.assertEquals(1, reader.getNumberOfPages(), "Expected a valid pdf file with a single page");
 
     }
 

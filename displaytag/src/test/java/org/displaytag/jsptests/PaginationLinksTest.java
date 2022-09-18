@@ -23,10 +23,10 @@ package org.displaytag.jsptests;
 
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
-import org.displaytag.test.URLAssert;
+import org.displaytag.test.URLAssertions;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -40,7 +40,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class PaginationLinksTest extends DisplaytagCase {
+class PaginationLinksTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -76,7 +76,7 @@ public class PaginationLinksTest extends DisplaytagCase {
 
         final WebLink[] links = response.getLinks();
 
-        Assert.assertEquals("Wrong number of pagination links", 36, links.length);
+        Assertions.assertEquals(36, links.length, "Wrong number of pagination links");
 
         String lastLink = links[links.length - 1].getURLString();
 
@@ -88,7 +88,7 @@ public class PaginationLinksTest extends DisplaytagCase {
         final String expected = "pagination-links.jsp?initiator=AVINASH&wfid=&approvedTDate=&initiatedFDate=&status=default"
                 + "&initiatedTDate=04%2F28%2F2004&approvedFDate=&method=search&approver=&" + encodedParam + "=12";
 
-        URLAssert.assertEquals(expected, lastLink);
+        URLAssertions.assertEquals(expected, lastLink);
 
     }
 }

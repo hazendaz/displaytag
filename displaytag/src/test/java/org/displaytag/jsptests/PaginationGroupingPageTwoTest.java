@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision: 1159 $ ($Author: rwest $)
  */
-public class PaginationGroupingPageTwoTest extends DisplaytagCase {
+class PaginationGroupingPageTwoTest extends DisplaytagCase {
 
     /**
      * Do test.
@@ -68,7 +68,7 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase {
      *             the exception
      */
     @Test
-    public void useOffsetToGetPageTwo() throws Exception {
+    void useOffsetToGetPageTwo() throws Exception {
         final WebRequest request = new GetMethodWebRequest(this.getJspUrl("pagination-grouping-page2.jsp"));
         final WebResponse response = this.runner.getResponse(request);
 
@@ -78,10 +78,10 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
-        Assert.assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
-        Assert.assertEquals("Bad sub-total for group 1", "8.0", tables[0].getCellAsText(6, 1));
-        Assert.assertEquals("Bad grand total", "10.0", tables[0].getCellAsText(9, 1));
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
+        Assertions.assertEquals(3, tables[0].getColumnCount(), "Bad number of generated columns.");
+        Assertions.assertEquals("8.0", tables[0].getCellAsText(6, 1), "Bad sub-total for group 1");
+        Assertions.assertEquals("10.0", tables[0].getCellAsText(9, 1), "Bad grand total");
     }
 
     /**
@@ -91,7 +91,7 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase {
      *             the exception
      */
     @Test
-    public void navigateToPageTwo() throws Exception {
+    void navigateToPageTwo() throws Exception {
         final WebRequest request = new GetMethodWebRequest(this.getJspUrl("pagination-grouping.jsp"));
         request.setParameter("d-148916-p", "2");
         final WebResponse response = this.runner.getResponse(request);
@@ -102,9 +102,9 @@ public class PaginationGroupingPageTwoTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
-        Assert.assertEquals("Bad number of generated columns.", 3, tables[0].getColumnCount());
-        Assert.assertEquals("Bad sub-total for group 1", "18.0", tables[0].getCellAsText(6, 1));
-        Assert.assertEquals("Bad grand total", "10.0", tables[0].getCellAsText(9, 1));
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
+        Assertions.assertEquals(3, tables[0].getColumnCount(), "Bad number of generated columns.");
+        Assertions.assertEquals("18.0", tables[0].getCellAsText(6, 1), "Bad sub-total for group 1");
+        Assertions.assertEquals("10.0", tables[0].getCellAsText(9, 1), "Bad grand total");
     }
 }

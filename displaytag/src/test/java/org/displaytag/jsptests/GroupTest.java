@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class GroupTest extends DisplaytagCase {
+class GroupTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -72,11 +72,11 @@ public class GroupTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
-        Assert.assertEquals("Wrong number of rows in table.", 3, tables[0].getRowCount());
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
+        Assertions.assertEquals(3, tables[0].getRowCount(), "Wrong number of rows in table.");
 
-        Assert.assertEquals("Column not grouped.", "", tables[0].getCellAsText(2, 0));
-        Assert.assertEquals("Column not grouped.", "", tables[0].getCellAsText(2, 1));
-        Assert.assertEquals("Column should not be grouped.", KnownValue.CAMEL, tables[0].getCellAsText(2, 2));
+        Assertions.assertEquals("", tables[0].getCellAsText(2, 0), "Column not grouped.");
+        Assertions.assertEquals("", tables[0].getCellAsText(2, 1), "Column not grouped.");
+        Assertions.assertEquals(KnownValue.CAMEL, tables[0].getCellAsText(2, 2), "Column should not be grouped.");
     }
 }

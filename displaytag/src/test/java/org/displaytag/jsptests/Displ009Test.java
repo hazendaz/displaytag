@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -36,7 +36,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ009Test extends DisplaytagCase {
+class Displ009Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -70,20 +70,20 @@ public class Displ009Test extends DisplaytagCase {
 
         // 1. User clicks column 3 header to sort ascending. User returned to page 1.
         response = response.getLinks()[0].click();
-        Assert.assertNotNull("Not in page one as expected", response.getElementWithID("PAGEONE"));
+        Assertions.assertNotNull(response.getElementWithID("PAGEONE"), "Not in page one as expected");
 
         // 2. User clicks column 3 header to sort descending. User returned to page 1.
         response = response.getLinks()[0].click();
-        Assert.assertNotNull("Not in page one as expected", response.getElementWithID("PAGEONE"));
+        Assertions.assertNotNull(response.getElementWithID("PAGEONE"), "Not in page one as expected");
 
         // 3. User navigates to page other than page 1.
         response = response.getLinks()[1].click();
-        Assert.assertNotNull("Not in page two as expected", response.getElementWithID("OTHERPAGE"));
+        Assertions.assertNotNull(response.getElementWithID("OTHERPAGE"), "Not in page two as expected");
 
         // 4. User clicks column 3 header to sort ascending. User NOT returned to page 1, rather, user stays on current
         // page number.
         response = response.getLinks()[0].click();
-        Assert.assertNotNull("Not in page one as expected", response.getElementWithID("PAGEONE"));
+        Assertions.assertNotNull(response.getElementWithID("PAGEONE"), "Not in page one as expected");
     }
 
 }

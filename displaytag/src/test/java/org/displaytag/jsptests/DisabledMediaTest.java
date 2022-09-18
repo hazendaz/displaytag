@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpInternalErrorException;
@@ -36,7 +36,7 @@ import com.meterware.httpunit.WebRequest;
  *
  * @version $Revision$ ($Author$)
  */
-public class DisabledMediaTest extends DisplaytagCase {
+class DisabledMediaTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -65,11 +65,8 @@ public class DisabledMediaTest extends DisplaytagCase {
         try {
             this.runner.getResponse(request);
         } catch (final HttpInternalErrorException e) {
-            Assert.fail("Should not get any error also if \"foo\" media type is not defined. " + e.getMessage());
+            Assertions.fail("Should not get any error also if \"foo\" media type is not defined. " + e.getMessage());
         }
-
-        // ok
-
     }
 
 }

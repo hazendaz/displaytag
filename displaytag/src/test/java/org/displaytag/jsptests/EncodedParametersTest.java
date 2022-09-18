@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class EncodedParametersTest extends DisplaytagCase {
+class EncodedParametersTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -69,13 +69,13 @@ public class EncodedParametersTest extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links in result.", 1, links.length);
+        Assertions.assertEquals(1, links.length, "Wrong number of links in result.");
 
-        Assert.assertEquals("Parameter in link should be encoded.", "/context/dynlink?param=1%2B1",
-                links[0].getURLString());
+        Assertions.assertEquals("/context/dynlink?param=1%2B1",
+                links[0].getURLString(), "Parameter in link should be encoded.");
     }
 
 }

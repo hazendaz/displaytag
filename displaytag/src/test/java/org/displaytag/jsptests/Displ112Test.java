@@ -23,10 +23,10 @@ package org.displaytag.jsptests;
 
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
-import org.displaytag.test.URLAssert;
+import org.displaytag.test.URLAssertions;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -41,7 +41,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ112Test extends DisplaytagCase {
+class Displ112Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -76,13 +76,13 @@ public class Displ112Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of table in result.", 2, tables.length);
+        Assertions.assertEquals(2, tables.length, "Wrong number of table in result.");
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links in result.", 2, links.length);
+        Assertions.assertEquals(2, links.length, "Wrong number of links in result.");
 
-        URLAssert.assertEquals("?d-148916-s=0&d-148916-o=1", links[0].getURLString());
-        URLAssert.assertEquals("?more=true&d-148916-s=0&d-148916-o=1", links[1].getURLString());
+        URLAssertions.assertEquals("?d-148916-s=0&d-148916-o=1", links[0].getURLString());
+        URLAssertions.assertEquals("?more=true&d-148916-s=0&d-148916-o=1", links[1].getURLString());
     }
 
 }

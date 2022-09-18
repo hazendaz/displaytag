@@ -27,8 +27,8 @@ import java.net.MalformedURLException;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -43,7 +43,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision: 1081 $ ($Author: fgiust $)
  */
-public class Displ629Test extends DisplaytagCase {
+class Displ629Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -100,10 +100,10 @@ public class Displ629Test extends DisplaytagCase {
         final WebResponse response = this.runner.getResponse(request);
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals(1, tables.length);
+        Assertions.assertEquals(1, tables.length);
 
-        Assert.assertEquals("Wrong column content", "D", tables[0].getCellAsText(tables[0].getRowCount() - 1, 0));
-        Assert.assertEquals("Wrong column content", "foo", tables[0].getCellAsText(tables[0].getRowCount() - 1, 1));
+        Assertions.assertEquals("D", tables[0].getCellAsText(tables[0].getRowCount() - 1, 0), "Wrong column content");
+        Assertions.assertEquals("foo", tables[0].getCellAsText(tables[0].getRowCount() - 1, 1), "Wrong column content");
     }
 
 }

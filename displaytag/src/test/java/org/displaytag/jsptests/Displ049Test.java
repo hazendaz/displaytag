@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableCell;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ049Test extends DisplaytagCase {
+class Displ049Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -69,19 +69,19 @@ public class Displ049Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
-        Assert.assertEquals("Wrong number of rows in result.", 3, tables[0].getRowCount());
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
+        Assertions.assertEquals(3, tables[0].getRowCount(), "Wrong number of rows in result.");
 
         if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
         }
 
         final TableCell row1Cell = tables[0].getTableCell(1, 0);
-        Assert.assertEquals("Wrong style attribute.", "style-1", row1Cell.getAttribute("style"));
-        Assert.assertEquals("Wrong class attribute.", "class-1", row1Cell.getClassName());
+        Assertions.assertEquals("style-1", row1Cell.getAttribute("style"), "Wrong style attribute.");
+        Assertions.assertEquals("class-1", row1Cell.getClassName(), "Wrong class attribute.");
 
         final TableCell row2Cell = tables[0].getTableCell(2, 0);
-        Assert.assertEquals("Wrong style attribute.", "style-2", row2Cell.getAttribute("style"));
-        Assert.assertEquals("Wrong class attribute.", "class-2", row2Cell.getClassName());
+        Assertions.assertEquals("style-2", row2Cell.getAttribute("style"), "Wrong style attribute.");
+        Assertions.assertEquals("class-2", row2Cell.getClassName(), "Wrong class attribute.");
     }
 }

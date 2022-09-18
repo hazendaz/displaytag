@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,7 +51,7 @@ public class MockMultipartActionRequest extends MockActionRequest {
 	 * @param file multipart file to be added
 	 */
 	public void addFile(MultipartFile file) {
-		Assert.notNull(file, "MultipartFile must not be null");
+		Assertions.assertNotNull(file, "MultipartFile must not be null");
 		this.multipartFiles.add(file.getName(), file);
 	}
 

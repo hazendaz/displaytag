@@ -26,8 +26,8 @@ import java.io.IOException;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -43,7 +43,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id: $
  */
-public class Displ125Test extends DisplaytagCase {
+class Displ125Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -100,16 +100,16 @@ public class Displ125Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
-        Assert.assertEquals("Wrong number of rows.", 2, tables[0].getRowCount());
-        Assert.assertEquals("Column content missing?", "ant", tables[0].getCellAsText(1, 0));
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
+        Assertions.assertEquals(2, tables[0].getRowCount(), "Wrong number of rows.");
+        Assertions.assertEquals("ant", tables[0].getCellAsText(1, 0), "Column content missing?");
 
         final HTMLElement pagination = response.getElementWithID("pagination");
-        Assert.assertNotNull("Paging banner not found.", pagination);
-        Assert.assertEquals("Pagination links are not as expected.", "1, 2, [3]", pagination.getText());
+        Assertions.assertNotNull(pagination, "Paging banner not found.");
+        Assertions.assertEquals("1, 2, [3]", pagination.getText(), "Pagination links are not as expected.");
 
-        Assert.assertEquals("Column 1 should be marked as sorted.", "sortable sorted order2",
-                tables[0].getTableCell(0, 0).getClassName());
+        Assertions.assertEquals("sortable sorted order2",
+                tables[0].getTableCell(0, 0).getClassName(), "Column 1 should be marked as sorted.");
     }
 
 }

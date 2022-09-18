@@ -26,8 +26,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -42,7 +42,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ249Test extends DisplaytagCase {
+class Displ249Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -79,10 +79,10 @@ public class Displ249Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables");
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links", 3, links.length); // sorting + paging
+        Assertions.assertEquals(3, links.length, "Wrong number of links"); // sorting + paging
 
         final String url = URLDecoder.decode(links[0].getURLString(), StandardCharsets.UTF_8.name());
 
@@ -91,7 +91,7 @@ public class Displ249Test extends DisplaytagCase {
             actual = StringUtils.substringBefore(actual, "&");
         }
 
-        Assert.assertEquals(paramValue, actual);
+        Assertions.assertEquals(paramValue, actual);
     }
 
 }

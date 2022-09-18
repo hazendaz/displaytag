@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ234Test extends DisplaytagCase {
+class Displ234Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -69,16 +69,16 @@ public class Displ234Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables in result.", 1, tables.length);
-        Assert.assertEquals("Wrong number of rows in result.", 2, tables[0].getRowCount());
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
+        Assertions.assertEquals(2, tables[0].getRowCount(), "Wrong number of rows in result.");
 
-        Assert.assertEquals("Wrong or missing title for cropped text.", "123456789012",
-                tables[0].getTableCell(1, 0).getAttribute("title"));
-        Assert.assertEquals("Wrong or missing title for cropped text.", "12345678901234",
-                tables[0].getTableCell(1, 1).getAttribute("title"));
-        Assert.assertEquals("Wrong or missing title for cropped text.", "12345678901234567",
-                tables[0].getTableCell(1, 2).getAttribute("title"));
-        Assert.assertEquals("Title should not be added.", "", tables[0].getTableCell(1, 3).getAttribute("title"));
+        Assertions.assertEquals("123456789012",
+                tables[0].getTableCell(1, 0).getAttribute("title"), "Wrong or missing title for cropped text.");
+        Assertions.assertEquals("12345678901234",
+                tables[0].getTableCell(1, 1).getAttribute("title"), "Wrong or missing title for cropped text.");
+        Assertions.assertEquals("12345678901234567",
+                tables[0].getTableCell(1, 2).getAttribute("title"), "Wrong or missing title for cropped text.");
+        Assertions.assertEquals("", tables[0].getTableCell(1, 3).getAttribute("title"), "Title should not be added.");
 
     }
 

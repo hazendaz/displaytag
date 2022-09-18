@@ -22,12 +22,12 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpInternalErrorException;
 import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 /**
  * Basic tests for pagination.
@@ -36,7 +36,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class PartialListMissingSizeTest extends DisplaytagCase {
+class PartialListMissingSizeTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -63,16 +63,8 @@ public class PartialListMissingSizeTest extends DisplaytagCase {
 
         final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
-        WebResponse response = null;
-
-        try {
-            response = this.runner.getResponse(request);
-            Assert.fail("Should have thrown an exception, missing size attribute");
-        } catch (final Throwable t) {
-        }
-
-        if (this.log.isDebugEnabled() && response != null) {
-            this.log.debug("RESPONSE: " + response.getText());
-        }
+        Assertions.assertThrows(HttpInternalErrorException.class, () -> {
+            this.runner.getResponse(request);
+        }, "Should have thrown an exception, missing size attribute");
     }
 }

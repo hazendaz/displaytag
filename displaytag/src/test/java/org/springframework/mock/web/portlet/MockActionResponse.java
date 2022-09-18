@@ -25,7 +25,7 @@ import javax.portlet.PortletModeException;
 import javax.portlet.WindowState;
 import javax.portlet.WindowStateException;
 
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Mock implementation of the {@link javax.portlet.ActionResponse} interface.
@@ -110,7 +110,7 @@ public class MockActionResponse extends MockStateAwareResponse implements Action
 			throw new IllegalStateException(
 					"Cannot call sendRedirect after windowState, portletMode, or renderParameters have been set");
 		}
-		Assert.notNull(location, "Redirect URL must not be null");
+		Assertions.assertNotNull(location, "Redirect URL must not be null");
 		this.redirectedUrl = location;
 	}
 

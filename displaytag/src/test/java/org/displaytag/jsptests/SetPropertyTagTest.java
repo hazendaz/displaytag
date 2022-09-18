@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class SetPropertyTagTest extends DisplaytagCase {
+class SetPropertyTagTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,10 +71,10 @@ public class SetPropertyTagTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Expected 3 table in result.", 3, tables.length);
+        Assertions.assertEquals(3, tables.length, "Expected 3 table in result.");
 
-        Assert.assertEquals("First table should contain one row only", 1, tables[0].getRowCount());
-        Assert.assertEquals("Second table should contain header plus one row", 2, tables[1].getRowCount());
-        Assert.assertEquals("Third table should contain one row only", 1, tables[2].getRowCount());
+        Assertions.assertEquals(1, tables[0].getRowCount(), "First table should contain one row only");
+        Assertions.assertEquals(2, tables[1].getRowCount(), "Second table should contain header plus one row");
+        Assertions.assertEquals(1, tables[2].getRowCount(), "Third table should contain one row only");
     }
 }

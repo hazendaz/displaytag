@@ -26,8 +26,8 @@ import java.util.Locale;
 
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -41,7 +41,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ028Test extends DisplaytagCase {
+class Displ028Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -73,11 +73,11 @@ public class Displ028Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Value not decorated as expected",
+        Assertions.assertEquals(
                 "day is " + new SimpleDateFormat("dd", Locale.ENGLISH).format(new KnownTypes().getTime()),
-                tables[0].getCellAsText(1, 0));
+                tables[0].getCellAsText(1, 0), "Value not decorated as expected");
 
     }
 

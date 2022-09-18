@@ -28,8 +28,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -39,7 +39,7 @@ import com.meterware.httpunit.WebResponse;
 /**
  * The Class Displ298PdfTest.
  */
-public class Displ298PdfTest extends DisplaytagCase {
+class Displ298PdfTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -73,22 +73,19 @@ public class Displ298PdfTest extends DisplaytagCase {
         final ExportViewFactory factory = ExportViewFactory.getInstance();
         factory.registerExportView("wpdf", "org.displaytag.export.DefaultPdfExportView");
         final MediaTypeEnum pdfMedia = MediaTypeEnum.fromName("wpdf");
-        Assert.assertNotNull("Pdf export view not correctly registered.", pdfMedia);
+        Assertions.assertNotNull(pdfMedia, "Pdf export view not correctly registered.");
         request.setParameter(mediaParameter, Integer.toString(pdfMedia.getCode()));
 
         final WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertEquals("Expected a different content type.", "application/pdf", response.getContentType());
+        Assertions.assertEquals("application/pdf", response.getContentType(), "Expected a different content type.");
 
         final InputStream stream = response.getInputStream();
         final byte[] result = new byte[3000];
         stream.read(result);
 
         final PdfReader reader = new PdfReader(result);
-        Assert.assertEquals("Expected a valid pdf file with a single page", 1, reader.getNumberOfPages());
-
-        // @todo assert expected content.
-
+        Assertions.assertEquals(1, reader.getNumberOfPages(), "Expected a valid pdf file with a single page");
     }
 
 }

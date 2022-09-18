@@ -36,10 +36,10 @@ import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
 import org.displaytag.util.SimpleInstanceManager;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +54,7 @@ import com.meterware.servletunit.ServletRunner;
  *
  * @author andy Date: Oct 30, 2010 Time: 12:04:04 PM
  */
-public class ExportExcelTest {
+class ExportExcelTest {
 
     /**
      * logger.
@@ -91,8 +91,8 @@ public class ExportExcelTest {
      *
      * @see junit.framework.TestCase#setUp()
      */
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         // need to pass a web.xml file to setup servletunit working directory
         final ClassLoader classLoader = this.getClass().getClassLoader();
         final URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
@@ -123,8 +123,8 @@ public class ExportExcelTest {
      *
      * @see junit.framework.TestCase#tearDown()
      */
-    @After
-    public void tearDown() throws Exception {
+    @AfterEach
+    void tearDown() throws Exception {
         // shutdown servlet engine
         TableProperties.clearProperties();
         this.runner.shutDown();
@@ -137,7 +137,7 @@ public class ExportExcelTest {
      *             any exception thrown during test.
      */
     @Test
-    public void doDefaultTest() throws Exception {
+    void doDefaultTest() throws Exception {
         final byte[] res = this.runPage("exportExcel.jsp");
         final File f = File.createTempFile("exporttest", ".xls");
         final FileOutputStream fw = new FileOutputStream(f);
@@ -167,14 +167,14 @@ public class ExportExcelTest {
         final ExportViewFactory evf = ExportViewFactory.getInstance();
         evf.registerExportView("excel", "org.displaytag.export.ExcelView");
         final MediaTypeEnum excelMedia = MediaTypeEnum.EXCEL;
-        Assert.assertNotNull("Excel export view not correctly registered.", excelMedia);
+        Assertions.assertNotNull(excelMedia, "Excel export view not correctly registered.");
         request.setParameter(mediaParameter, Integer.toString(excelMedia.getCode()));
 
         final WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
-        Assert.assertEquals("Expected a different content type.", "application/vnd.ms-excel",
-                response.getContentType());
+        Assertions.assertEquals("application/vnd.ms-excel",
+                response.getContentType(), "Expected a different content type.");
 
         final InputStream stream = response.getInputStream();
         final byte[] result = new byte[9000];

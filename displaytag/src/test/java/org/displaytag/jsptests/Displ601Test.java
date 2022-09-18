@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision: 1081 $ ($Author: fgiust $)
  */
-public class Displ601Test extends DisplaytagCase {
+class Displ601Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -63,7 +63,7 @@ public class Displ601Test extends DisplaytagCase {
         final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
         final WebResponse response = this.runner.getResponse(request);
-        Assert.assertEquals(3, response.getElementsByTagName("input").length);
+        Assertions.assertEquals(3, response.getElementsByTagName("input").length);
     }
 
 }

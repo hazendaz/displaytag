@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class BasicTableTagTest extends DisplaytagCase {
+class BasicTableTagTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -71,8 +71,8 @@ public class BasicTableTagTest extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
 
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Wrong number of generated columns.", 5, tables[0].getColumnCount());
+        Assertions.assertEquals(5, tables[0].getColumnCount(), "Wrong number of generated columns.");
     }
 }

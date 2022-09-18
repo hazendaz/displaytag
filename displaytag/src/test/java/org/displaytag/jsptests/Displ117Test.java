@@ -23,10 +23,10 @@ package org.displaytag.jsptests;
 
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
-import org.displaytag.test.URLAssert;
+import org.displaytag.test.URLAssertions;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -41,7 +41,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ117Test extends DisplaytagCase {
+class Displ117Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -76,12 +76,12 @@ public class Displ117Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of links in result.", 1, links.length);
+        Assertions.assertEquals(1, links.length, "Wrong number of links in result.");
 
-        URLAssert.assertEquals("/context/goforit?param=ant&amp;d-148916-s=0&amp;d-148916-o=2", links[0].getURLString());
+        URLAssertions.assertEquals("/context/goforit?param=ant&amp;d-148916-s=0&amp;d-148916-o=2", links[0].getURLString());
     }
 
 }

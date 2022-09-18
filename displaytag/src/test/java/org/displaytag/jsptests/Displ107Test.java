@@ -28,8 +28,8 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -42,7 +42,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ107Test extends DisplaytagCase {
+class Displ107Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -68,7 +68,7 @@ public class Displ107Test extends DisplaytagCase {
         WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
 
         WebResponse response = this.runner.getResponse(request);
-        Assert.assertEquals("Wrong encoding", "UTF8", response.getCharacterSet());
+        Assertions.assertEquals("UTF8", response.getCharacterSet(), "Wrong encoding");
 
         final ParamEncoder encoder = new ParamEncoder("table");
         final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
@@ -96,8 +96,8 @@ public class Displ107Test extends DisplaytagCase {
      */
     private void checkContent(final WebResponse response) throws Exception {
         // we are really testing an xml output?
-        Assert.assertEquals("Expected a different content type.", "text/csv", response.getContentType());
-        Assert.assertEquals("Wrong encoding", "UTF8", response.getCharacterSet());
+        Assertions.assertEquals("text/csv", response.getContentType(), "Expected a different content type.");
+        Assertions.assertEquals("UTF8", response.getCharacterSet(), "Wrong encoding");
 
         final InputStream stream = response.getInputStream();
         final byte[] result = new byte[11];
@@ -108,11 +108,11 @@ public class Displ107Test extends DisplaytagCase {
             this.log.debug("expected: [" + new String(expected, StandardCharsets.UTF_8.name()) + "]");
             this.log.debug("result:   [" + new String(result, StandardCharsets.UTF_8.name()) + "]");
         }
-        Assert.assertEquals("Wrong length", expected.length, result.length);
+        Assertions.assertEquals(expected.length, result.length, "Wrong length");
 
         for (int j = 0; j < result.length; j++) {
-            Assert.assertEquals("Wrong byte at position " + j + ", output=" + new String(result, StandardCharsets.UTF_8.name()), expected[j],
-                    result[j]);
+            Assertions.assertEquals(expected[j], result[j],
+                "Wrong byte at position " + j + ", output=" + new String(result, StandardCharsets.UTF_8.name()));
 
         }
     }

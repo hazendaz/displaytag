@@ -25,8 +25,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -40,7 +40,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class ExportLinksTest extends DisplaytagCase {
+class ExportLinksTest extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -69,14 +69,14 @@ public class ExportLinksTest extends DisplaytagCase {
 
         final WebLink[] links = response.getLinks();
 
-        Assert.assertEquals("Wrong number of export links. ", 4, links.length);
+        Assertions.assertEquals(4, links.length, "Wrong number of export links. ");
 
         final Set<String> linkTexts = new HashSet<>();
         for (final WebLink link : links) {
             final String url = link.getURLString();
             this.log.debug(url);
             if (linkTexts.contains(url)) {
-                Assert.fail("Found duplicated link in export banner: " + url);
+                Assertions.fail("Found duplicated link in export banner: " + url);
             }
             linkTexts.add(url);
         }

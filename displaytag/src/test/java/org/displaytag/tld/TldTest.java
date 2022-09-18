@@ -36,8 +36,8 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.SuppressPropertiesBeanIntrospector;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -54,7 +54,7 @@ import org.xml.sax.InputSource;
  *
  * @version $Revision$ ($Author$)
  */
-public class TldTest {
+class TldTest {
 
     /**
      * logger.
@@ -68,7 +68,7 @@ public class TldTest {
      *             any Exception generated during test.
      */
     @Test
-    public void testStandardTld() throws Exception {
+    void testStandardTld() throws Exception {
         this.checkTld("/META-INF/displaytag.tld");
     }
 
@@ -150,7 +150,7 @@ public class TldTest {
             if (TldTest.log.isInfoEnabled()) {
                 TldTest.log.info(errors.size() + " errors found in tag classes: " + errors);
             }
-            Assert.fail(errors.size() + " errors found in tag classes: " + errors);
+            Assertions.fail(errors.size() + " errors found in tag classes: " + errors);
         }
     }
 
@@ -185,7 +185,7 @@ public class TldTest {
             try {
                 tldTypeClass = Class.forName(className);
             } catch (final ClassNotFoundException e) {
-                Assert.fail("unable to find class [" + className + "] declared in 'type' attribute");
+                Assertions.fail("unable to find class [" + className + "] declared in 'type' attribute");
             }
         }
         return tldTypeClass;

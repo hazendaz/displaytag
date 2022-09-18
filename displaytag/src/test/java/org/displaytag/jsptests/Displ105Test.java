@@ -23,8 +23,8 @@ package org.displaytag.jsptests;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
@@ -38,7 +38,7 @@ import com.meterware.httpunit.WebResponse;
  *
  * @version $Revision$ ($Author$)
  */
-public class Displ105Test extends DisplaytagCase {
+class Displ105Test extends DisplaytagCase {
 
     /**
      * Generated link should be https.
@@ -55,10 +55,10 @@ public class Displ105Test extends DisplaytagCase {
         final WebResponse response = this.runner.getResponse(request);
 
         final WebLink[] links = response.getLinks();
-        Assert.assertEquals("Wrong number of generated links.", 1, links.length);
+        Assertions.assertEquals(1, links.length, "Wrong number of generated links.");
 
-        Assert.assertTrue("Generated link doesn't start with https: " + links[0].getURLString(),
-                links[0].getURLString().startsWith("https://"));
+        Assertions.assertTrue(links[0].getURLString().startsWith("https://"),
+            "Generated link doesn't start with https: " + links[0].getURLString());
 
     }
 

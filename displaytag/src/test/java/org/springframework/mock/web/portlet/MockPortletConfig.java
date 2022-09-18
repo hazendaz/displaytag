@@ -30,7 +30,7 @@ import javax.portlet.PortletContext;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import org.springframework.util.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Mock implementation of the {@link javax.portlet.PortletConfig} interface.
@@ -107,24 +107,24 @@ public class MockPortletConfig implements PortletConfig {
 	}
 
 	public void setResourceBundle(Locale locale, ResourceBundle resourceBundle) {
-		Assert.notNull(locale, "Locale must not be null");
+		Assertions.assertNotNull(locale, "Locale must not be null");
 		this.resourceBundles.put(locale, resourceBundle);
 	}
 
 	@Override
 	public ResourceBundle getResourceBundle(Locale locale) {
-		Assert.notNull(locale, "Locale must not be null");
+		Assertions.assertNotNull(locale, "Locale must not be null");
 		return this.resourceBundles.get(locale);
 	}
 
 	public void addInitParameter(String name, String value) {
-		Assert.notNull(name, "Parameter name must not be null");
+		Assertions.assertNotNull(name, "Parameter name must not be null");
 		this.initParameters.put(name, value);
 	}
 
 	@Override
 	public String getInitParameter(String name) {
-		Assert.notNull(name, "Parameter name must not be null");
+		Assertions.assertNotNull(name, "Parameter name must not be null");
 		return this.initParameters.get(name);
 	}
 

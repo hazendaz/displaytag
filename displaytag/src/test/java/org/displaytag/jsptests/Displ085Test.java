@@ -22,8 +22,8 @@
 package org.displaytag.jsptests;
 
 import org.displaytag.test.DisplaytagCase;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
@@ -37,7 +37,7 @@ import com.meterware.httpunit.WebTable;
  *
  * @version $Id$
  */
-public class Displ085Test extends DisplaytagCase {
+class Displ085Test extends DisplaytagCase {
 
     /**
      * Gets the jsp name.
@@ -70,18 +70,18 @@ public class Displ085Test extends DisplaytagCase {
         }
 
         final WebTable[] tables = response.getTables();
-        Assert.assertEquals("Wrong number of tables.", 1, tables.length);
+        Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assert.assertEquals("Wrong number of columns.", 2, tables[0].getColumnCount());
+        Assertions.assertEquals(2, tables[0].getColumnCount(), "Wrong number of columns.");
 
-        Assert.assertEquals("Wrong title.", "ant title", tables[0].getCellAsText(0, 0));
-        Assert.assertEquals("Wrong title.", "bee title", tables[0].getCellAsText(0, 1));
+        Assertions.assertEquals("ant title", tables[0].getCellAsText(0, 0), "Wrong title.");
+        Assertions.assertEquals("bee title", tables[0].getCellAsText(0, 1), "Wrong title.");
 
-        Assert.assertEquals("Wrong content.", "ant", tables[0].getCellAsText(1, 0));
-        Assert.assertEquals("Wrong content.", "bee", tables[0].getCellAsText(1, 1));
+        Assertions.assertEquals("ant", tables[0].getCellAsText(1, 0), "Wrong content.");
+        Assertions.assertEquals("bee", tables[0].getCellAsText(1, 1), "Wrong content.");
 
         // only one sortable column
-        Assert.assertEquals("Wrong number of links.", 1, response.getLinks().length);
+        Assertions.assertEquals(1, response.getLinks().length, "Wrong number of links.");
 
     }
 
