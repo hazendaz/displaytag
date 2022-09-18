@@ -38,8 +38,10 @@ import org.junit.jupiter.api.Assertions;
  */
 public class MockActionResponse extends MockStateAwareResponse implements ActionResponse {
 
+	/** The redirect allowed. */
 	private boolean redirectAllowed = true;
 
+	/** The redirected url. */
 	private String redirectedUrl;
 
 
@@ -124,6 +126,11 @@ public class MockActionResponse extends MockStateAwareResponse implements Action
 		}
 	}
 
+	/**
+	 * Gets the redirected url.
+	 *
+	 * @return the redirected url
+	 */
 	public String getRedirectedUrl() {
 		return this.redirectedUrl;
 	}

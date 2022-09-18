@@ -37,8 +37,10 @@ import org.slf4j.LoggerFactory;
  */
 public class MockPortletRequestDispatcher implements PortletRequestDispatcher {
 
+	/** The logger. */
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
+	/** The url. */
 	private final String url;
 
 

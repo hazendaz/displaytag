@@ -26,6 +26,7 @@ import javax.portlet.ResourceResponse;
  */
 public class MockResourceResponse extends MockMimeResponse implements ResourceResponse {
 
+	/** The content length. */
 	private long contentLength = 0;
 
 
@@ -34,6 +35,11 @@ public class MockResourceResponse extends MockMimeResponse implements ResourceRe
 		this.contentLength = len;
 	}
 
+	/**
+	 * Gets the content length.
+	 *
+	 * @return the content length
+	 */
 	public long getContentLength() {
 		return this.contentLength;
 	}

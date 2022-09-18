@@ -38,25 +38,35 @@ import org.springframework.mock.web.MockHttpSession;
  */
 public class MockPortletSession implements PortletSession {
 
+	/** The next id. */
 	private static int nextId = 1;
 
 
+	/** The id. */
 	private final String id = Integer.toString(nextId++);
 
+	/** The creation time. */
 	private final long creationTime = System.currentTimeMillis();
 
+	/** The max inactive interval. */
 	private int maxInactiveInterval;
 
+	/** The last accessed time. */
 	private long lastAccessedTime = System.currentTimeMillis();
 
+	/** The portlet context. */
 	private final PortletContext portletContext;
 
+	/** The portlet attributes. */
 	private final Map<String, Object> portletAttributes = new LinkedHashMap<String, Object>();
 
+	/** The application attributes. */
 	private final Map<String, Object> applicationAttributes = new LinkedHashMap<String, Object>();
 
+	/** The invalid. */
 	private boolean invalid = false;
 
+	/** The is new. */
 	private boolean isNew = true;
 
 
@@ -119,6 +129,9 @@ public class MockPortletSession implements PortletSession {
 		return this.id;
 	}
 
+	/**
+	 * Access.
+	 */
 	public void access() {
 		this.lastAccessedTime = System.currentTimeMillis();
 		setNew(false);
@@ -142,6 +155,11 @@ public class MockPortletSession implements PortletSession {
 		doClearAttributes(this.applicationAttributes);
 	}
 
+	/**
+	 * Do clear attributes.
+	 *
+	 * @param attributes the attributes
+	 */
 	protected void doClearAttributes(Map<String, Object> attributes) {
 		for (Iterator<Map.Entry<String, Object>> it = attributes.entrySet().iterator(); it.hasNext();) {
 			Map.Entry<String, Object> entry = it.next();
@@ -161,10 +179,20 @@ public class MockPortletSession implements PortletSession {
 		clearAttributes();
 	}
 
+	/**
+	 * Checks if is invalid.
+	 *
+	 * @return true, if is invalid
+	 */
 	public boolean isInvalid() {
 		return this.invalid;
 	}
 
+	/**
+	 * Sets the new.
+	 *
+	 * @param value the new new
+	 */
 	public void setNew(boolean value) {
 		this.isNew = value;
 	}

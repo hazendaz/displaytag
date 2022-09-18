@@ -39,12 +39,16 @@ import javax.servlet.http.Part;
  */
 public class MockClientDataRequest extends MockPortletRequest implements ClientDataRequest {
 
+	/** The character encoding. */
 	private String characterEncoding;
 
+	/** The content. */
 	private byte[] content;
 
+	/** The content type. */
 	private String contentType;
 
+	/** The method. */
 	private String method;
 
 
@@ -76,6 +80,11 @@ public class MockClientDataRequest extends MockPortletRequest implements ClientD
 	}
 
 
+	/**
+	 * Sets the content.
+	 *
+	 * @param content the new content
+	 */
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
@@ -113,6 +122,11 @@ public class MockClientDataRequest extends MockPortletRequest implements ClientD
 		return this.characterEncoding;
 	}
 
+	/**
+	 * Sets the content type.
+	 *
+	 * @param contentType the new content type
+	 */
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
@@ -127,6 +141,11 @@ public class MockClientDataRequest extends MockPortletRequest implements ClientD
 		return (this.content != null ? content.length : -1);
 	}
 
+	/**
+	 * Sets the method.
+	 *
+	 * @param method the new method
+	 */
 	public void setMethod(String method) {
 		this.method = method;
 	}

@@ -36,10 +36,13 @@ import javax.servlet.DispatcherType;
  */
 public class MockResourceRequest extends MockClientDataRequest implements ResourceRequest {
 
+	/** The resource ID. */
 	private String resourceID;
 
+	/** The cacheability. */
 	private String cacheability;
 
+	/** The private render parameter map. */
 	private final Map<String, String[]> privateRenderParameterMap = new LinkedHashMap<String, String[]>();
 
 
@@ -97,6 +100,11 @@ public class MockResourceRequest extends MockClientDataRequest implements Resour
 		return RESOURCE_PHASE;
 	}
 
+	/**
+	 * Sets the resource ID.
+	 *
+	 * @param resourceID the new resource ID
+	 */
 	public void setResourceID(String resourceID) {
 		this.resourceID = resourceID;
 	}
@@ -106,6 +114,11 @@ public class MockResourceRequest extends MockClientDataRequest implements Resour
 		return this.resourceID;
 	}
 
+	/**
+	 * Sets the cacheability.
+	 *
+	 * @param cacheLevel the new cacheability
+	 */
 	public void setCacheability(String cacheLevel) {
 		this.cacheability = cacheLevel;
 	}
@@ -120,10 +133,22 @@ public class MockResourceRequest extends MockClientDataRequest implements Resour
 		return getProperty(RenderRequest.ETAG);
 	}
 
+	/**
+	 * Adds the private render parameter.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 */
 	public void addPrivateRenderParameter(String key, String value) {
 		this.privateRenderParameterMap.put(key, new String[] {value});
 	}
 
+	/**
+	 * Adds the private render parameter.
+	 *
+	 * @param key the key
+	 * @param values the values
+	 */
 	public void addPrivateRenderParameter(String key, String[] values) {
 		this.privateRenderParameterMap.put(key, values);
 	}

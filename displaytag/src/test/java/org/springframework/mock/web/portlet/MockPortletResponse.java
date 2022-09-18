@@ -42,16 +42,22 @@ import org.w3c.dom.Element;
  */
 public class MockPortletResponse implements PortletResponse {
 
+	/** The portal context. */
 	private final PortalContext portalContext;
 
+	/** The properties. */
 	private final Map<String, String[]> properties = new LinkedHashMap<String, String[]>();
 
+	/** The namespace. */
 	private String namespace = "";
 
+	/** The cookies. */
 	private final Set<Cookie> cookies = new LinkedHashSet<Cookie>();
 
+	/** The xml properties. */
 	private final Map<String, Element[]> xmlProperties = new LinkedHashMap<String, Element[]>();
 
+	/** The xml document. */
 	private Document xmlDocument;
 
 
@@ -75,6 +81,8 @@ public class MockPortletResponse implements PortletResponse {
 	/**
 	 * Return the PortalContext that this MockPortletResponse runs in,
 	 * defining the supported PortletModes and WindowStates.
+	 *
+	 * @return the portal context
 	 */
 	public PortalContext getPortalContext() {
 		return this.portalContext;
@@ -116,6 +124,12 @@ public class MockPortletResponse implements PortletResponse {
 		return (arr != null && arr.length > 0 ? arr[0] : null);
 	}
 
+	/**
+	 * Gets the properties.
+	 *
+	 * @param key the key
+	 * @return the properties
+	 */
 	public String[] getProperties(String key) {
 		Assertions.assertNotNull(key, "Property key must not be null");
 		return this.properties.get(key);
@@ -126,6 +140,11 @@ public class MockPortletResponse implements PortletResponse {
 		return path;
 	}
 
+	/**
+	 * Sets the namespace.
+	 *
+	 * @param namespace the new namespace
+	 */
 	public void setNamespace(String namespace) {
 		this.namespace = namespace;
 	}
@@ -141,10 +160,21 @@ public class MockPortletResponse implements PortletResponse {
 		this.cookies.add(cookie);
 	}
 
+	/**
+	 * Gets the cookies.
+	 *
+	 * @return the cookies
+	 */
 	public Cookie[] getCookies() {
 		return this.cookies.toArray(new Cookie[this.cookies.size()]);
 	}
 
+	/**
+	 * Gets the cookie.
+	 *
+	 * @param name the name
+	 * @return the cookie
+	 */
 	public Cookie getCookie(String name) {
 		Assertions.assertNotNull(name, "Cookie name must not be null");
 		for (Cookie cookie : this.cookies) {
@@ -171,16 +201,33 @@ public class MockPortletResponse implements PortletResponse {
 	}
 
 
+	/**
+	 * Gets the xml property names.
+	 *
+	 * @return the xml property names
+	 */
 	public Set<String> getXmlPropertyNames() {
 		return Collections.unmodifiableSet(this.xmlProperties.keySet());
 	}
 
+	/**
+	 * Gets the xml property.
+	 *
+	 * @param key the key
+	 * @return the xml property
+	 */
 	public Element getXmlProperty(String key) {
 		Assertions.assertNotNull(key, "Property key must not be null");
 		Element[] arr = this.xmlProperties.get(key);
 		return (arr != null && arr.length > 0 ? arr[0] : null);
 	}
 
+	/**
+	 * Gets the xml properties.
+	 *
+	 * @param key the key
+	 * @return the xml properties
+	 */
 	public Element[] getXmlProperties(String key) {
 		Assertions.assertNotNull(key, "Property key must not be null");
 		return this.xmlProperties.get(key);

@@ -39,13 +39,22 @@ import org.junit.jupiter.api.Assertions;
  */
 public class MockPortletPreferences implements PortletPreferences {
 
+	/** The preferences validator. */
 	private PreferencesValidator preferencesValidator;
 
+	/** The preferences. */
 	private final Map<String, String[]> preferences = new LinkedHashMap<String, String[]>();
 
+	/** The read only. */
 	private final Set<String> readOnly = new HashSet<String>();
 
 
+	/**
+	 * Sets the read only.
+	 *
+	 * @param key the key
+	 * @param readOnly the read only
+	 */
 	public void setReadOnly(String key, boolean readOnly) {
 		Assertions.assertNotNull(key, "Key must not be null");
 		if (readOnly) {
@@ -109,6 +118,11 @@ public class MockPortletPreferences implements PortletPreferences {
 		this.preferences.remove(key);
 	}
 
+	/**
+	 * Sets the preferences validator.
+	 *
+	 * @param preferencesValidator the new preferences validator
+	 */
 	public void setPreferencesValidator(PreferencesValidator preferencesValidator) {
 		this.preferencesValidator = preferencesValidator;
 	}

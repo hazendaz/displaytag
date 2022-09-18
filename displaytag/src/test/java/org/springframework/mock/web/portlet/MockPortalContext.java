@@ -35,10 +35,13 @@ import javax.portlet.WindowState;
  */
 public class MockPortalContext implements PortalContext {
 
+	/** The properties. */
 	private final Map<String, String> properties = new HashMap<String, String>();
 
+	/** The portlet modes. */
 	private final List<PortletMode> portletModes;
 
+	/** The window states. */
 	private final List<WindowState> windowStates;
 
 
@@ -79,6 +82,12 @@ public class MockPortalContext implements PortalContext {
 		return "MockPortal/1.0";
 	}
 
+	/**
+	 * Sets the property.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 */
 	public void setProperty(String name, String value) {
 		this.properties.put(name, value);
 	}

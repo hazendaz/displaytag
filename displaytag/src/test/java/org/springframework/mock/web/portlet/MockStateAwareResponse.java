@@ -43,12 +43,16 @@ import org.springframework.util.CollectionUtils;
  */
 public class MockStateAwareResponse extends MockPortletResponse implements StateAwareResponse {
 
+	/** The window state. */
 	private WindowState windowState;
 
+	/** The portlet mode. */
 	private PortletMode portletMode;
 
+	/** The render parameters. */
 	private final Map<String, String[]> renderParameters = new LinkedHashMap<String, String[]>();
 
+	/** The events. */
 	private final Map<QName, Serializable> events = new HashMap<QName, Serializable>();
 
 
@@ -117,17 +121,34 @@ public class MockStateAwareResponse extends MockPortletResponse implements State
 		this.renderParameters.put(key, values);
 	}
 
+	/**
+	 * Gets the render parameter.
+	 *
+	 * @param key the key
+	 * @return the render parameter
+	 */
 	public String getRenderParameter(String key) {
 		Assertions.assertNotNull(key, "Parameter key must not be null");
 		String[] arr = this.renderParameters.get(key);
 		return (arr != null && arr.length > 0 ? arr[0] : null);
 	}
 
+	/**
+	 * Gets the render parameter values.
+	 *
+	 * @param key the key
+	 * @return the render parameter values
+	 */
 	public String[] getRenderParameterValues(String key) {
 		Assertions.assertNotNull(key, "Parameter key must not be null");
 		return this.renderParameters.get(key);
 	}
 
+	/**
+	 * Gets the render parameter names.
+	 *
+	 * @return the render parameter names
+	 */
 	public Iterator<String> getRenderParameterNames() {
 		return this.renderParameters.keySet().iterator();
 	}
@@ -152,14 +173,31 @@ public class MockStateAwareResponse extends MockPortletResponse implements State
 		this.events.put(new QName(name), value);
 	}
 
+	/**
+	 * Gets the event names.
+	 *
+	 * @return the event names
+	 */
 	public Iterator<QName> getEventNames() {
 		return this.events.keySet().iterator();
 	}
 
+	/**
+	 * Gets the event.
+	 *
+	 * @param name the name
+	 * @return the event
+	 */
 	public Serializable getEvent(QName name) {
 		return this.events.get(name);
 	}
 
+	/**
+	 * Gets the event.
+	 *
+	 * @param name the name
+	 * @return the event
+	 */
 	public Serializable getEvent(String name) {
 		return this.events.get(new QName(name));
 	}

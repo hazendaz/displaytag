@@ -43,24 +43,34 @@ import org.junit.jupiter.api.Assertions;
  */
 public class MockPortletConfig implements PortletConfig {
 
+	/** The portlet context. */
 	private final PortletContext portletContext;
 
+	/** The portlet name. */
 	private final String portletName;
 
+	/** The resource bundles. */
 	private final Map<Locale, ResourceBundle> resourceBundles = new HashMap<Locale, ResourceBundle>();
 
+	/** The init parameters. */
 	private final Map<String, String> initParameters = new LinkedHashMap<String, String>();
 
+	/** The public render parameter names. */
 	private final Set<String> publicRenderParameterNames = new LinkedHashSet<String>();
 
+	/** The default namespace. */
 	private String defaultNamespace = XMLConstants.NULL_NS_URI;
 
+	/** The publishing event Q names. */
 	private final Set<QName> publishingEventQNames = new LinkedHashSet<QName>();
 
+	/** The processing event Q names. */
 	private final Set<QName> processingEventQNames = new LinkedHashSet<QName>();
 
+	/** The supported locales. */
 	private final Set<Locale> supportedLocales = new LinkedHashSet<Locale>();
 
+	/** The container runtime options. */
 	private final Map<String, String[]> containerRuntimeOptions = new LinkedHashMap<String, String[]>();
 
 
@@ -108,6 +118,12 @@ public class MockPortletConfig implements PortletConfig {
 		return this.portletContext;
 	}
 
+	/**
+	 * Sets the resource bundle.
+	 *
+	 * @param locale the locale
+	 * @param resourceBundle the resource bundle
+	 */
 	public void setResourceBundle(Locale locale, ResourceBundle resourceBundle) {
 		Assertions.assertNotNull(locale, "Locale must not be null");
 		this.resourceBundles.put(locale, resourceBundle);
@@ -119,6 +135,12 @@ public class MockPortletConfig implements PortletConfig {
 		return this.resourceBundles.get(locale);
 	}
 
+	/**
+	 * Adds the init parameter.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 */
 	public void addInitParameter(String name, String value) {
 		Assertions.assertNotNull(name, "Parameter name must not be null");
 		this.initParameters.put(name, value);
@@ -135,6 +157,11 @@ public class MockPortletConfig implements PortletConfig {
 		return Collections.enumeration(this.initParameters.keySet());
 	}
 
+	/**
+	 * Adds the public render parameter name.
+	 *
+	 * @param name the name
+	 */
 	public void addPublicRenderParameterName(String name) {
 		this.publicRenderParameterNames.add(name);
 	}
@@ -144,6 +171,11 @@ public class MockPortletConfig implements PortletConfig {
 		return Collections.enumeration(this.publicRenderParameterNames);
 	}
 
+	/**
+	 * Sets the default namespace.
+	 *
+	 * @param defaultNamespace the new default namespace
+	 */
 	public void setDefaultNamespace(String defaultNamespace) {
 		this.defaultNamespace = defaultNamespace;
 	}
@@ -153,6 +185,11 @@ public class MockPortletConfig implements PortletConfig {
 		return this.defaultNamespace;
 	}
 
+	/**
+	 * Adds the publishing event Q name.
+	 *
+	 * @param name the name
+	 */
 	public void addPublishingEventQName(QName name) {
 		this.publishingEventQNames.add(name);
 	}
@@ -162,6 +199,11 @@ public class MockPortletConfig implements PortletConfig {
 		return Collections.enumeration(this.publishingEventQNames);
 	}
 
+	/**
+	 * Adds the processing event Q name.
+	 *
+	 * @param name the name
+	 */
 	public void addProcessingEventQName(QName name) {
 		this.processingEventQNames.add(name);
 	}
@@ -171,6 +213,11 @@ public class MockPortletConfig implements PortletConfig {
 		return Collections.enumeration(this.processingEventQNames);
 	}
 
+	/**
+	 * Adds the supported locale.
+	 *
+	 * @param locale the locale
+	 */
 	public void addSupportedLocale(Locale locale) {
 		this.supportedLocales.add(locale);
 	}
@@ -180,10 +227,22 @@ public class MockPortletConfig implements PortletConfig {
 		return Collections.enumeration(this.supportedLocales);
 	}
 
+	/**
+	 * Adds the container runtime option.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 */
 	public void addContainerRuntimeOption(String key, String value) {
 		this.containerRuntimeOptions.put(key, new String[] {value});
 	}
 
+	/**
+	 * Adds the container runtime option.
+	 *
+	 * @param key the key
+	 * @param values the values
+	 */
 	public void addContainerRuntimeOption(String key, String[] values) {
 		this.containerRuntimeOptions.put(key, values);
 	}

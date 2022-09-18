@@ -29,8 +29,10 @@ import javax.portlet.PortletContext;
  */
 public class MockEventRequest extends MockPortletRequest implements EventRequest {
 
+	/** The event. */
 	private final Event event;
 
+	/** The method. */
 	private String method;
 
 
@@ -78,6 +80,11 @@ public class MockEventRequest extends MockPortletRequest implements EventRequest
 		return this.event;
 	}
 
+	/**
+	 * Sets the method.
+	 *
+	 * @param method the new method
+	 */
 	public void setMethod(String method) {
 		this.method = method;
 	}

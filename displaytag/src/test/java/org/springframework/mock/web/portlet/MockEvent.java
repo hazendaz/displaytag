@@ -24,13 +24,15 @@ import javax.xml.namespace.QName;
  * Mock implementation of the {@link javax.portlet.Event} interface.
  *
  * @author Juergen Hoeller
- * @since 3.0
  * @see MockEventRequest
+ * @since 3.0
  */
 public class MockEvent implements Event {
 
+	/** The name. */
 	private final QName name;
 
+	/** The value. */
 	private final Serializable value;
 
 
