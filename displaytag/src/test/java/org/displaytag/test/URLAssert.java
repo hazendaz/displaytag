@@ -23,6 +23,7 @@ package org.displaytag.test;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -54,8 +55,8 @@ public final class URLAssert {
      */
     public static void assertEquals(String expectedUrl, String generatedUrl) {
         try {
-            expectedUrl = URLDecoder.decode(expectedUrl, "UTF-8");
-            generatedUrl = URLDecoder.decode(generatedUrl, "UTF-8");
+            expectedUrl = URLDecoder.decode(expectedUrl, StandardCharsets.UTF_8.name());
+            generatedUrl = URLDecoder.decode(generatedUrl, StandardCharsets.UTF_8.name());
         } catch (final UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

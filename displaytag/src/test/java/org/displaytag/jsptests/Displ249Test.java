@@ -22,6 +22,7 @@
 package org.displaytag.jsptests;
 
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
@@ -69,7 +70,7 @@ public class Displ249Test extends DisplaytagCase {
 
         request.setParameter("testparam", paramValue);
 
-        request.setHeaderField("Content-Type", "text/html; charset=utf-8");
+        request.setHeaderField("Content-Type", "text/html; charset=UTF-8");
 
         final WebResponse response = this.runner.getResponse(request);
 
@@ -83,7 +84,7 @@ public class Displ249Test extends DisplaytagCase {
         final WebLink[] links = response.getLinks();
         Assert.assertEquals("Wrong number of links", 3, links.length); // sorting + paging
 
-        final String url = URLDecoder.decode(links[0].getURLString(), "UTF-8");
+        final String url = URLDecoder.decode(links[0].getURLString(), StandardCharsets.UTF_8.name());
 
         String actual = StringUtils.substringAfter(url, "testparam=");
         if (StringUtils.contains(actual, "&")) {

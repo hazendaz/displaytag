@@ -23,6 +23,7 @@ package org.displaytag.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -294,7 +295,7 @@ public class PostHref implements Href {
     private String esc(final Object value) {
 
         try {
-            String param = URLDecoder.decode(value != null ? value.toString() : StringUtils.EMPTY, "utf-8");
+            String param = URLDecoder.decode(value != null ? value.toString() : StringUtils.EMPTY, StandardCharsets.UTF_8.name());
             param = StringUtils.replace(param, "'", "\\'");
             return StringUtils.replace(param, "\"", "%22");
         } catch (final UnsupportedEncodingException e) {

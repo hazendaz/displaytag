@@ -24,6 +24,7 @@ package org.displaytag.util;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -370,7 +371,7 @@ public class DefaultHref implements Href {
             return StringUtils.EMPTY;
         }
         try {
-            return URLEncoder.encode(param.toString(), "UTF-8");
+            return URLEncoder.encode(param.toString(), StandardCharsets.UTF_8.name());
         } catch (final UnsupportedEncodingException e) {
             // should never happen
             throw new RuntimeException(e);
@@ -390,7 +391,7 @@ public class DefaultHref implements Href {
             return StringUtils.EMPTY;
         }
         try {
-            return URLDecoder.decode(param.toString(), "UTF-8");
+            return URLDecoder.decode(param.toString(), StandardCharsets.UTF_8.name());
         } catch (final UnsupportedEncodingException e) {
             // should never happen
             throw new RuntimeException(e);

@@ -16,7 +16,7 @@
 
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <charset>utf-8</charset>
+      <charset>UTF-8</charset>
       <pattern>%d{HH:mm:ss.SSS} %-5level {%thread} [%logger{40}] %msg%n</pattern>
     </encoder>
   </appender>
@@ -27,7 +27,7 @@
     <File>target/temp/logs/displaytag-${timestamp}.log</File>
     <append>true</append>
     <encoder>
-      <charset>utf-8</charset>
+      <charset>UTF-8</charset>
       <pattern>%d{HH:mm:ss.SSS} %-5level {%thread} [%logger{40}] %msg%n</pattern>
     </encoder>
   </appender>
