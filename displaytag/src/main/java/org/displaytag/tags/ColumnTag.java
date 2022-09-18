@@ -21,6 +21,7 @@
  */
 package org.displaytag.tags;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -286,13 +287,25 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
                         + ": " + e.getMessage(), e);
             }
             try {
-                this.comparator = compClass.newInstance();
+                this.comparator = compClass.getDeclaredConstructor().newInstance();
             } catch (final InstantiationException e) {
                 throw new RuntimeException("InstantiationException setting column comparator as " + comparatorClassname
                         + ": " + e.getMessage(), e);
             } catch (final IllegalAccessException e) {
                 throw new RuntimeException("IllegalAccessException setting column comparator as " + comparatorClassname
                         + ": " + e.getMessage(), e);
+            } catch (IllegalArgumentException e) {
+              throw new RuntimeException("IllegalArgumentException setting column comparator as " + comparatorClassname
+                  + ": " + e.getMessage(), e);
+            } catch (InvocationTargetException e) {
+              throw new RuntimeException("InvocationTargetException setting column comparator as " + comparatorClassname
+                  + ": " + e.getMessage(), e);
+            } catch (NoSuchMethodException e) {
+              throw new RuntimeException("NoSuchMethodException setting column comparator as " + comparatorClassname
+                  + ": " + e.getMessage(), e);
+            } catch (SecurityException e) {
+              throw new RuntimeException("SecurityException setting column comparator as " + comparatorClassname
+                  + ": " + e.getMessage(), e);
             }
         } else {
             throw new IllegalArgumentException(

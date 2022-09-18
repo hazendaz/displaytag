@@ -118,7 +118,7 @@ public class TldTest {
             // load it
             Object tagObject = null;
             try {
-                tagObject = tagClass.newInstance();
+                tagObject = tagClass.getDeclaredConstructor().newInstance();
             } catch (final Throwable e) {
                 errors.add("unable to instantiate declared tag class [" + className + "]");
                 continue;
