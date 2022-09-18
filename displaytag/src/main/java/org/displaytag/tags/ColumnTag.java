@@ -57,14 +57,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>
  * This tag works hand in hand with the TableTag to display a list of objects. This describes a column of data in the
  * TableTag. There can be any number of columns that make up the list.
- * </p>
  * <p>
  * This tag does no work itself, it is simply a container of information. The TableTag does all the work based on the
  * information provided in the attributes of this tag.
- * <p>
  *
  * @author mraible
  * @author Fabrizio Giustina
