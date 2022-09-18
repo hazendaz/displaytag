@@ -24,7 +24,6 @@ package org.displaytag.properties;
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.I18nSpringAdapter;
 import org.displaytag.localization.LocaleResolver;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -93,8 +92,6 @@ public class TitleKeySpringTest extends AbstractTitleKeyTest {
      *
      * @see org.displaytag.test.DisplaytagCase#doTest()
      */
-    // Spring 4.1.x+ causes illegal access exception with httpunit
-    @Ignore
     @Override
     @Test
     public void doTest() throws Exception {
