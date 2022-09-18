@@ -25,7 +25,6 @@ import org.springframework.util.Assert;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.portlet.multipart.MultipartActionRequest;
 
 /**
  * Mock implementation of the
@@ -40,7 +39,7 @@ import org.springframework.web.portlet.multipart.MultipartActionRequest;
  * @since 2.0
  * @see org.springframework.mock.web.MockMultipartFile
  */
-public class MockMultipartActionRequest extends MockActionRequest implements MultipartActionRequest {
+public class MockMultipartActionRequest extends MockActionRequest {
 
 	private final MultiValueMap<String, MultipartFile> multipartFiles =
 			new LinkedMultiValueMap<String, MultipartFile>();
@@ -56,17 +55,14 @@ public class MockMultipartActionRequest extends MockActionRequest implements Mul
 		this.multipartFiles.add(file.getName(), file);
 	}
 
-	@Override
 	public Iterator<String> getFileNames() {
 		return this.multipartFiles.keySet().iterator();
 	}
 
-	@Override
 	public MultipartFile getFile(String name) {
 		return this.multipartFiles.getFirst(name);
 	}
 
-	@Override
 	public List<MultipartFile> getFiles(String name) {
 		List<MultipartFile> multipartFiles = this.multipartFiles.get(name);
 		if (multipartFiles != null) {
@@ -77,17 +73,14 @@ public class MockMultipartActionRequest extends MockActionRequest implements Mul
 		}
 	}
 
-	@Override
 	public Map<String, MultipartFile> getFileMap() {
 		return this.multipartFiles.toSingleValueMap();
 	}
 
-	@Override
 	public MultiValueMap<String, MultipartFile> getMultiFileMap() {
 		return new LinkedMultiValueMap<String, MultipartFile>(this.multipartFiles);
 	}
 
-	@Override
 	public String getMultipartContentType(String paramOrFileName) {
 		MultipartFile file = getFile(paramOrFileName);
 		if (file != null) {
