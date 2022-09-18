@@ -24,9 +24,9 @@ import javax.portlet.PortletResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Assertions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Mock implementation of the {@link javax.portlet.PortletRequestDispatcher} interface.
@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Assertions;
  */
 public class MockPortletRequestDispatcher implements PortletRequestDispatcher {
 
-	private final Log logger = LogFactory.getLog(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private final String url;
 

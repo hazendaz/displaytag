@@ -32,9 +32,9 @@ import javax.activation.FileTypeMap;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequestDispatcher;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Assertions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -52,7 +52,7 @@ public class MockPortletContext implements PortletContext {
 	private static final String TEMP_DIR_SYSTEM_PROPERTY = "java.io.tmpdir";
 
 
-	private final Log logger = LogFactory.getLog(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private final String resourceBasePath;
 
