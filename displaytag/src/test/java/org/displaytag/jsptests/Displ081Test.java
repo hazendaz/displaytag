@@ -55,7 +55,7 @@ public class Displ081Test extends DisplaytagCase {
      * Check that column body is decorated.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -59,7 +59,7 @@ public class ExportUTF8Test extends DisplaytagCase {
      * Test response encoding.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

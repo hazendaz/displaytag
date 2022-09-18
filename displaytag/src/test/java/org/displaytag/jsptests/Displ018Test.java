@@ -55,7 +55,7 @@ public class Displ018Test extends DisplaytagCase {
      * Check sorted columns.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

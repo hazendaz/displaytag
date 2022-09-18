@@ -55,7 +55,7 @@ public class OffsetTest extends DisplaytagCase {
      * Only items from 2 to 4 should show up in the response.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

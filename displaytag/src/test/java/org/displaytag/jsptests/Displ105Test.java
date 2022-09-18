@@ -44,7 +44,7 @@ public class Displ105Test extends DisplaytagCase {
      * Generated link should be https.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

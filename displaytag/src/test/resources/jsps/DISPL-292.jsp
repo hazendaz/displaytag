@@ -14,7 +14,7 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 testData.add(new org.displaytag.test.KnownValue());
                 testData.add(new org.displaytag.test.KnownValue());
-                request.setAttribute( "test", testData);
+                request.setAttribute("test", testData);
             ]]>
       </jsp:scriptlet>
       <display:table items="${test}" id="table" pagesize="1">

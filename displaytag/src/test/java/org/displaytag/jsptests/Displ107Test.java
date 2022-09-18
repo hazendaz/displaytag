@@ -60,7 +60,7 @@ public class Displ107Test extends DisplaytagCase {
      * Encoding should be utf8.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test
@@ -92,7 +92,7 @@ public class Displ107Test extends DisplaytagCase {
      *            WebResponse
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     private void checkContent(final WebResponse response) throws Exception {
         // we are really testing an xml output?

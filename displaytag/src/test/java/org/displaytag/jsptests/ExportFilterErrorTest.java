@@ -56,7 +56,7 @@ public class ExportFilterErrorTest extends DisplaytagCase {
      * Test with filter enabled and no export written.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -58,7 +58,7 @@ public class Displ056Test extends DisplaytagCase {
      * Try to sort generated tables.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

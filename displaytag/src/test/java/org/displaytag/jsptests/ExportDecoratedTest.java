@@ -60,7 +60,7 @@ public class ExportDecoratedTest extends DisplaytagCase {
      * Export should not be decorated.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

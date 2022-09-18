@@ -55,7 +55,7 @@ public class MaxLengthTest extends DisplaytagCase {
      * Test that title is escaped correctly.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

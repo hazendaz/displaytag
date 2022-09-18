@@ -54,7 +54,7 @@ public class EmptyExportTest extends DisplaytagCase {
      * Test that export links are not shown on generated page.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -44,7 +44,7 @@ public class Displ145Test extends DisplaytagCase {
      * 4 generated tables.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -55,7 +55,7 @@ public class Displ085Test extends DisplaytagCase {
      * A simple way for creating columns on the fly using jstl.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

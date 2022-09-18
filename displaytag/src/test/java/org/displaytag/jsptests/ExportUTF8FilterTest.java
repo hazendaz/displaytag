@@ -58,7 +58,7 @@ public class ExportUTF8FilterTest extends ExportUTF8Test {
      * Test response encoding.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -56,7 +56,7 @@ public class GroupTest extends DisplaytagCase {
      * Tests row grouping. bug #923446
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

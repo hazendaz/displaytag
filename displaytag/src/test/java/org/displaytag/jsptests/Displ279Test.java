@@ -55,7 +55,7 @@ public class Displ279Test extends DisplaytagCase {
      * Check column values.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

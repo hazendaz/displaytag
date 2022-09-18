@@ -55,7 +55,7 @@ public class ColumnPoolingTest extends DisplaytagCase {
      * All the columns should be sortable.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

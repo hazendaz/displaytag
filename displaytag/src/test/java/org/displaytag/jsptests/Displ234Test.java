@@ -55,7 +55,7 @@ public class Displ234Test extends DisplaytagCase {
      * Title should be added to td.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

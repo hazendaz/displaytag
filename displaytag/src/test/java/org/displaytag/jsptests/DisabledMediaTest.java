@@ -54,7 +54,7 @@ public class DisabledMediaTest extends DisplaytagCase {
      * Should not break on media="foo", since foo could be a valid media not enabled at runtime.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

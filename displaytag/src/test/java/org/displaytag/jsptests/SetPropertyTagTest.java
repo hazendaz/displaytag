@@ -55,7 +55,7 @@ public class SetPropertyTagTest extends DisplaytagCase {
      * Check that the "show header" property only affects the correct tables in the page.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

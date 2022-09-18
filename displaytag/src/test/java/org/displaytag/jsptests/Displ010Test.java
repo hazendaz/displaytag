@@ -55,7 +55,7 @@ public class Displ010Test extends DisplaytagCase {
      * Check the value of class attribute in table.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

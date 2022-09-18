@@ -15,7 +15,7 @@
                 testData.add(new org.displaytag.test.KnownValueWithId("B"));
                 testData.add(new org.displaytag.test.KnownValueWithId("C"));
                 testData.add(new org.displaytag.test.KnownValueWithId("D"));
-                request.setAttribute( "test", testData);
+                request.setAttribute("test", testData);
             ]]>
       </jsp:scriptlet>
       <form name="testform" action="${pageContext.request.requestURI}">

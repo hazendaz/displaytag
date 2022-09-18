@@ -64,7 +64,7 @@ public class I18nPropertiesTest extends DisplaytagCase {
      * Check that the "no results" property is loaded from the correct locale file.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

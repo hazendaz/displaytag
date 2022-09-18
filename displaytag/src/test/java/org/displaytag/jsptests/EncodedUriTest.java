@@ -59,7 +59,7 @@ public class EncodedUriTest extends DisplaytagCase {
      * Test link generated using requestUri.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

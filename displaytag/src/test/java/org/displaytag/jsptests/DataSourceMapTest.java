@@ -57,7 +57,7 @@ public class DataSourceMapTest extends DisplaytagCase {
      * Test with a Map[].
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

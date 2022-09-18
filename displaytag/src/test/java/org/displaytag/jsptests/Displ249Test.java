@@ -60,7 +60,7 @@ public class Displ249Test extends DisplaytagCase {
      * Link generated for results navigation is breaking national character taken from FormBean.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

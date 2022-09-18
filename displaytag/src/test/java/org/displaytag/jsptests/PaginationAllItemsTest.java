@@ -56,7 +56,7 @@ public class PaginationAllItemsTest extends DisplaytagCase {
      * Just a quick test to assure that you can avoid page numbers when displaying one page.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -55,7 +55,7 @@ public class ExcludedParamsTest extends DisplaytagCase {
      * Checks generated pagination links.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

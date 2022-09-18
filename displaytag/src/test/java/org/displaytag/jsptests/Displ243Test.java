@@ -59,7 +59,7 @@ public class Displ243Test extends DisplaytagCase {
      * CHeck sort order after some clicks.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

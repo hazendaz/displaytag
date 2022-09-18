@@ -57,7 +57,7 @@ public class Displ232Test extends DisplaytagCase {
      * Paging banner should contain [10].
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

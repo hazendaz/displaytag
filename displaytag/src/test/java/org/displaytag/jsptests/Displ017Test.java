@@ -58,7 +58,7 @@ public class Displ017Test extends DisplaytagCase {
      * Verifies that the generated page contains a table with the expected number of columns.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

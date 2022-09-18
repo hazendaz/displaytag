@@ -55,7 +55,7 @@ public class OneRowOnlyTest extends DisplaytagCase {
      * Checks for the expected values in columns.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

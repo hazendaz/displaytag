@@ -58,7 +58,7 @@ public class Displ074Test extends DisplaytagCase {
      * Check generated href.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

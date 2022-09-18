@@ -57,7 +57,7 @@ public class Displ200Test extends DisplaytagCase {
      * CHeck value returned by the decorator.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

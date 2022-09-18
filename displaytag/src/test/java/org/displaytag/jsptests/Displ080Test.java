@@ -58,7 +58,7 @@ public class Displ080Test extends DisplaytagCase {
      * Test the new escapeXml tag attribute.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

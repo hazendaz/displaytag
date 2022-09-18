@@ -44,7 +44,7 @@ public class ExportHeadersFilterTest extends ExportHeadersTest {
      * Test that headers are correctly removed.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test
