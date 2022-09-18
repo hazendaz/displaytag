@@ -27,7 +27,6 @@ import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.meterware.httpunit.GetMethodWebRequest;
@@ -76,8 +75,6 @@ class Displ292Test extends DisplaytagCase {
      * @throws Exception
      *             any exception thrown during test.
      */
-    // TODO JWL 9/18/2022 This test fails on ubuntu only so there must be some leak somewhere, review
-    @Disabled
     @Override
     @Test
     public void doTest() throws Exception {
