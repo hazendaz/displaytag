@@ -14,7 +14,7 @@
           testData.add(new org.displaytag.test.NumberedItem(1));
           testData.add(new org.displaytag.test.NumberedItem(2));
           testData.add(new org.displaytag.test.NumberedItem(4));
-          request.setAttribute( "test", testData);
+          request.setAttribute("test", testData);
       ]]> </jsp:scriptlet>
       <display:table name="requestScope.test" varTotals="totals" decorator="org.displaytag.decorator.TotalTableDecorator">
         <display:column property="number" total="true"/>

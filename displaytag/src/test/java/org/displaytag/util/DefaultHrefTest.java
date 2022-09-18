@@ -37,15 +37,6 @@ import org.junit.Test;
  */
 public class DefaultHrefTest {
 
-    // /**
-    // * @see junit.framework.TestCase#getName()
-    // */
-    // @Override
-    // public String getName()
-    // {
-    // return getClass().getName() + "." + super.getName();
-    // }
-
     /**
      * Test a simple URL without parameters.
      */
