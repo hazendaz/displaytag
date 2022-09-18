@@ -52,7 +52,7 @@ public class Displ298HtmlTest extends DisplaytagCase {
      * show up in the html output.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -54,7 +54,7 @@ public class Displ026Test extends DisplaytagCase {
      * Check addictional parameters in paging.banner.*.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

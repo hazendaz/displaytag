@@ -57,7 +57,7 @@ public class CssPropertyTest extends DisplaytagCase {
      * Check that css classes are set correctly according to the ones in setProperty tags.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

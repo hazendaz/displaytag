@@ -56,7 +56,7 @@ public class Displ192Test extends DisplaytagCase {
      * No exception when an invalid page is requested.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

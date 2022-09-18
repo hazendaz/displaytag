@@ -68,7 +68,7 @@ public abstract class DisplaytagCase {
      * Runs the test.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     public abstract void doTest() throws Exception;
 

@@ -57,7 +57,7 @@ public class Displ264Test extends DisplaytagCase {
      * Check generated links for form parameters.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -57,7 +57,7 @@ public class Displ142Test extends DisplaytagCase {
      * Nested tables should be ignored.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -55,7 +55,7 @@ public class Displ002Test extends DisplaytagCase {
      * Check if tables are generated with variable id and content in column is filled appropriately.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

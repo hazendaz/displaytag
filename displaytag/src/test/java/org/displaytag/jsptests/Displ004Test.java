@@ -55,7 +55,7 @@ public class Displ004Test extends DisplaytagCase {
      * Check the content of the title attribute.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

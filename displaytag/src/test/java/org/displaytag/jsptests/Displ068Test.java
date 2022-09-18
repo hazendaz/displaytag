@@ -55,7 +55,7 @@ public class Displ068Test extends DisplaytagCase {
      * Test with a list of lists.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

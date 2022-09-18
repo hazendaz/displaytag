@@ -59,7 +59,7 @@ public class Displ209Test extends DisplaytagCase {
      * Check list index/view index values.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

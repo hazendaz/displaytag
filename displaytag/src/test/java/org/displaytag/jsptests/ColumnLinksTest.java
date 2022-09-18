@@ -56,7 +56,7 @@ public class ColumnLinksTest extends DisplaytagCase {
      * Test link generated using column attributes.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

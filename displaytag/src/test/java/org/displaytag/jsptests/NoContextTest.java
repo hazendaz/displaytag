@@ -56,7 +56,7 @@ public class NoContextTest extends DisplaytagCase {
      * Test link generated for paging and export.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

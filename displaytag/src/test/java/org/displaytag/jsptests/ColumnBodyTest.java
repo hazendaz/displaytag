@@ -55,7 +55,7 @@ public class ColumnBodyTest extends DisplaytagCase {
      * Check content in generated table.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

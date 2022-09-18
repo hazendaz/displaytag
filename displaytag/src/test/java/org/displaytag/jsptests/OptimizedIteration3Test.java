@@ -59,7 +59,7 @@ public class OptimizedIteration3Test extends DisplaytagCase {
      * parameters).
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test
@@ -102,7 +102,7 @@ public class OptimizedIteration3Test extends DisplaytagCase {
      *            expected number of iterations
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     private void checkNumberOfIterations(final WebResponse response, final int iterations) throws Exception {
         if (this.log.isDebugEnabled()) {

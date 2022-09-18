@@ -57,7 +57,7 @@ public class MediaSupportHtmlTest extends DisplaytagCase {
      * Test as Html.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

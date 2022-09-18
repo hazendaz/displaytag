@@ -57,7 +57,7 @@ public class Displ212Test extends DisplaytagCase {
      * Last page should be loaded.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

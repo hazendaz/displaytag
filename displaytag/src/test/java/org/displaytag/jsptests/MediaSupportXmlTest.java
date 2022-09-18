@@ -59,7 +59,7 @@ public class MediaSupportXmlTest extends DisplaytagCase {
      * Test as Xml.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

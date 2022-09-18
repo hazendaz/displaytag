@@ -59,7 +59,7 @@ public class Displ252Test extends DisplaytagCase {
      * Decorated object based on a pageContext attribute.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

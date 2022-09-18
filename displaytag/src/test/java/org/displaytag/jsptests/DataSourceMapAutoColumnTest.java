@@ -57,7 +57,7 @@ public class DataSourceMapAutoColumnTest extends DisplaytagCase {
      * Test with a Map[] with automatically discoverd column.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

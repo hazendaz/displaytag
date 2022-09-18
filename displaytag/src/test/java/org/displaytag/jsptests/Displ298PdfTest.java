@@ -58,7 +58,7 @@ public class Displ298PdfTest extends DisplaytagCase {
      * show up in the pdf export.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

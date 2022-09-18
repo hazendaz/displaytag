@@ -56,7 +56,7 @@ public class Displ237Test extends DisplaytagCase {
      * Trying to reproduce an IndexOutOfBoundsException...
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

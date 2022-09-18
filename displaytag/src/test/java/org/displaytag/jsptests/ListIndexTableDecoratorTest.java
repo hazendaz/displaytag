@@ -57,7 +57,7 @@ public class ListIndexTableDecoratorTest extends DisplaytagCase {
      * Checks that the generated page contains decorated values.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -55,7 +55,7 @@ public class FooterTagTest extends DisplaytagCase {
      * Checks that the generated page contains a table with the expected footer.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

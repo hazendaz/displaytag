@@ -56,7 +56,7 @@ public class CaptionTagTest extends DisplaytagCase {
      * Verifies that the generated page contains a table with a caption and checks all the caption html attributes.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

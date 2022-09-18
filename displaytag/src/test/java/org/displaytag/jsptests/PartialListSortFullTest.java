@@ -55,7 +55,7 @@ public class PartialListSortFullTest extends DisplaytagCase {
      * parameters).
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

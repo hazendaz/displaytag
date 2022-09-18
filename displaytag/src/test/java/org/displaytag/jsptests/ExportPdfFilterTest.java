@@ -61,7 +61,7 @@ public class ExportPdfFilterTest extends DisplaytagCase {
      * Test for content disposition and filename.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

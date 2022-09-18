@@ -73,7 +73,7 @@ public class Displ298CsvTest extends DisplaytagCase {
      * show up in the csv export.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

@@ -56,7 +56,7 @@ public class Displ052Test extends DisplaytagCase {
      * Preserve The Current Page And Sort Across Session.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

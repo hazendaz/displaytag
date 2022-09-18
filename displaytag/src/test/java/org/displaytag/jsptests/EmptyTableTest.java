@@ -55,7 +55,7 @@ public class EmptyTableTest extends DisplaytagCase {
      * Verifies that the generated page doesn't contain any table (but doesn't crash!).
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

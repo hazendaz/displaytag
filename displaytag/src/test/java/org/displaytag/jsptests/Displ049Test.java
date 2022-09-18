@@ -56,7 +56,7 @@ public class Displ049Test extends DisplaytagCase {
      * Check variable style and class attributes.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test

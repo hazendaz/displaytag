@@ -56,7 +56,7 @@ public class HtmlAttributesTest extends DisplaytagCase {
      * Check content and ids in generated tables.
      *
      * @throws Exception
-     *             any axception thrown during test.
+     *             any exception thrown during test.
      */
     @Override
     @Test
