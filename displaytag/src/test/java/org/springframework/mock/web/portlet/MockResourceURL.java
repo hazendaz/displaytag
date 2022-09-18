@@ -16,8 +16,14 @@
 
 package org.springframework.mock.web.portlet;
 
+import java.io.IOException;
 import java.util.Map;
+
+import javax.portlet.MutableResourceParameters;
+import javax.portlet.PortletMode;
+import javax.portlet.RenderParameters;
 import javax.portlet.ResourceURL;
+import javax.portlet.WindowState;
 
 /**
  * Mock implementation of the {@link javax.portlet.ResourceURL} interface.
@@ -69,5 +75,41 @@ public class MockResourceURL extends MockBaseURL implements ResourceURL {
 		return (isSecure() ? "https:" : "http:") +
 				"//localhost/mockportlet?" + sb.toString();
 	}
+
+  @Override
+  public Appendable append(Appendable out) throws IOException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Appendable append(Appendable out, boolean escapeXML) throws IOException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public RenderParameters getRenderParameters() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public PortletMode getPortletMode() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public WindowState getWindowState() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public MutableResourceParameters getResourceParameters() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

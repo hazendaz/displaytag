@@ -158,4 +158,24 @@ public class ServletWrappingPortletContext implements PortletContext {
 		return Collections.enumeration(Collections.<String>emptySet());
 	}
 
+  @Override
+  public int getEffectiveMajorVersion() {
+    return this.servletContext.getEffectiveMajorVersion();
+  }
+
+  @Override
+  public int getEffectiveMinorVersion() {
+    return this.servletContext.getEffectiveMinorVersion();
+  }
+
+  @Override
+  public String getContextPath() {
+    return this.servletContext.getContextPath();
+  }
+
+  @Override
+  public ClassLoader getClassLoader() {
+    return this.servletContext.getClassLoader();
+  }
+
 }

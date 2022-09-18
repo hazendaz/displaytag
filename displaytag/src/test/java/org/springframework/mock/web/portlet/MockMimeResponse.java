@@ -26,11 +26,14 @@ import java.io.Writer;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Locale;
+
+import javax.portlet.ActionURL;
 import javax.portlet.CacheControl;
 import javax.portlet.MimeResponse;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
+import javax.portlet.RenderURL;
 import javax.portlet.ResourceURL;
 
 import org.springframework.util.CollectionUtils;
@@ -213,13 +216,13 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
 	}
 
 	@Override
-	public PortletURL createRenderURL() {
-		return new MockPortletURL(getPortalContext(), MockPortletURL.URL_TYPE_RENDER);
+	public <T extends PortletURL & RenderURL> T createRenderURL() {
+		return (T) new MockPortletURL(getPortalContext(), MockPortletURL.URL_TYPE_RENDER);
 	}
 
 	@Override
-	public PortletURL createActionURL() {
-		return new MockPortletURL(getPortalContext(), MockPortletURL.URL_TYPE_ACTION);
+	 public <T extends PortletURL & ActionURL> T createActionURL() {
+		return (T) new MockPortletURL(getPortalContext(), MockPortletURL.URL_TYPE_ACTION);
 	}
 
 	@Override
@@ -252,5 +255,17 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
 	public String getForwardedUrl() {
 		return this.forwardedUrl;
 	}
+
+  @Override
+  public RenderURL createRenderURL(Copy option) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public ActionURL createActionURL(Copy option) {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

@@ -20,9 +20,13 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.portlet.PortalContext;
+import javax.portlet.PortletAsyncContext;
 import javax.portlet.PortletContext;
 import javax.portlet.RenderRequest;
+import javax.portlet.ResourceParameters;
 import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
+import javax.servlet.DispatcherType;
 
 /**
  * Mock implementation of the {@link javax.portlet.ResourceRequest} interface.
@@ -128,5 +132,48 @@ public class MockResourceRequest extends MockClientDataRequest implements Resour
 	public Map<String, String[]> getPrivateRenderParameterMap() {
 		return Collections.unmodifiableMap(this.privateRenderParameterMap);
 	}
+
+  @Override
+  public ResourceParameters getResourceParameters() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public PortletAsyncContext startPortletAsync() throws IllegalStateException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public PortletAsyncContext startPortletAsync(ResourceRequest request, ResourceResponse response)
+      throws IllegalStateException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public boolean isAsyncStarted() {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  @Override
+  public boolean isAsyncSupported() {
+    // TODO Auto-generated method stub
+    return false;
+  }
+
+  @Override
+  public PortletAsyncContext getPortletAsyncContext() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public DispatcherType getDispatcherType() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

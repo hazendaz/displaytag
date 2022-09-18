@@ -16,6 +16,7 @@
 
 package org.springframework.mock.web.portlet;
 
+import javax.portlet.ActionParameters;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletContext;
@@ -82,5 +83,11 @@ public class MockActionRequest extends MockClientDataRequest implements ActionRe
 	protected String getLifecyclePhase() {
 		return ACTION_PHASE;
 	}
+
+  @Override
+  public ActionParameters getActionParameters() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

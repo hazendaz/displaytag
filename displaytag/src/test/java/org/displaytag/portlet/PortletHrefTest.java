@@ -53,19 +53,13 @@ class PortletHrefTest {
             // expected
         }
 
-        try {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new PortletHref(new MockPortletRequest(), null);
-            Assertions.fail("IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException iae) {
-            // expected
-        }
+        }, "IllegalArgumentException should have been thrown");
 
-        try {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new PortletHref(null, new MockRenderResponse());
-            Assertions.fail("IllegalArgumentException should have been thrown");
-        } catch (final IllegalArgumentException iae) {
-            // expected
-        }
+        }, "IllegalArgumentException should have been thrown");
 
         new PortletHref(new MockPortletRequest(), new MockRenderResponse());
     }
@@ -362,7 +356,6 @@ class PortletHrefTest {
     /**
      * Test base url.
      */
-    // TODO This test prevents upgrade to portlet 3.0.1 and spring drops support entirely with spring 5.
     @Test
     void testBaseUrl() {
         final PortletHref href = new PortletHref(new MockPortletRequest(), new MockRenderResponse());

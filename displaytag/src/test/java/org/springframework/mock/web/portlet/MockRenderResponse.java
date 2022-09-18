@@ -33,7 +33,7 @@ public class MockRenderResponse extends MockMimeResponse implements RenderRespon
 
 	private String title;
 
-	private Collection<PortletMode> nextPossiblePortletModes;
+	private Collection<? extends PortletMode> nextPossiblePortletModes;
 
 
 	/**
@@ -79,11 +79,11 @@ public class MockRenderResponse extends MockMimeResponse implements RenderRespon
 	}
 
 	@Override
-	public void setNextPossiblePortletModes(Collection<PortletMode> portletModes) {
+	public void setNextPossiblePortletModes(Collection<? extends PortletMode> portletModes) {
 		this.nextPossiblePortletModes = portletModes;
 	}
 
-	public Collection<PortletMode> getNextPossiblePortletModes() {
+	public Collection<? extends PortletMode> getNextPossiblePortletModes() {
 		return this.nextPossiblePortletModes;
 	}
 

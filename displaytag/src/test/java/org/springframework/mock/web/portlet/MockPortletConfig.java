@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
+import javax.portlet.PortletMode;
+import javax.portlet.WindowState;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
@@ -190,5 +192,23 @@ public class MockPortletConfig implements PortletConfig {
 	public Map<String, String[]> getContainerRuntimeOptions() {
 		return Collections.unmodifiableMap(this.containerRuntimeOptions);
 	}
+
+  @Override
+  public Enumeration<PortletMode> getPortletModes(String mimeType) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Enumeration<WindowState> getWindowStates(String mimeType) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Map<String, QName> getPublicRenderParameterDefinitions() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

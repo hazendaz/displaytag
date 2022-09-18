@@ -23,9 +23,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.util.Collection;
+
 import javax.portlet.ClientDataRequest;
 import javax.portlet.PortalContext;
 import javax.portlet.PortletContext;
+import javax.portlet.PortletException;
+import javax.servlet.http.Part;
 
 /**
  * Mock implementation of the {@link javax.portlet.ClientDataRequest} interface.
@@ -131,5 +135,22 @@ public class MockClientDataRequest extends MockPortletRequest implements ClientD
 	public String getMethod() {
 		return this.method;
 	}
+
+  @Override
+  public long getContentLengthLong() {
+    return content.length;
+  }
+
+  @Override
+  public Part getPart(String name) throws IOException, PortletException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Collection<Part> getParts() throws IOException, PortletException {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }
