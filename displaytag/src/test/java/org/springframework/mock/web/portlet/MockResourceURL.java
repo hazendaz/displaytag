@@ -33,8 +33,10 @@ import javax.portlet.WindowState;
  */
 public class MockResourceURL extends MockBaseURL implements ResourceURL {
 
+	/** The resource ID. */
 	private String resourceID;
 
+	/** The cacheability. */
 	private String cacheability;
 
 

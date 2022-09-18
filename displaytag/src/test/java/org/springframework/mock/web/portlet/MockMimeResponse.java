@@ -47,26 +47,37 @@ import org.springframework.web.util.WebUtils;
  */
 public class MockMimeResponse extends MockPortletResponse implements MimeResponse {
 
+	/** The request. */
 	private PortletRequest request;
 
+	/** The content type. */
 	private String contentType;
 
+	/** The character encoding. */
 	private String characterEncoding = WebUtils.DEFAULT_CHARACTER_ENCODING;
 
+	/** The writer. */
 	private PrintWriter writer;
 
+	/** The locale. */
 	private Locale locale = Locale.getDefault();
 
+	/** The buffer size. */
 	private int bufferSize = 4096;
 
+	/** The output stream. */
 	private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024);
 
+	/** The cache control. */
 	private final CacheControl cacheControl = new MockCacheControl();
 
+	/** The committed. */
 	private boolean committed;
 
+	/** The included url. */
 	private String includedUrl;
 
+	/** The forwarded url. */
 	private String forwardedUrl;
 
 
@@ -121,6 +132,11 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
 		return this.contentType;
 	}
 
+	/**
+	 * Sets the character encoding.
+	 *
+	 * @param characterEncoding the new character encoding
+	 */
 	public void setCharacterEncoding(String characterEncoding) {
 		this.characterEncoding = characterEncoding;
 	}
@@ -141,17 +157,33 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
 		return this.writer;
 	}
 
+	/**
+	 * Gets the content as byte array.
+	 *
+	 * @return the content as byte array
+	 */
 	public byte[] getContentAsByteArray() {
 		flushBuffer();
 		return this.outputStream.toByteArray();
 	}
 
+	/**
+	 * Gets the content as string.
+	 *
+	 * @return the content as string
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 */
 	public String getContentAsString() throws UnsupportedEncodingException {
 		flushBuffer();
 		return (this.characterEncoding != null ?
 				this.outputStream.toString(this.characterEncoding) : this.outputStream.toString());
 	}
 
+	/**
+	 * Sets the locale.
+	 *
+	 * @param locale the new locale
+	 */
 	public void setLocale(Locale locale) {
 		this.locale = locale;
 	}
@@ -193,6 +225,11 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
 		this.outputStream.reset();
 	}
 
+	/**
+	 * Sets the committed.
+	 *
+	 * @param committed the new committed
+	 */
 	public void setCommitted(boolean committed) {
 		this.committed = committed;
 	}
@@ -240,18 +277,38 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
 	// Methods for MockPortletRequestDispatcher
 	//---------------------------------------------------------------------
 
+	/**
+	 * Sets the included url.
+	 *
+	 * @param includedUrl the new included url
+	 */
 	public void setIncludedUrl(String includedUrl) {
 		this.includedUrl = includedUrl;
 	}
 
+	/**
+	 * Gets the included url.
+	 *
+	 * @return the included url
+	 */
 	public String getIncludedUrl() {
 		return this.includedUrl;
 	}
 
+	/**
+	 * Sets the forwarded url.
+	 *
+	 * @param forwardedUrl the new forwarded url
+	 */
 	public void setForwardedUrl(String forwardedUrl) {
 		this.forwardedUrl = forwardedUrl;
 	}
 
+	/**
+	 * Gets the forwarded url.
+	 *
+	 * @return the forwarded url
+	 */
 	public String getForwardedUrl() {
 		return this.forwardedUrl;
 	}

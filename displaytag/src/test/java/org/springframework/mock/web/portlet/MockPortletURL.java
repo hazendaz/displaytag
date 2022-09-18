@@ -43,17 +43,23 @@ import org.springframework.util.CollectionUtils;
  */
 public class MockPortletURL extends MockBaseURL implements PortletURL, RenderURL, ActionURL {
 
+	/** The Constant URL_TYPE_RENDER. */
 	public static final String URL_TYPE_RENDER = "render";
 
+	/** The Constant URL_TYPE_ACTION. */
 	public static final String URL_TYPE_ACTION = "action";
 
 
+	/** The portal context. */
 	private final PortalContext portalContext;
 
+	/** The url type. */
 	private final String urlType;
 
+	/** The window state. */
 	private WindowState windowState;
 
+	/** The portlet mode. */
 	private PortletMode portletMode;
 
 

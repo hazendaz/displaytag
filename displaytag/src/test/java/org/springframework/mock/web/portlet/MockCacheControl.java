@@ -26,12 +26,16 @@ import javax.portlet.CacheControl;
  */
 public class MockCacheControl implements CacheControl {
 
+	/** The expiration time. */
 	private int expirationTime = 0;
 
+	/** The public scope. */
 	private boolean publicScope = false;
 
+	/** The etag. */
 	private String etag;
 
+	/** The use cached content. */
 	private boolean useCachedContent = false;
 
 

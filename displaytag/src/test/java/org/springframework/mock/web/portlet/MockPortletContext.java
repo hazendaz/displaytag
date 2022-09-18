@@ -49,21 +49,29 @@ import org.springframework.web.util.WebUtils;
  */
 public class MockPortletContext implements PortletContext {
 
+	/** The Constant TEMP_DIR_SYSTEM_PROPERTY. */
 	private static final String TEMP_DIR_SYSTEM_PROPERTY = "java.io.tmpdir";
 
 
+	/** The logger. */
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
+	/** The resource base path. */
 	private final String resourceBasePath;
 
+	/** The resource loader. */
 	private final ResourceLoader resourceLoader;
 
+	/** The attributes. */
 	private final Map<String, Object> attributes = new LinkedHashMap<String, Object>();
 
+	/** The init parameters. */
 	private final Map<String, String> initParameters = new LinkedHashMap<String, String>();
 
+	/** The portlet context name. */
 	private String portletContextName = "MockPortletContext";
 
+	/** The container runtime options. */
 	private Set<String> containerRuntimeOptions = new LinkedHashSet<String>();
 
 
@@ -238,6 +246,12 @@ public class MockPortletContext implements PortletContext {
 		this.attributes.remove(name);
 	}
 
+	/**
+	 * Adds the init parameter.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 */
 	public void addInitParameter(String name, String value) {
 		Assertions.assertNotNull(name, "Parameter name must not be null");
 		this.initParameters.put(name, value);
@@ -264,6 +278,11 @@ public class MockPortletContext implements PortletContext {
 		logger.info(message, t);
 	}
 
+	/**
+	 * Sets the portlet context name.
+	 *
+	 * @param portletContextName the new portlet context name
+	 */
 	public void setPortletContextName(String portletContextName) {
 		this.portletContextName = portletContextName;
 	}
@@ -273,6 +292,11 @@ public class MockPortletContext implements PortletContext {
 		return this.portletContextName;
 	}
 
+	/**
+	 * Adds the container runtime option.
+	 *
+	 * @param key the key
+	 */
 	public void addContainerRuntimeOption(String key) {
 		this.containerRuntimeOptions.add(key);
 	}
@@ -289,6 +313,12 @@ public class MockPortletContext implements PortletContext {
 	 */
 	private static class MimeTypeResolver {
 
+		/**
+		 * Gets the mime type.
+		 *
+		 * @param filePath the file path
+		 * @return the mime type
+		 */
 		public static String getMimeType(String filePath) {
 			return FileTypeMap.getDefaultFileTypeMap().getContentType(filePath);
 		}

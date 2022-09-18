@@ -39,17 +39,23 @@ import org.springframework.util.StringUtils;
  */
 public abstract class MockBaseURL implements BaseURL {
 
+	/** The Constant URL_TYPE_RENDER. */
 	public static final String URL_TYPE_RENDER = "render";
 
+	/** The Constant URL_TYPE_ACTION. */
 	public static final String URL_TYPE_ACTION = "action";
 
+	/** The Constant ENCODING. */
 	private static final String ENCODING = StandardCharsets.UTF_8.name();
 
 
+	/** The parameters. */
 	protected final Map<String, String[]> parameters = new LinkedHashMap<String, String[]>();
 
+	/** The secure. */
 	private boolean secure = false;
 
+	/** The properties. */
 	private final Map<String, String[]> properties = new LinkedHashMap<String, String[]>();
 
 
@@ -78,15 +84,32 @@ public abstract class MockBaseURL implements BaseURL {
 		this.parameters.putAll(parameters);
 	}
 
+	/**
+	 * Gets the parameter names.
+	 *
+	 * @return the parameter names
+	 */
 	public Set<String> getParameterNames() {
 		return this.parameters.keySet();
 	}
 
+	/**
+	 * Gets the parameter.
+	 *
+	 * @param name the name
+	 * @return the parameter
+	 */
 	public String getParameter(String name) {
 		String[] arr = this.parameters.get(name);
 		return (arr != null && arr.length > 0 ? arr[0] : null);
 	}
 
+	/**
+	 * Gets the parameter values.
+	 *
+	 * @param name the name
+	 * @return the parameter values
+	 */
 	public String[] getParameterValues(String name) {
 		return this.parameters.get(name);
 	}
@@ -101,6 +124,11 @@ public abstract class MockBaseURL implements BaseURL {
 		this.secure = secure;
 	}
 
+	/**
+	 * Checks if is secure.
+	 *
+	 * @return true, if is secure
+	 */
 	public boolean isSecure() {
 		return this.secure;
 	}
@@ -131,11 +159,23 @@ public abstract class MockBaseURL implements BaseURL {
 		this.properties.put(key, new String[] {value});
 	}
 
+	/**
+	 * Gets the properties.
+	 *
+	 * @return the properties
+	 */
 	public Map<String, String[]> getProperties() {
 		return Collections.unmodifiableMap(this.properties);
 	}
 
 
+	/**
+	 * Encode parameter.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 * @return the string
+	 */
 	protected String encodeParameter(String name, String value) {
 		try {
 			return URLEncoder.encode(name, ENCODING) + "=" + URLEncoder.encode(value, ENCODING);
@@ -145,6 +185,13 @@ public abstract class MockBaseURL implements BaseURL {
 		}
 	}
 
+	/**
+	 * Encode parameter.
+	 *
+	 * @param name the name
+	 * @param values the values
+	 * @return the string
+	 */
 	protected String encodeParameter(String name, String[] values) {
 		try {
 			StringBuilder sb = new StringBuilder();

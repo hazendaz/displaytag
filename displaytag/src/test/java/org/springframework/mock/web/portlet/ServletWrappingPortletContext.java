@@ -33,11 +33,12 @@ import org.junit.jupiter.api.Assertions;
  * wrapping an underlying {@link javax.servlet.ServletContext}.
  *
  * @author Juergen Hoeller
- * @since 3.0
  * @see MockPortletContext
+ * @since 3.0
  */
 public class ServletWrappingPortletContext implements PortletContext {
 
+	/** The servlet context. */
 	private final ServletContext servletContext;
 
 
@@ -52,6 +53,8 @@ public class ServletWrappingPortletContext implements PortletContext {
 
 	/**
 	 * Return the underlying ServletContext that this PortletContext wraps.
+	 *
+	 * @return the servlet context
 	 */
 	public final ServletContext getServletContext() {
 		return this.servletContext;

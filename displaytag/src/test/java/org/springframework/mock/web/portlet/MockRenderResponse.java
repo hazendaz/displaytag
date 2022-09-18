@@ -31,8 +31,10 @@ import javax.portlet.RenderResponse;
  */
 public class MockRenderResponse extends MockMimeResponse implements RenderResponse {
 
+	/** The title. */
 	private String title;
 
+	/** The next possible portlet modes. */
 	private Collection<? extends PortletMode> nextPossiblePortletModes;
 
 
@@ -74,6 +76,11 @@ public class MockRenderResponse extends MockMimeResponse implements RenderRespon
 		this.title = title;
 	}
 
+	/**
+	 * Gets the title.
+	 *
+	 * @return the title
+	 */
 	public String getTitle() {
 		return this.title;
 	}
@@ -83,6 +90,11 @@ public class MockRenderResponse extends MockMimeResponse implements RenderRespon
 		this.nextPossiblePortletModes = portletModes;
 	}
 
+	/**
+	 * Gets the next possible portlet modes.
+	 *
+	 * @return the next possible portlet modes
+	 */
 	public Collection<? extends PortletMode> getNextPossiblePortletModes() {
 		return this.nextPossiblePortletModes;
 	}
