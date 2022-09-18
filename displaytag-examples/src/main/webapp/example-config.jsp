@@ -3,7 +3,7 @@
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:directive.page import="java.util.*"/>
   <jsp:scriptlet> request.setAttribute( "test", new org.displaytag.sample.TestList(10, false) );</jsp:scriptlet>
-  <jsp:scriptlet> request.setAttribute( "test2", new ArrayList() );</jsp:scriptlet>
+  <jsp:scriptlet> request.setAttribute( "test2", new ArrayList<>() );</jsp:scriptlet>
   <jsp:scriptlet> Object foo = session.getAttribute( "test3" ); if( foo == null ) { session.setAttribute( "test3", new
     org.displaytag.sample.TestList(320, false) ); }
   </jsp:scriptlet>

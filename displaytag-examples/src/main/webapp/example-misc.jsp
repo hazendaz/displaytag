@@ -4,7 +4,7 @@
   <jsp:scriptlet>
   <![CDATA[
    request.setAttribute( "test", new org.displaytag.sample.TestList(10, false) ); 
-   request.setAttribute( "test2", new java.util.ArrayList() );  
+   request.setAttribute( "test2", new java.util.ArrayList<>() );  
     Object foo = session.getAttribute( "test3" );
    if( foo == null ) {
       session.setAttribute( "test3", new org.displaytag.sample.TestList(320, false) );
