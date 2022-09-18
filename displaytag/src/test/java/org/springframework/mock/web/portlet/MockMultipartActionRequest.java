@@ -27,8 +27,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * Mock implementation of the
- * {@link org.springframework.web.portlet.multipart.MultipartActionRequest} interface.
+ * Mock implementation of the MockActionRequest.
  *
  * <p>Useful for testing application controllers that access multipart uploads.
  * The {@link org.springframework.mock.web.MockMultipartFile} can be used to
