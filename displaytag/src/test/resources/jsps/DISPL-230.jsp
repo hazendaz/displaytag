@@ -12,7 +12,7 @@
       <jsp:scriptlet> <![CDATA[
                 java.util.List<org.displaytag.test.KnownValue> testData = new java.util.ArrayList<org.displaytag.test.KnownValue>();
                 testData.add(new org.displaytag.test.KnownValue());
-                request.setAttribute( "test", testData);
+                request.setAttribute("test", testData);
             ]]>
       </jsp:scriptlet>
       <display:table items="${test}" id="table" export="true">
