@@ -25,7 +25,7 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Hashtable;
+import java.util.Properties;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -114,7 +114,7 @@ public abstract class DisplaytagCase {
         this.runner.getSession(true).getServletContext().setAttribute(InstanceManager.class.getName(),
                 new SimpleInstanceManager());
 
-        final Hashtable<String, String> params = new Hashtable<>();
+        final Properties params = new Properties();
         params.put("javaEncoding", StandardCharsets.UTF_8.name());
         params.put("scratchdir", "target");
         this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
