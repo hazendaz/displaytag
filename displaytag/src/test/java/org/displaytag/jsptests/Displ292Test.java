@@ -76,8 +76,6 @@ public class Displ292Test extends DisplaytagCase {
      * @throws Exception
      *             any exception thrown during test.
      */
-    // TODO This fails when run with everything but works in isolation so ignore
-    @Ignore
     @Override
     @Test
     public void doTest() throws Exception {
