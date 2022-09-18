@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -42,7 +43,7 @@ public abstract class MockBaseURL implements BaseURL {
 
 	public static final String URL_TYPE_ACTION = "action";
 
-	private static final String ENCODING = "UTF-8";
+	private static final String ENCODING = StandardCharsets.UTF_8.name();
 
 
 	protected final Map<String, String[]> parameters = new LinkedHashMap<String, String[]>();

@@ -18,7 +18,7 @@
     <File>${probe.log.path}/probe.log</File>
     <append>true</append>
     <encoder>
-      <charset>utf-8</charset>
+      <charset>UTF-8</charset>
       <pattern>%d{HH:mm:ss.SSS} %-5level {%thread} [%logger{40}] %msg%n</pattern>
     </encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">

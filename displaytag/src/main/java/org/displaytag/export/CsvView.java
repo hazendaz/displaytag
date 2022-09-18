@@ -23,6 +23,7 @@ package org.displaytag.export;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.jsp.JspException;
 
@@ -55,7 +56,7 @@ public class CsvView extends BaseExportView {
      */
     @Override
     public void doExport(final Writer out, final String characterEncoding) throws IOException, JspException {
-        if (StringUtils.equalsIgnoreCase(characterEncoding, "UTF-8")) {
+        if (StringUtils.equalsIgnoreCase(characterEncoding, StandardCharsets.UTF_8.name())) {
             out.write(CsvView.UTF8_BOM);
         }
         super.doExport(out, characterEncoding);

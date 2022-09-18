@@ -21,6 +21,8 @@
  */
 package org.displaytag.jsptests;
 
+import java.nio.charset.StandardCharsets;
+
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
@@ -75,7 +77,7 @@ public class ExportUTF8Test extends DisplaytagCase {
 
         final String encoding = response.getCharacterSet();
 
-        Assert.assertEquals("Encoding is not utf-8 as expected", "utf-8", encoding);
+        Assert.assertEquals("Encoding is not UTF-8 as expected", StandardCharsets.UTF_8.name(), encoding);
 
     }
 

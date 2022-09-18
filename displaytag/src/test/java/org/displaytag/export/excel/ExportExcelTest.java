@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
 
 import org.apache.tomcat.InstanceManager;
@@ -95,10 +96,10 @@ public class ExportExcelTest {
         // need to pass a web.xml file to setup servletunit working directory
         final ClassLoader classLoader = this.getClass().getClassLoader();
         final URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
-        final String path = URLDecoder.decode(webXmlUrl.getFile(), "UTF-8");
+        final String path = URLDecoder.decode(webXmlUrl.getFile(), StandardCharsets.UTF_8.name());
 
-        HttpUnitOptions.setDefaultCharacterSet("utf-8");
-        System.setProperty("file.encoding", "utf-8");
+        HttpUnitOptions.setDefaultCharacterSet(StandardCharsets.UTF_8.name());
+        System.setProperty("file.encoding", StandardCharsets.UTF_8.name());
 
         // start servletRunner
         this.runner = new ServletRunner(new File(path), ExportExcelTest.CONTEXT);
@@ -106,7 +107,7 @@ public class ExportExcelTest {
                 new SimpleInstanceManager());
 
         final Hashtable<String, String> params = new Hashtable<>();
-        params.put("javaEncoding", "utf-8");
+        params.put("javaEncoding", StandardCharsets.UTF_8.name());
         params.put("scratchdir", "target");
         this.runner.registerServlet("*.jsp", "org.apache.jasper.servlet.JspServlet", params);
 

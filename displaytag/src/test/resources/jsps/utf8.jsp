@@ -14,7 +14,7 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
-                response.setContentType("text/html; charset=utf-8");
+                response.setContentType("text/html; charset=UTF-8");
             ]]> </jsp:scriptlet>
 
 					<display:table name="requestScope.test" id="table">

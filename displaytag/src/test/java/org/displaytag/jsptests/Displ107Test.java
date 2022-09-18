@@ -22,6 +22,7 @@
 package org.displaytag.jsptests;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
@@ -102,15 +103,15 @@ public class Displ107Test extends DisplaytagCase {
         final byte[] result = new byte[11];
         stream.read(result);
 
-        final byte[] expected = "ant,àèì\n".getBytes("utf-8");
+        final byte[] expected = "ant,àèì\n".getBytes(StandardCharsets.UTF_8.name());
         if (this.log.isDebugEnabled()) {
-            this.log.debug("expected: [" + new String(expected, "utf-8") + "]");
-            this.log.debug("result:   [" + new String(result, "utf-8") + "]");
+            this.log.debug("expected: [" + new String(expected, StandardCharsets.UTF_8.name()) + "]");
+            this.log.debug("result:   [" + new String(result, StandardCharsets.UTF_8.name()) + "]");
         }
         Assert.assertEquals("Wrong length", expected.length, result.length);
 
         for (int j = 0; j < result.length; j++) {
-            Assert.assertEquals("Wrong byte at position " + j + ", output=" + new String(result, "utf-8"), expected[j],
+            Assert.assertEquals("Wrong byte at position " + j + ", output=" + new String(result, StandardCharsets.UTF_8.name()), expected[j],
                     result[j]);
 
         }

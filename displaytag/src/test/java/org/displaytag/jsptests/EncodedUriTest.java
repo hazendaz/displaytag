@@ -21,6 +21,8 @@
  */
 package org.displaytag.jsptests;
 
+import java.nio.charset.StandardCharsets;
+
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.Assert;
@@ -65,13 +67,13 @@ public class EncodedUriTest extends DisplaytagCase {
 
         final WebRequest request = new GetMethodWebRequest(this.getJspUrl(this.getJspName()));
         request.setParameter("city", "MünchenXX");
-        request.setHeaderField("Content-Type", "text/html; charset=utf-8");
+        request.setHeaderField("Content-Type", "text/html; charset=UTF-8");
 
         // just check that everything is ok before reaching displaytag
         Assert.assertEquals("MünchenXX", request.getParameter("city"));
         final WebResponse response = this.runner.getResponse(request);
 
-        Assert.assertEquals("utf-8", response.getCharacterSet());
+        Assert.assertEquals(StandardCharsets.UTF_8.name(), response.getCharacterSet());
 
         if (this.log.isDebugEnabled()) {
             this.log.debug(response.getText());
