@@ -124,7 +124,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
     /**
      * Holds the header rows and their content for a particular group.
      */
-    private final List<StringBuffer> headerRows = new ArrayList<>(5);
+    private final List<String> headerRows = new ArrayList<>(5);
 
     /**
      * Inits the.
@@ -310,7 +310,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
     @Override
     public void startOfGroup(final String value, final int group) {
         if (this.containsTotaledColumns) {
-            final StringBuffer tr = new StringBuffer();
+            final StringBuilder tr = new StringBuilder();
             tr.append("<tr>");
             final GroupTotals groupTotals = this.groupNumberToGroupTotal.get(Integer.valueOf(group));
             final int myColumnNumber = groupTotals.columnNumber;
@@ -325,7 +325,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
                 tr.append("<td></td>\n");
             }
             tr.append("</tr>\n");
-            this.headerRows.add(tr);
+            this.headerRows.add(tr.toString());
         }
     }
 
@@ -354,8 +354,8 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
     @Override
     public String startRow() {
         final StringBuilder sb = new StringBuilder();
-        for (final StringBuffer stringBuffer : this.headerRows) {
-            sb.append(stringBuffer);
+        for (final String string : this.headerRows) {
+            sb.append(string);
         }
         return sb.toString();
     }
@@ -385,7 +385,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
         String returnValue = "";
         if (this.containsTotaledColumns) {
             if (this.innermostGroup > 0 && this.deepestResetGroup != MultilevelTotalTableDecorator.NO_RESET_GROUP) {
-                final StringBuffer out = new StringBuffer();
+                final StringBuilder out = new StringBuilder();
                 // Starting with the deepest group, print the current total and reset. Do not reset unaffected groups.
                 for (int i = this.innermostGroup; i >= this.deepestResetGroup; i--) {
                     final Integer groupNumber = Integer.valueOf(i);
@@ -421,7 +421,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
      * @param out
      *            the out
      */
-    protected void finishGroup(final int columnNumber, final StringBuffer out) {
+    protected void finishGroup(final int columnNumber, final StringBuilder out) {
         // Not Implemented
     }
 
@@ -435,7 +435,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
             return "";
         }
         final List<HeaderCell> headerCells = this.tableModel.getHeaderCellList();
-        final StringBuffer output = new StringBuffer();
+        final StringBuilder output = new StringBuilder();
         final int currentRow = this.getListIndex();
         output.append(TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + " class=\"grandtotal-row\""
                 + TagConstants.TAG_CLOSE);
@@ -570,7 +570,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
         final Object cssClassObj = header.getHtmlAttributes().get("class");
         final String cssClass = cssClassObj != null ? cssClassObj.toString() : StringUtils.EMPTY;
 
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         buffer.append(TagConstants.TAG_OPEN);
         buffer.append(TagConstants.TAGNAME_COLUMN);
         if (cssClass != null || totalClass != null) {
@@ -681,7 +681,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
          * @param out
          *            the out
          */
-        public void printTotals(final int currentRow, final StringBuffer out) {
+        public void printTotals(final int currentRow, final StringBuilder out) {
 
             // For each column, output:
             final List<HeaderCell> headerCells = MultilevelTotalTableDecorator.this.tableModel.getHeaderCellList();
