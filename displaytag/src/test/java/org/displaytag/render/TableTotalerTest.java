@@ -23,7 +23,6 @@ package org.displaytag.render;
 
 import java.io.File;
 
-import org.custommonkey.xmlunit.XMLTestCase;
 import org.displaytag.export.FopExportView;
 import org.displaytag.export.XmlTotalsWriter;
 import org.displaytag.model.HeaderCell;
@@ -35,11 +34,12 @@ import org.displaytag.util.HtmlAttributeMap;
 import org.displaytag.util.MultipleHtmlAttribute;
 import org.displaytag.util.TagConstants;
 import org.junit.jupiter.api.Test;
+import org.xmlunit.assertj3.XmlAssert;
 
 /**
  * User: rapruitt Date: May 31, 2010 Time: 1:08:02 PM.
  */
-public class TableTotalerTest extends XMLTestCase {
+public class TableTotalerTest {
 
     /**
      * Gets the model.
@@ -115,10 +115,11 @@ public class TableTotalerTest extends XMLTestCase {
         final XmlTotalsWriter tw = new XmlTotalsWriter(m);
         tw.writeTable(m, "safd");
         final String xml = tw.getXml();
-        this.assertXpathEvaluatesTo("11.0", "//subgroup[@grouped-by=0]/subtotal/subtotal-cell[4]", xml);
-        this.assertXpathEvaluatesTo("7.0", "//subgroup[@grouped-by=1]/subtotal/subtotal-cell[4]", xml);
-        this.assertXpathEvaluatesTo("4.0", "//subgroup[@grouped-by=2]/subtotal/subtotal-cell[4]", xml);
-        this.assertXpathExists("//cell[@text-align='right']", xml);
+        XmlAssert xmlAssert = XmlAssert.assertThat(xml); 
+        xmlAssert.valueByXPath("//subgroup[@grouped-by=0]/subtotal/subtotal-cell[4]").isEqualTo("11.0");
+        xmlAssert.valueByXPath("//subgroup[@grouped-by=1]/subtotal/subtotal-cell[4]").isEqualTo("7.0");
+        xmlAssert.valueByXPath("//subgroup[@grouped-by=2]/subtotal/subtotal-cell[4]").isEqualTo("4.0");
+        xmlAssert.hasXPath("//cell[@text-align='right']");
 
         final File f = File.createTempFile("displaytag", "pdf");
 
