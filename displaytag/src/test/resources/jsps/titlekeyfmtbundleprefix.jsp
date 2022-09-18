@@ -1,6 +1,6 @@
 <jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:display="urn:jsptld:http://displaytag.sf.net"
-    xmlns:fmt="urn:jsptld:../WEB-INF/tld/fmt.tld">
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
     <jsp:text> <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> ]]> </jsp:text>
     <jsp:directive.page contentType="text/html; charset=UTF8"/>
