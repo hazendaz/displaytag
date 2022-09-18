@@ -21,6 +21,8 @@
  */
 package org.displaytag.decorator;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.StringUtils;
@@ -95,8 +97,8 @@ public class DefaultDecoratorFactory implements DecoratorFactory {
         // reflection
         if (decorator == null) {
             try {
-                decorator = ReflectHelper.classForName(decoratorName).newInstance();
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                decorator = ReflectHelper.classForName(decoratorName).getDeclaredConstructor().newInstance();
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
         }
@@ -175,8 +177,8 @@ public class DefaultDecoratorFactory implements DecoratorFactory {
         // reflection
         if (decorator == null) {
             try {
-                decorator = ReflectHelper.classForName(decoratorName).newInstance();
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                decorator = ReflectHelper.classForName(decoratorName).getDeclaredConstructor().newInstance();
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
         }

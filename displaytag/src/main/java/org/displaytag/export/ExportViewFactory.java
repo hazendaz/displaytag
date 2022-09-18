@@ -21,6 +21,7 @@
  */
 package org.displaytag.export;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -111,8 +112,8 @@ public final class ExportViewFactory {
         }
 
         try {
-            exportClass.newInstance();
-        } catch (final InstantiationException e) {
+            exportClass.getDeclaredConstructor().newInstance();
+        } catch (final InstantiationException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             ExportViewFactory.log.error(Messages.getString("ExportViewFactory.instantiationexception", //$NON-NLS-1$
                     new Object[] { name, viewClassName, e.getMessage() }));
             return;
@@ -158,8 +159,8 @@ public final class ExportViewFactory {
         final Class<ExportView> viewClass = this.viewClasses.get(exportType);
 
         try {
-            view = viewClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            view = viewClass.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             // should not happen (class has already been instantiated before)
             throw new WrappedRuntimeException(this.getClass(), e);
         }

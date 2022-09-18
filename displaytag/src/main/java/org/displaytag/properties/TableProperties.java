@@ -23,6 +23,7 @@ package org.displaytag.properties;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.text.Collator;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -533,11 +534,11 @@ public final class TableProperties implements Cloneable {
                 try {
                     final Class<LocaleResolver> classProperty = (Class<LocaleResolver>) ReflectHelper
                             .classForName(className);
-                    TableProperties.localeResolver = classProperty.newInstance();
+                    TableProperties.localeResolver = classProperty.getDeclaredConstructor().newInstance();
 
                     TableProperties.log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(LocaleResolver.class), className }));
-                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                     TableProperties.log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(LocaleResolver.class), e.getClass().getName(),
                                     e.getMessage() }));
@@ -1235,11 +1236,11 @@ public final class TableProperties implements Cloneable {
                 try {
                     final Class<I18nResourceProvider> classProperty = (Class<I18nResourceProvider>) ReflectHelper
                             .classForName(className);
-                    TableProperties.resourceProvider = classProperty.newInstance();
+                    TableProperties.resourceProvider = classProperty.getDeclaredConstructor().newInstance();
 
                     TableProperties.log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class), className }));
-                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                     TableProperties.log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class),
                                     e.getClass().getName(), e.getMessage() }));
@@ -1320,7 +1321,7 @@ public final class TableProperties implements Cloneable {
 
         try {
             final Class<?> classProperty = ReflectHelper.classForName(className);
-            instance = classProperty.newInstance();
+            instance = classProperty.getDeclaredConstructor().newInstance();
             this.objectCache.put(className, instance);
             return instance;
         } catch (final Exception e) {
@@ -1383,8 +1384,8 @@ public final class TableProperties implements Cloneable {
             try {
                 final Class<Comparator<Object>> classProperty = (Class<Comparator<Object>>) ReflectHelper
                         .classForName(className);
-                return classProperty.newInstance();
-            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                return classProperty.getDeclaredConstructor().newInstance();
+            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 TableProperties.log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
                         new Object[] { ClassUtils.getShortClassName(Comparator.class), e.getClass().getName(),
                                 e.getMessage() }));
