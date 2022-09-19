@@ -49,9 +49,9 @@ public abstract class TotalWrapperTemplate extends TableDecorator
     private double cityTotal;
 
     /**
-     * Obtain the <code>StringBuffer</code> used to build the totals line.
+     * Obtain the <code>StringBuilder</code> used to build the totals line.
      */
-    private StringBuffer buffer;
+    private StringBuilder buffer;
 
     /**
      * After every row completes we evaluate to see if we should be drawing a new total line and summing the results
@@ -74,7 +74,7 @@ public abstract class TotalWrapperTemplate extends TableDecorator
             nextCity = (((List<ReportableListObject>) getDecoratedObject()).get(listindex + 1)).getCity();
         }
 
-        this.buffer = new StringBuffer(1000);
+        this.buffer = new StringBuilder(1000);
 
         // City subtotals...
         if (!ObjectUtils.equals(nextCity, reportableObject.getCity()))
@@ -97,19 +97,19 @@ public abstract class TotalWrapperTemplate extends TableDecorator
      * @param city The city name to render.
      * @param total The city total to render.
      */
-    abstract protected void writeCityTotal(String city, double total);
+    protected abstract void writeCityTotal(String city, double total);
 
     /**
      * Render the grand total in the appropriate format.
      * @param total The grand total to render.
      */
-    abstract protected void writeGrandTotal(double total);
+    protected abstract void writeGrandTotal(double total);
 
     /**
-     * Obtain the <code>StringBuffer</code> used to build the totals line.
-     * @return The <code>StringBuffer</code> used to build the totals line.
+     * Obtain the <code>StringBuilder</code> used to build the totals line.
+     * @return The <code>StringBuilder</code> used to build the totals line.
      */
-    protected StringBuffer getStringBuffer()
+    protected StringBuilder getStringBuilder()
     {
         return this.buffer;
     }
