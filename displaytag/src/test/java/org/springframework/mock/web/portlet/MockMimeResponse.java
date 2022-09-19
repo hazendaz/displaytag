@@ -23,6 +23,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Locale;
@@ -150,8 +152,8 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
 	public PrintWriter getWriter() throws UnsupportedEncodingException {
 		if (this.writer == null) {
 			Writer targetWriter = (this.characterEncoding != null ?
-					new OutputStreamWriter(this.outputStream, this.characterEncoding) :
-					new OutputStreamWriter(this.outputStream));
+					new OutputStreamWriter(this.outputStream, Charset.forName(this.characterEncoding)) :
+					new OutputStreamWriter(this.outputStream, StandardCharsets.UTF_8));
 			this.writer = new PrintWriter(targetWriter);
 		}
 		return this.writer;

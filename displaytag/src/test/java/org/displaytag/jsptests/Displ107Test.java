@@ -103,16 +103,16 @@ class Displ107Test extends DisplaytagCase {
         final byte[] result = new byte[11];
         stream.read(result);
 
-        final byte[] expected = "ant,àèì\n".getBytes(StandardCharsets.UTF_8.name());
+        final byte[] expected = "ant,àèì\n".getBytes(StandardCharsets.UTF_8);
         if (this.log.isDebugEnabled()) {
-            this.log.debug("expected: [" + new String(expected, StandardCharsets.UTF_8.name()) + "]");
-            this.log.debug("result:   [" + new String(result, StandardCharsets.UTF_8.name()) + "]");
+            this.log.debug("expected: [" + new String(expected, StandardCharsets.UTF_8) + "]");
+            this.log.debug("result:   [" + new String(result, StandardCharsets.UTF_8) + "]");
         }
         Assertions.assertEquals(expected.length, result.length, "Wrong length");
 
         for (int j = 0; j < result.length; j++) {
             Assertions.assertEquals(expected[j], result[j],
-                "Wrong byte at position " + j + ", output=" + new String(result, StandardCharsets.UTF_8.name()));
+                "Wrong byte at position " + j + ", output=" + new String(result, StandardCharsets.UTF_8));
 
         }
     }

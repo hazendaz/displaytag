@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
 import javax.portlet.ClientDataRequest;
@@ -109,7 +111,7 @@ public class MockClientDataRequest extends MockPortletRequest implements ClientD
 		if (this.content != null) {
 			InputStream sourceStream = new ByteArrayInputStream(this.content);
 			Reader sourceReader = (this.characterEncoding != null) ?
-				new InputStreamReader(sourceStream, this.characterEncoding) : new InputStreamReader(sourceStream);
+				new InputStreamReader(sourceStream, Charset.forName(this.characterEncoding)) : new InputStreamReader(sourceStream, StandardCharsets.UTF_8);
 			return new BufferedReader(sourceReader);
 		}
 		else {

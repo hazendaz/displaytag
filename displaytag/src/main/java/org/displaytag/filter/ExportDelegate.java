@@ -24,6 +24,8 @@ package org.displaytag.filter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
@@ -137,9 +139,9 @@ public final class ExportDelegate {
         if (pageContent instanceof String) {
             // text content
             if (characterEncoding != null) {
-                response.setContentLength(((String) pageContent).getBytes(characterEncoding).length);
+                response.setContentLength(((String) pageContent).getBytes(Charset.forName(characterEncoding)).length);
             } else {
-                response.setContentLength(((String) pageContent).getBytes().length);
+                response.setContentLength(((String) pageContent).getBytes(StandardCharsets.UTF_8).length);
             }
 
             final PrintWriter out = response.getWriter();
