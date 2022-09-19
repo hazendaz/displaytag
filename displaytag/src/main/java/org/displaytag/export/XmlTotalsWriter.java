@@ -60,7 +60,7 @@ public class XmlTotalsWriter extends TableWriterAdapter {
     Pattern stylePat = Pattern.compile("\\s*?([\\w\\-]+?)\\s*?:\\s*?([\\w\\-]+?)(?:;|$)");
 
     /** The xml. */
-    protected StringBuffer xml = new StringBuffer();
+    protected StringBuilder xml = new StringBuilder();
 
     /** The current grouping value by group. */
     Map<Integer, String> currentGroupingValueByGroup = new HashMap<>();
