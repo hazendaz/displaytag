@@ -310,18 +310,6 @@
         <version>3.3.2</version>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.4.2</version>
-        <configuration>
-          <descriptors>
-            <descriptor>${project.basedir}/src/main/assembly/bin.xml</descriptor>
-            <descriptor>${project.basedir}/src/main/assembly/src.xml</descriptor>
-          </descriptors>
-          <finalName>displaytag-${project.version}</finalName>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <version>4.2.rc3</version>
