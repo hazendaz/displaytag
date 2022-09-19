@@ -40,7 +40,7 @@ public class HtmlTotalWrapper extends TotalWrapperTemplate
     @Override
     protected void writeCityTotal(String city, double total)
     {
-        StringBuffer buffer = this.getStringBuffer();
+        StringBuilder buffer = this.getStringBuilder();
         buffer.append("\n<tr>\n<td>&nbsp;</td><td>&nbsp;</td><td><hr/></td>"); //$NON-NLS-1$
         buffer.append("\n<td>&nbsp;</td></tr>"); //$NON-NLS-1$
         buffer.append("\n<tr><td>&nbsp;</td>"); //$NON-NLS-1$
@@ -58,7 +58,7 @@ public class HtmlTotalWrapper extends TotalWrapperTemplate
     @Override
     protected void writeGrandTotal(double total)
     {
-        StringBuffer buffer = this.getStringBuffer();
+        StringBuilder buffer = this.getStringBuilder();
         buffer.append("<tr><td colspan=\"4\"><hr/></td></tr>"); //$NON-NLS-1$
         buffer.append("<tr><td>&nbsp;</td>"); //$NON-NLS-1$
         buffer.append("<td align=\"right\"><strong>Grand Total:</strong></td><td><strong>"); //$NON-NLS-1$
