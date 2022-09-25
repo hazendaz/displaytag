@@ -132,7 +132,7 @@
   <licenses>
     <license>
       <name>MIT</name>
-      <url>LICENSE.txt</url>
+      <url>LICENSE_HEADER</url>
     </license>
   </licenses>
 
@@ -315,7 +315,7 @@
         <version>4.2.rc3</version>
         <configuration>
           <strictCheck>true</strictCheck>
-          <header>src/main/etc/header.txt</header>
+          <header>LICENSE_HEADER</header>
           <includes>
             <include>src/**/*.java</include>
           </includes>
@@ -324,7 +324,7 @@
             <exclude>src/test/java/org/springframework/**/*.java</exclude>
           </excludes>
           <properties>
-            <year>${project.inceptionYear}-2014</year>
+            <year>${project.inceptionYear}-2022</year>
             <name>${project.name}</name>
             <description>${project.description}</description>
             <url>${project.url}</url>
