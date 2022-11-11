@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/org/displaytag/jsptests/HtmlAttributesTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2014 Fabrizio Giustina, the Displaytag team</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2022 Fabrizio Giustina, the Displaytag team</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -30,8 +30,8 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">package</strong> org.displaytag.jsptests;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.displaytag.test.DisplaytagCase;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.junit.Assert;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Assertions;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> com.meterware.httpunit.GetMethodWebRequest;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> com.meterware.httpunit.TableCell;
@@ -46,7 +46,7 @@
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="HtmlAttributesTest" href="../../../org/displaytag/jsptests/HtmlAttributesTest.html#HtmlAttributesTest">HtmlAttributesTest</a> <strong class="jxr_keyword">extends</strong> <a name="DisplaytagCase" href="../../../org/displaytag/test/DisplaytagCase.html#DisplaytagCase">DisplaytagCase</a> {
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">class</strong> <a name="HtmlAttributesTest" href="../../../org/displaytag/jsptests/HtmlAttributesTest.html#HtmlAttributesTest">HtmlAttributesTest</a> <strong class="jxr_keyword">extends</strong> <a name="DisplaytagCase" href="../../../org/displaytag/test/DisplaytagCase.html#DisplaytagCase">DisplaytagCase</a> {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment">     * Gets the jsp name.</em>
@@ -64,7 +64,7 @@
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment">     * Check content and ids in generated tables.</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment">     * @throws Exception</em>
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     *             any axception thrown during test.</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     *             any exception thrown during test.</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      @Override
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      @Test
@@ -75,30 +75,30 @@
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          response = <strong class="jxr_keyword">this</strong>.runner.getResponse(request);
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>          <strong class="jxr_keyword">final</strong> WebTable[] tables = response.getTables();
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          Assert.assertEquals(<span class="jxr_string">"Wrong number of tables."</span>, 1, tables.length);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          Assertions.assertEquals(1, tables.length, <span class="jxr_string">"Wrong number of tables."</span>);
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>          <strong class="jxr_keyword">final</strong> WebTable table = tables[0];
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          Assert.assertEquals(<span class="jxr_string">"invalid id"</span>, <span class="jxr_string">"idX"</span>, table.getID());
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          Assertions.assertEquals(<span class="jxr_string">"idX"</span>, table.getID(), <span class="jxr_string">"invalid id"</span>);
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"cellspacingX"</span>, table.getAttribute(<span class="jxr_string">"cellspacing"</span>));
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"cellpaddingX"</span>, table.getAttribute(<span class="jxr_string">"cellpadding"</span>));
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"frameX"</span>, table.getAttribute(<span class="jxr_string">"frame"</span>));
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"rulesX"</span>, table.getAttribute(<span class="jxr_string">"rules"</span>));
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"styleX"</span>, table.getAttribute(<span class="jxr_string">"style"</span>));
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"summaryX"</span>, table.getAttribute(<span class="jxr_string">"summary"</span>));
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"classX table"</span>, table.getAttribute(<span class="jxr_string">"class"</span>));
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          Assertions.assertEquals(<span class="jxr_string">"cellspacingX"</span>, table.getAttribute(<span class="jxr_string">"cellspacing"</span>), <span class="jxr_string">"invalid attribute value"</span>);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>          Assertions.assertEquals(<span class="jxr_string">"cellpaddingX"</span>, table.getAttribute(<span class="jxr_string">"cellpadding"</span>), <span class="jxr_string">"invalid attribute value"</span>);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          Assertions.assertEquals(<span class="jxr_string">"frameX"</span>, table.getAttribute(<span class="jxr_string">"frame"</span>), <span class="jxr_string">"invalid attribute value"</span>);
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>          Assertions.assertEquals(<span class="jxr_string">"rulesX"</span>, table.getAttribute(<span class="jxr_string">"rules"</span>), <span class="jxr_string">"invalid attribute value"</span>);
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>          Assertions.assertEquals(<span class="jxr_string">"styleX"</span>, table.getAttribute(<span class="jxr_string">"style"</span>), <span class="jxr_string">"invalid attribute value"</span>);
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>          Assertions.assertEquals(<span class="jxr_string">"summaryX"</span>, table.getAttribute(<span class="jxr_string">"summary"</span>), <span class="jxr_string">"invalid attribute value"</span>);
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          Assertions.assertEquals(<span class="jxr_string">"classX table"</span>, table.getAttribute(<span class="jxr_string">"class"</span>), <span class="jxr_string">"invalid attribute value"</span>);
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <strong class="jxr_keyword">final</strong> TableCell header = table.getTableCell(0, 0);
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"classH"</span>, header.getAttribute(<span class="jxr_string">"class"</span>));
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"styleH"</span>, header.getAttribute(<span class="jxr_string">"style"</span>));
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          Assertions.assertEquals(<span class="jxr_string">"classH"</span>, header.getAttribute(<span class="jxr_string">"class"</span>), <span class="jxr_string">"invalid attribute value"</span>);
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          Assertions.assertEquals(<span class="jxr_string">"styleH"</span>, header.getAttribute(<span class="jxr_string">"style"</span>), <span class="jxr_string">"invalid attribute value"</span>);
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>          <strong class="jxr_keyword">final</strong> TableCell cell = table.getTableCell(1, 0);
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"styleX"</span>, cell.getAttribute(<span class="jxr_string">"style"</span>));
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>          Assert.assertEquals(<span class="jxr_string">"invalid attribute value"</span>, <span class="jxr_string">"classX"</span>, cell.getAttribute(<span class="jxr_string">"class"</span>));
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          Assertions.assertEquals(<span class="jxr_string">"styleX"</span>, cell.getAttribute(<span class="jxr_string">"style"</span>), <span class="jxr_string">"invalid attribute value"</span>);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          Assertions.assertEquals(<span class="jxr_string">"classX"</span>, cell.getAttribute(<span class="jxr_string">"class"</span>), <span class="jxr_string">"invalid attribute value"</span>);
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>      }
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2021 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2022 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

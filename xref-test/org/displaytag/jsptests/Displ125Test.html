@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/org/displaytag/jsptests/Displ125Test.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2014 Fabrizio Giustina, the Displaytag team</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2022 Fabrizio Giustina, the Displaytag team</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -34,8 +34,8 @@
 <a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.displaytag.tags.TableTagParameters;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.displaytag.test.DisplaytagCase;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.displaytag.util.ParamEncoder;
-<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.junit.Assert;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Assertions;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.xml.sax.SAXException;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> com.meterware.httpunit.GetMethodWebRequest;
@@ -51,7 +51,7 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * @version $Id: $</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="Displ125Test" href="../../../org/displaytag/jsptests/Displ125Test.html#Displ125Test">Displ125Test</a> <strong class="jxr_keyword">extends</strong> <a name="DisplaytagCase" href="../../../org/displaytag/test/DisplaytagCase.html#DisplaytagCase">DisplaytagCase</a> {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">class</strong> <a name="Displ125Test" href="../../../org/displaytag/jsptests/Displ125Test.html#Displ125Test">Displ125Test</a> <strong class="jxr_keyword">extends</strong> <a name="DisplaytagCase" href="../../../org/displaytag/test/DisplaytagCase.html#DisplaytagCase">DisplaytagCase</a> {
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment">     * Gets the jsp name.</em>
@@ -69,7 +69,7 @@
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * Preserve The Current Page And Sort Across Session.</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     * @throws Exception</em>
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     *             any axception thrown during test.</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     *             any exception thrown during test.</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>      @Override
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>      @Test
@@ -108,21 +108,21 @@
 <a class="jxr_linenumber" name="L100" href="#L100">100</a>         }
 <a class="jxr_linenumber" name="L101" href="#L101">101</a> 
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>         <strong class="jxr_keyword">final</strong> WebTable[] tables = response.getTables();
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>         Assert.assertEquals(<span class="jxr_string">"Wrong number of tables."</span>, 1, tables.length);
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>         Assert.assertEquals(<span class="jxr_string">"Wrong number of rows."</span>, 2, tables[0].getRowCount());
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>         Assert.assertEquals(<span class="jxr_string">"Column content missing?"</span>, <span class="jxr_string">"ant"</span>, tables[0].getCellAsText(1, 0));
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         Assertions.assertEquals(1, tables.length, <span class="jxr_string">"Wrong number of tables."</span>);
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>         Assertions.assertEquals(2, tables[0].getRowCount(), <span class="jxr_string">"Wrong number of rows."</span>);
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         Assertions.assertEquals(<span class="jxr_string">"ant"</span>, tables[0].getCellAsText(1, 0), <span class="jxr_string">"Column content missing?"</span>);
 <a class="jxr_linenumber" name="L106" href="#L106">106</a> 
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>         <strong class="jxr_keyword">final</strong> HTMLElement pagination = response.getElementWithID(<span class="jxr_string">"pagination"</span>);
-<a class="jxr_linenumber" name="L108" href="#L108">108</a>         Assert.assertNotNull(<span class="jxr_string">"Paging banner not found."</span>, pagination);
-<a class="jxr_linenumber" name="L109" href="#L109">109</a>         Assert.assertEquals(<span class="jxr_string">"Pagination links are not as expected."</span>, <span class="jxr_string">"1, 2, [3]"</span>, pagination.getText());
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>         Assertions.assertNotNull(pagination, <span class="jxr_string">"Paging banner not found."</span>);
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>         Assertions.assertEquals(<span class="jxr_string">"1, 2, [3]"</span>, pagination.getText(), <span class="jxr_string">"Pagination links are not as expected."</span>);
 <a class="jxr_linenumber" name="L110" href="#L110">110</a> 
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         Assert.assertEquals(<span class="jxr_string">"Column 1 should be marked as sorted."</span>, <span class="jxr_string">"sortable sorted order2"</span>,
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>                 tables[0].getTableCell(0, 0).getClassName());
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         Assertions.assertEquals(<span class="jxr_string">"sortable sorted order2"</span>,
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>                 tables[0].getTableCell(0, 0).getClassName(), <span class="jxr_string">"Column 1 should be marked as sorted."</span>);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>     }
 <a class="jxr_linenumber" name="L114" href="#L114">114</a> 
 <a class="jxr_linenumber" name="L115" href="#L115">115</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2021 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2022 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

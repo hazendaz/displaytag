@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/org/displaytag/jsptests/MediaSupportXmlTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2014 Fabrizio Giustina, the Displaytag team</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2022 Fabrizio Giustina, the Displaytag team</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -35,8 +35,8 @@
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> org.displaytag.test.DisplaytagCase;
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> org.displaytag.test.KnownValue;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> org.displaytag.util.ParamEncoder;
-<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.junit.Assert;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Assertions;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> com.meterware.httpunit.GetMethodWebRequest;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> com.meterware.httpunit.WebRequest;
@@ -49,7 +49,7 @@
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="MediaSupportXmlTest" href="../../../org/displaytag/jsptests/MediaSupportXmlTest.html#MediaSupportXmlTest">MediaSupportXmlTest</a> <strong class="jxr_keyword">extends</strong> <a name="DisplaytagCase" href="../../../org/displaytag/test/DisplaytagCase.html#DisplaytagCase">DisplaytagCase</a> {
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">class</strong> <a name="MediaSupportXmlTest" href="../../../org/displaytag/jsptests/MediaSupportXmlTest.html#MediaSupportXmlTest">MediaSupportXmlTest</a> <strong class="jxr_keyword">extends</strong> <a name="DisplaytagCase" href="../../../org/displaytag/test/DisplaytagCase.html#DisplaytagCase">DisplaytagCase</a> {
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment">     * Gets the jsp name.</em>
@@ -67,7 +67,7 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment">     * Test as Xml.</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     * @throws Exception</em>
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     *             any axception thrown during test.</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_javadoccomment">     *             any exception thrown during test.</em>
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>      @Override
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>      @Test
@@ -86,22 +86,25 @@
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>          }
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          <em class="jxr_comment">// we are really testing an xml output?</em>
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>          Assert.assertEquals(<span class="jxr_string">"Expected a different content type."</span>, <span class="jxr_string">"text/xml"</span>, response.getContentType());
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          Assertions.assertEquals(<span class="jxr_string">"text/xml"</span>, response.getContentType(), <span class="jxr_string">"Expected a different content type."</span>);
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>          <strong class="jxr_keyword">final</strong> String output = response.getText();
 <a class="jxr_linenumber" name="L84" href="#L84">84</a>  
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>          Assert.assertTrue(<span class="jxr_string">"Expected value ["</span> + KnownValue.BEE + <span class="jxr_string">"] missing"</span>,
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>                  StringUtils.contains(output, KnownValue.BEE));
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>          Assert.assertTrue(<span class="jxr_string">"Expected value ["</span> + KnownValue.CAMEL + <span class="jxr_string">"] missing"</span>,
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>                  StringUtils.contains(output, KnownValue.CAMEL));
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>          Assert.assertTrue(<span class="jxr_string">"Unexpected value ["</span> + KnownValue.ANT + <span class="jxr_string">"] found"</span>,
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>                  !StringUtils.contains(output, KnownValue.ANT));
-<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
-<a class="jxr_linenumber" name="L92" href="#L92">92</a>      }
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  
-<a class="jxr_linenumber" name="L94" href="#L94">94</a>  }
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          Assertions.assertTrue(
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>                  StringUtils.contains(output, KnownValue.BEE),
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>                  <span class="jxr_string">"Expected value ["</span> + KnownValue.BEE + <span class="jxr_string">"] missing"</span>);
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>          Assertions.assertTrue(
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>                  StringUtils.contains(output, KnownValue.CAMEL),
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>                  <span class="jxr_string">"Expected value ["</span> + KnownValue.CAMEL + <span class="jxr_string">"] missing"</span>);
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>          Assertions.assertTrue(
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>                  !StringUtils.contains(output, KnownValue.ANT),
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>                  <span class="jxr_string">"Unexpected value ["</span> + KnownValue.ANT + <span class="jxr_string">"] found"</span>);
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      }
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2021 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2022 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
