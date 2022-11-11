@@ -15,7 +15,7 @@
                 request.setAttribute("test", testData);
             ]]>
       </jsp:scriptlet>
-      <display:table items="${test}" id="table" export="true">
+      <display:table items="requestScope.test" id="table" export="true">
         <display:setProperty name="export.banner.placement" value="${param.placement}"/>
         <display:setProperty name="export.banner">
           <span class="testitem">EXPORTLINKS</span>

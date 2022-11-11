@@ -18,7 +18,7 @@
                 request.setAttribute( "test", testData);
             ]]>
       </jsp:scriptlet>
-      <display:table items="${test}" id="table" pagesize="${param.pagesize}">
+      <display:table items="requestScope.test" id="table" pagesize="${param.pagesize}">
         <display:column property="id"/>
         <display:column>foo</display:column>
       </display:table>
