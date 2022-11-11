@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/org/displaytag/jsptests/I18nPropertiesTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2014 Fabrizio Giustina, the Displaytag team</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2022 Fabrizio Giustina, the Displaytag team</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -30,8 +30,8 @@
 <a class="jxr_linenumber" name="L22" href="#L22">22</a>  <strong class="jxr_keyword">package</strong> org.displaytag.jsptests;
 <a class="jxr_linenumber" name="L23" href="#L23">23</a>  
 <a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">import</strong> org.displaytag.test.DisplaytagCase;
-<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.junit.Assert;
-<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Assertions;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L27" href="#L27">27</a>  
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> com.meterware.httpunit.GetMethodWebRequest;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> com.meterware.httpunit.WebRequest;
@@ -44,7 +44,7 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="I18nPropertiesTest" href="../../../org/displaytag/jsptests/I18nPropertiesTest.html#I18nPropertiesTest">I18nPropertiesTest</a> <strong class="jxr_keyword">extends</strong> <a name="DisplaytagCase" href="../../../org/displaytag/test/DisplaytagCase.html#DisplaytagCase">DisplaytagCase</a> {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">class</strong> <a name="I18nPropertiesTest" href="../../../org/displaytag/jsptests/I18nPropertiesTest.html#I18nPropertiesTest">I18nPropertiesTest</a> <strong class="jxr_keyword">extends</strong> <a name="DisplaytagCase" href="../../../org/displaytag/test/DisplaytagCase.html#DisplaytagCase">DisplaytagCase</a> {
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment">     * No results for an en locale.</em>
@@ -72,7 +72,7 @@
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_javadoccomment">     * Check that the "no results" property is loaded from the correct locale file.</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_javadoccomment">     *</em>
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_javadoccomment">     * @throws Exception</em>
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     *             any axception thrown during test.</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_javadoccomment">     *             any exception thrown during test.</em>
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>      @Override
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      @Test
@@ -87,13 +87,13 @@
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>              <strong class="jxr_keyword">this</strong>.log.debug(<span class="jxr_string">"RESPONSE: "</span> + response.getText());
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>          }
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  
-<a class="jxr_linenumber" name="L82" href="#L82">82</a>          Assert.assertTrue(
-<a class="jxr_linenumber" name="L83" href="#L83">83</a>                  <span class="jxr_string">"Expected message\&quot;"</span> + I18nPropertiesTest.MSG_DEFAULT
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>                          + <span class="jxr_string">"\&quot; has not been found in response with locale en"</span>,
-<a class="jxr_linenumber" name="L85" href="#L85">85</a>                  response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT) &gt; -1);
-<a class="jxr_linenumber" name="L86" href="#L86">86</a>          Assert.assertTrue(
-<a class="jxr_linenumber" name="L87" href="#L87">87</a>                  <span class="jxr_string">"Unexpected message\&quot;"</span> + I18nPropertiesTest.MSG_IT + <span class="jxr_string">"\&quot; has been found in response with locale en"</span>,
-<a class="jxr_linenumber" name="L88" href="#L88">88</a>                  response.getText().indexOf(I18nPropertiesTest.MSG_IT) == -1);
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>          Assertions.assertTrue(
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>                  response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT) &gt; -1,
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>                  <span class="jxr_string">"Expected message\&quot;"</span> + I18nPropertiesTest.MSG_DEFAULT
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>                  + <span class="jxr_string">"\&quot; has not been found in response with locale en"</span>);
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>          Assertions.assertEquals(-1,
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>                  response.getText().indexOf(I18nPropertiesTest.MSG_IT),
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>                  <span class="jxr_string">"Unexpected message\&quot;"</span> + I18nPropertiesTest.MSG_IT + <span class="jxr_string">"\&quot; has been found in response with locale en"</span>);
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  
 <a class="jxr_linenumber" name="L90" href="#L90">90</a>          <em class="jxr_comment">// Now, with an Italian locale.</em>
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>          request = <strong class="jxr_keyword">new</strong> GetMethodWebRequest(<strong class="jxr_keyword">this</strong>.getJspUrl(<strong class="jxr_keyword">this</strong>.getJspName()));
@@ -105,17 +105,17 @@
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>              <strong class="jxr_keyword">this</strong>.log.debug(<span class="jxr_string">"RESPONSE: "</span> + response.getText());
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>          }
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  
-<a class="jxr_linenumber" name="L100" href="#L100">100</a>         Assert.assertTrue(
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>                 <span class="jxr_string">"Expected message\&quot;"</span> + I18nPropertiesTest.MSG_IT + <span class="jxr_string">"\&quot; has not been found in response with locale it"</span>,
-<a class="jxr_linenumber" name="L102" href="#L102">102</a>                 response.getText().indexOf(I18nPropertiesTest.MSG_IT) &gt; -1);
-<a class="jxr_linenumber" name="L103" href="#L103">103</a>         Assert.assertTrue(
-<a class="jxr_linenumber" name="L104" href="#L104">104</a>                 <span class="jxr_string">"Unexpected message\&quot;"</span> + I18nPropertiesTest.MSG_DEFAULT
-<a class="jxr_linenumber" name="L105" href="#L105">105</a>                         + <span class="jxr_string">"\&quot; has been found in response with locale it"</span>,
-<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT) == -1);
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         Assertions.assertTrue(
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>                 response.getText().indexOf(I18nPropertiesTest.MSG_IT) &gt; -1,
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>                 <span class="jxr_string">"Expected message\&quot;"</span> + I18nPropertiesTest.MSG_IT + <span class="jxr_string">"\&quot; has not been found in response with locale it"</span>);
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         Assertions.assertEquals(-1,
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>                 response.getText().indexOf(I18nPropertiesTest.MSG_DEFAULT),
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>                 <span class="jxr_string">"Unexpected message\&quot;"</span> + I18nPropertiesTest.MSG_DEFAULT
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>                 + <span class="jxr_string">"\&quot; has been found in response with locale it"</span>);
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>     }
 <a class="jxr_linenumber" name="L108" href="#L108">108</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2021 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2022 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>

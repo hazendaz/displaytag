@@ -7,7 +7,7 @@
 <body>
 <div id="overview"><a href="../../../../testapidocs/org/displaytag/tld/TldTest.html">View Javadoc</a></div><pre>
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
-<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2014 Fabrizio Giustina, the Displaytag team</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * Copyright (C) 2002-2022 Fabrizio Giustina, the Displaytag team</em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Permission is hereby granted, free of charge, to any person obtaining a copy</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * of this software and associated documentation files (the "Software"), to deal</em>
@@ -44,8 +44,8 @@
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.beanutils.SuppressPropertiesBeanIntrospector;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.builder.ToStringBuilder;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.builder.ToStringStyle;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.junit.Assert;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.junit.Test;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Assertions;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Test;
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> org.w3c.dom.Document;
@@ -62,7 +62,7 @@
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> *</em>
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> * @version $Revision$ ($Author$)</em>
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="TldTest" href="../../../org/displaytag/tld/TldTest.html#TldTest">TldTest</a> {
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <strong class="jxr_keyword">class</strong> <a name="TldTest" href="../../../org/displaytag/tld/TldTest.html#TldTest">TldTest</a> {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>      <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     * logger.</em>
@@ -76,7 +76,7 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_javadoccomment">     *             any Exception generated during test.</em>
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>      @Test
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testStandardTld() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">void</strong> testStandardTld() <strong class="jxr_keyword">throws</strong> Exception {
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">this</strong>.checkTld(<span class="jxr_string">"/META-INF/displaytag.tld"</span>);
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>      }
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  
@@ -126,7 +126,7 @@
 <a class="jxr_linenumber" name="L118" href="#L118">118</a>             <em class="jxr_comment">// load it</em>
 <a class="jxr_linenumber" name="L119" href="#L119">119</a>             Object tagObject = <strong class="jxr_keyword">null</strong>;
 <a class="jxr_linenumber" name="L120" href="#L120">120</a>             <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L121" href="#L121">121</a>                 tagObject = tagClass.newInstance();
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>                 tagObject = tagClass.getDeclaredConstructor().newInstance();
 <a class="jxr_linenumber" name="L122" href="#L122">122</a>             } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> Throwable e) {
 <a class="jxr_linenumber" name="L123" href="#L123">123</a>                 errors.add(<span class="jxr_string">"unable to instantiate declared tag class ["</span> + className + <span class="jxr_string">"]"</span>);
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>                 <strong class="jxr_keyword">continue</strong>;
@@ -158,7 +158,7 @@
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>             <strong class="jxr_keyword">if</strong> (TldTest.log.isInfoEnabled()) {
 <a class="jxr_linenumber" name="L151" href="#L151">151</a>                 TldTest.log.info(errors.size() + <span class="jxr_string">" errors found in tag classes: "</span> + errors);
 <a class="jxr_linenumber" name="L152" href="#L152">152</a>             }
-<a class="jxr_linenumber" name="L153" href="#L153">153</a>             Assert.fail(errors.size() + <span class="jxr_string">" errors found in tag classes: "</span> + errors);
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>             Assertions.fail(errors.size() + <span class="jxr_string">" errors found in tag classes: "</span> + errors);
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>         }
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>     }
 <a class="jxr_linenumber" name="L156" href="#L156">156</a> 
@@ -193,7 +193,7 @@
 <a class="jxr_linenumber" name="L185" href="#L185">185</a>             <strong class="jxr_keyword">try</strong> {
 <a class="jxr_linenumber" name="L186" href="#L186">186</a>                 tldTypeClass = Class.forName(className);
 <a class="jxr_linenumber" name="L187" href="#L187">187</a>             } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> ClassNotFoundException e) {
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>                 Assert.fail(<span class="jxr_string">"unable to find class ["</span> + className + <span class="jxr_string">"] declared in 'type' attribute"</span>);
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>                 Assertions.fail(<span class="jxr_string">"unable to find class ["</span> + className + <span class="jxr_string">"] declared in 'type' attribute"</span>);
 <a class="jxr_linenumber" name="L189" href="#L189">189</a>             }
 <a class="jxr_linenumber" name="L190" href="#L190">190</a>         }
 <a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">return</strong> tldTypeClass;
@@ -422,6 +422,6 @@
 <a class="jxr_linenumber" name="L414" href="#L414">414</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2002&#x2013;2021 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2002&#x2013;2022 <a href="http://sourceforge.net/projects/displaytag">the Displaytag team</a>. All rights reserved.</div>
 </body>
 </html>
