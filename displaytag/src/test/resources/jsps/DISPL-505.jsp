@@ -17,12 +17,12 @@
                 request.setAttribute( "test", testData);
         ]]>
       </jsp:scriptlet>
-      <display:table items="${test}" id="table">
+      <display:table items="requestScope.test" id="table">
         <display:column property="time" decorator="org.displaytag.decorator.DateColumnDecorator"/>
         <display:column property="long"/>
         <display:setProperty name="export.decorated" value="false"/>
       </display:table>
-      <display:table items="${test}" id="table2">
+      <display:table items="requestScope.test" id="table2">
         <display:setProperty name="factory.decorator" value="org.displaytag.decorator.NoDecorationDecoratorFactory"/>
         <display:column property="time" decorator="org.displaytag.decorator.DateColumnDecorator"/>
         <display:column property="long"/>

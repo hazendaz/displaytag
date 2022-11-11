@@ -33,4 +33,11 @@
     <extension>jsp</extension>
     <mime-type>text/html</mime-type>
   </mime-mapping>
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <scripting-invalid>false</scripting-invalid>
+      <trim-directive-whitespaces>true</trim-directive-whitespaces>
+    </jsp-property-group>
+  </jsp-config>
 </web-app>
