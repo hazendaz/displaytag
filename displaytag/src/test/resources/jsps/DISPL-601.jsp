@@ -19,7 +19,7 @@
             ]]>
       </jsp:scriptlet>
       <form name="testform" action="${pageContext.request.requestURI}">
-        <display:table items="${test}" id="table" pagesize="2" form="testform">
+        <display:table items="${requestScope.test}" id="table" pagesize="2" form="testform">
           <display:column property="id"/>
           <display:column>foo</display:column>
           <display:setProperty name="paging.banner.placement" value="bottom" />
