@@ -61,5 +61,10 @@
       <taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
       <taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
     </taglib>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <scripting-invalid>false</scripting-invalid>
+      <trim-directive-whitespaces>true</trim-directive-whitespaces>
+    </jsp-property-group>
   </jsp-config>
 </web-app>
