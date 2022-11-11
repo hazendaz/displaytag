@@ -65,7 +65,7 @@ class Displ004Test extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
         Assertions.assertEquals(1, tables.length, "Expected 1 table in result.");
-        Assertions.assertEquals("\"the link\" is here", tables[0].getTableCell(1, 0).getTitle(), "Wrong title in column");
+        Assertions.assertEquals("\"the link\" is here", tables[0].getTableCell(1, 0).getTitle().trim(), "Wrong title in column");
     }
 
 }
