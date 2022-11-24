@@ -15,14 +15,14 @@
 <configuration scan="true" debug="false">
 
   <appender name="DISPLAYTAG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>${probe.log.path}/probe.log</File>
+    <File>${catalina.base}/displaytag.log</File>
     <append>true</append>
     <encoder>
       <charset>UTF-8</charset>
       <pattern>%d{HH:mm:ss.SSS} %-5level {%thread} [%logger{40}] %msg%n</pattern>
     </encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-      <fileNamePattern>${probe.log.path}/archive/probe-%d{yyyyMMdd}-%i.log.gz</fileNamePattern>
+      <fileNamePattern>${catalina.base}/archive/displaytag-%d{yyyyMMdd}-%i.log.gz</fileNamePattern>
       <maxHistory>10</maxHistory>
       <cleanHistoryOnStart>true</cleanHistoryOnStart>
       <maxFileSize>20MB</maxFileSize>
