@@ -8,7 +8,7 @@
     "grunt-iconizr": "0.2.3",
     "grunt-sass": "3.1.0",
     "grunt-svg-sprite": "2.0.1",
-    "grunt-svgmin": "6.0.1",
+    "grunt-svgmin": "7.0.0",
     "matchdep": "2.0.0",
     "maxmin": "4.0.0",
     "plugin": "0.3.3"
