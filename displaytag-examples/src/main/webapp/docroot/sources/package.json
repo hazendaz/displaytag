@@ -2,7 +2,7 @@
   "name": "displaytag-demo",
   "version": "0.0.0",
   "devDependencies": {
-    "grunt": "1.6.0",
+    "grunt": "1.6.1",
     "grunt-contrib-clean": "2.0.1",
     "grunt-contrib-watch": "1.1.0",
     "grunt-iconizr": "0.2.3",
