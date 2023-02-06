@@ -24,8 +24,8 @@ package org.displaytag.localization;
 import java.util.Iterator;
 import java.util.Locale;
 
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.Tag;
+import jakarta.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.tagext.Tag;
 
 import org.apache.struts2.views.jsp.TagUtils;
 import org.displaytag.Messages;
@@ -108,7 +108,7 @@ public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider 
      *
      * @return the resource
      *
-     * @see I18nResourceProvider#getResource(String, String, Tag, javax.servlet.jsp.PageContext)
+     * @see I18nResourceProvider#getResource(String, String, Tag, jakarta.servlet.jsp.PageContext)
      */
     @Override
     public String getResource(final String resourceKey, final String defaultValue, final Tag tag,
@@ -118,7 +118,7 @@ public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider 
         final String key = resourceKey != null ? resourceKey : defaultValue;
 
         String message = null;
-        final ValueStack stack = TagUtils.getStack(pageContext);
+        final ValueStack stack = null; //TagUtils.getStack(pageContext);
         final Iterator<Object> iterator = stack.getRoot().iterator();
 
         while (iterator.hasNext()) {

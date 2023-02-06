@@ -21,7 +21,7 @@
  */
 package org.displaytag.portlet;
 
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 import org.displaytag.util.RequestHelper;
 import org.displaytag.util.RequestHelperFactory;
@@ -43,7 +43,7 @@ public class PortletRequestHelperFactory implements RequestHelperFactory {
      *
      * @return the request helper instance
      *
-     * @see org.displaytag.util.RequestHelperFactory#getRequestHelperInstance(javax.servlet.jsp.PageContext)
+     * @see org.displaytag.util.RequestHelperFactory#getRequestHelperInstance(jakarta.servlet.jsp.PageContext)
      */
     @Override
     public RequestHelper getRequestHelperInstance(final PageContext context) {

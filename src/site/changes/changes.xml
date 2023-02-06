@@ -461,7 +461,7 @@
         [[ result.rows ]] in the name attribute).
       </action>
       <action type="add" dev="mraible" due-to="Tim McCune"> Added Expression Support ala JSTL. To use it, just specify your
-        taglib URI to be [[http://displaytag.sf.net/el]] . The EL sintax is replacing the old proprietary sintax in the
+        taglib URI to be [[http://displaytag.sf.net]] . The EL sintax is replacing the old proprietary sintax in the
         table "name" attribute. Note that the old [[scope]] and [[property]] attributes are no more supported in the EL
         version of the tag. EL support in this release is preliminary and it's due to change in next releases.
       </action>

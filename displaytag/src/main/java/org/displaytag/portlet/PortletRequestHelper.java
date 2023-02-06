@@ -25,13 +25,13 @@ import java.util.Map;
 
 import javax.portlet.MimeResponse;
 import javax.portlet.PortletRequest;
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 import org.displaytag.util.Href;
 import org.displaytag.util.RequestHelper;
 
 /**
- * Reads parameters and generates URLs using javax.portlet APIs. The {@link javax.servlet.jsp.PageContext} passed into
+ * Reads parameters and generates URLs using javax.portlet APIs. The {@link jakarta.servlet.jsp.PageContext} passed into
  * the constructor must provide the {@link javax.portlet.PortletRequest} via an attribute named
  * {@link #JAVAX_PORTLET_REQUEST} and {@link javax.portlet.RenderResponse} via an attribute named
  * {@link #JAVAX_PORTLET_RESPONSE}. <br>

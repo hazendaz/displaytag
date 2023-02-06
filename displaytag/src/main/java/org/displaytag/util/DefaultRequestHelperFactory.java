@@ -21,9 +21,9 @@
  */
 package org.displaytag.util;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.jsp.PageContext;
 
 /**
  * Default RequestHelperFactory implementation. Returns instaces of {@link DefaultRequestHelper}.
@@ -42,7 +42,7 @@ public class DefaultRequestHelperFactory implements RequestHelperFactory {
      *
      * @return the request helper instance
      *
-     * @see org.displaytag.util.RequestHelperFactory#getRequestHelperInstance(javax.servlet.jsp.PageContext)
+     * @see org.displaytag.util.RequestHelperFactory#getRequestHelperInstance(jakarta.servlet.jsp.PageContext)
      */
     @Override
     public RequestHelper getRequestHelperInstance(final PageContext pageContext) {

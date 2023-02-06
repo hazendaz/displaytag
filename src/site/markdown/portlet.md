@@ -18,7 +18,7 @@ line is in your displaytag.properties file.
 The displaytag-portlet library needs access to the
 `javax.portlet.PortletRequest` and `javax.portlet.RenderResponse` objects
 for the request the JSP is rendering in. The library uses the
-`javax.servlet.jsp.PageContext\#findAttribute` method to locate the
+`jakarta.servlet.jsp.PageContext\#findAttribute` method to locate the
 request and response objects using the names `javax.portlet.request` and
 `javax.portlet.response`.
 

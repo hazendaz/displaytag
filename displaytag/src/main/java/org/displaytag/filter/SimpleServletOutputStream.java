@@ -23,8 +23,8 @@ package org.displaytag.filter;
 
 import java.io.ByteArrayOutputStream;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
 
 /**
  * A simple implementation of ServletOutputStream which wraps a ByteArrayOutputStream.

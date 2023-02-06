@@ -23,7 +23,7 @@ package org.displaytag.decorator;
 
 import java.lang.reflect.InvocationTargetException;
 
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.exception.DecoratorInstantiationException;
