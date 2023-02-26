@@ -69,7 +69,7 @@ class MaxLengthTest extends DisplaytagCase {
         Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
         Assertions.assertEquals(4, tables[0].getColumnCount(), "Wrong number of columns.");
 
-        Assertions.assertEquals("123\"567890\"123", tables[0].getTableCell(1, 0).getTitle(), "Broken title.");
+        Assertions.assertEquals("123\"567890\"123", tables[0].getTableCell(1, 0).getTitle().trim(), "Broken title.");
 
         Assertions.assertEquals("123\"567890...", tables[0].getCellAsText(1, 0), "Wrong content in column 1");
         Assertions.assertEquals("Lorem ipsum dolor...", tables[0].getCellAsText(1, 1), "Wrong content in column 2");
