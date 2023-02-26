@@ -30,16 +30,17 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import org.apache.jasper.servlet.JasperInitializer;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.tomcat.InstanceManager;
+import org.apache.tomcat.SimpleInstanceManager;
 import org.displaytag.export.ExportViewFactory;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
-import org.displaytag.util.SimpleInstanceManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -109,6 +110,10 @@ class ExportExcelHssfTest {
         this.runner = new ServletRunner(new File(path), ExportExcelHssfTest.CONTEXT);
         this.runner.getSession(true).getServletContext().setAttribute(InstanceManager.class.getName(),
                 new SimpleInstanceManager());
+
+        // Initializer Jasper
+        final JasperInitializer jsp = new JasperInitializer();
+        jsp.onStartup(null, this.runner.getSession(true).getServletContext());
 
         final Properties params = new Properties();
         params.put("javaEncoding", StandardCharsets.UTF_8.name());

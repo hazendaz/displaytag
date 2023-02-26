@@ -29,13 +29,14 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import org.apache.jasper.servlet.JasperInitializer;
 import org.apache.tomcat.InstanceManager;
+import org.apache.tomcat.SimpleInstanceManager;
 import org.displaytag.export.ExportViewFactory;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
-import org.displaytag.util.SimpleInstanceManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -105,6 +106,10 @@ class ExportExcelTest {
         this.runner = new ServletRunner(new File(path), ExportExcelTest.CONTEXT);
         this.runner.getSession(true).getServletContext().setAttribute(InstanceManager.class.getName(),
                 new SimpleInstanceManager());
+
+        // Initializer Jasper
+        final JasperInitializer jsp = new JasperInitializer();
+        jsp.onStartup(null, this.runner.getSession(true).getServletContext());
 
         final Properties params = new Properties();
         params.put("javaEncoding", StandardCharsets.UTF_8.name());

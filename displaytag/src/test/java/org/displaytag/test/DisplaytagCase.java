@@ -29,8 +29,9 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.jasper.servlet.JasperInitializer;
 import org.apache.tomcat.InstanceManager;
-import org.displaytag.util.SimpleInstanceManager;
+import org.apache.tomcat.SimpleInstanceManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -113,6 +114,10 @@ public abstract class DisplaytagCase {
         this.runner = new ServletRunner(new File(path), DisplaytagCase.CONTEXT);
         this.runner.getSession(true).getServletContext().setAttribute(InstanceManager.class.getName(),
                 new SimpleInstanceManager());
+
+        // Initializer Jasper
+        final JasperInitializer jsp = new JasperInitializer();
+        jsp.onStartup(null, this.runner.getSession(true).getServletContext());
 
         final Properties params = new Properties();
         params.put("javaEncoding", StandardCharsets.UTF_8.name());
