@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<licensePluginReport goal="CHECK" timestamp="1668197210044">
-    <module artifactId="displaytag" groupId="com.github.hazendaz" version="2.5.0"/>
+<licensePluginReport goal="CHECK" timestamp="1677457452192">
+    <module artifactId="displaytag" groupId="com.github.hazendaz" version="2.5.1"/>
     <files>
         <file path="src\main\java\org\displaytag\Messages.java" result="PRESENT"/>
         <file path="src\main\java\org\displaytag\decorator\AutolinkColumnDecorator.java" result="PRESENT"/>
@@ -290,7 +290,6 @@
         <file path="src\test\java\org\displaytag\util\HtmlTagUtilTest.java" result="PRESENT"/>
         <file path="src\test\java\org\displaytag\util\ParamEncoderTest.java" result="PRESENT"/>
         <file path="src\test\java\org\displaytag\util\PostHrefTest.java" result="PRESENT"/>
-        <file path="src\test\java\org\displaytag\util\SimpleInstanceManager.java" result="PRESENT"/>
         <file path="src\test\java\org\displaytag\util\ToStringTest.java" result="PRESENT"/>
     </files>
 </licensePluginReport>
