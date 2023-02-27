@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<licensePluginReport goal="CHECK" timestamp="1668197278809">
-    <module artifactId="displaytag-examples" groupId="com.github.hazendaz" version="2.5.0"/>
+<licensePluginReport goal="CHECK" timestamp="1677457519866">
+    <module artifactId="displaytag-examples" groupId="com.github.hazendaz" version="2.5.1"/>
     <files>
         <file path="src\main\java\org\displaytag\sample\DisplaySourceServlet.java" result="PRESENT"/>
         <file path="src\main\java\org\displaytag\sample\ListHolder.java" result="PRESENT"/>
