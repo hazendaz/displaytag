@@ -21,7 +21,7 @@
  */
 package org.displaytag.decorator;
 
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.exception.DecoratorException;
@@ -51,7 +51,7 @@ public class PercentualColumnDecorator implements DisplaytagColumnDecorator {
      * @throws DecoratorException
      *             the decorator exception
      *
-     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, javax.servlet.jsp.PageContext,
+     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, jakarta.servlet.jsp.PageContext,
      *      org.displaytag.properties.MediaTypeEnum)
      */
     @Override

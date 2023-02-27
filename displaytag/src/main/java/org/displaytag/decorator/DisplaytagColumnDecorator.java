@@ -21,7 +21,7 @@
  */
 package org.displaytag.decorator;
 
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;

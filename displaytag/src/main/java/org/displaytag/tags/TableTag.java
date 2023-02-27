@@ -31,13 +31,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspTagException;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.tagext.Tag;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
@@ -764,7 +764,7 @@ public class TableTag extends HtmlTableTag {
      * @throws JspException
      *             generic exception
      *
-     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
+     * @see jakarta.servlet.jsp.tagext.Tag#doStartTag()
      */
     @Override
     public int doStartTag() throws JspException {
@@ -809,7 +809,7 @@ public class TableTag extends HtmlTableTag {
      *
      * @return the int
      *
-     * @see javax.servlet.jsp.tagext.BodyTag#doAfterBody()
+     * @see jakarta.servlet.jsp.tagext.BodyTag#doAfterBody()
      */
     @Override
     public int doAfterBody() {
@@ -1176,7 +1176,7 @@ public class TableTag extends HtmlTableTag {
      * @throws JspException
      *             generic exception
      *
-     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
+     * @see jakarta.servlet.jsp.tagext.Tag#doEndTag()
      */
     @Override
     public int doEndTag() throws JspException {
@@ -1596,7 +1596,7 @@ public class TableTag extends HtmlTableTag {
     /**
      * Release.
      *
-     * @see javax.servlet.jsp.tagext.Tag#release()
+     * @see jakarta.servlet.jsp.tagext.Tag#release()
      */
     @Override
     public void release() {

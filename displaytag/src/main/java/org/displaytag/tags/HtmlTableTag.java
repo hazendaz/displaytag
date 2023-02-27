@@ -143,7 +143,7 @@ public abstract class HtmlTableTag extends TemplateTag {
     /**
      * Release.
      *
-     * @see javax.servlet.jsp.tagext.Tag#release()
+     * @see jakarta.servlet.jsp.tagext.Tag#release()
      */
     @Override
     public void release() {

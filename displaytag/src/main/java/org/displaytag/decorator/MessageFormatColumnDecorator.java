@@ -24,7 +24,7 @@ package org.displaytag.decorator;
 import java.text.MessageFormat;
 import java.util.Locale;
 
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 import org.displaytag.Messages;
 import org.displaytag.properties.MediaTypeEnum;

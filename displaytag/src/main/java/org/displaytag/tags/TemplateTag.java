@@ -21,8 +21,8 @@
  */
 package org.displaytag.tags;
 
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+import jakarta.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.tagext.BodyTagSupport;
 
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.util.LookupUtil;

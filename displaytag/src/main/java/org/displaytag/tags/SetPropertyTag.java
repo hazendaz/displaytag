@@ -21,10 +21,10 @@
  */
 package org.displaytag.tags;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.BodyTagSupport;
+import jakarta.servlet.jsp.tagext.Tag;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 import org.displaytag.exception.MissingAttributeException;
 import org.displaytag.exception.TagStructureException;
@@ -85,7 +85,7 @@ public class SetPropertyTag extends BodyTagSupport {
      * @throws JspException
      *             the jsp exception
      *
-     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
+     * @see jakarta.servlet.jsp.tagext.Tag#doStartTag()
      */
     @Override
     public int doStartTag() throws JspException {
@@ -119,7 +119,7 @@ public class SetPropertyTag extends BodyTagSupport {
      * @throws MissingAttributeException
      *             if no value or body content has been set
      *
-     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
+     * @see jakarta.servlet.jsp.tagext.Tag#doEndTag()
      */
     @Override
     public int doEndTag() throws MissingAttributeException {

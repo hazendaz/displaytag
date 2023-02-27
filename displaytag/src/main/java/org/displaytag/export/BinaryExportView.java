@@ -24,7 +24,7 @@ package org.displaytag.export;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspException;
 
 /**
  * Main interface for exportViews which need to output binary data.

@@ -21,7 +21,7 @@
  */
 package org.displaytag.util;
 
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 /**
  * RequestHelperFactory interface.

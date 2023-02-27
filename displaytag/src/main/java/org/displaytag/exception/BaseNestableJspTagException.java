@@ -21,7 +21,7 @@
  */
 package org.displaytag.exception;
 
-import javax.servlet.jsp.JspTagException;
+import jakarta.servlet.jsp.JspTagException;
 
 import org.displaytag.Messages;
 import org.slf4j.Logger;

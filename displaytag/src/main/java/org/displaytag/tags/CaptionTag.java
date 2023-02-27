@@ -23,10 +23,10 @@ package org.displaytag.tags;
 
 import java.util.List;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.jsp.tagext.TagSupport;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.tagext.BodyTagSupport;
+import jakarta.servlet.jsp.tagext.Tag;
+import jakarta.servlet.jsp.tagext.TagSupport;
 
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.properties.MediaTypeEnum;
@@ -162,7 +162,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
      * @throws JspException
      *             the jsp exception
      *
-     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
+     * @see jakarta.servlet.jsp.tagext.Tag#doStartTag()
      */
     @Override
     public int doStartTag() throws JspException {
@@ -232,7 +232,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
      * @throws JspException
      *             the jsp exception
      *
-     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
+     * @see jakarta.servlet.jsp.tagext.Tag#doEndTag()
      */
     @Override
     public int doEndTag() throws JspException {
@@ -266,7 +266,7 @@ public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedi
     /**
      * Release.
      *
-     * @see javax.servlet.jsp.tagext.Tag#release()
+     * @see jakarta.servlet.jsp.tagext.Tag#release()
      */
     @Override
     public void release() {
