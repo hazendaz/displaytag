@@ -123,12 +123,6 @@
 
     <!-- optional dependencies for LocaleResolvers -->
     <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts2-core</artifactId>
-      <version>6.1.1</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>5.3.25</version>
