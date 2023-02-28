@@ -21,11 +21,14 @@
  */
 package org.displaytag.jsptests;
 
-import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import org.displaytag.export.ExportViewFactory;
@@ -83,11 +86,10 @@ class ExportPdfFilterTest extends DisplaytagCase {
 
         Assertions.assertTrue(response.getContentLength() > -1, "Content length should be set.");
         final InputStream stream = response.getInputStream();
-        final byte[] result = new byte[response.getContentLength()];
-        stream.read(result);
+        final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-        final PdfReader reader = new PdfReader(result);
-        Assertions.assertEquals(1, reader.getNumberOfPages(), "Expected a valid pdf file with a single page");
+        final PdfDocument pdfDoc = new PdfDocument(new PdfReader(stream), new PdfWriter(outStream));
+        Assertions.assertEquals(1, pdfDoc.getNumberOfPages(), "Expected a valid pdf file with a single page");
 
     }
 
