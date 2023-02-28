@@ -25,9 +25,9 @@ import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -193,7 +193,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      *
-     * @see javax.servlet.ServletResponse#getWriter()
+     * @see jakarta.servlet.ServletResponse#getWriter()
      */
     @Override
     public PrintWriter getWriter() throws IOException {
@@ -233,7 +233,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      *
-     * @see javax.servlet.ServletResponse#getOutputStream()
+     * @see jakarta.servlet.ServletResponse#getOutputStream()
      */
     @Override
     public ServletOutputStream getOutputStream() throws IOException {
@@ -257,7 +257,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * @param value
      *            the value
      *
-     * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
+     * @see jakarta.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
      */
     @Override
     public void addHeader(final String name, final String value) {
@@ -302,7 +302,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * @param date
      *            the date
      *
-     * @see javax.servlet.http.HttpServletResponse#setDateHeader(java.lang.String, long)
+     * @see jakarta.servlet.http.HttpServletResponse#setDateHeader(java.lang.String, long)
      */
     @Override
     public void setDateHeader(final String name, final long date) {
@@ -319,7 +319,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * @param date
      *            the date
      *
-     * @see javax.servlet.http.HttpServletResponse#addDateHeader(java.lang.String, long)
+     * @see jakarta.servlet.http.HttpServletResponse#addDateHeader(java.lang.String, long)
      */
     @Override
     public void addDateHeader(final String name, final long date) {
@@ -336,7 +336,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * @param value
      *            the value
      *
-     * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
+     * @see jakarta.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
      */
     @Override
     public void setHeader(final String name, final String value) {
@@ -353,7 +353,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * @param value
      *            the value
      *
-     * @see javax.servlet.http.HttpServletResponse#setIntHeader(java.lang.String, int)
+     * @see jakarta.servlet.http.HttpServletResponse#setIntHeader(java.lang.String, int)
      */
     @Override
     public void setIntHeader(final String name, final int value) {
@@ -370,7 +370,7 @@ public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper im
      * @param value
      *            the value
      *
-     * @see javax.servlet.http.HttpServletResponse#addIntHeader(java.lang.String, int)
+     * @see jakarta.servlet.http.HttpServletResponse#addIntHeader(java.lang.String, int)
      */
     @Override
     public void addIntHeader(final String name, final int value) {

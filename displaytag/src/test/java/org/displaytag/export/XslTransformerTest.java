@@ -26,7 +26,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;

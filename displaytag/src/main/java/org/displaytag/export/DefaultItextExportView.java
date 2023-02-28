@@ -23,7 +23,7 @@ package org.displaytag.export;
 
 import java.io.OutputStream;
 
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspException;
 
 import org.displaytag.Messages;
 import org.displaytag.exception.BaseNestableJspTagException;

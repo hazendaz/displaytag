@@ -21,8 +21,8 @@
  */
 package org.displaytag.localization;
 
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.Tag;
+import jakarta.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.tagext.Tag;
 
 /**
  * Interface for resource providers. Given a <code>resourceKey</code> and a <code>defaultValue</code>, a resource

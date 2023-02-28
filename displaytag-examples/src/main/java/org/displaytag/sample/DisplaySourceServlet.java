@@ -25,10 +25,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 /**
@@ -50,7 +50,7 @@ public class DisplaySourceServlet extends HttpServlet
     private static final String EXAMPLE_FOLDER = "/"; //$NON-NLS-1$
 
     /**
-     * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
+     * @see jakarta.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
      */
     @Override
     protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,

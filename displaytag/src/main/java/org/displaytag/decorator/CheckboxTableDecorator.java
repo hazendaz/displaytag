@@ -27,8 +27,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.PageContext;
 
 import org.displaytag.model.TableModel;
 
@@ -80,7 +80,7 @@ public class CheckboxTableDecorator extends TableDecorator {
      * @param tableModel
      *            the table model
      *
-     * @see org.displaytag.decorator.Decorator#init(javax.servlet.jsp.PageContext, java.lang.Object,
+     * @see org.displaytag.decorator.Decorator#init(jakarta.servlet.jsp.PageContext, java.lang.Object,
      *      org.displaytag.model.TableModel)
      */
     @Override

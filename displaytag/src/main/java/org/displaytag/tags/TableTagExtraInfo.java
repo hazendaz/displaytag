@@ -25,10 +25,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.jsp.tagext.TagAttributeInfo;
-import javax.servlet.jsp.tagext.TagData;
-import javax.servlet.jsp.tagext.TagExtraInfo;
-import javax.servlet.jsp.tagext.VariableInfo;
+import jakarta.servlet.jsp.tagext.TagAttributeInfo;
+import jakarta.servlet.jsp.tagext.TagData;
+import jakarta.servlet.jsp.tagext.TagExtraInfo;
+import jakarta.servlet.jsp.tagext.VariableInfo;
 
 /**
  * TEI for TableTag, defines 3 variables.
@@ -113,8 +113,8 @@ public class TableTagExtraInfo extends TagExtraInfo {
      *
      * @return VariableInfo[]
      *
-     * @see javax.servlet.jsp.tagext.TagData
-     * @see javax.servlet.jsp.tagext.VariableInfo
+     * @see jakarta.servlet.jsp.tagext.TagData
+     * @see jakarta.servlet.jsp.tagext.VariableInfo
      */
     @Override
     public VariableInfo[] getVariableInfo(final TagData data) {

@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.JspWriter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.exception.DecoratorException;

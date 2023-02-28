@@ -24,7 +24,7 @@ package org.displaytag.export;
 import java.io.OutputStream;
 import java.util.Iterator;
 
-import javax.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.Messages;

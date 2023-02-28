@@ -23,7 +23,7 @@ package org.displaytag.sample;
 
 import java.util.Date;
 
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.decorator.DisplaytagColumnDecorator;

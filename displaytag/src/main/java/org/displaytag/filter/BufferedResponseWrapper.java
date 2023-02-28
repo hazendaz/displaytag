@@ -21,7 +21,7 @@
  */
 package org.displaytag.filter;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Buffers the response; will not send anything directly through to the actual response. Note that this blocks the

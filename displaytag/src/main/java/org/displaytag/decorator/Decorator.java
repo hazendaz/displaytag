@@ -27,7 +27,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.MappedPropertyDescriptor;
 import org.apache.commons.beanutils.PropertyUtils;
