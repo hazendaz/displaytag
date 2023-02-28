@@ -7,9 +7,9 @@
     Copyright 2002-2026 Fabrizio Giustina, the Displaytag team
 
 -->
-<taglib xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_3_0.xsd"
-    version="3.0">
+<taglib xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_3_1.xsd"
+        version="3.1">
   <description>
     The display tag library is an open source suite of custom tags that provide high level web presentation patterns
     which will work in a MVC model, and provide a significant amount of functionality while still being simple and
