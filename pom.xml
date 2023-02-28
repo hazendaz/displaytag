@@ -22,7 +22,7 @@
     <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</developerConnection>
     <url>https://github.com/hazendaz/displaytag/</url>
-    <tag>displaytag-doc-2.3.0</tag>
+    <tag>HEAD</tag>
   </scm>
   <inceptionYear>2002</inceptionYear>
 
