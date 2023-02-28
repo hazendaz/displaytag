@@ -21,10 +21,8 @@
  */
 package org.displaytag.export;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
 
 import jakarta.servlet.jsp.JspException;
 
@@ -92,7 +90,7 @@ public abstract class DefaultItextExportView implements BinaryExportView {
     @Override
     public void doExport(final OutputStream out) throws JspException {
         try {
-            final Document document = new Document(PageSize.A4.rotate(), 60, 60, 40, 40);
+            final PdfDocument document = new PdfDocument(PageSize.A4.rotate(), 60, 60, 40, 40);
             this.initItextWriter(document, out);
             document.open();
             final PdfPTable table = new PdfPTable(this.model.getNumberOfColumns());
@@ -116,7 +114,7 @@ public abstract class DefaultItextExportView implements BinaryExportView {
      * @throws DocumentException
      *             If something goes wrong during initialization.
      */
-    protected abstract void initItextWriter(Document document, OutputStream out) throws DocumentException;
+    protected abstract void initItextWriter(PdfDocument document, OutputStream out) throws PdfDocumentException;
 
     /**
      * Wraps iText-generated exceptions.
