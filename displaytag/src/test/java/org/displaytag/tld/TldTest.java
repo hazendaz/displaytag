@@ -298,7 +298,7 @@ class TldTest {
 
                 final ClassLoader classLoader = this.getClass().getClassLoader();
 
-                final URL dtdURL = classLoader.getResource("javax/servlet/jsp/resources/" + systemFileName);
+                final URL dtdURL = classLoader.getResource("jakarta/servlet/jsp/resources/" + systemFileName);
 
                 if (dtdURL == null) {
                     return null;
