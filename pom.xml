@@ -319,10 +319,6 @@
           <includes>
             <include>src/**/*.java</include>
           </includes>
-          <!-- Do not check spring code ported from spring 4 for portlet testing -->
-          <excludes>
-            <exclude>src/test/java/org/springframework/**/*.java</exclude>
-          </excludes>
           <properties>
             <year>${project.inceptionYear}-2022</year>
             <name>${project.name}</name>
