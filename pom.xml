@@ -324,7 +324,7 @@
             <exclude>src/test/java/org/springframework/**/*.java</exclude>
           </excludes>
           <properties>
-            <year>${project.inceptionYear}-2022</year>
+            <year>${project.inceptionYear}-2023</year>
             <name>${project.name}</name>
             <description>${project.description}</description>
             <url>${project.url}</url>
