@@ -8,7 +8,6 @@ org.displaytag.filter
 org.displaytag.localization
 org.displaytag.model
 org.displaytag.pagination
-org.displaytag.portlet
 org.displaytag.properties
 org.displaytag.render
 org.displaytag.sample
