@@ -4,19 +4,19 @@
   <parent>
     <groupId>com.github.hazendaz</groupId>
     <artifactId>displaytag-doc</artifactId>
-    <version>3.0.0-M1</version>
+    <version>3.0.0-SNAPSHOT</version>
   </parent>
 
   <groupId>com.github.hazendaz</groupId>
   <artifactId>displaytag</artifactId>
   <name>Display tag library</name>
-  <version>3.0.0-M1</version>
+  <version>3.0.0-SNAPSHOT</version>
 
   <scm>
     <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</developerConnection>
     <url>https://github.com/hazendaz/displaytag/</url>
-    <tag>displaytag-doc-3.0.0-M1</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
