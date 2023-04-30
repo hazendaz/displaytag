@@ -253,12 +253,12 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0</version>
         <configuration>
-          <systemProperties>
+          <systemPropertyVariables>
             <property>
               <name>java.awt.headless</name>
               <value>true</value>
             </property>
-          </systemProperties>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
       <plugin>
