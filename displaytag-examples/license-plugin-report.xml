@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<licensePluginReport goal="CHECK" timestamp="1677457519866">
-    <module artifactId="displaytag-examples" groupId="com.github.hazendaz" version="2.5.1"/>
-    <files>
-        <file path="src\main\java\org\displaytag\sample\DisplaySourceServlet.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\ListHolder.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\ListObject.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\LongDateWrapper.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\RandomSampleUtil.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\ReportList.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\ReportableListObject.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\TestList.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\decorators\HssfTotalWrapper.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\decorators\HtmlTotalWrapper.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\decorators\ItextTotalWrapper.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\decorators\TotalWrapperTemplate.java" result="PRESENT"/>
-        <file path="src\main\java\org\displaytag\sample\decorators\Wrapper.java" result="PRESENT"/>
-    </files>
+<licensePluginReport goal="FORMAT" timestamp="1682886630322">
+    <module artifactId="displaytag-examples" groupId="com.github.hazendaz" version="2.5.2"/>
+    <files/>
 </licensePluginReport>
