@@ -320,27 +320,32 @@
         <artifactId>license-maven-plugin</artifactId>
         <version>4.2</version>
         <configuration>
-          <strictCheck>true</strictCheck>
-          <header>LICENSE_HEADER</header>
-          <includes>
-            <include>src/**/*.java</include>
-          </includes>
-          <!-- Do not check spring code ported from spring 4 for portlet testing -->
-          <excludes>
-            <exclude>src/test/java/org/springframework/**/*.java</exclude>
-          </excludes>
-          <properties>
-            <year>${project.inceptionYear}-2023</year>
-            <name>${project.name}</name>
-            <description>${project.description}</description>
-            <url>${project.url}</url>
-          </properties>
+          <licenseSets>
+            <licenseSet>
+              <header>LICENSE_HEADER</header>
+              <includes>
+                <include>${project.basedir}/src/**/*.java</include>
+              </includes>
+              <!-- Do not check spring code ported from spring 4 for portlet testing -->
+              <excludes>
+                <exclude>src/test/java/org/springframework/**/*.java</exclude>
+              </excludes>
+            </licenseSet>
+          </licenseSets>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.mycila</groupId>
+            <artifactId>license-maven-plugin-git</artifactId>
+            <version>4.2</version>
+          </dependency>
+        </dependencies>
         <executions>
           <execution>
             <goals>
-              <goal>check</goal>
+              <goal>format</goal>
             </goals>
+            <phase>process-sources</phase>
           </execution>
         </executions>
       </plugin>
