@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableFooterTag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.tags</a> &gt; <span class="el_source">TableFooterTag.java</span></div><h1>TableFooterTag.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.tags;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.Tag;
+import javax.servlet.jsp.tagext.TagSupport;
+
+import org.displaytag.exception.TagStructureException;
+import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.util.MediaUtil;
+
+/**
+ * Display a table footer. Html only, not included in export.
+ *
+ * @author Fabrizio Giustina
+ * @author rapruitt
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L44">public class TableFooterTag extends BodyTagSupport implements MediaUtil.SupportsMedia {</span>
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
+     * The media supported attribute.
+     */
+    private transient List&lt;MediaTypeEnum&gt; supportedMedia;
+
+    /**
+     * Do end tag.
+     *
+     * @return the int
+     *
+     * @throws JspException
+     *             the jsp exception
+     *
+     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
+     */
+    @Override
+    public int doEndTag() throws JspException {
+<span class="fc" id="L68">        final TableTag tableTag = (TableTag) TagSupport.findAncestorWithClass(this, TableTag.class);</span>
+
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (tableTag == null) {</span>
+<span class="nc" id="L71">            throw new TagStructureException(this.getClass(), &quot;footer&quot;, &quot;table&quot;);</span>
+        }
+
+<span class="fc" id="L74">        final MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext</span>
+<span class="fc" id="L75">                .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);</span>
+<span class="pc bpc" id="L76" title="2 of 4 branches missed.">        if (currentMediaType != null &amp;&amp; !MediaUtil.availableForMedia(this, currentMediaType)) {</span>
+<span class="nc" id="L77">            return Tag.SKIP_BODY;</span>
+        }
+
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">        if (tableTag.isLastIteration() &amp;&amp; this.getBodyContent() != null) {</span>
+<span class="fc" id="L81">            tableTag.setFooter(this.getBodyContent().getString());</span>
+        }
+
+<span class="fc" id="L84">        return Tag.EVAL_PAGE;</span>
+    }
+
+    /**
+     * Do start tag.
+     *
+     * @return the int
+     *
+     * @throws JspException
+     *             the jsp exception
+     *
+     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
+     */
+    @Override
+    public int doStartTag() throws JspException {
+<span class="fc" id="L99">        final TableTag tableTag = (TableTag) TagSupport.findAncestorWithClass(this, TableTag.class);</span>
+
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (tableTag == null) {</span>
+<span class="nc" id="L102">            throw new TagStructureException(this.getClass(), &quot;footer&quot;, &quot;table&quot;);</span>
+        }
+
+<span class="fc" id="L105">        final MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext</span>
+<span class="fc" id="L106">                .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if (!MediaUtil.availableForMedia(this, currentMediaType)) {</span>
+<span class="nc" id="L108">            return Tag.SKIP_BODY;</span>
+        }
+
+        // Run the footer only when all of the cells have been populated
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (tableTag.isLastIteration()) {</span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">            if (tableTag.getVarTotals() != null) {</span>
+<span class="nc" id="L114">                final Map&lt;String, Double&gt; totals = tableTag.getTotals();</span>
+<span class="nc" id="L115">                this.pageContext.setAttribute(tableTag.getVarTotals(), totals);</span>
+            }
+            // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
+<span class="fc" id="L118">            return 2;</span>
+        }
+
+<span class="fc" id="L121">        return Tag.SKIP_BODY;</span>
+    }
+
+    /**
+     * Sets the supported media.
+     *
+     * @param media
+     *            the new supported media
+     *
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
+     */
+    @Override
+    public void setSupportedMedia(final List&lt;MediaTypeEnum&gt; media) {
+<span class="nc" id="L134">        this.supportedMedia = media;</span>
+<span class="nc" id="L135">    }</span>
+
+    /**
+     * Gets the supported media.
+     *
+     * @return the supported media
+     *
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
+     */
+    @Override
+    public List&lt;MediaTypeEnum&gt; getSupportedMedia() {
+<span class="fc" id="L146">        return this.supportedMedia;</span>
+    }
+
+    /**
+     * Tag setter.
+     *
+     * @param media
+     *            the space delimited list of supported types
+     */
+    public void setMedia(final String media) {
+<span class="nc" id="L156">        MediaUtil.setMedia(this, media);</span>
+<span class="nc" id="L157">    }</span>
+
+    /**
+     * Release.
+     *
+     * @see javax.servlet.jsp.tagext.Tag#release()
+     */
+    @Override
+    public void release() {
+<span class="fc" id="L166">        this.supportedMedia = null;</span>
+<span class="fc" id="L167">        super.release();</span>
+<span class="fc" id="L168">    }</span>
+
+    /**
+     * Tag setter.
+     *
+     * @param showAsLastRow
+     *            the space delimited list of supported types
+     */
+    public void setShowAsLastRow(final boolean showAsLastRow) {
+<span class="nc" id="L177">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

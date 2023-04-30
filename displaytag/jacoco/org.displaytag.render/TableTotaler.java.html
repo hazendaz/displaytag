@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableTotaler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.render</a> &gt; <span class="el_source">TableTotaler.java</span></div><h1>TableTotaler.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.render;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.model.Column;
+import org.displaytag.model.ColumnIterator;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * This class just keeps a running grouped total. It does not output anything; it is the responsibility of the exporter
+ * or of the decorator to actually output the results.
+ *
+ * @author rapruitt Date: May 21, 2010 Time: 9:17:43 PM
+ */
+<span class="fc" id="L46">public class TableTotaler {</span>
+
+    /** The logger. */
+<span class="fc" id="L49">    protected Logger logger = LoggerFactory.getLogger(TableTotaler.class);</span>
+
+    /** The Constant NULL. */
+<span class="fc" id="L52">    public static final TableTotaler NULL = new TableTotaler();</span>
+
+    /** The first row for each group. */
+<span class="fc" id="L55">    protected Map&lt;Integer, Integer&gt; firstRowForEachGroup = new HashMap&lt;&gt;();</span>
+
+    /** The how many groups. */
+<span class="fc" id="L58">    protected int howManyGroups = 0;</span>
+
+    /** The current row number. */
+<span class="fc" id="L61">    protected Integer currentRowNumber = 0;</span>
+
+    /** The table model. */
+    protected TableModel tableModel;
+
+    /** The opened columns. */
+<span class="fc" id="L67">    List&lt;Integer&gt; openedColumns = new ArrayList&lt;&gt;(); // in excel, i need to know which ones are currently open; in xml,</span>
+                                                     // just what has just opened
+
+    /** The grouping values by column. */
+<span class="fc" id="L71">    TreeMap&lt;Integer, String&gt; groupingValuesByColumn = new TreeMap&lt;&gt;(); // in excel, i need to know which ones are</span>
+                                                                       // currently open; in xml, just what has just
+                                                                       // opened
+
+    /** The closed columns. */
+<span class="fc" id="L76">    List&lt;Integer&gt; closedColumns = new ArrayList&lt;&gt;();</span>
+    /**
+     * Magic constant to indicate that we want the whole list, not just a subgroup.
+     */
+<span class="fc" id="L80">    public static final Integer WHOLE_TABLE = 0;</span>
+
+    /**
+     * Inits the.
+     *
+     * @param model
+     *            the model
+     */
+    public void init(final TableModel model) {
+<span class="fc" id="L89">        this.tableModel = model;</span>
+<span class="fc" id="L90">        this.firstRowForEachGroup = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        for (final HeaderCell c : model.getHeaderCellList()) {</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            if (c.getGroup() &gt; 0) {</span>
+<span class="fc" id="L93">                this.firstRowForEachGroup.put(c.getGroup(), 0);</span>
+<span class="fc" id="L94">                this.howManyGroups++;</span>
+            }
+<span class="fc" id="L96">        }</span>
+
+<span class="fc" id="L98">    }</span>
+
+    /**
+     * Inits the row.
+     *
+     * @param currentViewIndex
+     *            the current view index
+     * @param currentListIndex
+     *            the current list index
+     */
+    public void initRow(final int currentViewIndex, final int currentListIndex) {
+<span class="fc" id="L109">        this.openedColumns.clear();</span>
+<span class="fc" id="L110">        this.closedColumns.clear();</span>
+<span class="fc" id="L111">        this.currentRowNumber = currentListIndex;</span>
+<span class="fc" id="L112">    }</span>
+
+    /**
+     * As column.
+     *
+     * @param groupNumber
+     *            the group number
+     *
+     * @return the int
+     */
+    public int asColumn(final int groupNumber) {
+<span class="fc" id="L123">        return groupNumber;</span>
+    }
+
+    /**
+     * As group.
+     *
+     * @param columnNumber
+     *            the column number
+     *
+     * @return the int
+     */
+    public int asGroup(final int columnNumber) {
+<span class="fc" id="L135">        return columnNumber;</span>
+    }
+
+    /**
+     * Start group.
+     *
+     * @param groupingValue
+     *            the grouping value
+     * @param groupNumber
+     *            the group number
+     */
+    public void startGroup(final String groupingValue, final int groupNumber) {
+<span class="fc" id="L147">        this.openedColumns.add(this.asColumn(groupNumber));</span>
+<span class="fc" id="L148">        this.groupingValuesByColumn.put(this.asColumn(groupNumber), groupingValue);</span>
+<span class="fc" id="L149">        this.firstRowForEachGroup.put(groupNumber, this.currentRowNumber);</span>
+<span class="fc" id="L150">    }</span>
+
+    /**
+     * Gets the opened columns.
+     *
+     * @return the opened columns
+     */
+    public List&lt;Integer&gt; getOpenedColumns() {
+<span class="fc" id="L158">        return new ArrayList&lt;&gt;(this.openedColumns);</span>
+    }
+
+    /**
+     * Gets the closed columns.
+     *
+     * @return the closed columns
+     */
+    public List&lt;Integer&gt; getClosedColumns() {
+<span class="fc" id="L167">        return this.closedColumns;</span>
+    }
+
+    /**
+     * Stop group.
+     *
+     * @param value
+     *            the value
+     * @param groupNumber
+     *            the group number
+     */
+    public void stopGroup(final String value, final int groupNumber) {
+<span class="fc" id="L179">        this.closedColumns.add(this.asColumn(groupNumber));</span>
+<span class="fc" id="L180">    }</span>
+
+    /**
+     * Override locally to perform your own math.
+     *
+     * @param column
+     *            the column
+     * @param total
+     *            the total
+     * @param value
+     *            the value
+     *
+     * @return the object
+     */
+    public Object add(final Column column, final Object total, final Object value) {
+<span class="pc bpc" id="L195" title="1 of 2 branches missed.">        if (value == null) {</span>
+<span class="nc" id="L196">            return total;</span>
+        }
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">        if (value instanceof Number) {</span>
+<span class="fc" id="L199">            Number oldTotal = (double) 0;</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">            if (total != null) {</span>
+<span class="fc" id="L201">                oldTotal = (Number) total;</span>
+            }
+<span class="fc" id="L203">            return oldTotal.doubleValue() + ((Number) value).doubleValue();</span>
+        } else {
+<span class="nc" id="L205">            throw new UnsupportedOperationException(</span>
+<span class="nc" id="L206">                    &quot;Cannot add a value of &quot; + value + &quot; in column &quot; + column.getHeaderCell().getTitle());</span>
+        }
+    }
+
+    /**
+     * Override locally to format it yourself.
+     *
+     * @param cell
+     *            the current cell
+     * @param total
+     *            the current value
+     *
+     * @return the string
+     */
+    public String formatTotal(final HeaderCell cell, Object total) {
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">        if (total == null) {</span>
+<span class="nc" id="L222">            total = &quot;&quot;;</span>
+        }
+<span class="pc bpc" id="L224" title="1 of 2 branches missed.">        return total instanceof String ? (String) total : total.toString();</span>
+    }
+
+    /**
+     * Gets the total for list.
+     *
+     * @param window
+     *            the window
+     * @param columnNumber
+     *            the column number
+     *
+     * @return the total for list
+     */
+    protected Object getTotalForList(final List&lt;Row&gt; window, final int columnNumber) {
+<span class="fc" id="L238">        Object total = null;</span>
+<span class="fc bfc" id="L239" title="All 2 branches covered.">        for (final Row row : window) {</span>
+<span class="fc" id="L240">            final ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());</span>
+<span class="fc bfc" id="L241" title="All 2 branches covered.">            while (columnIterator.hasNext()) {</span>
+<span class="fc" id="L242">                final Column column = columnIterator.nextColumn();</span>
+<span class="fc bfc" id="L243" title="All 2 branches covered.">                if (column.getHeaderCell().getColumnNumber() == columnNumber) {</span>
+<span class="fc" id="L244">                    Object value = null;</span>
+                    try {
+<span class="fc" id="L246">                        value = column.getValue(false);</span>
+<span class="nc" id="L247">                    } catch (ObjectLookupException | DecoratorException e) {</span>
+<span class="nc" id="L248">                        this.logger.error(&quot;&quot;, e);</span>
+<span class="fc" id="L249">                    }</span>
+<span class="pc bpc" id="L250" title="2 of 4 branches missed.">                    if (value != null &amp;&amp; !&quot;&quot;.equals(value)) {</span>
+<span class="fc" id="L251">                        total = this.add(column, total, value);</span>
+                    }
+                }
+<span class="fc" id="L254">            }</span>
+<span class="fc" id="L255">        }</span>
+<span class="fc" id="L256">        return total;</span>
+    }
+
+    /**
+     * Gets the total for column.
+     *
+     * @param columnNumber
+     *            the column number
+     * @param groupNumber
+     *            the group number
+     *
+     * @return the total for column
+     */
+    public Object getTotalForColumn(final int columnNumber, final int groupNumber) {
+<span class="fc" id="L270">        final List&lt;Row&gt; fullList = this.tableModel.getRowListFull();</span>
+<span class="fc" id="L271">        Integer startRow = this.firstRowForEachGroup.get(groupNumber);</span>
+<span class="fc" id="L272">        final Integer stopRow = this.currentRowNumber + 1;</span>
+<span class="fc bfc" id="L273" title="All 2 branches covered.">        if (groupNumber == TableTotaler.WHOLE_TABLE) { // asking for a total for the entire table</span>
+<span class="fc" id="L274">            startRow = 0;</span>
+        }
+<span class="fc" id="L276">        final List&lt;Row&gt; window = fullList.subList(startRow, stopRow);</span>
+<span class="fc" id="L277">        return this.getTotalForList(window, columnNumber);</span>
+    }
+
+    /**
+     * Gets the grouping value.
+     *
+     * @param columnNumber
+     *            the column number
+     *
+     * @return the grouping value
+     */
+    public String getGroupingValue(final Integer columnNumber) {
+<span class="fc" id="L289">        return this.groupingValuesByColumn.get(columnNumber);</span>
+    }
+
+    /**
+     * Reset.
+     */
+    public void reset() {
+<span class="fc" id="L296">        this.closedColumns.clear();</span>
+<span class="fc" id="L297">        this.openedColumns.clear();</span>
+<span class="fc" id="L298">        this.groupingValuesByColumn.clear();</span>
+<span class="fc" id="L299">        this.currentRowNumber = 0;</span>
+<span class="fc" id="L300">        this.howManyGroups = 0;</span>
+<span class="fc" id="L301">        this.firstRowForEachGroup.clear();</span>
+<span class="fc" id="L302">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

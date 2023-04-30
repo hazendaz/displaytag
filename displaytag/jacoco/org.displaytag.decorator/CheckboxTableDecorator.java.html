@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CheckboxTableDecorator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.decorator</a> &gt; <span class="el_source">CheckboxTableDecorator.java</span></div><h1>CheckboxTableDecorator.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.decorator;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+
+import org.displaytag.model.TableModel;
+
+/**
+ * A table decorator which adds checkboxes for selectable rows.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Id$
+ */
+<span class="fc" id="L42">public class CheckboxTableDecorator extends TableDecorator {</span>
+
+    /** The id. */
+<span class="fc" id="L45">    private String id = &quot;id&quot;;</span>
+
+    /** The checked ids. */
+    private List&lt;String&gt; checkedIds;
+
+    /** The field name. */
+<span class="fc" id="L51">    private String fieldName = &quot;_chk&quot;;</span>
+
+    /**
+     * Setter for &lt;code&gt;id&lt;/code&gt;.
+     *
+     * @param id
+     *            The id to set.
+     */
+    public void setId(final String id) {
+<span class="nc" id="L60">        this.id = id;</span>
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * Setter for &lt;code&gt;fieldName&lt;/code&gt;.
+     *
+     * @param fieldName
+     *            The fieldName to set.
+     */
+    public void setFieldName(final String fieldName) {
+<span class="nc" id="L70">        this.fieldName = fieldName;</span>
+<span class="nc" id="L71">    }</span>
+
+    /**
+     * Inits the.
+     *
+     * @param pageContext
+     *            the page context
+     * @param decorated
+     *            the decorated
+     * @param tableModel
+     *            the table model
+     *
+     * @see org.displaytag.decorator.Decorator#init(javax.servlet.jsp.PageContext, java.lang.Object,
+     *      org.displaytag.model.TableModel)
+     */
+    @Override
+    public void init(final PageContext pageContext, final Object decorated, final TableModel tableModel) {
+<span class="fc" id="L88">        super.init(pageContext, decorated, tableModel);</span>
+<span class="fc" id="L89">        final String[] params = pageContext.getRequest().getParameterValues(this.fieldName);</span>
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        this.checkedIds = params != null ? new ArrayList&lt;&gt;(Arrays.asList(params)) : new ArrayList&lt;&gt;(0);</span>
+<span class="fc" id="L91">    }</span>
+
+    /**
+     * Finish.
+     *
+     * @see org.displaytag.decorator.TableDecorator#finish()
+     */
+    @Override
+    public void finish() {
+
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (!this.checkedIds.isEmpty()) {</span>
+<span class="nc" id="L102">            final JspWriter writer = this.getPageContext().getOut();</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">            for (final String name : this.checkedIds) {</span>
+<span class="nc" id="L104">                final StringBuilder buffer = new StringBuilder();</span>
+<span class="nc" id="L105">                buffer.append(&quot;&lt;input type=\&quot;hidden\&quot; name=\&quot;&quot;);</span>
+<span class="nc" id="L106">                buffer.append(this.fieldName);</span>
+<span class="nc" id="L107">                buffer.append(&quot;\&quot; value=\&quot;&quot;);</span>
+<span class="nc" id="L108">                buffer.append(name);</span>
+<span class="nc" id="L109">                buffer.append(&quot;\&quot;&gt;&quot;);</span>
+                try {
+<span class="nc" id="L111">                    writer.write(buffer.toString());</span>
+<span class="nc" id="L112">                } catch (final IOException e) {</span>
+                    // should never happen
+<span class="nc" id="L114">                }</span>
+<span class="nc" id="L115">            }</span>
+        }
+
+<span class="fc" id="L118">        super.finish();</span>
+
+<span class="fc" id="L120">    }</span>
+
+    /**
+     * Gets the checkbox.
+     *
+     * @return the checkbox
+     */
+    public String getCheckbox() {
+
+<span class="fc" id="L129">        final String evaluatedId = Objects.toString(this.evaluate(this.id));</span>
+
+<span class="fc" id="L131">        final boolean checked = this.checkedIds.contains(evaluatedId);</span>
+
+<span class="fc" id="L133">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L134">        buffer.append(&quot;&lt;input type=\&quot;checkbox\&quot; name=\&quot;_chk\&quot; value=\&quot;&quot;);</span>
+<span class="fc" id="L135">        buffer.append(evaluatedId);</span>
+<span class="fc" id="L136">        buffer.append(&quot;\&quot;&quot;);</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        if (checked) {</span>
+<span class="nc" id="L138">            this.checkedIds.remove(evaluatedId);</span>
+<span class="nc" id="L139">            buffer.append(&quot; checked=\&quot;checked\&quot;&quot;);</span>
+        }
+<span class="fc" id="L141">        buffer.append(&quot;/&gt;&quot;);</span>
+
+<span class="fc" id="L143">        return buffer.toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

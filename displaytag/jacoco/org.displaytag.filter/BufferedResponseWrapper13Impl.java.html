@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BufferedResponseWrapper13Impl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.filter</a> &gt; <span class="el_source">BufferedResponseWrapper13Impl.java</span></div><h1>BufferedResponseWrapper13Impl.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.filter;
+
+import java.io.CharArrayWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.tags.TableTagParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * J2ee 1.3 implementation of BufferedResponseWrapper. Need to extend HttpServletResponseWrapper for Weblogic
+ * compatibility.
+ *
+ * @author rapruitt
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper implements BufferedResponseWrapper {
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L52">    private static Logger log = LoggerFactory.getLogger(BufferedResponseWrapper13Impl.class);</span>
+
+    /**
+     * The buffered response.
+     */
+    private final CharArrayWriter outputWriter;
+
+    /**
+     * The outputWriter stream.
+     */
+    private final SimpleServletOutputStream servletOutputStream;
+
+    /**
+     * The contentType.
+     */
+    private String contentType;
+
+    /**
+     * The character encoding.
+     */
+    private String characterEncoding;
+
+    /** The char enc set. */
+    private boolean charEncSet;
+
+    /**
+     * If state is set, allow getOutputStream() to return the &quot;real&quot; output stream, elsewhere returns a internal buffer.
+     */
+    private boolean state;
+
+    /**
+     * Writer has been requested.
+     */
+    private boolean outRequested;
+
+    /**
+     * Instantiates a new buffered response wrapper 13 impl.
+     *
+     * @param httpServletResponse
+     *            the response to wrap
+     */
+    public BufferedResponseWrapper13Impl(final HttpServletResponse httpServletResponse) {
+<span class="fc" id="L94">        super(httpServletResponse);</span>
+<span class="fc" id="L95">        this.outputWriter = new CharArrayWriter();</span>
+<span class="fc" id="L96">        this.servletOutputStream = new SimpleServletOutputStream();</span>
+<span class="fc" id="L97">    }</span>
+
+    /**
+     * Gets the content type.
+     *
+     * @return the content type
+     *
+     * @see org.displaytag.filter.BufferedResponseWrapper#getContentType()
+     */
+    @Override
+    public String getContentType() {
+<span class="fc" id="L108">        final StringBuilder ret = new StringBuilder(this.contentType);</span>
+
+<span class="pc bpc" id="L110" title="2 of 4 branches missed.">        if (this.characterEncoding != null &amp;&amp; this.charEncSet) {</span>
+<span class="fc" id="L111">            ret.append(&quot;; charset=&quot;).append(this.characterEncoding);</span>
+        }
+
+<span class="fc" id="L114">        return this.contentType;</span>
+    }
+
+    /**
+     * The content type is NOT set on the wrapped response. You must set it manually. Overrides any previously set
+     * value.
+     *
+     * @param type
+     *            the content type.
+     */
+    @Override
+    public void setContentType(final String type) {
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">        if (this.state) {</span>
+<span class="nc" id="L127">            BufferedResponseWrapper13Impl.log.debug(&quot;Allowing content type&quot;);</span>
+<span class="nc" id="L128">            this.getResponse().setContentType(type);</span>
+        }
+
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (type == null) {</span>
+<span class="nc" id="L132">            this.contentType = null;</span>
+<span class="nc" id="L133">            return;</span>
+        }
+
+<span class="fc" id="L136">        boolean hasCharEnc = false;</span>
+<span class="fc" id="L137">        final String charEnc = StringUtils.trim(StringUtils.substringAfter(type, &quot;charset=&quot;));</span>
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">        if (StringUtils.isNotEmpty(charEnc)) {</span>
+<span class="fc" id="L139">            hasCharEnc = true;</span>
+        }
+
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        if (!hasCharEnc) {</span>
+<span class="nc" id="L143">            this.contentType = type;</span>
+<span class="nc" id="L144">            return;</span>
+        }
+
+<span class="fc" id="L147">        this.contentType = StringUtils.substringBefore(type, &quot;;&quot;);</span>
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">        if (StringUtils.isNotEmpty(charEnc)) {</span>
+<span class="fc" id="L149">            this.characterEncoding = charEnc;</span>
+<span class="fc" id="L150">            this.charEncSet = true;</span>
+        }
+
+<span class="fc" id="L153">    }</span>
+
+    /**
+     * If the app server sets the character encoding of the response, it is sticky and you will not be able to change
+     * it. Therefore it is intercepted here.
+     *
+     * @return the character encoding that was most recently set
+     */
+    @Override
+    public String getCharacterEncoding() {
+<span class="fc" id="L163">        return this.characterEncoding;</span>
+    }
+
+    /**
+     * Sets the character encoding.
+     *
+     * @param characterEncoding
+     *            the new character encoding
+     */
+    @Override
+    public void setCharacterEncoding(final String characterEncoding) {
+
+<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (characterEncoding == null) {</span>
+<span class="nc" id="L176">            return;</span>
+        }
+
+<span class="nc bnc" id="L179" title="All 2 branches missed.">        if (this.state) {</span>
+<span class="nc" id="L180">            BufferedResponseWrapper13Impl.log.debug(&quot;Allowing character encoding&quot;);</span>
+<span class="nc" id="L181">            this.getResponse().setCharacterEncoding(characterEncoding);</span>
+        }
+
+<span class="nc" id="L184">        this.characterEncoding = characterEncoding;</span>
+<span class="nc" id="L185">        this.charEncSet = true;</span>
+<span class="nc" id="L186">    }</span>
+
+    /**
+     * Gets the writer.
+     *
+     * @return the writer
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     *
+     * @see javax.servlet.ServletResponse#getWriter()
+     */
+    @Override
+    public PrintWriter getWriter() throws IOException {
+
+<span class="pc bpc" id="L201" title="3 of 4 branches missed.">        if (this.state &amp;&amp; !this.outRequested) {</span>
+<span class="nc" id="L202">            BufferedResponseWrapper13Impl.log.debug(&quot;getWriter() returned&quot;);</span>
+
+            // ok, exporting in progress, discard old data and go on streaming
+<span class="nc" id="L205">            this.servletOutputStream.reset();</span>
+<span class="nc" id="L206">            this.outputWriter.reset();</span>
+<span class="nc" id="L207">            this.outRequested = true;</span>
+<span class="nc" id="L208">            return ((HttpServletResponse) this.getResponse()).getWriter();</span>
+        }
+
+<span class="fc" id="L211">        return new PrintWriter(this.outputWriter);</span>
+    }
+
+    /**
+     * Flush the buffer, not the response.
+     *
+     * @throws IOException
+     *             if encountered when flushing
+     */
+    @Override
+    public void flushBuffer() throws IOException {
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">        if (this.outputWriter != null) {</span>
+<span class="fc" id="L223">            this.outputWriter.flush();</span>
+<span class="fc" id="L224">            this.servletOutputStream.outputStream.reset();</span>
+        }
+<span class="fc" id="L226">    }</span>
+
+    /**
+     * Gets the output stream.
+     *
+     * @return the output stream
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     *
+     * @see javax.servlet.ServletResponse#getOutputStream()
+     */
+    @Override
+    public ServletOutputStream getOutputStream() throws IOException {
+<span class="nc bnc" id="L240" title="All 4 branches missed.">        if (this.state &amp;&amp; !this.outRequested) {</span>
+<span class="nc" id="L241">            BufferedResponseWrapper13Impl.log.debug(&quot;getOutputStream() returned&quot;);</span>
+
+            // ok, exporting in progress, discard old data and go on streaming
+<span class="nc" id="L244">            this.servletOutputStream.reset();</span>
+<span class="nc" id="L245">            this.outputWriter.reset();</span>
+<span class="nc" id="L246">            this.outRequested = true;</span>
+<span class="nc" id="L247">            return ((HttpServletResponse) this.getResponse()).getOutputStream();</span>
+        }
+<span class="nc" id="L249">        return this.servletOutputStream;</span>
+    }
+
+    /**
+     * Adds the header.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @see javax.servlet.http.HttpServletResponse#addHeader(java.lang.String, java.lang.String)
+     */
+    @Override
+    public void addHeader(final String name, final String value) {
+        // if the &quot;magic parameter&quot; is set, a table tag is going to call getOutputStream()
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">        if (TableTagParameters.PARAMETER_EXPORTING.equals(name)) {</span>
+<span class="nc" id="L266">            BufferedResponseWrapper13Impl.log.debug(&quot;Magic header received, real response is now accessible&quot;);</span>
+<span class="nc" id="L267">            this.state = true;</span>
+<span class="fc bfc" id="L268" title="All 2 branches covered.">        } else if (!ArrayUtils.contains(BufferedResponseWrapper.FILTERED_HEADERS, StringUtils.lowerCase(name))) {</span>
+<span class="fc" id="L269">            ((HttpServletResponse) this.getResponse()).addHeader(name, value);</span>
+        }
+<span class="fc" id="L271">    }</span>
+
+    /**
+     * Checks if is out requested.
+     *
+     * @return true, if is out requested
+     *
+     * @see org.displaytag.filter.BufferedResponseWrapper#isOutRequested()
+     */
+    @Override
+    public boolean isOutRequested() {
+<span class="fc" id="L282">        return this.outRequested;</span>
+    }
+
+    /**
+     * Gets the content as string.
+     *
+     * @return the content as string
+     *
+     * @see org.displaytag.filter.BufferedResponseWrapper#getContentAsString()
+     */
+    @Override
+    public String getContentAsString() {
+<span class="fc" id="L294">        return this.outputWriter.toString() + this.servletOutputStream.toString();</span>
+    }
+
+    /**
+     * Sets the date header.
+     *
+     * @param name
+     *            the name
+     * @param date
+     *            the date
+     *
+     * @see javax.servlet.http.HttpServletResponse#setDateHeader(java.lang.String, long)
+     */
+    @Override
+    public void setDateHeader(final String name, final long date) {
+<span class="nc bnc" id="L309" title="All 2 branches missed.">        if (!ArrayUtils.contains(BufferedResponseWrapper.FILTERED_HEADERS, StringUtils.lowerCase(name))) {</span>
+<span class="nc" id="L310">            ((HttpServletResponse) this.getResponse()).setDateHeader(name, date);</span>
+        }
+<span class="nc" id="L312">    }</span>
+
+    /**
+     * Adds the date header.
+     *
+     * @param name
+     *            the name
+     * @param date
+     *            the date
+     *
+     * @see javax.servlet.http.HttpServletResponse#addDateHeader(java.lang.String, long)
+     */
+    @Override
+    public void addDateHeader(final String name, final long date) {
+<span class="nc bnc" id="L326" title="All 2 branches missed.">        if (!ArrayUtils.contains(BufferedResponseWrapper.FILTERED_HEADERS, StringUtils.lowerCase(name))) {</span>
+<span class="nc" id="L327">            ((HttpServletResponse) this.getResponse()).addDateHeader(name, date);</span>
+        }
+<span class="nc" id="L329">    }</span>
+
+    /**
+     * Sets the header.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @see javax.servlet.http.HttpServletResponse#setHeader(java.lang.String, java.lang.String)
+     */
+    @Override
+    public void setHeader(final String name, final String value) {
+<span class="nc bnc" id="L343" title="All 2 branches missed.">        if (!ArrayUtils.contains(BufferedResponseWrapper.FILTERED_HEADERS, StringUtils.lowerCase(name))) {</span>
+<span class="nc" id="L344">            ((HttpServletResponse) this.getResponse()).setHeader(name, value);</span>
+        }
+<span class="nc" id="L346">    }</span>
+
+    /**
+     * Sets the int header.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @see javax.servlet.http.HttpServletResponse#setIntHeader(java.lang.String, int)
+     */
+    @Override
+    public void setIntHeader(final String name, final int value) {
+<span class="nc bnc" id="L360" title="All 2 branches missed.">        if (!ArrayUtils.contains(BufferedResponseWrapper.FILTERED_HEADERS, StringUtils.lowerCase(name))) {</span>
+<span class="nc" id="L361">            ((HttpServletResponse) this.getResponse()).setIntHeader(name, value);</span>
+        }
+<span class="nc" id="L363">    }</span>
+
+    /**
+     * Adds the int header.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @see javax.servlet.http.HttpServletResponse#addIntHeader(java.lang.String, int)
+     */
+    @Override
+    public void addIntHeader(final String name, final int value) {
+<span class="nc bnc" id="L377" title="All 2 branches missed.">        if (!ArrayUtils.contains(BufferedResponseWrapper.FILTERED_HEADERS, StringUtils.lowerCase(name))) {</span>
+<span class="nc" id="L378">            ((HttpServletResponse) this.getResponse()).addIntHeader(name, value);</span>
+        }
+<span class="nc" id="L380">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

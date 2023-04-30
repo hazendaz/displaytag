@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultHref.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.util</a> &gt; <span class="el_source">DefaultHref.java</span></div><h1>DefaultHref.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.util;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+/**
+ * The Class DefaultHref.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class DefaultHref implements Href {
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
+     * Base url for the href.
+     */
+    private String url;
+
+    /**
+     * Url parameters.
+     */
+    private Map&lt;String, String[]&gt; parameters;
+
+    /**
+     * Anchor (to be added at the end of URL).
+     */
+    private String anchor;
+
+    /**
+     * Construct a new Href parsing a URL. Parameters are stripped from the base url and saved in the parameters map.
+     *
+     * @param baseUrl
+     *            String
+     */
+<span class="fc" id="L75">    public DefaultHref(final String baseUrl) {</span>
+<span class="fc" id="L76">        this.parameters = new LinkedHashMap&lt;&gt;();</span>
+<span class="fc" id="L77">        this.setFullUrl(baseUrl);</span>
+<span class="fc" id="L78">    }</span>
+
+    /**
+     * Sets the full url.
+     *
+     * @param baseUrl
+     *            the new full url
+     *
+     * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
+     */
+    @Override
+    public void setFullUrl(final String baseUrl) {
+<span class="fc" id="L90">        this.url = null;</span>
+<span class="fc" id="L91">        this.anchor = null;</span>
+        String noAnchorUrl;
+
+<span class="fc" id="L94">        final int anchorposition = baseUrl.indexOf('#');</span>
+
+        // extract anchor from url
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (anchorposition != -1) {</span>
+<span class="fc" id="L98">            noAnchorUrl = baseUrl.substring(0, anchorposition);</span>
+<span class="fc" id="L99">            this.anchor = baseUrl.substring(anchorposition + 1);</span>
+        } else {
+<span class="fc" id="L101">            noAnchorUrl = baseUrl;</span>
+        }
+
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        if (noAnchorUrl.indexOf('?') == -1) {</span>
+            // simple url, no parameters
+<span class="fc" id="L106">            this.url = noAnchorUrl;</span>
+<span class="fc" id="L107">            return;</span>
+        }
+
+        // the Url already has parameters, put them in the parameter Map
+<span class="fc" id="L111">        final StringTokenizer tokenizer = new StringTokenizer(noAnchorUrl, &quot;?&quot;); //$NON-NLS-1$</span>
+
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (baseUrl.startsWith(&quot;?&quot;)) //$NON-NLS-1$</span>
+        {
+            // support fake URI's which are just parameters to use with the current uri
+<span class="fc" id="L116">            this.url = TagConstants.EMPTY_STRING;</span>
+        } else {
+            // base url (before &quot;?&quot;)
+<span class="fc" id="L119">            this.url = tokenizer.nextToken();</span>
+        }
+
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (!tokenizer.hasMoreTokens()) {</span>
+<span class="nc" id="L123">            return;</span>
+        }
+
+        // process parameters
+<span class="fc" id="L127">        final StringTokenizer paramTokenizer = new StringTokenizer(tokenizer.nextToken(), &quot;&amp;&quot;); //$NON-NLS-1$</span>
+
+        // split parameters (key=value)
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        while (paramTokenizer.hasMoreTokens()) {</span>
+            // split key and value ...
+<span class="fc" id="L132">            final String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), '=');</span>
+
+            // encode name/value to prevent css
+<span class="fc" id="L135">            final String decodedkey = this.decodeParam(keyValue[0]);</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">            final String decodedvalue = this.decodeParam(keyValue.length &gt; 1 ? keyValue[1] : StringUtils.EMPTY);</span>
+
+<span class="fc bfc" id="L138" title="All 2 branches covered.">            if (!this.parameters.containsKey(decodedkey)) {</span>
+                // ... and add it to the map
+<span class="fc" id="L140">                this.parameters.put(decodedkey, new String[] { decodedvalue });</span>
+            } else {
+                // additional value for an existing parameter
+<span class="fc" id="L143">                final String[] previousValue = this.parameters.get(decodedkey);</span>
+
+<span class="fc" id="L145">                final String[] newArray = new String[previousValue.length + 1];</span>
+
+                int j;
+
+<span class="fc bfc" id="L149" title="All 2 branches covered.">                for (j = 0; j &lt; previousValue.length; j++) {</span>
+<span class="fc" id="L150">                    newArray[j] = previousValue[j];</span>
+                }
+
+<span class="fc" id="L153">                newArray[j] = decodedvalue;</span>
+<span class="fc" id="L154">                this.parameters.put(decodedkey, newArray);</span>
+
+            }
+<span class="fc" id="L157">        }</span>
+<span class="fc" id="L158">    }</span>
+
+    /**
+     * Adds a parameter to the href.
+     *
+     * @param key
+     *            String
+     * @param value
+     *            Object
+     *
+     * @return this Href instance, useful for concatenation.
+     */
+    @Override
+    public Href addParameter(final String key, final Object value) {
+<span class="fc" id="L172">        this.parameters.put(this.decodeParam(key), new String[] { this.decodeParam(value) });</span>
+<span class="fc" id="L173">        return this;</span>
+    }
+
+    /**
+     * Removes a parameter from the href.
+     *
+     * @param key
+     *            String
+     */
+    @Override
+    public void removeParameter(final String key) {
+<span class="fc" id="L184">        this.parameters.remove(this.decodeParam(key));</span>
+<span class="fc" id="L185">    }</span>
+
+    /**
+     * Adds an int parameter to the href.
+     *
+     * @param key
+     *            String
+     * @param value
+     *            int
+     *
+     * @return this Href instance, useful for concatenation.
+     */
+    @Override
+    public Href addParameter(final String key, final int value) {
+<span class="fc" id="L199">        this.parameters.put(this.decodeParam(key), new String[] { Integer.toString(value) });</span>
+<span class="fc" id="L200">        return this;</span>
+    }
+
+    /**
+     * Getter for the map containing link parameters. The returned map is always a copy and not the original instance.
+     *
+     * @return parameter Map (copy)
+     */
+    @Override
+    public Map&lt;String, String[]&gt; getParameterMap() {
+<span class="fc" id="L210">        final Map&lt;String, String[]&gt; copyMap = new LinkedHashMap&lt;&gt;(this.parameters);</span>
+<span class="fc" id="L211">        return copyMap;</span>
+    }
+
+    /**
+     * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
+     * added. Any parameter already present in the href object is removed.
+     *
+     * @param parametersMap
+     *            Map containing parameters
+     */
+    @Override
+    public void setParameterMap(final Map&lt;String, String[]&gt; parametersMap) {
+        // create a new HashMap
+<span class="fc" id="L224">        this.parameters = new HashMap&lt;&gt;(parametersMap.size());</span>
+
+        // copy the parameters
+<span class="fc" id="L227">        this.addParameterMap(parametersMap);</span>
+<span class="fc" id="L228">    }</span>
+
+    /**
+     * Adds all the parameters contained in the map to the Href. The value in the given Map will be escaped before
+     * added. Parameters in the original href are kept and not overridden.
+     *
+     * @param parametersMap
+     *            Map containing parameters
+     */
+    @Override
+    public void addParameterMap(final Map&lt;String, String[]&gt; parametersMap) {
+        // handle nulls
+<span class="pc bpc" id="L240" title="1 of 2 branches missed.">        if (parametersMap == null) {</span>
+<span class="nc" id="L241">            return;</span>
+        }
+
+        // copy value, escaping html
+<span class="fc" id="L245">        final Iterator&lt;Entry&lt;String, String[]&gt;&gt; mapIterator = parametersMap.entrySet().iterator();</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">        while (mapIterator.hasNext()) {</span>
+<span class="fc" id="L247">            final Entry&lt;String, String[]&gt; entry = mapIterator.next();</span>
+<span class="fc" id="L248">            final String key = this.decodeParam(entry.getKey());</span>
+
+            // don't overwrite parameters
+<span class="fc bfc" id="L251" title="All 2 branches covered.">            if (!this.parameters.containsKey(key)) {</span>
+<span class="fc" id="L252">                final String[] value = entry.getValue();</span>
+
+<span class="fc bfc" id="L254" title="All 2 branches covered.">                if (value != null) {</span>
+                    String[] values;
+                    // check mantained for binary compatibility with displaytag 1.2
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">                    if (value.getClass().isArray()) {</span>
+<span class="fc" id="L258">                        values = value;</span>
+<span class="fc bfc" id="L259" title="All 2 branches covered.">                        for (int i = 0; i &lt; values.length; i++) {</span>
+<span class="fc" id="L260">                            values[i] = this.decodeParam(values[i]);</span>
+                        }
+                    } else {
+<span class="nc" id="L263">                        values = new String[] { this.decodeParam(value) };</span>
+                    }
+
+<span class="fc" id="L266">                    this.parameters.put(key, values);</span>
+<span class="fc" id="L267">                } else {</span>
+<span class="fc" id="L268">                    this.parameters.put(key, new String[0]);</span>
+                }
+            }
+<span class="fc" id="L271">        }</span>
+<span class="fc" id="L272">    }</span>
+
+    /**
+     * Getter for the base url (without parameters).
+     *
+     * @return String
+     */
+    @Override
+    public String getBaseUrl() {
+<span class="fc" id="L281">        return this.url;</span>
+    }
+
+    /**
+     * Returns the URI anchor.
+     *
+     * @return anchor or &lt;code&gt;null&lt;/code&gt; if no anchor has been set.
+     */
+    @Override
+    public String getAnchor() {
+<span class="nc" id="L291">        return this.anchor;</span>
+    }
+
+    /**
+     * Setter for the URI anchor.
+     *
+     * @param name
+     *            string to be used as anchor name (without #).
+     */
+    @Override
+    public void setAnchor(final String name) {
+<span class="nc" id="L302">        this.anchor = name;</span>
+<span class="nc" id="L303">    }</span>
+
+    /**
+     * toString: output the full url with parameters.
+     *
+     * @return String
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L312">        final StringBuilder buffer = new StringBuilder(30);</span>
+
+<span class="fc" id="L314">        buffer.append(this.url);</span>
+
+<span class="fc bfc" id="L316" title="All 2 branches covered.">        if (this.parameters.size() &gt; 0) {</span>
+<span class="fc" id="L317">            buffer.append('?');</span>
+<span class="fc" id="L318">            final Set&lt;Entry&lt;String, String[]&gt;&gt; parameterSet = this.parameters.entrySet();</span>
+
+<span class="fc" id="L320">            final Iterator&lt;Entry&lt;String, String[]&gt;&gt; iterator = parameterSet.iterator();</span>
+
+<span class="fc bfc" id="L322" title="All 2 branches covered.">            while (iterator.hasNext()) {</span>
+<span class="fc" id="L323">                final Entry&lt;String, String[]&gt; entry = iterator.next();</span>
+
+<span class="fc" id="L325">                final Object key = entry.getKey();</span>
+<span class="fc" id="L326">                final Object value = entry.getValue();</span>
+
+<span class="pc bpc" id="L328" title="1 of 2 branches missed.">                if (value == null) {</span>
+<span class="nc" id="L329">                    buffer.append(this.encodeParam(key)).append('='); // no value</span>
+<span class="pc bpc" id="L330" title="1 of 2 branches missed.">                } else if (value.getClass().isArray()) {</span>
+<span class="fc" id="L331">                    final Object[] values = (Object[]) value;</span>
+<span class="fc bfc" id="L332" title="All 2 branches covered.">                    if (values.length == 0) {</span>
+<span class="fc" id="L333">                        buffer.append(this.encodeParam(key)).append('='); // no value</span>
+                    } else {
+<span class="fc bfc" id="L335" title="All 2 branches covered.">                        for (int i = 0; i &lt; values.length; i++) {</span>
+<span class="fc bfc" id="L336" title="All 2 branches covered.">                            if (i &gt; 0) {</span>
+<span class="fc" id="L337">                                buffer.append(TagConstants.AMPERSAND);</span>
+                            }
+
+<span class="fc" id="L340">                            buffer.append(this.encodeParam(key)).append('=').append(this.encodeParam(values[i]));</span>
+                        }
+                    }
+<span class="fc" id="L343">                } else {</span>
+<span class="nc" id="L344">                    buffer.append(this.encodeParam(key)).append('=').append(this.encodeParam(value));</span>
+                }
+
+<span class="fc bfc" id="L347" title="All 2 branches covered.">                if (iterator.hasNext()) {</span>
+<span class="fc" id="L348">                    buffer.append(TagConstants.AMPERSAND);</span>
+                }
+<span class="fc" id="L350">            }</span>
+        }
+
+<span class="fc bfc" id="L353" title="All 2 branches covered.">        if (this.anchor != null) {</span>
+<span class="fc" id="L354">            buffer.append('#');</span>
+<span class="fc" id="L355">            buffer.append(this.anchor);</span>
+        }
+
+<span class="fc" id="L358">        return buffer.toString();</span>
+    }
+
+    /**
+     * Encode param.
+     *
+     * @param param
+     *            the param
+     *
+     * @return the string
+     */
+    private String encodeParam(final Object param) {
+<span class="pc bpc" id="L370" title="1 of 2 branches missed.">        if (param == null) {</span>
+<span class="nc" id="L371">            return StringUtils.EMPTY;</span>
+        }
+        try {
+<span class="fc" id="L374">            return URLEncoder.encode(param.toString(), StandardCharsets.UTF_8.name());</span>
+<span class="nc" id="L375">        } catch (final UnsupportedEncodingException e) {</span>
+            // should never happen
+<span class="nc" id="L377">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    /**
+     * Decode param.
+     *
+     * @param param
+     *            the param
+     *
+     * @return the string
+     */
+    private String decodeParam(final Object param) {
+<span class="fc bfc" id="L390" title="All 2 branches covered.">        if (param == null) {</span>
+<span class="fc" id="L391">            return StringUtils.EMPTY;</span>
+        }
+        try {
+<span class="fc" id="L394">            return URLDecoder.decode(param.toString(), StandardCharsets.UTF_8.name());</span>
+<span class="nc" id="L395">        } catch (final UnsupportedEncodingException e) {</span>
+            // should never happen
+<span class="nc" id="L397">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    /**
+     * Clone.
+     *
+     * @return the object
+     *
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Object clone() {
+        final DefaultHref href;
+        try {
+<span class="fc" id="L412">            href = (DefaultHref) super.clone();</span>
+<span class="nc" id="L413">        } catch (final CloneNotSupportedException e) {</span>
+<span class="nc" id="L414">            throw new RuntimeException(e); // should never happen</span>
+<span class="fc" id="L415">        }</span>
+
+<span class="fc" id="L417">        href.parameters = new LinkedHashMap&lt;&gt;(this.parameters);</span>
+<span class="fc" id="L418">        return href;</span>
+    }
+
+    /**
+     * Equals.
+     *
+     * @param object
+     *            the object
+     *
+     * @return true, if successful
+     *
+     * @see java.lang.Object#equals(Object)
+     */
+    @Override
+    public boolean equals(final Object object) {
+<span class="pc bpc" id="L433" title="1 of 2 branches missed.">        if (!(object instanceof DefaultHref)) {</span>
+<span class="nc" id="L434">            return false;</span>
+        }
+<span class="fc" id="L436">        final DefaultHref rhs = (DefaultHref) object;</span>
+
+        // &quot;parameters&quot; can't be added directly, since equals on HashMap doesn't return true with equal key/values
+<span class="fc" id="L439">        return new EqualsBuilder().append(this.parameters.keySet(), rhs.parameters.keySet())</span>
+<span class="fc" id="L440">                .append(this.parameters.values().toArray(), rhs.parameters.values().toArray()).append(this.url, rhs.url)</span>
+<span class="fc" id="L441">                .append(this.anchor, rhs.anchor).isEquals();</span>
+    }
+
+    /**
+     * Hash code.
+     *
+     * @return the int
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L453">        return new HashCodeBuilder(1313733113, -431360889).append(this.parameters.keySet())</span>
+<span class="nc" id="L454">                .append(this.parameters.values().toArray()).append(this.url).append(this.anchor).toHashCode();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

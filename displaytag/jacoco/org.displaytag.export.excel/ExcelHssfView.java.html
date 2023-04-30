@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExcelHssfView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.export.excel</a> &gt; <span class="el_source">ExcelHssfView.java</span></div><h1>ExcelHssfView.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.export.excel;
+
+import java.io.OutputStream;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+
+import javax.servlet.jsp.JspException;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.displaytag.export.BinaryExportView;
+import org.displaytag.model.Column;
+import org.displaytag.model.ColumnIterator;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.RowIterator;
+import org.displaytag.model.TableModel;
+
+/**
+ * Excel exporter using POI HSSF.
+ *
+ * @author Fabrizio Giustina
+ * @author rapruitt
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class ExcelHssfView implements BinaryExportView {
+
+    /**
+     * TableModel to render.
+     */
+    private TableModel model;
+
+    /** export full list?. */
+    private boolean exportFull;
+
+    /** include header in export?. */
+    private boolean header;
+
+    /** decorate export?. */
+    private boolean decorated;
+
+    /** Name of Excel Spreadsheet. */
+    private String sheetName;
+
+    /** Workbook. */
+    private HSSFWorkbook wb;
+
+    /** Worksheet. */
+    private HSSFSheet sheet;
+
+    /** utils. */
+    ExcelUtils utils;
+
+    /**
+     * Instantiates a new excel hssf view.
+     */
+<span class="fc" id="L88">    public ExcelHssfView() {</span>
+<span class="fc" id="L89">    }</span>
+
+    /**
+     * Sets the parameters.
+     *
+     * @param tableModel
+     *            the table model
+     * @param exportFullList
+     *            the export full list
+     * @param includeHeader
+     *            the include header
+     * @param decorateValues
+     *            the decorate values
+     *
+     * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
+     */
+    @Override
+    public void setParameters(final TableModel tableModel, final boolean exportFullList, final boolean includeHeader,
+            final boolean decorateValues) {
+<span class="fc" id="L108">        this.model = tableModel;</span>
+<span class="fc" id="L109">        this.exportFull = exportFullList;</span>
+<span class="fc" id="L110">        this.header = includeHeader;</span>
+<span class="fc" id="L111">        this.decorated = decorateValues;</span>
+<span class="fc" id="L112">        this.utils = new ExcelUtils(new HSSFWorkbook());</span>
+<span class="fc" id="L113">        this.utils.initCellStyles(tableModel.getProperties());</span>
+<span class="fc" id="L114">    }</span>
+
+    /**
+     * Gets the mime type.
+     *
+     * @return &quot;application/vnd.ms-excel&quot;
+     *
+     * @see org.displaytag.export.BaseExportView#getMimeType()
+     */
+    @Override
+    public String getMimeType() {
+<span class="fc" id="L125">        return &quot;application/vnd.ms-excel&quot;; //$NON-NLS-1$</span>
+    }
+
+    /**
+     * Do export.
+     *
+     * @param out
+     *            the out
+     *
+     * @throws JspException
+     *             the jsp exception
+     *
+     * @see org.displaytag.export.BinaryExportView#doExport(OutputStream)
+     */
+    @Override
+    public void doExport(final OutputStream out) throws JspException {
+        try {
+<span class="fc" id="L142">            final String inputSheetName = this.model.getProperties().getProperty(ExcelUtils.EXCEL_SHEET_NAME);</span>
+<span class="fc" id="L143">            this.setSheetName(inputSheetName);</span>
+<span class="fc" id="L144">            this.setSheet(this.getWb().createSheet(this.getSheetName()));</span>
+
+<span class="fc" id="L146">            int rowNum = 0;</span>
+<span class="fc" id="L147">            int colNum = 0;</span>
+
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">            if (this.header) {</span>
+                // Create an header row
+<span class="fc" id="L151">                final HSSFRow xlsRow = this.sheet.createRow(rowNum);</span>
+<span class="fc" id="L152">                rowNum++;</span>
+
+<span class="fc" id="L154">                final Iterator&lt;HeaderCell&gt; iterator = this.model.getHeaderCellList().iterator();</span>
+
+<span class="fc bfc" id="L156" title="All 2 branches covered.">                while (iterator.hasNext()) {</span>
+<span class="fc" id="L157">                    final HeaderCell headerCell = iterator.next();</span>
+
+<span class="fc" id="L159">                    final HSSFCell cell = xlsRow.createCell(colNum++);</span>
+<span class="fc" id="L160">                    cell.setCellValue(new HSSFRichTextString(this.getHeaderCellValue(headerCell)));</span>
+<span class="fc" id="L161">                    cell.setCellStyle(this.createHeaderStyle(this.getWb(), headerCell));</span>
+<span class="fc" id="L162">                }</span>
+            }
+
+            // get the correct iterator (full or partial list according to the exportFull field)
+<span class="fc" id="L166">            final RowIterator rowIterator = this.model.getRowIterator(this.exportFull);</span>
+
+            // iterator on rows
+<span class="fc bfc" id="L169" title="All 2 branches covered.">            while (rowIterator.hasNext()) {</span>
+<span class="fc" id="L170">                final Row row = rowIterator.next();</span>
+<span class="fc" id="L171">                final HSSFRow xlsRow = this.getSheet().createRow(rowNum);</span>
+<span class="fc" id="L172">                rowNum++;</span>
+<span class="fc" id="L173">                colNum = 0;</span>
+
+                // iterator on columns
+<span class="fc" id="L176">                final ColumnIterator columnIterator = row.getColumnIterator(this.model.getHeaderCellList());</span>
+
+<span class="fc bfc" id="L178" title="All 2 branches covered.">                while (columnIterator.hasNext()) {</span>
+<span class="fc" id="L179">                    final Column column = columnIterator.nextColumn();</span>
+
+                    // Get the value to be displayed for the column
+<span class="fc" id="L182">                    final Object value = column.getValue(this.decorated);</span>
+
+<span class="fc" id="L184">                    final HSSFCell cell = xlsRow.createCell(colNum++);</span>
+<span class="fc" id="L185">                    this.writeCell(value, cell);</span>
+<span class="fc" id="L186">                }</span>
+<span class="fc" id="L187">            }</span>
+
+<span class="fc" id="L189">            this.createTotalsRow(this.getSheet(), rowNum, this.model);</span>
+
+<span class="fc" id="L191">            this.autosizeColumns();</span>
+
+<span class="fc" id="L193">            this.getWb().write(out);</span>
+<span class="nc" id="L194">        } catch (final Exception e) {</span>
+<span class="nc" id="L195">            throw new ExcelUtils.ExcelGenerationException(e);</span>
+<span class="fc" id="L196">        }</span>
+<span class="fc" id="L197">    }</span>
+
+    /**
+     * Uses POI Autosizing. WARNING. This has been known to cause performance problems and various exceptions. use at
+     * your own risk! Overriding this method is suggested. From POI HSSF documentation for autoSizeColumn: &quot;To calculate
+     * column width HSSFSheet.autoSizeColumn uses Java2D classes that throw exception if graphical environment is not
+     * available. In case if graphical environment is not available, you must tell Java that you are running in headless
+     * mode and set the following system property: java.awt.headless=true.&quot;
+     */
+    protected void autosizeColumns() {
+<span class="fc bfc" id="L207" title="All 2 branches covered.">        for (int i = 0; i &lt; this.getModel().getNumberOfColumns(); i++) {</span>
+<span class="fc" id="L208">            this.getSheet().autoSizeColumn((short) i);</span>
+            // since this usually creates column widths that are just too short, adjust here!
+            // gives column width an extra character
+<span class="fc" id="L211">            int width = this.getSheet().getColumnWidth(i);</span>
+<span class="fc" id="L212">            width += 256;</span>
+<span class="fc" id="L213">            this.getSheet().setColumnWidth(i, (short) width);</span>
+        }
+<span class="fc" id="L215">    }</span>
+
+    /**
+     * Write the value to the cell. Override this method if you have complex data types that may need to be exported.
+     *
+     * @param value
+     *            the value of the cell
+     * @param cell
+     *            the cell to write it to
+     */
+    protected void writeCell(final Object value, final HSSFCell cell) {
+<span class="pc bpc" id="L226" title="1 of 2 branches missed.">        if (value == null) {</span>
+<span class="nc" id="L227">            cell.setCellValue(new HSSFRichTextString(&quot;&quot;));</span>
+<span class="pc bpc" id="L228" title="1 of 2 branches missed.">        } else if (value instanceof Integer) {</span>
+<span class="nc" id="L229">            final Integer integer = (Integer) value;</span>
+            // due to a weird bug in HSSF where it uses shorts, we need to input this as a double value :(
+<span class="nc" id="L231">            cell.setCellValue(integer.doubleValue());</span>
+<span class="nc" id="L232">            cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_INTEGER));</span>
+<span class="pc bpc" id="L233" title="1 of 2 branches missed.">        } else if (value instanceof Number) {</span>
+<span class="nc" id="L234">            final Number num = (Number) value;</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">            if (num.equals(Double.NaN)) {</span>
+<span class="nc" id="L236">                cell.setCellValue(new HSSFRichTextString(&quot;&quot;));</span>
+            } else {
+<span class="nc" id="L238">                cell.setCellValue(num.doubleValue());</span>
+            }
+<span class="nc" id="L240">            cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_NUMBER));</span>
+<span class="pc bpc" id="L241" title="1 of 2 branches missed.">        } else if (value instanceof Date) {</span>
+<span class="nc" id="L242">            cell.setCellValue((Date) value);</span>
+<span class="nc" id="L243">            cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));</span>
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">        } else if (value instanceof Calendar) {</span>
+<span class="nc" id="L245">            cell.setCellValue((Calendar) value);</span>
+<span class="nc" id="L246">            cell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));</span>
+        } else {
+<span class="fc" id="L248">            cell.setCellValue(new HSSFRichTextString(ExcelUtils.escapeColumnValue(value)));</span>
+        }
+<span class="fc" id="L250">    }</span>
+
+    /**
+     * Templated method that is called for all non-header and non-total cells.
+     *
+     * @param wb
+     *            the wb
+     * @param rowCtr
+     *            the row ctr
+     * @param column
+     *            the column
+     *
+     * @return the HSSF cell style
+     */
+    public HSSFCellStyle createRowStyle(final HSSFWorkbook wb, final int rowCtr, final Column column) {
+<span class="nc" id="L265">        return wb.createCellStyle();</span>
+    }
+
+    /**
+     * Gets the header cell value.
+     *
+     * @param headerCell
+     *            the header cell
+     *
+     * @return the header cell value
+     */
+    public String getHeaderCellValue(final HeaderCell headerCell) {
+<span class="fc" id="L277">        String columnHeader = headerCell.getTitle();</span>
+
+<span class="pc bpc" id="L279" title="1 of 2 branches missed.">        if (columnHeader == null) {</span>
+<span class="nc" id="L280">            columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());</span>
+        }
+
+<span class="fc" id="L283">        return columnHeader;</span>
+    }
+
+    /**
+     * Templated method that is called for all header cells.
+     *
+     * @param wb
+     *            the wb
+     * @param headerCell
+     *            the header cell
+     *
+     * @return the HSSF cell style
+     */
+    public HSSFCellStyle createHeaderStyle(final HSSFWorkbook wb, final HeaderCell headerCell) {
+<span class="fc" id="L297">        final HSSFCellStyle headerStyle = this.getNewCellStyle();</span>
+
+<span class="fc" id="L299">        headerStyle.setFillPattern(FillPatternType.FINE_DOTS);</span>
+<span class="fc" id="L300">        headerStyle.setFillBackgroundColor(HSSFColorPredefined.BLUE_GREY.getIndex());</span>
+<span class="fc" id="L301">        final HSSFFont bold = wb.createFont();</span>
+<span class="fc" id="L302">        bold.setBold(true);</span>
+<span class="fc" id="L303">        bold.setColor(HSSFColorPredefined.WHITE.getIndex());</span>
+<span class="fc" id="L304">        headerStyle.setFont(bold);</span>
+
+<span class="fc" id="L306">        return headerStyle;</span>
+    }
+
+    /**
+     * Templated method that is used if a totals row is desired.
+     *
+     * @param sheet
+     *            the sheet
+     * @param rowNum
+     *            the row num
+     * @param tableModel
+     *            the table model
+     */
+    public void createTotalsRow(final HSSFSheet sheet, final int rowNum, final TableModel tableModel) {
+<span class="fc" id="L320">    }</span>
+
+    /**
+     * Gets the table model.
+     *
+     * @return the table model
+     */
+    public TableModel getTableModel() {
+<span class="nc" id="L328">        return this.model;</span>
+    }
+
+    /**
+     * Checks if is export full.
+     *
+     * @return true, if is export full
+     */
+    public boolean isExportFull() {
+<span class="nc" id="L337">        return this.exportFull;</span>
+    }
+
+    /**
+     * Checks if is include header in export.
+     *
+     * @return true, if is include header in export
+     */
+    public boolean isIncludeHeaderInExport() {
+<span class="nc" id="L346">        return this.header;</span>
+    }
+
+    /**
+     * Checks if is decorate export.
+     *
+     * @return true, if is decorate export
+     */
+    public boolean isDecorateExport() {
+<span class="nc" id="L355">        return this.decorated;</span>
+    }
+
+    /**
+     * Gets the sheet name.
+     *
+     * @return the sheet name
+     */
+    public String getSheetName() {
+<span class="fc" id="L364">        return this.sheetName;</span>
+    }
+
+    /**
+     * Sets the sheet name.
+     *
+     * @param sheetName
+     *            the new sheet name
+     *
+     * @throws JspException
+     *             the jsp exception
+     */
+    public void setSheetName(String sheetName) throws JspException {
+        // this is due to either the POI limitations or excel (I'm not sure). you get the following error if you don't
+        // do this:
+        // Exception: [.ExcelHssfView] !ExcelView.errorexporting! Cause: Sheet name cannot be blank, greater than 31
+        // chars, or contain any of /\*?[]
+<span class="pc bpc" id="L381" title="1 of 2 branches missed.">        if (StringUtils.isBlank(sheetName)) {</span>
+<span class="nc" id="L382">            throw new JspException(&quot;The sheet name property &quot; + ExcelUtils.EXCEL_SHEET_NAME + &quot; must not be blank.&quot;);</span>
+        }
+<span class="fc" id="L384">        sheetName = sheetName.replaceAll(&quot;/|\\\\|\\*|\\?|\\[|\\]&quot;, &quot;&quot;);</span>
+<span class="pc bpc" id="L385" title="1 of 2 branches missed.">        this.sheetName = sheetName.length() &lt;= 31 ? sheetName : sheetName.substring(0, 31 - 3) + &quot;...&quot;;</span>
+<span class="fc" id="L386">    }</span>
+
+    /**
+     * Gets the new cell style.
+     *
+     * @return the new cell style
+     */
+    public HSSFCellStyle getNewCellStyle() {
+<span class="pc bpc" id="L394" title="1 of 2 branches missed.">        return this.getWb() == null ? null : this.getWb().createCellStyle();</span>
+    }
+
+    /**
+     * Gets the wb.
+     *
+     * @return the wb
+     */
+    public HSSFWorkbook getWb() {
+<span class="fc bfc" id="L403" title="All 2 branches covered.">        if (this.wb == null) {</span>
+<span class="fc" id="L404">            this.wb = new HSSFWorkbook();</span>
+        }
+<span class="fc" id="L406">        return this.wb;</span>
+    }
+
+    /**
+     * Sets the wb.
+     *
+     * @param wb
+     *            the new wb
+     */
+    public void setWb(final HSSFWorkbook wb) {
+<span class="nc" id="L416">        this.wb = wb;</span>
+<span class="nc" id="L417">    }</span>
+
+    /**
+     * Gets the sheet.
+     *
+     * @return the sheet
+     */
+    public HSSFSheet getSheet() {
+<span class="fc" id="L425">        return this.sheet;</span>
+    }
+
+    /**
+     * Sets the sheet.
+     *
+     * @param sheet
+     *            the new sheet
+     */
+    public void setSheet(final HSSFSheet sheet) {
+<span class="fc" id="L435">        this.sheet = sheet;</span>
+<span class="fc" id="L436">    }</span>
+
+    /**
+     * Gets the model.
+     *
+     * @return the model
+     */
+    public TableModel getModel() {
+<span class="fc" id="L444">        return this.model;</span>
+    }
+
+    /**
+     * Sets the model.
+     *
+     * @param model
+     *            the new model
+     */
+    public void setModel(final TableModel model) {
+<span class="nc" id="L454">        this.model = model;</span>
+<span class="nc" id="L455">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

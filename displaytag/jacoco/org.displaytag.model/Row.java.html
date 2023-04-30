@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Row.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.model</a> &gt; <span class="el_source">Row.java</span></div><h1>Row.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.model;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.TagConstants;
+
+/**
+ * Holds informations for a table row.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class Row {
+
+    /**
+     * Object holding values for the current row.
+     */
+    private final Object rowObject;
+
+    /**
+     * List of cell objects.
+     */
+    private final List&lt;Cell&gt; staticCells;
+
+    /**
+     * Row number.
+     */
+    private int rowNumber;
+
+    /**
+     * TableModel which the row belongs to.
+     */
+    private TableModel tableModel;
+
+    /**
+     * Constructor for Row.
+     *
+     * @param object
+     *            Object
+     * @param number
+     *            int
+     */
+<span class="fc" id="L72">    public Row(final Object object, final int number) {</span>
+<span class="fc" id="L73">        this.rowObject = object;</span>
+<span class="fc" id="L74">        this.rowNumber = number;</span>
+<span class="fc" id="L75">        this.staticCells = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L76">    }</span>
+
+    /**
+     * Setter for the row number.
+     *
+     * @param number
+     *            row number
+     */
+    public void setRowNumber(final int number) {
+<span class="fc" id="L85">        this.rowNumber = number;</span>
+<span class="fc" id="L86">    }</span>
+
+    /**
+     * Getter for the row number.
+     *
+     * @return row number
+     */
+    public int getRowNumber() {
+<span class="fc" id="L94">        return this.rowNumber;</span>
+    }
+
+    /**
+     * Adds a cell to the row.
+     *
+     * @param cell
+     *            Cell
+     */
+    public void addCell(final Cell cell) {
+<span class="fc" id="L104">        this.staticCells.add(cell);</span>
+<span class="fc" id="L105">    }</span>
+
+    /**
+     * getter for the list of Cell object.
+     *
+     * @return List containing Cell objects
+     */
+    public List&lt;Cell&gt; getCellList() {
+<span class="fc" id="L113">        return this.staticCells;</span>
+    }
+
+    /**
+     * getter for the object holding values for the current row.
+     *
+     * @return Object object holding values for the current row
+     */
+    public Object getObject() {
+<span class="fc" id="L122">        return this.rowObject;</span>
+    }
+
+    /**
+     * Iterates on columns.
+     *
+     * @param columns
+     *            List
+     *
+     * @return ColumnIterator
+     */
+    public ColumnIterator getColumnIterator(final List&lt;HeaderCell&gt; columns) {
+<span class="fc" id="L134">        return new ColumnIterator(columns, this);</span>
+    }
+
+    /**
+     * Setter for the table model the row belongs to.
+     *
+     * @param table
+     *            TableModel
+     */
+    protected void setParentTable(final TableModel table) {
+<span class="fc" id="L144">        this.tableModel = table;</span>
+<span class="fc" id="L145">    }</span>
+
+    /**
+     * Getter for the table model the row belongs to.
+     *
+     * @return TableModel
+     */
+    protected TableModel getParentTable() {
+<span class="fc" id="L153">        return this.tableModel;</span>
+    }
+
+    /**
+     * Writes the open &amp;lt;tr&amp;gt; tag.
+     *
+     * @return String &amp;lt;tr&amp;gt; tag with the appropriate css class attribute
+     */
+    public String getOpenTag() {
+<span class="fc" id="L162">        final Map&lt;String, Object&gt; rowAttributes = new HtmlAttributeMap();</span>
+
+<span class="fc" id="L164">        final MultipleHtmlAttribute cssAttribute = new MultipleHtmlAttribute(</span>
+<span class="fc" id="L165">                this.tableModel.getProperties().getCssRow(this.rowNumber));</span>
+
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (this.tableModel.getTableDecorator() != null) {</span>
+            try {
+<span class="fc" id="L169">                final String addStyle = this.tableModel.getTableDecorator().addRowClass();</span>
+
+<span class="fc bfc" id="L171" title="All 2 branches covered.">                if (StringUtils.isNotBlank(addStyle)) {</span>
+<span class="fc" id="L172">                    cssAttribute.addAttributeValue(addStyle);</span>
+                }
+
+<span class="fc" id="L175">                final String id = this.tableModel.getTableDecorator().addRowId();</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">                if (StringUtils.isNotBlank(id)) {</span>
+<span class="fc" id="L177">                    rowAttributes.put(TagConstants.ATTRIBUTE_ID, id);</span>
+                }
+<span class="nc" id="L179">            } catch (final NoSuchMethodError e) {</span>
+                // this catch is here to allow decorators compiled with displaytag 1.0 work with 1.1
+                // since the addRowClass() and addRowId() are new in displaytag 1.1 earlier decorators could throw
+                // a NoSuchMethodError... be nice with them till a next major release
+<span class="fc" id="L183">            }</span>
+        }
+
+<span class="fc bfc" id="L186" title="All 2 branches covered.">        if (!cssAttribute.isEmpty()) {</span>
+<span class="fc" id="L187">            rowAttributes.put(TagConstants.ATTRIBUTE_CLASS, cssAttribute);</span>
+        }
+
+<span class="fc" id="L190">        final StringBuilder tag = new StringBuilder();</span>
+<span class="fc" id="L191">        tag.append(TagConstants.TAG_OPEN);</span>
+<span class="fc" id="L192">        tag.append(TagConstants.TAGNAME_ROW);</span>
+
+<span class="fc" id="L194">        tag.append(rowAttributes.toString());</span>
+
+<span class="fc" id="L196">        tag.append(TagConstants.TAG_CLOSE);</span>
+
+<span class="fc" id="L198">        return tag.toString();</span>
+    }
+
+    /**
+     * writes the &amp;lt;/tr&amp;gt; tag.
+     *
+     * @return String &amp;lt;/tr&amp;gt; tag
+     */
+    public String getCloseTag() {
+<span class="fc" id="L207">        return TagConstants.TAG_TR_CLOSE;</span>
+    }
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L219">        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //</span>
+<span class="fc" id="L220">                .append(&quot;rowNumber&quot;, this.rowNumber) //$NON-NLS-1$</span>
+<span class="fc" id="L221">                .append(&quot;rowObject&quot;, this.rowObject) //$NON-NLS-1$</span>
+<span class="fc" id="L222">                .toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableWriterAdapter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.render</a> &gt; <span class="el_source">TableWriterAdapter.java</span></div><h1>TableWriterAdapter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.render;
+
+import org.displaytag.model.Column;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
+
+/**
+ * Convenience abstract adapter for constructing a table view; contains only stub implementations. This class exists as
+ * a convenience for creating table-writer objects. Extend this class to create a table writer and override the methods
+ * of interest. This class also protects subclasses from future additions to TableWriterTemplate they may not be
+ * interested in.
+ *
+ * @author Jorge L. Barroso
+ *
+ * @version $Id$
+ */
+<span class="fc" id="L38">public abstract class TableWriterAdapter extends TableWriterTemplate {</span>
+
+    /**
+     * Write empty list message.
+     *
+     * @param emptyListMessage
+     *            the empty list message
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeEmptyListMessage(java.lang.String)
+     */
+    @Override
+    protected void writeEmptyListMessage(final String emptyListMessage) throws Exception {
+<span class="nc" id="L53">    }</span>
+
+    /**
+     * Write top banner.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTopBanner(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTopBanner(final TableModel model) throws Exception {
+<span class="fc" id="L68">    }</span>
+
+    /**
+     * Write table opener.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableOpener(final TableModel model) throws Exception {
+<span class="nc" id="L83">    }</span>
+
+    /**
+     * Write caption.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeCaption(final TableModel model) throws Exception {
+<span class="nc" id="L98">    }</span>
+
+    /**
+     * Write table header.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableHeader(final TableModel model) throws Exception {
+<span class="nc" id="L113">    }</span>
+
+    /**
+     * Write pre body footer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writePreBodyFooter(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writePreBodyFooter(final TableModel model) throws Exception {
+<span class="nc" id="L128">    }</span>
+
+    /**
+     * Write table body opener.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableBodyOpener(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableBodyOpener(final TableModel model) throws Exception {
+<span class="fc" id="L143">    }</span>
+
+    /**
+     * Write table body closer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableBodyCloser(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableBodyCloser(final TableModel model) throws Exception {
+<span class="fc" id="L158">    }</span>
+
+    /**
+     * Write post body footer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writePostBodyFooter(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writePostBodyFooter(final TableModel model) throws Exception {
+<span class="fc" id="L173">    }</span>
+
+    /**
+     * Write table closer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableCloser(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableCloser(final TableModel model) throws Exception {
+<span class="fc" id="L188">    }</span>
+
+    /**
+     * Write bottom banner.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeBottomBanner(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeBottomBanner(final TableModel model) throws Exception {
+<span class="fc" id="L203">    }</span>
+
+    /**
+     * Write decorated table finish.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedTableFinish(final TableModel model) throws Exception {
+<span class="nc" id="L218">    }</span>
+
+    /**
+     * Write decorated row start.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedRowStart(final TableModel model) throws Exception {
+<span class="nc" id="L233">    }</span>
+
+    /**
+     * Write row opener.
+     *
+     * @param row
+     *            the row
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeRowOpener(org.displaytag.model.Row)
+     */
+    @Override
+    protected void writeRowOpener(final Row row) throws Exception {
+<span class="fc" id="L248">    }</span>
+
+    /**
+     * Write column opener.
+     *
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnOpener(final Column column) throws Exception {
+<span class="nc" id="L263">    }</span>
+
+    /**
+     * Write column value.
+     *
+     * @param value
+     *            the value
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnValue(final Object value, final Column column) throws Exception {
+<span class="nc" id="L280">    }</span>
+
+    /**
+     * Write column closer.
+     *
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnCloser(org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnCloser(final Column column) throws Exception {
+<span class="fc" id="L295">    }</span>
+
+    /**
+     * Write row with no columns.
+     *
+     * @param string
+     *            the string
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeRowWithNoColumns(java.lang.String)
+     */
+    @Override
+    protected void writeRowWithNoColumns(final String string) throws Exception {
+<span class="nc" id="L310">    }</span>
+
+    /**
+     * Write row closer.
+     *
+     * @param row
+     *            the row
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeRowCloser(org.displaytag.model.Row)
+     */
+    @Override
+    protected void writeRowCloser(final Row row) throws Exception {
+<span class="fc" id="L325">    }</span>
+
+    /**
+     * Write decorated row finish.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedRowFinish(final TableModel model) throws Exception {
+<span class="nc" id="L340">    }</span>
+
+    /**
+     * Write empty list row message.
+     *
+     * @param message
+     *            the message
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeEmptyListRowMessage(java.lang.String)
+     */
+    @Override
+    protected void writeEmptyListRowMessage(final String message) throws Exception {
+<span class="nc" id="L355">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

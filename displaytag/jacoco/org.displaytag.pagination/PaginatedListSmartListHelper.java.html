@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PaginatedListSmartListHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.pagination</a> &gt; <span class="el_source">PaginatedListSmartListHelper.java</span></div><h1>PaginatedListSmartListHelper.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.pagination;
+
+import java.text.MessageFormat;
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.model.Row;
+import org.displaytag.properties.TableProperties;
+import org.displaytag.util.Href;
+
+/**
+ * An implementation of SmartListHelper used for externally sorted and paginated lists. It duplicates nearly all of its
+ * superclass, so these two classes should be refactored
+ *
+ * @author JBN
+ */
+public class PaginatedListSmartListHelper extends SmartListHelper {
+
+    /** The paginated list. */
+    private final PaginatedList paginatedList;
+
+    /** The properties. */
+    private final TableProperties properties;
+
+    /** The page count. */
+    private final int pageCount;
+
+    /**
+     * Instantiates a new paginated list smart list helper.
+     *
+     * @param paginatedList
+     *            the paginated list
+     * @param tableProperties
+     *            the table properties
+     */
+<span class="fc" id="L58">    public PaginatedListSmartListHelper(final PaginatedList paginatedList, final TableProperties tableProperties) {</span>
+<span class="fc" id="L59">        this.paginatedList = paginatedList;</span>
+<span class="fc" id="L60">        this.properties = tableProperties;</span>
+<span class="fc" id="L61">        this.pageCount = this.computePageCount();</span>
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * Compute page count.
+     *
+     * @return the int
+     */
+    private int computePageCount() {
+<span class="fc" id="L70">        int pageCount = this.paginatedList.getFullListSize() / Math.max(1, this.paginatedList.getObjectsPerPage());</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">        if (this.paginatedList.getFullListSize() % this.paginatedList.getObjectsPerPage() &gt; 0) {</span>
+<span class="nc" id="L72">            pageCount++;</span>
+        }
+<span class="fc" id="L74">        return pageCount;</span>
+    }
+
+    /**
+     * Gets the first index for current page.
+     *
+     * @return the first index for current page
+     */
+    @Override
+    public int getFirstIndexForCurrentPage() {
+<span class="fc" id="L84">        return this.getFirstIndexForPage(this.paginatedList.getPageNumber());</span>
+    }
+
+    /**
+     * Gets the first index for page.
+     *
+     * @param pageNumber
+     *            the page number
+     *
+     * @return the first index for page
+     */
+    @Override
+    protected int getFirstIndexForPage(int pageNumber) {
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        if (pageNumber &gt; this.pageCount) {</span>
+<span class="nc" id="L98">            pageNumber = this.pageCount;</span>
+        }
+
+<span class="fc" id="L101">        return (pageNumber - 1) * this.paginatedList.getObjectsPerPage();</span>
+    }
+
+    /**
+     * Gets the last index for current page.
+     *
+     * @return the last index for current page
+     */
+    @Override
+    protected int getLastIndexForCurrentPage() {
+<span class="fc" id="L111">        return this.getLastIndexForPage(this.paginatedList.getPageNumber());</span>
+    }
+
+    /**
+     * Gets the last index for page.
+     *
+     * @param pageNumber
+     *            the page number
+     *
+     * @return the last index for page
+     */
+    @Override
+    protected int getLastIndexForPage(int pageNumber) {
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (pageNumber &gt; this.pageCount) {</span>
+<span class="nc" id="L125">            pageNumber = this.pageCount;</span>
+        }
+
+<span class="fc" id="L128">        int result = this.getFirstIndexForPage(pageNumber) + this.paginatedList.getObjectsPerPage() - 1;</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        if (result &gt;= this.paginatedList.getFullListSize()) {</span>
+<span class="nc" id="L130">            result = this.paginatedList.getFullListSize() - 1;</span>
+        }
+<span class="fc" id="L132">        return result;</span>
+    }
+
+    /**
+     * Gets the list for current page.
+     *
+     * @return the list for current page
+     */
+    @Override
+    public List&lt;Row&gt; getListForCurrentPage() {
+<span class="nc" id="L142">        return this.paginatedList.getList();</span>
+    }
+
+    /**
+     * Gets the list for page.
+     *
+     * @param pageNumber
+     *            the page number
+     *
+     * @return the list for page
+     */
+    @Override
+    protected List&lt;Row&gt; getListForPage(final int pageNumber) {
+<span class="nc bnc" id="L155" title="All 2 branches missed.">        if (pageNumber == this.paginatedList.getPageNumber()) {</span>
+<span class="nc" id="L156">            return this.getListForCurrentPage();</span>
+        }
+<span class="nc" id="L158">        return null;</span>
+    }
+
+    /**
+     * Gets the page navigation bar.
+     *
+     * @param baseHref
+     *            the base href
+     * @param pageParameter
+     *            the page parameter
+     *
+     * @return the page navigation bar
+     */
+    @Override
+    public String getPageNavigationBar(final Href baseHref, final String pageParameter) {
+
+<span class="fc" id="L174">        final int groupSize = this.properties.getPagingGroupSize();</span>
+        int startPage;
+        int endPage;
+
+<span class="fc" id="L178">        final Pagination pagination = new Pagination(baseHref, pageParameter, this.properties);</span>
+<span class="fc" id="L179">        pagination.setCurrent(Integer.valueOf(this.paginatedList.getPageNumber()));</span>
+
+        // if no items are found still add pagination?
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">        if (this.pageCount == 0) {</span>
+<span class="nc" id="L183">            pagination.addPage(1, true);</span>
+        }
+
+        // center the selected page, but only if there are {groupSize} pages
+        // available after it, and check that the
+        // result is not &lt; 1
+<span class="fc" id="L189">        startPage = Math</span>
+<span class="fc" id="L190">                .max(Math.min(this.paginatedList.getPageNumber() - groupSize / 2, this.pageCount - (groupSize - 1)), 1);</span>
+<span class="fc" id="L191">        endPage = Math.min(startPage + groupSize - 1, this.pageCount);</span>
+
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        if (this.paginatedList.getPageNumber() != 1) {</span>
+<span class="fc" id="L194">            pagination.setFirst(Integer.valueOf(1));</span>
+<span class="fc" id="L195">            pagination.setPrevious(Integer.valueOf(this.paginatedList.getPageNumber() - 1));</span>
+        }
+
+<span class="fc bfc" id="L198" title="All 2 branches covered.">        for (int j = startPage; j &lt;= endPage; j++) {</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">            pagination.addPage(j, j == this.paginatedList.getPageNumber());</span>
+        }
+
+<span class="pc bpc" id="L202" title="1 of 2 branches missed.">        if (this.paginatedList.getPageNumber() != this.pageCount) {</span>
+<span class="fc" id="L203">            pagination.setNext(Integer.valueOf(this.paginatedList.getPageNumber() + 1));</span>
+<span class="fc" id="L204">            pagination.setLast(Integer.valueOf(this.pageCount));</span>
+        }
+
+        // format for previous/next banner
+        String bannerFormat;
+
+<span class="pc bpc" id="L210" title="1 of 2 branches missed.">        if (pagination.isOnePage()) {</span>
+<span class="nc" id="L211">            bannerFormat = this.properties.getPagingBannerOnePage();</span>
+<span class="pc bpc" id="L212" title="1 of 2 branches missed.">        } else if (pagination.isFirst()) {</span>
+<span class="nc" id="L213">            bannerFormat = this.properties.getPagingBannerFirst();</span>
+<span class="pc bpc" id="L214" title="1 of 2 branches missed.">        } else if (pagination.isLast()) {</span>
+<span class="nc" id="L215">            bannerFormat = this.properties.getPagingBannerLast();</span>
+        } else {
+<span class="fc" id="L217">            bannerFormat = this.properties.getPagingBannerFull();</span>
+        }
+
+<span class="fc" id="L220">        return pagination.getFormattedBanner(this.properties.getPagingPageLink(),</span>
+<span class="fc" id="L221">                this.properties.getPagingPageSelected(), this.properties.getPagingPageSeparator(), bannerFormat);</span>
+    }
+
+    /**
+     * Gets the search results summary.
+     *
+     * @return the search results summary
+     */
+    @Override
+    public String getSearchResultsSummary() {
+
+        Object[] objs;
+        String message;
+
+<span class="pc bpc" id="L235" title="1 of 2 branches missed.">        if (this.paginatedList.getFullListSize() == 0) {</span>
+<span class="nc" id="L236">            objs = new Object[] { this.properties.getPagingItemsName() };</span>
+<span class="nc" id="L237">            message = this.properties.getPagingFoundNoItems();</span>
+<span class="pc bpc" id="L238" title="1 of 2 branches missed.">        } else if (this.paginatedList.getFullListSize() == 1) {</span>
+<span class="nc" id="L239">            objs = new Object[] { this.properties.getPagingItemName() };</span>
+<span class="nc" id="L240">            message = this.properties.getPagingFoundOneItem();</span>
+<span class="pc bpc" id="L241" title="1 of 2 branches missed.">        } else if (this.pageCount == 1) {</span>
+<span class="nc" id="L242">            objs = new Object[] { Integer.valueOf(this.paginatedList.getFullListSize()),</span>
+<span class="nc" id="L243">                    this.properties.getPagingItemsName(), this.properties.getPagingItemsName() };</span>
+<span class="nc" id="L244">            message = this.properties.getPagingFoundAllItems();</span>
+        } else {
+<span class="fc" id="L246">            objs = new Object[] { Integer.valueOf(this.paginatedList.getFullListSize()),</span>
+<span class="fc" id="L247">                    this.properties.getPagingItemsName(), Integer.valueOf(this.getFirstIndexForCurrentPage() + 1),</span>
+<span class="fc" id="L248">                    Integer.valueOf(this.getLastIndexForCurrentPage() + 1),</span>
+<span class="fc" id="L249">                    Integer.valueOf(this.paginatedList.getPageNumber()), Integer.valueOf(this.pageCount) };</span>
+<span class="fc" id="L250">            message = this.properties.getPagingFoundSomeItems();</span>
+        }
+
+<span class="fc" id="L253">        return new MessageFormat(message, this.properties.getLocale()).format(objs);</span>
+    }
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L265">        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //</span>
+<span class="nc" id="L266">                .append(&quot;paginatedList&quot;, this.paginatedList) //$NON-NLS-1$</span>
+<span class="nc" id="L267">                .append(&quot;properties&quot;, this.properties) //$NON-NLS-1$</span>
+<span class="nc" id="L268">                .toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

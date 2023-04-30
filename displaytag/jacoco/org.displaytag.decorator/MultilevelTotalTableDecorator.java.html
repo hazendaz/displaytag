@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MultilevelTotalTableDecorator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.decorator</a> &gt; <span class="el_source">MultilevelTotalTableDecorator.java</span></div><h1>MultilevelTotalTableDecorator.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.decorator;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.jsp.PageContext;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.model.Column;
+import org.displaytag.model.ColumnIterator;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
+import org.displaytag.util.TagConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * A TableDecorator that, in conjunction with totaled and grouped columns, produces multi level subtotals on arbitrary
+ * String groupings. Use it directly, subclass it, or use it as an example to better meet your local needs.
+ *
+ * @author rapruitt
+ * @author Fabrizio Giustina
+ */
+<span class="fc" id="L52">public class MultilevelTotalTableDecorator extends TableDecorator {</span>
+
+    /**
+     * If there are no columns that are totaled, we should not issue a totals row.
+     */
+<span class="fc" id="L57">    private final boolean containsTotaledColumns = true;</span>
+
+    /**
+     * No current reset group.
+     */
+    private static final int NO_RESET_GROUP = 4200;
+
+    /**
+     * Maps the groups to their current totals.
+     */
+<span class="fc" id="L67">    private final Map&lt;Integer, GroupTotals&gt; groupNumberToGroupTotal = new HashMap&lt;&gt;();</span>
+
+    /**
+     * The deepest reset group. Resets on an outer group will force any deeper groups to reset as well.
+     */
+<span class="fc" id="L72">    private int deepestResetGroup = MultilevelTotalTableDecorator.NO_RESET_GROUP;</span>
+
+    /**
+     * Controls when the subgroup is ended.
+     */
+    protected int innermostGroup;
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L82">    private final Logger logger = LoggerFactory.getLogger(MultilevelTotalTableDecorator.class);</span>
+
+    /**
+     * CSS class applied to grand total totals.
+     */
+<span class="fc" id="L87">    protected String grandTotalSum = &quot;grandtotal-sum&quot;;</span>
+
+    /**
+     * CSS class applied to grand total cells where the column is not totaled.
+     */
+<span class="fc" id="L92">    protected String grandTotalNoSum = &quot;grandtotal-nosum&quot;;</span>
+
+    /**
+     * CSS class applied to grand total lablels.
+     */
+<span class="fc" id="L97">    protected String grandTotalLabel = &quot;grandtotal-label&quot;;</span>
+
+    /**
+     * Grandtotal description.
+     */
+<span class="fc" id="L102">    protected String grandTotalDescription = &quot;Grand Total&quot;;</span>
+
+    /**
+     * CSS class appplied to subtotal headers.
+     */
+<span class="fc" id="L107">    private String subtotalHeaderClass = &quot;subtotal-header&quot;;</span>
+
+    /**
+     * CSS class applied to subtotal labels.
+     */
+<span class="fc" id="L112">    private String subtotalLabelClass = &quot;subtotal-label&quot;;</span>
+
+    /**
+     * Message format for subtotal descriptions.
+     */
+<span class="fc" id="L117">    private MessageFormat subtotalDesc = new MessageFormat(&quot;{0} Total&quot;);</span>
+
+    /**
+     * CSS class applied to subtotal totals.
+     */
+<span class="fc" id="L122">    private String subtotalValueClass = &quot;subtotal-sum&quot;;</span>
+
+    /**
+     * Holds the header rows and their content for a particular group.
+     */
+<span class="fc" id="L127">    private final List&lt;String&gt; headerRows = new ArrayList&lt;&gt;(5);</span>
+
+    /**
+     * Inits the.
+     *
+     * @param context
+     *            the context
+     * @param decorated
+     *            the decorated
+     * @param model
+     *            the model
+     */
+    @Override
+    public void init(final PageContext context, final Object decorated, final TableModel model) {
+<span class="fc" id="L141">        super.init(context, decorated, model);</span>
+<span class="fc" id="L142">        final List&lt;HeaderCell&gt; headerCells = model.getHeaderCellList();</span>
+        // go through each column, looking for grouped columns; add them to the group number map
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        for (final HeaderCell headerCell : headerCells) {</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">            if (headerCell.getGroup() &gt; 0) {</span>
+<span class="fc" id="L146">                final GroupTotals groupTotals = new GroupTotals(headerCell.getColumnNumber());</span>
+<span class="fc" id="L147">                groupTotals.setStartRow(this.tableModel.getPageOffset());</span>
+<span class="fc" id="L148">                this.groupNumberToGroupTotal.put(Integer.valueOf(headerCell.getGroup()), groupTotals);</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">                if (headerCell.getGroup() &gt; this.innermostGroup) {</span>
+<span class="fc" id="L150">                    this.innermostGroup = headerCell.getGroup();</span>
+                }
+            }
+<span class="fc" id="L153">        }</span>
+<span class="fc" id="L154">    }</span>
+
+    /**
+     * Gets the grand total description.
+     *
+     * @return the grand total description
+     */
+    public String getGrandTotalDescription() {
+<span class="fc" id="L162">        return this.grandTotalDescription;</span>
+    }
+
+    /**
+     * Sets the grand total description.
+     *
+     * @param grandTotalDescription
+     *            the new grand total description
+     */
+    public void setGrandTotalDescription(final String grandTotalDescription) {
+<span class="nc" id="L172">        this.grandTotalDescription = grandTotalDescription;</span>
+<span class="nc" id="L173">    }</span>
+
+    /**
+     * The pattern to use to generate the subtotal labels. The grouping value of the cell will be the first arg. The
+     * default value is &quot;{0} Total&quot;.
+     *
+     * @param pattern
+     *            the pattern
+     * @param locale
+     *            the locale
+     */
+    public void setSubtotalLabel(final String pattern, final Locale locale) {
+<span class="nc" id="L185">        this.subtotalDesc = new MessageFormat(pattern, locale);</span>
+<span class="nc" id="L186">    }</span>
+
+    /**
+     * Gets the grand total label.
+     *
+     * @return the grand total label
+     */
+    public String getGrandTotalLabel() {
+<span class="fc" id="L194">        return this.grandTotalLabel;</span>
+    }
+
+    /**
+     * Gets the grand total sum.
+     *
+     * @return the grand total sum
+     */
+    public String getGrandTotalSum() {
+<span class="fc" id="L203">        return this.grandTotalSum;</span>
+    }
+
+    /**
+     * Gets the grand total no sum.
+     *
+     * @return the grand total no sum
+     */
+    public String getGrandTotalNoSum() {
+<span class="fc" id="L212">        return this.grandTotalNoSum;</span>
+    }
+
+    /**
+     * Sets the grand total no sum.
+     *
+     * @param grandTotalNoSum
+     *            the new grand total no sum
+     */
+    public void setGrandTotalNoSum(final String grandTotalNoSum) {
+<span class="nc" id="L222">        this.grandTotalNoSum = grandTotalNoSum;</span>
+<span class="nc" id="L223">    }</span>
+
+    /**
+     * Sets the grand total sum.
+     *
+     * @param grandTotalSum
+     *            the new grand total sum
+     */
+    public void setGrandTotalSum(final String grandTotalSum) {
+<span class="nc" id="L232">        this.grandTotalSum = grandTotalSum;</span>
+<span class="nc" id="L233">    }</span>
+
+    /**
+     * Sets the grand total label.
+     *
+     * @param grandTotalLabel
+     *            the new grand total label
+     */
+    public void setGrandTotalLabel(final String grandTotalLabel) {
+<span class="nc" id="L242">        this.grandTotalLabel = grandTotalLabel;</span>
+<span class="nc" id="L243">    }</span>
+
+    /**
+     * Gets the subtotal value class.
+     *
+     * @return the subtotal value class
+     */
+    public String getSubtotalValueClass() {
+<span class="fc" id="L251">        return this.subtotalValueClass;</span>
+    }
+
+    /**
+     * Sets the subtotal value class.
+     *
+     * @param subtotalValueClass
+     *            the new subtotal value class
+     */
+    public void setSubtotalValueClass(final String subtotalValueClass) {
+<span class="nc" id="L261">        this.subtotalValueClass = subtotalValueClass;</span>
+<span class="nc" id="L262">    }</span>
+
+    /**
+     * Gets the subtotal label class.
+     *
+     * @return the subtotal label class
+     */
+    public String getSubtotalLabelClass() {
+<span class="fc" id="L270">        return this.subtotalLabelClass;</span>
+    }
+
+    /**
+     * Sets the subtotal label class.
+     *
+     * @param subtotalLabelClass
+     *            the new subtotal label class
+     */
+    public void setSubtotalLabelClass(final String subtotalLabelClass) {
+<span class="nc" id="L280">        this.subtotalLabelClass = subtotalLabelClass;</span>
+<span class="nc" id="L281">    }</span>
+
+    /**
+     * Gets the subtotal header class.
+     *
+     * @return the subtotal header class
+     */
+    public String getSubtotalHeaderClass() {
+<span class="fc" id="L289">        return this.subtotalHeaderClass;</span>
+    }
+
+    /**
+     * Sets the subtotal header class.
+     *
+     * @param subtotalHeaderClass
+     *            the new subtotal header class
+     */
+    public void setSubtotalHeaderClass(final String subtotalHeaderClass) {
+<span class="nc" id="L299">        this.subtotalHeaderClass = subtotalHeaderClass;</span>
+<span class="nc" id="L300">    }</span>
+
+    /**
+     * Start of group.
+     *
+     * @param value
+     *            the value
+     * @param group
+     *            the group
+     */
+    @Override
+    public void startOfGroup(final String value, final int group) {
+<span class="fc" id="L312">        if (this.containsTotaledColumns) {</span>
+<span class="fc" id="L313">            final StringBuilder tr = new StringBuilder();</span>
+<span class="fc" id="L314">            tr.append(&quot;&lt;tr&gt;&quot;);</span>
+<span class="fc" id="L315">            final GroupTotals groupTotals = this.groupNumberToGroupTotal.get(Integer.valueOf(group));</span>
+<span class="fc" id="L316">            final int myColumnNumber = groupTotals.columnNumber;</span>
+<span class="pc bpc" id="L317" title="1 of 2 branches missed.">            for (int i = 0; i &lt; myColumnNumber; i++) {</span>
+<span class="nc" id="L318">                tr.append(&quot;&lt;td&gt;&lt;/td&gt;\n&quot;);</span>
+            }
+<span class="fc" id="L320">            tr.append(&quot;&lt;td class=\&quot;&quot;).append(this.getSubtotalHeaderClass()).append(&quot; group-&quot;).append(group)</span>
+<span class="fc" id="L321">                    .append(&quot;\&quot; &gt;&quot;);</span>
+<span class="fc" id="L322">            tr.append(value).append(&quot;&lt;/td&gt;\n&quot;);</span>
+<span class="fc" id="L323">            final List&lt;HeaderCell&gt; headerCells = this.tableModel.getHeaderCellList();</span>
+<span class="fc bfc" id="L324" title="All 2 branches covered.">            for (int i = myColumnNumber; i &lt; headerCells.size() - 1; i++) {</span>
+<span class="fc" id="L325">                tr.append(&quot;&lt;td&gt;&lt;/td&gt;\n&quot;);</span>
+            }
+<span class="fc" id="L327">            tr.append(&quot;&lt;/tr&gt;\n&quot;);</span>
+<span class="fc" id="L328">            this.headerRows.add(tr.toString());</span>
+        }
+<span class="fc" id="L330">    }</span>
+
+    /**
+     * Display grouped value.
+     *
+     * @param value
+     *            the value
+     * @param groupingStatus
+     *            the grouping status
+     * @param columnNumber
+     *            the column number
+     *
+     * @return the string
+     */
+    @Override
+    public String displayGroupedValue(final String value, final short groupingStatus, final int columnNumber) {
+<span class="fc" id="L346">        return &quot;&quot;;</span>
+    }
+
+    /**
+     * Start row.
+     *
+     * @return the string
+     */
+    @Override
+    public String startRow() {
+<span class="fc" id="L356">        final StringBuilder sb = new StringBuilder();</span>
+<span class="fc bfc" id="L357" title="All 2 branches covered.">        for (final String string : this.headerRows) {</span>
+<span class="fc" id="L358">            sb.append(string);</span>
+<span class="fc" id="L359">        }</span>
+<span class="fc" id="L360">        return sb.toString();</span>
+    }
+
+    /**
+     * End of group.
+     *
+     * @param value
+     *            the value
+     * @param groupNumber
+     *            the group number
+     */
+    @Override
+    public void endOfGroup(final String value, final int groupNumber) {
+<span class="pc bpc" id="L373" title="1 of 2 branches missed.">        if (this.deepestResetGroup &gt; groupNumber) {</span>
+<span class="fc" id="L374">            this.deepestResetGroup = groupNumber;</span>
+        }
+<span class="fc" id="L376">    }</span>
+
+    /**
+     * Finish row.
+     *
+     * @return the string
+     */
+    @Override
+    public String finishRow() {
+<span class="fc" id="L385">        String returnValue = &quot;&quot;;</span>
+<span class="fc" id="L386">        if (this.containsTotaledColumns) {</span>
+<span class="pc bpc" id="L387" title="1 of 4 branches missed.">            if (this.innermostGroup &gt; 0 &amp;&amp; this.deepestResetGroup != MultilevelTotalTableDecorator.NO_RESET_GROUP) {</span>
+<span class="fc" id="L388">                final StringBuilder out = new StringBuilder();</span>
+                // Starting with the deepest group, print the current total and reset. Do not reset unaffected groups.
+<span class="fc bfc" id="L390" title="All 2 branches covered.">                for (int i = this.innermostGroup; i &gt;= this.deepestResetGroup; i--) {</span>
+<span class="fc" id="L391">                    final Integer groupNumber = Integer.valueOf(i);</span>
+
+<span class="fc" id="L393">                    final GroupTotals totals = this.groupNumberToGroupTotal.get(groupNumber);</span>
+<span class="pc bpc" id="L394" title="1 of 2 branches missed.">                    if (totals == null) {</span>
+<span class="nc" id="L395">                        this.logger.warn(&quot;There is a gap in the defined groups - no group defined for {}&quot;, groupNumber);</span>
+<span class="nc" id="L396">                        continue;</span>
+                    }
+<span class="fc" id="L398">                    totals.printTotals(this.getListIndex(), out);</span>
+<span class="fc" id="L399">                    this.finishGroup(totals.getColumnNumber(), out);</span>
+<span class="fc" id="L400">                    totals.setStartRow(this.getListIndex() + 1);</span>
+                }
+<span class="fc" id="L402">                returnValue = out.toString();</span>
+<span class="fc" id="L403">            } else {</span>
+<span class="fc" id="L404">                returnValue = null;</span>
+            }
+<span class="fc" id="L406">            this.deepestResetGroup = MultilevelTotalTableDecorator.NO_RESET_GROUP;</span>
+<span class="fc" id="L407">            this.headerRows.clear();</span>
+<span class="fc bfc" id="L408" title="All 2 branches covered.">            if (this.isLastRow()) {</span>
+<span class="fc" id="L409">                returnValue = StringUtils.defaultString(returnValue);</span>
+<span class="fc" id="L410">                returnValue += this.totalAllRows();</span>
+            }
+        }
+<span class="fc" id="L413">        return returnValue;</span>
+    }
+
+    /**
+     * Finish group.
+     *
+     * @param columnNumber
+     *            the column number
+     * @param out
+     *            the out
+     */
+    protected void finishGroup(final int columnNumber, final StringBuilder out) {
+        // Not Implemented
+<span class="fc" id="L426">    }</span>
+
+    /**
+     * Issue a grand total row at the bottom.
+     *
+     * @return the suitable string
+     */
+    protected String totalAllRows() {
+<span class="fc" id="L434">        if (!this.containsTotaledColumns) {</span>
+            return &quot;&quot;;
+        }
+<span class="fc" id="L437">        final List&lt;HeaderCell&gt; headerCells = this.tableModel.getHeaderCellList();</span>
+<span class="fc" id="L438">        final StringBuilder output = new StringBuilder();</span>
+<span class="fc" id="L439">        final int currentRow = this.getListIndex();</span>
+<span class="fc" id="L440">        output.append(TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + &quot; class=\&quot;grandtotal-row\&quot;&quot;</span>
+                + TagConstants.TAG_CLOSE);
+<span class="fc" id="L442">        boolean first = true;</span>
+<span class="fc bfc" id="L443" title="All 2 branches covered.">        for (final HeaderCell headerCell : headerCells) {</span>
+<span class="fc bfc" id="L444" title="All 2 branches covered.">            if (first) {</span>
+<span class="fc" id="L445">                output.append(this.getTotalsTdOpen(headerCell, this.getGrandTotalLabel()));</span>
+<span class="fc" id="L446">                output.append(this.getGrandTotalDescription());</span>
+<span class="fc" id="L447">                first = false;</span>
+<span class="fc bfc" id="L448" title="All 2 branches covered.">            } else if (headerCell.isTotaled()) {</span>
+                // a total if the column should be totaled
+<span class="fc" id="L450">                final Object total = this.getTotalForColumn(headerCell.getColumnNumber(),</span>
+<span class="fc" id="L451">                        this.tableModel.getPageOffset(), currentRow);</span>
+<span class="fc" id="L452">                output.append(this.getTotalsTdOpen(headerCell, this.getGrandTotalSum()));</span>
+<span class="fc" id="L453">                output.append(this.formatTotal(headerCell, total));</span>
+<span class="fc" id="L454">            } else {</span>
+                // blank, if it is not a totals column
+<span class="fc" id="L456">                output.append(this.getTotalsTdOpen(headerCell, this.getGrandTotalNoSum()));</span>
+            }
+<span class="fc" id="L458">            output.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);</span>
+<span class="fc" id="L459">        }</span>
+<span class="fc" id="L460">        output.append(&quot;\n&lt;/tr&gt;\n&quot;);</span>
+
+<span class="fc" id="L462">        return output.toString();</span>
+    }
+
+    /**
+     * Gets the cell value.
+     *
+     * @param columnNumber
+     *            the column number
+     * @param rowNumber
+     *            the row number
+     *
+     * @return the cell value
+     */
+    protected String getCellValue(final int columnNumber, final int rowNumber) {
+<span class="fc" id="L476">        final List&lt;Row&gt; fullList = this.tableModel.getRowListFull();</span>
+<span class="fc" id="L477">        final Row row = fullList.get(rowNumber);</span>
+<span class="fc" id="L478">        final ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());</span>
+<span class="pc bpc" id="L479" title="1 of 2 branches missed.">        while (columnIterator.hasNext()) {</span>
+<span class="fc" id="L480">            final Column column = columnIterator.nextColumn();</span>
+<span class="pc bpc" id="L481" title="1 of 2 branches missed.">            if (column.getHeaderCell().getColumnNumber() == columnNumber) {</span>
+                try {
+<span class="fc" id="L483">                    column.initialize();</span>
+<span class="fc" id="L484">                    return column.getChoppedAndLinkedValue();</span>
+<span class="nc" id="L485">                } catch (ObjectLookupException | DecoratorException e) {</span>
+<span class="nc" id="L486">                    this.logger.error(&quot;Error: {}&quot;, e.getMessage(), e);</span>
+<span class="nc" id="L487">                    throw new RuntimeException(&quot;Error: &quot; + e.getMessage(), e);</span>
+                }
+            }
+<span class="nc" id="L490">        }</span>
+<span class="nc" id="L491">        throw new RuntimeException(&quot;Unable to find column &quot; + columnNumber + &quot; in the list of columns&quot;);</span>
+    }
+
+    /**
+     * Gets the total for column.
+     *
+     * @param columnNumber
+     *            the column number
+     * @param startRow
+     *            the start row
+     * @param stopRow
+     *            the stop row
+     *
+     * @return the total for column
+     */
+    protected Object getTotalForColumn(final int columnNumber, final int startRow, final int stopRow) {
+<span class="fc" id="L507">        final List&lt;Row&gt; fullList = this.tableModel.getRowListFull();</span>
+<span class="fc" id="L508">        final List&lt;Row&gt; window = fullList.subList(startRow, stopRow + 1);</span>
+<span class="fc" id="L509">        Object total = null;</span>
+<span class="fc bfc" id="L510" title="All 2 branches covered.">        for (final Row row : window) {</span>
+<span class="fc" id="L511">            final ColumnIterator columnIterator = row.getColumnIterator(this.tableModel.getHeaderCellList());</span>
+<span class="fc bfc" id="L512" title="All 2 branches covered.">            while (columnIterator.hasNext()) {</span>
+<span class="fc" id="L513">                final Column column = columnIterator.nextColumn();</span>
+<span class="fc bfc" id="L514" title="All 2 branches covered.">                if (column.getHeaderCell().getColumnNumber() == columnNumber) {</span>
+<span class="fc" id="L515">                    Object value = null;</span>
+                    try {
+<span class="fc" id="L517">                        value = column.getValue(false);</span>
+<span class="nc" id="L518">                    } catch (ObjectLookupException | DecoratorException e) {</span>
+<span class="nc" id="L519">                        this.logger.error(&quot;&quot;, e);</span>
+<span class="fc" id="L520">                    }</span>
+<span class="pc bpc" id="L521" title="2 of 4 branches missed.">                    if (value != null &amp;&amp; !TagConstants.EMPTY_STRING.equals(value)) {</span>
+<span class="fc" id="L522">                        total = this.add(column, total, value);</span>
+                    }
+                }
+<span class="fc" id="L525">            }</span>
+<span class="fc" id="L526">        }</span>
+<span class="fc" id="L527">        return total;</span>
+    }
+
+    /**
+     * Adds the.
+     *
+     * @param column
+     *            the column
+     * @param total
+     *            the total
+     * @param value
+     *            the value
+     *
+     * @return the object
+     */
+    protected Object add(final Column column, final Object total, final Object value) {
+<span class="pc bpc" id="L543" title="1 of 2 branches missed.">        if (value == null) {</span>
+<span class="nc" id="L544">            return total;</span>
+        }
+<span class="pc bpc" id="L546" title="1 of 2 branches missed.">        if (value instanceof Number) {</span>
+<span class="fc" id="L547">            Number oldTotal = Double.valueOf(0);</span>
+<span class="fc bfc" id="L548" title="All 2 branches covered.">            if (total != null) {</span>
+<span class="fc" id="L549">                oldTotal = (Number) total;</span>
+            }
+<span class="fc" id="L551">            return Double.valueOf(oldTotal.doubleValue() + ((Number) value).doubleValue());</span>
+        } else {
+<span class="nc" id="L553">            throw new UnsupportedOperationException(</span>
+<span class="nc" id="L554">                    &quot;Cannot add a value of &quot; + value + &quot; in column &quot; + column.getHeaderCell().getTitle());</span>
+        }
+    }
+
+    /**
+     * Gets the totals td open.
+     *
+     * @param header
+     *            the header
+     * @param totalClass
+     *            the total class
+     *
+     * @return the totals td open
+     */
+    public String getTotalsTdOpen(final HeaderCell header, final String totalClass) {
+
+<span class="fc" id="L570">        final Object cssClassObj = header.getHtmlAttributes().get(&quot;class&quot;);</span>
+<span class="pc bpc" id="L571" title="1 of 2 branches missed.">        final String cssClass = cssClassObj != null ? cssClassObj.toString() : StringUtils.EMPTY;</span>
+
+<span class="fc" id="L573">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L574">        buffer.append(TagConstants.TAG_OPEN);</span>
+<span class="fc" id="L575">        buffer.append(TagConstants.TAGNAME_COLUMN);</span>
+<span class="pc bpc" id="L576" title="3 of 4 branches missed.">        if (cssClass != null || totalClass != null) {</span>
+<span class="fc" id="L577">            buffer.append(&quot; class=\&quot;&quot;);</span>
+
+<span class="pc bpc" id="L579" title="1 of 2 branches missed.">            if (cssClass != null) {</span>
+<span class="fc" id="L580">                buffer.append(cssClass);</span>
+<span class="pc bpc" id="L581" title="1 of 2 branches missed.">                if (totalClass != null) {</span>
+<span class="fc" id="L582">                    buffer.append(&quot; &quot;);</span>
+                }
+            }
+<span class="pc bpc" id="L585" title="1 of 2 branches missed.">            if (totalClass != null) {</span>
+<span class="fc" id="L586">                buffer.append(totalClass);</span>
+            }
+<span class="fc" id="L588">            buffer.append(&quot;\&quot;&quot;);</span>
+        }
+<span class="fc" id="L590">        buffer.append(TagConstants.TAG_CLOSE);</span>
+<span class="fc" id="L591">        return buffer.toString();</span>
+    }
+
+    /**
+     * Gets the totals row open.
+     *
+     * @return the totals row open
+     */
+    public String getTotalsRowOpen() {
+<span class="fc" id="L600">        return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ROW + &quot; class=\&quot;subtotal\&quot;&quot; + TagConstants.TAG_CLOSE;</span>
+    }
+
+    /**
+     * Gets the total row label.
+     *
+     * @param groupingValue
+     *            the grouping value
+     *
+     * @return the total row label
+     */
+    public String getTotalRowLabel(final String groupingValue) {
+<span class="fc" id="L612">        return this.subtotalDesc.format(new Object[] { groupingValue });</span>
+    }
+
+    /**
+     * Format total.
+     *
+     * @param header
+     *            the header
+     * @param total
+     *            the total
+     *
+     * @return the string
+     */
+    public String formatTotal(final HeaderCell header, final Object total) {
+<span class="fc" id="L626">        Object displayValue = total;</span>
+<span class="pc bpc" id="L627" title="1 of 2 branches missed.">        if (header.getColumnDecorators().length &gt; 0) {</span>
+<span class="nc bnc" id="L628" title="All 2 branches missed.">            for (int i = 0; i &lt; header.getColumnDecorators().length; i++) {</span>
+<span class="nc" id="L629">                final DisplaytagColumnDecorator decorator = header.getColumnDecorators()[i];</span>
+                try {
+<span class="nc" id="L631">                    displayValue = decorator.decorate(total, this.getPageContext(), this.tableModel.getMedia());</span>
+<span class="nc" id="L632">                } catch (final DecoratorException e) {</span>
+<span class="nc" id="L633">                    this.logger.warn(e.getMessage(), e);</span>
+                    // ignore, use undecorated value for totals
+<span class="nc" id="L635">                }</span>
+            }
+        }
+<span class="pc bpc" id="L638" title="1 of 2 branches missed.">        return displayValue != null ? displayValue.toString() : &quot;&quot;;</span>
+    }
+
+    /**
+     * The Class GroupTotals.
+     */
+    class GroupTotals {
+
+        /**
+         * The label class.
+         */
+<span class="fc" id="L649">        protected String totalLabelClass = MultilevelTotalTableDecorator.this.getSubtotalLabelClass();</span>
+
+        /** The row opener. */
+<span class="fc" id="L652">        protected String totalsRowOpen = MultilevelTotalTableDecorator.this.getTotalsRowOpen();</span>
+
+        /**
+         * The value class.
+         */
+<span class="fc" id="L657">        protected String totalValueClass = MultilevelTotalTableDecorator.this.getSubtotalValueClass();</span>
+
+        /** The column number. */
+        private final int columnNumber;
+
+        /** The first row of current set. */
+        private int firstRowOfCurrentSet;
+
+        /**
+         * Instantiates a new group totals.
+         *
+         * @param headerCellColumn
+         *            the header cell column
+         */
+<span class="fc" id="L671">        public GroupTotals(final int headerCellColumn) {</span>
+<span class="fc" id="L672">            this.columnNumber = headerCellColumn;</span>
+<span class="fc" id="L673">            this.firstRowOfCurrentSet = 0;</span>
+<span class="fc" id="L674">        }</span>
+
+        /**
+         * Prints the totals.
+         *
+         * @param currentRow
+         *            the current row
+         * @param out
+         *            the out
+         */
+        public void printTotals(final int currentRow, final StringBuilder out) {
+
+            // For each column, output:
+<span class="fc" id="L687">            final List&lt;HeaderCell&gt; headerCells = MultilevelTotalTableDecorator.this.tableModel.getHeaderCellList();</span>
+<span class="fc bfc" id="L688" title="All 2 branches covered.">            if (this.firstRowOfCurrentSet &lt; currentRow) // If there is more than one row, show a total</span>
+            {
+<span class="fc" id="L690">                out.append(this.totalsRowOpen);</span>
+<span class="fc bfc" id="L691" title="All 2 branches covered.">                for (final HeaderCell headerCell : headerCells) {</span>
+<span class="fc bfc" id="L692" title="All 2 branches covered.">                    if (this.columnNumber == headerCell.getColumnNumber()) {</span>
+                        // a totals label if it is the column for the current group
+<span class="fc" id="L694">                        final String currentLabel = MultilevelTotalTableDecorator.this.getCellValue(this.columnNumber,</span>
+                                this.firstRowOfCurrentSet);
+<span class="fc" id="L696">                        out.append(MultilevelTotalTableDecorator.this.getTotalsTdOpen(headerCell,</span>
+<span class="fc" id="L697">                                this.getTotalLabelClass() + &quot; group-&quot; + (this.columnNumber + 1)));</span>
+<span class="fc" id="L698">                        out.append(MultilevelTotalTableDecorator.this.getTotalRowLabel(currentLabel));</span>
+<span class="fc bfc" id="L699" title="All 2 branches covered.">                    } else if (headerCell.isTotaled()) {</span>
+                        // a total if the column should be totaled
+<span class="fc" id="L701">                        final Object total = MultilevelTotalTableDecorator.this</span>
+<span class="fc" id="L702">                                .getTotalForColumn(headerCell.getColumnNumber(), this.firstRowOfCurrentSet, currentRow);</span>
+<span class="fc" id="L703">                        out.append(MultilevelTotalTableDecorator.this.getTotalsTdOpen(headerCell,</span>
+<span class="fc" id="L704">                                this.getTotalValueClass() + &quot; group-&quot; + (this.columnNumber + 1)));</span>
+<span class="fc" id="L705">                        out.append(MultilevelTotalTableDecorator.this.formatTotal(headerCell, total));</span>
+<span class="fc" id="L706">                    } else {</span>
+                        // blank, if it is not a totals column
+<span class="fc" id="L708">                        final StringBuilder style = new StringBuilder(&quot;group-&quot; + (this.columnNumber + 1));</span>
+<span class="pc bpc" id="L709" title="1 of 2 branches missed.">                        if (headerCell.getColumnNumber() &lt; MultilevelTotalTableDecorator.this.innermostGroup) {</span>
+<span class="nc" id="L710">                            style.append(&quot; &quot;).append(this.getTotalLabelClass()).append(&quot; &quot;);</span>
+                        }
+<span class="fc" id="L712">                        out.append(MultilevelTotalTableDecorator.this.getTotalsTdOpen(headerCell, style.toString()));</span>
+                    }
+<span class="fc" id="L714">                    out.append(TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE);</span>
+<span class="fc" id="L715">                }</span>
+<span class="fc" id="L716">                out.append(&quot;\n&lt;/tr&gt;\n&quot;);</span>
+            }
+<span class="fc" id="L718">        }</span>
+
+        /**
+         * Gets the column number.
+         *
+         * @return the column number
+         */
+        public int getColumnNumber() {
+<span class="fc" id="L726">            return this.columnNumber;</span>
+        }
+
+        /**
+         * Sets the start row.
+         *
+         * @param i
+         *            the new start row
+         */
+        public void setStartRow(final int i) {
+<span class="fc" id="L736">            this.firstRowOfCurrentSet = i;</span>
+<span class="fc" id="L737">        }</span>
+
+        /**
+         * Gets the total label class.
+         *
+         * @return the total label class
+         */
+        public String getTotalLabelClass() {
+<span class="fc" id="L745">            return this.totalLabelClass;</span>
+        }
+
+        /**
+         * Sets the totals row open.
+         *
+         * @param totalsRowOpen
+         *            the new totals row open
+         */
+        public void setTotalsRowOpen(final String totalsRowOpen) {
+<span class="nc" id="L755">            this.totalsRowOpen = totalsRowOpen;</span>
+<span class="nc" id="L756">        }</span>
+
+        /**
+         * Sets the total label class.
+         *
+         * @param totalLabelClass
+         *            the new total label class
+         */
+        public void setTotalLabelClass(final String totalLabelClass) {
+<span class="nc" id="L765">            this.totalLabelClass = totalLabelClass;</span>
+<span class="nc" id="L766">        }</span>
+
+        /**
+         * Gets the total value class.
+         *
+         * @return the total value class
+         */
+        public String getTotalValueClass() {
+<span class="fc" id="L774">            return this.totalValueClass;</span>
+        }
+
+        /**
+         * Sets the total value class.
+         *
+         * @param totalValueClass
+         *            the new total value class
+         */
+        public void setTotalValueClass(final String totalValueClass) {
+<span class="nc" id="L784">            this.totalValueClass = totalValueClass;</span>
+<span class="nc" id="L785">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

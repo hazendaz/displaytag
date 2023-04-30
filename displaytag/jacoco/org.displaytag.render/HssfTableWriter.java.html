@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HssfTableWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.render</a> &gt; <span class="el_source">HssfTableWriter.java</span></div><h1>HssfTableWriter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.render;
+
+import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.displaytag.decorator.TableDecorator;
+import org.displaytag.decorator.hssf.DecoratesHssf;
+import org.displaytag.export.XmlTotalsWriter;
+import org.displaytag.export.excel.ExcelUtils;
+import org.displaytag.model.Column;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
+
+/**
+ * A table writer that formats a table in Excel's spreadsheet format, and writes it to an HSSF workbook.
+ *
+ * @author Jorge L. Barroso
+ *
+ * @version $Revision$ ($Author$)
+ *
+ * @see org.displaytag.render.TableWriterTemplate
+ */
+public class HssfTableWriter extends TableWriterAdapter {
+
+    /** The Constant EMPTY_TEXT. */
+<span class="fc" id="L66">    public static final HSSFRichTextString EMPTY_TEXT = new HSSFRichTextString(&quot;&quot;);</span>
+
+    /** The total label. */
+<span class="fc" id="L69">    protected MessageFormat totalLabel = new MessageFormat(&quot;{0} Total&quot;);</span>
+
+    /** The decorated. */
+<span class="fc" id="L72">    protected boolean decorated = false;</span>
+
+    /**
+     * The workbook to which the table is written.
+     */
+    private final HSSFWorkbook wb;
+
+    /**
+     * Generated sheet.
+     */
+    protected HSSFSheet sheet;
+
+    /**
+     * Current row number.
+     */
+    protected int sheetRowNum;
+
+    /**
+     * Current row.
+     */
+    private HSSFRow currentRow;
+
+    /**
+     * Current column number.
+     */
+    protected int colNum;
+
+    /**
+     * Current cell.
+     */
+    protected HSSFCell currentCell;
+
+    /** The current grouping. */
+<span class="fc" id="L105">    protected int currentGrouping = 0;</span>
+
+    /**
+     * Percent Excel format.
+     */
+
+<span class="fc" id="L111">    protected short intFormat = HSSFDataFormat.getBuiltinFormat(&quot;0&quot;);</span>
+
+    /**
+     * Some operations require the model.
+     */
+    protected TableModel model;
+
+    /** The sheet name. */
+<span class="fc" id="L119">    protected String sheetName = &quot;-&quot;;</span>
+
+    /** The utils. */
+    protected ExcelUtils utils;
+
+    /**
+     * This table writer uses an HSSF workbook to write the table.
+     *
+     * @param wb
+     *            The HSSF workbook to write the table.
+     */
+<span class="fc" id="L130">    public HssfTableWriter(final HSSFWorkbook wb) {</span>
+<span class="fc" id="L131">        this.wb = wb;</span>
+<span class="fc" id="L132">        this.utils = new ExcelUtils(wb);</span>
+<span class="fc" id="L133">    }</span>
+
+    /**
+     * Write table opener.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableOpener(final TableModel model) throws Exception {
+<span class="fc" id="L148">        this.sheet = this.wb.createSheet(this.sheetName);</span>
+<span class="fc" id="L149">        this.setModel(model);</span>
+<span class="fc" id="L150">        this.init(model);</span>
+<span class="fc" id="L151">        this.sheetRowNum = 0;</span>
+
+<span class="fc" id="L153">    }</span>
+
+    /**
+     * Override this to do local config, but you should call super() first so that this can set up the ExcelUtils.
+     *
+     * @param model
+     *            the model
+     */
+    protected void init(final TableModel model) {
+<span class="fc" id="L162">        this.utils.initCellStyles(model.getProperties());</span>
+<span class="fc" id="L163">    }</span>
+
+    /**
+     * Write caption.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeCaption(final TableModel model) throws Exception {
+<span class="nc" id="L178">        final HSSFCellStyle style = this.wb.createCellStyle();</span>
+<span class="nc" id="L179">        final HSSFFont bold = this.wb.createFont();</span>
+<span class="nc" id="L180">        bold.setBold(true);</span>
+<span class="nc" id="L181">        bold.setFontHeightInPoints((short) 14);</span>
+<span class="nc" id="L182">        style.setFont(bold);</span>
+<span class="nc" id="L183">        style.setAlignment(HorizontalAlignment.CENTER);</span>
+
+<span class="nc" id="L185">        this.colNum = 0;</span>
+<span class="nc" id="L186">        this.currentRow = this.sheet.createRow(this.sheetRowNum++);</span>
+<span class="nc" id="L187">        this.currentCell = this.currentRow.createCell(this.colNum);</span>
+<span class="nc" id="L188">        this.currentCell.setCellStyle(style);</span>
+<span class="nc" id="L189">        final String caption = model.getCaption();</span>
+<span class="nc" id="L190">        this.currentCell.setCellValue(new HSSFRichTextString(caption));</span>
+<span class="nc" id="L191">        this.rowSpanTable(model);</span>
+<span class="nc" id="L192">    }</span>
+
+    /**
+     * Obtain the region over which to merge a cell.
+     *
+     * @param first
+     *            Column number of first cell from which to merge.
+     * @param last
+     *            Column number of last cell over which to merge.
+     *
+     * @return The region over which to merge a cell.
+     */
+    private CellRangeAddress getMergeCellsRegion(final int first, final int last) {
+<span class="nc" id="L205">        return new CellRangeAddress(this.currentRow.getRowNum(), this.currentRow.getRowNum(), first, last);</span>
+    }
+
+    /**
+     * Write table header.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableHeader(final TableModel model) throws Exception {
+<span class="fc" id="L221">        this.currentRow = this.sheet.createRow(this.sheetRowNum++);</span>
+<span class="fc" id="L222">        this.colNum = 0;</span>
+<span class="fc" id="L223">        final HSSFCellStyle headerStyle = this.getHeaderFooterStyle();</span>
+<span class="fc bfc" id="L224" title="All 2 branches covered.">        for (final HeaderCell headerCell : model.getHeaderCellList()) {</span>
+<span class="fc" id="L225">            String columnHeader = headerCell.getTitle();</span>
+<span class="pc bpc" id="L226" title="1 of 2 branches missed.">            if (columnHeader == null) {</span>
+<span class="nc" id="L227">                columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());</span>
+            }
+
+<span class="fc" id="L230">            this.writeHeaderFooter(columnHeader, this.currentRow, headerStyle);</span>
+<span class="fc" id="L231">        }</span>
+<span class="fc" id="L232">    }</span>
+
+    /**
+     * Write decorated row start.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedRowStart(final TableModel model) {
+<span class="fc" id="L244">        model.getTableDecorator().startRow();</span>
+<span class="fc" id="L245">    }</span>
+
+    /**
+     * Write row opener.
+     *
+     * @param row
+     *            the row
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeRowOpener(final Row row) throws Exception {
+<span class="fc" id="L258">        this.currentRow = this.sheet.createRow(this.sheetRowNum++);</span>
+<span class="fc" id="L259">        this.colNum = 0;</span>
+<span class="fc" id="L260">    }</span>
+
+    /**
+     * Write a column's opening structure to a HSSF document.
+     *
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnOpener(final Column column) throws Exception {
+<span class="fc bfc" id="L275" title="All 2 branches covered.">        if (column != null) {</span>
+<span class="fc" id="L276">            column.getOpenTag(); // has side effect, setting its stringValue, which affects grouping logic.</span>
+        }
+<span class="fc" id="L278">        this.currentCell = this.currentRow.createCell(this.colNum++);</span>
+<span class="fc" id="L279">    }</span>
+
+    /**
+     * Write column value.
+     *
+     * @param value
+     *            the value
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnValue(final Object value, final Column column) throws Exception {
+        // is this a detail row for a column that is currently grouped?
+<span class="fc" id="L297">        final int myGroup = column.getHeaderCell().getGroup();</span>
+<span class="fc" id="L298">        Object cellValue = column.getValue(this.decorated);</span>
+<span class="fc bfc" id="L299" title="All 2 branches covered.">        if (myGroup &gt; 0) {</span>
+<span class="fc" id="L300">            cellValue = &quot;&quot;;</span>
+        }
+<span class="fc" id="L302">        this.writeCellValue(cellValue);</span>
+<span class="fc" id="L303">    }</span>
+
+    /**
+     * Override in subclasses to handle local data types.
+     *
+     * @param value
+     *            the value object to write
+     */
+    protected void writeCellValue(final Object value) {
+<span class="fc bfc" id="L312" title="All 2 branches covered.">        if (value instanceof Number) {</span>
+<span class="fc" id="L313">            final Number num = (Number) value;</span>
+            // Percentage
+<span class="pc bpc" id="L315" title="1 of 2 branches missed.">            if (value.toString().indexOf('%') &gt; -1) {</span>
+<span class="nc" id="L316">                this.currentCell.setCellValue(num.doubleValue() / 100);</span>
+<span class="nc" id="L317">                this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_PCT));</span>
+<span class="fc bfc" id="L318" title="All 2 branches covered.">            } else if (value instanceof Integer) {</span>
+<span class="fc" id="L319">                this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_INTEGER));</span>
+<span class="fc" id="L320">                this.currentCell.setCellValue(num.intValue());</span>
+            } else {
+<span class="fc" id="L322">                this.currentCell.setCellValue(num.doubleValue());</span>
+            }
+
+<span class="fc bfc" id="L325" title="All 2 branches covered.">        } else if (value instanceof Date) {</span>
+<span class="fc" id="L326">            this.currentCell.setCellValue((Date) value);</span>
+<span class="fc" id="L327">            this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));</span>
+<span class="pc bpc" id="L328" title="1 of 2 branches missed.">        } else if (value instanceof Calendar) {</span>
+<span class="nc" id="L329">            final Calendar c = (Calendar) value;</span>
+<span class="nc" id="L330">            this.currentCell.setCellValue(c);</span>
+<span class="nc" id="L331">            this.currentCell.setCellStyle(this.utils.getStyle(ExcelUtils.STYLE_DATE));</span>
+<span class="pc bfc" id="L332" title="All 2 branches covered.">        } else if (value == null) {</span>
+<span class="fc" id="L333">            this.currentCell.setCellValue(HssfTableWriter.EMPTY_TEXT);</span>
+        } else {
+<span class="fc" id="L335">            final String v = value.toString();</span>
+<span class="fc bfc" id="L336" title="All 2 branches covered.">            if (v.length() &gt; this.utils.getWrapAtLength()) {</span>
+<span class="fc" id="L337">                this.currentCell.getCellStyle().setWrapText(true);</span>
+            }
+<span class="fc" id="L339">            this.currentCell.setCellValue(new HSSFRichTextString(ExcelUtils.escapeColumnValue(value)));</span>
+        }
+
+<span class="fc" id="L342">    }</span>
+
+    /**
+     * Decorators that help render the table to an HSSF table must implement DecoratesHssf.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedRowFinish(final TableModel model) throws Exception {
+<span class="fc" id="L357">        final TableDecorator decorator = model.getTableDecorator();</span>
+<span class="pc bpc" id="L358" title="1 of 2 branches missed.">        if (decorator instanceof DecoratesHssf) {</span>
+<span class="nc" id="L359">            final DecoratesHssf hdecorator = (DecoratesHssf) decorator;</span>
+<span class="nc" id="L360">            hdecorator.setSheet(this.sheet);</span>
+        }
+<span class="fc" id="L362">        decorator.finishRow();</span>
+<span class="fc" id="L363">        this.sheetRowNum = this.sheet.getLastRowNum();</span>
+<span class="fc" id="L364">        this.sheetRowNum++;</span>
+<span class="fc" id="L365">    }</span>
+
+    /**
+     * Write post body footer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writePostBodyFooter(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writePostBodyFooter(final TableModel model) throws Exception {
+<span class="nc" id="L380">        this.colNum = 0;</span>
+<span class="nc" id="L381">        this.currentRow = this.sheet.createRow(this.sheetRowNum++);</span>
+<span class="nc" id="L382">        this.writeHeaderFooter(model.getFooter(), this.currentRow, this.getHeaderFooterStyle());</span>
+<span class="nc" id="L383">        this.rowSpanTable(model);</span>
+<span class="nc" id="L384">    }</span>
+
+    /**
+     * Make a row span the width of the table.
+     *
+     * @param model
+     *            The table model representing the rendered table.
+     */
+    private void rowSpanTable(final TableModel model) {
+<span class="nc" id="L393">        this.sheet.addMergedRegion(</span>
+<span class="nc" id="L394">                this.getMergeCellsRegion(this.currentCell.getColumnIndex(), model.getNumberOfColumns() - 1));</span>
+<span class="nc" id="L395">    }</span>
+
+    /**
+     * Write decorated table finish.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedTableFinish(final TableModel model) {
+<span class="fc" id="L407">        model.getTableDecorator().finish();</span>
+<span class="fc" id="L408">    }</span>
+
+    /**
+     * Is this value numeric? You should probably override this method to handle your locale.
+     *
+     * @param rawValue
+     *            the object value
+     *
+     * @return true if numeric
+     */
+    protected boolean isNumber(final String rawValue) {
+<span class="nc bnc" id="L419" title="All 2 branches missed.">        if (rawValue == null) {</span>
+<span class="nc" id="L420">            return false;</span>
+        }
+<span class="nc" id="L422">        String rawV = rawValue;</span>
+<span class="nc bnc" id="L423" title="All 2 branches missed.">        if (rawV.indexOf('%') &gt; -1) {</span>
+<span class="nc" id="L424">            rawV = rawV.replace('%', ' ').trim();</span>
+        }
+<span class="nc bnc" id="L426" title="All 2 branches missed.">        if (rawV.indexOf('$') &gt; -1) {</span>
+<span class="nc" id="L427">            rawV = rawV.replace('$', ' ').trim();</span>
+        }
+<span class="nc bnc" id="L429" title="All 2 branches missed.">        if (rawV.indexOf(',') &gt; -1) {</span>
+<span class="nc" id="L430">            rawV = StringUtils.replace(rawV, &quot;,&quot;, &quot;&quot;);</span>
+        }
+<span class="nc" id="L432">        return NumberUtils.isCreatable(rawV.trim());</span>
+    }
+
+    /**
+     * Writes a table header or a footer.
+     *
+     * @param value
+     *            Header or footer value to be rendered.
+     * @param row
+     *            The row in which to write the header or footer.
+     * @param style
+     *            Style used to render the header or footer.
+     */
+    private void writeHeaderFooter(final String value, final HSSFRow row, final HSSFCellStyle style) {
+<span class="fc" id="L446">        this.currentCell = row.createCell(this.colNum++);</span>
+<span class="fc" id="L447">        this.currentCell.setCellValue(new HSSFRichTextString(value));</span>
+<span class="fc" id="L448">        this.currentCell.setCellStyle(style);</span>
+<span class="fc" id="L449">    }</span>
+
+    /**
+     * Obtain the style used to render a header or footer.
+     *
+     * @return The style used to render a header or footer.
+     */
+    private HSSFCellStyle getHeaderFooterStyle() {
+<span class="fc" id="L457">        final HSSFCellStyle style = this.wb.createCellStyle();</span>
+<span class="fc" id="L458">        final HSSFFont bold = this.wb.createFont();</span>
+<span class="fc" id="L459">        bold.setBold(true);</span>
+<span class="fc" id="L460">        style.setBorderBottom(BorderStyle.THIN);</span>
+<span class="fc" id="L461">        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());</span>
+
+<span class="fc" id="L463">        style.setFont(bold);</span>
+<span class="fc" id="L464">        return style;</span>
+    }
+
+    /**
+     * Write bottom banner.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterAdapter#writeBottomBanner(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeBottomBanner(final TableModel model) throws Exception {
+        // adjust the column widths
+<span class="fc" id="L481">        int colCount = 0;</span>
+<span class="fc bfc" id="L482" title="All 2 branches covered.">        while (colCount &lt;= this.colNum) {</span>
+<span class="fc" id="L483">            this.sheet.autoSizeColumn((short) colCount);</span>
+<span class="fc" id="L484">            colCount++;</span>
+        }
+<span class="fc" id="L486">    }</span>
+
+    /**
+     * Write subgroup start.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeSubgroupStart(final TableModel model) throws Exception {
+<span class="fc" id="L499">        final TableTotaler tt = model.getTotaler();</span>
+<span class="fc bfc" id="L500" title="All 2 branches covered.">        if (tt.howManyGroups == 0) {</span>
+<span class="fc" id="L501">            return;</span>
+        }
+
+        // for each newly opened subgroup we need to output the opener, in order;
+        // so we need to know somehow which groups are new since we last wrote out openers; how about we track a list of
+        // the
+        // already opened groups, and ask the tt for a list of all known groups?
+
+<span class="fc bfc" id="L509" title="All 2 branches covered.">        for (final int dtColumnNumber : tt.getOpenedColumns()) {</span>
+<span class="fc" id="L510">            this.currentGrouping++;</span>
+<span class="fc" id="L511">            this.writeRowOpener(null);</span>
+            // for each subgroup
+
+<span class="fc bfc" id="L514" title="All 2 branches covered.">            for (final HeaderCell cell : model.getHeaderCellList()) {</span>
+<span class="fc" id="L515">                this.writeColumnOpener(null);</span>
+<span class="fc" id="L516">                final int thisCellAsDtNumber = this.asDtColNumber(cell.getColumnNumber());</span>
+<span class="fc bfc" id="L517" title="All 2 branches covered.">                final String columnValue = thisCellAsDtNumber != dtColumnNumber ? &quot;&quot;</span>
+<span class="fc" id="L518">                        : tt.getGroupingValue(dtColumnNumber);</span>
+<span class="fc" id="L519">                this.writeCellValue(columnValue);</span>
+<span class="fc" id="L520">                this.writeColumnCloser(null);</span>
+<span class="fc" id="L521">            }</span>
+
+<span class="fc" id="L523">            this.writeRowCloser(null);</span>
+            // Have to handle a case where this is a nested subgroup start;
+            // put out the blanks for any column that has already exists
+            // now write the label for the group that is opening
+<span class="fc" id="L527">        }</span>
+<span class="fc" id="L528">    }</span>
+
+    /**
+     * DT columns are 1 based, excel columns are 0 based.
+     *
+     * @param cellColumnNumber
+     *            the cell column number
+     *
+     * @return the int
+     */
+    protected int asDtColNumber(final int cellColumnNumber) {
+<span class="fc" id="L539">        return cellColumnNumber + 1;</span>
+    }
+
+    /**
+     * Gets the total label.
+     *
+     * @param groupingValue
+     *            the grouping value
+     *
+     * @return the total label
+     */
+    public String getTotalLabel(final String groupingValue) {
+<span class="fc" id="L551">        final String gv = StringUtils.defaultString(groupingValue);</span>
+<span class="fc" id="L552">        return MessageFormat.format(&quot;{0} Total&quot;, gv);</span>
+    }
+
+    /**
+     * Write subgroup stop.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeSubgroupStop(final TableModel model) throws Exception {
+<span class="fc" id="L566">        final TableTotaler tt = model.getTotaler();</span>
+
+        // for each newly opened subgroup we need to output the opener, in order;
+        // so we need to know somehow which groups are new since we last wrote out openers; how about we track a list of
+        // the
+        // already opened groups, and ask the tt for a list of all known groups?
+
+<span class="fc bfc" id="L573" title="All 2 branches covered.">        if (tt.howManyGroups == 0) {</span>
+<span class="fc" id="L574">            return;</span>
+        }
+<span class="fc" id="L576">        final List&lt;Integer&gt; closedColumns = tt.getClosedColumns();</span>
+<span class="fc" id="L577">        Collections.reverse(closedColumns);</span>
+<span class="fc bfc" id="L578" title="All 2 branches covered.">        for (final int columnNumber : closedColumns) {</span>
+<span class="fc" id="L579">            this.writeRowOpener(null);</span>
+            // for each subgroup
+
+<span class="fc bfc" id="L582" title="All 2 branches covered.">            for (final HeaderCell cell : model.getHeaderCellList()) {</span>
+<span class="fc" id="L583">                this.writeColumnOpener(null);</span>
+                Object columnValue;
+<span class="fc" id="L585">                final int cellColumnNumberAsDt = this.asDtColNumber(cell.getColumnNumber());</span>
+<span class="fc bfc" id="L586" title="All 4 branches covered.">                if (cellColumnNumberAsDt &gt; columnNumber &amp;&amp; cell.isTotaled()) {</span>
+<span class="fc" id="L587">                    columnValue = tt.getTotalForColumn(cell.getColumnNumber(), this.currentGrouping);</span>
+<span class="fc bfc" id="L588" title="All 2 branches covered.">                } else if (cellColumnNumberAsDt == columnNumber) {</span>
+<span class="fc" id="L589">                    columnValue = this.getTotalLabel(tt.getGroupingValue(columnNumber));</span>
+                } else {
+<span class="fc" id="L591">                    columnValue = null;</span>
+                }
+<span class="fc" id="L593">                this.writeCellValue(columnValue);</span>
+<span class="fc" id="L594">                this.writeColumnCloser(null);</span>
+<span class="fc" id="L595">            }</span>
+
+<span class="fc" id="L597">            this.writeRowCloser(null);</span>
+<span class="fc" id="L598">            this.writeGroupExtraInfo(model);</span>
+<span class="fc" id="L599">            this.currentGrouping--;</span>
+<span class="fc" id="L600">        }</span>
+
+<span class="pc bpc" id="L602" title="1 of 2 branches missed.">        assert this.currentGrouping &gt; -1;</span>
+<span class="fc" id="L603">        super.writeSubgroupStop(model);</span>
+<span class="fc" id="L604">    }</span>
+
+    /**
+     * Sets the model.
+     *
+     * @param m
+     *            the new model
+     */
+    public void setModel(final TableModel m) {
+<span class="fc" id="L613">        m.setTableDecorator(XmlTotalsWriter.NOOP);</span>
+<span class="pc bpc" id="L614" title="2 of 4 branches missed.">        if (m.getTotaler() == null || m.getTotaler() == TableTotaler.NULL) {</span>
+<span class="nc" id="L615">            final TableTotaler tt = new TableTotaler();</span>
+<span class="nc" id="L616">            tt.init(m);</span>
+<span class="nc" id="L617">            m.setTotaler(tt);</span>
+        }
+<span class="fc" id="L619">        this.model = m;</span>
+<span class="fc" id="L620">    }</span>
+
+    /**
+     * Gets the sheet name.
+     *
+     * @return the sheet name
+     */
+    public String getSheetName() {
+<span class="nc" id="L628">        return this.sheetName;</span>
+    }
+
+    /**
+     * Sets the sets the sheet name.
+     *
+     * @param name
+     *            the new sets the sheet name
+     */
+    public void setSetSheetName(final String name) {
+<span class="fc" id="L638">        this.sheetName = name;</span>
+<span class="fc" id="L639">    }</span>
+
+    /**
+     * Gets the sheet.
+     *
+     * @return the sheet
+     */
+    public HSSFSheet getSheet() {
+<span class="nc" id="L647">        return this.sheet;</span>
+    }
+
+    /**
+     * Write table body closer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeTableBodyCloser(final TableModel model) throws Exception {
+        // write totals, if there are any
+<span class="fc" id="L662">        boolean hasTotals = false;</span>
+<span class="fc bfc" id="L663" title="All 2 branches covered.">        for (final HeaderCell cell : model.getHeaderCellList()) {</span>
+<span class="fc bfc" id="L664" title="All 4 branches covered.">            hasTotals = hasTotals || cell.isTotaled();</span>
+<span class="fc" id="L665">        }</span>
+<span class="pc bpc" id="L666" title="1 of 2 branches missed.">        if (!hasTotals) {</span>
+<span class="nc" id="L667">            return;</span>
+        }
+<span class="fc" id="L669">        final TableTotaler tt = model.getTotaler();</span>
+<span class="fc" id="L670">        this.writeRowOpener(null);</span>
+<span class="fc bfc" id="L671" title="All 2 branches covered.">        for (final HeaderCell cell : model.getHeaderCellList()) {</span>
+<span class="fc" id="L672">            this.writeColumnOpener(null);</span>
+<span class="fc bfc" id="L673" title="All 2 branches covered.">            final Object columnValue = cell.isTotaled() ? tt.getTotalForColumn(cell.getColumnNumber(), 0) : null;</span>
+<span class="fc" id="L674">            this.writeCellValue(columnValue);</span>
+<span class="fc" id="L675">            final CellStyle st = this.utils.getNewCellStyle();</span>
+<span class="fc" id="L676">            st.cloneStyleFrom(this.currentCell.getCellStyle());</span>
+<span class="fc" id="L677">            st.setBorderTop(BorderStyle.THIN);</span>
+<span class="fc" id="L678">            st.setTopBorderColor(IndexedColors.BLACK.getIndex());</span>
+<span class="fc" id="L679">            this.currentCell.setCellStyle(st);</span>
+<span class="fc" id="L680">            this.writeColumnCloser(null);</span>
+<span class="fc" id="L681">        }</span>
+<span class="fc" id="L682">        this.writeRowCloser(null);</span>
+<span class="fc" id="L683">    }</span>
+
+    /**
+     * Write group extra info.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
+    protected void writeGroupExtraInfo(final TableModel model) throws Exception {
+<span class="fc" id="L695">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

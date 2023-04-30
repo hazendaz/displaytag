@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItextTableWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.render</a> &gt; <span class="el_source">ItextTableWriter.java</span></div><h1>ItextTableWriter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.render;
+
+import java.util.Iterator;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.decorator.TableDecorator;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.model.Column;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.TableModel;
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+
+/**
+ * A table writer that formats table as and writes it to an iText document.
+ *
+ * @author Jorge L. Barroso
+ *
+ * @version $Id$
+ *
+ * @see org.displaytag.render.TableWriterTemplate
+ */
+public class ItextTableWriter extends TableWriterAdapter {
+
+    /**
+     * iText representation of the table.
+     */
+    private final PdfPTable table;
+
+    /**
+     * iText document to which the table is written.
+     */
+    private final Document document;
+
+    /**
+     * The default font used in the document.
+     */
+    private Font defaultFont;
+
+    /**
+     * This table writer uses an iText table and document to do its work.
+     *
+     * @param table
+     *            iText representation of the table.
+     * @param document
+     *            iText document to which the table is written.
+     */
+<span class="fc" id="L81">    public ItextTableWriter(final PdfPTable table, final Document document) {</span>
+<span class="fc" id="L82">        this.table = table;</span>
+<span class="fc" id="L83">        this.document = document;</span>
+<span class="fc" id="L84">    }</span>
+
+    /**
+     * Initialize the main info holder table, like the appropriate number of columns.
+     *
+     * @param model
+     *            The table being represented as iText.
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableOpener(final TableModel model) {
+<span class="fc" id="L96">        this.table.getDefaultCell().setVerticalAlignment(Element.ALIGN_TOP);</span>
+<span class="fc" id="L97">        this.table.setWidthPercentage(100);</span>
+<span class="fc" id="L98">        this.defaultFont = this.getTableFont();</span>
+<span class="fc" id="L99">    }</span>
+
+    /**
+     * Obtain the font used to render text in the table; Meant to be overriden if a different font is desired.
+     *
+     * @return The font used to render text in the table.
+     */
+    protected Font getTableFont() {
+<span class="fc" id="L107">        return FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, new BaseColor(0x00, 0x00, 0x00));</span>
+    }
+
+    /**
+     * Write the table's caption to a iText document.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeCaption(final TableModel model) throws Exception {
+<span class="nc" id="L123">        this.decorateCaption(model);</span>
+<span class="nc" id="L124">    }</span>
+
+    /**
+     * Writes the table caption according to a set style.
+     *
+     * @param model
+     *            The table model containing the caption.
+     *
+     * @throws DocumentException
+     *             If an error occurrs while decorating the caption.
+     */
+    private void decorateCaption(final TableModel model) throws DocumentException {
+<span class="nc" id="L136">        final Paragraph caption = new Paragraph(new Chunk(model.getCaption(), this.getCaptionFont()));</span>
+<span class="nc" id="L137">        caption.setAlignment(this.getCaptionHorizontalAlignment());</span>
+<span class="nc" id="L138">        this.document.add(caption);</span>
+<span class="nc" id="L139">    }</span>
+
+    /**
+     * Obtain the caption font; Meant to be overriden if a different style is desired.
+     *
+     * @return The caption font.
+     */
+    protected Font getCaptionFont() {
+<span class="nc" id="L147">        return FontFactory.getFont(FontFactory.HELVETICA, 17, Font.BOLD, new BaseColor(0x00, 0x00, 0x00));</span>
+    }
+
+    /**
+     * Obtain the caption horizontal alignment; Meant to be overriden if a different style is desired.
+     *
+     * @return The caption horizontal alignment.
+     */
+    protected int getCaptionHorizontalAlignment() {
+<span class="nc" id="L156">        return Element.ALIGN_CENTER;</span>
+    }
+
+    /**
+     * Write the table's header columns to an iText document.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws DocumentException
+     *             if an error occurs while writing header.
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableHeader(final TableModel model) throws DocumentException {
+<span class="fc" id="L172">        final Iterator&lt;HeaderCell&gt; iterator = model.getHeaderCellList().iterator();</span>
+
+<span class="fc" id="L174">        final float[] widths = new float[model.getNumberOfColumns()];</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">        for (int i = 0; iterator.hasNext(); i++) {</span>
+<span class="fc" id="L176">            final HeaderCell headerCell = iterator.next();</span>
+<span class="fc" id="L177">            widths[i] = this.getCellWidth(headerCell);</span>
+
+<span class="fc" id="L179">            String columnHeader = headerCell.getTitle();</span>
+
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">            if (columnHeader == null) {</span>
+<span class="nc" id="L182">                columnHeader = StringUtils.capitalize(headerCell.getBeanPropertyName());</span>
+            }
+
+<span class="fc" id="L185">            final PdfPCell hdrCell = this.getHeaderCell(columnHeader);</span>
+<span class="fc" id="L186">            this.table.addCell(hdrCell);</span>
+        }
+<span class="fc" id="L188">        this.table.setHeaderRows(1);</span>
+<span class="fc" id="L189">        this.table.setWidths(widths);</span>
+<span class="fc" id="L190">    }</span>
+
+    /**
+     * Returns the maximum size of all values in this column.
+     *
+     * @param headerCell
+     *            Header cell for this column.
+     *
+     * @return The maximum size of all values in this column.
+     */
+    private float getCellWidth(final HeaderCell headerCell) {
+<span class="fc" id="L201">        final int maxWidth = headerCell.getMaxLength();</span>
+<span class="pc bpc" id="L202" title="1 of 2 branches missed.">        return maxWidth &gt; 0 ? maxWidth : headerCell.getTitle().length();</span>
+    }
+
+    /**
+     * Write post body footer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws DocumentException
+     *             if an error occurs while writing post-body footer.
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writePostBodyFooter(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writePostBodyFooter(final TableModel model) throws DocumentException {
+<span class="nc" id="L218">        final Chunk cellContent = new Chunk(model.getFooter(), this.getFooterFont());</span>
+<span class="nc" id="L219">        this.setFooterFontStyle(cellContent);</span>
+<span class="nc" id="L220">        final PdfPCell cell = new PdfPCell(new Phrase(cellContent));</span>
+<span class="nc" id="L221">        cell.setLeading(8, 0);</span>
+<span class="nc" id="L222">        cell.setBackgroundColor(this.getFooterBackgroundColor());</span>
+<span class="nc" id="L223">        cell.setHorizontalAlignment(this.getFooterHorizontalAlignment());</span>
+<span class="nc" id="L224">        cell.setColspan(model.getNumberOfColumns());</span>
+<span class="nc" id="L225">        this.table.addCell(cell);</span>
+<span class="nc" id="L226">    }</span>
+
+    /**
+     * Obtain the footer background color; Meant to be overriden if a different style is desired.
+     *
+     * @return The footer background color.
+     */
+    protected BaseColor getFooterBackgroundColor() {
+<span class="nc" id="L234">        return new BaseColor(0xce, 0xcf, 0xce);</span>
+    }
+
+    /**
+     * Obtain the footer horizontal alignment; Meant to be overriden if a different style is desired.
+     *
+     * @return The footer horizontal alignment.
+     */
+    protected int getFooterHorizontalAlignment() {
+<span class="nc" id="L243">        return Element.ALIGN_LEFT;</span>
+    }
+
+    /**
+     * Set the font style used to render the header text; Meant to be overridden if a different header style is desired.
+     *
+     * @param cellContent
+     *            The header content whose font will be modified.
+     */
+    protected void setFooterFontStyle(final Chunk cellContent) {
+<span class="nc" id="L253">        this.setBoldStyle(cellContent, this.getFooterFontColor());</span>
+<span class="nc" id="L254">    }</span>
+
+    /**
+     * Obtain the footer font color; Meant to be overriden if a different style is desired.
+     *
+     * @return The footer font color.
+     */
+    protected BaseColor getFooterFontColor() {
+<span class="nc" id="L262">        return new BaseColor(0x00, 0x00, 0x00);</span>
+    }
+
+    /**
+     * Obtain the footer font; Meant to be overriden if a different style is desired.
+     *
+     * @return The footer font.
+     */
+    protected Font getFooterFont() {
+<span class="nc" id="L271">        return FontFactory.getFont(FontFactory.HELVETICA, 10);</span>
+    }
+
+    /**
+     * Decorators that help render the table to an iText document must implement ItextDecorator.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedRowStart(final TableModel model) {
+<span class="fc" id="L284">        final TableDecorator decorator = model.getTableDecorator();</span>
+<span class="pc bpc" id="L285" title="1 of 2 branches missed.">        if (decorator instanceof ItextDecorator) {</span>
+<span class="nc" id="L286">            final ItextDecorator idecorator = (ItextDecorator) decorator;</span>
+<span class="nc" id="L287">            idecorator.setTable(this.table);</span>
+<span class="nc" id="L288">            idecorator.setFont(this.defaultFont);</span>
+        }
+<span class="fc" id="L290">        decorator.startRow();</span>
+<span class="fc" id="L291">    }</span>
+
+    /**
+     * Write decorated row finish.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedRowFinish(final TableModel model) throws Exception {
+<span class="fc" id="L306">        model.getTableDecorator().finishRow();</span>
+<span class="fc" id="L307">    }</span>
+
+    /**
+     * Write a column's opening structure to an iText document.
+     *
+     * @param column
+     *            the column
+     *
+     * @throws ObjectLookupException
+     *             the object lookup exception
+     * @throws DecoratorException
+     *             the decorator exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnOpener(final Column column) throws ObjectLookupException, DecoratorException {
+<span class="fc" id="L324">        column.initialize(); // has side effect, setting its stringValue, which affects grouping logic.</span>
+<span class="fc" id="L325">    }</span>
+
+    /**
+     * Write a column's value to a iText document.
+     *
+     * @param value
+     *            the value
+     * @param column
+     *            the column
+     *
+     * @throws BadElementException
+     *             the bad element exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(Object,org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnValue(final Object value, final Column column) throws BadElementException {
+<span class="fc" id="L342">        this.table.addCell(this.getCell(value));</span>
+<span class="fc" id="L343">    }</span>
+
+    /**
+     * Write decorated table finish.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedTableFinish(final TableModel model) {
+<span class="fc" id="L355">        model.getTableDecorator().finish();</span>
+<span class="fc" id="L356">    }</span>
+
+    /**
+     * Returns a formatted cell for the given value.
+     *
+     * @param value
+     *            cell value
+     *
+     * @return Cell
+     */
+    private PdfPCell getCell(final Object value) {
+<span class="fc" id="L367">        final PdfPCell cell = new PdfPCell(new Phrase(new Chunk(</span>
+<span class="pc bpc" id="L368" title="1 of 2 branches missed.">                StringUtils.trimToEmpty(value != null ? value.toString() : StringUtils.EMPTY), this.defaultFont)));</span>
+<span class="fc" id="L369">        cell.setVerticalAlignment(Element.ALIGN_TOP);</span>
+<span class="fc" id="L370">        cell.setLeading(8, 0);</span>
+<span class="fc" id="L371">        return cell;</span>
+    }
+
+    /**
+     * Obtain a header cell.
+     *
+     * @param value
+     *            Cell content.
+     *
+     * @return A header cell with the given content.
+     */
+    private PdfPCell getHeaderCell(final String value) {
+<span class="fc" id="L383">        final Chunk cellContent = new Chunk(value, this.getHeaderFont());</span>
+<span class="fc" id="L384">        this.setHeaderFontStyle(cellContent);</span>
+<span class="fc" id="L385">        final PdfPCell cell = new PdfPCell(new Phrase(cellContent));</span>
+<span class="fc" id="L386">        cell.setLeading(8, 0);</span>
+<span class="fc" id="L387">        cell.setHorizontalAlignment(this.getHeaderHorizontalAlignment());</span>
+<span class="fc" id="L388">        cell.setBackgroundColor(this.getHeaderBackgroundColor());</span>
+<span class="fc" id="L389">        return cell;</span>
+    }
+
+    /**
+     * Obtain the font used to render the header text; Meant to be overridden if a different header font is desired.
+     *
+     * @return The font used to render the header text.
+     */
+    protected Font getHeaderFont() {
+<span class="fc" id="L398">        return this.defaultFont;</span>
+    }
+
+    /**
+     * Obtain the background color used to render the header; Meant to be overridden if a different header background
+     * color is desired.
+     *
+     * @return The backgrounc color used to render the header.
+     */
+    protected BaseColor getHeaderBackgroundColor() {
+<span class="fc" id="L408">        return new BaseColor(0xee, 0xee, 0xee);</span>
+    }
+
+    /**
+     * Set the font style used to render the header text; Meant to be overridden if a different header style is desired.
+     *
+     * @param cellContent
+     *            The header content whose font will be modified.
+     */
+    protected void setHeaderFontStyle(final Chunk cellContent) {
+<span class="fc" id="L418">        this.setBoldStyle(cellContent, this.getHeaderFontColor());</span>
+<span class="fc" id="L419">    }</span>
+
+    /**
+     * Set the font color used to render the header text; Meant to be overridden if a different header style is desired.
+     *
+     * @return The font color used to render the header text.
+     */
+    protected BaseColor getHeaderFontColor() {
+<span class="fc" id="L427">        return new BaseColor(0x00, 0x00, 0x00);</span>
+    }
+
+    /**
+     * Obtain the horizontal alignment used to render header text; Meant to be overridden if a different alignment is
+     * desired.
+     *
+     * @return The horizontal alignment used to render header text;
+     */
+    protected int getHeaderHorizontalAlignment() {
+<span class="fc" id="L437">        return Element.ALIGN_CENTER;</span>
+    }
+
+    /**
+     * Makes chunk content bold.
+     *
+     * @param chunk
+     *            The chunk whose content is to be rendered bold.
+     * @param color
+     *            The font color desired.
+     */
+    private void setBoldStyle(final Chunk chunk, final BaseColor color) {
+<span class="fc" id="L449">        final Font font = chunk.getFont();</span>
+<span class="fc" id="L450">        chunk.setFont(FontFactory.getFont(font.getFamilyname(), font.getSize(), Font.BOLD, color));</span>
+<span class="fc" id="L451">    }</span>
+
+    /**
+     * An implementor of this interface decorates tables and columns appearing in iText documents.
+     *
+     * @author Jorge L. Barroso
+     *
+     * @version $Revision$ ($Author$)
+     */
+    public interface ItextDecorator {
+
+        /**
+         * Set the iText table used to render a table model.
+         *
+         * @param table
+         *            The iText table used to render a table model.
+         */
+        void setTable(PdfPTable table);
+
+        /**
+         * Set the font used to render a table's content.
+         *
+         * @param font
+         *            The font used to render a table's content.
+         */
+        void setFont(Font font);
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

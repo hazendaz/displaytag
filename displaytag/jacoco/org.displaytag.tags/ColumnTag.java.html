@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ColumnTag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.tags</a> &gt; <span class="el_source">ColumnTag.java</span></div><h1>ColumnTag.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.tags;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.Tag;
+import javax.servlet.jsp.tagext.TagSupport;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.decorator.AutolinkColumnDecorator;
+import org.displaytag.decorator.DisplaytagColumnDecorator;
+import org.displaytag.decorator.EscapeXmlColumnDecorator;
+import org.displaytag.decorator.MessageFormatColumnDecorator;
+import org.displaytag.exception.DecoratorInstantiationException;
+import org.displaytag.exception.InvalidTagAttributeValueException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.exception.TagStructureException;
+import org.displaytag.model.Cell;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.properties.SortOrderEnum;
+import org.displaytag.util.DefaultHref;
+import org.displaytag.util.Href;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MediaUtil;
+import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.TagConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * This tag works hand in hand with the TableTag to display a list of objects. This describes a column of data in the
+ * TableTag. There can be any number of columns that make up the list.
+ * &lt;p&gt;
+ * This tag does no work itself, it is simply a container of information. The TableTag does all the work based on the
+ * information provided in the attributes of this tag.
+ *
+ * @author mraible
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L72">public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia {</span>
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L82">    private static Logger log = LoggerFactory.getLogger(ColumnTag.class);</span>
+
+    /**
+     * html pass-through attributes for cells.
+     */
+<span class="fc" id="L87">    private final HtmlAttributeMap attributeMap = new HtmlAttributeMap();</span>
+
+    /**
+     * html pass-through attributes for cell headers.
+     */
+<span class="fc" id="L92">    private final HtmlAttributeMap headerAttributeMap = new HtmlAttributeMap();</span>
+
+    /**
+     * the property method that is called to retrieve the information to be displayed in this column. This method is
+     * called on the current object in the iteration for the given row. The property format is in typical struts format
+     * for properties (required)
+     */
+    private String property;
+
+    /**
+     * the title displayed for this column. if this is omitted then the property name is used for the title of the
+     * column (optional).
+     */
+    private String title;
+
+    /**
+     * by default, null values don't appear in the list, by setting viewNulls to 'true', then null values will appear as
+     * &quot;null&quot; in the list (mostly useful for debugging) (optional).
+     */
+    private boolean nulls;
+
+    /** is the column sortable?. */
+    private boolean sortable;
+
+    /**
+     * Name given to the server when sorting this column.
+     */
+    private String sortName;
+
+    /**
+     * Defalt sort order for this column.
+     */
+    private SortOrderEnum defaultorder;
+
+    /**
+     * The comparator to use when sorting this column.
+     */
+    private transient Comparator&lt;Object&gt; comparator;
+
+    /**
+     * if set to true, then any email addresses and URLs found in the content of the column are automatically converted
+     * into a hypertext link.
+     */
+    private boolean autolink;
+
+    /**
+     * Automatically escape column content for html and xml media.
+     */
+    private Boolean escapeXml;
+
+    /**
+     * A MessageFormat patter that will be used to decorate objects in the column. Can be used as a &quot;shortcut&quot; for
+     * simple column decorations.
+     */
+    private String format;
+
+    /**
+     * the grouping level (starting at 1 and incrementing) of this column (indicates if successive contain the same
+     * values, then they should not be displayed). The level indicates that if a lower level no longer matches, then the
+     * matching for this higher level should start over as well. If this attribute is not included, then no grouping is
+     * performed. (optional)
+     */
+<span class="fc" id="L154">    private int group = -1;</span>
+
+    /**
+     * if this attribute is provided, then the data that is shown for this column is wrapped inside a &amp;lt;a href&amp;gt; tag
+     * with the url provided through this attribute. Typically you would use this attribute along with one of the
+     * struts-like param attributes below to create a dynamic link so that each row creates a different URL based on the
+     * data that is being viewed. (optional)
+     */
+    private Href href;
+
+    /**
+     * The name of the request parameter that will be dynamically added to the generated href URL. The corresponding
+     * value is defined by the paramProperty and (optional) paramName attributes, optionally scoped by the paramScope
+     * attribute. (optional)
+     */
+    private String paramId;
+
+    /**
+     * The name of a JSP bean that is a String containing the value for the request parameter named by paramId (if
+     * paramProperty is not specified), or a JSP bean whose property getter is called to return a String (if
+     * paramProperty is specified). The JSP bean is constrained to the bean scope specified by the paramScope property,
+     * if it is specified. If paramName is omitted, then it is assumed that the current object being iterated on is the
+     * target bean. (optional)
+     */
+    private String paramName;
+
+    /**
+     * The name of a property of the bean specified by the paramName attribute (or the current object being iterated on
+     * if paramName is not provided), whose return value must be a String containing the value of the request parameter
+     * (named by the paramId attribute) that will be dynamically added to this href URL. (optional)
+     *
+     * @deprecated use Expressions in paramName
+     */
+    @Deprecated
+    private String paramProperty;
+
+    /**
+     * If this attribute is provided, then the column's displayed is limited to this number of characters. An elipse
+     * (...) is appended to the end if this column is linked, and the user can mouseover the elipse to get the full
+     * text. (optional)
+     */
+    private int maxLength;
+
+    /**
+     * If this attribute is provided, then the column's displayed is limited to this number of words. An elipse (...) is
+     * appended to the end if this column is linked, and the user can mouseover the elipse to get the full text.
+     * (optional)
+     */
+    private int maxWords;
+
+    /**
+     * a class that should be used to &quot;decorate&quot; the underlying object being displayed. If a decorator is specified for
+     * the entire table, then this decorator will decorate that decorator. (optional)
+     */
+    private String decorator;
+
+    /** is the column already sorted?. */
+    private boolean alreadySorted;
+
+    /**
+     * The media supported attribute.
+     */
+    private transient List&lt;MediaTypeEnum&gt; supportedMedia;
+
+    /**
+     * Property in a resource bundle to be used as the title for the column.
+     */
+    private String titleKey;
+
+    /**
+     * The name of the bean property if a decorator is used and sorting need to be still on on the property itself.
+     * Useful for displaying data with links but sorting on original value.
+     */
+    private String sortProperty;
+
+    /**
+     * Should the value of the column be summed? Requires that the value of the column be convertible to a Number.
+     */
+    private boolean totaled;
+
+    /**
+     * Static value for this cell, equivalent to column body.
+     */
+    private transient Object value;
+
+    /**
+     * Setter for totals.
+     *
+     * @param totals
+     *            the value
+     */
+    public void setTotal(final boolean totals) {
+<span class="fc" id="L246">        this.totaled = totals;</span>
+<span class="fc" id="L247">    }</span>
+
+    /**
+     * setter for the &quot;property&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setProperty(final String value) {
+<span class="fc" id="L256">        this.property = value;</span>
+<span class="fc" id="L257">    }</span>
+
+    /**
+     * setter for the &quot;value&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setValue(final Object value) {
+<span class="fc" id="L266">        this.value = value;</span>
+<span class="fc" id="L267">    }</span>
+
+    /**
+     * Set the comparator, classname or object.
+     *
+     * @param comparatorObj
+     *            the comparator, classname or object
+     */
+    public void setComparator(final Object comparatorObj) {
+        // @todo don't do this! Setters should remains simple setters and any evaluation should be done in doEndTag()!
+<span class="pc bpc" id="L277" title="1 of 2 branches missed.">        if (comparatorObj instanceof Comparator) {</span>
+<span class="nc" id="L278">            this.comparator = (Comparator&lt;Object&gt;) comparatorObj;</span>
+<span class="pc bpc" id="L279" title="1 of 2 branches missed.">        } else if (comparatorObj instanceof String) {</span>
+<span class="fc" id="L280">            final String comparatorClassname = (String) comparatorObj;</span>
+            Class&lt;Comparator&lt;Object&gt;&gt; compClass;
+            try {
+<span class="fc" id="L283">                compClass = (Class&lt;Comparator&lt;Object&gt;&gt;) Thread.currentThread().getContextClassLoader()</span>
+<span class="fc" id="L284">                        .loadClass(comparatorClassname);</span>
+<span class="nc" id="L285">            } catch (final ClassNotFoundException e) {</span>
+<span class="nc" id="L286">                throw new RuntimeException(&quot;InstantiationException setting column comparator as &quot; + comparatorClassname</span>
+<span class="nc" id="L287">                        + &quot;: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L288">            }</span>
+            try {
+<span class="fc" id="L290">                this.comparator = compClass.getDeclaredConstructor().newInstance();</span>
+<span class="nc" id="L291">            } catch (final InstantiationException e) {</span>
+<span class="nc" id="L292">                throw new RuntimeException(&quot;InstantiationException setting column comparator as &quot; + comparatorClassname</span>
+<span class="nc" id="L293">                        + &quot;: &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L294">            } catch (final IllegalAccessException e) {</span>
+<span class="nc" id="L295">                throw new RuntimeException(&quot;IllegalAccessException setting column comparator as &quot; + comparatorClassname</span>
+<span class="nc" id="L296">                        + &quot;: &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L297">            } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L298">              throw new RuntimeException(&quot;IllegalArgumentException setting column comparator as &quot; + comparatorClassname</span>
+<span class="nc" id="L299">                  + &quot;: &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L300">            } catch (InvocationTargetException e) {</span>
+<span class="nc" id="L301">              throw new RuntimeException(&quot;InvocationTargetException setting column comparator as &quot; + comparatorClassname</span>
+<span class="nc" id="L302">                  + &quot;: &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L303">            } catch (NoSuchMethodException e) {</span>
+<span class="nc" id="L304">              throw new RuntimeException(&quot;NoSuchMethodException setting column comparator as &quot; + comparatorClassname</span>
+<span class="nc" id="L305">                  + &quot;: &quot; + e.getMessage(), e);</span>
+<span class="nc" id="L306">            } catch (SecurityException e) {</span>
+<span class="nc" id="L307">              throw new RuntimeException(&quot;SecurityException setting column comparator as &quot; + comparatorClassname</span>
+<span class="nc" id="L308">                  + &quot;: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L309">            }</span>
+<span class="fc" id="L310">        } else {</span>
+<span class="nc" id="L311">            throw new IllegalArgumentException(</span>
+<span class="nc" id="L312">                    &quot;Value for comparator: &quot; + comparatorObj + &quot; of type &quot; + comparatorObj.getClass().getName());</span>
+        }
+<span class="fc" id="L314">    }</span>
+
+    /**
+     * setter for the &quot;title&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setTitle(final String value) {
+<span class="fc" id="L323">        this.title = value;</span>
+<span class="fc" id="L324">    }</span>
+
+    /**
+     * setter for the &quot;format&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setFormat(final String value) {
+<span class="fc" id="L333">        this.format = value;</span>
+<span class="fc" id="L334">    }</span>
+
+    /**
+     * setter for the &quot;nulls&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setNulls(final boolean value) {
+<span class="fc" id="L343">        this.nulls = value;</span>
+<span class="fc" id="L344">    }</span>
+
+    /**
+     * setter for the &quot;sortable&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setSortable(final boolean value) {
+<span class="fc" id="L353">        this.sortable = value;</span>
+<span class="fc" id="L354">    }</span>
+
+    /**
+     * setter for the &quot;autolink&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setAutolink(final boolean value) {
+<span class="nc" id="L363">        this.autolink = value;</span>
+<span class="nc" id="L364">    }</span>
+
+    /**
+     * setter for the &quot;escapeXml&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setEscapeXml(final boolean value) {
+<span class="fc" id="L373">        this.escapeXml = value;</span>
+<span class="fc" id="L374">    }</span>
+
+    /**
+     * setter for the &quot;group&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setGroup(final int value) {
+<span class="fc" id="L383">        this.group = value;</span>
+<span class="fc" id="L384">    }</span>
+
+    /**
+     * setter for the &quot;titleKey&quot; tag attribute.
+     *
+     * @param value
+     *            property name
+     */
+    public void setTitleKey(final String value) {
+<span class="fc" id="L393">        this.titleKey = value;</span>
+<span class="fc" id="L394">    }</span>
+
+    /**
+     * setter for the &quot;href&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setHref(final String value) {
+        // call encodeURL to preserve session id when cookies are disabled
+<span class="fc" id="L404">        final String encodedHref = ((HttpServletResponse) this.pageContext.getResponse())</span>
+<span class="fc" id="L405">                .encodeURL(StringUtils.defaultString(value));</span>
+<span class="fc" id="L406">        this.href = new DefaultHref(encodedHref);</span>
+<span class="fc" id="L407">    }</span>
+
+    /**
+     * setter for the &quot;url&quot; tag attribute. This has the same meaning of href, but prepends the context path to the given
+     * URI.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setUrl(final String value) {
+<span class="fc" id="L417">        final HttpServletRequest req = (HttpServletRequest) this.pageContext.getRequest();</span>
+        // call encodeURL to preserve session id when cookies are disabled
+<span class="fc" id="L419">        final String encodedHref = ((HttpServletResponse) this.pageContext.getResponse())</span>
+<span class="fc" id="L420">                .encodeURL(StringUtils.defaultString(req.getContextPath() + value));</span>
+<span class="fc" id="L421">        this.href = new DefaultHref(encodedHref);</span>
+<span class="fc" id="L422">    }</span>
+
+    /**
+     * setter for the &quot;paramId&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setParamId(final String value) {
+<span class="fc" id="L431">        this.paramId = value;</span>
+<span class="fc" id="L432">    }</span>
+
+    /**
+     * setter for the &quot;paramName&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setParamName(final String value) {
+<span class="nc" id="L441">        this.paramName = value;</span>
+<span class="nc" id="L442">    }</span>
+
+    /**
+     * setter for the &quot;paramProperty&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setParamProperty(final String value) {
+<span class="fc" id="L451">        this.paramProperty = value;</span>
+<span class="fc" id="L452">    }</span>
+
+    /**
+     * setter for the &quot;scope&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setScope(final String value) {
+<span class="fc" id="L461">        this.attributeMap.put(TagConstants.ATTRIBUTE_SCOPE, value);</span>
+<span class="fc" id="L462">    }</span>
+
+    /**
+     * setter for the &quot;headerScope&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setHeaderScope(final String value) {
+<span class="fc" id="L471">        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_SCOPE, value);</span>
+<span class="fc" id="L472">    }</span>
+
+    /**
+     * setter for the &quot;maxLength&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setMaxLength(final int value) {
+<span class="fc" id="L481">        this.maxLength = value;</span>
+<span class="fc" id="L482">    }</span>
+
+    /**
+     * setter for the &quot;maxWords&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setMaxWords(final int value) {
+<span class="nc" id="L491">        this.maxWords = value;</span>
+<span class="nc" id="L492">    }</span>
+
+    /**
+     * setter for the &quot;style&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setStyle(final String value) {
+<span class="fc" id="L501">        this.attributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);</span>
+<span class="fc" id="L502">    }</span>
+
+    /**
+     * setter for the &quot;headerStyle&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setHeaderStyle(final String value) {
+<span class="fc" id="L511">        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);</span>
+<span class="fc" id="L512">    }</span>
+
+    /**
+     * setter for the &quot;class&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setClass(final String value) {
+<span class="fc" id="L521">        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));</span>
+<span class="fc" id="L522">    }</span>
+
+    /**
+     * setter for the &quot;headerClass&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setHeaderClass(final String value) {
+<span class="fc" id="L531">        this.headerAttributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));</span>
+<span class="fc" id="L532">    }</span>
+
+    /**
+     * setter for the &quot;decorator&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setDecorator(final String value) {
+<span class="fc" id="L541">        this.decorator = value;</span>
+<span class="fc" id="L542">    }</span>
+
+    /**
+     * setter for the &quot;sortProperty&quot; tag attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setSortProperty(final String value) {
+<span class="fc" id="L551">        this.sortProperty = value;</span>
+<span class="fc" id="L552">    }</span>
+
+    /**
+     * Looks up the parent table tag.
+     *
+     * @return a table tag instance.
+     */
+    protected TableTag getTableTag() {
+<span class="fc" id="L560">        return (TableTag) TagSupport.findAncestorWithClass(this, TableTag.class);</span>
+    }
+
+    /**
+     * Tag setter.
+     *
+     * @param media
+     *            the space delimited list of supported types
+     */
+    public void setMedia(final String media) {
+<span class="fc" id="L570">        MediaUtil.setMedia(this, media);</span>
+<span class="fc" id="L571">    }</span>
+
+    /**
+     * Sets the supported media.
+     *
+     * @param media
+     *            the new supported media
+     *
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
+     */
+    @Override
+    public void setSupportedMedia(final List&lt;MediaTypeEnum&gt; media) {
+<span class="fc" id="L583">        this.supportedMedia = media;</span>
+<span class="fc" id="L584">    }</span>
+
+    /**
+     * Gets the supported media.
+     *
+     * @return the supported media
+     *
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
+     */
+    @Override
+    public List&lt;MediaTypeEnum&gt; getSupportedMedia() {
+<span class="fc" id="L595">        return this.supportedMedia;</span>
+    }
+
+    /**
+     * sets the name given to the server when sorting this column.
+     *
+     * @param sortName
+     *            name given to the server to sort this column
+     */
+    public void setSortName(final String sortName) {
+<span class="fc" id="L605">        this.sortName = sortName;</span>
+<span class="fc" id="L606">    }</span>
+
+    /**
+     * sets the sorting order for the sorted column.
+     *
+     * @param value
+     *            &quot;ascending&quot; or &quot;descending&quot;
+     *
+     * @throws InvalidTagAttributeValueException
+     *             if value is not one of &quot;ascending&quot; or &quot;descending&quot;
+     */
+    public void setDefaultorder(final String value) throws InvalidTagAttributeValueException {
+<span class="fc" id="L618">        this.defaultorder = SortOrderEnum.fromName(value);</span>
+<span class="pc bpc" id="L619" title="1 of 2 branches missed.">        if (this.defaultorder == null) {</span>
+<span class="nc" id="L620">            throw new InvalidTagAttributeValueException(this.getClass(), &quot;defaultorder&quot;, value); //$NON-NLS-1$</span>
+        }
+<span class="fc" id="L622">    }</span>
+
+    /**
+     * Passes attribute information up to the parent TableTag.
+     * &lt;p&gt;
+     * When we hit the end of the tag, we simply let our parent (which better be a TableTag) know what the user wants to
+     * do with this column. We do that by simple registering this tag with the parent. This tag's only job is to hold
+     * the configuration information to describe this particular column. The TableTag does all the work.
+     * &lt;/p&gt;
+     *
+     * @return int
+     *
+     * @throws JspException
+     *             if this tag is being used outside of a &amp;lt;display:list...&amp;gt; tag.
+     *
+     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
+     */
+    @Override
+    public int doEndTag() throws JspException {
+<span class="fc" id="L641">        final TableTag tableTag = this.getTableTag();</span>
+
+<span class="fc" id="L643">        final MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext</span>
+<span class="fc" id="L644">                .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);</span>
+<span class="pc bpc" id="L645" title="1 of 4 branches missed.">        if (currentMediaType != null &amp;&amp; !MediaUtil.availableForMedia(this, currentMediaType)) {</span>
+<span class="pc bpc" id="L646" title="1 of 2 branches missed.">            if (ColumnTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L647">                ColumnTag.log.debug(&quot;skipping column body, currentMediaType={}&quot;, currentMediaType);</span>
+            }
+<span class="fc" id="L649">            return Tag.SKIP_BODY;</span>
+        }
+
+        // add column header only once
+<span class="fc bfc" id="L653" title="All 2 branches covered.">        if (tableTag.isFirstIteration()) {</span>
+<span class="fc" id="L654">            this.addHeaderToTable(tableTag);</span>
+        }
+
+<span class="fc bfc" id="L657" title="All 2 branches covered.">        if (!tableTag.isIncludedRow()) {</span>
+<span class="fc" id="L658">            return super.doEndTag();</span>
+        }
+
+<span class="fc" id="L661">        Cell cell = null;</span>
+<span class="fc bfc" id="L662" title="All 4 branches covered.">        if (this.property == null &amp;&amp; this.value != null) {</span>
+<span class="fc" id="L663">            cell = new Cell(this.value);</span>
+<span class="fc bfc" id="L664" title="All 4 branches covered.">        } else if (this.property == null &amp;&amp; this.bodyContent != null) {</span>
+<span class="fc" id="L665">            cell = new Cell(this.bodyContent.getString());</span>
+        }
+
+<span class="fc" id="L668">        final Object rowStyle = this.attributeMap.get(TagConstants.ATTRIBUTE_STYLE);</span>
+<span class="fc" id="L669">        final Object rowClass = this.attributeMap.get(TagConstants.ATTRIBUTE_CLASS);</span>
+<span class="pc bpc" id="L670" title="1 of 4 branches missed.">        if (rowStyle != null || rowClass != null) {</span>
+<span class="fc" id="L671">            final HtmlAttributeMap perRowValues = new HtmlAttributeMap();</span>
+<span class="pc bpc" id="L672" title="1 of 2 branches missed.">            if (rowStyle != null) {</span>
+<span class="fc" id="L673">                perRowValues.put(TagConstants.ATTRIBUTE_STYLE, rowStyle);</span>
+            }
+<span class="fc bfc" id="L675" title="All 2 branches covered.">            if (rowClass != null) {</span>
+<span class="fc" id="L676">                perRowValues.put(TagConstants.ATTRIBUTE_CLASS, rowClass);</span>
+            }
+<span class="fc bfc" id="L678" title="All 2 branches covered.">            if (cell == null) {</span>
+<span class="fc" id="L679">                cell = new Cell(null);</span>
+            }
+<span class="fc" id="L681">            cell.setPerRowAttributes(perRowValues);</span>
+        }
+
+<span class="fc bfc" id="L684" title="All 2 branches covered.">        tableTag.addCell(cell != null ? cell : Cell.EMPTY_CELL);</span>
+
+        // cleanup non-attribute variables
+<span class="fc" id="L687">        this.alreadySorted = false;</span>
+
+<span class="fc" id="L689">        return super.doEndTag();</span>
+    }
+
+    /**
+     * Adds the current header to the table model calling addColumn in the parent table tag. This method should be
+     * called only at first iteration.
+     *
+     * @param tableTag
+     *            parent table tag
+     *
+     * @throws DecoratorInstantiationException
+     *             for error during column decorator instantiation
+     * @throws ObjectLookupException
+     *             for errors in looking up values
+     */
+    private void addHeaderToTable(final TableTag tableTag)
+            throws DecoratorInstantiationException, ObjectLookupException {
+        // don't modify &quot;title&quot; directly
+<span class="fc" id="L707">        String evalTitle = this.title;</span>
+
+        // title has precedence over titleKey
+<span class="fc bfc" id="L710" title="All 6 branches covered.">        if (evalTitle == null &amp;&amp; (this.titleKey != null || this.property != null)) {</span>
+            // handle title i18n
+<span class="fc" id="L712">            evalTitle = tableTag.getProperties().geResourceProvider().getResource(this.titleKey, this.property,</span>
+                    tableTag, this.pageContext);
+        }
+
+<span class="fc" id="L716">        final HeaderCell headerCell = new HeaderCell();</span>
+<span class="fc" id="L717">        headerCell.setHeaderAttributes((HtmlAttributeMap) this.headerAttributeMap.clone());</span>
+<span class="fc" id="L718">        headerCell.setHtmlAttributes((HtmlAttributeMap) this.attributeMap.clone());</span>
+<span class="fc" id="L719">        headerCell.setTitle(evalTitle);</span>
+<span class="fc" id="L720">        headerCell.setSortable(this.sortable);</span>
+
+<span class="fc" id="L722">        final List&lt;DisplaytagColumnDecorator&gt; decorators = new ArrayList&lt;&gt;();</span>
+
+        // handle multiple chained decorators, whitespace separated
+<span class="fc bfc" id="L725" title="All 2 branches covered.">        if (StringUtils.isNotEmpty(this.decorator)) {</span>
+<span class="fc" id="L726">            final String[] decoratorNames = StringUtils.split(this.decorator);</span>
+<span class="fc bfc" id="L727" title="All 2 branches covered.">            for (final String decoratorName : decoratorNames) {</span>
+<span class="fc" id="L728">                decorators.add(tableTag.getProperties().getDecoratorFactoryInstance()</span>
+<span class="fc" id="L729">                        .loadColumnDecorator(this.pageContext, decoratorName));</span>
+            }
+        }
+
+        // &quot;special&quot; decorators
+<span class="fc bfc" id="L734" title="All 4 branches covered.">        if (this.escapeXml != null &amp;&amp; this.escapeXml) {</span>
+<span class="fc" id="L735">            decorators.add(EscapeXmlColumnDecorator.INSTANCE);</span>
+        }
+<span class="pc bpc" id="L737" title="1 of 2 branches missed.">        if (this.autolink) {</span>
+<span class="nc" id="L738">            decorators.add(AutolinkColumnDecorator.INSTANCE);</span>
+        }
+<span class="fc bfc" id="L740" title="All 2 branches covered.">        if (StringUtils.isNotBlank(this.format)) {</span>
+<span class="fc" id="L741">            decorators.add(new MessageFormatColumnDecorator(this.format, tableTag.getProperties().getLocale()));</span>
+        }
+
+<span class="fc" id="L744">        headerCell.setColumnDecorators(decorators.toArray(new DisplaytagColumnDecorator[decorators.size()]));</span>
+
+<span class="fc" id="L746">        headerCell.setBeanPropertyName(this.property);</span>
+<span class="fc" id="L747">        headerCell.setShowNulls(this.nulls);</span>
+<span class="fc" id="L748">        headerCell.setMaxLength(this.maxLength);</span>
+<span class="fc" id="L749">        headerCell.setMaxWords(this.maxWords);</span>
+<span class="fc" id="L750">        headerCell.setGroup(this.group);</span>
+<span class="fc" id="L751">        headerCell.setSortProperty(this.sortProperty);</span>
+<span class="fc" id="L752">        headerCell.setTotaled(this.totaled);</span>
+
+<span class="fc bfc" id="L754" title="All 2 branches covered.">        final Comparator&lt;Object&gt; headerComparator = this.comparator != null ? this.comparator</span>
+<span class="fc" id="L755">                : tableTag.getProperties().getDefaultComparator();</span>
+
+<span class="fc" id="L757">        headerCell.setComparator(headerComparator);</span>
+<span class="fc" id="L758">        headerCell.setDefaultSortOrder(this.defaultorder);</span>
+<span class="fc" id="L759">        headerCell.setSortName(this.sortName);</span>
+
+        // href and parameter, create link
+<span class="fc bfc" id="L762" title="All 2 branches covered.">        if (this.href != null) {</span>
+            Href colHref;
+
+            // empty base url, use href with parameters from parent table
+<span class="fc bfc" id="L766" title="All 2 branches covered.">            if (StringUtils.isEmpty(this.href.getBaseUrl())) {</span>
+<span class="fc" id="L767">                colHref = (Href) tableTag.getBaseHref().clone();</span>
+            } else {
+<span class="fc" id="L769">                colHref = (Href) this.href.clone();</span>
+            }
+
+<span class="fc bfc" id="L772" title="All 2 branches covered.">            if (this.paramId != null) {</span>
+                // parameter value is in a different object than the iterated one
+<span class="pc bpc" id="L774" title="1 of 2 branches missed.">                if (this.paramName != null) {</span>
+                    // create a complete string for compatibility with previous version before expression evaluation.
+                    // this approach is optimized for new expressions, not for previous property/scope parameters
+<span class="nc" id="L777">                    final StringBuilder expression = new StringBuilder();</span>
+
+                    // base bean name
+<span class="nc bnc" id="L780" title="All 2 branches missed.">                    if (this.paramId != null) {</span>
+<span class="nc" id="L781">                        expression.append(this.paramName);</span>
+                    } else {
+<span class="nc" id="L783">                        expression.append(tableTag.getName());</span>
+                    }
+
+                    // append property
+<span class="nc bnc" id="L787" title="All 2 branches missed.">                    if (StringUtils.isNotBlank(this.paramProperty)) {</span>
+<span class="nc" id="L788">                        expression.append('.').append(this.paramProperty);</span>
+                    }
+
+                    // evaluate expression.
+                    // note the value is fixed, not based on any object created during iteration
+                    // this is here for compatibility with the old version mainly
+<span class="nc" id="L794">                    final Object paramValue = tableTag.evaluateExpression(expression.toString());</span>
+
+                    // add parameter
+<span class="nc" id="L797">                    colHref.addParameter(this.paramId, paramValue);</span>
+<span class="nc" id="L798">                } else {</span>
+                    // set id
+<span class="fc" id="L800">                    headerCell.setParamName(this.paramId);</span>
+
+                    // set property
+<span class="fc" id="L803">                    headerCell.setParamProperty(this.paramProperty);</span>
+                }
+            }
+
+            // sets the base href
+<span class="fc" id="L808">            headerCell.setHref(colHref);</span>
+
+        }
+
+<span class="fc" id="L812">        tableTag.addColumn(headerCell);</span>
+
+<span class="pc bpc" id="L814" title="1 of 2 branches missed.">        if (ColumnTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L815">            ColumnTag.log.debug(&quot;columnTag.addHeaderToTable() :: first iteration - adding header {}&quot;, headerCell);</span>
+        }
+<span class="fc" id="L817">    }</span>
+
+    /**
+     * Release.
+     *
+     * @see javax.servlet.jsp.tagext.Tag#release()
+     */
+    @Override
+    public void release() {
+<span class="fc" id="L826">        super.release();</span>
+<span class="fc" id="L827">        this.attributeMap.clear();</span>
+<span class="fc" id="L828">        this.autolink = false;</span>
+<span class="fc" id="L829">        this.decorator = null;</span>
+<span class="fc" id="L830">        this.group = -1;</span>
+<span class="fc" id="L831">        this.headerAttributeMap.clear();</span>
+<span class="fc" id="L832">        this.href = null;</span>
+<span class="fc" id="L833">        this.maxLength = 0;</span>
+<span class="fc" id="L834">        this.maxWords = 0;</span>
+<span class="fc" id="L835">        this.nulls = false;</span>
+<span class="fc" id="L836">        this.paramId = null;</span>
+<span class="fc" id="L837">        this.paramName = null;</span>
+<span class="fc" id="L838">        this.paramProperty = null;</span>
+<span class="fc" id="L839">        this.property = null;</span>
+<span class="fc" id="L840">        this.sortable = false;</span>
+<span class="fc" id="L841">        this.sortName = null;</span>
+<span class="fc" id="L842">        this.supportedMedia = null;</span>
+<span class="fc" id="L843">        this.title = null;</span>
+<span class="fc" id="L844">        this.titleKey = null;</span>
+<span class="fc" id="L845">        this.sortProperty = null;</span>
+<span class="fc" id="L846">        this.comparator = null;</span>
+<span class="fc" id="L847">        this.defaultorder = null;</span>
+<span class="fc" id="L848">        this.escapeXml = null;</span>
+<span class="fc" id="L849">        this.format = null;</span>
+<span class="fc" id="L850">        this.value = null;</span>
+<span class="fc" id="L851">        this.totaled = false;</span>
+<span class="fc" id="L852">    }</span>
+
+    /**
+     * Do start tag.
+     *
+     * @return the int
+     *
+     * @throws JspException
+     *             the jsp exception
+     *
+     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
+     */
+    @Override
+    public int doStartTag() throws JspException {
+<span class="fc" id="L866">        final TableTag tableTag = this.getTableTag();</span>
+<span class="pc bpc" id="L867" title="1 of 2 branches missed.">        if (tableTag == null) {</span>
+<span class="nc" id="L868">            throw new TagStructureException(this.getClass(), &quot;column&quot;, &quot;table&quot;);</span>
+        }
+
+        // If the list is empty, do not execute the body; may result in NPE
+<span class="fc bfc" id="L872" title="All 4 branches covered.">        if (tableTag.isEmpty() || !tableTag.isIncludedRow()) {</span>
+<span class="fc" id="L873">            return Tag.SKIP_BODY;</span>
+        }
+
+<span class="fc" id="L876">        final MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext</span>
+<span class="fc" id="L877">                .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);</span>
+<span class="fc bfc" id="L878" title="All 2 branches covered.">        if (!MediaUtil.availableForMedia(this, currentMediaType)) {</span>
+<span class="fc" id="L879">            return Tag.SKIP_BODY;</span>
+        }
+        
+        // Configure escapeXml default value from properties
+<span class="fc bfc" id="L883" title="All 2 branches covered.">        if (this.escapeXml == null) {</span>
+<span class="fc" id="L884">        	this.escapeXml = tableTag.getProperties().getEscapeXmlDefault();</span>
+        }
+
+<span class="fc" id="L887">        return super.doStartTag();</span>
+    }
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L899">        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //</span>
+<span class="fc" id="L900">                .append(&quot;bodyContent&quot;, this.bodyContent) //$NON-NLS-1$</span>
+<span class="fc" id="L901">                .append(&quot;group&quot;, this.group) //$NON-NLS-1$</span>
+<span class="fc" id="L902">                .append(&quot;maxLength&quot;, this.maxLength) //$NON-NLS-1$</span>
+<span class="fc" id="L903">                .append(&quot;decorator&quot;, this.decorator) //$NON-NLS-1$</span>
+<span class="fc" id="L904">                .append(&quot;href&quot;, this.href) //$NON-NLS-1$</span>
+<span class="fc" id="L905">                .append(&quot;title&quot;, this.title) //$NON-NLS-1$</span>
+<span class="fc" id="L906">                .append(&quot;property&quot;, this.property) //$NON-NLS-1$</span>
+<span class="fc" id="L907">                .append(&quot;paramProperty&quot;, this.paramProperty) //$NON-NLS-1$</span>
+<span class="fc" id="L908">                .append(&quot;headerAttributeMap&quot;, this.headerAttributeMap) //$NON-NLS-1$</span>
+<span class="fc" id="L909">                .append(&quot;paramName&quot;, this.paramName) //$NON-NLS-1$</span>
+<span class="fc" id="L910">                .append(&quot;autolink&quot;, this.autolink) //$NON-NLS-1$</span>
+<span class="fc" id="L911">                .append(&quot;format&quot;, this.format) //$NON-NLS-1$</span>
+<span class="fc" id="L912">                .append(&quot;nulls&quot;, this.nulls) //$NON-NLS-1$</span>
+<span class="fc" id="L913">                .append(&quot;maxWords&quot;, this.maxWords) //$NON-NLS-1$</span>
+<span class="fc" id="L914">                .append(&quot;attributeMap&quot;, this.attributeMap) //$NON-NLS-1$</span>
+<span class="fc" id="L915">                .append(&quot;sortable&quot;, this.sortable) //$NON-NLS-1$</span>
+<span class="fc" id="L916">                .append(&quot;paramId&quot;, this.paramId) //$NON-NLS-1$</span>
+<span class="fc" id="L917">                .append(&quot;alreadySorted&quot;, this.alreadySorted) //$NON-NLS-1$</span>
+<span class="fc" id="L918">                .append(&quot;sortProperty&quot;, this.sortProperty) //$NON-NLS-1$</span>
+<span class="fc" id="L919">                .append(&quot;defaultSortOrder&quot;, this.defaultorder) //$NON-NLS-1$</span>
+<span class="fc" id="L920">                .toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

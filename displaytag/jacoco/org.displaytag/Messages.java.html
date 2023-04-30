@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Messages.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag</a> &gt; <span class="el_source">Messages.java</span></div><h1>Messages.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag;
+
+import java.text.MessageFormat;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+/**
+ * Helper class for message bundle access.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public final class Messages {
+
+    /**
+     * Base name for the bundle.
+     */
+    private static final String BUNDLE_NAME = &quot;org.displaytag.messages&quot;; //$NON-NLS-1$
+
+    /**
+     * Loaded ResourceBundle.
+     */
+<span class="fc" id="L45">    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(Messages.BUNDLE_NAME);</span>
+
+    /**
+     * Don't instantiate.
+     */
+    private Messages() {
+        // unused
+    }
+
+    /**
+     * Returns a message from the resource bundle.
+     *
+     * @param key
+     *            Message key.
+     *
+     * @return message String.
+     */
+    public static String getString(final String key) {
+        try {
+<span class="fc" id="L64">            return Messages.RESOURCE_BUNDLE.getString(key);</span>
+<span class="nc" id="L65">        } catch (final MissingResourceException e) {</span>
+<span class="nc" id="L66">            return '!' + key + '!';</span>
+        }
+    }
+
+    /**
+     * Reads a message from the resource bundle and format it using java MessageFormat.
+     *
+     * @param key
+     *            Message key.
+     * @param parameters
+     *            Parameters to pass to MessageFormat.format()
+     *
+     * @return message String.
+     */
+    public static String getString(final String key, final Object[] parameters) {
+        String baseMsg;
+        try {
+<span class="fc" id="L83">            baseMsg = Messages.RESOURCE_BUNDLE.getString(key);</span>
+<span class="nc" id="L84">        } catch (final MissingResourceException e) {</span>
+<span class="nc" id="L85">            return '!' + key + '!';</span>
+<span class="fc" id="L86">        }</span>
+
+<span class="fc" id="L88">        return MessageFormat.format(baseMsg, parameters);</span>
+    }
+
+    /**
+     * Reads a message from the resource bundle and format it using java MessageFormat.
+     *
+     * @param key
+     *            Message key.
+     * @param parameter
+     *            single parameter to pass to MessageFormat.format()
+     *
+     * @return message String.
+     */
+    public static String getString(final String key, final Object parameter) {
+<span class="fc" id="L102">        return Messages.getString(key, new Object[] { parameter });</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

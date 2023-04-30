@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Decorator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.decorator</a> &gt; <span class="el_source">Decorator.java</span></div><h1>Decorator.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.decorator;
+
+import java.beans.IndexedPropertyDescriptor;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.servlet.jsp.PageContext;
+
+import org.apache.commons.beanutils.MappedPropertyDescriptor;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.displaytag.model.TableModel;
+
+/**
+ * &lt;p&gt;
+ * This class provides some basic functionality for all objects which serve as decorators for the objects in the List
+ * being displayed.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * Decorator should never be subclassed directly. Use TableDecorator instead
+ * &lt;/p&gt;
+ *
+ * @author mraible
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L50">abstract class Decorator {</span>
+
+    /**
+     * Char used to separate class name and property in the cache key.
+     */
+    private static final char CLASS_PROPERTY_SEPARATOR = '#';
+
+    /**
+     * property info cache contains classname#propertyname Strings as keys and Booleans as values.
+     */
+<span class="fc" id="L60">    private static Map&lt;String, Boolean&gt; propertyMap = new ConcurrentHashMap&lt;&gt;();</span>
+
+    /**
+     * page context.
+     */
+    private PageContext pageContext;
+
+    /**
+     * decorated object. Usually a List
+     */
+    private Object decoratedObject;
+
+    /**
+     * The table model.
+     *
+     * @since 1.1
+     */
+    protected TableModel tableModel;
+
+    /**
+     * Initialize the TableTecorator instance.
+     *
+     * @param pageContext
+     *            PageContext
+     * @param decorated
+     *            decorated object (usually a list)
+     *
+     * @see #init(PageContext, Object, TableModel)
+     *
+     * @deprecated use #init(PageContext, Object, TableModel)
+     */
+    @Deprecated
+    public void init(final PageContext pageContext, final Object decorated) {
+<span class="nc" id="L93">        this.init(pageContext, decorated, null);</span>
+<span class="nc" id="L94">    }</span>
+
+    /**
+     * Initialize the TableTecorator instance.
+     *
+     * @param pageContext
+     *            PageContext
+     * @param decorated
+     *            decorated object (usually a list)
+     * @param tableModel
+     *            table model
+     */
+    public void init(final PageContext pageContext, final Object decorated, final TableModel tableModel) {
+<span class="fc" id="L107">        this.pageContext = pageContext;</span>
+<span class="fc" id="L108">        this.decoratedObject = decorated;</span>
+<span class="fc" id="L109">        this.tableModel = tableModel;</span>
+<span class="fc" id="L110">    }</span>
+
+    /**
+     * returns the page context.
+     *
+     * @return PageContext
+     */
+    public PageContext getPageContext() {
+<span class="fc" id="L118">        return this.pageContext;</span>
+    }
+
+    /**
+     * returns the decorated object.
+     *
+     * @return Object
+     */
+    public Object getDecoratedObject() {
+<span class="fc" id="L127">        return this.decoratedObject;</span>
+    }
+
+    /**
+     * Called at the end of evaluation to clean up instance variable. A subclass of Decorator can override this method
+     * but should always call super.finish() before return
+     */
+    public void finish() {
+<span class="fc" id="L135">        this.pageContext = null;</span>
+<span class="fc" id="L136">        this.decoratedObject = null;</span>
+<span class="fc" id="L137">    }</span>
+
+    /**
+     * Check if a getter exists for a given property. Uses cached info if property has already been requested. This
+     * method only check for a simple property, if pPropertyName contains multiple tokens only the first part is
+     * evaluated
+     *
+     * @param propertyName
+     *            name of the property to check
+     *
+     * @return boolean true if the decorator has a getter for the given property
+     */
+    public boolean hasGetterFor(final String propertyName) {
+<span class="fc" id="L150">        String simpleProperty = propertyName;</span>
+
+        // get the simple (not nested) bean property
+<span class="fc" id="L153">        final int indexOfDot = simpleProperty.indexOf('.');</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">        if (indexOfDot &gt; 0) {</span>
+<span class="fc" id="L155">            simpleProperty = simpleProperty.substring(0, indexOfDot);</span>
+        }
+
+<span class="fc" id="L158">        final Boolean cachedResult = Decorator.propertyMap</span>
+<span class="fc" id="L159">                .get(this.getClass().getName() + Decorator.CLASS_PROPERTY_SEPARATOR + simpleProperty);</span>
+
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        if (cachedResult != null) {</span>
+<span class="fc" id="L162">            return cachedResult.booleanValue();</span>
+        }
+
+        // not already cached... check
+<span class="fc" id="L166">        final boolean hasGetter = this.searchGetterFor(propertyName);</span>
+
+        // save in cache
+<span class="fc" id="L169">        Decorator.propertyMap.put(this.getClass().getName() + Decorator.CLASS_PROPERTY_SEPARATOR + simpleProperty,</span>
+<span class="fc" id="L170">                hasGetter);</span>
+
+        // and return
+<span class="fc" id="L173">        return hasGetter;</span>
+
+    }
+
+    /**
+     * Looks for a getter for the given property using introspection.
+     *
+     * @param propertyName
+     *            name of the property to check
+     *
+     * @return boolean true if the decorator has a getter for the given property
+     */
+    public boolean searchGetterFor(final String propertyName) {
+
+<span class="fc" id="L187">        boolean result = false;</span>
+
+        try {
+            // using getPropertyType instead of isReadable since isReadable doesn't support mapped properties.
+            // Note that this method usually returns null if a property is not found and doesn't throw any exception
+            // also for non existent properties
+<span class="fc" id="L193">            final PropertyDescriptor pd = PropertyUtils.getPropertyDescriptor(this, propertyName);</span>
+
+<span class="fc bfc" id="L195" title="All 2 branches covered.">            if (pd != null) {</span>
+                // double check, see tests in TableDecoratorTest
+<span class="fc bfc" id="L197" title="All 2 branches covered.">                if (pd instanceof MappedPropertyDescriptor) {</span>
+<span class="pc bpc" id="L198" title="1 of 2 branches missed.">                    result = ((MappedPropertyDescriptor) pd).getMappedReadMethod() != null;</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">                } else if (pd instanceof IndexedPropertyDescriptor) {</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">                    result = ((IndexedPropertyDescriptor) pd).getIndexedReadMethod() != null;</span>
+                } else {
+<span class="fc bfc" id="L202" title="All 2 branches covered.">                    result = pd.getReadMethod() != null;</span>
+                }
+            }
+<span class="nc" id="L205">        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {</span>
+            // ignore
+<span class="fc" id="L207">        }</span>
+
+<span class="fc" id="L209">        return result;</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HtmlTagUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.util</a> &gt; <span class="el_source">HtmlTagUtil.java</span></div><h1>HtmlTagUtil.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.util;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Utility methods for dealing with html tags.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public final class HtmlTagUtil {
+
+    /**
+     * don't instantiate a new HtmlTagUtil.
+     */
+    private HtmlTagUtil() {
+        // unused
+    }
+
+    /**
+     * costruct a tag from a name and a collection of attributes.
+     *
+     * @param tagName
+     *            String tag name
+     * @param attributes
+     *            HtmlAttributeMap containing all the tag attributes
+     *
+     * @return String open tag with attributes
+     */
+    public static String createOpenTagString(final String tagName, final HtmlAttributeMap attributes) {
+
+<span class="fc" id="L55">        final StringBuilder buffer = new StringBuilder();</span>
+
+<span class="fc" id="L57">        buffer.append(TagConstants.TAG_OPEN).append(tagName);</span>
+
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (attributes != null) {</span>
+<span class="fc" id="L60">            buffer.append(attributes.toString());</span>
+        }
+<span class="fc" id="L62">        buffer.append(TagConstants.TAG_CLOSE);</span>
+
+<span class="fc" id="L64">        return buffer.toString();</span>
+
+    }
+
+    /**
+     * Strips html tags from a String.
+     *
+     * @param str
+     *            input string containing html tags (&lt;code&gt;null&lt;/code&gt; is &lt;strong&gt;not &lt;/strong&gt; handled)
+     *
+     * @return input message without tags
+     */
+    public static String stripHTMLTags(final String str) {
+        // operate on chars to avoid heavy string operations on jdk 1.3
+<span class="fc" id="L78">        final int len = str.length();</span>
+<span class="fc" id="L79">        final char[] value = str.toCharArray();</span>
+<span class="fc" id="L80">        final StringBuilder dest = new StringBuilder(len + 16);</span>
+<span class="fc" id="L81">        boolean intag = false;</span>
+
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        for (int j = 0; j &lt; len; j++) {</span>
+<span class="fc" id="L84">            final char c = value[j];</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">            if (intag) {</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">                if (c == '&gt;') {</span>
+<span class="fc" id="L87">                    intag = false;</span>
+                }
+            } else {
+<span class="fc bfc" id="L90" title="All 3 branches covered.">                switch (c) {</span>
+                    case '&quot;':
+<span class="fc" id="L92">                        dest.append(&quot;&amp;quot;&quot;); // encode quotes, this could be used as a tag attribute value</span>
+<span class="fc" id="L93">                        break;</span>
+                    case '&lt;':
+<span class="fc" id="L95">                        intag = true;</span>
+<span class="fc" id="L96">                        break;</span>
+                    default:
+<span class="fc" id="L98">                        dest.append(c);</span>
+                        break;
+                }
+            }
+        }
+
+<span class="fc" id="L104">        return dest.toString();</span>
+    }
+
+    /**
+     * Abbreviates a String which can contain html tags. Html tags are not counted in String length. It also try to
+     * handle open tags and html entities.
+     *
+     * @param str
+     *            full String. &lt;code&gt;null&lt;/code&gt; is handled by returning &lt;code&gt;null&lt;/code&gt;
+     * @param maxLength
+     *            maximum number of characters (excluding tags)
+     * @param byNumberOfWords
+     *            if &lt;code&gt;true&lt;/code&gt; maxLength will be the number of words returned, elsewhere will represent the
+     *            number of characters.
+     *
+     * @return abbreviated String
+     */
+    public static String abbreviateHtmlString(final String str, final int maxLength, final boolean byNumberOfWords) {
+<span class="pc bpc" id="L122" title="1 of 4 branches missed.">        if (str == null || str.length() &lt;= maxLength) {</span>
+            // quick exit to avoid useless creation of a StringBuilder
+<span class="fc" id="L124">            return str;</span>
+        }
+
+<span class="fc" id="L127">        final int sz = str.length();</span>
+<span class="fc" id="L128">        final StringBuilder buffer = new StringBuilder(sz);</span>
+
+        // some spaghetti code for quick &amp; dirty tag handling and entity detection
+<span class="fc" id="L131">        boolean inTag = false; // parsing a tag</span>
+<span class="fc" id="L132">        boolean inTagName = false; // parsing a tag name</span>
+<span class="fc" id="L133">        boolean endingTag = false; // parsing an ending tag</span>
+<span class="fc" id="L134">        int count = 0; // chars/words added</span>
+<span class="fc" id="L135">        boolean chopped = false; // result has been chopped?</span>
+<span class="fc" id="L136">        int entityChars = 0; // number of chars in parsed entity</span>
+
+<span class="fc" id="L138">        StringBuilder currentTag = new StringBuilder(5); // will contain a tag name</span>
+
+<span class="fc" id="L140">        final List&lt;String&gt; openTags = new ArrayList&lt;&gt;(5); // lit of unclosed tags found in the string</span>
+
+        int i;
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        for (i = 0; i &lt; sz; i++) {</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">            if (count &gt;= maxLength) {</span>
+<span class="fc" id="L145">                chopped = true;</span>
+<span class="fc" id="L146">                break;</span>
+            }
+
+<span class="fc" id="L149">            final char c = str.charAt(i);</span>
+
+<span class="fc bfc" id="L151" title="All 2 branches covered.">            if (c == '&lt;') {</span>
+<span class="fc" id="L152">                inTag = true;</span>
+<span class="fc" id="L153">                inTagName = true;</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">            } else if (inTag) {</span>
+<span class="fc bfc" id="L155" title="All 4 branches covered.">                if (inTagName &amp;&amp; c == '/') {</span>
+
+<span class="fc bfc" id="L157" title="All 2 branches covered.">                    if (currentTag.length() == 0) {</span>
+                        // end tag found
+<span class="fc" id="L159">                        endingTag = true;</span>
+                    } else {
+                        // empty tag, reset and don't save
+<span class="fc" id="L162">                        inTagName = false;</span>
+                    }
+
+<span class="fc" id="L165">                    currentTag = new StringBuilder(5);</span>
+<span class="fc bfc" id="L166" title="All 6 branches covered.">                } else if (inTagName &amp;&amp; (c == ' ' || c == '&gt;')) {</span>
+<span class="fc" id="L167">                    inTagName = false;</span>
+
+<span class="fc bfc" id="L169" title="All 2 branches covered.">                    if (!endingTag) {</span>
+<span class="fc" id="L170">                        openTags.add(currentTag.toString());</span>
+                    } else {
+<span class="fc" id="L172">                        openTags.remove(currentTag.toString());</span>
+                    }
+<span class="fc" id="L174">                    currentTag = new StringBuilder(5);</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">                    if (c == '&gt;') {</span>
+<span class="fc" id="L176">                        inTag = false;</span>
+                    }
+<span class="fc bfc" id="L178" title="All 2 branches covered.">                } else if (c == '&gt;') {</span>
+<span class="fc" id="L179">                    inTag = false;</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">                } else if (inTagName) {</span>
+<span class="fc" id="L181">                    currentTag.append(c);</span>
+                }
+
+<span class="fc bfc" id="L184" title="All 2 branches covered.">            } else if (byNumberOfWords) {</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">                if (Character.isWhitespace(c)) {</span>
+<span class="fc" id="L186">                    count++;</span>
+                }
+            } else {
+                // handle entities
+<span class="fc bfc" id="L190" title="All 2 branches covered.">                if (c == '&amp;') {</span>
+<span class="fc" id="L191">                    entityChars = 1;</span>
+<span class="fc bfc" id="L192" title="All 2 branches covered.">                } else if (entityChars == 0) {</span>
+<span class="fc" id="L193">                    count++;</span>
+                } else {
+                    // end entity
+<span class="pc bpc" id="L196" title="1 of 4 branches missed.">                    if (entityChars &gt; 0 &amp;&amp; c == ';') {</span>
+<span class="fc" id="L197">                        entityChars = 0;</span>
+<span class="fc" id="L198">                        count++;</span>
+                    } else {
+<span class="fc" id="L200">                        entityChars++;</span>
+                    }
+<span class="fc bfc" id="L202" title="All 2 branches covered.">                    if (entityChars &gt; 5) {</span>
+                        // assume an unescaped &amp; if entity doesn't close after max 5 chars
+<span class="fc" id="L204">                        count += entityChars;</span>
+<span class="fc" id="L205">                        entityChars = 0;</span>
+                    }
+                }
+            }
+
+<span class="fc bfc" id="L210" title="All 6 branches covered.">            if (inTag || !byNumberOfWords || count &lt; maxLength) {</span>
+<span class="fc" id="L211">                buffer.append(c);</span>
+            }
+        }
+
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        if (chopped) {</span>
+<span class="fc" id="L216">            buffer.append(&quot;...&quot;);</span>
+        }
+
+<span class="fc bfc" id="L219" title="All 2 branches covered.">        if (!openTags.isEmpty()) {</span>
+            // quickly fixes closed tags
+<span class="fc" id="L221">            final String remainingToken = str.substring(i);</span>
+
+<span class="fc bfc" id="L223" title="All 2 branches covered.">            for (int j = openTags.size() - 1; j &gt;= 0; j--) {</span>
+<span class="fc" id="L224">                final String closingTag = &quot;&lt;/&quot; + openTags.get(j) + &quot;&gt;&quot;;</span>
+
+                // we only add closing tags that exists in the original String, so we don't have to understand
+                // html/xhtml differences and keep a list of html unclosed tags
+<span class="fc bfc" id="L228" title="All 2 branches covered.">                if (remainingToken.indexOf(closingTag) &gt; -1) {</span>
+<span class="fc" id="L229">                    buffer.append(closingTag);</span>
+                }
+            }
+        }
+
+<span class="fc" id="L234">        return buffer.toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

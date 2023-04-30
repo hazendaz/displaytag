@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultRequestHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.util</a> &gt; <span class="el_source">DefaultRequestHelper.java</span></div><h1>DefaultRequestHelper.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.util;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Default RequestHelper implementation.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ *
+ * @see org.displaytag.util.Href
+ * @see org.displaytag.util.RequestHelper
+ */
+public class DefaultRequestHelper implements RequestHelper {
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L54">    private static Logger log = LoggerFactory.getLogger(DefaultRequestHelper.class);</span>
+
+    /**
+     * original HttpServletRequest.
+     */
+    private final HttpServletRequest request;
+
+    /**
+     * original HttpServletResponse.
+     */
+    private final HttpServletResponse response;
+
+    /**
+     * Construct a new RequestHelper for the given request.
+     *
+     * @param servletRequest
+     *            HttpServletRequest needed to generate the base href
+     * @param servletResponse
+     *            HttpServletResponse needed to encode generated urls
+     */
+<span class="fc" id="L74">    public DefaultRequestHelper(final HttpServletRequest servletRequest, final HttpServletResponse servletResponse) {</span>
+<span class="fc" id="L75">        this.request = servletRequest;</span>
+<span class="fc" id="L76">        this.response = servletResponse;</span>
+<span class="fc" id="L77">    }</span>
+
+    /**
+     * Gets the href.
+     *
+     * @return the href
+     *
+     * @see org.displaytag.util.RequestHelper#getHref()
+     */
+    @Override
+    public Href getHref() {
+<span class="fc" id="L88">        final String requestURI = this.request.getRequestURI();</span>
+        // call encodeURL to preserve session id when cookies are disabled
+<span class="fc" id="L90">        final Href href = new DefaultHref(this.response.encodeURL(requestURI));</span>
+<span class="fc" id="L91">        href.setParameterMap(this.getParameterMap());</span>
+<span class="fc" id="L92">        return href;</span>
+    }
+
+    /**
+     * Gets the parameter.
+     *
+     * @param key
+     *            the key
+     *
+     * @return the parameter
+     *
+     * @see org.displaytag.util.RequestHelper#getParameter(java.lang.String)
+     */
+    @Override
+    public String getParameter(final String key) {
+        // actually simply return the parameter, this behaviour could be changed
+<span class="fc" id="L108">        return this.request.getParameter(key);</span>
+    }
+
+    /**
+     * Gets the int parameter.
+     *
+     * @param key
+     *            the key
+     *
+     * @return the int parameter
+     *
+     * @see org.displaytag.util.RequestHelper#getIntParameter(java.lang.String)
+     */
+    @Override
+    public Integer getIntParameter(final String key) {
+<span class="fc" id="L123">        final String value = this.request.getParameter(key);</span>
+
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        if (value != null) {</span>
+            try {
+<span class="fc" id="L127">                return Integer.valueOf(value);</span>
+<span class="nc" id="L128">            } catch (final NumberFormatException e) {</span>
+                // It's ok to ignore, simply return null
+<span class="nc" id="L130">                DefaultRequestHelper.log.debug(Messages.getString(&quot;RequestHelper.invalidparameter&quot;, //$NON-NLS-1$</span>
+                        new Object[] { key, value }));
+            }
+        }
+
+<span class="fc" id="L135">        return null;</span>
+    }
+
+    /**
+     * Gets the parameter map.
+     *
+     * @return the parameter map
+     *
+     * @see org.displaytag.util.RequestHelper#getParameterMap()
+     */
+    @Override
+    public Map&lt;String, String[]&gt; getParameterMap() {
+
+<span class="fc" id="L148">        final Map&lt;String, String[]&gt; map = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L150">        final Enumeration&lt;String&gt; parametersName = this.request.getParameterNames();</span>
+
+<span class="fc bfc" id="L152" title="All 2 branches covered.">        while (parametersName.hasMoreElements()) {</span>
+            // ... get the value
+<span class="fc" id="L154">            final String paramName = (String) parametersName.nextElement();</span>
+
+<span class="fc" id="L156">            this.request.getParameter(paramName);</span>
+            // put key/value in the map
+<span class="fc" id="L158">            final String[] originalValues = ObjectUtils.defaultIfNull(this.request.getParameterValues(paramName),</span>
+                    new String[0]);
+<span class="fc" id="L160">            final String[] values = new String[originalValues.length];</span>
+
+<span class="fc bfc" id="L162" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
+                try {
+<span class="fc" id="L164">                    values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]),</span>
+<span class="fc" id="L165">                            StringUtils.defaultString(this.response.getCharacterEncoding(), &quot;UTF8&quot;)); //$NON-NLS-1$</span>
+<span class="nc" id="L166">                } catch (final UnsupportedEncodingException e) {</span>
+<span class="nc" id="L167">                    throw new RuntimeException(e);</span>
+<span class="fc" id="L168">                }</span>
+            }
+<span class="fc" id="L170">            map.put(paramName, values);</span>
+
+<span class="fc" id="L172">        }</span>
+
+        // return the Map
+<span class="fc" id="L175">        return map;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

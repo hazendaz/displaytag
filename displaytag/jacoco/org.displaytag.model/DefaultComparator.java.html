@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultComparator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.model</a> &gt; <span class="el_source">DefaultComparator.java</span></div><h1>DefaultComparator.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.model;
+
+import java.text.Collator;
+import java.util.Comparator;
+
+/**
+ * Default comparator. Was previously part of RowSorter.
+ *
+ * @author fguist
+ * @author rapruitt
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class DefaultComparator implements Comparator&lt;Object&gt; {
+
+    /**
+     * Use this collator.
+     */
+    private final Collator collator;
+
+    /**
+     * Instantiate a default comparator with no collator specified.
+     */
+    public DefaultComparator() {
+<span class="nc" id="L46">        this(Collator.getInstance());</span>
+<span class="nc" id="L47">    }</span>
+
+    /**
+     * Instantiate a default comparator with a specified collator.
+     *
+     * @param collatorToUse
+     *            collator instance
+     */
+<span class="fc" id="L55">    public DefaultComparator(final Collator collatorToUse) {</span>
+<span class="fc" id="L56">        this.collator = collatorToUse;</span>
+<span class="fc" id="L57">        this.collator.setStrength(Collator.PRIMARY); // ignore case and accents</span>
+<span class="fc" id="L58">    }</span>
+
+    /**
+     * Compares two given objects. Not comparable objects are compared using their string representation. String
+     * comparisons are done using a Collator.
+     *
+     * @param object1
+     *            first parameter
+     * @param object2
+     *            second parameter
+     *
+     * @return the value
+     */
+    @Override
+    public int compare(final Object object1, final Object object2) {
+        int returnValue;
+<span class="pc bpc" id="L74" title="1 of 4 branches missed.">        if (object1 instanceof String &amp;&amp; object2 instanceof String) {</span>
+<span class="fc" id="L75">            returnValue = this.collator.compare(object1, object2);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        } else if (object1 instanceof Cell) {</span>
+<span class="fc" id="L77">            return ((Cell) object1).compareTo(object2, this.collator);</span>
+<span class="pc bpc" id="L78" title="2 of 4 branches missed.">        } else if (object1 instanceof Comparable &amp;&amp; object2 instanceof Comparable) {</span>
+<span class="fc" id="L79">            returnValue = ((Comparable&lt;Object&gt;) object1).compareTo(object2);</span>
+        } else {
+            // if object are not null and don't implement comparable, compare using string values
+<span class="nc" id="L82">            returnValue = this.collator.compare(object1.toString(), object2.toString());</span>
+        }
+<span class="fc" id="L84">        return returnValue;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

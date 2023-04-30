@@ -1,0 +1,1660 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableTag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.tags</a> &gt; <span class="el_source">TableTag.java</span></div><h1>TableTag.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.tags;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspTagException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.Tag;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.displaytag.Messages;
+import org.displaytag.decorator.TableDecorator;
+import org.displaytag.exception.ExportException;
+import org.displaytag.exception.InvalidTagAttributeValueException;
+import org.displaytag.exception.WrappedRuntimeException;
+import org.displaytag.export.BinaryExportView;
+import org.displaytag.export.ExportView;
+import org.displaytag.export.ExportViewFactory;
+import org.displaytag.export.TextExportView;
+import org.displaytag.model.Cell;
+import org.displaytag.model.Column;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
+import org.displaytag.pagination.PaginatedList;
+import org.displaytag.pagination.PaginatedListSmartListHelper;
+import org.displaytag.pagination.SmartListHelper;
+import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.properties.SortOrderEnum;
+import org.displaytag.properties.TableProperties;
+import org.displaytag.render.HtmlTableWriter;
+import org.displaytag.render.TableTotaler;
+import org.displaytag.util.CollectionUtil;
+import org.displaytag.util.Href;
+import org.displaytag.util.ParamEncoder;
+import org.displaytag.util.RequestHelper;
+import org.displaytag.util.RequestHelperFactory;
+import org.displaytag.util.TagConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * This tag takes a list of objects and creates a table to display those objects. With the help of column tags, you
+ * simply provide the name of properties (get Methods) that are called against the objects in your list that gets
+ * displayed. This tag works very much like the struts iterator tag, most of the attributes have the same name and
+ * functionality as the struts tag.
+ *
+ * @author mraible
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L90">public class TableTag extends HtmlTableTag {</span>
+
+    /**
+     * name of the attribute added to page scope when exporting, containing an MediaTypeEnum this can be used in column
+     * content to detect the output type and to return different data when exporting.
+     */
+    public static final String PAGE_ATTRIBUTE_MEDIA = &quot;mediaType&quot;; //$NON-NLS-1$
+
+    /**
+     * If this variable is found in the request, assume the export filter is enabled.
+     */
+    public static final String FILTER_CONTENT_OVERRIDE_BODY = //
+            &quot;org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY&quot;; //$NON-NLS-1$
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L112">    private static Logger log = LoggerFactory.getLogger(TableTag.class);</span>
+
+    /**
+     * RequestHelperFactory instance used for link generation.
+     */
+    private static RequestHelperFactory rhf;
+
+    /**
+     * Object (collection, list) on which the table is based. This is not set directly using a tag attribute and can be
+     * cleaned.
+     */
+    protected transient Object list;
+
+    // -- start tag attributes --
+
+    /**
+     * Object (collection, list) on which the table is based. Set directly using the &quot;list&quot; attribute or evaluated from
+     * expression.
+     */
+    protected transient Object listAttribute;
+
+    /**
+     * actual row number, updated during iteration.
+     */
+<span class="fc" id="L136">    private int rowNumber = 1;</span>
+
+    /**
+     * name of the object to use for iteration. Can contain expressions.
+     */
+    private String name;
+
+    /**
+     * length of list to display.
+     */
+    private int length;
+
+    /**
+     * table decorator class name.
+     */
+    private String decoratorName;
+
+    /**
+     * page size.
+     */
+    private int pagesize;
+
+    /**
+     * list contains only viewable data.
+     */
+    private boolean partialList;
+
+    /**
+     * add export links.
+     */
+    private boolean export;
+
+    /**
+     * list offset.
+     */
+    private int offset;
+
+    /** Integer containing total size of the data displaytag is paginating. */
+    private transient Object size;
+
+    /** Name of the Integer in some scope containing the size of the data displaytag is paginating. */
+    private String sizeObjectName;
+
+    /** sort the full list?. */
+    private Boolean sortFullTable;
+
+    /** are we doing any local sorting? (defaults to True). */
+<span class="fc" id="L183">    private boolean localSort = true;</span>
+
+    /**
+     * Request uri.
+     */
+    private String requestUri;
+
+    /**
+     * Prepend application context to generated links.
+     */
+    private boolean dontAppendContext;
+
+    /**
+     * the index of the column sorted by default.
+     */
+<span class="fc" id="L198">    private int defaultSortedColumn = -1;</span>
+
+    /**
+     * the sorting order for the sorted column.
+     */
+    private SortOrderEnum defaultSortOrder;
+
+    /**
+     * Name of parameter which should not be forwarded during sorting or pagination.
+     */
+    private String excludedParams;
+
+    /**
+     * Unique table id.
+     */
+    private String uid;
+
+    /**
+     * The variable name to store totals in.
+     */
+    private String varTotals;
+
+    /**
+     * Preserve the current page and sort.
+     */
+    private boolean keepStatus;
+
+    /**
+     * Clear the current page and sort status.
+     */
+    private boolean clearStatus;
+
+    /**
+     * Use form post in paging/sorting links (javascript required).
+     */
+    private String form;
+
+    // -- end tag attributes --
+
+    /**
+     * table model - initialized in doStartTag().
+     */
+    private transient TableModel tableModel;
+
+    /**
+     * current row.
+     */
+    private transient Row currentRow;
+
+    /**
+     * next row.
+     */
+
+    /**
+     * Used by various functions when the person wants to do paging - cleaned in doEndTag().
+     */
+    private transient SmartListHelper listHelper;
+
+    /**
+     * base href used for links - set in initParameters().
+     */
+    private Href baseHref;
+
+    /**
+     * table properties - set in doStartTag().
+     */
+    private transient TableProperties properties;
+
+    /**
+     * page number - set in initParameters().
+     */
+<span class="fc" id="L269">    private int pageNumber = 1;</span>
+
+    /**
+     * Iterator on collection.
+     */
+    private transient Iterator&lt;?&gt; tableIterator;
+
+    /**
+     * export type - set in initParameters().
+     */
+    private transient MediaTypeEnum currentMediaType;
+
+    /** daAfterBody() has been executed at least once?. */
+    private boolean doAfterBodyExecuted;
+
+    /**
+     * The param encoder used to generate unique parameter names. Initialized at the first use of encodeParameter().
+     */
+    private ParamEncoder paramEncoder;
+
+    /**
+     * Static footer added using the footer tag.
+     */
+    private String footer;
+
+    /**
+     * Is this the last iteration we will be performing? We only output the footer on the last iteration.
+     */
+    private boolean lastIteration;
+
+    /**
+     * Static caption added using the footer tag.
+     */
+    private String caption;
+
+    /**
+     * Child caption tag.
+     */
+    private CaptionTag captionTag;
+
+    /**
+     * Included row range. If no rows can be skipped the range is from 0 to Integer.MAX_VALUE.
+     */
+    private Range&lt;Integer&gt; filteredRows;
+
+    /**
+     * The paginated list containing the external pagination and sort parameters The presence of this paginated list is
+     * what determines if external pagination and sorting is used or not.
+     */
+    private transient PaginatedList paginatedList;
+
+    /**
+     * The classname of the totaler.
+     */
+    private String totalerName;
+
+    /**
+     * Is this the last iteration?.
+     *
+     * @return boolean &lt;code&gt;true&lt;/code&gt; if this is the last iteration
+     */
+    public boolean isLastIteration() {
+<span class="fc" id="L331">        return this.lastIteration;</span>
+    }
+
+    /**
+     * Sets the list of parameter which should not be forwarded during sorting or pagination.
+     *
+     * @param value
+     *            whitespace separated list of parameters which should not be included (* matches all parameters)
+     */
+    public void setExcludedParams(final String value) {
+<span class="fc" id="L341">        this.excludedParams = value;</span>
+<span class="fc" id="L342">    }</span>
+
+    /**
+     * Sets the content of the footer. Called by a nested footer tag.
+     *
+     * @param string
+     *            footer content
+     */
+    public void setFooter(final String string) {
+<span class="fc" id="L351">        this.footer = string;</span>
+<span class="fc" id="L352">        this.tableModel.setFooter(this.footer);</span>
+<span class="fc" id="L353">    }</span>
+
+    /**
+     * Sets the content of the caption. Called by a nested caption tag.
+     *
+     * @param string
+     *            caption content
+     */
+    public void setCaption(final String string) {
+<span class="fc" id="L362">        this.caption = string;</span>
+<span class="fc" id="L363">        this.tableModel.setCaption(this.caption);</span>
+<span class="fc" id="L364">    }</span>
+
+    /**
+     * Set the child caption tag.
+     *
+     * @param captionTag
+     *            Child caption tag
+     */
+    public void setCaptionTag(final CaptionTag captionTag) {
+<span class="fc" id="L373">        this.captionTag = captionTag;</span>
+<span class="fc" id="L374">    }</span>
+
+    /**
+     * Obtain the child caption tag.
+     *
+     * @return The child caption tag
+     */
+    public CaptionTag getCaptionTag() {
+<span class="fc" id="L382">        return this.captionTag;</span>
+    }
+
+    /**
+     * Is the current row empty?.
+     *
+     * @return true if the current row is empty
+     */
+    public boolean isEmpty() {
+<span class="fc bfc" id="L391" title="All 2 branches covered.">        return this.currentRow == null;</span>
+    }
+
+    /**
+     * Preserve the current page and sort across session?.
+     *
+     * @param keepStatus
+     *            &lt;code&gt;true&lt;/code&gt; to preserve paging and sorting
+     */
+    public void setKeepStatus(final boolean keepStatus) {
+<span class="fc" id="L401">        this.keepStatus = keepStatus;</span>
+<span class="fc" id="L402">    }</span>
+
+    /**
+     * Setter for &lt;code&gt;clearStatus&lt;/code&gt;.
+     *
+     * @param clearStatus
+     *            The clearStatus to set.
+     */
+    public void setClearStatus(final boolean clearStatus) {
+<span class="fc" id="L411">        this.clearStatus = clearStatus;</span>
+<span class="fc" id="L412">    }</span>
+
+    /**
+     * Setter for &lt;code&gt;form&lt;/code&gt;.
+     *
+     * @param form
+     *            The form to set.
+     */
+    public void setForm(final String form) {
+<span class="fc" id="L421">        this.form = form;</span>
+<span class="fc" id="L422">    }</span>
+
+    /**
+     * set the Integer containing the total size of the data displaytag is paginating.
+     *
+     * @param size
+     *            Integer containing the total size of the data
+     */
+    public void setSize(final Object size) {
+<span class="pc bpc" id="L431" title="1 of 2 branches missed.">        if (size instanceof String) {</span>
+<span class="fc" id="L432">            this.sizeObjectName = (String) size;</span>
+        } else {
+<span class="nc" id="L434">            this.size = size;</span>
+        }
+<span class="fc" id="L436">    }</span>
+
+    /**
+     * set the name of the Integer in some scope containing the total size of the data to be paginated.
+     *
+     * @param sizeObjectName
+     *            name of the Integer containing the total size of the data to be paginated
+     */
+    public void setSizeObjectName(final String sizeObjectName) {
+<span class="nc" id="L445">        this.sizeObjectName = sizeObjectName;</span>
+<span class="nc" id="L446">    }</span>
+
+    /**
+     * setter for the &quot;sort&quot; attribute.
+     *
+     * @param value
+     *            &quot;page&quot; (sort a single page), &quot;list&quot; (sort the full list), &quot;external&quot; (list already sorted)
+     *
+     * @throws InvalidTagAttributeValueException
+     *             if value is not &quot;page&quot;, &quot;list&quot; or &quot;external&quot;
+     */
+    public void setSort(final String value) throws InvalidTagAttributeValueException {
+<span class="fc bfc" id="L458" title="All 2 branches covered.">        if (TableTagParameters.SORT_AMOUNT_PAGE.equals(value)) {</span>
+<span class="fc" id="L459">            this.sortFullTable = Boolean.FALSE;</span>
+<span class="fc bfc" id="L460" title="All 2 branches covered.">        } else if (TableTagParameters.SORT_AMOUNT_LIST.equals(value)) {</span>
+<span class="fc" id="L461">            this.sortFullTable = Boolean.TRUE;</span>
+<span class="fc bfc" id="L462" title="All 2 branches covered.">        } else if (TableTagParameters.SORT_AMOUNT_EXTERNAL.equals(value)) {</span>
+<span class="fc" id="L463">            this.localSort = false;</span>
+        } else {
+<span class="fc" id="L465">            throw new InvalidTagAttributeValueException(this.getClass(), &quot;sort&quot;, value); //$NON-NLS-1$</span>
+        }
+<span class="fc" id="L467">    }</span>
+
+    /**
+     * setter for the &quot;requestURI&quot; attribute. Context path is automatically added to path starting with &quot;/&quot;.
+     *
+     * @param value
+     *            base URI for creating links
+     */
+    public void setRequestURI(final String value) {
+<span class="fc" id="L476">        this.requestUri = value;</span>
+<span class="fc" id="L477">    }</span>
+
+    /**
+     * Setter for the &quot;requestURIcontext&quot; attribute.
+     *
+     * @param value
+     *            base URI for creating links
+     */
+    public void setRequestURIcontext(final boolean value) {
+<span class="pc bpc" id="L486" title="1 of 2 branches missed.">        this.dontAppendContext = !value;</span>
+<span class="fc" id="L487">    }</span>
+
+    /**
+     * Used to directly set a list (or any object you can iterate on).
+     *
+     * @param value
+     *            Object
+     *
+     * @deprecated use setItems()
+     */
+    @Deprecated
+    public void setList(final Object value) {
+<span class="fc" id="L499">        this.listAttribute = value;</span>
+<span class="fc" id="L500">    }</span>
+
+    /**
+     * Sets the name of the object to use for iteration.
+     *
+     * @param value
+     *            name of the object to use for iteration (can contain expression). It also supports direct setting of a
+     *            list, for jsp 2.0 containers where users can set up a data source here using EL expressions.
+     *
+     * @deprecated please use setItems()
+     */
+    @Deprecated
+    public void setName(final Object value) {
+<span class="pc bpc" id="L513" title="1 of 2 branches missed.">        if (value instanceof String) {</span>
+            // ok, assuming this is the name of the object
+<span class="fc" id="L515">            this.name = (String) value;</span>
+        } else {
+            // is this the list?
+<span class="nc" id="L518">            this.list = value;</span>
+        }
+<span class="fc" id="L520">    }</span>
+
+    /**
+     * Sets the name of the object to use for iteration.
+     *
+     * @param value
+     *            the object to use for iteration (can contain expression).
+     */
+    public void setItems(final Object value) {
+<span class="nc" id="L529">        this.list = value;</span>
+<span class="nc" id="L530">    }</span>
+
+    /**
+     * Sets the name of the object to use for iteration. This setter is needed for jsp 1.1 container which doesn't
+     * support the String - Object conversion. The bean info class will swith to this setter.
+     *
+     * @param value
+     *            name of the object
+     */
+    public void setNameString(final String value) {
+<span class="nc" id="L540">        this.name = value;</span>
+<span class="nc" id="L541">    }</span>
+
+    /**
+     * sets the sorting order for the sorted column.
+     *
+     * @param value
+     *            &quot;ascending&quot; or &quot;descending&quot;
+     *
+     * @throws InvalidTagAttributeValueException
+     *             if value is not one of &quot;ascending&quot; or &quot;descending&quot;
+     */
+    public void setDefaultorder(final String value) throws InvalidTagAttributeValueException {
+<span class="fc" id="L553">        this.defaultSortOrder = SortOrderEnum.fromName(value);</span>
+<span class="pc bpc" id="L554" title="1 of 2 branches missed.">        if (this.defaultSortOrder == null) {</span>
+<span class="nc" id="L555">            throw new InvalidTagAttributeValueException(this.getClass(), &quot;defaultorder&quot;, value); //$NON-NLS-1$</span>
+        }
+<span class="fc" id="L557">    }</span>
+
+    /**
+     * Setter for the decorator class name.
+     *
+     * @param decorator
+     *            fully qualified name of the table decorator to use
+     */
+    public void setDecorator(final String decorator) {
+<span class="fc" id="L566">        this.decoratorName = decorator;</span>
+<span class="fc" id="L567">    }</span>
+
+    /**
+     * Is export enabled?.
+     *
+     * @param value
+     *            &lt;code&gt;true&lt;/code&gt; if export should be enabled
+     */
+    public void setExport(final boolean value) {
+<span class="fc" id="L576">        this.export = value;</span>
+<span class="fc" id="L577">    }</span>
+
+    /**
+     * The variable name in which the totals map is stored.
+     *
+     * @param varTotalsName
+     *            the value
+     */
+    public void setVarTotals(final String varTotalsName) {
+<span class="fc" id="L586">        this.varTotals = varTotalsName;</span>
+<span class="fc" id="L587">    }</span>
+
+    /**
+     * Get the name that the totals should be stored under.
+     *
+     * @return the var name in pageContext
+     */
+    public String getVarTotals() {
+<span class="fc" id="L595">        return this.varTotals;</span>
+    }
+
+    /**
+     * sets the number of items to be displayed in the page.
+     *
+     * @param value
+     *            number of items to display in a page
+     */
+    public void setLength(final int value) {
+<span class="fc" id="L605">        this.length = value;</span>
+<span class="fc" id="L606">    }</span>
+
+    /**
+     * sets the index of the default sorted column.
+     *
+     * @param value
+     *            index of the column to sort
+     */
+    public void setDefaultsort(final int value) {
+        // subtract one (internal index is 0 based)
+<span class="fc" id="L616">        this.defaultSortedColumn = value - 1;</span>
+<span class="fc" id="L617">    }</span>
+
+    /**
+     * sets the number of items that should be displayed for a single page.
+     *
+     * @param value
+     *            number of items that should be displayed for a single page
+     */
+    public void setPagesize(final int value) {
+<span class="fc" id="L626">        this.pagesize = value;</span>
+<span class="fc" id="L627">    }</span>
+
+    /**
+     * tells display tag that the values contained in the list are the viewable data only, there may be more results not
+     * given to displaytag.
+     *
+     * @param partialList
+     *            boolean value telling us there may be more data not given to displaytag
+     */
+    public void setPartialList(final boolean partialList) {
+<span class="fc" id="L637">        this.partialList = partialList;</span>
+<span class="fc" id="L638">    }</span>
+
+    /**
+     * Setter for the list offset attribute.
+     *
+     * @param value
+     *            String
+     */
+    public void setOffset(final int value) {
+<span class="pc bpc" id="L647" title="1 of 2 branches missed.">        if (value &lt; 1) {</span>
+            // negative values has no meaning, simply treat them as 0
+<span class="nc" id="L649">            this.offset = 0;</span>
+        } else {
+<span class="fc" id="L651">            this.offset = value - 1;</span>
+        }
+<span class="fc" id="L653">    }</span>
+
+    /**
+     * Sets the unique id used to identify for this table.
+     *
+     * @param value
+     *            String
+     */
+    public void setUid(final String value) {
+<span class="fc" id="L662">        this.uid = value;</span>
+<span class="fc" id="L663">    }</span>
+
+    /**
+     * Returns the unique id used to identify for this table.
+     *
+     * @return id for this table
+     */
+    public String getUid() {
+<span class="fc" id="L671">        return this.uid;</span>
+    }
+
+    /**
+     * Returns the properties.
+     *
+     * @return TableProperties
+     */
+    public TableProperties getProperties() {
+<span class="fc" id="L680">        return this.properties;</span>
+    }
+
+    /**
+     * Returns the base href with parameters. This is the instance used for links, need to be cloned before being
+     * modified.
+     *
+     * @return base Href with parameters
+     */
+    protected Href getBaseHref() {
+<span class="fc" id="L690">        return this.baseHref;</span>
+    }
+
+    /**
+     * Called by interior column tags to help this tag figure out how it is supposed to display the information in the
+     * List it is supposed to display.
+     *
+     * @param column
+     *            an internal tag describing a column in this tableview
+     */
+    public void addColumn(final HeaderCell column) {
+<span class="pc bpc" id="L701" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L702">            TableTag.log.debug(&quot;[{}] addColumn {}&quot;, this.getUid(), column);</span>
+        }
+
+<span class="pc bpc" id="L705" title="1 of 4 branches missed.">        if (this.paginatedList != null &amp;&amp; column.getSortable()) {</span>
+<span class="fc" id="L706">            final String sortCriterion = this.paginatedList.getSortCriterion();</span>
+
+<span class="fc" id="L708">            String sortProperty = column.getSortProperty();</span>
+<span class="pc bpc" id="L709" title="1 of 2 branches missed.">            if (sortProperty == null) {</span>
+<span class="fc" id="L710">                sortProperty = column.getBeanPropertyName();</span>
+            }
+
+<span class="pc bpc" id="L713" title="2 of 4 branches missed.">            if (sortCriterion != null &amp;&amp; sortCriterion.equals(sortProperty)) {</span>
+<span class="fc" id="L714">                this.tableModel.setSortedColumnNumber(this.tableModel.getNumberOfColumns());</span>
+<span class="fc" id="L715">                column.setAlreadySorted();</span>
+            }
+        }
+
+<span class="fc" id="L719">        this.tableModel.addColumnHeader(column);</span>
+<span class="fc" id="L720">    }</span>
+
+    /**
+     * Adds a cell to the current row. This method is usually called by a contained ColumnTag
+     *
+     * @param cell
+     *            Cell to add to the current row
+     */
+    public void addCell(final Cell cell) {
+        // check if null: could be null if list is empty, we don't need to fill rows
+<span class="fc bfc" id="L730" title="All 2 branches covered.">        if (this.currentRow != null) {</span>
+<span class="fc" id="L731">            final int columnNumber = this.currentRow.getCellList().size();</span>
+<span class="fc" id="L732">            this.currentRow.addCell(cell);</span>
+
+            // just be sure that the number of columns has not been altered by conditionally including column tags in
+            // different rows. This is not supported, but better avoid IndexOutOfBounds...
+<span class="pc bpc" id="L736" title="1 of 2 branches missed.">            if (columnNumber &lt; this.tableModel.getHeaderCellList().size()) {</span>
+<span class="fc" id="L737">                final HeaderCell header = this.tableModel.getHeaderCellList().get(columnNumber);</span>
+<span class="fc" id="L738">                header.addCell(new Column(header, cell, this.currentRow));</span>
+            }
+        }
+<span class="fc" id="L741">    }</span>
+
+    /**
+     * Is this the first iteration?.
+     *
+     * @return boolean &lt;code&gt;true&lt;/code&gt; if this is the first iteration
+     */
+    public boolean isFirstIteration() {
+<span class="pc bpc" id="L749" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L750">            TableTag.log.debug(&quot;[{}] first iteration={} (row number={})&quot;,</span>
+<span class="nc bnc" id="L751" title="All 2 branches missed.">                    this.getUid(), (this.rowNumber == 1), this.rowNumber);</span>
+        }
+        // in first iteration this.rowNumber is 1
+        // (this.rowNumber is incremented in doAfterBody)
+<span class="fc bfc" id="L755" title="All 2 branches covered.">        return this.rowNumber == 1;</span>
+    }
+
+    /**
+     * When the tag starts, we just initialize some of our variables, and do a little bit of error checking to make sure
+     * that the user is not trying to give us parameters that we don't expect.
+     *
+     * @return int
+     *
+     * @throws JspException
+     *             generic exception
+     *
+     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
+     */
+    @Override
+    public int doStartTag() throws JspException {
+
+        // needed before column processing, elsewhere registered views will not be added
+<span class="fc" id="L773">        ExportViewFactory.getInstance();</span>
+
+<span class="pc bpc" id="L775" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L776">            TableTag.log.debug(&quot;[{}] doStartTag called&quot;, this.getUid());</span>
+        }
+
+<span class="fc" id="L779">        this.properties = TableProperties.getInstance(this.pageContext);</span>
+<span class="fc" id="L780">        this.tableModel = new TableModel(this.properties, this.pageContext.getResponse().getCharacterEncoding(),</span>
+                this.pageContext);
+
+        // copying id to the table model for logging
+<span class="fc" id="L784">        this.tableModel.setId(this.getUid());</span>
+<span class="fc" id="L785">        this.tableModel.setForm(this.form);</span>
+
+<span class="fc" id="L787">        this.initParameters();</span>
+
+<span class="fc" id="L789">        this.tableModel.setMedia(this.currentMediaType);</span>
+
+<span class="fc" id="L791">        final Object previousMediaType = this.pageContext.getAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);</span>
+        // set the PAGE_ATTRIBUTE_MEDIA attribute in the page scope
+<span class="fc bfc" id="L793" title="All 4 branches covered.">        if (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType)) {</span>
+<span class="pc bpc" id="L794" title="1 of 2 branches missed.">            if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L795">                TableTag.log.debug(&quot;[{}] setting media [{}] in this.pageContext&quot;, this.getUid(), this.currentMediaType);</span>
+            }
+<span class="fc" id="L797">            this.pageContext.setAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA, this.currentMediaType);</span>
+        }
+
+<span class="fc" id="L800">        this.doIteration();</span>
+
+        // always return EVAL_BODY_TAG to get column headers also if the table is empty
+        // using int to avoid deprecation error in compilation using j2ee 1.3
+<span class="fc" id="L804">        return 2;</span>
+    }
+
+    /**
+     * Do after body.
+     *
+     * @return the int
+     *
+     * @see javax.servlet.jsp.tagext.BodyTag#doAfterBody()
+     */
+    @Override
+    public int doAfterBody() {
+        // doAfterBody() has been called, body is not empty
+<span class="fc" id="L817">        this.doAfterBodyExecuted = true;</span>
+
+<span class="pc bpc" id="L819" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L820">            TableTag.log.debug(&quot;[{}] doAfterBody called - iterating on row {}&quot;, this.getUid(), this.rowNumber);</span>
+        }
+
+        // increment this.rowNumber
+<span class="fc" id="L824">        this.rowNumber++;</span>
+
+        // Call doIteration() to do the common work
+<span class="fc" id="L827">        return this.doIteration();</span>
+    }
+
+    /**
+     * Utility method that is used by both doStartTag() and doAfterBody() to perform an iteration.
+     *
+     * @return &lt;code&gt;int&lt;/code&gt; either EVAL_BODY_TAG or SKIP_BODY depending on whether another iteration is desired.
+     */
+    protected int doIteration() {
+
+<span class="pc bpc" id="L837" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L838">            TableTag.log.debug(&quot;[{}] doIteration called&quot;, this.getUid());</span>
+        }
+
+        // Row already filled?
+<span class="fc bfc" id="L842" title="All 2 branches covered.">        if (this.currentRow != null) {</span>
+            // if yes add to table model and remove
+<span class="fc" id="L844">            this.tableModel.addRow(this.currentRow);</span>
+<span class="fc" id="L845">            this.currentRow = null;</span>
+        }
+
+<span class="fc bfc" id="L848" title="All 2 branches covered.">        if (this.tableIterator.hasNext()) {</span>
+
+<span class="fc" id="L850">            final Object iteratedObject = this.tableIterator.next();</span>
+<span class="fc bfc" id="L851" title="All 2 branches covered.">            if (this.getUid() != null) {</span>
+<span class="pc bpc" id="L852" title="1 of 2 branches missed.">                if (iteratedObject != null) {</span>
+                    // set object into this.pageContext
+<span class="pc bpc" id="L854" title="1 of 2 branches missed.">                    if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L855">                        TableTag.log.debug(&quot;[{}] setting attribute \&quot;{}\&quot; in pageContext&quot;, this.getUid(),</span>
+<span class="nc" id="L856">                                this.getUid());</span>
+                    }
+<span class="fc" id="L858">                    this.pageContext.setAttribute(this.getUid(), iteratedObject);</span>
+
+                } else {
+                    // if row is null remove previous object
+<span class="nc" id="L862">                    this.pageContext.removeAttribute(this.getUid());</span>
+                }
+                // set the current row number into this.pageContext
+<span class="fc" id="L865">                this.pageContext.setAttribute(this.getUid() + TableTagExtraInfo.ROWNUM_SUFFIX,</span>
+<span class="fc" id="L866">                        Integer.valueOf(this.rowNumber));</span>
+            }
+
+            // Row object for Cell values
+<span class="fc" id="L870">            this.currentRow = new Row(iteratedObject, this.rowNumber);</span>
+
+<span class="fc bfc" id="L872" title="All 2 branches covered.">            this.lastIteration = !this.tableIterator.hasNext();</span>
+
+            // new iteration
+            // using int to avoid deprecation error in compilation using j2ee 1.3
+<span class="fc" id="L876">            return 2;</span>
+        }
+<span class="fc" id="L878">        this.lastIteration = true;</span>
+
+<span class="pc bpc" id="L880" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L881">            TableTag.log.debug(&quot;[{}] doIteration() - iterator ended after {} rows&quot;, this.getUid(), this.rowNumber - 1);</span>
+        }
+
+        // end iteration
+<span class="fc" id="L885">        return Tag.SKIP_BODY;</span>
+    }
+
+    /**
+     * Get the given parameter from the request or, if not avaible, look for into into the session if keepstatus is set.
+     * Also takes care of storing an existing paramter into session.
+     *
+     * @param request
+     *            servlet request
+     * @param requestHelper
+     *            request helper instance
+     * @param parameter
+     *            parameter, will be encoded
+     *
+     * @return value value taken from a request parameter or from a session attribute
+     */
+    private Integer getFromRequestOrSession(final HttpServletRequest request, final RequestHelper requestHelper,
+            final String parameter) {
+<span class="fc" id="L903">        final String encodedParam = this.encodeParameter(parameter);</span>
+<span class="fc" id="L904">        Integer result = requestHelper.getIntParameter(encodedParam);</span>
+
+<span class="fc bfc" id="L906" title="All 2 branches covered.">        if (this.keepStatus) {</span>
+<span class="fc bfc" id="L907" title="All 2 branches covered.">            if (result == null) {</span>
+                // get from session
+<span class="fc" id="L909">                final HttpSession session = request.getSession(false);</span>
+<span class="pc bpc" id="L910" title="1 of 2 branches missed.">                if (session != null) {</span>
+<span class="pc bpc" id="L911" title="1 of 2 branches missed.">                    if (this.clearStatus) {</span>
+<span class="nc" id="L912">                        session.removeAttribute(encodedParam);</span>
+                    } else {
+<span class="fc" id="L914">                        result = (Integer) session.getAttribute(encodedParam);</span>
+                    }
+                }
+<span class="fc" id="L917">            } else {</span>
+                // set into session
+<span class="fc" id="L919">                request.getSession(true).setAttribute(encodedParam, result);</span>
+            }
+        }
+<span class="fc" id="L922">        return result;</span>
+    }
+
+    /**
+     * Reads parameters from the request and initialize all the needed table model attributes.
+     *
+     * @throws JspTagException
+     *             the jsp tag exception
+     */
+    private void initParameters() throws JspTagException {
+
+<span class="fc bfc" id="L933" title="All 2 branches covered.">        if (TableTag.rhf == null) {</span>
+            // first time initialization
+<span class="fc" id="L935">            TableTag.rhf = this.properties.getRequestHelperFactoryInstance();</span>
+        }
+
+<span class="fc" id="L938">        final String fullName = this.getFullObjectName();</span>
+
+        // only evaluate if needed, else use list attribute
+<span class="fc bfc" id="L941" title="All 2 branches covered.">        if (fullName != null) {</span>
+<span class="fc" id="L942">            this.list = this.evaluateExpression(fullName);</span>
+<span class="pc bpc" id="L943" title="1 of 2 branches missed.">        } else if (this.list == null) {</span>
+            // needed to allow removing the collection of objects if not set directly
+<span class="fc" id="L945">            this.list = this.listAttribute;</span>
+        }
+
+<span class="fc bfc" id="L948" title="All 2 branches covered.">        if (this.list instanceof PaginatedList) {</span>
+<span class="fc" id="L949">            this.paginatedList = (PaginatedList) this.list;</span>
+<span class="fc" id="L950">            this.list = this.paginatedList.getList();</span>
+        }
+
+        // set the table model to perform in memory local sorting
+<span class="fc bfc" id="L954" title="All 4 branches covered.">        this.tableModel.setLocalSort(this.localSort &amp;&amp; this.paginatedList == null);</span>
+
+<span class="fc" id="L956">        final HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();</span>
+<span class="fc" id="L957">        final RequestHelper requestHelper = TableTag.rhf.getRequestHelperInstance(this.pageContext);</span>
+
+<span class="fc" id="L959">        this.initHref(requestHelper);</span>
+
+<span class="fc" id="L961">        final Integer pageNumberParameter = this.getFromRequestOrSession(request, requestHelper,</span>
+                TableTagParameters.PARAMETER_PAGE);
+<span class="fc bfc" id="L963" title="All 2 branches covered.">        this.pageNumber = pageNumberParameter == null ? 1 : pageNumberParameter.intValue();</span>
+
+<span class="fc" id="L965">        int sortColumn = -1;</span>
+<span class="fc bfc" id="L966" title="All 2 branches covered.">        if (!this.tableModel.isLocalSort()) {</span>
+            // our sort column parameter may be a string, check that first
+<span class="fc" id="L968">            final String sortColumnName = requestHelper</span>
+<span class="fc" id="L969">                    .getParameter(this.encodeParameter(TableTagParameters.PARAMETER_SORT));</span>
+
+            // if usename is not null, sortColumnName is the name, if not is the column index
+<span class="fc" id="L972">            final String usename = requestHelper</span>
+<span class="fc" id="L973">                    .getParameter(this.encodeParameter(TableTagParameters.PARAMETER_SORTUSINGNAME));</span>
+
+<span class="fc bfc" id="L975" title="All 2 branches covered.">            if (sortColumnName == null) {</span>
+<span class="fc" id="L976">                this.tableModel.setSortedColumnNumber(this.defaultSortedColumn);</span>
+<span class="pc bpc" id="L977" title="1 of 2 branches missed.">            } else if (usename != null) {</span>
+
+<span class="fc" id="L979">                this.tableModel.setSortedColumnName(sortColumnName); // its a string, set as string</span>
+<span class="nc bnc" id="L980" title="All 2 branches missed.">            } else if (NumberUtils.isCreatable(sortColumnName)) {</span>
+<span class="nc" id="L981">                sortColumn = Integer.parseInt(sortColumnName);</span>
+<span class="nc" id="L982">                this.tableModel.setSortedColumnNumber(sortColumn); // its an int set as normal</span>
+            }
+<span class="pc bpc" id="L984" title="1 of 2 branches missed.">        } else if (this.paginatedList == null) {</span>
+<span class="fc" id="L985">            final Integer sortColumnParameter = this.getFromRequestOrSession(request, requestHelper,</span>
+                    TableTagParameters.PARAMETER_SORT);
+<span class="fc bfc" id="L987" title="All 2 branches covered.">            sortColumn = sortColumnParameter == null ? this.defaultSortedColumn : sortColumnParameter.intValue();</span>
+<span class="fc" id="L988">            this.tableModel.setSortedColumnNumber(sortColumn);</span>
+<span class="fc" id="L989">        } else {</span>
+<span class="nc" id="L990">            sortColumn = this.defaultSortedColumn;</span>
+        }
+
+        // default value
+<span class="fc" id="L994">        boolean finalSortFull = this.properties.getSortFullList();</span>
+
+        // user value for this single table
+<span class="fc bfc" id="L997" title="All 2 branches covered.">        if (this.sortFullTable != null) {</span>
+<span class="fc" id="L998">            finalSortFull = this.sortFullTable.booleanValue();</span>
+        }
+
+        // if a partial list is used and sort=&quot;list&quot; is specified, assume the partial list is already sorted
+<span class="pc bpc" id="L1002" title="1 of 4 branches missed.">        if (!this.partialList || !finalSortFull) {</span>
+<span class="fc" id="L1003">            this.tableModel.setSortFullTable(finalSortFull);</span>
+        }
+
+<span class="fc bfc" id="L1006" title="All 2 branches covered.">        if (this.paginatedList == null) {</span>
+<span class="fc" id="L1007">            SortOrderEnum paramOrder = SortOrderEnum</span>
+<span class="fc" id="L1008">                    .fromCode(this.getFromRequestOrSession(request, requestHelper, TableTagParameters.PARAMETER_ORDER));</span>
+
+            // if no order parameter is set use default
+<span class="fc bfc" id="L1011" title="All 2 branches covered.">            if (paramOrder == null) {</span>
+<span class="fc" id="L1012">                paramOrder = this.defaultSortOrder;</span>
+            }
+
+<span class="fc bfc" id="L1015" title="All 2 branches covered.">            final boolean order = SortOrderEnum.DESCENDING != paramOrder;</span>
+<span class="fc" id="L1016">            this.tableModel.setSortOrderAscending(order);</span>
+<span class="fc" id="L1017">        } else {</span>
+<span class="fc" id="L1018">            final SortOrderEnum direction = this.paginatedList.getSortDirection();</span>
+<span class="pc bpc" id="L1019" title="1 of 2 branches missed.">            this.tableModel.setSortOrderAscending(direction == SortOrderEnum.ASCENDING);</span>
+        }
+
+<span class="fc" id="L1022">        final Integer exportTypeParameter = requestHelper</span>
+<span class="fc" id="L1023">                .getIntParameter(this.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));</span>
+
+<span class="fc" id="L1025">        this.currentMediaType = ObjectUtils.defaultIfNull(MediaTypeEnum.fromCode(exportTypeParameter),</span>
+                MediaTypeEnum.HTML);
+
+        // if we are doing partialLists then ensure we have our size object
+<span class="fc bfc" id="L1029" title="All 2 branches covered.">        if (this.partialList) {</span>
+<span class="pc bpc" id="L1030" title="1 of 4 branches missed.">            if (this.sizeObjectName == null &amp;&amp; this.size == null) {</span>
+                // ?
+            }
+<span class="fc bfc" id="L1033" title="All 2 branches covered.">            if (this.sizeObjectName != null) {</span>
+                // retrieve the object from scope
+<span class="fc" id="L1035">                this.size = this.evaluateExpression(this.sizeObjectName);</span>
+            }
+<span class="fc bfc" id="L1037" title="All 2 branches covered.">            if (this.size == null) {</span>
+<span class="fc" id="L1038">                throw new JspTagException(Messages.getString(&quot;MissingAttributeException.msg&quot;, new Object[] { &quot;size&quot; }));</span>
+            }
+<span class="pc bpc" id="L1040" title="1 of 2 branches missed.">            if (!(this.size instanceof Integer)) {</span>
+<span class="nc" id="L1041">                throw new JspTagException(</span>
+<span class="nc" id="L1042">                        Messages.getString(&quot;InvalidTypeException.msg&quot;, new Object[] { &quot;size&quot;, &quot;Integer&quot; }));</span>
+            }
+        }
+<span class="fc" id="L1045">        this.tableIterator = IteratorUtils.getIterator(this.list);</span>
+
+        // do we really need to skip any row?
+<span class="pc bpc" id="L1048" title="1 of 8 branches missed.">        final boolean wishOptimizedIteration = (this.pagesize &gt; 0 // we are paging</span>
+                || this.offset &gt; 0 // or we are skipping some records using offset
+                || this.length &gt; 0 // or we are limiting the records using length
+        ) &amp;&amp; !this.partialList; // only optimize if we have the full list
+
+        // can we actually skip any row?
+<span class="fc bfc" id="L1054" title="All 10 branches covered.">        if (wishOptimizedIteration &amp;&amp; this.list instanceof Collection // we need to know the size</span>
+                &amp;&amp; (sortColumn == -1 // and we are not sorting
+                        || !finalSortFull // or we are sorting with the &quot;page&quot; behaviour
+                ) &amp;&amp; (this.currentMediaType == MediaTypeEnum.HTML // and we are not exporting
+<span class="pc bpc" id="L1058" title="1 of 2 branches missed.">                        || !this.properties.getExportFullList())) // or we are exporting a single page</span>
+        {
+<span class="fc" id="L1060">            int start = 0;</span>
+<span class="fc" id="L1061">            int end = 0;</span>
+<span class="fc bfc" id="L1062" title="All 2 branches covered.">            if (this.offset &gt; 0) {</span>
+<span class="fc" id="L1063">                start = this.offset;</span>
+            }
+<span class="fc bfc" id="L1065" title="All 2 branches covered.">            if (this.length &gt; 0) {</span>
+<span class="fc" id="L1066">                end = start + this.length;</span>
+            }
+
+<span class="fc bfc" id="L1069" title="All 2 branches covered.">            if (this.pagesize &gt; 0) {</span>
+<span class="fc" id="L1070">                final int fullSize = ((Collection&lt;?&gt;) this.list).size();</span>
+<span class="fc" id="L1071">                start = (this.pageNumber - 1) * this.pagesize;</span>
+
+                // invalid page requested, go back to last page
+<span class="fc bfc" id="L1074" title="All 2 branches covered.">                if (start &gt;= fullSize) {</span>
+
+<span class="fc" id="L1076">                    final int div = fullSize / this.pagesize;</span>
+<span class="fc bfc" id="L1077" title="All 2 branches covered.">                    start = (fullSize % this.pagesize == 0 ? div - 1 : div) * this.pagesize;</span>
+                }
+<span class="fc" id="L1079">                end = start + this.pagesize;</span>
+            }
+
+            // rowNumber starts from 1
+<span class="fc" id="L1083">            this.filteredRows = Range.between(start + 1, end);</span>
+<span class="fc" id="L1084">        } else {</span>
+<span class="fc" id="L1085">            this.filteredRows = Range.between(1, Integer.MAX_VALUE);</span>
+        }
+<span class="fc" id="L1087">    }</span>
+
+    /**
+     * Is the current row included in the &quot;to-be-evaluated&quot; range? Called by nested ColumnTags. If &lt;code&gt;false&lt;/code&gt;
+     * column body is skipped.
+     *
+     * @return &lt;code&gt;true&lt;/code&gt; if the current row must be evaluated because is included in output or because is
+     *         included in sorting.
+     */
+    public boolean isIncludedRow() {
+<span class="fc" id="L1097">        return this.filteredRows.contains(this.rowNumber);</span>
+    }
+
+    /**
+     * Create a complete string for compatibility with previous version before expression evaluation. This approach is
+     * optimized for new expressions, not for previous property/scope parameters.
+     *
+     * @return Expression composed by scope + name + property
+     */
+    private String getFullObjectName() {
+        // only evaluate if needed, else preserve original list
+<span class="fc" id="L1108">        return this.name;</span>
+    }
+
+    /**
+     * init the href object used to generate all the links for pagination, sorting, exporting.
+     *
+     * @param requestHelper
+     *            request helper used to extract the base Href
+     */
+    protected void initHref(final RequestHelper requestHelper) {
+        // get the href for this request
+<span class="fc" id="L1119">        this.baseHref = requestHelper.getHref();</span>
+
+<span class="fc bfc" id="L1121" title="All 2 branches covered.">        if (this.excludedParams != null) {</span>
+<span class="fc" id="L1122">            final String[] splittedExcludedParams = StringUtils.split(this.excludedParams);</span>
+
+            // handle * keyword
+<span class="fc bfc" id="L1125" title="All 4 branches covered.">            if (splittedExcludedParams.length == 1 &amp;&amp; &quot;*&quot;.equals(splittedExcludedParams[0])) {</span>
+                // TODO cleanup: paramEncoder initialization should not be done here
+<span class="pc bpc" id="L1127" title="1 of 2 branches missed.">                if (this.paramEncoder == null) {</span>
+<span class="fc" id="L1128">                    this.paramEncoder = new ParamEncoder(this.getUid());</span>
+                }
+
+<span class="fc" id="L1131">                final Iterator&lt;String&gt; paramsIterator = this.baseHref.getParameterMap().keySet().iterator();</span>
+<span class="fc bfc" id="L1132" title="All 2 branches covered.">                while (paramsIterator.hasNext()) {</span>
+<span class="fc" id="L1133">                    final String key = paramsIterator.next();</span>
+
+                    // don't remove parameters added by the table tag
+<span class="pc bpc" id="L1136" title="1 of 2 branches missed.">                    if (!this.paramEncoder.isParameterEncoded(key)) {</span>
+<span class="fc" id="L1137">                        this.baseHref.removeParameter(key);</span>
+                    }
+<span class="fc" id="L1139">                }</span>
+<span class="fc" id="L1140">            } else {</span>
+<span class="fc bfc" id="L1141" title="All 2 branches covered.">                for (final String splittedExcludedParam : splittedExcludedParams) {</span>
+<span class="fc" id="L1142">                    this.baseHref.removeParameter(splittedExcludedParam);</span>
+                }
+            }
+        }
+
+<span class="fc bfc" id="L1147" title="All 2 branches covered.">        if (this.requestUri != null) {</span>
+            // if user has added a requestURI create a new href
+<span class="fc" id="L1149">            String fullURI = this.requestUri;</span>
+<span class="fc bfc" id="L1150" title="All 2 branches covered.">            if (!this.dontAppendContext) {</span>
+<span class="fc" id="L1151">                final String contextPath = ((HttpServletRequest) this.pageContext.getRequest()).getContextPath();</span>
+
+                // prepend the context path if any.
+                // actually checks if context path is already there for people which manually add it
+<span class="pc bpc" id="L1155" title="2 of 6 branches missed.">                if (!StringUtils.isEmpty(contextPath) &amp;&amp; this.requestUri != null &amp;&amp; this.requestUri.startsWith(&quot;/&quot;)</span>
+<span class="pc bpc" id="L1156" title="1 of 2 branches missed.">                        &amp;&amp; !this.requestUri.startsWith(contextPath)) {</span>
+<span class="fc" id="L1157">                    fullURI = contextPath + this.requestUri;</span>
+                }
+            }
+
+            // call encodeURL to preserve session id when cookies are disabled
+<span class="fc" id="L1162">            fullURI = ((HttpServletResponse) this.pageContext.getResponse()).encodeURL(fullURI);</span>
+
+<span class="fc" id="L1164">            this.baseHref.setFullUrl(fullURI);</span>
+
+        }
+
+<span class="fc" id="L1168">    }</span>
+
+    /**
+     * Draw the table. This is where everything happens, we figure out what values we are supposed to be showing, we
+     * figure out how we are supposed to be showing them, then we draw them.
+     *
+     * @return int
+     *
+     * @throws JspException
+     *             generic exception
+     *
+     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
+     */
+    @Override
+    public int doEndTag() throws JspException {
+
+<span class="pc bpc" id="L1184" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L1185">            TableTag.log.debug(&quot;[{}] doEndTag called&quot;, this.getUid());</span>
+        }
+
+<span class="fc bfc" id="L1188" title="All 2 branches covered.">        if (!this.doAfterBodyExecuted) {</span>
+<span class="pc bpc" id="L1189" title="1 of 2 branches missed.">            if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L1190">                TableTag.log.debug(&quot;[{}] tag body is empty.&quot;, this.getUid());</span>
+            }
+
+            // first row (created in doStartTag)
+<span class="pc bpc" id="L1194" title="1 of 2 branches missed.">            if (this.currentRow != null) {</span>
+                // if yes add to table model and remove
+<span class="fc" id="L1196">                this.tableModel.addRow(this.currentRow);</span>
+            }
+
+            // other rows
+<span class="fc bfc" id="L1200" title="All 2 branches covered.">            while (this.tableIterator.hasNext()) {</span>
+<span class="fc" id="L1201">                final Object iteratedObject = this.tableIterator.next();</span>
+<span class="fc" id="L1202">                this.rowNumber++;</span>
+
+                // Row object for Cell values
+<span class="fc" id="L1205">                this.currentRow = new Row(iteratedObject, this.rowNumber);</span>
+
+<span class="fc" id="L1207">                this.tableModel.addRow(this.currentRow);</span>
+<span class="fc" id="L1208">            }</span>
+        }
+
+        // if no rows are defined automatically get all properties from bean
+<span class="fc bfc" id="L1212" title="All 2 branches covered.">        if (this.tableModel.isEmpty()) {</span>
+<span class="fc" id="L1213">            this.describeEmptyTable();</span>
+        }
+
+<span class="fc" id="L1216">        final TableDecorator tableDecorator = this.properties.getDecoratorFactoryInstance()</span>
+<span class="fc" id="L1217">                .loadTableDecorator(this.pageContext, this.getConfiguredDecoratorName());</span>
+
+<span class="fc bfc" id="L1219" title="All 2 branches covered.">        if (tableDecorator != null) {</span>
+<span class="fc" id="L1220">            tableDecorator.init(this.pageContext, this.list, this.tableModel);</span>
+<span class="fc" id="L1221">            this.tableModel.setTableDecorator(tableDecorator);</span>
+        }
+
+<span class="fc" id="L1224">        final TableTotaler totaler = this.properties.getDecoratorFactoryInstance().loadTableTotaler(this.pageContext,</span>
+<span class="fc" id="L1225">                this.getTotalerName());</span>
+
+<span class="pc bpc" id="L1227" title="1 of 2 branches missed.">        if (totaler != null) {</span>
+<span class="fc" id="L1228">            totaler.init(this.tableModel);</span>
+<span class="fc" id="L1229">            this.tableModel.setTotaler(totaler);</span>
+        }
+
+<span class="fc" id="L1232">        this.setupViewableData();</span>
+
+        // Figure out how we should sort this data, typically we just sort
+        // the data being shown, but the programmer can override this behavior
+<span class="fc bfc" id="L1236" title="All 6 branches covered.">        if ((this.paginatedList == null &amp;&amp; this.tableModel.isLocalSort()) &amp;&amp; !this.tableModel.isSortFullTable()) {</span>
+<span class="fc" id="L1237">            this.tableModel.sortPageList();</span>
+        }
+
+        // Get the data back in the representation that the user is after, do they want HTML/XML/CSV/EXCEL/etc...
+<span class="fc" id="L1241">        int returnValue = Tag.EVAL_PAGE;</span>
+
+        // check for nested tables
+<span class="fc" id="L1244">        final Object previousMediaType = this.pageContext.getAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);</span>
+<span class="pc bpc" id="L1245" title="1 of 4 branches missed.">        if (MediaTypeEnum.HTML.equals(this.currentMediaType)</span>
+<span class="fc bfc" id="L1246" title="All 2 branches covered.">                &amp;&amp; (previousMediaType == null || MediaTypeEnum.HTML.equals(previousMediaType))) {</span>
+<span class="fc" id="L1247">            this.writeHTMLData();</span>
+<span class="fc bfc" id="L1248" title="All 2 branches covered.">        } else if (!MediaTypeEnum.HTML.equals(this.currentMediaType)) {</span>
+<span class="pc bpc" id="L1249" title="1 of 2 branches missed.">            if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L1250">                TableTag.log.debug(&quot;[{}] doEndTag - exporting&quot;, this.getUid());</span>
+            }
+
+<span class="fc" id="L1253">            returnValue = this.doExport();</span>
+        }
+
+        // do not remove media attribute! if the table is nested in other tables this is still needed
+
+<span class="pc bpc" id="L1258" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L1259">            TableTag.log.debug(&quot;[{}] doEndTag - end&quot;, this.getUid());</span>
+        }
+
+<span class="fc" id="L1262">        this.cleanUp();</span>
+<span class="fc" id="L1263">        return returnValue;</span>
+    }
+
+    /**
+     * Returns the name of the table decorator that should be applied to this table, which is either the decorator
+     * configured in the property &quot;decorator&quot;, or if none is configured in said property, a decorator configured with
+     * the &quot;decorator.media.[media type]&quot; property, or null if none is configured.
+     *
+     * @return Name of the table decorator that should be applied to this table.
+     */
+    private String getConfiguredDecoratorName() {
+<span class="fc bfc" id="L1274" title="All 2 branches covered.">        return this.decoratorName == null ? this.properties.getMediaTypeDecoratorName(this.currentMediaType)</span>
+<span class="fc" id="L1275">                : this.decoratorName;</span>
+    }
+
+    /**
+     * Gets the totaler name.
+     *
+     * @return the totaler name
+     */
+    private String getTotalerName() {
+<span class="pc bpc" id="L1284" title="1 of 2 branches missed.">        return this.totalerName == null ? this.properties.getTotalerName() : this.totalerName;</span>
+    }
+
+    /**
+     * clean up instance variables, but not the ones representing tag attributes.
+     */
+    private void cleanUp() {
+        // reset instance variables (non attributes)
+<span class="fc" id="L1292">        this.currentMediaType = null;</span>
+<span class="fc" id="L1293">        this.baseHref = null;</span>
+<span class="fc" id="L1294">        this.caption = null;</span>
+<span class="fc" id="L1295">        this.captionTag = null;</span>
+<span class="fc" id="L1296">        this.currentRow = null;</span>
+<span class="fc" id="L1297">        this.doAfterBodyExecuted = false;</span>
+<span class="fc" id="L1298">        this.footer = null;</span>
+<span class="fc" id="L1299">        this.listHelper = null;</span>
+<span class="fc" id="L1300">        this.pageNumber = 0;</span>
+<span class="fc" id="L1301">        this.paramEncoder = null;</span>
+<span class="fc" id="L1302">        this.properties = null;</span>
+<span class="fc" id="L1303">        this.rowNumber = 1;</span>
+<span class="fc" id="L1304">        this.tableIterator = null;</span>
+<span class="fc" id="L1305">        this.tableModel = null;</span>
+<span class="fc" id="L1306">        this.list = null;</span>
+<span class="fc" id="L1307">        this.paginatedList = null;</span>
+<span class="fc" id="L1308">    }</span>
+
+    /**
+     * If no columns are provided, automatically add them from bean properties. Get the first object in the list and get
+     * all the properties (except the &quot;class&quot; property which is automatically skipped). Of course this isn't possible
+     * for empty lists.
+     */
+    private void describeEmptyTable() {
+<span class="fc" id="L1316">        this.tableIterator = IteratorUtils.getIterator(this.list);</span>
+
+<span class="pc bpc" id="L1318" title="1 of 2 branches missed.">        if (this.tableIterator.hasNext()) {</span>
+<span class="fc" id="L1319">            final Object iteratedObject = this.tableIterator.next();</span>
+<span class="fc" id="L1320">            Map&lt;String, String&gt; objectProperties = new HashMap&lt;&gt;();</span>
+
+            // if it's a String don't add the &quot;Bytes&quot; column
+<span class="fc bfc" id="L1323" title="All 2 branches covered.">            if (iteratedObject instanceof String) {</span>
+<span class="fc" id="L1324">                return;</span>
+            }
+            // if it's a map already use key names for column headers
+<span class="fc bfc" id="L1327" title="All 2 branches covered.">            if (iteratedObject instanceof Map) {</span>
+<span class="fc" id="L1328">                objectProperties = (Map&lt;String, String&gt;) iteratedObject;</span>
+            } else {
+                try {
+<span class="fc" id="L1331">                    objectProperties = BeanUtils.describe(iteratedObject);</span>
+<span class="nc" id="L1332">                } catch (final Exception e) {</span>
+<span class="nc" id="L1333">                    TableTag.log.warn(&quot;Unable to automatically add columns: &quot; + e.getMessage(), e);</span>
+<span class="fc" id="L1334">                }</span>
+            }
+
+            // iterator on properties names
+<span class="fc" id="L1338">            final Iterator&lt;String&gt; propertiesIterator = objectProperties.keySet().iterator();</span>
+
+<span class="fc bfc" id="L1340" title="All 2 branches covered.">            while (propertiesIterator.hasNext()) {</span>
+                // get the property name
+<span class="fc" id="L1342">                final String propertyName = propertiesIterator.next();</span>
+
+                // dont't want to add the standard &quot;class&quot; property
+<span class="pc bpc" id="L1345" title="1 of 2 branches missed.">                if (!&quot;class&quot;.equals(propertyName)) //$NON-NLS-1$</span>
+                {
+                    // creates a new header and add to the table model
+<span class="fc" id="L1348">                    final HeaderCell headerCell = new HeaderCell();</span>
+<span class="fc" id="L1349">                    headerCell.setBeanPropertyName(propertyName);</span>
+
+                    // handle title i18n
+<span class="fc" id="L1352">                    headerCell.setTitle(this.properties.geResourceProvider().getResource(null, propertyName, this,</span>
+                            this.pageContext));
+
+<span class="fc" id="L1355">                    this.tableModel.addColumnHeader(headerCell);</span>
+                }
+<span class="fc" id="L1357">            }</span>
+        }
+<span class="fc" id="L1359">    }</span>
+
+    /**
+     * Called when data are not displayed in a html page but should be exported.
+     *
+     * @return int SKIP_PAGE
+     *
+     * @throws JspException
+     *             generic exception
+     */
+    protected int doExport() throws JspException {
+
+<span class="fc" id="L1371">        final boolean exportFullList = this.properties.getExportFullList();</span>
+
+<span class="pc bpc" id="L1373" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L1374">            TableTag.log.debug(&quot;[{}] currentMediaType={}&quot;, this.getUid(), this.currentMediaType);</span>
+        }
+
+<span class="fc" id="L1377">        final boolean exportHeader = this.properties.getExportHeader(this.currentMediaType);</span>
+<span class="fc" id="L1378">        final boolean exportDecorated = this.properties.getExportDecorated();</span>
+
+<span class="fc" id="L1380">        final ExportView exportView = ExportViewFactory.getInstance().getView(this.currentMediaType, this.tableModel,</span>
+                exportFullList, exportHeader, exportDecorated);
+
+        try {
+<span class="fc" id="L1384">            this.writeExport(exportView);</span>
+<span class="nc" id="L1385">        } catch (final IOException e) {</span>
+<span class="nc" id="L1386">            throw new WrappedRuntimeException(this.getClass(), e);</span>
+<span class="fc" id="L1387">        }</span>
+
+<span class="fc" id="L1389">        return Tag.SKIP_PAGE;</span>
+    }
+
+    /**
+     * Will write the export. The default behavior is to write directly to the response. If the ResponseOverrideFilter
+     * is configured for this request, will instead write the exported content to a map in the Request object.
+     *
+     * @param exportView
+     *            export view
+     *
+     * @throws IOException
+     *             exception thrown when writing content to the response
+     * @throws JspException
+     *             for problem in clearing the response or for invalid export views
+     */
+    protected void writeExport(final ExportView exportView) throws IOException, JspException {
+<span class="fc" id="L1405">        final String filename = this.properties.getExportFileName(this.currentMediaType);</span>
+
+<span class="fc" id="L1407">        final HttpServletResponse response = (HttpServletResponse) this.pageContext.getResponse();</span>
+<span class="fc" id="L1408">        final HttpServletRequest request = (HttpServletRequest) this.pageContext.getRequest();</span>
+
+<span class="fc" id="L1410">        final Map&lt;String, Object&gt; bean = (Map&lt;String, Object&gt;) request</span>
+<span class="fc" id="L1411">                .getAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY);</span>
+<span class="fc bfc" id="L1412" title="All 2 branches covered.">        final boolean usingFilter = bean != null;</span>
+
+<span class="fc" id="L1414">        String mimeType = exportView.getMimeType();</span>
+        // original encoding, be sure to add it back after reset()
+<span class="fc" id="L1416">        final String characterEncoding = response.getCharacterEncoding();</span>
+
+<span class="fc bfc" id="L1418" title="All 2 branches covered.">        if (usingFilter) {</span>
+<span class="pc bpc" id="L1419" title="1 of 2 branches missed.">            if (bean.containsKey(TableTagParameters.BEAN_BUFFER)) {</span>
+                // We are running under the export filter in buffered mode
+<span class="fc" id="L1421">                bean.put(TableTagParameters.BEAN_CONTENTTYPE, mimeType);</span>
+<span class="fc" id="L1422">                bean.put(TableTagParameters.BEAN_FILENAME, filename);</span>
+
+<span class="fc bfc" id="L1424" title="All 2 branches covered.">                if (exportView instanceof TextExportView) {</span>
+<span class="fc" id="L1425">                    final StringWriter writer = new StringWriter();</span>
+<span class="fc" id="L1426">                    ((TextExportView) exportView).doExport(writer, characterEncoding);</span>
+<span class="fc" id="L1427">                    bean.put(TableTagParameters.BEAN_BODY, writer.toString());</span>
+<span class="pc bpc" id="L1428" title="1 of 2 branches missed.">                } else if (exportView instanceof BinaryExportView) {</span>
+<span class="fc" id="L1429">                    final ByteArrayOutputStream stream = new ByteArrayOutputStream();</span>
+<span class="fc" id="L1430">                    ((BinaryExportView) exportView).doExport(stream);</span>
+<span class="fc" id="L1431">                    bean.put(TableTagParameters.BEAN_BODY, stream.toByteArray());</span>
+
+<span class="fc" id="L1433">                } else {</span>
+<span class="nc" id="L1434">                    throw new JspTagException(&quot;Export view &quot; + exportView.getClass().getName()</span>
+                            + &quot; must implement TextExportView or BinaryExportView&quot;);
+                }
+
+<span class="fc" id="L1438">                return;</span>
+            }
+            // We are running under the export filter, call it
+<span class="nc" id="L1441">            TableTag.log.debug(&quot;Exportfilter enabled in unbuffered mode, setting headers&quot;);</span>
+<span class="nc" id="L1442">            response.addHeader(TableTagParameters.PARAMETER_EXPORTING, TagConstants.EMPTY_STRING);</span>
+        } else {
+<span class="fc" id="L1444">            TableTag.log.debug(&quot;Exportfilter NOT enabled&quot;);</span>
+            // response can't be already committed at this time
+<span class="fc bfc" id="L1446" title="All 2 branches covered.">            if (response.isCommitted()) {</span>
+<span class="fc" id="L1447">                throw new ExportException(this.getClass());</span>
+            }
+
+            try {
+<span class="fc" id="L1451">                response.reset();</span>
+<span class="fc" id="L1452">                this.pageContext.getOut().clearBuffer();</span>
+<span class="nc" id="L1453">            } catch (final Exception e) {</span>
+<span class="nc" id="L1454">                throw new ExportException(this.getClass());</span>
+<span class="fc" id="L1455">            }</span>
+        }
+
+<span class="pc bpc" id="L1458" title="3 of 8 branches missed.">        if (!usingFilter &amp;&amp; characterEncoding != null &amp;&amp; !StringUtils.contains(mimeType, &quot;charset&quot;) //$NON-NLS-1$</span>
+                &amp;&amp; exportView instanceof TextExportView) {
+<span class="fc" id="L1460">            mimeType += &quot;; charset=&quot; + characterEncoding; //$NON-NLS-1$</span>
+        }
+
+<span class="fc" id="L1463">        response.setContentType(mimeType);</span>
+
+<span class="fc bfc" id="L1465" title="All 2 branches covered.">        if (StringUtils.isNotEmpty(filename)) {</span>
+<span class="fc" id="L1466">            response.setHeader(&quot;Content-Disposition&quot;, //$NON-NLS-1$</span>
+                    &quot;attachment; filename=\&quot;&quot; + filename + &quot;\&quot;&quot;); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+<span class="fc bfc" id="L1470" title="All 2 branches covered.">        if (exportView instanceof TextExportView) {</span>
+            Writer writer;
+<span class="pc bpc" id="L1472" title="1 of 2 branches missed.">            if (usingFilter) {</span>
+<span class="nc" id="L1473">                writer = response.getWriter();</span>
+            } else {
+<span class="fc" id="L1475">                writer = this.pageContext.getOut();</span>
+            }
+
+<span class="fc" id="L1478">            ((TextExportView) exportView).doExport(writer, characterEncoding);</span>
+<span class="pc bpc" id="L1479" title="1 of 2 branches missed.">        } else if (exportView instanceof BinaryExportView) {</span>
+            // dealing with binary content
+            // note that this is not assured to work on any application server if the filter is not enabled. According
+            // to the jsp specs response.getOutputStream() should no be called in jsps.
+<span class="fc" id="L1483">            ((BinaryExportView) exportView).doExport(response.getOutputStream());</span>
+        } else {
+<span class="nc" id="L1485">            throw new JspTagException(&quot;Export view &quot; + exportView.getClass().getName()</span>
+                    + &quot; must implement TextExportView or BinaryExportView&quot;);
+        }
+
+<span class="fc" id="L1489">        TableTag.log.debug(&quot;Export completed&quot;);</span>
+
+<span class="fc" id="L1491">    }</span>
+
+    /**
+     * This sets the list of all of the data that will be displayed on the page via the table tag. This might include
+     * just a subset of the total data in the list due to to paging being active, or the user asking us to just show a
+     * subset, etc...
+     */
+    protected void setupViewableData() {
+
+        // If the user has changed the way our default behavior works, then we need to look for it now, and resort
+        // things if needed before we ask for the viewable part. (this is a bad place for this, this should be
+        // refactored and moved somewhere else).
+
+<span class="pc bpc" id="L1504" title="1 of 6 branches missed.">        if ((this.paginatedList == null || this.tableModel.isLocalSort()) &amp;&amp; this.tableModel.isSortFullTable()) {</span>
+            // Sort the total list...
+<span class="fc" id="L1506">            this.tableModel.sortFullList();</span>
+        }
+
+<span class="fc" id="L1509">        final Object originalData = this.tableModel.getRowListFull();</span>
+
+        // If they have asked for a subset of the list via the length
+        // attribute, then only fetch those items out of the master list.
+<span class="fc" id="L1513">        List&lt;Row&gt; fullList = CollectionUtil.getListFromObject(originalData, this.offset, this.length);</span>
+
+<span class="fc" id="L1515">        int pageOffset = this.offset;</span>
+        // If they have asked for just a page of the data, then use the
+        // SmartListHelper to figure out what page they are after, etc...
+<span class="fc bfc" id="L1518" title="All 4 branches covered.">        if (this.paginatedList == null &amp;&amp; this.pagesize &gt; 0) {</span>
+<span class="fc" id="L1519">            this.listHelper = new SmartListHelper(fullList,</span>
+<span class="fc bfc" id="L1520" title="All 2 branches covered.">                    this.partialList ? ((Integer) this.size).intValue() : fullList.size(), this.pagesize,</span>
+                    this.properties, this.partialList);
+<span class="fc" id="L1522">            this.listHelper.setCurrentPage(this.pageNumber);</span>
+<span class="fc" id="L1523">            pageOffset = this.listHelper.getFirstIndexForCurrentPage();</span>
+<span class="fc" id="L1524">            fullList = this.listHelper.getListForCurrentPage();</span>
+<span class="fc bfc" id="L1525" title="All 2 branches covered.">        } else if (this.paginatedList != null) {</span>
+<span class="fc" id="L1526">            this.listHelper = new PaginatedListSmartListHelper(this.paginatedList, this.properties);</span>
+        }
+<span class="fc" id="L1528">        this.tableModel.setRowListPage(fullList);</span>
+<span class="fc" id="L1529">        this.tableModel.setPageOffset(pageOffset);</span>
+<span class="fc" id="L1530">    }</span>
+
+    /**
+     * Uses HtmlTableWriter to write table called when data have to be displayed in a html page.
+     *
+     * @throws JspException
+     *             generic exception
+     */
+    protected void writeHTMLData() throws JspException {
+<span class="fc" id="L1539">        final JspWriter out = this.pageContext.getOut();</span>
+
+<span class="fc" id="L1541">        final String css = this.properties.getCssTable();</span>
+<span class="pc bpc" id="L1542" title="1 of 2 branches missed.">        if (StringUtils.isNotBlank(css)) {</span>
+<span class="fc" id="L1543">            this.addClass(css);</span>
+        }
+        // use HtmlTableWriter to write table
+<span class="fc" id="L1546">        new HtmlTableWriter(this.properties, this.baseHref, this.export, out, this.getCaptionTag(), this.paginatedList,</span>
+<span class="fc" id="L1547">                this.listHelper, this.pagesize, this.getAttributeMap(), this.uid).writeTable(this.tableModel,</span>
+<span class="fc" id="L1548">                        this.getUid());</span>
+
+<span class="fc bfc" id="L1550" title="All 2 branches covered.">        if (this.varTotals != null) {</span>
+<span class="fc" id="L1551">            this.pageContext.setAttribute(this.varTotals, this.getTotals());</span>
+        }
+<span class="fc" id="L1553">    }</span>
+
+    /**
+     * Get the column totals Map. If there is no varTotals defined, there are no totals.
+     *
+     * @return a Map of totals where the key is the column number and the value is the total for that column
+     */
+    public Map&lt;String, Double&gt; getTotals() {
+<span class="fc" id="L1561">        final Map&lt;String, Double&gt; totalsMap = new HashMap&lt;&gt;();</span>
+<span class="pc bpc" id="L1562" title="1 of 2 branches missed.">        if (this.varTotals != null) {</span>
+<span class="fc" id="L1563">            final List&lt;HeaderCell&gt; headers = this.tableModel.getHeaderCellList();</span>
+<span class="fc bfc" id="L1564" title="All 2 branches covered.">            for (final HeaderCell headerCell : headers) {</span>
+<span class="pc bpc" id="L1565" title="1 of 2 branches missed.">                if (headerCell.isTotaled()) {</span>
+<span class="fc" id="L1566">                    totalsMap.put(&quot;column&quot; + (headerCell.getColumnNumber() + 1), Double.valueOf(headerCell.getTotal()));</span>
+                }
+<span class="fc" id="L1568">            }</span>
+        }
+<span class="fc" id="L1570">        return totalsMap;</span>
+    }
+
+    /**
+     * Get the table model for this tag. Sometimes required by local tags that cooperate with DT. USE THIS METHOD WITH
+     * EXTREME CAUTION; IT PROVIDES ACCESS TO THE INTERNALS OF DISPLAYTAG, WHICH ARE NOT TO BE CONSIDERED STABLE PUBLIC
+     * INTERFACES.
+     *
+     * @return the TableModel
+     */
+    public TableModel getTableModel() {
+<span class="nc" id="L1581">        return this.tableModel;</span>
+    }
+
+    /**
+     * Called by the setProperty tag to override some default behavior or text String.
+     *
+     * @param propertyName
+     *            String property name
+     * @param propertyValue
+     *            String property value
+     */
+    public void setProperty(final String propertyName, final String propertyValue) {
+<span class="fc" id="L1593">        this.properties.setProperty(propertyName, propertyValue);</span>
+<span class="fc" id="L1594">    }</span>
+
+    /**
+     * Release.
+     *
+     * @see javax.servlet.jsp.tagext.Tag#release()
+     */
+    @Override
+    public void release() {
+<span class="pc bpc" id="L1603" title="1 of 2 branches missed.">        if (TableTag.log.isDebugEnabled()) {</span>
+<span class="nc" id="L1604">            TableTag.log.debug(&quot;[{}] release() called&quot;, this.getUid());</span>
+        }
+
+<span class="fc" id="L1607">        super.release();</span>
+
+        // tag attributes
+<span class="fc" id="L1610">        this.decoratorName = null;</span>
+<span class="fc" id="L1611">        this.defaultSortedColumn = -1;</span>
+<span class="fc" id="L1612">        this.defaultSortOrder = null;</span>
+<span class="fc" id="L1613">        this.export = false;</span>
+<span class="fc" id="L1614">        this.length = 0;</span>
+<span class="fc" id="L1615">        this.listAttribute = null;</span>
+<span class="fc" id="L1616">        this.localSort = true;</span>
+<span class="fc" id="L1617">        this.name = null;</span>
+<span class="fc" id="L1618">        this.offset = 0;</span>
+<span class="fc" id="L1619">        this.pagesize = 0;</span>
+<span class="fc" id="L1620">        this.partialList = false;</span>
+<span class="fc" id="L1621">        this.requestUri = null;</span>
+<span class="fc" id="L1622">        this.dontAppendContext = false;</span>
+<span class="fc" id="L1623">        this.sortFullTable = null;</span>
+<span class="fc" id="L1624">        this.excludedParams = null;</span>
+<span class="fc" id="L1625">        this.filteredRows = null;</span>
+<span class="fc" id="L1626">        this.uid = null;</span>
+<span class="fc" id="L1627">        this.keepStatus = false;</span>
+<span class="fc" id="L1628">        this.clearStatus = false;</span>
+<span class="fc" id="L1629">        this.form = null;</span>
+<span class="fc" id="L1630">    }</span>
+
+    /**
+     * Returns the name.
+     *
+     * @return String
+     */
+    protected String getName() {
+<span class="nc" id="L1638">        return this.name;</span>
+    }
+
+    /**
+     * encode a parameter name to be unique in the page using ParamEncoder.
+     *
+     * @param parameterName
+     *            parameter name to encode
+     *
+     * @return String encoded parameter name
+     */
+    private String encodeParameter(final String parameterName) {
+        // paramEncoder has been already instantiated?
+<span class="fc bfc" id="L1651" title="All 2 branches covered.">        if (this.paramEncoder == null) {</span>
+            // use the id attribute to get the unique identifier
+<span class="fc" id="L1653">            this.paramEncoder = new ParamEncoder(this.getUid());</span>
+        }
+
+<span class="fc" id="L1656">        return this.paramEncoder.encodeParameterName(parameterName);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

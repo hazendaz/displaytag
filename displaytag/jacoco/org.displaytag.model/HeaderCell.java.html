@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HeaderCell.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.model</a> &gt; <span class="el_source">HeaderCell.java</span></div><h1>HeaderCell.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.model;
+
+import java.util.Comparator;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.decorator.DisplaytagColumnDecorator;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.properties.SortOrderEnum;
+import org.displaytag.util.Href;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.HtmlTagUtil;
+import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.TagConstants;
+
+/**
+ * DataObject representing the column header. The header cell contains all the properties common to cells in the same
+ * column.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L47">public class HeaderCell {</span>
+
+    /**
+     * Map containing the html tag attributes for cells (td).
+     */
+    private HtmlAttributeMap htmlAttributes;
+
+    /**
+     * Map containing the html tag attributes for header cells (td).
+     */
+    private HtmlAttributeMap headerAttributes;
+
+    /**
+     * base href for creating dinamic links.
+     */
+    private Href href;
+
+    /**
+     * param name used in adding a link.
+     */
+    private String paramName;
+
+    /**
+     * property of the object where to get the param value from.
+     */
+    private String paramProperty;
+
+    /**
+     * column title.
+     */
+    private String title;
+
+    /** is the column sortable?. */
+    private boolean sortable;
+
+    /** Name given to the server when sorting this column. */
+    private String sortName;
+
+    /**
+     * ColumnDecorators.
+     */
+    private DisplaytagColumnDecorator[] columnDecorators;
+
+    /**
+     * column number.
+     */
+    private int columnNumber;
+
+    /** is the column sorted?. */
+    private boolean alreadySorted;
+
+    /**
+     * property name to look up in the bean.
+     */
+    private String beanPropertyName;
+
+    /** show null values?. */
+    private boolean showNulls;
+
+    /**
+     * max length of cell content.
+     */
+    private int maxLength;
+
+    /**
+     * max number of words for cell content.
+     */
+    private int maxWords;
+
+    /** group the column?. */
+<span class="fc" id="L117">    private int group = -1;</span>
+
+    /**
+     * Name of the non-decorated property used during sorting.
+     */
+    private String sortPropertyName;
+
+    /** Should we be attempting to tabulate the totals?. */
+    private boolean totaled;
+
+    /**
+     * Defalt sort order for this column.
+     */
+    private SortOrderEnum defaultSortOrder;
+
+    /**
+     * The running total for the column.
+     */
+    private double total;
+
+    /**
+     * Use this comparator for sorting.
+     */
+    private Comparator&lt;Object&gt; comparator;
+
+    /**
+     * getter for the grouping index.
+     *
+     * @return 0 if the column is not grouped or the grouping order
+     */
+    public int getGroup() {
+<span class="fc" id="L148">        return this.group;</span>
+    }
+
+    /**
+     * setter for the grouping index.
+     *
+     * @param groupingOrder
+     *            int grouping order (int &amp;gt; 0)
+     */
+    public void setGroup(final int groupingOrder) {
+<span class="fc" id="L158">        this.group = groupingOrder;</span>
+<span class="fc" id="L159">    }</span>
+
+    /**
+     * getter for the max number of characters to display in the column.
+     *
+     * @return int number of characters to display in the column
+     */
+    public int getMaxLength() {
+<span class="fc" id="L167">        return this.maxLength;</span>
+    }
+
+    /**
+     * setter for the max number of characters to display in the column.
+     *
+     * @param numOfChars
+     *            number of characters to display in the column
+     */
+    public void setMaxLength(final int numOfChars) {
+<span class="fc" id="L177">        this.maxLength = numOfChars;</span>
+<span class="fc" id="L178">    }</span>
+
+    /**
+     * getter for the max number of words to display in the column.
+     *
+     * @return int number of words to display in the column
+     */
+    public int getMaxWords() {
+<span class="fc" id="L186">        return this.maxWords;</span>
+    }
+
+    /**
+     * setter for the max number of words to display in the column.
+     *
+     * @param numOfWords
+     *            number of words to display in the column
+     */
+    public void setMaxWords(final int numOfWords) {
+<span class="fc" id="L196">        this.maxWords = numOfWords;</span>
+<span class="fc" id="L197">    }</span>
+
+    /**
+     * Should null be displayed?.
+     *
+     * @return true null will be displayed in cell content
+     */
+    public boolean getShowNulls() {
+<span class="fc" id="L205">        return this.showNulls;</span>
+    }
+
+    /**
+     * Enable or disable displaying of null values.
+     *
+     * @param outputNulls
+     *            boolean true if null should be displayed
+     */
+    public void setShowNulls(final boolean outputNulls) {
+<span class="fc" id="L215">        this.showNulls = outputNulls;</span>
+<span class="fc" id="L216">    }</span>
+
+    /**
+     * Getter for the name of the property to look up in the bean.
+     *
+     * @return String name of the property to look up in the bean
+     */
+    public String getBeanPropertyName() {
+<span class="fc" id="L224">        return this.beanPropertyName;</span>
+    }
+
+    /**
+     * Setter for the name of the property to look up in the bean.
+     *
+     * @param propertyName
+     *            - name of the property to look up in the bean
+     */
+    public void setBeanPropertyName(final String propertyName) {
+<span class="fc" id="L234">        this.beanPropertyName = propertyName;</span>
+<span class="fc" id="L235">    }</span>
+
+    /**
+     * Is the column already sorted?.
+     *
+     * @return true if the column already sorted
+     */
+    public boolean isAlreadySorted() {
+<span class="fc" id="L243">        return this.alreadySorted;</span>
+    }
+
+    /**
+     * Setter for the sorted property (the column is actually sorted).
+     */
+    public void setAlreadySorted() {
+<span class="fc" id="L250">        this.alreadySorted = true;</span>
+<span class="fc" id="L251">    }</span>
+
+    /**
+     * Getter for the column number.
+     *
+     * @return int column number
+     */
+    public int getColumnNumber() {
+<span class="fc" id="L259">        return this.columnNumber;</span>
+    }
+
+    /**
+     * Setter for the column number.
+     *
+     * @param number
+     *            - int column number
+     */
+    public void setColumnNumber(final int number) {
+<span class="fc" id="L269">        this.columnNumber = number;</span>
+<span class="fc" id="L270">    }</span>
+
+    /**
+     * Returns the columnDecorator object for this column.
+     *
+     * @return DisplaytagColumnDecorator
+     */
+    public DisplaytagColumnDecorator[] getColumnDecorators() {
+<span class="fc bfc" id="L278" title="All 2 branches covered.">        return this.columnDecorators != null ? this.columnDecorators : new DisplaytagColumnDecorator[0];</span>
+    }
+
+    /**
+     * Sets the columnDecorator object for this column.
+     *
+     * @param decorator
+     *            - the DisplaytagColumnDecorator
+     */
+    public void setColumnDecorators(final DisplaytagColumnDecorator[] decorator) {
+<span class="fc" id="L288">        this.columnDecorators = decorator;</span>
+<span class="fc" id="L289">    }</span>
+
+    /**
+     * Is the column sortable?.
+     *
+     * @return true if the column is sortable
+     */
+    public boolean getSortable() {
+<span class="fc" id="L297">        return this.sortable;</span>
+    }
+
+    /**
+     * is the column sortable?.
+     *
+     * @param isSortable
+     *            - true if the column can be sorted
+     */
+    public void setSortable(final boolean isSortable) {
+<span class="fc" id="L307">        this.sortable = isSortable;</span>
+<span class="fc" id="L308">    }</span>
+
+    /**
+     * Get name given to server for sorting this column.
+     *
+     * @return name given to server for sorting this column
+     */
+    public String getSortName() {
+<span class="fc" id="L316">        return this.sortName;</span>
+    }
+
+    /**
+     * Set name given to server for sorting this column.
+     *
+     * @param sortName
+     *            name given to server for sorting this column
+     */
+    public void setSortName(final String sortName) {
+<span class="fc" id="L326">        this.sortName = sortName;</span>
+<span class="fc" id="L327">    }</span>
+
+    /**
+     * Gets the column title.
+     *
+     * @return the column title. If no title is specified the capitalized bean property name is returned
+     */
+    public String getTitle() {
+<span class="fc bfc" id="L335" title="All 2 branches covered.">        if (this.title != null) {</span>
+<span class="fc" id="L336">            return this.title;</span>
+        }
+<span class="fc bfc" id="L338" title="All 2 branches covered.">        if (this.beanPropertyName != null) {</span>
+<span class="fc" id="L339">            return StringUtils.capitalize(this.beanPropertyName);</span>
+        }
+
+<span class="fc" id="L342">        return TagConstants.EMPTY_STRING;</span>
+    }
+
+    /**
+     * Setter for the column title.
+     *
+     * @param value
+     *            - the column title
+     */
+    public void setTitle(final String value) {
+<span class="fc" id="L352">        this.title = value;</span>
+<span class="fc" id="L353">    }</span>
+
+    /**
+     * Returns the HtmlAttributeMap containg all the html attributes for the &lt;strong&gt;td &lt;/strong&gt; tags.
+     *
+     * @return HtmlAttributeMap with td attributes
+     */
+    public HtmlAttributeMap getHtmlAttributes() {
+<span class="fc" id="L361">        return this.htmlAttributes;</span>
+    }
+
+    /**
+     * Sets the HtmlAttributeMap containg all the html attributes for the &lt;strong&gt;td &lt;/strong&gt; tags.
+     *
+     * @param attributes
+     *            HtmlAttributeMap
+     */
+    public void setHtmlAttributes(final HtmlAttributeMap attributes) {
+<span class="fc" id="L371">        this.htmlAttributes = attributes;</span>
+<span class="fc" id="L372">    }</span>
+
+    /**
+     * returns the HtmlAttributeMap containg all the html attributes for the &lt;strong&gt;th &lt;/strong&gt; tag.
+     *
+     * @return HtmlAttributeMap with th attributes
+     */
+    public HtmlAttributeMap getHeaderAttributes() {
+<span class="nc" id="L380">        return this.headerAttributes;</span>
+    }
+
+    /**
+     * Sets the HtmlAttributeMap containg all the html attributes for the &lt;strong&gt;th &lt;/strong&gt; tag.
+     *
+     * @param attributes
+     *            HtmlAttributeMap
+     */
+    public void setHeaderAttributes(final HtmlAttributeMap attributes) {
+<span class="fc" id="L390">        this.headerAttributes = attributes;</span>
+<span class="fc" id="L391">    }</span>
+
+    /**
+     * Adds a css class to the html &quot;class&quot; attribute.
+     *
+     * @param cssClass
+     *            String
+     */
+    public void addHeaderClass(final String cssClass) {
+        // null safe
+<span class="pc bpc" id="L401" title="1 of 2 branches missed.">        if (StringUtils.isBlank(cssClass)) {</span>
+<span class="nc" id="L402">            return;</span>
+        }
+
+        // if headerAttributes has not been set, instantiates a new map
+<span class="pc bpc" id="L406" title="1 of 2 branches missed.">        if (this.headerAttributes == null) {</span>
+<span class="nc" id="L407">            this.headerAttributes = new HtmlAttributeMap();</span>
+        }
+
+<span class="fc" id="L410">        final Object classAttributes = this.headerAttributes.get(TagConstants.ATTRIBUTE_CLASS);</span>
+
+        // handle multiple values
+<span class="fc bfc" id="L413" title="All 2 branches covered.">        if (classAttributes == null) {</span>
+<span class="fc" id="L414">            this.headerAttributes.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(cssClass));</span>
+        } else {
+<span class="fc" id="L416">            ((MultipleHtmlAttribute) classAttributes).addAttributeValue(cssClass);</span>
+        }
+<span class="fc" id="L418">    }</span>
+
+    /**
+     * return the open tag for a column header (th).
+     *
+     * @return String &amp;lt;th&amp;gt; tag with attributes
+     */
+    public String getHeaderOpenTag() {
+<span class="fc" id="L426">        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN_HEADER, this.headerAttributes);</span>
+    }
+
+    /**
+     * return the closing tag for a cell (td).
+     *
+     * @return String &amp;lt;/td&amp;gt;
+     */
+    public String getCloseTag() {
+<span class="fc" id="L435">        return TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN + TagConstants.TAG_CLOSE;</span>
+    }
+
+    /**
+     * return the closing tag for a column header (th).
+     *
+     * @return String &amp;lt;/th&amp;gt;
+     */
+    public String getHeaderCloseTag() {
+<span class="fc" id="L444">        return TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_COLUMN_HEADER + TagConstants.TAG_CLOSE;</span>
+    }
+
+    /**
+     * Setter for the href to be used for dinamic links in cells.
+     *
+     * @param baseHref
+     *            base href for links
+     */
+    public void setHref(final Href baseHref) {
+<span class="fc" id="L454">        this.href = baseHref;</span>
+<span class="fc" id="L455">    }</span>
+
+    /**
+     * Getter for the href to be used for dinamic links in cells.
+     *
+     * @return Href base href for links
+     */
+    public Href getHref() {
+<span class="fc" id="L463">        return this.href;</span>
+    }
+
+    /**
+     * Setter for the name of the param to add to links.
+     *
+     * @param name
+     *            name of the param
+     */
+    public void setParamName(final String name) {
+<span class="fc" id="L473">        this.paramName = name;</span>
+<span class="fc" id="L474">    }</span>
+
+    /**
+     * Getter for the name of the param to add to links.
+     *
+     * @return String name of the param
+     */
+    public String getParamName() {
+<span class="fc" id="L482">        return this.paramName;</span>
+    }
+
+    /**
+     * Setter for the name of the property to look up in bean to get the param value for links.
+     *
+     * @param property
+     *            name of the property to look up in bean to get the param value for links
+     */
+    public void setParamProperty(final String property) {
+<span class="fc" id="L492">        this.paramProperty = property;</span>
+<span class="fc" id="L493">    }</span>
+
+    /**
+     * Getter for the name of the property to look up in bean to get the param value for links.
+     *
+     * @return String name of the property to look up in bean to get the param value for links
+     */
+    public String getParamProperty() {
+<span class="fc" id="L501">        return this.paramProperty;</span>
+    }
+
+    /**
+     * Getter for the name of the property in the bean which will be used for sorting.
+     *
+     * @return String name of the property in the bean which will be used for sorting
+     */
+    public String getSortProperty() {
+<span class="fc" id="L510">        return this.sortPropertyName;</span>
+    }
+
+    /**
+     * Setter for the name of the property in the bean which will be used for sorting.
+     *
+     * @param propertyName
+     *            - name of the property in the bean which will be used for sorting
+     */
+    public void setSortProperty(final String propertyName) {
+<span class="fc" id="L520">        this.sortPropertyName = propertyName;</span>
+<span class="fc" id="L521">    }</span>
+
+    /**
+     * Sets the default sort order for this column.
+     *
+     * @return default order
+     */
+    public SortOrderEnum getDefaultSortOrder() {
+<span class="fc" id="L529">        return this.defaultSortOrder;</span>
+    }
+
+    /**
+     * Gets the default sort order for this column.
+     *
+     * @param order
+     *            default order
+     */
+    public void setDefaultSortOrder(final SortOrderEnum order) {
+<span class="fc" id="L539">        this.defaultSortOrder = order;</span>
+<span class="fc" id="L540">    }</span>
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L551">        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //</span>
+<span class="fc" id="L552">                .append(&quot;columnNumber&quot;, this.columnNumber) //$NON-NLS-1$</span>
+<span class="fc" id="L553">                .append(&quot;title&quot;, this.title) //$NON-NLS-1$</span>
+<span class="fc" id="L554">                .append(&quot;beanPropertyName&quot;, this.beanPropertyName) //$NON-NLS-1$</span>
+<span class="fc" id="L555">                .toString();</span>
+    }
+
+    /**
+     * Set the column comparator.
+     *
+     * @param columnComparator
+     *            the value
+     */
+    public void setComparator(final Comparator&lt;Object&gt; columnComparator) {
+<span class="fc" id="L565">        this.comparator = columnComparator;</span>
+<span class="fc" id="L566">    }</span>
+
+    /**
+     * Get the comparator for sorting this column.
+     *
+     * @return the comparator
+     */
+    public Comparator&lt;Object&gt; getComparator() {
+<span class="fc" id="L574">        return this.comparator;</span>
+    }
+
+    /**
+     * Will we be keeping a total for this column?.
+     *
+     * @return true if we are totaling
+     */
+    public boolean isTotaled() {
+<span class="fc" id="L583">        return this.totaled;</span>
+    }
+
+    /**
+     * Setter for totaled.
+     *
+     * @param isTotaled
+     *            the value
+     */
+    public void setTotaled(final boolean isTotaled) {
+<span class="fc" id="L593">        this.totaled = isTotaled;</span>
+<span class="fc" id="L594">    }</span>
+
+    /**
+     * Add the value of this parameter to the column total. The param will be converted to a number via a property
+     * Converter.
+     *
+     * @param value
+     *            the value
+     *
+     * @see Converter#convert(Class, Object)
+     */
+    private void addToTotal(final Object value) {
+<span class="fc bfc" id="L606" title="All 2 branches covered.">        if (value instanceof Number) {</span>
+<span class="fc" id="L607">            this.total = this.total + ((Number) value).doubleValue();</span>
+        }
+<span class="fc" id="L609">    }</span>
+
+    /**
+     * Get the current total.
+     *
+     * @return the current total.
+     */
+    public double getTotal() {
+<span class="fc" id="L617">        return this.total;</span>
+    }
+
+    /**
+     * Add a new cell to this column.
+     *
+     * @param column
+     *            the value
+     */
+    public void addCell(final Column column) {
+        // Not actually going to hold a reference to the added cell - we just need access for the totals
+<span class="fc bfc" id="L628" title="All 2 branches covered.">        if (this.totaled) {</span>
+            try {
+<span class="fc" id="L630">                final Object val = column.getValue(false);</span>
+<span class="fc" id="L631">                this.addToTotal(val);</span>
+<span class="nc" id="L632">            } catch (ObjectLookupException | DecoratorException e) {</span>
+<span class="nc" id="L633">                throw new RuntimeException(e);</span>
+<span class="fc" id="L634">            }</span>
+        }
+<span class="fc" id="L636">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

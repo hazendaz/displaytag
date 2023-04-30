@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pagination.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.pagination</a> &gt; <span class="el_source">Pagination.java</span></div><h1>Pagination.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.pagination;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.properties.TableProperties;
+import org.displaytag.util.Href;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Helper class for generation of paging banners.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class Pagination {
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L48">    private static Logger log = LoggerFactory.getLogger(Pagination.class);</span>
+
+    /**
+     * Base href for urls.
+     */
+    private final Href href;
+
+    /**
+     * page parameter name.
+     */
+    private final String pageParam;
+
+    /**
+     * first page.
+     */
+    private Integer firstPage;
+
+    /**
+     * last page.
+     */
+    private Integer lastPage;
+
+    /**
+     * previous page.
+     */
+    private Integer previousPage;
+
+    /**
+     * next page.
+     */
+    private Integer nextPage;
+
+    /**
+     * current page.
+     */
+    private Integer currentPage;
+
+    /**
+     * List containg NumberedPage objects.
+     *
+     * @see org.displaytag.pagination.NumberedPage
+     */
+<span class="fc" id="L90">    private final List&lt;NumberedPage&gt; pages = new ArrayList&lt;&gt;();</span>
+
+    /**
+     * Table properties, needed fot locale.
+     */
+    private final TableProperties properties;
+
+    /**
+     * Constructor for Pagination.
+     *
+     * @param baseHref
+     *            Href used for links
+     * @param pageParameter
+     *            name for the page parameter
+     * @param properties
+     *            the properties
+     */
+<span class="fc" id="L107">    public Pagination(final Href baseHref, final String pageParameter, final TableProperties properties) {</span>
+<span class="fc" id="L108">        this.href = baseHref;</span>
+<span class="fc" id="L109">        this.pageParam = pageParameter;</span>
+<span class="fc" id="L110">        this.properties = properties;</span>
+<span class="fc" id="L111">    }</span>
+
+    /**
+     * Adds a page.
+     *
+     * @param number
+     *            int page number
+     * @param isSelected
+     *            is the page selected?
+     */
+    public void addPage(final int number, final boolean isSelected) {
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (Pagination.log.isDebugEnabled()) {</span>
+<span class="nc" id="L123">            Pagination.log.debug(&quot;adding page {}&quot;, number);</span>
+        }
+<span class="fc" id="L125">        this.pages.add(new NumberedPage(number, isSelected));</span>
+<span class="fc" id="L126">    }</span>
+
+    /**
+     * first page selected?.
+     *
+     * @return boolean
+     */
+    public boolean isFirst() {
+<span class="fc bfc" id="L134" title="All 2 branches covered.">        return this.firstPage == null;</span>
+    }
+
+    /**
+     * last page selected?.
+     *
+     * @return boolean
+     */
+    public boolean isLast() {
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        return this.lastPage == null;</span>
+    }
+
+    /**
+     * only one page?.
+     *
+     * @return boolean
+     */
+    public boolean isOnePage() {
+<span class="pc bpc" id="L152" title="1 of 4 branches missed.">        return this.pages == null || this.pages.size() &lt;= 1;</span>
+    }
+
+    /**
+     * Gets the number of the first page.
+     *
+     * @return Integer number of the first page
+     */
+    public Integer getFirst() {
+<span class="fc" id="L161">        return this.firstPage;</span>
+    }
+
+    /**
+     * Sets the number of the first page.
+     *
+     * @param first
+     *            Integer number of the first page
+     */
+    public void setFirst(final Integer first) {
+<span class="fc" id="L171">        this.firstPage = first;</span>
+<span class="fc" id="L172">    }</span>
+
+    /**
+     * Gets the number of the last page.
+     *
+     * @return Integer number of the last page
+     */
+    public Integer getLast() {
+<span class="fc" id="L180">        return this.lastPage;</span>
+    }
+
+    /**
+     * Sets the number of the last page.
+     *
+     * @param last
+     *            Integer number of the last page
+     */
+    public void setLast(final Integer last) {
+<span class="fc" id="L190">        this.lastPage = last;</span>
+<span class="fc" id="L191">    }</span>
+
+    /**
+     * Gets the number of the previous page.
+     *
+     * @return Integer number of the previous page
+     */
+    public Integer getPrevious() {
+<span class="fc" id="L199">        return this.previousPage;</span>
+    }
+
+    /**
+     * Sets the number of the previous page.
+     *
+     * @param previous
+     *            Integer number of the previous page
+     */
+    public void setPrevious(final Integer previous) {
+<span class="fc" id="L209">        this.previousPage = previous;</span>
+<span class="fc" id="L210">    }</span>
+
+    /**
+     * Gets the number of the next page.
+     *
+     * @return Integer number of the next page
+     */
+    public Integer getNext() {
+<span class="fc" id="L218">        return this.nextPage;</span>
+    }
+
+    /**
+     * Sets the number of the next page.
+     *
+     * @param next
+     *            Integer number of the next page
+     */
+    public void setNext(final Integer next) {
+<span class="fc" id="L228">        this.nextPage = next;</span>
+<span class="fc" id="L229">    }</span>
+
+    /**
+     * Sets the number of the current page.
+     *
+     * @param current
+     *            number of the current page
+     */
+    public void setCurrent(final Integer current) {
+<span class="fc" id="L238">        this.currentPage = current;</span>
+<span class="fc" id="L239">    }</span>
+
+    /**
+     * Returns the appropriate banner for the pagination.
+     *
+     * @param numberedPageFormat
+     *            String to be used for a not selected page
+     * @param numberedPageSelectedFormat
+     *            String to be used for a selected page
+     * @param numberedPageSeparator
+     *            separator beetween pages
+     * @param fullBanner
+     *            String basic banner
+     *
+     * @return String formatted banner whith pages
+     */
+    public String getFormattedBanner(final String numberedPageFormat, final String numberedPageSelectedFormat,
+            final String numberedPageSeparator, final String fullBanner) {
+<span class="fc" id="L257">        final StringBuilder buffer = new StringBuilder(100);</span>
+
+        // numbered page list
+<span class="fc" id="L260">        final Iterator&lt;NumberedPage&gt; pageIterator = this.pages.iterator();</span>
+
+<span class="fc bfc" id="L262" title="All 2 branches covered.">        while (pageIterator.hasNext()) {</span>
+
+            // get NumberedPage from iterator
+<span class="fc" id="L265">            final NumberedPage page = pageIterator.next();</span>
+
+<span class="fc" id="L267">            final Integer pageNumber = Integer.valueOf(page.getNumber());</span>
+
+<span class="fc" id="L269">            final String urlString = ((Href) this.href.clone()).addParameter(this.pageParam, pageNumber).toString();</span>
+
+            // needed for MessageFormat : page number/url
+<span class="fc" id="L272">            final Object[] pageObjects = { pageNumber, urlString };</span>
+
+            // selected page need a different formatter
+<span class="fc bfc" id="L275" title="All 2 branches covered.">            if (page.getSelected()) {</span>
+<span class="fc" id="L276">                buffer.append(</span>
+<span class="fc" id="L277">                        new MessageFormat(numberedPageSelectedFormat, this.properties.getLocale()).format(pageObjects));</span>
+            } else {
+<span class="fc" id="L279">                buffer.append(new MessageFormat(numberedPageFormat, this.properties.getLocale()).format(pageObjects));</span>
+            }
+
+            // next? add page separator
+<span class="fc bfc" id="L283" title="All 2 branches covered.">            if (pageIterator.hasNext()) {</span>
+<span class="fc" id="L284">                buffer.append(numberedPageSeparator);</span>
+            }
+<span class="fc" id="L286">        }</span>
+
+        // String for numbered pages
+<span class="fc" id="L289">        final String numberedPageString = buffer.toString();</span>
+        // Object array
+        // {0} full String for numbered pages
+        // {1} first page url
+        // {2} previous page url
+        // {3} next page url
+        // {4} last page url
+        // {5} current page
+        // {6} total pages
+<span class="fc" id="L298">        final Object[] pageObjects = { numberedPageString,</span>
+<span class="fc" id="L299">                ((Href) this.href.clone()).addParameter(this.pageParam, this.getFirst()),</span>
+<span class="fc" id="L300">                ((Href) this.href.clone()).addParameter(this.pageParam, this.getPrevious()),</span>
+<span class="fc" id="L301">                ((Href) this.href.clone()).addParameter(this.pageParam, this.getNext()),</span>
+<span class="fc" id="L302">                ((Href) this.href.clone()).addParameter(this.pageParam, this.getLast()), this.currentPage,</span>
+<span class="fc bfc" id="L303" title="All 2 branches covered.">                this.isLast() ? this.currentPage : this.lastPage }; // this.lastPage is null if the last page is</span>
+                                                                    // displayed
+
+        // return the full banner
+<span class="fc" id="L307">        return new MessageFormat(fullBanner, this.properties.getLocale()).format(pageObjects);</span>
+    }
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L319">        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //</span>
+<span class="fc" id="L320">                .append(&quot;firstPage&quot;, this.firstPage) //$NON-NLS-1$</span>
+<span class="fc" id="L321">                .append(&quot;lastPage&quot;, this.lastPage) //$NON-NLS-1$</span>
+<span class="fc" id="L322">                .append(&quot;currentPage&quot;, this.currentPage) //$NON-NLS-1$</span>
+<span class="fc" id="L323">                .append(&quot;nextPage&quot;, this.nextPage) //$NON-NLS-1$</span>
+<span class="fc" id="L324">                .append(&quot;previousPage&quot;, this.previousPage) //$NON-NLS-1$</span>
+<span class="fc" id="L325">                .append(&quot;pages&quot;, this.pages) //$NON-NLS-1$</span>
+<span class="fc" id="L326">                .append(&quot;href&quot;, this.href) //$NON-NLS-1$</span>
+<span class="fc" id="L327">                .append(&quot;pageParam&quot;, this.pageParam) //$NON-NLS-1$</span>
+<span class="fc" id="L328">                .toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

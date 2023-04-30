@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PortletHref.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.portlet</a> &gt; <span class="el_source">PortletHref.java</span></div><h1>PortletHref.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.portlet;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
+
+import javax.portlet.MimeResponse;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletModeException;
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletSecurityException;
+import javax.portlet.PortletURL;
+import javax.portlet.WindowState;
+import javax.portlet.WindowStateException;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.displaytag.util.Href;
+
+/**
+ * Implementation of the Href interface that generates URLs using the javax.portlet APIs. As the portlet API supports
+ * the concept of WindowStates, PorletModes, secure URLs and actions versus render the implementation supports these
+ * concepts as well through the standard {@link Href} APIs. &lt;br&gt;
+ * &lt;br&gt;
+ * The features are manipulated using special parameter names and values:
+ * &lt;table&gt;
+ * &lt;caption&gt;Portlet Href&lt;/caption&gt;
+ * &lt;tr&gt;
+ * &lt;th&gt;Feature&lt;/th&gt;
+ * &lt;th&gt;Parameter Name&lt;/th&gt;
+ * &lt;th&gt;Parameter Value&lt;/th&gt;
+ * &lt;/tr&gt;
+ * &lt;tr&gt;
+ * &lt;td&gt;Render vs Action URL&lt;/td&gt;
+ * &lt;td&gt;{@link #PARAM_TYPE} (portlet:type)&lt;/td&gt;
+ * &lt;td&gt;&quot;render&quot; for RenderURLs, &quot;action&quot; for ActionURLs&lt;/td&gt;
+ * &lt;/tr&gt;
+ * &lt;tr&gt;
+ * &lt;td&gt;WindowState&lt;/td&gt;
+ * &lt;td&gt;{@link #PARAM_STATE} (portlet:state)&lt;/td&gt;
+ * &lt;td&gt;The value is used directly for the WindowState name&lt;/td&gt;
+ * &lt;/tr&gt;
+ * &lt;tr&gt;
+ * &lt;td&gt;PorltetMode&lt;/td&gt;
+ * &lt;td&gt;{@link #PARAM_MODE} (portlet:mode)&lt;/td&gt;
+ * &lt;td&gt;The value is used directly for the PortletMode name&lt;/td&gt;
+ * &lt;/tr&gt;
+ * &lt;tr&gt;
+ * &lt;td&gt;Secure URL&lt;/td&gt;
+ * &lt;td&gt;{@link #PARAM_SECURE} (portlet:secure)&lt;/td&gt;
+ * &lt;td&gt;&quot;true&quot; requests a secure URL, anything else requests a standard URL&lt;/td&gt;
+ * &lt;/tr&gt;
+ * &lt;/table&gt;
+ *
+ * @author Eric Dalquist &lt;a href=&quot;mailto:dalquist@gmail.com&quot;&gt;dalquist@gmail.com&lt;/a&gt;
+ *
+ * @version $Id$
+ */
+public class PortletHref implements Href {
+
+    /** The Constant PARAM_PREFIX. */
+    // Constants for working with the special parameters
+    private static final String PARAM_PREFIX = &quot;portlet:&quot;;
+
+    /** The Constant PARAM_MODE. */
+    public static final String PARAM_MODE = PortletHref.PARAM_PREFIX + &quot;mode&quot;;
+
+    /** The Constant PARAM_STATE. */
+    public static final String PARAM_STATE = PortletHref.PARAM_PREFIX + &quot;state&quot;;
+
+    /** The Constant PARAM_SECURE. */
+    public static final String PARAM_SECURE = PortletHref.PARAM_PREFIX + &quot;secure&quot;;
+
+    /** The Constant PARAM_TYPE. */
+    public static final String PARAM_TYPE = PortletHref.PARAM_PREFIX + &quot;type&quot;;
+
+    /** The Constant TYPE_RENDER. */
+    public static final String TYPE_RENDER = &quot;render&quot;;
+
+    /** The Constant TYPE_ACTION. */
+    public static final String TYPE_ACTION = &quot;action&quot;;
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /** The portlet request. */
+    // Portlet request and response are needed for feature checking and generating the URLs
+    private final PortletRequest portletRequest;
+
+    /** The render response. */
+    private final MimeResponse renderResponse;
+
+    /** The parameters. */
+<span class="fc" id="L118">    private Map&lt;String, String[]&gt; parameters = new LinkedHashMap&lt;&gt;();</span>
+
+    /** The is action. */
+    private boolean isAction;
+
+    /** The requested mode. */
+    private PortletMode requestedMode;
+
+    /** The requested state. */
+    private WindowState requestedState;
+
+    /** The requested secure. */
+    private boolean requestedSecure;
+
+    /** The anchor. */
+    private String anchor;
+
+    /**
+     * Creates a new PortletHref. The actual PortletURL object is not generated until the toString method is called.
+     *
+     * @param portletRequest
+     *            request to to feature checking with, may not be null.
+     * @param renderResponse
+     *            response to generate the URLs from, may not be null.
+     */
+<span class="fc" id="L143">    public PortletHref(final PortletRequest portletRequest, final MimeResponse renderResponse) {</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        if (portletRequest == null) {</span>
+<span class="fc" id="L145">            throw new IllegalArgumentException(&quot;portletRequest may not be null&quot;);</span>
+        }
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        if (renderResponse == null) {</span>
+<span class="fc" id="L148">            throw new IllegalArgumentException(&quot;renderResponse may not be null&quot;);</span>
+        }
+
+<span class="fc" id="L151">        this.portletRequest = portletRequest;</span>
+<span class="fc" id="L152">        this.renderResponse = renderResponse;</span>
+<span class="fc" id="L153">    }</span>
+
+    /**
+     * Sets the full url.
+     *
+     * @param baseUrl
+     *            the new full url
+     *
+     * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
+     */
+    @Override
+    public void setFullUrl(final String baseUrl) {
+        // do nothing
+<span class="nc" id="L166">    }</span>
+
+    /**
+     * Checks if is action.
+     *
+     * @return Returns the isAction.
+     */
+    public boolean isAction() {
+<span class="fc" id="L174">        return this.isAction;</span>
+    }
+
+    /**
+     * Sets the action.
+     *
+     * @param isAction
+     *            The isAction to set.
+     */
+    public void setAction(final boolean isAction) {
+<span class="fc" id="L184">        this.isAction = isAction;</span>
+<span class="fc" id="L185">    }</span>
+
+    /**
+     * Gets the requested mode.
+     *
+     * @return Returns the requestedMode.
+     */
+    public PortletMode getRequestedMode() {
+<span class="fc" id="L193">        return this.requestedMode;</span>
+    }
+
+    /**
+     * Sets the requested mode.
+     *
+     * @param requestedMode
+     *            The requestedMode to set.
+     */
+    public void setRequestedMode(final PortletMode requestedMode) {
+<span class="fc" id="L203">        this.requestedMode = requestedMode;</span>
+<span class="fc" id="L204">    }</span>
+
+    /**
+     * Checks if is requested secure.
+     *
+     * @return Returns the requestedSecure.
+     */
+    public boolean isRequestedSecure() {
+<span class="fc" id="L212">        return this.requestedSecure;</span>
+    }
+
+    /**
+     * Sets the requested secure.
+     *
+     * @param requestedSecure
+     *            The requestedSecure to set.
+     */
+    public void setRequestedSecure(final boolean requestedSecure) {
+<span class="fc" id="L222">        this.requestedSecure = requestedSecure;</span>
+<span class="fc" id="L223">    }</span>
+
+    /**
+     * Gets the requested state.
+     *
+     * @return Returns the requestedState.
+     */
+    public WindowState getRequestedState() {
+<span class="fc" id="L231">        return this.requestedState;</span>
+    }
+
+    /**
+     * Sets the requested state.
+     *
+     * @param requestedState
+     *            The requestedState to set.
+     */
+    public void setRequestedState(final WindowState requestedState) {
+<span class="fc" id="L241">        this.requestedState = requestedState;</span>
+<span class="fc" id="L242">    }</span>
+
+    /**
+     * Adds the parameter.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @return the href
+     *
+     * @see org.displaytag.util.Href#addParameter(java.lang.String, int)
+     */
+    @Override
+    public Href addParameter(final String name, final int value) {
+<span class="fc" id="L258">        return this.addParameter(name, Integer.toString(value));</span>
+    }
+
+    /**
+     * Adds the parameter.
+     *
+     * @param name
+     *            the name
+     * @param objValue
+     *            the obj value
+     *
+     * @return the href
+     *
+     * @see org.displaytag.util.Href#addParameter(String, Object)
+     */
+    @Override
+    public Href addParameter(final String name, final Object objValue) {
+<span class="fc" id="L275">        final String value = Objects.toString(objValue, null);</span>
+
+<span class="pc bpc" id="L277" title="1 of 4 branches missed.">        if (name != null &amp;&amp; name.startsWith(PortletHref.PARAM_PREFIX)) {</span>
+<span class="fc bfc" id="L278" title="All 2 branches covered.">            if (PortletHref.PARAM_TYPE.equals(name)) {</span>
+<span class="fc bfc" id="L279" title="All 2 branches covered.">                if (PortletHref.TYPE_RENDER.equals(value)) {</span>
+<span class="fc" id="L280">                    this.setAction(false);</span>
+<span class="fc bfc" id="L281" title="All 2 branches covered.">                } else if (PortletHref.TYPE_ACTION.equals(value)) {</span>
+<span class="fc" id="L282">                    this.setAction(true);</span>
+                } else {
+<span class="fc" id="L284">                    throw new IllegalArgumentException(</span>
+                            &quot;Value of parameter '&quot; + name + &quot;' must be equal to '&quot; + PortletHref.TYPE_RENDER + &quot;' or '&quot;
+                                    + PortletHref.TYPE_ACTION + &quot;'. '&quot; + value + &quot;' is not allowed.&quot;);
+                }
+<span class="fc bfc" id="L288" title="All 2 branches covered.">            } else if (PortletHref.PARAM_SECURE.equals(name)) {</span>
+<span class="fc bfc" id="L289" title="All 2 branches covered.">                if (Boolean.parseBoolean(value)) {</span>
+<span class="fc" id="L290">                    this.setRequestedSecure(true);</span>
+                } else {
+<span class="fc" id="L292">                    this.setRequestedSecure(false);</span>
+                }
+<span class="fc bfc" id="L294" title="All 2 branches covered.">            } else if (PortletHref.PARAM_MODE.equals(name)) {</span>
+<span class="fc bfc" id="L295" title="All 2 branches covered.">                if (value == null) {</span>
+<span class="fc" id="L296">                    this.setRequestedMode(null);</span>
+                } else {
+<span class="fc" id="L298">                    final PortletMode mode = new PortletMode(value);</span>
+
+<span class="fc bfc" id="L300" title="All 2 branches covered.">                    if (!this.portletRequest.isPortletModeAllowed(mode)) {</span>
+<span class="fc" id="L301">                        throw new IllegalArgumentException(</span>
+                                &quot;PortletMode '&quot; + mode + &quot;' is not allowed for this request.&quot;);
+                    }
+
+<span class="fc" id="L305">                    this.setRequestedMode(mode);</span>
+<span class="fc" id="L306">                }</span>
+<span class="fc bfc" id="L307" title="All 2 branches covered.">            } else if (PortletHref.PARAM_STATE.equals(name)) {</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">                if (value == null) {</span>
+<span class="fc" id="L309">                    this.setRequestedState(null);</span>
+                } else {
+<span class="fc" id="L311">                    final WindowState state = new WindowState(value);</span>
+
+<span class="fc bfc" id="L313" title="All 2 branches covered.">                    if (!this.portletRequest.isWindowStateAllowed(state)) {</span>
+<span class="fc" id="L314">                        throw new IllegalArgumentException(</span>
+                                &quot;WindowState '&quot; + state + &quot;' is not allowed for this request.&quot;);
+                    }
+
+<span class="fc" id="L318">                    this.setRequestedState(state);</span>
+<span class="fc" id="L319">                }</span>
+            } else {
+<span class="fc" id="L321">                throw new IllegalArgumentException(</span>
+                        &quot;'&quot; + name + &quot;' is not a valid '&quot; + PortletHref.PARAM_PREFIX + &quot;' prefixed parameter.&quot;);
+            }
+        } else {
+<span class="fc" id="L325">            this.parameters.put(name, new String[] { value });</span>
+        }
+
+<span class="fc" id="L328">        return this;</span>
+    }
+
+    /**
+     * Adds the parameter map.
+     *
+     * @param parametersMap
+     *            the parameters map
+     *
+     * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
+     */
+    @Override
+    public void addParameterMap(final Map&lt;String, String[]&gt; parametersMap) {
+<span class="fc bfc" id="L341" title="All 2 branches covered.">        for (final Entry&lt;String, String[]&gt; entry : parametersMap.entrySet()) {</span>
+<span class="fc" id="L342">            final String name = entry.getKey();</span>
+
+            // Allow multivalued parameters since code elsewhere calls this method to copy
+            // parameters from the request to the response. Ensures that developer specified
+            // multivalued parameters are retained correctly.
+
+<span class="pc bpc" id="L348" title="1 of 2 branches missed.">            if (entry.getValue() == null) {</span>
+<span class="nc" id="L349">                this.addParameter(name, entry.getValue());</span>
+<span class="fc bfc" id="L350" title="All 2 branches covered.">            } else if (entry.getValue().length == 1) {</span>
+                // addParameter does some special processing of portlet parameters
+<span class="fc" id="L352">                this.addParameter(name, entry.getValue()[0]);</span>
+<span class="pc bpc" id="L353" title="1 of 2 branches missed.">            } else if (entry.getValue().getClass().isArray()) {</span>
+<span class="fc" id="L354">                this.parameters.put(name, entry.getValue());</span>
+            }
+<span class="fc" id="L356">        }</span>
+<span class="fc" id="L357">    }</span>
+
+    /**
+     * Sets the parameter map.
+     *
+     * @param parametersMap
+     *            the parameters map
+     *
+     * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
+     */
+    @Override
+    public void setParameterMap(final Map&lt;String, String[]&gt; parametersMap) {
+<span class="fc" id="L369">        this.parameters.clear();</span>
+<span class="fc" id="L370">        this.addParameterMap(parametersMap);</span>
+<span class="fc" id="L371">    }</span>
+
+    /**
+     * Warning, parameters added to the Map directly will not be parsed by the PortletUrl feature support portions of
+     * this class.
+     *
+     * @return the parameter map
+     *
+     * @see org.displaytag.util.Href#getParameterMap()
+     */
+    @Override
+    public Map&lt;String, String[]&gt; getParameterMap() {
+<span class="fc" id="L383">        return this.parameters;</span>
+    }
+
+    /**
+     * Removes the parameter.
+     *
+     * @param name
+     *            the name
+     *
+     * @see org.displaytag.util.Href#removeParameter(java.lang.String)
+     */
+    @Override
+    public void removeParameter(final String name) {
+<span class="fc" id="L396">        this.parameters.remove(name);</span>
+<span class="fc" id="L397">    }</span>
+
+    /**
+     * Sets the anchor.
+     *
+     * @param name
+     *            the new anchor
+     *
+     * @see org.displaytag.util.Href#setAnchor(java.lang.String)
+     */
+    @Override
+    public void setAnchor(final String name) {
+<span class="fc" id="L409">        this.anchor = name;</span>
+<span class="fc" id="L410">    }</span>
+
+    /**
+     * Gets the anchor.
+     *
+     * @return the anchor
+     *
+     * @see org.displaytag.util.Href#getAnchor()
+     */
+    @Override
+    public String getAnchor() {
+<span class="fc" id="L421">        return this.anchor;</span>
+    }
+
+    /**
+     * Generates a render or action URL depending on the use of the PortletUrl specific features of this class.
+     *
+     * @return the base url
+     *
+     * @see org.displaytag.util.Href#getBaseUrl()
+     */
+    @Override
+    public String getBaseUrl() {
+<span class="fc bfc" id="L433" title="All 2 branches covered.">        if (this.isAction()) {</span>
+<span class="fc" id="L434">            return this.renderResponse.createActionURL().toString();</span>
+        }
+<span class="fc" id="L436">        return this.renderResponse.createRenderURL().toString();</span>
+    }
+
+    /**
+     * Clone.
+     *
+     * @return the object
+     *
+     * @see org.displaytag.util.Href#clone()
+     */
+    @Override
+    public Object clone() {
+        PortletHref href;
+
+        try {
+<span class="fc" id="L451">            href = (PortletHref) super.clone();</span>
+<span class="nc" id="L452">        } catch (final CloneNotSupportedException cnse) {</span>
+<span class="nc" id="L453">            throw new RuntimeException(&quot;Parent through a CloneNotSupportedException, this should never happen&quot;, cnse);</span>
+<span class="fc" id="L454">        }</span>
+
+<span class="fc" id="L456">        href.isAction = this.isAction;</span>
+<span class="fc" id="L457">        href.parameters = new LinkedHashMap&lt;&gt;();</span>
+<span class="fc" id="L458">        href.parameters.putAll(this.parameters);</span>
+<span class="fc" id="L459">        href.requestedMode = this.requestedMode;</span>
+<span class="fc" id="L460">        href.requestedState = this.requestedState;</span>
+<span class="fc" id="L461">        href.requestedSecure = this.requestedSecure;</span>
+<span class="fc" id="L462">        href.anchor = this.anchor;</span>
+
+<span class="fc" id="L464">        return href;</span>
+    }
+
+    /**
+     * Equals.
+     *
+     * @param object
+     *            the object
+     *
+     * @return true, if successful
+     *
+     * @see org.displaytag.util.Href#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(final Object object) {
+<span class="pc bpc" id="L479" title="1 of 2 branches missed.">        if (this == object) {</span>
+<span class="nc" id="L480">            return true;</span>
+        }
+<span class="pc bpc" id="L482" title="1 of 2 branches missed.">        if (!(object instanceof PortletHref)) {</span>
+<span class="nc" id="L483">            return false;</span>
+        }
+<span class="fc" id="L485">        final PortletHref rhs = (PortletHref) object;</span>
+<span class="fc" id="L486">        return new EqualsBuilder().append(this.isAction, rhs.isAction).append(this.parameters, rhs.parameters)</span>
+<span class="fc" id="L487">                .append(this.requestedMode, rhs.requestedMode).append(this.requestedState, rhs.requestedState)</span>
+<span class="fc" id="L488">                .append(this.requestedSecure, rhs.requestedSecure).append(this.anchor, rhs.anchor).isEquals();</span>
+    }
+
+    /**
+     * Hash code.
+     *
+     * @return the int
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+<span class="fc" id="L500">        return new HashCodeBuilder(1313733113, -431360889).append(this.isAction).append(this.parameters)</span>
+<span class="fc" id="L501">                .append(this.requestedMode).append(this.requestedState).append(this.requestedSecure).append(this.anchor)</span>
+<span class="fc" id="L502">                .toHashCode();</span>
+    }
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see org.displaytag.util.Href#toString()
+     */
+    @Override
+    public String toString() {
+        final PortletURL url;
+<span class="fc bfc" id="L515" title="All 2 branches covered.">        if (this.isAction()) {</span>
+<span class="fc" id="L516">            url = this.renderResponse.createActionURL();</span>
+        } else {
+<span class="fc" id="L518">            url = this.renderResponse.createRenderURL();</span>
+        }
+
+<span class="fc bfc" id="L521" title="All 2 branches covered.">        if (this.isRequestedSecure()) {</span>
+            try {
+<span class="fc" id="L523">                url.setSecure(true);</span>
+<span class="nc" id="L524">            } catch (final PortletSecurityException pse) {</span>
+<span class="nc" id="L525">                throw new RuntimeException(&quot;Creating secure PortletURL Failed.&quot;, pse);</span>
+<span class="fc" id="L526">            }</span>
+        }
+
+<span class="fc bfc" id="L529" title="All 2 branches covered.">        if (this.getRequestedMode() != null) {</span>
+            try {
+<span class="fc" id="L531">                url.setPortletMode(this.getRequestedMode());</span>
+<span class="nc" id="L532">            } catch (final PortletModeException pme) {</span>
+<span class="nc" id="L533">                final IllegalStateException ise = new IllegalStateException(</span>
+<span class="nc" id="L534">                        &quot;Requested PortletMode='&quot; + this.getRequestedMode() + &quot;' could not be set.&quot;);</span>
+<span class="nc" id="L535">                ise.initCause(pme);</span>
+<span class="nc" id="L536">                throw ise;</span>
+<span class="fc" id="L537">            }</span>
+        }
+
+<span class="fc bfc" id="L540" title="All 2 branches covered.">        if (this.getRequestedState() != null) {</span>
+            try {
+<span class="fc" id="L542">                url.setWindowState(this.getRequestedState());</span>
+<span class="nc" id="L543">            } catch (final WindowStateException wse) {</span>
+<span class="nc" id="L544">                final IllegalStateException ise = new IllegalStateException(</span>
+<span class="nc" id="L545">                        &quot;Requested WindowState='&quot; + this.getRequestedState() + &quot;' could not be set.&quot;);</span>
+<span class="nc" id="L546">                ise.initCause(wse);</span>
+<span class="nc" id="L547">                throw ise;</span>
+<span class="fc" id="L548">            }</span>
+        }
+
+<span class="fc bfc" id="L551" title="All 2 branches covered.">        for (final Entry&lt;String, String[]&gt; entry : this.parameters.entrySet()) {</span>
+<span class="fc" id="L552">            final String name = entry.getKey();</span>
+<span class="fc" id="L553">            final String[] value = entry.getValue();</span>
+
+<span class="fc" id="L555">            url.setParameter(name, value);</span>
+<span class="fc" id="L556">        }</span>
+
+<span class="fc bfc" id="L558" title="All 2 branches covered.">        if (this.getAnchor() == null) {</span>
+<span class="fc" id="L559">            return url.toString();</span>
+        }
+<span class="fc" id="L561">        return url.toString() + &quot;#&quot; + this.getAnchor();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

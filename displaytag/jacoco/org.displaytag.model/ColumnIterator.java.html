@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ColumnIterator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.model</a> &gt; <span class="el_source">ColumnIterator.java</span></div><h1>ColumnIterator.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.model;
+
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * Iterator on columns.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class ColumnIterator {
+
+    /**
+     * current row.
+     */
+    private final Row parentRow;
+
+    /**
+     * Internal iterator on header cells.
+     */
+    private final Iterator&lt;HeaderCell&gt; headerIterator;
+
+    /**
+     * Internal iterator on cells.
+     */
+    private final Iterator&lt;Cell&gt; cellIterator;
+
+    /**
+     * Creates a new ColumnIterator given a list of column and a row.
+     *
+     * @param columns
+     *            List containing column objects
+     * @param row
+     *            current Row
+     */
+<span class="fc" id="L59">    public ColumnIterator(final List&lt;HeaderCell&gt; columns, final Row row) {</span>
+<span class="fc" id="L60">        this.headerIterator = columns.iterator();</span>
+<span class="fc" id="L61">        this.cellIterator = row.getCellList().iterator();</span>
+<span class="fc" id="L62">        this.parentRow = row;</span>
+<span class="fc" id="L63">    }</span>
+
+    /**
+     * Are there more columns?.
+     *
+     * @return boolean &lt;code&gt;true&lt;/code&gt; if there are more columns
+     */
+    public boolean hasNext() {
+<span class="fc" id="L71">        return this.headerIterator.hasNext();</span>
+    }
+
+    /**
+     * Returns the next column.
+     *
+     * @return Column next column
+     */
+    public Column nextColumn() {
+<span class="fc" id="L80">        final HeaderCell header = this.headerIterator.next();</span>
+
+<span class="fc" id="L82">        Cell cell = Cell.EMPTY_CELL;</span>
+
+        // if cells is not present simply return an empty cell.
+        // this is needed for automatic properties discovery
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (this.cellIterator.hasNext()) {</span>
+<span class="fc" id="L87">            cell = this.cellIterator.next();</span>
+        }
+
+        // create a new column using the next value in the header and cell iterators and returns it
+<span class="fc" id="L91">        return new Column(header, cell, this.parentRow);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

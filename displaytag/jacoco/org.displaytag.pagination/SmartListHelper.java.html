@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SmartListHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.pagination</a> &gt; <span class="el_source">SmartListHelper.java</span></div><h1>SmartListHelper.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.pagination;
+
+import java.text.MessageFormat;
+import java.util.List;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.Messages;
+import org.displaytag.model.Row;
+import org.displaytag.properties.TableProperties;
+import org.displaytag.util.Href;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * &lt;p&gt;
+ * Utility class that chops up a List of objects into small bite size pieces that are more suitable for display.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * This class is a stripped down version of the WebListHelper from Tim Dawson (tdawson@is.com)
+ * &lt;/p&gt;
+ *
+ * @author epesh
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class SmartListHelper {
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L54">    private static Logger log = LoggerFactory.getLogger(SmartListHelper.class);</span>
+
+    /**
+     * full list.
+     */
+    private List&lt;Row&gt; fullList;
+
+    /**
+     * sixe of the full list.
+     */
+    private int fullListSize;
+
+    /**
+     * number of items in a page.
+     */
+    private int pageSize;
+
+    /**
+     * number of pages.
+     */
+    private int pageCount;
+
+    /** the list we hold is only part of the full dataset. */
+    private boolean partialList;
+
+    /**
+     * index of current page.
+     */
+    private int currentPage;
+
+    /**
+     * TableProperties.
+     */
+    private TableProperties properties;
+
+    /**
+     * Creates a SmarListHelper instance that will help you chop up a list into bite size pieces that are suitable for
+     * display.
+     *
+     * @param list
+     *            List
+     * @param fullSize
+     *            size of the full list
+     * @param itemsInPage
+     *            number of items in a page (int &amp;gt; 0)
+     * @param tableProperties
+     *            TableProperties
+     * @param partialList
+     *            the partial list
+     */
+    public SmartListHelper(final List&lt;Row&gt; list, final int fullSize, final int itemsInPage,
+<span class="fc" id="L105">            final TableProperties tableProperties, final boolean partialList) {</span>
+<span class="pc bpc" id="L106" title="1 of 2 branches missed.">        if (SmartListHelper.log.isDebugEnabled()) {</span>
+<span class="nc" id="L107">            SmartListHelper.log.debug(Messages.getString(&quot;SmartListHelper.debug.instantiated&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L108">                    new Object[] { Integer.valueOf(list.size()), Integer.valueOf(itemsInPage),</span>
+<span class="nc" id="L109">                            Integer.valueOf(fullSize) }));</span>
+        }
+
+<span class="fc" id="L112">        this.properties = tableProperties;</span>
+<span class="fc" id="L113">        this.pageSize = itemsInPage;</span>
+<span class="fc" id="L114">        this.fullList = list;</span>
+<span class="fc" id="L115">        this.fullListSize = fullSize;</span>
+<span class="fc" id="L116">        this.pageCount = this.computedPageCount();</span>
+<span class="fc" id="L117">        this.currentPage = 1;</span>
+<span class="fc" id="L118">        this.partialList = partialList;</span>
+<span class="fc" id="L119">    }</span>
+
+    /**
+     * Constructor that can be used by subclasses. Subclasses that use this constructor must also override all the
+     * public methods, since this constructor does nothing.
+     */
+<span class="fc" id="L125">    protected SmartListHelper() {</span>
+<span class="fc" id="L126">    }</span>
+
+    /**
+     * Returns the computed number of pages it would take to show all the elements in the list given the pageSize we are
+     * working with.
+     *
+     * @return int computed number of pages
+     */
+    protected int computedPageCount() {
+<span class="fc" id="L135">        final int size = this.fullListSize;</span>
+<span class="fc" id="L136">        final int div = size / this.pageSize;</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        return size % this.pageSize == 0 ? div : div + 1;</span>
+    }
+
+    /**
+     * Returns the index into the master list of the first object that should appear on the current page that the user
+     * is viewing.
+     *
+     * @return int index of the first object that should appear on the current page
+     */
+    public int getFirstIndexForCurrentPage() {
+<span class="fc" id="L147">        return this.getFirstIndexForPage(this.currentPage);</span>
+    }
+
+    /**
+     * Returns the index into the master list of the last object that should appear on the current page that the user is
+     * viewing.
+     *
+     * @return int
+     */
+    protected int getLastIndexForCurrentPage() {
+<span class="fc" id="L157">        return this.getLastIndexForPage(this.currentPage);</span>
+    }
+
+    /**
+     * Returns the index into the master list of the first object that should appear on the given page.
+     *
+     * @param pageNumber
+     *            page number
+     *
+     * @return int index of the first object that should appear on the given page
+     */
+    protected int getFirstIndexForPage(final int pageNumber) {
+<span class="fc" id="L169">        final int retval = (pageNumber - 1) * this.pageSize;</span>
+<span class="pc bpc" id="L170" title="1 of 2 branches missed.">        return retval &gt;= 0 ? retval : 0;</span>
+    }
+
+    /**
+     * Returns the index into the master list of the last object that should appear on the given page.
+     *
+     * @param pageNumber
+     *            page number
+     *
+     * @return int index of the last object that should appear on the given page
+     */
+    protected int getLastIndexForPage(final int pageNumber) {
+
+<span class="fc" id="L183">        final int firstIndex = this.getFirstIndexForPage(pageNumber);</span>
+<span class="fc" id="L184">        final int pageIndex = this.pageSize - 1;</span>
+<span class="fc" id="L185">        final int lastIndex = this.fullListSize - 1;</span>
+
+<span class="fc" id="L187">        return Math.min(firstIndex + pageIndex, lastIndex);</span>
+    }
+
+    /**
+     * Returns a subsection of the list that contains just the elements that are supposed to be shown on the current
+     * page the user is viewing.
+     *
+     * @return List subsection of the list that contains the elements that are supposed to be shown on the current page
+     */
+    public List&lt;Row&gt; getListForCurrentPage() {
+<span class="fc" id="L197">        return this.getListForPage(this.currentPage);</span>
+    }
+
+    /**
+     * Returns a subsection of the list that contains just the elements that are supposed to be shown on the given page.
+     *
+     * @param pageNumber
+     *            page number
+     *
+     * @return List subsection of the list that contains just the elements that are supposed to be shown on the given
+     *         page
+     */
+    protected List&lt;Row&gt; getListForPage(final int pageNumber) {
+<span class="pc bpc" id="L210" title="1 of 2 branches missed.">        if (SmartListHelper.log.isDebugEnabled()) {</span>
+<span class="nc" id="L211">            SmartListHelper.log.debug(Messages.getString(&quot;SmartListHelper.debug.sublist&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L212">                    new Object[] { Integer.valueOf(pageNumber) }));</span>
+        }
+
+<span class="fc" id="L215">        int firstIndex = this.getFirstIndexForPage(pageNumber);</span>
+<span class="fc" id="L216">        int lastIndex = this.getLastIndexForPage(pageNumber);</span>
+
+<span class="fc bfc" id="L218" title="All 2 branches covered.">        if (this.partialList) {</span>
+<span class="fc" id="L219">            firstIndex = 0;</span>
+            // use the min of pageSize or list size on the off chance they gave us more data than pageSize allows
+<span class="fc" id="L221">            lastIndex = Math.min(this.pageSize - 1, this.fullList.size() - 1);</span>
+        }
+
+<span class="fc" id="L224">        return this.fullList.subList(firstIndex, lastIndex + 1);</span>
+    }
+
+    /**
+     * Set's the page number that the user is viewing.
+     *
+     * @param pageNumber
+     *            page number
+     */
+    public void setCurrentPage(final int pageNumber) {
+<span class="pc bpc" id="L234" title="1 of 2 branches missed.">        if (SmartListHelper.log.isDebugEnabled()) {</span>
+<span class="nc" id="L235">            SmartListHelper.log.debug(Messages.getString(&quot;SmartListHelper.debug.currentpage&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L236">                    new Object[] { Integer.valueOf(pageNumber), Integer.valueOf(this.pageCount) }));</span>
+        }
+
+<span class="pc bpc" id="L239" title="1 of 2 branches missed.">        if (pageNumber &lt; 1) {</span>
+            // invalid page: better don't throw an exception, since this could easily happen
+            // (list changed, user bookmarked the page)
+<span class="nc" id="L242">            this.currentPage = 1;</span>
+<span class="fc bfc" id="L243" title="All 4 branches covered.">        } else if (pageNumber != 1 &amp;&amp; pageNumber &gt; this.pageCount) {</span>
+            // invalid page: set to last page
+<span class="fc" id="L245">            this.currentPage = this.pageCount;</span>
+        } else {
+<span class="fc" id="L247">            this.currentPage = pageNumber;</span>
+        }
+<span class="fc" id="L249">    }</span>
+
+    /**
+     * Return the little summary message that lets the user know how many objects are in the list they are viewing, and
+     * where in the list they are currently positioned. The message looks like: nnn [item(s)] found, displaying nnn to
+     * nnn. [item(s)] is replaced by either itemName or itemNames depending on if it should be signular or plural.
+     *
+     * @return String
+     */
+    public String getSearchResultsSummary() {
+
+        Object[] objs;
+        String message;
+
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">        if (this.fullListSize == 0) {</span>
+<span class="nc" id="L264">            objs = new Object[] { this.properties.getPagingItemsName() };</span>
+<span class="nc" id="L265">            message = this.properties.getPagingFoundNoItems();</span>
+
+<span class="fc bfc" id="L267" title="All 2 branches covered.">        } else if (this.fullListSize == 1) {</span>
+<span class="fc" id="L268">            objs = new Object[] { this.properties.getPagingItemName() };</span>
+<span class="fc" id="L269">            message = this.properties.getPagingFoundOneItem();</span>
+<span class="fc bfc" id="L270" title="All 2 branches covered.">        } else if (this.computedPageCount() == 1) {</span>
+<span class="fc" id="L271">            objs = new Object[] { Integer.valueOf(this.fullListSize), this.properties.getPagingItemsName(),</span>
+<span class="fc" id="L272">                    this.properties.getPagingItemsName() };</span>
+<span class="fc" id="L273">            message = this.properties.getPagingFoundAllItems();</span>
+        } else {
+<span class="fc" id="L275">            objs = new Object[] { Integer.valueOf(this.fullListSize), this.properties.getPagingItemsName(),</span>
+<span class="fc" id="L276">                    Integer.valueOf(this.getFirstIndexForCurrentPage() + 1),</span>
+<span class="fc" id="L277">                    Integer.valueOf(this.getLastIndexForCurrentPage() + 1), Integer.valueOf(this.currentPage),</span>
+<span class="fc" id="L278">                    Integer.valueOf(this.pageCount) };</span>
+<span class="fc" id="L279">            message = this.properties.getPagingFoundSomeItems();</span>
+        }
+
+<span class="fc" id="L282">        return new MessageFormat(message, this.properties.getLocale()).format(objs);</span>
+    }
+
+    /**
+     * Returns a string containing the nagivation bar that allows the user to move between pages within the list. The
+     * urlFormatString should be a URL that looks like the following: somepage.page?page={0}
+     *
+     * @param baseHref
+     *            Href used for links
+     * @param pageParameter
+     *            name for the page parameter
+     *
+     * @return String
+     */
+    public String getPageNavigationBar(final Href baseHref, final String pageParameter) {
+
+<span class="fc" id="L298">        final int groupSize = this.properties.getPagingGroupSize();</span>
+        int startPage;
+        int endPage;
+
+<span class="fc" id="L302">        final Pagination pagination = new Pagination(baseHref, pageParameter, this.properties);</span>
+<span class="fc" id="L303">        pagination.setCurrent(Integer.valueOf(this.currentPage));</span>
+
+        // if no items are found still add pagination?
+<span class="pc bpc" id="L306" title="1 of 2 branches missed.">        if (this.pageCount == 0) {</span>
+<span class="nc" id="L307">            pagination.addPage(1, true);</span>
+        }
+
+        // center the selected page, but only if there are {groupSize} pages available after it, and check that the
+        // result is not &lt; 1
+<span class="fc" id="L312">        startPage = Math.max(Math.min(this.currentPage - groupSize / 2, this.pageCount - (groupSize - 1)), 1);</span>
+<span class="fc" id="L313">        endPage = Math.min(startPage + groupSize - 1, this.pageCount);</span>
+
+<span class="pc bpc" id="L315" title="1 of 2 branches missed.">        if (SmartListHelper.log.isDebugEnabled()) {</span>
+<span class="nc" id="L316">            SmartListHelper.log.debug(&quot;Displaying pages from {} to {}&quot;, startPage, endPage);</span>
+        }
+
+<span class="fc bfc" id="L319" title="All 2 branches covered.">        if (this.currentPage != 1) {</span>
+<span class="fc" id="L320">            pagination.setFirst(Integer.valueOf(1));</span>
+<span class="fc" id="L321">            pagination.setPrevious(Integer.valueOf(this.currentPage - 1));</span>
+        }
+
+<span class="fc bfc" id="L324" title="All 2 branches covered.">        for (int j = startPage; j &lt;= endPage; j++) {</span>
+<span class="pc bpc" id="L325" title="1 of 2 branches missed.">            if (SmartListHelper.log.isDebugEnabled()) {</span>
+<span class="nc" id="L326">                SmartListHelper.log.debug(&quot;adding page {}&quot;, j); //$NON-NLS-1$</span>
+            }
+<span class="fc bfc" id="L328" title="All 2 branches covered.">            pagination.addPage(j, j == this.currentPage);</span>
+        }
+
+<span class="fc bfc" id="L331" title="All 2 branches covered.">        if (this.currentPage != this.pageCount) {</span>
+<span class="fc" id="L332">            pagination.setNext(Integer.valueOf(this.currentPage + 1));</span>
+<span class="fc" id="L333">            pagination.setLast(Integer.valueOf(this.pageCount));</span>
+        }
+
+        // format for previous/next banner
+        String bannerFormat;
+
+<span class="fc bfc" id="L339" title="All 2 branches covered.">        if (pagination.isOnePage()) {</span>
+<span class="fc" id="L340">            bannerFormat = this.properties.getPagingBannerOnePage();</span>
+<span class="fc bfc" id="L341" title="All 2 branches covered.">        } else if (pagination.isFirst()) {</span>
+<span class="fc" id="L342">            bannerFormat = this.properties.getPagingBannerFirst();</span>
+<span class="fc bfc" id="L343" title="All 2 branches covered.">        } else if (pagination.isLast()) {</span>
+<span class="fc" id="L344">            bannerFormat = this.properties.getPagingBannerLast();</span>
+        } else {
+<span class="fc" id="L346">            bannerFormat = this.properties.getPagingBannerFull();</span>
+        }
+
+<span class="fc" id="L349">        return pagination.getFormattedBanner(this.properties.getPagingPageLink(),</span>
+<span class="fc" id="L350">                this.properties.getPagingPageSelected(), this.properties.getPagingPageSeparator(), bannerFormat);</span>
+    }
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L362">        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //</span>
+<span class="fc" id="L363">                .append(&quot;fullList&quot;, this.fullList) //$NON-NLS-1$</span>
+<span class="fc" id="L364">                .append(&quot;fullListSize&quot;, this.fullListSize) //$NON-NLS-1$</span>
+<span class="fc" id="L365">                .append(&quot;pageSize&quot;, this.pageSize) //$NON-NLS-1$</span>
+<span class="fc" id="L366">                .append(&quot;pageCount&quot;, this.pageCount) //$NON-NLS-1$</span>
+<span class="fc" id="L367">                .append(&quot;properties&quot;, this.properties) //$NON-NLS-1$</span>
+<span class="fc" id="L368">                .append(&quot;currentPage&quot;, this.currentPage) //$NON-NLS-1$</span>
+<span class="fc" id="L369">                .append(&quot;partialList&quot;, this.partialList) //$NON-NLS-1$</span>
+<span class="fc" id="L370">                .toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

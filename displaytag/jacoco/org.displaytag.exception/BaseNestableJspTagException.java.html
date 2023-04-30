@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseNestableJspTagException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.exception</a> &gt; <span class="el_source">BaseNestableJspTagException.java</span></div><h1>BaseNestableJspTagException.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.exception;
+
+import javax.servlet.jsp.JspTagException;
+
+import org.displaytag.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Base exception: extendes JspTagException providing logging and exception nesting functionalities.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public abstract class BaseNestableJspTagException extends JspTagException {
+
+    /**
+     * Stable serialVersionUID.
+     */
+    private static final long serialVersionUID = 42L;
+
+    /**
+     * Class where the exception has been generated.
+     */
+    private final Class&lt;?&gt; sourceClass;
+
+    /**
+     * previous exception.
+     */
+    private Throwable nestedException;
+
+    /**
+     * Instantiate a new BaseNestableJspTagException.
+     *
+     * @param source
+     *            Class where the exception is generated
+     * @param message
+     *            message
+     */
+    public BaseNestableJspTagException(final Class&lt;?&gt; source, final String message) {
+<span class="fc" id="L63">        super(message);</span>
+<span class="fc" id="L64">        this.sourceClass = source;</span>
+
+        // log exception
+<span class="fc" id="L67">        final Logger log = LoggerFactory.getLogger(source);</span>
+
+        // choose appropriate logging method
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (this.getSeverity() == SeverityEnum.DEBUG) {</span>
+<span class="nc" id="L71">            log.debug(&quot;{}&quot;, this);</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">        } else if (this.getSeverity() == SeverityEnum.INFO) {</span>
+<span class="nc" id="L73">            log.info(&quot;{}&quot;, this);</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        } else if (this.getSeverity() == SeverityEnum.WARN) {</span>
+<span class="fc" id="L75">            log.warn(&quot;{}&quot;, this);</span>
+        } else {
+            // error - default
+<span class="fc" id="L78">            log.error(&quot;{}&quot;, this);</span>
+        }
+
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * Instantiate a new BaseNestableJspTagException.
+     *
+     * @param source
+     *            Class where the exception is generated
+     * @param message
+     *            message
+     * @param cause
+     *            previous Exception
+     */
+    public BaseNestableJspTagException(final Class&lt;?&gt; source, final String message, final Throwable cause) {
+<span class="nc" id="L94">        super(message);</span>
+<span class="nc" id="L95">        this.sourceClass = source;</span>
+<span class="nc" id="L96">        this.nestedException = cause;</span>
+
+        // log exception
+<span class="nc" id="L99">        final Logger log = LoggerFactory.getLogger(source);</span>
+
+        // choose appropriate logging method
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (this.getSeverity() == SeverityEnum.DEBUG) {</span>
+<span class="nc" id="L103">            log.debug(&quot;{}&quot;, this, cause);</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        } else if (this.getSeverity() == SeverityEnum.INFO) {</span>
+<span class="nc" id="L105">            log.info(&quot;{}&quot;, this, cause);</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        } else if (this.getSeverity() == SeverityEnum.WARN) {</span>
+<span class="nc" id="L107">            log.warn(&quot;{}&quot;, this, cause);</span>
+        } else {
+            // error - default
+<span class="nc" id="L110">            log.error(&quot;{}&quot;, this, cause);</span>
+        }
+
+<span class="nc" id="L113">    }</span>
+
+    /**
+     * returns the previous exception.
+     *
+     * @return Throwable previous exception
+     */
+    @Override
+    public Throwable getCause() {
+<span class="fc" id="L122">        return this.nestedException;</span>
+    }
+
+    /**
+     * basic toString. Returns the message plus the previous exception (if a previous exception exists).
+     *
+     * @return String
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L132">        String className = this.sourceClass.getName();</span>
+<span class="fc" id="L133">        className = className.substring(className.lastIndexOf('.'));</span>
+
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        if (this.nestedException == null) {</span>
+<span class="fc" id="L136">            return Messages.getString(&quot;NestableException.msg&quot;, //$NON-NLS-1$</span>
+<span class="fc" id="L137">                    new Object[] { className, this.getMessage() });</span>
+        }
+
+<span class="nc" id="L140">        return Messages.getString(&quot;NestableException.msgcause&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L141">                new Object[] { className, this.getMessage(), this.nestedException.getMessage() });</span>
+    }
+
+    /**
+     * subclasses need to define the getSeverity method to provide correct severity for logging.
+     *
+     * @return SeverityEnum exception severity
+     *
+     * @see org.displaytag.exception.SeverityEnum
+     */
+    public abstract SeverityEnum getSeverity();
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

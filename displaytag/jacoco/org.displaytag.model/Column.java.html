@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Column.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.model</a> &gt; <span class="el_source">Column.java</span></div><h1>Column.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.model;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Objects;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.decorator.DisplaytagColumnDecorator;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.util.Anchor;
+import org.displaytag.util.Href;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.HtmlTagUtil;
+import org.displaytag.util.LookupUtil;
+import org.displaytag.util.TagConstants;
+
+/**
+ * Represents a column in a table.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class Column {
+
+    /**
+     * Row this column belongs to.
+     */
+    private final Row row;
+
+    /**
+     * Header of this column. The header cell contains all the attributes common to all cells in the same column
+     */
+    private final HeaderCell header;
+
+    /**
+     * copy of the attribute map from the header cell. Needed to change attributes (title) in this cell only
+     */
+    private HtmlAttributeMap htmlAttributes;
+
+    /**
+     * contains the evaluated body value. Filled in getOpenTag.
+     */
+    private String stringValue;
+
+    /**
+     * Cell.
+     */
+    private final Cell cell;
+
+    /**
+     * Constructor for Column.
+     *
+     * @param headerCell
+     *            HeaderCell
+     * @param currentCell
+     *            Cell
+     * @param parentRow
+     *            Row
+     */
+<span class="fc" id="L85">    public Column(final HeaderCell headerCell, final Cell currentCell, final Row parentRow) {</span>
+<span class="fc" id="L86">        this.header = headerCell;</span>
+<span class="fc" id="L87">        this.row = parentRow;</span>
+<span class="fc" id="L88">        this.cell = currentCell;</span>
+
+        // also copy html attributes
+<span class="fc" id="L91">        this.htmlAttributes = headerCell.getHtmlAttributes();</span>
+<span class="fc" id="L92">    }</span>
+
+    /**
+     * Get the header cell for this column.
+     *
+     * @return the cell
+     */
+    public HeaderCell getHeaderCell() {
+<span class="fc" id="L100">        return this.header;</span>
+    }
+
+    /**
+     * Gets the value, after calling the table / column decorator is requested.
+     *
+     * @param decorated
+     *            boolean
+     *
+     * @return Object will never be null if ShowNulls has been set to false
+     *
+     * @throws ObjectLookupException
+     *             for errors in bean property lookup
+     * @throws DecoratorException
+     *             if a column decorator is used and an exception is thrown during value decoration
+     */
+    public Object getValue(final boolean decorated) throws ObjectLookupException, DecoratorException {
+
+<span class="fc" id="L118">        Object object = null;</span>
+
+        // a static value has been set?
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (this.cell.getStaticValue() != null) {</span>
+<span class="fc" id="L122">            object = this.cell.getStaticValue();</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        } else if (this.header.getBeanPropertyName() != null) {</span>
+
+            // if a decorator has been set, and if decorator has a getter for the requested property only, check
+            // decorator
+<span class="fc bfc" id="L127" title="All 4 branches covered.">            if (decorated &amp;&amp; this.row.getParentTable().getTableDecorator() != null</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">                    &amp;&amp; this.row.getParentTable().getTableDecorator().hasGetterFor(this.header.getBeanPropertyName())) {</span>
+
+<span class="fc" id="L130">                object = LookupUtil.getBeanProperty(this.row.getParentTable().getTableDecorator(),</span>
+<span class="fc" id="L131">                        this.header.getBeanPropertyName());</span>
+            } else {
+                // else check underlining object
+<span class="fc" id="L134">                object = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getBeanPropertyName());</span>
+            }
+        }
+
+<span class="fc" id="L138">        final DisplaytagColumnDecorator[] decorators = this.header.getColumnDecorators();</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (decorated) {</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">            for (final DisplaytagColumnDecorator decorator : decorators) {</span>
+<span class="fc" id="L141">                object = decorator.decorate(object, this.row.getParentTable().getPageContext(),</span>
+<span class="fc" id="L142">                        this.row.getParentTable().getMedia());</span>
+            }
+        }
+
+<span class="fc bfc" id="L146" title="All 6 branches covered.">        if ((object == null || &quot;null&quot;.equals(object)) &amp;&amp; !this.header.getShowNulls()) {</span>
+<span class="fc" id="L147">            object = TagConstants.EMPTY_STRING;</span>
+        }
+
+<span class="fc" id="L150">        return object;</span>
+    }
+
+    /**
+     * Generates the cell open tag.
+     *
+     * @return String td open tag
+     */
+    public String getOpenTag() {
+<span class="fc" id="L159">        final HtmlAttributeMap rowAttributes = this.cell.getPerRowAttributes();</span>
+
+<span class="fc" id="L161">        HtmlAttributeMap atts = this.htmlAttributes;</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">        if (rowAttributes != null) {</span>
+<span class="fc" id="L163">            atts = (HtmlAttributeMap) atts.clone();</span>
+<span class="fc" id="L164">            atts.putAll(rowAttributes);</span>
+        }
+<span class="fc" id="L166">        return HtmlTagUtil.createOpenTagString(TagConstants.TAGNAME_COLUMN, atts);</span>
+    }
+
+    /**
+     * Initialize the cell value.
+     *
+     * @throws DecoratorException
+     *             the decorator exception
+     * @throws ObjectLookupException
+     *             the object lookup exception
+     */
+    public void initialize() throws DecoratorException, ObjectLookupException {
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        if (this.stringValue == null) {</span>
+<span class="fc" id="L179">            this.stringValue = this.createChoppedAndLinkedValue();</span>
+        }
+<span class="fc" id="L181">    }</span>
+
+    /**
+     * Generates the cell close tag (&amp;lt;/td&amp;gt;).
+     *
+     * @return String td closing tag
+     */
+    public String getCloseTag() {
+<span class="fc" id="L189">        this.stringValue = null;</span>
+<span class="fc" id="L190">        return this.header.getCloseTag();</span>
+    }
+
+    /**
+     * Calculates the cell content, cropping or linking the value as needed.
+     *
+     * @return String
+     *
+     * @throws ObjectLookupException
+     *             for errors in bean property lookup
+     * @throws DecoratorException
+     *             if a column decorator is used and an exception is thrown during value decoration
+     */
+    public String createChoppedAndLinkedValue() throws ObjectLookupException, DecoratorException {
+
+<span class="fc" id="L205">        final String fullValue = Objects.toString(this.getValue(true));</span>
+        String choppedValue;
+
+        // trim the string if a maxLength or maxWords is defined
+<span class="fc bfc" id="L209" title="All 2 branches covered.">        if (this.header.getMaxLength() &gt; 0) {</span>
+<span class="fc" id="L210">            choppedValue = HtmlTagUtil.abbreviateHtmlString(fullValue, this.header.getMaxLength(), false);</span>
+<span class="pc bpc" id="L211" title="1 of 2 branches missed.">        } else if (this.header.getMaxWords() &gt; 0) {</span>
+<span class="nc" id="L212">            choppedValue = HtmlTagUtil.abbreviateHtmlString(fullValue, this.header.getMaxWords(), true);</span>
+        } else {
+<span class="fc" id="L214">            choppedValue = fullValue;</span>
+        }
+
+        // chopped content? add the full content to the column &quot;title&quot; attribute
+        // note, simply checking that length is less than before can't be enough due to the &quot;...&quot; added if the string is
+        // cropped
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        if (!Objects.equals(fullValue, choppedValue)) {</span>
+            // clone the attribute map, don't want to add title to all the columns
+<span class="fc" id="L222">            this.htmlAttributes = (HtmlAttributeMap) this.htmlAttributes.clone();</span>
+            // add title
+<span class="fc" id="L224">            this.htmlAttributes.put(TagConstants.ATTRIBUTE_TITLE, HtmlTagUtil.stripHTMLTags(fullValue));</span>
+        }
+
+<span class="fc bfc" id="L227" title="All 2 branches covered.">        if (this.header.getHref() != null) {</span>
+            // generates the href for the link
+<span class="fc" id="L229">            final Href colHref = this.getColumnHref(fullValue);</span>
+<span class="fc" id="L230">            final Anchor anchor = new Anchor(colHref, choppedValue);</span>
+<span class="fc" id="L231">            choppedValue = anchor.toString();</span>
+        }
+
+<span class="fc" id="L234">        return choppedValue;</span>
+    }
+
+    /**
+     * Generates the href for the column using paramName/property/scope.
+     *
+     * @param columnContent
+     *            column body
+     *
+     * @return generated Href
+     *
+     * @throws ObjectLookupException
+     *             for errors in lookin up object properties
+     */
+    private Href getColumnHref(final String columnContent) throws ObjectLookupException {
+        // copy href
+<span class="fc" id="L250">        final Href colHref = (Href) this.header.getHref().clone();</span>
+
+        // do we need to add a param?
+<span class="fc bfc" id="L253" title="All 2 branches covered.">        if (this.header.getParamName() != null) {</span>
+
+            Object paramValue;
+
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">            if (this.header.getParamProperty() != null) {</span>
+                // different property, go get it
+<span class="fc" id="L259">                paramValue = LookupUtil.getBeanProperty(this.row.getObject(), this.header.getParamProperty());</span>
+
+            } else {
+                // same property as content
+<span class="nc" id="L263">                paramValue = columnContent;</span>
+            }
+
+<span class="pc bpc" id="L266" title="1 of 2 branches missed.">            if (paramValue != null) {</span>
+                try {
+<span class="fc" id="L268">                    colHref.addParameter(this.header.getParamName(), URLEncoder.encode(paramValue.toString(),</span>
+<span class="fc" id="L269">                            StringUtils.defaultString(this.row.getParentTable().getEncoding(), &quot;UTF8&quot;))); //$NON-NLS-1$</span>
+<span class="nc" id="L270">                } catch (final UnsupportedEncodingException e) {</span>
+<span class="nc" id="L271">                    throw new RuntimeException(e);</span>
+<span class="fc" id="L272">                }</span>
+            }
+        }
+<span class="fc" id="L275">        return colHref;</span>
+    }
+
+    /**
+     * get the final value to be displayed in the table. This method can only be called after initialize(), where the
+     * content is evaluated
+     *
+     * @return String final value to be displayed in the table
+     */
+    public String getChoppedAndLinkedValue() {
+<span class="fc" id="L285">        return this.stringValue;</span>
+    }
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L297">        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //</span>
+<span class="fc" id="L298">                .append(&quot;cell&quot;, this.cell) //$NON-NLS-1$</span>
+<span class="fc" id="L299">                .append(&quot;header&quot;, this.header) //$NON-NLS-1$</span>
+<span class="fc" id="L300">                .append(&quot;htmlAttributes&quot;, this.htmlAttributes) //$NON-NLS-1$</span>
+<span class="fc" id="L301">                .append(&quot;stringValue&quot;, this.stringValue) //$NON-NLS-1$</span>
+<span class="fc" id="L302">                .toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

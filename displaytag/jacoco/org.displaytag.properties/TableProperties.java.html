@@ -1,0 +1,1406 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableProperties.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.properties</a> &gt; <span class="el_source">TableProperties.java</span></div><h1>TableProperties.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.properties;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.text.Collator;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
+import javax.servlet.jsp.PageContext;
+
+import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.Messages;
+import org.displaytag.decorator.DecoratorFactory;
+import org.displaytag.decorator.DefaultDecoratorFactory;
+import org.displaytag.exception.FactoryInstantiationException;
+import org.displaytag.exception.TablePropertiesLoadException;
+import org.displaytag.localization.I18nResourceProvider;
+import org.displaytag.localization.LocaleResolver;
+import org.displaytag.model.DefaultComparator;
+import org.displaytag.util.DefaultRequestHelperFactory;
+import org.displaytag.util.ReflectHelper;
+import org.displaytag.util.RequestHelperFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * The properties used by the Table tags. The properties are loaded in the following order, in increasing order of
+ * priority. The locale of getInstance() is used to determine the locale of the property file to use; if the key
+ * required does not exist in the specified file, the key will be loaded from a more general property file.
+ * &lt;ol&gt;
+ * &lt;li&gt;First, from the TableTag.properties included with the DisplayTag distribution.&lt;/li&gt;
+ * &lt;li&gt;Then, from the file displaytag.properties, if it is present; these properties are intended to be set by the user
+ * for sitewide application. Messages are gathered according to the Locale of the property file.&lt;/li&gt;
+ * &lt;li&gt;Finally, if this class has a userProperties defined, all of the properties from that Properties object are copied
+ * in as well.&lt;/li&gt;
+ * &lt;/ol&gt;
+ *
+ * @author Fabrizio Giustina
+ * @author rapruitt
+ *
+ * @version $Revision$ ($Author$)
+ */
+public final class TableProperties implements Cloneable {
+
+    /**
+     * name of the default properties file name (&quot;displaytag.properties&quot;).
+     */
+    public static final String DEFAULT_FILENAME = &quot;displaytag.properties&quot;; //$NON-NLS-1$
+
+    /**
+     * The name of the local properties file that is searched for on the classpath. Settings in this file will override
+     * the defaults loaded from TableTag.properties.
+     */
+    public static final String LOCAL_PROPERTIES = &quot;displaytag&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;export.banner&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_EXPORTBANNER = &quot;export.banner&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;export.banner.item&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_EXPORTBANNER_ITEM = &quot;export.banner.item&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;export.banner&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_EXPORTBANNER_PLACEMENT = &quot;export.banner.placement&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;export.banner.sepchar&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_EXPORTBANNER_SEPARATOR = &quot;export.banner.sepchar&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;export.decorated&lt;/code&gt;.
+     */
+    public static final String PROPERTY_BOOLEAN_EXPORTDECORATED = &quot;export.decorated&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;export.amount&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_EXPORTAMOUNT = &quot;export.amount&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;sort.amount&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_SORTAMOUNT = &quot;sort.amount&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;basic.show.header&lt;/code&gt;.
+     */
+    public static final String PROPERTY_BOOLEAN_SHOWHEADER = &quot;basic.show.header&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;basic.msg.empty_list&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_EMPTYLIST_MESSAGE = &quot;basic.msg.empty_list&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;basic.msg.empty_list_row&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_EMPTYLISTROW_MESSAGE = &quot;basic.msg.empty_list_row&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;basic.empty.showtable&lt;/code&gt;.
+     */
+    public static final String PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE = &quot;basic.empty.showtable&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.placement&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_BANNER_PLACEMENT = &quot;paging.banner.placement&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;error.msg.invalid_page&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_INVALIDPAGE = &quot;error.msg.invalid_page&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.item_name&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_ITEM_NAME = &quot;paging.banner.item_name&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.items_name&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_ITEMS_NAME = &quot;paging.banner.items_name&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.no_items_found&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_NOITEMS = &quot;paging.banner.no_items_found&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.one_item_found&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_FOUND_ONEITEM = &quot;paging.banner.one_item_found&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.all_items_found&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_FOUND_ALLITEMS = &quot;paging.banner.all_items_found&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.some_items_found&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_FOUND_SOMEITEMS = &quot;paging.banner.some_items_found&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.group_size&lt;/code&gt;.
+     */
+    public static final String PROPERTY_INT_PAGING_GROUPSIZE = &quot;paging.banner.group_size&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.onepage&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_BANNER_ONEPAGE = &quot;paging.banner.onepage&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.first&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_BANNER_FIRST = &quot;paging.banner.first&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.last&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_BANNER_LAST = &quot;paging.banner.last&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.full&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_BANNER_FULL = &quot;paging.banner.full&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.page.link&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_PAGE_LINK = &quot;paging.banner.page.link&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.page.selected&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_PAGE_SELECTED = &quot;paging.banner.page.selected&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;paging.banner.page.separator&lt;/code&gt;.
+     */
+    public static final String PROPERTY_STRING_PAGING_PAGE_SPARATOR = &quot;paging.banner.page.separator&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;factory.requestHelper&lt;/code&gt;.
+     */
+    public static final String PROPERTY_CLASS_REQUESTHELPERFACTORY = &quot;factory.requestHelper&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;factory.decorators&lt;/code&gt;.
+     */
+    public static final String PROPERTY_CLASS_DECORATORFACTORY = &quot;factory.decorator&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;locale.provider&lt;/code&gt;.
+     */
+    public static final String PROPERTY_CLASS_LOCALEPROVIDER = &quot;locale.provider&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;locale.resolver&lt;/code&gt;.
+     */
+    public static final String PROPERTY_CLASS_LOCALERESOLVER = &quot;locale.resolver&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;css.tr.even&lt;/code&gt;: holds the name of the css class for even rows. Defaults to &lt;code&gt;even&lt;/code&gt;.
+     */
+    public static final String PROPERTY_CSS_TR_EVEN = &quot;css.tr.even&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;css.tr.odd&lt;/code&gt;: holds the name of the css class for odd rows. Defaults to &lt;code&gt;odd&lt;/code&gt;.
+     */
+    public static final String PROPERTY_CSS_TR_ODD = &quot;css.tr.odd&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;css.table&lt;/code&gt;: holds the name of the css class added to the main table tag. By default no css
+     * class is added.
+     */
+    public static final String PROPERTY_CSS_TABLE = &quot;css.table&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;css.th.sortable&lt;/code&gt;: holds the name of the css class added to the the header of a sortable
+     * column. By default no css class is added.
+     */
+    public static final String PROPERTY_CSS_TH_SORTABLE = &quot;css.th.sortable&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;css.th.sorted&lt;/code&gt;: holds the name of the css class added to the the header of a sorted column.
+     * Defaults to &lt;code&gt;sorted&lt;/code&gt;.
+     */
+    public static final String PROPERTY_CSS_TH_SORTED = &quot;css.th.sorted&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;css.th.ascending&lt;/code&gt;: holds the name of the css class added to the the header of a column
+     * sorted in ascending order. Defaults to &lt;code&gt;order1&lt;/code&gt;.
+     */
+    public static final String PROPERTY_CSS_TH_SORTED_ASCENDING = &quot;css.th.ascending&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;css.th.descending&lt;/code&gt;: holds the name of the css class added to the the header of a column
+     * sorted in descending order. Defaults to &lt;code&gt;order2&lt;/code&gt;.
+     */
+    public static final String PROPERTY_CSS_TH_SORTED_DESCENDING = &quot;css.th.descending&quot;; //$NON-NLS-1$
+
+    /**
+     * prefix used for all the properties related to export (&quot;export&quot;). The full property name is &lt;code&gt;export.&lt;/code&gt;
+     * &lt;em&gt;[export type]&lt;/em&gt;&lt;code&gt;.&lt;/code&gt;&lt;em&gt;[property name]&lt;/em&gt;
+     */
+    public static final String PROPERTY_EXPORT_PREFIX = &quot;export&quot;; //$NON-NLS-1$
+
+    /**
+     * prefix used to set the media decorator property name. The full property name is &lt;code&gt;decorator.media.&lt;/code&gt;
+     * &lt;em&gt;[export type]&lt;/em&gt;.
+     */
+    public static final String PROPERTY_DECORATOR_SUFFIX = &quot;decorator&quot;; //$NON-NLS-1$
+
+    /**
+     * used to set the media decorator property name. The full property name is &lt;code&gt;decorator.media.&lt;/code&gt;
+     * &lt;em&gt;[export type]&lt;/em&gt;
+     */
+    public static final String PROPERTY_DECORATOR_MEDIA = &quot;media&quot;; //$NON-NLS-1$
+
+    /**
+     * used to set the totaler property name. The property name is &lt;code&gt;totaler&lt;/code&gt;
+     */
+    public static final String TOTALER_NAME = &quot;totaler&quot;; //$NON-NLS-1$
+
+    /**
+     * property &lt;code&gt;export.types&lt;/code&gt;: holds the list of export available export types.
+     */
+    public static final String PROPERTY_EXPORTTYPES = &quot;export.types&quot;; //$NON-NLS-1$
+
+    /**
+     * export property &lt;code&gt;label&lt;/code&gt;.
+     */
+    public static final String EXPORTPROPERTY_STRING_LABEL = &quot;label&quot;; //$NON-NLS-1$
+
+    /**
+     * export property &lt;code&gt;class&lt;/code&gt;.
+     */
+    public static final String EXPORTPROPERTY_STRING_CLASS = &quot;class&quot;; //$NON-NLS-1$
+
+    /**
+     * export property &lt;code&gt;include_header&lt;/code&gt;.
+     */
+    public static final String EXPORTPROPERTY_BOOLEAN_EXPORTHEADER = &quot;include_header&quot;; //$NON-NLS-1$
+
+    /**
+     * export property &lt;code&gt;filename&lt;/code&gt;.
+     */
+    public static final String EXPORTPROPERTY_STRING_FILENAME = &quot;filename&quot;; //$NON-NLS-1$
+
+    /**
+     * Property &lt;code&gt;pagination.sort.param&lt;/code&gt;. If external pagination and sorting is used, it holds the name of the
+     * parameter used to hold the sort criterion in generated links
+     */
+    public static final String PROPERTY_STRING_PAGINATION_SORT_PARAM = &quot;pagination.sort.param&quot;; //$NON-NLS-1$
+
+    /**
+     * Property &lt;code&gt;pagination.sortdirection.param&lt;/code&gt;. If external pagination and sorting is used, it holds the
+     * name of the parameter used to hold the sort direction in generated links (asc or desc)
+     */
+    public static final String PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM = &quot;pagination.sortdirection.param&quot;; //$NON-NLS-1$
+
+    /**
+     * Property &lt;code&gt;pagination.pagenumber.param&lt;/code&gt;. If external pagination and sorting is used, it holds the name
+     * of the parameter used to hold the page number in generated links
+     */
+    public static final String PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM = &quot;pagination.pagenumber.param&quot;; //$NON-NLS-1$
+
+    /**
+     * Property &lt;code&gt;pagination.searchid.param&lt;/code&gt;. If external pagination and sorting is used, it holds the name of
+     * the parameter used to hold the search ID in generated links
+     */
+    public static final String PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM = &quot;pagination.searchid.param&quot;; //$NON-NLS-1$
+
+    /**
+     * Property &lt;code&gt;pagination.sort.asc.value&lt;/code&gt;. If external pagination and sorting is used, it holds the value
+     * of the parameter of the sort direction parameter for &quot;ascending&quot;
+     */
+    public static final String PROPERTY_STRING_PAGINATION_ASC_VALUE = &quot;pagination.sort.asc.value&quot;; //$NON-NLS-1$
+
+    /**
+     * Property &lt;code&gt;pagination.sort.desc.value&lt;/code&gt;. If external pagination and sorting is used, it holds the value
+     * of the parameter of the sort direction parameter for &quot;descending&quot;
+     */
+    public static final String PROPERTY_STRING_PAGINATION_DESC_VALUE = &quot;pagination.sort.desc.value&quot;; //$NON-NLS-1$
+
+    /**
+     * Property &lt;code&gt;pagination.sort.skippagenumber&lt;/code&gt;. If external pagination and sorting is used, it determines
+     * if the current page number must be added in sort links or not. If this property is true, it means that each click
+     * on a generated sort link will re-sort the list, and go back to the default page number. If it is false, each
+     * click on a generated sort link will re-sort the list, and ask the current page number.
+     */
+    public static final String PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT = &quot;pagination.sort.skippagenumber&quot;; //$NON-NLS-1$
+
+    /**
+     * Property &lt;code&gt;comparator.default&lt;/code&gt;. If present, will use use as the classname of the default comparator.
+     * Will be overriden by column level comparators.
+     */
+    public static final String PROPERTY_DEFAULT_COMPARATOR = &quot;comparator.default&quot;; //$NON-NLS-1$
+    
+    /**
+     * Property &lt;code&gt;escapeXml.default&lt;/code&gt;. Specifies the default value for column &lt;code&gt;escapeXml&lt;/code&gt; attribute.
+     */
+    public static final String PROPERTY_BOOLEAN_ESCAPEXML_DEFAULT = &quot;escapeXml.default&quot;; //$NON-NLS-1$
+
+    // &lt;/JBN&gt;
+
+    /**
+     * Separator char used in property names.
+     */
+    private static final char SEP = '.';
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L393">    private static Logger log = LoggerFactory.getLogger(TableProperties.class);</span>
+
+    /**
+     * The userProperties are local, non-default properties; these settings override the defaults from
+     * displaytag.properties and TableTag.properties.
+     */
+<span class="fc" id="L399">    private static Properties userProperties = new Properties();</span>
+
+    /**
+     * Configured resource provider. If no ResourceProvider is configured, an no-op one is used. This instance is
+     * initialized at first use and shared.
+     */
+    private static I18nResourceProvider resourceProvider;
+
+    /**
+     * Configured locale resolver.
+     */
+    private static LocaleResolver localeResolver;
+
+    /**
+     * TableProperties for each locale are loaded as needed, and cloned for public usage.
+     */
+<span class="fc" id="L415">    private static Map&lt;Locale, TableProperties&gt; prototypes = new HashMap&lt;&gt;();</span>
+
+    /**
+     * Loaded properties (defaults from defaultProperties + custom from bundle).
+     */
+    private Properties properties;
+
+    /**
+     * The locale for these properties.
+     */
+    private final Locale locale;
+
+    /**
+     * Cache for dynamically instantiated object (request factory, decorator factory).
+     */
+<span class="fc" id="L430">    private final Map&lt;String, Object&gt; objectCache = new HashMap&lt;&gt;();</span>
+
+    /**
+     * Setter for I18nResourceProvider. A resource provider is usually set using displaytag properties, this accessor is
+     * needed for tests.
+     *
+     * @param provider
+     *            I18nResourceProvider instance
+     */
+    protected static void setResourceProvider(final I18nResourceProvider provider) {
+<span class="fc" id="L440">        TableProperties.resourceProvider = provider;</span>
+<span class="fc" id="L441">    }</span>
+
+    /**
+     * Setter for LocaleResolver. A locale resolver is usually set using displaytag properties, this accessor is needed
+     * for tests.
+     *
+     * @param resolver
+     *            LocaleResolver instance
+     */
+    protected static void setLocaleResolver(final LocaleResolver resolver) {
+<span class="fc" id="L451">        TableProperties.localeResolver = resolver;</span>
+<span class="fc" id="L452">    }</span>
+
+    /**
+     * Loads default properties (TableTag.properties).
+     *
+     * @return loaded properties
+     */
+    private static Properties loadBuiltInProperties() {
+<span class="fc" id="L460">        final Properties defaultProperties = new Properties();</span>
+
+        try {
+<span class="fc" id="L463">            final InputStream is = TableProperties.class.getResourceAsStream(TableProperties.DEFAULT_FILENAME);</span>
+<span class="pc bpc" id="L464" title="1 of 2 branches missed.">            if (is == null) {</span>
+<span class="nc" id="L465">                throw new TablePropertiesLoadException(TableProperties.class, TableProperties.DEFAULT_FILENAME, null);</span>
+            }
+<span class="fc" id="L467">            defaultProperties.load(is);</span>
+<span class="nc" id="L468">        } catch (final IOException e) {</span>
+<span class="nc" id="L469">            throw new TablePropertiesLoadException(TableProperties.class, TableProperties.DEFAULT_FILENAME, e);</span>
+<span class="fc" id="L470">        }</span>
+
+<span class="fc" id="L472">        return defaultProperties;</span>
+    }
+
+    /**
+     * Loads user properties (displaytag.properties) according to the given locale. User properties are not guarantee to
+     * exist, so the method can return &lt;code&gt;null&lt;/code&gt; (no exception will be thrown).
+     *
+     * @param locale
+     *            requested Locale
+     *
+     * @return loaded properties
+     */
+    private static ResourceBundle loadUserProperties(final Locale locale) {
+<span class="fc" id="L485">        ResourceBundle bundle = null;</span>
+        try {
+<span class="fc" id="L487">            bundle = ResourceBundle.getBundle(TableProperties.LOCAL_PROPERTIES, locale);</span>
+<span class="nc" id="L488">        } catch (final MissingResourceException e) {</span>
+            // if no resource bundle is found, try using the context classloader
+            try {
+<span class="nc" id="L491">                bundle = ResourceBundle.getBundle(TableProperties.LOCAL_PROPERTIES, locale,</span>
+<span class="nc" id="L492">                        Thread.currentThread().getContextClassLoader());</span>
+<span class="nc" id="L493">            } catch (final MissingResourceException mre) {</span>
+<span class="nc bnc" id="L494" title="All 2 branches missed.">                if (TableProperties.log.isDebugEnabled()) {</span>
+<span class="nc" id="L495">                    TableProperties.log.debug(Messages.getString(&quot;TableProperties.propertiesnotfound&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L496">                            new Object[] { mre.getMessage() }));</span>
+                }
+<span class="nc" id="L498">            }</span>
+<span class="fc" id="L499">        }</span>
+
+<span class="fc" id="L501">        return bundle;</span>
+    }
+
+    /**
+     * Returns the configured Locale Resolver. This method is called before the loading of localized properties.
+     *
+     * @return LocaleResolver instance.
+     */
+    public static LocaleResolver getLocaleResolverInstance() {
+
+<span class="fc bfc" id="L511" title="All 2 branches covered.">        if (TableProperties.localeResolver == null) {</span>
+
+            // special handling, table properties is not yet instantiated
+<span class="fc" id="L514">            String className = null;</span>
+
+<span class="fc" id="L516">            final ResourceBundle defaultUserProperties = TableProperties.loadUserProperties(Locale.getDefault());</span>
+
+            // if available, user properties have higher precedence
+<span class="pc bpc" id="L519" title="1 of 2 branches missed.">            if (defaultUserProperties != null) {</span>
+                try {
+<span class="nc" id="L521">                    className = defaultUserProperties.getString(TableProperties.PROPERTY_CLASS_LOCALERESOLVER);</span>
+<span class="fc" id="L522">                } catch (final MissingResourceException e) {</span>
+                    // no problem
+<span class="nc" id="L524">                }</span>
+            }
+
+            // still null? load defaults
+<span class="pc bpc" id="L528" title="1 of 2 branches missed.">            if (className == null) {</span>
+<span class="fc" id="L529">                final Properties defaults = TableProperties.loadBuiltInProperties();</span>
+<span class="fc" id="L530">                className = defaults.getProperty(TableProperties.PROPERTY_CLASS_LOCALERESOLVER);</span>
+            }
+
+<span class="pc bpc" id="L533" title="1 of 2 branches missed.">            if (className != null) {</span>
+                try {
+<span class="nc" id="L535">                    final Class&lt;LocaleResolver&gt; classProperty = (Class&lt;LocaleResolver&gt;) ReflectHelper</span>
+<span class="nc" id="L536">                            .classForName(className);</span>
+<span class="nc" id="L537">                    TableProperties.localeResolver = classProperty.getDeclaredConstructor().newInstance();</span>
+
+<span class="nc" id="L539">                    TableProperties.log.info(Messages.getString(&quot;TableProperties.classinitializedto&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L540">                            new Object[] { ClassUtils.getShortClassName(LocaleResolver.class), className }));</span>
+<span class="nc" id="L541">                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {</span>
+<span class="nc" id="L542">                    TableProperties.log.warn(Messages.getString(&quot;TableProperties.errorloading&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L543">                            new Object[] { ClassUtils.getShortClassName(LocaleResolver.class), e.getClass().getName(),</span>
+<span class="nc" id="L544">                                    e.getMessage() }));</span>
+<span class="nc" id="L545">                }</span>
+            } else {
+<span class="fc" id="L547">                TableProperties.log.info(Messages.getString(&quot;TableProperties.noconfigured&quot;, //$NON-NLS-1$</span>
+<span class="fc" id="L548">                        new Object[] { ClassUtils.getShortClassName(LocaleResolver.class) }));</span>
+            }
+
+            // still null?
+<span class="pc bpc" id="L552" title="1 of 2 branches missed.">            if (TableProperties.localeResolver == null) {</span>
+                // fallback locale resolver
+<span class="fc" id="L554">                TableProperties.localeResolver = pageContext -&gt; pageContext.getRequest().getLocale();</span>
+            }
+        }
+
+<span class="fc" id="L558">        return TableProperties.localeResolver;</span>
+    }
+
+    /**
+     * Initialize a new TableProperties loading the default properties file and the user defined one. There is no
+     * caching used here, caching is assumed to occur in the getInstance factory method.
+     *
+     * @param myLocale
+     *            the locale we are in
+     */
+<span class="fc" id="L568">    private TableProperties(final Locale myLocale) {</span>
+<span class="fc" id="L569">        this.locale = myLocale;</span>
+        // default properties will not change unless this class is reloaded
+<span class="fc" id="L571">        final Properties defaultProperties = TableProperties.loadBuiltInProperties();</span>
+
+<span class="fc" id="L573">        this.properties = new Properties(defaultProperties);</span>
+<span class="fc" id="L574">        this.addProperties(myLocale);</span>
+
+        // Now copy in the user properties (properties file set by calling setUserProperties()).
+        // note setUserProperties() MUST BE CALLED before the first TableProperties instantation
+<span class="fc" id="L578">        final Enumeration&lt;Object&gt; keys = TableProperties.userProperties.keys();</span>
+<span class="fc bfc" id="L579" title="All 2 branches covered.">        while (keys.hasMoreElements()) {</span>
+<span class="fc" id="L580">            final String key = (String) keys.nextElement();</span>
+<span class="pc bpc" id="L581" title="1 of 2 branches missed.">            if (key != null) {</span>
+<span class="fc" id="L582">                this.properties.setProperty(key, (String) TableProperties.userProperties.get(key));</span>
+            }
+<span class="fc" id="L584">        }</span>
+<span class="fc" id="L585">    }</span>
+
+    /**
+     * Try to load the properties from the local properties file, displaytag.properties, and merge them into the
+     * existing properties.
+     *
+     * @param userLocale
+     *            the locale from which the properties are to be loaded
+     */
+    private void addProperties(final Locale userLocale) {
+<span class="fc" id="L595">        final ResourceBundle bundle = TableProperties.loadUserProperties(userLocale);</span>
+
+<span class="pc bpc" id="L597" title="1 of 2 branches missed.">        if (bundle != null) {</span>
+<span class="fc" id="L598">            final Enumeration&lt;String&gt; keys = bundle.getKeys();</span>
+<span class="fc bfc" id="L599" title="All 2 branches covered.">            while (keys.hasMoreElements()) {</span>
+<span class="fc" id="L600">                final String key = keys.nextElement();</span>
+<span class="fc" id="L601">                this.properties.setProperty(key, bundle.getString(key));</span>
+<span class="fc" id="L602">            }</span>
+        }
+<span class="fc" id="L604">    }</span>
+
+    /**
+     * Clones the properties as well.
+     *
+     * @return a new clone of oneself
+     */
+    @Override
+    protected Object clone() {
+        TableProperties twin;
+        try {
+<span class="fc" id="L615">            twin = (TableProperties) super.clone();</span>
+<span class="nc" id="L616">        } catch (final CloneNotSupportedException e) {</span>
+            // should never happen
+<span class="nc" id="L618">            throw new RuntimeException(e);</span>
+<span class="fc" id="L619">        }</span>
+<span class="fc" id="L620">        twin.properties = (Properties) this.properties.clone();</span>
+<span class="fc" id="L621">        return twin;</span>
+    }
+
+    /**
+     * Returns a new TableProperties instance for the given locale.
+     *
+     * @param pageContext
+     *            PageContext needed to extract the locale to use. If null the default locale will be used.
+     *
+     * @return TableProperties instance
+     */
+    public static TableProperties getInstance(final PageContext pageContext) {
+        Locale locale;
+<span class="fc bfc" id="L634" title="All 2 branches covered.">        if (pageContext != null) {</span>
+<span class="fc" id="L635">            locale = TableProperties.getLocaleResolverInstance().resolveLocale(pageContext);</span>
+        } else {
+            // for some configuration parameters locale doesn't matter
+<span class="fc" id="L638">            locale = Locale.getDefault();</span>
+        }
+
+<span class="fc" id="L641">        TableProperties props = TableProperties.prototypes.get(locale);</span>
+<span class="fc bfc" id="L642" title="All 2 branches covered.">        if (props == null) {</span>
+<span class="fc" id="L643">            final TableProperties lprops = new TableProperties(locale);</span>
+<span class="fc" id="L644">            TableProperties.prototypes.put(locale, lprops);</span>
+<span class="fc" id="L645">            props = lprops;</span>
+        }
+<span class="fc" id="L647">        return (TableProperties) props.clone();</span>
+    }
+
+    /**
+     * Unload all cached properties. This will not clear properties set by by setUserProperties; you must clear those
+     * manually.
+     */
+    public static void clearProperties() {
+<span class="fc" id="L655">        TableProperties.prototypes.clear();</span>
+<span class="fc" id="L656">    }</span>
+
+    /**
+     * Local, non-default properties; these settings override the defaults from displaytag.properties and
+     * TableTag.properties. Please note that the values are copied in, so that multiple calls with non-overlapping
+     * properties will be merged, not overwritten. Note: setUserProperties() MUST BE CALLED before the first
+     * TableProperties instantiation.
+     *
+     * @param overrideProperties
+     *            - The local, non-default properties
+     */
+    public static void setUserProperties(final Properties overrideProperties) {
+        // copy keys here, so that this can be invoked more than once from different sources.
+        // if default properties are not yet loaded they will be copied in constructor
+<span class="fc" id="L670">        final Enumeration&lt;Object&gt; keys = overrideProperties.keys();</span>
+<span class="fc bfc" id="L671" title="All 2 branches covered.">        while (keys.hasMoreElements()) {</span>
+<span class="fc" id="L672">            final String key = (String) keys.nextElement();</span>
+<span class="pc bpc" id="L673" title="1 of 2 branches missed.">            if (key != null) {</span>
+<span class="fc" id="L674">                TableProperties.userProperties.setProperty(key, (String) overrideProperties.get(key));</span>
+            }
+<span class="fc" id="L676">        }</span>
+<span class="fc" id="L677">    }</span>
+
+    /**
+     * The locale for which these properties are intended.
+     *
+     * @return the locale
+     */
+    public Locale getLocale() {
+<span class="fc" id="L685">        return this.locale;</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_INVALIDPAGE&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingInvalidPage() {
+<span class="nc" id="L694">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_INVALIDPAGE);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_ITEM_NAME&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingItemName() {
+<span class="fc" id="L703">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_ITEM_NAME);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_ITEMS_NAME&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingItemsName() {
+<span class="fc" id="L712">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_ITEMS_NAME);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_NOITEMS&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingFoundNoItems() {
+<span class="nc" id="L721">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_NOITEMS);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_FOUND_ONEITEM&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingFoundOneItem() {
+<span class="fc" id="L730">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_FOUND_ONEITEM);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_FOUND_ALLITEMS&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingFoundAllItems() {
+<span class="fc" id="L739">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_FOUND_ALLITEMS);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_FOUND_SOMEITEMS&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingFoundSomeItems() {
+<span class="fc" id="L748">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_FOUND_SOMEITEMS);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_INT_PAGING_GROUPSIZE&lt;/code&gt; property.
+     *
+     * @return int
+     */
+    public int getPagingGroupSize() {
+        // default size is 8
+<span class="fc" id="L758">        return this.getIntProperty(TableProperties.PROPERTY_INT_PAGING_GROUPSIZE, 8);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_BANNER_ONEPAGE&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingBannerOnePage() {
+<span class="fc" id="L767">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_BANNER_ONEPAGE);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_BANNER_FIRST&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingBannerFirst() {
+<span class="fc" id="L776">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_BANNER_FIRST);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_BANNER_LAST&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingBannerLast() {
+<span class="fc" id="L785">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_BANNER_LAST);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_BANNER_FULL&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingBannerFull() {
+<span class="fc" id="L794">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_BANNER_FULL);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_PAGE_LINK&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingPageLink() {
+<span class="fc" id="L803">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_PAGE_LINK);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_PAGE_SELECTED&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingPageSelected() {
+<span class="fc" id="L812">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_PAGE_SELECTED);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_PAGING_PAGE_SPARATOR&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getPagingPageSeparator() {
+<span class="fc" id="L821">        return this.getProperty(TableProperties.PROPERTY_STRING_PAGING_PAGE_SPARATOR);</span>
+    }
+
+    /**
+     * Is the given export option enabled?.
+     *
+     * @param exportType
+     *            instance of MediaTypeEnum
+     *
+     * @return boolean true if export is enabled
+     */
+    public boolean getAddExport(final MediaTypeEnum exportType) {
+<span class="fc" id="L833">        return this.getBooleanProperty(</span>
+<span class="fc" id="L834">                TableProperties.PROPERTY_EXPORT_PREFIX + TableProperties.SEP + exportType.getName());</span>
+    }
+
+    /**
+     * Should headers be included in given export type?.
+     *
+     * @param exportType
+     *            instance of MediaTypeEnum
+     *
+     * @return boolean true if export should include headers
+     */
+    public boolean getExportHeader(final MediaTypeEnum exportType) {
+<span class="fc" id="L846">        return this.getBooleanProperty(TableProperties.PROPERTY_EXPORT_PREFIX + TableProperties.SEP</span>
+<span class="fc" id="L847">                + exportType.getName() + TableProperties.SEP + TableProperties.EXPORTPROPERTY_BOOLEAN_EXPORTHEADER);</span>
+    }
+
+    /**
+     * Returns the label for the given export option.
+     *
+     * @param exportType
+     *            instance of MediaTypeEnum
+     *
+     * @return String label
+     */
+    public String getExportLabel(final MediaTypeEnum exportType) {
+<span class="fc" id="L859">        return this.getProperty(TableProperties.PROPERTY_EXPORT_PREFIX + TableProperties.SEP + exportType.getName()</span>
+                + TableProperties.SEP + TableProperties.EXPORTPROPERTY_STRING_LABEL);
+    }
+
+    /**
+     * Returns the file name for the given media. Can be null
+     *
+     * @param exportType
+     *            instance of MediaTypeEnum
+     *
+     * @return String filename
+     */
+    public String getExportFileName(final MediaTypeEnum exportType) {
+<span class="fc" id="L872">        return this.getProperty(TableProperties.PROPERTY_EXPORT_PREFIX + TableProperties.SEP + exportType.getName()</span>
+                + TableProperties.SEP + TableProperties.EXPORTPROPERTY_STRING_FILENAME);
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_BOOLEAN_EXPORTDECORATED&lt;/code&gt; property.
+     *
+     * @return boolean &lt;code&gt;true&lt;/code&gt; if decorators should be used in exporting
+     */
+    public boolean getExportDecorated() {
+<span class="fc" id="L882">        return this.getBooleanProperty(TableProperties.PROPERTY_BOOLEAN_EXPORTDECORATED);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_EXPORTBANNER&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getExportBanner() {
+<span class="fc" id="L891">        return this.getProperty(TableProperties.PROPERTY_STRING_EXPORTBANNER);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_EXPORTBANNER_ITEM&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getExportBannerItem() {
+<span class="fc" id="L900">        return this.getProperty(TableProperties.PROPERTY_STRING_EXPORTBANNER_ITEM);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_EXPORTBANNER_SEPARATOR&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getExportBannerSeparator() {
+<span class="fc" id="L909">        return this.getProperty(TableProperties.PROPERTY_STRING_EXPORTBANNER_SEPARATOR);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_BOOLEAN_SHOWHEADER&lt;/code&gt; property.
+     *
+     * @return boolean
+     */
+    public boolean getShowHeader() {
+<span class="fc" id="L918">        return this.getBooleanProperty(TableProperties.PROPERTY_BOOLEAN_SHOWHEADER);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_EMPTYLIST_MESSAGE&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getEmptyListMessage() {
+<span class="fc" id="L927">        return this.getProperty(TableProperties.PROPERTY_STRING_EMPTYLIST_MESSAGE);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_EMPTYLISTROW_MESSAGE&lt;/code&gt; property.
+     *
+     * @return String
+     */
+    public String getEmptyListRowMessage() {
+<span class="fc" id="L936">        return this.getProperty(TableProperties.PROPERTY_STRING_EMPTYLISTROW_MESSAGE);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE&lt;/code&gt; property.
+     *
+     * @return boolean &lt;code&gt;true&lt;/code&gt; if table should be displayed also if no items are found
+     */
+    public boolean getEmptyListShowTable() {
+<span class="fc" id="L945">        return this.getBooleanProperty(TableProperties.PROPERTY_BOOLEAN_EMPTYLIST_SHOWTABLE);</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_EXPORTAMOUNT&lt;/code&gt; property.
+     *
+     * @return boolean &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;export.amount&lt;/code&gt; is &lt;code&gt;list&lt;/code&gt;
+     */
+    public boolean getExportFullList() {
+<span class="fc" id="L954">        return &quot;list&quot;.equals(this.getProperty(TableProperties.PROPERTY_STRING_EXPORTAMOUNT)); //$NON-NLS-1$</span>
+    }
+
+    /**
+     * Getter for the &lt;code&gt;PROPERTY_STRING_SORTAMOUNT&lt;/code&gt; property.
+     *
+     * @return boolean &lt;code&gt;true&lt;/code&gt; if &lt;code&gt;sort.amount&lt;/code&gt; is &lt;code&gt;list&lt;/code&gt;
+     */
+    public boolean getSortFullList() {
+<span class="fc" id="L963">        return &quot;list&quot;.equals(this.getProperty(TableProperties.PROPERTY_STRING_SORTAMOUNT)); //$NON-NLS-1$</span>
+    }
+
+    /**
+     * Should paging banner be added before the table?.
+     *
+     * @return boolean
+     */
+    public boolean getAddPagingBannerTop() {
+<span class="fc" id="L972">        final String placement = this.getProperty(TableProperties.PROPERTY_STRING_BANNER_PLACEMENT);</span>
+<span class="fc bfc" id="L973" title="All 4 branches covered.">        return StringUtils.equals(&quot;top&quot;, placement) || StringUtils.equals(&quot;both&quot;, placement); //$NON-NLS-1$ //$NON-NLS-2$</span>
+    }
+
+    /**
+     * Should paging banner be added after the table?.
+     *
+     * @return boolean
+     */
+    public boolean getAddPagingBannerBottom() {
+<span class="fc" id="L982">        final String placement = this.getProperty(TableProperties.PROPERTY_STRING_BANNER_PLACEMENT);</span>
+<span class="fc bfc" id="L983" title="All 4 branches covered.">        return StringUtils.equals(&quot;bottom&quot;, placement) || StringUtils.equals(&quot;both&quot;, placement); //$NON-NLS-1$ //$NON-NLS-2$</span>
+    }
+
+    /**
+     * Should paging banner be added before the table?.
+     *
+     * @return boolean
+     */
+    public boolean getAddExportBannerTop() {
+<span class="fc" id="L992">        final String placement = this.getProperty(TableProperties.PROPERTY_STRING_EXPORTBANNER_PLACEMENT);</span>
+<span class="pc bpc" id="L993" title="2 of 4 branches missed.">        return StringUtils.equals(&quot;top&quot;, placement) || StringUtils.equals(&quot;both&quot;, placement); //$NON-NLS-1$ //$NON-NLS-2$</span>
+    }
+
+    /**
+     * Should paging banner be added after the table?.
+     *
+     * @return boolean
+     */
+    public boolean getAddExportBannerBottom() {
+<span class="fc" id="L1002">        final String placement = this.getProperty(TableProperties.PROPERTY_STRING_EXPORTBANNER_PLACEMENT);</span>
+        // no value specified puts it on th bottom too to ensure proper backward compatibility
+<span class="pc bpc" id="L1004" title="1 of 2 branches missed.">        return !StringUtils.equals(&quot;top&quot;, placement); //$NON-NLS-1$</span>
+    }
+
+    /**
+     * Returns the appropriate css class for a table row.
+     *
+     * @param rowNumber
+     *            row number
+     *
+     * @return the value of &lt;code&gt;PROPERTY_CSS_TR_EVEN&lt;/code&gt; if rowNumber is even or &lt;code&gt;PROPERTY_CSS_TR_ODD&lt;/code&gt;
+     *         if rowNumber is odd.
+     */
+    public String getCssRow(final int rowNumber) {
+<span class="fc" id="L1017">        return this.getProperty(</span>
+<span class="fc bfc" id="L1018" title="All 2 branches covered.">                rowNumber % 2 == 0 ? TableProperties.PROPERTY_CSS_TR_ODD : TableProperties.PROPERTY_CSS_TR_EVEN);</span>
+    }
+
+    /**
+     * Returns the appropriate css class for a sorted column header.
+     *
+     * @param ascending
+     *            &lt;code&gt;true&lt;/code&gt; if column is sorded in ascending order.
+     *
+     * @return the value of &lt;code&gt;PROPERTY_CSS_TH_SORTED_ASCENDING&lt;/code&gt; if column is sorded in ascending order or
+     *         &lt;code&gt;PROPERTY_CSS_TH_SORTED_DESCENDING&lt;/code&gt; if column is sorded in descending order.
+     */
+    public String getCssOrder(final boolean ascending) {
+<span class="fc bfc" id="L1031" title="All 2 branches covered.">        return this.getProperty(ascending ? TableProperties.PROPERTY_CSS_TH_SORTED_ASCENDING</span>
+<span class="fc" id="L1032">                : TableProperties.PROPERTY_CSS_TH_SORTED_DESCENDING);</span>
+    }
+
+    /**
+     * Returns the configured css class for a sorted column header.
+     *
+     * @return the value of &lt;code&gt;PROPERTY_CSS_TH_SORTED&lt;/code&gt;
+     */
+    public String getCssSorted() {
+<span class="fc" id="L1041">        return this.getProperty(TableProperties.PROPERTY_CSS_TH_SORTED);</span>
+    }
+
+    /**
+     * Returns the configured css class for the main table tag.
+     *
+     * @return the value of &lt;code&gt;PROPERTY_CSS_TABLE&lt;/code&gt;
+     */
+    public String getCssTable() {
+<span class="fc" id="L1050">        return this.getProperty(TableProperties.PROPERTY_CSS_TABLE);</span>
+    }
+
+    /**
+     * Returns the configured css class for a sortable column header.
+     *
+     * @return the value of &lt;code&gt;PROPERTY_CSS_TH_SORTABLE&lt;/code&gt;
+     */
+    public String getCssSortable() {
+<span class="fc" id="L1059">        return this.getProperty(TableProperties.PROPERTY_CSS_TH_SORTABLE);</span>
+    }
+
+    /**
+     * Returns the configured list of media.
+     *
+     * @return the value of &lt;code&gt;PROPERTY_EXPORTTYPES&lt;/code&gt;
+     */
+    public String[] getExportTypes() {
+<span class="fc" id="L1068">        final String list = this.getProperty(TableProperties.PROPERTY_EXPORTTYPES);</span>
+<span class="pc bpc" id="L1069" title="1 of 2 branches missed.">        if (list == null) {</span>
+<span class="nc" id="L1070">            return new String[0];</span>
+        }
+
+<span class="fc" id="L1073">        return StringUtils.split(list);</span>
+    }
+
+    /**
+     * Returns the class responsible for the given export.
+     *
+     * @param exportName
+     *            export name
+     *
+     * @return String classname
+     */
+    public String getExportClass(final String exportName) {
+<span class="fc" id="L1085">        return this.getProperty(TableProperties.PROPERTY_EXPORT_PREFIX + TableProperties.SEP + exportName</span>
+                + TableProperties.SEP + TableProperties.EXPORTPROPERTY_STRING_CLASS);
+    }
+
+    /**
+     * Returns an instance of configured requestHelperFactory.
+     *
+     * @return RequestHelperFactory instance.
+     */
+    public RequestHelperFactory getRequestHelperFactoryInstance() {
+<span class="fc" id="L1095">        final Object loadedObject = this.getClassPropertyInstance(TableProperties.PROPERTY_CLASS_REQUESTHELPERFACTORY);</span>
+
+        // should not be null, but avoid errors just in case... see DISPL-148
+<span class="pc bpc" id="L1098" title="1 of 2 branches missed.">        if (loadedObject == null) {</span>
+<span class="nc" id="L1099">            return new DefaultRequestHelperFactory();</span>
+        }
+
+        try {
+<span class="fc" id="L1103">            return (RequestHelperFactory) loadedObject;</span>
+<span class="nc" id="L1104">        } catch (final ClassCastException e) {</span>
+<span class="nc" id="L1105">            throw new FactoryInstantiationException(this.getClass(),</span>
+<span class="nc" id="L1106">                    TableProperties.PROPERTY_CLASS_REQUESTHELPERFACTORY, loadedObject.getClass().getName(), e);</span>
+        }
+    }
+
+    /**
+     * Returns an instance of configured DecoratorFactory.
+     *
+     * @return DecoratorFactory instance.
+     */
+    public DecoratorFactory getDecoratorFactoryInstance() {
+<span class="fc" id="L1116">        final Object loadedObject = this.getClassPropertyInstance(TableProperties.PROPERTY_CLASS_DECORATORFACTORY);</span>
+
+<span class="pc bpc" id="L1118" title="1 of 2 branches missed.">        if (loadedObject == null) {</span>
+<span class="nc" id="L1119">            return new DefaultDecoratorFactory();</span>
+        }
+
+        try {
+<span class="fc" id="L1123">            return (DecoratorFactory) loadedObject;</span>
+<span class="nc" id="L1124">        } catch (final ClassCastException e) {</span>
+<span class="nc" id="L1125">            throw new FactoryInstantiationException(this.getClass(), TableProperties.PROPERTY_CLASS_DECORATORFACTORY,</span>
+<span class="nc" id="L1126">                    loadedObject.getClass().getName(), e);</span>
+        }
+    }
+
+    /**
+     * Gets the pagination sort param.
+     *
+     * @return the pagination sort param
+     */
+    public String getPaginationSortParam() {
+<span class="fc" id="L1136">        String result = this.getProperty(TableProperties.PROPERTY_STRING_PAGINATION_SORT_PARAM);</span>
+<span class="pc bpc" id="L1137" title="1 of 2 branches missed.">        if (result == null) {</span>
+<span class="nc" id="L1138">            result = &quot;sort&quot;;</span>
+        }
+<span class="fc" id="L1140">        return result;</span>
+    }
+
+    /**
+     * Gets the pagination page number param.
+     *
+     * @return the pagination page number param
+     */
+    public String getPaginationPageNumberParam() {
+<span class="fc" id="L1149">        String result = this.getProperty(TableProperties.PROPERTY_STRING_PAGINATION_PAGE_NUMBER_PARAM);</span>
+<span class="pc bpc" id="L1150" title="1 of 2 branches missed.">        if (result == null) {</span>
+<span class="nc" id="L1151">            result = &quot;page&quot;;</span>
+        }
+<span class="fc" id="L1153">        return result;</span>
+    }
+
+    /**
+     * Gets the pagination sort direction param.
+     *
+     * @return the pagination sort direction param
+     */
+    public String getPaginationSortDirectionParam() {
+<span class="fc" id="L1162">        String result = this.getProperty(TableProperties.PROPERTY_STRING_PAGINATION_SORT_DIRECTION_PARAM);</span>
+<span class="pc bpc" id="L1163" title="1 of 2 branches missed.">        if (result == null) {</span>
+<span class="nc" id="L1164">            result = &quot;dir&quot;;</span>
+        }
+<span class="fc" id="L1166">        return result;</span>
+    }
+
+    /**
+     * Gets the pagination search id param.
+     *
+     * @return the pagination search id param
+     */
+    public String getPaginationSearchIdParam() {
+<span class="fc" id="L1175">        String result = this.getProperty(TableProperties.PROPERTY_STRING_PAGINATION_SEARCH_ID_PARAM);</span>
+<span class="pc bpc" id="L1176" title="1 of 2 branches missed.">        if (result == null) {</span>
+<span class="nc" id="L1177">            result = &quot;searchId&quot;;</span>
+        }
+<span class="fc" id="L1179">        return result;</span>
+    }
+
+    /**
+     * Gets the pagination asc value.
+     *
+     * @return the pagination asc value
+     */
+    public String getPaginationAscValue() {
+<span class="fc" id="L1188">        String result = this.getProperty(TableProperties.PROPERTY_STRING_PAGINATION_ASC_VALUE);</span>
+<span class="pc bpc" id="L1189" title="1 of 2 branches missed.">        if (result == null) {</span>
+<span class="nc" id="L1190">            result = &quot;asc&quot;;</span>
+        }
+<span class="fc" id="L1192">        return result;</span>
+    }
+
+    /**
+     * Gets the pagination desc value.
+     *
+     * @return the pagination desc value
+     */
+    public String getPaginationDescValue() {
+<span class="nc" id="L1201">        String result = this.getProperty(TableProperties.PROPERTY_STRING_PAGINATION_DESC_VALUE);</span>
+<span class="nc bnc" id="L1202" title="All 2 branches missed.">        if (result == null) {</span>
+<span class="nc" id="L1203">            result = &quot;desc&quot;;</span>
+        }
+<span class="nc" id="L1205">        return result;</span>
+    }
+
+    /**
+     * Gets the pagination skip page number in sort.
+     *
+     * @return the pagination skip page number in sort
+     */
+    public boolean getPaginationSkipPageNumberInSort() {
+<span class="fc" id="L1214">        final String s = this.getProperty(TableProperties.PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);</span>
+<span class="pc bpc" id="L1215" title="1 of 2 branches missed.">        if (s == null) {</span>
+<span class="nc" id="L1216">            return true;</span>
+        }
+<span class="fc" id="L1218">        return this.getBooleanProperty(TableProperties.PROPERTY_BOOLEAN_PAGINATION_SKIP_PAGE_NUMBER_IN_SORT);</span>
+    }
+
+    // &lt;/JBN&gt;
+
+    /**
+     * Returns the configured resource provider instance. If necessary instantiate the resource provider from config and
+     * then keep a cached instance.
+     *
+     * @return I18nResourceProvider instance.
+     *
+     * @see I18nResourceProvider
+     */
+    public I18nResourceProvider geResourceProvider() {
+<span class="fc" id="L1232">        final String className = this.getProperty(TableProperties.PROPERTY_CLASS_LOCALEPROVIDER);</span>
+
+<span class="fc bfc" id="L1234" title="All 2 branches covered.">        if (TableProperties.resourceProvider == null) {</span>
+<span class="pc bpc" id="L1235" title="1 of 2 branches missed.">            if (className != null) {</span>
+                try {
+<span class="fc" id="L1237">                    final Class&lt;I18nResourceProvider&gt; classProperty = (Class&lt;I18nResourceProvider&gt;) ReflectHelper</span>
+<span class="fc" id="L1238">                            .classForName(className);</span>
+<span class="fc" id="L1239">                    TableProperties.resourceProvider = classProperty.getDeclaredConstructor().newInstance();</span>
+
+<span class="fc" id="L1241">                    TableProperties.log.info(Messages.getString(&quot;TableProperties.classinitializedto&quot;, //$NON-NLS-1$</span>
+<span class="fc" id="L1242">                            new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class), className }));</span>
+<span class="nc" id="L1243">                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {</span>
+<span class="nc" id="L1244">                    TableProperties.log.warn(Messages.getString(&quot;TableProperties.errorloading&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L1245">                            new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class),</span>
+<span class="nc" id="L1246">                                    e.getClass().getName(), e.getMessage() }));</span>
+<span class="pc" id="L1247">                }</span>
+            } else {
+<span class="nc" id="L1249">                TableProperties.log.info(Messages.getString(&quot;TableProperties.noconfigured&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L1250">                        new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class) }));</span>
+            }
+
+            // still null?
+<span class="pc bpc" id="L1254" title="1 of 2 branches missed.">            if (TableProperties.resourceProvider == null) {</span>
+                // fallback provider, no i18n
+<span class="nc" id="L1256">                TableProperties.resourceProvider = (titleKey, property, tag, context) -&gt; null;</span>
+            }
+        }
+
+<span class="fc" id="L1260">        return TableProperties.resourceProvider;</span>
+    }
+
+    /**
+     * Reads a String property.
+     *
+     * @param key
+     *            property name
+     *
+     * @return property value or &lt;code&gt;null&lt;/code&gt; if property is not found
+     */
+    public String getProperty(final String key) {
+<span class="fc" id="L1272">        return this.properties.getProperty(key);</span>
+    }
+
+    /**
+     * Sets a property.
+     *
+     * @param key
+     *            property name
+     * @param value
+     *            property value
+     */
+    public void setProperty(final String key, final String value) {
+<span class="fc" id="L1284">        this.properties.setProperty(key, value);</span>
+<span class="fc" id="L1285">    }</span>
+
+    /**
+     * Reads a boolean property.
+     *
+     * @param key
+     *            property name
+     *
+     * @return boolean &lt;code&gt;true&lt;/code&gt; if the property value is &quot;true&quot;, &lt;code&gt;false&lt;/code&gt; for any other value.
+     */
+    private boolean getBooleanProperty(final String key) {
+<span class="fc" id="L1296">        return Boolean.TRUE.toString().equals(this.getProperty(key));</span>
+    }
+
+    /**
+     * Returns an instance of a configured Class. Returns a configured Class instantiated
+     * callingClass.forName([configuration value]).
+     *
+     * @param key
+     *            configuration key
+     *
+     * @return instance of configured class
+     */
+    private Object getClassPropertyInstance(final String key) {
+
+<span class="fc" id="L1310">        final String className = this.getProperty(key);</span>
+
+        // shouldn't be null, but better check it
+<span class="pc bpc" id="L1313" title="1 of 2 branches missed.">        if (className == null) {</span>
+<span class="nc" id="L1314">            return null;</span>
+        }
+
+<span class="fc" id="L1317">        Object instance = this.objectCache.get(className);</span>
+<span class="fc bfc" id="L1318" title="All 2 branches covered.">        if (instance != null) {</span>
+<span class="fc" id="L1319">            return instance;</span>
+        }
+
+        try {
+<span class="fc" id="L1323">            final Class&lt;?&gt; classProperty = ReflectHelper.classForName(className);</span>
+<span class="fc" id="L1324">            instance = classProperty.getDeclaredConstructor().newInstance();</span>
+<span class="fc" id="L1325">            this.objectCache.put(className, instance);</span>
+<span class="fc" id="L1326">            return instance;</span>
+<span class="nc" id="L1327">        } catch (final Exception e) {</span>
+<span class="nc" id="L1328">            throw new FactoryInstantiationException(this.getClass(), key, className, e);</span>
+        }
+    }
+
+    /**
+     * Reads an int property.
+     *
+     * @param key
+     *            property name
+     * @param defaultValue
+     *            default value returned if property is not found or not a valid int value
+     *
+     * @return property value
+     */
+    private int getIntProperty(final String key, final int defaultValue) {
+        try {
+<span class="fc" id="L1344">            return Integer.parseInt(this.getProperty(key));</span>
+<span class="nc" id="L1345">        } catch (final NumberFormatException e) {</span>
+            // Don't care, use default
+<span class="nc" id="L1347">            TableProperties.log.warn(Messages.getString(&quot;TableProperties.invalidvalue&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L1348">                    new Object[] { key, this.getProperty(key), Integer.valueOf(defaultValue) }));</span>
+        }
+
+<span class="nc" id="L1351">        return defaultValue;</span>
+    }
+
+    /**
+     * Obtain the name of the decorator configured for a given media type.
+     *
+     * @param thatEnum
+     *            A media type
+     *
+     * @return The name of the decorator configured for a given media type.
+     */
+    public String getMediaTypeDecoratorName(final MediaTypeEnum thatEnum) {
+<span class="fc" id="L1363">        return this.getProperty(TableProperties.PROPERTY_DECORATOR_SUFFIX + TableProperties.SEP</span>
+                + TableProperties.PROPERTY_DECORATOR_MEDIA + TableProperties.SEP + thatEnum);
+    }
+
+    /**
+     * the classname of the totaler.
+     *
+     * @return the classname of the totaler
+     */
+    public String getTotalerName() {
+<span class="fc" id="L1373">        return this.getProperty(TableProperties.TOTALER_NAME);</span>
+    }
+
+    /**
+     * Gets the default comparator.
+     *
+     * @return the default comparator
+     */
+    public Comparator&lt;Object&gt; getDefaultComparator() {
+<span class="fc" id="L1382">        final String className = this.getProperty(TableProperties.PROPERTY_DEFAULT_COMPARATOR);</span>
+<span class="pc bpc" id="L1383" title="1 of 2 branches missed.">        if (className != null) {</span>
+            try {
+<span class="nc" id="L1385">                final Class&lt;Comparator&lt;Object&gt;&gt; classProperty = (Class&lt;Comparator&lt;Object&gt;&gt;) ReflectHelper</span>
+<span class="nc" id="L1386">                        .classForName(className);</span>
+<span class="nc" id="L1387">                return classProperty.getDeclaredConstructor().newInstance();</span>
+<span class="nc" id="L1388">            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {</span>
+<span class="nc" id="L1389">                TableProperties.log.warn(Messages.getString(&quot;TableProperties.errorloading&quot;, //$NON-NLS-1$</span>
+<span class="nc" id="L1390">                        new Object[] { ClassUtils.getShortClassName(Comparator.class), e.getClass().getName(),</span>
+<span class="nc" id="L1391">                                e.getMessage() }));</span>
+            }
+        }
+<span class="fc" id="L1394">        return new DefaultComparator(Collator.getInstance(this.getLocale()));</span>
+    }
+ 
+    /**
+     * Returns the default value for column &lt;code&gt;escapeXml&lt;/code&gt; attribute.
+     * 
+     * @return The default value for column &lt;code&gt;escapeXml&lt;/code&gt; attribute
+     */
+    public boolean getEscapeXmlDefault() {
+<span class="fc" id="L1403">    	return getBooleanProperty(PROPERTY_BOOLEAN_ESCAPEXML_DEFAULT);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

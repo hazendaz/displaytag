@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>I18nStruts2Adapter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.localization</a> &gt; <span class="el_source">I18nStruts2Adapter.java</span></div><h1>I18nStruts2Adapter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.localization;
+
+import java.util.Iterator;
+import java.util.Locale;
+
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.Tag;
+
+import org.apache.struts2.views.jsp.TagUtils;
+import org.displaytag.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.LocaleProvider;
+import com.opensymphony.xwork2.TextProvider;
+import com.opensymphony.xwork2.util.ValueStack;
+
+/**
+ * Resolve i18n resources in Struts 2.
+ *
+ * @author snowwolf@wabunoh-tech.com
+ *
+ * @version $Revision: 1.1 $
+ *
+ * @since Jan 4, 2008 2:37:29 PM
+ */
+<span class="nc" id="L49">public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider {</span>
+
+    /**
+     * prefix/suffix for missing entries.
+     */
+    public static final String UNDEFINED_KEY = &quot;???&quot;; //$NON-NLS-1$
+
+    /**
+     * logger.
+     */
+<span class="nc" id="L59">    private static Logger log = LoggerFactory.getLogger(I18nStruts2Adapter.class);</span>
+
+    /**
+     * Resolve locale.
+     *
+     * @param pageContext
+     *            the page context
+     *
+     * @return the locale
+     *
+     * @see LocaleResolver#resolveLocale(PageContext)
+     */
+    @Override
+    public Locale resolveLocale(final PageContext pageContext) {
+
+<span class="nc" id="L74">        Locale result = null;</span>
+<span class="nc" id="L75">        final ValueStack stack = ActionContext.getContext().getValueStack();</span>
+
+<span class="nc" id="L77">        final Iterator&lt;Object&gt; iterator = stack.getRoot().iterator();</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        while (iterator.hasNext()) {</span>
+<span class="nc" id="L79">            final Object o = iterator.next();</span>
+
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if (o instanceof LocaleProvider) {</span>
+<span class="nc" id="L82">                final LocaleProvider lp = (LocaleProvider) o;</span>
+<span class="nc" id="L83">                result = lp.getLocale();</span>
+
+<span class="nc" id="L85">                break;</span>
+            }
+<span class="nc" id="L87">        }</span>
+
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (result == null) {</span>
+<span class="nc" id="L90">            I18nStruts2Adapter.log.debug(&quot;Missing LocalProvider actions, init locale to default&quot;);</span>
+<span class="nc" id="L91">            result = Locale.getDefault();</span>
+        }
+
+<span class="nc" id="L94">        return result;</span>
+    }
+
+    /**
+     * Gets the resource.
+     *
+     * @param resourceKey
+     *            the resource key
+     * @param defaultValue
+     *            the default value
+     * @param tag
+     *            the tag
+     * @param pageContext
+     *            the page context
+     *
+     * @return the resource
+     *
+     * @see I18nResourceProvider#getResource(String, String, Tag, javax.servlet.jsp.PageContext)
+     */
+    @Override
+    public String getResource(final String resourceKey, final String defaultValue, final Tag tag,
+            final PageContext pageContext) {
+
+        // if resourceKey isn't defined either, use defaultValue
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        final String key = resourceKey != null ? resourceKey : defaultValue;</span>
+
+<span class="nc" id="L120">        String message = null;</span>
+<span class="nc" id="L121">        final ValueStack stack = TagUtils.getStack(pageContext);</span>
+<span class="nc" id="L122">        final Iterator&lt;Object&gt; iterator = stack.getRoot().iterator();</span>
+
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        while (iterator.hasNext()) {</span>
+<span class="nc" id="L125">            final Object o = iterator.next();</span>
+
+<span class="nc bnc" id="L127" title="All 2 branches missed.">            if (o instanceof TextProvider) {</span>
+<span class="nc" id="L128">                final TextProvider tp = (TextProvider) o;</span>
+<span class="nc" id="L129">                message = tp.getText(key, null, (String) null);</span>
+
+<span class="nc" id="L131">                break;</span>
+            }
+<span class="nc" id="L133">        }</span>
+
+        // if user explicitly added a titleKey we guess this is an error
+<span class="nc bnc" id="L136" title="All 4 branches missed.">        if (message == null &amp;&amp; resourceKey != null) {</span>
+<span class="nc" id="L137">            I18nStruts2Adapter.log.debug(Messages.getString(&quot;Localization.missingkey&quot;, resourceKey)); //$NON-NLS-1$</span>
+<span class="nc" id="L138">            message = I18nStruts2Adapter.UNDEFINED_KEY + resourceKey + I18nStruts2Adapter.UNDEFINED_KEY;</span>
+        }
+
+<span class="nc" id="L141">        return message;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

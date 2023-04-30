@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CollectionUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.util</a> &gt; <span class="el_source">CollectionUtil.java</span></div><h1>CollectionUtil.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.util;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.displaytag.model.Row;
+
+/**
+ * Utility methods for collection handling.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public final class CollectionUtil {
+
+    /**
+     * Don't instantiate a CollectionUtil.
+     */
+    private CollectionUtil() {
+        // unused
+    }
+
+    /**
+     * Create a list of objects taken from the given iterator and crop the resulting list according to the startIndex
+     * and numberOfItems parameters.
+     *
+     * @param iterator
+     *            Iterator
+     * @param startIndex
+     *            int starting index
+     * @param numberOfItems
+     *            int number of items to keep in the list
+     *
+     * @return List with values taken from the given object, cropped according to startIndex and numberOfItems
+     *         parameters
+     */
+    private static List&lt;Row&gt; getSubList(final Iterator&lt;Row&gt; iterator, final int startIndex, final int numberOfItems) {
+
+<span class="fc" id="L63">        final List&lt;Row&gt; croppedList = new ArrayList&lt;&gt;(numberOfItems);</span>
+
+<span class="fc" id="L65">        int skippedRecordCount = 0;</span>
+<span class="fc" id="L66">        int copiedRecordCount = 0;</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        while (iterator.hasNext()) {</span>
+
+<span class="nc" id="L69">            final Row object = iterator.next();</span>
+
+<span class="nc" id="L71">            skippedRecordCount++;</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (skippedRecordCount &lt;= startIndex) {</span>
+<span class="nc" id="L73">                continue;</span>
+            }
+
+<span class="nc" id="L76">            croppedList.add(object);</span>
+
+<span class="nc bnc" id="L78" title="All 4 branches missed.">            if (numberOfItems != 0 &amp;&amp; ++copiedRecordCount &gt;= numberOfItems) {</span>
+<span class="nc" id="L79">                break;</span>
+            }
+<span class="nc" id="L81">        }</span>
+
+<span class="fc" id="L83">        return croppedList;</span>
+
+    }
+
+    /**
+     * create an iterator on a given object (Collection, Enumeration, array, single Object) and crop the resulting list
+     * according to the startIndex and numberOfItems parameters.
+     *
+     * @param iterableObject
+     *            Collection, Enumeration or array to crop
+     * @param startIndex
+     *            int starting index
+     * @param numberOfItems
+     *            int number of items to keep in the list
+     *
+     * @return List with values taken from the given object, cropped according the startIndex and numberOfItems
+     *         parameters
+     */
+    public static List&lt;Row&gt; getListFromObject(final Object iterableObject, final int startIndex,
+            final int numberOfItems) {
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        if (iterableObject instanceof List) {</span>
+            // easier, use sublist
+<span class="fc" id="L105">            final List&lt;Row&gt; list = (List&lt;Row&gt;) iterableObject;</span>
+
+            // check for partial lists
+<span class="fc bfc" id="L108" title="All 2 branches covered.">            int lastRecordExclusive = numberOfItems &lt;= 0 ? list.size() : startIndex + numberOfItems;</span>
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">            if (lastRecordExclusive &gt; list.size()) {</span>
+<span class="nc" id="L110">                lastRecordExclusive = list.size();</span>
+            }
+
+<span class="fc bfc" id="L113" title="All 2 branches covered.">            if (startIndex &lt; list.size()) {</span>
+<span class="fc" id="L114">                return list.subList(startIndex, lastRecordExclusive);</span>
+            }
+        }
+
+        // use an iterator
+<span class="fc" id="L119">        final Iterator&lt;Row&gt; iterator = IteratorUtils.getIterator(iterableObject);</span>
+<span class="fc" id="L120">        return CollectionUtil.getSubList(iterator, startIndex, numberOfItems);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

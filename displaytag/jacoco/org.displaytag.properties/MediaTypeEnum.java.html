@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MediaTypeEnum.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.properties</a> &gt; <span class="el_source">MediaTypeEnum.java</span></div><h1>MediaTypeEnum.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.properties;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+/**
+ * Enumeration for media types.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public final class MediaTypeEnum {
+
+    /**
+     * Array containing all the export types.
+     */
+<span class="fc" id="L42">    private static final List&lt;MediaTypeEnum&gt; ALL = new ArrayList&lt;&gt;();</span>
+
+    /**
+     * media type HTML = 0.
+     */
+<span class="fc" id="L47">    public static final MediaTypeEnum HTML = new MediaTypeEnum(0, &quot;html&quot;); //$NON-NLS-1$</span>
+
+    /**
+     * Media type CSV = 1.
+     */
+<span class="fc" id="L52">    public static final MediaTypeEnum CSV = new MediaTypeEnum(1, &quot;csv&quot;); //$NON-NLS-1$</span>
+
+    /**
+     * media type EXCEL = 2.
+     */
+<span class="fc" id="L57">    public static final MediaTypeEnum EXCEL = new MediaTypeEnum(2, &quot;excel&quot;); //$NON-NLS-1$</span>
+
+    /**
+     * media type XML = 3.
+     */
+<span class="fc" id="L62">    public static final MediaTypeEnum XML = new MediaTypeEnum(3, &quot;xml&quot;); //$NON-NLS-1$</span>
+
+    /**
+     * media type XML = 3.
+     */
+<span class="fc" id="L67">    public static final MediaTypeEnum PDF = new MediaTypeEnum(4, &quot;pdf&quot;); //$NON-NLS-1$</span>
+
+    /**
+     * Code; this is the primary key for these objects.
+     */
+    private final int enumCode;
+
+    /**
+     * description.
+     */
+    private final String enumName;
+
+    /**
+     * private constructor. Use only constants.
+     *
+     * @param code
+     *            int code
+     * @param name
+     *            description of media type
+     */
+<span class="fc" id="L87">    private MediaTypeEnum(final int code, final String name) {</span>
+<span class="fc" id="L88">        this.enumCode = code;</span>
+<span class="fc" id="L89">        this.enumName = name;</span>
+<span class="fc" id="L90">        MediaTypeEnum.ALL.add(this);</span>
+<span class="fc" id="L91">    }</span>
+
+    /**
+     * returns the int code.
+     *
+     * @return int code
+     */
+    public int getCode() {
+<span class="fc" id="L99">        return this.enumCode;</span>
+    }
+
+    /**
+     * returns the description.
+     *
+     * @return String description of the media type (&quot;excel&quot;, &quot;xml&quot;, &quot;csv&quot;, &quot;html&quot;, &quot;pdf&quot;)
+     */
+    public String getName() {
+<span class="fc" id="L108">        return this.enumName;</span>
+    }
+
+    /**
+     * lookup a media type by key.
+     *
+     * @param key
+     *            int code
+     *
+     * @return MediaTypeEnum or null if no mediaType is found with the given key
+     */
+    public static MediaTypeEnum fromCode(final int key) {
+        // TODO optimization needed
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">        for (final MediaTypeEnum element : MediaTypeEnum.ALL) {</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">            if (key == element.getCode()) {</span>
+<span class="fc" id="L123">                return element;</span>
+            }
+<span class="fc" id="L125">        }</span>
+        // lookup failed
+<span class="nc" id="L127">        return null;</span>
+    }
+
+    /**
+     * lookup a media type by an Integer key.
+     *
+     * @param key
+     *            Integer code - null safe: a null key returns a null Enum
+     *
+     * @return MediaTypeEnum or null if no mediaType is found with the given key
+     */
+    public static MediaTypeEnum fromCode(final Integer key) {
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (key == null) {</span>
+<span class="fc" id="L140">            return null;</span>
+        }
+
+<span class="fc" id="L143">        return MediaTypeEnum.fromCode(key.intValue());</span>
+    }
+
+    /**
+     * lookup a media type by an Integer key.
+     *
+     * @param key
+     *            Integer code - null safe: a null key returns a null Enum
+     *
+     * @return MediaTypeEnum or null if no mediaType is found with the given key
+     *
+     * @deprecated use fromCode(Integer)
+     */
+    @Deprecated
+    public static MediaTypeEnum fromIntegerCode(final Integer key) {
+<span class="nc" id="L158">        return MediaTypeEnum.fromCode(key);</span>
+    }
+
+    /**
+     * Lookup a media type by a String key.
+     *
+     * @param code
+     *            String code - null safe: a null key returns a null Enum
+     *
+     * @return MediaTypeEnum or null if no mediaType is found with the given key
+     */
+    public static MediaTypeEnum fromName(final String code) {
+        // TODO optimization needed
+<span class="fc bfc" id="L171" title="All 2 branches covered.">        for (final MediaTypeEnum element : MediaTypeEnum.ALL) {</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">            if (element.getName().equals(code)) {</span>
+<span class="fc" id="L173">                return element;</span>
+            }
+<span class="fc" id="L175">        }</span>
+        // lookup failed
+<span class="fc" id="L177">        return null;</span>
+    }
+
+    /**
+     * returns an iterator on all the media type.
+     *
+     * @return iterator
+     */
+    public static Iterator&lt;MediaTypeEnum&gt; iterator() {
+<span class="fc" id="L186">        return MediaTypeEnum.ALL.iterator();</span>
+    }
+
+    /**
+     * Register a new MediaType. If &lt;code&gt;name&lt;/code&gt; is already assigned the existing instance is returned, otherwise a
+     * new instance is created.
+     *
+     * @param name
+     *            media name
+     *
+     * @return assigned MediaTypeEnum instance
+     */
+    public static synchronized MediaTypeEnum registerMediaType(final String name) {
+<span class="fc" id="L199">        MediaTypeEnum existing = MediaTypeEnum.fromName(name);</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">        if (existing == null) {</span>
+<span class="fc" id="L201">            existing = new MediaTypeEnum(MediaTypeEnum.ALL.size() + 1, name);</span>
+        }
+<span class="fc" id="L203">        return existing;</span>
+    }
+
+    /**
+     * Returns the number of media type currently loaded.
+     *
+     * @return number of media types loaded
+     */
+    public static int getSize() {
+<span class="nc" id="L212">        return MediaTypeEnum.ALL.size();</span>
+    }
+
+    /**
+     * returns the media type description.
+     *
+     * @return the string
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L224">        return this.getName();</span>
+    }
+
+    /**
+     * Only a single instance of a specific MediaTypeEnum can be created, so we can check using ==.
+     *
+     * @param o
+     *            the object to compare to
+     *
+     * @return hashCode
+     */
+    @Override
+    public boolean equals(final Object o) {
+<span class="fc bfc" id="L237" title="All 2 branches covered.">        return this == o;</span>
+    }
+
+    /**
+     * Hash code.
+     *
+     * @return the int
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+<span class="fc" id="L249">        return new HashCodeBuilder(1188997057, -1289297553).append(this.enumCode).toHashCode();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

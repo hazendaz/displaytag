@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MultipleHtmlAttribute.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.util</a> &gt; <span class="el_source">MultipleHtmlAttribute.java</span></div><h1>MultipleHtmlAttribute.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.util;
+
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+
+/**
+ * Object used to contain html multiple attribute value (for the &quot;class&quot; attribute).
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class MultipleHtmlAttribute implements Cloneable {
+
+    /**
+     * Sets containing splitted attribute values.
+     */
+    private final Set&lt;String&gt; attributeSet;
+
+    /**
+     * Constructor for MultipleHtmlAttribute.
+     *
+     * @param attributeValue
+     *            String
+     */
+<span class="fc" id="L50">    public MultipleHtmlAttribute(final String attributeValue) {</span>
+<span class="fc" id="L51">        this.attributeSet = new LinkedHashSet&lt;&gt;();</span>
+<span class="fc" id="L52">        this.addAllAttributesFromArray(StringUtils.split(attributeValue));</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Adds attributes from an array.
+     *
+     * @param attributes
+     *            Object[] Array containing attributes
+     */
+    private void addAllAttributesFromArray(final String[] attributes) {
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (attributes == null) {</span>
+<span class="nc" id="L63">            return;</span>
+        }
+
+        // number of attributes to add
+<span class="fc" id="L67">        final int length = attributes.length;</span>
+
+        // add all the splitted attributes
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        for (int j = 0; j &lt; length; j++) {</span>
+
+            // don't add if empty
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">            if (!StringUtils.isEmpty(attributes[j])) {</span>
+<span class="fc" id="L74">                this.attributeSet.add(attributes[j]);</span>
+            }
+
+        }
+<span class="fc" id="L78">    }</span>
+
+    /**
+     * Returns the list of attributes separated by a space.
+     *
+     * @return String
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L87">        final StringBuilder buffer = new StringBuilder();</span>
+
+<span class="fc" id="L89">        final Iterator&lt;String&gt; iterator = this.attributeSet.iterator();</span>
+
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        while (iterator.hasNext()) {</span>
+            // apend next value
+<span class="fc" id="L93">            buffer.append(iterator.next());</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            if (iterator.hasNext()) {</span>
+                // append a space if there are more
+<span class="fc" id="L96">                buffer.append(' ');</span>
+            }
+        }
+
+<span class="fc" id="L100">        return buffer.toString();</span>
+    }
+
+    /**
+     * Adds a value to the attribute.
+     *
+     * @param attributeValue
+     *            value to add to the attribute
+     */
+    public void addAttributeValue(final String attributeValue) {
+        // don't add if empty
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if (!StringUtils.isEmpty(attributeValue)) {</span>
+<span class="fc" id="L112">            this.attributeSet.add(attributeValue);</span>
+        }
+
+<span class="fc" id="L115">    }</span>
+
+    /**
+     * Return true if this MultipleHtmlValue doesn't store any value.
+     *
+     * @return &lt;code&gt;true&lt;/code&gt; if this MultipleHtmlValue doesn't store any value
+     */
+    public boolean isEmpty() {
+<span class="fc" id="L123">        return this.attributeSet.isEmpty();</span>
+    }
+
+    /**
+     * Clone.
+     *
+     * @return the object
+     *
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    protected Object clone() {
+        MultipleHtmlAttribute clone;
+
+        try {
+<span class="nc" id="L138">            clone = (MultipleHtmlAttribute) super.clone();</span>
+<span class="nc" id="L139">        } catch (final CloneNotSupportedException e) {</span>
+            // should never happen
+<span class="nc" id="L141">            throw new RuntimeException(e);</span>
+<span class="nc" id="L142">        }</span>
+
+        // copy attributes
+<span class="nc" id="L145">        clone.addAllAttributesFromArray(this.attributeSet.toArray(new String[this.attributeSet.size()]));</span>
+
+<span class="nc" id="L147">        return clone;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

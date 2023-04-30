@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LookupUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.util</a> &gt; <span class="el_source">LookupUtil.java</span></div><h1>LookupUtil.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.util;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.jsp.PageContext;
+
+import org.apache.commons.beanutils.NestedNullException;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.displaytag.exception.ObjectLookupException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Utility class with methods for object and properties retrieving.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Id$
+ */
+public final class LookupUtil {
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L50">    private static Logger log = LoggerFactory.getLogger(LookupUtil.class);</span>
+
+    /** The Constant INDEXED_DELIM. */
+    private static final char INDEXED_DELIM = '[';
+
+    /** The Constant INDEXED_DELIM2. */
+    private static final char INDEXED_DELIM2 = ']';
+
+    /** The Constant MAPPED_DELIM. */
+    private static final char MAPPED_DELIM = '(';
+
+    /** The Constant MAPPED_DELIM2. */
+    private static final char MAPPED_DELIM2 = ')';
+
+    /** The Constant NESTED_DELIM. */
+    private static final char NESTED_DELIM = '.';
+
+    /**
+     * don't instantiate a LookupUtil.
+     */
+    private LookupUtil() {
+        // unused
+    }
+
+    /**
+     * Read an object from the pagecontext with the specified scope and eventually lookup a property in it.
+     *
+     * @param pageContext
+     *            PageContext
+     * @param beanAndPropertyName
+     *            String expression with bean name and attributes
+     * @param scope
+     *            One of the following values:
+     *            &lt;ul&gt;
+     *            &lt;li&gt;PageContext.PAGE_SCOPE&lt;/li&gt;
+     *            &lt;li&gt;PageContext.REQUEST_SCOPE&lt;/li&gt;
+     *            &lt;li&gt;PageContext.SESSION_SCOPE&lt;/li&gt;
+     *            &lt;li&gt;PageContext.APPLICATION_SCOPE&lt;/li&gt;
+     *            &lt;/ul&gt;
+     *
+     * @return Object
+     *
+     * @throws ObjectLookupException
+     *             for errors while retrieving a property in the bean
+     */
+    public static Object getBeanValue(final PageContext pageContext, final String beanAndPropertyName, final int scope)
+            throws ObjectLookupException {
+
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        if (beanAndPropertyName.indexOf('.') != -1) {</span>
+            // complex: property from a bean
+<span class="nc" id="L100">            final String objectName = StringUtils.substringBefore(beanAndPropertyName, &quot;.&quot;);</span>
+<span class="nc" id="L101">            final String beanProperty = StringUtils.substringAfter(beanAndPropertyName, &quot;.&quot;);</span>
+            Object beanObject;
+
+<span class="nc bnc" id="L104" title="All 2 branches missed.">            if (LookupUtil.log.isDebugEnabled()) {</span>
+<span class="nc" id="L105">                LookupUtil.log.debug(&quot;getBeanValue - bean: {}, property: {}&quot;, objectName, beanProperty);</span>
+            }
+
+            // get the bean
+<span class="nc" id="L109">            beanObject = pageContext.getAttribute(objectName, scope);</span>
+
+            // if null return
+<span class="nc bnc" id="L112" title="All 2 branches missed.">            if (beanObject == null) {</span>
+<span class="nc" id="L113">                return null;</span>
+            }
+
+            // go get the property
+<span class="nc" id="L117">            return LookupUtil.getBeanProperty(beanObject, beanProperty);</span>
+
+        }
+
+        // simple, only the javabean
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (LookupUtil.log.isDebugEnabled()) {</span>
+<span class="nc" id="L123">            LookupUtil.log.debug(&quot;getBeanValue - bean: {}&quot;, beanAndPropertyName);</span>
+        }
+
+<span class="fc" id="L126">        return pageContext.getAttribute(beanAndPropertyName, scope);</span>
+    }
+
+    /**
+     * &lt;p&gt;
+     * Returns the value of a property in the given bean.
+     * &lt;/p&gt;
+     * &lt;p&gt;
+     * Handle &lt;code&gt;NestedNullException&lt;/code&gt; returning nulls and other exceptions returning
+     * &lt;code&gt;ObjectLookupException&lt;/code&gt;.
+     * &lt;/p&gt;
+     *
+     * @param bean
+     *            javabean
+     * @param name
+     *            name of the property to read from the javabean
+     *
+     * @return Object
+     *
+     * @throws ObjectLookupException
+     *             for errors while retrieving a property in the bean
+     */
+    public static Object getBeanProperty(final Object bean, final String name) throws ObjectLookupException {
+
+<span class="fc" id="L150">        Validate.notNull(bean, &quot;No bean specified&quot;);</span>
+<span class="fc" id="L151">        Validate.notNull(name, &quot;No name specified&quot;);</span>
+
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        if (LookupUtil.log.isDebugEnabled()) {</span>
+<span class="nc" id="L154">            LookupUtil.log.debug(&quot;getProperty [{}] on bean {}&quot;, name, bean);</span>
+        }
+
+        try {
+<span class="fc" id="L158">            return LookupUtil.getProperty(bean, name);</span>
+<span class="nc" id="L159">        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {</span>
+<span class="nc" id="L160">            throw new ObjectLookupException(LookupUtil.class, bean, name, e);</span>
+<span class="nc" id="L161">        } catch (final NestedNullException nne) {</span>
+            // don't throw exceptions for nulls
+<span class="nc" id="L163">            return null;</span>
+<span class="nc" id="L164">        } catch (final IllegalArgumentException e) {</span>
+            // don't throw exceptions for nulls; the bean and name have already been checked; this is being thrown when
+            // the bean property value is itself null.
+<span class="nc" id="L167">            LookupUtil.log.debug(</span>
+                    &quot;Caught IllegalArgumentException from beanutils while looking up &quot; + name + &quot; in bean &quot; + bean, e);
+<span class="nc" id="L169">            return null;</span>
+        }
+    }
+
+    /**
+     * Return the value of the (possibly nested) property of the specified name, for the specified bean, with no type
+     * conversions.
+     *
+     * @param bean
+     *            Bean whose property is to be extracted
+     * @param name
+     *            Possibly nested name of the property to be extracted
+     *
+     * @return Object
+     *
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     */
+    public static Object getProperty(final Object bean, final String name)
+            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+<span class="pc bpc" id="L193" title="1 of 2 branches missed.">        if (LookupUtil.log.isDebugEnabled()) {</span>
+<span class="nc" id="L194">            LookupUtil.log.debug(&quot;getProperty [{}] on bean {}&quot;, name, bean);</span>
+        }
+
+<span class="fc" id="L197">        Validate.notNull(bean, &quot;No bean specified&quot;);</span>
+<span class="fc" id="L198">        Validate.notNull(name, &quot;No name specified&quot;);</span>
+
+<span class="fc" id="L200">        Object evalBean = bean;</span>
+<span class="fc" id="L201">        String evalName = name;</span>
+
+<span class="fc" id="L203">        int indexOfINDEXEDDELIM = -1;</span>
+<span class="fc" id="L204">        int indexOfMAPPEDDELIM = -1;</span>
+<span class="fc" id="L205">        int indexOfMAPPEDDELIM2 = -1;</span>
+<span class="fc" id="L206">        int indexOfNESTEDDELIM = -1;</span>
+        while (true) {
+
+<span class="fc" id="L209">            indexOfNESTEDDELIM = evalName.indexOf(LookupUtil.NESTED_DELIM);</span>
+<span class="fc" id="L210">            indexOfMAPPEDDELIM = evalName.indexOf(LookupUtil.MAPPED_DELIM);</span>
+<span class="fc" id="L211">            indexOfMAPPEDDELIM2 = evalName.indexOf(LookupUtil.MAPPED_DELIM2);</span>
+<span class="pc bpc" id="L212" title="7 of 8 branches missed.">            if (indexOfMAPPEDDELIM2 &gt;= 0 &amp;&amp; indexOfMAPPEDDELIM &gt;= 0</span>
+                    &amp;&amp; (indexOfNESTEDDELIM &lt; 0 || indexOfNESTEDDELIM &gt; indexOfMAPPEDDELIM)) {
+<span class="nc" id="L214">                indexOfNESTEDDELIM = evalName.indexOf(LookupUtil.NESTED_DELIM, indexOfMAPPEDDELIM2);</span>
+            } else {
+<span class="fc" id="L216">                indexOfNESTEDDELIM = evalName.indexOf(LookupUtil.NESTED_DELIM);</span>
+            }
+<span class="fc bfc" id="L218" title="All 2 branches covered.">            if (indexOfNESTEDDELIM &lt; 0) {</span>
+<span class="fc" id="L219">                break;</span>
+            }
+<span class="fc" id="L221">            final String next = evalName.substring(0, indexOfNESTEDDELIM);</span>
+<span class="fc" id="L222">            indexOfINDEXEDDELIM = next.indexOf(LookupUtil.INDEXED_DELIM);</span>
+<span class="fc" id="L223">            indexOfMAPPEDDELIM = next.indexOf(LookupUtil.MAPPED_DELIM);</span>
+<span class="pc bpc" id="L224" title="1 of 2 branches missed.">            if (evalBean instanceof Map) {</span>
+<span class="nc" id="L225">                evalBean = ((Map&lt;?, ?&gt;) evalBean).get(next);</span>
+<span class="pc bpc" id="L226" title="1 of 2 branches missed.">            } else if (indexOfMAPPEDDELIM &gt;= 0) {</span>
+
+<span class="nc" id="L228">                evalBean = PropertyUtils.getMappedProperty(evalBean, next);</span>
+
+<span class="pc bpc" id="L230" title="1 of 2 branches missed.">            } else if (indexOfINDEXEDDELIM &gt;= 0) {</span>
+<span class="nc" id="L231">                evalBean = LookupUtil.getIndexedProperty(evalBean, next);</span>
+            } else {
+<span class="fc" id="L233">                evalBean = PropertyUtils.getSimpleProperty(evalBean, next);</span>
+            }
+
+<span class="pc bpc" id="L236" title="1 of 2 branches missed.">            if (evalBean == null) {</span>
+<span class="nc" id="L237">                LookupUtil.log.debug(&quot;Null property value for '{}'&quot;, evalName.substring(0, indexOfNESTEDDELIM));</span>
+<span class="nc" id="L238">                return null;</span>
+            }
+<span class="fc" id="L240">            evalName = evalName.substring(indexOfNESTEDDELIM + 1);</span>
+
+<span class="fc" id="L242">        }</span>
+
+<span class="fc" id="L244">        indexOfINDEXEDDELIM = evalName.indexOf(LookupUtil.INDEXED_DELIM);</span>
+<span class="fc" id="L245">        indexOfMAPPEDDELIM = evalName.indexOf(LookupUtil.MAPPED_DELIM);</span>
+
+<span class="fc bfc" id="L247" title="All 2 branches covered.">        if (evalBean instanceof Map) {</span>
+<span class="fc" id="L248">            evalBean = ((Map&lt;?, ?&gt;) evalBean).get(evalName);</span>
+<span class="pc bpc" id="L249" title="1 of 2 branches missed.">        } else if (indexOfMAPPEDDELIM &gt;= 0) {</span>
+<span class="nc" id="L250">            evalBean = PropertyUtils.getMappedProperty(evalBean, evalName);</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">        } else if (indexOfINDEXEDDELIM &gt;= 0) {</span>
+<span class="fc" id="L252">            evalBean = LookupUtil.getIndexedProperty(evalBean, evalName);</span>
+        } else {
+<span class="fc" id="L254">            evalBean = PropertyUtils.getSimpleProperty(evalBean, evalName);</span>
+        }
+
+<span class="fc" id="L257">        return evalBean;</span>
+
+    }
+
+    /**
+     * Return the value of the specified indexed property of the specified bean, with no type conversions. The
+     * zero-relative index of the required value must be included (in square brackets) as a suffix to the property name,
+     * or &lt;code&gt;IllegalArgumentException&lt;/code&gt; will be thrown. In addition to supporting the JavaBeans specification,
+     * this method has been extended to support &lt;code&gt;List&lt;/code&gt; objects as well.
+     *
+     * @param bean
+     *            Bean whose property is to be extracted
+     * @param name
+     *            &lt;code&gt;propertyname[index]&lt;/code&gt; of the property value to be extracted
+     *
+     * @return Object
+     *
+     * @exception IllegalAccessException
+     *                if the caller does not have access to the property accessor method
+     * @exception InvocationTargetException
+     *                if the property accessor method throws an exception
+     * @exception NoSuchMethodException
+     *                if an accessor method for this propety cannot be found
+     */
+    public static Object getIndexedProperty(final Object bean, final String name)
+            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+
+<span class="fc" id="L284">        Validate.notNull(bean, &quot;No bean specified&quot;);</span>
+<span class="fc" id="L285">        Validate.notNull(name, &quot;No name specified&quot;);</span>
+
+<span class="fc" id="L287">        String evalName = name;</span>
+
+        // Identify the index of the requested individual property
+<span class="fc" id="L290">        final int delim = evalName.indexOf(LookupUtil.INDEXED_DELIM);</span>
+<span class="fc" id="L291">        final int delim2 = evalName.indexOf(LookupUtil.INDEXED_DELIM2);</span>
+<span class="pc bpc" id="L292" title="2 of 4 branches missed.">        if (delim &lt; 0 || delim2 &lt;= delim) {</span>
+<span class="nc" id="L293">            throw new IllegalArgumentException(&quot;Invalid indexed property '&quot; + evalName + &quot;'&quot;);</span>
+        }
+<span class="fc" id="L295">        int index = -1;</span>
+        try {
+<span class="fc" id="L297">            final String subscript = evalName.substring(delim + 1, delim2);</span>
+<span class="fc" id="L298">            index = Integer.parseInt(subscript);</span>
+<span class="nc" id="L299">        } catch (final NumberFormatException e) {</span>
+<span class="nc" id="L300">            throw new IllegalArgumentException(&quot;Invalid indexed property '&quot; + evalName + &quot;'&quot;);</span>
+<span class="fc" id="L301">        }</span>
+<span class="fc" id="L302">        evalName = evalName.substring(0, delim);</span>
+
+<span class="pc bpc" id="L304" title="1 of 2 branches missed.">        if (LookupUtil.log.isDebugEnabled()) {</span>
+<span class="nc" id="L305">            LookupUtil.log.debug(&quot;getIndexedProperty property name={} with index {}&quot;, evalName, index);</span>
+
+        }
+
+        // addd support for lists and arrays
+<span class="pc bpc" id="L310" title="1 of 2 branches missed.">        if (StringUtils.isEmpty(evalName)) {</span>
+<span class="fc bfc" id="L311" title="All 2 branches covered.">            if (bean instanceof List) {</span>
+<span class="fc" id="L312">                return ((List&lt;?&gt;) bean).get(index);</span>
+            }
+<span class="pc bpc" id="L314" title="1 of 2 branches missed.">            if (bean.getClass().isArray()) {</span>
+<span class="fc" id="L315">                return ((Object[]) bean)[index];</span>
+            }
+        }
+        // Request the specified indexed property value
+<span class="nc" id="L319">        return PropertyUtils.getIndexedProperty(bean, evalName, index);</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

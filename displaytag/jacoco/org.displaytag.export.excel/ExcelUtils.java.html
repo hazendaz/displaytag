@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExcelUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.export.excel</a> &gt; <span class="el_source">ExcelUtils.java</span></div><h1>ExcelUtils.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.export.excel;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.displaytag.Messages;
+import org.displaytag.exception.BaseNestableJspTagException;
+import org.displaytag.exception.SeverityEnum;
+import org.displaytag.properties.TableProperties;
+
+/**
+ * Convenience methods for the excel export. Contains code extracted from several existing classes.
+ *
+ * @author andy Date: Nov 13, 2010 Time: 10:16:33 AM
+ */
+public class ExcelUtils {
+
+    /** The Constant EXCEL_SHEET_NAME. */
+    public static final String EXCEL_SHEET_NAME = &quot;export.excel.sheetname&quot;; //$NON-NLS-1$
+
+    /** The Constant EXCEL_FORMAT_INTEGER. */
+    public static final String EXCEL_FORMAT_INTEGER = &quot;export.excel.format.integer&quot;; //$NON-NLS-1$
+
+    /** The Constant EXCEL_FORMAT_DATE. */
+    public static final String EXCEL_FORMAT_DATE = &quot;export.excel.format.date&quot;; //$NON-NLS-1$
+
+    /** The Constant EXCEL_FORMAT_NUMBER. */
+    public static final String EXCEL_FORMAT_NUMBER = &quot;export.excel.format.number&quot;; //$NON-NLS-1$
+
+    /** The Constant EXCEL_WRAPAT. */
+    public static final String EXCEL_WRAPAT = &quot;export.excel.wraptextlength&quot;; //$NON-NLS-1$
+
+    /** The cell styles. */
+    /*
+     * Available already configured cell styles, as HSSF JavaDoc claims there are limits to cell styles.
+     */
+<span class="fc" id="L64">    private final Map&lt;String, HSSFCellStyle&gt; cellStyles = new HashMap&lt;&gt;();</span>
+
+    /**
+     * Max line length for wrapping.
+     */
+    private int wrapAt;
+
+    // public static final Integer
+
+    /**
+     * Style constant for looking up cell styles.
+     */
+    public static final String STYLE_INTEGER = &quot;integer&quot;;
+
+    /**
+     * Style constant for looking up cell styles.
+     */
+    public static final String STYLE_NUMBER = &quot;number&quot;;
+
+    /**
+     * Style constant for looking up cell styles.
+     */
+    public static final String STYLE_DATE = &quot;date&quot;;
+
+    /**
+     * Style constant for looking up cell styles.
+     */
+    public static final String STYLE_STRING = &quot;string&quot;;
+
+    /**
+     * Style constant for looking up cell styles.
+     */
+    public static final String STYLE_LONGSTRING = &quot;longstring&quot;;
+
+    /**
+     * Style constant for looking up cell styles.
+     */
+    public static final String STYLE_PCT = &quot;pct&quot;;
+
+    /** Workbook. */
+    private HSSFWorkbook wb;
+
+    /**
+     * Instantiates a new excel utils.
+     *
+     * @param book
+     *            the book
+     */
+<span class="fc" id="L112">    public ExcelUtils(final HSSFWorkbook book) {</span>
+<span class="fc" id="L113">        this.wb = book;</span>
+<span class="fc" id="L114">    }</span>
+
+    /**
+     * Gets the wb.
+     *
+     * @return the wb
+     */
+    public HSSFWorkbook getWb() {
+<span class="fc" id="L122">        return this.wb;</span>
+    }
+
+    /**
+     * Sets the wb.
+     *
+     * @param wb
+     *            the new wb
+     */
+    public void setWb(final HSSFWorkbook wb) {
+<span class="nc" id="L132">        this.wb = wb;</span>
+<span class="nc" id="L133">    }</span>
+
+    /**
+     * We cache the styles; they are expensive to construct.
+     *
+     * @param properties
+     *            props for this run
+     */
+    public void initCellStyles(final TableProperties properties) {
+        // Integer
+<span class="fc" id="L143">        HSSFCellStyle style = this.getNewCellStyle();</span>
+<span class="fc" id="L144">        style.setAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="fc" id="L145">        style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_INTEGER)));</span>
+<span class="fc" id="L146">        this.cellStyles.put(ExcelUtils.STYLE_INTEGER, style);</span>
+
+        // NUMBER
+<span class="fc" id="L149">        style = this.getNewCellStyle();</span>
+<span class="fc" id="L150">        style.setAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="fc" id="L151">        style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_NUMBER)));</span>
+<span class="fc" id="L152">        this.cellStyles.put(ExcelUtils.STYLE_NUMBER, style);</span>
+
+        // Date
+<span class="fc" id="L155">        style = this.getNewCellStyle();</span>
+<span class="fc" id="L156">        style.setAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="fc" id="L157">        style.setDataFormat(HSSFDataFormat.getBuiltinFormat(properties.getProperty(ExcelUtils.EXCEL_FORMAT_DATE)));</span>
+<span class="fc" id="L158">        style.setAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="fc" id="L159">        this.cellStyles.put(ExcelUtils.STYLE_DATE, style);</span>
+
+        // Long text
+<span class="fc" id="L162">        style = this.getNewCellStyle(); // http://jakarta.apache.org/poi/hssf/quick-guide.html#NewLinesInCells</span>
+<span class="fc" id="L163">        style.setWrapText(true);</span>
+<span class="fc" id="L164">        this.cellStyles.put(ExcelUtils.STYLE_LONGSTRING, style);</span>
+
+        // Regular text
+<span class="fc" id="L167">        this.cellStyles.put(ExcelUtils.STYLE_STRING, this.getNewCellStyle());</span>
+
+<span class="fc" id="L169">        this.wrapAt = Integer.parseInt(properties.getProperty(ExcelUtils.EXCEL_WRAPAT));</span>
+<span class="fc" id="L170">    }</span>
+
+    /**
+     * You can add styles too, but they won't be picked up unless you do so in a subclass.
+     *
+     * @param key
+     *            the key
+     * @param st
+     *            the st
+     */
+    public void addCellStyle(final String key, final HSSFCellStyle st) {
+<span class="nc" id="L181">        this.cellStyles.put(key, st);</span>
+<span class="nc" id="L182">    }</span>
+
+    /**
+     * Gets the new cell style.
+     *
+     * @return the new cell style
+     */
+    public HSSFCellStyle getNewCellStyle() {
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">        return this.getWb() == null ? null : this.getWb().createCellStyle();</span>
+    }
+
+    /**
+     * Gets the style.
+     *
+     * @param clz
+     *            the clz
+     *
+     * @return the style
+     */
+    public HSSFCellStyle getStyle(final String clz) {
+<span class="fc" id="L202">        return this.cellStyles.get(clz);</span>
+    }
+
+    /**
+     * The Enum CellFormatTypes.
+     */
+<span class="nc" id="L208">    public enum CellFormatTypes {</span>
+
+        /** The integer. */
+<span class="nc" id="L211">        INTEGER,</span>
+
+        /** The number. */
+<span class="nc" id="L214">        NUMBER,</span>
+
+        /** The date. */
+<span class="nc" id="L217">        DATE</span>
+    }
+
+    /**
+     * Wraps IText-generated exceptions.
+     *
+     * @author Fabrizio Giustina
+     *
+     * @version $Revision: 1163 $ ($Author: rapruitt $)
+     */
+    static class ExcelGenerationException extends BaseNestableJspTagException {
+
+        /**
+         * D1597A17A6.
+         */
+        private static final long serialVersionUID = 899149338534L;
+
+        /**
+         * Instantiate a new PdfGenerationException with a fixed message and the given cause.
+         *
+         * @param cause
+         *            Previous exception
+         */
+        public ExcelGenerationException(final Throwable cause) {
+<span class="nc" id="L241">            super(ExcelHssfView.class, Messages.getString(&quot;ExcelView.errorexporting&quot;), cause); //$NON-NLS-1$</span>
+<span class="nc" id="L242">        }</span>
+
+        /**
+         * Gets the severity.
+         *
+         * @return the severity
+         *
+         * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
+         */
+        @Override
+        public SeverityEnum getSeverity() {
+<span class="nc" id="L253">            return SeverityEnum.ERROR;</span>
+        }
+    }
+
+    /**
+     * Set the cell to wrap if the text is this long.
+     *
+     * @return the max length for not wrapping
+     */
+    public int getWrapAtLength() {
+<span class="fc" id="L263">        return this.wrapAt;</span>
+
+    }
+
+    // patch from Karsten Voges
+    /**
+     * Escape certain values that are not permitted in excel cells.
+     *
+     * @param rawValue
+     *            the object value
+     *
+     * @return the escaped value
+     */
+    public static String escapeColumnValue(final Object rawValue) {
+<span class="pc bpc" id="L277" title="1 of 2 branches missed.">        if (rawValue == null) {</span>
+<span class="nc" id="L278">            return null;</span>
+        }
+<span class="fc" id="L280">        String returnString = rawValue.toString();</span>
+        // escape the String to get the tabs, returns, newline explicit as \t \r \n
+<span class="fc" id="L282">        returnString = StringEscapeUtils.escapeJava(StringUtils.trimToEmpty(returnString));</span>
+        // remove tabs, insert four whitespaces instead
+<span class="fc" id="L284">        returnString = StringUtils.replace(StringUtils.trim(returnString), &quot;\\t&quot;, &quot;    &quot;);</span>
+        // remove the return, only newline valid in excel
+<span class="fc" id="L286">        returnString = StringUtils.replace(StringUtils.trim(returnString), &quot;\\r&quot;, &quot; &quot;);</span>
+<span class="fc" id="L287">        return StringEscapeUtils.unescapeJava(returnString);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

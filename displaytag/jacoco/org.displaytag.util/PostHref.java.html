@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PostHref.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.util</a> &gt; <span class="el_source">PostHref.java</span></div><h1>PostHref.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.util;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+
+/**
+ * The Class PostHref.
+ *
+ * @author fgiust
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class PostHref implements Href {
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /** The parent. */
+    private Href parent;
+
+    /** The form. */
+    private final String form;
+
+    /**
+     * Instantiates a new post href.
+     *
+     * @param parent
+     *            the parent
+     * @param form
+     *            the form
+     */
+<span class="fc" id="L62">    public PostHref(final Href parent, final String form) {</span>
+<span class="fc" id="L63">        this.parent = parent;</span>
+<span class="fc" id="L64">        this.form = form;</span>
+<span class="fc" id="L65">    }</span>
+
+    /**
+     * Adds the parameter.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @return the href
+     *
+     * @see org.displaytag.util.Href#addParameter(java.lang.String, java.lang.Object)
+     */
+    @Override
+    public Href addParameter(final String name, final Object value) {
+<span class="fc" id="L81">        this.parent.addParameter(name, value);</span>
+<span class="fc" id="L82">        return this;</span>
+    }
+
+    /**
+     * Adds the parameter.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     *
+     * @return the href
+     *
+     * @see org.displaytag.util.Href#addParameter(java.lang.String, int)
+     */
+    @Override
+    public Href addParameter(final String name, final int value) {
+<span class="nc" id="L99">        this.parent.addParameter(name, value);</span>
+<span class="nc" id="L100">        return this;</span>
+    }
+
+    /**
+     * Adds the parameter map.
+     *
+     * @param parametersMap
+     *            the parameters map
+     *
+     * @see org.displaytag.util.Href#addParameterMap(java.util.Map)
+     */
+    @Override
+    public void addParameterMap(final Map&lt;String, String[]&gt; parametersMap) {
+<span class="nc" id="L113">        this.parent.addParameterMap(parametersMap);</span>
+<span class="nc" id="L114">    }</span>
+
+    /**
+     * Equals.
+     *
+     * @param object
+     *            the object
+     *
+     * @return true, if successful
+     *
+     * @see org.displaytag.util.Href#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(final Object object) {
+<span class="nc" id="L128">        return this.parent.equals(object);</span>
+    }
+
+    /**
+     * Gets the anchor.
+     *
+     * @return the anchor
+     *
+     * @see org.displaytag.util.Href#getAnchor()
+     */
+    @Override
+    public String getAnchor() {
+<span class="nc" id="L140">        return this.parent.getAnchor();</span>
+    }
+
+    /**
+     * Gets the base url.
+     *
+     * @return the base url
+     *
+     * @see org.displaytag.util.Href#getBaseUrl()
+     */
+    @Override
+    public String getBaseUrl() {
+<span class="nc" id="L152">        return this.parent.getBaseUrl();</span>
+    }
+
+    /**
+     * Gets the parameter map.
+     *
+     * @return the parameter map
+     *
+     * @see org.displaytag.util.Href#getParameterMap()
+     */
+    @Override
+    public Map&lt;String, String[]&gt; getParameterMap() {
+<span class="fc" id="L164">        return this.parent.getParameterMap();</span>
+    }
+
+    /**
+     * Removes the parameter.
+     *
+     * @param name
+     *            the name
+     *
+     * @see org.displaytag.util.Href#removeParameter(java.lang.String)
+     */
+    @Override
+    public void removeParameter(final String name) {
+<span class="nc" id="L177">        this.parent.removeParameter(name);</span>
+<span class="nc" id="L178">    }</span>
+
+    /**
+     * Sets the anchor.
+     *
+     * @param name
+     *            the new anchor
+     *
+     * @see org.displaytag.util.Href#setAnchor(java.lang.String)
+     */
+    @Override
+    public void setAnchor(final String name) {
+<span class="nc" id="L190">        this.parent.setAnchor(name);</span>
+<span class="nc" id="L191">    }</span>
+
+    /**
+     * Sets the full url.
+     *
+     * @param url
+     *            the new full url
+     *
+     * @see org.displaytag.util.Href#setFullUrl(java.lang.String)
+     */
+    @Override
+    public void setFullUrl(final String url) {
+<span class="nc" id="L203">        this.parent.setFullUrl(url);</span>
+<span class="nc" id="L204">    }</span>
+
+    /**
+     * Sets the parameter map.
+     *
+     * @param parametersMap
+     *            the parameters map
+     *
+     * @see org.displaytag.util.Href#setParameterMap(java.util.Map)
+     */
+    @Override
+    public void setParameterMap(final Map&lt;String, String[]&gt; parametersMap) {
+<span class="nc" id="L216">        this.parent.setParameterMap(parametersMap);</span>
+<span class="nc" id="L217">    }</span>
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see org.displaytag.util.Href#toString()
+     */
+    @Override
+    public String toString() {
+
+<span class="fc" id="L229">        final StringBuilder buffer = new StringBuilder(30);</span>
+
+<span class="fc" id="L231">        buffer.append(&quot;javascript:displaytagform('&quot;);</span>
+<span class="fc" id="L232">        buffer.append(this.form);</span>
+<span class="fc" id="L233">        buffer.append(&quot;',[&quot;);</span>
+
+<span class="fc" id="L235">        final Map&lt;String, String[]&gt; parameters = this.getParameterMap();</span>
+
+<span class="fc" id="L237">        final Set&lt;Entry&lt;String, String[]&gt;&gt; parameterSet = parameters.entrySet();</span>
+
+<span class="fc" id="L239">        final Iterator&lt;Entry&lt;String, String[]&gt;&gt; iterator = parameterSet.iterator();</span>
+
+<span class="fc bfc" id="L241" title="All 2 branches covered.">        while (iterator.hasNext()) {</span>
+            // {f:'param1',v:'1'},
+<span class="fc" id="L243">            final Entry&lt;String, String[]&gt; entry = iterator.next();</span>
+
+<span class="fc" id="L245">            final Object key = entry.getKey();</span>
+<span class="fc" id="L246">            final Object value = entry.getValue();</span>
+
+<span class="fc" id="L248">            buffer.append(&quot;{f:'&quot;);</span>
+<span class="fc" id="L249">            buffer.append(this.esc(key));</span>
+<span class="fc" id="L250">            buffer.append(&quot;',v:&quot;);</span>
+
+<span class="pc bpc" id="L252" title="2 of 4 branches missed.">            if (value != null &amp;&amp; value.getClass().isArray()) {</span>
+<span class="fc" id="L253">                final Object[] values = (Object[]) value;</span>
+
+<span class="pc bpc" id="L255" title="1 of 2 branches missed.">                if (values.length &gt; 1) {</span>
+<span class="nc" id="L256">                    buffer.append(&quot;[&quot;);</span>
+                }
+<span class="fc bfc" id="L258" title="All 2 branches covered.">                for (int i = 0; i &lt; values.length; i++) {</span>
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">                    if (i &gt; 0) {</span>
+<span class="nc" id="L260">                        buffer.append(&quot;,&quot;);</span>
+                    }
+
+<span class="fc" id="L263">                    buffer.append(&quot;'&quot;);</span>
+<span class="fc" id="L264">                    buffer.append(this.esc(values[i]));</span>
+<span class="fc" id="L265">                    buffer.append(&quot;'&quot;);</span>
+                }
+<span class="pc bpc" id="L267" title="1 of 2 branches missed.">                if (values.length &gt; 1) {</span>
+<span class="nc" id="L268">                    buffer.append(&quot;]&quot;);</span>
+                }
+<span class="fc" id="L270">            } else {</span>
+<span class="nc" id="L271">                buffer.append(&quot;'&quot;);</span>
+<span class="nc" id="L272">                buffer.append(this.esc(value));</span>
+<span class="nc" id="L273">                buffer.append(&quot;'&quot;);</span>
+            }
+
+<span class="fc" id="L276">            buffer.append(&quot;}&quot;);</span>
+
+<span class="fc bfc" id="L278" title="All 2 branches covered.">            if (iterator.hasNext()) {</span>
+<span class="fc" id="L279">                buffer.append(&quot;,&quot;);</span>
+            }
+<span class="fc" id="L281">        }</span>
+
+<span class="fc" id="L283">        buffer.append(&quot;])&quot;);</span>
+<span class="fc" id="L284">        return buffer.toString();</span>
+    }
+
+    /**
+     * Esc.
+     *
+     * @param value
+     *            the value
+     *
+     * @return the string
+     */
+    private String esc(final Object value) {
+
+        try {
+<span class="pc bpc" id="L298" title="1 of 2 branches missed.">            String param = URLDecoder.decode(value != null ? value.toString() : StringUtils.EMPTY, StandardCharsets.UTF_8.name());</span>
+<span class="fc" id="L299">            param = StringUtils.replace(param, &quot;'&quot;, &quot;\\'&quot;);</span>
+<span class="fc" id="L300">            return StringUtils.replace(param, &quot;\&quot;&quot;, &quot;%22&quot;);</span>
+<span class="nc" id="L301">        } catch (final UnsupportedEncodingException e) {</span>
+<span class="nc" id="L302">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    /**
+     * Clone.
+     *
+     * @return the object
+     *
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Object clone() {
+        final PostHref href;
+        try {
+<span class="fc" id="L317">            href = (PostHref) super.clone();</span>
+<span class="nc" id="L318">        } catch (final CloneNotSupportedException e) {</span>
+<span class="nc" id="L319">            throw new RuntimeException(e);</span>
+<span class="fc" id="L320">        }</span>
+<span class="fc" id="L321">        href.parent = (Href) this.parent.clone();</span>
+
+<span class="fc" id="L323">        return href;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

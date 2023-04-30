@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DisplayTagSpringInterceptor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.filter</a> &gt; <span class="el_source">DisplayTagSpringInterceptor.java</span></div><h1>DisplayTagSpringInterceptor.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.filter;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.displaytag.Messages;
+import org.displaytag.tags.TableTag;
+import org.displaytag.tags.TableTagParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.HandlerAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
+
+/**
+ * &lt;p&gt;
+ * Allow the author of an included JSP page to reset the content type to something else (like a binary stream), and then
+ * write the new info back as the exclusive response, clearing the buffers of all previously added content.
+ * &lt;/p&gt;
+ * &lt;p&gt;
+ * This interceptor allows TableTag users to perform exports from pages that are run as includes, such as from Struts or
+ * a jsp:include. If that is your intention, just add this interceptor to your spring dispatcher context xml and map it
+ * to the appropriate requests, using something like:
+ * &lt;/p&gt;
+ *
+ * &lt;pre&gt;
+ * &amp;lt;bean id=&quot;urlMapping&quot; class=&quot;org.springframework.web.servlet.handler.SimpleUrlHandlerMapping&quot;&amp;gt;
+ *   &amp;lt;property name=&quot;interceptors&quot;&amp;gt;
+ *     &amp;lt;list&amp;gt;
+ *       &amp;lt;bean class=&quot;org.displaytag.filter.DisplayTagSpringInterceptor&quot;/&amp;gt;
+ *     &amp;lt;/list&amp;gt;
+ *   &amp;lt;/property&amp;gt;
+ * &amp;lt;/bean&amp;gt;
+ * &lt;/pre&gt;
+ * &lt;p&gt;
+ * By default the interceptor buffers all the export content before writing it out. You can set an optional parameter
+ * &lt;code&gt;buffer&lt;/code&gt; to &lt;code&gt;false&lt;/code&gt; to make the interceptor write directly to the output stream. This could be
+ * faster and uses less memory, but the content length will not be set.
+ * &lt;/p&gt;
+ *
+ * &lt;pre&gt;
+ *  &amp;lt;bean class=&quot;org.displaytag.filter.DisplayTagSpringInterceptor&quot;&amp;gt;
+ *      &amp;lt;property name=&quot;buffer&quot;&amp;gt;&amp;lt;value&amp;gt;false&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;
+ *  &amp;lt;/bean&amp;gt;
+ * &lt;/pre&gt;
+ *
+ * @author Keith Garry Boyce
+ * @author rapruitt
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L78">public class DisplayTagSpringInterceptor implements HandlerInterceptor {</span>
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L83">    static Logger log = LoggerFactory.getLogger(DisplayTagSpringInterceptor.class);</span>
+
+    /**
+     * Force response buffering. Enabled by default.
+     */
+<span class="fc" id="L88">    private boolean buffer = true;</span>
+
+    /**
+     * Sets the buffer state.
+     *
+     * @param bufferingEnabled
+     *            it &lt;code&gt;true&lt;/code&gt; buffering will be used
+     */
+    public void setBuffer(final boolean bufferingEnabled) {
+<span class="nc" id="L97">        this.buffer = bufferingEnabled;</span>
+<span class="nc" id="L98">    }</span>
+
+    /**
+     * Pre handle.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param handler
+     *            the handler
+     *
+     * @return true, if successful
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see HandlerInterceptor#preHandle(HttpServletRequest,HttpServletResponse, Object)
+     */
+    @Override
+    public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler)
+            throws Exception {
+
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">        if (request.getParameter(TableTagParameters.PARAMETER_EXPORTING) == null) {</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">            if (DisplayTagSpringInterceptor.log.isDebugEnabled()) {</span>
+<span class="nc" id="L123">                DisplayTagSpringInterceptor.log.debug(Messages.getString(&quot;ResponseOverrideFilter.parameternotfound&quot;)); //$NON-NLS-1$</span>
+            }
+            // don't intercept!
+<span class="fc" id="L126">            return true;</span>
+        }
+
+<span class="nc" id="L129">        final BufferedResponseWrapper wrapper = new BufferedResponseWrapper13Impl(response);</span>
+
+<span class="nc" id="L131">        final Map&lt;String, Boolean&gt; contentBean = new HashMap&lt;&gt;(4);</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if (this.buffer) {</span>
+<span class="nc" id="L133">            contentBean.put(TableTagParameters.BEAN_BUFFER, Boolean.TRUE);</span>
+        }
+<span class="nc" id="L135">        request.setAttribute(TableTag.FILTER_CONTENT_OVERRIDE_BODY, contentBean);</span>
+
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        if (DisplayTagSpringInterceptor.log.isDebugEnabled()) {</span>
+<span class="nc" id="L138">            DisplayTagSpringInterceptor.log.debug(&quot;handler is {}&quot;, handler);</span>
+        }
+
+<span class="nc" id="L141">        final HandlerAdapter handlerAdaptor = new SimpleControllerHandlerAdapter();</span>
+<span class="nc" id="L142">        handlerAdaptor.handle(request, wrapper, handler);</span>
+
+<span class="nc" id="L144">        ExportDelegate.writeExport(response, request, wrapper);</span>
+
+<span class="nc" id="L146">        return false;</span>
+    }
+
+    /**
+     * Post handle.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param obj
+     *            the obj
+     * @param modelAndView
+     *            the model and view
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see HandlerInterceptor#postHandle(HttpServletRequest,HttpServletResponse, Object, ModelAndView)
+     */
+    @Override
+    public void postHandle(final HttpServletRequest request, final HttpServletResponse response, final Object obj,
+            final ModelAndView modelAndView) throws Exception {
+        // Nothing to do
+<span class="fc" id="L170">    }</span>
+
+    /**
+     * After completion.
+     *
+     * @param request
+     *            the request
+     * @param response
+     *            the response
+     * @param obj
+     *            the obj
+     * @param exception
+     *            the exception
+     *
+     * @throws Exception
+     *             the exception
+     *
+     * @see HandlerInterceptor#afterCompletion(HttpServletRequest,HttpServletResponse, Object, Exception)
+     */
+    @Override
+    public void afterCompletion(final HttpServletRequest request, final HttpServletResponse response, final Object obj,
+            final Exception exception) throws Exception {
+        // Nothing to do
+<span class="fc" id="L193">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

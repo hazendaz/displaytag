@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>I18nJstlAdapter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.localization</a> &gt; <span class="el_source">I18nJstlAdapter.java</span></div><h1>I18nJstlAdapter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.localization;
+
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.jstl.core.Config;
+import javax.servlet.jsp.jstl.fmt.LocalizationContext;
+import javax.servlet.jsp.tagext.Tag;
+import javax.servlet.jsp.tagext.TagSupport;
+
+import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
+import org.displaytag.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * JSTL implementation of a resource provider and locale resolver. It will make the &lt;code&gt;titleKey&lt;/code&gt; attribute of
+ * column tag works the same as fmt:message's &lt;code&gt;key property&lt;/code&gt;. This tag must be the descendant of a
+ * &lt;code&gt;fmt:bundle&lt;/code&gt; tag in order to use the titleKey. This is just a shortcut, which makes
+ *
+ * &lt;pre&gt;
+ * &amp;lt;display:column titleKey=&quot;bar&quot;/&amp;gt;
+ * &lt;/pre&gt;
+ *
+ * behave the same as
+ *
+ * &lt;pre&gt;
+ * &amp;lt;c:set var=&quot;foo&quot;&amp;gt;
+ *   &amp;lt;fmt:message key=&quot;bar&quot;/&amp;gt;
+ * &amp;lt;/c:set&amp;gt;
+ * &amp;lt;display:column title=&quot;${foo}&quot;/&amp;gt;
+ * &lt;/pre&gt;
+ *
+ * If you don't define either &lt;code&gt;titleKey&lt;/code&gt; or &lt;code&gt;titleKey&lt;/code&gt; property on your column, first the tag will
+ * attempt to look up the &lt;code&gt;property&lt;/code&gt; property in your ResourceBundle. Failing that, it will fall back to the
+ * parent class's behavior of just using the property name.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver {
+
+    /**
+     * prefix/suffix for missing entries.
+     */
+    public static final String UNDEFINED_KEY = &quot;???&quot;; //$NON-NLS-1$
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L75">    private static Logger log = LoggerFactory.getLogger(I18nJstlAdapter.class);</span>
+
+    /**
+     * Instantiates a new I18nJstlAdapter. Throw a NoClassDefFound error if BundleSupport is not available.
+     */
+<span class="fc" id="L80">    public I18nJstlAdapter() {</span>
+        // this will check if BundleSupport is available
+        // if a NoClassDefFound error is thrown, the I18nJstlAdapter will not be used
+<span class="fc" id="L83">        BundleSupport.class.hashCode();</span>
+<span class="fc" id="L84">    }</span>
+
+    /**
+     * Resolve locale.
+     *
+     * @param pageContext
+     *            the page context
+     *
+     * @return the locale
+     *
+     * @see LocaleResolver#resolveLocale(PageContext)
+     */
+    @Override
+    public Locale resolveLocale(final PageContext pageContext) {
+<span class="fc" id="L98">        Locale locale = (Locale) Config.find(pageContext, Config.FMT_LOCALE);</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        if (locale == null) {</span>
+<span class="fc" id="L100">            locale = pageContext.getRequest().getLocale();</span>
+        }
+<span class="fc" id="L102">        return locale;</span>
+    }
+
+    /**
+     * Gets the resource.
+     *
+     * @param resourceKey
+     *            the resource key
+     * @param defaultValue
+     *            the default value
+     * @param tag
+     *            the tag
+     * @param pageContext
+     *            the page context
+     *
+     * @return the resource
+     *
+     * @see I18nResourceProvider#getResource(String, String, Tag, PageContext)
+     */
+    @Override
+    public String getResource(final String resourceKey, final String defaultValue, final Tag tag,
+            final PageContext pageContext) {
+
+        // if titleKey isn't defined either, use property
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        String key = resourceKey != null ? resourceKey : defaultValue;</span>
+<span class="fc" id="L127">        String title = null;</span>
+<span class="fc" id="L128">        ResourceBundle bundle = null;</span>
+
+        // jakarta jstl implementation, there is no other way to get the bundle from the parent fmt:bundle tag
+<span class="fc" id="L131">        final Tag bundleTag = TagSupport.findAncestorWithClass(tag, BundleSupport.class);</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        if (bundleTag != null) {</span>
+<span class="fc" id="L133">            final BundleSupport parent = (BundleSupport) bundleTag;</span>
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">            if (key != null) {</span>
+<span class="fc" id="L135">                final String prefix = parent.getPrefix();</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">                if (prefix != null) {</span>
+<span class="fc" id="L137">                    key = prefix + key;</span>
+                }
+            }
+<span class="fc" id="L140">            bundle = parent.getLocalizationContext().getResourceBundle();</span>
+        }
+
+        // resin jstl implementation, more versatile (we don't need to look up resin classes)
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        if (bundle == null) {</span>
+<span class="fc" id="L145">            final Object cauchoBundle = pageContext.getAttribute(&quot;caucho.bundle&quot;); //$NON-NLS-1$</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">            if (cauchoBundle instanceof LocalizationContext) {</span>
+<span class="nc" id="L147">                bundle = ((LocalizationContext) cauchoBundle).getResourceBundle();</span>
+
+                // handle prefix just like resin does
+<span class="nc" id="L150">                final String prefix = (String) pageContext.getAttribute(&quot;caucho.bundle.prefix&quot;); //$NON-NLS-1$</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                if (prefix != null) {</span>
+<span class="nc" id="L152">                    key = prefix + key;</span>
+                }
+            }
+        }
+
+        // standard jstl localizationContest
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        if (bundle == null) {</span>
+            // check for the localizationContext in applicationScope, set in web.xml
+<span class="fc" id="L160">            final LocalizationContext localization = BundleSupport.getLocalizationContext(pageContext);</span>
+
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">            if (localization != null) {</span>
+<span class="fc" id="L163">                bundle = localization.getResourceBundle();</span>
+            }
+        }
+
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">        if (bundle != null) {</span>
+            try {
+<span class="fc" id="L169">                title = bundle.getString(key);</span>
+<span class="fc" id="L170">            } catch (final MissingResourceException e) {</span>
+<span class="fc" id="L171">                I18nJstlAdapter.log.debug(Messages.getString(&quot;Localization.missingkey&quot;, key)); //$NON-NLS-1$</span>
+
+                // if user explicitly added a titleKey we guess this is an error
+<span class="fc bfc" id="L174" title="All 2 branches covered.">                if (resourceKey != null) {</span>
+<span class="fc" id="L175">                    title = I18nJstlAdapter.UNDEFINED_KEY + resourceKey + I18nJstlAdapter.UNDEFINED_KEY;</span>
+                }
+<span class="fc" id="L177">            }</span>
+        }
+
+<span class="fc" id="L180">        return title;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

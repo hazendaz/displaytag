@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TotalTableDecorator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.decorator</a> &gt; <span class="el_source">TotalTableDecorator.java</span></div><h1>TotalTableDecorator.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.decorator;
+
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.servlet.jsp.PageContext;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.TableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * A table decorator which adds rows with totals (for column with the &quot;total&quot; attribute set) and subtotals (grouping by
+ * the column with a group=&quot;1&quot; attribute).
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Id$
+ */
+<span class="fc" id="L47">public class TotalTableDecorator extends TableDecorator {</span>
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L52">    private static Logger log = LoggerFactory.getLogger(TotalTableDecorator.class);</span>
+
+    /**
+     * total amount.
+     */
+<span class="fc" id="L57">    private final Map&lt;String, Double&gt; grandTotals = new HashMap&lt;&gt;();</span>
+
+    /**
+     * total amount for current group.
+     */
+<span class="fc" id="L62">    private final Map&lt;String, Double&gt; subTotals = new HashMap&lt;&gt;();</span>
+
+    /**
+     * Previous values needed for grouping.
+     */
+<span class="fc" id="L67">    private final Map&lt;String, Object&gt; previousValues = new HashMap&lt;&gt;();</span>
+
+    /**
+     * Name of the property used for grouping.
+     */
+    private String groupPropertyName;
+
+    /**
+     * Label used for subtotals. Default: &quot;{0} total&quot;.
+     */
+<span class="fc" id="L77">    private String subtotalLabel = &quot;{0} subtotal&quot;;</span>
+
+    /**
+     * Label used for totals. Default: &quot;Total&quot;.
+     */
+<span class="fc" id="L82">    private String totalLabel = &quot;Total&quot;;</span>
+
+    /**
+     * Setter for &lt;code&gt;subtotalLabel&lt;/code&gt;.
+     *
+     * @param subtotalLabel
+     *            The subtotalLabel to set.
+     */
+    public void setSubtotalLabel(final String subtotalLabel) {
+<span class="nc" id="L91">        this.subtotalLabel = subtotalLabel;</span>
+<span class="nc" id="L92">    }</span>
+
+    /**
+     * Setter for &lt;code&gt;totalLabel&lt;/code&gt;.
+     *
+     * @param totalLabel
+     *            The totalLabel to set.
+     */
+    public void setTotalLabel(final String totalLabel) {
+<span class="nc" id="L101">        this.totalLabel = totalLabel;</span>
+<span class="nc" id="L102">    }</span>
+
+    /**
+     * Inits the.
+     *
+     * @param context
+     *            the context
+     * @param decorated
+     *            the decorated
+     * @param tableModel
+     *            the table model
+     *
+     * @see org.displaytag.decorator.Decorator#init(PageContext, Object, TableModel)
+     */
+    @Override
+    public void init(final PageContext context, final Object decorated, final TableModel tableModel) {
+<span class="fc" id="L118">        super.init(context, decorated, tableModel);</span>
+
+        // reset
+<span class="fc" id="L121">        this.groupPropertyName = null;</span>
+<span class="fc" id="L122">        this.grandTotals.clear();</span>
+<span class="fc" id="L123">        this.subTotals.clear();</span>
+<span class="fc" id="L124">        this.previousValues.clear();</span>
+
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        for (final HeaderCell cell : tableModel.getHeaderCellList()) {</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">            if (cell.getGroup() == 1) {</span>
+<span class="nc" id="L128">                this.groupPropertyName = cell.getBeanPropertyName();</span>
+            }
+<span class="fc" id="L130">        }</span>
+<span class="fc" id="L131">    }</span>
+
+    /**
+     * Start row.
+     *
+     * @return the string
+     */
+    @Override
+    public String startRow() {
+<span class="fc" id="L140">        String subtotalRow = null;</span>
+
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        if (this.groupPropertyName != null) {</span>
+<span class="nc" id="L143">            final Object groupedPropertyValue = this.evaluate(this.groupPropertyName);</span>
+<span class="nc" id="L144">            final Object previousGroupedPropertyValue = this.previousValues.get(this.groupPropertyName);</span>
+            // subtotals
+<span class="nc bnc" id="L146" title="All 2 branches missed.">            if (previousGroupedPropertyValue != null</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">                    &amp;&amp; !Objects.equals(previousGroupedPropertyValue, groupedPropertyValue)) {</span>
+<span class="nc" id="L148">                subtotalRow = this.createTotalRow(false);</span>
+            }
+<span class="nc" id="L150">            this.previousValues.put(this.groupPropertyName, groupedPropertyValue);</span>
+        }
+
+<span class="fc bfc" id="L153" title="All 2 branches covered.">        for (final HeaderCell cell : this.tableModel.getHeaderCellList()) {</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">            if (cell.isTotaled()) {</span>
+<span class="fc" id="L155">                final String totalPropertyName = cell.getBeanPropertyName();</span>
+<span class="fc" id="L156">                final Number amount = (Number) this.evaluate(totalPropertyName);</span>
+
+<span class="fc" id="L158">                final Number previousSubTotal = this.subTotals.get(totalPropertyName);</span>
+<span class="fc" id="L159">                final Number previousGrandTotals = this.grandTotals.get(totalPropertyName);</span>
+
+<span class="fc" id="L161">                this.subTotals.put(totalPropertyName,</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">                        Double.valueOf((previousSubTotal != null ? previousSubTotal.doubleValue() : 0)</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">                                + (amount != null ? amount.doubleValue() : 0)));</span>
+
+<span class="fc" id="L165">                this.grandTotals.put(totalPropertyName,</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">                        Double.valueOf((previousGrandTotals != null ? previousGrandTotals.doubleValue() : 0)</span>
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">                                + (amount != null ? amount.doubleValue() : 0)));</span>
+            }
+<span class="fc" id="L169">        }</span>
+
+<span class="fc" id="L171">        return subtotalRow;</span>
+    }
+
+    /**
+     * After every row completes we evaluate to see if we should be drawing a new total line and summing the results
+     * from the previous group.
+     *
+     * @return String
+     */
+    @Override
+    public final String finishRow() {
+<span class="fc" id="L182">        final StringBuilder buffer = new StringBuilder(1000);</span>
+
+        // Grand totals...
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        if (this.getViewIndex() == ((List&lt;Object&gt;) this.getDecoratedObject()).size() - 1) {</span>
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">            if (this.groupPropertyName != null) {</span>
+<span class="nc" id="L187">                buffer.append(this.createTotalRow(false));</span>
+            }
+<span class="fc" id="L189">            buffer.append(this.createTotalRow(true));</span>
+        }
+<span class="fc" id="L191">        return buffer.toString();</span>
+
+    }
+
+    /**
+     * Creates the total row.
+     *
+     * @param grandTotal
+     *            the grand total
+     *
+     * @return the string
+     */
+    protected String createTotalRow(final boolean grandTotal) {
+<span class="fc" id="L204">        final StringBuilder buffer = new StringBuilder(1000);</span>
+<span class="fc" id="L205">        buffer.append(&quot;\n&lt;tr class=\&quot;total\&quot;&gt;&quot;); //$NON-NLS-1$</span>
+
+<span class="fc" id="L207">        final List&lt;HeaderCell&gt; headerCells = this.tableModel.getHeaderCellList();</span>
+
+<span class="fc bfc" id="L209" title="All 2 branches covered.">        for (final HeaderCell cell : headerCells) {</span>
+<span class="fc" id="L210">            final Object cssClassObj = cell.getHtmlAttributes().get(&quot;class&quot;);</span>
+<span class="pc bpc" id="L211" title="1 of 2 branches missed.">            final String cssClass = cssClassObj != null ? cssClassObj.toString() : StringUtils.EMPTY;</span>
+
+<span class="fc" id="L213">            buffer.append(&quot;&lt;td&quot;); //$NON-NLS-1$</span>
+<span class="pc bpc" id="L214" title="1 of 2 branches missed.">            if (StringUtils.isNotEmpty(cssClass)) {</span>
+<span class="nc" id="L215">                buffer.append(&quot; class=\&quot;&quot;); //$NON-NLS-1$</span>
+<span class="nc" id="L216">                buffer.append(cssClass);</span>
+<span class="nc" id="L217">                buffer.append(&quot;\&quot;&quot;); //$NON-NLS-1$</span>
+            }
+<span class="fc" id="L219">            buffer.append(&quot;&gt;&quot;); //$NON-NLS-1$</span>
+
+<span class="pc bpc" id="L221" title="1 of 2 branches missed.">            if (cell.isTotaled()) {</span>
+<span class="fc" id="L222">                final String totalPropertyName = cell.getBeanPropertyName();</span>
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">                Object total = grandTotal ? this.grandTotals.get(totalPropertyName)</span>
+<span class="pc" id="L224">                        : this.subTotals.get(totalPropertyName);</span>
+
+<span class="fc" id="L226">                final DisplaytagColumnDecorator[] decorators = cell.getColumnDecorators();</span>
+<span class="pc bpc" id="L227" title="1 of 2 branches missed.">                for (final DisplaytagColumnDecorator decorator : decorators) {</span>
+                    try {
+<span class="nc" id="L229">                        total = decorator.decorate(total, this.getPageContext(), this.tableModel.getMedia());</span>
+<span class="nc" id="L230">                    } catch (final DecoratorException e) {</span>
+<span class="nc" id="L231">                        TotalTableDecorator.log.warn(e.getMessage(), e);</span>
+                        // ignore, use undecorated value for totals
+<span class="nc" id="L233">                    }</span>
+                }
+<span class="fc" id="L235">                buffer.append(total);</span>
+<span class="pc bnc" id="L236" title="All 4 branches missed.">            } else if (this.groupPropertyName != null &amp;&amp; this.groupPropertyName.equals(cell.getBeanPropertyName())) {</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">                buffer.append(grandTotal ? this.totalLabel</span>
+<span class="nc" id="L238">                        : new MessageFormat(this.subtotalLabel, this.tableModel.getProperties().getLocale())</span>
+<span class="nc" id="L239">                                .format(new Object[] { this.previousValues.get(this.groupPropertyName) }));</span>
+            }
+
+<span class="fc" id="L242">            buffer.append(&quot;&lt;/td&gt;&quot;); //$NON-NLS-1$</span>
+
+<span class="fc" id="L244">        }</span>
+
+<span class="fc" id="L246">        buffer.append(&quot;&lt;/tr&gt;&quot;); //$NON-NLS-1$</span>
+
+        // reset subtotal
+<span class="fc" id="L249">        this.subTotals.clear();</span>
+
+<span class="fc" id="L251">        return buffer.toString();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

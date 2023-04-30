@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultHssfExportView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.export.excel</a> &gt; <span class="el_source">DefaultHssfExportView.java</span></div><h1>DefaultHssfExportView.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.export.excel;
+
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.servlet.jsp.JspException;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.displaytag.Messages;
+import org.displaytag.exception.BaseNestableJspTagException;
+import org.displaytag.exception.SeverityEnum;
+import org.displaytag.export.BinaryExportView;
+import org.displaytag.model.TableModel;
+import org.displaytag.render.HssfTableWriter;
+
+/**
+ * Excel exporter using POI.
+ *
+ * @author Jorge L. Barroso
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L44">public class DefaultHssfExportView implements BinaryExportView {</span>
+    /**
+     * TableModel to render.
+     */
+    protected TableModel model;
+
+    /**
+     * Do export.
+     *
+     * @param out
+     *            the out
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws JspException
+     *             the jsp exception
+     *
+     * @see org.displaytag.export.BinaryExportView#doExport(java.io.OutputStream)
+     */
+    @Override
+    public void doExport(final OutputStream out) throws IOException, JspException {
+        try {
+<span class="nc" id="L66">            final HSSFWorkbook wb = new HSSFWorkbook();</span>
+<span class="nc" id="L67">            this.getHssfTableWriter(wb).writeTable(this.model, &quot;-1&quot;);</span>
+<span class="nc" id="L68">            wb.write(out);</span>
+<span class="nc" id="L69">            wb.close();</span>
+<span class="nc" id="L70">        } catch (final Exception e) {</span>
+<span class="nc" id="L71">            throw new HssfGenerationException(e);</span>
+<span class="nc" id="L72">        }</span>
+<span class="nc" id="L73">    }</span>
+
+    /**
+     * Convenience method.
+     *
+     * @param wb
+     *            the wb
+     *
+     * @return the hssf table writer
+     */
+    protected HssfTableWriter getHssfTableWriter(final HSSFWorkbook wb) {
+<span class="fc" id="L84">        return new HssfTableWriter(wb);</span>
+    }
+
+    /**
+     * Sets the parameters.
+     *
+     * @param model
+     *            the model
+     * @param exportFullList
+     *            the export full list
+     * @param includeHeader
+     *            the include header
+     * @param decorateValues
+     *            the decorate values
+     *
+     * @see org.displaytag.export.ExportView#setParameters(org.displaytag.model.TableModel, boolean, boolean, boolean)
+     */
+    @Override
+    public void setParameters(final TableModel model, final boolean exportFullList, final boolean includeHeader,
+            final boolean decorateValues) {
+<span class="fc" id="L104">        this.model = model;</span>
+<span class="fc" id="L105">    }</span>
+
+    /**
+     * Gets the mime type.
+     *
+     * @return &quot;application/vnd.ms-excel&quot;
+     *
+     * @see org.displaytag.export.BaseExportView#getMimeType()
+     */
+    @Override
+    public String getMimeType() {
+<span class="nc" id="L116">        return &quot;application/vnd.ms-excel&quot;; //$NON-NLS-1$</span>
+    }
+
+    /**
+     * Wraps POI-generated exceptions.
+     *
+     * @author Fabrizio Giustina
+     *
+     * @version $Revision$ ($Author$)
+     */
+    static class HssfGenerationException extends BaseNestableJspTagException {
+        /**
+         * D1597A17A6.
+         */
+        private static final long serialVersionUID = 899149338534L;
+
+        /**
+         * Instantiate a new PdfGenerationException with a fixed message and the given cause.
+         *
+         * @param cause
+         *            Previous exception
+         */
+        public HssfGenerationException(final Throwable cause) {
+<span class="nc" id="L139">            super(DefaultHssfExportView.class, Messages.getString(&quot;DefaultHssfExportView.errorexporting&quot;), cause); //$NON-NLS-1$</span>
+<span class="nc" id="L140">        }</span>
+
+        /**
+         * Gets the severity.
+         *
+         * @return the severity
+         *
+         * @see org.displaytag.exception.BaseNestableJspTagException#getSeverity()
+         */
+        @Override
+        public SeverityEnum getSeverity() {
+<span class="nc" id="L151">            return SeverityEnum.ERROR;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

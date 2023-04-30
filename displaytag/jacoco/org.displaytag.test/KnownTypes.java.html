@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KnownTypes.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.test</a> &gt; <span class="el_source">KnownTypes.java</span></div><h1>KnownTypes.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.test;
+
+import java.util.Date;
+
+/**
+ * Simple test data provider.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L33">public class KnownTypes {</span>
+
+    /**
+     * constant for the &quot;time&quot; property name.
+     */
+    public static final String TIME_PROPERTY = &quot;time&quot;;
+
+    /**
+     * constant for the &quot;time&quot; property value. For the curious, evals to Mon Mar 01 18:00:00 CST 3875 (if you are in
+     * Chicago).
+     */
+<span class="fc" id="L44">    public static final Date TIME_VALUE = new Date(60121180800000L);</span>
+
+    /**
+     * constant for the &quot;long&quot; property name.
+     */
+    public static final String LONG_PROPERTY = &quot;long&quot;;
+
+    /**
+     * constant for the &quot;long&quot; property value.
+     */
+<span class="fc" id="L54">    public static final Long LONG_VALUE = Long.valueOf(123456);</span>
+
+    /**
+     * getter for the &lt;code&gt;TIME_PROPERTY&lt;/code&gt; property.
+     *
+     * @return &lt;code&gt;TIME_VALUE&lt;/code&gt;
+     */
+    public Date getTime() {
+<span class="fc" id="L62">        return KnownTypes.TIME_VALUE;</span>
+    }
+
+    /**
+     * getter for the &lt;code&gt;LONG_PROPERTY&lt;/code&gt; property.
+     *
+     * @return &lt;code&gt;LONG_VALUE&lt;/code&gt;
+     */
+    public Long getLong() {
+<span class="fc" id="L71">        return KnownTypes.LONG_VALUE;</span>
+    }
+
+    /**
+     * getter for a null property.
+     *
+     * @return &lt;code&gt;null&lt;/code&gt;
+     */
+    public Long getNullValue() {
+<span class="fc" id="L80">        return null;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

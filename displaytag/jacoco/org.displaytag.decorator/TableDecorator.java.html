@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableDecorator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.decorator</a> &gt; <span class="el_source">TableDecorator.java</span></div><h1>TableDecorator.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.decorator;
+
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.render.TableWriterTemplate;
+import org.displaytag.util.LookupUtil;
+import org.displaytag.util.TagConstants;
+
+/**
+ * The Class TableDecorator.
+ *
+ * @author epesh
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L37">public abstract class TableDecorator extends Decorator {</span>
+
+    /**
+     * object representing the current row.
+     */
+    private Object currentRowObject;
+
+    /**
+     * index in displayed list.
+     */
+<span class="fc" id="L47">    private int viewIndex = -1;</span>
+
+    /**
+     * index in original list.
+     */
+<span class="fc" id="L52">    private int listIndex = -1;</span>
+
+    /**
+     * Return the index in the displayed list.
+     *
+     * @return int index in the displayed list
+     */
+    public final int getViewIndex() {
+<span class="fc" id="L60">        return this.viewIndex;</span>
+    }
+
+    /**
+     * Return the index in the full list (view index + offset). Note that the index returned if from the
+     * &lt;strong&gt;sorted&lt;/strong&gt; list, and not from the original one.
+     *
+     * @return int index in the full list
+     */
+    public final int getListIndex() {
+<span class="fc" id="L70">        return this.listIndex;</span>
+    }
+
+    /**
+     * Get the object representing the current row.
+     *
+     * @return Object
+     */
+    public final Object getCurrentRowObject() {
+<span class="fc" id="L79">        return this.currentRowObject;</span>
+    }
+
+    /**
+     * Initialize the current row. Note this method is also called when sorting a table using a property supplied by the
+     * table decorator, so the method could be called multiple times during rendering. When used to initialize sorting
+     * the method is always called with 0, 0 as currentViewIndex and currentListIndex.
+     *
+     * @param rowObject
+     *            object representing the current row
+     * @param currentViewIndex
+     *            int index in the displayed list
+     * @param currentListIndex
+     *            int index in the original list
+     */
+    public final void initRow(final Object rowObject, final int currentViewIndex, final int currentListIndex) {
+<span class="fc" id="L95">        this.currentRowObject = rowObject;</span>
+<span class="fc" id="L96">        this.viewIndex = currentViewIndex;</span>
+<span class="fc" id="L97">        this.listIndex = currentListIndex;</span>
+<span class="fc" id="L98">    }</span>
+
+    /**
+     * Called at the beginning of a row. Can be subclassed to provide specific data at the beginning of a row
+     *
+     * @return null in the default implementation
+     */
+    public String startRow() {
+<span class="fc" id="L106">        return null;</span>
+    }
+
+    /**
+     * Called at the end of a row. Can be subclassed to provide specific data at the end of a row
+     *
+     * @return null in the default implementation
+     */
+    public String finishRow() {
+<span class="fc" id="L115">        return null;</span>
+    }
+
+    /**
+     * Called at the end of evaluation. Can be subclassed to eventully clean up data. Always remember to also call
+     * super.finish()!
+     */
+    @Override
+    public void finish() {
+<span class="fc" id="L124">        this.currentRowObject = null;</span>
+<span class="fc" id="L125">        super.finish();</span>
+<span class="fc" id="L126">    }</span>
+
+    /**
+     * Call back to add an additional row class to the current row.
+     *
+     * @return CSS class attribute value for the current row
+     *
+     * @since 1.1
+     */
+    public String addRowClass() {
+<span class="fc" id="L136">        return null;</span>
+    }
+
+    /**
+     * Call back to allow setting an &quot;id&quot; attribute on a row.
+     *
+     * @return HTML id attribute value for the current row
+     *
+     * @since 1.1
+     */
+    public String addRowId() {
+<span class="fc" id="L147">        return null;</span>
+    }
+
+    /**
+     * Indicates that we are begining a new group.
+     *
+     * @param value
+     *            of the current cell
+     * @param group
+     *            number of the current column
+     */
+    public void startOfGroup(final String value, final int group) {
+<span class="fc" id="L159">    }</span>
+
+    /**
+     * Called at the end of a group. Can be subclassed to provide specific data at the end of a row.
+     *
+     * @param value
+     *            of the current cell
+     * @param groupThatHasEnded
+     *            number of the current column
+     */
+    public void endOfGroup(final String value, final int groupThatHasEnded) {
+<span class="fc" id="L170">    }</span>
+
+    /**
+     * What value should I display in this cell? The default value for grouped columns is to not display any value if
+     * the cellValue has not changed on an interior iteration. Only invoked for columns that are grouped.
+     *
+     * @param cellValue
+     *            the cell value
+     * @param groupingStatus
+     *            the grouping status
+     * @param columnNumber
+     *            the column number
+     *
+     * @return the value to display
+     */
+    public String displayGroupedValue(final String cellValue, final short groupingStatus, final int columnNumber) {
+<span class="nc bnc" id="L186" title="All 4 branches missed.">        if (groupingStatus == TableWriterTemplate.GROUP_END || groupingStatus == TableWriterTemplate.GROUP_NO_CHANGE) {</span>
+<span class="nc" id="L187">            return TagConstants.EMPTY_STRING;</span>
+        }
+<span class="nc" id="L189">        return cellValue;</span>
+    }
+
+    /**
+     * Checks if is last row.
+     *
+     * @return true, if is last row
+     */
+    public boolean isLastRow() {
+<span class="fc bfc" id="L198" title="All 2 branches covered.">        return this.getViewIndex() == this.tableModel.getRowListPage().size() - 1;</span>
+    }
+
+    /**
+     * Shortcut for evaluating properties in the current row object. Can be useful for implementing anonymous decorators
+     * in jsp pages without having to know/import the decorated object Class.
+     *
+     * @param propertyName
+     *            property to lookup in current row object. Can also be a nested or indexed property.
+     *
+     * @return the object
+     *
+     * @since 1.1
+     */
+    protected Object evaluate(final String propertyName) {
+        try {
+<span class="fc" id="L214">            return LookupUtil.getBeanProperty(this.getCurrentRowObject(), propertyName);</span>
+<span class="nc" id="L215">        } catch (final ObjectLookupException e) {</span>
+<span class="nc" id="L216">            return null;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

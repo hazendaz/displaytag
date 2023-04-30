@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultPdfExportView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.export</a> &gt; <span class="el_source">DefaultPdfExportView.java</span></div><h1>DefaultPdfExportView.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.export;
+
+import java.io.IOException;
+import java.io.OutputStream;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
+import com.itextpdf.text.pdf.PdfTemplate;
+import com.itextpdf.text.pdf.PdfWriter;
+
+/**
+ * PDF exporter using iText.
+ *
+ * @author Jorge L. Barroso
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L43">public class DefaultPdfExportView extends DefaultItextExportView {</span>
+
+    /**
+     * Gets the mime type.
+     *
+     * @return &quot;application/pdf&quot;
+     *
+     * @see org.displaytag.export.BaseExportView#getMimeType()
+     */
+    @Override
+    public String getMimeType() {
+<span class="fc" id="L54">        return &quot;application/pdf&quot;; //$NON-NLS-1$</span>
+    }
+
+    /**
+     * Initializes the PDF writer this export view uses to write the table document.
+     *
+     * @param document
+     *            The iText document to be written.
+     * @param out
+     *            The output stream to which the document is written.
+     *
+     * @throws DocumentException
+     *             If something goes wrong during initialization.
+     */
+    @Override
+    protected void initItextWriter(final Document document, final OutputStream out) throws DocumentException {
+<span class="fc" id="L70">        PdfWriter.getInstance(document, out).setPageEvent(new PageNumber());</span>
+<span class="fc" id="L71">    }</span>
+
+    /**
+     * Prints a page number at the bottom of each page. Based on
+     * http://itextdocs.lowagie.com/examples/com/lowagie/examples/directcontent/pageevents/PageNumbersWatermark.java
+     *
+     * @author Jorge L. Barroso
+     *
+     * @version $Revision$ ($Author$)
+     */
+    private static class PageNumber extends PdfPageEventHelper {
+
+        /**
+         * On end page.
+         *
+         * @param writer
+         *            the writer
+         * @param document
+         *            the document
+         *
+         * @see com.lowagie.text.pdf.PdfPageEventHelper#onEndPage(com.lowagie.text.pdf.PdfWriter,
+         *      com.lowagie.text.Document)
+         */
+        @Override
+        public void onEndPage(final PdfWriter writer, final Document document) {
+            /** The headertable. */
+<span class="fc" id="L97">            final PdfPTable table = new PdfPTable(2);</span>
+            /** A template that will hold the total number of pages. */
+<span class="fc" id="L99">            final PdfTemplate tpl = writer.getDirectContent().createTemplate(100, 100);</span>
+            /** The font that will be used. */
+<span class="fc" id="L101">            BaseFont helv = null;</span>
+            try {
+<span class="fc" id="L103">                helv = BaseFont.createFont(&quot;Helvetica&quot;, BaseFont.WINANSI, false);</span>
+<span class="nc" id="L104">            } catch (DocumentException | IOException e) {</span>
+<span class="fc" id="L105">            }</span>
+<span class="fc" id="L106">            final PdfContentByte cb = writer.getDirectContent();</span>
+            // write the headertable
+<span class="fc" id="L108">            table.setTotalWidth(document.right() - document.left());</span>
+<span class="fc" id="L109">            table.writeSelectedRows(0, -1, document.left(), document.getPageSize().getHeight() - 50, cb);</span>
+            // compose the footer
+<span class="fc" id="L111">            final String text = &quot;Page &quot; + writer.getPageNumber();</span>
+<span class="fc" id="L112">            final float textSize = helv.getWidthPoint(text, 12);</span>
+<span class="fc" id="L113">            final float textBase = document.bottom() - 20;</span>
+<span class="fc" id="L114">            cb.beginText();</span>
+<span class="fc" id="L115">            cb.setFontAndSize(helv, 12);</span>
+<span class="fc" id="L116">            final float adjust = helv.getWidthPoint(&quot;0&quot;, 12);</span>
+<span class="fc" id="L117">            cb.setTextMatrix(document.right() - textSize - adjust, textBase);</span>
+<span class="fc" id="L118">            cb.showText(text);</span>
+<span class="fc" id="L119">            cb.endText();</span>
+<span class="fc" id="L120">            cb.addTemplate(tpl, document.right() - adjust, textBase);</span>
+<span class="fc" id="L121">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

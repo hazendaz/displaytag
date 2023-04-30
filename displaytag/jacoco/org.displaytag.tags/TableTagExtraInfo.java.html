@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableTagExtraInfo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.tags</a> &gt; <span class="el_source">TableTagExtraInfo.java</span></div><h1>TableTagExtraInfo.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.tags;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.jsp.tagext.TagAttributeInfo;
+import javax.servlet.jsp.tagext.TagData;
+import javax.servlet.jsp.tagext.TagExtraInfo;
+import javax.servlet.jsp.tagext.VariableInfo;
+
+/**
+ * TEI for TableTag, defines 3 variables.
+ * &lt;ul&gt;
+ * &lt;li&gt;table uid = object contained in row&lt;/li&gt;
+ * &lt;li&gt;table uid + ROWNUM_SUFFIX = row number&lt;/li&gt;
+ * &lt;/ul&gt;
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L44">public class TableTagExtraInfo extends TagExtraInfo {</span>
+
+    /**
+     * Suffix added to id for saving row number in pagecontext.
+     */
+    public static final String ROWNUM_SUFFIX = &quot;_rowNum&quot;; //$NON-NLS-1$
+
+    /**
+     * Java keywords.
+     */
+<span class="fc" id="L54">    private static final String[] KEYWORDS = { &quot;abstract&quot;, //$NON-NLS-1$</span>
+            &quot;assert&quot;, //$NON-NLS-1$
+            &quot;boolean&quot;, //$NON-NLS-1$
+            &quot;break&quot;, //$NON-NLS-1$
+            &quot;byte&quot;, //$NON-NLS-1$
+            &quot;case&quot;, //$NON-NLS-1$
+            &quot;catch&quot;, //$NON-NLS-1$
+            &quot;char&quot;, //$NON-NLS-1$
+            &quot;class&quot;, //$NON-NLS-1$
+            &quot;const&quot;, //$NON-NLS-1$
+            &quot;continue&quot;, //$NON-NLS-1$
+            &quot;default&quot;, //$NON-NLS-1$
+            &quot;do&quot;, //$NON-NLS-1$
+            &quot;double&quot;, //$NON-NLS-1$
+            &quot;else&quot;, //$NON-NLS-1$
+            &quot;enum&quot;, //$NON-NLS-1$
+            &quot;extends&quot;, //$NON-NLS-1$
+            &quot;false&quot;, //$NON-NLS-1$
+            &quot;final&quot;, //$NON-NLS-1$
+            &quot;finally&quot;, //$NON-NLS-1$
+            &quot;float&quot;, //$NON-NLS-1$
+            &quot;for&quot;, //$NON-NLS-1$
+            &quot;goto&quot;, //$NON-NLS-1$
+            &quot;if&quot;, //$NON-NLS-1$
+            &quot;implements&quot;, //$NON-NLS-1$
+            &quot;import&quot;, //$NON-NLS-1$
+            &quot;instanceof&quot;, //$NON-NLS-1$
+            &quot;int&quot;, //$NON-NLS-1$
+            &quot;interface&quot;, //$NON-NLS-1$
+            &quot;long&quot;, //$NON-NLS-1$
+            &quot;native&quot;, //$NON-NLS-1$
+            &quot;new&quot;, //$NON-NLS-1$
+            &quot;null&quot;, //$NON-NLS-1$
+            &quot;package&quot;, //$NON-NLS-1$
+            &quot;private&quot;, //$NON-NLS-1$
+            &quot;protected&quot;, //$NON-NLS-1$
+            &quot;public&quot;, //$NON-NLS-1$
+            &quot;return&quot;, //$NON-NLS-1$
+            &quot;short&quot;, //$NON-NLS-1$
+            &quot;static&quot;, //$NON-NLS-1$
+            &quot;strictfp&quot;, //$NON-NLS-1$
+            &quot;super&quot;, //$NON-NLS-1$
+            &quot;switch&quot;, //$NON-NLS-1$
+            &quot;synchronized&quot;, //$NON-NLS-1$
+            &quot;this&quot;, //$NON-NLS-1$
+            &quot;throw&quot;, //$NON-NLS-1$
+            &quot;throws&quot;, //$NON-NLS-1$
+            &quot;transient&quot;, //$NON-NLS-1$
+            &quot;true&quot;, //$NON-NLS-1$
+            &quot;try&quot;, //$NON-NLS-1$
+            &quot;void&quot;, //$NON-NLS-1$
+            &quot;volatile&quot;, //$NON-NLS-1$
+            &quot;while&quot; }; //$NON-NLS-1$
+
+    /**
+     * Variables TableTag makes available in the pageContext.
+     *
+     * @param data
+     *            TagData
+     *
+     * @return VariableInfo[]
+     *
+     * @see javax.servlet.jsp.tagext.TagData
+     * @see javax.servlet.jsp.tagext.VariableInfo
+     */
+    @Override
+    public VariableInfo[] getVariableInfo(final TagData data) {
+<span class="fc" id="L121">        final List&lt;VariableInfo&gt; variables = new ArrayList&lt;&gt;(2);</span>
+
+<span class="fc" id="L123">        Object idObj = data.getAttribute(TagAttributeInfo.ID);</span>
+
+        // handle both the id and uid attributes
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (idObj == null) {</span>
+<span class="fc" id="L127">            idObj = data.getAttribute(&quot;uid&quot;); //$NON-NLS-1$</span>
+        }
+
+        // avoid errors, but &quot;id&quot; and &quot;id_rownum&quot; will not be defined
+<span class="fc bfc" id="L131" title="All 4 branches covered.">        if (idObj != TagData.REQUEST_TIME_VALUE &amp;&amp; idObj != null) {</span>
+<span class="fc" id="L132">            final String tagId = idObj.toString();</span>
+
+            // don't try to add variables if id is not a valid java identifier.
+<span class="fc bfc" id="L135" title="All 2 branches covered.">            if (TableTagExtraInfo.isJavaId(tagId)) {</span>
+                // current row
+<span class="fc" id="L137">                variables.add(new VariableInfo(tagId, Object.class.getName(), true, VariableInfo.NESTED));</span>
+                // current row number
+<span class="fc" id="L139">                variables.add(new VariableInfo(tagId + TableTagExtraInfo.ROWNUM_SUFFIX, Integer.class.getName(), true,</span>
+                        VariableInfo.NESTED));
+            }
+        }
+
+<span class="fc" id="L144">        return variables.toArray(new VariableInfo[] {});</span>
+    }
+
+    /**
+     * isJavaId Returns true if the name is a valid java identifier.
+     *
+     * @param id
+     *            to check
+     *
+     * @return boolean true/false
+     */
+    public static boolean isJavaId(final String id) {
+<span class="pc bpc" id="L156" title="2 of 6 branches missed.">        if (id == null || id.length() == 0 || Arrays.binarySearch(TableTagExtraInfo.KEYWORDS, id) &gt;= 0</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">                || !Character.isJavaIdentifierStart(id.charAt(0))) {</span>
+<span class="fc" id="L158">            return false;</span>
+        }
+
+<span class="fc bfc" id="L161" title="All 2 branches covered.">        for (int j = 1; j &lt; id.length(); j++) {</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">            if (!Character.isJavaIdentifierPart(id.charAt(j))) {</span>
+<span class="fc" id="L163">                return false;</span>
+            }
+        }
+<span class="fc" id="L166">        return true;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

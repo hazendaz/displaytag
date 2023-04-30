@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FopExportView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.export</a> &gt; <span class="el_source">FopExportView.java</span></div><h1>FopExportView.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.export;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import javax.servlet.jsp.JspException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.fop.apps.FOPException;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.fo.ValidationException;
+import org.displaytag.model.TableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Exports the data to a totaled xml format, and then transforms that data using XSL-FO to a pdf. The stylesheet can be
+ * fed in as a string from the property export.pdf.fo.stylesheetbody, or you can use a default stylesheet named by the
+ * property export.pdf.fo.stylesheet. When you are developing a stylesheet, this class will output the raw FO if you set
+ * your log level to debug, which is very handy if you are getting errors or unexpected pdf output. See asFo_us.xsl for
+ * a sample XSL-FO stylesheet. The basic structure of the intermediate XML is
+ *
+ * &lt;pre&gt;
+ * &amp;lt;table&amp;gt;
+ *   &amp;lt;header&amp;gt;
+ *     &amp;lt;header-cell&amp;gt;AntColumn&amp;lt;/header-cell&amp;gt;
+ *   &amp;lt;/header&amp;gt;
+ *   &amp;lt;data&amp;gt;
+ *     &amp;lt;subgroup grouped-by=&quot;0&quot;&amp;gt;
+ *       &amp;lt;row&amp;gt;
+ *         &amp;lt;cell grouped=&quot;true&quot;&amp;gt;Ant&amp;lt;/cell&amp;gt;
+ *       &amp;lt;/row&amp;gt;
+ *       &amp;lt;subtotal&amp;gt;
+ *         &amp;lt;subtotal-cell&amp;gt; &amp;lt;/subtotal-cell&amp;gt;
+ *       &amp;lt;/subtotal&amp;gt;
+ *     &amp;lt;/subgroup&amp;gt;
+ *   &amp;lt;/data&amp;gt;
+ * &amp;lt;/table&amp;gt;
+ * &lt;/pre&gt;
+ *
+ * @author rapruitt Date: Aug 26, 2009 Time: 1:55:29 PM
+ *
+ * @see FopExportView#SPECIFIC_STYLESHEET the property that contains the text of a stylesheet
+ * @see FopExportView#DEFAULT_STYLESHEET the default stylesheet location
+ * @see XmlTotalsWriter
+ */
+<span class="fc" id="L84">public class FopExportView implements BinaryExportView {</span>
+
+    /** The log. */
+<span class="fc" id="L87">    private static Logger log = LoggerFactory.getLogger(FopExportView.class);</span>
+
+    /**
+     * Default stylesheet.
+     */
+    public static final String DEFAULT_STYLESHEET = &quot;export.pdf.fo.stylesheet&quot;; //$NON-NLS-1$
+
+    /**
+     * A stylesheet as a string on a property.
+     */
+    public static final String SPECIFIC_STYLESHEET = &quot;export.pdf.fo.stylesheetbody&quot;; //$NON-NLS-1$
+
+    /**
+     * TableModel to render.
+     */
+    protected TableModel model;
+
+    /**
+     * Sets the parameters.
+     *
+     * @param tableModel
+     *            the table model
+     * @param exportFullList
+     *            the export full list
+     * @param includeHeader
+     *            the include header
+     * @param decorateValues
+     *            the decorate values
+     *
+     * @see org.displaytag.export.ExportView#setParameters(TableModel, boolean, boolean, boolean)
+     */
+    @Override
+    public void setParameters(final TableModel tableModel, final boolean exportFullList, final boolean includeHeader,
+            final boolean decorateValues) {
+<span class="fc" id="L121">        this.model = tableModel;</span>
+<span class="fc" id="L122">    }</span>
+
+    /**
+     * Gets the mime type.
+     *
+     * @return &quot;application/pdf&quot;
+     *
+     * @see org.displaytag.export.BaseExportView#getMimeType()
+     */
+    @Override
+    public String getMimeType() {
+<span class="fc" id="L133">        return &quot;application/pdf&quot;; //$NON-NLS-1$</span>
+    }
+
+    /**
+     * Load the stylesheet.
+     *
+     * @return the stylesheet
+     *
+     * @throws IOException
+     *             if we cannot locate it
+     */
+    public InputStream getStyleSheet() throws IOException {
+
+        InputStream styleSheetStream;
+<span class="fc" id="L147">        final String styleSheetString = this.model.getProperties().getProperty(FopExportView.SPECIFIC_STYLESHEET);</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (StringUtils.isNotEmpty(styleSheetString)) {</span>
+<span class="fc" id="L149">            styleSheetStream = new ByteArrayInputStream(styleSheetString.getBytes());</span>
+        } else {
+<span class="fc" id="L151">            final String styleSheetPath = this.model.getProperties().getProperty(FopExportView.DEFAULT_STYLESHEET);</span>
+<span class="fc" id="L152">            styleSheetStream = this.getClass().getResourceAsStream(styleSheetPath);</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">            if (styleSheetStream == null) {</span>
+<span class="nc" id="L154">                throw new IOException(&quot;Cannot locate stylesheet &quot; + styleSheetPath); //$NON-NLS-1$</span>
+            }
+        }
+<span class="fc" id="L157">        return styleSheetStream;</span>
+    }
+
+    /**
+     * Don't forget to enable debug if you want to see the raw FO.
+     *
+     * @param out
+     *            output writer
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws JspException
+     *             the jsp exception
+     */
+    @Override
+    public void doExport(final OutputStream out) throws IOException, JspException {
+<span class="fc" id="L173">        final String xmlResults = this.getXml();</span>
+
+<span class="fc" id="L175">        final FopFactory fopFactory = FopFactory.newInstance(new File(&quot;.&quot;).toURI());</span>
+<span class="fc" id="L176">        final Source xslt = new StreamSource(this.getStyleSheet());</span>
+<span class="fc" id="L177">        final TransformerFactory factory = TransformerFactory.newInstance();</span>
+        Transformer transformer;
+        try {
+<span class="fc" id="L180">            transformer = factory.newTransformer(xslt);</span>
+<span class="nc" id="L181">        } catch (final TransformerConfigurationException e) {</span>
+<span class="nc" id="L182">            throw new JspException(&quot;Cannot configure pdf export &quot; + e.getMessage(), e); //$NON-NLS-1$</span>
+<span class="fc" id="L183">        }</span>
+
+<span class="fc" id="L185">        final boolean outputForDebug = FopExportView.log.isDebugEnabled();</span>
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">        if (outputForDebug) {</span>
+<span class="nc" id="L187">            this.logXsl(xmlResults, transformer, null);</span>
+        }
+
+        Fop fop;
+        try {
+<span class="fc" id="L192">            fop = fopFactory.newFop(org.apache.xmlgraphics.util.MimeConstants.MIME_PDF, out);</span>
+<span class="nc" id="L193">        } catch (final FOPException e) {</span>
+<span class="nc" id="L194">            throw new JspException(&quot;Cannot configure pdf export &quot; + e.getMessage(), e); //$NON-NLS-1$</span>
+<span class="fc" id="L195">        }</span>
+
+<span class="fc" id="L197">        final StreamSource src = new StreamSource(new StringReader(xmlResults));</span>
+        Result res;
+        try {
+<span class="fc" id="L200">            res = new SAXResult(fop.getDefaultHandler());</span>
+<span class="nc" id="L201">        } catch (final FOPException e) {</span>
+<span class="nc" id="L202">            throw new JspException(&quot;error setting up transform &quot;, e); //$NON-NLS-1$</span>
+<span class="fc" id="L203">        }</span>
+        try {
+<span class="fc" id="L205">            transformer.transform(src, res);</span>
+<span class="nc" id="L206">        } catch (final TransformerException e) {</span>
+<span class="nc bnc" id="L207" title="All 2 branches missed.">            if (!(e.getCause() instanceof ValidationException)) {</span>
+<span class="nc" id="L208">                throw new JspException(&quot;error creating pdf output&quot;, e); //$NON-NLS-1$</span>
+            }
+            // recreate the errant fo
+<span class="nc" id="L211">            final ValidationException ve = (ValidationException) e.getCause();</span>
+<span class="nc" id="L212">            this.logXsl(xmlResults, transformer, ve);</span>
+
+<span class="fc" id="L214">        }</span>
+<span class="fc" id="L215">    }</span>
+
+    /**
+     * Gets the xml.
+     *
+     * @return the xml
+     *
+     * @throws JspException
+     *             the jsp exception
+     */
+    protected String getXml() throws JspException {
+<span class="fc" id="L226">        final XmlTotalsWriter totals = new XmlTotalsWriter(this.model);</span>
+<span class="fc" id="L227">        totals.writeTable(this.model, &quot;-1&quot;);</span>
+<span class="fc" id="L228">        return totals.getXml();</span>
+    }
+
+    /**
+     * log it.
+     *
+     * @param xmlResults
+     *            raw
+     * @param transformer
+     *            the transformer
+     * @param e
+     *            the optional exception
+     *
+     * @throws JspException
+     *             wrapping an existing error
+     */
+    protected void logXsl(final String xmlResults, final Transformer transformer, final Exception e)
+            throws JspException {
+<span class="nc" id="L246">        final StreamResult debugRes = new StreamResult(new StringWriter());</span>
+<span class="nc" id="L247">        final StreamSource src = new StreamSource(new StringReader(xmlResults));</span>
+        try {
+<span class="nc" id="L249">            transformer.transform(src, debugRes);</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">            if (e != null) {</span>
+<span class="nc" id="L251">                FopExportView.log.error(&quot;xslt-fo error {}&quot;, e.getMessage(), e); //$NON-NLS-1$</span>
+<span class="nc" id="L252">                FopExportView.log.error(&quot;xslt-fo result of {}&quot;, debugRes.getWriter()); //$NON-NLS-1$</span>
+<span class="nc" id="L253">                throw new JspException(&quot;Stylesheet produced invalid xsl-fo result&quot;, e); //$NON-NLS-1$</span>
+            }
+<span class="nc" id="L255">            FopExportView.log.info(&quot;xslt-fo result of {}&quot;, debugRes.getWriter()); //$NON-NLS-1$</span>
+<span class="nc" id="L256">        } catch (final TransformerException ee) {</span>
+<span class="nc" id="L257">            throw new JspException(&quot;error creating pdf output &quot; + ee.getMessage(), ee); //$NON-NLS-1$</span>
+<span class="nc" id="L258">        }</span>
+<span class="nc" id="L259">    }</span>
+
+    /**
+     * If you are authoring a stylesheet locally, this is highly recommended as a way to test your stylesheet against
+     * dummy data.
+     *
+     * @param xmlSrc
+     *            xml as string
+     * @param styleSheetPath
+     *            the path to the stylesheet
+     * @param f
+     *            the f
+     *
+     * @throws Exception
+     *             if trouble
+     */
+    public static void transform(final String xmlSrc, final String styleSheetPath, final File f) throws Exception {
+
+<span class="fc" id="L277">        final FopFactory fopFactory = FopFactory.newInstance(new File(&quot;.&quot;).toURI());</span>
+<span class="fc" id="L278">        final InputStream styleSheetStream = FopExportView.class.getResourceAsStream(styleSheetPath);</span>
+
+<span class="fc" id="L280">        final Source xslt = new StreamSource(styleSheetStream);</span>
+<span class="fc" id="L281">        final TransformerFactory factory = TransformerFactory.newInstance();</span>
+        Transformer transformer;
+        try {
+<span class="fc" id="L284">            transformer = factory.newTransformer(xslt);</span>
+<span class="nc" id="L285">        } catch (final TransformerConfigurationException e) {</span>
+<span class="nc" id="L286">            throw new JspException(&quot;Cannot configure pdf export &quot; + e.getMessage(), e); //$NON-NLS-1$</span>
+<span class="fc" id="L287">        }</span>
+        Fop fop;
+        try {
+<span class="fc" id="L290">            final FileOutputStream fw = new FileOutputStream(f);</span>
+<span class="fc" id="L291">            fop = fopFactory.newFop(org.apache.xmlgraphics.util.MimeConstants.MIME_PDF, fw);</span>
+<span class="nc" id="L292">        } catch (final FOPException e) {</span>
+<span class="nc" id="L293">            throw new JspException(&quot;Cannot configure pdf export &quot; + e.getMessage(), e); //$NON-NLS-1$</span>
+<span class="fc" id="L294">        }</span>
+
+<span class="fc" id="L296">        final Source src = new StreamSource(new StringReader(xmlSrc));</span>
+        Result res;
+        try {
+<span class="fc" id="L299">            res = new SAXResult(fop.getDefaultHandler());</span>
+<span class="nc" id="L300">        } catch (final FOPException e) {</span>
+<span class="nc" id="L301">            throw new JspException(&quot;error setting up transform &quot;, e); //$NON-NLS-1$</span>
+<span class="fc" id="L302">        }</span>
+        try {
+<span class="fc" id="L304">            transformer.transform(src, res);</span>
+<span class="nc" id="L305">        } catch (final TransformerException e) {</span>
+<span class="nc" id="L306">            throw new JspException(&quot;error creating pdf output &quot; + e.getMessage(), e); //$NON-NLS-1$</span>
+<span class="fc" id="L307">        }</span>
+<span class="fc" id="L308">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

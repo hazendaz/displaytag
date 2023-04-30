@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HtmlTableWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.render</a> &gt; <span class="el_source">HtmlTableWriter.java</span></div><h1>HtmlTableWriter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.render;
+
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.servlet.jsp.JspWriter;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.exception.DecoratorException;
+import org.displaytag.exception.ObjectLookupException;
+import org.displaytag.exception.WrappedRuntimeException;
+import org.displaytag.model.Column;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
+import org.displaytag.pagination.PaginatedList;
+import org.displaytag.pagination.SmartListHelper;
+import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.properties.SortOrderEnum;
+import org.displaytag.properties.TableProperties;
+import org.displaytag.tags.CaptionTag;
+import org.displaytag.tags.TableTagParameters;
+import org.displaytag.util.Anchor;
+import org.displaytag.util.Href;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.ParamEncoder;
+import org.displaytag.util.PostHref;
+import org.displaytag.util.TagConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * A table writer that formats a table in HTML and writes it to a JSP page.
+ *
+ * @author Fabrizio Giustina
+ * @author Jorge L. Barroso
+ *
+ * @version $Id$
+ *
+ * @see org.displaytag.render.TableWriterTemplate
+ *
+ * @since 1.1
+ */
+public class HtmlTableWriter extends TableWriterAdapter {
+
+    /** Logger. */
+<span class="fc" id="L71">    private static Logger logger = LoggerFactory.getLogger(HtmlTableWriter.class);</span>
+
+    /** &lt;code&gt;TableProperties&lt;/code&gt;. */
+    private final TableProperties properties;
+
+    /**
+     * Output destination.
+     */
+    private final JspWriter out;
+
+    /**
+     * The param encoder used to generate unique parameter names. Initialized at the first use of encodeParameter().
+     */
+    private ParamEncoder paramEncoder;
+
+    /**
+     * base href used for links.
+     */
+    private final Href baseHref;
+
+    /**
+     * add export links.
+     */
+    private final boolean export;
+
+    /** The caption tag. */
+    private final CaptionTag captionTag;
+
+    /**
+     * The paginated list containing the external pagination and sort parameters The presence of this paginated list is
+     * what determines if external pagination and sorting is used or not.
+     */
+    private final PaginatedList paginatedList;
+
+    /**
+     * Used by various functions when the person wants to do paging.
+     */
+    private final SmartListHelper listHelper;
+
+    /**
+     * page size.
+     */
+    private final int pagesize;
+
+    /** The attribute map. */
+    private final HtmlAttributeMap attributeMap;
+
+    /**
+     * Unique table id.
+     */
+    private final String uid;
+
+    /**
+     * This table writer uses a &lt;code&gt;TableTag&lt;/code&gt; and a &lt;code&gt;JspWriter&lt;/code&gt; to do its work.
+     *
+     * @param tableProperties
+     *            the table properties
+     * @param baseHref
+     *            the base href
+     * @param export
+     *            the export
+     * @param out
+     *            The output destination.
+     * @param captionTag
+     *            the caption tag
+     * @param paginatedList
+     *            the paginated list
+     * @param listHelper
+     *            the list helper
+     * @param pagesize
+     *            the pagesize
+     * @param attributeMap
+     *            the attribute map
+     * @param uid
+     *            the uid
+     */
+    public HtmlTableWriter(final TableProperties tableProperties, final Href baseHref, final boolean export,
+            final JspWriter out, final CaptionTag captionTag, final PaginatedList paginatedList,
+            final SmartListHelper listHelper, final int pagesize, final HtmlAttributeMap attributeMap,
+<span class="fc" id="L150">            final String uid) {</span>
+<span class="fc" id="L151">        this.properties = tableProperties;</span>
+<span class="fc" id="L152">        this.baseHref = baseHref;</span>
+<span class="fc" id="L153">        this.export = export;</span>
+<span class="fc" id="L154">        this.out = out;</span>
+<span class="fc" id="L155">        this.captionTag = captionTag;</span>
+<span class="fc" id="L156">        this.paginatedList = paginatedList;</span>
+<span class="fc" id="L157">        this.listHelper = listHelper;</span>
+<span class="fc" id="L158">        this.pagesize = pagesize;</span>
+<span class="fc" id="L159">        this.attributeMap = attributeMap;</span>
+<span class="fc" id="L160">        this.uid = uid;</span>
+<span class="fc" id="L161">    }</span>
+
+    /**
+     * Writes a banner containing search result and paging navigation above an HTML table to a JSP page.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTopBanner(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTopBanner(final TableModel model) {
+<span class="fc bfc" id="L173" title="All 2 branches covered.">        if (model.getForm() != null) {</span>
+
+<span class="fc" id="L175">            final String js = &quot;&lt;script type=\&quot;text/javascript\&quot;&gt;\n&quot; + &quot;function displaytagform(formname, fields){\n&quot;</span>
+                    + &quot;    var objfrm = document.forms[formname];\n&quot;
+                    + &quot;    for (j=fields.length-1;j&gt;=0;j--){var f= objfrm.elements[fields[j].f];if (f){f.value=fields[j].v};}\n&quot;
+                    + &quot;    objfrm.submit();\n&quot; + &quot;}\n&quot; + &quot;&lt;/script&gt;&quot;;
+<span class="fc" id="L179">            this.writeFormFields(model);</span>
+<span class="fc" id="L180">            this.write(js);</span>
+        }
+
+        // Put the page stuff there if it needs to be there...
+<span class="fc bfc" id="L184" title="All 2 branches covered.">        if (this.properties.getAddPagingBannerTop()) {</span>
+<span class="fc" id="L185">            this.writeSearchResultAndNavigation(model);</span>
+        }
+
+        // add export links (only if the table is not empty)
+<span class="pc bpc" id="L189" title="3 of 6 branches missed.">        if (this.export &amp;&amp; this.properties.getAddExportBannerTop() &amp;&amp; !model.getRowListPage().isEmpty()) {</span>
+            // generate export link
+<span class="nc" id="L191">            this.writeExportLinks(model);</span>
+        }
+<span class="fc" id="L193">    }</span>
+
+    /**
+     * Writes an HTML table's opening tags to a JSP page.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableOpener(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableOpener(final TableModel model) {
+<span class="fc" id="L205">        this.write(this.getOpenTag());</span>
+<span class="fc" id="L206">    }</span>
+
+    /**
+     * Write form fields.
+     *
+     * @param model
+     *            the model
+     */
+    private void writeFormFields(final TableModel model) {
+<span class="fc" id="L215">        final Map&lt;String, String[]&gt; parameters = this.baseHref.getParameterMap();</span>
+
+<span class="fc" id="L217">        final ParamEncoder pe = new ParamEncoder(model.getId());</span>
+
+<span class="fc" id="L219">        this.addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_ORDER));</span>
+<span class="fc" id="L220">        this.addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_PAGE));</span>
+<span class="fc" id="L221">        this.addIfMissing(parameters, pe.encodeParameterName(TableTagParameters.PARAMETER_SORT));</span>
+
+<span class="fc bfc" id="L223" title="All 2 branches covered.">        for (final Entry&lt;String, String[]&gt; entry : parameters.entrySet()) {</span>
+<span class="fc" id="L224">            final Object value = entry.getValue();</span>
+
+<span class="pc bpc" id="L226" title="2 of 4 branches missed.">            if (value != null &amp;&amp; value.getClass().isArray()) {</span>
+<span class="fc" id="L227">                final Object[] arr = (Object[]) value;</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">                for (final Object element : arr) {</span>
+<span class="fc" id="L229">                    this.writeField(entry.getKey(), element);</span>
+                }
+<span class="fc" id="L231">            } else {</span>
+<span class="nc" id="L232">                this.writeField(entry.getKey(), value);</span>
+            }
+<span class="fc" id="L234">        }</span>
+<span class="fc" id="L235">    }</span>
+
+    /**
+     * Write field.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
+    private void writeField(final String key, final Object value) {
+<span class="fc" id="L246">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L247">        buffer.append(&quot;&lt;input type=\&quot;hidden\&quot; name=\&quot;&quot;);</span>
+<span class="fc" id="L248">        buffer.append(this.esc(key));</span>
+<span class="fc" id="L249">        buffer.append(&quot;\&quot; value=\&quot;&quot;);</span>
+<span class="fc" id="L250">        buffer.append(value);</span>
+<span class="fc" id="L251">        buffer.append(&quot;\&quot;/&gt;&quot;);</span>
+
+<span class="fc" id="L253">        this.write(buffer.toString());</span>
+<span class="fc" id="L254">    }</span>
+
+    /**
+     * Esc.
+     *
+     * @param value
+     *            the value
+     *
+     * @return the string
+     */
+    private String esc(final Object value) {
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">        return StringUtils.replace(value != null ? value.toString() : StringUtils.EMPTY, &quot;\&quot;&quot;, &quot;\\\&quot;&quot;);</span>
+    }
+
+    /**
+     * Adds an element to the given map if empty (use an empty string as value).
+     *
+     * @param parameters
+     *            Map of parameters
+     * @param key
+     *            param key
+     */
+    private void addIfMissing(final Map&lt;String, String[]&gt; parameters, final String key) {
+<span class="fc" id="L277">        parameters.computeIfAbsent(key, k -&gt; new String[] { StringUtils.EMPTY });</span>
+<span class="fc" id="L278">    }</span>
+
+    /**
+     * Writes an HTML table's caption to a JSP page.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeCaption(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeCaption(final TableModel model) {
+<span class="fc" id="L290">        this.write(this.captionTag.getOpenTag() + model.getCaption() + this.captionTag.getCloseTag());</span>
+<span class="fc" id="L291">    }</span>
+
+    /**
+     * Writes an HTML table's footer to a JSP page; HTML requires tfoot to appear before tbody.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writePreBodyFooter(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writePreBodyFooter(final TableModel model) {
+<span class="fc" id="L303">        this.write(TagConstants.TAG_TFOOTER_OPEN);</span>
+<span class="fc" id="L304">        this.write(model.getFooter());</span>
+<span class="fc" id="L305">        this.write(TagConstants.TAG_TFOOTER_CLOSE);</span>
+<span class="fc" id="L306">    }</span>
+
+    /**
+     * Writes the start of an HTML table's body to a JSP page.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableBodyOpener(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableBodyOpener(final TableModel model) {
+<span class="fc" id="L318">        this.write(TagConstants.TAG_TBODY_OPEN);</span>
+
+<span class="fc" id="L320">    }</span>
+
+    /**
+     * Writes the end of an HTML table's body to a JSP page.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableBodyCloser(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableBodyCloser(final TableModel model) {
+<span class="fc" id="L332">        this.write(TagConstants.TAG_TBODY_CLOSE);</span>
+<span class="fc" id="L333">    }</span>
+
+    /**
+     * Writes the closing structure of an HTML table to a JSP page.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableCloser(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableCloser(final TableModel model) {
+<span class="fc" id="L345">        this.write(TagConstants.TAG_OPENCLOSING);</span>
+<span class="fc" id="L346">        this.write(TagConstants.TABLE_TAG_NAME);</span>
+<span class="fc" id="L347">        this.write(TagConstants.TAG_CLOSE);</span>
+<span class="fc" id="L348">    }</span>
+
+    /**
+     * Writes a banner containing search result, paging navigation, and export links below an HTML table to a JSP page.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeBottomBanner(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeBottomBanner(final TableModel model) {
+<span class="fc" id="L360">        this.writeNavigationAndExportLinks(model);</span>
+<span class="fc" id="L361">    }</span>
+
+    /**
+     * Write decorated table finish.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedTableFinish(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedTableFinish(final TableModel model) {
+<span class="fc" id="L373">        model.getTableDecorator().finish();</span>
+<span class="fc" id="L374">    }</span>
+
+    /**
+     * Write decorated row start.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedRowStart(final TableModel model) {
+<span class="fc" id="L386">        this.write(model.getTableDecorator().startRow());</span>
+<span class="fc" id="L387">    }</span>
+
+    /**
+     * Writes an HTML table's row-opening tag to a JSP page.
+     *
+     * @param row
+     *            the row
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeRowOpener(org.displaytag.model.Row)
+     */
+    @Override
+    protected void writeRowOpener(final Row row) {
+<span class="fc" id="L399">        this.write(row.getOpenTag());</span>
+<span class="fc" id="L400">    }</span>
+
+    /**
+     * Writes an HTML table's column-opening tag to a JSP page.
+     *
+     * @param column
+     *            the column
+     *
+     * @throws ObjectLookupException
+     *             the object lookup exception
+     * @throws DecoratorException
+     *             the decorator exception
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnOpener(org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnOpener(final Column column) throws ObjectLookupException, DecoratorException {
+<span class="fc" id="L417">        this.write(column.getOpenTag());</span>
+<span class="fc" id="L418">    }</span>
+
+    /**
+     * Writes an HTML table's column-closing tag to a JSP page.
+     *
+     * @param column
+     *            the column
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnCloser(org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnCloser(final Column column) {
+<span class="fc" id="L430">        this.write(column.getCloseTag());</span>
+<span class="fc" id="L431">    }</span>
+
+    /**
+     * Writes to a JSP page an HTML table row that has no columns.
+     *
+     * @param rowValue
+     *            the row value
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeRowWithNoColumns(java.lang.String)
+     */
+    @Override
+    protected void writeRowWithNoColumns(final String rowValue) {
+<span class="fc" id="L443">        this.write(TagConstants.TAG_TD_OPEN);</span>
+<span class="fc" id="L444">        this.write(rowValue);</span>
+<span class="fc" id="L445">        this.write(TagConstants.TAG_TD_CLOSE);</span>
+<span class="fc" id="L446">    }</span>
+
+    /**
+     * Writes an HTML table's row-closing tag to a JSP page.
+     *
+     * @param row
+     *            the row
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeRowCloser(org.displaytag.model.Row)
+     */
+    @Override
+    protected void writeRowCloser(final Row row) {
+<span class="fc" id="L458">        this.write(row.getCloseTag());</span>
+<span class="fc" id="L459">    }</span>
+
+    /**
+     * Write decorated row finish.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowFinish(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedRowFinish(final TableModel model) {
+<span class="fc" id="L471">        this.write(model.getTableDecorator().finishRow());</span>
+<span class="fc" id="L472">    }</span>
+
+    /**
+     * Writes an HTML message to a JSP page explaining that the table model contains no data.
+     *
+     * @param emptyListMessage
+     *            the empty list message
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeEmptyListMessage(java.lang.String)
+     */
+    @Override
+    protected void writeEmptyListMessage(final String emptyListMessage) {
+<span class="fc" id="L484">        this.write(emptyListMessage);</span>
+<span class="fc" id="L485">    }</span>
+
+    /**
+     * Writes a HTML table column value to a JSP page.
+     *
+     * @param value
+     *            the value
+     * @param column
+     *            the column
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeColumnValue(java.lang.Object,org.displaytag.model.Column)
+     */
+    @Override
+    protected void writeColumnValue(final Object value, final Column column) {
+<span class="fc" id="L499">        this.write(value);</span>
+<span class="fc" id="L500">    }</span>
+
+    /**
+     * Writes an HTML message to a JSP page explaining that the row contains no data.
+     *
+     * @param message
+     *            the message
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeEmptyListRowMessage(java.lang.String)
+     */
+    @Override
+    protected void writeEmptyListRowMessage(final String message) {
+<span class="fc" id="L512">        this.write(message);</span>
+<span class="fc" id="L513">    }</span>
+
+    /**
+     * Writes an HTML table's column header to a JSP page.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeTableHeader(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeTableHeader(final TableModel model) {
+
+<span class="pc bpc" id="L526" title="1 of 2 branches missed.">        if (HtmlTableWriter.logger.isDebugEnabled()) {</span>
+<span class="nc" id="L527">            HtmlTableWriter.logger.debug(&quot;[{}] getTableHeader called&quot;, model.getId());</span>
+        }
+
+        // open thead
+<span class="fc" id="L531">        this.write(TagConstants.TAG_THEAD_OPEN);</span>
+
+        // open tr
+<span class="fc" id="L534">        this.write(TagConstants.TAG_TR_OPEN);</span>
+
+        // no columns?
+<span class="fc bfc" id="L537" title="All 2 branches covered.">        if (model.isEmpty()) {</span>
+<span class="fc" id="L538">            this.write(TagConstants.TAG_TH_OPEN);</span>
+<span class="fc" id="L539">            this.write(TagConstants.TAG_TH_CLOSE);</span>
+        }
+
+        // iterator on columns for header
+<span class="fc" id="L543">        final Iterator&lt;HeaderCell&gt; iterator = model.getHeaderCellList().iterator();</span>
+
+<span class="fc bfc" id="L545" title="All 2 branches covered.">        while (iterator.hasNext()) {</span>
+            // get the header cell
+<span class="fc" id="L547">            final HeaderCell headerCell = iterator.next();</span>
+
+<span class="fc bfc" id="L549" title="All 2 branches covered.">            if (headerCell.getSortable()) {</span>
+<span class="fc" id="L550">                final String cssSortable = this.properties.getCssSortable();</span>
+<span class="fc" id="L551">                headerCell.addHeaderClass(cssSortable);</span>
+            }
+
+            // if sorted add styles
+<span class="fc bfc" id="L555" title="All 2 branches covered.">            if (headerCell.isAlreadySorted()) {</span>
+                // sorted css class
+<span class="fc" id="L557">                headerCell.addHeaderClass(this.properties.getCssSorted());</span>
+
+                // sort order css class
+<span class="fc" id="L560">                headerCell.addHeaderClass(this.properties.getCssOrder(model.isSortOrderAscending()));</span>
+            }
+
+            // append th with html attributes
+<span class="fc" id="L564">            this.write(headerCell.getHeaderOpenTag());</span>
+
+            // title
+<span class="fc" id="L567">            String header = headerCell.getTitle();</span>
+
+            // column is sortable, create link
+<span class="fc bfc" id="L570" title="All 2 branches covered.">            if (headerCell.getSortable()) {</span>
+                // creates the link for sorting
+<span class="fc" id="L572">                final Anchor anchor = new Anchor(this.getSortingHref(headerCell, model), header);</span>
+
+                // append to buffer
+<span class="fc" id="L575">                header = anchor.toString();</span>
+            }
+
+<span class="fc" id="L578">            this.write(header);</span>
+<span class="fc" id="L579">            this.write(headerCell.getHeaderCloseTag());</span>
+<span class="fc" id="L580">        }</span>
+
+        // close tr
+<span class="fc" id="L583">        this.write(TagConstants.TAG_TR_CLOSE);</span>
+
+        // close thead
+<span class="fc" id="L586">        this.write(TagConstants.TAG_THEAD_CLOSE);</span>
+
+<span class="pc bpc" id="L588" title="1 of 2 branches missed.">        if (HtmlTableWriter.logger.isDebugEnabled()) {</span>
+<span class="nc" id="L589">            HtmlTableWriter.logger.debug(&quot;[{}] getTableHeader end&quot;, model.getId());</span>
+        }
+<span class="fc" id="L591">    }</span>
+
+    /**
+     * Generates the link to be added to a column header for sorting.
+     *
+     * @param headerCell
+     *            header cell the link should be added to
+     * @param model
+     *            the model
+     *
+     * @return Href for sorting
+     */
+    private Href getSortingHref(final HeaderCell headerCell, final TableModel model) {
+        // costruct Href from base href, preserving parameters
+<span class="fc" id="L605">        Href href = (Href) this.baseHref.clone();</span>
+
+<span class="pc bpc" id="L607" title="1 of 2 branches missed.">        if (model.getForm() != null) {</span>
+<span class="nc" id="L608">            href = new PostHref(href, model.getForm());</span>
+        }
+
+<span class="fc bfc" id="L611" title="All 2 branches covered.">        if (this.paginatedList == null) {</span>
+            // add column number as link parameter
+<span class="fc bfc" id="L613" title="All 4 branches covered.">            if (!model.isLocalSort() &amp;&amp; headerCell.getSortName() != null) {</span>
+<span class="fc" id="L614">                href.addParameter(this.encodeParameter(TableTagParameters.PARAMETER_SORT, model),</span>
+<span class="fc" id="L615">                        headerCell.getSortName());</span>
+<span class="fc" id="L616">                href.addParameter(this.encodeParameter(TableTagParameters.PARAMETER_SORTUSINGNAME, model), &quot;1&quot;);</span>
+            } else {
+<span class="fc" id="L618">                href.addParameter(this.encodeParameter(TableTagParameters.PARAMETER_SORT, model),</span>
+<span class="fc" id="L619">                        headerCell.getColumnNumber());</span>
+            }
+
+<span class="fc" id="L622">            boolean nowOrderAscending = true;</span>
+
+<span class="fc bfc" id="L624" title="All 2 branches covered.">            if (headerCell.getDefaultSortOrder() != null) {</span>
+<span class="fc" id="L625">                final boolean sortAscending = SortOrderEnum.ASCENDING.equals(headerCell.getDefaultSortOrder());</span>
+<span class="fc bfc" id="L626" title="All 4 branches covered.">                nowOrderAscending = headerCell.isAlreadySorted() ? !model.isSortOrderAscending() : sortAscending;</span>
+<span class="fc" id="L627">            } else {</span>
+<span class="fc bfc" id="L628" title="All 4 branches covered.">                nowOrderAscending = (!headerCell.isAlreadySorted() || !model.isSortOrderAscending());</span>
+            }
+
+<span class="fc bfc" id="L631" title="All 2 branches covered.">            final int sortOrderParam = nowOrderAscending ? SortOrderEnum.ASCENDING.getCode()</span>
+<span class="fc" id="L632">                    : SortOrderEnum.DESCENDING.getCode();</span>
+<span class="fc" id="L633">            href.addParameter(this.encodeParameter(TableTagParameters.PARAMETER_ORDER, model), sortOrderParam);</span>
+
+            // If user want to sort the full table I need to reset the page number.
+            // or if we aren't sorting locally we need to reset the page as well.
+<span class="fc bfc" id="L637" title="All 4 branches covered.">            if (model.isSortFullTable() || !model.isLocalSort()) {</span>
+<span class="fc" id="L638">                href.addParameter(this.encodeParameter(TableTagParameters.PARAMETER_PAGE, model), 1);</span>
+            }
+<span class="fc" id="L640">        } else {</span>
+<span class="pc bpc" id="L641" title="1 of 2 branches missed.">            if (this.properties.getPaginationSkipPageNumberInSort()) {</span>
+<span class="fc" id="L642">                href.removeParameter(this.properties.getPaginationPageNumberParam());</span>
+            }
+
+<span class="fc" id="L645">            String sortProperty = headerCell.getSortProperty();</span>
+<span class="pc bpc" id="L646" title="1 of 2 branches missed.">            if (sortProperty == null) {</span>
+<span class="fc" id="L647">                sortProperty = headerCell.getBeanPropertyName();</span>
+            }
+
+<span class="fc" id="L650">            href.addParameter(this.properties.getPaginationSortParam(), sortProperty);</span>
+            String dirParam;
+<span class="pc bpc" id="L652" title="1 of 2 branches missed.">            if (headerCell.isAlreadySorted()) {</span>
+<span class="pc bpc" id="L653" title="1 of 2 branches missed.">                dirParam = model.isSortOrderAscending() ? this.properties.getPaginationDescValue()</span>
+<span class="fc" id="L654">                        : this.properties.getPaginationAscValue();</span>
+            } else {
+<span class="nc" id="L656">                dirParam = this.properties.getPaginationAscValue();</span>
+            }
+<span class="fc" id="L658">            href.addParameter(this.properties.getPaginationSortDirectionParam(), dirParam);</span>
+<span class="pc bpc" id="L659" title="1 of 2 branches missed.">            if (this.paginatedList.getSearchId() != null) {</span>
+<span class="fc" id="L660">                href.addParameter(this.properties.getPaginationSearchIdParam(), this.paginatedList.getSearchId());</span>
+            }
+        }
+
+<span class="fc" id="L664">        return href;</span>
+    }
+
+    /**
+     * encode a parameter name to be unique in the page using ParamEncoder.
+     *
+     * @param parameterName
+     *            parameter name to encode
+     * @param model
+     *            the model
+     *
+     * @return String encoded parameter name
+     */
+    private String encodeParameter(final String parameterName, final TableModel model) {
+        // paramEncoder has been already instantiated?
+<span class="fc bfc" id="L679" title="All 2 branches covered.">        if (this.paramEncoder == null) {</span>
+            // use the id attribute to get the unique identifier
+<span class="fc" id="L681">            this.paramEncoder = new ParamEncoder(model.getId());</span>
+        }
+
+<span class="fc" id="L684">        return this.paramEncoder.encodeParameterName(parameterName);</span>
+    }
+
+    /**
+     * Generates table footer with links for export commands.
+     *
+     * @param model
+     *            the model
+     */
+    protected void writeNavigationAndExportLinks(final TableModel model) {
+        // Put the page stuff there if it needs to be there...
+<span class="fc bfc" id="L695" title="All 2 branches covered.">        if (this.properties.getAddPagingBannerBottom()) {</span>
+<span class="fc" id="L696">            this.writeSearchResultAndNavigation(model);</span>
+        }
+
+        // add export links (only if the table is not empty)
+<span class="pc bpc" id="L700" title="1 of 6 branches missed.">        if (this.export &amp;&amp; this.properties.getAddExportBannerBottom() &amp;&amp; !model.getRowListPage().isEmpty()) {</span>
+<span class="fc" id="L701">            this.writeExportLinks(model);</span>
+        }
+<span class="fc" id="L703">    }</span>
+
+    /**
+     * generates the search result and navigation bar.
+     *
+     * @param model
+     *            the model
+     */
+    protected void writeSearchResultAndNavigation(final TableModel model) {
+<span class="pc bpc" id="L712" title="1 of 8 branches missed.">        if (this.paginatedList == null &amp;&amp; this.pagesize != 0 &amp;&amp; this.listHelper != null || this.paginatedList != null) {</span>
+            // create a new href
+<span class="fc" id="L714">            Href navigationHref = (Href) this.baseHref.clone();</span>
+
+<span class="fc bfc" id="L716" title="All 2 branches covered.">            if (model.getForm() != null) {</span>
+<span class="fc" id="L717">                navigationHref = new PostHref(navigationHref, model.getForm());</span>
+            }
+
+<span class="fc" id="L720">            this.write(this.listHelper.getSearchResultsSummary());</span>
+
+            String pageParameter;
+<span class="fc bfc" id="L723" title="All 2 branches covered.">            if (this.paginatedList == null) {</span>
+<span class="fc" id="L724">                pageParameter = this.encodeParameter(TableTagParameters.PARAMETER_PAGE, model);</span>
+            } else {
+<span class="fc" id="L726">                pageParameter = this.properties.getPaginationPageNumberParam();</span>
+<span class="pc bpc" id="L727" title="1 of 2 branches missed.">                if (this.paginatedList.getSearchId() != null &amp;&amp; !navigationHref.getParameterMap()</span>
+<span class="pc bpc" id="L728" title="1 of 2 branches missed.">                        .containsKey(this.properties.getPaginationSearchIdParam())) {</span>
+<span class="fc" id="L729">                    navigationHref.addParameter(this.properties.getPaginationSearchIdParam(),</span>
+<span class="fc" id="L730">                            this.paginatedList.getSearchId());</span>
+                }
+            }
+<span class="fc" id="L733">            this.write(this.listHelper.getPageNavigationBar(navigationHref, pageParameter));</span>
+        }
+<span class="fc" id="L735">    }</span>
+
+    /**
+     * Writes the formatted export links section.
+     *
+     * @param model
+     *            the model
+     */
+    private void writeExportLinks(final TableModel model) {
+        // Figure out what formats they want to export, make up a little string
+<span class="fc" id="L745">        final Href exportHref = (Href) this.baseHref.clone();</span>
+
+<span class="fc" id="L747">        final StringBuilder buffer = new StringBuilder(200);</span>
+<span class="fc" id="L748">        final Iterator&lt;MediaTypeEnum&gt; iterator = MediaTypeEnum.iterator();</span>
+
+<span class="fc bfc" id="L750" title="All 2 branches covered.">        while (iterator.hasNext()) {</span>
+<span class="fc" id="L751">            final MediaTypeEnum currentExportType = iterator.next();</span>
+
+<span class="fc bfc" id="L753" title="All 2 branches covered.">            if (this.properties.getAddExport(currentExportType)) {</span>
+
+<span class="fc bfc" id="L755" title="All 2 branches covered.">                if (buffer.length() &gt; 0) {</span>
+<span class="fc" id="L756">                    buffer.append(this.properties.getExportBannerSeparator());</span>
+                }
+
+<span class="fc" id="L759">                exportHref.addParameter(this.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE, model),</span>
+<span class="fc" id="L760">                        currentExportType.getCode());</span>
+
+                // export marker
+<span class="fc" id="L763">                exportHref.addParameter(TableTagParameters.PARAMETER_EXPORTING, &quot;1&quot;);</span>
+
+<span class="fc" id="L765">                final String exportBannerItem = StringUtils.defaultString(this.properties.getExportBannerItem(),</span>
+                        &quot;&lt;a href=\&quot;{0}\&quot;&gt;{1}&lt;/a&gt;&quot;);
+
+<span class="fc" id="L768">                buffer.append(MessageFormat.format(exportBannerItem, exportHref,</span>
+<span class="fc" id="L769">                        this.properties.getExportLabel(currentExportType)));</span>
+            }
+<span class="fc" id="L771">        }</span>
+
+<span class="fc" id="L773">        final Object[] exportOptions = { buffer.toString() };</span>
+<span class="fc" id="L774">        this.write(new MessageFormat(this.properties.getExportBanner(), this.properties.getLocale())</span>
+<span class="fc" id="L775">                .format(exportOptions));</span>
+<span class="fc" id="L776">    }</span>
+
+    /**
+     * create the open tag containing all the attributes.
+     *
+     * @return open tag string: &lt;code&gt;%lt;table attribute=&quot;value&quot; ... &amp;gt;&lt;/code&gt;
+     */
+    public String getOpenTag() {
+
+<span class="fc bfc" id="L785" title="All 4 branches covered.">        if (this.uid != null &amp;&amp; this.attributeMap.get(TagConstants.ATTRIBUTE_ID) == null) {</span>
+            // we need to clone the attribute map in order to &quot;fix&quot; the html id when using only the &quot;uid&quot; attribute
+<span class="fc" id="L787">            final Map&lt;String, String&gt; localAttributeMap = (Map&lt;String, String&gt;) this.attributeMap.clone();</span>
+<span class="fc" id="L788">            localAttributeMap.put(TagConstants.ATTRIBUTE_ID, this.uid);</span>
+
+<span class="fc" id="L790">            final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L791">            buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);</span>
+<span class="fc" id="L792">            buffer.append(localAttributeMap);</span>
+<span class="fc" id="L793">            buffer.append(TagConstants.TAG_CLOSE);</span>
+
+<span class="fc" id="L795">            return buffer.toString();</span>
+
+        }
+
+        // fast, no clone
+<span class="fc" id="L800">        final StringBuilder buffer = new StringBuilder();</span>
+
+<span class="fc" id="L802">        buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TABLE_TAG_NAME);</span>
+<span class="fc" id="L803">        buffer.append(this.attributeMap);</span>
+<span class="fc" id="L804">        buffer.append(TagConstants.TAG_CLOSE);</span>
+
+<span class="fc" id="L806">        return buffer.toString();</span>
+    }
+
+    /**
+     * Utility method.
+     *
+     * @param string
+     *            String
+     */
+    public void write(final String string) {
+<span class="fc bfc" id="L816" title="All 2 branches covered.">        if (string != null) {</span>
+            try {
+<span class="fc" id="L818">                this.out.write(string);</span>
+<span class="nc" id="L819">            } catch (final IOException e) {</span>
+<span class="nc" id="L820">                throw new WrappedRuntimeException(this.getClass(), e);</span>
+<span class="fc" id="L821">            }</span>
+        }
+
+<span class="fc" id="L824">    }</span>
+
+    /**
+     * Utility method.
+     *
+     * @param string
+     *            String
+     */
+    public void write(final Object string) {
+<span class="pc bpc" id="L833" title="1 of 2 branches missed.">        if (string != null) {</span>
+            try {
+<span class="fc" id="L835">                this.out.write(string.toString());</span>
+<span class="nc" id="L836">            } catch (final IOException e) {</span>
+<span class="nc" id="L837">                throw new WrappedRuntimeException(this.getClass(), e);</span>
+<span class="fc" id="L838">            }</span>
+        }
+
+<span class="fc" id="L841">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

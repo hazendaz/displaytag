@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>XmlTotalsWriter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.export</a> &gt; <span class="el_source">XmlTotalsWriter.java</span></div><h1>XmlTotalsWriter.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.export;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.decorator.TableDecorator;
+import org.displaytag.model.Column;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.TableModel;
+import org.displaytag.render.TableTotaler;
+import org.displaytag.render.TableWriterAdapter;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.TagConstants;
+
+/**
+ * Writes the table as an XML file, including any totals and grouping information. Used by the FOP export.
+ *
+ * @author rapruitt Date: Mar 10, 2010 Time: 4:21:28 PM
+ *
+ * @see FopExportView
+ */
+
+/*
+ * Sample fragment &lt;table&gt; &lt;header&gt; &lt;header-cell &gt;AntColumn&lt;/header-cell&gt; &lt;/header&gt; &lt;data&gt; &lt;subgroup grouped-by=&quot;0&quot;&gt;
+ * &lt;row&gt; &lt;cell grouped=&quot;true&quot;&gt;Ant&lt;/cell&gt; &lt;/row&gt; &lt;subtotal
+ */
+public class XmlTotalsWriter extends TableWriterAdapter {
+
+    /** The style pat. */
+<span class="fc" id="L60">    Pattern stylePat = Pattern.compile(&quot;\\s*?([\\w\\-]+?)\\s*?:\\s*?([\\w\\-]+?)(?:;|$)&quot;);</span>
+
+    /** The xml. */
+<span class="fc" id="L63">    protected StringBuilder xml = new StringBuilder();</span>
+
+    /** The current grouping value by group. */
+<span class="fc" id="L66">    Map&lt;Integer, String&gt; currentGroupingValueByGroup = new HashMap&lt;&gt;();</span>
+
+    /** The group id. */
+    Integer groupId;
+
+    /** The current grouping level. */
+<span class="fc" id="L72">    int currentGroupingLevel = 0;</span>
+
+    /** The max word length. */
+<span class="fc" id="L75">    int maxWordLength = 15;</span>
+
+    /** The Constant NOOP. */
+<span class="fc" id="L78">    public static final TableDecorator NOOP = new TableDecorator() {</span>
+        @Override
+        public String displayGroupedValue(final String cellValue, final short groupingStatus, final int columnNumber) {
+<span class="fc" id="L81">            return cellValue;</span>
+        }
+    };
+
+    /**
+     * Instantiates a new xml totals writer.
+     *
+     * @param m
+     *            the m
+     */
+<span class="fc" id="L91">    public XmlTotalsWriter(final TableModel m) {</span>
+<span class="fc" id="L92">        this.setModel(m);</span>
+<span class="fc" id="L93">    }</span>
+
+    /**
+     * Sets the model.
+     *
+     * @param m
+     *            the new model
+     */
+    public void setModel(final TableModel m) {
+<span class="fc" id="L102">        m.setTableDecorator(XmlTotalsWriter.NOOP);</span>
+<span class="pc bpc" id="L103" title="2 of 4 branches missed.">        if (m.getTotaler() == null || m.getTotaler() == TableTotaler.NULL) {</span>
+<span class="nc" id="L104">            final TableTotaler tt = new TableTotaler();</span>
+<span class="nc" id="L105">            tt.init(m);</span>
+<span class="nc" id="L106">            m.setTotaler(tt);</span>
+        }
+<span class="fc" id="L108">    }</span>
+
+    /**
+     * &lt;code&gt;TableModel&lt;/code&gt;.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
+
+    @Override
+    protected void writeTableOpener(final TableModel model) throws Exception {
+<span class="fc" id="L122">        this.xml.append(&quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&lt;table&gt;\n&quot;); //$NON-NLS-1$</span>
+<span class="fc" id="L123">    }</span>
+
+    /**
+     * Write subgroup start.
+     *
+     * @param model
+     *            the model
+     */
+    @Override
+    protected void writeSubgroupStart(final TableModel model) {
+<span class="fc" id="L133">        final TableTotaler tt = model.getTotaler();</span>
+
+        // for each newly opened subgroup we need to output the opener, in order;
+        // so we need to know somehow which groups are new since we last wrote out openers; how about we track a list of
+        // the
+        // already opened groups, and ask the tt for a list of all known groups?
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        for (final int i : tt.getOpenedColumns()) {</span>
+<span class="fc" id="L140">            this.xml.append(&quot;&lt;subgroup grouped-by=\&quot;&quot;).append(i).append(&quot;\&quot;&gt;&quot;);</span>
+
+<span class="fc" id="L142">        }</span>
+<span class="fc" id="L143">    }</span>
+
+    /**
+     * Write subgroup stop.
+     *
+     * @param model
+     *            the model
+     */
+    @Override
+    protected void writeSubgroupStop(final TableModel model) {
+<span class="fc" id="L153">        final List&lt;Integer&gt; closed = model.getTotaler().getClosedColumns();</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">        if (!closed.isEmpty()) {</span>
+            // write subtotals
+<span class="fc" id="L156">            this.writeSubtotals(model, closed);</span>
+        }
+<span class="fc" id="L158">    }</span>
+
+    /**
+     * Write subtotals.
+     *
+     * @param model
+     *            the model
+     * @param closedColumns
+     *            the closed columns
+     */
+    protected void writeSubtotals(final TableModel model, final List&lt;Integer&gt; closedColumns) {
+<span class="fc" id="L169">        final TableTotaler tt = model.getTotaler();</span>
+<span class="fc" id="L170">        Collections.reverse(closedColumns);</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">        for (final int i : closedColumns) {</span>
+<span class="fc" id="L172">            this.xml.append(&quot;&lt;subtotal&gt;\n&quot;);</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">            for (final HeaderCell cell : model.getHeaderCellList()) {</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">                if (cell.isTotaled()) {</span>
+<span class="fc" id="L175">                    this.xml.append(&quot;\t&lt;subtotal-cell &quot;);</span>
+<span class="fc" id="L176">                    final HtmlAttributeMap atts = cell.getHtmlAttributes();</span>
+<span class="fc" id="L177">                    this.writeAttributes(atts);</span>
+<span class="fc" id="L178">                    this.xml.append('&gt;');</span>
+<span class="fc" id="L179">                    this.cdata(tt.formatTotal(cell, tt.getTotalForColumn(cell.getColumnNumber(), tt.asGroup(i))));</span>
+<span class="fc" id="L180">                    this.xml.append(&quot;&lt;/subtotal-cell&gt;&quot;);</span>
+<span class="fc" id="L181">                } else {</span>
+<span class="fc" id="L182">                    this.xml.append(&quot;\t&lt;subtotal-cell/&gt;&quot;);</span>
+                }
+<span class="fc" id="L184">            }</span>
+<span class="fc" id="L185">            this.xml.append(&quot;\n&lt;/subtotal&gt;\n&quot;);</span>
+<span class="fc" id="L186">            this.writeExtraGroupInfo(model, i);</span>
+<span class="fc" id="L187">            this.xml.append(&quot;&lt;/subgroup&gt;\n&quot;);</span>
+<span class="fc" id="L188">        }</span>
+<span class="fc" id="L189">    }</span>
+
+    /**
+     * Write extra group info.
+     *
+     * @param model
+     *            the model
+     * @param groupColumn
+     *            the group column
+     */
+    protected void writeExtraGroupInfo(final TableModel model, final int groupColumn) {
+        // Not Implemented
+<span class="fc" id="L201">    }</span>
+
+    /**
+     * Write attributes.
+     *
+     * @param atts
+     *            the atts
+     */
+    protected void writeAttributes(final HtmlAttributeMap atts) {
+<span class="pc bpc" id="L210" title="1 of 2 branches missed.">        if (atts != null) {</span>
+<span class="fc" id="L211">            final String style = (String) atts.get(TagConstants.ATTRIBUTE_STYLE);</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">            if (StringUtils.isNotBlank(style)) {</span>
+<span class="fc" id="L213">                final Matcher m = this.stylePat.matcher(style);</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">                while (m.find()) {</span>
+<span class="fc" id="L215">                    this.xml.append(m.group(1));</span>
+<span class="fc" id="L216">                    this.xml.append(&quot;=\&quot;&quot;);</span>
+<span class="fc" id="L217">                    this.xml.append(m.group(2));</span>
+<span class="fc" id="L218">                    this.xml.append(&quot;\&quot; &quot;);</span>
+                }
+            }
+<span class="fc" id="L221">            final MultipleHtmlAttribute cssClass = (MultipleHtmlAttribute) atts.get(TagConstants.ATTRIBUTE_CLASS);</span>
+<span class="pc bpc" id="L222" title="1 of 4 branches missed.">            if (cssClass != null &amp;&amp; !cssClass.isEmpty()) {</span>
+<span class="fc" id="L223">                this.xml.append(&quot; class&quot;);</span>
+<span class="fc" id="L224">                this.xml.append(&quot;=\&quot;&quot;);</span>
+<span class="fc" id="L225">                this.xml.append(cssClass.toString());</span>
+<span class="fc" id="L226">                this.xml.append(&quot;\&quot;&quot;);</span>
+            }
+        }
+
+<span class="fc" id="L230">    }</span>
+
+    /**
+     * Write column opener.
+     *
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeColumnOpener(final Column column) throws Exception {
+<span class="fc bfc" id="L243" title="All 2 branches covered.">        final boolean grouped = column.getHeaderCell().getGroup() &gt;= this.currentGroupingLevel;</span>
+<span class="fc" id="L244">        String attr = &quot;&quot;;</span>
+<span class="fc bfc" id="L245" title="All 2 branches covered.">        if (grouped) {</span>
+<span class="fc" id="L246">            attr = &quot; grouped=\&quot;true\&quot; &quot;;</span>
+        }
+<span class="fc" id="L248">        this.xml.append(&quot;\t&lt;cell &quot;);</span>
+<span class="fc" id="L249">        this.xml.append(attr);</span>
+<span class="fc" id="L250">        final HtmlAttributeMap atts = column.getHeaderCell().getHtmlAttributes();</span>
+<span class="fc" id="L251">        this.writeAttributes(atts);</span>
+<span class="fc" id="L252">        this.xml.append(&quot;&gt;&quot;);</span>
+<span class="fc" id="L253">    }</span>
+
+    /**
+     * Write column closer.
+     *
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeColumnCloser(final Column column) throws Exception {
+<span class="fc" id="L266">        this.xml.append(&quot;&lt;/cell&gt;\n&quot;);</span>
+<span class="fc" id="L267">    }</span>
+
+    /**
+     * Write table header.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeTableHeader(final TableModel model) throws Exception {
+<span class="fc" id="L280">        final Iterator&lt;HeaderCell&gt; iterator = model.getHeaderCellList().iterator();</span>
+
+<span class="fc" id="L282">        this.xml.append(&quot;&lt;header&gt;\n&quot;);</span>
+<span class="fc" id="L283">        this.xml.append(&quot;\n&quot;);</span>
+<span class="fc bfc" id="L284" title="All 2 branches covered.">        while (iterator.hasNext()) {</span>
+            // get the header cell
+<span class="fc" id="L286">            final HeaderCell headerCell = iterator.next();</span>
+<span class="fc" id="L287">            this.xml.append(&quot;&lt;header-cell&gt;&quot;);</span>
+<span class="fc" id="L288">            this.cdata(headerCell.getTitle());</span>
+<span class="fc" id="L289">            this.xml.append(&quot;&lt;/header-cell&gt;\n&quot;);</span>
+<span class="fc" id="L290">        }</span>
+<span class="fc" id="L291">        this.xml.append(&quot;&lt;/header&gt;\n&quot;);</span>
+<span class="fc" id="L292">        this.xml.append(&quot;&lt;data&gt;&quot;);</span>
+<span class="fc" id="L293">        this.xml.append(&quot;&lt;subgroup grouped-by=\&quot;&quot; + TableTotaler.WHOLE_TABLE + &quot;\&quot;&gt;&quot;);</span>
+<span class="fc" id="L294">    }</span>
+
+    // just use the hyphenate support from fop -- http://xmlgraphics.apache.org/fop/1.0/hyphenation.html
+
+    /**
+     * Cdata.
+     *
+     * @param str
+     *            the str
+     */
+    protected void cdata(final Object str) {
+<span class="fc" id="L305">        this.xml.append(&quot;&lt;![CDATA[&quot;);</span>
+<span class="fc" id="L306">        final String defStr = StringUtils.defaultString(&quot;&quot; + str);</span>
+<span class="fc" id="L307">        this.xml.append(defStr);</span>
+<span class="fc" id="L308">        this.xml.append(&quot;]]&gt;&quot;);</span>
+<span class="fc" id="L309">    }</span>
+
+    /**
+     * Write decorated table finish.
+     *
+     * @param model
+     *            the model
+     */
+    @Override
+    protected void writeDecoratedTableFinish(final TableModel model) {
+<span class="fc" id="L319">        model.getTableDecorator().finish();</span>
+<span class="fc" id="L320">    }</span>
+
+    /**
+     * Write decorated row start.
+     *
+     * @param model
+     *            the model
+     *
+     * @see org.displaytag.render.TableWriterTemplate#writeDecoratedRowStart(org.displaytag.model.TableModel)
+     */
+    @Override
+    protected void writeDecoratedRowStart(final TableModel model) {
+<span class="fc" id="L332">        this.xml.append(StringUtils.defaultString(model.getTableDecorator().startRow()));</span>
+<span class="fc" id="L333">    }</span>
+
+    /**
+     * Write table closer.
+     *
+     * @param model
+     *            the model
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeTableCloser(final TableModel model) throws Exception {
+<span class="fc" id="L346">        this.xml.append(&quot;&lt;/table&gt;&quot;); //$NON-NLS-1$</span>
+<span class="fc" id="L347">    }</span>
+
+    /**
+     * Write decorated row finish.
+     *
+     * @param model
+     *            the model
+     */
+    @Override
+    protected void writeDecoratedRowFinish(final TableModel model) {
+<span class="fc" id="L357">        this.xml.append(StringUtils.defaultString(model.getTableDecorator().finishRow()));</span>
+<span class="fc" id="L358">    }</span>
+
+    /**
+     * Write row opener.
+     *
+     * @param row
+     *            the row
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeRowOpener(final Row row) throws Exception {
+<span class="fc" id="L371">        this.xml.append(&quot;\n&lt;row&gt;\n&quot;); //$NON-NLS-1$</span>
+<span class="fc" id="L372">    }</span>
+
+    /**
+     * Write column value.
+     *
+     * @param value
+     *            the value
+     * @param column
+     *            the column
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeColumnValue(final Object value, final Column column) throws Exception {
+<span class="fc" id="L387">        final Object rawValue = column.getValue(true);</span>
+<span class="fc" id="L388">        this.cdata(rawValue);</span>
+<span class="fc" id="L389">    }</span>
+
+    /**
+     * Write row with no columns.
+     *
+     * @param value
+     *            the value
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeRowWithNoColumns(final String value) throws Exception {
+<span class="nc" id="L402">        this.xml.append(&quot;&lt;row/&gt;\n&quot;); //$NON-NLS-1$</span>
+<span class="nc" id="L403">    }</span>
+
+    /**
+     * Write row closer.
+     *
+     * @param row
+     *            the row
+     *
+     * @throws Exception
+     *             the exception
+     */
+    @Override
+    protected void writeRowCloser(final Row row) throws Exception {
+<span class="fc" id="L416">        this.xml.append(&quot;&lt;/row&gt;\n&quot;); //$NON-NLS-1$</span>
+<span class="fc" id="L417">    }</span>
+
+    /**
+     * Write table body closer.
+     *
+     * @param model
+     *            the model
+     */
+    @Override
+    protected void writeTableBodyCloser(final TableModel model) {
+<span class="fc" id="L427">        this.xml.append(&quot;\n&lt;!-- grand totals --&gt;\n&quot;);</span>
+<span class="fc" id="L428">        this.writeSubtotals(model, Arrays.asList(TableTotaler.WHOLE_TABLE));</span>
+<span class="fc" id="L429">        this.xml.append(&quot;&lt;/data&gt;&quot;); //$NON-NLS-1$</span>
+<span class="fc" id="L430">    }</span>
+
+    /**
+     * Gets the xml.
+     *
+     * @return the xml
+     */
+    public String getXml() {
+
+<span class="fc" id="L439">        return this.xml.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

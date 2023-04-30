@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RowIterator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.model</a> &gt; <span class="el_source">RowIterator.java</span></div><h1>RowIterator.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.model;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.displaytag.decorator.TableDecorator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Iterator on table rows.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class RowIterator {
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L43">    private static Logger log = LoggerFactory.getLogger(RowIterator.class);</span>
+
+    /**
+     * internal iterator for Rows.
+     */
+    private final Iterator&lt;Row&gt; iterator;
+
+    /**
+     * row number counter.
+     */
+    private int rowNumber;
+
+    /**
+     * reference to the table TableDecorator.
+     */
+    private final TableDecorator decorator;
+
+    /**
+     * id inherited from the TableTag (needed only for logging).
+     */
+    private String id;
+
+    /**
+     * Starting offset for items n the current page. Needed to calculare the index in the original list
+     */
+    private final int pageOffset;
+
+    /**
+     * Constructor for RowIterator.
+     *
+     * @param rowList
+     *            List containing Row objects
+     * @param columnList
+     *            List containing CellHeader objects
+     * @param tableDecorator
+     *            TableDecorator
+     * @param offset
+     *            Starting offset for items n the current page
+     */
+    protected RowIterator(final List&lt;Row&gt; rowList, final List&lt;HeaderCell&gt; columnList,
+<span class="fc" id="L83">            final TableDecorator tableDecorator, final int offset) {</span>
+<span class="fc" id="L84">        this.iterator = rowList.iterator();</span>
+<span class="fc" id="L85">        this.rowNumber = 0;</span>
+<span class="fc" id="L86">        this.decorator = tableDecorator;</span>
+<span class="fc" id="L87">        this.pageOffset = offset;</span>
+<span class="fc" id="L88">    }</span>
+
+    /**
+     * Setter for the tablemodel id.
+     *
+     * @param tableId
+     *            same id of table tag, needed for logging
+     */
+    public void setId(final String tableId) {
+<span class="fc" id="L97">        this.id = tableId;</span>
+<span class="fc" id="L98">    }</span>
+
+    /**
+     * Check if a next row exist.
+     *
+     * @return boolean true if a new row
+     */
+    public boolean hasNext() {
+<span class="fc" id="L106">        return this.iterator.hasNext();</span>
+    }
+
+    /**
+     * Gets the page offset.
+     *
+     * @return the page offset
+     */
+    public int getPageOffset() {
+<span class="fc" id="L115">        return this.pageOffset;</span>
+    }
+
+    /**
+     * Returns the next row object.
+     *
+     * @return Row
+     */
+    public Row next() {
+
+<span class="fc" id="L125">        final int currentRowNumber = this.rowNumber++;</span>
+
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">        if (RowIterator.log.isDebugEnabled()) {</span>
+<span class="nc" id="L128">            RowIterator.log.debug(&quot;[{}] rowIterator.next() row number={}&quot;, this.id, currentRowNumber);</span>
+        }
+
+<span class="fc" id="L131">        final Row row = this.iterator.next();</span>
+
+<span class="fc" id="L133">        row.setRowNumber(currentRowNumber);</span>
+
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        if (this.decorator != null) {</span>
+<span class="fc" id="L136">            this.decorator.initRow(row.getObject(), currentRowNumber, currentRowNumber + this.getPageOffset());</span>
+        }
+
+<span class="fc" id="L139">        return row;</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableTagBeanInfo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.tags</a> &gt; <span class="el_source">TableTagBeanInfo.java</span></div><h1>TableTagBeanInfo.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.tags;
+
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.beans.SimpleBeanInfo;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Beaninfo class for tableTag. Needed to make the &quot;class&quot; tag attribute working and to handle the swith between
+ * setName() and setNameString() setters for the name attribute.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L38">public class TableTagBeanInfo extends SimpleBeanInfo {</span>
+
+    /**
+     * Gets the property descriptors.
+     *
+     * @return the property descriptors
+     *
+     * @see java.beans.BeanInfo#getPropertyDescriptors()
+     */
+    @Override
+    public PropertyDescriptor[] getPropertyDescriptors() {
+<span class="fc" id="L49">        final List&lt;PropertyDescriptor&gt; proplist = new ArrayList&lt;&gt;();</span>
+
+        try {
+<span class="fc" id="L52">            proplist.add(new PropertyDescriptor(&quot;cellpadding&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setCellpadding&quot;)); //$NON-NLS-1$
+<span class="fc" id="L54">            proplist.add(new PropertyDescriptor(&quot;cellspacing&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setCellspacing&quot;)); //$NON-NLS-1$
+<span class="fc" id="L56">            proplist.add(new PropertyDescriptor(&quot;class&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setClass&quot;)); //$NON-NLS-1$
+<span class="fc" id="L58">            proplist.add(new PropertyDescriptor(&quot;decorator&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setDecorator&quot;)); //$NON-NLS-1$
+<span class="fc" id="L60">            proplist.add(new PropertyDescriptor(&quot;defaultorder&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setDefaultorder&quot;)); //$NON-NLS-1$
+<span class="fc" id="L62">            proplist.add(new PropertyDescriptor(&quot;defaultsort&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setDefaultsort&quot;)); //$NON-NLS-1$
+<span class="fc" id="L64">            proplist.add(new PropertyDescriptor(&quot;export&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setExport&quot;)); //$NON-NLS-1$
+<span class="fc" id="L66">            proplist.add(new PropertyDescriptor(&quot;frame&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setFrame&quot;)); //$NON-NLS-1$
+<span class="fc" id="L68">            proplist.add(new PropertyDescriptor(&quot;length&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setLength&quot;)); //$NON-NLS-1$
+<span class="fc" id="L70">            proplist.add(new PropertyDescriptor(&quot;offset&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setOffset&quot;)); //$NON-NLS-1$
+<span class="fc" id="L72">            proplist.add(new PropertyDescriptor(&quot;pagesize&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setPagesize&quot;)); //$NON-NLS-1$
+<span class="fc" id="L74">            proplist.add(new PropertyDescriptor(&quot;partialList&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setPartialList&quot;)); //$NON-NLS-1$
+<span class="fc" id="L76">            proplist.add(new PropertyDescriptor(&quot;requestURI&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setRequestURI&quot;)); //$NON-NLS-1$
+<span class="fc" id="L78">            proplist.add(new PropertyDescriptor(&quot;requestURIcontext&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setRequestURIcontext&quot;)); //$NON-NLS-1$
+<span class="fc" id="L80">            proplist.add(new PropertyDescriptor(&quot;rules&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setRules&quot;)); //$NON-NLS-1$
+<span class="fc" id="L82">            proplist.add(new PropertyDescriptor(&quot;sort&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setSort&quot;)); //$NON-NLS-1$
+<span class="fc" id="L84">            proplist.add(new PropertyDescriptor(&quot;style&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setStyle&quot;)); //$NON-NLS-1$
+<span class="fc" id="L86">            proplist.add(new PropertyDescriptor(&quot;summary&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setSummary&quot;)); //$NON-NLS-1$
+<span class="fc" id="L88">            proplist.add(new PropertyDescriptor(&quot;excludedParams&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setExcludedParams&quot;)); //$NON-NLS-1$
+<span class="fc" id="L90">            proplist.add(new PropertyDescriptor(&quot;id&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setUid&quot;)); //$NON-NLS-1$
+<span class="fc" id="L92">            proplist.add(new PropertyDescriptor(&quot;uid&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setUid&quot;)); //$NON-NLS-1$
+<span class="fc" id="L94">            proplist.add(new PropertyDescriptor(&quot;htmlId&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setHtmlId&quot;)); //$NON-NLS-1$
+<span class="fc" id="L96">            proplist.add(new PropertyDescriptor(&quot;varTotals&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setVarTotals&quot;)); //$NON-NLS-1$
+<span class="fc" id="L98">            proplist.add(new PropertyDescriptor(&quot;keepStatus&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setKeepStatus&quot;)); //$NON-NLS-1$
+<span class="fc" id="L100">            proplist.add(new PropertyDescriptor(&quot;clearStatus&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setClearStatus&quot;)); //$NON-NLS-1$
+<span class="fc" id="L102">            proplist.add(new PropertyDescriptor(&quot;form&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setForm&quot;)); //$NON-NLS-1$
+<span class="fc" id="L104">            proplist.add(new PropertyDescriptor(&quot;items&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setItems&quot;)); //$NON-NLS-1$
+<span class="fc" id="L106">            proplist.add(new PropertyDescriptor(&quot;size&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setSize&quot;)); //$NON-NLS-1$
+
+            // deprecated attributes
+<span class="fc" id="L110">            proplist.add(new PropertyDescriptor(&quot;list&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setList&quot;)); //$NON-NLS-1$
+<span class="fc" id="L112">            proplist.add(new PropertyDescriptor(&quot;name&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setName&quot;)); //$NON-NLS-1$
+
+            // make ATG Dynamo happy:
+<span class="fc" id="L116">            proplist.add(new PropertyDescriptor(&quot;className&quot;, //$NON-NLS-1$</span>
+                    TableTag.class, null, &quot;setClass&quot;)); //$NON-NLS-1$
+
+<span class="nc" id="L119">        } catch (final IntrospectionException ex) {</span>
+<span class="nc" id="L120">            throw new RuntimeException(&quot;You got an introspection exception - maybe defining a property that is not&quot;</span>
+<span class="nc" id="L121">                    + &quot; defined in the TableTag?: &quot; + ex.getMessage(), ex);</span>
+<span class="fc" id="L122">        }</span>
+
+<span class="fc" id="L124">        final PropertyDescriptor[] result = new PropertyDescriptor[proplist.size()];</span>
+<span class="fc" id="L125">        return proplist.toArray(result);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

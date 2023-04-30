@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableModel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.model</a> &gt; <span class="el_source">TableModel.java</span></div><h1>TableModel.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.model;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.servlet.jsp.PageContext;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.displaytag.decorator.TableDecorator;
+import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.properties.TableProperties;
+import org.displaytag.render.TableTotaler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * Table Model. Holds table data for presentation.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class TableModel {
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L51">    private static Logger log = LoggerFactory.getLogger(TableModel.class);</span>
+
+    /**
+     * list of HeaderCell.
+     */
+    private final List&lt;HeaderCell&gt; headerCellList;
+
+    /**
+     * full list (contains Row objects).
+     */
+    private final List&lt;Row&gt; rowListFull;
+
+    /**
+     * list of data to be displayed in page.
+     */
+    private List&lt;Row&gt; rowListPage;
+
+    /**
+     * Name of the column currently sorted (only used when sort=external).
+     */
+    private String sortedColumnName;
+
+    /** sort order = ascending?. */
+<span class="fc" id="L74">    private boolean sortOrderAscending = true;</span>
+
+    /**
+     * sort full List? (false sort only displayed page).
+     */
+<span class="fc" id="L79">    private boolean sortFullTable = true;</span>
+
+    /**
+     * index of the sorted column (-1 if the table is not sorted).
+     */
+<span class="fc" id="L84">    private int sortedColumn = -1;</span>
+
+    /**
+     * Table decorator.
+     */
+    private TableDecorator tableDecorator;
+
+    /**
+     * id inherited from the TableTag (needed only for logging).
+     */
+    private String id;
+
+    /**
+     * configurable table properties.
+     */
+    private final TableProperties properties;
+
+    /**
+     * Starting offset for elements in the viewable list.
+     */
+    private int pageOffset;
+
+    /**
+     * Response encoding.
+     */
+    private final String encoding;
+
+    /** Are we sorting locally? (Default True). */
+<span class="fc" id="L112">    private boolean localSort = true;</span>
+
+    /**
+     * Table caption.
+     */
+    private String caption;
+
+    /**
+     * Table footer.
+     */
+    private String footer;
+
+    /**
+     * Jsp page context.
+     */
+    private final PageContext pageContext;
+
+    /**
+     * Current media.
+     */
+    private MediaTypeEnum media;
+
+    /**
+     * Uses post for links.
+     */
+    private String form;
+
+    /** The totaler. */
+    private TableTotaler totaler;
+
+    /**
+     * Constructor for TableModel.
+     *
+     * @param tableProperties
+     *            table properties
+     * @param charEncoding
+     *            response encoding
+     * @param pageContext
+     *            the page context
+     */
+<span class="fc" id="L152">    public TableModel(final TableProperties tableProperties, final String charEncoding, final PageContext pageContext) {</span>
+<span class="fc" id="L153">        this.rowListFull = new ArrayList&lt;&gt;(20);</span>
+<span class="fc" id="L154">        this.headerCellList = new ArrayList&lt;&gt;(20);</span>
+<span class="fc" id="L155">        this.properties = tableProperties;</span>
+<span class="fc" id="L156">        this.encoding = charEncoding;</span>
+<span class="fc" id="L157">        this.pageContext = pageContext;</span>
+<span class="fc" id="L158">    }</span>
+
+    /**
+     * Returns the jsp page context.
+     *
+     * @return page context
+     */
+    protected PageContext getPageContext() {
+<span class="fc" id="L166">        return this.pageContext;</span>
+    }
+
+    /**
+     * Gets the current media type.
+     *
+     * @return current media (html, pdf ...)
+     */
+    public MediaTypeEnum getMedia() {
+<span class="fc" id="L175">        return this.media;</span>
+    }
+
+    /**
+     * sets the current media type.
+     *
+     * @param media
+     *            current media (html, pdf ...)
+     */
+    public void setMedia(final MediaTypeEnum media) {
+<span class="fc" id="L185">        this.media = media;</span>
+<span class="fc" id="L186">    }</span>
+
+    /**
+     * Sets whether the table performs local in memory sorting of the data.
+     *
+     * @param localSort
+     *            the new local sort
+     */
+    public void setLocalSort(final boolean localSort) {
+<span class="fc" id="L195">        this.localSort = localSort;</span>
+<span class="fc" id="L196">    }</span>
+
+    /**
+     * Checks if is local sort.
+     *
+     * @return sorting in local memory
+     */
+    public boolean isLocalSort() {
+<span class="fc" id="L204">        return this.localSort;</span>
+    }
+
+    /**
+     * Getter for &lt;code&gt;form&lt;/code&gt;.
+     *
+     * @return Returns the form.
+     */
+    public String getForm() {
+<span class="fc" id="L213">        return this.form;</span>
+    }
+
+    /**
+     * Setter for &lt;code&gt;form&lt;/code&gt;.
+     *
+     * @param form
+     *            The form to set.
+     */
+    public void setForm(final String form) {
+<span class="fc" id="L223">        this.form = form;</span>
+<span class="fc" id="L224">    }</span>
+
+    /**
+     * Getter for &lt;code&gt;pageOffset&lt;/code&gt;.
+     *
+     * @return Returns the page offset.
+     */
+    public int getPageOffset() {
+<span class="fc" id="L232">        return this.pageOffset;</span>
+    }
+
+    /**
+     * Sets the starting offset for elements in the viewable list.
+     *
+     * @param offset
+     *            The page offset to set.
+     */
+    public void setPageOffset(final int offset) {
+<span class="fc" id="L242">        this.pageOffset = offset;</span>
+<span class="fc" id="L243">    }</span>
+
+    /**
+     * Setter for the tablemodel id.
+     *
+     * @param tableId
+     *            same id of table tag, needed for logging
+     */
+    public void setId(final String tableId) {
+<span class="fc" id="L252">        this.id = tableId;</span>
+<span class="fc" id="L253">    }</span>
+
+    /**
+     * get the table id.
+     *
+     * @return table id
+     */
+    public String getId() {
+<span class="fc" id="L261">        return this.id;</span>
+    }
+
+    /**
+     * get the full list.
+     *
+     * @return the full list containing Row objects
+     */
+    public List&lt;Row&gt; getRowListFull() {
+<span class="fc" id="L270">        return this.rowListFull;</span>
+    }
+
+    /**
+     * gets the partial (paginated) list.
+     *
+     * @return the partial list to display in page (contains Row objects)
+     */
+    public List&lt;Row&gt; getRowListPage() {
+<span class="fc" id="L279">        return this.rowListPage;</span>
+    }
+
+    /**
+     * adds a Row object to the table.
+     *
+     * @param row
+     *            Row
+     */
+    public void addRow(final Row row) {
+<span class="fc" id="L289">        row.setParentTable(this);</span>
+
+<span class="pc bpc" id="L291" title="1 of 2 branches missed.">        if (TableModel.log.isDebugEnabled()) {</span>
+<span class="nc" id="L292">            TableModel.log.debug(&quot;[{}] adding row {}&quot;, this.id, row);</span>
+        }
+<span class="fc" id="L294">        this.rowListFull.add(row);</span>
+<span class="fc" id="L295">    }</span>
+
+    /**
+     * sets the name of the currently sorted column.
+     *
+     * @param sortedColumnName
+     *            the new sorted column name
+     */
+    public void setSortedColumnName(final String sortedColumnName) {
+<span class="fc" id="L304">        this.sortedColumnName = sortedColumnName;</span>
+<span class="fc" id="L305">    }</span>
+
+    /**
+     * sets the sort full table property. If true the full list is sorted, if false sorting is applied only to the
+     * displayed sublist.
+     *
+     * @param sortFull
+     *            boolean
+     */
+    public void setSortFullTable(final boolean sortFull) {
+<span class="fc" id="L315">        this.sortFullTable = sortFull;</span>
+<span class="fc" id="L316">    }</span>
+
+    /**
+     * return the sort full table property.
+     *
+     * @return boolean true if sorting is applied to the full list
+     */
+    public boolean isSortFullTable() {
+<span class="fc" id="L324">        return this.sortFullTable;</span>
+    }
+
+    /**
+     * return the sort order of the page.
+     *
+     * @return true if sort order is ascending
+     */
+    public boolean isSortOrderAscending() {
+<span class="fc" id="L333">        return this.sortOrderAscending;</span>
+
+    }
+
+    /**
+     * set the sort order of the list.
+     *
+     * @param isSortOrderAscending
+     *            true to sort in ascending order
+     */
+    public void setSortOrderAscending(final boolean isSortOrderAscending) {
+<span class="fc" id="L344">        this.sortOrderAscending = isSortOrderAscending;</span>
+<span class="fc" id="L345">    }</span>
+
+    /**
+     * Sets the row list page.
+     *
+     * @param rowList
+     *            - the new value for this.rowListPage
+     */
+    public void setRowListPage(final List&lt;Row&gt; rowList) {
+<span class="fc" id="L354">        this.rowListPage = rowList;</span>
+<span class="fc" id="L355">    }</span>
+
+    /**
+     * getter for the Table Decorator.
+     *
+     * @return TableDecorator
+     */
+    public TableDecorator getTableDecorator() {
+<span class="fc" id="L363">        return this.tableDecorator;</span>
+    }
+
+    /**
+     * setter for the table decorator.
+     *
+     * @param decorator
+     *            - the TableDecorator object
+     */
+    public void setTableDecorator(final TableDecorator decorator) {
+<span class="fc" id="L373">        this.tableDecorator = decorator;</span>
+<span class="fc" id="L374">    }</span>
+
+    /**
+     * returns true if the table is sorted.
+     *
+     * @return boolean true if the table is sorted
+     */
+    public boolean isSorted() {
+<span class="fc bfc" id="L382" title="All 2 branches covered.">        return this.sortedColumn != -1;</span>
+    }
+
+    /**
+     * returns the HeaderCell for the sorted column.
+     *
+     * @return HeaderCell
+     */
+    public HeaderCell getSortedColumnHeader() {
+<span class="pc bpc" id="L391" title="1 of 4 branches missed.">        if (this.sortedColumn &lt; 0 || this.sortedColumn &gt; this.headerCellList.size() - 1) {</span>
+<span class="fc" id="L392">            return null;</span>
+        }
+<span class="fc" id="L394">        return this.headerCellList.get(this.sortedColumn);</span>
+    }
+
+    /**
+     * return the number of columns in the table.
+     *
+     * @return int number of columns
+     */
+    public int getNumberOfColumns() {
+<span class="fc" id="L403">        return this.headerCellList.size();</span>
+    }
+
+    /**
+     * return true is the table has no columns.
+     *
+     * @return boolean
+     */
+    public boolean isEmpty() {
+<span class="fc" id="L412">        return this.headerCellList.isEmpty();</span>
+    }
+
+    /**
+     * return the index of the sorted column.
+     *
+     * @return index of the sorted column or -1 if the table is not sorted
+     */
+    public int getSortedColumnNumber() {
+<span class="fc" id="L421">        return this.sortedColumn;</span>
+    }
+
+    /**
+     * set the sorted column index.
+     *
+     * @param sortIndex
+     *            - the index of the sorted column
+     */
+    public void setSortedColumnNumber(final int sortIndex) {
+<span class="fc" id="L431">        this.sortedColumn = sortIndex;</span>
+<span class="fc" id="L432">    }</span>
+
+    /**
+     * Adds a column header (HeaderCell object).
+     *
+     * @param headerCell
+     *            HeaderCell
+     */
+    public void addColumnHeader(final HeaderCell headerCell) {
+<span class="fc bfc" id="L441" title="All 2 branches covered.">        if (this.sortedColumnName == null) {</span>
+<span class="fc bfc" id="L442" title="All 2 branches covered.">            if (this.sortedColumn == this.headerCellList.size()) {</span>
+<span class="fc" id="L443">                headerCell.setAlreadySorted();</span>
+            }
+        } else // the sorted parameter was a string so try and find that column name and set it as sorted
+<span class="fc bfc" id="L446" title="All 2 branches covered.">        if (this.sortedColumnName.equals(headerCell.getSortName())) {</span>
+<span class="fc" id="L447">            headerCell.setAlreadySorted();</span>
+        }
+<span class="fc" id="L449">        headerCell.setColumnNumber(this.headerCellList.size());</span>
+
+<span class="fc" id="L451">        this.headerCellList.add(headerCell);</span>
+<span class="fc" id="L452">    }</span>
+
+    /**
+     * List containing headerCell objects.
+     *
+     * @return List containing headerCell objects
+     */
+    public List&lt;HeaderCell&gt; getHeaderCellList() {
+<span class="fc" id="L460">        return this.headerCellList;</span>
+    }
+
+    /**
+     * returns a RowIterator on the requested (full|page) list.
+     *
+     * @param full
+     *            if &lt;code&gt;true&lt;/code&gt; returns an iterator on te full list, if &lt;code&gt;false&lt;/code&gt; only on the viewable
+     *            part.
+     *
+     * @return RowIterator
+     *
+     * @see org.displaytag.model.RowIterator
+     */
+    public RowIterator getRowIterator(final boolean full) {
+<span class="fc bfc" id="L475" title="All 2 branches covered.">        final RowIterator iterator = new RowIterator(full ? this.rowListFull : this.rowListPage, this.headerCellList,</span>
+                this.tableDecorator, this.pageOffset);
+        // copy id for logging
+<span class="fc" id="L478">        iterator.setId(this.id);</span>
+<span class="fc" id="L479">        return iterator;</span>
+    }
+
+    /**
+     * sorts the given list of Rows. The method is called internally by sortFullList() and sortPageList().
+     *
+     * @param list
+     *            List
+     */
+    private void sortRowList(final List&lt;Row&gt; list) {
+<span class="fc bfc" id="L489" title="All 2 branches covered.">        if (this.isSorted()) {</span>
+<span class="fc" id="L490">            final HeaderCell sortedHeaderCell = this.getSortedColumnHeader();</span>
+
+            // If it is an explicit value, then sort by that, otherwise sort by the property...
+<span class="pc bpc" id="L493" title="2 of 6 branches missed.">            if ((sortedHeaderCell != null) &amp;&amp; (sortedHeaderCell.getBeanPropertyName() != null</span>
+<span class="pc bpc" id="L494" title="1 of 2 branches missed.">                    || this.sortedColumn != -1 &amp;&amp; this.sortedColumn &lt; this.headerCellList.size())) {</span>
+
+<span class="fc bfc" id="L496" title="All 2 branches covered.">                final String sorted = sortedHeaderCell.getSortProperty() != null ? sortedHeaderCell.getSortProperty()</span>
+<span class="fc" id="L497">                        : sortedHeaderCell.getBeanPropertyName();</span>
+
+<span class="fc" id="L499">                Collections.sort(list, new RowSorter(this.sortedColumn, sorted, this.getTableDecorator(),</span>
+<span class="fc" id="L500">                        this.sortOrderAscending, sortedHeaderCell.getComparator()));</span>
+            }
+
+        }
+
+<span class="fc" id="L505">    }</span>
+
+    /**
+     * sort the list displayed in page.
+     */
+    public void sortPageList() {
+<span class="pc bpc" id="L511" title="1 of 2 branches missed.">        if (TableModel.log.isDebugEnabled()) {</span>
+<span class="nc" id="L512">            TableModel.log.debug(&quot;[{}] sorting page list&quot;, this.id);</span>
+        }
+<span class="fc" id="L514">        this.sortRowList(this.rowListPage);</span>
+
+<span class="fc" id="L516">    }</span>
+
+    /**
+     * sort the full list of data.
+     */
+    public void sortFullList() {
+<span class="pc bpc" id="L522" title="1 of 2 branches missed.">        if (TableModel.log.isDebugEnabled()) {</span>
+<span class="nc" id="L523">            TableModel.log.debug(&quot;[{}] sorting full data&quot;, this.id);</span>
+        }
+<span class="fc" id="L525">        this.sortRowList(this.rowListFull);</span>
+<span class="fc" id="L526">    }</span>
+
+    /**
+     * Returns the table properties.
+     *
+     * @return the configured table properties.
+     */
+    public TableProperties getProperties() {
+<span class="fc" id="L534">        return this.properties;</span>
+    }
+
+    /**
+     * Getter for character encoding.
+     *
+     * @return Returns the encoding used for response.
+     */
+    public String getEncoding() {
+<span class="fc" id="L543">        return this.encoding;</span>
+    }
+
+    /**
+     * Obtain this table's caption.
+     *
+     * @return This table's caption.
+     */
+    public String getCaption() {
+<span class="fc" id="L552">        return this.caption;</span>
+    }
+
+    /**
+     * Set this table's caption.
+     *
+     * @param caption
+     *            This table's caption.
+     */
+    public void setCaption(final String caption) {
+<span class="fc" id="L562">        this.caption = caption;</span>
+<span class="fc" id="L563">    }</span>
+
+    /**
+     * Obtain this table's footer.
+     *
+     * @return This table's footer.
+     */
+    public String getFooter() {
+<span class="fc" id="L571">        return this.footer;</span>
+    }
+
+    /**
+     * Set this table's footer.
+     *
+     * @param footer
+     *            This table's footer.
+     */
+    public void setFooter(final String footer) {
+<span class="fc" id="L581">        this.footer = footer;</span>
+<span class="fc" id="L582">    }</span>
+
+    /**
+     * To string.
+     *
+     * @return the string
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L593">        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE) //</span>
+<span class="fc" id="L594">                .append(&quot;rowListFull&quot;, this.rowListFull) //$NON-NLS-1$</span>
+<span class="fc" id="L595">                .append(&quot;rowListPage&quot;, this.rowListPage) //$NON-NLS-1$</span>
+<span class="fc" id="L596">                .append(&quot;properties&quot;, this.properties) //$NON-NLS-1$</span>
+<span class="fc" id="L597">                .append(&quot;empty&quot;, this.isEmpty()) //$NON-NLS-1$</span>
+<span class="fc" id="L598">                .append(&quot;encoding&quot;, this.encoding) //$NON-NLS-1$</span>
+<span class="fc" id="L599">                .append(&quot;numberOfColumns&quot;, this.getNumberOfColumns()) //$NON-NLS-1$</span>
+<span class="fc" id="L600">                .append(&quot;headerCellList&quot;, this.headerCellList) //$NON-NLS-1$</span>
+<span class="fc" id="L601">                .append(&quot;sortFullTable&quot;, this.sortFullTable) //$NON-NLS-1$</span>
+<span class="fc" id="L602">                .append(&quot;sortedColumnNumber&quot;, this.getSortedColumnNumber()) //$NON-NLS-1$</span>
+<span class="fc" id="L603">                .append(&quot;sortOrderAscending&quot;, this.sortOrderAscending) //$NON-NLS-1$</span>
+<span class="fc" id="L604">                .append(&quot;sortedColumnHeader&quot;, this.getSortedColumnHeader()) //$NON-NLS-1$</span>
+<span class="fc" id="L605">                .append(&quot;sorted&quot;, this.isSorted()) //$NON-NLS-1$</span>
+<span class="fc" id="L606">                .append(&quot;tableDecorator&quot;, this.tableDecorator) //$NON-NLS-1$</span>
+<span class="fc" id="L607">                .append(&quot;caption&quot;, this.caption) // $NON-NLS-1</span>
+<span class="fc" id="L608">                .append(&quot;footer&quot;, this.footer) // $NON-NLS-1</span>
+<span class="fc" id="L609">                .append(&quot;media&quot;, this.media) // $NON-NLS-1</span>
+<span class="fc" id="L610">                .toString();</span>
+    }
+
+    /**
+     * Gets the totaler.
+     *
+     * @return the totaler
+     */
+    public TableTotaler getTotaler() {
+<span class="fc" id="L619">        return this.totaler;</span>
+    }
+
+    /**
+     * Sets the totaler.
+     *
+     * @param totaler
+     *            the new totaler
+     */
+    public void setTotaler(final TableTotaler totaler) {
+<span class="fc" id="L629">        this.totaler = totaler;</span>
+<span class="fc" id="L630">    }</span>
+
+    /**
+     * Reset.
+     */
+    public void reset() {
+<span class="fc" id="L636">        this.totaler.reset();</span>
+<span class="fc" id="L637">        this.totaler.init(this);</span>
+<span class="fc" id="L638">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

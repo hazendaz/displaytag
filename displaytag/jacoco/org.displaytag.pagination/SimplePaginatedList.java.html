@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimplePaginatedList.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.pagination</a> &gt; <span class="el_source">SimplePaginatedList.java</span></div><h1>SimplePaginatedList.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.pagination;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.displaytag.model.Row;
+import org.displaytag.properties.SortOrderEnum;
+import org.displaytag.test.NumberedItem;
+
+/**
+ * The Class SimplePaginatedList.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class SimplePaginatedList implements PaginatedList {
+
+    /** wrapped list. */
+<span class="fc" id="L41">    private final List&lt;Row&gt; fullList = new ArrayList&lt;&gt;();</span>
+
+    /**
+     * Number of objects per page.
+     */
+    private final int objectsPerPage;
+
+    /** Current page (starting from 1). */
+    private final int currentPage;
+
+    /**
+     * Instantiates a new paginated list.
+     *
+     * @param objectsPerPage
+     *            the objects per page
+     * @param currentPage
+     *            the current page
+     */
+<span class="fc" id="L59">    public SimplePaginatedList(final int objectsPerPage, final int currentPage) {</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        for (int j = 1; j &lt; 11; j++) {</span>
+<span class="fc" id="L61">            this.fullList.add(new NumberedItem(j));</span>
+        }
+<span class="fc" id="L63">        this.objectsPerPage = objectsPerPage;</span>
+<span class="fc" id="L64">        this.currentPage = currentPage;</span>
+<span class="fc" id="L65">    }</span>
+
+    /**
+     * Gets the list.
+     *
+     * @return the list
+     *
+     * @see org.displaytag.pagination.PaginatedList#getList()
+     */
+    @Override
+    public List&lt;Row&gt; getList() {
+<span class="fc" id="L76">        final int startOffset = this.objectsPerPage * (this.currentPage - 1);</span>
+<span class="fc" id="L77">        return this.fullList.subList(startOffset, Math.min(this.fullList.size(), startOffset + this.objectsPerPage));</span>
+    }
+
+    /**
+     * Gets the page number.
+     *
+     * @return the page number
+     *
+     * @see org.displaytag.pagination.PaginatedList#getPageNumber()
+     */
+    @Override
+    public int getPageNumber() {
+<span class="fc" id="L89">        return this.currentPage;</span>
+    }
+
+    /**
+     * Gets the objects per page.
+     *
+     * @return the objects per page
+     *
+     * @see org.displaytag.pagination.PaginatedList#getObjectsPerPage()
+     */
+    @Override
+    public int getObjectsPerPage() {
+<span class="fc" id="L101">        return this.objectsPerPage;</span>
+    }
+
+    /**
+     * Gets the full list size.
+     *
+     * @return the full list size
+     *
+     * @see org.displaytag.pagination.PaginatedList#getFullListSize()
+     */
+    @Override
+    public int getFullListSize() {
+<span class="fc" id="L113">        return this.fullList.size();</span>
+    }
+
+    /**
+     * Gets the sort criterion.
+     *
+     * @return the sort criterion
+     *
+     * @see org.displaytag.pagination.PaginatedList#getSortCriterion()
+     */
+    @Override
+    public String getSortCriterion() {
+<span class="fc" id="L125">        return &quot;number&quot;;</span>
+    }
+
+    /**
+     * Gets the sort direction.
+     *
+     * @return the sort direction
+     *
+     * @see org.displaytag.pagination.PaginatedList#getSortDirection()
+     */
+    @Override
+    public SortOrderEnum getSortDirection() {
+<span class="fc" id="L137">        return SortOrderEnum.DESCENDING;</span>
+    }
+
+    /**
+     * Gets the search id.
+     *
+     * @return the search id
+     *
+     * @see org.displaytag.pagination.PaginatedList#getSearchId()
+     */
+    @Override
+    public String getSearchId() {
+<span class="fc" id="L149">        return Integer.toHexString(this.objectsPerPage * 10000 + this.currentPage);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

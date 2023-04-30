@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CaptionTag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.tags</a> &gt; <span class="el_source">CaptionTag.java</span></div><h1>CaptionTag.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.tags;
+
+import java.util.List;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.Tag;
+import javax.servlet.jsp.tagext.TagSupport;
+
+import org.displaytag.exception.TagStructureException;
+import org.displaytag.properties.MediaTypeEnum;
+import org.displaytag.util.HtmlAttributeMap;
+import org.displaytag.util.MediaUtil;
+import org.displaytag.util.MultipleHtmlAttribute;
+import org.displaytag.util.TagConstants;
+
+/**
+ * Simple caption tag which mimics a standard html caption.
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+<span class="fc" id="L45">public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedia {</span>
+
+    /**
+     * D1597A17A6.
+     */
+    private static final long serialVersionUID = 899149338534L;
+
+    /**
+     * Map containing all the standard html attributes.
+     */
+<span class="fc" id="L55">    private final HtmlAttributeMap attributeMap = new HtmlAttributeMap();</span>
+
+    /** is this the first iteration?. */
+<span class="fc" id="L58">    private boolean firstIteration = true;</span>
+
+    /**
+     * The media supported attribute.
+     */
+    private transient List&lt;MediaTypeEnum&gt; supportedMedia;
+
+    /**
+     * setter for the &quot;style&quot; html attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setStyle(final String value) {
+<span class="fc" id="L72">        this.attributeMap.put(TagConstants.ATTRIBUTE_STYLE, value);</span>
+<span class="fc" id="L73">    }</span>
+
+    /**
+     * setter for the &quot;class&quot; html attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setClass(final String value) {
+<span class="fc" id="L82">        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, new MultipleHtmlAttribute(value));</span>
+<span class="fc" id="L83">    }</span>
+
+    /**
+     * setter for the &quot;id&quot; html attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    @Override
+    public void setId(final String value) {
+<span class="fc" id="L93">        this.attributeMap.put(TagConstants.ATTRIBUTE_ID, value);</span>
+<span class="fc" id="L94">    }</span>
+
+    /**
+     * setter for the &quot;title&quot; html attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setTitle(final String value) {
+<span class="fc" id="L103">        this.attributeMap.put(TagConstants.ATTRIBUTE_TITLE, value);</span>
+<span class="fc" id="L104">    }</span>
+
+    /**
+     * setter for the &quot;lang&quot; html attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setLang(final String value) {
+<span class="fc" id="L113">        this.attributeMap.put(TagConstants.ATTRIBUTE_LANG, value);</span>
+<span class="fc" id="L114">    }</span>
+
+    /**
+     * setter for the &quot;dir&quot; html attribute.
+     *
+     * @param value
+     *            attribute value
+     */
+    public void setDir(final String value) {
+<span class="fc" id="L123">        this.attributeMap.put(TagConstants.ATTRIBUTE_DIR, value);</span>
+<span class="fc" id="L124">    }</span>
+
+    /**
+     * create the open tag containing all the attributes.
+     *
+     * @return open tag string
+     */
+    public String getOpenTag() {
+
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        if (this.attributeMap.size() == 0) {</span>
+<span class="fc" id="L134">            return TagConstants.TAG_OPEN + TagConstants.TAGNAME_CAPTION + TagConstants.TAG_CLOSE;</span>
+        }
+
+<span class="fc" id="L137">        final StringBuilder buffer = new StringBuilder();</span>
+
+<span class="fc" id="L139">        buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TAGNAME_CAPTION);</span>
+
+<span class="fc" id="L141">        buffer.append(this.attributeMap);</span>
+
+<span class="fc" id="L143">        buffer.append(TagConstants.TAG_CLOSE);</span>
+
+<span class="fc" id="L145">        return buffer.toString();</span>
+    }
+
+    /**
+     * create the closing tag.
+     *
+     * @return &lt;code&gt;&amp;lt;/caption&amp;gt;&lt;/code&gt;
+     */
+    public String getCloseTag() {
+<span class="fc" id="L154">        return TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_CAPTION + TagConstants.TAG_CLOSE;</span>
+    }
+
+    /**
+     * Do start tag.
+     *
+     * @return the int
+     *
+     * @throws JspException
+     *             the jsp exception
+     *
+     * @see javax.servlet.jsp.tagext.Tag#doStartTag()
+     */
+    @Override
+    public int doStartTag() throws JspException {
+<span class="fc" id="L169">        final TableTag tableTag = (TableTag) TagSupport.findAncestorWithClass(this, TableTag.class);</span>
+
+<span class="pc bpc" id="L171" title="1 of 2 branches missed.">        if (tableTag == null) {</span>
+<span class="nc" id="L172">            throw new TagStructureException(this.getClass(), &quot;caption&quot;, &quot;table&quot;); //$NON-NLS-1$ //$NON-NLS-2$</span>
+        }
+
+<span class="fc" id="L175">        final MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext</span>
+<span class="fc" id="L176">                .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">        if (!MediaUtil.availableForMedia(this, currentMediaType)) {</span>
+<span class="nc" id="L178">            return Tag.SKIP_BODY;</span>
+        }
+
+        // add caption only once
+<span class="fc bfc" id="L182" title="All 2 branches covered.">        if (tableTag.isFirstIteration()) {</span>
+<span class="fc" id="L183">            this.firstIteration = true;</span>
+            // using int to avoid deprecation error in compilation using j2ee 1.3 (EVAL_BODY_TAG)
+<span class="fc" id="L185">            return 2;</span>
+        }
+
+<span class="fc" id="L188">        this.firstIteration = false;</span>
+<span class="fc" id="L189">        return Tag.SKIP_BODY;</span>
+    }
+
+    /**
+     * Sets the supported media.
+     *
+     * @param media
+     *            the new supported media
+     *
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#setSupportedMedia(java.util.List)
+     */
+    @Override
+    public void setSupportedMedia(final List&lt;MediaTypeEnum&gt; media) {
+<span class="nc" id="L202">        this.supportedMedia = media;</span>
+<span class="nc" id="L203">    }</span>
+
+    /**
+     * Gets the supported media.
+     *
+     * @return the supported media
+     *
+     * @see org.displaytag.util.MediaUtil.SupportsMedia#getSupportedMedia()
+     */
+    @Override
+    public List&lt;MediaTypeEnum&gt; getSupportedMedia() {
+<span class="fc" id="L214">        return this.supportedMedia;</span>
+    }
+
+    /**
+     * Tag setter.
+     *
+     * @param media
+     *            the space delimited list of supported types
+     */
+    public void setMedia(final String media) {
+<span class="nc" id="L224">        MediaUtil.setMedia(this, media);</span>
+<span class="nc" id="L225">    }</span>
+
+    /**
+     * Do end tag.
+     *
+     * @return the int
+     *
+     * @throws JspException
+     *             the jsp exception
+     *
+     * @see javax.servlet.jsp.tagext.Tag#doEndTag()
+     */
+    @Override
+    public int doEndTag() throws JspException {
+<span class="fc bfc" id="L239" title="All 2 branches covered.">        if (this.firstIteration) {</span>
+<span class="fc" id="L240">            final TableTag tableTag = (TableTag) TagSupport.findAncestorWithClass(this, TableTag.class);</span>
+
+<span class="pc bpc" id="L242" title="1 of 2 branches missed.">            if (tableTag == null) {</span>
+<span class="nc" id="L243">                throw new TagStructureException(this.getClass(), &quot;caption&quot;, &quot;table&quot;); //$NON-NLS-1$ //$NON-NLS-2$</span>
+            }
+
+<span class="fc" id="L246">            final MediaTypeEnum currentMediaType = (MediaTypeEnum) this.pageContext</span>
+<span class="fc" id="L247">                    .findAttribute(TableTag.PAGE_ATTRIBUTE_MEDIA);</span>
+<span class="pc bpc" id="L248" title="2 of 4 branches missed.">            if (currentMediaType != null &amp;&amp; !MediaUtil.availableForMedia(this, currentMediaType)) {</span>
+<span class="nc" id="L249">                return Tag.SKIP_BODY;</span>
+            }
+
+<span class="pc bpc" id="L252" title="1 of 2 branches missed.">            if (this.getBodyContent() != null) {</span>
+                // set the caption format-agnostic content so it can be written in various formats.
+<span class="fc" id="L254">                tableTag.setCaption(this.getBodyContent().getString());</span>
+                // set the nested caption tag to write the caption in html format. See HtmlTableWriter.writeCaption
+<span class="fc" id="L256">                tableTag.setCaptionTag(this);</span>
+            }
+
+<span class="fc" id="L259">            this.firstIteration = false;</span>
+
+        }
+
+<span class="fc" id="L263">        return Tag.EVAL_PAGE;</span>
+    }
+
+    /**
+     * Release.
+     *
+     * @see javax.servlet.jsp.tagext.Tag#release()
+     */
+    @Override
+    public void release() {
+<span class="fc" id="L273">        super.release();</span>
+<span class="fc" id="L274">        this.attributeMap.clear();</span>
+<span class="fc" id="L275">        this.supportedMedia = null;</span>
+<span class="fc" id="L276">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

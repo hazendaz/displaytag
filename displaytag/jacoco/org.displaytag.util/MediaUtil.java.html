@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MediaUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.util</a> &gt; <span class="el_source">MediaUtil.java</span></div><h1>MediaUtil.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.util;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.properties.MediaTypeEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * This class provides services for configuring and determining the list of media types an instance of
+ * &lt;code&gt;SupportsMedia&lt;/code&gt; supports. (Background: ColumnTag, FooterTag and CaptionTag can be configured to support a
+ * set of media types. This class factors the logic for setting and determining the media instances these objects
+ * support)
+ *
+ * @author Jorge L. Barroso
+ *
+ * @version $Revision$ ($Author$)
+ */
+public final class MediaUtil {
+
+    /**
+     * logger.
+     */
+<span class="fc" id="L47">    private static Logger log = LoggerFactory.getLogger(MediaUtil.class);</span>
+
+    /**
+     * Don't instantiate MediaUtil.
+     */
+    private MediaUtil() {
+    }
+
+    /**
+     * Defines a type of object that can support a list of media types.
+     *
+     * @author Jorge L. Barroso
+     *
+     * @version $Revision$ ($Author$)
+     */
+    public interface SupportsMedia {
+
+        /**
+         * Configure the list of media types this object will support.
+         *
+         * @param media
+         *            The list of media types this object will support.
+         */
+        void setSupportedMedia(List&lt;MediaTypeEnum&gt; media);
+
+        /**
+         * Obtain the list of media types this object supports.
+         *
+         * @return The list of media types this object supports.
+         */
+        List&lt;MediaTypeEnum&gt; getSupportedMedia();
+    }
+
+    /**
+     * Configures the media supported by an object that implements &lt;code&gt;SupportsMedia&lt;/code&gt;. (Background: factored
+     * from ColumnTag)
+     *
+     * @param mediaSupporter
+     *            The &lt;code&gt;SupportsMedia&lt;/code&gt; instance being configured to support a list of media.
+     * @param media
+     *            The media being configured on the given &lt;code&gt;SupportsMedia&lt;/code&gt; instance.
+     */
+    public static void setMedia(final SupportsMedia mediaSupporter, final String media) {
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (mediaSupporter == null) {</span>
+<span class="nc" id="L91">            return;</span>
+        }
+
+<span class="pc bpc" id="L94" title="2 of 4 branches missed.">        if (StringUtils.isBlank(media) || media.toLowerCase().indexOf(&quot;all&quot;) &gt; -1) {</span>
+<span class="nc" id="L95">            mediaSupporter.setSupportedMedia(null);</span>
+<span class="nc" id="L96">            return;</span>
+        }
+<span class="fc" id="L98">        final List&lt;MediaTypeEnum&gt; supportedMedia = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L99">        final String[] values = StringUtils.split(media);</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        for (final String value : values) {</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">            if (!StringUtils.isBlank(value)) {</span>
+<span class="fc" id="L102">                final MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">                if (type == null) {</span>
+<span class="fc" id="L104">                    MediaUtil.log.warn(&quot;Unrecognized value for attribute \&quot;media\&quot; value=\&quot;{}\&quot;&quot;, value);</span>
+                } else {
+<span class="fc" id="L106">                    supportedMedia.add(type);</span>
+                }
+            }
+        }
+<span class="fc" id="L110">        mediaSupporter.setSupportedMedia(supportedMedia);</span>
+<span class="fc" id="L111">    }</span>
+
+    /**
+     * Is this media supporter configured for the media type? (Background: Factored from ColumnTag).
+     *
+     * @param mediaSupporter
+     *            An object that supports various media.
+     * @param mediaType
+     *            The currentMedia type
+     *
+     * @return true if the media supporter should be displayed for this request
+     */
+    public static boolean availableForMedia(final SupportsMedia mediaSupporter, final MediaTypeEnum mediaType) {
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (mediaSupporter == null) {</span>
+<span class="nc" id="L125">            return false;</span>
+        }
+
+<span class="fc" id="L128">        final List&lt;MediaTypeEnum&gt; supportedMedia = mediaSupporter.getSupportedMedia();</span>
+
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        if (supportedMedia == null) {</span>
+<span class="fc" id="L131">            return true;</span>
+        }
+
+<span class="fc" id="L134">        return supportedMedia.contains(mediaType);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

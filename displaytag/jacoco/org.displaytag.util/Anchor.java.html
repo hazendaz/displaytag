@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Anchor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Display tag library</a> &gt; <a href="index.source.html" class="el_package">org.displaytag.util</a> &gt; <span class="el_source">Anchor.java</span></div><h1>Anchor.java</h1><pre class="source lang-java linenums">/*
+ * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the &quot;Software&quot;), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.displaytag.util;
+
+/**
+ * Anchor object used to output an html link (an &amp;lt;a&amp;gt; tag).
+ *
+ * @author Fabrizio Giustina
+ *
+ * @version $Revision$ ($Author$)
+ */
+public class Anchor {
+
+    /**
+     * Href object to be written in the &quot;href&quot; html attribute.
+     */
+    private Href href;
+
+    /**
+     * link body text.
+     */
+    private String linkText;
+
+    /**
+     * HashMap containing all the html attributes.
+     */
+<span class="fc" id="L46">    private final HtmlAttributeMap attributeMap = new HtmlAttributeMap();</span>
+
+    /**
+     * Creates a new Anchor whit the supplied Href and body text.
+     *
+     * @param linkHref
+     *            baseHref
+     * @param linkBody
+     *            String link body
+     */
+<span class="fc" id="L56">    public Anchor(final Href linkHref, final String linkBody) {</span>
+<span class="fc" id="L57">        this.href = linkHref;</span>
+<span class="fc" id="L58">        this.linkText = linkBody;</span>
+<span class="fc" id="L59">    }</span>
+
+    /**
+     * setter the anchor Href.
+     *
+     * @param linkHref
+     *            Href
+     */
+    public void setHref(final Href linkHref) {
+<span class="nc" id="L68">        this.href = linkHref;</span>
+<span class="nc" id="L69">    }</span>
+
+    /**
+     * setter for the link body text.
+     *
+     * @param linkBody
+     *            String
+     */
+    public void setText(final String linkBody) {
+<span class="nc" id="L78">        this.linkText = linkBody;</span>
+<span class="nc" id="L79">    }</span>
+
+    /**
+     * add a &quot;class&quot; attribute to the html link.
+     *
+     * @param cssClass
+     *            String
+     */
+    public void setClass(final String cssClass) {
+<span class="nc" id="L88">        this.attributeMap.put(TagConstants.ATTRIBUTE_CLASS, cssClass);</span>
+<span class="nc" id="L89">    }</span>
+
+    /**
+     * add a &quot;style&quot; attribute to the html link.
+     *
+     * @param style
+     *            String
+     */
+    public void setStyle(final String style) {
+<span class="nc" id="L98">        this.attributeMap.put(TagConstants.ATTRIBUTE_STYLE, style);</span>
+<span class="nc" id="L99">    }</span>
+
+    /**
+     * add a &quot;title&quot; attribute to the html link.
+     *
+     * @param title
+     *            String
+     */
+    public void setTitle(final String title) {
+<span class="nc" id="L108">        this.attributeMap.put(TagConstants.ATTRIBUTE_TITLE, title);</span>
+<span class="nc" id="L109">    }</span>
+
+    /**
+     * returns the href attribute, surrounded by quotes and prefixed with &quot; href=&quot;.
+     *
+     * @return String &lt;code&gt; href =&quot;&lt;em&gt;href value&lt;/em&gt;&quot;&lt;/code&gt; or an emty String if Href is null
+     */
+    private String getHrefString() {
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">        if (this.href == null) {</span>
+<span class="nc" id="L118">            return TagConstants.EMPTY_STRING;</span>
+        }
+<span class="fc" id="L120">        return &quot; href=\&quot;&quot; + this.href.toString() + &quot;\&quot;&quot;; //$NON-NLS-1$ //$NON-NLS-2$</span>
+    }
+
+    /**
+     * Returns the &amp;lt;a&amp;gt; tag, with rendered href and any html attribute.
+     *
+     * @return String
+     */
+    public String getOpenTag() {
+
+        // shortcut for links with no attributes
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (this.attributeMap.size() == 0) {</span>
+<span class="fc" id="L132">            return TagConstants.TAG_OPEN + TagConstants.TAGNAME_ANCHOR + this.getHrefString() + TagConstants.TAG_CLOSE;</span>
+        }
+
+        // append all attributes
+<span class="nc" id="L136">        final StringBuilder buffer = new StringBuilder();</span>
+
+<span class="nc" id="L138">        buffer.append(TagConstants.TAG_OPEN).append(TagConstants.TAGNAME_ANCHOR).append(this.getHrefString());</span>
+
+<span class="nc" id="L140">        buffer.append(this.attributeMap);</span>
+
+<span class="nc" id="L142">        buffer.append(TagConstants.TAG_CLOSE);</span>
+
+<span class="nc" id="L144">        return buffer.toString();</span>
+    }
+
+    /**
+     * returns the &amp;lt;/a&amp;gt; tag.
+     *
+     * @return String
+     */
+    public String getCloseTag() {
+<span class="fc" id="L153">        return TagConstants.TAG_OPENCLOSING + TagConstants.TAGNAME_ANCHOR + TagConstants.TAG_CLOSE;</span>
+    }
+
+    /**
+     * returns the full &amp;lt;a href=&quot;&quot;&amp;gt;body&amp;lt;/a&amp;gt;.
+     *
+     * @return String html link
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L163">        return this.getOpenTag() + this.linkText + this.getCloseTag();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
