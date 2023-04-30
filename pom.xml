@@ -155,6 +155,9 @@
 
     <!-- Automatic Module Name -->
     <module.name>org.displaytag.parent</module.name>
+
+    <!-- Reproducible Builds -->
+    <project.build.outputTimestamp>1757561022</project.build.outputTimestamp>
   </properties>
 
   <modules>
