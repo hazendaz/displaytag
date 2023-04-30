@@ -152,6 +152,9 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <github.global.server>github</github.global.server>
+
+    <!-- Automatic Module Name -->
+    <module.name>org.displaytag.parent</module.name>
   </properties>
 
   <modules>
