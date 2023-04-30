@@ -255,9 +255,6 @@
         <configuration>
           <useFile>false</useFile>
           <redirectTestOutputToFile>false</redirectTestOutputToFile>
-          <forkMode>once</forkMode>
-          <argLine>-Xmx512m</argLine>
-          <forkCount>1</forkCount>
           <systemProperties>
             <property>
               <name>java.awt.headless</name>
