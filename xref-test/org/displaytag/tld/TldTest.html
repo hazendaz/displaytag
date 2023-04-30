@@ -36,7 +36,7 @@
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> java.util.Iterator;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> jakarta.servlet.jsp.tagext.TagSupport;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> javax.servlet.jsp.tagext.TagSupport;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> javax.xml.parsers.DocumentBuilder;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> javax.xml.parsers.DocumentBuilderFactory;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  
@@ -306,7 +306,7 @@
 <a class="jxr_linenumber" name="L298" href="#L298">298</a> 
 <a class="jxr_linenumber" name="L299" href="#L299">299</a>                 <strong class="jxr_keyword">final</strong> ClassLoader classLoader = <strong class="jxr_keyword">this</strong>.getClass().getClassLoader();
 <a class="jxr_linenumber" name="L300" href="#L300">300</a> 
-<a class="jxr_linenumber" name="L301" href="#L301">301</a>                 <strong class="jxr_keyword">final</strong> URL dtdURL = classLoader.getResource(<span class="jxr_string">"jakarta/servlet/jsp/resources/"</span> + systemFileName);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>                 <strong class="jxr_keyword">final</strong> URL dtdURL = classLoader.getResource(<span class="jxr_string">"javax/servlet/jsp/resources/"</span> + systemFileName);
 <a class="jxr_linenumber" name="L302" href="#L302">302</a> 
 <a class="jxr_linenumber" name="L303" href="#L303">303</a>                 <strong class="jxr_keyword">if</strong> (dtdURL == <strong class="jxr_keyword">null</strong>) {
 <a class="jxr_linenumber" name="L304" href="#L304">304</a>                     <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
