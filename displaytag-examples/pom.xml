@@ -22,6 +22,11 @@
 
   <description>Example webapp for the display tag library</description>
 
+  <properties>
+    <!-- Automatic Module Name -->
+    <module.name>org.displaytag.examples</module.name>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>commons-codec</groupId>

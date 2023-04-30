@@ -21,6 +21,9 @@
 
   <properties>
     <tomcat.version>10.1.8</tomcat.version>
+
+    <!-- Automatic Module Name -->
+    <module.name>org.displaytag</module.name>
   </properties>
 
   <dependencies>
