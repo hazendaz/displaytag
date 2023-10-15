@@ -207,6 +207,29 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <configuration>
+          <rules>
+            <enforceBytecodeVersion>
+              <!-- Spring is optional, it will require java 17 for jakarta, allowing us to stay on java 11 -->
+              <excludes>
+                <exclude>org.springframework:spring-aop</exclude>
+                <exclude>org.springframework:spring-beans</exclude>
+                <exclude>org.springframework:spring-context</exclude>
+                <exclude>org.springframework:spring-context-support</exclude>
+                <exclude>org.springframework:spring-core</exclude>
+                <exclude>org.springframework:spring-expression</exclude>
+                <exclude>org.springframework:spring-jcl</exclude>
+                <exclude>org.springframework:spring-test</exclude>
+                <exclude>org.springframework:spring-web</exclude>
+                <exclude>org.springframework:spring-webmvc</exclude>
+              </excludes>
+            </enforceBytecodeVersion>
+          </rules>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <systemPropertyVariables>
