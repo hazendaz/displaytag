@@ -114,7 +114,7 @@
           <artifactId>xml-apis-ext</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>jakarta.servlet</groupId>
+          <groupId>javax.servlet</groupId>
           <artifactId>servlet-api</artifactId>
         </exclusion>
         <exclusion>
