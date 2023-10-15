@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -80,7 +80,7 @@ class Displ249Test extends DisplaytagCase {
         final WebLink[] links = response.getLinks();
         Assertions.assertEquals(3, links.length, "Wrong number of links"); // sorting + paging
 
-        final String url = URLDecoder.decode(links[0].getURLString(), StandardCharsets.UTF_8.name());
+        final String url = URLDecoder.decode(links[0].getURLString(), StandardCharsets.UTF_8);
 
         String actual = StringUtils.substringAfter(url, "testparam=");
         if (StringUtils.contains(actual, "&")) {

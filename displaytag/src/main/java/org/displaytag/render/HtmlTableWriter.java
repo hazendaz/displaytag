@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,7 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import javax.servlet.jsp.JspWriter;
 
@@ -757,7 +758,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
                 // export marker
                 exportHref.addParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
-                final String exportBannerItem = StringUtils.defaultString(this.properties.getExportBannerItem(),
+                final String exportBannerItem = Objects.toString(this.properties.getExportBannerItem(),
                         "<a href=\"{0}\">{1}</a>");
 
                 buffer.append(MessageFormat.format(exportBannerItem, exportHref,

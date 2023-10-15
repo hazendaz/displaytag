@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +21,12 @@
  */
 package org.displaytag.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -156,12 +157,8 @@ public class DefaultRequestHelper implements RequestHelper {
             final String[] values = new String[originalValues.length];
 
             for (int i = 0; i < values.length; i++) {
-                try {
-                    values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]),
-                            StringUtils.defaultString(this.response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
-                } catch (final UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
+                values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]),
+                        Charset.forName(Objects.toString(this.response.getCharacterEncoding(), "UTF8"))); //$NON-NLS-1$
             }
             map.put(paramName, values);
 

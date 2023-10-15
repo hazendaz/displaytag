@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,6 @@
  */
 package org.displaytag.test;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -50,12 +49,8 @@ public final class URLAssertions {
      *            generated URL
      */
     public static void assertEquals(String expectedUrl, String generatedUrl) {
-        try {
-            expectedUrl = URLDecoder.decode(expectedUrl, StandardCharsets.UTF_8.name());
-            generatedUrl = URLDecoder.decode(generatedUrl, StandardCharsets.UTF_8.name());
-        } catch (final UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        expectedUrl = URLDecoder.decode(expectedUrl, StandardCharsets.UTF_8);
+        generatedUrl = URLDecoder.decode(generatedUrl, StandardCharsets.UTF_8);
 
         // hack for missing base url
         if (expectedUrl.startsWith("?")) {

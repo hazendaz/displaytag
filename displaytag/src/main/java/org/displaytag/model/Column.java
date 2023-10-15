@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +21,10 @@
  */
 package org.displaytag.model;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Objects;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
@@ -260,12 +259,8 @@ public class Column {
             }
 
             if (paramValue != null) {
-                try {
-                    colHref.addParameter(this.header.getParamName(), URLEncoder.encode(paramValue.toString(),
-                            StringUtils.defaultString(this.row.getParentTable().getEncoding(), "UTF8"))); //$NON-NLS-1$
-                } catch (final UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
+                colHref.addParameter(this.header.getParamName(), URLEncoder.encode(paramValue.toString(),
+                        Charset.forName(Objects.toString(this.row.getParentTable().getEncoding(), "UTF-8")))); //$NON-NLS-1$
             }
         }
         return colHref;

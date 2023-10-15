@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,6 @@
  */
 package org.displaytag.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -366,12 +365,7 @@ public class DefaultHref implements Href {
         if (param == null) {
             return StringUtils.EMPTY;
         }
-        try {
-            return URLEncoder.encode(param.toString(), StandardCharsets.UTF_8.name());
-        } catch (final UnsupportedEncodingException e) {
-            // should never happen
-            throw new RuntimeException(e);
-        }
+        return URLEncoder.encode(param.toString(), StandardCharsets.UTF_8);
     }
 
     /**
@@ -386,12 +380,7 @@ public class DefaultHref implements Href {
         if (param == null) {
             return StringUtils.EMPTY;
         }
-        try {
-            return URLDecoder.decode(param.toString(), StandardCharsets.UTF_8.name());
-        } catch (final UnsupportedEncodingException e) {
-            // should never happen
-            throw new RuntimeException(e);
-        }
+        return URLDecoder.decode(param.toString(), StandardCharsets.UTF_8);
     }
 
     /**
