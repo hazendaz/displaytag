@@ -23,9 +23,11 @@ package org.displaytag.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -160,12 +162,8 @@ public class DefaultRequestHelper implements RequestHelper {
             final String[] values = new String[originalValues.length];
 
             for (int i = 0; i < values.length; i++) {
-                try {
-                    values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]),
-                            StringUtils.defaultString(this.response.getCharacterEncoding(), "UTF8")); //$NON-NLS-1$
-                } catch (final UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
+                values[i] = URLEncoder.encode(StringUtils.defaultString(originalValues[i]),
+                        Charset.forName(Objects.toString(this.response.getCharacterEncoding(), "UTF8"))); //$NON-NLS-1$
             }
             map.put(paramName, values);
 

@@ -293,14 +293,9 @@ public class PostHref implements Href {
      * @return the string
      */
     private String esc(final Object value) {
-
-        try {
-            String param = URLDecoder.decode(value != null ? value.toString() : StringUtils.EMPTY, StandardCharsets.UTF_8.name());
-            param = StringUtils.replace(param, "'", "\\'");
-            return StringUtils.replace(param, "\"", "%22");
-        } catch (final UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        String param = URLDecoder.decode(value != null ? value.toString() : StringUtils.EMPTY, StandardCharsets.UTF_8);
+        param = StringUtils.replace(param, "'", "\\'");
+        return StringUtils.replace(param, "\"", "%22");
     }
 
     /**

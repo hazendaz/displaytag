@@ -26,6 +26,7 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import jakarta.servlet.jsp.JspWriter;
 
@@ -762,7 +763,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
                 // export marker
                 exportHref.addParameter(TableTagParameters.PARAMETER_EXPORTING, "1");
 
-                final String exportBannerItem = StringUtils.defaultString(this.properties.getExportBannerItem(),
+                final String exportBannerItem = Objects.toString(this.properties.getExportBannerItem(),
                         "<a href=\"{0}\">{1}</a>");
 
                 buffer.append(MessageFormat.format(exportBannerItem, exportHref,

@@ -54,12 +54,8 @@ public final class URLAssertions {
      *            generated URL
      */
     public static void assertEquals(String expectedUrl, String generatedUrl) {
-        try {
-            expectedUrl = URLDecoder.decode(expectedUrl, StandardCharsets.UTF_8.name());
-            generatedUrl = URLDecoder.decode(generatedUrl, StandardCharsets.UTF_8.name());
-        } catch (final UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        expectedUrl = URLDecoder.decode(expectedUrl, StandardCharsets.UTF_8);
+        generatedUrl = URLDecoder.decode(generatedUrl, StandardCharsets.UTF_8);
 
         // hack for missing base url
         if (expectedUrl.startsWith("?")) {

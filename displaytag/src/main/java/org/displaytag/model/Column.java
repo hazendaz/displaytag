@@ -23,6 +23,7 @@ package org.displaytag.model;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
@@ -264,12 +265,8 @@ public class Column {
             }
 
             if (paramValue != null) {
-                try {
-                    colHref.addParameter(this.header.getParamName(), URLEncoder.encode(paramValue.toString(),
-                            StringUtils.defaultString(this.row.getParentTable().getEncoding(), "UTF8"))); //$NON-NLS-1$
-                } catch (final UnsupportedEncodingException e) {
-                    throw new RuntimeException(e);
-                }
+                colHref.addParameter(this.header.getParamName(), URLEncoder.encode(paramValue.toString(),
+                        Charset.forName(Objects.toString(this.row.getParentTable().getEncoding(), "UTF-8")))); //$NON-NLS-1$
             }
         }
         return colHref;

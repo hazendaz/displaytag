@@ -84,7 +84,7 @@ class Displ249Test extends DisplaytagCase {
         final WebLink[] links = response.getLinks();
         Assertions.assertEquals(3, links.length, "Wrong number of links"); // sorting + paging
 
-        final String url = URLDecoder.decode(links[0].getURLString(), StandardCharsets.UTF_8.name());
+        final String url = URLDecoder.decode(links[0].getURLString(), StandardCharsets.UTF_8);
 
         String actual = StringUtils.substringAfter(url, "testparam=");
         if (StringUtils.contains(actual, "&")) {

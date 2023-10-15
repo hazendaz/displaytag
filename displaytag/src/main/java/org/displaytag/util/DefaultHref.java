@@ -370,12 +370,7 @@ public class DefaultHref implements Href {
         if (param == null) {
             return StringUtils.EMPTY;
         }
-        try {
-            return URLEncoder.encode(param.toString(), StandardCharsets.UTF_8.name());
-        } catch (final UnsupportedEncodingException e) {
-            // should never happen
-            throw new RuntimeException(e);
-        }
+        return URLEncoder.encode(param.toString(), StandardCharsets.UTF_8);
     }
 
     /**
@@ -390,12 +385,7 @@ public class DefaultHref implements Href {
         if (param == null) {
             return StringUtils.EMPTY;
         }
-        try {
-            return URLDecoder.decode(param.toString(), StandardCharsets.UTF_8.name());
-        } catch (final UnsupportedEncodingException e) {
-            // should never happen
-            throw new RuntimeException(e);
-        }
+        return URLDecoder.decode(param.toString(), StandardCharsets.UTF_8);
     }
 
     /**

@@ -101,7 +101,7 @@ class ExportExcelPartialListTest {
         // need to pass a web.xml file to setup servletunit working directory
         final ClassLoader classLoader = this.getClass().getClassLoader();
         final URL webXmlUrl = classLoader.getResource("WEB-INF/web.xml");
-        final String path = URLDecoder.decode(webXmlUrl.getFile(), StandardCharsets.UTF_8.name());
+        final String path = URLDecoder.decode(webXmlUrl.getFile(), StandardCharsets.UTF_8);
 
         HttpUnitOptions.setDefaultCharacterSet(StandardCharsets.UTF_8.name());
         System.setProperty("file.encoding", StandardCharsets.UTF_8.name());
