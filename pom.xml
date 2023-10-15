@@ -150,10 +150,10 @@
   </organization>
 
   <properties>
-    <java.version>11</java.version>
-    <java.release.version>11</java.release.version>
-    <java.test.version>11</java.test.version>
-    <java.test.release.version>11</java.test.release.version>
+    <java.version>8</java.version>
+    <java.release.version>8</java.release.version>
+    <java.test.version>8</java.test.version>
+    <java.test.release.version>8</java.test.release.version>
 
     <!-- Automatic Module Name -->
     <module.name>org.displaytag.parent</module.name>
