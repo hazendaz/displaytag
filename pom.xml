@@ -168,9 +168,9 @@
   </modules>
   <distributionManagement>
     <site>
-      <id>gh-pages</id>
+      <id>gh-pages-scm</id>
       <name>Displaytag GitHub Pages</name>
-      <url>git:ssh://git@github.com/hazendaz/displaytag.git?gh-pages#</url>
+      <url>scm:git:ssh://git@github.com/hazendaz/displaytag.git</url>
     </site>
   </distributionManagement>
 
