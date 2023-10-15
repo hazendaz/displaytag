@@ -113,14 +113,6 @@
           <groupId>xml-apis</groupId>
           <artifactId>xml-apis-ext</artifactId>
         </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-        </exclusion>
-        <exclusion>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-        </exclusion>
       </exclusions>
     </dependency>
 
