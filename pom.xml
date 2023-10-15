@@ -14,7 +14,7 @@
   <artifactId>displaytag-doc</artifactId>
   <packaging>pom</packaging>
   <name>Display tag library documentation</name>
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.0.0-M2</version>
 
   <description>The display tag library is an open source suite of custom tags that provide high-level web presentation
     patterns which will work in an MVC model. The library provides a significant amount of functionality while still
@@ -30,7 +30,7 @@
     <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</developerConnection>
     <url>https://github.com/hazendaz/displaytag/</url>
-    <tag>HEAD</tag>
+    <tag>displaytag-doc-3.0.0-M2</tag>
   </scm>
   <inceptionYear>2002</inceptionYear>
 
@@ -159,7 +159,7 @@
     <module.name>org.displaytag.parent</module.name>
 
     <!-- Reproducible Builds -->
-    <project.build.outputTimestamp>1757561022</project.build.outputTimestamp>
+    <project.build.outputTimestamp>1697410996</project.build.outputTimestamp>
   </properties>
 
   <modules>
