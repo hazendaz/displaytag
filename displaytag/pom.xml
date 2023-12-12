@@ -20,7 +20,7 @@
   </scm>
 
   <properties>
-    <tomcat.version>10.1.16</tomcat.version>
+    <tomcat.version>10.1.17</tomcat.version>
 
     <!-- Automatic Module Name -->
     <module.name>org.displaytag</module.name>
