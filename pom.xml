@@ -268,9 +268,10 @@
                 <configuration>
                     <licenseSets>
                         <licenseSet>
-                            <includes>
-                                <include>${project.basedir}/src/**/*.java</include>
-                            </includes>
+                            <excludes>
+                                <exclude>**/*.jsp</exclude>
+                                <exclude>**/docroot/**</exclude>
+                            </excludes>
                         </licenseSet>
                     </licenseSets>
                 </configuration>
