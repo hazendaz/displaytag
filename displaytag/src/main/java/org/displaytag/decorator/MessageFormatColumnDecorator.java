@@ -21,10 +21,10 @@
  */
 package org.displaytag.decorator;
 
+import jakarta.servlet.jsp.PageContext;
+
 import java.text.MessageFormat;
 import java.util.Locale;
-
-import jakarta.servlet.jsp.PageContext;
 
 import org.displaytag.Messages;
 import org.displaytag.properties.MediaTypeEnum;

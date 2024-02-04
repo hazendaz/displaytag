@@ -30,18 +30,17 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-
 /**
  * Same idea implemented in ItextTableWriter applied to decorators.
  *
  * @author Jorge L. Barroso
+ *
  * @version $Revision$ ($Author$)
+ *
  * @see org.displaytag.render.ItextTableWriter
  */
 public class ItextTotalWrapper extends TotalWrapperTemplate
-    implements
-    org.displaytag.render.ItextTableWriter.ItextDecorator
-{
+        implements org.displaytag.render.ItextTableWriter.ItextDecorator {
 
     /**
      * The iText table in which the totals are rendered.
@@ -55,23 +54,27 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
 
     /**
      * Set the table required to render the totals line.
-     * @param table The table required to render the totals line.
+     *
+     * @param table
+     *            The table required to render the totals line.
+     *
      * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setTable(com.itextpdf.text.pdf.PdfPTable)
      */
     @Override
-    public void setTable(PdfPTable table)
-    {
+    public void setTable(PdfPTable table) {
         this.table = table;
     }
 
     /**
      * Set the font required to render the totals line.
-     * @param font The font required to render the totals line.
+     *
+     * @param font
+     *            The font required to render the totals line.
+     *
      * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setFont(com.itextpdf.text.Font)
      */
     @Override
-    public void setFont(Font font)
-    {
+    public void setFont(Font font) {
         this.font = font;
     }
 
@@ -79,47 +82,47 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * Writes cell border at bottom of cell.
      */
     @Override
-    public String startRow()
-    {
+    public String startRow() {
         this.table.getDefaultCell().setBorder(Rectangle.BOTTOM);
         return null;
     }
 
     /**
      * Writes the city total line.
-     * @param city City name.
-     * @param total City total.
+     *
+     * @param city
+     *            City name.
+     * @param total
+     *            City total.
      */
     @Override
-    protected void writeCityTotal(String city, double total)
-    {
+    protected void writeCityTotal(String city, double total) {
         this.writeTotal(city, total);
     }
 
     /**
      * Writes the table grand total
-     * @param total Table grand total
+     *
+     * @param total
+     *            Table grand total
      */
     @Override
-    protected void writeGrandTotal(double total)
-    {
+    protected void writeGrandTotal(double total) {
         this.writeTotal("Grand", total);
     }
 
     /**
      * Writes a total line.
-     * @param value Total message.
-     * @param total Total number.
+     *
+     * @param value
+     *            Total message.
+     * @param total
+     *            Total number.
      */
-    private void writeTotal(String value, double total)
-    {
-        if (assertRequiredState())
-        {
-            this.font = FontFactory.getFont(
-                this.font.getFamilyname(),
-                this.font.getSize(),
-                Font.BOLD,
-                this.font.getColor());
+    private void writeTotal(String value, double total) {
+        if (assertRequiredState()) {
+            this.font = FontFactory.getFont(this.font.getFamilyname(), this.font.getSize(), Font.BOLD,
+                    this.font.getColor());
             this.table.addCell(this.getCell(""));
             this.table.addCell(this.getCell(""));
             this.table.addCell(this.getCell("-------------"));
@@ -134,11 +137,13 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
 
     /**
      * Obtain a cell with the given value.
-     * @param value Value to display in the cell.
+     *
+     * @param value
+     *            Value to display in the cell.
+     *
      * @return A cell with the given value.
      */
-    private PdfPCell getCell(String value)
-    {
+    private PdfPCell getCell(String value) {
         PdfPCell cell = new PdfPCell(new Phrase(new Chunk(value, this.font)));
         cell.setLeading(8, 0);
         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -147,10 +152,10 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
 
     /**
      * Asserts that the table and font properties needed have been set by the client.
+     *
      * @return true if the required properties are not null; false otherwise.
      */
-    private boolean assertRequiredState()
-    {
+    private boolean assertRequiredState() {
         return this.table != null && this.font != null;
     }
 }

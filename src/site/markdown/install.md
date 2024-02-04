@@ -11,7 +11,7 @@ are:
 | displaytag-1.1.jar    |  main taglib jar        |
 | displaytag-export-poi-1.1.jar   | optional excel export module          |
 
-  
+
 
 To quickly view the documentation and examples showing the features and
 functionality of the display taglib, just deploy the sample web

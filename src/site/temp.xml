@@ -15,8 +15,8 @@
     </name>
     <href>http://www.displaytag.org</href>
   </bannerLeft>
-  
-   <!-- 
+
+   <!--
   <bannerRight>
     <name>Displaytag</name>
     <src>http://displaytag.sf.net/1.2/images/displaytag.png</src>
@@ -95,9 +95,9 @@
     </script>
     </head>
   </body>
-  
 
-  
+
+
   <!--
     <poweredBy>
     <logo>
@@ -141,7 +141,7 @@
       <pages>
         <index>
           <toc>false</toc>
-          <!-- 
+          <!--
           <sections>
             <carousel/>
             <body/>

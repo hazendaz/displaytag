@@ -21,14 +21,14 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-322 - Decorator pageContext is null.
@@ -77,7 +77,7 @@ class Displ322Test extends DisplaytagCase {
         }
 
         Assertions.assertEquals("OK", tables[0].getCellAsText(1, 0),
-            "Wrong content in cell, maybe pageContext is not set?");
+                "Wrong content in cell, maybe pageContext is not set?");
 
     }
 

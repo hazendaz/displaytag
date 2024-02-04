@@ -21,13 +21,13 @@
  */
 package org.displaytag.decorator;
 
+import jakarta.servlet.jsp.PageContext;
+
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import jakarta.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.exception.DecoratorException;

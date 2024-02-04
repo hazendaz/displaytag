@@ -21,12 +21,15 @@
  */
 package org.displaytag.export;
 
+import com.itextpdf.text.pdf.PdfReader;
+
+import jakarta.servlet.jsp.JspException;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import jakarta.servlet.jsp.JspException;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -37,8 +40,6 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.itextpdf.text.pdf.PdfReader;
 
 /**
  * Created by IntelliJ IDEA.

@@ -21,13 +21,13 @@
  */
 package org.displaytag.decorator;
 
+import jakarta.servlet.jsp.PageContext;
+
 import java.beans.IndexedPropertyDescriptor;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import jakarta.servlet.jsp.PageContext;
 
 import org.apache.commons.beanutils.MappedPropertyDescriptor;
 import org.apache.commons.beanutils.PropertyUtils;

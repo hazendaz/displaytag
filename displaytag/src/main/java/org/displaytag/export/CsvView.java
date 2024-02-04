@@ -21,11 +21,11 @@
  */
 package org.displaytag.export;
 
+import jakarta.servlet.jsp.JspException;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-
-import jakarta.servlet.jsp.JspException;
 
 import org.apache.commons.lang3.StringUtils;
 

@@ -21,10 +21,10 @@
  */
 package org.displaytag.export.excel;
 
+import jakarta.servlet.jsp.JspException;
+
 import java.io.IOException;
 import java.io.OutputStream;
-
-import jakarta.servlet.jsp.JspException;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.displaytag.Messages;

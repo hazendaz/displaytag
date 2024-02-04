@@ -21,12 +21,12 @@
  */
 package org.displaytag.render;
 
+import jakarta.servlet.jsp.JspException;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import jakarta.servlet.jsp.JspException;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.displaytag.decorator.TableDecorator;
@@ -371,8 +371,7 @@ public abstract class TableWriterTemplate {
 
                     @SuppressWarnings("deprecation")
                     final String cellvalue = MediaTypeEnum.HTML.equals(model.getMedia())
-                            ? column.getChoppedAndLinkedValue()
-                            : ObjectUtils.toString(column.getValue(true));
+                            ? column.getChoppedAndLinkedValue() : ObjectUtils.toString(column.getValue(true));
 
                     final CellStruct struct = new CellStruct(column, cellvalue);
                     currentRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);
@@ -395,8 +394,7 @@ public abstract class TableWriterTemplate {
 
                     @SuppressWarnings("deprecation")
                     final String cellvalue = MediaTypeEnum.HTML.equals(model.getMedia())
-                            ? column.getChoppedAndLinkedValue()
-                            : ObjectUtils.toString(column.getValue(true));
+                            ? column.getChoppedAndLinkedValue() : ObjectUtils.toString(column.getValue(true));
 
                     final CellStruct struct = new CellStruct(column, cellvalue);
                     nextRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);

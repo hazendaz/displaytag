@@ -21,15 +21,15 @@
  */
 package org.displaytag.jsptests;
 
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Basic tests for pagination.
@@ -81,7 +81,8 @@ class PaginationTest extends DisplaytagCase {
                 this.log.debug(j + " " + links[j].getURLString());
             }
 
-            Assertions.assertTrue(StringUtils.contains(links[j].getURLString(), "%7Bfoo%7D=%2F.%2C%3B%3A%2F%7C%7C%5Cbar"));
+            Assertions.assertTrue(
+                    StringUtils.contains(links[j].getURLString(), "%7Bfoo%7D=%2F.%2C%3B%3A%2F%7C%7C%5Cbar"));
         }
 
     }

@@ -21,6 +21,10 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
@@ -29,10 +33,6 @@ import org.displaytag.test.KnownValue;
 import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for "media" attribute support.
@@ -82,14 +82,11 @@ class MediaSupportXmlTest extends DisplaytagCase {
 
         final String output = response.getText();
 
-        Assertions.assertTrue(
-                StringUtils.contains(output, KnownValue.BEE),
+        Assertions.assertTrue(StringUtils.contains(output, KnownValue.BEE),
                 "Expected value [" + KnownValue.BEE + "] missing");
-        Assertions.assertTrue(
-                StringUtils.contains(output, KnownValue.CAMEL),
+        Assertions.assertTrue(StringUtils.contains(output, KnownValue.CAMEL),
                 "Expected value [" + KnownValue.CAMEL + "] missing");
-        Assertions.assertTrue(
-                !StringUtils.contains(output, KnownValue.ANT),
+        Assertions.assertTrue(!StringUtils.contains(output, KnownValue.ANT),
                 "Unexpected value [" + KnownValue.ANT + "] found");
 
     }

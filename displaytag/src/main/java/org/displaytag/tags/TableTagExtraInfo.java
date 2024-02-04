@@ -21,14 +21,14 @@
  */
 package org.displaytag.tags;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import jakarta.servlet.jsp.tagext.TagAttributeInfo;
 import jakarta.servlet.jsp.tagext.TagData;
 import jakarta.servlet.jsp.tagext.TagExtraInfo;
 import jakarta.servlet.jsp.tagext.VariableInfo;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * TEI for TableTag, defines 3 variables.

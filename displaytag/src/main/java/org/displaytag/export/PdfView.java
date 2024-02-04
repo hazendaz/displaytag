@@ -21,23 +21,6 @@
  */
 package org.displaytag.export;
 
-import java.io.OutputStream;
-import java.util.Iterator;
-
-import jakarta.servlet.jsp.JspException;
-
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.Messages;
-import org.displaytag.exception.BaseNestableJspTagException;
-import org.displaytag.exception.SeverityEnum;
-import org.displaytag.model.Column;
-import org.displaytag.model.ColumnIterator;
-import org.displaytag.model.HeaderCell;
-import org.displaytag.model.Row;
-import org.displaytag.model.RowIterator;
-import org.displaytag.model.TableModel;
-import org.displaytag.util.TagConstants;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -51,6 +34,23 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import jakarta.servlet.jsp.JspException;
+
+import java.io.OutputStream;
+import java.util.Iterator;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.Messages;
+import org.displaytag.exception.BaseNestableJspTagException;
+import org.displaytag.exception.SeverityEnum;
+import org.displaytag.model.Column;
+import org.displaytag.model.ColumnIterator;
+import org.displaytag.model.HeaderCell;
+import org.displaytag.model.Row;
+import org.displaytag.model.RowIterator;
+import org.displaytag.model.TableModel;
+import org.displaytag.util.TagConstants;
 
 /**
  * PDF exporter using IText. This class is provided more as an example than as a "production ready" class: users

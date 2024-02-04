@@ -21,6 +21,8 @@
  */
 package org.displaytag.tld;
 
+import jakarta.servlet.jsp.tagext.TagSupport;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -28,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import jakarta.servlet.jsp.tagext.TagSupport;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 

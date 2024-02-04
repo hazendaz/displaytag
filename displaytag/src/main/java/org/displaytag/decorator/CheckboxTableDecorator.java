@@ -21,14 +21,14 @@
  */
 package org.displaytag.decorator;
 
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.PageContext;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import jakarta.servlet.jsp.JspWriter;
-import jakarta.servlet.jsp.PageContext;
 
 import org.displaytag.model.TableModel;
 

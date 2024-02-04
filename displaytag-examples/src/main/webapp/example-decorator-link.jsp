@@ -1,11 +1,11 @@
 <jsp:root version="2.0" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
   xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-  <jsp:scriptlet> 
+  <jsp:scriptlet>
   <![CDATA[
-    Object foo = session.getAttribute( "details" ); 
-    if( foo == null ) { 
-      session.setAttribute( "details", new org.displaytag.sample.TestList(10, false) ); 
+    Object foo = session.getAttribute( "details" );
+    if( foo == null ) {
+      session.setAttribute( "details", new org.displaytag.sample.TestList(10, false) );
     }
     request.setAttribute("testparam", "sendamail");
   ]]></jsp:scriptlet>

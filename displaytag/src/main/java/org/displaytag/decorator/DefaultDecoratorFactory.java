@@ -21,9 +21,9 @@
  */
 package org.displaytag.decorator;
 
-import java.lang.reflect.InvocationTargetException;
-
 import jakarta.servlet.jsp.PageContext;
+
+import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.exception.DecoratorInstantiationException;
@@ -98,7 +98,8 @@ public class DefaultDecoratorFactory implements DecoratorFactory {
         if (decorator == null) {
             try {
                 decorator = ReflectHelper.classForName(decoratorName).getDeclaredConstructor().newInstance();
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
         }
@@ -178,7 +179,8 @@ public class DefaultDecoratorFactory implements DecoratorFactory {
         if (decorator == null) {
             try {
                 decorator = ReflectHelper.classForName(decoratorName).getDeclaredConstructor().newInstance();
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
         }

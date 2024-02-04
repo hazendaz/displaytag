@@ -21,15 +21,15 @@
  */
 package org.displaytag.jsptests;
 
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Basic tests for pagination.
@@ -73,8 +73,8 @@ class PaginationAllItemsTest extends DisplaytagCase {
         final WebLink[] links = response.getLinks();
 
         Assertions.assertEquals(0, links.length, "Wrong number of links in result.");
-        Assertions.assertFalse(
-                StringUtils.contains(response.getText(), ">1<"), "Using setProperty you should not see any page number");
+        Assertions.assertFalse(StringUtils.contains(response.getText(), ">1<"),
+                "Using setProperty you should not see any page number");
 
     }
 }

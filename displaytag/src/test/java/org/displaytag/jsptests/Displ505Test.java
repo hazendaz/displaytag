@@ -21,17 +21,17 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for DISPL-505 - Class cache usage causes make using different factory for different tables not work.
@@ -77,10 +77,10 @@ class Displ505Test extends DisplaytagCase {
 
         Assertions.assertEquals(2, tables.length, "Wrong number of tables.");
 
-        Assertions.assertEquals(new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null), tables[0].getCellAsText(1, 0),
-            "Expected decorated value not found.");
+        Assertions.assertEquals(new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null),
+                tables[0].getCellAsText(1, 0), "Expected decorated value not found.");
 
-        Assertions.assertEquals(KnownTypes.TIME_VALUE.toString(),
-                tables[1].getCellAsText(1, 0), "Expected decorated value not found.");
+        Assertions.assertEquals(KnownTypes.TIME_VALUE.toString(), tables[1].getCellAsText(1, 0),
+                "Expected decorated value not found.");
     }
 }

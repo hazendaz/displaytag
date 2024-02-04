@@ -21,6 +21,9 @@
  */
 package org.displaytag.test;
 
+import com.meterware.httpunit.HttpUnitOptions;
+import com.meterware.servletunit.ServletRunner;
+
 import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -37,9 +40,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.servletunit.ServletRunner;
 
 /**
  * Base TestCase class for tests.

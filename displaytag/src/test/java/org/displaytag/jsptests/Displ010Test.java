@@ -21,14 +21,14 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-10: using displaytag.properties and override with attributes.
@@ -68,8 +68,8 @@ class Displ010Test extends DisplaytagCase {
         final WebTable[] tables = response.getTables();
         Assertions.assertEquals(1, tables.length, "Expected 1 table in result.");
 
-        Assertions.assertEquals("new",
-                tables[0].getClassName(), "Class attribute not overridden by setProperties as expected.");
+        Assertions.assertEquals("new", tables[0].getClassName(),
+                "Class attribute not overridden by setProperties as expected.");
 
     }
 

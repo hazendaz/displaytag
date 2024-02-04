@@ -113,7 +113,8 @@ public final class ExportViewFactory {
 
         try {
             exportClass.getDeclaredConstructor().newInstance();
-        } catch (final InstantiationException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+        } catch (final InstantiationException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
             ExportViewFactory.log.error(Messages.getString("ExportViewFactory.instantiationexception", //$NON-NLS-1$
                     new Object[] { name, viewClassName, e.getMessage() }));
             return;
@@ -160,7 +161,8 @@ public final class ExportViewFactory {
 
         try {
             view = viewClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
             // should not happen (class has already been instantiated before)
             throw new WrappedRuntimeException(this.getClass(), e);
         }

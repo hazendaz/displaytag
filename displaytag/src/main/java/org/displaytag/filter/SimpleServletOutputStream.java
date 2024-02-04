@@ -21,10 +21,10 @@
  */
 package org.displaytag.filter;
 
-import java.io.ByteArrayOutputStream;
-
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.WriteListener;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * A simple implementation of ServletOutputStream which wraps a ByteArrayOutputStream.

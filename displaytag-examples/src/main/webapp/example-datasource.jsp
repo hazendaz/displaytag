@@ -4,7 +4,7 @@
   <jsp:directive.page import="org.displaytag.sample.*"/>
   <jsp:scriptlet>
 <![CDATA[
-request.setAttribute( "test", new org.displaytag.sample.TestList(10, false) ); 
+request.setAttribute( "test", new org.displaytag.sample.TestList(10, false) );
 
   Object foo = session.getAttribute( "holder" );
   if( foo == null ) {

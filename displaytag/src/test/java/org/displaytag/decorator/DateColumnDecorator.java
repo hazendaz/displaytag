@@ -21,9 +21,9 @@
  */
 package org.displaytag.decorator;
 
-import java.util.Locale;
-
 import jakarta.servlet.jsp.PageContext;
+
+import java.util.Locale;
 
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.exception.DecoratorException;
@@ -58,8 +58,8 @@ public class DateColumnDecorator implements DisplaytagColumnDecorator {
      * @throws DecoratorException
      *             the decorator exception
      *
-     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, jakarta.servlet.jsp.PageContext,
-     *      org.displaytag.properties.MediaTypeEnum)
+     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object,
+     *      jakarta.servlet.jsp.PageContext, org.displaytag.properties.MediaTypeEnum)
      */
     @Override
     public Object decorate(final Object columnValue, final PageContext pageContext, final MediaTypeEnum media)

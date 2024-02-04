@@ -21,7 +21,6 @@
  */
 package org.displaytag.test;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -69,8 +68,8 @@ public final class URLAssertions {
         final String[] generatedSplit = StringUtils.split(generatedUrl, "?#");
         final String[] expectedSplit = StringUtils.split(expectedUrl, "?#");
 
-        Assertions.assertEquals(generatedSplit.length,
-                expectedSplit.length, "Different number of tokens (base, parameters, anchor) in link.");
+        Assertions.assertEquals(generatedSplit.length, expectedSplit.length,
+                "Different number of tokens (base, parameters, anchor) in link.");
 
         // same base url
         Assertions.assertEquals(expectedSplit[0], generatedSplit[0], "Wrong base url");
@@ -92,8 +91,9 @@ public final class URLAssertions {
             final String[] expectedParameters = StringUtils.split(StringUtils.replace(expectedSplit[1], "&amp;", "&"),
                     '&');
 
-            Assertions.assertEquals(expectedParameters.length, generatedParameters.length, "Compared urls have different number of parameters. Expected " + expectedUrl
-                + " - generated " + generatedUrl);
+            Assertions.assertEquals(expectedParameters.length, generatedParameters.length,
+                    "Compared urls have different number of parameters. Expected " + expectedUrl + " - generated "
+                            + generatedUrl);
 
             for (final String expectedParameter : expectedParameters) {
                 // assuming url?param == url?param=
@@ -101,9 +101,9 @@ public final class URLAssertions {
                 if (singleParam.indexOf("=") == -1) {
                     singleParam += "=";
                 }
-                Assertions.assertTrue(
-                        ArrayUtils.contains(generatedParameters, singleParam), "Expected parameter " + singleParam + " could not be found in generated URL. Expected url "
-                            + expectedUrl + " - generated " + generatedUrl);
+                Assertions.assertTrue(ArrayUtils.contains(generatedParameters, singleParam),
+                        "Expected parameter " + singleParam + " could not be found in generated URL. Expected url "
+                                + expectedUrl + " - generated " + generatedUrl);
             }
         }
     }

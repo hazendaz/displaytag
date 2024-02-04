@@ -21,14 +21,14 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-4 - Html tags in "title" attribute when using maxLength.
@@ -65,7 +65,8 @@ class Displ004Test extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
         Assertions.assertEquals(1, tables.length, "Expected 1 table in result.");
-        Assertions.assertEquals("\"the link\" is here", tables[0].getTableCell(1, 0).getTitle().trim(), "Wrong title in column");
+        Assertions.assertEquals("\"the link\" is here", tables[0].getTableCell(1, 0).getTitle().trim(),
+                "Wrong title in column");
     }
 
 }

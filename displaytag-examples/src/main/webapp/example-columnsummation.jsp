@@ -71,7 +71,7 @@
      totals.setTotalLabel("full total");
      totals.setSubtotalLabel("partial amount");
      pageContext.setAttribute("totals", totals);
-     
+
 <display:table name="test" class=" nocol" defaultsort="1" decorator="totals">
   <display:column property="project" group="1"/>
   <display:column property="city" group="2"/>
@@ -94,7 +94,7 @@
      totals.setTotalLabel("full total");
      totals.setSubtotalLabel("partial amount");
      pageContext.setAttribute("totals", totals);
-     
+
 <display:table name="test" class=" nocol" defaultsort="1" decorator="totals">
   <display:column property="city"/>
   <display:column property="project"/>
@@ -119,7 +119,7 @@
      subtotals.setGrandTotalDescription("Total Across All Categories");    // optional, defaults to Grand Total
      subtotals.setSubtotalLabel("{0} Subtotal", request.getLocale());      // optional, defaults to "{0} Total"
      pageContext.setAttribute("subtotaler", subtotals);
-     
+
 <display:table name="test" class=" grouped-table" defaultsort="1" decorator="subtotaler">
   <display:column property="city" group="1" title="City"/>
   <display:column property="project" group="2" title="Project"/>

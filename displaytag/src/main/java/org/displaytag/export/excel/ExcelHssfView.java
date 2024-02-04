@@ -21,12 +21,12 @@
  */
 package org.displaytag.export.excel;
 
+import jakarta.servlet.jsp.JspException;
+
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
-
-import jakarta.servlet.jsp.JspException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;

@@ -39,7 +39,7 @@ the primary key of the object). Below I show how to use both examples.
 ### Struts-like approach
 
 The column tag provides 5 struts-like attributes that can be set to
-create a dynamic linke ( href, paramID, paramName, paramProperty). 
+create a dynamic linke ( href, paramID, paramName, paramProperty).
 See the display:column documentation, and the struts
 documentation for a complete description of their usage, but basically:
 

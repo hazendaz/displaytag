@@ -21,6 +21,10 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.properties.MediaTypeEnum;
@@ -30,10 +34,6 @@ import org.displaytag.test.KnownTypes;
 import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for column decorators.
@@ -77,8 +77,11 @@ class ExportDecoratedTest extends DisplaytagCase {
         }
 
         Assertions.assertEquals("text/xml", response.getContentType(), "Expected a different content type.");
-        Assertions.assertFalse(StringUtils.contains(response.getText(),
-                (String) new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null)), "Export should not be decorated");
-        Assertions.assertTrue(StringUtils.contains(response.getText(), KnownTypes.TIME_VALUE.toString()), "Export should not be decorated");
+        Assertions.assertFalse(
+                StringUtils.contains(response.getText(),
+                        (String) new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null)),
+                "Export should not be decorated");
+        Assertions.assertTrue(StringUtils.contains(response.getText(), KnownTypes.TIME_VALUE.toString()),
+                "Export should not be decorated");
     }
 }

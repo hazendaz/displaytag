@@ -21,6 +21,11 @@
  */
 package org.displaytag.jsptests;
 
+import com.itextpdf.text.pdf.PdfReader;
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import java.io.InputStream;
 
 import org.displaytag.export.ExportViewFactory;
@@ -30,11 +35,6 @@ import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.itextpdf.text.pdf.PdfReader;
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for pdf export.

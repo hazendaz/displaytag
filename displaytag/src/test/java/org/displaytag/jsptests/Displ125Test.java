@@ -21,6 +21,12 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HTMLElement;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import java.io.IOException;
 
 import org.displaytag.tags.TableTagParameters;
@@ -29,12 +35,6 @@ import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HTMLElement;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-125 - Preserve The Current Page And Sort Across Session.
@@ -108,8 +108,8 @@ class Displ125Test extends DisplaytagCase {
         Assertions.assertNotNull(pagination, "Paging banner not found.");
         Assertions.assertEquals("1, 2, [3]", pagination.getText(), "Pagination links are not as expected.");
 
-        Assertions.assertEquals("sortable sorted order2",
-                tables[0].getTableCell(0, 0).getClassName(), "Column 1 should be marked as sorted.");
+        Assertions.assertEquals("sortable sorted order2", tables[0].getTableCell(0, 0).getClassName(),
+                "Column 1 should be marked as sorted.");
     }
 
 }

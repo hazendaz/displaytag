@@ -21,9 +21,9 @@
  */
 package org.displaytag.localization;
 
-import java.util.Locale;
-
 import jakarta.servlet.jsp.PageContext;
+
+import java.util.Locale;
 
 /**
  * Handle the selection of the user locale. By default <code>request.getLocale()</code> is used, but specific

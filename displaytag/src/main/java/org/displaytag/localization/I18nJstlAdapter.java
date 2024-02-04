@@ -21,15 +21,15 @@
  */
 package org.displaytag.localization;
 
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
 import jakarta.servlet.jsp.PageContext;
 import jakarta.servlet.jsp.jstl.core.Config;
 import jakarta.servlet.jsp.jstl.fmt.LocalizationContext;
 import jakarta.servlet.jsp.tagext.Tag;
 import jakarta.servlet.jsp.tagext.TagSupport;
+
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
 import org.displaytag.Messages;

@@ -27,16 +27,16 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.displaytag.decorator.hssf.DecoratesHssf;
 
-
 /**
  * Same idea implemented in HssfTableWriter applied to decorators.
  *
  * @author Jorge L. Barroso
+ *
  * @version $Revision$ ($Author$)
+ *
  * @see org.displaytag.render.HssfTableWriter
  */
-public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesHssf
-{
+public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesHssf {
 
     /** The sheet. */
     private HSSFSheet sheet;
@@ -51,21 +51,20 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
     private int colNum;
 
     @Override
-    protected void writeCityTotal(String city, double total)
-    {
+    protected void writeCityTotal(String city, double total) {
         this.writeTotal(city, total);
     }
 
     /**
      * Write total.
      *
-     * @param value the value
-     * @param total the total
+     * @param value
+     *            the value
+     * @param total
+     *            the total
      */
-    private void writeTotal(String value, double total)
-    {
-        if (this.assertRequiredState())
-        {
+    private void writeTotal(String value, double total) {
+        if (this.assertRequiredState()) {
             int rowNum = this.sheet.getLastRowNum();
             this.currentRow = this.sheet.createRow(++rowNum);
             this.colNum = 0;
@@ -87,29 +86,26 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
     /**
      * Prepare cell.
      */
-    private void prepareCell()
-    {
+    private void prepareCell() {
         this.currentCell = this.currentRow.createCell(this.colNum++);
     }
 
     @Override
-    protected void writeGrandTotal(double total)
-    {
+    protected void writeGrandTotal(double total) {
         this.writeTotal("Grand", total);
     }
 
     @Override
-    public void setSheet(HSSFSheet sheet)
-    {
+    public void setSheet(HSSFSheet sheet) {
         this.sheet = sheet;
     }
 
     /**
      * Asserts that the sheet property needed have been set by the client.
+     *
      * @return true if the required properties are not null; false otherwise.
      */
-    private boolean assertRequiredState()
-    {
+    private boolean assertRequiredState() {
         return this.sheet != null;
     }
 }

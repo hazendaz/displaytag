@@ -115,7 +115,7 @@ public class TableTotalerTest {
         final XmlTotalsWriter tw = new XmlTotalsWriter(m);
         tw.writeTable(m, "safd");
         final String xml = tw.getXml();
-        XmlAssert xmlAssert = XmlAssert.assertThat(xml); 
+        XmlAssert xmlAssert = XmlAssert.assertThat(xml);
         xmlAssert.valueByXPath("//subgroup[@grouped-by=0]/subtotal/subtotal-cell[4]").isEqualTo("11.0");
         xmlAssert.valueByXPath("//subgroup[@grouped-by=1]/subtotal/subtotal-cell[4]").isEqualTo("7.0");
         xmlAssert.valueByXPath("//subgroup[@grouped-by=2]/subtotal/subtotal-cell[4]").isEqualTo("4.0");

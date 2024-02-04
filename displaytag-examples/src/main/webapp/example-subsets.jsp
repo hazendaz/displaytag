@@ -33,7 +33,7 @@
   <display:column property="id" title="ID"/>
   <display:column property="email"/>
   <display:column property="status"/>
-</display:table>   
+</display:table>
 ]]>
     </tags:code>
     <h2>Items 3-8</h2>

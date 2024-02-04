@@ -21,12 +21,12 @@
  */
 package org.displaytag.tags;
 
-import java.util.List;
-
 import jakarta.servlet.jsp.JspException;
 import jakarta.servlet.jsp.tagext.BodyTagSupport;
 import jakarta.servlet.jsp.tagext.Tag;
 import jakarta.servlet.jsp.tagext.TagSupport;
+
+import java.util.List;
 
 import org.displaytag.exception.TagStructureException;
 import org.displaytag.properties.MediaTypeEnum;

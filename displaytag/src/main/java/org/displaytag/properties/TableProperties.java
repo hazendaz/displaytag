@@ -21,6 +21,8 @@
  */
 package org.displaytag.properties;
 
+import jakarta.servlet.jsp.PageContext;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -33,8 +35,6 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
-import jakarta.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -374,7 +374,7 @@ public final class TableProperties implements Cloneable {
      * Will be overriden by column level comparators.
      */
     public static final String PROPERTY_DEFAULT_COMPARATOR = "comparator.default"; //$NON-NLS-1$
-    
+
     /**
      * Property <code>escapeXml.default</code>. Specifies the default value for column <code>escapeXml</code> attribute.
      */
@@ -538,7 +538,9 @@ public final class TableProperties implements Cloneable {
 
                     TableProperties.log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(LocaleResolver.class), className }));
-                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
+                        | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                        | SecurityException e) {
                     TableProperties.log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(LocaleResolver.class), e.getClass().getName(),
                                     e.getMessage() }));
@@ -1240,7 +1242,9 @@ public final class TableProperties implements Cloneable {
 
                     TableProperties.log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class), className }));
-                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
+                        | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                        | SecurityException e) {
                     TableProperties.log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
                             new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class),
                                     e.getClass().getName(), e.getMessage() }));
@@ -1385,7 +1389,9 @@ public final class TableProperties implements Cloneable {
                 final Class<Comparator<Object>> classProperty = (Class<Comparator<Object>>) ReflectHelper
                         .classForName(className);
                 return classProperty.getDeclaredConstructor().newInstance();
-            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
+                    | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                    | SecurityException e) {
                 TableProperties.log.warn(Messages.getString("TableProperties.errorloading", //$NON-NLS-1$
                         new Object[] { ClassUtils.getShortClassName(Comparator.class), e.getClass().getName(),
                                 e.getMessage() }));
@@ -1393,13 +1399,13 @@ public final class TableProperties implements Cloneable {
         }
         return new DefaultComparator(Collator.getInstance(this.getLocale()));
     }
- 
+
     /**
      * Returns the default value for column <code>escapeXml</code> attribute.
-     * 
+     *
      * @return The default value for column <code>escapeXml</code> attribute
      */
     public boolean getEscapeXmlDefault() {
-    	return getBooleanProperty(PROPERTY_BOOLEAN_ESCAPEXML_DEFAULT);
+        return getBooleanProperty(PROPERTY_BOOLEAN_ESCAPEXML_DEFAULT);
     }
 }

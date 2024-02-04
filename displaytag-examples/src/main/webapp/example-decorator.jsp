@@ -161,7 +161,7 @@ public class Wrapper extends TableDecorator
     <display:column property="email"/>
     <display:column property="status"/>
     <display:column property="date" decorator="org.displaytag.sample.LongDateWrapper"/>
-  </display:table> 
+  </display:table>
 ]]>
     </tags:code>
   </tags:page>

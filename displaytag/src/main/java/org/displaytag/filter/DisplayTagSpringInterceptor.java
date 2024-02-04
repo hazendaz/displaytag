@@ -21,11 +21,11 @@
  */
 package org.displaytag.filter;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.displaytag.Messages;
 import org.displaytag.tags.TableTag;

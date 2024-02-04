@@ -21,6 +21,12 @@
  */
 package org.displaytag.export.excel;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HttpUnitOptions;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.servletunit.ServletRunner;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -47,12 +53,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HttpUnitOptions;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.servletunit.ServletRunner;
 
 /**
  * Test that even if we use partial lists for external sorting and paging still all the records get exported.
@@ -190,8 +190,8 @@ class ExportExcelPartialListTest {
         final WebResponse response = this.runner.getResponse(request);
 
         // we are really testing an xml output?
-        Assertions.assertEquals("application/vnd.ms-excel",
-                response.getContentType(), "Expected a different content type.");
+        Assertions.assertEquals("application/vnd.ms-excel", response.getContentType(),
+                "Expected a different content type.");
 
         final InputStream stream = response.getInputStream();
         final byte[] result = new byte[9000];

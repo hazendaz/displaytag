@@ -21,14 +21,14 @@
  */
 package org.displaytag.render;
 
+import jakarta.servlet.jsp.JspWriter;
+
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-
-import jakarta.servlet.jsp.JspWriter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.exception.DecoratorException;

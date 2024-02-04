@@ -51,8 +51,8 @@ public class PercentualColumnDecorator implements DisplaytagColumnDecorator {
      * @throws DecoratorException
      *             the decorator exception
      *
-     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object, jakarta.servlet.jsp.PageContext,
-     *      org.displaytag.properties.MediaTypeEnum)
+     * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(java.lang.Object,
+     *      jakarta.servlet.jsp.PageContext, org.displaytag.properties.MediaTypeEnum)
      */
     @Override
     public Object decorate(final Object columnValue, final PageContext pageContext, final MediaTypeEnum media)

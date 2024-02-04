@@ -13,8 +13,8 @@
       ]]>
     </name>
   </bannerLeft>
-  
-   <!-- 
+
+   <!--
   <bannerRight href="http://www.displaytag.org">
     <name>Displaytag</name>
     <src>http://displaytag.sf.net/1.2/images/displaytag.png</src>
@@ -124,7 +124,7 @@
       <pages>
         <index>
           <toc>false</toc>
-          <!-- 
+          <!--
           <sections>
             <carousel/>
             <body/>

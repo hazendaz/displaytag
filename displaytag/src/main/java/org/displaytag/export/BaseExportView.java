@@ -21,11 +21,11 @@
  */
 package org.displaytag.export;
 
+import jakarta.servlet.jsp.JspException;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Iterator;
-
-import jakarta.servlet.jsp.JspException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.model.Column;

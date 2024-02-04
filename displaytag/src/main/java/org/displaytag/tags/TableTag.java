@@ -21,6 +21,14 @@
  */
 package org.displaytag.tags;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspTagException;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.tagext.Tag;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -30,14 +38,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.jsp.JspException;
-import jakarta.servlet.jsp.JspTagException;
-import jakarta.servlet.jsp.JspWriter;
-import jakarta.servlet.jsp.tagext.Tag;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.IteratorUtils;
@@ -747,8 +747,8 @@ public class TableTag extends HtmlTableTag {
      */
     public boolean isFirstIteration() {
         if (TableTag.log.isDebugEnabled()) {
-            TableTag.log.debug("[{}] first iteration={} (row number={})",
-                    this.getUid(), (this.rowNumber == 1), this.rowNumber);
+            TableTag.log.debug("[{}] first iteration={} (row number={})", this.getUid(), (this.rowNumber == 1),
+                    this.rowNumber);
         }
         // in first iteration this.rowNumber is 1
         // (this.rowNumber is incremented in doAfterBody)
