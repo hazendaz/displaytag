@@ -30,11 +30,9 @@
   </skin>
   <version position="bottom"/>
   <publishDate position="bottom" format="MM-dd-yyyy hh:mm"/>
-  <bannerLeft href="http://www.displaytag.org">
-    <name><![CDATA[
+  <bannerLeft href="http://www.displaytag.org" name="<![CDATA[
       <span class="color-highlight">displaytag</span>
-      ]]>
-    </name>
+      ]]>">
   </bannerLeft>
 
    <!--
