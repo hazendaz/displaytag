@@ -21,9 +21,11 @@
  */
 package org.displaytag.model;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
