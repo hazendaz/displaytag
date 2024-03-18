@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,6 @@
  */
 package org.displaytag.util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
