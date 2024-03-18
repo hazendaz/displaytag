@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
+
 import javax.portlet.PortletContext;
 import javax.portlet.PortletSession;
 import javax.servlet.http.HttpSessionBindingEvent;
@@ -34,245 +35,239 @@ import org.springframework.mock.web.MockHttpSession;
  *
  * @author John A. Lewis
  * @author Juergen Hoeller
+ *
  * @since 2.0
  */
 public class MockPortletSession implements PortletSession {
 
-	/** The next id. */
-	private static int nextId = 1;
+    /** The next id. */
+    private static int nextId = 1;
 
+    /** The id. */
+    private final String id = Integer.toString(nextId++);
 
-	/** The id. */
-	private final String id = Integer.toString(nextId++);
+    /** The creation time. */
+    private final long creationTime = System.currentTimeMillis();
 
-	/** The creation time. */
-	private final long creationTime = System.currentTimeMillis();
+    /** The max inactive interval. */
+    private int maxInactiveInterval;
 
-	/** The max inactive interval. */
-	private int maxInactiveInterval;
+    /** The last accessed time. */
+    private long lastAccessedTime = System.currentTimeMillis();
 
-	/** The last accessed time. */
-	private long lastAccessedTime = System.currentTimeMillis();
+    /** The portlet context. */
+    private final PortletContext portletContext;
 
-	/** The portlet context. */
-	private final PortletContext portletContext;
+    /** The portlet attributes. */
+    private final Map<String, Object> portletAttributes = new LinkedHashMap<String, Object>();
 
-	/** The portlet attributes. */
-	private final Map<String, Object> portletAttributes = new LinkedHashMap<String, Object>();
+    /** The application attributes. */
+    private final Map<String, Object> applicationAttributes = new LinkedHashMap<String, Object>();
 
-	/** The application attributes. */
-	private final Map<String, Object> applicationAttributes = new LinkedHashMap<String, Object>();
+    /** The invalid. */
+    private boolean invalid = false;
 
-	/** The invalid. */
-	private boolean invalid = false;
+    /** The is new. */
+    private boolean isNew = true;
 
-	/** The is new. */
-	private boolean isNew = true;
+    /**
+     * Create a new MockPortletSession with a default {@link MockPortletContext}.
+     *
+     * @see MockPortletContext
+     */
+    public MockPortletSession() {
+        this(null);
+    }
 
+    /**
+     * Create a new MockPortletSession.
+     *
+     * @param portletContext
+     *            the PortletContext that the session runs in
+     */
+    public MockPortletSession(PortletContext portletContext) {
+        this.portletContext = (portletContext != null ? portletContext : new MockPortletContext());
+    }
 
-	/**
-	 * Create a new MockPortletSession with a default {@link MockPortletContext}.
-	 * @see MockPortletContext
-	 */
-	public MockPortletSession() {
-		this(null);
-	}
+    @Override
+    public Object getAttribute(String name) {
+        return this.portletAttributes.get(name);
+    }
 
-	/**
-	 * Create a new MockPortletSession.
-	 * @param portletContext the PortletContext that the session runs in
-	 */
-	public MockPortletSession(PortletContext portletContext) {
-		this.portletContext = (portletContext != null ? portletContext : new MockPortletContext());
-	}
+    @Override
+    public Object getAttribute(String name, int scope) {
+        if (scope == PortletSession.PORTLET_SCOPE) {
+            return this.portletAttributes.get(name);
+        } else if (scope == PortletSession.APPLICATION_SCOPE) {
+            return this.applicationAttributes.get(name);
+        }
+        return null;
+    }
 
+    @Override
+    public Enumeration<String> getAttributeNames() {
+        return Collections.enumeration(new LinkedHashSet<String>(this.portletAttributes.keySet()));
+    }
 
-	@Override
-	public Object getAttribute(String name) {
-		return this.portletAttributes.get(name);
-	}
+    @Override
+    public Enumeration<String> getAttributeNames(int scope) {
+        if (scope == PortletSession.PORTLET_SCOPE) {
+            return Collections.enumeration(new LinkedHashSet<String>(this.portletAttributes.keySet()));
+        } else if (scope == PortletSession.APPLICATION_SCOPE) {
+            return Collections.enumeration(new LinkedHashSet<String>(this.applicationAttributes.keySet()));
+        }
+        return null;
+    }
 
-	@Override
-	public Object getAttribute(String name, int scope) {
-		if (scope == PortletSession.PORTLET_SCOPE) {
-			return this.portletAttributes.get(name);
-		}
-		else if (scope == PortletSession.APPLICATION_SCOPE) {
-			return this.applicationAttributes.get(name);
-		}
-		return null;
-	}
+    @Override
+    public long getCreationTime() {
+        return this.creationTime;
+    }
 
-	@Override
-	public Enumeration<String> getAttributeNames() {
-		return Collections.enumeration(new LinkedHashSet<String>(this.portletAttributes.keySet()));
-	}
+    @Override
+    public String getId() {
+        return this.id;
+    }
 
-	@Override
-	public Enumeration<String> getAttributeNames(int scope) {
-		if (scope == PortletSession.PORTLET_SCOPE) {
-			return Collections.enumeration(new LinkedHashSet<String>(this.portletAttributes.keySet()));
-		}
-		else if (scope == PortletSession.APPLICATION_SCOPE) {
-			return Collections.enumeration(new LinkedHashSet<String>(this.applicationAttributes.keySet()));
-		}
-		return null;
-	}
+    /**
+     * Access.
+     */
+    public void access() {
+        this.lastAccessedTime = System.currentTimeMillis();
+        setNew(false);
+    }
 
-	@Override
-	public long getCreationTime() {
-		return this.creationTime;
-	}
+    @Override
+    public long getLastAccessedTime() {
+        return this.lastAccessedTime;
+    }
 
-	@Override
-	public String getId() {
-		return this.id;
-	}
+    @Override
+    public int getMaxInactiveInterval() {
+        return this.maxInactiveInterval;
+    }
 
-	/**
-	 * Access.
-	 */
-	public void access() {
-		this.lastAccessedTime = System.currentTimeMillis();
-		setNew(false);
-	}
+    /**
+     * Clear all of this session's attributes.
+     */
+    public void clearAttributes() {
+        doClearAttributes(this.portletAttributes);
+        doClearAttributes(this.applicationAttributes);
+    }
 
-	@Override
-	public long getLastAccessedTime() {
-		return this.lastAccessedTime;
-	}
+    /**
+     * Do clear attributes.
+     *
+     * @param attributes
+     *            the attributes
+     */
+    protected void doClearAttributes(Map<String, Object> attributes) {
+        for (Iterator<Map.Entry<String, Object>> it = attributes.entrySet().iterator(); it.hasNext();) {
+            Map.Entry<String, Object> entry = it.next();
+            String name = entry.getKey();
+            Object value = entry.getValue();
+            it.remove();
+            if (value instanceof HttpSessionBindingListener) {
+                ((HttpSessionBindingListener) value)
+                        .valueUnbound(new HttpSessionBindingEvent(new MockHttpSession(), name, value));
+            }
+        }
+    }
 
-	@Override
-	public int getMaxInactiveInterval() {
-		return this.maxInactiveInterval;
-	}
+    @Override
+    public void invalidate() {
+        this.invalid = true;
+        clearAttributes();
+    }
 
-	/**
-	 * Clear all of this session's attributes.
-	 */
-	public void clearAttributes() {
-		doClearAttributes(this.portletAttributes);
-		doClearAttributes(this.applicationAttributes);
-	}
+    /**
+     * Checks if is invalid.
+     *
+     * @return true, if is invalid
+     */
+    public boolean isInvalid() {
+        return this.invalid;
+    }
 
-	/**
-	 * Do clear attributes.
-	 *
-	 * @param attributes the attributes
-	 */
-	protected void doClearAttributes(Map<String, Object> attributes) {
-		for (Iterator<Map.Entry<String, Object>> it = attributes.entrySet().iterator(); it.hasNext();) {
-			Map.Entry<String, Object> entry = it.next();
-			String name = entry.getKey();
-			Object value = entry.getValue();
-			it.remove();
-			if (value instanceof HttpSessionBindingListener) {
-				((HttpSessionBindingListener) value).valueUnbound(
-						new HttpSessionBindingEvent(new MockHttpSession(), name, value));
-			}
-		}
-	}
+    /**
+     * Sets the new.
+     *
+     * @param value
+     *            the new new
+     */
+    public void setNew(boolean value) {
+        this.isNew = value;
+    }
 
-	@Override
-	public void invalidate() {
-		this.invalid = true;
-		clearAttributes();
-	}
+    @Override
+    public boolean isNew() {
+        return this.isNew;
+    }
 
-	/**
-	 * Checks if is invalid.
-	 *
-	 * @return true, if is invalid
-	 */
-	public boolean isInvalid() {
-		return this.invalid;
-	}
+    @Override
+    public void removeAttribute(String name) {
+        this.portletAttributes.remove(name);
+    }
 
-	/**
-	 * Sets the new.
-	 *
-	 * @param value the new new
-	 */
-	public void setNew(boolean value) {
-		this.isNew = value;
-	}
+    @Override
+    public void removeAttribute(String name, int scope) {
+        if (scope == PortletSession.PORTLET_SCOPE) {
+            this.portletAttributes.remove(name);
+        } else if (scope == PortletSession.APPLICATION_SCOPE) {
+            this.applicationAttributes.remove(name);
+        }
+    }
 
-	@Override
-	public boolean isNew() {
-		return this.isNew;
-	}
+    @Override
+    public void setAttribute(String name, Object value) {
+        if (value != null) {
+            this.portletAttributes.put(name, value);
+        } else {
+            this.portletAttributes.remove(name);
+        }
+    }
 
-	@Override
-	public void removeAttribute(String name) {
-		this.portletAttributes.remove(name);
-	}
+    @Override
+    public void setAttribute(String name, Object value, int scope) {
+        if (scope == PortletSession.PORTLET_SCOPE) {
+            if (value != null) {
+                this.portletAttributes.put(name, value);
+            } else {
+                this.portletAttributes.remove(name);
+            }
+        } else if (scope == PortletSession.APPLICATION_SCOPE) {
+            if (value != null) {
+                this.applicationAttributes.put(name, value);
+            } else {
+                this.applicationAttributes.remove(name);
+            }
+        }
+    }
 
-	@Override
-	public void removeAttribute(String name, int scope) {
-		if (scope == PortletSession.PORTLET_SCOPE) {
-			this.portletAttributes.remove(name);
-		}
-		else if (scope == PortletSession.APPLICATION_SCOPE) {
-			this.applicationAttributes.remove(name);
-		}
-	}
+    @Override
+    public void setMaxInactiveInterval(int interval) {
+        this.maxInactiveInterval = interval;
+    }
 
-	@Override
-	public void setAttribute(String name, Object value) {
-		if (value != null) {
-			this.portletAttributes.put(name, value);
-		}
-		else {
-			this.portletAttributes.remove(name);
-		}
-	}
+    @Override
+    public PortletContext getPortletContext() {
+        return this.portletContext;
+    }
 
-	@Override
-	public void setAttribute(String name, Object value, int scope) {
-		if (scope == PortletSession.PORTLET_SCOPE) {
-			if (value != null) {
-				this.portletAttributes.put(name, value);
-			}
-			else {
-				this.portletAttributes.remove(name);
-			}
-		}
-		else if (scope == PortletSession.APPLICATION_SCOPE) {
-			if (value != null) {
-				this.applicationAttributes.put(name, value);
-			}
-			else {
-				this.applicationAttributes.remove(name);
-			}
-		}
-	}
+    @Override
+    public Map<String, Object> getAttributeMap() {
+        return Collections.unmodifiableMap(this.portletAttributes);
+    }
 
-	@Override
-	public void setMaxInactiveInterval(int interval) {
-		this.maxInactiveInterval = interval;
-	}
-
-	@Override
-	public PortletContext getPortletContext() {
-		return this.portletContext;
-	}
-
-	@Override
-	public Map<String, Object> getAttributeMap() {
-		return Collections.unmodifiableMap(this.portletAttributes);
-	}
-
-	@Override
-	public Map<String, Object> getAttributeMap(int scope) {
-		if (scope == PortletSession.PORTLET_SCOPE) {
-			return Collections.unmodifiableMap(this.portletAttributes);
-		}
-		else if (scope == PortletSession.APPLICATION_SCOPE) {
-			return Collections.unmodifiableMap(this.applicationAttributes);
-		}
-		else {
-			return Collections.emptyMap();
-		}
-	}
+    @Override
+    public Map<String, Object> getAttributeMap(int scope) {
+        if (scope == PortletSession.PORTLET_SCOPE) {
+            return Collections.unmodifiableMap(this.portletAttributes);
+        } else if (scope == PortletSession.APPLICATION_SCOPE) {
+            return Collections.unmodifiableMap(this.applicationAttributes);
+        } else {
+            return Collections.emptyMap();
+        }
+    }
 
 }

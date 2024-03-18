@@ -295,17 +295,18 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
                 throw new RuntimeException("IllegalAccessException setting column comparator as " + comparatorClassname
                         + ": " + e.getMessage(), e);
             } catch (IllegalArgumentException e) {
-              throw new RuntimeException("IllegalArgumentException setting column comparator as " + comparatorClassname
-                  + ": " + e.getMessage(), e);
+                throw new RuntimeException("IllegalArgumentException setting column comparator as "
+                        + comparatorClassname + ": " + e.getMessage(), e);
             } catch (InvocationTargetException e) {
-              throw new RuntimeException("InvocationTargetException setting column comparator as " + comparatorClassname
-                  + ": " + e.getMessage(), e);
+                throw new RuntimeException("InvocationTargetException setting column comparator as "
+                        + comparatorClassname + ": " + e.getMessage(), e);
             } catch (NoSuchMethodException e) {
-              throw new RuntimeException("NoSuchMethodException setting column comparator as " + comparatorClassname
-                  + ": " + e.getMessage(), e);
+                throw new RuntimeException("NoSuchMethodException setting column comparator as " + comparatorClassname
+                        + ": " + e.getMessage(), e);
             } catch (SecurityException e) {
-              throw new RuntimeException("SecurityException setting column comparator as " + comparatorClassname
-                  + ": " + e.getMessage(), e);
+                throw new RuntimeException(
+                        "SecurityException setting column comparator as " + comparatorClassname + ": " + e.getMessage(),
+                        e);
             }
         } else {
             throw new IllegalArgumentException(
@@ -878,10 +879,10 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
         if (!MediaUtil.availableForMedia(this, currentMediaType)) {
             return Tag.SKIP_BODY;
         }
-        
+
         // Configure escapeXml default value from properties
         if (this.escapeXml == null) {
-        	this.escapeXml = tableTag.getProperties().getEscapeXmlDefault();
+            this.escapeXml = tableTag.getProperties().getEscapeXmlDefault();
         }
 
         return super.doStartTag();

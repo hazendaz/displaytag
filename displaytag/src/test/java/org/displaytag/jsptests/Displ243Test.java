@@ -21,18 +21,18 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.displaytag.properties.SortOrderEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebLink;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-243 - Default column sort breaks sorting after a few sorts of the column.

@@ -21,17 +21,17 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.xml.sax.SAXException;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.TableCell;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.xml.sax.SAXException;
 
 /**
  * Tests for basic displaytag functionalities.
@@ -103,7 +103,8 @@ class Displ017Test extends DisplaytagCase {
             if (j == sortedColumn) {
                 Assertions.assertTrue(containsSorted, "Column " + j + " is not sorted as expected");
             } else {
-                Assertions.assertFalse(containsSorted, "Column " + j + " is sorted, but only " + sortedColumn + " should be");
+                Assertions.assertFalse(containsSorted,
+                        "Column " + j + " is sorted, but only " + sortedColumn + " should be");
             }
 
         }

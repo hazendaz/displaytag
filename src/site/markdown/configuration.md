@@ -337,7 +337,7 @@ displaytag\_IT.properties ).
     <td></td>
   </tr>
 </table>
-        
+
 
 ### Exporting
 

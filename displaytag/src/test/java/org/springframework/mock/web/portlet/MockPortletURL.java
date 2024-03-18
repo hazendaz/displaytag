@@ -39,141 +39,137 @@ import org.springframework.util.CollectionUtils;
  *
  * @author John A. Lewis
  * @author Juergen Hoeller
+ *
  * @since 2.0
  */
 public class MockPortletURL extends MockBaseURL implements PortletURL, RenderURL, ActionURL {
 
-	/** The Constant URL_TYPE_RENDER. */
-	public static final String URL_TYPE_RENDER = "render";
+    /** The Constant URL_TYPE_RENDER. */
+    public static final String URL_TYPE_RENDER = "render";
 
-	/** The Constant URL_TYPE_ACTION. */
-	public static final String URL_TYPE_ACTION = "action";
+    /** The Constant URL_TYPE_ACTION. */
+    public static final String URL_TYPE_ACTION = "action";
 
+    /** The portal context. */
+    private final PortalContext portalContext;
 
-	/** The portal context. */
-	private final PortalContext portalContext;
+    /** The url type. */
+    private final String urlType;
 
-	/** The url type. */
-	private final String urlType;
+    /** The window state. */
+    private WindowState windowState;
 
-	/** The window state. */
-	private WindowState windowState;
+    /** The portlet mode. */
+    private PortletMode portletMode;
 
-	/** The portlet mode. */
-	private PortletMode portletMode;
+    /**
+     * Create a new MockPortletURL for the given URL type.
+     *
+     * @param portalContext
+     *            the PortalContext defining the supported PortletModes and WindowStates
+     * @param urlType
+     *            the URL type, for example "render" or "action"
+     *
+     * @see #URL_TYPE_RENDER
+     * @see #URL_TYPE_ACTION
+     */
+    public MockPortletURL(PortalContext portalContext, String urlType) {
+        Assertions.assertNotNull(portalContext, "PortalContext is required");
+        this.portalContext = portalContext;
+        this.urlType = urlType;
+    }
 
+    // ---------------------------------------------------------------------
+    // PortletURL methods
+    // ---------------------------------------------------------------------
 
-	/**
-	 * Create a new MockPortletURL for the given URL type.
-	 * @param portalContext the PortalContext defining the supported
-	 * PortletModes and WindowStates
-	 * @param urlType the URL type, for example "render" or "action"
-	 * @see #URL_TYPE_RENDER
-	 * @see #URL_TYPE_ACTION
-	 */
-	public MockPortletURL(PortalContext portalContext, String urlType) {
-		Assertions.assertNotNull(portalContext, "PortalContext is required");
-		this.portalContext = portalContext;
-		this.urlType = urlType;
-	}
+    @Override
+    public void setWindowState(WindowState windowState) throws WindowStateException {
+        if (!CollectionUtils.contains(this.portalContext.getSupportedWindowStates(), windowState)) {
+            throw new WindowStateException("WindowState not supported", windowState);
+        }
+        this.windowState = windowState;
+    }
 
+    @Override
+    public WindowState getWindowState() {
+        return this.windowState;
+    }
 
-	//---------------------------------------------------------------------
-	// PortletURL methods
-	//---------------------------------------------------------------------
+    @Override
+    public void setPortletMode(PortletMode portletMode) throws PortletModeException {
+        if (!CollectionUtils.contains(this.portalContext.getSupportedPortletModes(), portletMode)) {
+            throw new PortletModeException("PortletMode not supported", portletMode);
+        }
+        this.portletMode = portletMode;
+    }
 
-	@Override
-	public void setWindowState(WindowState windowState) throws WindowStateException {
-		if (!CollectionUtils.contains(this.portalContext.getSupportedWindowStates(), windowState)) {
-			throw new WindowStateException("WindowState not supported", windowState);
-		}
-		this.windowState = windowState;
-	}
+    @Override
+    public PortletMode getPortletMode() {
+        return this.portletMode;
+    }
 
-	@Override
-	public WindowState getWindowState() {
-		return this.windowState;
-	}
+    @Override
+    public void removePublicRenderParameter(String name) {
+        this.parameters.remove(name);
+    }
 
-	@Override
-	public void setPortletMode(PortletMode portletMode) throws PortletModeException {
-		if (!CollectionUtils.contains(this.portalContext.getSupportedPortletModes(), portletMode)) {
-			throw new PortletModeException("PortletMode not supported", portletMode);
-		}
-		this.portletMode = portletMode;
-	}
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(encodeParameter("urlType", this.urlType));
+        if (this.windowState != null) {
+            sb.append(";").append(encodeParameter("windowState", this.windowState.toString()));
+        }
+        if (this.portletMode != null) {
+            sb.append(";").append(encodeParameter("portletMode", this.portletMode.toString()));
+        }
+        for (Map.Entry<String, String[]> entry : this.parameters.entrySet()) {
+            sb.append(";").append(encodeParameter("param_" + entry.getKey(), entry.getValue()));
+        }
+        return (isSecure() ? "https:" : "http:") + "//localhost/mockportlet?" + sb.toString();
+    }
 
-	@Override
-	public PortletMode getPortletMode() {
-		return this.portletMode;
-	}
+    @Override
+    public Appendable append(Appendable out) throws IOException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public void removePublicRenderParameter(String name) {
-		this.parameters.remove(name);
-	}
+    @Override
+    public Appendable append(Appendable out, boolean escapeXML) throws IOException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
+    @Override
+    public MutableRenderParameters getRenderParameters() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(encodeParameter("urlType", this.urlType));
-		if (this.windowState != null) {
-			sb.append(";").append(encodeParameter("windowState", this.windowState.toString()));
-		}
-		if (this.portletMode != null) {
-			sb.append(";").append(encodeParameter("portletMode", this.portletMode.toString()));
-		}
-		for (Map.Entry<String, String[]> entry : this.parameters.entrySet()) {
-			sb.append(";").append(encodeParameter("param_" + entry.getKey(), entry.getValue()));
-		}
-		return (isSecure() ? "https:" : "http:") +
-				"//localhost/mockportlet?" + sb.toString();
-	}
+    @Override
+    public void setBeanParameter(PortletSerializable bean) {
+        // TODO Auto-generated method stub
 
-  @Override
-  public Appendable append(Appendable out) throws IOException {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    }
 
-  @Override
-  public Appendable append(Appendable out, boolean escapeXML) throws IOException {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public MutableActionParameters getActionParameters() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  @Override
-  public MutableRenderParameters getRenderParameters() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public void setFragmentIdentifier(String fragment) {
+        // TODO Auto-generated method stub
 
-  @Override
-  public void setBeanParameter(PortletSerializable bean) {
-    // TODO Auto-generated method stub
-    
-  }
+    }
 
-
-  @Override
-  public MutableActionParameters getActionParameters() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-
-  @Override
-  public void setFragmentIdentifier(String fragment) {
-    // TODO Auto-generated method stub
-    
-  }
-
-
-  @Override
-  public String getFragmentIdentifier() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public String getFragmentIdentifier() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

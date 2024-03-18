@@ -22,6 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+
 import javax.portlet.PortalContext;
 import javax.portlet.PortletResponse;
 import javax.servlet.http.Cookie;
@@ -38,218 +39,224 @@ import org.w3c.dom.Element;
  *
  * @author John A. Lewis
  * @author Juergen Hoeller
+ *
  * @since 2.0
  */
 public class MockPortletResponse implements PortletResponse {
 
-	/** The portal context. */
-	private final PortalContext portalContext;
+    /** The portal context. */
+    private final PortalContext portalContext;
 
-	/** The properties. */
-	private final Map<String, String[]> properties = new LinkedHashMap<String, String[]>();
+    /** The properties. */
+    private final Map<String, String[]> properties = new LinkedHashMap<String, String[]>();
 
-	/** The namespace. */
-	private String namespace = "";
+    /** The namespace. */
+    private String namespace = "";
 
-	/** The cookies. */
-	private final Set<Cookie> cookies = new LinkedHashSet<Cookie>();
+    /** The cookies. */
+    private final Set<Cookie> cookies = new LinkedHashSet<Cookie>();
 
-	/** The xml properties. */
-	private final Map<String, Element[]> xmlProperties = new LinkedHashMap<String, Element[]>();
+    /** The xml properties. */
+    private final Map<String, Element[]> xmlProperties = new LinkedHashMap<String, Element[]>();
 
-	/** The xml document. */
-	private Document xmlDocument;
+    /** The xml document. */
+    private Document xmlDocument;
 
+    /**
+     * Create a new MockPortletResponse with a default {@link MockPortalContext}.
+     *
+     * @see MockPortalContext
+     */
+    public MockPortletResponse() {
+        this(null);
+    }
 
-	/**
-	 * Create a new MockPortletResponse with a default {@link MockPortalContext}.
-	 * @see MockPortalContext
-	 */
-	public MockPortletResponse() {
-		this(null);
-	}
+    /**
+     * Create a new MockPortletResponse.
+     *
+     * @param portalContext
+     *            the PortalContext defining the supported PortletModes and WindowStates
+     */
+    public MockPortletResponse(PortalContext portalContext) {
+        this.portalContext = (portalContext != null ? portalContext : new MockPortalContext());
+    }
 
-	/**
-	 * Create a new MockPortletResponse.
-	 * @param portalContext the PortalContext defining the supported
-	 * PortletModes and WindowStates
-	 */
-	public MockPortletResponse(PortalContext portalContext) {
-		this.portalContext = (portalContext != null ? portalContext : new MockPortalContext());
-	}
+    /**
+     * Return the PortalContext that this MockPortletResponse runs in, defining the supported PortletModes and
+     * WindowStates.
+     *
+     * @return the portal context
+     */
+    public PortalContext getPortalContext() {
+        return this.portalContext;
+    }
 
-	/**
-	 * Return the PortalContext that this MockPortletResponse runs in,
-	 * defining the supported PortletModes and WindowStates.
-	 *
-	 * @return the portal context
-	 */
-	public PortalContext getPortalContext() {
-		return this.portalContext;
-	}
+    // ---------------------------------------------------------------------
+    // PortletResponse methods
+    // ---------------------------------------------------------------------
 
+    @Override
+    public void addProperty(String key, String value) {
+        Assertions.assertNotNull(key, "Property key must not be null");
+        String[] oldArr = this.properties.get(key);
+        if (oldArr != null) {
+            String[] newArr = new String[oldArr.length + 1];
+            System.arraycopy(oldArr, 0, newArr, 0, oldArr.length);
+            newArr[oldArr.length] = value;
+            this.properties.put(key, newArr);
+        } else {
+            this.properties.put(key, new String[] { value });
+        }
+    }
 
-	//---------------------------------------------------------------------
-	// PortletResponse methods
-	//---------------------------------------------------------------------
+    @Override
+    public void setProperty(String key, String value) {
+        Assertions.assertNotNull(key, "Property key must not be null");
+        this.properties.put(key, new String[] { value });
+    }
 
-	@Override
-	public void addProperty(String key, String value) {
-		Assertions.assertNotNull(key, "Property key must not be null");
-		String[] oldArr = this.properties.get(key);
-		if (oldArr != null) {
-			String[] newArr = new String[oldArr.length + 1];
-			System.arraycopy(oldArr, 0, newArr, 0, oldArr.length);
-			newArr[oldArr.length] = value;
-			this.properties.put(key, newArr);
-		}
-		else {
-			this.properties.put(key, new String[] {value});
-		}
-	}
+    public Set<String> getPropertyNames() {
+        return Collections.unmodifiableSet(this.properties.keySet());
+    }
 
-	@Override
-	public void setProperty(String key, String value) {
-		Assertions.assertNotNull(key, "Property key must not be null");
-		this.properties.put(key, new String[] {value});
-	}
+    public String getProperty(String key) {
+        Assertions.assertNotNull(key, "Property key must not be null");
+        String[] arr = this.properties.get(key);
+        return (arr != null && arr.length > 0 ? arr[0] : null);
+    }
 
-	public Set<String> getPropertyNames() {
-		return Collections.unmodifiableSet(this.properties.keySet());
-	}
+    /**
+     * Gets the properties.
+     *
+     * @param key
+     *            the key
+     *
+     * @return the properties
+     */
+    public String[] getProperties(String key) {
+        Assertions.assertNotNull(key, "Property key must not be null");
+        return this.properties.get(key);
+    }
 
-	public String getProperty(String key) {
-		Assertions.assertNotNull(key, "Property key must not be null");
-		String[] arr = this.properties.get(key);
-		return (arr != null && arr.length > 0 ? arr[0] : null);
-	}
+    @Override
+    public String encodeURL(String path) {
+        return path;
+    }
 
-	/**
-	 * Gets the properties.
-	 *
-	 * @param key the key
-	 * @return the properties
-	 */
-	public String[] getProperties(String key) {
-		Assertions.assertNotNull(key, "Property key must not be null");
-		return this.properties.get(key);
-	}
+    /**
+     * Sets the namespace.
+     *
+     * @param namespace
+     *            the new namespace
+     */
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
 
-	@Override
-	public String encodeURL(String path) {
-		return path;
-	}
+    @Override
+    public String getNamespace() {
+        return this.namespace;
+    }
 
-	/**
-	 * Sets the namespace.
-	 *
-	 * @param namespace the new namespace
-	 */
-	public void setNamespace(String namespace) {
-		this.namespace = namespace;
-	}
+    @Override
+    public void addProperty(Cookie cookie) {
+        Assertions.assertNotNull(cookie, "Cookie must not be null");
+        this.cookies.add(cookie);
+    }
 
-	@Override
-	public String getNamespace() {
-		return this.namespace;
-	}
+    /**
+     * Gets the cookies.
+     *
+     * @return the cookies
+     */
+    public Cookie[] getCookies() {
+        return this.cookies.toArray(new Cookie[this.cookies.size()]);
+    }
 
-	@Override
-	public void addProperty(Cookie cookie) {
-		Assertions.assertNotNull(cookie, "Cookie must not be null");
-		this.cookies.add(cookie);
-	}
+    /**
+     * Gets the cookie.
+     *
+     * @param name
+     *            the name
+     *
+     * @return the cookie
+     */
+    public Cookie getCookie(String name) {
+        Assertions.assertNotNull(name, "Cookie name must not be null");
+        for (Cookie cookie : this.cookies) {
+            if (name.equals(cookie.getName())) {
+                return cookie;
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Gets the cookies.
-	 *
-	 * @return the cookies
-	 */
-	public Cookie[] getCookies() {
-		return this.cookies.toArray(new Cookie[this.cookies.size()]);
-	}
+    @Override
+    public void addProperty(String key, Element value) {
+        Assertions.assertNotNull(key, "Property key must not be null");
+        Element[] oldArr = this.xmlProperties.get(key);
+        if (oldArr != null) {
+            Element[] newArr = new Element[oldArr.length + 1];
+            System.arraycopy(oldArr, 0, newArr, 0, oldArr.length);
+            newArr[oldArr.length] = value;
+            this.xmlProperties.put(key, newArr);
+        } else {
+            this.xmlProperties.put(key, new Element[] { value });
+        }
+    }
 
-	/**
-	 * Gets the cookie.
-	 *
-	 * @param name the name
-	 * @return the cookie
-	 */
-	public Cookie getCookie(String name) {
-		Assertions.assertNotNull(name, "Cookie name must not be null");
-		for (Cookie cookie : this.cookies) {
-			if (name.equals(cookie.getName())) {
-				return cookie;
-			}
-		}
-		return null;
-	}
+    /**
+     * Gets the xml property names.
+     *
+     * @return the xml property names
+     */
+    public Set<String> getXmlPropertyNames() {
+        return Collections.unmodifiableSet(this.xmlProperties.keySet());
+    }
 
-	@Override
-	public void addProperty(String key, Element value) {
-		Assertions.assertNotNull(key, "Property key must not be null");
-		Element[] oldArr = this.xmlProperties.get(key);
-		if (oldArr != null) {
-			Element[] newArr = new Element[oldArr.length + 1];
-			System.arraycopy(oldArr, 0, newArr, 0, oldArr.length);
-			newArr[oldArr.length] = value;
-			this.xmlProperties.put(key, newArr);
-		}
-		else {
-			this.xmlProperties.put(key, new Element[] {value});
-		}
-	}
+    /**
+     * Gets the xml property.
+     *
+     * @param key
+     *            the key
+     *
+     * @return the xml property
+     */
+    public Element getXmlProperty(String key) {
+        Assertions.assertNotNull(key, "Property key must not be null");
+        Element[] arr = this.xmlProperties.get(key);
+        return (arr != null && arr.length > 0 ? arr[0] : null);
+    }
 
+    /**
+     * Gets the xml properties.
+     *
+     * @param key
+     *            the key
+     *
+     * @return the xml properties
+     */
+    public Element[] getXmlProperties(String key) {
+        Assertions.assertNotNull(key, "Property key must not be null");
+        return this.xmlProperties.get(key);
+    }
 
-	/**
-	 * Gets the xml property names.
-	 *
-	 * @return the xml property names
-	 */
-	public Set<String> getXmlPropertyNames() {
-		return Collections.unmodifiableSet(this.xmlProperties.keySet());
-	}
+    @Override
+    public Element createElement(String tagName) throws DOMException {
+        if (this.xmlDocument == null) {
+            try {
+                this.xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+            } catch (ParserConfigurationException ex) {
+                throw new DOMException(DOMException.INVALID_STATE_ERR, ex.toString());
+            }
+        }
+        return this.xmlDocument.createElement(tagName);
+    }
 
-	/**
-	 * Gets the xml property.
-	 *
-	 * @param key the key
-	 * @return the xml property
-	 */
-	public Element getXmlProperty(String key) {
-		Assertions.assertNotNull(key, "Property key must not be null");
-		Element[] arr = this.xmlProperties.get(key);
-		return (arr != null && arr.length > 0 ? arr[0] : null);
-	}
-
-	/**
-	 * Gets the xml properties.
-	 *
-	 * @param key the key
-	 * @return the xml properties
-	 */
-	public Element[] getXmlProperties(String key) {
-		Assertions.assertNotNull(key, "Property key must not be null");
-		return this.xmlProperties.get(key);
-	}
-
-	@Override
-	public Element createElement(String tagName) throws DOMException {
-		if (this.xmlDocument == null) {
-			try {
-				this.xmlDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-			}
-			catch (ParserConfigurationException ex) {
-				throw new DOMException(DOMException.INVALID_STATE_ERR, ex.toString());
-			}
-		}
-		return this.xmlDocument.createElement(tagName);
-	}
-
-  @Override
-  public Collection<String> getPropertyValues(String key) {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public Collection<String> getPropertyValues(String key) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for column decorators.
@@ -74,8 +74,7 @@ class ColumnDecoratorTest extends DisplaytagCase {
 
         Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
 
-        Assertions.assertEquals(
-                new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null), tables[0].getCellAsText(1, 0),
-                "Expected decorated value not found.");
+        Assertions.assertEquals(new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null),
+                tables[0].getCellAsText(1, 0), "Expected decorated value not found.");
     }
 }

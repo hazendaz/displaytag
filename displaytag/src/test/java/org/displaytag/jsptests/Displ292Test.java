@@ -21,6 +21,10 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,10 +37,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 /**
  * The Class Displ292Test.
@@ -85,7 +85,7 @@ class Displ292Test extends DisplaytagCase {
     @Override
     @Disabled
     @Test
-    @EnabledOnOs({OS.WINDOWS, OS.MAC})
+    @EnabledOnOs({ OS.WINDOWS, OS.MAC })
     public void doTest() throws Exception {
         final ParamEncoder encoder = new ParamEncoder("table");
         final String mediaParameter = encoder.encodeParameterName(TableTagParameters.PARAMETER_EXPORTTYPE);
@@ -100,7 +100,8 @@ class Displ292Test extends DisplaytagCase {
 
         final String[] rows = StringUtils.split(responseText, "\n");
 
-        Assertions.assertEquals(4, rows.length, "Wrong number of rows exported from response text: " + Arrays.asList(rows));
+        Assertions.assertEquals(4, rows.length,
+                "Wrong number of rows exported from response text: " + Arrays.asList(rows));
 
     }
 

@@ -21,13 +21,13 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.HttpInternalErrorException;
 import com.meterware.httpunit.WebRequest;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for #968559.

@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for different kind of "data sources".
@@ -77,14 +77,12 @@ class DataSourceMapAutoColumnTest extends DisplaytagCase {
 
         Assertions.assertEquals(3, tables[0].getColumnCount(), "Bad number of generated columns.");
 
-        Assertions.assertEquals(
-                StringUtils.capitalize(KnownValue.ANT), tables[0].getCellAsText(0, 0),
+        Assertions.assertEquals(StringUtils.capitalize(KnownValue.ANT), tables[0].getCellAsText(0, 0),
                 "Bad value in column header.");
-        Assertions.assertEquals(
-                StringUtils.capitalize(KnownValue.BEE), tables[0].getCellAsText(0, 1),
+        Assertions.assertEquals(StringUtils.capitalize(KnownValue.BEE), tables[0].getCellAsText(0, 1),
                 "Bad value in column header.");
-        Assertions.assertEquals(
-                "camel title", tables[0].getCellAsText(0, 2), "Bad value in column header."); // localized text
+        Assertions.assertEquals("camel title", tables[0].getCellAsText(0, 2), "Bad value in column header."); // localized
+                                                                                                              // text
 
         Assertions.assertEquals(KnownValue.ANT, tables[0].getCellAsText(1, 0), "Bad value in column content.");
         Assertions.assertEquals(KnownValue.BEE, tables[0].getCellAsText(1, 1), "Bad value in column content.");

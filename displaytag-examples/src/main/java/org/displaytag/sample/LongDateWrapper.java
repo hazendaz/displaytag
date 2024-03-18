@@ -30,15 +30,15 @@ import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
 
-
 /**
  * Simple column decorator which formats a date.
+ *
  * @author epesh
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class LongDateWrapper implements DisplaytagColumnDecorator
-{
+public class LongDateWrapper implements DisplaytagColumnDecorator {
 
     /**
      * FastDateFormat used to format the date object.
@@ -47,11 +47,11 @@ public class LongDateWrapper implements DisplaytagColumnDecorator
 
     /**
      * transform the given object into a String representation. The object is supposed to be a date.
+     *
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
     @Override
-    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException
-    {
+    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException {
         Date date = (Date) columnValue;
         return this.dateFormat.format(date);
     }

@@ -21,18 +21,18 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebLink;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.URLAssertions;
 import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebLink;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-117 - Allow ColumnTag to generate links to current page.
@@ -81,7 +81,8 @@ class Displ117Test extends DisplaytagCase {
         final WebLink[] links = response.getLinks();
         Assertions.assertEquals(1, links.length, "Wrong number of links in result.");
 
-        URLAssertions.assertEquals("/context/goforit?param=ant&amp;d-148916-s=0&amp;d-148916-o=2", links[0].getURLString());
+        URLAssertions.assertEquals("/context/goforit?param=ant&amp;d-148916-s=0&amp;d-148916-o=2",
+                links[0].getURLString());
     }
 
 }

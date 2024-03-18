@@ -17,6 +17,7 @@
 package org.springframework.mock.web.portlet;
 
 import java.util.Collection;
+
 import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
 import javax.portlet.RenderRequest;
@@ -27,76 +28,78 @@ import javax.portlet.RenderResponse;
  *
  * @author John A. Lewis
  * @author Juergen Hoeller
+ *
  * @since 2.0
  */
 public class MockRenderResponse extends MockMimeResponse implements RenderResponse {
 
-	/** The title. */
-	private String title;
+    /** The title. */
+    private String title;
 
-	/** The next possible portlet modes. */
-	private Collection<? extends PortletMode> nextPossiblePortletModes;
+    /** The next possible portlet modes. */
+    private Collection<? extends PortletMode> nextPossiblePortletModes;
 
+    /**
+     * Create a new MockRenderResponse with a default {@link MockPortalContext}.
+     *
+     * @see MockPortalContext
+     */
+    public MockRenderResponse() {
+        super();
+    }
 
-	/**
-	 * Create a new MockRenderResponse with a default {@link MockPortalContext}.
-	 * @see MockPortalContext
-	 */
-	public MockRenderResponse() {
-		super();
-	}
+    /**
+     * Create a new MockRenderResponse.
+     *
+     * @param portalContext
+     *            the PortalContext defining the supported PortletModes and WindowStates
+     */
+    public MockRenderResponse(PortalContext portalContext) {
+        super(portalContext);
+    }
 
-	/**
-	 * Create a new MockRenderResponse.
-	 * @param portalContext the PortalContext defining the supported
-	 * PortletModes and WindowStates
-	 */
-	public MockRenderResponse(PortalContext portalContext) {
-		super(portalContext);
-	}
+    /**
+     * Create a new MockRenderResponse.
+     *
+     * @param portalContext
+     *            the PortalContext defining the supported PortletModes and WindowStates
+     * @param request
+     *            the corresponding render request that this response is generated for
+     */
+    public MockRenderResponse(PortalContext portalContext, RenderRequest request) {
+        super(portalContext, request);
+    }
 
-	/**
-	 * Create a new MockRenderResponse.
-	 * @param portalContext the PortalContext defining the supported
-	 * PortletModes and WindowStates
-	 * @param request the corresponding render request that this response
-	 * is generated for
-	 */
-	public MockRenderResponse(PortalContext portalContext, RenderRequest request) {
-		super(portalContext, request);
-	}
+    // ---------------------------------------------------------------------
+    // RenderResponse methods
+    // ---------------------------------------------------------------------
 
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	//---------------------------------------------------------------------
-	// RenderResponse methods
-	//---------------------------------------------------------------------
+    /**
+     * Gets the title.
+     *
+     * @return the title
+     */
+    public String getTitle() {
+        return this.title;
+    }
 
-	@Override
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    @Override
+    public void setNextPossiblePortletModes(Collection<? extends PortletMode> portletModes) {
+        this.nextPossiblePortletModes = portletModes;
+    }
 
-	/**
-	 * Gets the title.
-	 *
-	 * @return the title
-	 */
-	public String getTitle() {
-		return this.title;
-	}
-
-	@Override
-	public void setNextPossiblePortletModes(Collection<? extends PortletMode> portletModes) {
-		this.nextPossiblePortletModes = portletModes;
-	}
-
-	/**
-	 * Gets the next possible portlet modes.
-	 *
-	 * @return the next possible portlet modes
-	 */
-	public Collection<? extends PortletMode> getNextPossiblePortletModes() {
-		return this.nextPossiblePortletModes;
-	}
+    /**
+     * Gets the next possible portlet modes.
+     *
+     * @return the next possible portlet modes
+     */
+    public Collection<? extends PortletMode> getNextPossiblePortletModes() {
+        return this.nextPossiblePortletModes;
+    }
 
 }

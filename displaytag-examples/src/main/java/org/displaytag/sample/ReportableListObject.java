@@ -28,15 +28,15 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-
 /**
  * A test class that has data that looks more like information that comes back in a report.
+ *
  * @author epesh
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ReportableListObject extends Object implements Comparable<Object>, Serializable
-{
+public class ReportableListObject extends Object implements Comparable<Object>, Serializable {
 
     /**
      * D1597A17A6.
@@ -52,13 +52,13 @@ public class ReportableListObject extends Object implements Comparable<Object>, 
      * city names.
      */
     private static String[] cities = //
-    {"Roma", "Olympia", "Neapolis", "Carthago"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+            { "Roma", "Olympia", "Neapolis", "Carthago" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
     /**
      * project names.
      */
     private static String[] projects = //
-    {"Taxes", "Arts", "Army", "Gladiators"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+            { "Taxes", "Arts", "Army", "Gladiators" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
     /**
      * city.
@@ -88,8 +88,7 @@ public class ReportableListObject extends Object implements Comparable<Object>, 
     /**
      * Constructor for ReportableListObject.
      */
-    public ReportableListObject()
-    {
+    public ReportableListObject() {
         this.amount = (random.nextInt(99999) + 1) / 100;
         this.city = cities[random.nextInt(cities.length)];
         this.project = projects[random.nextInt(projects.length)];
@@ -99,46 +98,46 @@ public class ReportableListObject extends Object implements Comparable<Object>, 
 
     /**
      * getter for city.
+     *
      * @return String city
      */
-    public String getCity()
-    {
+    public String getCity() {
         return this.city;
     }
 
     /**
      * Getter for <code>count</code>.
+     *
      * @return Returns the count.
      */
-    public int getCount()
-    {
+    public int getCount() {
         return this.count;
     }
 
     /**
      * getter for project.
+     *
      * @return String project
      */
-    public String getProject()
-    {
+    public String getProject() {
         return this.project;
     }
 
     /**
      * getter for task.
+     *
      * @return String task
      */
-    public String getTask()
-    {
+    public String getTask() {
         return this.task;
     }
 
     /**
      * getter for amount.
+     *
      * @return double amount
      */
-    public double getAmount()
-    {
+    public double getAmount() {
         return this.amount;
     }
 
@@ -146,29 +145,23 @@ public class ReportableListObject extends Object implements Comparable<Object>, 
      * @see java.lang.Comparable#compareTo(Object)
      */
     @Override
-    public int compareTo(Object object)
-    {
+    public int compareTo(Object object) {
         ReportableListObject myClass = (ReportableListObject) object;
-        return new CompareToBuilder()
-            .append(this.project, myClass.project)
-            .append(this.amount, myClass.amount)
-            .append(this.city, myClass.city)
-            .append(this.task, myClass.task)
-            .toComparison();
+        return new CompareToBuilder().append(this.project, myClass.project).append(this.amount, myClass.amount)
+                .append(this.city, myClass.city).append(this.task, myClass.task).toComparison();
     }
 
     /**
      * @see java.lang.Object#toString()
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE) //
-            .append("project", this.project) //$NON-NLS-1$
-            .append("amount", this.amount) //$NON-NLS-1$
-            .append("city", this.city) //$NON-NLS-1$
-            .append("task", this.task) //$NON-NLS-1$
-            .toString();
+                .append("project", this.project) //$NON-NLS-1$
+                .append("amount", this.amount) //$NON-NLS-1$
+                .append("city", this.city) //$NON-NLS-1$
+                .append("task", this.task) //$NON-NLS-1$
+                .toString();
     }
 
 }

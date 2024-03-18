@@ -21,17 +21,17 @@
  */
 package org.displaytag.properties;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.displaytag.localization.I18nResourceProvider;
 import org.displaytag.localization.LocaleResolver;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for "titlekey" column attribute.
@@ -115,8 +115,8 @@ public abstract class AbstractTitleKeyAutoColumnTest extends DisplaytagCase {
         }
 
         // resource should be used also without the property attribute for the "camel" header
-        Assertions.assertEquals("camel title" + this.getExpectedSuffix(),
-                tables[0].getCellAsText(0, j), "Header from resource is not valid.");
+        Assertions.assertEquals("camel title" + this.getExpectedSuffix(), tables[0].getCellAsText(0, j),
+                "Header from resource is not valid.");
 
     }
 }

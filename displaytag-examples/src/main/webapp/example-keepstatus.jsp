@@ -5,7 +5,7 @@
     <![CDATA[
         if (request.getSession().getAttribute( "testform")==null){
           request.getSession().setAttribute( "testform", new org.displaytag.sample.TestList(30, false) );
-        } 
+        }
     ]]>
   </jsp:scriptlet>
   <tags:page>

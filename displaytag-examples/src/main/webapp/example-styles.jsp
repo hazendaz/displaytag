@@ -43,7 +43,7 @@ String lClass = "isis";
     <tags:ad name="middle"/>
     <h2>Html attributes</h2>
     <p> You can assign to the &amp;lt;display:table&gt; tag any standard html attribute (es. cellspacing, cellpadding),
-      and it will be included in the rendered table. 
+      and it will be included in the rendered table.
     </p>
     <p>
       Likewise, you can assign to the &amp;lt;display:column&gt; tag any standard html attribute and it will be included
@@ -64,7 +64,7 @@ String lClass = "isis";
     <p> While attributes might be the most comfortable way to change the appearance of your table, using style sheets is
       more powerful. We use style sheets to make the header a dark color, make rows an alternate color, and set the
       fonts within the cells to a smaller version of verdana. As the &amp;lt;display:table&gt; tag is drawing, it
-      assigns the following class names to elements. 
+      assigns the following class names to elements.
     </p>
     <p> You can then create a style sheet and assign attributes such as font size, family, color, etc... to each of
       those class names and the table will be shown according to your styles.

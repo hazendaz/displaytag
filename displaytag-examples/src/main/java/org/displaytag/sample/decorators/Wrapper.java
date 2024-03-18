@@ -27,13 +27,11 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.sample.ListObject;
 
-
 /**
  * This class is a decorator of the TestObjects that we keep in our List. This class provides a number of methods for
  * formatting data, creating dynamic links, and exercising some aspects of the display:table API functionality.
  */
-public class Wrapper extends TableDecorator
-{
+public class Wrapper extends TableDecorator {
 
     /**
      * FastDateFormat used to format dates in getDate().
@@ -48,8 +46,7 @@ public class Wrapper extends TableDecorator
     /**
      * Creates a new Wrapper decorator who's job is to reformat some of the data located in our TestObject's.
      */
-    public Wrapper()
-    {
+    public Wrapper() {
         super();
 
         this.dateFormat = FastDateFormat.getInstance("MM/dd/yy");
@@ -61,8 +58,7 @@ public class Wrapper extends TableDecorator
      *
      * @return the null value
      */
-    public String getNullValue()
-    {
+    public String getNullValue() {
         return null;
     }
 
@@ -71,8 +67,7 @@ public class Wrapper extends TableDecorator
      *
      * @return the date
      */
-    public String getDate()
-    {
+    public String getDate() {
         return this.dateFormat.format(((ListObject) this.getCurrentRowObject()).getDate());
     }
 
@@ -81,8 +76,7 @@ public class Wrapper extends TableDecorator
      *
      * @return the money
      */
-    public String getMoney()
-    {
+    public String getMoney() {
         return this.moneyFormat.format(((ListObject) this.getCurrentRowObject()).getMoney());
     }
 
@@ -91,8 +85,7 @@ public class Wrapper extends TableDecorator
      *
      * @return the link 1
      */
-    public String getLink1()
-    {
+    public String getLink1() {
         ListObject object = (ListObject) getCurrentRowObject();
         int index = getListIndex();
 
@@ -105,19 +98,12 @@ public class Wrapper extends TableDecorator
      *
      * @return the link 2
      */
-    public String getLink2()
-    {
+    public String getLink2() {
         ListObject object = (ListObject) getCurrentRowObject();
         int id = object.getId();
 
-        return "<a href=\"details.jsp?id="
-            + id
-            + "&amp;action=view\">View</a> | "
-            + "<a href=\"details.jsp?id="
-            + id
-            + "&amp;action=edit\">Edit</a> | "
-            + "<a href=\"details.jsp?id="
-            + id
-            + "&amp;action=delete\">Delete</a>";
+        return "<a href=\"details.jsp?id=" + id + "&amp;action=view\">View</a> | " + "<a href=\"details.jsp?id=" + id
+                + "&amp;action=edit\">Edit</a> | " + "<a href=\"details.jsp?id=" + id
+                + "&amp;action=delete\">Delete</a>";
     }
 }

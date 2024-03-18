@@ -23,13 +23,14 @@ import javax.portlet.EventResponse;
  * Mock implementation of the {@link javax.portlet.EventResponse} interface.
  *
  * @author Juergen Hoeller
+ *
  * @since 3.0
  */
 public class MockEventResponse extends MockStateAwareResponse implements EventResponse {
 
-	@Override
-	public void setRenderParameters(EventRequest request) {
-		setRenderParameters(request.getParameterMap());
-	}
+    @Override
+    public void setRenderParameters(EventRequest request) {
+        setRenderParameters(request.getParameterMap());
+    }
 
 }

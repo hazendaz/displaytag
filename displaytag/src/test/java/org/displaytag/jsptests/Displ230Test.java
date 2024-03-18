@@ -21,6 +21,11 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.HTMLElement;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -30,11 +35,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.HTMLElement;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 /**
  * The Class Displ230.

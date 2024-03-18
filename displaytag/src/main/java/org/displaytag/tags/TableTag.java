@@ -747,8 +747,8 @@ public class TableTag extends HtmlTableTag {
      */
     public boolean isFirstIteration() {
         if (TableTag.log.isDebugEnabled()) {
-            TableTag.log.debug("[{}] first iteration={} (row number={})",
-                    this.getUid(), (this.rowNumber == 1), this.rowNumber);
+            TableTag.log.debug("[{}] first iteration={} (row number={})", this.getUid(), (this.rowNumber == 1),
+                    this.rowNumber);
         }
         // in first iteration this.rowNumber is 1
         // (this.rowNumber is incremented in doAfterBody)

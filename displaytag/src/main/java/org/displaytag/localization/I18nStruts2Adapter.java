@@ -21,6 +21,11 @@
  */
 package org.displaytag.localization;
 
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.LocaleProvider;
+import com.opensymphony.xwork2.TextProvider;
+import com.opensymphony.xwork2.util.ValueStack;
+
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -31,11 +36,6 @@ import org.apache.struts2.views.jsp.TagUtils;
 import org.displaytag.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.LocaleProvider;
-import com.opensymphony.xwork2.TextProvider;
-import com.opensymphony.xwork2.util.ValueStack;
 
 /**
  * Resolve i18n resources in Struts 2.

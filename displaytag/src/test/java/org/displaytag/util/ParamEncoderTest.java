@@ -38,8 +38,9 @@ class ParamEncoderTest {
      */
     @Test
     void testOptionAndAnswer() {
-        Assertions.assertNotEquals(new ParamEncoder("option")
-                .encodeParameterName("x"), new ParamEncoder("answer").encodeParameterName("x"), "id 'option' and 'answer' produce the same parameter");
+        Assertions.assertNotEquals(new ParamEncoder("option").encodeParameterName("x"),
+                new ParamEncoder("answer").encodeParameterName("x"),
+                "id 'option' and 'answer' produce the same parameter");
     }
 
     /**
@@ -47,10 +48,8 @@ class ParamEncoderTest {
      */
     @Test
     void testEquals() {
-        Assertions.assertEquals(
-                new ParamEncoder("equals").encodeParameterName("x"),
-                new ParamEncoder("equals").encodeParameterName("x"),
-                "The same parameter should produce equals key.");
+        Assertions.assertEquals(new ParamEncoder("equals").encodeParameterName("x"),
+                new ParamEncoder("equals").encodeParameterName("x"), "The same parameter should produce equals key.");
     }
 
     /**

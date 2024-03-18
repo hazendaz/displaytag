@@ -19,6 +19,7 @@ package org.springframework.mock.web.portlet;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import javax.portlet.PortalContext;
 import javax.portlet.PortletAsyncContext;
 import javax.portlet.PortletContext;
@@ -32,173 +33,188 @@ import javax.servlet.DispatcherType;
  * Mock implementation of the {@link javax.portlet.ResourceRequest} interface.
  *
  * @author Juergen Hoeller
+ *
  * @since 3.0
  */
 public class MockResourceRequest extends MockClientDataRequest implements ResourceRequest {
 
-	/** The resource ID. */
-	private String resourceID;
+    /** The resource ID. */
+    private String resourceID;
 
-	/** The cacheability. */
-	private String cacheability;
+    /** The cacheability. */
+    private String cacheability;
 
-	/** The private render parameter map. */
-	private final Map<String, String[]> privateRenderParameterMap = new LinkedHashMap<String, String[]>();
+    /** The private render parameter map. */
+    private final Map<String, String[]> privateRenderParameterMap = new LinkedHashMap<String, String[]>();
 
+    /**
+     * Create a new MockResourceRequest with a default {@link MockPortalContext} and a default
+     * {@link MockPortletContext}.
+     *
+     * @see org.springframework.mock.web.portlet.MockPortalContext
+     * @see org.springframework.mock.web.portlet.MockPortletContext
+     */
+    public MockResourceRequest() {
+        super();
+    }
 
-	/**
-	 * Create a new MockResourceRequest with a default {@link MockPortalContext}
-	 * and a default {@link MockPortletContext}.
-	 * @see org.springframework.mock.web.portlet.MockPortalContext
-	 * @see org.springframework.mock.web.portlet.MockPortletContext
-	 */
-	public MockResourceRequest() {
-		super();
-	}
+    /**
+     * Create a new MockResourceRequest with a default {@link MockPortalContext} and a default
+     * {@link MockPortletContext}.
+     *
+     * @param resourceID
+     *            the resource id for this request
+     */
+    public MockResourceRequest(String resourceID) {
+        super();
+        this.resourceID = resourceID;
+    }
 
-	/**
-	 * Create a new MockResourceRequest with a default {@link MockPortalContext}
-	 * and a default {@link MockPortletContext}.
-	 * @param resourceID the resource id for this request
-	 */
-	public MockResourceRequest(String resourceID) {
-		super();
-		this.resourceID = resourceID;
-	}
+    /**
+     * Create a new MockResourceRequest with a default {@link MockPortalContext} and a default
+     * {@link MockPortletContext}.
+     *
+     * @param url
+     *            the resource URL for this request
+     */
+    public MockResourceRequest(MockResourceURL url) {
+        super();
+        this.resourceID = url.getResourceID();
+        this.cacheability = url.getCacheability();
+    }
 
-	/**
-	 * Create a new MockResourceRequest with a default {@link MockPortalContext}
-	 * and a default {@link MockPortletContext}.
-	 * @param url the resource URL for this request
-	 */
-	public MockResourceRequest(MockResourceURL url) {
-		super();
-		this.resourceID = url.getResourceID();
-		this.cacheability = url.getCacheability();
-	}
+    /**
+     * Create a new MockResourceRequest with a default {@link MockPortalContext}.
+     *
+     * @param portletContext
+     *            the PortletContext that the request runs in
+     */
+    public MockResourceRequest(PortletContext portletContext) {
+        super(portletContext);
+    }
 
-	/**
-	 * Create a new MockResourceRequest with a default {@link MockPortalContext}.
-	 * @param portletContext the PortletContext that the request runs in
-	 */
-	public MockResourceRequest(PortletContext portletContext) {
-		super(portletContext);
-	}
+    /**
+     * Create a new MockResourceRequest.
+     *
+     * @param portalContext
+     *            the PortalContext that the request runs in
+     * @param portletContext
+     *            the PortletContext that the request runs in
+     */
+    public MockResourceRequest(PortalContext portalContext, PortletContext portletContext) {
+        super(portalContext, portletContext);
+    }
 
-	/**
-	 * Create a new MockResourceRequest.
-	 * @param portalContext the PortalContext that the request runs in
-	 * @param portletContext the PortletContext that the request runs in
-	 */
-	public MockResourceRequest(PortalContext portalContext, PortletContext portletContext) {
-		super(portalContext, portletContext);
-	}
+    @Override
+    protected String getLifecyclePhase() {
+        return RESOURCE_PHASE;
+    }
 
+    /**
+     * Sets the resource ID.
+     *
+     * @param resourceID
+     *            the new resource ID
+     */
+    public void setResourceID(String resourceID) {
+        this.resourceID = resourceID;
+    }
 
-	@Override
-	protected String getLifecyclePhase() {
-		return RESOURCE_PHASE;
-	}
+    @Override
+    public String getResourceID() {
+        return this.resourceID;
+    }
 
-	/**
-	 * Sets the resource ID.
-	 *
-	 * @param resourceID the new resource ID
-	 */
-	public void setResourceID(String resourceID) {
-		this.resourceID = resourceID;
-	}
+    /**
+     * Sets the cacheability.
+     *
+     * @param cacheLevel
+     *            the new cacheability
+     */
+    public void setCacheability(String cacheLevel) {
+        this.cacheability = cacheLevel;
+    }
 
-	@Override
-	public String getResourceID() {
-		return this.resourceID;
-	}
+    @Override
+    public String getCacheability() {
+        return this.cacheability;
+    }
 
-	/**
-	 * Sets the cacheability.
-	 *
-	 * @param cacheLevel the new cacheability
-	 */
-	public void setCacheability(String cacheLevel) {
-		this.cacheability = cacheLevel;
-	}
+    @Override
+    public String getETag() {
+        return getProperty(RenderRequest.ETAG);
+    }
 
-	@Override
-	public String getCacheability() {
-		return this.cacheability;
-	}
+    /**
+     * Adds the private render parameter.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
+    public void addPrivateRenderParameter(String key, String value) {
+        this.privateRenderParameterMap.put(key, new String[] { value });
+    }
 
-	@Override
-	public String getETag() {
-		return getProperty(RenderRequest.ETAG);
-	}
+    /**
+     * Adds the private render parameter.
+     *
+     * @param key
+     *            the key
+     * @param values
+     *            the values
+     */
+    public void addPrivateRenderParameter(String key, String[] values) {
+        this.privateRenderParameterMap.put(key, values);
+    }
 
-	/**
-	 * Adds the private render parameter.
-	 *
-	 * @param key the key
-	 * @param value the value
-	 */
-	public void addPrivateRenderParameter(String key, String value) {
-		this.privateRenderParameterMap.put(key, new String[] {value});
-	}
+    @Override
+    public Map<String, String[]> getPrivateRenderParameterMap() {
+        return Collections.unmodifiableMap(this.privateRenderParameterMap);
+    }
 
-	/**
-	 * Adds the private render parameter.
-	 *
-	 * @param key the key
-	 * @param values the values
-	 */
-	public void addPrivateRenderParameter(String key, String[] values) {
-		this.privateRenderParameterMap.put(key, values);
-	}
+    @Override
+    public ResourceParameters getResourceParameters() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Map<String, String[]> getPrivateRenderParameterMap() {
-		return Collections.unmodifiableMap(this.privateRenderParameterMap);
-	}
+    @Override
+    public PortletAsyncContext startPortletAsync() throws IllegalStateException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  @Override
-  public ResourceParameters getResourceParameters() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public PortletAsyncContext startPortletAsync(ResourceRequest request, ResourceResponse response)
+            throws IllegalStateException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  @Override
-  public PortletAsyncContext startPortletAsync() throws IllegalStateException {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public boolean isAsyncStarted() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-  @Override
-  public PortletAsyncContext startPortletAsync(ResourceRequest request, ResourceResponse response)
-      throws IllegalStateException {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public boolean isAsyncSupported() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-  @Override
-  public boolean isAsyncStarted() {
-    // TODO Auto-generated method stub
-    return false;
-  }
+    @Override
+    public PortletAsyncContext getPortletAsyncContext() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  @Override
-  public boolean isAsyncSupported() {
-    // TODO Auto-generated method stub
-    return false;
-  }
-
-  @Override
-  public PortletAsyncContext getPortletAsyncContext() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public DispatcherType getDispatcherType() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public DispatcherType getDispatcherType() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

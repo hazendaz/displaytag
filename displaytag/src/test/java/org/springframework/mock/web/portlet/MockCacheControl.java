@@ -22,61 +22,61 @@ import javax.portlet.CacheControl;
  * Mock implementation of the {@link javax.portlet.CacheControl} interface.
  *
  * @author Juergen Hoeller
+ *
  * @since 3.0
  */
 public class MockCacheControl implements CacheControl {
 
-	/** The expiration time. */
-	private int expirationTime = 0;
+    /** The expiration time. */
+    private int expirationTime = 0;
 
-	/** The public scope. */
-	private boolean publicScope = false;
+    /** The public scope. */
+    private boolean publicScope = false;
 
-	/** The etag. */
-	private String etag;
+    /** The etag. */
+    private String etag;
 
-	/** The use cached content. */
-	private boolean useCachedContent = false;
+    /** The use cached content. */
+    private boolean useCachedContent = false;
 
+    @Override
+    public int getExpirationTime() {
+        return this.expirationTime;
+    }
 
-	@Override
-	public int getExpirationTime() {
-		return this.expirationTime;
-	}
+    @Override
+    public void setExpirationTime(int time) {
+        this.expirationTime = time;
+    }
 
-	@Override
-	public void setExpirationTime(int time) {
-		this.expirationTime = time;
-	}
+    @Override
+    public boolean isPublicScope() {
+        return this.publicScope;
+    }
 
-	@Override
-	public boolean isPublicScope() {
-		return this.publicScope;
-	}
+    @Override
+    public void setPublicScope(boolean publicScope) {
+        this.publicScope = publicScope;
+    }
 
-	@Override
-	public void setPublicScope(boolean publicScope) {
-		this.publicScope = publicScope;
-	}
+    @Override
+    public String getETag() {
+        return this.etag;
+    }
 
-	@Override
-	public String getETag() {
-		return this.etag;
-	}
+    @Override
+    public void setETag(String token) {
+        this.etag = token;
+    }
 
-	@Override
-	public void setETag(String token) {
-		this.etag = token;
-	}
+    @Override
+    public boolean useCachedContent() {
+        return this.useCachedContent;
+    }
 
-	@Override
-	public boolean useCachedContent() {
-		return this.useCachedContent;
-	}
-
-	@Override
-	public void setUseCachedContent(boolean useCachedContent) {
-		this.useCachedContent = useCachedContent;
-	}
+    @Override
+    public void setUseCachedContent(boolean useCachedContent) {
+        this.useCachedContent = useCachedContent;
+    }
 
 }

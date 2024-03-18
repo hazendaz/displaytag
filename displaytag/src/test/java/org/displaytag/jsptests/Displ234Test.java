@@ -21,14 +21,14 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-234 - HTML title not added with chopped value (column tag - maxLength attribute).
@@ -72,12 +72,12 @@ class Displ234Test extends DisplaytagCase {
         Assertions.assertEquals(1, tables.length, "Wrong number of tables in result.");
         Assertions.assertEquals(2, tables[0].getRowCount(), "Wrong number of rows in result.");
 
-        Assertions.assertEquals("123456789012",
-                tables[0].getTableCell(1, 0).getAttribute("title"), "Wrong or missing title for cropped text.");
-        Assertions.assertEquals("12345678901234",
-                tables[0].getTableCell(1, 1).getAttribute("title"), "Wrong or missing title for cropped text.");
-        Assertions.assertEquals("12345678901234567",
-                tables[0].getTableCell(1, 2).getAttribute("title"), "Wrong or missing title for cropped text.");
+        Assertions.assertEquals("123456789012", tables[0].getTableCell(1, 0).getAttribute("title"),
+                "Wrong or missing title for cropped text.");
+        Assertions.assertEquals("12345678901234", tables[0].getTableCell(1, 1).getAttribute("title"),
+                "Wrong or missing title for cropped text.");
+        Assertions.assertEquals("12345678901234567", tables[0].getTableCell(1, 2).getAttribute("title"),
+                "Wrong or missing title for cropped text.");
         Assertions.assertEquals("", tables[0].getTableCell(1, 3).getAttribute("title"), "Title should not be added.");
 
     }

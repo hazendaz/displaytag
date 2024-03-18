@@ -29,89 +29,87 @@ import javax.portlet.WindowState;
  * Mock implementation of the {@link javax.portlet.ResourceURL} interface.
  *
  * @author Juergen Hoeller
+ *
  * @since 3.0
  */
 public class MockResourceURL extends MockBaseURL implements ResourceURL {
 
-	/** The resource ID. */
-	private String resourceID;
+    /** The resource ID. */
+    private String resourceID;
 
-	/** The cacheability. */
-	private String cacheability;
+    /** The cacheability. */
+    private String cacheability;
 
+    // ---------------------------------------------------------------------
+    // ResourceURL methods
+    // ---------------------------------------------------------------------
 
-	//---------------------------------------------------------------------
-	// ResourceURL methods
-	//---------------------------------------------------------------------
+    @Override
+    public void setResourceID(String resourceID) {
+        this.resourceID = resourceID;
+    }
 
-	@Override
-	public void setResourceID(String resourceID) {
-		this.resourceID = resourceID;
-	}
+    public String getResourceID() {
+        return this.resourceID;
+    }
 
-	public String getResourceID() {
-		return this.resourceID;
-	}
+    @Override
+    public void setCacheability(String cacheLevel) {
+        this.cacheability = cacheLevel;
+    }
 
-	@Override
-	public void setCacheability(String cacheLevel) {
-		this.cacheability = cacheLevel;
-	}
+    @Override
+    public String getCacheability() {
+        return this.cacheability;
+    }
 
-	@Override
-	public String getCacheability() {
-		return this.cacheability;
-	}
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(encodeParameter("resourceID", this.resourceID));
+        if (this.cacheability != null) {
+            sb.append(";").append(encodeParameter("cacheability", this.cacheability));
+        }
+        for (Map.Entry<String, String[]> entry : this.parameters.entrySet()) {
+            sb.append(";").append(encodeParameter("param_" + entry.getKey(), entry.getValue()));
+        }
+        return (isSecure() ? "https:" : "http:") + "//localhost/mockportlet?" + sb.toString();
+    }
 
+    @Override
+    public Appendable append(Appendable out) throws IOException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(encodeParameter("resourceID", this.resourceID));
-		if (this.cacheability != null) {
-			sb.append(";").append(encodeParameter("cacheability", this.cacheability));
-		}
-		for (Map.Entry<String, String[]> entry : this.parameters.entrySet()) {
-			sb.append(";").append(encodeParameter("param_" + entry.getKey(), entry.getValue()));
-		}
-		return (isSecure() ? "https:" : "http:") +
-				"//localhost/mockportlet?" + sb.toString();
-	}
+    @Override
+    public Appendable append(Appendable out, boolean escapeXML) throws IOException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  @Override
-  public Appendable append(Appendable out) throws IOException {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public RenderParameters getRenderParameters() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  @Override
-  public Appendable append(Appendable out, boolean escapeXML) throws IOException {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public PortletMode getPortletMode() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  @Override
-  public RenderParameters getRenderParameters() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public WindowState getWindowState() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  @Override
-  public PortletMode getPortletMode() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public WindowState getWindowState() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public MutableResourceParameters getResourceParameters() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public MutableResourceParameters getResourceParameters() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

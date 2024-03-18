@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-264 - Export to Excel not appending form parameters.

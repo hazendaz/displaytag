@@ -21,17 +21,17 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.test.KnownTypes;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * The Class TotalsTest.
@@ -78,12 +78,12 @@ class TotalsTest extends DisplaytagCase {
 
         Assertions.assertEquals(3, tables[0].getColumnCount(), "Bad number of generated columns.");
         // The footer will PRECEDE the body.
-        Assertions.assertTrue(
-                StringUtils.isBlank(tables[0].getCellAsText(1, 0)),
-                "Totals should not be calculated / present if the column is not so marked.  Value is: " + tables[0].getCellAsText(1, 0));
-        Assertions.assertEquals("" + KnownTypes.LONG_VALUE.doubleValue() * 2,
-                tables[0].getCellAsText(1, 1), "Bad value in footer cell total.");
-        Assertions.assertEquals("" + KnownTypes.LONG_VALUE.doubleValue() * 2,
-                tables[0].getCellAsText(1, 2), "Bad value in footer cell total.");
+        Assertions.assertTrue(StringUtils.isBlank(tables[0].getCellAsText(1, 0)),
+                "Totals should not be calculated / present if the column is not so marked.  Value is: "
+                        + tables[0].getCellAsText(1, 0));
+        Assertions.assertEquals("" + KnownTypes.LONG_VALUE.doubleValue() * 2, tables[0].getCellAsText(1, 1),
+                "Bad value in footer cell total.");
+        Assertions.assertEquals("" + KnownTypes.LONG_VALUE.doubleValue() * 2, tables[0].getCellAsText(1, 2),
+                "Bad value in footer cell total.");
     }
 }

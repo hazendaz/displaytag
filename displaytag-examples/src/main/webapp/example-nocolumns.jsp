@@ -12,14 +12,14 @@
       property contained in the objects.
     </p>
     <p>Typically, the only time that you would want to use the tag in this simple way would be during development as a
-      sanity check. For production, you should always define at least a single column. 
+      sanity check. For production, you should always define at least a single column.
     </p>
     <tags:code>
     <![CDATA[
 <jsp:scriptlet>
   request.setAttribute( "test", new org.displaytag.sample.ReportList(6));
 </jsp:scriptlet>
-    
+
 <display:table name="test"/>
     ]]>
     </tags:code>

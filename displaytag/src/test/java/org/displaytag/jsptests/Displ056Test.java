@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-56 - unable to dinamically generate multiple tables on the same page with indipendent sorting
@@ -100,26 +100,25 @@ class Displ056Test extends DisplaytagCase {
         Assertions.assertEquals(3, tables.length, "Wrong number of tables in result.");
 
         // first is sorted, other aren't
-        Assertions.assertTrue(
-                StringUtils.contains(tables[0].getTableCell(0, 0).getClassName(), "sorted"),
+        Assertions.assertTrue(StringUtils.contains(tables[0].getTableCell(0, 0).getClassName(), "sorted"),
                 "First table should be sorted. Wrong class attribute.");
-        Assertions.assertEquals(
-                "sortable", tables[1].getTableCell(0, 0).getClassName(),
+        Assertions.assertEquals("sortable", tables[1].getTableCell(0, 0).getClassName(),
                 "Second table should not be sorted. Wrong class attribute.");
-        Assertions.assertEquals(
-                "sortable", tables[2].getTableCell(0, 0).getClassName(),
+        Assertions.assertEquals("sortable", tables[2].getTableCell(0, 0).getClassName(),
                 "Third table should not be sorted. Wrong class attribute.");
 
         // and just to be sure also check values: sorted table
         for (int j = 1; j < tables[0].getRowCount(); j++) {
-            Assertions.assertEquals(Integer.toString(4 - j),
-                    tables[0].getCellAsText(j, 0), "Unexpected value in table cell");
+            Assertions.assertEquals(Integer.toString(4 - j), tables[0].getCellAsText(j, 0),
+                    "Unexpected value in table cell");
         }
 
         // unsorted tables:
         for (int j = 1; j < tables[1].getRowCount(); j++) {
-            Assertions.assertEquals(Integer.toString(j), tables[1].getCellAsText(j, 0), "Unexpected value in table cell");
-            Assertions.assertEquals(Integer.toString(j), tables[2].getCellAsText(j, 0), "Unexpected value in table cell");
+            Assertions.assertEquals(Integer.toString(j), tables[1].getCellAsText(j, 0),
+                    "Unexpected value in table cell");
+            Assertions.assertEquals(Integer.toString(j), tables[2].getCellAsText(j, 0),
+                    "Unexpected value in table cell");
         }
     }
 }

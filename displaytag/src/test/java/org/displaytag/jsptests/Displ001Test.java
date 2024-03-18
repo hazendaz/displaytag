@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-1 - Autolink and maxlength problem.
@@ -69,8 +69,8 @@ class Displ001Test extends DisplaytagCase {
 
         final WebTable[] tables = response.getTables();
         Assertions.assertEquals(1, tables.length, "Expected 1 table in result.");
-        Assertions.assertEquals("averylongemail@mail.com",
-                tables[0].getTableCell(1, 0).getTitle().trim(), "Wrong title in column");
+        Assertions.assertEquals("averylongemail@mail.com", tables[0].getTableCell(1, 0).getTitle().trim(),
+                "Wrong title in column");
 
         final WebLink[] links = tables[0].getTableCell(1, 0).getLinks();
         Assertions.assertEquals(1, links.length, "Expected link not found");

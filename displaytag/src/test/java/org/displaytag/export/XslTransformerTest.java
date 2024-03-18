@@ -21,6 +21,8 @@
  */
 package org.displaytag.export;
 
+import com.itextpdf.text.pdf.PdfReader;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -37,8 +39,6 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.itextpdf.text.pdf.PdfReader;
 
 /**
  * Created by IntelliJ IDEA.

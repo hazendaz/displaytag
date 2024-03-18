@@ -52,7 +52,8 @@ class PostHrefTest {
         final String url = "http://www.displaytag.org/displaytag/index.jsp?param1=a'a&param2=2";
         final Href href = new PostHref(new DefaultHref(url), "frm");
         final String newUrl = href.toString();
-        URLAssertions.assertEquals("javascript:displaytagform('frm',[{f:'param1',v:'a\\'a'},{f:'param2',v:'2'}])", newUrl);
+        URLAssertions.assertEquals("javascript:displaytagform('frm',[{f:'param1',v:'a\\'a'},{f:'param2',v:'2'}])",
+                newUrl);
     }
 
 }

@@ -25,73 +25,83 @@ import javax.portlet.PortletContext;
  * Mock implementation of the {@link javax.portlet.EventRequest} interface.
  *
  * @author Juergen Hoeller
+ *
  * @since 3.0
  */
 public class MockEventRequest extends MockPortletRequest implements EventRequest {
 
-	/** The event. */
-	private final Event event;
+    /** The event. */
+    private final Event event;
 
-	/** The method. */
-	private String method;
+    /** The method. */
+    private String method;
 
+    /**
+     * Create a new MockEventRequest with a default {@link MockPortalContext} and a default {@link MockPortletContext}.
+     *
+     * @param event
+     *            the event that this request wraps
+     *
+     * @see MockEvent
+     */
+    public MockEventRequest(Event event) {
+        super();
+        this.event = event;
+    }
 
-	/**
-	 * Create a new MockEventRequest with a default {@link MockPortalContext}
-	 * and a default {@link MockPortletContext}.
-	 * @param event the event that this request wraps
-	 * @see MockEvent
-	 */
-	public MockEventRequest(Event event) {
-		super();
-		this.event = event;
-	}
+    /**
+     * Create a new MockEventRequest with a default {@link MockPortalContext}.
+     *
+     * @param event
+     *            the event that this request wraps
+     * @param portletContext
+     *            the PortletContext that the request runs in
+     *
+     * @see MockEvent
+     */
+    public MockEventRequest(Event event, PortletContext portletContext) {
+        super(portletContext);
+        this.event = event;
+    }
 
-	/**
-	 * Create a new MockEventRequest with a default {@link MockPortalContext}.
-	 * @param event the event that this request wraps
-	 * @param portletContext the PortletContext that the request runs in
-	 * @see MockEvent
-	 */
-	public MockEventRequest(Event event, PortletContext portletContext) {
-		super(portletContext);
-		this.event = event;
-	}
+    /**
+     * Create a new MockEventRequest.
+     *
+     * @param event
+     *            the event that this request wraps
+     * @param portalContext
+     *            the PortletContext that the request runs in
+     * @param portletContext
+     *            the PortletContext that the request runs in
+     */
+    public MockEventRequest(Event event, PortalContext portalContext, PortletContext portletContext) {
+        super(portalContext, portletContext);
+        this.event = event;
+    }
 
-	/**
-	 * Create a new MockEventRequest.
-	 * @param event the event that this request wraps
-	 * @param portalContext the PortletContext that the request runs in
-	 * @param portletContext the PortletContext that the request runs in
-	 */
-	public MockEventRequest(Event event, PortalContext portalContext, PortletContext portletContext) {
-		super(portalContext, portletContext);
-		this.event = event;
-	}
+    @Override
+    protected String getLifecyclePhase() {
+        return EVENT_PHASE;
+    }
 
+    @Override
+    public Event getEvent() {
+        return this.event;
+    }
 
-	@Override
-	protected String getLifecyclePhase() {
-		return EVENT_PHASE;
-	}
+    /**
+     * Sets the method.
+     *
+     * @param method
+     *            the new method
+     */
+    public void setMethod(String method) {
+        this.method = method;
+    }
 
-	@Override
-	public Event getEvent() {
-		return this.event;
-	}
-
-	/**
-	 * Sets the method.
-	 *
-	 * @param method the new method
-	 */
-	public void setMethod(String method) {
-		this.method = method;
-	}
-
-	@Override
-	public String getMethod() {
-		return this.method;
-	}
+    @Override
+    public String getMethod() {
+        return this.method;
+    }
 
 }

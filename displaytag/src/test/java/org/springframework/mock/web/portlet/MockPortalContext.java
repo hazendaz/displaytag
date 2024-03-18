@@ -22,6 +22,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.portlet.PortalContext;
 import javax.portlet.PortletMode;
 import javax.portlet.WindowState;
@@ -31,85 +32,90 @@ import javax.portlet.WindowState;
  *
  * @author John A. Lewis
  * @author Juergen Hoeller
+ *
  * @since 2.0
  */
 public class MockPortalContext implements PortalContext {
 
-	/** The properties. */
-	private final Map<String, String> properties = new HashMap<String, String>();
+    /** The properties. */
+    private final Map<String, String> properties = new HashMap<String, String>();
 
-	/** The portlet modes. */
-	private final List<PortletMode> portletModes;
+    /** The portlet modes. */
+    private final List<PortletMode> portletModes;
 
-	/** The window states. */
-	private final List<WindowState> windowStates;
+    /** The window states. */
+    private final List<WindowState> windowStates;
 
+    /**
+     * Create a new MockPortalContext with default PortletModes (VIEW, EDIT, HELP) and default WindowStates (NORMAL,
+     * MAXIMIZED, MINIMIZED).
+     *
+     * @see javax.portlet.PortletMode
+     * @see javax.portlet.WindowState
+     */
+    public MockPortalContext() {
+        this.portletModes = new ArrayList<PortletMode>(3);
+        this.portletModes.add(PortletMode.VIEW);
+        this.portletModes.add(PortletMode.EDIT);
+        this.portletModes.add(PortletMode.HELP);
 
-	/**
-	 * Create a new MockPortalContext
-	 * with default PortletModes (VIEW, EDIT, HELP)
-	 * and default WindowStates (NORMAL, MAXIMIZED, MINIMIZED).
-	 * @see javax.portlet.PortletMode
-	 * @see javax.portlet.WindowState
-	 */
-	public MockPortalContext() {
-		this.portletModes = new ArrayList<PortletMode>(3);
-		this.portletModes.add(PortletMode.VIEW);
-		this.portletModes.add(PortletMode.EDIT);
-		this.portletModes.add(PortletMode.HELP);
+        this.windowStates = new ArrayList<WindowState>(3);
+        this.windowStates.add(WindowState.NORMAL);
+        this.windowStates.add(WindowState.MAXIMIZED);
+        this.windowStates.add(WindowState.MINIMIZED);
+    }
 
-		this.windowStates = new ArrayList<WindowState>(3);
-		this.windowStates.add(WindowState.NORMAL);
-		this.windowStates.add(WindowState.MAXIMIZED);
-		this.windowStates.add(WindowState.MINIMIZED);
-	}
+    /**
+     * Create a new MockPortalContext with the given PortletModes and WindowStates.
+     *
+     * @param supportedPortletModes
+     *            the List of supported PortletMode instances
+     * @param supportedWindowStates
+     *            the List of supported WindowState instances
+     *
+     * @see javax.portlet.PortletMode
+     * @see javax.portlet.WindowState
+     */
+    public MockPortalContext(List<PortletMode> supportedPortletModes, List<WindowState> supportedWindowStates) {
+        this.portletModes = new ArrayList<PortletMode>(supportedPortletModes);
+        this.windowStates = new ArrayList<WindowState>(supportedWindowStates);
+    }
 
-	/**
-	 * Create a new MockPortalContext with the given PortletModes and WindowStates.
-	 * @param supportedPortletModes the List of supported PortletMode instances
-	 * @param supportedWindowStates the List of supported WindowState instances
-	 * @see javax.portlet.PortletMode
-	 * @see javax.portlet.WindowState
-	 */
-	public MockPortalContext(List<PortletMode> supportedPortletModes, List<WindowState> supportedWindowStates) {
-		this.portletModes = new ArrayList<PortletMode>(supportedPortletModes);
-		this.windowStates = new ArrayList<WindowState>(supportedWindowStates);
-	}
+    @Override
+    public String getPortalInfo() {
+        return "MockPortal/1.0";
+    }
 
+    /**
+     * Sets the property.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
+    public void setProperty(String name, String value) {
+        this.properties.put(name, value);
+    }
 
-	@Override
-	public String getPortalInfo() {
-		return "MockPortal/1.0";
-	}
+    @Override
+    public String getProperty(String name) {
+        return this.properties.get(name);
+    }
 
-	/**
-	 * Sets the property.
-	 *
-	 * @param name the name
-	 * @param value the value
-	 */
-	public void setProperty(String name, String value) {
-		this.properties.put(name, value);
-	}
+    @Override
+    public Enumeration<String> getPropertyNames() {
+        return Collections.enumeration(this.properties.keySet());
+    }
 
-	@Override
-	public String getProperty(String name) {
-		return this.properties.get(name);
-	}
+    @Override
+    public Enumeration<PortletMode> getSupportedPortletModes() {
+        return Collections.enumeration(this.portletModes);
+    }
 
-	@Override
-	public Enumeration<String> getPropertyNames() {
-		return Collections.enumeration(this.properties.keySet());
-	}
-
-	@Override
-	public Enumeration<PortletMode> getSupportedPortletModes() {
-		return Collections.enumeration(this.portletModes);
-	}
-
-	@Override
-	public Enumeration<WindowState> getSupportedWindowStates() {
-		return Collections.enumeration(this.windowStates);
-	}
+    @Override
+    public Enumeration<WindowState> getSupportedWindowStates() {
+        return Collections.enumeration(this.windowStates);
+    }
 
 }

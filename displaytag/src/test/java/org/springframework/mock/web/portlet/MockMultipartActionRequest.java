@@ -28,100 +28,105 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Mock implementation of the MockActionRequest.
- * 
- * <p>Useful for testing application controllers that access multipart uploads.
- * The {@link org.springframework.mock.web.MockMultipartFile} can be used to
- * populate these mock requests with files.
+ * <p>
+ * Useful for testing application controllers that access multipart uploads. The
+ * {@link org.springframework.mock.web.MockMultipartFile} can be used to populate these mock requests with files.
  *
  * @author Juergen Hoeller
  * @author Arjen Poutsma
+ *
  * @see org.springframework.mock.web.MockMultipartFile
+ *
  * @since 2.0
  */
 public class MockMultipartActionRequest extends MockActionRequest {
 
-	/** The multipart files. */
-	private final MultiValueMap<String, MultipartFile> multipartFiles =
-			new LinkedMultiValueMap<String, MultipartFile>();
+    /** The multipart files. */
+    private final MultiValueMap<String, MultipartFile> multipartFiles = new LinkedMultiValueMap<String, MultipartFile>();
 
+    /**
+     * Add a file to this request. The parameter name from the multipart form is taken from the
+     * {@link org.springframework.web.multipart.MultipartFile#getName()}.
+     *
+     * @param file
+     *            multipart file to be added
+     */
+    public void addFile(MultipartFile file) {
+        Assertions.assertNotNull(file, "MultipartFile must not be null");
+        this.multipartFiles.add(file.getName(), file);
+    }
 
-	/**
-	 * Add a file to this request. The parameter name from the multipart
-	 * form is taken from the {@link org.springframework.web.multipart.MultipartFile#getName()}.
-	 * @param file multipart file to be added
-	 */
-	public void addFile(MultipartFile file) {
-		Assertions.assertNotNull(file, "MultipartFile must not be null");
-		this.multipartFiles.add(file.getName(), file);
-	}
+    /**
+     * Gets the file names.
+     *
+     * @return the file names
+     */
+    public Iterator<String> getFileNames() {
+        return this.multipartFiles.keySet().iterator();
+    }
 
-	/**
-	 * Gets the file names.
-	 *
-	 * @return the file names
-	 */
-	public Iterator<String> getFileNames() {
-		return this.multipartFiles.keySet().iterator();
-	}
+    /**
+     * Gets the file.
+     *
+     * @param name
+     *            the name
+     *
+     * @return the file
+     */
+    public MultipartFile getFile(String name) {
+        return this.multipartFiles.getFirst(name);
+    }
 
-	/**
-	 * Gets the file.
-	 *
-	 * @param name the name
-	 * @return the file
-	 */
-	public MultipartFile getFile(String name) {
-		return this.multipartFiles.getFirst(name);
-	}
+    /**
+     * Gets the files.
+     *
+     * @param name
+     *            the name
+     *
+     * @return the files
+     */
+    public List<MultipartFile> getFiles(String name) {
+        List<MultipartFile> multipartFiles = this.multipartFiles.get(name);
+        if (multipartFiles != null) {
+            return multipartFiles;
+        } else {
+            return Collections.emptyList();
+        }
+    }
 
-	/**
-	 * Gets the files.
-	 *
-	 * @param name the name
-	 * @return the files
-	 */
-	public List<MultipartFile> getFiles(String name) {
-		List<MultipartFile> multipartFiles = this.multipartFiles.get(name);
-		if (multipartFiles != null) {
-			return multipartFiles;
-		}
-		else {
-			return Collections.emptyList();
-		}
-	}
+    /**
+     * Gets the file map.
+     *
+     * @return the file map
+     */
+    public Map<String, MultipartFile> getFileMap() {
+        return this.multipartFiles.toSingleValueMap();
+    }
 
-	/**
-	 * Gets the file map.
-	 *
-	 * @return the file map
-	 */
-	public Map<String, MultipartFile> getFileMap() {
-		return this.multipartFiles.toSingleValueMap();
-	}
+    /**
+     * Gets the multi file map.
+     *
+     * @return the multi file map
+     */
+    public MultiValueMap<String, MultipartFile> getMultiFileMap() {
+        return new LinkedMultiValueMap<String, MultipartFile>(this.multipartFiles);
+    }
 
-	/**
-	 * Gets the multi file map.
-	 *
-	 * @return the multi file map
-	 */
-	public MultiValueMap<String, MultipartFile> getMultiFileMap() {
-		return new LinkedMultiValueMap<String, MultipartFile>(this.multipartFiles);
-	}
-
-	/**
-	 * Gets the multipart content type.
-	 *
-	 * @param paramOrFileName the param or file name
-	 * @return the multipart content type
-	 */
-	public String getMultipartContentType(String paramOrFileName) {
-		MultipartFile file = getFile(paramOrFileName);
-		if (file != null) {
-			return file.getContentType();
-		}
-		else {
-			return null;
-		}
-	}
+    /**
+     * Gets the multipart content type.
+     *
+     * @param paramOrFileName
+     *            the param or file name
+     *
+     * @return the multipart content type
+     */
+    public String getMultipartContentType(String paramOrFileName) {
+        MultipartFile file = getFile(paramOrFileName);
+        if (file != null) {
+            return file.getContentType();
+        } else {
+            return null;
+        }
+    }
 
 }

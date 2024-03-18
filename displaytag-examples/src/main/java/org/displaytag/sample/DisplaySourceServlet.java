@@ -30,14 +30,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  * Servlet used to display jsp source for example pages.
+ *
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class DisplaySourceServlet extends HttpServlet
-{
+public class DisplaySourceServlet extends HttpServlet {
 
     /**
      * D1597A17A6.
@@ -53,9 +53,8 @@ public class DisplaySourceServlet extends HttpServlet
      * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
      */
     @Override
-    protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
-        IOException
-    {
+    protected final void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         String jspFile = request.getRequestURI();
 
@@ -77,8 +76,7 @@ public class DisplaySourceServlet extends HttpServlet
 
         InputStream inputStream = getServletContext().getResourceAsStream(fullName);
 
-        if (inputStream == null)
-        {
+        if (inputStream == null) {
             throw new ServletException("Unable to find JSP file: " + jspFile); //$NON-NLS-1$
         }
 
@@ -87,7 +85,7 @@ public class DisplaySourceServlet extends HttpServlet
         PrintWriter out = response.getWriter();
 
         out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" " //$NON-NLS-1$
-            + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">"); //$NON-NLS-1$
+                + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">"); //$NON-NLS-1$
         out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">"); //$NON-NLS-1$
         out.println("<head>"); //$NON-NLS-1$
         out.println("<title>"); //$NON-NLS-1$
@@ -97,14 +95,10 @@ public class DisplaySourceServlet extends HttpServlet
         out.println("</head>"); //$NON-NLS-1$
         out.println("<body>"); //$NON-NLS-1$
         out.println("<pre>"); //$NON-NLS-1$
-        for (int currentChar = inputStream.read(); currentChar != -1; currentChar = inputStream.read())
-        {
-            if (currentChar == '<')
-            {
+        for (int currentChar = inputStream.read(); currentChar != -1; currentChar = inputStream.read()) {
+            if (currentChar == '<') {
                 out.print("&lt;"); //$NON-NLS-1$
-            }
-            else
-            {
+            } else {
                 out.print((char) currentChar);
             }
         }

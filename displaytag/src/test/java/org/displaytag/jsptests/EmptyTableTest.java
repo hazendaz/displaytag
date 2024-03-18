@@ -21,14 +21,14 @@
  */
 package org.displaytag.jsptests;
 
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
+
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests with a null list.
@@ -72,6 +72,7 @@ class EmptyTableTest extends DisplaytagCase {
 
         // only the second table should be shown
         Assertions.assertEquals(1, tables.length, "Wrong number of tables.");
-        Assertions.assertEquals(2, tables[0].getTableCell(1, 0).getColSpan(), "Empty table message: colspan should be 2");
+        Assertions.assertEquals(2, tables[0].getTableCell(1, 0).getColSpan(),
+                "Empty table message: colspan should be 2");
     }
 }

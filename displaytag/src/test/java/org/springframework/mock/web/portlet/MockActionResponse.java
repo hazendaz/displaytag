@@ -18,6 +18,7 @@ package org.springframework.mock.web.portlet;
 
 import java.io.IOException;
 import java.util.Map;
+
 import javax.portlet.ActionResponse;
 import javax.portlet.MimeResponse.Copy;
 import javax.portlet.PortalContext;
@@ -34,111 +35,112 @@ import org.junit.jupiter.api.Assertions;
  *
  * @author John A. Lewis
  * @author Juergen Hoeller
+ *
  * @since 2.0
  */
 public class MockActionResponse extends MockStateAwareResponse implements ActionResponse {
 
-	/** The redirect allowed. */
-	private boolean redirectAllowed = true;
+    /** The redirect allowed. */
+    private boolean redirectAllowed = true;
 
-	/** The redirected url. */
-	private String redirectedUrl;
+    /** The redirected url. */
+    private String redirectedUrl;
 
+    /**
+     * Create a new MockActionResponse with a default {@link MockPortalContext}.
+     *
+     * @see MockPortalContext
+     */
+    public MockActionResponse() {
+        super();
+    }
 
-	/**
-	 * Create a new MockActionResponse with a default {@link MockPortalContext}.
-	 * @see MockPortalContext
-	 */
-	public MockActionResponse() {
-		super();
-	}
+    /**
+     * Create a new MockActionResponse.
+     *
+     * @param portalContext
+     *            the PortalContext defining the supported PortletModes and WindowStates
+     */
+    public MockActionResponse(PortalContext portalContext) {
+        super(portalContext);
+    }
 
-	/**
-	 * Create a new MockActionResponse.
-	 * @param portalContext the PortalContext defining the supported
-	 * PortletModes and WindowStates
-	 */
-	public MockActionResponse(PortalContext portalContext) {
-		super(portalContext);
-	}
+    @Override
+    public void setWindowState(WindowState windowState) throws WindowStateException {
+        if (this.redirectedUrl != null) {
+            throw new IllegalStateException("Cannot set WindowState after sendRedirect has been called");
+        }
+        super.setWindowState(windowState);
+        this.redirectAllowed = false;
+    }
 
+    @Override
+    public void setPortletMode(PortletMode portletMode) throws PortletModeException {
+        if (this.redirectedUrl != null) {
+            throw new IllegalStateException("Cannot set PortletMode after sendRedirect has been called");
+        }
+        super.setPortletMode(portletMode);
+        this.redirectAllowed = false;
+    }
 
-	@Override
-	public void setWindowState(WindowState windowState) throws WindowStateException {
-		if (this.redirectedUrl != null) {
-			throw new IllegalStateException("Cannot set WindowState after sendRedirect has been called");
-		}
-		super.setWindowState(windowState);
-		this.redirectAllowed = false;
-	}
+    @Override
+    public void setRenderParameters(Map<String, String[]> parameters) {
+        if (this.redirectedUrl != null) {
+            throw new IllegalStateException("Cannot set render parameters after sendRedirect has been called");
+        }
+        super.setRenderParameters(parameters);
+        this.redirectAllowed = false;
+    }
 
-	@Override
-	public void setPortletMode(PortletMode portletMode) throws PortletModeException {
-		if (this.redirectedUrl != null) {
-			throw new IllegalStateException("Cannot set PortletMode after sendRedirect has been called");
-		}
-		super.setPortletMode(portletMode);
-		this.redirectAllowed = false;
-	}
+    @Override
+    public void setRenderParameter(String key, String value) {
+        if (this.redirectedUrl != null) {
+            throw new IllegalStateException("Cannot set render parameters after sendRedirect has been called");
+        }
+        super.setRenderParameter(key, value);
+        this.redirectAllowed = false;
+    }
 
-	@Override
-	public void setRenderParameters(Map<String, String[]> parameters) {
-		if (this.redirectedUrl != null) {
-			throw new IllegalStateException("Cannot set render parameters after sendRedirect has been called");
-		}
-		super.setRenderParameters(parameters);
-		this.redirectAllowed = false;
-	}
+    @Override
+    public void setRenderParameter(String key, String[] values) {
+        if (this.redirectedUrl != null) {
+            throw new IllegalStateException("Cannot set render parameters after sendRedirect has been called");
+        }
+        super.setRenderParameter(key, values);
+        this.redirectAllowed = false;
+    }
 
-	@Override
-	public void setRenderParameter(String key, String value) {
-		if (this.redirectedUrl != null) {
-			throw new IllegalStateException("Cannot set render parameters after sendRedirect has been called");
-		}
-		super.setRenderParameter(key, value);
-		this.redirectAllowed = false;
-	}
+    @Override
+    public void sendRedirect(String location) throws IOException {
+        if (!this.redirectAllowed) {
+            throw new IllegalStateException(
+                    "Cannot call sendRedirect after windowState, portletMode, or renderParameters have been set");
+        }
+        Assertions.assertNotNull(location, "Redirect URL must not be null");
+        this.redirectedUrl = location;
+    }
 
-	@Override
-	public void setRenderParameter(String key, String[] values) {
-		if (this.redirectedUrl != null) {
-			throw new IllegalStateException("Cannot set render parameters after sendRedirect has been called");
-		}
-		super.setRenderParameter(key, values);
-		this.redirectAllowed = false;
-	}
+    @Override
+    public void sendRedirect(String location, String renderUrlParamName) throws IOException {
+        sendRedirect(location);
+        if (renderUrlParamName != null) {
+            setRenderParameter(renderUrlParamName, location);
+        }
+    }
 
-	@Override
-	public void sendRedirect(String location) throws IOException {
-		if (!this.redirectAllowed) {
-			throw new IllegalStateException(
-					"Cannot call sendRedirect after windowState, portletMode, or renderParameters have been set");
-		}
-		Assertions.assertNotNull(location, "Redirect URL must not be null");
-		this.redirectedUrl = location;
-	}
+    /**
+     * Gets the redirected url.
+     *
+     * @return the redirected url
+     */
+    public String getRedirectedUrl() {
+        return this.redirectedUrl;
+    }
 
-	@Override
-	public void sendRedirect(String location, String renderUrlParamName) throws IOException {
-		sendRedirect(location);
-		if (renderUrlParamName != null) {
-			setRenderParameter(renderUrlParamName, location);
-		}
-	}
-
-	/**
-	 * Gets the redirected url.
-	 *
-	 * @return the redirected url
-	 */
-	public String getRedirectedUrl() {
-		return this.redirectedUrl;
-	}
-
-  @Override
-  public RenderURL createRedirectURL(Copy option) throws IllegalStateException {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public RenderURL createRedirectURL(Copy option) throws IllegalStateException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletContext;
 import javax.portlet.PortletMode;
@@ -39,235 +40,254 @@ import org.junit.jupiter.api.Assertions;
  *
  * @author John A. Lewis
  * @author Juergen Hoeller
+ *
  * @since 2.0
  */
 public class MockPortletConfig implements PortletConfig {
 
-	/** The portlet context. */
-	private final PortletContext portletContext;
+    /** The portlet context. */
+    private final PortletContext portletContext;
 
-	/** The portlet name. */
-	private final String portletName;
+    /** The portlet name. */
+    private final String portletName;
 
-	/** The resource bundles. */
-	private final Map<Locale, ResourceBundle> resourceBundles = new HashMap<Locale, ResourceBundle>();
+    /** The resource bundles. */
+    private final Map<Locale, ResourceBundle> resourceBundles = new HashMap<Locale, ResourceBundle>();
 
-	/** The init parameters. */
-	private final Map<String, String> initParameters = new LinkedHashMap<String, String>();
+    /** The init parameters. */
+    private final Map<String, String> initParameters = new LinkedHashMap<String, String>();
 
-	/** The public render parameter names. */
-	private final Set<String> publicRenderParameterNames = new LinkedHashSet<String>();
+    /** The public render parameter names. */
+    private final Set<String> publicRenderParameterNames = new LinkedHashSet<String>();
 
-	/** The default namespace. */
-	private String defaultNamespace = XMLConstants.NULL_NS_URI;
+    /** The default namespace. */
+    private String defaultNamespace = XMLConstants.NULL_NS_URI;
 
-	/** The publishing event Q names. */
-	private final Set<QName> publishingEventQNames = new LinkedHashSet<QName>();
+    /** The publishing event Q names. */
+    private final Set<QName> publishingEventQNames = new LinkedHashSet<QName>();
 
-	/** The processing event Q names. */
-	private final Set<QName> processingEventQNames = new LinkedHashSet<QName>();
+    /** The processing event Q names. */
+    private final Set<QName> processingEventQNames = new LinkedHashSet<QName>();
 
-	/** The supported locales. */
-	private final Set<Locale> supportedLocales = new LinkedHashSet<Locale>();
+    /** The supported locales. */
+    private final Set<Locale> supportedLocales = new LinkedHashSet<Locale>();
 
-	/** The container runtime options. */
-	private final Map<String, String[]> containerRuntimeOptions = new LinkedHashMap<String, String[]>();
+    /** The container runtime options. */
+    private final Map<String, String[]> containerRuntimeOptions = new LinkedHashMap<String, String[]>();
 
+    /**
+     * Create a new MockPortletConfig with a default {@link MockPortletContext}.
+     */
+    public MockPortletConfig() {
+        this(null, "");
+    }
 
-	/**
-	 * Create a new MockPortletConfig with a default {@link MockPortletContext}.
-	 */
-	public MockPortletConfig() {
-		this(null, "");
-	}
+    /**
+     * Create a new MockPortletConfig with a default {@link MockPortletContext}.
+     *
+     * @param portletName
+     *            the name of the portlet
+     */
+    public MockPortletConfig(String portletName) {
+        this(null, portletName);
+    }
 
-	/**
-	 * Create a new MockPortletConfig with a default {@link MockPortletContext}.
-	 * @param portletName the name of the portlet
-	 */
-	public MockPortletConfig(String portletName) {
-		this(null, portletName);
-	}
+    /**
+     * Create a new MockPortletConfig.
+     *
+     * @param portletContext
+     *            the PortletContext that the portlet runs in
+     */
+    public MockPortletConfig(PortletContext portletContext) {
+        this(portletContext, "");
+    }
 
-	/**
-	 * Create a new MockPortletConfig.
-	 * @param portletContext the PortletContext that the portlet runs in
-	 */
-	public MockPortletConfig(PortletContext portletContext) {
-		this(portletContext, "");
-	}
+    /**
+     * Create a new MockPortletConfig.
+     *
+     * @param portletContext
+     *            the PortletContext that the portlet runs in
+     * @param portletName
+     *            the name of the portlet
+     */
+    public MockPortletConfig(PortletContext portletContext, String portletName) {
+        this.portletContext = (portletContext != null ? portletContext : new MockPortletContext());
+        this.portletName = portletName;
+    }
 
-	/**
-	 * Create a new MockPortletConfig.
-	 * @param portletContext the PortletContext that the portlet runs in
-	 * @param portletName the name of the portlet
-	 */
-	public MockPortletConfig(PortletContext portletContext, String portletName) {
-		this.portletContext = (portletContext != null ? portletContext : new MockPortletContext());
-		this.portletName = portletName;
-	}
+    @Override
+    public String getPortletName() {
+        return this.portletName;
+    }
 
+    @Override
+    public PortletContext getPortletContext() {
+        return this.portletContext;
+    }
 
-	@Override
-	public String getPortletName() {
-		return this.portletName;
-	}
+    /**
+     * Sets the resource bundle.
+     *
+     * @param locale
+     *            the locale
+     * @param resourceBundle
+     *            the resource bundle
+     */
+    public void setResourceBundle(Locale locale, ResourceBundle resourceBundle) {
+        Assertions.assertNotNull(locale, "Locale must not be null");
+        this.resourceBundles.put(locale, resourceBundle);
+    }
 
-	@Override
-	public PortletContext getPortletContext() {
-		return this.portletContext;
-	}
+    @Override
+    public ResourceBundle getResourceBundle(Locale locale) {
+        Assertions.assertNotNull(locale, "Locale must not be null");
+        return this.resourceBundles.get(locale);
+    }
 
-	/**
-	 * Sets the resource bundle.
-	 *
-	 * @param locale the locale
-	 * @param resourceBundle the resource bundle
-	 */
-	public void setResourceBundle(Locale locale, ResourceBundle resourceBundle) {
-		Assertions.assertNotNull(locale, "Locale must not be null");
-		this.resourceBundles.put(locale, resourceBundle);
-	}
+    /**
+     * Adds the init parameter.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
+    public void addInitParameter(String name, String value) {
+        Assertions.assertNotNull(name, "Parameter name must not be null");
+        this.initParameters.put(name, value);
+    }
 
-	@Override
-	public ResourceBundle getResourceBundle(Locale locale) {
-		Assertions.assertNotNull(locale, "Locale must not be null");
-		return this.resourceBundles.get(locale);
-	}
+    @Override
+    public String getInitParameter(String name) {
+        Assertions.assertNotNull(name, "Parameter name must not be null");
+        return this.initParameters.get(name);
+    }
 
-	/**
-	 * Adds the init parameter.
-	 *
-	 * @param name the name
-	 * @param value the value
-	 */
-	public void addInitParameter(String name, String value) {
-		Assertions.assertNotNull(name, "Parameter name must not be null");
-		this.initParameters.put(name, value);
-	}
+    @Override
+    public Enumeration<String> getInitParameterNames() {
+        return Collections.enumeration(this.initParameters.keySet());
+    }
 
-	@Override
-	public String getInitParameter(String name) {
-		Assertions.assertNotNull(name, "Parameter name must not be null");
-		return this.initParameters.get(name);
-	}
+    /**
+     * Adds the public render parameter name.
+     *
+     * @param name
+     *            the name
+     */
+    public void addPublicRenderParameterName(String name) {
+        this.publicRenderParameterNames.add(name);
+    }
 
-	@Override
-	public Enumeration<String> getInitParameterNames() {
-		return Collections.enumeration(this.initParameters.keySet());
-	}
+    @Override
+    public Enumeration<String> getPublicRenderParameterNames() {
+        return Collections.enumeration(this.publicRenderParameterNames);
+    }
 
-	/**
-	 * Adds the public render parameter name.
-	 *
-	 * @param name the name
-	 */
-	public void addPublicRenderParameterName(String name) {
-		this.publicRenderParameterNames.add(name);
-	}
+    /**
+     * Sets the default namespace.
+     *
+     * @param defaultNamespace
+     *            the new default namespace
+     */
+    public void setDefaultNamespace(String defaultNamespace) {
+        this.defaultNamespace = defaultNamespace;
+    }
 
-	@Override
-	public Enumeration<String> getPublicRenderParameterNames() {
-		return Collections.enumeration(this.publicRenderParameterNames);
-	}
+    @Override
+    public String getDefaultNamespace() {
+        return this.defaultNamespace;
+    }
 
-	/**
-	 * Sets the default namespace.
-	 *
-	 * @param defaultNamespace the new default namespace
-	 */
-	public void setDefaultNamespace(String defaultNamespace) {
-		this.defaultNamespace = defaultNamespace;
-	}
+    /**
+     * Adds the publishing event Q name.
+     *
+     * @param name
+     *            the name
+     */
+    public void addPublishingEventQName(QName name) {
+        this.publishingEventQNames.add(name);
+    }
 
-	@Override
-	public String getDefaultNamespace() {
-		return this.defaultNamespace;
-	}
+    @Override
+    public Enumeration<QName> getPublishingEventQNames() {
+        return Collections.enumeration(this.publishingEventQNames);
+    }
 
-	/**
-	 * Adds the publishing event Q name.
-	 *
-	 * @param name the name
-	 */
-	public void addPublishingEventQName(QName name) {
-		this.publishingEventQNames.add(name);
-	}
+    /**
+     * Adds the processing event Q name.
+     *
+     * @param name
+     *            the name
+     */
+    public void addProcessingEventQName(QName name) {
+        this.processingEventQNames.add(name);
+    }
 
-	@Override
-	public Enumeration<QName> getPublishingEventQNames() {
-		return Collections.enumeration(this.publishingEventQNames);
-	}
+    @Override
+    public Enumeration<QName> getProcessingEventQNames() {
+        return Collections.enumeration(this.processingEventQNames);
+    }
 
-	/**
-	 * Adds the processing event Q name.
-	 *
-	 * @param name the name
-	 */
-	public void addProcessingEventQName(QName name) {
-		this.processingEventQNames.add(name);
-	}
+    /**
+     * Adds the supported locale.
+     *
+     * @param locale
+     *            the locale
+     */
+    public void addSupportedLocale(Locale locale) {
+        this.supportedLocales.add(locale);
+    }
 
-	@Override
-	public Enumeration<QName> getProcessingEventQNames() {
-		return Collections.enumeration(this.processingEventQNames);
-	}
+    @Override
+    public Enumeration<Locale> getSupportedLocales() {
+        return Collections.enumeration(this.supportedLocales);
+    }
 
-	/**
-	 * Adds the supported locale.
-	 *
-	 * @param locale the locale
-	 */
-	public void addSupportedLocale(Locale locale) {
-		this.supportedLocales.add(locale);
-	}
+    /**
+     * Adds the container runtime option.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
+    public void addContainerRuntimeOption(String key, String value) {
+        this.containerRuntimeOptions.put(key, new String[] { value });
+    }
 
-	@Override
-	public Enumeration<Locale> getSupportedLocales() {
-		return Collections.enumeration(this.supportedLocales);
-	}
+    /**
+     * Adds the container runtime option.
+     *
+     * @param key
+     *            the key
+     * @param values
+     *            the values
+     */
+    public void addContainerRuntimeOption(String key, String[] values) {
+        this.containerRuntimeOptions.put(key, values);
+    }
 
-	/**
-	 * Adds the container runtime option.
-	 *
-	 * @param key the key
-	 * @param value the value
-	 */
-	public void addContainerRuntimeOption(String key, String value) {
-		this.containerRuntimeOptions.put(key, new String[] {value});
-	}
+    @Override
+    public Map<String, String[]> getContainerRuntimeOptions() {
+        return Collections.unmodifiableMap(this.containerRuntimeOptions);
+    }
 
-	/**
-	 * Adds the container runtime option.
-	 *
-	 * @param key the key
-	 * @param values the values
-	 */
-	public void addContainerRuntimeOption(String key, String[] values) {
-		this.containerRuntimeOptions.put(key, values);
-	}
+    @Override
+    public Enumeration<PortletMode> getPortletModes(String mimeType) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Map<String, String[]> getContainerRuntimeOptions() {
-		return Collections.unmodifiableMap(this.containerRuntimeOptions);
-	}
+    @Override
+    public Enumeration<WindowState> getWindowStates(String mimeType) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-  @Override
-  public Enumeration<PortletMode> getPortletModes(String mimeType) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public Enumeration<WindowState> getWindowStates(String mimeType) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public Map<String, QName> getPublicRenderParameterDefinitions() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public Map<String, QName> getPublicRenderParameterDefinitions() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

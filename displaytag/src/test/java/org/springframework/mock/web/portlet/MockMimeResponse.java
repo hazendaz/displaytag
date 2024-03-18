@@ -45,286 +45,293 @@ import org.springframework.web.util.WebUtils;
  * Mock implementation of the {@link javax.portlet.MimeResponse} interface.
  *
  * @author Juergen Hoeller
+ *
  * @since 3.0
  */
 public class MockMimeResponse extends MockPortletResponse implements MimeResponse {
 
-	/** The request. */
-	private PortletRequest request;
+    /** The request. */
+    private PortletRequest request;
 
-	/** The content type. */
-	private String contentType;
+    /** The content type. */
+    private String contentType;
 
-	/** The character encoding. */
-	private String characterEncoding = WebUtils.DEFAULT_CHARACTER_ENCODING;
+    /** The character encoding. */
+    private String characterEncoding = WebUtils.DEFAULT_CHARACTER_ENCODING;
 
-	/** The writer. */
-	private PrintWriter writer;
+    /** The writer. */
+    private PrintWriter writer;
 
-	/** The locale. */
-	private Locale locale = Locale.getDefault();
+    /** The locale. */
+    private Locale locale = Locale.getDefault();
 
-	/** The buffer size. */
-	private int bufferSize = 4096;
+    /** The buffer size. */
+    private int bufferSize = 4096;
 
-	/** The output stream. */
-	private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024);
+    /** The output stream. */
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024);
 
-	/** The cache control. */
-	private final CacheControl cacheControl = new MockCacheControl();
+    /** The cache control. */
+    private final CacheControl cacheControl = new MockCacheControl();
 
-	/** The committed. */
-	private boolean committed;
+    /** The committed. */
+    private boolean committed;
 
-	/** The included url. */
-	private String includedUrl;
+    /** The included url. */
+    private String includedUrl;
 
-	/** The forwarded url. */
-	private String forwardedUrl;
+    /** The forwarded url. */
+    private String forwardedUrl;
 
+    /**
+     * Create a new MockMimeResponse with a default {@link MockPortalContext}.
+     *
+     * @see org.springframework.mock.web.portlet.MockPortalContext
+     */
+    public MockMimeResponse() {
+        super();
+    }
 
-	/**
-	 * Create a new MockMimeResponse with a default {@link MockPortalContext}.
-	 * @see org.springframework.mock.web.portlet.MockPortalContext
-	 */
-	public MockMimeResponse() {
-		super();
-	}
+    /**
+     * Create a new MockMimeResponse.
+     *
+     * @param portalContext
+     *            the PortalContext defining the supported PortletModes and WindowStates
+     */
+    public MockMimeResponse(PortalContext portalContext) {
+        super(portalContext);
+    }
 
-	/**
-	 * Create a new MockMimeResponse.
-	 * @param portalContext the PortalContext defining the supported
-	 * PortletModes and WindowStates
-	 */
-	public MockMimeResponse(PortalContext portalContext) {
-		super(portalContext);
-	}
+    /**
+     * Create a new MockMimeResponse.
+     *
+     * @param portalContext
+     *            the PortalContext defining the supported PortletModes and WindowStates
+     * @param request
+     *            the corresponding render/resource request that this response is being generated for
+     */
+    public MockMimeResponse(PortalContext portalContext, PortletRequest request) {
+        super(portalContext);
+        this.request = request;
+    }
 
-	/**
-	 * Create a new MockMimeResponse.
-	 * @param portalContext the PortalContext defining the supported
-	 * PortletModes and WindowStates
-	 * @param request the corresponding render/resource request that this response
-	 * is being generated for
-	 */
-	public MockMimeResponse(PortalContext portalContext, PortletRequest request) {
-		super(portalContext);
-		this.request = request;
-	}
+    // ---------------------------------------------------------------------
+    // RenderResponse methods
+    // ---------------------------------------------------------------------
 
+    @Override
+    public void setContentType(String contentType) {
+        if (this.request != null) {
+            Enumeration<String> supportedTypes = this.request.getResponseContentTypes();
+            if (!CollectionUtils.contains(supportedTypes, contentType)) {
+                throw new IllegalArgumentException("Content type [" + contentType + "] not in supported list: "
+                        + Collections.list(supportedTypes));
+            }
+        }
+        this.contentType = contentType;
+    }
 
-	//---------------------------------------------------------------------
-	// RenderResponse methods
-	//---------------------------------------------------------------------
+    @Override
+    public String getContentType() {
+        return this.contentType;
+    }
 
-	@Override
-	public void setContentType(String contentType) {
-		if (this.request != null) {
-			Enumeration<String> supportedTypes = this.request.getResponseContentTypes();
-			if (!CollectionUtils.contains(supportedTypes, contentType)) {
-				throw new IllegalArgumentException("Content type [" + contentType + "] not in supported list: " +
-						Collections.list(supportedTypes));
-			}
-		}
-		this.contentType = contentType;
-	}
+    /**
+     * Sets the character encoding.
+     *
+     * @param characterEncoding
+     *            the new character encoding
+     */
+    public void setCharacterEncoding(String characterEncoding) {
+        this.characterEncoding = characterEncoding;
+    }
 
-	@Override
-	public String getContentType() {
-		return this.contentType;
-	}
+    @Override
+    public String getCharacterEncoding() {
+        return this.characterEncoding;
+    }
 
-	/**
-	 * Sets the character encoding.
-	 *
-	 * @param characterEncoding the new character encoding
-	 */
-	public void setCharacterEncoding(String characterEncoding) {
-		this.characterEncoding = characterEncoding;
-	}
+    @Override
+    public PrintWriter getWriter() throws UnsupportedEncodingException {
+        if (this.writer == null) {
+            Writer targetWriter = (this.characterEncoding != null
+                    ? new OutputStreamWriter(this.outputStream, Charset.forName(this.characterEncoding))
+                    : new OutputStreamWriter(this.outputStream, StandardCharsets.UTF_8));
+            this.writer = new PrintWriter(targetWriter);
+        }
+        return this.writer;
+    }
 
-	@Override
-	public String getCharacterEncoding() {
-		return this.characterEncoding;
-	}
+    /**
+     * Gets the content as byte array.
+     *
+     * @return the content as byte array
+     */
+    public byte[] getContentAsByteArray() {
+        flushBuffer();
+        return this.outputStream.toByteArray();
+    }
 
-	@Override
-	public PrintWriter getWriter() throws UnsupportedEncodingException {
-		if (this.writer == null) {
-			Writer targetWriter = (this.characterEncoding != null ?
-					new OutputStreamWriter(this.outputStream, Charset.forName(this.characterEncoding)) :
-					new OutputStreamWriter(this.outputStream, StandardCharsets.UTF_8));
-			this.writer = new PrintWriter(targetWriter);
-		}
-		return this.writer;
-	}
+    /**
+     * Gets the content as string.
+     *
+     * @return the content as string
+     *
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
+    public String getContentAsString() throws UnsupportedEncodingException {
+        flushBuffer();
+        return (this.characterEncoding != null ? this.outputStream.toString(this.characterEncoding)
+                : this.outputStream.toString());
+    }
 
-	/**
-	 * Gets the content as byte array.
-	 *
-	 * @return the content as byte array
-	 */
-	public byte[] getContentAsByteArray() {
-		flushBuffer();
-		return this.outputStream.toByteArray();
-	}
+    /**
+     * Sets the locale.
+     *
+     * @param locale
+     *            the new locale
+     */
+    public void setLocale(Locale locale) {
+        this.locale = locale;
+    }
 
-	/**
-	 * Gets the content as string.
-	 *
-	 * @return the content as string
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
-	 */
-	public String getContentAsString() throws UnsupportedEncodingException {
-		flushBuffer();
-		return (this.characterEncoding != null ?
-				this.outputStream.toString(this.characterEncoding) : this.outputStream.toString());
-	}
+    @Override
+    public Locale getLocale() {
+        return this.locale;
+    }
 
-	/**
-	 * Sets the locale.
-	 *
-	 * @param locale the new locale
-	 */
-	public void setLocale(Locale locale) {
-		this.locale = locale;
-	}
+    @Override
+    public void setBufferSize(int bufferSize) {
+        this.bufferSize = bufferSize;
+    }
 
-	@Override
-	public Locale getLocale() {
-		return this.locale;
-	}
+    @Override
+    public int getBufferSize() {
+        return this.bufferSize;
+    }
 
-	@Override
-	public void setBufferSize(int bufferSize) {
-		this.bufferSize = bufferSize;
-	}
+    @Override
+    public void flushBuffer() {
+        if (this.writer != null) {
+            this.writer.flush();
+        }
+        try {
+            this.outputStream.flush();
+        } catch (IOException ex) {
+            throw new IllegalStateException("Could not flush OutputStream: " + ex.getMessage());
+        }
+        this.committed = true;
+    }
 
-	@Override
-	public int getBufferSize() {
-		return this.bufferSize;
-	}
+    @Override
+    public void resetBuffer() {
+        if (this.committed) {
+            throw new IllegalStateException("Cannot reset buffer - response is already committed");
+        }
+        this.outputStream.reset();
+    }
 
-	@Override
-	public void flushBuffer() {
-		if (this.writer != null) {
-			this.writer.flush();
-		}
-		try {
-			this.outputStream.flush();
-		}
-		catch (IOException ex) {
-			throw new IllegalStateException("Could not flush OutputStream: " + ex.getMessage());
-		}
-		this.committed = true;
-	}
+    /**
+     * Sets the committed.
+     *
+     * @param committed
+     *            the new committed
+     */
+    public void setCommitted(boolean committed) {
+        this.committed = committed;
+    }
 
-	@Override
-	public void resetBuffer() {
-		if (this.committed) {
-			throw new IllegalStateException("Cannot reset buffer - response is already committed");
-		}
-		this.outputStream.reset();
-	}
+    @Override
+    public boolean isCommitted() {
+        return this.committed;
+    }
 
-	/**
-	 * Sets the committed.
-	 *
-	 * @param committed the new committed
-	 */
-	public void setCommitted(boolean committed) {
-		this.committed = committed;
-	}
+    @Override
+    public void reset() {
+        resetBuffer();
+        this.characterEncoding = null;
+        this.contentType = null;
+        this.locale = null;
+    }
 
-	@Override
-	public boolean isCommitted() {
-		return this.committed;
-	}
+    @Override
+    public OutputStream getPortletOutputStream() throws IOException {
+        return this.outputStream;
+    }
 
-	@Override
-	public void reset() {
-		resetBuffer();
-		this.characterEncoding = null;
-		this.contentType = null;
-		this.locale = null;
-	}
+    @Override
+    public <T extends PortletURL & RenderURL> T createRenderURL() {
+        return (T) new MockPortletURL(getPortalContext(), MockPortletURL.URL_TYPE_RENDER);
+    }
 
-	@Override
-	public OutputStream getPortletOutputStream() throws IOException {
-		return this.outputStream;
-	}
+    @Override
+    public <T extends PortletURL & ActionURL> T createActionURL() {
+        return (T) new MockPortletURL(getPortalContext(), MockPortletURL.URL_TYPE_ACTION);
+    }
 
-	@Override
-	public <T extends PortletURL & RenderURL> T createRenderURL() {
-		return (T) new MockPortletURL(getPortalContext(), MockPortletURL.URL_TYPE_RENDER);
-	}
+    @Override
+    public ResourceURL createResourceURL() {
+        return new MockResourceURL();
+    }
 
-	@Override
-	 public <T extends PortletURL & ActionURL> T createActionURL() {
-		return (T) new MockPortletURL(getPortalContext(), MockPortletURL.URL_TYPE_ACTION);
-	}
+    @Override
+    public CacheControl getCacheControl() {
+        return this.cacheControl;
+    }
 
-	@Override
-	public ResourceURL createResourceURL() {
-		return new MockResourceURL();
-	}
+    // ---------------------------------------------------------------------
+    // Methods for MockPortletRequestDispatcher
+    // ---------------------------------------------------------------------
 
-	@Override
-	public CacheControl getCacheControl() {
-		return this.cacheControl;
-	}
+    /**
+     * Sets the included url.
+     *
+     * @param includedUrl
+     *            the new included url
+     */
+    public void setIncludedUrl(String includedUrl) {
+        this.includedUrl = includedUrl;
+    }
 
+    /**
+     * Gets the included url.
+     *
+     * @return the included url
+     */
+    public String getIncludedUrl() {
+        return this.includedUrl;
+    }
 
-	//---------------------------------------------------------------------
-	// Methods for MockPortletRequestDispatcher
-	//---------------------------------------------------------------------
+    /**
+     * Sets the forwarded url.
+     *
+     * @param forwardedUrl
+     *            the new forwarded url
+     */
+    public void setForwardedUrl(String forwardedUrl) {
+        this.forwardedUrl = forwardedUrl;
+    }
 
-	/**
-	 * Sets the included url.
-	 *
-	 * @param includedUrl the new included url
-	 */
-	public void setIncludedUrl(String includedUrl) {
-		this.includedUrl = includedUrl;
-	}
+    /**
+     * Gets the forwarded url.
+     *
+     * @return the forwarded url
+     */
+    public String getForwardedUrl() {
+        return this.forwardedUrl;
+    }
 
-	/**
-	 * Gets the included url.
-	 *
-	 * @return the included url
-	 */
-	public String getIncludedUrl() {
-		return this.includedUrl;
-	}
+    @Override
+    public RenderURL createRenderURL(Copy option) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	/**
-	 * Sets the forwarded url.
-	 *
-	 * @param forwardedUrl the new forwarded url
-	 */
-	public void setForwardedUrl(String forwardedUrl) {
-		this.forwardedUrl = forwardedUrl;
-	}
-
-	/**
-	 * Gets the forwarded url.
-	 *
-	 * @return the forwarded url
-	 */
-	public String getForwardedUrl() {
-		return this.forwardedUrl;
-	}
-
-  @Override
-  public RenderURL createRenderURL(Copy option) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public ActionURL createActionURL(Copy option) {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public ActionURL createActionURL(Copy option) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

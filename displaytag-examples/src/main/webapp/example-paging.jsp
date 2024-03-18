@@ -2,9 +2,9 @@
   xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:tags="urn:jsptagdir:/WEB-INF/tags/project" xmlns:display="urn:jsptld:http://displaytag.sf.net">
   <jsp:directive.page contentType="text/html; charset=UTF-8"/>
   <jsp:scriptlet><![CDATA[
-  Object foo = session.getAttribute( "test" ); 
-  if( foo == null ) { 
-    session.setAttribute("test", new org.displaytag.sample.TestList(120, false)); 
+  Object foo = session.getAttribute( "test" );
+  if( foo == null ) {
+    session.setAttribute("test", new org.displaytag.sample.TestList(120, false));
   }
   ]]></jsp:scriptlet>
   <tags:page>

@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Set;
+
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequestDispatcher;
 import javax.servlet.ServletContext;
@@ -29,156 +30,158 @@ import javax.servlet.ServletContext;
 import org.junit.jupiter.api.Assertions;
 
 /**
- * Mock implementation of the {@link javax.portlet.PortletContext} interface,
- * wrapping an underlying {@link javax.servlet.ServletContext}.
+ * Mock implementation of the {@link javax.portlet.PortletContext} interface, wrapping an underlying
+ * {@link javax.servlet.ServletContext}.
  *
  * @author Juergen Hoeller
+ *
  * @see MockPortletContext
+ *
  * @since 3.0
  */
 public class ServletWrappingPortletContext implements PortletContext {
 
-	/** The servlet context. */
-	private final ServletContext servletContext;
+    /** The servlet context. */
+    private final ServletContext servletContext;
 
+    /**
+     * Create a new PortletContext wrapping the given ServletContext.
+     *
+     * @param servletContext
+     *            the ServletContext to wrap
+     */
+    public ServletWrappingPortletContext(ServletContext servletContext) {
+        Assertions.assertNotNull(servletContext, "ServletContext must not be null");
+        this.servletContext = servletContext;
+    }
 
-	/**
-	 * Create a new PortletContext wrapping the given ServletContext.
-	 * @param servletContext the ServletContext to wrap
-	 */
-	public ServletWrappingPortletContext(ServletContext servletContext) {
-		Assertions.assertNotNull(servletContext, "ServletContext must not be null");
-		this.servletContext = servletContext;
-	}
+    /**
+     * Return the underlying ServletContext that this PortletContext wraps.
+     *
+     * @return the servlet context
+     */
+    public final ServletContext getServletContext() {
+        return this.servletContext;
+    }
 
-	/**
-	 * Return the underlying ServletContext that this PortletContext wraps.
-	 *
-	 * @return the servlet context
-	 */
-	public final ServletContext getServletContext() {
-		return this.servletContext;
-	}
+    @Override
+    public String getServerInfo() {
+        return this.servletContext.getServerInfo();
+    }
 
+    @Override
+    public PortletRequestDispatcher getRequestDispatcher(String path) {
+        return null;
+    }
 
-	@Override
-	public String getServerInfo() {
-		return this.servletContext.getServerInfo();
-	}
+    @Override
+    public PortletRequestDispatcher getNamedDispatcher(String name) {
+        return null;
+    }
 
-	@Override
-	public PortletRequestDispatcher getRequestDispatcher(String path) {
-		return null;
-	}
+    @Override
+    public InputStream getResourceAsStream(String path) {
+        return this.servletContext.getResourceAsStream(path);
+    }
 
-	@Override
-	public PortletRequestDispatcher getNamedDispatcher(String name) {
-		return null;
-	}
+    @Override
+    public int getMajorVersion() {
+        return 2;
+    }
 
-	@Override
-	public InputStream getResourceAsStream(String path) {
-		return this.servletContext.getResourceAsStream(path);
-	}
+    @Override
+    public int getMinorVersion() {
+        return 0;
+    }
 
-	@Override
-	public int getMajorVersion() {
-		return 2;
-	}
+    @Override
+    public String getMimeType(String file) {
+        return this.servletContext.getMimeType(file);
+    }
 
-	@Override
-	public int getMinorVersion() {
-		return 0;
-	}
+    @Override
+    public String getRealPath(String path) {
+        return this.servletContext.getRealPath(path);
+    }
 
-	@Override
-	public String getMimeType(String file) {
-		return this.servletContext.getMimeType(file);
-	}
+    @Override
+    public Set<String> getResourcePaths(String path) {
+        return this.servletContext.getResourcePaths(path);
+    }
 
-	@Override
-	public String getRealPath(String path) {
-		return this.servletContext.getRealPath(path);
-	}
+    @Override
+    public URL getResource(String path) throws MalformedURLException {
+        return this.servletContext.getResource(path);
+    }
 
-	@Override
-	public Set<String> getResourcePaths(String path) {
-		return this.servletContext.getResourcePaths(path);
-	}
+    @Override
+    public Object getAttribute(String name) {
+        return this.servletContext.getAttribute(name);
+    }
 
-	@Override
-	public URL getResource(String path) throws MalformedURLException {
-		return this.servletContext.getResource(path);
-	}
+    @Override
+    public Enumeration<String> getAttributeNames() {
+        return this.servletContext.getAttributeNames();
+    }
 
-	@Override
-	public Object getAttribute(String name) {
-		return this.servletContext.getAttribute(name);
-	}
+    @Override
+    public String getInitParameter(String name) {
+        return this.servletContext.getInitParameter(name);
+    }
 
-	@Override
-	public Enumeration<String> getAttributeNames() {
-		return this.servletContext.getAttributeNames();
-	}
+    @Override
+    public Enumeration<String> getInitParameterNames() {
+        return this.servletContext.getInitParameterNames();
+    }
 
-	@Override
-	public String getInitParameter(String name) {
-		return this.servletContext.getInitParameter(name);
-	}
+    @Override
+    public void log(String msg) {
+        this.servletContext.log(msg);
+    }
 
-	@Override
-	public Enumeration<String> getInitParameterNames() {
-		return this.servletContext.getInitParameterNames();
-	}
+    @Override
+    public void log(String message, Throwable throwable) {
+        this.servletContext.log(message, throwable);
+    }
 
-	@Override
-	public void log(String msg) {
-		this.servletContext.log(msg);
-	}
+    @Override
+    public void removeAttribute(String name) {
+        this.servletContext.removeAttribute(name);
+    }
 
-	@Override
-	public void log(String message, Throwable throwable) {
-		this.servletContext.log(message, throwable);
-	}
+    @Override
+    public void setAttribute(String name, Object object) {
+        this.servletContext.setAttribute(name, object);
+    }
 
-	@Override
-	public void removeAttribute(String name) {
-		this.servletContext.removeAttribute(name);
-	}
+    @Override
+    public String getPortletContextName() {
+        return this.servletContext.getServletContextName();
+    }
 
-	@Override
-	public void setAttribute(String name, Object object) {
-		this.servletContext.setAttribute(name, object);
-	}
+    @Override
+    public Enumeration<String> getContainerRuntimeOptions() {
+        return Collections.enumeration(Collections.<String>emptySet());
+    }
 
-	@Override
-	public String getPortletContextName() {
-		return this.servletContext.getServletContextName();
-	}
+    @Override
+    public int getEffectiveMajorVersion() {
+        return this.servletContext.getEffectiveMajorVersion();
+    }
 
-	@Override
-	public Enumeration<String> getContainerRuntimeOptions() {
-		return Collections.enumeration(Collections.<String>emptySet());
-	}
+    @Override
+    public int getEffectiveMinorVersion() {
+        return this.servletContext.getEffectiveMinorVersion();
+    }
 
-  @Override
-  public int getEffectiveMajorVersion() {
-    return this.servletContext.getEffectiveMajorVersion();
-  }
+    @Override
+    public String getContextPath() {
+        return this.servletContext.getContextPath();
+    }
 
-  @Override
-  public int getEffectiveMinorVersion() {
-    return this.servletContext.getEffectiveMinorVersion();
-  }
-
-  @Override
-  public String getContextPath() {
-    return this.servletContext.getContextPath();
-  }
-
-  @Override
-  public ClassLoader getClassLoader() {
-    return this.servletContext.getClassLoader();
-  }
+    @Override
+    public ClassLoader getClassLoader() {
+        return this.servletContext.getClassLoader();
+    }
 
 }

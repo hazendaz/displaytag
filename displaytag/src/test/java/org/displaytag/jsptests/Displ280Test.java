@@ -21,16 +21,16 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * Test for DISPL-280 - Sortable header links fail when using external sorting and an integer as the sortName.
@@ -82,11 +82,12 @@ class Displ280Test extends DisplaytagCase {
             this.log.debug(response.getText());
         }
 
-        Assertions.assertEquals("2", tables[0].getCellAsText(1, 1), "Wrong value in first row. Table incorrectly sorted?");
-        Assertions.assertEquals("sortable",
-                tables[0].getTableCell(0, 1).getClassName(), "Column 1 should not be marked as sorted.");
-        Assertions.assertEquals("sortable sorted order1",
-                tables[0].getTableCell(0, 2).getClassName(), "Column 2 should be marked as sorted.");
+        Assertions.assertEquals("2", tables[0].getCellAsText(1, 1),
+                "Wrong value in first row. Table incorrectly sorted?");
+        Assertions.assertEquals("sortable", tables[0].getTableCell(0, 1).getClassName(),
+                "Column 1 should not be marked as sorted.");
+        Assertions.assertEquals("sortable sorted order1", tables[0].getTableCell(0, 2).getClassName(),
+                "Column 2 should be marked as sorted.");
 
     }
 

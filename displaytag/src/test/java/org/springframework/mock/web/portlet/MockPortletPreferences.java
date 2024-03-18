@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
 import javax.portlet.PortletPreferences;
 import javax.portlet.PreferencesValidator;
 import javax.portlet.ReadOnlyException;
@@ -35,103 +36,105 @@ import org.junit.jupiter.api.Assertions;
  *
  * @author John A. Lewis
  * @author Juergen Hoeller
+ *
  * @since 2.0
  */
 public class MockPortletPreferences implements PortletPreferences {
 
-	/** The preferences validator. */
-	private PreferencesValidator preferencesValidator;
+    /** The preferences validator. */
+    private PreferencesValidator preferencesValidator;
 
-	/** The preferences. */
-	private final Map<String, String[]> preferences = new LinkedHashMap<String, String[]>();
+    /** The preferences. */
+    private final Map<String, String[]> preferences = new LinkedHashMap<String, String[]>();
 
-	/** The read only. */
-	private final Set<String> readOnly = new HashSet<String>();
+    /** The read only. */
+    private final Set<String> readOnly = new HashSet<String>();
 
+    /**
+     * Sets the read only.
+     *
+     * @param key
+     *            the key
+     * @param readOnly
+     *            the read only
+     */
+    public void setReadOnly(String key, boolean readOnly) {
+        Assertions.assertNotNull(key, "Key must not be null");
+        if (readOnly) {
+            this.readOnly.add(key);
+        } else {
+            this.readOnly.remove(key);
+        }
+    }
 
-	/**
-	 * Sets the read only.
-	 *
-	 * @param key the key
-	 * @param readOnly the read only
-	 */
-	public void setReadOnly(String key, boolean readOnly) {
-		Assertions.assertNotNull(key, "Key must not be null");
-		if (readOnly) {
-			this.readOnly.add(key);
-		}
-		else {
-			this.readOnly.remove(key);
-		}
-	}
+    @Override
+    public boolean isReadOnly(String key) {
+        Assertions.assertNotNull(key, "Key must not be null");
+        return this.readOnly.contains(key);
+    }
 
-	@Override
-	public boolean isReadOnly(String key) {
-		Assertions.assertNotNull(key, "Key must not be null");
-		return this.readOnly.contains(key);
-	}
+    @Override
+    public String getValue(String key, String def) {
+        Assertions.assertNotNull(key, "Key must not be null");
+        String[] values = this.preferences.get(key);
+        return (values != null && values.length > 0 ? values[0] : def);
+    }
 
-	@Override
-	public String getValue(String key, String def) {
-		Assertions.assertNotNull(key, "Key must not be null");
-		String[] values = this.preferences.get(key);
-		return (values != null && values.length > 0 ? values[0] : def);
-	}
+    @Override
+    public String[] getValues(String key, String[] def) {
+        Assertions.assertNotNull(key, "Key must not be null");
+        String[] values = this.preferences.get(key);
+        return (values != null && values.length > 0 ? values : def);
+    }
 
-	@Override
-	public String[] getValues(String key, String[] def) {
-		Assertions.assertNotNull(key, "Key must not be null");
-		String[] values = this.preferences.get(key);
-		return (values != null && values.length > 0 ? values : def);
-	}
+    @Override
+    public void setValue(String key, String value) throws ReadOnlyException {
+        setValues(key, new String[] { value });
+    }
 
-	@Override
-	public void setValue(String key, String value) throws ReadOnlyException {
-		setValues(key, new String[] {value});
-	}
+    @Override
+    public void setValues(String key, String[] values) throws ReadOnlyException {
+        Assertions.assertNotNull(key, "Key must not be null");
+        if (isReadOnly(key)) {
+            throw new ReadOnlyException("Preference '" + key + "' is read-only");
+        }
+        this.preferences.put(key, values);
+    }
 
-	@Override
-	public void setValues(String key, String[] values) throws ReadOnlyException {
-		Assertions.assertNotNull(key, "Key must not be null");
-		if (isReadOnly(key)) {
-			throw new ReadOnlyException("Preference '" + key + "' is read-only");
-		}
-		this.preferences.put(key, values);
-	}
+    @Override
+    public Enumeration<String> getNames() {
+        return Collections.enumeration(this.preferences.keySet());
+    }
 
-	@Override
-	public Enumeration<String> getNames() {
-		return Collections.enumeration(this.preferences.keySet());
-	}
+    @Override
+    public Map<String, String[]> getMap() {
+        return Collections.unmodifiableMap(this.preferences);
+    }
 
-	@Override
-	public Map<String, String[]> getMap() {
-		return Collections.unmodifiableMap(this.preferences);
-	}
+    @Override
+    public void reset(String key) throws ReadOnlyException {
+        Assertions.assertNotNull(key, "Key must not be null");
+        if (isReadOnly(key)) {
+            throw new ReadOnlyException("Preference '" + key + "' is read-only");
+        }
+        this.preferences.remove(key);
+    }
 
-	@Override
-	public void reset(String key) throws ReadOnlyException {
-		Assertions.assertNotNull(key, "Key must not be null");
-		if (isReadOnly(key)) {
-			throw new ReadOnlyException("Preference '" + key + "' is read-only");
-		}
-		this.preferences.remove(key);
-	}
+    /**
+     * Sets the preferences validator.
+     *
+     * @param preferencesValidator
+     *            the new preferences validator
+     */
+    public void setPreferencesValidator(PreferencesValidator preferencesValidator) {
+        this.preferencesValidator = preferencesValidator;
+    }
 
-	/**
-	 * Sets the preferences validator.
-	 *
-	 * @param preferencesValidator the new preferences validator
-	 */
-	public void setPreferencesValidator(PreferencesValidator preferencesValidator) {
-		this.preferencesValidator = preferencesValidator;
-	}
-
-	@Override
-	public void store() throws IOException, ValidatorException {
-		if (this.preferencesValidator != null) {
-			this.preferencesValidator.validate(this);
-		}
-	}
+    @Override
+    public void store() throws IOException, ValidatorException {
+        if (this.preferencesValidator != null) {
+            this.preferencesValidator.validate(this);
+        }
+    }
 
 }

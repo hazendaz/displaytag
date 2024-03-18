@@ -21,17 +21,17 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+import com.meterware.httpunit.WebTable;
+
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
-import com.meterware.httpunit.WebTable;
 
 /**
  * Tests for optimized iterations (don't evaluate unneeded body of columns).
@@ -114,6 +114,6 @@ class OptimizedIteration3Test extends DisplaytagCase {
         Assertions.assertEquals(2, tables[0].getRowCount(), "Expected 2 rows in table.");
 
         Assertions.assertEquals(Integer.toString(iterations), response.getElementWithID("iterations").getText(),
-            "Wrong number of iterations. Evaluated column bodies number is different from expected");
+                "Wrong number of iterations. Evaluated column bodies number is different from expected");
     }
 }

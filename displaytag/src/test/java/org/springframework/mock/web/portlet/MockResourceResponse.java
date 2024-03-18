@@ -22,43 +22,43 @@ import javax.portlet.ResourceResponse;
  * Mock implementation of the {@link javax.portlet.ResourceResponse} interface.
  *
  * @author Juergen Hoeller
+ *
  * @since 3.0
  */
 public class MockResourceResponse extends MockMimeResponse implements ResourceResponse {
 
-	/** The content length. */
-	private long contentLength = 0;
+    /** The content length. */
+    private long contentLength = 0;
 
+    @Override
+    public void setContentLength(int len) {
+        this.contentLength = len;
+    }
 
-	@Override
-	public void setContentLength(int len) {
-		this.contentLength = len;
-	}
+    /**
+     * Gets the content length.
+     *
+     * @return the content length
+     */
+    public long getContentLength() {
+        return this.contentLength;
+    }
 
-	/**
-	 * Gets the content length.
-	 *
-	 * @return the content length
-	 */
-	public long getContentLength() {
-		return this.contentLength;
-	}
+    @Override
+    public void setStatus(int sc) {
+        // TODO Auto-generated method stub
 
-  @Override
-  public void setStatus(int sc) {
-    // TODO Auto-generated method stub
-    
-  }
+    }
 
-  @Override
-  public int getStatus() {
-    // TODO Auto-generated method stub
-    return 0;
-  }
+    @Override
+    public int getStatus() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-  @Override
-  public void setContentLengthLong(long len) {
-    contentLength = len;
-  }
+    @Override
+    public void setContentLengthLong(long len) {
+        contentLength = len;
+    }
 
 }

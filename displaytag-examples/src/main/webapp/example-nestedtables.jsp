@@ -17,7 +17,7 @@
       </display:column>
     </display:table>
     <p> In this sample you can see two nested <code>&amp;lt;display:table&gt;</code>. Table tags can be nested to create sublist, but
-      you need to consider some limitations: 
+      you need to consider some limitations:
     </p>
     <ul>
       <li>

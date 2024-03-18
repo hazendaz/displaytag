@@ -21,6 +21,11 @@
  */
 package org.displaytag.jsptests;
 
+import com.itextpdf.text.pdf.PdfReader;
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,11 +42,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.itextpdf.text.pdf.PdfReader;
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for pdf export.

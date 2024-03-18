@@ -21,6 +21,11 @@
  */
 package org.displaytag.export;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfPTable;
+
 import java.io.OutputStream;
 
 import javax.servlet.jsp.JspException;
@@ -30,11 +35,6 @@ import org.displaytag.exception.BaseNestableJspTagException;
 import org.displaytag.exception.SeverityEnum;
 import org.displaytag.model.TableModel;
 import org.displaytag.render.ItextTableWriter;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfPTable;
 
 /**
  * Exporter using iText: subclasses export to any of the iText document types, such as PDF and RTF.

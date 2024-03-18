@@ -21,15 +21,15 @@
  */
 package org.displaytag.jsptests;
 
-import org.apache.commons.lang3.StringUtils;
-import org.displaytag.test.DisplaytagCase;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.displaytag.test.DisplaytagCase;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-105: https hrefs in Table get generated as http.
@@ -58,7 +58,7 @@ class Displ105Test extends DisplaytagCase {
         Assertions.assertEquals(1, links.length, "Wrong number of generated links.");
 
         Assertions.assertTrue(links[0].getURLString().startsWith("https://"),
-            "Generated link doesn't start with https: " + links[0].getURLString());
+                "Generated link doesn't start with https: " + links[0].getURLString());
 
     }
 

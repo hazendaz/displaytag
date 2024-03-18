@@ -21,6 +21,10 @@
  */
 package org.displaytag.jsptests;
 
+import com.meterware.httpunit.GetMethodWebRequest;
+import com.meterware.httpunit.WebRequest;
+import com.meterware.httpunit.WebResponse;
+
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -30,10 +34,6 @@ import org.displaytag.test.DisplaytagCase;
 import org.displaytag.util.ParamEncoder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import com.meterware.httpunit.GetMethodWebRequest;
-import com.meterware.httpunit.WebRequest;
-import com.meterware.httpunit.WebResponse;
 
 /**
  * Tests for DISPL-107: Excel and Text exports use Windows Latin-1 encoding.
@@ -112,7 +112,7 @@ class Displ107Test extends DisplaytagCase {
 
         for (int j = 0; j < result.length; j++) {
             Assertions.assertEquals(expected[j], result[j],
-                "Wrong byte at position " + j + ", output=" + new String(result, StandardCharsets.UTF_8));
+                    "Wrong byte at position " + j + ", output=" + new String(result, StandardCharsets.UTF_8));
 
         }
     }

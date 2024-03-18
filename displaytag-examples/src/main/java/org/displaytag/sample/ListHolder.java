@@ -23,15 +23,15 @@ package org.displaytag.sample;
 
 import java.util.List;
 
-
 /**
  * Simple objects which holds a list.
+ *
  * @author epesh
  * @author Fabrizio Giustina
+ *
  * @version $Revision$ ($Author$)
  */
-public class ListHolder extends Object
-{
+public class ListHolder extends Object {
 
     /**
      * contained list.
@@ -41,17 +41,16 @@ public class ListHolder extends Object
     /**
      * Instantiate a new ListHolder and initialize a TestList with 5 elements.
      */
-    public ListHolder()
-    {
+    public ListHolder() {
         this.list = new TestList(15, false);
     }
 
     /**
      * Returns the contained list.
+     *
      * @return a TestList with 15 elements
      */
-    public final List<ListObject> getList()
-    {
+    public final List<ListObject> getList() {
         return this.list;
     }
 }
