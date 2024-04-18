@@ -140,6 +140,11 @@ public class TableModel {
     private TableTotaler totaler;
 
     /**
+     * Column visibilities to apply sort column properly
+     */
+    private List<Boolean> columnVisibilities = new ArrayList<>();
+
+    /**
      * Constructor for TableModel.
      *
      * @param tableProperties
@@ -487,21 +492,28 @@ public class TableModel {
      */
     private void sortRowList(final List<Row> list) {
         if (this.isSorted()) {
-            final HeaderCell sortedHeaderCell = this.getSortedColumnHeader();
-
-            // If it is an explicit value, then sort by that, otherwise sort by the property...
-            if ((sortedHeaderCell != null) && (sortedHeaderCell.getBeanPropertyName() != null
-                    || this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size())) {
-
-                final String sorted = sortedHeaderCell.getSortProperty() != null ? sortedHeaderCell.getSortProperty()
-                        : sortedHeaderCell.getBeanPropertyName();
-
-                Collections.sort(list, new RowSorter(this.sortedColumn, sorted, this.getTableDecorator(),
-                        this.sortOrderAscending, sortedHeaderCell.getComparator()));
+            int oldSortedColumn = this.sortedColumn;
+            for (int i = 0; i < oldSortedColumn && i < columnVisibilities.size() && this.sortedColumn > 0; i++) {
+                if (!columnVisibilities.get(i)) {
+                    this.sortedColumn--;
+                }
             }
+            try {
+                final HeaderCell sortedHeaderCell = this.getSortedColumnHeader();
 
+                // If it is an explicit value, then sort by that, otherwise sort by the property...
+                if ((sortedHeaderCell != null) && (sortedHeaderCell.getBeanPropertyName() != null
+                        || this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size())) {
+                    final String sorted = sortedHeaderCell.getSortProperty() != null ? sortedHeaderCell.getSortProperty()
+                            : sortedHeaderCell.getBeanPropertyName();
+
+                    Collections.sort(list, new RowSorter(this.sortedColumn, sorted, this.getTableDecorator(),
+                            this.sortOrderAscending, sortedHeaderCell.getComparator()));
+                }
+            } finally {
+                this.sortedColumn = oldSortedColumn;
+            }
         }
-
     }
 
     /**
@@ -635,5 +647,14 @@ public class TableModel {
     public void reset() {
         this.totaler.reset();
         this.totaler.init(this);
+    }
+
+    /**
+     * Returns the column visibilities to apply sort column properly.
+     *
+     * @return The column visibilities.
+     */
+    public List<Boolean> getColumnVisibilities() {
+        return this.columnVisibilities;
     }
 }
