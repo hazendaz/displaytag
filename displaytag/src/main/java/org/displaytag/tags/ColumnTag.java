@@ -647,8 +647,10 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             if (ColumnTag.log.isDebugEnabled()) {
                 ColumnTag.log.debug("skipping column body, currentMediaType={}", currentMediaType);
             }
+            tableTag.getTableModel().getColumnVisibilities().add(false);
             return Tag.SKIP_BODY;
         }
+        tableTag.getTableModel().getColumnVisibilities().add(true);
 
         // add column header only once
         if (tableTag.isFirstIteration()) {
