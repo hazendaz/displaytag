@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - javax-support
 
 jobs:
   build:
