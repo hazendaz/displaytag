@@ -492,7 +492,8 @@ public class TableModel {
      */
     private void sortRowList(final List<Row> list) {
         if (this.isSorted()) {
-            // Sorted Column may have more items than columns that are visible.  Account for this difference during sorting.
+            // Sorted Column may have more items than columns that are visible. Account for this difference during
+            // sorting.
             int oldSortedColumn = this.sortedColumn;
             for (int i = 0; i < oldSortedColumn && i < columnVisibilities.size() && this.sortedColumn > 0; i++) {
                 if (!columnVisibilities.get(i)) {
@@ -505,8 +506,8 @@ public class TableModel {
                 // If it is an explicit value, then sort by that, otherwise sort by the property...
                 if ((sortedHeaderCell != null) && (sortedHeaderCell.getBeanPropertyName() != null
                         || this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size())) {
-                    final String sorted = sortedHeaderCell.getSortProperty() != null ? sortedHeaderCell.getSortProperty()
-                            : sortedHeaderCell.getBeanPropertyName();
+                    final String sorted = sortedHeaderCell.getSortProperty() != null
+                            ? sortedHeaderCell.getSortProperty() : sortedHeaderCell.getBeanPropertyName();
 
                     Collections.sort(list, new RowSorter(this.sortedColumn, sorted, this.getTableDecorator(),
                             this.sortOrderAscending, sortedHeaderCell.getComparator()));
