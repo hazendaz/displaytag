@@ -37,7 +37,7 @@
     <artifactId>displaytag-doc</artifactId>
     <version>3.0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Display tag library documentation</name>
+    <name>displaytag-doc</name>
 
     <description>The display tag library is an open source suite of custom tags that provide high-level web presentation
     patterns which will work in an MVC model. The library provides a significant amount of functionality while still

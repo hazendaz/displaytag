@@ -33,7 +33,7 @@
     <groupId>com.github.hazendaz</groupId>
     <artifactId>displaytag</artifactId>
     <version>3.0.3-SNAPSHOT</version>
-    <name>Display tag library</name>
+    <name>displaytag</name>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>
