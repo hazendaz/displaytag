@@ -492,6 +492,7 @@ public class TableModel {
      */
     private void sortRowList(final List<Row> list) {
         if (this.isSorted()) {
+            // Sorted Column may have more items than columns that are visible.  Account for this difference during sorting.
             int oldSortedColumn = this.sortedColumn;
             for (int i = 0; i < oldSortedColumn && i < columnVisibilities.size() && this.sortedColumn > 0; i++) {
                 if (!columnVisibilities.get(i)) {
