@@ -14,8 +14,6 @@ Originally forked from [here](https://sourceforge.net/projects/displaytag/)
 
 This fork intends to be a bug fix, vulnerability free, and dependency up-to-date legacy support of displaytag.
 
-Original site documentation can be found [here](http://www.displaytag.org/1.2/)
-
 ### Use with AjaxTags
 
 It is common to use displaytag in combination with AjaxTags to provide ajax behaviour to the tables. 
