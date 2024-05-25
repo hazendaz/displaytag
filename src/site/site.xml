@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
@@ -26,7 +27,7 @@
   <skin>
     <groupId>org.apache.maven.skins</groupId>
     <artifactId>maven-fluido-skin</artifactId>
-    <version>2.0.0-M8</version>
+    <version>2.0.0-M9</version>
   </skin>
   <version position="bottom"/>
   <publishDate position="bottom" format="MM-dd-yyyy hh:mm"/>
