@@ -43,7 +43,7 @@
     </scm>
 
     <properties>
-        <tomcat.version>9.0.91</tomcat.version>
+        <tomcat.version>9.0.93</tomcat.version>
 
         <!-- Automatic Module Name -->
         <module.name>org.displaytag</module.name>
