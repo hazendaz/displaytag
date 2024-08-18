@@ -27,18 +27,18 @@
     <parent>
         <groupId>com.github.hazendaz</groupId>
         <artifactId>displaytag-doc</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4-SNAPSHOT</version>
     </parent>
 
     <groupId>com.github.hazendaz</groupId>
     <artifactId>displaytag</artifactId>
-    <version>3.0.3</version>
+    <version>3.0.4-SNAPSHOT</version>
     <name>displaytag</name>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</developerConnection>
-        <tag>displaytag-doc-3.0.3</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/hazendaz/displaytag/</url>
     </scm>
 
