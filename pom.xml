@@ -229,6 +229,20 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <configuration>
+                    <rules>
+                        <enforceBytecodeVersion>
+                            <excludes>
+                                <!-- Free marker has a java 16 class which is used under java 16, allow this otherwise -->
+                                <exclude>org.freemarker:freemarker</exclude>
+                            </excludes>
+                        </enforceBytecodeVersion>
+                    </rules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemPropertyVariables>
