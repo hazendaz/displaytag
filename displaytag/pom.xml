@@ -141,6 +141,12 @@
 
         <!-- optional dependencies for LocaleResolvers -->
         <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>7.0.0</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>6.2.1</version>
