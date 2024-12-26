@@ -371,7 +371,8 @@ public abstract class TableWriterTemplate {
 
                     @SuppressWarnings("deprecation")
                     final String cellvalue = MediaTypeEnum.HTML.equals(model.getMedia())
-                            ? column.getChoppedAndLinkedValue() : ObjectUtils.toString(column.getValue(true));
+                            ? column.getChoppedAndLinkedValue()
+                            : ObjectUtils.toString(column.getValue(true));
 
                     final CellStruct struct = new CellStruct(column, cellvalue);
                     currentRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);
@@ -394,7 +395,8 @@ public abstract class TableWriterTemplate {
 
                     @SuppressWarnings("deprecation")
                     final String cellvalue = MediaTypeEnum.HTML.equals(model.getMedia())
-                            ? column.getChoppedAndLinkedValue() : ObjectUtils.toString(column.getValue(true));
+                            ? column.getChoppedAndLinkedValue()
+                            : ObjectUtils.toString(column.getValue(true));
 
                     final CellStruct struct = new CellStruct(column, cellvalue);
                     nextRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);
