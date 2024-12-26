@@ -233,22 +233,11 @@
                 <configuration>
                     <rules>
                         <enforceBytecodeVersion>
-                            <excludes>
-                                <!-- Spring is optional, it will require java 17 for jakarta, allowing us to stay on java 11 -->
-                                <exclude>org.springframework:spring-aop</exclude>
-                                <exclude>org.springframework:spring-beans</exclude>
-                                <exclude>org.springframework:spring-context</exclude>
-                                <exclude>org.springframework:spring-context-support</exclude>
-                                <exclude>org.springframework:spring-core</exclude>
-                                <exclude>org.springframework:spring-expression</exclude>
-                                <exclude>org.springframework:spring-jcl</exclude>
-                                <exclude>org.springframework:spring-test</exclude>
-                                <exclude>org.springframework:spring-web</exclude>
-                                <exclude>org.springframework:spring-webmvc</exclude>
-
-                                <!-- JSP Api requires java 17 but is provided so we can safely ignore this -->
-                                <exclude>jakarta.servlet.jsp:jakarta.servlet.jsp-api</exclude>
-                            </excludes>
+                            <!-- Start: Remove after base-parent 51 upgrade -->
+                            <maxJdkVersion>${java.version}</maxJdkVersion>
+                            <ignoredScopes>provided,test</ignoredScopes>
+                            <!-- End: Remove after base-parent 51 upgrade -->
+                            <ignoreOptionals>true</ignoreOptionals>
                         </enforceBytecodeVersion>
                     </rules>
                 </configuration>
