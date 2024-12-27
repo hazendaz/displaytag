@@ -17,18 +17,18 @@
 
             <display:table id="table" name="test" htmlId="html1">
                 <display:column>
-									<jsp:expression>
-										((org.displaytag.test.KnownValue)pageContext.getAttribute("table")).getBee()
-									</jsp:expression>
-								</display:column>
+                                    <jsp:expression>
+                                        ((org.displaytag.test.KnownValue)pageContext.getAttribute("table")).getBee()
+                                    </jsp:expression>
+                                </display:column>
             </display:table>
 
             <display:table uid="table" name="test" htmlId="html2">
                 <display:column>
-									<jsp:expression>
-										((org.displaytag.test.KnownValue)pageContext.getAttribute("table")).getBee()
-									</jsp:expression>
-								</display:column>
+                                    <jsp:expression>
+                                        ((org.displaytag.test.KnownValue)pageContext.getAttribute("table")).getBee()
+                                    </jsp:expression>
+                                </display:column>
             </display:table>
 
             <display:table name="test" htmlId="html3">

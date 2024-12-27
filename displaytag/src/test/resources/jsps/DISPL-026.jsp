@@ -18,12 +18,12 @@
             ]]> </jsp:scriptlet>
             <display:table name="requestScope.test" id="table" pagesize="1">
                 <display:column property="ant"/>
-								<display:setProperty name="paging.banner.first">
-									<span id="numbers">{5}|{6}</span>
-								</display:setProperty>
-								<display:setProperty name="paging.banner.some_items_found">
-									<span id="label">{4}|{5}</span>
-								</display:setProperty>
+                                <display:setProperty name="paging.banner.first">
+                                    <span id="numbers">{5}|{6}</span>
+                                </display:setProperty>
+                                <display:setProperty name="paging.banner.some_items_found">
+                                    <span id="label">{4}|{5}</span>
+                                </display:setProperty>
             </display:table>
         </body>
     </html>

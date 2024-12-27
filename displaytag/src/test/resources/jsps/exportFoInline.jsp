@@ -16,7 +16,7 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
-			<display:table name="requestScope.test" id="table" pagesize="1">
+            <display:table name="requestScope.test" id="table" pagesize="1">
                 <display:setProperty name="export.xml.class">org.displaytag.export.XmlTotalsWriter</display:setProperty>
                 <display:setProperty name="export.pdf.fo.stylesheetbody"><![CDATA[
 <xsl:stylesheet version="1.0"
@@ -83,9 +83,9 @@
 </xsl:stylesheet>
                 ]]>
                 </display:setProperty>
-				<display:column title="row num"><jsp:expression>table_rowNum</jsp:expression></display:column>
-				<display:column title="bee" property="bee"/>
-			</display:table>
+                <display:column title="row num"><jsp:expression>table_rowNum</jsp:expression></display:column>
+                <display:column title="bee" property="bee"/>
+            </display:table>
         </body>
     </html>
 </jsp:root>

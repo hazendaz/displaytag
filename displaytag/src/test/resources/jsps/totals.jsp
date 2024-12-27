@@ -20,13 +20,13 @@
         <display:column property="time" />
         <display:column property="long" total="true"/>
         <display:column property="long" total="true"/>
-		<display:footer>
-						<tr>
-							<td>${totals.column1}</td>
-						    <td>${totals.column2}</td>
-						    <td>${totals.column3}</td>
-						</tr>
-		</display:footer>
+        <display:footer>
+                        <tr>
+                            <td>${totals.column1}</td>
+                            <td>${totals.column2}</td>
+                            <td>${totals.column3}</td>
+                        </tr>
+        </display:footer>
       </display:table>
     </body>
   </html>

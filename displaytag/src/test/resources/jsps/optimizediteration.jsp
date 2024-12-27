@@ -22,7 +22,7 @@
                 <display:column property="ant"/>
                 <display:column title="iterations"><jsp:expression>++count</jsp:expression></display:column>
             </display:table>
-						<p id="iterations"><jsp:expression>count</jsp:expression></p>
+            <p id="iterations"><jsp:expression>count</jsp:expression></p>
         </body>
     </html>
 </jsp:root>

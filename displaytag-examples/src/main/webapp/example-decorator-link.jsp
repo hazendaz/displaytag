@@ -71,23 +71,23 @@
 <![CDATA[
 public String getLink1()
 {
-	ListObject lObject= (ListObject)getCurrentRowObject();
-	int lIndex= getListIndex();
-	return "<a href=\"details.jsp?index=" + lIndex + "\">" + lObject.getId() + "</a>";
+    ListObject lObject= (ListObject)getCurrentRowObject();
+    int lIndex= getListIndex();
+    return "<a href=\"details.jsp?index=" + lIndex + "\">" + lObject.getId() + "</a>";
 }
 
 
 public String getLink2()
 {
-	ListObject lObject= (ListObject)getCurrentRowObject();
-	int lId= lObject.getId();
+    ListObject lObject= (ListObject)getCurrentRowObject();
+    int lId= lObject.getId();
 
-	return "<a href=\"details.jsp?id=" + lId
-		+ "&action=view\">View</a> | "
-		+ "<a href=\"details.jsp?id=" + lId
-		+ "&action=edit\">Edit</a> | "
-		+ "<a href=\"details.jsp?id=" + lId
-		+ "&action=delete\">Delete</a>";
+    return "<a href=\"details.jsp?id=" + lId
+        + "&action=view\">View</a> | "
+        + "<a href=\"details.jsp?id=" + lId
+        + "&action=edit\">Edit</a> | "
+        + "<a href=\"details.jsp?id=" + lId
+        + "&action=delete\">Delete</a>";
 }
 ]]>
     </tags:code>

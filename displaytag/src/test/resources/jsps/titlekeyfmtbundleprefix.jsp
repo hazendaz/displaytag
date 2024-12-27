@@ -11,17 +11,17 @@
         </head>
         <body>
             <jsp:scriptlet> <![CDATA[
-							java.util.List<org.displaytag.test.KnownValue> testData = new java.util.ArrayList<org.displaytag.test.KnownValue>();
-							testData.add(new org.displaytag.test.KnownValue());
-							request.setAttribute( "test", testData);
+                            java.util.List<org.displaytag.test.KnownValue> testData = new java.util.ArrayList<org.displaytag.test.KnownValue>();
+                            testData.add(new org.displaytag.test.KnownValue());
+                            request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
             <fmt:bundle basename="jstlbundleresources" prefix="fix.">
               <display:table name="requestScope.test" id="table">
-							  <display:column property="ant" titleKey="fookey" />
-							  <display:column property="bee" titleKey="bazkey" />
-							  <display:column property="camel" />
-							  <display:column property="bee" titleKey="missing" />
-						  </display:table>
+                              <display:column property="ant" titleKey="fookey" />
+                              <display:column property="bee" titleKey="bazkey" />
+                              <display:column property="camel" />
+                              <display:column property="bee" titleKey="missing" />
+                          </display:table>
             </fmt:bundle>
         </body>
     </html>

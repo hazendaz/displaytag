@@ -1,64 +1,64 @@
 %svg {
-	background-repeat: no-repeat;
+    background-repeat: no-repeat;
     background-image: url(../img/sprite/icons.png);
     background-image: linear-gradient(transparent, transparent), url(../img/sprite/icons.svg);
     display:inline-block;
 }
 
 .svg-displaytag-logo-horizontal {
-	@extend %svg;
+    @extend %svg;
     background-position: 0 0;
     background-repeat: no-repeat;
-	width: 285.386px;
-	height: 90.298px;
+    width: 285.386px;
+    height: 90.298px;
 }
 
 .svg-displaytag-logo-imageonly {
-	@extend %svg;
+    @extend %svg;
     background-position: 0 -111px;
     background-repeat: no-repeat;
-	width: 75.627px;
-	height: 80.204px;
+    width: 75.627px;
+    height: 80.204px;
 }
 
 .svg-displaytag-logo-standard {
-	@extend %svg;
+    @extend %svg;
     background-position: 0 -212px;
     background-repeat: no-repeat;
-	width: 146.619px;
-	height: 92.228px;
+    width: 146.619px;
+    height: 92.228px;
 }
 
 .svg-file-csv {
-	@extend %svg;
+    @extend %svg;
     background-position: 0 -325px;
     background-repeat: no-repeat;
-	width: 126px;
-	height: 126px;
+    width: 126px;
+    height: 126px;
 }
 
 .svg-file-pdf {
-	@extend %svg;
+    @extend %svg;
     background-position: 0 -471px;
     background-repeat: no-repeat;
-	width: 126px;
-	height: 126px;
+    width: 126px;
+    height: 126px;
 }
 
 .svg-file-xls {
-	@extend %svg;
+    @extend %svg;
     background-position: 0 -617px;
     background-repeat: no-repeat;
-	width: 126px;
-	height: 126px;
+    width: 126px;
+    height: 126px;
 }
 
 .svg-file-xml {
-	@extend %svg;
+    @extend %svg;
     background-position: 0 -763px;
     background-repeat: no-repeat;
-	width: 126px;
-	height: 126px;
+    width: 126px;
+    height: 126px;
 }
 
 

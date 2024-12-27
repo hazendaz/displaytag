@@ -10,16 +10,16 @@
         </head>
         <body>
             <jsp:scriptlet> <![CDATA[
-							java.util.List<org.displaytag.test.KnownValue> testData = new java.util.ArrayList<org.displaytag.test.KnownValue>();
-							testData.add(new org.displaytag.test.KnownValue());
-							request.setAttribute( "test", testData);
+                            java.util.List<org.displaytag.test.KnownValue> testData = new java.util.ArrayList<org.displaytag.test.KnownValue>();
+                            testData.add(new org.displaytag.test.KnownValue());
+                            request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
             <display:table name="requestScope.test" id="table">
-							<display:column property="ant" titleKey="fookey" sortable="true" />
-							<display:column property="bee" titleKey="bazkey" sortable="true" />
-							<display:column property="camel" />
-							<display:column property="bee" titleKey="missing" />
-						</display:table>
+                            <display:column property="ant" titleKey="fookey" sortable="true" />
+                            <display:column property="bee" titleKey="bazkey" sortable="true" />
+                            <display:column property="camel" />
+                            <display:column property="bee" titleKey="missing" />
+                        </display:table>
         </body>
     </html>
 </jsp:root>

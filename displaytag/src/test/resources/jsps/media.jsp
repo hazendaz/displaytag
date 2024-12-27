@@ -20,11 +20,11 @@
                 response.addHeader("Pragma", "no-cache");
             ]]> </jsp:scriptlet>
 
-					<display:table name="requestScope.test" id="table" export="true">
-						<display:column property="ant" media="html" />
-						<display:column property="bee" media="xml" />
-						<display:column property="camel" title="Camel" media="xml html" />
-					</display:table>
-				</body>
+                    <display:table name="requestScope.test" id="table" export="true">
+                        <display:column property="ant" media="html" />
+                        <display:column property="bee" media="xml" />
+                        <display:column property="camel" title="Camel" media="xml html" />
+                    </display:table>
+                </body>
     </html>
 </jsp:root>

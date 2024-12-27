@@ -23,7 +23,7 @@
                 <display:column title="iterations"><jsp:expression>++count</jsp:expression></display:column>
                 <display:setProperty name="export.amount" value="page" />
             </display:table>
-						<p id="iterations"><jsp:expression>count</jsp:expression></p>
+            <p id="iterations"><jsp:expression>count</jsp:expression></p>
         </body>
     </html>
 </jsp:root>

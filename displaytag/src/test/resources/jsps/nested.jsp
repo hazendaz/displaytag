@@ -16,15 +16,15 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
-			<display:table name="requestScope.test" id="table">
-				<display:column><jsp:expression>table_rowNum</jsp:expression></display:column>
-				<display:column><jsp:expression>((org.displaytag.test.KnownValue)table).getAnt()</jsp:expression></display:column>
-				<display:column property="bee" />
-				<display:column>
+            <display:table name="requestScope.test" id="table">
+                <display:column><jsp:expression>table_rowNum</jsp:expression></display:column>
+                <display:column><jsp:expression>((org.displaytag.test.KnownValue)table).getAnt()</jsp:expression></display:column>
+                <display:column property="bee" />
+                <display:column>
           <display:table name="requestScope.test" id="table2">
-				    <display:column><jsp:expression>table2_rowNum</jsp:expression></display:column>
-				    <display:column><jsp:expression>((org.displaytag.test.KnownValue)table2).getAnt()</jsp:expression></display:column>
-				    <display:column property="camel" />
+                    <display:column><jsp:expression>table2_rowNum</jsp:expression></display:column>
+                    <display:column><jsp:expression>((org.displaytag.test.KnownValue)table2).getAnt()</jsp:expression></display:column>
+                    <display:column property="camel" />
           </display:table>
         </display:column>
       </display:table>

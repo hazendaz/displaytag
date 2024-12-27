@@ -16,15 +16,15 @@
             ]]> </jsp:scriptlet>
             <display:table name="requestScope.test" id="table">
                 <display:column property="ant" />
-								<display:column>
-				            <jsp:text>ant</jsp:text>
-				        </display:column>
-								<display:column property="ant">
-				            <jsp:text>body</jsp:text>
-				        </display:column>
-								<display:column property="ant">
-				            <jsp:text></jsp:text>
-				        </display:column>
+                <display:column>
+                    <jsp:text>ant</jsp:text>
+                </display:column>
+                <display:column property="ant">
+                    <jsp:text>body</jsp:text>
+                </display:column>
+                <display:column property="ant">
+                    <jsp:text></jsp:text>
+                </display:column>
             </display:table>
         </body>
     </html>

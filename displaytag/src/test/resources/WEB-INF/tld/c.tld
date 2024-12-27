@@ -35,44 +35,44 @@
 
   <validator>
     <validator-class>
-	org.apache.taglibs.standard.tlv.JstlCoreTLV
+    org.apache.taglibs.standard.tlv.JstlCoreTLV
     </validator-class>
     <init-param>
-	<param-name>expressionAttributes</param-name>
-	<param-value>
-	    out:value
-	    out:default
-	    out:escapeXml
-	    if:test
-	    import:url
-	    import:context
-	    import:charEncoding
-	    forEach:items
-	    forEach:begin
-	    forEach:end
-	    forEach:step
-	    forTokens:items
-	    forTokens:begin
-	    forTokens:end
-	    forTokens:step
-	    param:encode
-	    param:name
-	    param:value
-            redirect:context
-            redirect:url
-	    set:property
-	    set:target
-	    set:value
-	    url:context
-	    url:value
-	    when:test
-	</param-value>
-	<description>
-	    Whitespace-separated list of colon-separated token pairs
-	    describing tag:attribute combinations that accept expressions.
-	    The validator uses this information to determine which
-	    attributes need their syntax validated.
-	</description>
+    <param-name>expressionAttributes</param-name>
+    <param-value>
+        out:value
+        out:default
+        out:escapeXml
+        if:test
+        import:url
+        import:context
+        import:charEncoding
+        forEach:items
+        forEach:begin
+        forEach:end
+        forEach:step
+        forTokens:items
+        forTokens:begin
+        forTokens:end
+        forTokens:step
+        param:encode
+        param:name
+        param:value
+        redirect:context
+        redirect:url
+        set:property
+        set:target
+        set:value
+        url:context
+        url:value
+        when:test
+    </param-value>
+    <description>
+        Whitespace-separated list of colon-separated token pairs
+        describing tag:attribute combinations that accept expressions.
+        The validator uses this information to determine which
+        attributes need their syntax validated.
+    </description>
      </init-param>
   </validator>
 
@@ -107,7 +107,7 @@
     <tag-class>org.apache.taglibs.standard.tag.el.core.OutTag</tag-class>
     <body-content>JSP</body-content>
     <description>
-	Like &lt;%= ... &gt;, but for expressions.
+    Like &lt;%= ... &gt;, but for expressions.
     </description>
     <attribute>
         <name>value</name>
@@ -158,8 +158,8 @@
     <tei-class>org.apache.taglibs.standard.tei.ImportTEI</tei-class>
     <body-content>JSP</body-content>
     <description>
-	Retrieves an absolute or relative URL and exposes its contents
-	to either the page, a String in 'var', or a Reader in 'varReader'.
+    Retrieves an absolute or relative URL and exposes its contents
+    to either the page, a String in 'var', or a Reader in 'varReader'.
     </description>
     <attribute>
         <name>url</name>
@@ -199,39 +199,39 @@
     <tei-class>org.apache.taglibs.standard.tei.ForEachTEI</tei-class>
     <body-content>JSP</body-content>
     <description>
-	The basic iteration tag, accepting many different
+    The basic iteration tag, accepting many different
         collection types and supporting subsetting and other
         functionality
     </description>
     <attribute>
-	<name>items</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>items</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>begin</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>begin</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>end</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>end</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>step</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>step</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>var</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>var</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>varStatus</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>varStatus</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
   </tag>
 
@@ -240,42 +240,42 @@
     <tag-class>org.apache.taglibs.standard.tag.el.core.ForTokensTag</tag-class>
     <body-content>JSP</body-content>
     <description>
-	Iterates over tokens, separated by the supplied delimeters
+    Iterates over tokens, separated by the supplied delimeters
     </description>
     <attribute>
-	<name>items</name>
-	<required>true</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>items</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>delims</name>
-	<required>true</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>delims</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>begin</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>begin</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>end</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>end</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>step</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>step</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>var</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>var</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
     <attribute>
-	<name>varStatus</name>
-	<required>false</required>
-	<rtexprvalue>false</rtexprvalue>
+    <name>varStatus</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
     </attribute>
   </tag>
 
@@ -284,9 +284,9 @@
     <tag-class>org.apache.taglibs.standard.tag.common.core.OtherwiseTag</tag-class>
     <body-content>JSP</body-content>
     <description>
-	Subtag of &lt;choose&gt; that follows &lt;when&gt; tags
-	and runs only if all of the prior conditions evaluated to
-	'false'
+    Subtag of &lt;choose&gt; that follows &lt;when&gt; tags
+    and runs only if all of the prior conditions evaluated to
+    'false'
     </description>
   </tag>
 
@@ -295,7 +295,7 @@
     <tag-class>org.apache.taglibs.standard.tag.el.core.ParamTag</tag-class>
     <body-content>JSP</body-content>
     <description>
-	Adds a parameter to a containing 'import' tag's URL.
+    Adds a parameter to a containing 'import' tag's URL.
     </description>
     <attribute>
         <name>name</name>
@@ -314,7 +314,7 @@
     <tag-class>org.apache.taglibs.standard.tag.el.core.RedirectTag</tag-class>
     <body-content>JSP</body-content>
     <description>
-	Redirects to a new URL.
+    Redirects to a new URL.
     </description>
     <attribute>
         <name>var</name>
@@ -343,7 +343,7 @@
     <tag-class>org.apache.taglibs.standard.tag.common.core.RemoveTag</tag-class>
     <body-content>empty</body-content>
     <description>
-	Removes a scoped variable (from a particular scope, if specified).
+    Removes a scoped variable (from a particular scope, if specified).
     </description>
     <attribute>
         <name>var</name>
@@ -362,7 +362,7 @@
     <tag-class>org.apache.taglibs.standard.tag.el.core.SetTag</tag-class>
     <body-content>JSP</body-content>
     <description>
-	Sets the result of an expression evaluation in a 'scope'
+    Sets the result of an expression evaluation in a 'scope'
     </description>
     <attribute>
         <name>var</name>
@@ -396,7 +396,7 @@
     <tag-class>org.apache.taglibs.standard.tag.el.core.UrlTag</tag-class>
     <body-content>JSP</body-content>
     <description>
-	Prints or exposes a URL with optional query parameters
+    Prints or exposes a URL with optional query parameters
         (via the c:param tag).
     </description>
     <attribute>

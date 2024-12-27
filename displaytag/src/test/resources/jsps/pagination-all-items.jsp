@@ -15,14 +15,15 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
-            ]]> </jsp:scriptlet>
-			<display:table name="requestScope.test" id="table" pagesize="10">
-				<display:setProperty name="paging.banner.all_items_found"
-					value="just one page... "/>
-				<display:setProperty name="paging.banner.onepage"
-					value="yes, just one page without numbers"/>
-				<display:column property="ant"/>
-			</display:table>
+            ]]>
+            </jsp:scriptlet>
+            <display:table name="requestScope.test" id="table" pagesize="10">
+                <display:setProperty name="paging.banner.all_items_found"
+                    value="just one page... "/>
+                <display:setProperty name="paging.banner.onepage"
+                    value="yes, just one page without numbers"/>
+                <display:column property="ant"/>
+            </display:table>
         </body>
     </html>
 </jsp:root>
