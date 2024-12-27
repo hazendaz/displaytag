@@ -20,12 +20,9 @@ Conventions](http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html).
     All brackets (class, method, if, try, etc) must begin and end on a
     new line. Example :
 
-        public class SomeClass
-        {
-            public void someMethod()
-            {
-                if (xxx)
-                {
+        public class SomeClass {
+            public void someMethod() {
+                if (xxx) {
                 }
             }
         }
@@ -37,8 +34,7 @@ Conventions](http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html).
             // some code
 
         // Correct
-        if (expression)
-        {
+        if (expression) {
             // some code
         }
 
@@ -47,8 +43,7 @@ Conventions](http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html).
     keywords followed by a parenthesis should be separated by a space.
     Example :
 
-        while (true)
-        {
+        while (true) {
             // some code
         }
 
@@ -58,8 +53,7 @@ Conventions](http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html).
         a += c + d;
         a = (a + b) / (c * d);
 
-        while (d++ = s++)
-        {
+        while (d++ = s++) {
             n++;
         }
 
@@ -69,27 +63,19 @@ Conventions](http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html).
 
     4 spaces. NO tabs . Period. We understand that a lot of you like to
     use tabs, but the fact of the matter is that in a distributed
-    development environment, when the cvs commit messages get sent to a
+    development environment, when the commit messages get sent to a
     mailing list, they are almost impossible to read if you use tabs.
 
-    1.  Comments
+4.  Comments
 
-        Javadoc SHOULD exist on all your class members (methods + class
-        variables), including the private ones. Also, if you are working
-        on existing code and there currently isn't a javadoc for that
-        method/class/variable or whatever, then you should contribute
-        and add it. This will improve the project as a whole.
+    Javadoc SHOULD exist on all your class members (methods + class
+    variables), including the private ones. Also, if you are working
+    on existing code and there currently isn't a javadoc for that
+    method/class/variable or whatever, then you should contribute
+    and add it. This will improve the project as a whole.
 
-        Also add code comments when you think it's necessary (like
-        assumptions), especially when the code is not obvious.
-
-4.  Author references
-
-    If you contribute to a file (code or documentation), add yourself to
-    the top of the file (below the existing authors). For java files the
-    preferred Javadoc format is:
-
-        @author devnickname
+    Also add code comments when you think it's necessary (like
+    assumptions), especially when the code is not obvious.
 
 5.  Class variables
 
@@ -100,8 +86,7 @@ Conventions](http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html).
         {
             private String someString;
         [...]
-            public void someMethod()
-            {
+            public void someMethod() {
                 logger.debug("Value = " + this.someString);
             }
         }
@@ -118,13 +103,7 @@ Conventions](http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html).
 
     Avoid lines longer than 120 characters for Code, comments, ...
 
-8.  Versioning
-
-    All .java files should have a @version tag like the one below.
-
-        @version $Id$
-
-9.  Qualified imports
+8.  Qualified imports
 
     All import statements should containing the full class name of
     classes to import and should not use the "\*" notation :
@@ -138,5 +117,3 @@ Conventions](http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html).
         // Not correct
         import java.util.*;
         import java.net.*;
-
-
