@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for optimized iterations (don't evaluate unneeded body of columns).
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class OptimizedIteration3Test extends DisplaytagCase {
 

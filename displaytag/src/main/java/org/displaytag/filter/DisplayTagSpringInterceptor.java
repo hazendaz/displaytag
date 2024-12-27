@@ -68,12 +68,6 @@ import org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter;
  *      &lt;property name="buffer"&gt;&lt;value&gt;false&lt;/value&gt;&lt;/property&gt;
  *  &lt;/bean&gt;
  * </pre>
- *
- * @author Keith Garry Boyce
- * @author rapruitt
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class DisplayTagSpringInterceptor implements HandlerInterceptor {
 

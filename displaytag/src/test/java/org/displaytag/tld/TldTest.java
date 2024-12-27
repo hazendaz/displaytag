@@ -50,10 +50,6 @@ import org.xml.sax.InputSource;
 /**
  * Reads tlds and check tag classes for declared attributes. This simple reports missing/invalid setters in tag classes.
  * Basic tests only, other tests are performed by the maven-taglib plugin.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class TldTest {
 
@@ -269,10 +265,6 @@ class TldTest {
 
     /**
      * Simple Entity resolver which looks in the classpath for dtds.
-     *
-     * @author Fabrizio Giustina
-     *
-     * @version $Revision$ ($Author$)
      */
     public static class ClasspathEntityResolver implements EntityResolver {
 
@@ -320,10 +312,6 @@ class TldTest {
 
     /**
      * Javabean representing a tag attribute.
-     *
-     * @author Fabrizio Giustina
-     *
-     * @version $Revision$ ($Author$)
      */
     public static class TagAttribute {
 

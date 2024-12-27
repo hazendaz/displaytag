@@ -42,10 +42,6 @@ import org.slf4j.LoggerFactory;
  * request include this extension after the name of the tested jsp. Since servletunit doesn't support filter testing, we
  * are passing the request to this servlet which calls the filter and then forward the request to the given path without
  * ".filtered". <strong>Replaced by native filter support in ServletUnit 1.6. </strong>
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class MockFilterSupport extends HttpServlet {
 
@@ -60,7 +56,7 @@ public class MockFilterSupport extends HttpServlet {
     protected static Logger log = LoggerFactory.getLogger(MockFilterSupport.class);
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

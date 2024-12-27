@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests the ResponseOverrideFilter.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class FilterTest extends DisplaytagCase {
 

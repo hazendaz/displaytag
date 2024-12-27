@@ -26,10 +26,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class PostHrefTest.
- *
- * @author fgiust
- *
- * @version $Revision$ ($Author$)
  */
 class PostHrefTest {
 

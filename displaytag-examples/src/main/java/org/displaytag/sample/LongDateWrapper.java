@@ -32,11 +32,6 @@ import org.displaytag.properties.MediaTypeEnum;
 
 /**
  * Simple column decorator which formats a date.
- *
- * @author epesh
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class LongDateWrapper implements DisplaytagColumnDecorator {
 

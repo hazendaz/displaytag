@@ -39,10 +39,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Tests for DISPL-629 - display:column w/o property works correctly only on first page.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision: 1081 $ ($Author: fgiust $)
  */
 class Displ629Test extends DisplaytagCase {
 

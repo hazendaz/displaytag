@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-208 - Column level default sort order.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ208Test extends DisplaytagCase {
 

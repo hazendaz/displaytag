@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-264 - Export to Excel not appending form parameters.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ264Test extends DisplaytagCase {
 

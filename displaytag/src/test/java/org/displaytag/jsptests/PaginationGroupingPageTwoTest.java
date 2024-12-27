@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class PaginationGroupingPageTwoTest.
- *
- * @author rwest
- *
- * @version $Revision: 1159 $ ($Author: rwest $)
  */
 class PaginationGroupingPageTwoTest extends DisplaytagCase {
 

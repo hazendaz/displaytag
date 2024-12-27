@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-117 - Allow ColumnTag to generate links to current page.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ117Test extends DisplaytagCase {
 

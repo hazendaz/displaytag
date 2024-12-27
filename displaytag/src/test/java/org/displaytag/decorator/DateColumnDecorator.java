@@ -31,10 +31,6 @@ import org.displaytag.properties.MediaTypeEnum;
 
 /**
  * A test column decorator for dates.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class DateColumnDecorator implements DisplaytagColumnDecorator {
 

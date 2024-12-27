@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Testcase for "excludedParams" table attribute.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class ExcludedParamsStarTest extends DisplaytagCase {
 

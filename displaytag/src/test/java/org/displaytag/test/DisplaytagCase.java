@@ -43,10 +43,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Base TestCase class for tests.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public abstract class DisplaytagCase {
 

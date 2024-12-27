@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for DISPL-56 - unable to dinamically generate multiple tables on the same page with indipendent sorting
  * (different id).
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ056Test extends DisplaytagCase {
 

@@ -37,10 +37,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-249 - Link generated for results navigation is breaking national character taken from FormBean.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ249Test extends DisplaytagCase {
 

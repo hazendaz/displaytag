@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -44,8 +44,6 @@ import org.displaytag.util.TagConstants;
 
 /**
  * Writes the table as an XML file, including any totals and grouping information. Used by the FOP export.
- *
- * @author rapruitt Date: Mar 10, 2010 Time: 4:21:28 PM
  *
  * @see FopExportView
  */

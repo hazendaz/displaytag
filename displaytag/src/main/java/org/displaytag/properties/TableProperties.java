@@ -63,11 +63,6 @@ import org.slf4j.LoggerFactory;
  * <li>Finally, if this class has a userProperties defined, all of the properties from that Properties object are copied
  * in as well.</li>
  * </ol>
- *
- * @author Fabrizio Giustina
- * @author rapruitt
- *
- * @version $Revision$ ($Author$)
  */
 public final class TableProperties implements Cloneable {
 

@@ -36,10 +36,6 @@ import org.displaytag.render.HssfTableWriter;
 
 /**
  * Excel exporter using POI.
- *
- * @author Jorge L. Barroso
- *
- * @version $Revision$ ($Author$)
  */
 public class DefaultHssfExportView implements BinaryExportView {
     /**
@@ -118,14 +114,10 @@ public class DefaultHssfExportView implements BinaryExportView {
 
     /**
      * Wraps POI-generated exceptions.
-     *
-     * @author Fabrizio Giustina
-     *
-     * @version $Revision$ ($Author$)
      */
     static class HssfGenerationException extends BaseNestableJspTagException {
         /**
-         * D1597A17A6.
+         * Serial ID.
          */
         private static final long serialVersionUID = 899149338534L;
 

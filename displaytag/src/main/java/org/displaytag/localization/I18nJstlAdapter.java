@@ -57,10 +57,6 @@ import org.slf4j.LoggerFactory;
  * If you don't define either <code>titleKey</code> or <code>titleKey</code> property on your column, first the tag will
  * attempt to look up the <code>property</code> property in your ResourceBundle. Failing that, it will fall back to the
  * parent class's behavior of just using the property name.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class I18nJstlAdapter implements I18nResourceProvider, LocaleResolver {
 

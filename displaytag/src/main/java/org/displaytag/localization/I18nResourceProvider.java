@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,10 +29,6 @@ import jakarta.servlet.jsp.tagext.Tag;
  * provider returns the String which should be displayed. For column headers <code>resourceKey</code> will be the value
  * of the <code>titleKey</code> attribute, <code>defaultValue</code> will be the value of the <code>property</code>
  * attribute. Different resource providers can be plugged using the displaytag.properties file.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public interface I18nResourceProvider {
 

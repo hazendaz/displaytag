@@ -35,10 +35,7 @@ import org.displaytag.render.HssfTableWriter;
  * use this one; it will export one tab that is grouped, and one tab that is not. Override the getHssfTableWriter method
  * to change which HssfTableWriter is actually used.
  *
- * @author andy
- *
- * @see DefaultHssfExportView#getHssfTableWriter(org.apache.poi.hssf.usermodel.HSSFWorkbook) Date: Nov 13, 2010 Time:
- *      8:46:29 AM
+ * @see DefaultHssfExportView#getHssfTableWriter(org.apache.poi.hssf.usermodel.HSSFWorkbook)
  */
 public class HssfDoubleExportView extends DefaultHssfExportView {
 

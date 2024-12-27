@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-174 - sometimes "title" - sometimes not.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ174Test extends DisplaytagCase {
 

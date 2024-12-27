@@ -28,16 +28,11 @@ import java.util.Random;
  * Just a utility class for testing out the table and column tags. When this class is created, it loads itself with a
  * number of ListObjects that are shown throughout the various example pages that exercise the table object. If created
  * via the default constructor, this loads itself with 60 ListObjects.
- *
- * @author epesh
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class TestList extends ArrayList<ListObject> {
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

@@ -35,10 +35,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Tests for basic displaytag functionalities.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ017Test extends DisplaytagCase {
 

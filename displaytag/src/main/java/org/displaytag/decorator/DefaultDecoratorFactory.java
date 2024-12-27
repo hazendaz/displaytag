@@ -32,10 +32,6 @@ import org.displaytag.util.ReflectHelper;
 
 /**
  * Factory for TableDecorator or ColumnDecorator object.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 public class DefaultDecoratorFactory implements DecoratorFactory {
 

@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-18 - Setting own comparator for column sorting.
- *
- * @author rapruitt
- *
- * @version $Revision$ ($Author$)
  */
 class Displ018Test extends DisplaytagCase {
 

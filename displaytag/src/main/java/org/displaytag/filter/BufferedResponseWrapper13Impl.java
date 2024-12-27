@@ -38,11 +38,6 @@ import org.slf4j.LoggerFactory;
 /**
  * J2ee 1.3 implementation of BufferedResponseWrapper. Need to extend HttpServletResponseWrapper for Weblogic
  * compatibility.
- *
- * @author rapruitt
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class BufferedResponseWrapper13Impl extends HttpServletResponseWrapper implements BufferedResponseWrapper {
 

@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-526 - cell value that is the same as the one vertically above is omitted.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision: 1081 $ ($Author: fgiust $)
  */
 class Displ526Test extends DisplaytagCase {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,8 +37,6 @@ import org.displaytag.properties.TableProperties;
 
 /**
  * Convenience methods for the excel export. Contains code extracted from several existing classes.
- *
- * @author andy Date: Nov 13, 2010 Time: 10:16:33 AM
  */
 public class ExcelUtils {
 
@@ -219,15 +217,11 @@ public class ExcelUtils {
 
     /**
      * Wraps IText-generated exceptions.
-     *
-     * @author Fabrizio Giustina
-     *
-     * @version $Revision: 1163 $ ($Author: rapruitt $)
      */
     static class ExcelGenerationException extends BaseNestableJspTagException {
 
         /**
-         * D1597A17A6.
+         * Serial ID.
          */
         private static final long serialVersionUID = 899149338534L;
 

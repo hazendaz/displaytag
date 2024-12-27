@@ -42,9 +42,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Created by IntelliJ IDEA.
- *
- * @author rapruitt Date: May 19, 2010 Time: 8:31:54 PM
+ * Xsl Transformer Test.
  */
 class XslTransformerTest {
 
@@ -62,7 +60,6 @@ class XslTransformerTest {
         final PdfReader reader = new PdfReader(f.getAbsolutePath());
         // byte[] page = reader.getPageContent(1);
         Assertions.assertEquals(1, reader.getNumberOfPages(), "Expected a valid pdf file with a single page");
-
     }
 
     /**

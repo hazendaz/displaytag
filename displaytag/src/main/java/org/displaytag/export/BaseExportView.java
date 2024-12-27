@@ -38,16 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>
  * Base abstract class for simple export views.
- * </p>
  * <p>
  * A class that extends BaseExportView simply need to provide delimiters for rows and columns.
- * </p>
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public abstract class BaseExportView implements TextExportView {
 

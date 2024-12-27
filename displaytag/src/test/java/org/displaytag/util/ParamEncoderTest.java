@@ -26,10 +26,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for ParamEncoder.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class ParamEncoderTest {
 

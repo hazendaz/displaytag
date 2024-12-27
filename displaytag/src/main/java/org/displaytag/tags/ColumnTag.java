@@ -63,16 +63,11 @@ import org.slf4j.LoggerFactory;
  * <p>
  * This tag does no work itself, it is simply a container of information. The TableTag does all the work based on the
  * information provided in the attributes of this tag.
- *
- * @author mraible
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia {
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

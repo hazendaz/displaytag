@@ -38,10 +38,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Test for DISPL-125 - Preserve The Current Page And Sort Across Session.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id: $
  */
 class Displ125Test extends DisplaytagCase {
 

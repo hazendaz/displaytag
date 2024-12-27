@@ -81,11 +81,6 @@ import org.slf4j.LoggerFactory;
  * simply provide the name of properties (get Methods) that are called against the objects in your list that gets
  * displayed. This tag works very much like the struts iterator tag, most of the attributes have the same name and
  * functionality as the struts tag.
- *
- * @author mraible
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class TableTag extends HtmlTableTag {
 
@@ -102,7 +97,7 @@ public class TableTag extends HtmlTableTag {
             "org.displaytag.filter.ResponseOverrideFilter.CONTENT_OVERRIDE_BODY"; //$NON-NLS-1$
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

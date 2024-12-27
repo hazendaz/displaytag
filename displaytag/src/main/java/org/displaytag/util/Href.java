@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,10 +27,6 @@ import java.util.Map;
 /**
  * Interface representing an URI (the href parameter of an &lt;a&gt; tag). Provides methods to insert new parameters. It
  * doesn't support multiple parameter values
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public interface Href extends Cloneable, Serializable {
 

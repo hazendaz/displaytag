@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-68 - Allow row object to be of type Collection.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ068Test extends DisplaytagCase {
 

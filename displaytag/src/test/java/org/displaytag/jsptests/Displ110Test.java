@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-110 - Ability to highlight selected table row.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ110Test extends DisplaytagCase {
 

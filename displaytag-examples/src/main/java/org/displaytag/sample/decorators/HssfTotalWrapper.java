@@ -30,10 +30,6 @@ import org.displaytag.decorator.hssf.DecoratesHssf;
 /**
  * Same idea implemented in HssfTableWriter applied to decorators.
  *
- * @author Jorge L. Barroso
- *
- * @version $Revision$ ($Author$)
- *
  * @see org.displaytag.render.HssfTableWriter
  */
 public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesHssf {

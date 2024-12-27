@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * The Class TotalsTest.
- *
- * @author rapruitt
- *
- * @version $Revision$ ($Author$)
  */
 class TotalsTest extends DisplaytagCase {
 

@@ -55,11 +55,6 @@ import org.displaytag.util.TagConstants;
 /**
  * PDF exporter using IText. This class is provided more as an example than as a "production ready" class: users
  * probably will need to write a custom export class with a specific layout.
- *
- * @author Ivan Markov
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class PdfView implements BinaryExportView {
 
@@ -263,15 +258,11 @@ public class PdfView implements BinaryExportView {
 
     /**
      * Wraps IText-generated exceptions.
-     *
-     * @author Fabrizio Giustina
-     *
-     * @version $Revision$ ($Author$)
      */
     static class PdfGenerationException extends BaseNestableJspTagException {
 
         /**
-         * D1597A17A6.
+         * Serial ID.
          */
         private static final long serialVersionUID = 899149338534L;
 

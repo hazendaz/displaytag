@@ -82,11 +82,6 @@ import org.slf4j.LoggerFactory;
  *      &lt;/init-param&gt;
  *  &lt;/filter&gt;
  * </pre>
- *
- * @author rapruitt
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class ResponseOverrideFilter implements Filter {
 

@@ -52,8 +52,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class ExportExcelTest.
- *
- * @author andy Date: Oct 30, 2010 Time: 12:04:04 PM
  */
 class ExportExcelTest {
 

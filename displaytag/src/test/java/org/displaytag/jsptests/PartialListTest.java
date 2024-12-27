@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Basic tests for pagination.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class PartialListTest extends DisplaytagCase {
 

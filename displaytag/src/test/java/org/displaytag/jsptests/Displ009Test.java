@@ -31,10 +31,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-9 - Send user back to Page 1 on Desc/Asc.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ009Test extends DisplaytagCase {
 

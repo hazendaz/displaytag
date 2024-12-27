@@ -47,10 +47,6 @@ import org.displaytag.model.TableModel;
 /**
  * A table writer that formats table as and writes it to an iText document.
  *
- * @author Jorge L. Barroso
- *
- * @version $Id$
- *
  * @see org.displaytag.render.TableWriterTemplate
  */
 public class ItextTableWriter extends TableWriterAdapter {
@@ -452,10 +448,6 @@ public class ItextTableWriter extends TableWriterAdapter {
 
     /**
      * An implementor of this interface decorates tables and columns appearing in iText documents.
-     *
-     * @author Jorge L. Barroso
-     *
-     * @version $Revision$ ($Author$)
      */
     public interface ItextDecorator {
 

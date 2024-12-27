@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-280 - Sortable header links fail when using external sorting and an integer as the sortName.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ280Test extends DisplaytagCase {
 

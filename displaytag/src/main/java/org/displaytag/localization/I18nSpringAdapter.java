@@ -36,10 +36,6 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 /**
  * Spring implementation of a resource provider and locale resolver. Since Displaytag locale resolution is modelled on
  * the Spring one, it simply forward <code>resolveLocale</code> calls to the Spring-configured LocaleResolver.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class I18nSpringAdapter implements LocaleResolver, I18nResourceProvider {
 

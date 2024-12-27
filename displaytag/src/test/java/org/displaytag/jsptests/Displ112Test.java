@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-112 - Allow requestURI with only parameters.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ112Test extends DisplaytagCase {
 

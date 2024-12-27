@@ -38,10 +38,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Table Model. Holds table data for presentation.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class TableModel {
 

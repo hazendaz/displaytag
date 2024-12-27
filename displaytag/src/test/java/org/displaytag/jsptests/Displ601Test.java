@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests for DISPL-601 - javascript function and hidden form fields not rendered when "paging.banner.placement"="bottom"
  * used.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision: 1081 $ ($Author: fgiust $)
  */
 class Displ601Test extends DisplaytagCase {
 

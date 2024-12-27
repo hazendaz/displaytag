@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-074 - href in column doesn't work in rc1 and rc2, worked in b1.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ074Test extends DisplaytagCase {
 

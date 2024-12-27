@@ -48,11 +48,6 @@ import org.displaytag.model.TableModel;
 
 /**
  * Excel exporter using POI HSSF.
- *
- * @author Fabrizio Giustina
- * @author rapruitt
- *
- * @version $Revision$ ($Author$)
  */
 public class ExcelHssfView implements BinaryExportView {
 

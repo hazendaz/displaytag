@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,10 +30,6 @@ import org.displaytag.model.TableModel;
  * a convenience for creating table-writer objects. Extend this class to create a table writer and override the methods
  * of interest. This class also protects subclasses from future additions to TableWriterTemplate they may not be
  * interested in.
- *
- * @author Jorge L. Barroso
- *
- * @version $Id$
  */
 public abstract class TableWriterAdapter extends TableWriterTemplate {
 

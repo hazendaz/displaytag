@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for "media" attribute support.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class ExportLinksTest extends DisplaytagCase {
 

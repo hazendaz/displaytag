@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-305 - NPE when row css class is not set.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ305Test extends DisplaytagCase {
 

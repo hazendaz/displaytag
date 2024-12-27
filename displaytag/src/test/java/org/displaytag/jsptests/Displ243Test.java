@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-243 - Default column sort breaks sorting after a few sorts of the column.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ243Test extends DisplaytagCase {
 

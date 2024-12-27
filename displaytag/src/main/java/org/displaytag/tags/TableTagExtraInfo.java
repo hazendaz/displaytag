@@ -36,10 +36,6 @@ import java.util.List;
  * <li>table uid = object contained in row</li>
  * <li>table uid + ROWNUM_SUFFIX = row number</li>
  * </ul>
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class TableTagExtraInfo extends TagExtraInfo {
 

@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for encoded uri.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class EncodedUriTest extends DisplaytagCase {
 

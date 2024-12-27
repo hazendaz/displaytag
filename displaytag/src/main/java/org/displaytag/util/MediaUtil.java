@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,10 +34,6 @@ import org.slf4j.LoggerFactory;
  * <code>SupportsMedia</code> supports. (Background: ColumnTag, FooterTag and CaptionTag can be configured to support a
  * set of media types. This class factors the logic for setting and determining the media instances these objects
  * support)
- *
- * @author Jorge L. Barroso
- *
- * @version $Revision$ ($Author$)
  */
 public final class MediaUtil {
 
@@ -54,10 +50,6 @@ public final class MediaUtil {
 
     /**
      * Defines a type of object that can support a list of media types.
-     *
-     * @author Jorge L. Barroso
-     *
-     * @version $Revision$ ($Author$)
      */
     public interface SupportsMedia {
 

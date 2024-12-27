@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-49 - style of column cannot be dynamically changed.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ049Test extends DisplaytagCase {
 

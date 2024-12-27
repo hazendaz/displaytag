@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
  * Test for TableDecorator with pagination. If you set up pagination and iterate through the entire page, you should
  * always be on the last row at the end. If you have grouped totals, the first group on a page other than the first
  * should start at the page offset, not at 0.
- *
- * @author Robert West
- *
- * @version $Revision: 1 $ ($Author: rwest $)
  */
 class TableDecoratorPaginationTest {
 

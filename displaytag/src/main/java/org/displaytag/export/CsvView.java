@@ -31,10 +31,6 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Export view for comma separated value exporting.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class CsvView extends BaseExportView {
 

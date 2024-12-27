@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,13 +27,9 @@ import jakarta.servlet.jsp.PageContext;
  * RequestHelperFactory interface.
  * <p>
  * Users can specify a custom RequestHelperFactory implementation in <code>displaytag.properties</code>.
- * </p>
+ * <p>
  * A custom RequestHelperFactory can return a different RequestHelper implementation (the
- * {@link DefaultRequestHelperFactory}returns instaces of {@link DefaultRequestHelper})
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
+ * {@link DefaultRequestHelperFactory}returns instances of {@link DefaultRequestHelper})
  */
 public interface RequestHelperFactory {
 

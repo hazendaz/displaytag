@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for "titlekey" column attribute.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class TitleKeyJstlFmtBundlePrefixTest extends DisplaytagCase {
 

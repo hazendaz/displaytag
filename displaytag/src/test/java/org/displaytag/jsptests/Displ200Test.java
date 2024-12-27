@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-200 - Can't use nested properties in TableDecorator.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ200Test extends DisplaytagCase {
 
