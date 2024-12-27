@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-279 - new "value" column attribute.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ279Test extends DisplaytagCase {
 

@@ -34,10 +34,6 @@ import org.slf4j.LoggerFactory;
 /**
  * A decorator that simply formats input Objects using a <code>java.text.messageFormat</code>. By design, this
  * implementations handle MessageFormat errors by returning the unformatted value and logging the exception.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 public class MessageFormatColumnDecorator implements DisplaytagColumnDecorator {
 

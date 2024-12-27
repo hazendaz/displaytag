@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-182 - Empty list displayed when start offset == list length.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ182Test extends DisplaytagCase {
 

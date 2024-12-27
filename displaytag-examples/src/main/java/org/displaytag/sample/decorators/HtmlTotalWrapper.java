@@ -24,10 +24,6 @@ package org.displaytag.sample.decorators;
 /**
  * Same idea implemented in HtmlTableWriter applied to decorators.
  *
- * @author Jorge L. Barroso
- *
- * @version $Revision$ ($Author$)
- *
  * @see org.displaytag.render.HtmlTableWriter
  */
 public class HtmlTotalWrapper extends TotalWrapperTemplate {

@@ -37,15 +37,11 @@ import org.displaytag.util.TagConstants;
 
 /**
  * Simple caption tag which mimics a standard html caption.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class CaptionTag extends BodyTagSupport implements MediaUtil.SupportsMedia {
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

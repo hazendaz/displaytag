@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-145: check that pooled tags are not affected by the fix.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ145Test extends DisplaytagCase {
 

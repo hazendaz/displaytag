@@ -31,10 +31,6 @@ import org.junit.jupiter.api.Assertions;
 
 /**
  * Assert class used to compare URLs.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public final class URLAssertions {
 

@@ -40,10 +40,6 @@ import org.displaytag.util.TagConstants;
 
 /**
  * Represents a column in a table.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class Column {
 

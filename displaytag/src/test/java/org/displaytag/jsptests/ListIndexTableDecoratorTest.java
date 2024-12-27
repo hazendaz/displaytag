@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for column decorators.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class ListIndexTableDecoratorTest extends DisplaytagCase {
 

@@ -34,11 +34,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * Just a test class that returns columns of data that are useful for testing out the ListTag class and ListColumn
  * class.
- *
- * @author epesh
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class ListObject implements Serializable {
 
@@ -289,8 +284,6 @@ public class ListObject implements Serializable {
 
     /**
      * Inner class used in testing nested tables.
-     *
-     * @author Fabrizio Giustina
      */
     public static class SubListItem implements Serializable {
 

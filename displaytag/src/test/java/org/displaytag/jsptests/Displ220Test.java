@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-220 - Case-insensitive sorting.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ220Test extends DisplaytagCase {
 

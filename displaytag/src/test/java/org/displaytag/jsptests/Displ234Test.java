@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-234 - HTML title not added with chopped value (column tag - maxLength attribute).
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ234Test extends DisplaytagCase {
 

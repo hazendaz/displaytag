@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for maxlength attribute.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class MaxLengthTest extends DisplaytagCase {
 

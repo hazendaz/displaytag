@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,15 +26,11 @@ import org.displaytag.model.RowSorter;
 
 /**
  * runtime exception thrown during sorting when a checked exception can't be used.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class RuntimeLookupException extends RuntimeException {
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

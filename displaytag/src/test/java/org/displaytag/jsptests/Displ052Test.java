@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-052 - Support for checkboxes.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ052Test extends DisplaytagCase {
 

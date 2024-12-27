@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for SetProperty tag.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class CssPropertyTest extends DisplaytagCase {
 

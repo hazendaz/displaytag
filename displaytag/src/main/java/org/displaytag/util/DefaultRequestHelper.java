@@ -39,10 +39,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Default RequestHelper implementation.
  *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
- *
  * @see org.displaytag.util.Href
  * @see org.displaytag.util.RequestHelper
  */

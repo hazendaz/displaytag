@@ -34,10 +34,6 @@ import org.displaytag.model.TableModel;
 
 /**
  * A table decorator which adds checkboxes for selectable rows.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 public class CheckboxTableDecorator extends TableDecorator {
 

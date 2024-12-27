@@ -37,10 +37,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Utility class with methods for object and properties retrieving.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 public final class LookupUtil {
 

@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-192 - add row style to current row from TableDecorator.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ192Test extends DisplaytagCase {
 

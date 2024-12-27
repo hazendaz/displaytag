@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-139 - Will ColumnDecorator regain access to the PageContext?.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ139Test extends DisplaytagCase {
 

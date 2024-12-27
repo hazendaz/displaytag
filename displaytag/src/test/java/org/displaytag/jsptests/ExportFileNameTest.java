@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for export file name property.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class ExportFileNameTest extends DisplaytagCase {
 

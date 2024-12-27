@@ -40,10 +40,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Resolve i18n resources in Struts 2.
  *
- * @author snowwolf@wabunoh-tech.com
- *
- * @version $Revision: 1.1 $
- *
  * @since Jan 4, 2008 2:37:29 PM
  */
 public class I18nStruts2Adapter implements LocaleResolver, I18nResourceProvider {

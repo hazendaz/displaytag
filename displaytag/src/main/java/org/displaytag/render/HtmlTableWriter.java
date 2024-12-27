@@ -56,11 +56,6 @@ import org.slf4j.LoggerFactory;
 /**
  * A table writer that formats a table in HTML and writes it to a JSP page.
  *
- * @author Fabrizio Giustina
- * @author Jorge L. Barroso
- *
- * @version $Id$
- *
  * @see org.displaytag.render.TableWriterTemplate
  *
  * @since 1.1

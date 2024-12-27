@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for requestUri column attribute.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class RequestUriTest extends DisplaytagCase {
 

@@ -28,10 +28,6 @@ import javax.servlet.jsp.JspException;
 
 /**
  * Main interface for exportViews which need to output character data.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public interface TextExportView extends ExportView {
 

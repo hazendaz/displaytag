@@ -56,8 +56,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Test that even if we use partial lists for external sorting and paging still all the records get exported.
- *
- * @author andy Date: Oct 30, 2010 Time: 12:04:04 PM
  */
 class ExportExcelPartialListTest {
 

@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests removal of no-cache headers.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class ExportHeadersTest extends DisplaytagCase {
 

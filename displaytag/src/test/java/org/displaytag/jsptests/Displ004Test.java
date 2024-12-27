@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-4 - Html tags in "title" attribute when using maxLength.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ004Test extends DisplaytagCase {
 

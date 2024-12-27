@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,10 +26,6 @@ import java.util.Map;
 /**
  * A RequestHelper object is used to read parameters from the request. Main features are handling of numeric parameters
  * and the ability to create Href objects from the current request.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public interface RequestHelper {
 

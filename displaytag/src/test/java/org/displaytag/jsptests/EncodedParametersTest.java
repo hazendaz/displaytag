@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for 1016089 - Param values not URLEncoded.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class EncodedParametersTest extends DisplaytagCase {
 

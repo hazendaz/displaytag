@@ -38,10 +38,6 @@ import org.displaytag.render.ItextTableWriter;
 
 /**
  * Exporter using iText: subclasses export to any of the iText document types, such as PDF and RTF.
- *
- * @author Jorge L. Barroso
- *
- * @version $Revision$ ($Author$)
  */
 public abstract class DefaultItextExportView implements BinaryExportView {
 
@@ -124,15 +120,11 @@ public abstract class DefaultItextExportView implements BinaryExportView {
 
     /**
      * Wraps iText-generated exceptions.
-     *
-     * @author Fabrizio Giustina
-     *
-     * @version $Revision$ ($Author$)
      */
     static class ItextGenerationException extends BaseNestableJspTagException {
 
         /**
-         * D1597A17A6.
+         * Serial ID.
          */
         private static final long serialVersionUID = 899149338534L;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,10 +31,6 @@ import org.displaytag.util.TagConstants;
 /**
  * This takes the string that is passed in, and "auto-links" it, it turns email addresses into hyperlinks, and also
  * turns things that looks like URLs into hyperlinks as well.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class AutolinkColumnDecorator implements DisplaytagColumnDecorator {
 

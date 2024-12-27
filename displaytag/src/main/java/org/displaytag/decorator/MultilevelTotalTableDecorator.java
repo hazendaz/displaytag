@@ -45,9 +45,6 @@ import org.slf4j.LoggerFactory;
 /**
  * A TableDecorator that, in conjunction with totaled and grouped columns, produces multi level subtotals on arbitrary
  * String groupings. Use it directly, subclass it, or use it as an example to better meet your local needs.
- *
- * @author rapruitt
- * @author Fabrizio Giustina
  */
 public class MultilevelTotalTableDecorator extends TableDecorator {
 

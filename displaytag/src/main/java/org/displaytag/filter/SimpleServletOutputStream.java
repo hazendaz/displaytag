@@ -28,10 +28,6 @@ import javax.servlet.WriteListener;
 
 /**
  * A simple implementation of ServletOutputStream which wraps a ByteArrayOutputStream.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class SimpleServletOutputStream extends ServletOutputStream {
 

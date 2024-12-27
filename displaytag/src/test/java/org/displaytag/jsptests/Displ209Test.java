@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
  * Test for DISPL-209 - getListIndex() does not return the real list index. Note: the result is different from the one
  * expected from the decription in the Jira report, but after the test it was clear that there is no usable way to get
  * the desired result.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ209Test extends DisplaytagCase {
 

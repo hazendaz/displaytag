@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-334 - display:table pagesize="xx" attrinute fail with multiple tables in same JSP.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision: 1081 $ ($Author: fgiust $)
  */
 class Displ334Test extends DisplaytagCase {
 

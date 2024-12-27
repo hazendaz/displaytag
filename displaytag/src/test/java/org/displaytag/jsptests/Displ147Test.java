@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-147.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ147Test extends DisplaytagCase {
 

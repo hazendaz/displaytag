@@ -30,16 +30,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * A test class that has data that looks more like information that comes back in a report.
- *
- * @author epesh
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class ReportableListObject extends Object implements Comparable<Object>, Serializable {
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

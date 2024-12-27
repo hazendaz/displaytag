@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 /**
  * Test for DISPL-305 - External paging paging.banner.some_items_found displays 1-10 in the second page (other pages as
  * well).
- *
- * @author Fabrizio Giustina
- *
- * @version $Id: Displ305Test.java 1081 2006-04-03 20:26:34Z fgiust $
  */
 class Displ304Test extends DisplaytagCase {
 

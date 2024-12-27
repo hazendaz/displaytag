@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-109 - Center of paging banner number.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ109Test extends DisplaytagCase {
 

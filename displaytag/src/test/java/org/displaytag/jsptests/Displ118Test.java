@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-118 - Exception when requesting invalid page of paged table.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ118Test extends DisplaytagCase {
 

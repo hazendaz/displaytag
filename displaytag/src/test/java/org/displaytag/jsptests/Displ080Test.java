@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-80 - option to automatically escape xml.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ080Test extends DisplaytagCase {
 

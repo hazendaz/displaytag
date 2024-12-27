@@ -31,10 +31,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-26 - More params for paging.banner.*_items_found.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ026Test extends DisplaytagCase {
 

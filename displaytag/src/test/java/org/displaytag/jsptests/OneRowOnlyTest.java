@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * A table with a single row.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class OneRowOnlyTest extends DisplaytagCase {
 

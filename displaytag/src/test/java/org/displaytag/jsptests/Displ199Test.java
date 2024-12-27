@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-199 - Column Summation.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ199Test extends DisplaytagCase {
 

@@ -31,10 +31,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests export with a null list.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class EmptyExportTest extends DisplaytagCase {
 

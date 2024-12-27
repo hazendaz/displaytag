@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for different kind of "data sources".
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class DataSourceMapTest extends DisplaytagCase {
 

@@ -45,10 +45,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for pdf export.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class ExportPdfTest extends DisplaytagCase {
 

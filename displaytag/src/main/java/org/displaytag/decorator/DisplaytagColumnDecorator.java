@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,22 +27,14 @@ import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
 
 /**
- * <p>
  * Interface for simple column decorators.
- * </p>
  * <p>
  * A column decorator is called after the object has been retrieved and it can "transform" the object before the
  * rendering.
- * </p>
  * <p>
  * The <code>DisplaytagColumnDecorator</code> interface has been introduced in displaytag 1.1 and replaces the previous
  * <code>ColumnDecorator</code> interface, adding the pageContext and media parameters, and changing the return type to
  * object to allow decorator chaining.
- * </p>
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  *
  * @since 1.1
  */

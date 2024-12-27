@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for #968559.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class ExportUTF8Test extends DisplaytagCase {
 

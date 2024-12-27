@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for table footer.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class FooterTagTest extends DisplaytagCase {
 

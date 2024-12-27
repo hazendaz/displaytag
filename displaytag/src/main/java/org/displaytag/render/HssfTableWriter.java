@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,10 +53,6 @@ import org.displaytag.model.TableModel;
 
 /**
  * A table writer that formats a table in Excel's spreadsheet format, and writes it to an HSSF workbook.
- *
- * @author Jorge L. Barroso
- *
- * @version $Revision$ ($Author$)
  *
  * @see org.displaytag.render.TableWriterTemplate
  */

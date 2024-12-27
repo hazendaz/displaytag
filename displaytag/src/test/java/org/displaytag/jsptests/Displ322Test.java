@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-322 - Decorator pageContext is null.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ322Test extends DisplaytagCase {
 

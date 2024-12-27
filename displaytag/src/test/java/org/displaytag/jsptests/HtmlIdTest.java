@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for the htmlId attribute.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class HtmlIdTest extends DisplaytagCase {
 

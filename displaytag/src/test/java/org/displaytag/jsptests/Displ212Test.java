@@ -34,10 +34,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-212 - Table displayed incorrectly with fully loaded last page and page number+1 for page parameter.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ212Test extends DisplaytagCase {
 

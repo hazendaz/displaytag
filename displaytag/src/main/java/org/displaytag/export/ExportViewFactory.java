@@ -37,10 +37,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Factory for export views.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public final class ExportViewFactory {
 

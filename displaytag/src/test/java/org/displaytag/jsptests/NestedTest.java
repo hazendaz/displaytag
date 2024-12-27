@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Simple nested tables.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class NestedTest extends DisplaytagCase {
 

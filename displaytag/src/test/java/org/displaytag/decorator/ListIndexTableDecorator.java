@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,10 +24,6 @@ package org.displaytag.decorator;
 /**
  * Does nothing. Simply needed to define a concrete class to test getListIndex() and getViewIndex() from the abstract
  * TableDecorator class
- *
- * @author fgiust
- *
- * @version $Revision$ ($Author$)
  */
 public class ListIndexTableDecorator extends TableDecorator {
     // just subclass TableDecorator

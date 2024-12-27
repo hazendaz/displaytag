@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for caption tag.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class CaptionTagTest extends DisplaytagCase {
 

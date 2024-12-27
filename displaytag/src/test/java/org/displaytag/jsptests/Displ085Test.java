@@ -32,10 +32,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-085 - Dynamic Column Creation.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ085Test extends DisplaytagCase {
 

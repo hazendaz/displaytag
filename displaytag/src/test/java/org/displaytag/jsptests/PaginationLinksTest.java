@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Testcase for #944056.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class PaginationLinksTest extends DisplaytagCase {
 

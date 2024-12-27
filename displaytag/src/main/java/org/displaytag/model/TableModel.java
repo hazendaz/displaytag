@@ -38,10 +38,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Table Model. Holds table data for presentation.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class TableModel {
 
@@ -507,7 +503,8 @@ public class TableModel {
                 if ((sortedHeaderCell != null) && (sortedHeaderCell.getBeanPropertyName() != null
                         || this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size())) {
                     final String sorted = sortedHeaderCell.getSortProperty() != null
-                            ? sortedHeaderCell.getSortProperty() : sortedHeaderCell.getBeanPropertyName();
+                            ? sortedHeaderCell.getSortProperty()
+                            : sortedHeaderCell.getBeanPropertyName();
 
                     Collections.sort(list, new RowSorter(this.sortedColumn, sorted, this.getTableDecorator(),
                             this.sortOrderAscending, sortedHeaderCell.getComparator()));

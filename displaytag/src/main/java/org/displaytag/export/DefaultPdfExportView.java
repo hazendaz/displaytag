@@ -35,10 +35,6 @@ import java.io.OutputStream;
 
 /**
  * PDF exporter using iText.
- *
- * @author Jorge L. Barroso
- *
- * @version $Revision$ ($Author$)
  */
 public class DefaultPdfExportView extends DefaultItextExportView {
 
@@ -73,10 +69,6 @@ public class DefaultPdfExportView extends DefaultItextExportView {
     /**
      * Prints a page number at the bottom of each page. Based on
      * http://itextdocs.lowagie.com/examples/com/lowagie/examples/directcontent/pageevents/PageNumbersWatermark.java
-     *
-     * @author Jorge L. Barroso
-     *
-     * @version $Revision$ ($Author$)
      */
     private static class PageNumber extends PdfPageEventHelper {
 

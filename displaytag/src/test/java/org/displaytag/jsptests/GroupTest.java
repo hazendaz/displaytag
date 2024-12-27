@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for basic displaytag functionalities.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class GroupTest extends DisplaytagCase {
 

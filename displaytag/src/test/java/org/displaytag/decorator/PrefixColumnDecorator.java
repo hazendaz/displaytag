@@ -28,10 +28,6 @@ import org.displaytag.properties.MediaTypeEnum;
 
 /**
  * A column decorator which adds a "decorated: " prefix.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class PrefixColumnDecorator implements DisplaytagColumnDecorator {
 

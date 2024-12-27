@@ -51,10 +51,6 @@ import org.slf4j.LoggerFactory;
  * originates with the TableTagData.writeHTMLData method, factoring its logic so that it can be re-used by classes that
  * write the tables as PDF, Excel, RTF and other formats. TableTagData.writeHTMLData now calls an HTML extension of this
  * class to write tables in HTML format to a JSP page.)
- *
- * @author Jorge L. Barroso
- *
- * @version $Id$
  */
 public abstract class TableWriterTemplate {
 
@@ -371,7 +367,8 @@ public abstract class TableWriterTemplate {
 
                     @SuppressWarnings("deprecation")
                     final String cellvalue = MediaTypeEnum.HTML.equals(model.getMedia())
-                            ? column.getChoppedAndLinkedValue() : ObjectUtils.toString(column.getValue(true));
+                            ? column.getChoppedAndLinkedValue()
+                            : ObjectUtils.toString(column.getValue(true));
 
                     final CellStruct struct = new CellStruct(column, cellvalue);
                     currentRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);
@@ -394,7 +391,8 @@ public abstract class TableWriterTemplate {
 
                     @SuppressWarnings("deprecation")
                     final String cellvalue = MediaTypeEnum.HTML.equals(model.getMedia())
-                            ? column.getChoppedAndLinkedValue() : ObjectUtils.toString(column.getValue(true));
+                            ? column.getChoppedAndLinkedValue()
+                            : ObjectUtils.toString(column.getValue(true));
 
                     final CellStruct struct = new CellStruct(column, cellvalue);
                     nextRowValues.put(Integer.valueOf(column.getHeaderCell().getColumnNumber()), struct);

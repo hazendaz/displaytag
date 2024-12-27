@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,17 +28,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.displaytag.util.HtmlAttributeMap;
 
 /**
- * <p>
  * Represents a table cell.
- * </p>
  * <p>
  * A cell is used only when the content is placed as content of the column tag and need to be evaluated during
  * iteration.
- * </p>
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class Cell implements Comparable<Cell> {
 

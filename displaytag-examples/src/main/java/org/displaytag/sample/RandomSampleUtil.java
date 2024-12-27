@@ -27,10 +27,6 @@ import java.util.Random;
 
 /**
  * Utility class used to get random word and sentences used in examples.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public final class RandomSampleUtil {
 

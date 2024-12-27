@@ -233,10 +233,11 @@
                 <configuration>
                     <rules>
                         <enforceBytecodeVersion>
-                            <excludes>
-                                <!-- Free marker has a java 16 class which is used under java 16, allow this otherwise -->
-                                <exclude>org.freemarker:freemarker</exclude>
-                            </excludes>
+                            <!-- Start: Remove after base-parent 51 upgrade -->
+                            <maxJdkVersion>${java.version}</maxJdkVersion>
+                            <ignoredScopes>provided,test</ignoredScopes>
+                            <!-- End: Remove after base-parent 51 upgrade -->
+                            <ignoreOptionals>true</ignoreOptionals>
                         </enforceBytecodeVersion>
                     </rules>
                 </configuration>

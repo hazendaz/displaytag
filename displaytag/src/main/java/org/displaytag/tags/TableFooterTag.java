@@ -35,16 +35,11 @@ import org.displaytag.util.MediaUtil;
 
 /**
  * Display a table footer. Html only, not included in export.
- *
- * @author Fabrizio Giustina
- * @author rapruitt
- *
- * @version $Revision$ ($Author$)
  */
 public class TableFooterTag extends BodyTagSupport implements MediaUtil.SupportsMedia {
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

@@ -38,10 +38,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-129 - Partial list support with valuelist pattern.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id: $
  */
 class Displ129Test extends DisplaytagCase {
 

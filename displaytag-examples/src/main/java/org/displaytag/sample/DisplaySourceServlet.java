@@ -32,15 +32,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet used to display jsp source for example pages.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class DisplaySourceServlet extends HttpServlet {
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

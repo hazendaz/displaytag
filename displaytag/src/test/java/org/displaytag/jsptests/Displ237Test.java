@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-237 - Problems using sorting, defaultsort.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ237Test extends DisplaytagCase {
 

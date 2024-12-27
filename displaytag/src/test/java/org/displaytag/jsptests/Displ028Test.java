@@ -36,10 +36,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test for DISPL-252 - Multiple (chained) column decorators.
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 class Displ028Test extends DisplaytagCase {
 

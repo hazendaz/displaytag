@@ -33,10 +33,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-224 - Adding the "scope" attribute to table header cells for web accessibility.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ224Test extends DisplaytagCase {
 

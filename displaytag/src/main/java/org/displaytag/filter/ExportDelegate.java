@@ -40,10 +40,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Actually writes out the content of the wrapped response. Used by the j2ee filter and the Spring interceptor
  * implementations.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public final class ExportDelegate {
 

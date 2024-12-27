@@ -39,15 +39,11 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * The Class DefaultHref.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class DefaultHref implements Href {
 
     /**
-     * D1597A17A6.
+     * Serial ID.
      */
     private static final long serialVersionUID = 899149338534L;
 

@@ -31,10 +31,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Verify that the TableProperties will show values from the proper locale.
- *
- * @author rapruitt
- *
- * @version $Revision$ ($Author$)
  */
 class I18nPropertiesTest extends DisplaytagCase {
 

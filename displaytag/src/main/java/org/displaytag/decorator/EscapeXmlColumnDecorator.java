@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2023 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,10 +28,6 @@ import org.displaytag.properties.MediaTypeEnum;
 
 /**
  * This takes the string that is passed in, and escapes html tags and entities. Only operates on "html" or "xml" media.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 public class EscapeXmlColumnDecorator implements DisplaytagColumnDecorator {
 

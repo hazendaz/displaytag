@@ -35,10 +35,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-505 - Class cache usage causes make using different factory for different tables not work.
- *
- * @author Mike Calmus
- *
- * @version $Revision: 1081 $ ($Author: fgiust $)
  */
 class Displ505Test extends DisplaytagCase {
 

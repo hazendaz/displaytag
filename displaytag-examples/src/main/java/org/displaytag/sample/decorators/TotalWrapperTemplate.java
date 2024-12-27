@@ -30,10 +30,6 @@ import org.displaytag.sample.ReportableListObject;
 /**
  * Same idea implemented in TableWriterTemplate applied to decorators.
  *
- * @author Jorge L. Barroso
- *
- * @version $Revision$ ($Author$)
- *
  * @see org.displaytag.render.TableWriterTemplate
  */
 public abstract class TotalWrapperTemplate extends TableDecorator {

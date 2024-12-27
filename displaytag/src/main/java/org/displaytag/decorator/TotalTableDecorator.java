@@ -39,10 +39,6 @@ import org.slf4j.LoggerFactory;
 /**
  * A table decorator which adds rows with totals (for column with the "total" attribute set) and subtotals (grouping by
  * the column with a group="1" attribute).
- *
- * @author Fabrizio Giustina
- *
- * @version $Id$
  */
 public class TotalTableDecorator extends TableDecorator {
 

@@ -37,10 +37,6 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests for DISPL-107: Excel and Text exports use Windows Latin-1 encoding.
- *
- * @author Fabrizio Giustina
- *
- * @version $Revision$ ($Author$)
  */
 class Displ107Test extends DisplaytagCase {
 
