@@ -161,7 +161,7 @@ public class ServletWrappingPortletContext implements PortletContext {
 
     @Override
     public Enumeration<String> getContainerRuntimeOptions() {
-        return Collections.enumeration(Collections.<String>emptySet());
+        return Collections.enumeration(Collections.<String> emptySet());
     }
 
     @Override
