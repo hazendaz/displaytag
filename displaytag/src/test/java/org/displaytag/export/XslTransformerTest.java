@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.file.Path;
 
 import javax.servlet.jsp.JspException;
 import javax.xml.transform.Source;
@@ -100,7 +101,7 @@ class XslTransformerTest {
             throw new JspException("error creating pdf output " + e.getMessage(), e); //$NON-NLS-1$
         }
         System.out.println(debugRes.getWriter());
-        FopExportView.transform(XslTransformerTest.XML, styleSheetPath, new File("/Users/andy/test.pdf"));
+        FopExportView.transform(XslTransformerTest.XML, styleSheetPath, Path.of("/Users/andy/test.pdf").toFile());
     }
 
     /** The Constant XML. */

@@ -14,13 +14,13 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
-			<display:table name="requestScope.test" id="table">
-				<display:column property="ant" />
-				<display:column property="bee" />
-				<display:column property="camel" />
-				<display:setProperty name="export.xml.filename"
-					value="file.txt"/>
-			</display:table>
+            <display:table name="requestScope.test" id="table">
+                <display:column property="ant" />
+                <display:column property="bee" />
+                <display:column property="camel" />
+                <display:setProperty name="export.xml.filename"
+                    value="file.txt"/>
+            </display:table>
         </body>
     </html>
 </jsp:root>

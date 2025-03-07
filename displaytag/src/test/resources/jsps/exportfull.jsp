@@ -16,11 +16,11 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
-			<display:table name="requestScope.test" id="table" pagesize="1">
+            <display:table name="requestScope.test" id="table" pagesize="1">
                 <display:column property="bee"/>
-				<display:column style="text-align: right; font-color: green "><jsp:expression>table_rowNum</jsp:expression></display:column>
-				<display:column property="bee" media="html"/>
-			</display:table>
+                <display:column style="text-align: right; font-color: green "><jsp:expression>table_rowNum</jsp:expression></display:column>
+                <display:column property="bee" media="html"/>
+            </display:table>
         </body>
     </html>
 </jsp:root>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,12 +23,13 @@ package org.displaytag.export;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.servlet.jsp.JspException;
 import javax.xml.transform.Result;
@@ -170,7 +171,7 @@ public class FopExportView implements BinaryExportView {
     public void doExport(final OutputStream out) throws IOException, JspException {
         final String xmlResults = this.getXml();
 
-        final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+        final FopFactory fopFactory = FopFactory.newInstance(Path.of(".").toUri());
         final Source xslt = new StreamSource(this.getStyleSheet());
         final TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer;
@@ -272,7 +273,7 @@ public class FopExportView implements BinaryExportView {
      */
     public static void transform(final String xmlSrc, final String styleSheetPath, final File f) throws Exception {
 
-        final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+        final FopFactory fopFactory = FopFactory.newInstance(Path.of(".").toUri());
         final InputStream styleSheetStream = FopExportView.class.getResourceAsStream(styleSheetPath);
 
         final Source xslt = new StreamSource(styleSheetStream);
@@ -285,7 +286,7 @@ public class FopExportView implements BinaryExportView {
         }
         Fop fop;
         try {
-            final FileOutputStream fw = new FileOutputStream(f);
+            final OutputStream fw = Files.newOutputStream(f.toPath());
             fop = fopFactory.newFop(org.apache.xmlgraphics.util.MimeConstants.MIME_PDF, fw);
         } catch (final FOPException e) {
             throw new JspException("Cannot configure pdf export " + e.getMessage(), e); //$NON-NLS-1$

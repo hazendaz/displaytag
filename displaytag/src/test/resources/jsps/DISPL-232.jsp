@@ -13,7 +13,7 @@
                 java.util.List<org.displaytag.test.KnownValue> testData = new java.util.ArrayList<org.displaytag.test.KnownValue>();
                 for (int j=0; j<20; j++)
                 {
-                	testData.add(new org.displaytag.test.KnownValue());
+                    testData.add(new org.displaytag.test.KnownValue());
                 }
                 request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
@@ -21,7 +21,7 @@
                 <display:column property="ant"/>
                 <display:setProperty name="paging.banner.group_size" value="5" />
                 <display:setProperty name="paging.banner.full">
-	                <div id="pagination">[{6}]</div>
+                    <div id="pagination">[{6}]</div>
                 </display:setProperty>
                 <display:setProperty name="paging.banner.last">
                   <div id="pagination">[{6}]</div>

@@ -15,15 +15,15 @@
                 testData.add(new org.displaytag.test.KnownValue());
                 request.setAttribute( "test", testData);
             ]]> </jsp:scriptlet>
-			<display:table name="requestScope.test" id="table">
-				<display:column property="ant"/>
-				<display:column>
-					<display:table name="requestScope.test" uid="nested">
-						<display:column property="bee"/>
-					</display:table>
-				</display:column>
-				<display:column property="camel"/>
-			</display:table>
+            <display:table name="requestScope.test" id="table">
+                <display:column property="ant"/>
+                <display:column>
+                    <display:table name="requestScope.test" uid="nested">
+                        <display:column property="bee"/>
+                    </display:table>
+                </display:column>
+                <display:column property="camel"/>
+            </display:table>
         </body>
     </html>
 </jsp:root>

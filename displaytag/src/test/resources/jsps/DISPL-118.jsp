@@ -19,9 +19,9 @@
       <display:table name="requestScope.test" id="table" pagesize="2">
         <display:column title="ant" property="ant" />
         <display:column title="empty"></display:column>
-		<display:setProperty name="paging.banner.first">
-			<div id="PAGEONE">PAGEONE</div>
-		</display:setProperty>
+        <display:setProperty name="paging.banner.first">
+            <div id="PAGEONE">PAGEONE</div>
+        </display:setProperty>
         <display:setProperty name="paging.banner.last">
           <div id="PAGETWO">PAGETWO</div>
         </display:setProperty>

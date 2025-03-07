@@ -14,7 +14,7 @@
           org.displaytag.test.KnownTypes testdata = new org.displaytag.test.KnownTypes();
           for (int j=0; j<10; j++)
           {
-          	testData.add(testdata);
+              testData.add(testdata);
           }
           request.setAttribute( "test", testData);
       ]]> </jsp:scriptlet>

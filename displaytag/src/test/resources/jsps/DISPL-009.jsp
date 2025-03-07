@@ -20,13 +20,13 @@
                 <display:column property="ant"/>
                 <display:column property="bee"/>
                 <display:column property="camel" sortable="true"/>
-								<display:setProperty name="paging.banner.first">
-									<span id="PAGEONE">PAGEONE<a id="next" href="{3}">Next</a></span>
-								</display:setProperty>
-								<display:setProperty name="paging.banner.full">
-									<span id="OTHERPAGE">OTHERPAGE</span>
-								</display:setProperty>
-								<display:setProperty name="paging.banner.placement" value="bottom" />
+                                <display:setProperty name="paging.banner.first">
+                                    <span id="PAGEONE">PAGEONE<a id="next" href="{3}">Next</a></span>
+                                </display:setProperty>
+                                <display:setProperty name="paging.banner.full">
+                                    <span id="OTHERPAGE">OTHERPAGE</span>
+                                </display:setProperty>
+                                <display:setProperty name="paging.banner.placement" value="bottom" />
             </display:table>
         </body>
     </html>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,12 +28,12 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Properties;
 
 import org.apache.jasper.servlet.JasperInitializer;
@@ -47,6 +47,7 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,6 +95,7 @@ class ExportExcelHssfTest {
      *
      * @see junit.framework.TestCase#setUp()
      */
+    @SuppressModernizer
     @BeforeEach
     void setUp() throws Exception {
         // need to pass a web.xml file to setup servletunit working directory
@@ -147,12 +149,11 @@ class ExportExcelHssfTest {
     void doDefaultTest() throws Exception {
         final byte[] res = this.runPage("exportExcel.jsp");
         final File f = File.createTempFile("exporttest", ".xls");
-        final FileOutputStream fw = new FileOutputStream(f);
-        fw.write(res);
-        fw.flush();
-        fw.close();
+        try (OutputStream fw = Files.newOutputStream(f.toPath())) {
+            fw.write(res);
+        }
 
-        final FileInputStream istr = new FileInputStream(f);
+        final InputStream istr = Files.newInputStream(f.toPath());
         final Workbook wb = new HSSFWorkbook(istr);
 
         final Sheet sh = wb.getSheetAt(0);
