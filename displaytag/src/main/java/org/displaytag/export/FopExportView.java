@@ -31,6 +31,7 @@ import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -171,7 +172,7 @@ public class FopExportView implements BinaryExportView {
     public void doExport(final OutputStream out) throws IOException, JspException {
         final String xmlResults = this.getXml();
 
-        final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+        final FopFactory fopFactory = FopFactory.newInstance(Path.of(".").toUri());
         final Source xslt = new StreamSource(this.getStyleSheet());
         final TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer;
@@ -273,7 +274,7 @@ public class FopExportView implements BinaryExportView {
      */
     public static void transform(final String xmlSrc, final String styleSheetPath, final File f) throws Exception {
 
-        final FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+        final FopFactory fopFactory = FopFactory.newInstance(Path.of(".").toUri());
         final InputStream styleSheetStream = FopExportView.class.getResourceAsStream(styleSheetPath);
 
         final Source xslt = new StreamSource(styleSheetStream);
