@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,9 @@
 package org.displaytag.export.excel;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -132,12 +133,11 @@ class SubtotaledExcelTest {
         view.setParameters(m, true, true, true);
 
         final File f = File.createTempFile("nogroups", null);
-        final FileOutputStream str = new FileOutputStream(f);
-        view.doExport(str);
-        str.flush();
-        str.close();
+        try (OutputStream str = Files.newOutputStream(f.toPath())) {
+            view.doExport(str);
+        }
 
-        final FileInputStream istr = new FileInputStream(f);
+        final InputStream istr = Files.newInputStream(f.toPath());
         final Workbook wb = new HSSFWorkbook(istr);
 
         final Sheet sh = wb.getSheetAt(0);
@@ -169,12 +169,11 @@ class SubtotaledExcelTest {
         view.setParameters(m, true, true, true);
 
         final File f = File.createTempFile("displaytag", null);
-        final FileOutputStream str = new FileOutputStream(f);
-        view.doExport(str);
-        str.flush();
-        str.close();
+        try (OutputStream str = Files.newOutputStream(f.toPath())) {
+            view.doExport(str);
+        }
 
-        final FileInputStream istr = new FileInputStream(f);
+        final InputStream istr = Files.newInputStream(f.toPath());
         final Workbook wb = new HSSFWorkbook(istr);
 
         final Sheet sh = wb.getSheetAt(0);

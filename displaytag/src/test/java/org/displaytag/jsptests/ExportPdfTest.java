@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,9 +27,10 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.Properties;
 
 import org.displaytag.export.ExportViewFactory;
@@ -120,10 +121,9 @@ class ExportPdfTest extends DisplaytagCase {
     void doDefaultTest() throws Exception {
         final byte[] res = this.runPage("exportfull.jsp");
         final File f = this.getTestFile();
-        final FileOutputStream fw = new FileOutputStream(f);
-        fw.write(res);
-        fw.flush();
-        fw.close();
+        try (OutputStream fw = Files.newOutputStream(f.toPath())) {
+            fw.write(res);
+        }
     }
 
     /**
@@ -136,10 +136,9 @@ class ExportPdfTest extends DisplaytagCase {
     void doInlineTest() throws Exception {
         final byte[] res = this.runPage("exportFoInline.jsp");
         final File f = this.getTestFile();
-        final FileOutputStream fw = new FileOutputStream(f);
-        fw.write(res);
-        fw.flush();
-        fw.close();
+        try (OutputStream fw = Files.newOutputStream(f.toPath())) {
+            fw.write(res);
+        }
     }
 
     /**

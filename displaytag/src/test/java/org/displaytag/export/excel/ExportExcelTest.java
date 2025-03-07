@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,12 @@ import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Properties;
 
 import org.apache.jasper.servlet.JasperInitializer;
@@ -143,10 +144,9 @@ class ExportExcelTest {
     void doDefaultTest() throws Exception {
         final byte[] res = this.runPage("exportExcel.jsp");
         final File f = File.createTempFile("exporttest", ".xls");
-        final FileOutputStream fw = new FileOutputStream(f);
-        fw.write(res);
-        fw.flush();
-        fw.close();
+        try (OutputStream fw = Files.newOutputStream(f.toPath())) {
+            fw.write(res);
+        }
     }
 
     /**
