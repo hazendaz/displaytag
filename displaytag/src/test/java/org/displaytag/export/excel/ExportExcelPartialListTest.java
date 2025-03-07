@@ -47,6 +47,7 @@ import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.properties.TableProperties;
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
+import org.gaul.modernizer_maven_annotations.SuppressModernizer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,6 +95,7 @@ class ExportExcelPartialListTest {
      *
      * @see junit.framework.TestCase#setUp()
      */
+    @SuppressModernizer
     @BeforeEach
     void setUp() throws Exception {
         // need to pass a web.xml file to setup servletunit working directory
