@@ -233,10 +233,6 @@
                 <configuration>
                     <rules>
                         <enforceBytecodeVersion>
-                            <!-- Start: Remove after base-parent 51 upgrade -->
-                            <maxJdkVersion>${java.version}</maxJdkVersion>
-                            <ignoredScopes>provided,test</ignoredScopes>
-                            <!-- End: Remove after base-parent 51 upgrade -->
                             <ignoreOptionals>true</ignoreOptionals>
                         </enforceBytecodeVersion>
                     </rules>
