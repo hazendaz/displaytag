@@ -17,9 +17,9 @@
 package org.springframework.mock.web.portlet;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -48,7 +48,7 @@ public abstract class MockBaseURL implements BaseURL {
     public static final String URL_TYPE_ACTION = "action";
 
     /** The Constant ENCODING. */
-    private static final String ENCODING = StandardCharsets.UTF_8.name();
+    private static final Charset ENCODING = StandardCharsets.UTF_8;
 
     /** The parameters. */
     protected final Map<String, String[]> parameters = new LinkedHashMap<String, String[]>();
@@ -182,11 +182,7 @@ public abstract class MockBaseURL implements BaseURL {
      * @return the string
      */
     protected String encodeParameter(String name, String value) {
-        try {
-            return URLEncoder.encode(name, ENCODING) + "=" + URLEncoder.encode(value, ENCODING);
-        } catch (UnsupportedEncodingException ex) {
-            return null;
-        }
+        return URLEncoder.encode(name, ENCODING) + "=" + URLEncoder.encode(value, ENCODING);
     }
 
     /**
@@ -200,16 +196,12 @@ public abstract class MockBaseURL implements BaseURL {
      * @return the string
      */
     protected String encodeParameter(String name, String[] values) {
-        try {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0, n = values.length; i < n; i++) {
-                sb.append(i > 0 ? ";" : "").append(URLEncoder.encode(name, ENCODING)).append("=")
-                        .append(URLEncoder.encode(values[i], ENCODING));
-            }
-            return sb.toString();
-        } catch (UnsupportedEncodingException ex) {
-            return null;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0, n = values.length; i < n; i++) {
+            sb.append(i > 0 ? ";" : "").append(URLEncoder.encode(name, ENCODING)).append("=")
+                    .append(URLEncoder.encode(values[i], ENCODING));
         }
+        return sb.toString();
     }
 
 }

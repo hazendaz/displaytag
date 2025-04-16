@@ -57,7 +57,7 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
     private String contentType;
 
     /** The character encoding. */
-    private String characterEncoding = WebUtils.DEFAULT_CHARACTER_ENCODING;
+    private Charset characterEncoding = Charset.forName(WebUtils.DEFAULT_CHARACTER_ENCODING);
 
     /** The writer. */
     private PrintWriter writer;
@@ -143,19 +143,19 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
      *            the new character encoding
      */
     public void setCharacterEncoding(String characterEncoding) {
-        this.characterEncoding = characterEncoding;
+        this.characterEncoding = Charset.forName(characterEncoding);
     }
 
     @Override
     public String getCharacterEncoding() {
-        return this.characterEncoding;
+        return this.characterEncoding.name();
     }
 
     @Override
     public PrintWriter getWriter() throws UnsupportedEncodingException {
         if (this.writer == null) {
             Writer targetWriter = (this.characterEncoding != null
-                    ? new OutputStreamWriter(this.outputStream, Charset.forName(this.characterEncoding))
+                    ? new OutputStreamWriter(this.outputStream, this.characterEncoding)
                     : new OutputStreamWriter(this.outputStream, StandardCharsets.UTF_8));
             this.writer = new PrintWriter(targetWriter);
         }
@@ -324,13 +324,11 @@ public class MockMimeResponse extends MockPortletResponse implements MimeRespons
 
     @Override
     public RenderURL createRenderURL(Copy option) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public ActionURL createActionURL(Copy option) {
-        // TODO Auto-generated method stub
         return null;
     }
 

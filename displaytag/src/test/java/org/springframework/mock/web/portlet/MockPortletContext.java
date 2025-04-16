@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -122,7 +123,7 @@ public class MockPortletContext implements PortletContext {
         // Use JVM temp dir as PortletContext temp dir.
         String tempDir = System.getProperty(TEMP_DIR_SYSTEM_PROPERTY);
         if (tempDir != null) {
-            this.attributes.put(WebUtils.TEMP_DIR_CONTEXT_ATTRIBUTE, new File(tempDir));
+            this.attributes.put(WebUtils.TEMP_DIR_CONTEXT_ATTRIBUTE, Path.of(tempDir));
         }
     }
 
