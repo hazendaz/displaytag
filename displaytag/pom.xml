@@ -160,7 +160,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>6.2.5</version>
+            <version>6.2.6</version>
             <optional>true</optional>
         </dependency>
 
@@ -196,7 +196,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>6.2.5</version>
+            <version>6.2.6</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
