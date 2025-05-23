@@ -129,19 +129,34 @@
         </dependency>
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>fop</artifactId>
+            <artifactId>fop-core</artifactId>
             <version>2.11</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis-ext</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>fop-events</artifactId>
+            <version>2.11</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-bridge</artifactId>
+            <version>1.19</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-svggen</artifactId>
+            <version>1.19</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- optional dependencies for LocaleResolvers -->
