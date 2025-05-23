@@ -162,6 +162,12 @@
             <artifactId>spring-webmvc</artifactId>
             <version>6.2.7</version>
             <optional>true</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jcl</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
