@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.jsp.PageContext;
 
-import org.apache.commons.beanutils.MappedPropertyDescriptor;
-import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils2.MappedPropertyDescriptor;
+import org.apache.commons.beanutils2.PropertyUtils;
 import org.displaytag.model.TableModel;
 
 /**

@@ -193,7 +193,7 @@
         <module.name>org.displaytag.parent</module.name>
 
         <!-- Reproducible Builds -->
-        <project.build.outputTimestamp>1744767351</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1748007018</project.build.outputTimestamp>
     </properties>
 
     <build>
