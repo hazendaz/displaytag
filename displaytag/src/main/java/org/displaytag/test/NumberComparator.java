@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@ package org.displaytag.test;
 
 import java.util.Comparator;
 
-import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils2.ConvertUtils;
 
 /**
  * Sorts 2 numbers, converted from objects using beanutils Converters.
