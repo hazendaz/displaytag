@@ -27,12 +27,12 @@
     <parent>
         <groupId>com.github.hazendaz</groupId>
         <artifactId>displaytag-doc</artifactId>
-        <version>3.2.1-SNAPSHOT</version>
+        <version>3.3.0</version>
     </parent>
 
     <groupId>com.github.hazendaz</groupId>
     <artifactId>displaytag-examples</artifactId>
-    <version>3.2.1-SNAPSHOT</version>
+    <version>3.3.0</version>
     <packaging>war</packaging>
     <name>displaytag-examples</name>
 
@@ -41,7 +41,7 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/displaytag.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>displaytag-doc-3.3.0</tag>
         <url>https://github.com/hazendaz/displaytag/</url>
     </scm>
 
