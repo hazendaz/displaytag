@@ -36,7 +36,7 @@ public interface PaginatedList {
      *
      * @return the current partial list
      */
-    List<Row> getList();
+    <T> List<T> getList();
 
     /**
      * Returns the page number of the partial list (starts from 1).
