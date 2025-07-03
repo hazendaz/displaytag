@@ -881,8 +881,8 @@ public class TableTag extends HtmlTableTag {
     }
 
     /**
-     * Get the given parameter from the request or, if not avaible, look for into into the session if keepstatus is set.
-     * Also takes care of storing an existing paramter into session.
+     * Get the given parameter from the request or, if not available, look for into into the session if keepstatus is set.
+     * Also takes care of storing an existing parameter into session.
      *
      * @param request
      *            servlet request
