@@ -44,6 +44,7 @@ import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.Range;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.displaytag.Messages;
 import org.displaytag.decorator.TableDecorator;
@@ -1017,7 +1018,7 @@ public class TableTag extends HtmlTableTag {
         final Integer exportTypeParameter = requestHelper
                 .getIntParameter(this.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
 
-        this.currentMediaType = ObjectUtils.defaultIfNull(MediaTypeEnum.fromCode(exportTypeParameter),
+        this.currentMediaType = ObjectUtils.getIfNull(MediaTypeEnum.fromCode(exportTypeParameter),
                 MediaTypeEnum.HTML);
 
         // if we are doing partialLists then ensure we have our size object
@@ -1075,9 +1076,9 @@ public class TableTag extends HtmlTableTag {
             }
 
             // rowNumber starts from 1
-            this.filteredRows = Range.between(start + 1, end);
+            this.filteredRows = Range.of(start + 1, end, null);
         } else {
-            this.filteredRows = Range.between(1, Integer.MAX_VALUE);
+            this.filteredRows = Range.of(1, Integer.MAX_VALUE, null);
         }
     }
 
@@ -1450,7 +1451,7 @@ public class TableTag extends HtmlTableTag {
             }
         }
 
-        if (!usingFilter && characterEncoding != null && !StringUtils.contains(mimeType, "charset") //$NON-NLS-1$
+        if (!usingFilter && characterEncoding != null && !Strings.CS.contains(mimeType, "charset") //$NON-NLS-1$
                 && exportView instanceof TextExportView) {
             mimeType += "; charset=" + characterEncoding; //$NON-NLS-1$
         }

@@ -31,6 +31,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.WrappedRuntimeException;
@@ -258,7 +259,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
      * @return the string
      */
     private String esc(final Object value) {
-        return StringUtils.replace(value != null ? value.toString() : StringUtils.EMPTY, "\"", "\\\"");
+        return Strings.CS.replace(value != null ? value.toString() : StringUtils.EMPTY, "\"", "\\\"");
     }
 
     /**
