@@ -28,14 +28,14 @@ import org.displaytag.properties.SortOrderEnum;
 /**
  * Interface describing an externally sorted and paginated list.
  */
-public interface PaginatedList {
+public interface PaginatedList<T> {
 
     /**
      * Returns the current partial list.
      *
      * @return the current partial list
      */
-    <T> List<T> getList();
+    List<T> getList();
 
     /**
      * Returns the page number of the partial list (starts from 1).
