@@ -23,7 +23,6 @@ package org.displaytag.pagination;
 
 import java.util.List;
 
-import org.displaytag.model.Row;
 import org.displaytag.properties.SortOrderEnum;
 
 /**
