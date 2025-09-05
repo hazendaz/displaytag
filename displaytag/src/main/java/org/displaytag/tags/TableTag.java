@@ -311,7 +311,7 @@ public class TableTag extends HtmlTableTag {
      * The paginated list containing the external pagination and sort parameters The presence of this paginated list is
      * what determines if external pagination and sorting is used or not.
      */
-    private transient PaginatedList paginatedList;
+    private transient PaginatedList<Row> paginatedList;
 
     /**
      * The classname of the totaler.
@@ -942,7 +942,7 @@ public class TableTag extends HtmlTableTag {
         }
 
         if (this.list instanceof PaginatedList) {
-            this.paginatedList = (PaginatedList) this.list;
+            this.paginatedList = (PaginatedList<Row>) this.list;
             this.list = this.paginatedList.getList();
         }
 

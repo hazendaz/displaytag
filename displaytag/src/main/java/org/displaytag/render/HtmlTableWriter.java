@@ -97,7 +97,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
      * The paginated list containing the external pagination and sort parameters The presence of this paginated list is
      * what determines if external pagination and sorting is used or not.
      */
-    private final PaginatedList paginatedList;
+    private final PaginatedList<Row> paginatedList;
 
     /**
      * Used by various functions when the person wants to do paging.
@@ -142,7 +142,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
      *            the uid
      */
     public HtmlTableWriter(final TableProperties tableProperties, final Href baseHref, final boolean export,
-            final JspWriter out, final CaptionTag captionTag, final PaginatedList paginatedList,
+            final JspWriter out, final CaptionTag captionTag, final PaginatedList<Row> paginatedList,
             final SmartListHelper listHelper, final int pagesize, final HtmlAttributeMap attributeMap,
             final String uid) {
         this.properties = tableProperties;

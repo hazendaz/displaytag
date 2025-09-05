@@ -31,7 +31,7 @@ import org.displaytag.test.NumberedItem;
 /**
  * The Class SimplePaginatedList.
  */
-public class SimplePaginatedList implements PaginatedList {
+public class SimplePaginatedList implements PaginatedList<Row> {
 
     /** wrapped list. */
     private final List<Row> fullList = new ArrayList<>();
