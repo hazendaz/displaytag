@@ -882,8 +882,8 @@ public class TableTag extends HtmlTableTag {
     }
 
     /**
-     * Get the given parameter from the request or, if not available, look for into into the session if keepstatus is set.
-     * Also takes care of storing an existing parameter into session.
+     * Get the given parameter from the request or, if not available, look for into into the session if keepstatus is
+     * set. Also takes care of storing an existing parameter into session.
      *
      * @param request
      *            servlet request
@@ -1018,8 +1018,7 @@ public class TableTag extends HtmlTableTag {
         final Integer exportTypeParameter = requestHelper
                 .getIntParameter(this.encodeParameter(TableTagParameters.PARAMETER_EXPORTTYPE));
 
-        this.currentMediaType = ObjectUtils.getIfNull(MediaTypeEnum.fromCode(exportTypeParameter),
-                MediaTypeEnum.HTML);
+        this.currentMediaType = ObjectUtils.getIfNull(MediaTypeEnum.fromCode(exportTypeParameter), MediaTypeEnum.HTML);
 
         // if we are doing partialLists then ensure we have our size object
         if (this.partialList) {
