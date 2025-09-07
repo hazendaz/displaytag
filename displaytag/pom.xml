@@ -45,7 +45,7 @@
     </scm>
 
     <properties>
-        <tomcat.version>9.0.108</tomcat.version>
+        <tomcat.version>9.0.109</tomcat.version>
 
         <!-- Automatic Module Name -->
         <module.name>org.displaytag</module.name>
