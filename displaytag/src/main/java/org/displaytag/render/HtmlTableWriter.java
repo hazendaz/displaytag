@@ -31,6 +31,7 @@ import java.util.Objects;
 import javax.servlet.jsp.JspWriter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.exception.ObjectLookupException;
 import org.displaytag.exception.WrappedRuntimeException;
@@ -96,7 +97,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
      * The paginated list containing the external pagination and sort parameters The presence of this paginated list is
      * what determines if external pagination and sorting is used or not.
      */
-    private final PaginatedList paginatedList;
+    private final PaginatedList<Row> paginatedList;
 
     /**
      * Used by various functions when the person wants to do paging.
@@ -141,7 +142,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
      *            the uid
      */
     public HtmlTableWriter(final TableProperties tableProperties, final Href baseHref, final boolean export,
-            final JspWriter out, final CaptionTag captionTag, final PaginatedList paginatedList,
+            final JspWriter out, final CaptionTag captionTag, final PaginatedList<Row> paginatedList,
             final SmartListHelper listHelper, final int pagesize, final HtmlAttributeMap attributeMap,
             final String uid) {
         this.properties = tableProperties;
@@ -258,7 +259,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
      * @return the string
      */
     private String esc(final Object value) {
-        return StringUtils.replace(value != null ? value.toString() : StringUtils.EMPTY, "\"", "\\\"");
+        return Strings.CS.replace(value != null ? value.toString() : StringUtils.EMPTY, "\"", "\\\"");
     }
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +23,19 @@ package org.displaytag.pagination;
 
 import java.util.List;
 
-import org.displaytag.model.Row;
 import org.displaytag.properties.SortOrderEnum;
 
 /**
  * Interface describing an externally sorted and paginated list.
  */
-public interface PaginatedList {
+public interface PaginatedList<T> {
 
     /**
      * Returns the current partial list.
      *
      * @return the current partial list
      */
-    List<Row> getList();
+    List<T> getList();
 
     /**
      * Returns the page number of the partial list (starts from 1).

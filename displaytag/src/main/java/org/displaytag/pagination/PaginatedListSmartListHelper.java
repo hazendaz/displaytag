@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ import org.displaytag.util.Href;
 public class PaginatedListSmartListHelper extends SmartListHelper {
 
     /** The paginated list. */
-    private final PaginatedList paginatedList;
+    private final PaginatedList<Row> paginatedList;
 
     /** The properties. */
     private final TableProperties properties;
@@ -53,7 +53,7 @@ public class PaginatedListSmartListHelper extends SmartListHelper {
      * @param tableProperties
      *            the table properties
      */
-    public PaginatedListSmartListHelper(final PaginatedList paginatedList, final TableProperties tableProperties) {
+    public PaginatedListSmartListHelper(final PaginatedList<Row> paginatedList, final TableProperties tableProperties) {
         this.paginatedList = paginatedList;
         this.properties = tableProperties;
         this.pageCount = this.computePageCount();
