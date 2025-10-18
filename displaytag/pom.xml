@@ -175,7 +175,7 @@
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
-            <version>7.0.3</version>
+            <version>7.1.1</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
