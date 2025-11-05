@@ -6,7 +6,7 @@
     "grunt-contrib-clean": "2.0.1",
     "grunt-contrib-watch": "1.1.0",
     "grunt-iconizr": "0.2.3",
-    "grunt-sass": "4.0.0",
+    "grunt-sass": "4.0.1",
     "grunt-svg-sprite": "2.0.2",
     "grunt-svgmin": "7.0.0",
     "matchdep": "2.0.0",
