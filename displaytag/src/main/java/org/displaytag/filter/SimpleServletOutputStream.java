@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.WriteListener;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * A simple implementation of ServletOutputStream which wraps a ByteArrayOutputStream.
@@ -51,7 +52,7 @@ public class SimpleServletOutputStream extends ServletOutputStream {
      */
     @Override
     public String toString() {
-        return this.outputStream.toString();
+        return this.outputStream.toString(StandardCharsets.UTF_8);
     }
 
     /**

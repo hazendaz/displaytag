@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.junit.jupiter.api.Assertions;
 
 /**
@@ -82,9 +83,9 @@ public final class URLAssertions {
         // same parameters
         if (generatedSplit.length > 1) {
             // compare parameters
-            final String[] generatedParameters = StringUtils.split(StringUtils.replace(generatedSplit[1], "&amp;", "&"),
+            final String[] generatedParameters = StringUtils.split(Strings.CS.replace(generatedSplit[1], "&amp;", "&"),
                     '&');
-            final String[] expectedParameters = StringUtils.split(StringUtils.replace(expectedSplit[1], "&amp;", "&"),
+            final String[] expectedParameters = StringUtils.split(Strings.CS.replace(expectedSplit[1], "&amp;", "&"),
                     '&');
 
             Assertions.assertEquals(expectedParameters.length, generatedParameters.length,

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -69,7 +69,7 @@ class PaginationAllItemsTest extends DisplaytagCase {
         final WebLink[] links = response.getLinks();
 
         Assertions.assertEquals(0, links.length, "Wrong number of links in result.");
-        Assertions.assertFalse(StringUtils.contains(response.getText(), ">1<"),
+        Assertions.assertFalse(Strings.CS.contains(response.getText(), ">1<"),
                 "Using setProperty you should not see any page number");
 
     }

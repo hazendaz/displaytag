@@ -96,7 +96,7 @@ class TldTest {
             final TagAttribute attribute = iterator.next();
 
             if (TldTest.log.isDebugEnabled()) {
-                TldTest.log.debug("testing " + attribute);
+                TldTest.log.debug("testing {}", attribute);
             }
             final String className = attribute.getTagClass();
             Class<TagSupport> tagClass = null;
@@ -136,7 +136,6 @@ class TldTest {
                 if (!propertyType.isAssignableFrom(tldTypeClass)) {
                     errors.add("Tag attribute [" + attribute.getAttributeName() + "] declared in tld as [" + tldType
                             + "], class declare [" + propertyType.getName() + "]");
-                    continue;
                 }
 
             }

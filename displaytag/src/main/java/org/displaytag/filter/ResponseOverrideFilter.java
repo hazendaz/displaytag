@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.Messages;
 import org.displaytag.tags.TableTag;
 import org.displaytag.tags.TableTagParameters;
@@ -105,7 +105,7 @@ public class ResponseOverrideFilter implements Filter {
         if (this.log.isDebugEnabled()) {
             this.log.debug("bufferParam={}", bufferParam);
         }
-        this.buffer = bufferParam == null || StringUtils.equalsIgnoreCase("true", bufferParam);
+        this.buffer = bufferParam == null || Strings.CI.equals("true", bufferParam);
 
         this.log.info("Filter initialized. Response buffering is {}", this.buffer ? "enabled" : "disabled");
     }

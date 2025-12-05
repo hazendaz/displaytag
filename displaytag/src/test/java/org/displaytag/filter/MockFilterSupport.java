@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,6 +34,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -114,7 +115,7 @@ public class MockFilterSupport extends HttpServlet {
                 uri = uri.substring(requestContext.length());
             }
 
-            uri = StringUtils.replace(uri, MockFilterSupport.FILTERED_EXTENSION, "");
+            uri = Strings.CS.replace(uri, MockFilterSupport.FILTERED_EXTENSION, "");
 
             if (MockFilterSupport.log.isDebugEnabled()) {
                 MockFilterSupport.log.debug("Redirecting to [" + uri + "]");

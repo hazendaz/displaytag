@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -84,7 +84,7 @@ public class ReportableListObject extends Object implements Comparable<Object>, 
      * Constructor for ReportableListObject.
      */
     public ReportableListObject() {
-        this.amount = (random.nextInt(99999) + 1) / 100;
+        this.amount = (double) (random.nextInt(99999) + 1) / 100;
         this.city = cities[random.nextInt(cities.length)];
         this.project = projects[random.nextInt(projects.length)];
         this.task = RandomSampleUtil.getRandomSentence(4);

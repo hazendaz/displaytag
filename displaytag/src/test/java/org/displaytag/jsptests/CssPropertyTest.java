@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -71,9 +71,9 @@ class CssPropertyTest extends DisplaytagCase {
 
         Assertions.assertEquals(1, tables.length, "Expected 1 table in result.");
         final TableCell cell = tables[0].getTableCell(0, 0);
-        Assertions.assertTrue(StringUtils.contains(cell.getClassName(), "green"),
+        Assertions.assertTrue(Strings.CS.contains(cell.getClassName(), "green"),
                 "Expected css class \"green\" not found");
-        Assertions.assertTrue(StringUtils.contains(cell.getClassName(), "purple"),
+        Assertions.assertTrue(Strings.CS.contains(cell.getClassName(), "purple"),
                 "Expected css class \"purple\" not found");
     }
 }

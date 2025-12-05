@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -83,7 +84,7 @@ class Displ249Test extends DisplaytagCase {
         final String url = URLDecoder.decode(links[0].getURLString(), StandardCharsets.UTF_8);
 
         String actual = StringUtils.substringAfter(url, "testparam=");
-        if (StringUtils.contains(actual, "&")) {
+        if (Strings.CS.contains(actual, "&")) {
             actual = StringUtils.substringBefore(actual, "&");
         }
 

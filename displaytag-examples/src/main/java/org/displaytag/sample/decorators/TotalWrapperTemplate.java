@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,8 @@
 package org.displaytag.sample.decorators;
 
 import java.util.List;
+import java.util.Objects;
 
-import org.apache.commons.lang3.ObjectUtils;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.sample.ReportableListObject;
 
@@ -66,13 +66,13 @@ public abstract class TotalWrapperTemplate extends TableDecorator {
         this.grandTotal += reportableObject.getAmount();
 
         if (listindex != ((List<ReportableListObject>) getDecoratedObject()).size() - 1) {
-            nextCity = (((List<ReportableListObject>) getDecoratedObject()).get(listindex + 1)).getCity();
+            nextCity = ((List<ReportableListObject>) getDecoratedObject()).get(listindex + 1).getCity();
         }
 
         this.buffer = new StringBuilder(1000);
 
         // City subtotals...
-        if (!ObjectUtils.equals(nextCity, reportableObject.getCity())) {
+        if (!Objects.equals(nextCity, reportableObject.getCity())) {
             writeCityTotal(reportableObject.getCity(), this.cityTotal);
             this.cityTotal = 0;
         }

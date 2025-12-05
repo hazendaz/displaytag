@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -152,7 +152,7 @@ public class DefaultRequestHelper implements RequestHelper {
 
             this.request.getParameter(paramName);
             // put key/value in the map
-            final String[] originalValues = ObjectUtils.defaultIfNull(this.request.getParameterValues(paramName),
+            final String[] originalValues = ObjectUtils.getIfNull(this.request.getParameterValues(paramName),
                     new String[0]);
             final String[] values = new String[originalValues.length];
 

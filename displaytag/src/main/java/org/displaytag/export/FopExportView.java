@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -146,7 +147,7 @@ public class FopExportView implements BinaryExportView {
         InputStream styleSheetStream;
         final String styleSheetString = this.model.getProperties().getProperty(FopExportView.SPECIFIC_STYLESHEET);
         if (StringUtils.isNotEmpty(styleSheetString)) {
-            styleSheetStream = new ByteArrayInputStream(styleSheetString.getBytes());
+            styleSheetStream = new ByteArrayInputStream(styleSheetString.getBytes(StandardCharsets.UTF_8));
         } else {
             final String styleSheetPath = this.model.getProperties().getProperty(FopExportView.DEFAULT_STYLESHEET);
             styleSheetStream = this.getClass().getResourceAsStream(styleSheetPath);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -77,8 +77,8 @@ class PaginationTest extends DisplaytagCase {
                 this.log.debug(j + " " + links[j].getURLString());
             }
 
-            Assertions.assertTrue(
-                    StringUtils.contains(links[j].getURLString(), "%7Bfoo%7D=%2F.%2C%3B%3A%2F%7C%7C%5Cbar"));
+            Assertions
+                    .assertTrue(Strings.CS.contains(links[j].getURLString(), "%7Bfoo%7D=%2F.%2C%3B%3A%2F%7C%7C%5Cbar"));
         }
 
     }

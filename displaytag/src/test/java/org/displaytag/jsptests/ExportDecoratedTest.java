@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,7 @@ import com.meterware.httpunit.GetMethodWebRequest;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.decorator.DateColumnDecorator;
 import org.displaytag.properties.MediaTypeEnum;
 import org.displaytag.tags.TableTagParameters;
@@ -74,10 +74,10 @@ class ExportDecoratedTest extends DisplaytagCase {
 
         Assertions.assertEquals("text/xml", response.getContentType(), "Expected a different content type.");
         Assertions.assertFalse(
-                StringUtils.contains(response.getText(),
+                Strings.CS.contains(response.getText(),
                         (String) new DateColumnDecorator().decorate(KnownTypes.TIME_VALUE, null, null)),
                 "Export should not be decorated");
-        Assertions.assertTrue(StringUtils.contains(response.getText(), KnownTypes.TIME_VALUE.toString()),
+        Assertions.assertTrue(Strings.CS.contains(response.getText(), KnownTypes.TIME_VALUE.toString()),
                 "Export should not be decorated");
     }
 }

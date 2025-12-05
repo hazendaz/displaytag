@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  * The Class PostHref.
@@ -289,8 +290,8 @@ public class PostHref implements Href {
      */
     private String esc(final Object value) {
         String param = URLDecoder.decode(value != null ? value.toString() : StringUtils.EMPTY, StandardCharsets.UTF_8);
-        param = StringUtils.replace(param, "'", "\\'");
-        return StringUtils.replace(param, "\"", "%22");
+        param = Strings.CS.replace(param, "'", "\\'");
+        return Strings.CS.replace(param, "\"", "%22");
     }
 
     /**

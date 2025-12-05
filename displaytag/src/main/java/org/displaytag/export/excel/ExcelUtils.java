@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDataFormat;
@@ -275,9 +276,9 @@ public class ExcelUtils {
         // escape the String to get the tabs, returns, newline explicit as \t \r \n
         returnString = StringEscapeUtils.escapeJava(StringUtils.trimToEmpty(returnString));
         // remove tabs, insert four whitespaces instead
-        returnString = StringUtils.replace(StringUtils.trim(returnString), "\\t", "    ");
+        returnString = Strings.CS.replace(StringUtils.trim(returnString), "\\t", "    ");
         // remove the return, only newline valid in excel
-        returnString = StringUtils.replace(StringUtils.trim(returnString), "\\r", " ");
+        returnString = Strings.CS.replace(StringUtils.trim(returnString), "\\r", " ");
         return StringEscapeUtils.unescapeJava(returnString);
     }
 

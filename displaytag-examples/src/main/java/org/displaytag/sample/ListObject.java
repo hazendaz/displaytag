@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
@@ -95,14 +96,14 @@ public class ListObject implements Serializable {
     /**
      * sub list used to test nested tables.
      */
-    private List<Object> subList;
+    private List<SubListItem> subList;
 
     /**
      * Constructor for ListObject.
      */
     public ListObject() {
         this.id = random.nextInt(99998) + 1;
-        this.money = (random.nextInt(999998) + 1) / 100;
+        this.money = (double) (random.nextInt(999998) + 1) / 100;
 
         String firstName = RandomSampleUtil.getRandomWord();
         String lastName = RandomSampleUtil.getRandomWord();
@@ -118,10 +119,10 @@ public class ListObject implements Serializable {
 
         this.longDescription = RandomSampleUtil.getRandomSentence(10);
 
-        this.status = RandomSampleUtil.getRandomWord().toUpperCase();
+        this.status = RandomSampleUtil.getRandomWord().toUpperCase(Locale.ENGLISH);
 
         // added sublist for testing of nested tables
-        this.subList = new ArrayList<Object>();
+        this.subList = new ArrayList<>();
         this.subList.add(new SubListItem());
         this.subList.add(new SubListItem());
         this.subList.add(new SubListItem());
@@ -278,7 +279,7 @@ public class ListObject implements Serializable {
      *
      * @return List
      */
-    public List<Object> getSubList() {
+    public List<SubListItem> getSubList() {
         return this.subList;
     }
 
