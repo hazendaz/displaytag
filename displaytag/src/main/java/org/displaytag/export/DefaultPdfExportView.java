@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -85,11 +85,11 @@ public class DefaultPdfExportView extends DefaultItextExportView {
          */
         @Override
         public void onEndPage(final PdfWriter writer, final Document document) {
-            /** The headertable. */
+            // The header table
             final PdfPTable table = new PdfPTable(2);
-            /** A template that will hold the total number of pages. */
+            // A template that will hold the total number of pages.
             final PdfTemplate tpl = writer.getDirectContent().createTemplate(100, 100);
-            /** The font that will be used. */
+            // The font that will be used.
             BaseFont helv = null;
             try {
                 helv = BaseFont.createFont("Helvetica", BaseFont.WINANSI, false);

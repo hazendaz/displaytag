@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +28,7 @@ import java.nio.charset.StandardCharsets;
 import javax.servlet.jsp.JspException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  * Export view for comma separated value exporting.
@@ -52,7 +53,7 @@ public class CsvView extends BaseExportView {
      */
     @Override
     public void doExport(final Writer out, final String characterEncoding) throws IOException, JspException {
-        if (StringUtils.equalsIgnoreCase(characterEncoding, StandardCharsets.UTF_8.name())) {
+        if (Strings.CI.equals(characterEncoding, StandardCharsets.UTF_8.name())) {
             out.write(CsvView.UTF8_BOM);
         }
         super.doExport(out, characterEncoding);
@@ -139,7 +140,7 @@ public class CsvView extends BaseExportView {
 
         if (!StringUtils.containsNone(stringValue, '\r', '\n', ',')) {
             return "\"" + //$NON-NLS-1$
-                    StringUtils.replace(stringValue, "\"", "\\\"") + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                    Strings.CS.replace(stringValue, "\"", "\\\"") + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
 
         return stringValue;

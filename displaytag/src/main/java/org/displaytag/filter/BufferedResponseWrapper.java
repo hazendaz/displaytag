@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -42,17 +42,12 @@ public interface BufferedResponseWrapper extends HttpServletResponse {
     boolean isOutRequested();
 
     /**
-     * Gets the content type.
-     *
-     * @return the content type
-     */
-    @Override
-    /**
      * If the app server sets the content-type of the response, it is sticky and you will not be able to change it.
      * Therefore it is intercepted here.
      *
      * @return the ContentType that was most recently set
      */
+    @Override
     String getContentType();
 
     /**

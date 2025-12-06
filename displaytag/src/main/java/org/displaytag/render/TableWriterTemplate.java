@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.servlet.jsp.JspException;
 
@@ -665,7 +666,7 @@ public abstract class TableWriterTemplate {
         if (this.lowestEndedGroup < currentGroup) {
             // if a lower group has ended, cascade so that all subgroups end as well
             groupingKey += TableWriterTemplate.GROUP_END;
-        } else if (next == null || !ObjectUtils.equals(value, next)) {
+        } else if (next == null || !Objects.equals(value, next)) {
             // at the end of the list
             groupingKey += TableWriterTemplate.GROUP_END;
             this.lowestEndedGroup = currentGroup;
@@ -674,7 +675,7 @@ public abstract class TableWriterTemplate {
         if (this.lowestStartedGroup < currentGroup) {
             // if a lower group has started, cascade so that all subgroups restart as well
             groupingKey += TableWriterTemplate.GROUP_START;
-        } else if (previous == null || !ObjectUtils.equals(value, previous)) {
+        } else if (previous == null || !Objects.equals(value, previous)) {
             // At the start of the list
             groupingKey += TableWriterTemplate.GROUP_START;
             this.lowestStartedGroup = currentGroup;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -72,14 +72,14 @@ class CaptionTagTest extends DisplaytagCase {
 
         final String output = response.getText();
 
-        Assertions.assertTrue(StringUtils.contains(output, "<caption"), "Caption tag missing");
+        Assertions.assertTrue(Strings.CS.contains(output, "<caption"), "Caption tag missing");
 
-        Assertions.assertTrue(StringUtils.contains(output, "class=\"theclass\""));
-        Assertions.assertTrue(StringUtils.contains(output, "dir=\"thedir\""));
-        Assertions.assertTrue(StringUtils.contains(output, "id=\"theid\""));
-        Assertions.assertTrue(StringUtils.contains(output, "lang=\"thelang\""));
-        Assertions.assertTrue(StringUtils.contains(output, "style=\"thestyle\""));
-        Assertions.assertTrue(StringUtils.contains(output, "title=\"thetitle\""));
+        Assertions.assertTrue(Strings.CS.contains(output, "class=\"theclass\""));
+        Assertions.assertTrue(Strings.CS.contains(output, "dir=\"thedir\""));
+        Assertions.assertTrue(Strings.CS.contains(output, "id=\"theid\""));
+        Assertions.assertTrue(Strings.CS.contains(output, "lang=\"thelang\""));
+        Assertions.assertTrue(Strings.CS.contains(output, "style=\"thestyle\""));
+        Assertions.assertTrue(Strings.CS.contains(output, "title=\"thetitle\""));
 
     }
 }

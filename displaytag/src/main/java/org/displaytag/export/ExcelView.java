@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,7 @@
 package org.displaytag.export;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 
 /**
  * Export view for excel exporting.
@@ -107,7 +108,7 @@ public class ExcelView extends BaseExportView {
         if (value != null) {
             // quotes around fields are needed to avoid occasional "Sylk format invalid" messages from excel
             return "\"" //$NON-NLS-1$
-                    + StringUtils.replace(StringUtils.trim(value.toString()), "\"", "\"\"") //$NON-NLS-1$ //$NON-NLS-2$
+                    + Strings.CS.replace(StringUtils.trim(value.toString()), "\"", "\"\"") //$NON-NLS-1$ //$NON-NLS-2$
                     + "\""; //$NON-NLS-1$
         }
 

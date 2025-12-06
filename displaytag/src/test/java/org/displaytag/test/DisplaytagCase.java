@@ -31,7 +31,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.jasper.servlet.JasperInitializer;
 import org.apache.tomcat.InstanceManager;
 import org.apache.tomcat.SimpleInstanceManager;
@@ -159,7 +159,7 @@ public abstract class DisplaytagCase {
 
         outer: for (final String exp : expected) {
             for (final String element : actual) {
-                if (StringUtils.equals(exp, element)) {
+                if (Strings.CS.equals(exp, element)) {
                     continue outer;
                 }
             }

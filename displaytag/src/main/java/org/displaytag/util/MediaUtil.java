@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@ package org.displaytag.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
 import org.displaytag.properties.MediaTypeEnum;
@@ -83,7 +84,7 @@ public final class MediaUtil {
             return;
         }
 
-        if (StringUtils.isBlank(media) || media.toLowerCase().indexOf("all") > -1) {
+        if (StringUtils.isBlank(media) || media.toLowerCase(Locale.ENGLISH).indexOf("all") > -1) {
             mediaSupporter.setSupportedMedia(null);
             return;
         }
@@ -91,7 +92,7 @@ public final class MediaUtil {
         final String[] values = StringUtils.split(media);
         for (final String value : values) {
             if (!StringUtils.isBlank(value)) {
-                final MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase());
+                final MediaTypeEnum type = MediaTypeEnum.fromName(value.toLowerCase(Locale.ENGLISH));
                 if (type == null) {
                     MediaUtil.log.warn("Unrecognized value for attribute \"media\" value=\"{}\"", value);
                 } else {

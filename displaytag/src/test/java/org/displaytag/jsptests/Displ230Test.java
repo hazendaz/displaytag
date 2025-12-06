@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ import com.meterware.httpunit.WebResponse;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -91,15 +91,15 @@ class Displ230Test extends DisplaytagCase {
 
         final HTMLElement[] elements = response.getElementsWithClassName("testitem");
 
-        if (StringUtils.equals(placement, "top")) {
+        if (Strings.CS.equals(placement, "top")) {
             Assertions.assertEquals(2, elements.length);
             Assertions.assertEquals("SPAN", elements[0].getTagName());
             Assertions.assertEquals("TABLE", elements[1].getTagName());
-        } else if (StringUtils.equals(placement, "bottom")) {
+        } else if (Strings.CS.equals(placement, "bottom")) {
             Assertions.assertEquals(2, elements.length);
             Assertions.assertEquals("TABLE", elements[0].getTagName());
             Assertions.assertEquals("SPAN", elements[1].getTagName());
-        } else if (StringUtils.equals(placement, "both")) {
+        } else if (Strings.CS.equals(placement, "both")) {
             Assertions.assertEquals(3, elements.length);
             Assertions.assertEquals("SPAN", elements[0].getTagName());
             Assertions.assertEquals("TABLE", elements[1].getTagName());

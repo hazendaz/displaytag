@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.tags.TableTag;
 import org.displaytag.tags.TableTagParameters;
 import org.slf4j.Logger;
@@ -125,7 +126,7 @@ public final class ExportDelegate {
             characterEncoding = StringUtils.substringAfter(wrappedContentType, "charset=");
         }
 
-        if (characterEncoding != null && !StringUtils.contains(contentType, "charset") && pageContent instanceof String) //$NON-NLS-1$
+        if (characterEncoding != null && !Strings.CS.contains(contentType, "charset") && pageContent instanceof String) //$NON-NLS-1$
         {
             contentType += "; charset=" + characterEncoding; //$NON-NLS-1$
         }

@@ -152,7 +152,7 @@ public class DefaultRequestHelper implements RequestHelper {
 
             this.request.getParameter(paramName);
             // put key/value in the map
-            final String[] originalValues = ObjectUtils.defaultIfNull(this.request.getParameterValues(paramName),
+            final String[] originalValues = ObjectUtils.getIfNull(this.request.getParameterValues(paramName),
                     new String[0]);
             final String[] values = new String[originalValues.length];
 

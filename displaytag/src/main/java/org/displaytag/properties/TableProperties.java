@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@ import javax.servlet.jsp.PageContext;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.Messages;
 import org.displaytag.decorator.DecoratorFactory;
 import org.displaytag.decorator.DefaultDecoratorFactory;
@@ -967,7 +968,7 @@ public final class TableProperties implements Cloneable {
      */
     public boolean getAddPagingBannerTop() {
         final String placement = this.getProperty(TableProperties.PROPERTY_STRING_BANNER_PLACEMENT);
-        return StringUtils.equals("top", placement) || StringUtils.equals("both", placement); //$NON-NLS-1$ //$NON-NLS-2$
+        return Strings.CS.equals("top", placement) || Strings.CS.equals("both", placement); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -977,7 +978,7 @@ public final class TableProperties implements Cloneable {
      */
     public boolean getAddPagingBannerBottom() {
         final String placement = this.getProperty(TableProperties.PROPERTY_STRING_BANNER_PLACEMENT);
-        return StringUtils.equals("bottom", placement) || StringUtils.equals("both", placement); //$NON-NLS-1$ //$NON-NLS-2$
+        return Strings.CS.equals("bottom", placement) || Strings.CS.equals("both", placement); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -987,7 +988,7 @@ public final class TableProperties implements Cloneable {
      */
     public boolean getAddExportBannerTop() {
         final String placement = this.getProperty(TableProperties.PROPERTY_STRING_EXPORTBANNER_PLACEMENT);
-        return StringUtils.equals("top", placement) || StringUtils.equals("both", placement); //$NON-NLS-1$ //$NON-NLS-2$
+        return Strings.CS.equals("top", placement) || Strings.CS.equals("both", placement); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
@@ -998,7 +999,7 @@ public final class TableProperties implements Cloneable {
     public boolean getAddExportBannerBottom() {
         final String placement = this.getProperty(TableProperties.PROPERTY_STRING_EXPORTBANNER_PLACEMENT);
         // no value specified puts it on th bottom too to ensure proper backward compatibility
-        return !StringUtils.equals("top", placement); //$NON-NLS-1$
+        return !Strings.CS.equals("top", placement); //$NON-NLS-1$
     }
 
     /**
@@ -1235,8 +1236,10 @@ public final class TableProperties implements Cloneable {
                             .classForName(className);
                     TableProperties.resourceProvider = classProperty.getDeclaredConstructor().newInstance();
 
-                    TableProperties.log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
-                            new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class), className }));
+                    if (log.isInfoEnabled()) {
+                        TableProperties.log.info(Messages.getString("TableProperties.classinitializedto", //$NON-NLS-1$
+                                new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class), className }));
+                    }
                 } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
                         | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
                         | SecurityException e) {
@@ -1245,8 +1248,10 @@ public final class TableProperties implements Cloneable {
                                     e.getClass().getName(), e.getMessage() }));
                 }
             } else {
-                TableProperties.log.info(Messages.getString("TableProperties.noconfigured", //$NON-NLS-1$
-                        new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class) }));
+                if (log.isInfoEnabled()) {
+                    TableProperties.log.info(Messages.getString("TableProperties.noconfigured", //$NON-NLS-1$
+                            new Object[] { ClassUtils.getShortClassName(I18nResourceProvider.class) }));
+                }
             }
 
             // still null?

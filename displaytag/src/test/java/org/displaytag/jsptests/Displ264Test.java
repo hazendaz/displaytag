@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.httpunit.WebTable;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -76,7 +76,7 @@ class Displ264Test extends DisplaytagCase {
         final WebLink[] links = response.getLinks();
         Assertions.assertTrue(links.length > 0, "No links found.");
         final String url = links[0].getURLString();
-        Assertions.assertTrue(StringUtils.contains(url, "test=value"), "Expected parameter not found in url " + url);
+        Assertions.assertTrue(Strings.CS.contains(url, "test=value"), "Expected parameter not found in url " + url);
     }
 
 }

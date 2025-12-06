@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2002-2024 Fabrizio Giustina, the Displaytag team
+ * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ import com.meterware.httpunit.WebLink;
 import com.meterware.httpunit.WebRequest;
 import com.meterware.httpunit.WebResponse;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.displaytag.test.DisplaytagCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -45,7 +45,7 @@ class Displ105Test extends DisplaytagCase {
     @Override
     @Test
     public void doTest() throws Exception {
-        final String httpsUrl = StringUtils.replace(this.getJspUrl("DISPL-105.jsp"), "http://", "https://");
+        final String httpsUrl = Strings.CS.replace(this.getJspUrl("DISPL-105.jsp"), "http://", "https://");
         final WebRequest request = new GetMethodWebRequest(httpsUrl);
 
         final WebResponse response = this.runner.getResponse(request);
