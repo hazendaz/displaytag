@@ -172,7 +172,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
             final String js = "<script type=\"text/javascript\">\n" + "function displaytagform(formname, fields){\n"
                     + "    var objfrm = document.forms[formname];\n"
                     + "    for (j=fields.length-1;j>=0;j--){var f= objfrm.elements[fields[j].f];if (f){f.value=fields[j].v};}\n"
-                    + "    objfrm.requestSubmit();\n" + "}\n" + "</script>";
+                    + "    objfrm.submit();\n" + "}\n" + "</script>";
             this.writeFormFields(model);
             this.write(js);
         }
