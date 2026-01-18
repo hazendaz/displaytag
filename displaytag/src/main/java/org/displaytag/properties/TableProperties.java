@@ -376,6 +376,12 @@ public final class TableProperties implements Cloneable {
      */
     public static final String PROPERTY_BOOLEAN_ESCAPEXML_DEFAULT = "escapeXml.default"; //$NON-NLS-1$
 
+    /**
+     * Property <code>legacy.form.submit</code>. Specifies the default value for column <code>legacy.form.submit</code>
+     * attribute.
+     */
+    public static final String PROPERTY_BOOLEAN_LEGACY_FORM_SUBMIT = "legacy.form.submit"; //$NON-NLS-1$
+
     // </JBN>
 
     /**
@@ -1407,5 +1413,18 @@ public final class TableProperties implements Cloneable {
      */
     public boolean getEscapeXmlDefault() {
         return getBooleanProperty(PROPERTY_BOOLEAN_ESCAPEXML_DEFAULT);
+    }
+
+    /**
+     * Returns the default value for <code>legacy.form.submit</code> attribute.
+     *
+     * @return the default value for <code>legacy.form.submit</code> attribute
+     */
+    public boolean getUseLegacyFormSubmit() {
+        final String s = this.getProperty(TableProperties.PROPERTY_BOOLEAN_LEGACY_FORM_SUBMIT);
+        if (s == null) {
+            return false;
+        }
+        return this.getBooleanProperty(TableProperties.PROPERTY_BOOLEAN_LEGACY_FORM_SUBMIT);
     }
 }
