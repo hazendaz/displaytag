@@ -168,11 +168,11 @@ public class HtmlTableWriter extends TableWriterAdapter {
     @Override
     protected void writeTopBanner(final TableModel model) {
         if (model.getForm() != null) {
-
+            final String submitMethod = properties.getUseLegacyFormSubmit() ? ".submit()" : ".requestSubmit()";
             final String js = "<script type=\"text/javascript\">\n" + "function displaytagform(formname, fields){\n"
                     + "    var objfrm = document.forms[formname];\n"
                     + "    for (j=fields.length-1;j>=0;j--){var f= objfrm.elements[fields[j].f];if (f){f.value=fields[j].v};}\n"
-                    + "    objfrm.requestSubmit();\n" + "}\n" + "</script>";
+                    + "    objfrm" + submitMethod + ";\n" + "}\n" + "</script>";
             this.writeFormFields(model);
             this.write(js);
         }
