@@ -1,23 +1,8 @@
 /*
- * Copyright (C) 2002-2025 Fabrizio Giustina, the Displaytag team
+ * SPDX-License-Identifier: MIT
+ * See LICENSE file for details.
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * Copyright 2002-2026 Fabrizio Giustina, the Displaytag team
  */
 package org.displaytag.render;
 
@@ -168,11 +153,11 @@ public class HtmlTableWriter extends TableWriterAdapter {
     @Override
     protected void writeTopBanner(final TableModel model) {
         if (model.getForm() != null) {
-
+            final String submitMethod = properties.getUseLegacyFormSubmit() ? ".submit()" : ".requestSubmit()";
             final String js = "<script type=\"text/javascript\">\n" + "function displaytagform(formname, fields){\n"
                     + "    var objfrm = document.forms[formname];\n"
                     + "    for (j=fields.length-1;j>=0;j--){var f= objfrm.elements[fields[j].f];if (f){f.value=fields[j].v};}\n"
-                    + "    objfrm.requestSubmit();\n" + "}\n" + "</script>";
+                    + "    objfrm" + submitMethod + ";\n" + "}\n" + "</script>";
             this.writeFormFields(model);
             this.write(js);
         }

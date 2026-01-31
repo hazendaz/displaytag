@@ -1,10 +1,11 @@
 Displaytag
 ==========
 
-[![Java CI](https://github.com/hazendaz/displaytag/workflows/Java%20CI/badge.svg)](https://github.com/hazendaz/displaytag/actions?query=workflow%3A%22Java+CI%22)
-[![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/displaytag/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/displaytag)
+[![Java CI](https://github.com/hazendaz/displaytag/actions/workflows/ci.yaml/badge.svg)](https://github.com/hazendaz/displaytag/actions/workflows/ci.yaml)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.hazendaz/displaytag.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/com.github.hazendaz/displaytag)
+[![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-See site page [here](http://hazendaz.github.io/displaytag/)
+See site page [here](https://hazendaz.github.io/displaytag/)
 
 The display tag library is an open source suite of custom tags that provide high-level web presentation
 patterns which will work in an MVC model. The library provides a significant amount of functionality while still
