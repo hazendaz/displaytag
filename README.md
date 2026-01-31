@@ -1,7 +1,7 @@
 Displaytag
 ==========
 
-[![Java CI](https://github.com/hazendaz/displaytag/workflows/ci.yaml/badge.svg)](https://github.com/hazendaz/displaytag/actions/workflows/ci.yaml)
+[![Java CI](https://github.com/hazendaz/displaytag/actions/workflows/ci.yaml/badge.svg)](https://github.com/hazendaz/displaytag/actions/workflows/ci.yaml)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.hazendaz/displaytag.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/com.github.hazendaz/displaytag)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
