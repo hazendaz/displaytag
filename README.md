@@ -5,6 +5,8 @@ Displaytag
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.hazendaz/displaytag.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/com.github.hazendaz/displaytag)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
+![hazendaz](src/site/resources/images/hazendaz-banner.jpg)
+
 See site page [here](https://hazendaz.github.io/displaytag/)
 
 The display tag library is an open source suite of custom tags that provide high-level web presentation
