@@ -1,0 +1,7 @@
+org.displaytag.decorator
+org.displaytag.filter
+org.displaytag.jsptests
+org.displaytag.properties
+org.displaytag.render
+org.displaytag.tags
+org.displaytag.test
