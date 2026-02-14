@@ -136,7 +136,7 @@
       <title>Exporting</title>
       <faq id="disable">
         <question> How can I disable an export options? I don't need export and I want to avoid any warning in the logs
-          about missing itext classes or similar.
+          about missing openpdf classes or similar.
         </question>
         <answer>
           <p>
