@@ -31,6 +31,11 @@
     </scm>
 
     <properties>
+        <java.version>21</java.version>
+        <java.release.version>21</java.release.version>
+        <java.test.version>21</java.test.version>
+        <java.test.release.version>21</java.test.release.version>
+
         <!-- Automatic Module Name -->
         <module.name>org.displaytag.examples</module.name>
     </properties>
@@ -59,9 +64,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itextpdf</artifactId>
-            <version>5.5.13.5</version>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>2.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

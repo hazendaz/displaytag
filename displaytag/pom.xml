@@ -101,9 +101,9 @@
 
         <!-- optional dependencies for exporting -->
         <dependency>
-            <groupId>com.itextpdf</groupId>
-            <artifactId>itextpdf</artifactId>
-            <version>5.5.13.5</version>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>2.4.0</version>
             <optional>true</optional>
         </dependency>
         <dependency>

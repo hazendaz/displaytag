@@ -119,7 +119,7 @@ You can also configure a different decorator for each medium in which
 you want to render the table. In the following example, a different
 table decorator is used to help render the table in HTML, PDF, RTF, and
 Excel. The HTML decorator decorates the table using HTML, the PDF and
-RTF decorators using the iText API, and the Excel decorator using the
+RTF decorators using the OpenPDF API, and the Excel decorator using the
 HSSF API.
 
 ```html

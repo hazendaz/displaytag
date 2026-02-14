@@ -6,7 +6,7 @@
  */
 package org.displaytag.export;
 
-import com.itextpdf.text.pdf.PdfReader;
+import com.lowagie.text.pdf.PdfReader;
 
 import jakarta.servlet.jsp.JspException;
 
