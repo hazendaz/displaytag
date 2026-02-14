@@ -6,10 +6,10 @@
  */
 package org.displaytag.export;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfPTable;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.pdf.PdfPTable;
 
 import jakarta.servlet.jsp.JspException;
 
