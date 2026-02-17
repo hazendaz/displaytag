@@ -6,19 +6,19 @@
  */
 package org.displaytag.render;
 
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 
+import java.awt.Color;
 import java.util.Iterator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -85,7 +85,7 @@ public class ItextTableWriter extends TableWriterAdapter {
      * @return The font used to render text in the table.
      */
     protected Font getTableFont() {
-        return FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, new BaseColor(0x00, 0x00, 0x00));
+        return FontFactory.getFont(FontFactory.HELVETICA, 10, Font.NORMAL, new Color(0x00, 0x00, 0x00));
     }
 
     /**
@@ -125,7 +125,7 @@ public class ItextTableWriter extends TableWriterAdapter {
      * @return The caption font.
      */
     protected Font getCaptionFont() {
-        return FontFactory.getFont(FontFactory.HELVETICA, 17, Font.BOLD, new BaseColor(0x00, 0x00, 0x00));
+        return FontFactory.getFont(FontFactory.HELVETICA, 17, Font.BOLD, new Color(0x00, 0x00, 0x00));
     }
 
     /**
@@ -211,8 +211,8 @@ public class ItextTableWriter extends TableWriterAdapter {
      *
      * @return The footer background color.
      */
-    protected BaseColor getFooterBackgroundColor() {
-        return new BaseColor(0xce, 0xcf, 0xce);
+    protected Color getFooterBackgroundColor() {
+        return new Color(0xce, 0xcf, 0xce);
     }
 
     /**
@@ -239,8 +239,8 @@ public class ItextTableWriter extends TableWriterAdapter {
      *
      * @return The footer font color.
      */
-    protected BaseColor getFooterFontColor() {
-        return new BaseColor(0x00, 0x00, 0x00);
+    protected Color getFooterFontColor() {
+        return new Color(0x00, 0x00, 0x00);
     }
 
     /**
@@ -385,8 +385,8 @@ public class ItextTableWriter extends TableWriterAdapter {
      *
      * @return The backgrounc color used to render the header.
      */
-    protected BaseColor getHeaderBackgroundColor() {
-        return new BaseColor(0xee, 0xee, 0xee);
+    protected Color getHeaderBackgroundColor() {
+        return new Color(0xee, 0xee, 0xee);
     }
 
     /**
@@ -404,8 +404,8 @@ public class ItextTableWriter extends TableWriterAdapter {
      *
      * @return The font color used to render the header text.
      */
-    protected BaseColor getHeaderFontColor() {
-        return new BaseColor(0x00, 0x00, 0x00);
+    protected Color getHeaderFontColor() {
+        return new Color(0x00, 0x00, 0x00);
     }
 
     /**
@@ -426,7 +426,7 @@ public class ItextTableWriter extends TableWriterAdapter {
      * @param color
      *            The font color desired.
      */
-    private void setBoldStyle(final Chunk chunk, final BaseColor color) {
+    private void setBoldStyle(final Chunk chunk, final Color color) {
         final Font font = chunk.getFont();
         chunk.setFont(FontFactory.getFont(font.getFamilyname(), font.getSize(), Font.BOLD, color));
     }

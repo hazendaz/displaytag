@@ -34,7 +34,7 @@ application, do the following:
     -   commons-collections
     -   commons-beanutils
     -   log4j
-    -   itext (optional, for pdf/rtf export)
+    -   openpdf (optional, for pdf/rtf export)
 
     You may want to include also the `displaytag-export-poi` jar, which
     adds an excel binary export using jakarta POI. The `poi` jar is

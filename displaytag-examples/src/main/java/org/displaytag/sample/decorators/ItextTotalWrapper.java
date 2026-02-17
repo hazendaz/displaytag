@@ -6,14 +6,14 @@
  */
 package org.displaytag.sample.decorators;
 
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 
 /**
  * Same idea implemented in ItextTableWriter applied to decorators.
@@ -39,7 +39,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * @param table
      *            The table required to render the totals line.
      *
-     * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setTable(com.itextpdf.text.pdf.PdfPTable)
+     * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setTable(com.lowagie.text.pdf.PdfPTable)
      */
     @Override
     public void setTable(PdfPTable table) {
@@ -52,7 +52,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * @param font
      *            The font required to render the totals line.
      *
-     * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setFont(com.itextpdf.text.Font)
+     * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setFont(com.lowagie.text.Font)
      */
     @Override
     public void setFont(Font font) {
