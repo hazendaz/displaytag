@@ -627,7 +627,12 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             if (ColumnTag.log.isDebugEnabled()) {
                 ColumnTag.log.debug("skipping column body, currentMediaType={}", currentMediaType);
             }
-            tableTag.getTableModel().getColumnVisibilities().add(false);
+            // Track as effectively "hidden for sort adjustment" only if visible in HTML.
+            // Sort links are always generated in HTML mode, so only HTML-visible columns affect the sort index.
+            // Non-HTML columns (e.g. media="csv") were never counted in the HTML sort URL index and must not
+            // cause a decrement when adjusting the sorted column index for non-HTML media.
+            tableTag.getTableModel().getColumnVisibilities()
+                    .add(!MediaUtil.availableForMedia(this, MediaTypeEnum.HTML));
             return Tag.SKIP_BODY;
         }
         tableTag.getTableModel().getColumnVisibilities().add(true);
