@@ -2,6 +2,7 @@ Displaytag
 ==========
 
 [![Java CI](https://github.com/hazendaz/displaytag/actions/workflows/ci.yaml/badge.svg)](https://github.com/hazendaz/displaytag/actions/workflows/ci.yaml)
+[![Coverage Status](https://coveralls.io/repos/github/hazendaz/displaytag/badge.svg?branch=master)](https://coveralls.io/github/hazendaz/displaytag?branch=master)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.hazendaz/displaytag.svg?label=Maven%20Central)](https://central.sonatype.com/artifact/com.github.hazendaz/displaytag)
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
