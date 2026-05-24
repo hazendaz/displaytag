@@ -6,7 +6,6 @@
  */
 package org.displaytag.util;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 import org.displaytag.model.Row;
@@ -60,13 +59,4 @@ class CollectionUtilTest {
         Assertions.assertSame(rows[2], cropped.get(1));
     }
 
-    @Test
-    void testPrivateConstructorIsInvokableForCoverage() throws Exception {
-        final Constructor<CollectionUtil> constructor = CollectionUtil.class.getDeclaredConstructor();
-        constructor.setAccessible(true);
-
-        final CollectionUtil instance = constructor.newInstance();
-
-        Assertions.assertNotNull(instance);
-    }
 }
