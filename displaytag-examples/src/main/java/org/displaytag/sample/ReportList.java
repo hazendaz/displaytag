@@ -7,7 +7,7 @@
 package org.displaytag.sample;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Just a utility class for testing out the table and column tags. This List fills itself with objects and sorts them as
@@ -31,7 +31,7 @@ public class ReportList extends ArrayList<ReportableListObject> {
             add(new ReportableListObject());
         }
 
-        Collections.sort(this);
+        this.sort(Comparator.naturalOrder());
     }
 
     /**
@@ -47,6 +47,6 @@ public class ReportList extends ArrayList<ReportableListObject> {
             add(new ReportableListObject());
         }
 
-        Collections.sort(this);
+        this.sort(Comparator.naturalOrder());
     }
 }
