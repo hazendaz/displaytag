@@ -16,7 +16,6 @@
 
 package org.springframework.mock.web.portlet;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +89,7 @@ public class MockMultipartActionRequest extends MockActionRequest {
         if (multipartFiles != null) {
             return multipartFiles;
         } else {
-            return Collections.emptyList();
+            return List.of();
         }
     }
 

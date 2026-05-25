@@ -266,7 +266,7 @@ public class MockPortletSession implements PortletSession {
         } else if (scope == PortletSession.APPLICATION_SCOPE) {
             return Collections.unmodifiableMap(this.applicationAttributes);
         } else {
-            return Collections.emptyMap();
+            return Map.of();
         }
     }
 

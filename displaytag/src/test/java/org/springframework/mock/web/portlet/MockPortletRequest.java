@@ -758,7 +758,7 @@ public class MockPortletRequest implements PortletRequest {
             }
             return filtered;
         } else {
-            return Collections.emptyMap();
+            return Map.of();
         }
     }
 
