@@ -11,11 +11,11 @@ import jakarta.servlet.jsp.PageContext;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.commons.beanutils2.NestedNullException;
 import org.apache.commons.beanutils2.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
 import org.displaytag.exception.ObjectLookupException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,8 +128,8 @@ public final class LookupUtil {
      */
     public static Object getBeanProperty(final Object bean, final String name) throws ObjectLookupException {
 
-        Validate.notNull(bean, "No bean specified");
-        Validate.notNull(name, "No name specified");
+        Objects.requireNonNull(bean, "No bean specified");
+        Objects.requireNonNull(name, "No name specified");
 
         if (LookupUtil.log.isDebugEnabled()) {
             LookupUtil.log.debug("getProperty [{}] on bean {}", name, bean);
@@ -175,8 +175,8 @@ public final class LookupUtil {
             LookupUtil.log.debug("getProperty [{}] on bean {}", name, bean);
         }
 
-        Validate.notNull(bean, "No bean specified");
-        Validate.notNull(name, "No name specified");
+        Objects.requireNonNull(bean, "No bean specified");
+        Objects.requireNonNull(name, "No name specified");
 
         Object evalBean = bean;
         String evalName = name;
@@ -262,8 +262,8 @@ public final class LookupUtil {
     public static Object getIndexedProperty(final Object bean, final String name)
             throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 
-        Validate.notNull(bean, "No bean specified");
-        Validate.notNull(name, "No name specified");
+        Objects.requireNonNull(bean, "No bean specified");
+        Objects.requireNonNull(name, "No name specified");
 
         String evalName = name;
 
