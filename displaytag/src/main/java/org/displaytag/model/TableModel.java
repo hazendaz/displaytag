@@ -490,8 +490,8 @@ public class TableModel {
                             ? sortedHeaderCell.getSortProperty()
                             : sortedHeaderCell.getBeanPropertyName();
 
-                    list.sort(new RowSorter(this.sortedColumn, sorted, this.getTableDecorator(), this.sortOrderAscending,
-                            sortedHeaderCell.getComparator()));
+                    list.sort(new RowSorter(this.sortedColumn, sorted, this.getTableDecorator(),
+                            this.sortOrderAscending, sortedHeaderCell.getComparator()));
                 }
             } finally {
                 this.sortedColumn = oldSortedColumn;
