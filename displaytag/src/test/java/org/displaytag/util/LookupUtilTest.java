@@ -6,6 +6,7 @@
  */
 package org.displaytag.util;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,10 @@ class LookupUtilTest {
         Assertions.assertEquals("one", LookupUtil.getIndexedProperty(List.of("zero", "one", "two"), "[1]"));
         Assertions.assertEquals("two", LookupUtil.getIndexedProperty(new String[] { "zero", "one", "two" }, "[2]"));
         Assertions.assertEquals("mapped", LookupUtil.getProperty(Map.of("k", "mapped"), "k"));
+        Assertions.assertEquals("mappedValue", LookupUtil.getProperty(new MappedBean(), "mapped(m)"));
+        final Map<String, Object> nullMap = new LinkedHashMap<>();
+        nullMap.put("child", null);
+        Assertions.assertNull(LookupUtil.getProperty(nullMap, "child.value"));
     }
 
     @Test
@@ -48,6 +53,8 @@ class LookupUtilTest {
         Assertions.assertThrows(NullPointerException.class, () -> LookupUtil.getBeanProperty(null, "x"));
         Assertions.assertThrows(NullPointerException.class, () -> LookupUtil.getBeanProperty(new Object(), null));
         Assertions.assertThrows(IllegalArgumentException.class, () -> LookupUtil.getIndexedProperty(List.of("a"), "x"));
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> LookupUtil.getIndexedProperty(List.of("a"), "[x]"));
         Assertions.assertThrows(ObjectLookupException.class,
                 () -> LookupUtil.getBeanProperty(new ParentBean(new ChildBean("x")), "missing"));
     }
@@ -70,6 +77,12 @@ class LookupUtilTest {
 
         public void setList(final List<String> list) {
             this.list = list;
+        }
+    }
+
+    public static class MappedBean {
+        public String getMapped(final String key) {
+            return "m".equals(key) ? "mappedValue" : null;
         }
     }
 
