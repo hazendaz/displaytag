@@ -41,7 +41,7 @@
         <!-- Automatic Module Name -->
         <module.name>org.displaytag.examples</module.name>
     </properties>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -76,7 +76,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
         <dependency>
             <groupId>commons-codec</groupId>
