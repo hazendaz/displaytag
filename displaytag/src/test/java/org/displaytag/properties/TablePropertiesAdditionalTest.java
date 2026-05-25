@@ -95,6 +95,41 @@ class TablePropertiesAdditionalTest {
         Assertions.assertTrue(provider instanceof TestResourceProvider);
     }
 
+    @Test
+    void testFallbackFactoriesAndProviderWhenNotConfigured() throws Exception {
+        TableProperties.clearProperties();
+        TableProperties.setLocaleResolver(null);
+        TableProperties.setResourceProvider(null);
+        final TableProperties properties = TableProperties.getInstance(null);
+
+        removeProperty(properties, TableProperties.PROPERTY_CLASS_REQUESTHELPERFACTORY);
+        removeProperty(properties, TableProperties.PROPERTY_CLASS_DECORATORFACTORY);
+        removeProperty(properties, TableProperties.PROPERTY_CLASS_LOCALEPROVIDER);
+
+        Assertions.assertTrue(properties
+                .getRequestHelperFactoryInstance() instanceof org.displaytag.util.DefaultRequestHelperFactory);
+        Assertions.assertTrue(
+                properties.getDecoratorFactoryInstance() instanceof org.displaytag.decorator.DefaultDecoratorFactory);
+        Assertions.assertNotNull(properties.geResourceProvider());
+    }
+
+    @Test
+    void testInvalidClassAndInvalidNumericConfigurationBranches() {
+        TableProperties.clearProperties();
+        TableProperties.setLocaleResolver(null);
+        TableProperties.setResourceProvider(null);
+        final TableProperties properties = TableProperties.getInstance(null);
+
+        properties.setProperty(TableProperties.PROPERTY_CLASS_DECORATORFACTORY, String.class.getName());
+        Assertions.assertThrows(FactoryInstantiationException.class, properties::getDecoratorFactoryInstance);
+
+        properties.setProperty(TableProperties.PROPERTY_DEFAULT_COMPARATOR, "missing.Comparator");
+        Assertions.assertFalse(properties.getDefaultComparator() instanceof TestComparator);
+
+        properties.setProperty(TableProperties.PROPERTY_INT_PAGING_GROUPSIZE, "invalid");
+        Assertions.assertEquals(8, properties.getPagingGroupSize());
+    }
+
     private static void removeProperty(final TableProperties properties, final String key) throws Exception {
         final Field field = TableProperties.class.getDeclaredField("properties");
         field.setAccessible(true);
