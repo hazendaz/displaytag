@@ -9,7 +9,6 @@ package org.displaytag.model;
 import jakarta.servlet.jsp.PageContext;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -491,8 +490,8 @@ public class TableModel {
                             ? sortedHeaderCell.getSortProperty()
                             : sortedHeaderCell.getBeanPropertyName();
 
-                    Collections.sort(list, new RowSorter(this.sortedColumn, sorted, this.getTableDecorator(),
-                            this.sortOrderAscending, sortedHeaderCell.getComparator()));
+                    list.sort(new RowSorter(this.sortedColumn, sorted, this.getTableDecorator(), this.sortOrderAscending,
+                            sortedHeaderCell.getComparator()));
                 }
             } finally {
                 this.sortedColumn = oldSortedColumn;
