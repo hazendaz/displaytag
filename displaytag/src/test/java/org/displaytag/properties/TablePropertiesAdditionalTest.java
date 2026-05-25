@@ -121,7 +121,7 @@ class TablePropertiesAdditionalTest {
     public static class TestResourceProvider implements I18nResourceProvider {
         @Override
         public String getResource(final String resourceKey, final String defaultValue,
-                final jakarta.servlet.jsp.tagext.Tag tag, final jakarta.servlet.jsp.PageContext pageContext) {
+                final javax.servlet.jsp.tagext.Tag tag, final javax.servlet.jsp.PageContext pageContext) {
             return resourceKey != null ? resourceKey : defaultValue;
         }
     }
