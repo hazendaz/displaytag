@@ -6,13 +6,13 @@
  */
 package org.displaytag.localization;
 
-import jakarta.servlet.jsp.PageContext;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.jsp.PageContext;
 
 import org.apache.struts.Globals;
 import org.apache.struts.config.ModuleConfig;

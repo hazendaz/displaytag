@@ -6,9 +6,9 @@
  */
 package org.displaytag.export;
 
-import jakarta.servlet.jsp.JspException;
-
 import java.io.ByteArrayOutputStream;
+
+import javax.servlet.jsp.JspException;
 
 import org.displaytag.exception.SeverityEnum;
 import org.displaytag.model.HeaderCell;
