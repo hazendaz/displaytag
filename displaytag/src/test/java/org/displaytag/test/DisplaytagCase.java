@@ -79,8 +79,6 @@ public abstract class DisplaytagCase {
      *
      * @throws Exception
      *             the exception
-     *
-     * @see junit.framework.TestCase#setUp()
      */
     @SuppressModernizer
     @BeforeEach
@@ -116,8 +114,6 @@ public abstract class DisplaytagCase {
      *
      * @throws Exception
      *             the exception
-     *
-     * @see junit.framework.TestCase#tearDown()
      */
     @AfterEach
     public void tearDown() throws Exception {
