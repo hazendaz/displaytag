@@ -77,8 +77,6 @@ class ExportExcelPartialListTest {
      *
      * @throws Exception
      *             e
-     *
-     * @see junit.framework.TestCase#setUp()
      */
     @SuppressModernizer
     @BeforeEach
@@ -114,8 +112,6 @@ class ExportExcelPartialListTest {
      *
      * @throws Exception
      *             e
-     *
-     * @see junit.framework.TestCase#tearDown()
      */
     @AfterEach
     void tearDown() throws Exception {
