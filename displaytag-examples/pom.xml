@@ -84,6 +84,12 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>5.5.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-collections4</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>jakarta.servlet</groupId>
