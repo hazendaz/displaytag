@@ -19,6 +19,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 
 import org.apache.jasper.servlet.JasperInitializer;
@@ -126,8 +127,8 @@ class ExportExcelTest {
     @Test
     void doDefaultTest() throws Exception {
         final byte[] res = this.runPage("exportExcel.jsp");
-        final File f = File.createTempFile("exporttest", ".xls");
-        try (OutputStream fw = Files.newOutputStream(f.toPath())) {
+        final Path f = Files.createTempFile("exporttest", ".xls");
+        try (OutputStream fw = Files.newOutputStream(f)) {
             fw.write(res);
         }
     }
