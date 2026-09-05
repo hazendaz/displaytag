@@ -7,8 +7,9 @@
 package org.displaytag.sample.decorators;
 
 import java.text.DecimalFormat;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.decorator.TableDecorator;
 import org.displaytag.sample.ListObject;
 
@@ -21,7 +22,7 @@ public class Wrapper extends TableDecorator {
     /**
      * FastDateFormat used to format dates in getDate().
      */
-    private FastDateFormat dateFormat;
+    private DateTimeFormatter dateFormatter;
 
     /**
      * DecimalFormat used to format money in getMoney().
@@ -34,7 +35,7 @@ public class Wrapper extends TableDecorator {
     public Wrapper() {
         super();
 
-        this.dateFormat = FastDateFormat.getInstance("MM/dd/yy");
+        this.dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
         this.moneyFormat = new DecimalFormat("$ #,###,###.00");
     }
 
@@ -53,7 +54,8 @@ public class Wrapper extends TableDecorator {
      * @return the date
      */
     public String getDate() {
-        return this.dateFormat.format(((ListObject) this.getCurrentRowObject()).getDate());
+        return this.dateFormatter.format(((ListObject) this.getCurrentRowObject()).getDate().toInstant()
+                .atZone(ZoneId.systemDefault()).toLocalDate());
     }
 
     /**

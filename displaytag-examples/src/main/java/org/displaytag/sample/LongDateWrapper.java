@@ -8,9 +8,10 @@ package org.displaytag.sample;
 
 import jakarta.servlet.jsp.PageContext;
 
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.decorator.DisplaytagColumnDecorator;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
@@ -23,7 +24,7 @@ public class LongDateWrapper implements DisplaytagColumnDecorator {
     /**
      * FastDateFormat used to format the date object.
      */
-    private FastDateFormat dateFormat = FastDateFormat.getInstance("MM/dd/yyyy HH:mm:ss"); //$NON-NLS-1$
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"); //$NON-NLS-1$
 
     /**
      * transform the given object into a String representation. The object is supposed to be a date.
@@ -33,6 +34,6 @@ public class LongDateWrapper implements DisplaytagColumnDecorator {
     @Override
     public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException {
         Date date = (Date) columnValue;
-        return this.dateFormat.format(date);
+        return this.dateFormatter.format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     }
 }
