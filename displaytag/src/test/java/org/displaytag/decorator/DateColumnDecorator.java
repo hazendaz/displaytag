@@ -8,9 +8,14 @@ package org.displaytag.decorator;
 
 import jakarta.servlet.jsp.PageContext;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.displaytag.exception.DecoratorException;
 import org.displaytag.properties.MediaTypeEnum;
 
@@ -22,7 +27,7 @@ public class DateColumnDecorator implements DisplaytagColumnDecorator {
     /**
      * date formatter.
      */
-    FastDateFormat dateFormat = FastDateFormat.getInstance("EEEE", Locale.ENGLISH);
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH);
 
     /**
      * Decorate.
@@ -45,7 +50,22 @@ public class DateColumnDecorator implements DisplaytagColumnDecorator {
     @Override
     public Object decorate(final Object columnValue, final PageContext pageContext, final MediaTypeEnum media)
             throws DecoratorException {
-        return this.dateFormat.format(columnValue);
+        if (columnValue == null) {
+            return null;
+        }
+
+        if (columnValue instanceof LocalDate) {
+            return dateFormatter.format((LocalDate) columnValue);
+        } else if (columnValue instanceof Date) {
+            LocalDate date = ((Date) columnValue).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            return dateFormatter.format(date);
+        } else if (columnValue instanceof Calendar) {
+            LocalDate date = ((Calendar) columnValue).toInstant()
+                    .atZone(((Calendar) columnValue).getTimeZone().toZoneId()).toLocalDate();
+            return dateFormatter.format(date);
+        }
+
+        return this.dateFormatter.format(TemporalAccessor.class.cast(columnValue));
     }
 
 }
