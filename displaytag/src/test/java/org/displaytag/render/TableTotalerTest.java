@@ -7,6 +7,7 @@
 package org.displaytag.render;
 
 import java.io.File;
+import java.nio.file.Files;
 
 import org.displaytag.export.FopExportView;
 import org.displaytag.export.XmlTotalsWriter;
@@ -106,7 +107,7 @@ public class TableTotalerTest {
         xmlAssert.valueByXPath("//subgroup[@grouped-by=2]/subtotal/subtotal-cell[4]").isEqualTo("4.0");
         xmlAssert.hasXPath("//cell[@text-align='right']");
 
-        final File f = File.createTempFile("displaytag", "pdf");
+        final File f = Files.createTempFile("displaytag", "pdf").toFile();
 
         FopExportView.transform(tw.getXml(), "/org/displaytag/export/asFo_us.xsl", f);
 

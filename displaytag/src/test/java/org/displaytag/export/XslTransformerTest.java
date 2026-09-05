@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import javax.servlet.jsp.JspException;
@@ -39,7 +40,7 @@ class XslTransformerTest {
      */
     @Test
     void testMainTest() throws Exception {
-        final File f = File.createTempFile("inline", "pdf");
+        final File f = Files.createTempFile("inline", "pdf").toFile();
         final String styleSheetPath = "/org/displaytag/export/asFo_us.xsl";
         FopExportView.transform(XslTransformerTest.XML, styleSheetPath, f);
         final PdfReader reader = new PdfReader(f.getAbsolutePath());

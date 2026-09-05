@@ -93,7 +93,7 @@ class ExportPdfTest extends DisplaytagCase {
      *             Signals that an I/O exception has occurred.
      */
     public File getTestFile() throws IOException {
-        return File.createTempFile("inline", "pdf");
+        return Files.createTempFile("inline", "pdf").toFile();
     }
 
     /**

@@ -15,7 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -87,29 +86,33 @@ public class DefaultHref implements Href {
             return;
         }
 
-        // the Url already has parameters, put them in the parameter Map
-        final StringTokenizer tokenizer = new StringTokenizer(noAnchorUrl, "?"); //$NON-NLS-1$
+        // Split the URL into base URL and query parameters (max 2 parts)
+        final String[] urlParts = noAnchorUrl.split("\\?", 2);
 
-        if (baseUrl.startsWith("?")) //$NON-NLS-1$
+        if (noAnchorUrl.startsWith("?")) //$NON-NLS-1$
         {
             // support fake URI's which are just parameters to use with the current uri
             this.url = TagConstants.EMPTY_STRING;
         } else {
             // base url (before "?")
-            this.url = tokenizer.nextToken();
+            this.url = urlParts[0];
         }
 
-        if (!tokenizer.hasMoreTokens()) {
+        // If there is no parameter section, return
+        if (urlParts.length < 2 || urlParts[1].isEmpty()) {
             return;
         }
 
-        // process parameters
-        final StringTokenizer paramTokenizer = new StringTokenizer(tokenizer.nextToken(), "&"); //$NON-NLS-1$
+        // Process parameters using String.split instead of StringTokenizer
+        final String[] params = urlParts[1].split("&");
 
-        // split parameters (key=value)
-        while (paramTokenizer.hasMoreTokens()) {
+        for (final String param : params) {
+            if (param.isEmpty()) {
+                continue;
+            }
+
             // split key and value ...
-            final String[] keyValue = StringUtils.split(paramTokenizer.nextToken(), '=');
+            final String[] keyValue = StringUtils.split(param, '=');
 
             // encode name/value to prevent css
             final String decodedkey = this.decodeParam(keyValue[0]);
@@ -132,7 +135,6 @@ public class DefaultHref implements Href {
 
                 newArray[j] = decodedvalue;
                 this.parameters.put(decodedkey, newArray);
-
             }
         }
     }

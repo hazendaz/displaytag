@@ -6,10 +6,10 @@
  */
 package org.displaytag.export.excel;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -117,12 +117,12 @@ class SubtotaledExcelTest {
         tt.init(m);
         view.setParameters(m, true, true, true);
 
-        final File f = File.createTempFile("nogroups", null);
-        try (OutputStream str = Files.newOutputStream(f.toPath())) {
+        final Path f = Files.createTempFile("nogroups", null);
+        try (OutputStream str = Files.newOutputStream(f)) {
             view.doExport(str);
         }
 
-        final InputStream istr = Files.newInputStream(f.toPath());
+        final InputStream istr = Files.newInputStream(f);
         final Workbook wb = new HSSFWorkbook(istr);
 
         final Sheet sh = wb.getSheetAt(0);
@@ -153,12 +153,12 @@ class SubtotaledExcelTest {
         tt.init(m);
         view.setParameters(m, true, true, true);
 
-        final File f = File.createTempFile("displaytag", null);
-        try (OutputStream str = Files.newOutputStream(f.toPath())) {
+        final Path f = Files.createTempFile("displaytag", null);
+        try (OutputStream str = Files.newOutputStream(f)) {
             view.doExport(str);
         }
 
-        final InputStream istr = Files.newInputStream(f.toPath());
+        final InputStream istr = Files.newInputStream(f);
         final Workbook wb = new HSSFWorkbook(istr);
 
         final Sheet sh = wb.getSheetAt(0);
