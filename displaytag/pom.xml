@@ -30,6 +30,9 @@
     <properties>
         <tomcat.version>11.0.26</tomcat.version>
 
+        <!-- Jacoco minimum code coverage -->
+        <jacoco.minimum.coverage>0.75</jacoco.minimum.coverage>
+
         <!-- Automatic Module Name -->
         <module.name>org.displaytag</module.name>
     </properties>
