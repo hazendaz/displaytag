@@ -30,7 +30,11 @@
     </scm>
 
     <properties>
+        <!-- External Modules -->
         <tomcat.version>9.0.122</tomcat.version>
+
+        <!-- Jacoco minimum code coverage -->
+        <jacoco.minimum.coverage>0.75</jacoco.minimum.coverage>
 
         <!-- Automatic Module Name -->
         <module.name>org.displaytag</module.name>
