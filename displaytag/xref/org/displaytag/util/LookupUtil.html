@@ -19,11 +19,11 @@
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.InvocationTargetException;
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <strong class="jxr_keyword">import</strong> java.util.List;
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
-<a class="jxr_linenumber" name="L14" href="#L14">14</a>  
-<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.beanutils2.NestedNullException;
-<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.beanutils2.PropertyUtils;
-<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.StringUtils;
-<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.Validate;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.Objects;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.beanutils2.NestedNullException;
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.beanutils2.PropertyUtils;
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.StringUtils;
 <a class="jxr_linenumber" name="L19" href="#L19">19</a>  <strong class="jxr_keyword">import</strong> org.displaytag.exception.ObjectLookupException;
 <a class="jxr_linenumber" name="L20" href="#L20">20</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
 <a class="jxr_linenumber" name="L21" href="#L21">21</a>  <strong class="jxr_keyword">import</strong> org.slf4j.LoggerFactory;
@@ -136,8 +136,8 @@
 <a class="jxr_linenumber" name="L128" href="#L128">128</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Object getBeanProperty(<strong class="jxr_keyword">final</strong> Object bean, <strong class="jxr_keyword">final</strong> String name) <strong class="jxr_keyword">throws</strong> <a name="ObjectLookupException" href="../../../org/displaytag/exception/ObjectLookupException.html#ObjectLookupException">ObjectLookupException</a> {
 <a class="jxr_linenumber" name="L130" href="#L130">130</a> 
-<a class="jxr_linenumber" name="L131" href="#L131">131</a>         Validate.notNull(bean, <span class="jxr_string">"No bean specified"</span>);
-<a class="jxr_linenumber" name="L132" href="#L132">132</a>         Validate.notNull(name, <span class="jxr_string">"No name specified"</span>);
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>         Objects.requireNonNull(bean, <span class="jxr_string">"No bean specified"</span>);
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         Objects.requireNonNull(name, <span class="jxr_string">"No name specified"</span>);
 <a class="jxr_linenumber" name="L133" href="#L133">133</a> 
 <a class="jxr_linenumber" name="L134" href="#L134">134</a>         <strong class="jxr_keyword">if</strong> (LookupUtil.log.isDebugEnabled()) {
 <a class="jxr_linenumber" name="L135" href="#L135">135</a>             LookupUtil.log.debug(<span class="jxr_string">"getProperty [{}] on bean {}"</span>, name, bean);
@@ -183,8 +183,8 @@
 <a class="jxr_linenumber" name="L175" href="#L175">175</a>             LookupUtil.log.debug(<span class="jxr_string">"getProperty [{}] on bean {}"</span>, name, bean);
 <a class="jxr_linenumber" name="L176" href="#L176">176</a>         }
 <a class="jxr_linenumber" name="L177" href="#L177">177</a> 
-<a class="jxr_linenumber" name="L178" href="#L178">178</a>         Validate.notNull(bean, <span class="jxr_string">"No bean specified"</span>);
-<a class="jxr_linenumber" name="L179" href="#L179">179</a>         Validate.notNull(name, <span class="jxr_string">"No name specified"</span>);
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>         Objects.requireNonNull(bean, <span class="jxr_string">"No bean specified"</span>);
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>         Objects.requireNonNull(name, <span class="jxr_string">"No name specified"</span>);
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> 
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>         Object evalBean = bean;
 <a class="jxr_linenumber" name="L182" href="#L182">182</a>         String evalName = name;
@@ -270,8 +270,8 @@
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Object getIndexedProperty(<strong class="jxr_keyword">final</strong> Object bean, <strong class="jxr_keyword">final</strong> String name)
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>             <strong class="jxr_keyword">throws</strong> IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> 
-<a class="jxr_linenumber" name="L265" href="#L265">265</a>         Validate.notNull(bean, <span class="jxr_string">"No bean specified"</span>);
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>         Validate.notNull(name, <span class="jxr_string">"No name specified"</span>);
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>         Objects.requireNonNull(bean, <span class="jxr_string">"No bean specified"</span>);
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>         Objects.requireNonNull(name, <span class="jxr_string">"No name specified"</span>);
 <a class="jxr_linenumber" name="L267" href="#L267">267</a> 
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>         String evalName = name;
 <a class="jxr_linenumber" name="L269" href="#L269">269</a> 

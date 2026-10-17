@@ -15,7 +15,7 @@
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">package</strong> org.displaytag.sample;
 <a class="jxr_linenumber" name="L8" href="#L8">8</a>   
 <a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.Collections;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> java.util.Comparator;
 <a class="jxr_linenumber" name="L11" href="#L11">11</a>  
 <a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> * Just a utility class for testing out the table and column tags. This List fills itself with objects and sorts them as</em>
@@ -39,7 +39,7 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>              add(<strong class="jxr_keyword">new</strong> <a name="ReportableListObject" href="../../../org/displaytag/sample/ReportableListObject.html#ReportableListObject">ReportableListObject</a>());
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>          }
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>          Collections.sort(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>          <strong class="jxr_keyword">this</strong>.sort(Comparator.naturalOrder());
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>      }
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>      <em class="jxr_javadoccomment">/**</em>
@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>              add(<strong class="jxr_keyword">new</strong> <a name="ReportableListObject" href="../../../org/displaytag/sample/ReportableListObject.html#ReportableListObject">ReportableListObject</a>());
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          }
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          Collections.sort(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">this</strong>.sort(Comparator.naturalOrder());
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>      }
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  }
 </pre>
