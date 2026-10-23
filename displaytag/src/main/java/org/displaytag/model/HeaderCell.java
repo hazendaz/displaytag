@@ -580,8 +580,6 @@ public class HeaderCell {
      *
      * @param value
      *            the value
-     *
-     * @see Converter#convert(Class, Object)
      */
     private void addToTotal(final Object value) {
         if (value instanceof Number) {
