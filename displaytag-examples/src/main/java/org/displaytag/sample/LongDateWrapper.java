@@ -32,8 +32,9 @@ public class LongDateWrapper implements DisplaytagColumnDecorator {
      * @see org.displaytag.decorator.DisplaytagColumnDecorator#decorate(Object, PageContext, MediaTypeEnum)
      */
     @Override
-    public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException {
-        Date date = (Date) columnValue;
+    public Object decorate(final Object columnValue, final PageContext pageContext, final MediaTypeEnum media)
+            throws DecoratorException {
+        final Date date = (Date) columnValue;
         return this.dateFormatter.format(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
     }
 }

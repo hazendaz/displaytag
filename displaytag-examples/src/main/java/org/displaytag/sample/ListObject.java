@@ -90,8 +90,8 @@ public class ListObject implements Serializable {
         this.id = random.nextInt(99998) + 1;
         this.money = (double) (random.nextInt(999998) + 1) / 100;
 
-        String firstName = RandomSampleUtil.getRandomWord();
-        String lastName = RandomSampleUtil.getRandomWord();
+        final String firstName = RandomSampleUtil.getRandomWord();
+        final String lastName = RandomSampleUtil.getRandomWord();
 
         this.name = StringUtils.capitalize(firstName) + ' ' + StringUtils.capitalize(lastName);
 
@@ -130,7 +130,7 @@ public class ListObject implements Serializable {
      * @param value
      *            int id
      */
-    public void setId(int value) {
+    public void setId(final int value) {
         this.id = value;
     }
 
@@ -158,7 +158,7 @@ public class ListObject implements Serializable {
      * @param value
      *            String email
      */
-    public void setEmail(String value) {
+    public void setEmail(final String value) {
         this.email = value;
     }
 

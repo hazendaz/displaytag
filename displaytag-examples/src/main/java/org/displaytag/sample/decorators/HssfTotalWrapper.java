@@ -32,7 +32,7 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
     private int colNum;
 
     @Override
-    protected void writeCityTotal(String city, double total) {
+    protected void writeCityTotal(final String city, final double total) {
         this.writeTotal(city, total);
     }
 
@@ -44,7 +44,7 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
      * @param total
      *            the total
      */
-    private void writeTotal(String value, double total) {
+    private void writeTotal(final String value, final double total) {
         if (this.assertRequiredState()) {
             int rowNum = this.sheet.getLastRowNum();
             this.currentRow = this.sheet.createRow(++rowNum);
@@ -72,12 +72,12 @@ public class HssfTotalWrapper extends TotalWrapperTemplate implements DecoratesH
     }
 
     @Override
-    protected void writeGrandTotal(double total) {
+    protected void writeGrandTotal(final double total) {
         this.writeTotal("Grand", total);
     }
 
     @Override
-    public void setSheet(HSSFSheet sheet) {
+    public void setSheet(final HSSFSheet sheet) {
         this.sheet = sheet;
     }
 

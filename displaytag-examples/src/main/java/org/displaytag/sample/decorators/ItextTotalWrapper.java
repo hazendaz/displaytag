@@ -42,7 +42,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setTable(com.lowagie.text.pdf.PdfPTable)
      */
     @Override
-    public void setTable(PdfPTable table) {
+    public void setTable(final PdfPTable table) {
         this.table = table;
     }
 
@@ -55,7 +55,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * @see org.displaytag.render.ItextTableWriter.ItextDecorator#setFont(com.lowagie.text.Font)
      */
     @Override
-    public void setFont(Font font) {
+    public void setFont(final Font font) {
         this.font = font;
     }
 
@@ -77,7 +77,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      *            City total.
      */
     @Override
-    protected void writeCityTotal(String city, double total) {
+    protected void writeCityTotal(final String city, final double total) {
         this.writeTotal(city, total);
     }
 
@@ -88,7 +88,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      *            Table grand total
      */
     @Override
-    protected void writeGrandTotal(double total) {
+    protected void writeGrandTotal(final double total) {
         this.writeTotal("Grand", total);
     }
 
@@ -100,7 +100,7 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      * @param total
      *            Total number.
      */
-    private void writeTotal(String value, double total) {
+    private void writeTotal(final String value, final double total) {
         if (assertRequiredState()) {
             this.font = FontFactory.getFont(this.font.getFamilyname(), this.font.getSize(), Font.BOLD,
                     this.font.getColor());
@@ -124,8 +124,8 @@ public class ItextTotalWrapper extends TotalWrapperTemplate
      *
      * @return A cell with the given value.
      */
-    private PdfPCell getCell(String value) {
-        PdfPCell cell = new PdfPCell(new Phrase(new Chunk(value, this.font)));
+    private PdfPCell getCell(final String value) {
+        final PdfPCell cell = new PdfPCell(new Phrase(new Chunk(value, this.font)));
         cell.setLeading(8, 0);
         cell.setHorizontalAlignment(Element.ALIGN_LEFT);
         return cell;

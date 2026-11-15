@@ -227,7 +227,7 @@ public class TableTotaler {
                     Object value = null;
                     try {
                         value = column.getValue(false);
-                    } catch (ObjectLookupException | DecoratorException e) {
+                    } catch (final ObjectLookupException | DecoratorException e) {
                         this.logger.error("", e);
                     }
                     if (value != null && !"".equals(value)) {

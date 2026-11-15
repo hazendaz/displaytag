@@ -40,14 +40,14 @@ public class TestList extends ArrayList<ListObject> {
      * @param duplicates
      *            boolean put duplicates in the list
      */
-    public TestList(int size, boolean duplicates) {
+    public TestList(final int size, final boolean duplicates) {
         if (duplicates) {
             // generate a random number between 1 and 3 and duplicate that many number of times.
             for (int j = 0; j < size; j++) {
 
-                ListObject object1 = new ListObject();
-                ListObject object2 = new ListObject();
-                ListObject object3 = new ListObject();
+                final ListObject object1 = new ListObject();
+                final ListObject object2 = new ListObject();
+                final ListObject object3 = new ListObject();
 
                 int random = new Random().nextInt(3);
                 for (int k = 0; k <= random; k++) {
@@ -84,7 +84,7 @@ public class TestList extends ArrayList<ListObject> {
      *
      * @return ListObject
      */
-    public ListObject getItem(int index) {
+    public ListObject getItem(final int index) {
         return super.get(index);
     }
 

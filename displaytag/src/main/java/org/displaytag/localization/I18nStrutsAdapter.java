@@ -32,10 +32,10 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver {
      * @see LocaleResolver#resolveLocale(PageContext)
      */
     @Override
-    public Locale resolveLocale(PageContext pageContext) {
-        HttpServletRequest request = ((HttpServletRequest) pageContext.getRequest());
+    public Locale resolveLocale(final PageContext pageContext) {
+        final HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         Locale userLocale = null;
-        HttpSession session = request.getSession(false);
+        final HttpSession session = request.getSession(false);
 
         // Only check session if sessions are enabled
         if (session != null) {
@@ -54,10 +54,11 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver {
      * @see I18nResourceProvider#getResource(String, String, Tag, PageContext)
      */
     @Override
-    public String getResource(String resourceKey, String defaultValue, Tag tag, PageContext pageContext) {
+    public String getResource(final String resourceKey, final String defaultValue, final Tag tag,
+            final PageContext pageContext) {
 
         // if titleKey isn't defined either, use property
-        String key = (resourceKey != null) ? resourceKey : defaultValue;
+        final String key = (resourceKey != null) ? resourceKey : defaultValue;
 
         // retrieve MessageResources. Don't use TagUtils to mantain Struts 1.1 compatibility
         MessageResources resources = (MessageResources) pageContext.getAttribute(Globals.MESSAGES_KEY,
@@ -82,7 +83,7 @@ public class I18nStrutsAdapter implements I18nResourceProvider, LocaleResolver {
 
         String title = null;
         if (resources != null) {
-            Locale userLocale = resolveLocale(pageContext);
+            final Locale userLocale = resolveLocale(pageContext);
             title = resources.getMessage(userLocale, key);
         }
 

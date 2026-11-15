@@ -137,7 +137,7 @@ public final class LookupUtil {
 
         try {
             return LookupUtil.getProperty(bean, name);
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (final IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new ObjectLookupException(LookupUtil.class, bean, name, e);
         } catch (final NestedNullException nne) {
             // don't throw exceptions for nulls

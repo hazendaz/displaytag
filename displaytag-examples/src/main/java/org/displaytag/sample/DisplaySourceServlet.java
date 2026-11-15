@@ -34,7 +34,7 @@ public class DisplaySourceServlet extends HttpServlet {
      * @see jakarta.servlet.http.HttpServlet#doGet(HttpServletRequest, HttpServletResponse)
      */
     @Override
-    protected final void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected final void doGet(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
 
         String jspFile = request.getRequestURI();
@@ -53,9 +53,9 @@ public class DisplaySourceServlet extends HttpServlet {
             throw new ServletException("Invalid file selected: " + jspFile); //$NON-NLS-1$
         }
 
-        String fullName = EXAMPLE_FOLDER + jspFile;
+        final String fullName = EXAMPLE_FOLDER + jspFile;
 
-        InputStream inputStream = getServletContext().getResourceAsStream(fullName);
+        final InputStream inputStream = getServletContext().getResourceAsStream(fullName);
 
         if (inputStream == null) {
             throw new ServletException("Unable to find JSP file: " + jspFile); //$NON-NLS-1$
@@ -63,7 +63,7 @@ public class DisplaySourceServlet extends HttpServlet {
 
         response.setContentType("text/html"); //$NON-NLS-1$
 
-        PrintWriter out = response.getWriter();
+        final PrintWriter out = response.getWriter();
 
         out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" " //$NON-NLS-1$
                 + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">"); //$NON-NLS-1$

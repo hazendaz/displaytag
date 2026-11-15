@@ -40,7 +40,7 @@ public class ReportList extends ArrayList<ReportableListObject> {
      * @param size
      *            int
      */
-    public ReportList(int size) {
+    public ReportList(final int size) {
         super();
 
         for (int j = 0; j < size; j++) {

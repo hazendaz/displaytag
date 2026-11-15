@@ -464,7 +464,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
                 try {
                     column.initialize();
                     return column.getChoppedAndLinkedValue();
-                } catch (ObjectLookupException | DecoratorException e) {
+                } catch (final ObjectLookupException | DecoratorException e) {
                     this.logger.error("Error: {}", e.getMessage(), e);
                     throw new RuntimeException("Error: " + e.getMessage(), e);
                 }
@@ -497,7 +497,7 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
                     Object value = null;
                     try {
                         value = column.getValue(false);
-                    } catch (ObjectLookupException | DecoratorException e) {
+                    } catch (final ObjectLookupException | DecoratorException e) {
                         this.logger.error("", e);
                     }
                     if (value != null && !TagConstants.EMPTY_STRING.equals(value)) {

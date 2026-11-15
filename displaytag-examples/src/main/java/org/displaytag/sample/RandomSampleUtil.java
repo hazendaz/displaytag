@@ -93,8 +93,8 @@ public final class RandomSampleUtil {
      *
      * @return random sentence made of <code>wordNumber</code> words
      */
-    public static String getRandomSentence(int wordNumber) {
-        StringBuilder buffer = new StringBuilder(wordNumber * 12);
+    public static String getRandomSentence(final int wordNumber) {
+        final StringBuilder buffer = new StringBuilder(wordNumber * 12);
 
         int j = 0;
         while (j < wordNumber) {
@@ -121,7 +121,7 @@ public final class RandomSampleUtil {
      */
     public static Date getRandomDate() {
 
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, 365 - random.nextInt(730));
         return calendar.getTime();
     }

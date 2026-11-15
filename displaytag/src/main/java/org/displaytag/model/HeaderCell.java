@@ -608,7 +608,7 @@ public class HeaderCell {
             try {
                 final Object val = column.getValue(false);
                 this.addToTotal(val);
-            } catch (ObjectLookupException | DecoratorException e) {
+            } catch (final ObjectLookupException | DecoratorException e) {
                 throw new RuntimeException(e);
             }
         }

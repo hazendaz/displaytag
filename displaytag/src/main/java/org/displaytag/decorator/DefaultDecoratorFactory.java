@@ -79,8 +79,9 @@ public class DefaultDecoratorFactory implements DecoratorFactory {
         if (decorator == null) {
             try {
                 decorator = ReflectHelper.classForName(decoratorName).getDeclaredConstructor().newInstance();
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
+                    | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                    | SecurityException e) {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
         }
@@ -160,8 +161,9 @@ public class DefaultDecoratorFactory implements DecoratorFactory {
         if (decorator == null) {
             try {
                 decorator = ReflectHelper.classForName(decoratorName).getDeclaredConstructor().newInstance();
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException
+                    | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                    | SecurityException e) {
                 throw new DecoratorInstantiationException(DefaultDecoratorFactory.class, decoratorName, e);
             }
         }

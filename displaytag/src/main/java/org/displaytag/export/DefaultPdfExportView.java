@@ -78,7 +78,7 @@ public class DefaultPdfExportView extends DefaultItextExportView {
             BaseFont helv = null;
             try {
                 helv = BaseFont.createFont("Helvetica", BaseFont.WINANSI, false);
-            } catch (DocumentException | IOException e) {
+            } catch (final DocumentException | IOException e) {
             }
             final PdfContentByte cb = writer.getDirectContent();
             // write the headertable

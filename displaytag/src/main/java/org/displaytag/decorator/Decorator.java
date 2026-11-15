@@ -179,7 +179,7 @@ abstract class Decorator {
                     result = pd.getReadMethod() != null;
                 }
             }
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        } catch (final IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             // ignore
         }
 

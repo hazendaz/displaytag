@@ -474,7 +474,7 @@ public class TableModel {
         if (this.isSorted()) {
             // Sorted Column may have more items than columns that are visible. Account for this difference during
             // sorting.
-            int oldSortedColumn = this.sortedColumn;
+            final int oldSortedColumn = this.sortedColumn;
             for (int i = 0; i < oldSortedColumn && i < columnVisibilities.size() && this.sortedColumn > 0; i++) {
                 if (!columnVisibilities.get(i)) {
                     this.sortedColumn--;

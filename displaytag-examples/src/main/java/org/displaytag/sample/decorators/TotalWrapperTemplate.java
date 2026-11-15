@@ -43,8 +43,8 @@ public abstract class TotalWrapperTemplate extends TableDecorator {
     @SuppressWarnings("deprecation")
     @Override
     public final String finishRow() {
-        int listindex = ((List<ReportableListObject>) getDecoratedObject()).indexOf(this.getCurrentRowObject());
-        ReportableListObject reportableObject = (ReportableListObject) this.getCurrentRowObject();
+        final int listindex = ((List<ReportableListObject>) getDecoratedObject()).indexOf(this.getCurrentRowObject());
+        final ReportableListObject reportableObject = (ReportableListObject) this.getCurrentRowObject();
         String nextCity = null;
 
         this.cityTotal += reportableObject.getAmount();

@@ -125,8 +125,8 @@ public class ReportableListObject extends Object implements Comparable<Object>, 
      * @see java.lang.Comparable#compareTo(Object)
      */
     @Override
-    public int compareTo(Object object) {
-        ReportableListObject myClass = (ReportableListObject) object;
+    public int compareTo(final Object object) {
+        final ReportableListObject myClass = (ReportableListObject) object;
         return new CompareToBuilder().append(this.project, myClass.project).append(this.amount, myClass.amount)
                 .append(this.city, myClass.city).append(this.task, myClass.task).toComparison();
     }

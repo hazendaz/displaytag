@@ -142,8 +142,8 @@ public final class ExportViewFactory {
 
         try {
             view = viewClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-                | NoSuchMethodException | SecurityException e) {
+        } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             // should not happen (class has already been instantiated before)
             throw new WrappedRuntimeException(this.getClass(), e);
         }
