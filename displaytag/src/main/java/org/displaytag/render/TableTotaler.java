@@ -184,10 +184,9 @@ public class TableTotaler {
                 oldTotal = (Number) total;
             }
             return oldTotal.doubleValue() + ((Number) value).doubleValue();
-        } else {
-            throw new UnsupportedOperationException(
-                    "Cannot add a value of " + value + " in column " + column.getHeaderCell().getTitle());
         }
+        throw new UnsupportedOperationException(
+                "Cannot add a value of " + value + " in column " + column.getHeaderCell().getTitle());
     }
 
     /**

@@ -531,10 +531,9 @@ public class MultilevelTotalTableDecorator extends TableDecorator {
                 oldTotal = (Number) total;
             }
             return Double.valueOf(oldTotal.doubleValue() + ((Number) value).doubleValue());
-        } else {
-            throw new UnsupportedOperationException(
-                    "Cannot add a value of " + value + " in column " + column.getHeaderCell().getTitle());
         }
+        throw new UnsupportedOperationException(
+                "Cannot add a value of " + value + " in column " + column.getHeaderCell().getTitle());
     }
 
     /**

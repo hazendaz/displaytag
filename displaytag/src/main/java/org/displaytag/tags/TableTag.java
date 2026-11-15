@@ -728,7 +728,7 @@ public class TableTag extends HtmlTableTag {
      */
     public boolean isFirstIteration() {
         if (TableTag.log.isDebugEnabled()) {
-            TableTag.log.debug("[{}] first iteration={} (row number={})", this.getUid(), (this.rowNumber == 1),
+            TableTag.log.debug("[{}] first iteration={} (row number={})", this.getUid(), this.rowNumber == 1,
                     this.rowNumber);
         }
         // in first iteration this.rowNumber is 1
@@ -1213,7 +1213,7 @@ public class TableTag extends HtmlTableTag {
 
         // Figure out how we should sort this data, typically we just sort
         // the data being shown, but the programmer can override this behavior
-        if ((this.paginatedList == null && this.tableModel.isLocalSort()) && !this.tableModel.isSortFullTable()) {
+        if (this.paginatedList == null && this.tableModel.isLocalSort() && !this.tableModel.isSortFullTable()) {
             this.tableModel.sortPageList();
         }
 

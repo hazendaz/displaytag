@@ -427,8 +427,8 @@ public class TableModel {
             if (this.sortedColumn == this.headerCellList.size()) {
                 headerCell.setAlreadySorted();
             }
-        } else // the sorted parameter was a string so try and find that column name and set it as sorted
-        if (this.sortedColumnName.equals(headerCell.getSortName())) {
+        } else if (this.sortedColumnName.equals(headerCell.getSortName())) {
+            // the sorted parameter was a string so try and find that column name and set it as sorted
             headerCell.setAlreadySorted();
         }
         headerCell.setColumnNumber(this.headerCellList.size());
@@ -484,7 +484,7 @@ public class TableModel {
                 final HeaderCell sortedHeaderCell = this.getSortedColumnHeader();
 
                 // If it is an explicit value, then sort by that, otherwise sort by the property...
-                if ((sortedHeaderCell != null) && (sortedHeaderCell.getBeanPropertyName() != null
+                if (sortedHeaderCell != null && (sortedHeaderCell.getBeanPropertyName() != null
                         || this.sortedColumn != -1 && this.sortedColumn < this.headerCellList.size())) {
                     final String sorted = sortedHeaderCell.getSortProperty() != null
                             ? sortedHeaderCell.getSortProperty()

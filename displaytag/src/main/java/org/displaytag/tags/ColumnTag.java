@@ -274,16 +274,16 @@ public class ColumnTag extends BodyTagSupport implements MediaUtil.SupportsMedia
             } catch (final IllegalAccessException e) {
                 throw new RuntimeException("IllegalAccessException setting column comparator as " + comparatorClassname
                         + ": " + e.getMessage(), e);
-            } catch (IllegalArgumentException e) {
+            } catch (final IllegalArgumentException e) {
                 throw new RuntimeException("IllegalArgumentException setting column comparator as "
                         + comparatorClassname + ": " + e.getMessage(), e);
-            } catch (InvocationTargetException e) {
+            } catch (final InvocationTargetException e) {
                 throw new RuntimeException("InvocationTargetException setting column comparator as "
                         + comparatorClassname + ": " + e.getMessage(), e);
-            } catch (NoSuchMethodException e) {
+            } catch (final NoSuchMethodException e) {
                 throw new RuntimeException("NoSuchMethodException setting column comparator as " + comparatorClassname
                         + ": " + e.getMessage(), e);
-            } catch (SecurityException e) {
+            } catch (final SecurityException e) {
                 throw new RuntimeException(
                         "SecurityException setting column comparator as " + comparatorClassname + ": " + e.getMessage(),
                         e);

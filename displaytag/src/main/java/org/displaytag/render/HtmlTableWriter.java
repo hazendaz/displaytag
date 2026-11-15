@@ -607,7 +607,7 @@ public class HtmlTableWriter extends TableWriterAdapter {
                 final boolean sortAscending = SortOrderEnum.ASCENDING.equals(headerCell.getDefaultSortOrder());
                 nowOrderAscending = headerCell.isAlreadySorted() ? !model.isSortOrderAscending() : sortAscending;
             } else {
-                nowOrderAscending = (!headerCell.isAlreadySorted() || !model.isSortOrderAscending());
+                nowOrderAscending = !headerCell.isAlreadySorted() || !model.isSortOrderAscending();
             }
 
             final int sortOrderParam = nowOrderAscending ? SortOrderEnum.ASCENDING.getCode()
