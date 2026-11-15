@@ -14,6 +14,7 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
+import org.displaytag.render.ItextTableWriter.ItextDecorator;
 
 /**
  * Same idea implemented in ItextTableWriter applied to decorators.
@@ -21,7 +22,7 @@ import com.lowagie.text.pdf.PdfPTable;
  * @see org.displaytag.render.ItextTableWriter
  */
 public class ItextTotalWrapper extends TotalWrapperTemplate
-        implements org.displaytag.render.ItextTableWriter.ItextDecorator {
+        implements ItextDecorator {
 
     /**
      * The iText table in which the totals are rendered.

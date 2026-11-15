@@ -64,7 +64,7 @@ public class TestList extends ArrayList<ListObject> {
 
                 object1.setEmail(object3.getEmail());
 
-                random = new java.util.Random().nextInt(3);
+                random = new Random().nextInt(3);
                 for (int k = 0; k <= random; k++) {
                     add(object1);
                 }

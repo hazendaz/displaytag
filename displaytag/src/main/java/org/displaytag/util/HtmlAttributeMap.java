@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 /**
  * Extends Map providing only a different toString() method which can be used in printing attributes inside an html tag.
@@ -52,9 +53,9 @@ public class HtmlAttributeMap extends HashMap<String, Object> {
         final StringBuilder buffer = new StringBuilder(this.size() * 30);
 
         // get the entrySet
-        final Set<java.util.Map.Entry<String, Object>> entrySet = this.entrySet();
+        final Set<Entry<String, Object>> entrySet = this.entrySet();
 
-        final Iterator<java.util.Map.Entry<String, Object>> iterator = entrySet.iterator();
+        final Iterator<Entry<String, Object>> iterator = entrySet.iterator();
 
         // iterates on attributes
         while (iterator.hasNext()) {
