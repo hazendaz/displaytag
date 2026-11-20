@@ -196,7 +196,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>7.0.10</version>
+            <version>7.1.0</version>
             <optional>true</optional>
             <exclusions>
                 <exclusion>
@@ -237,7 +237,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>7.0.10</version>
+            <version>7.1.0</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
